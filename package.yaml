@@ -1,0 +1,54 @@
+name:                slack-log
+version:             0.1.0.0
+github:              "haskell-jp/slack-log"
+license:             Apache-2.0
+author:              "Japan Haskell User Group"
+maintainer:          "whosekiteneverfly@gmail.com"
+copyright:           "2018 Japan Haskell User Group"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Development
+#
+description:         Please see the README on GitHub at <https://github.com/haskell-jp/slack-log#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- aeson
+- aeson-pretty
+- bytestring
+- envy
+- mtl
+- slack-web
+- text
+- time
+- unordered-containers
+
+library:
+  source-dirs: src
+
+executables:
+  slack-log:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - slack-log
+
+tests:
+  slack-log-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - slack-log
