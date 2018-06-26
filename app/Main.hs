@@ -28,7 +28,7 @@ import           Control.Monad.Reader     (runReaderT)
 import qualified Data.Aeson               as Json
 import qualified Data.Aeson.Encode.Pretty as Json
 import qualified Data.ByteString.Lazy     as BL
-import           Data.Foldable            (for_)
+import           Data.Traversable         (for)
 import qualified Data.HashMap.Strict      as HM
 import           Data.Maybe               (fromMaybe)
 import           Data.Monoid              ((<>))
@@ -36,6 +36,7 @@ import qualified Data.Text                as T
 import qualified Data.Text.IO             as T
 import           Data.Time.Calendar       (fromGregorian)
 import           Data.Time.Clock          (UTCTime (UTCTime), getCurrentTime)
+import           Safe (headMay)
 import           System.Envy              (FromEnv, decodeEnv, env, fromEnv)
 import           System.IO                (BufferMode (NoBuffering), hGetEcho,
                                            hPrint, hPutStrLn, hSetBuffering,
@@ -94,7 +95,8 @@ main = do
 
   config <- Slack.mkSlackConfig =<< slackApiToken <$> (failWhenLeft =<< decodeEnv)
   tss <- readLastTimestampsOrDefault ".timestamps.json"
-  for_ targetChannels (saveChannel config tss)
+  newTss <- for targetChannels (saveChannel config tss)
+  BL.writeFile ".timestamps.json" $ Json.encodePretty $ HM.fromList newTss
 
 
 readLastTimestampsOrDefault :: FilePath -> IO TimestampsByChannel
@@ -105,19 +107,27 @@ readLastTimestampsOrDefault path = do
       Left err  -> fail $ "Error reading \"" ++ path ++ "\"\n" ++ show err
 
 
-saveChannel :: Slack.SlackConfig -> TimestampsByChannel -> T.Text -> IO ()
+saveChannel :: Slack.SlackConfig -> TimestampsByChannel -> T.Text -> IO (T.Text, Slack.SlackTimestamp)
 saveChannel cfg tss channelName = do
   new <- Slack.mkSlackTimestamp <$> getCurrentTime
   let old = fromMaybe (Slack.mkSlackTimestamp $ UTCTime (fromGregorian 2017 1 1) 0) (HM.lookup channelName tss)
   print old
   res <- runReaderT (Slack.historyFetchAll Slack.channelsHistory channelName 100 old new) cfg
   case res of
-      Right js -> do
-        -- TODO: save .timestamps.json
-        BL.writeFile ("doc/json/" <> T.unpack channelName <> ".json") $ Json.encodePretty js
+      Right body -> do
+        let msgs = Slack.historyRspMessages body
+            mbLatestTs = Slack.messageTs <$> headMay msgs
+        case mbLatestTs of
+            Just latestTs -> do
+              BL.writeFile ("doc/json/" <> T.unpack channelName <> "-" <> T.unpack (Slack.slackTimestampTs latestTs) <> ".json") $ Json.encodePretty msgs
+              return (channelName, latestTs)
+            _ -> do
+              hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show channelName ++ ": " ++ "Can't get latest timestamp!"
+              return (channelName, old)
       Left err -> do
         hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show channelName ++ ":"
         hPrint stderr err
+        return (channelName, old)
 
 
 failWhenLeft :: Either String a -> IO a
