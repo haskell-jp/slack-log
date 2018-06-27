@@ -28,7 +28,6 @@ import           Control.Monad.Reader     (runReaderT)
 import qualified Data.Aeson               as Json
 import qualified Data.Aeson.Encode.Pretty as Json
 import qualified Data.ByteString.Lazy     as BL
-import           Data.Traversable         (for)
 import qualified Data.HashMap.Strict      as HM
 import           Data.Maybe               (fromMaybe)
 import           Data.Monoid              ((<>))
@@ -36,11 +35,13 @@ import qualified Data.Text                as T
 import qualified Data.Text.IO             as T
 import           Data.Time.Calendar       (fromGregorian)
 import           Data.Time.Clock          (UTCTime (UTCTime), getCurrentTime)
-import           Safe (headMay)
+import           Data.Traversable         (for)
+import           Safe                     (headMay)
 import           System.Envy              (FromEnv, decodeEnv, env, fromEnv)
 import           System.IO                (BufferMode (NoBuffering), hGetEcho,
                                            hPrint, hPutStrLn, hSetBuffering,
                                            hSetEcho, stderr, stdin, stdout)
+import qualified System.Process.Typed     as P
 import qualified Web.Slack                as Slack
 import qualified Web.Slack.Common         as Slack
 
@@ -98,6 +99,8 @@ main = do
   newTss <- for targetChannels (saveChannel config tss)
   BL.writeFile ".timestamps.json" $ Json.encodePretty $ HM.fromList newTss
 
+  gitPushMessageLog
+
 
 readLastTimestampsOrDefault :: FilePath -> IO TimestampsByChannel
 readLastTimestampsOrDefault path = do
@@ -132,3 +135,11 @@ saveChannel cfg tss channelName = do
 
 failWhenLeft :: Either String a -> IO a
 failWhenLeft = either fail return
+
+
+gitPushMessageLog :: IO ()
+gitPushMessageLog = do
+  P.runProcess_ $ P.proc "git" ["add", "./.timestamps.json", "./doc/"]
+  now <- getCurrentTime
+  P.runProcess_ $ P.proc "git" ["commit", "-m", "Slack log update at " ++ show now]
+  P.runProcess_ $ P.proc "git" ["push"]
