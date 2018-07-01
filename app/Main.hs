@@ -21,6 +21,7 @@ limitations under the License.
 
 import           Control.Applicative      ((<|>))
 import           Control.Exception        (bracket)
+import           Control.Monad            (when)
 import           Control.Monad.IO.Class   (liftIO)
 import           Control.Monad.Reader     (runReaderT)
 import qualified Data.Aeson               as Json
@@ -86,10 +87,10 @@ main = do
 
   config <- Slack.mkSlackConfig =<< slackApiToken <$> (failWhenLeft =<< decodeEnv)
   tss <- readLastTimestampsOrDefault ".timestamps.json"
-  newTss <- for targetChannels (saveChannel config tss)
-  BL.writeFile ".timestamps.json" $ Json.encodePretty $ HM.fromList newTss
+  newTss <- HM.fromList <$> for targetChannels (saveChannel config tss)
+  BL.writeFile ".timestamps.json" $ Json.encodePretty newTss
 
-  gitPushMessageLog
+  when (tss /= newTss) $ gitPushMessageLog
 
 
 readLastTimestampsOrDefault :: FilePath -> IO TimestampsByChannel
