@@ -17,9 +17,7 @@ limitations under the License.
 {-|
   Export and upload messages from haskell-jp.slack.com
 -}
-{-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# OPTIONS_GHC -fno-warn-orphans #-}
 
 import           Control.Applicative      ((<|>))
 import           Control.Exception        (bracket)
@@ -44,6 +42,8 @@ import           System.IO                (BufferMode (NoBuffering), hGetEcho,
 import qualified System.Process.Typed     as P
 import qualified Web.Slack                as Slack
 import qualified Web.Slack.Common         as Slack
+
+import           Web.Slack.Instances      ()
 
 
 newtype EnvArgs = EnvArgs { slackApiToken :: T.Text } deriving (Eq, Show)
@@ -76,16 +76,6 @@ targetChannels =
 
 
 type TimestampsByChannel = HM.HashMap T.Text Slack.SlackTimestamp
-
-
-instance Json.ToJSON Slack.MessageType where
-  toJSON _ = Json.String "message"
-instance Json.ToJSON Slack.UserId
-instance Json.ToJSON Slack.SlackMessageText
-instance Json.ToJSON Slack.Message
-instance Json.ToJSON Slack.HistoryRsp
-instance Json.ToJSON Slack.SlackTimestamp where
-  toJSON = Json.String . Slack.slackTimestampTs
 
 
 main :: IO ()

@@ -23,12 +23,16 @@ dependencies:
 - bytestring
 - envy
 - mtl
+- NoTrace
 - safe
 - slack-web
 - text
 - time
+- template-haskell
 - typed-process
 - unordered-containers
+- QuickCheck
+- quickcheck-instances
 
 library:
   source-dirs: src
@@ -54,3 +58,4 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - slack-log
+    - hspec
