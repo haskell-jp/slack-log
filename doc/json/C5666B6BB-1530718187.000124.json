@@ -1,0 +1,68 @@
+[
+    {
+        "ts": "1530718187.000124",
+        "text": "お二方ともありがとうございます．どちらも `t ~ '(a, b)` と仮定して `Fst t` / `Snd t` が `'(a, b)` でパターンマッチできることを教えればできるという感じですかね？やっぱり，そういう感じの制約をつけないと厳しいですかね…",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1530709713.000308",
+        "text": "僕も気になっていろいろ試してみました。\nconstraintが増えていますが、以下の様な感じでできました：\n\n```\n{-# LANGUAGE KindSignatures #-}\n{-# LANGUAGE GADTs #-}\n{-# LANGUAGE PolyKinds #-}\n{-# LANGUAGE RankNTypes #-}\n{-# LANGUAGE ScopedTypeVariables #-}\n{-# LANGUAGE TypeApplications #-}\n{-# LANGUAGE TypeOperators #-}\n\nmodule Foo where\n\nimport Data.Singletons.Prelude (Fst, Snd)\nimport Data.Type.Equality ((:~:)(Refl))\n\nextractedTuple :: forall a fst snd. (fst ~ Fst a, snd ~ Snd a, a ~ '(fst, snd)) =&gt; '(Fst a, Snd a) :~: a\nextractedTuple = Refl\n\nuseExtractedTuple :: ()\nuseExtractedTuple =\n  case extractedTuple @'(Int, Bool) of\n    Refl -&gt; ()\n```",
+        "user": "U4M5LDXK9",
+        "type": "message"
+    },
+    {
+        "ts": "1530708770.000041",
+        "text": "streams 、いいですね！これは使える！\nありがとうございます！",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1530696174.000270",
+        "text": "型クラス要らなかった\n\n```\nextractedTuple' :: forall a b t. (t ~ '(a, b)) =&gt; '(Fst t, Snd t) :~: t\nextractedTuple' = apply (apply Refl (Refl :: Fst t :~: a)) (Refl :: Snd t :~: b)\n```",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1530695866.000277",
+        "text": "あてずっぽうで色々試したら近くまでは行けたんですけど…… <https://wandbox.org/permlink/X10EaUGaJ385JWlj>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1530680811.000005",
+        "text": "hmmm, so comonoid = droppable ^ clonable?\nit make sense if the value can be passed only once",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1530680305.000063",
+        "text": "In Rust, it's drop and clone (<https://doc.rust-lang.org/std/mem/fn.drop.html> and <https://doc.rust-lang.org/beta/std/clone/trait.Clone.html>)",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1530676853.000052",
+        "text": "失礼、上のはこうしたら通りました。\n\n```\nunProd :: a1 :~: a2 -&gt; b1 :~: b2 -&gt; '(a1, b1) :~: '(a2, b2)\nunProd Refl Refl = Refl\n```",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1530676518.000096",
+        "text": "面白そう、と思って似たようなパターンを試してるんですが、難しいですね。\nこういうのも実装できない感じでしょうか\n\n```\nimport Data.Type.Equality\n\nunProd :: a1 :~: a2 -&gt; b1 :~: b2 -&gt; '(a1, b1) :~: '(a2, b2)\nunProd r1 r2 = undefined -- Refl\n```",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1530674337.000034",
+        "text": "That’s comonoid laws on Haskell (if you think about only in Set)\n\nHaskell has the instance of all types for Comonoid:\n```\ninstance Comonoid a where\n  coidentity _ = ()\n  comultiple x = (x, x)\n```\n\nThis instance is trivial and the only.\n\nSee also: <https://stackoverflow.com/questions/23855070/what-does-a-nontrivial-comonoid-look-like>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1530669901.000095",
+        "text": "“A monad is a monoid in the category of endofunctors.” Is there something similar for comonad? Hmm, say, comonoid? What does it looks like if there is?\nI tried to flip the arrow of monoid, but it looks strange…\n\n```\nclass Comonoid a where\n  coidentity :: a -&gt; ()\n  comultiple :: a -&gt; (a, a)\n```\n\nAnd I cannot find any law of it…\n\nmaybe … ?\n\n```\nclass Comonoid a where\n    v :: a -&gt; ()\n    p :: a -&gt; a\n    q :: a -&gt; a\n\nforall x.\n\n((p.p) x, (q.p) x , q x) = (p x, (p.q) x, (q.q) x)\n\np x = x\nq x = x\n```\n\nBut it’s nearly of no use…",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    }
+]
