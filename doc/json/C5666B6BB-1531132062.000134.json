@@ -1,0 +1,68 @@
+[
+    {
+        "ts": "1531132062.000134",
+        "text": "改変できないんです。。！\nZipファイルを解凍するライブラリ<https://hackage.haskell.org/package/zip-archive-0.3.2.4/docs/Codec-Archive-Zip.html>\nを使用してるんですが、どうやらzlibの`decompress`っていう関数を使用しているみたいで、こいつが部分関数ではないかと推測してます\n<http://hackage.haskell.org/package/zlib-0.6.2/docs/Codec-Compression-Zlib.html>",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1531131463.000041",
+        "text": "なるほど、そもそもその邪悪関数を改変できないことが前提なのかな…",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1531131413.000249",
+        "text": "特に汎用性を持つ必要がないなら\n`Text -&gt; Maybe Text`\n汎用性を持たせたいなら\n`MonadError e m =&gt; Text -&gt; m Text`\nあたりが僕は好きです！\n\n<https://aiya000.github.io/posts/2018-06-30-use-mtl-exceptt-no-eithert.html>\n（宣伝）",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1531116507.000110",
+        "text": "おお、なるほどー\n`unsafeFromForeignPtr` の結果は `IOVector` に限定されないから、 `STVector` として使うとこんなことができちゃうんですね。",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1531115835.000146",
+        "text": "コピーされたとしても、改竄されたあとならあまり変わらないね",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1531115608.000095",
+        "text": "```\nimport Data.Vector.Storable.Mutable\nimport Data.Vector.Storable (freeze)\nimport <http://Control.Monad.ST|Control.Monad.ST>\nimport Foreign.ForeignPtr\nimport Foreign.Storable\nimport Data.Foldable\n\nmain :: IO ()\nmain = do\n  fp &lt;- mallocForeignPtrArray 10\n  withForeignPtr fp $ \\p -&gt; flip traverse_ [0..10] $ \\i -&gt; do\n    pokeElemOff p i i\n  let nv = runST $ freeze (unsafeFromForeignPtr0 fp 10)\n  withForeignPtr fp $ \\p -&gt; do\n    poke p 42\n    pure ()\n  print nv\n  pure ()\n```",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1531113228.000134",
+        "text": "ありがとう！なんで全然できないんだろーって思ったらやっぱりややこしいんですね。。この関数を作った人を恨みます。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1531112822.000047",
+        "text": "不可能。\nExceptionはIOのみ処理できる、\n```evaluate :: a -&gt; IO a```",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1531112800.000155",
+        "text": "結局のところ読まないとエラーが起こるかどうかはわからないという問題は残りますが、こちらをどうぞ <https://qiita.com/techno-tanoC/items/1b725713cd01bdf83b40>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1531112748.000080",
+        "text": "純粋なのに例外を投げる関数に対する例外処理ついて質問です。\n例えばこのような例外を投げる純粋関数があるとし、そしてその例外を投げてくる原因が不明だったとします。\n\n```\n-- evilFunを使用する人には\"hiroto\"がエラーを吐くことがわからない。\nevilFun :: Text -&gt; Text\nevilFun \"hiroto\" = error \"This is evil function\"\nevilFun _ = \"Everything is alright!\"\n```\n\nこの関数を使用した際の例外処理はどのようにすればよいのでしょうか。（Either, Maybe, MonadCatch..?)",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1531111725.000070",
+        "text": "`Data.Vector.Storable.Mutable.unsafeFromForeignPtr` の説明で、\n<http://hackage.haskell.org/package/vector-0.12.0.1/docs/Data-Vector-Storable-Mutable.html#v:unsafeFromForeignPtr>\n&gt; Modifying data through the ForeignPtr afterwards is unsafe if the vector could have been frozen before the modification.\nとあるけれど、 `freeze` なら複製されるはずだし、 `unsafeFreeze` ならそれを呼ぶ側の責任だしで、これがどれくらい危険なのかよく分からず……\nどういう場合にどれくらい危険なのか、どなたかご存じないでしょうか?",
+        "user": "U4MA78F6X",
+        "type": "message"
+    }
+]
