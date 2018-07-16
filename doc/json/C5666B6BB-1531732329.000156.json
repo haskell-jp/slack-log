@@ -1,0 +1,116 @@
+[
+    {
+        "ts": "1531732329.000156",
+        "text": "ああ、頭から抜けていました！できました！ありがとうございます。",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1531718364.000040",
+        "text": "&gt; Couldn’t repro on stackage nightly (GHC 8.4).\n\nwindows 環境が無いので確かめられないのですが、コメントにある `ghc-8.4` 系の `lts-12.0` でもやっぱりダメな感じですか？",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1531717943.000017",
+        "text": "なるほど……手元のパソコンでビルドした時に発生するものなので違いますね。具体的にはこのバグに引っかかっていて、どうしようもないのでメモリ使用量を減らす方法はないか、という感じです\n<https://github.com/jaspervdj/hakyll/issues/613>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1531715093.000065",
+        "text": "`travis` がメモリ不足で死ぬ時は `-j 1` オプションで回避したことがありますが、ちょっと違う感じですか？\n<https://haskell.e-bigmoon.com/posts/2017/12-31-travis-out-of-memory.html>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1531710409.000042",
+        "text": "Hakyllのビルドがメモリ不足で失敗するのですが何か良い対策はありませんか？Hakyllそのものに手を入れて二つのライブラリへ分割してコンパイルさせることで対処していますが、あとあと困りそうで……",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1531670331.000002",
+        "text": "ちょっと自分でも整理しきれてないのでいろいろ試してからまた来ます！すみません！",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531670229.000054",
+        "text": "すみません、ますますわからない... :disappointed: \nちょっと質問で返しちゃいますが、\nもともとのゴールは、GraphQLをHaskellに生成（してサーバーに送って、結果をHaskellの型に変換）させたいわけですよね。\nどういうアプローチでやろうとしてます？\n例えば、 <https://github.com/haskell-graphql/graphql-api#roadmap> が\n&gt; Derive client implementations from types\nと計画しているように型からクエリーを組み立てる関数を生成するっていうアプローチではない？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1531635043.000023",
+        "text": "ちょっといい方が適当すぎました。前述の型があるとき\n```\ndata Nyaan a = Nyaan a\n```\nみたいな型があったとしてこの `a` の型を `Field a` の型と一致させるような仕組みが作れないかなということです",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531634259.000027",
+        "text": "ありがとうございます。やはりextensibleですね",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531616686.000050",
+        "text": ":thinking_face: \n`Foo Int` から `Int` や `Some Int` を生成するというのがよくわからないです。\n型ではなくてそういう関数を自動生成したいという話ですかね？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1531616355.000033",
+        "text": "まぁ、そこまで検索しづらいワードでもないでしょうから、検索してないならないってことなんでしょうね...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1531616303.000031",
+        "text": "どんな `Key` があるのかコンパイル時にすべて求められるのであれば、可能です。\nExtensible Recordというのはみんなそうしたものです。\nfumiさんのextensibleでも、キーが重複していれば検出してくれます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1531604014.000004",
+        "text": "もうひとつ、次のような型があったとして\n```\ndata Member = Name String | Arguments [Argument]\ndata Field a = Field a [Member]\n```\n`Field a` （例えば `Field Int` ）をとって `Int` か、他の型に包んだ `Some Int` のような型を生成できるのでしょうか。 `Generics` とか使えばできるのかなとは考えてみたのですが上手くまとまらないです。（完全にGraphQLのAST作ってそこから型作る話です）",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531592547.000028",
+        "text": "例えば\n```\ntype Key = String\ntype Value = String\ndata Hoge = [(Key, Value)] \n```\nみたいな型があったとして、`Key`が重複していたらコンパイル時にエラーを出すような仕組みって作れるんでしょうか。`TemplateHaskell`を利用したらできるんでしょうか。",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531562467.000019",
+        "text": "うお～～～ってなりながら自前で作ることしました",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531554994.000026",
+        "text": "一応あるにはあるっぽいんですが、メンテされてなくてちょっとプロジェクトに入れにくいんですよね：graphql: Haskell GraphQL implementation - <https://hackage.haskell.org/package/graphql>",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531554740.000006",
+        "text": "これHaskell強い人のigrepさんとlotzさんが知らないということはやはり存在しないのでは……",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531549571.000043",
+        "text": "GraphQLのクエリを作ってくれるモジュールに心当たりのある方はいますか？サーバを提供するものなら発見したのですが……",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531549509.000004",
+        "text": "<@U7155GPR9> has joined the channel",
+        "user": "U7155GPR9",
+        "type": "message"
+    }
+]
