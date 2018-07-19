@@ -1,0 +1,44 @@
+[
+    {
+        "ts": "1532012810.000032",
+        "text": "<@UA1D0NZK6> has joined the channel",
+        "user": "UA1D0NZK6",
+        "type": "message"
+    },
+    {
+        "ts": "1531991424.000022",
+        "text": "みなさんありがとうございます。もともとのhofはこんな感じでした。\n\n```\nhof::Integer-&gt;(Integer-&gt;[String])-&gt;[String]\nhof init f = \n    let result = f init\n    in\n        case length result &gt; 5 of\n            True -&gt; result ++ (hof (init+1) f)\n            False -&gt; result\n```",
+        "user": "U7GSVRQ6S",
+        "type": "message"
+    },
+    {
+        "ts": "1531978053.000095",
+        "text": "そして、仮にhofとhofMが挙動が違ったとしても、Applicativeで十分だと思う",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1531977732.000098",
+        "text": "どういう関数かかわかないけど、hof をそのまま使ってはダメ？",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1531968008.000153",
+        "text": "まともな実装としては， hof = flip ($) ; hofM = (&gt;&gt;=)  しかないような気がします．．．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1531964744.000184",
+        "text": "なるほど、そういう仕組みだったのですね。ありがとうございます",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531964671.000174",
+        "text": "定義によりますよね\n```\nPrelude&gt; let hof a ab = ab a\nPrelude&gt; :i hof\nhof :: t1 -&gt; (t1 -&gt; t) -&gt; t \nPrelude&gt; let hof' = hof \"hello\" print\nPrelude&gt; hof'\n\"hello\"\nPrelude&gt; :i hof'\nhof' :: IO () \n```",
+        "user": "U74KTAG0N",
+        "type": "message"
+    }
+]
