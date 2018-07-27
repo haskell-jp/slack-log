@@ -1,0 +1,14 @@
+[
+    {
+        "ts": "1532674825.000185",
+        "text": "```\nclass Functor f =&gt; Comonoidal f where\n  counit :: f () -&gt; ()\n  cophi  :: f (a, b) -&gt; (f a, f b)\n```\nの可能なinstanceは\n```\ninstance Functor f =&gt; Comonoidal f where\n  counit _ = ()\n  cophi fab = (fmap fst fab, fmap snd fab)\n```\nだけ。。。この前の `Comonoid` と同じ、全然役に立たない。。。",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1532661906.000113",
+        "text": "Here is a workaround\n```\nv :: forall (x :: Void). Typeable x =&gt; Proxy x -&gt; String\nv _ = \"Hello World\"\n```\n\n`Typeable` requires you assigning a concrete type, which is always impossible.",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    }
+]
