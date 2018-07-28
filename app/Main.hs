@@ -113,7 +113,7 @@ saveChannel cfg tss channelName = do
             mbLatestTs = Slack.messageTs <$> headMay msgs
         case mbLatestTs of
             Just latestTs -> do
-              BL.writeFile ("doc/json/" <> T.unpack channelName <> "-" <> T.unpack (Slack.slackTimestampTs latestTs) <> ".json") $ Json.encodePretty msgs
+              BL.writeFile ("doc/json/" <> T.unpack channelName <> "-" <> T.unpack (Slack.slackTimestampTs latestTs) <> ".json") $ Json.encodePretty (reverse msgs)
               return (channelName, latestTs)
             _ -> do
               hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show channelName ++ ": " ++ "Can't get latest timestamp!"
