@@ -1,1845 +1,1842 @@
-{
-    "historyRspMessages": [
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U8R2EKE81> has joined the channel"
-            },
-            "messageTs": "1528562784.000085",
-            "messageUser": {
-                "unUserId": "U8R2EKE81"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U8JGMG1QT> has joined the channel"
-            },
-            "messageTs": "1527483864.000187",
-            "messageUser": {
-                "unUserId": "U8JGMG1QT"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U4LGTMTMK> shared a file: <https://haskell-jp.slack.com/files/U4LGTMTMK/FAXUT4Y1L/without.hs|without.hs>"
-            },
-            "messageTs": "1527468649.000012",
-            "messageUser": {
-                "unUserId": "U4LGTMTMK"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "先々週から2週間近く格闘していた、\nextensibleにおける「レコードから指定したキーの要素を取り除いたレコードを返す関数」がようやくそれっぽい動きをするものが作れました。 :tada: \nみなさんのご協力のおかげです。 :bow:\n\n<https://gist.github.com/igrep/3e87871e900c98c0850a3b43b7cbff96>\nextensibleの使い方に各種GHC拡張の使い方など、ご指摘あればいただきたいです。\n特に <https://haskell-jp.slack.com/archives/C5666B6BB/p1526621270000191?thread_ts=1526606658.000243&amp;cid=C5666B6BB> で触れられている\n「Membershipが内部で持ってる位置をfilter後に移してやる必要があったりするんじゃないんですかね？」という指摘が若干気になります。\nこれからテストをいくつか書いてこちらでも確認してはみますが。"
-            },
-            "messageTs": "1527468647.000121",
-            "messageUser": {
-                "unUserId": "U4LGTMTMK"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@UAN607HTJ> has joined the channel"
-            },
-            "messageTs": "1526200988.000008",
-            "messageUser": {
-                "unUserId": "UAN607HTJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@UAMGYKUP5> has joined the channel"
-            },
-            "messageTs": "1525966757.000081",
-            "messageUser": {
-                "unUserId": "UAMGYKUP5"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "あ、これは失礼。完全に寝ぼけてました &gt; UnboxedVector"
-            },
-            "messageTs": "1524957511.000009",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "中に入るのが代数的データ型なんですよね。Maybe (Int8, Int8, Int8)みたいな構造なので、ビット演算でInt32に埋め込めばUnboxedも使えるかと思いますが、変換と逆変換のオーバーヘッドが気になるところです"
-            },
-            "messageTs": "1524947503.000061",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "代わりにUnboxedVectorを使用するのはだめでしょうか？\n<http://hackage.haskell.org/package/vector-0.12.0.1/docs/Data-Vector-Unboxed.html>"
-            },
-            "messageTs": "1524893061.000073",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "Data.Vectorにしたら逆に遅くなった（まあイミュータブルでやってるからしかたない）（IntMap、速いのな）"
-            },
-            "messageTs": "1524775857.000320",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "Data.IntMapにしたらかなり速くなりました"
-            },
-            "messageTs": "1524747312.000123",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "プロファイル取ってみましたが、んー、意外にもData.Mapがボトルネックになってしまっているみたいですねぇ"
-            },
-            "messageTs": "1524745094.000010",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "ReaderT (IORef s) IO aにしました。モナドという共通インターフェースのおかげでほとんど書き換える必要がなく楽でした"
-            },
-            "messageTs": "1524725729.000130",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U56PURX5H> has joined the channel"
-            },
-            "messageTs": "1524711408.000117",
-            "messageUser": {
-                "unUserId": "U56PURX5H"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "ありがとうございます。\n\n&gt; すべてはプロファイリングしてから考えましょう。\nたしかに。せっかくstack使っているんだから便利に使っていかねばですね\n\n依存関係は、自分で定義したモジュール同志の依存関係の意図でした（Internalという名前のついているものが非Internalにインポートされ、それが更に別のInternalなものにインポートされているなど）\n\n```ReaderT (IORef s) IO a``` の記事は私も目を通していました（「あっこれ直さなきゃ」ってなった）（とはいえ、現状のはデバッグ用のテストコードなので、そもそも全部書き直す可能性のほうが高そう）"
-            },
-            "messageTs": "1524530118.000142",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "さっと見て仕様を把握できませんでしたが何点か。\n&gt; 依存関係が面倒なことになっていることとか\n\n<https://github.com/sozysozbot/cerke/blob/0648daffb6100cb9652ec5f0476dc2eed1c7b830/cerkefs/package.yaml#L23-L26> を読んだ限り特に面倒な部分には見えませんが。。。\n\n&gt; 速度とかで改善できる点があるのかどうか\n\nすべてはプロファイリングしてから考えましょう。\n`stack test --profile` するだけでテスト時にプロファイリングまでしてくれるいい時代になりました。\n\nあと、このアプリケーションについては特に問題が起きていないのだろうし、急いで直す必要はないかと思いますが、 `StateT s IO a` はおすすめしません。例外が発生した際に状態を戻すすべがないからです。\n代わりに `ReaderT (IORef s) IO a` みたいな型で代用するのをおすすめします。\n\n最近はFPCompleteさんがそういう風に勧めています\n<https://www.fpcomplete.com/blog/2017/06/readert-design-pattern>"
-            },
-            "messageTs": "1524437943.000051",
-            "messageUser": {
-                "unUserId": "U4LGTMTMK"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U9U8B3LJV> has joined the channel"
-            },
-            "messageTs": "1524412920.000089",
-            "messageUser": {
-                "unUserId": "U9U8B3LJV"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "(すぐにやってみたい"
-            },
-            "messageTs": "1524218039.000197",
-            "messageUser": {
-                "unUserId": "U7Z4F723Z"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "会社の人にみてもらったら、ストリームよりfoldrの使い方が問題だといわれました。"
-            },
-            "messageTs": "1524218024.000198",
-            "messageUser": {
-                "unUserId": "U7Z4F723Z"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "stackを初めてちゃんと使ってみたんですが、予想以上に便利でしたという感想\n<https://github.com/sozysozbot/cerke/tree/master/cerkefs>\n気になっているのは、依存関係が面倒なことになっていることとか、速度とかで改善できる点があるのかどうか（`StateT` で `Lazy` の代わりに `Strict` 使っても速度に差はほとんどなかった） とかですね"
-            },
-            "messageTs": "1524214762.000222",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "なーんとなくですが`mapM_`を呼び出すたびに読み取ったファイルを全て評価しているのが原因だったきがします。"
-            },
-            "messageTs": "1524116925.000135",
-            "messageUser": {
-                "unUserId": "U7Z4F723Z"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "余談ですが、Philip Wadler氏に「Haskellを１からやり直すとしたらなにを変えますか」ってきいたら「遅延評価をなくす」っていってました。"
-            },
-            "messageTs": "1524115037.000159",
-            "messageUser": {
-                "unUserId": "U7Z4F723Z"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "69MB"
-            },
-            "messageTs": "1524113934.000009",
-            "messageUser": {
-                "unUserId": "U7Z4F723Z"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "その考えに沿ってMapもStrictにしたほうがいいと思って書き換えてみたらかなり消費が抑えられました。。\n```\nhiroto@hiroto-XPS-13-9360:~/haskell/cardano-diagnosis-program$ stack exec diagnosis \"/home/hiroto/Downloads/logs (6).zip\" -- +RTS -s\nRunning analysis on logs\nAnalysis done successfully!! See result-2018-04-19.html\n   2,011,567,408 bytes allocated in the heap\n     127,421,808 bytes copied during GC\n      26,902,264 bytes maximum residency (10 sample(s))\n         432,904 bytes maximum slop\n              69 MB total memory in use (0 MB lost due to fragmentation)\n\n                                     Tot time (elapsed)  Avg pause  Max pause\n  Gen  0      1893 colls,  1893 par    1.366s   0.185s     0.0001s    0.0090s\n  Gen  1        10 colls,     9 par    0.011s   0.001s     0.0001s    0.0003s\n\n  Parallel GC work balance: 5.20% (serial 0%, perfect 100%)\n\n  TASKS: 18 (1 bound, 17 peak workers (17 total), using -N8)\n\n  SPARKS: 0 (0 converted, 0 overflowed, 0 dud, 0 GC'd, 0 fizzled)\n\n  INIT    time    0.001s  (  0.001s elapsed)\n  MUT     time    0.742s  (  0.693s elapsed)\n  GC      time    1.376s  (  0.186s elapsed)\n  EXIT    time    0.002s  (  0.011s elapsed)\n  Total   time    2.121s  (  0.891s elapsed)\n\n  Alloc rate    2,710,634,667 bytes per MUT second\n\n  Productivity  35.1% of total user, 79.0% of total elapsed\n\ngc_alloc_block_sync: 17614\nwhitehole_spin: 0\ngen[0].sync: 3\ngen[1].sync: 334\n```"
-            },
-            "messageTs": "1524113919.000235",
-            "messageUser": {
-                "unUserId": "U7Z4F723Z"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "なるほど。lazyなStateだからスペースリークが起きていたと。。。こちらとしても勉強になります :smirk:"
-            },
-            "messageTs": "1524113729.000053",
-            "messageUser": {
-                "unUserId": "U4LGTMTMK"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "Stateの取り払いはすぐできそうなので、まずそれしますね。\n取り払ったら使用メモリもかなり減りました\n```\n   2,030,484,352 bytes allocated in the heap\n     552,951,344 bytes copied during GC\n     130,383,808 bytes maximum residency (10 sample(s))\n       2,306,112 bytes maximum slop\n             251 MB total memory in use (0 MB lost due to fragmentation)\n\n```"
-            },
-            "messageTs": "1524113588.000130",
-            "messageUser": {
-                "unUserId": "U7Z4F723Z"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "reactionがなかったので念のためもう一度貼り付けておきます。\n確認済みでしたらすみません。 :bow:\n<https://haskell-jp.slack.com/archives/C8KBGEBR7/p1524104464000235?thread_ts=1524038560.000043&amp;cid=C8KBGEBR7>"
-            },
-            "messageTs": "1524109788.000137",
-            "messageUser": {
-                "unUserId": "U4LGTMTMK"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "Windowsきついですよね。。\n英語版Windowsでユーザー名が日本語のユーザーを作成したらプロンプトが？？になってて「あ、これだめだ」って思いました。\n\nエラー処理はPR作成したので、まずテスト、そのあとストリームの実装に着手します。"
-            },
-            "messageTs": "1524107640.000130",
-            "messageUser": {
-                "unUserId": "U7Z4F723Z"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "で、気になる点にお答えしますと、\n&gt; 1. どのようなテストを行えばいいのかわかりません。（ダミーファイルを作ってそれをパースするとか？）\n詳しく見ないとなんともいえませんが、それが一番要求に近い部分をテストしているっぽいので、いいんじゃないでしょうか？\n&gt; 2. ログを解析する部分(`Classifier.hs`)が総当りに近いです...\nいい例はぱっと思いつきませんが、とりあえず今の実装でも十分にシンプル（ `State Analysis ()` をやめることでもっとシンプルになりますが）なのでよいのではないでしょうか。\n効率の観点で言えばもしかしたら <https://quasimal.com/posts/2018-01-08-prefix-tree-parsing.html> とかが使える、かもしれません（まだ実験的なライブラリーのようなので興味があったら、程度ですが）。\n\n&gt; とくにユーザー名に半角英数字以外を使用しているユーザーに対して動作するのか\n\nこれはほかはおそらく大丈夫ですが、Windowsでは結構厳しいでしょうね。。。\n残念ながら現状Haskellの日本語パスの扱いはWindowsではエラーが起こりやすかったように思います。"
-            },
-            "messageTs": "1524105279.000191",
-            "messageUser": {
-                "unUserId": "U4LGTMTMK"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "RTSオプションでメモリ制限をした場合に，かなり遅くなる場合は一般的にストリームライブラリを使うのがいいと思います．ガッと読んでガッと書き込むとGC無しの場合速い場合がありますが，GC込みの場合ちょびちょび読む(ストリーム処理)より遅いみたいなことがよくあるので，一旦試してみるのがいい気がします．"
-            },
-            "messageTs": "1524104920.000054",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<https://github.com/input-output-hk/cardano-diagnosis-program/blob/master/src/Classifier.hs> を読んだ感じ、無理に `State` を使う必要はないように感じます。\n少なくともトップレベルの型を見る限り、 `State Analysis ()` な型の関数しか見当たらないためです。\n素直に `Analysis -&gt; Analysis` な関数にすればよいのではないでしょうか。"
-            },
-            "messageTs": "1524104464.000235",
-            "messageUser": {
-                "unUserId": "U4LGTMTMK"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "```\nhiroto@hiroto-XPS-13-9360:~/haskell/cardano-diagnosis-program$ stack exec diagnosis \"/home/hiroto/Downloads/logs (6).zip\" -- +RTS -s\nRunning analysis on logs\nAnalysis done successfully!! See result-2018-04-19.html\n   2,031,484,272 bytes allocated in the heap\n     791,850,816 bytes copied during GC\n     189,980,952 bytes maximum residency (12 sample(s))\n       3,383,016 bytes maximum slop\n             433 MB total memory in use (0 MB lost due to fragmentation)\n\n                                     Tot time (elapsed)  Avg pause  Max pause\n  Gen  0      1910 colls,  1910 par    3.579s   0.844s     0.0004s    0.1591s\n  Gen  1        12 colls,    11 par    0.018s   0.004s     0.0004s    0.0012s\n\n  Parallel GC work balance: 5.67% (serial 0%, perfect 100%)\n\n  TASKS: 18 (1 bound, 17 peak workers (17 total), using -N8)\n\n  SPARKS: 0 (0 converted, 0 overflowed, 0 dud, 0 GC'd, 0 fizzled)\n\n  INIT    time    0.000s  (  0.001s elapsed)\n  MUT     time    0.716s  (  0.818s elapsed)\n  GC      time    3.597s  (  0.848s elapsed)\n  EXIT    time    0.000s  (  0.023s elapsed)\n  Total   time    4.313s  (  1.691s elapsed)\n\n  Alloc rate    2,839,001,278 bytes per MUT second\n\n  Productivity  16.6% of total user, 49.8% of total elapsed\n\ngc_alloc_block_sync: 18951\nwhitehole_spin: 0\ngen[0].sync: 0\ngen[1].sync: 7944\n```\nmizunashiさんの言うとおりGCにかなり時間を食ってました。\nこの場合はストリームライブラリなどを使ったほうがよいのでしょうか。"
-            },
-            "messageTs": "1524102511.000074",
-            "messageUser": {
-                "unUserId": "U7Z4F723Z"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "ご指摘ありがとうございます！\nベンチマークも実装してみます。\nログに関しては商用で利用されているCardano-slのログファイルがJSONではないため難しいと思います。。より解析しやすいフォーマットへの変更は現在検討しています。"
-            },
-            "messageTs": "1524091206.000201",
-            "messageUser": {
-                "unUserId": "U7Z4F723Z"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "それから，要件がどうなのかは分からないのですが，JSONログを吐けるならそっちを解析するといいのかなという感じがしました\n<https://github.com/input-output-hk/cardano-sl/blob/8d25c2ad3ca2354af8f8c43a2972d1b9a31bf440/lib/src/Pos/Client/CLI/NodeOptions.hs#L152>"
-            },
-            "messageTs": "1524068601.000189",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "あんまりよく読んでないので心証的な感じで申し訳ないんですが\n解析のパフォーマンスについては，どれぐらいの規模なのかよく分からないですが，複数ファイルを1回読み込んでしまうとメモリをかなり食ってGCの回数が増えるとかがあるのではないでしょうか？テストより先にプロファイリング用に余計な処理を省いたベンチマークを作ってみるのがいい気がしました"
-            },
-            "messageTs": "1524068406.000665",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U7Z4F723Z> uploaded a file: <https://haskell-jp.slack.com/files/U7Z4F723Z/FA9TKV40P/pub.zip|pub.zip> and commented: ログファイルのサンプル"
-            },
-            "messageTs": "1524051160.000068",
-            "messageUser": {
-                "unUserId": "U7Z4F723Z"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "ありがとうございます。その点に関しては僕も気になっていたのでさっそく取り組んでみます。"
-            },
-            "messageTs": "1524048568.000121",
-            "messageUser": {
-                "unUserId": "U7Z4F723Z"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "ちょっと覗いた程度ですが，1点だけ気になりました．\n<https://github.com/input-output-hk/cardano-diagnosis-program/blob/master/app/Main.hs#L38>\nの部分ですが，こういう場合throwIOを使われるのが好まれると思います．\n<https://mail.haskell.org/pipermail/libraries/2012-September/018410.html> のスレッドが参考になると思うのでどうぞ"
-            },
-            "messageTs": "1524041258.000279",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "ログファイルのサンプルあったほうがいいですよね。夜にアップロードします。"
-            },
-            "messageTs": "1524040265.000050",
-            "messageUser": {
-                "unUserId": "U7Z4F723Z"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "すごく簡素なプログラムですが、haskellで書きました。\nもしかしたらリリースされるかもしれません。（まだプロトタイプです）\nプログラムの目的、利用方法に関してはreadmeを読んでください。\n<https://github.com/input-output-hk/cardano-diagnosis-program>\n\n気になってる点:\n1. どのようなテストを行えばいいのかわかりません。（ダミーファイルを作ってそれをパースするとか？）\n2. ログを解析する部分(`Classifier.hs`)が総当りに近いです（`isInfixOf` を使って特定の文字をキャッチしています。）本当はregexやパーサーライブラリを使って解析したいのですが、１日かけても全く動きませんでした。これに関してなにか具体例みたいなものがあれば是非紹介して頂きたいです。。\n3. `LogExtractor`（ログファイルの有無を確認し、ある場合には読み込む）に関してOSごとにFilePathを指定する部分が若干不安です（とくにユーザー名に半角英数字以外を使用しているユーザーに対して動作するのか）\n\nその他気づいた点がありましたらお願いします。"
-            },
-            "messageTs": "1524038560.000043",
-            "messageUser": {
-                "unUserId": "U7Z4F723Z"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U5CQSLMRU> has joined the channel"
-            },
-            "messageTs": "1523499248.000187",
-            "messageUser": {
-                "unUserId": "U5CQSLMRU"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U5CSEFF7H> has joined the channel"
-            },
-            "messageTs": "1522803896.000278",
-            "messageUser": {
-                "unUserId": "U5CSEFF7H"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U9Z23SX61> has joined the channel"
-            },
-            "messageTs": "1522427498.000258",
-            "messageUser": {
-                "unUserId": "U9Z23SX61"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U9XB88DU3> has joined the channel"
-            },
-            "messageTs": "1522397929.000042",
-            "messageUser": {
-                "unUserId": "U9XB88DU3"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U7GSVRQ6S> has joined the channel"
-            },
-            "messageTs": "1521935264.000018",
-            "messageUser": {
-                "unUserId": "U7GSVRQ6S"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U57D08Z9U> has joined the channel"
-            },
-            "messageTs": "1521177102.000089",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U57D08Z9U> has left the channel"
-            },
-            "messageTs": "1521177090.000106",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "これだけでもこのチャンネル入って本当に良かった。ありがとうございます"
-            },
-            "messageTs": "1521174727.000086",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U57D08Z9U> さんに指摘された Cofree annotation 、本当に `IndexedCofree f a i` っていう型を作って出来るか試してみたら出来ました"
-            },
-            "messageTs": "1521174705.000115",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U7JEMP5SR> has joined the channel"
-            },
-            "messageTs": "1520941309.000196",
-            "messageUser": {
-                "unUserId": "U7JEMP5SR"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "ちょうど今 Data Types a la carte ベースでテンプレートエンジン作ってるから気になる\n後で見よう"
-            },
-            "messageTs": "1520933688.000201",
-            "messageUser": {
-                "unUserId": "U4L0B71L1"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<http://www.timphilipwilliams.com/posts/2013-01-16-fixing-gadts.html>\nここで解説されている「任意のデータ型をFunctorからもう一段階高階の抽象化をして、『Int型しか受け付けない（あるいは評価結果がそうなる）構文』とかをできるようにする」手法が別のワークショップでそのまま実装されていたっていうオチ"
-            },
-            "messageTs": "1520922759.000127",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "compdata ほう こんなものが"
-            },
-            "messageTs": "1520922053.000184",
-            "messageUser": {
-                "unUserId": "U4L0B71L1"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "やっとcompdataとData Types a la carte まで学習が進みました。 <http://hackage.haskell.org/package/compdata>"
-            },
-            "messageTs": "1520918707.000050",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U90881C13> has joined the channel"
-            },
-            "messageTs": "1520501034.000437",
-            "messageUser": {
-                "unUserId": "U90881C13"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U7V6G63LJ> has left the channel"
-            },
-            "messageTs": "1520006371.000517",
-            "messageUser": {
-                "unUserId": "U7V6G63LJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "せっかくProxyを作ったんだからそれを利用すればよかったんだなぁ"
-            },
-            "messageTs": "1519723541.000188",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "UndecidableInstances は意識的に入れたつもり無くて、StandaloneDerivingが使いたかっただけ、というパターンとかあります"
-            },
-            "messageTs": "1519720633.000270",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "書いてる途中でコンパイル一時的に通す為に入れたGHC拡張が残ったままになってたりするのか"
-            },
-            "messageTs": "1519720511.000094",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "はい，baseにあるので気兼ねなく使えますね．GHC 8からいつのまにか，MonadIOとかも入ってました\n<https://hackage.haskell.org/package/base-4.9.1.0/docs/Control-Monad-IO-Class.html>"
-            },
-            "messageTs": "1519719786.000150",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "あ、今はbaseに入ったのか…"
-            },
-            "messageTs": "1519719407.000167",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "Show1使ったことありませんでした… せっかくtransformers使ってんのに…"
-            },
-            "messageTs": "1519718434.000107",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "それから，<https://github.com/VoQn/cacco/blob/master/src/Cacco/Syntax/Parser/AST.hs#L131> の部分は， `GADTs` と `ScopedTypeVariables` 拡張を加えて，\n```\nastFix :: forall t (i :: AstIx). IxFunctor t =&gt; AstIxProxy i -&gt; AstIxFixParser t i\nastFix proxy d e p t = case proxy of\n    DeclProxy -&gt; d'\n    ExprProxy -&gt; e'\n    PattProxy -&gt; p'\n    TypeProxy -&gt; t'\n  where\n    astFix' :: (forall f. AstIxParser t f j) -&gt; Parser (IxFix t j)\n    astFix' f = In &lt;$&gt; f d' e' p' t'\n\n    d' = astFix' d\n    e' = astFix' e\n    p' = astFix' p\n    t' = astFix' t\n{-# INLINEABLE astFix #-}\n\nlocated :: forall f (i :: AstIx). AstIxParser AstF f i -&gt; AstIxParser (IxAnnF Location AstF) f i\nlocated f d e p t = IxAnnF &lt;$&gt; withLocation (f d e p t)\n{-# INLINE located #-}\n\nastParser :: AstIxProxy i -&gt; Parser (IxAnn Location AstF i)\nastParser proxy = astFix proxy\n  (located declAstF) (located exprAstF) (located pattAstF) (located typeAstF)\n\ndeclAst :: Parser (IxAnn Location AstF AstDecl)\ndeclAst = astParser DeclProxy\n{-# INLINEABLE declAst #-}\n\nexprAst :: Parser (IxAnn Location AstF AstExpr)\nexprAst = astParser ExprProxy\n{-# INLINEABLE exprAst #-}\n\npattAst :: Parser (IxAnn Location AstF AstPatt)\npattAst = astParser PattProxy\n{-# INLINEABLE pattAst #-}\n\ntypeAst :: Parser (IxAnn Location AstF AstType)\ntypeAst = astParser TypeProxy\n{-# INLINEABLE typeAst #-}\n```\nの感じで書くと，ボイラープレートが増えなくて良いかな？と思いました"
-            },
-            "messageTs": "1519717172.000094",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "それから，一部メッセージを良くunwordsして作ってる印象があったので，\n* <https://hackage.haskell.org/package/ansi-wl-pprint-0.6.8.1/docs/Text-PrettyPrint-ANSI-Leijen.html#t:Doc>\n* <https://hackage.haskell.org/package/pretty-1.1.3.6/docs/Text-PrettyPrint.html#t:Doc>\nみたいなのと相性が良さそうな気がしました．"
-            },
-            "messageTs": "1519715168.000214",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "これも好みの問題かもですが，\n* <https://github.com/VoQn/cacco/blob/master/src/Cacco/Syntax/AST.hs#L43> -&gt; `Data.Proxy.Proxy`\n* <https://github.com/VoQn/cacco/blob/master/src/Data/IxFix.hs#L31> -&gt; `Data.Functor.Const`\n* <https://github.com/VoQn/cacco/blob/master/src/Data/IxFix.hs#L35> -&gt; `Data.Functor.Identity`\n* <https://github.com/VoQn/cacco/blob/master/src/Cacco/Syntax/Expr.hs#L52> -&gt; `DeriveTraversable` で代用可能\nみたいなのを思いました"
-            },
-            "messageTs": "1519715013.000232",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "後，結構不要なところに `UndecidableInstances` が入ってる印象があるので，もし拡張のプラグマをコピペしてる感じだったらむしろ，cabalのdefault-extensionsを使って，モジュール別に必要な拡張だけモジュールごとに指定するのがいいかもしれません(<https://www.haskell.org/cabal/users-guide/developing-packages.html#pkg-field-default-extensions>)"
-            },
-            "messageTs": "1519713828.000099",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "多分逆にして， deriving Functor すればいい気がしますね"
-            },
-            "messageTs": "1519711708.000041",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "\"indexed\" なんだから、型の表記的にも i f  と続かせる方が正しいような気もしますね"
-            },
-            "messageTs": "1519711702.000232",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "あ、いや、たしかに逆にするだけで何とかなる？"
-            },
-            "messageTs": "1519711619.000238",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "そうなんですよ。普通のfmapが上手に利用できないというか、評価器を作るところで通常のdoなども利用できないので作りを見直して克服したいところなんです"
-            },
-            "messageTs": "1519711555.000048",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "後，個人的には `UndecidableInstances` は避けてる人なので，ちょっと余計なインスタンス宣言が増えますが， `deriving (Show (f (Fix f)) =&gt; ...` の部分は `deriving (Show1 f) =&gt; ...` で書く派なので，そこの部分も気になりました"
-            },
-            "messageTs": "1519711320.000014",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "ここが(おそらくnat transのtype sigを適用できるようにするためだと思うんですが)f i aの順になっていないために，ixを固定した時に既存のFunctorのAPIを使えないのは残念だなと思いました\n<https://github.com/VoQn/cacco/blob/master/src/Data/IxFix.hs#L76>"
-            },
-            "messageTs": "1519711018.000186",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "まぁ、 <#C8KBGEBR7|code-review> に貼ったぐらいなので何かアドバイスなり意見が欲しいので大丈夫です"
-            },
-            "messageTs": "1519709918.000079",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "これって，気になったとこ言っていい系なんでしょうか？"
-            },
-            "messageTs": "1519709576.000102",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "haskellの好きなところ、書き終わった後に「ぜってぇこれもっといいやり方がある」ってモチベ上がるところですね"
-            },
-            "messageTs": "1519705715.000104",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "できた"
-            },
-            "messageTs": "1519705552.000149",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<https://github.com/VoQn/cacco/blob/master/src/Cacco/Syntax/Parser/AST.hs>\nIxFIx を導入したASTのパーサが一応できました（IxCofree をインジェクションするのはまだ出来ていないので、純粋な構文木をパースするようになっています）"
-            },
-            "messageTs": "1519615487.000016",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "なるほど，実装見てみます．ありがとうございます．"
-            },
-            "messageTs": "1519126577.000089",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "実装が悪いとそうなりますが、extensibleは速いという評判を頂いています。ただ要素数が200くらいになってくるとコンパイルが遅くなる感じがあります。"
-            },
-            "messageTs": "1519125461.000111",
-            "messageUser": {
-                "unUserId": "U4KUNQF9N"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "型レベルリストってopen unionとかと同じように，sumするやつをリストに突っ込んでおいて，injectする時型レベルのmemberをするやつですか？あんまりよく知らないんですけど，それってかなりコンパイル時間がかかったり，型エラーがえぐくなったりしないですか？"
-            },
-            "messageTs": "1519125117.000205",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "あれは閉じた型族などがなかった時代の苦肉の策なので、今では型レベルリストと型族を活用すれば簡単に実現できます。 extensibleも型族を使っています <http://hackage.haskell.org/package/extensible-0.4.7.1/docs/Data-Extensible-Sum.html>"
-            },
-            "messageTs": "1519124416.000220",
-            "messageUser": {
-                "unUserId": "U4KUNQF9N"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U7907NMGF> has joined the channel"
-            },
-            "messageTs": "1519100550.000080",
-            "messageUser": {
-                "unUserId": "U7907NMGF"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "Ix＊ はまだ組み入れてないですね。ラムダ式や関数宣言とかの、AST内部の小分類が必要になってきたら組み込んでく予定です"
-            },
-            "messageTs": "1519091019.000057",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "VoQnさんので言うと， <https://github.com/VoQn/cacco/blob/master/src/Cacco/Ann.hs#L21> がまさにCofreeですね．(Indexed Fixはまだ導入してなさそう？)"
-            },
-            "messageTs": "1519046529.000403",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "cofree については全然知らなくって、「なんか VoQn さんのコードと似てる気がするけど知らない内に cofree 使ってるんだろうか？」という感じで提出したコードでした\nまさに\n&gt; まあこの辺はdata types a la carteと一緒で，それが併用できる所以なんですが\nというところで同じなのかなぁと勘違いしたようです\nただ cofree は好奇心を覚えるので説明は咀嚼してみます"
-            },
-            "messageTs": "1519044505.000187",
-            "messageUser": {
-                "unUserId": "U4L0B71L1"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "あ，あとこれって，その他(cofree使うか以外で)の感想待ちだったりしますか？"
-            },
-            "messageTs": "1519043350.000010",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "(ところで，僕もあまり詳しく無いのですが，Data types a la carteの結構すぐにoverlappingする問題って，みんなどうやって解決してるんですかね？)"
-            },
-            "messageTs": "1519041318.000139",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "今回の場合，特に注釈情報は必要なさそうに見えるので(?)，cofreeを導入する必要はなさそうに見えます"
-            },
-            "messageTs": "1519040971.000259",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "ただこのcofree annotatingは，multipleなデータに対して弱くって， <https://stackoverflow.com/questions/38462563/how-to-work-with-ast-with-cofree-annotation> とか <@U98QDF5EJ> さんが使っていたIndexed functorでそれをうまく扱えるようにするというのが度々話題に上がっています"
-            },
-            "messageTs": "1519040908.000416",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "で，通常はこれをFix f = f (Fix f)という原始的なオペレータでfixするんですが，Cofree f a = (a, f (Cofree f a))というオペレータでfixすることで，再帰する箇所全てに後から任意の注釈を埋め込めるようにできるというのがcofree annotatingと言われる手法ですね"
-            },
-            "messageTs": "1519040707.000109",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "で，実際にどのようにcofree annotationが解決するかなのですが，ASTを以下のようにrecursion schemeのBaseで定義しておきます．\ndata ExprF e = ValF Int | AddF e e\n(ここでeは元のaと関係なく，再帰する箇所を表します．まあこの辺はdata types a la carteと一緒で，それが併用できる所以なんですが)"
-            },
-            "messageTs": "1519040602.000160",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "data types a la carteもcofree annotationもデータ型をopenにするという方向では一緒なのですが，それぞれ方向性はdata types a la carteはsumに対してのopen性，cofree annotationはrecursion schemeに関してのopen性みたいな感じで異なるのでそこらへんは注意です(まあ結果的に，これらを併用することが可能なのですが)"
-            },
-            "messageTs": "1519040439.000321",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "まず，cofree annotationを使う動機から説明すると，構文木を扱う際各木に注釈情報を埋め込みたい時があって(例えば，パース時のソースコード上の位置や，型情報など)，このような情報はコンパイル時どんどん変遷していくため，決めうちじゃなくて何らかの型変数にしておきたいということがあります．\n\nただ，これを単純に実現すると，\ndata Expr a = Val Int a | Add (Expr a) (Expr a) a\nというように注釈情報を埋め込みたい場所に一々型変数を書かなければいけません．これを何とかしたいというのが動機です"
-            },
-            "messageTs": "1519040276.000106",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "いろいろ説明不足ですみません。\nこのコード（今型検査にこけるんですが）は、Liquid 用の AST を実行するもので、Jekyll で採用されてたりするんですが、Jekyll 方言があってそれをベース方言のインタープリターをいじらずに拡張できるようにしたいというものです。\nで、そのベース方言部分です。"
-            },
-            "messageTs": "1519040250.000084",
-            "messageUser": {
-                "unUserId": "U4L0B71L1"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "結論としては，(まだちょっと把握できてない部分もあるんですが)見た感じCofree annotationを使う意義は無さそうと言う感じです\n<https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1519027141000214?thread_ts=1518659662.000031&amp;cid=C4M4TT8JJ>"
-            },
-            "messageTs": "1519039771.000173",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U979PBETG> has joined the channel"
-            },
-            "messageTs": "1518881120.000038",
-            "messageUser": {
-                "unUserId": "U979PBETG"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U56S4UVTL> has joined the channel"
-            },
-            "messageTs": "1518672173.000092",
-            "messageUser": {
-                "unUserId": "U56S4UVTL"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "stack-work に残ってキャッシュが相当古くて、tasty-discover の CLI option の --tree-display を受け付けなかったんですよね。また、0.1x 系から 1.0 系になったという事で、できればメジャーバージョンに上げとこうっていうぐらいでした。"
-            },
-            "messageTs": "1518651769.000252",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U4M598NHM> has joined the channel"
-            },
-            "messageTs": "1518630673.000597",
-            "messageUser": {
-                "unUserId": "U4M598NHM"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "ちなみに、stack.yaml で tasty-1.0 を指定してるんですけど、その前となんか大きく変わったんですか？"
-            },
-            "messageTs": "1518617286.000579",
-            "messageUser": {
-                "unUserId": "U56L7EVNY"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "typo周りは指摘まじありがたいです！英語力もアレなので 圧倒的感謝"
-            },
-            "messageTs": "1518614796.000116",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "\"block comment is keeping\" では意味が通らない、などもありますが、眠いので寝て起きてからにします"
-            },
-            "messageTs": "1518611996.000250",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "枝葉末節なんですが、綴りにいくつか誤りを見つけたのでプルリクを投げました"
-            },
-            "messageTs": "1518611568.000296",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "IEEE 754-2008 binary16 (16bit float) にプリミティブで対応しているのは、遠い目標にwasm経由して直にWebGLのシェーダーにアクセスする為とかですね"
-            },
-            "messageTs": "1518587922.000188",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<https://github.com/VoQn/cacco/commit/0cb416ca3ea05fe8f8ef746908d61d8f35c059a3>\n10進数の浮動小数点リテラルのstrict-type-literal 対応した"
-            },
-            "messageTs": "1518587787.000028",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "モチベの拠り所がユーザーフレンドリーなリテラル持ってる言語を、っていう感じなので"
-            },
-            "messageTs": "1518584596.000224",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "こういうの便利そう\n<https://github.com/VoQn/cacco/blob/master/doc/basics.asciidoc#strict-type-literals>"
-            },
-            "messageTs": "1518582411.000119",
-            "messageUser": {
-                "unUserId": "U56L7EVNY"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "（ウォッチャーがLisperとOcamlerだからっていう理由で）"
-            },
-            "messageTs": "1518582116.000180",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<https://github.com/VoQn/cacco/blob/master/src/Cacco/Lexer.hs>\n趣味で言語作ってるんだけど、「not haskeller の人が見ても分かるように」っていう意識で書いている"
-            },
-            "messageTs": "1518582062.000064",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "コード晒してよかですか"
-            },
-            "messageTs": "1518581958.000081",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U5L06DM55> has joined the channel"
-            },
-            "messageTs": "1518506969.000069",
-            "messageUser": {
-                "unUserId": "U5L06DM55"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U4L0B71L1> has joined the channel"
-            },
-            "messageTs": "1518486717.000131",
-            "messageUser": {
-                "unUserId": "U4L0B71L1"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U98QDF5EJ> has joined the channel"
-            },
-            "messageTs": "1518479890.000198",
-            "messageUser": {
-                "unUserId": "U98QDF5EJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U8X01G6FJ> has left the channel"
-            },
-            "messageTs": "1517459360.000007",
-            "messageUser": {
-                "unUserId": "U8X01G6FJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U91F1FSJH> has joined the channel"
-            },
-            "messageTs": "1517378641.000047",
-            "messageUser": {
-                "unUserId": "U91F1FSJH"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U8X01G6FJ> has joined the channel"
-            },
-            "messageTs": "1517280334.000039",
-            "messageUser": {
-                "unUserId": "U8X01G6FJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U8XGRJ3DZ> has joined the channel"
-            },
-            "messageTs": "1517243690.000318",
-            "messageUser": {
-                "unUserId": "U8XGRJ3DZ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U8ZBMSPPB> has joined the channel"
-            },
-            "messageTs": "1517175500.000077",
-            "messageUser": {
-                "unUserId": "U8ZBMSPPB"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U8YBE1TTM> has joined the channel"
-            },
-            "messageTs": "1516877539.000358",
-            "messageUser": {
-                "unUserId": "U8YBE1TTM"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U8P5W7YP6> has joined the channel"
-            },
-            "messageTs": "1516599341.000093",
-            "messageUser": {
-                "unUserId": "U8P5W7YP6"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U8VEALRHT> has joined the channel"
-            },
-            "messageTs": "1516342727.000080",
-            "messageUser": {
-                "unUserId": "U8VEALRHT"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U4MAYDV9C> has joined the channel"
-            },
-            "messageTs": "1516066970.000182",
-            "messageUser": {
-                "unUserId": "U4MAYDV9C"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U7V6G63LJ> has joined the channel"
-            },
-            "messageTs": "1516066480.000103",
-            "messageUser": {
-                "unUserId": "U7V6G63LJ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U4M78PX5K> has joined the channel"
-            },
-            "messageTs": "1515485894.000101",
-            "messageUser": {
-                "unUserId": "U4M78PX5K"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U7KC05QBH> has joined the channel"
-            },
-            "messageTs": "1515478518.000264",
-            "messageUser": {
-                "unUserId": "U7KC05QBH"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U4LEB9UP4> has joined the channel"
-            },
-            "messageTs": "1515413697.000236",
-            "messageUser": {
-                "unUserId": "U4LEB9UP4"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U56MX93K7> has joined the channel"
-            },
-            "messageTs": "1515337272.000069",
-            "messageUser": {
-                "unUserId": "U56MX93K7"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U8CJWHF0E> has joined the channel"
-            },
-            "messageTs": "1515072380.000033",
-            "messageUser": {
-                "unUserId": "U8CJWHF0E"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U8LLBJ59Q> has joined the channel"
-            },
-            "messageTs": "1514967806.000019",
-            "messageUser": {
-                "unUserId": "U8LLBJ59Q"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U561MADLH> has joined the channel"
-            },
-            "messageTs": "1514912836.000313",
-            "messageUser": {
-                "unUserId": "U561MADLH"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U826HT001> has joined the channel"
-            },
-            "messageTs": "1514792176.000008",
-            "messageUser": {
-                "unUserId": "U826HT001"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U4M5LDXK9> has joined the channel"
-            },
-            "messageTs": "1514602199.000054",
-            "messageUser": {
-                "unUserId": "U4M5LDXK9"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U561JUTB3> has joined the channel"
-            },
-            "messageTs": "1514546046.000131",
-            "messageUser": {
-                "unUserId": "U561JUTB3"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U6BUS25MX> has joined the channel"
-            },
-            "messageTs": "1514532873.000055",
-            "messageUser": {
-                "unUserId": "U6BUS25MX"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U55UN00G0> has joined the channel"
-            },
-            "messageTs": "1514511149.000030",
-            "messageUser": {
-                "unUserId": "U55UN00G0"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U57HJTUTY> has joined the channel"
-            },
-            "messageTs": "1514474278.000284",
-            "messageUser": {
-                "unUserId": "U57HJTUTY"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U4M9NJ7QE> has joined the channel"
-            },
-            "messageTs": "1514472395.000039",
-            "messageUser": {
-                "unUserId": "U4M9NJ7QE"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U560KD6DN> has joined the channel"
-            },
-            "messageTs": "1514471749.000236",
-            "messageUser": {
-                "unUserId": "U560KD6DN"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U5P0CRDSP> has joined the channel"
-            },
-            "messageTs": "1514470848.000017",
-            "messageUser": {
-                "unUserId": "U5P0CRDSP"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U4MA78F6X> has joined the channel"
-            },
-            "messageTs": "1514469274.000255",
-            "messageUser": {
-                "unUserId": "U4MA78F6X"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U578W9676> has joined the channel"
-            },
-            "messageTs": "1514467479.000304",
-            "messageUser": {
-                "unUserId": "U578W9676"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U5LEE6C1J> has joined the channel"
-            },
-            "messageTs": "1514467275.000127",
-            "messageUser": {
-                "unUserId": "U5LEE6C1J"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U4KUNQF9N> has joined the channel"
-            },
-            "messageTs": "1514455463.000158",
-            "messageUser": {
-                "unUserId": "U4KUNQF9N"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U7XC5U1RR> has joined the channel"
-            },
-            "messageTs": "1514455019.000054",
-            "messageUser": {
-                "unUserId": "U7XC5U1RR"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "ありがとうございます（使ってみました）\n<https://github.com/sozysozbot/akrantiain2/commit/83d4bf5f2e41cb82f03b24d14e09e745371a7b25>"
-            },
-            "messageTs": "1514454144.000196",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U4KU9ABL0> has joined the channel"
-            },
-            "messageTs": "1514452657.000083",
-            "messageUser": {
-                "unUserId": "U4KU9ABL0"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "こんなものがあるのか…（すごい）（めっさ便利だなこれ）"
-            },
-            "messageTs": "1514452511.000176",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<https://github.com/sozysozbot/akrantiain2/blob/f1b741b11cea585f72ba2ce6c68cdf9411fa172e/Akrantiain/Sents_to_func.hs#L50>\nこういう書き方をしたくなるならもしかして `RecordWildCards` とか `NamedFieldPuns` とかがお好みかも。"
-            },
-            "messageTs": "1514452286.000134",
-            "messageUser": {
-                "unUserId": "U4LGTMTMK"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U4LGTMTMK> pinned a message to this channel."
-            },
-            "messageTs": "1514452105.000218",
-            "messageUser": {
-                "unUserId": "U4LGTMTMK"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U5ANNFMNZ> has joined the channel"
-            },
-            "messageTs": "1514451822.000025",
-            "messageUser": {
-                "unUserId": "U5ANNFMNZ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "ついでに，さっきのやつだとghr(github release)でバイナリをGitHubにアップロードしてくれるっぽいですね"
-            },
-            "messageTs": "1514450575.000127",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U57CGDBMG> has joined the channel"
-            },
-            "messageTs": "1514450561.000144",
-            "messageUser": {
-                "unUserId": "U57CGDBMG"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "CircleCI + stackで単純にやるならcircle.ymlはこれだけでいけるはずです。\n<https://github.com/igrep/typesafe-precure/blob/master/circle.yml>"
-            },
-            "messageTs": "1514450409.000181",
-            "messageUser": {
-                "unUserId": "U4LGTMTMK"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "まず stack しよう"
-            },
-            "messageTs": "1514450276.000061",
-            "messageUser": {
-                "unUserId": "U56L7EVNY"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "CircleCIとか最初からstackが入っていたりしますしね。"
-            },
-            "messageTs": "1514450216.000072",
-            "messageUser": {
-                "unUserId": "U4LGTMTMK"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "とりあえずまずはstackとHUnitを導入してから、といった感じですかね"
-            },
-            "messageTs": "1514450210.000084",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "Cabalパッケージ化は結構いろんな副作用があって，Cabalパッケージ化されたプロジェクトにstackを導入するのは結構楽なので，stackを導入するとこう言うのがそのまま使えます\n<https://github.com/ChrisPenner/haskell-stack-travis-ci>"
-            },
-            "messageTs": "1514450148.000079",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "5月あたりにTravis CIを導入しようとして失敗し、そのまま放置してしまっています"
-            },
-            "messageTs": "1514449831.000076",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U5G3PL5EZ> has joined the channel"
-            },
-            "messageTs": "1514449363.000260",
-            "messageUser": {
-                "unUserId": "U5G3PL5EZ"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U5ZB2ATN2> has joined the channel"
-            },
-            "messageTs": "1514449361.000179",
-            "messageUser": {
-                "unUserId": "U5ZB2ATN2"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "Hello. I am slacknowledge bot.\nWhen a thread is added a :memo: (memo) reaction, I will save it.\nEveryone can view the saved thread at <https://slacknowledge.pig-brewing.com> ."
-            },
-            "messageTs": "1514449356.000148",
-            "messageUser": {
-                "unUserId": "U8HK4CEVB"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U8HK4CEVB> has joined the channel"
-            },
-            "messageTs": "1514449356.000066",
-            "messageUser": {
-                "unUserId": "U8HK4CEVB"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U4KPPQW7K> has joined the channel"
-            },
-            "messageTs": "1514449224.000118",
-            "messageUser": {
-                "unUserId": "U4KPPQW7K"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U7Z4F723Z> has joined the channel"
-            },
-            "messageTs": "1514449074.000128",
-            "messageUser": {
-                "unUserId": "U7Z4F723Z"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "お題"
-            },
-            "messageTs": "1514449045.000054",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U56S6UK28> has joined the channel"
-            },
-            "messageTs": "1514449012.000121",
-            "messageUser": {
-                "unUserId": "U56S6UK28"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U4LGTMTMK> set the channel topic: 現在のお題 <https://github.com/sozysozbot/akrantiain2>"
-            },
-            "messageTs": "1514448999.000136",
-            "messageUser": {
-                "unUserId": "U4LGTMTMK"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "Reddit を見てる人は多いと思いますけど、コメントするのにアカウント要るから....まぁいいかってなりそう"
-            },
-            "messageTs": "1514448778.000021",
-            "messageUser": {
-                "unUserId": "U56L7EVNY"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "(わーい)"
-            },
-            "messageTs": "1514448741.000099",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "(このチャンネルの purpose が素敵)"
-            },
-            "messageTs": "1514448729.000200",
-            "messageUser": {
-                "unUserId": "U56L7EVNY"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "そもそも見てる人が少ない感じですしね。。。 :disappointed:"
-            },
-            "messageTs": "1514448717.000041",
-            "messageUser": {
-                "unUserId": "U4LGTMTMK"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "reddit だとあんま回答貰えない印象"
-            },
-            "messageTs": "1514448697.000239",
-            "messageUser": {
-                "unUserId": "U56L7EVNY"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "まぁ、慣れた方を使った方がいいと思います。 :wink:"
-            },
-            "messageTs": "1514448672.000038",
-            "messageUser": {
-                "unUserId": "U4LGTMTMK"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U56L7EVNY> has joined the channel"
-            },
-            "messageTs": "1514448631.000010",
-            "messageUser": {
-                "unUserId": "U56L7EVNY"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "たしかに（Redditよくわからない顔）"
-            },
-            "messageTs": "1514448605.000210",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": ".oO(話題があっちこっちに飛びがちなんでどっちかというとReddit向けのお話のような気もしますけど。。。 :sweat: まぁいいか。）"
-            },
-            "messageTs": "1514448572.000128",
-            "messageUser": {
-                "unUserId": "U4LGTMTMK"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": ""
-            },
-            "messageTs": "1514448481.000118",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U5G2BCVBN> has joined the channel"
-            },
-            "messageTs": "1514448205.000173",
-            "messageUser": {
-                "unUserId": "U5G2BCVBN"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U74KTAG0N> has joined the channel"
-            },
-            "messageTs": "1514448156.000023",
-            "messageUser": {
-                "unUserId": "U74KTAG0N"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U570660KX> has joined the channel"
-            },
-            "messageTs": "1514448139.000004",
-            "messageUser": {
-                "unUserId": "U570660KX"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U57D08Z9U> has joined the channel"
-            },
-            "messageTs": "1514448100.000014",
-            "messageUser": {
-                "unUserId": "U57D08Z9U"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U4LGTMTMK> has joined the channel"
-            },
-            "messageTs": "1514448083.000030",
-            "messageUser": {
-                "unUserId": "U4LGTMTMK"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U8EJKMNVA> set the channel purpose: 既に書いたコードをプロたちに添削して頂く"
-            },
-            "messageTs": "1514448055.000022",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
-        },
-        {
-            "messageType": "message",
-            "messageText": {
-                "unSlackMessageText": "<@U8EJKMNVA> has joined the channel"
-            },
-            "messageTs": "1514448054.000082",
-            "messageUser": {
-                "unUserId": "U8EJKMNVA"
-            }
+[
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U8R2EKE81> has joined the channel"
+        },
+        "messageTs": "1528562784.000085",
+        "messageUser": {
+            "unUserId": "U8R2EKE81"
         }
-    ],
-    "historyRspHasMore": false
-}
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U8JGMG1QT> has joined the channel"
+        },
+        "messageTs": "1527483864.000187",
+        "messageUser": {
+            "unUserId": "U8JGMG1QT"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U4LGTMTMK> shared a file: <https://haskell-jp.slack.com/files/U4LGTMTMK/FAXUT4Y1L/without.hs|without.hs>"
+        },
+        "messageTs": "1527468649.000012",
+        "messageUser": {
+            "unUserId": "U4LGTMTMK"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "先々週から2週間近く格闘していた、\nextensibleにおける「レコードから指定したキーの要素を取り除いたレコードを返す関数」がようやくそれっぽい動きをするものが作れました。 :tada: \nみなさんのご協力のおかげです。 :bow:\n\n<https://gist.github.com/igrep/3e87871e900c98c0850a3b43b7cbff96>\nextensibleの使い方に各種GHC拡張の使い方など、ご指摘あればいただきたいです。\n特に <https://haskell-jp.slack.com/archives/C5666B6BB/p1526621270000191?thread_ts=1526606658.000243&amp;cid=C5666B6BB> で触れられている\n「Membershipが内部で持ってる位置をfilter後に移してやる必要があったりするんじゃないんですかね？」という指摘が若干気になります。\nこれからテストをいくつか書いてこちらでも確認してはみますが。"
+        },
+        "messageTs": "1527468647.000121",
+        "messageUser": {
+            "unUserId": "U4LGTMTMK"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@UAN607HTJ> has joined the channel"
+        },
+        "messageTs": "1526200988.000008",
+        "messageUser": {
+            "unUserId": "UAN607HTJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@UAMGYKUP5> has joined the channel"
+        },
+        "messageTs": "1525966757.000081",
+        "messageUser": {
+            "unUserId": "UAMGYKUP5"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "あ、これは失礼。完全に寝ぼけてました &gt; UnboxedVector"
+        },
+        "messageTs": "1524957511.000009",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "中に入るのが代数的データ型なんですよね。Maybe (Int8, Int8, Int8)みたいな構造なので、ビット演算でInt32に埋め込めばUnboxedも使えるかと思いますが、変換と逆変換のオーバーヘッドが気になるところです"
+        },
+        "messageTs": "1524947503.000061",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "代わりにUnboxedVectorを使用するのはだめでしょうか？\n<http://hackage.haskell.org/package/vector-0.12.0.1/docs/Data-Vector-Unboxed.html>"
+        },
+        "messageTs": "1524893061.000073",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "Data.Vectorにしたら逆に遅くなった（まあイミュータブルでやってるからしかたない）（IntMap、速いのな）"
+        },
+        "messageTs": "1524775857.000320",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "Data.IntMapにしたらかなり速くなりました"
+        },
+        "messageTs": "1524747312.000123",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "プロファイル取ってみましたが、んー、意外にもData.Mapがボトルネックになってしまっているみたいですねぇ"
+        },
+        "messageTs": "1524745094.000010",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "ReaderT (IORef s) IO aにしました。モナドという共通インターフェースのおかげでほとんど書き換える必要がなく楽でした"
+        },
+        "messageTs": "1524725729.000130",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U56PURX5H> has joined the channel"
+        },
+        "messageTs": "1524711408.000117",
+        "messageUser": {
+            "unUserId": "U56PURX5H"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "ありがとうございます。\n\n&gt; すべてはプロファイリングしてから考えましょう。\nたしかに。せっかくstack使っているんだから便利に使っていかねばですね\n\n依存関係は、自分で定義したモジュール同志の依存関係の意図でした（Internalという名前のついているものが非Internalにインポートされ、それが更に別のInternalなものにインポートされているなど）\n\n```ReaderT (IORef s) IO a``` の記事は私も目を通していました（「あっこれ直さなきゃ」ってなった）（とはいえ、現状のはデバッグ用のテストコードなので、そもそも全部書き直す可能性のほうが高そう）"
+        },
+        "messageTs": "1524530118.000142",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "さっと見て仕様を把握できませんでしたが何点か。\n&gt; 依存関係が面倒なことになっていることとか\n\n<https://github.com/sozysozbot/cerke/blob/0648daffb6100cb9652ec5f0476dc2eed1c7b830/cerkefs/package.yaml#L23-L26> を読んだ限り特に面倒な部分には見えませんが。。。\n\n&gt; 速度とかで改善できる点があるのかどうか\n\nすべてはプロファイリングしてから考えましょう。\n`stack test --profile` するだけでテスト時にプロファイリングまでしてくれるいい時代になりました。\n\nあと、このアプリケーションについては特に問題が起きていないのだろうし、急いで直す必要はないかと思いますが、 `StateT s IO a` はおすすめしません。例外が発生した際に状態を戻すすべがないからです。\n代わりに `ReaderT (IORef s) IO a` みたいな型で代用するのをおすすめします。\n\n最近はFPCompleteさんがそういう風に勧めています\n<https://www.fpcomplete.com/blog/2017/06/readert-design-pattern>"
+        },
+        "messageTs": "1524437943.000051",
+        "messageUser": {
+            "unUserId": "U4LGTMTMK"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U9U8B3LJV> has joined the channel"
+        },
+        "messageTs": "1524412920.000089",
+        "messageUser": {
+            "unUserId": "U9U8B3LJV"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "(すぐにやってみたい"
+        },
+        "messageTs": "1524218039.000197",
+        "messageUser": {
+            "unUserId": "U7Z4F723Z"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "会社の人にみてもらったら、ストリームよりfoldrの使い方が問題だといわれました。"
+        },
+        "messageTs": "1524218024.000198",
+        "messageUser": {
+            "unUserId": "U7Z4F723Z"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "stackを初めてちゃんと使ってみたんですが、予想以上に便利でしたという感想\n<https://github.com/sozysozbot/cerke/tree/master/cerkefs>\n気になっているのは、依存関係が面倒なことになっていることとか、速度とかで改善できる点があるのかどうか（`StateT` で `Lazy` の代わりに `Strict` 使っても速度に差はほとんどなかった） とかですね"
+        },
+        "messageTs": "1524214762.000222",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "なーんとなくですが`mapM_`を呼び出すたびに読み取ったファイルを全て評価しているのが原因だったきがします。"
+        },
+        "messageTs": "1524116925.000135",
+        "messageUser": {
+            "unUserId": "U7Z4F723Z"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "余談ですが、Philip Wadler氏に「Haskellを１からやり直すとしたらなにを変えますか」ってきいたら「遅延評価をなくす」っていってました。"
+        },
+        "messageTs": "1524115037.000159",
+        "messageUser": {
+            "unUserId": "U7Z4F723Z"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "69MB"
+        },
+        "messageTs": "1524113934.000009",
+        "messageUser": {
+            "unUserId": "U7Z4F723Z"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "その考えに沿ってMapもStrictにしたほうがいいと思って書き換えてみたらかなり消費が抑えられました。。\n```\nhiroto@hiroto-XPS-13-9360:~/haskell/cardano-diagnosis-program$ stack exec diagnosis \"/home/hiroto/Downloads/logs (6).zip\" -- +RTS -s\nRunning analysis on logs\nAnalysis done successfully!! See result-2018-04-19.html\n   2,011,567,408 bytes allocated in the heap\n     127,421,808 bytes copied during GC\n      26,902,264 bytes maximum residency (10 sample(s))\n         432,904 bytes maximum slop\n              69 MB total memory in use (0 MB lost due to fragmentation)\n\n                                     Tot time (elapsed)  Avg pause  Max pause\n  Gen  0      1893 colls,  1893 par    1.366s   0.185s     0.0001s    0.0090s\n  Gen  1        10 colls,     9 par    0.011s   0.001s     0.0001s    0.0003s\n\n  Parallel GC work balance: 5.20% (serial 0%, perfect 100%)\n\n  TASKS: 18 (1 bound, 17 peak workers (17 total), using -N8)\n\n  SPARKS: 0 (0 converted, 0 overflowed, 0 dud, 0 GC'd, 0 fizzled)\n\n  INIT    time    0.001s  (  0.001s elapsed)\n  MUT     time    0.742s  (  0.693s elapsed)\n  GC      time    1.376s  (  0.186s elapsed)\n  EXIT    time    0.002s  (  0.011s elapsed)\n  Total   time    2.121s  (  0.891s elapsed)\n\n  Alloc rate    2,710,634,667 bytes per MUT second\n\n  Productivity  35.1% of total user, 79.0% of total elapsed\n\ngc_alloc_block_sync: 17614\nwhitehole_spin: 0\ngen[0].sync: 3\ngen[1].sync: 334\n```"
+        },
+        "messageTs": "1524113919.000235",
+        "messageUser": {
+            "unUserId": "U7Z4F723Z"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "なるほど。lazyなStateだからスペースリークが起きていたと。。。こちらとしても勉強になります :smirk:"
+        },
+        "messageTs": "1524113729.000053",
+        "messageUser": {
+            "unUserId": "U4LGTMTMK"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "Stateの取り払いはすぐできそうなので、まずそれしますね。\n取り払ったら使用メモリもかなり減りました\n```\n   2,030,484,352 bytes allocated in the heap\n     552,951,344 bytes copied during GC\n     130,383,808 bytes maximum residency (10 sample(s))\n       2,306,112 bytes maximum slop\n             251 MB total memory in use (0 MB lost due to fragmentation)\n\n```"
+        },
+        "messageTs": "1524113588.000130",
+        "messageUser": {
+            "unUserId": "U7Z4F723Z"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "reactionがなかったので念のためもう一度貼り付けておきます。\n確認済みでしたらすみません。 :bow:\n<https://haskell-jp.slack.com/archives/C8KBGEBR7/p1524104464000235?thread_ts=1524038560.000043&amp;cid=C8KBGEBR7>"
+        },
+        "messageTs": "1524109788.000137",
+        "messageUser": {
+            "unUserId": "U4LGTMTMK"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "Windowsきついですよね。。\n英語版Windowsでユーザー名が日本語のユーザーを作成したらプロンプトが？？になってて「あ、これだめだ」って思いました。\n\nエラー処理はPR作成したので、まずテスト、そのあとストリームの実装に着手します。"
+        },
+        "messageTs": "1524107640.000130",
+        "messageUser": {
+            "unUserId": "U7Z4F723Z"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "で、気になる点にお答えしますと、\n&gt; 1. どのようなテストを行えばいいのかわかりません。（ダミーファイルを作ってそれをパースするとか？）\n詳しく見ないとなんともいえませんが、それが一番要求に近い部分をテストしているっぽいので、いいんじゃないでしょうか？\n&gt; 2. ログを解析する部分(`Classifier.hs`)が総当りに近いです...\nいい例はぱっと思いつきませんが、とりあえず今の実装でも十分にシンプル（ `State Analysis ()` をやめることでもっとシンプルになりますが）なのでよいのではないでしょうか。\n効率の観点で言えばもしかしたら <https://quasimal.com/posts/2018-01-08-prefix-tree-parsing.html> とかが使える、かもしれません（まだ実験的なライブラリーのようなので興味があったら、程度ですが）。\n\n&gt; とくにユーザー名に半角英数字以外を使用しているユーザーに対して動作するのか\n\nこれはほかはおそらく大丈夫ですが、Windowsでは結構厳しいでしょうね。。。\n残念ながら現状Haskellの日本語パスの扱いはWindowsではエラーが起こりやすかったように思います。"
+        },
+        "messageTs": "1524105279.000191",
+        "messageUser": {
+            "unUserId": "U4LGTMTMK"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "RTSオプションでメモリ制限をした場合に，かなり遅くなる場合は一般的にストリームライブラリを使うのがいいと思います．ガッと読んでガッと書き込むとGC無しの場合速い場合がありますが，GC込みの場合ちょびちょび読む(ストリーム処理)より遅いみたいなことがよくあるので，一旦試してみるのがいい気がします．"
+        },
+        "messageTs": "1524104920.000054",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<https://github.com/input-output-hk/cardano-diagnosis-program/blob/master/src/Classifier.hs> を読んだ感じ、無理に `State` を使う必要はないように感じます。\n少なくともトップレベルの型を見る限り、 `State Analysis ()` な型の関数しか見当たらないためです。\n素直に `Analysis -&gt; Analysis` な関数にすればよいのではないでしょうか。"
+        },
+        "messageTs": "1524104464.000235",
+        "messageUser": {
+            "unUserId": "U4LGTMTMK"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "```\nhiroto@hiroto-XPS-13-9360:~/haskell/cardano-diagnosis-program$ stack exec diagnosis \"/home/hiroto/Downloads/logs (6).zip\" -- +RTS -s\nRunning analysis on logs\nAnalysis done successfully!! See result-2018-04-19.html\n   2,031,484,272 bytes allocated in the heap\n     791,850,816 bytes copied during GC\n     189,980,952 bytes maximum residency (12 sample(s))\n       3,383,016 bytes maximum slop\n             433 MB total memory in use (0 MB lost due to fragmentation)\n\n                                     Tot time (elapsed)  Avg pause  Max pause\n  Gen  0      1910 colls,  1910 par    3.579s   0.844s     0.0004s    0.1591s\n  Gen  1        12 colls,    11 par    0.018s   0.004s     0.0004s    0.0012s\n\n  Parallel GC work balance: 5.67% (serial 0%, perfect 100%)\n\n  TASKS: 18 (1 bound, 17 peak workers (17 total), using -N8)\n\n  SPARKS: 0 (0 converted, 0 overflowed, 0 dud, 0 GC'd, 0 fizzled)\n\n  INIT    time    0.000s  (  0.001s elapsed)\n  MUT     time    0.716s  (  0.818s elapsed)\n  GC      time    3.597s  (  0.848s elapsed)\n  EXIT    time    0.000s  (  0.023s elapsed)\n  Total   time    4.313s  (  1.691s elapsed)\n\n  Alloc rate    2,839,001,278 bytes per MUT second\n\n  Productivity  16.6% of total user, 49.8% of total elapsed\n\ngc_alloc_block_sync: 18951\nwhitehole_spin: 0\ngen[0].sync: 0\ngen[1].sync: 7944\n```\nmizunashiさんの言うとおりGCにかなり時間を食ってました。\nこの場合はストリームライブラリなどを使ったほうがよいのでしょうか。"
+        },
+        "messageTs": "1524102511.000074",
+        "messageUser": {
+            "unUserId": "U7Z4F723Z"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "ご指摘ありがとうございます！\nベンチマークも実装してみます。\nログに関しては商用で利用されているCardano-slのログファイルがJSONではないため難しいと思います。。より解析しやすいフォーマットへの変更は現在検討しています。"
+        },
+        "messageTs": "1524091206.000201",
+        "messageUser": {
+            "unUserId": "U7Z4F723Z"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "それから，要件がどうなのかは分からないのですが，JSONログを吐けるならそっちを解析するといいのかなという感じがしました\n<https://github.com/input-output-hk/cardano-sl/blob/8d25c2ad3ca2354af8f8c43a2972d1b9a31bf440/lib/src/Pos/Client/CLI/NodeOptions.hs#L152>"
+        },
+        "messageTs": "1524068601.000189",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "あんまりよく読んでないので心証的な感じで申し訳ないんですが\n解析のパフォーマンスについては，どれぐらいの規模なのかよく分からないですが，複数ファイルを1回読み込んでしまうとメモリをかなり食ってGCの回数が増えるとかがあるのではないでしょうか？テストより先にプロファイリング用に余計な処理を省いたベンチマークを作ってみるのがいい気がしました"
+        },
+        "messageTs": "1524068406.000665",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U7Z4F723Z> uploaded a file: <https://haskell-jp.slack.com/files/U7Z4F723Z/FA9TKV40P/pub.zip|pub.zip> and commented: ログファイルのサンプル"
+        },
+        "messageTs": "1524051160.000068",
+        "messageUser": {
+            "unUserId": "U7Z4F723Z"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "ありがとうございます。その点に関しては僕も気になっていたのでさっそく取り組んでみます。"
+        },
+        "messageTs": "1524048568.000121",
+        "messageUser": {
+            "unUserId": "U7Z4F723Z"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "ちょっと覗いた程度ですが，1点だけ気になりました．\n<https://github.com/input-output-hk/cardano-diagnosis-program/blob/master/app/Main.hs#L38>\nの部分ですが，こういう場合throwIOを使われるのが好まれると思います．\n<https://mail.haskell.org/pipermail/libraries/2012-September/018410.html> のスレッドが参考になると思うのでどうぞ"
+        },
+        "messageTs": "1524041258.000279",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "ログファイルのサンプルあったほうがいいですよね。夜にアップロードします。"
+        },
+        "messageTs": "1524040265.000050",
+        "messageUser": {
+            "unUserId": "U7Z4F723Z"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "すごく簡素なプログラムですが、haskellで書きました。\nもしかしたらリリースされるかもしれません。（まだプロトタイプです）\nプログラムの目的、利用方法に関してはreadmeを読んでください。\n<https://github.com/input-output-hk/cardano-diagnosis-program>\n\n気になってる点:\n1. どのようなテストを行えばいいのかわかりません。（ダミーファイルを作ってそれをパースするとか？）\n2. ログを解析する部分(`Classifier.hs`)が総当りに近いです（`isInfixOf` を使って特定の文字をキャッチしています。）本当はregexやパーサーライブラリを使って解析したいのですが、１日かけても全く動きませんでした。これに関してなにか具体例みたいなものがあれば是非紹介して頂きたいです。。\n3. `LogExtractor`（ログファイルの有無を確認し、ある場合には読み込む）に関してOSごとにFilePathを指定する部分が若干不安です（とくにユーザー名に半角英数字以外を使用しているユーザーに対して動作するのか）\n\nその他気づいた点がありましたらお願いします。"
+        },
+        "messageTs": "1524038560.000043",
+        "messageUser": {
+            "unUserId": "U7Z4F723Z"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U5CQSLMRU> has joined the channel"
+        },
+        "messageTs": "1523499248.000187",
+        "messageUser": {
+            "unUserId": "U5CQSLMRU"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U5CSEFF7H> has joined the channel"
+        },
+        "messageTs": "1522803896.000278",
+        "messageUser": {
+            "unUserId": "U5CSEFF7H"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U9Z23SX61> has joined the channel"
+        },
+        "messageTs": "1522427498.000258",
+        "messageUser": {
+            "unUserId": "U9Z23SX61"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U9XB88DU3> has joined the channel"
+        },
+        "messageTs": "1522397929.000042",
+        "messageUser": {
+            "unUserId": "U9XB88DU3"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U7GSVRQ6S> has joined the channel"
+        },
+        "messageTs": "1521935264.000018",
+        "messageUser": {
+            "unUserId": "U7GSVRQ6S"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U57D08Z9U> has joined the channel"
+        },
+        "messageTs": "1521177102.000089",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U57D08Z9U> has left the channel"
+        },
+        "messageTs": "1521177090.000106",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "これだけでもこのチャンネル入って本当に良かった。ありがとうございます"
+        },
+        "messageTs": "1521174727.000086",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U57D08Z9U> さんに指摘された Cofree annotation 、本当に `IndexedCofree f a i` っていう型を作って出来るか試してみたら出来ました"
+        },
+        "messageTs": "1521174705.000115",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U7JEMP5SR> has joined the channel"
+        },
+        "messageTs": "1520941309.000196",
+        "messageUser": {
+            "unUserId": "U7JEMP5SR"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "ちょうど今 Data Types a la carte ベースでテンプレートエンジン作ってるから気になる\n後で見よう"
+        },
+        "messageTs": "1520933688.000201",
+        "messageUser": {
+            "unUserId": "U4L0B71L1"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<http://www.timphilipwilliams.com/posts/2013-01-16-fixing-gadts.html>\nここで解説されている「任意のデータ型をFunctorからもう一段階高階の抽象化をして、『Int型しか受け付けない（あるいは評価結果がそうなる）構文』とかをできるようにする」手法が別のワークショップでそのまま実装されていたっていうオチ"
+        },
+        "messageTs": "1520922759.000127",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "compdata ほう こんなものが"
+        },
+        "messageTs": "1520922053.000184",
+        "messageUser": {
+            "unUserId": "U4L0B71L1"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "やっとcompdataとData Types a la carte まで学習が進みました。 <http://hackage.haskell.org/package/compdata>"
+        },
+        "messageTs": "1520918707.000050",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U90881C13> has joined the channel"
+        },
+        "messageTs": "1520501034.000437",
+        "messageUser": {
+            "unUserId": "U90881C13"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U7V6G63LJ> has left the channel"
+        },
+        "messageTs": "1520006371.000517",
+        "messageUser": {
+            "unUserId": "U7V6G63LJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "せっかくProxyを作ったんだからそれを利用すればよかったんだなぁ"
+        },
+        "messageTs": "1519723541.000188",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "UndecidableInstances は意識的に入れたつもり無くて、StandaloneDerivingが使いたかっただけ、というパターンとかあります"
+        },
+        "messageTs": "1519720633.000270",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "書いてる途中でコンパイル一時的に通す為に入れたGHC拡張が残ったままになってたりするのか"
+        },
+        "messageTs": "1519720511.000094",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "はい，baseにあるので気兼ねなく使えますね．GHC 8からいつのまにか，MonadIOとかも入ってました\n<https://hackage.haskell.org/package/base-4.9.1.0/docs/Control-Monad-IO-Class.html>"
+        },
+        "messageTs": "1519719786.000150",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "あ、今はbaseに入ったのか…"
+        },
+        "messageTs": "1519719407.000167",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "Show1使ったことありませんでした… せっかくtransformers使ってんのに…"
+        },
+        "messageTs": "1519718434.000107",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "それから，<https://github.com/VoQn/cacco/blob/master/src/Cacco/Syntax/Parser/AST.hs#L131> の部分は， `GADTs` と `ScopedTypeVariables` 拡張を加えて，\n```\nastFix :: forall t (i :: AstIx). IxFunctor t =&gt; AstIxProxy i -&gt; AstIxFixParser t i\nastFix proxy d e p t = case proxy of\n    DeclProxy -&gt; d'\n    ExprProxy -&gt; e'\n    PattProxy -&gt; p'\n    TypeProxy -&gt; t'\n  where\n    astFix' :: (forall f. AstIxParser t f j) -&gt; Parser (IxFix t j)\n    astFix' f = In &lt;$&gt; f d' e' p' t'\n\n    d' = astFix' d\n    e' = astFix' e\n    p' = astFix' p\n    t' = astFix' t\n{-# INLINEABLE astFix #-}\n\nlocated :: forall f (i :: AstIx). AstIxParser AstF f i -&gt; AstIxParser (IxAnnF Location AstF) f i\nlocated f d e p t = IxAnnF &lt;$&gt; withLocation (f d e p t)\n{-# INLINE located #-}\n\nastParser :: AstIxProxy i -&gt; Parser (IxAnn Location AstF i)\nastParser proxy = astFix proxy\n  (located declAstF) (located exprAstF) (located pattAstF) (located typeAstF)\n\ndeclAst :: Parser (IxAnn Location AstF AstDecl)\ndeclAst = astParser DeclProxy\n{-# INLINEABLE declAst #-}\n\nexprAst :: Parser (IxAnn Location AstF AstExpr)\nexprAst = astParser ExprProxy\n{-# INLINEABLE exprAst #-}\n\npattAst :: Parser (IxAnn Location AstF AstPatt)\npattAst = astParser PattProxy\n{-# INLINEABLE pattAst #-}\n\ntypeAst :: Parser (IxAnn Location AstF AstType)\ntypeAst = astParser TypeProxy\n{-# INLINEABLE typeAst #-}\n```\nの感じで書くと，ボイラープレートが増えなくて良いかな？と思いました"
+        },
+        "messageTs": "1519717172.000094",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "それから，一部メッセージを良くunwordsして作ってる印象があったので，\n* <https://hackage.haskell.org/package/ansi-wl-pprint-0.6.8.1/docs/Text-PrettyPrint-ANSI-Leijen.html#t:Doc>\n* <https://hackage.haskell.org/package/pretty-1.1.3.6/docs/Text-PrettyPrint.html#t:Doc>\nみたいなのと相性が良さそうな気がしました．"
+        },
+        "messageTs": "1519715168.000214",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "これも好みの問題かもですが，\n* <https://github.com/VoQn/cacco/blob/master/src/Cacco/Syntax/AST.hs#L43> -&gt; `Data.Proxy.Proxy`\n* <https://github.com/VoQn/cacco/blob/master/src/Data/IxFix.hs#L31> -&gt; `Data.Functor.Const`\n* <https://github.com/VoQn/cacco/blob/master/src/Data/IxFix.hs#L35> -&gt; `Data.Functor.Identity`\n* <https://github.com/VoQn/cacco/blob/master/src/Cacco/Syntax/Expr.hs#L52> -&gt; `DeriveTraversable` で代用可能\nみたいなのを思いました"
+        },
+        "messageTs": "1519715013.000232",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "後，結構不要なところに `UndecidableInstances` が入ってる印象があるので，もし拡張のプラグマをコピペしてる感じだったらむしろ，cabalのdefault-extensionsを使って，モジュール別に必要な拡張だけモジュールごとに指定するのがいいかもしれません(<https://www.haskell.org/cabal/users-guide/developing-packages.html#pkg-field-default-extensions>)"
+        },
+        "messageTs": "1519713828.000099",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "多分逆にして， deriving Functor すればいい気がしますね"
+        },
+        "messageTs": "1519711708.000041",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "\"indexed\" なんだから、型の表記的にも i f  と続かせる方が正しいような気もしますね"
+        },
+        "messageTs": "1519711702.000232",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "あ、いや、たしかに逆にするだけで何とかなる？"
+        },
+        "messageTs": "1519711619.000238",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "そうなんですよ。普通のfmapが上手に利用できないというか、評価器を作るところで通常のdoなども利用できないので作りを見直して克服したいところなんです"
+        },
+        "messageTs": "1519711555.000048",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "後，個人的には `UndecidableInstances` は避けてる人なので，ちょっと余計なインスタンス宣言が増えますが， `deriving (Show (f (Fix f)) =&gt; ...` の部分は `deriving (Show1 f) =&gt; ...` で書く派なので，そこの部分も気になりました"
+        },
+        "messageTs": "1519711320.000014",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "ここが(おそらくnat transのtype sigを適用できるようにするためだと思うんですが)f i aの順になっていないために，ixを固定した時に既存のFunctorのAPIを使えないのは残念だなと思いました\n<https://github.com/VoQn/cacco/blob/master/src/Data/IxFix.hs#L76>"
+        },
+        "messageTs": "1519711018.000186",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "まぁ、 <#C8KBGEBR7|code-review> に貼ったぐらいなので何かアドバイスなり意見が欲しいので大丈夫です"
+        },
+        "messageTs": "1519709918.000079",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "これって，気になったとこ言っていい系なんでしょうか？"
+        },
+        "messageTs": "1519709576.000102",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "haskellの好きなところ、書き終わった後に「ぜってぇこれもっといいやり方がある」ってモチベ上がるところですね"
+        },
+        "messageTs": "1519705715.000104",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "できた"
+        },
+        "messageTs": "1519705552.000149",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<https://github.com/VoQn/cacco/blob/master/src/Cacco/Syntax/Parser/AST.hs>\nIxFIx を導入したASTのパーサが一応できました（IxCofree をインジェクションするのはまだ出来ていないので、純粋な構文木をパースするようになっています）"
+        },
+        "messageTs": "1519615487.000016",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "なるほど，実装見てみます．ありがとうございます．"
+        },
+        "messageTs": "1519126577.000089",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "実装が悪いとそうなりますが、extensibleは速いという評判を頂いています。ただ要素数が200くらいになってくるとコンパイルが遅くなる感じがあります。"
+        },
+        "messageTs": "1519125461.000111",
+        "messageUser": {
+            "unUserId": "U4KUNQF9N"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "型レベルリストってopen unionとかと同じように，sumするやつをリストに突っ込んでおいて，injectする時型レベルのmemberをするやつですか？あんまりよく知らないんですけど，それってかなりコンパイル時間がかかったり，型エラーがえぐくなったりしないですか？"
+        },
+        "messageTs": "1519125117.000205",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "あれは閉じた型族などがなかった時代の苦肉の策なので、今では型レベルリストと型族を活用すれば簡単に実現できます。 extensibleも型族を使っています <http://hackage.haskell.org/package/extensible-0.4.7.1/docs/Data-Extensible-Sum.html>"
+        },
+        "messageTs": "1519124416.000220",
+        "messageUser": {
+            "unUserId": "U4KUNQF9N"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U7907NMGF> has joined the channel"
+        },
+        "messageTs": "1519100550.000080",
+        "messageUser": {
+            "unUserId": "U7907NMGF"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "Ix＊ はまだ組み入れてないですね。ラムダ式や関数宣言とかの、AST内部の小分類が必要になってきたら組み込んでく予定です"
+        },
+        "messageTs": "1519091019.000057",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "VoQnさんので言うと， <https://github.com/VoQn/cacco/blob/master/src/Cacco/Ann.hs#L21> がまさにCofreeですね．(Indexed Fixはまだ導入してなさそう？)"
+        },
+        "messageTs": "1519046529.000403",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "cofree については全然知らなくって、「なんか VoQn さんのコードと似てる気がするけど知らない内に cofree 使ってるんだろうか？」という感じで提出したコードでした\nまさに\n&gt; まあこの辺はdata types a la carteと一緒で，それが併用できる所以なんですが\nというところで同じなのかなぁと勘違いしたようです\nただ cofree は好奇心を覚えるので説明は咀嚼してみます"
+        },
+        "messageTs": "1519044505.000187",
+        "messageUser": {
+            "unUserId": "U4L0B71L1"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "あ，あとこれって，その他(cofree使うか以外で)の感想待ちだったりしますか？"
+        },
+        "messageTs": "1519043350.000010",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "(ところで，僕もあまり詳しく無いのですが，Data types a la carteの結構すぐにoverlappingする問題って，みんなどうやって解決してるんですかね？)"
+        },
+        "messageTs": "1519041318.000139",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "今回の場合，特に注釈情報は必要なさそうに見えるので(?)，cofreeを導入する必要はなさそうに見えます"
+        },
+        "messageTs": "1519040971.000259",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "ただこのcofree annotatingは，multipleなデータに対して弱くって， <https://stackoverflow.com/questions/38462563/how-to-work-with-ast-with-cofree-annotation> とか <@U98QDF5EJ> さんが使っていたIndexed functorでそれをうまく扱えるようにするというのが度々話題に上がっています"
+        },
+        "messageTs": "1519040908.000416",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "で，通常はこれをFix f = f (Fix f)という原始的なオペレータでfixするんですが，Cofree f a = (a, f (Cofree f a))というオペレータでfixすることで，再帰する箇所全てに後から任意の注釈を埋め込めるようにできるというのがcofree annotatingと言われる手法ですね"
+        },
+        "messageTs": "1519040707.000109",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "で，実際にどのようにcofree annotationが解決するかなのですが，ASTを以下のようにrecursion schemeのBaseで定義しておきます．\ndata ExprF e = ValF Int | AddF e e\n(ここでeは元のaと関係なく，再帰する箇所を表します．まあこの辺はdata types a la carteと一緒で，それが併用できる所以なんですが)"
+        },
+        "messageTs": "1519040602.000160",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "data types a la carteもcofree annotationもデータ型をopenにするという方向では一緒なのですが，それぞれ方向性はdata types a la carteはsumに対してのopen性，cofree annotationはrecursion schemeに関してのopen性みたいな感じで異なるのでそこらへんは注意です(まあ結果的に，これらを併用することが可能なのですが)"
+        },
+        "messageTs": "1519040439.000321",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "まず，cofree annotationを使う動機から説明すると，構文木を扱う際各木に注釈情報を埋め込みたい時があって(例えば，パース時のソースコード上の位置や，型情報など)，このような情報はコンパイル時どんどん変遷していくため，決めうちじゃなくて何らかの型変数にしておきたいということがあります．\n\nただ，これを単純に実現すると，\ndata Expr a = Val Int a | Add (Expr a) (Expr a) a\nというように注釈情報を埋め込みたい場所に一々型変数を書かなければいけません．これを何とかしたいというのが動機です"
+        },
+        "messageTs": "1519040276.000106",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "いろいろ説明不足ですみません。\nこのコード（今型検査にこけるんですが）は、Liquid 用の AST を実行するもので、Jekyll で採用されてたりするんですが、Jekyll 方言があってそれをベース方言のインタープリターをいじらずに拡張できるようにしたいというものです。\nで、そのベース方言部分です。"
+        },
+        "messageTs": "1519040250.000084",
+        "messageUser": {
+            "unUserId": "U4L0B71L1"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "結論としては，(まだちょっと把握できてない部分もあるんですが)見た感じCofree annotationを使う意義は無さそうと言う感じです\n<https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1519027141000214?thread_ts=1518659662.000031&amp;cid=C4M4TT8JJ>"
+        },
+        "messageTs": "1519039771.000173",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U979PBETG> has joined the channel"
+        },
+        "messageTs": "1518881120.000038",
+        "messageUser": {
+            "unUserId": "U979PBETG"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U56S4UVTL> has joined the channel"
+        },
+        "messageTs": "1518672173.000092",
+        "messageUser": {
+            "unUserId": "U56S4UVTL"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "stack-work に残ってキャッシュが相当古くて、tasty-discover の CLI option の --tree-display を受け付けなかったんですよね。また、0.1x 系から 1.0 系になったという事で、できればメジャーバージョンに上げとこうっていうぐらいでした。"
+        },
+        "messageTs": "1518651769.000252",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U4M598NHM> has joined the channel"
+        },
+        "messageTs": "1518630673.000597",
+        "messageUser": {
+            "unUserId": "U4M598NHM"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "ちなみに、stack.yaml で tasty-1.0 を指定してるんですけど、その前となんか大きく変わったんですか？"
+        },
+        "messageTs": "1518617286.000579",
+        "messageUser": {
+            "unUserId": "U56L7EVNY"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "typo周りは指摘まじありがたいです！英語力もアレなので 圧倒的感謝"
+        },
+        "messageTs": "1518614796.000116",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "\"block comment is keeping\" では意味が通らない、などもありますが、眠いので寝て起きてからにします"
+        },
+        "messageTs": "1518611996.000250",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "枝葉末節なんですが、綴りにいくつか誤りを見つけたのでプルリクを投げました"
+        },
+        "messageTs": "1518611568.000296",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "IEEE 754-2008 binary16 (16bit float) にプリミティブで対応しているのは、遠い目標にwasm経由して直にWebGLのシェーダーにアクセスする為とかですね"
+        },
+        "messageTs": "1518587922.000188",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<https://github.com/VoQn/cacco/commit/0cb416ca3ea05fe8f8ef746908d61d8f35c059a3>\n10進数の浮動小数点リテラルのstrict-type-literal 対応した"
+        },
+        "messageTs": "1518587787.000028",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "モチベの拠り所がユーザーフレンドリーなリテラル持ってる言語を、っていう感じなので"
+        },
+        "messageTs": "1518584596.000224",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "こういうの便利そう\n<https://github.com/VoQn/cacco/blob/master/doc/basics.asciidoc#strict-type-literals>"
+        },
+        "messageTs": "1518582411.000119",
+        "messageUser": {
+            "unUserId": "U56L7EVNY"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "（ウォッチャーがLisperとOcamlerだからっていう理由で）"
+        },
+        "messageTs": "1518582116.000180",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<https://github.com/VoQn/cacco/blob/master/src/Cacco/Lexer.hs>\n趣味で言語作ってるんだけど、「not haskeller の人が見ても分かるように」っていう意識で書いている"
+        },
+        "messageTs": "1518582062.000064",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "コード晒してよかですか"
+        },
+        "messageTs": "1518581958.000081",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U5L06DM55> has joined the channel"
+        },
+        "messageTs": "1518506969.000069",
+        "messageUser": {
+            "unUserId": "U5L06DM55"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U4L0B71L1> has joined the channel"
+        },
+        "messageTs": "1518486717.000131",
+        "messageUser": {
+            "unUserId": "U4L0B71L1"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U98QDF5EJ> has joined the channel"
+        },
+        "messageTs": "1518479890.000198",
+        "messageUser": {
+            "unUserId": "U98QDF5EJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U8X01G6FJ> has left the channel"
+        },
+        "messageTs": "1517459360.000007",
+        "messageUser": {
+            "unUserId": "U8X01G6FJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U91F1FSJH> has joined the channel"
+        },
+        "messageTs": "1517378641.000047",
+        "messageUser": {
+            "unUserId": "U91F1FSJH"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U8X01G6FJ> has joined the channel"
+        },
+        "messageTs": "1517280334.000039",
+        "messageUser": {
+            "unUserId": "U8X01G6FJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U8XGRJ3DZ> has joined the channel"
+        },
+        "messageTs": "1517243690.000318",
+        "messageUser": {
+            "unUserId": "U8XGRJ3DZ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U8ZBMSPPB> has joined the channel"
+        },
+        "messageTs": "1517175500.000077",
+        "messageUser": {
+            "unUserId": "U8ZBMSPPB"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U8YBE1TTM> has joined the channel"
+        },
+        "messageTs": "1516877539.000358",
+        "messageUser": {
+            "unUserId": "U8YBE1TTM"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U8P5W7YP6> has joined the channel"
+        },
+        "messageTs": "1516599341.000093",
+        "messageUser": {
+            "unUserId": "U8P5W7YP6"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U8VEALRHT> has joined the channel"
+        },
+        "messageTs": "1516342727.000080",
+        "messageUser": {
+            "unUserId": "U8VEALRHT"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U4MAYDV9C> has joined the channel"
+        },
+        "messageTs": "1516066970.000182",
+        "messageUser": {
+            "unUserId": "U4MAYDV9C"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U7V6G63LJ> has joined the channel"
+        },
+        "messageTs": "1516066480.000103",
+        "messageUser": {
+            "unUserId": "U7V6G63LJ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U4M78PX5K> has joined the channel"
+        },
+        "messageTs": "1515485894.000101",
+        "messageUser": {
+            "unUserId": "U4M78PX5K"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U7KC05QBH> has joined the channel"
+        },
+        "messageTs": "1515478518.000264",
+        "messageUser": {
+            "unUserId": "U7KC05QBH"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U4LEB9UP4> has joined the channel"
+        },
+        "messageTs": "1515413697.000236",
+        "messageUser": {
+            "unUserId": "U4LEB9UP4"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U56MX93K7> has joined the channel"
+        },
+        "messageTs": "1515337272.000069",
+        "messageUser": {
+            "unUserId": "U56MX93K7"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U8CJWHF0E> has joined the channel"
+        },
+        "messageTs": "1515072380.000033",
+        "messageUser": {
+            "unUserId": "U8CJWHF0E"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U8LLBJ59Q> has joined the channel"
+        },
+        "messageTs": "1514967806.000019",
+        "messageUser": {
+            "unUserId": "U8LLBJ59Q"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U561MADLH> has joined the channel"
+        },
+        "messageTs": "1514912836.000313",
+        "messageUser": {
+            "unUserId": "U561MADLH"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U826HT001> has joined the channel"
+        },
+        "messageTs": "1514792176.000008",
+        "messageUser": {
+            "unUserId": "U826HT001"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U4M5LDXK9> has joined the channel"
+        },
+        "messageTs": "1514602199.000054",
+        "messageUser": {
+            "unUserId": "U4M5LDXK9"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U561JUTB3> has joined the channel"
+        },
+        "messageTs": "1514546046.000131",
+        "messageUser": {
+            "unUserId": "U561JUTB3"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U6BUS25MX> has joined the channel"
+        },
+        "messageTs": "1514532873.000055",
+        "messageUser": {
+            "unUserId": "U6BUS25MX"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U55UN00G0> has joined the channel"
+        },
+        "messageTs": "1514511149.000030",
+        "messageUser": {
+            "unUserId": "U55UN00G0"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U57HJTUTY> has joined the channel"
+        },
+        "messageTs": "1514474278.000284",
+        "messageUser": {
+            "unUserId": "U57HJTUTY"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U4M9NJ7QE> has joined the channel"
+        },
+        "messageTs": "1514472395.000039",
+        "messageUser": {
+            "unUserId": "U4M9NJ7QE"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U560KD6DN> has joined the channel"
+        },
+        "messageTs": "1514471749.000236",
+        "messageUser": {
+            "unUserId": "U560KD6DN"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U5P0CRDSP> has joined the channel"
+        },
+        "messageTs": "1514470848.000017",
+        "messageUser": {
+            "unUserId": "U5P0CRDSP"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U4MA78F6X> has joined the channel"
+        },
+        "messageTs": "1514469274.000255",
+        "messageUser": {
+            "unUserId": "U4MA78F6X"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U578W9676> has joined the channel"
+        },
+        "messageTs": "1514467479.000304",
+        "messageUser": {
+            "unUserId": "U578W9676"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U5LEE6C1J> has joined the channel"
+        },
+        "messageTs": "1514467275.000127",
+        "messageUser": {
+            "unUserId": "U5LEE6C1J"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U4KUNQF9N> has joined the channel"
+        },
+        "messageTs": "1514455463.000158",
+        "messageUser": {
+            "unUserId": "U4KUNQF9N"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U7XC5U1RR> has joined the channel"
+        },
+        "messageTs": "1514455019.000054",
+        "messageUser": {
+            "unUserId": "U7XC5U1RR"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "ありがとうございます（使ってみました）\n<https://github.com/sozysozbot/akrantiain2/commit/83d4bf5f2e41cb82f03b24d14e09e745371a7b25>"
+        },
+        "messageTs": "1514454144.000196",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U4KU9ABL0> has joined the channel"
+        },
+        "messageTs": "1514452657.000083",
+        "messageUser": {
+            "unUserId": "U4KU9ABL0"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "こんなものがあるのか…（すごい）（めっさ便利だなこれ）"
+        },
+        "messageTs": "1514452511.000176",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<https://github.com/sozysozbot/akrantiain2/blob/f1b741b11cea585f72ba2ce6c68cdf9411fa172e/Akrantiain/Sents_to_func.hs#L50>\nこういう書き方をしたくなるならもしかして `RecordWildCards` とか `NamedFieldPuns` とかがお好みかも。"
+        },
+        "messageTs": "1514452286.000134",
+        "messageUser": {
+            "unUserId": "U4LGTMTMK"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U4LGTMTMK> pinned a message to this channel."
+        },
+        "messageTs": "1514452105.000218",
+        "messageUser": {
+            "unUserId": "U4LGTMTMK"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U5ANNFMNZ> has joined the channel"
+        },
+        "messageTs": "1514451822.000025",
+        "messageUser": {
+            "unUserId": "U5ANNFMNZ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "ついでに，さっきのやつだとghr(github release)でバイナリをGitHubにアップロードしてくれるっぽいですね"
+        },
+        "messageTs": "1514450575.000127",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U57CGDBMG> has joined the channel"
+        },
+        "messageTs": "1514450561.000144",
+        "messageUser": {
+            "unUserId": "U57CGDBMG"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "CircleCI + stackで単純にやるならcircle.ymlはこれだけでいけるはずです。\n<https://github.com/igrep/typesafe-precure/blob/master/circle.yml>"
+        },
+        "messageTs": "1514450409.000181",
+        "messageUser": {
+            "unUserId": "U4LGTMTMK"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "まず stack しよう"
+        },
+        "messageTs": "1514450276.000061",
+        "messageUser": {
+            "unUserId": "U56L7EVNY"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "CircleCIとか最初からstackが入っていたりしますしね。"
+        },
+        "messageTs": "1514450216.000072",
+        "messageUser": {
+            "unUserId": "U4LGTMTMK"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "とりあえずまずはstackとHUnitを導入してから、といった感じですかね"
+        },
+        "messageTs": "1514450210.000084",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "Cabalパッケージ化は結構いろんな副作用があって，Cabalパッケージ化されたプロジェクトにstackを導入するのは結構楽なので，stackを導入するとこう言うのがそのまま使えます\n<https://github.com/ChrisPenner/haskell-stack-travis-ci>"
+        },
+        "messageTs": "1514450148.000079",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "5月あたりにTravis CIを導入しようとして失敗し、そのまま放置してしまっています"
+        },
+        "messageTs": "1514449831.000076",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U5G3PL5EZ> has joined the channel"
+        },
+        "messageTs": "1514449363.000260",
+        "messageUser": {
+            "unUserId": "U5G3PL5EZ"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U5ZB2ATN2> has joined the channel"
+        },
+        "messageTs": "1514449361.000179",
+        "messageUser": {
+            "unUserId": "U5ZB2ATN2"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "Hello. I am slacknowledge bot.\nWhen a thread is added a :memo: (memo) reaction, I will save it.\nEveryone can view the saved thread at <https://slacknowledge.pig-brewing.com> ."
+        },
+        "messageTs": "1514449356.000148",
+        "messageUser": {
+            "unUserId": "U8HK4CEVB"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U8HK4CEVB> has joined the channel"
+        },
+        "messageTs": "1514449356.000066",
+        "messageUser": {
+            "unUserId": "U8HK4CEVB"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U4KPPQW7K> has joined the channel"
+        },
+        "messageTs": "1514449224.000118",
+        "messageUser": {
+            "unUserId": "U4KPPQW7K"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U7Z4F723Z> has joined the channel"
+        },
+        "messageTs": "1514449074.000128",
+        "messageUser": {
+            "unUserId": "U7Z4F723Z"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "お題"
+        },
+        "messageTs": "1514449045.000054",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U56S6UK28> has joined the channel"
+        },
+        "messageTs": "1514449012.000121",
+        "messageUser": {
+            "unUserId": "U56S6UK28"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U4LGTMTMK> set the channel topic: 現在のお題 <https://github.com/sozysozbot/akrantiain2>"
+        },
+        "messageTs": "1514448999.000136",
+        "messageUser": {
+            "unUserId": "U4LGTMTMK"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "Reddit を見てる人は多いと思いますけど、コメントするのにアカウント要るから....まぁいいかってなりそう"
+        },
+        "messageTs": "1514448778.000021",
+        "messageUser": {
+            "unUserId": "U56L7EVNY"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "(わーい)"
+        },
+        "messageTs": "1514448741.000099",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "(このチャンネルの purpose が素敵)"
+        },
+        "messageTs": "1514448729.000200",
+        "messageUser": {
+            "unUserId": "U56L7EVNY"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "そもそも見てる人が少ない感じですしね。。。 :disappointed:"
+        },
+        "messageTs": "1514448717.000041",
+        "messageUser": {
+            "unUserId": "U4LGTMTMK"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "reddit だとあんま回答貰えない印象"
+        },
+        "messageTs": "1514448697.000239",
+        "messageUser": {
+            "unUserId": "U56L7EVNY"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "まぁ、慣れた方を使った方がいいと思います。 :wink:"
+        },
+        "messageTs": "1514448672.000038",
+        "messageUser": {
+            "unUserId": "U4LGTMTMK"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U56L7EVNY> has joined the channel"
+        },
+        "messageTs": "1514448631.000010",
+        "messageUser": {
+            "unUserId": "U56L7EVNY"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "たしかに（Redditよくわからない顔）"
+        },
+        "messageTs": "1514448605.000210",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": ".oO(話題があっちこっちに飛びがちなんでどっちかというとReddit向けのお話のような気もしますけど。。。 :sweat: まぁいいか。）"
+        },
+        "messageTs": "1514448572.000128",
+        "messageUser": {
+            "unUserId": "U4LGTMTMK"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": ""
+        },
+        "messageTs": "1514448481.000118",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U5G2BCVBN> has joined the channel"
+        },
+        "messageTs": "1514448205.000173",
+        "messageUser": {
+            "unUserId": "U5G2BCVBN"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U74KTAG0N> has joined the channel"
+        },
+        "messageTs": "1514448156.000023",
+        "messageUser": {
+            "unUserId": "U74KTAG0N"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U570660KX> has joined the channel"
+        },
+        "messageTs": "1514448139.000004",
+        "messageUser": {
+            "unUserId": "U570660KX"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U57D08Z9U> has joined the channel"
+        },
+        "messageTs": "1514448100.000014",
+        "messageUser": {
+            "unUserId": "U57D08Z9U"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U4LGTMTMK> has joined the channel"
+        },
+        "messageTs": "1514448083.000030",
+        "messageUser": {
+            "unUserId": "U4LGTMTMK"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U8EJKMNVA> set the channel purpose: 既に書いたコードをプロたちに添削して頂く"
+        },
+        "messageTs": "1514448055.000022",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    },
+    {
+        "messageType": "message",
+        "messageText": {
+            "unSlackMessageText": "<@U8EJKMNVA> has joined the channel"
+        },
+        "messageTs": "1514448054.000082",
+        "messageUser": {
+            "unUserId": "U8EJKMNVA"
+        }
+    }
+]
