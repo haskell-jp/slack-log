@@ -1,13 +1,25 @@
 [
     {
-        "ts": "1531475838.000023",
-        "text": "`constraints-emerge` のプラグインも試してみましたが、呼び出し元に `Emerge` 制約が伝播していくのが気になるので見送りました。",
-        "user": "U4LNDESN8",
+        "ts": "1531451091.000167",
+        "text": "OVERLAPSプラグマを使えば近い事は可能です。ただし、型クラス制約が増えただけではOVERLAPSにできる条件「より具体的なインスタンス」を満たさないので、オーバーラップさせる型は個別に指定する必要があります。\n\n```\n{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances, ScopedTypeVariables #-}\n\nimport <http://Data.Int|Data.Int>\n\nclass FromIntegralNormalized i a where\n  fromIntegralNormalized :: i -&gt; a\n\nboundedToFloating :: forall i a. (Integral i, Bounded i, Num a, Floating a) =&gt; i -&gt; a\nboundedToFloating = (/ fromIntegral (maxBound :: i)) . fromIntegral\n\ninstance {-# OVERLAPS #-} (Integral i, Bounded i) =&gt; FromIntegralNormalized i Float where\n  fromIntegralNormalized = boundedToFloating\n\ninstance {-# OVERLAPS #-} (Integral i, Bounded i) =&gt; FromIntegralNormalized i Double where\n  fromIntegralNormalized = boundedToFloating\n\ninstance (Integral i, Num a) =&gt; FromIntegralNormalized i a where\n  fromIntegralNormalized = fromIntegral\n\nmain = do\n  print (fromIntegralNormalized (64 :: Int8) :: Int)\n  print (fromIntegralNormalized (64 :: Int8) :: Float)\n  print (fromIntegralNormalized (64 :: Int8) :: Double)\n```",
+        "user": "U570660KX",
         "type": "message"
     },
     {
-        "ts": "1531475644.000071",
-        "text": "正攻法で GADTs を使う方法でやることにして、こんな感じになりました。\n\n```\ndata Normalizing i a where\n  NonNormalized :: Normalizing i a\n  Normalized :: (Bounded i, Fractional a) =&gt; Normalizing i a\n\nfromIntegral' :: forall i a. (Integral i, Num a) =&gt; Normalizing i a -&gt; i -&gt; a\nfromIntegral' NonNormalized = fromIntegral\nfromIntegral' Normalized    = (/ fromIntegral (maxBound :: i)) . fromIntegral\n```",
+        "ts": "1531452292.000003",
+        "text": "なるほど、この辺は手で書くしかないんですね。ありがとうございます。",
+        "user": "UADFT2WQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1531452332.000014",
+        "text": "この記事は両方ともとても参考になります!ありがとうございます。",
+        "user": "UADFT2WQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1531453992.000113",
+        "text": "<@U57D08Z9U> <@U570660KX> ありがとうございます！やってみます！",
         "user": "U4LNDESN8",
         "type": "message"
     },
@@ -18,27 +30,15 @@
         "type": "message"
     },
     {
-        "ts": "1531453992.000113",
-        "text": "<@U57D08Z9U> <@U570660KX> ありがとうございます！やってみます！",
+        "ts": "1531475644.000071",
+        "text": "正攻法で GADTs を使う方法でやることにして、こんな感じになりました。\n\n```\ndata Normalizing i a where\n  NonNormalized :: Normalizing i a\n  Normalized :: (Bounded i, Fractional a) =&gt; Normalizing i a\n\nfromIntegral' :: forall i a. (Integral i, Num a) =&gt; Normalizing i a -&gt; i -&gt; a\nfromIntegral' NonNormalized = fromIntegral\nfromIntegral' Normalized    = (/ fromIntegral (maxBound :: i)) . fromIntegral\n```",
         "user": "U4LNDESN8",
         "type": "message"
     },
     {
-        "ts": "1531452332.000014",
-        "text": "この記事は両方ともとても参考になります!ありがとうございます。",
-        "user": "UADFT2WQ6",
-        "type": "message"
-    },
-    {
-        "ts": "1531452292.000003",
-        "text": "なるほど、この辺は手で書くしかないんですね。ありがとうございます。",
-        "user": "UADFT2WQ6",
-        "type": "message"
-    },
-    {
-        "ts": "1531451091.000167",
-        "text": "OVERLAPSプラグマを使えば近い事は可能です。ただし、型クラス制約が増えただけではOVERLAPSにできる条件「より具体的なインスタンス」を満たさないので、オーバーラップさせる型は個別に指定する必要があります。\n\n```\n{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances, ScopedTypeVariables #-}\n\nimport <http://Data.Int|Data.Int>\n\nclass FromIntegralNormalized i a where\n  fromIntegralNormalized :: i -&gt; a\n\nboundedToFloating :: forall i a. (Integral i, Bounded i, Num a, Floating a) =&gt; i -&gt; a\nboundedToFloating = (/ fromIntegral (maxBound :: i)) . fromIntegral\n\ninstance {-# OVERLAPS #-} (Integral i, Bounded i) =&gt; FromIntegralNormalized i Float where\n  fromIntegralNormalized = boundedToFloating\n\ninstance {-# OVERLAPS #-} (Integral i, Bounded i) =&gt; FromIntegralNormalized i Double where\n  fromIntegralNormalized = boundedToFloating\n\ninstance (Integral i, Num a) =&gt; FromIntegralNormalized i a where\n  fromIntegralNormalized = fromIntegral\n\nmain = do\n  print (fromIntegralNormalized (64 :: Int8) :: Int)\n  print (fromIntegralNormalized (64 :: Int8) :: Float)\n  print (fromIntegralNormalized (64 :: Int8) :: Double)\n```",
-        "user": "U570660KX",
+        "ts": "1531475838.000023",
+        "text": "`constraints-emerge` のプラグインも試してみましたが、呼び出し元に `Emerge` 制約が伝播していくのが気になるので見送りました。",
+        "user": "U4LNDESN8",
         "type": "message"
     }
 ]

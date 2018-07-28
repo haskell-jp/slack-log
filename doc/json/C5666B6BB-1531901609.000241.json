@@ -1,25 +1,7 @@
 [
     {
-        "ts": "1531901609.000241",
-        "text": "しかし疑問なのですが[Data\\.Csv](<https://hackage.haskell.org/package/cassava-0.5.1.0/docs/Data-Csv.html#t:ToField>)が `Identity` のインスタンスを持たず、 `extensible` のソースでもインスタンスを作っていないように見えるですがどういう仕組みなんでしょう",
-        "user": "U7155GPR9",
-        "type": "message"
-    },
-    {
-        "ts": "1531901547.000342",
-        "text": "行けました！\n```\nderiving instance ToFormKey a =&gt; ToFormKey (Identity a)\n```\n追加したら動くました。ありがとうございます！",
-        "user": "U7155GPR9",
-        "type": "message"
-    },
-    {
-        "ts": "1531898615.000002",
-        "text": "Identityのインスタンスも作る必要があります。また、GeneralisedNewtypeDerivingが本当に有効になっているかもう一度確認してみてください。PolyKindsもおそらく必要です",
-        "user": "U4KUNQF9N",
-        "type": "message"
-    },
-    {
-        "ts": "1531897614.000181",
-        "text": "1個前の発言は、なんかレコード構文のGenericな導出とごっちゃになって `instance ToForm HogeType` とやってみたけどダメでした",
+        "ts": "1531895102.000157",
+        "text": "とりあえず\n```\ninstance ToFormKey (h (AssocValue kv)) =&gt; ToFormKey (Field h kv) where\n  ToFormKey = undefined\n```\nとして適当な `Record` を作り `toForm` してみたのですが\n```\n   • No instance for (ToFormKey (Identity Text))\n        arising from a use of ‘toForm’\n ```\nと出てしまいます。また、 `extensible` のソース見ながら\n```\nderiving instance ToFormKey (h (AssocValue kv)) =&gt; ToFormKey (Field h kv)\n```\nとしたところで\n```\n  • Can't make a derived instance of ‘ToFormKey (Field h kv)’:\n        ‘ToFormKey’ is not a standard derivable class (Eq, Show, etc.)\n        Try GeneralizedNewtypeDeriving for GHC's newtype-deriving extension\n  ```\nと出たのでコンパイラに従い拡張を入れたところでも同様のエラーが出ました",
         "user": "U7155GPR9",
         "type": "message"
     },
@@ -30,8 +12,26 @@
         "type": "message"
     },
     {
-        "ts": "1531895102.000157",
-        "text": "とりあえず\n```\ninstance ToFormKey (h (AssocValue kv)) =&gt; ToFormKey (Field h kv) where\n  ToFormKey = undefined\n```\nとして適当な `Record` を作り `toForm` してみたのですが\n```\n   • No instance for (ToFormKey (Identity Text))\n        arising from a use of ‘toForm’\n ```\nと出てしまいます。また、 `extensible` のソース見ながら\n```\nderiving instance ToFormKey (h (AssocValue kv)) =&gt; ToFormKey (Field h kv)\n```\nとしたところで\n```\n  • Can't make a derived instance of ‘ToFormKey (Field h kv)’:\n        ‘ToFormKey’ is not a standard derivable class (Eq, Show, etc.)\n        Try GeneralizedNewtypeDeriving for GHC's newtype-deriving extension\n  ```\nと出たのでコンパイラに従い拡張を入れたところでも同様のエラーが出ました",
+        "ts": "1531897614.000181",
+        "text": "1個前の発言は、なんかレコード構文のGenericな導出とごっちゃになって `instance ToForm HogeType` とやってみたけどダメでした",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531898615.000002",
+        "text": "Identityのインスタンスも作る必要があります。また、GeneralisedNewtypeDerivingが本当に有効になっているかもう一度確認してみてください。PolyKindsもおそらく必要です",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1531901547.000342",
+        "text": "行けました！\n```\nderiving instance ToFormKey a =&gt; ToFormKey (Identity a)\n```\n追加したら動くました。ありがとうございます！",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531901609.000241",
+        "text": "しかし疑問なのですが[Data\\.Csv](<https://hackage.haskell.org/package/cassava-0.5.1.0/docs/Data-Csv.html#t:ToField>)が `Identity` のインスタンスを持たず、 `extensible` のソースでもインスタンスを作っていないように見えるですがどういう仕組みなんでしょう",
         "user": "U7155GPR9",
         "type": "message"
     }

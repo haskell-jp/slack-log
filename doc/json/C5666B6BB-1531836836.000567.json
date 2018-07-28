@@ -1,49 +1,7 @@
 [
     {
-        "ts": "1531836836.000567",
-        "text": "こんな風に Instance1 でいっきにやるには `Field h kv` のインスタンスも必要なので、 `instance ToFormKey (h (AssocValue kv)) =&gt; ToFormKey (Field h kv)` も定義すると通ると思います",
-        "user": "U56L7EVNY",
-        "type": "message"
-    },
-    {
-        "ts": "1531836654.000106",
-        "text": "です",
-        "user": "U7155GPR9",
-        "type": "message"
-    },
-    {
-        "ts": "1531836474.000076",
-        "text": "おそらくですけど\nToJson のインスタンスとかを参考にしたと思うんですが <https://hackage.haskell.org/package/extensible-0.4.10/docs/src/Data.Extensible.Dictionary.html#line-216>",
-        "user": "U56L7EVNY",
-        "type": "message"
-    },
-    {
-        "ts": "1531835050.000353",
-        "text": "あ、stack lts-9.12です",
-        "user": "U7155GPR9",
-        "type": "message"
-    },
-    {
-        "ts": "1531834207.000248",
-        "text": "何回も申し訳ありませんが質問です。 `Data.Extensible` のレコードから `Web.Internal.FormUrlEncoded` の `Form` に変換する以下のようなコードで\n```\n{-# LANGUAGE AllowAmbiguousTypes         #-}\n{-# LANGUAGE DataKinds         #-}\n{-# LANGUAGE FlexibleContexts         #-}\n{-# LANGUAGE FlexibleInstances         #-}\n{-# LANGUAGE MultiParamTypeClasses         #-}\n{-# LANGUAGE OverloadedStrings         #-}\n{-# LANGUAGE ScopedTypeVariables         #-}\n{-# LANGUAGE TypeOperators     #-}\n{-# LANGUAGE UndecidableInstances     #-}\n{-# LANGUAGE UndecidableSuperClasses #-}\n\n\nmodule Hrafnar.Service.Common\n  ( AwaitRequest\n  , Server\n  ) where\n\nimport           Data.Extensible\nimport           Data.HashMap.Strict as HM\nimport           GHC.TypeLits\nimport           Web.Internal.FormUrlEncoded\n\ninstance Forall (KeyValue KnownSymbol (Instance1 ToFormKey h)) xs =&gt; ToForm (Field h :* xs) where\n  toForm = Form . hfoldlWithIndexFor\n    (Proxy :: Proxy (KeyValue KnownSymbol (Instance1 ToFormKey h)))\n    (\\k m v -&gt; HM.insert (toFormKey $ symbolVal $ proxyAssocKey k)  [toFormKey v] m)\n    HM.empty\n```\nとしたのですがどうしても\n```\n    • Could not deduce (ToFormKey (Field h x))\n        arising from a use of ‘toFormKey’\n      from the context: Forall\n                          (KeyValue KnownSymbol (Instance1 ToFormKey h)) xs\n        bound by the instance declaration\n        at src/Hrafnar/Service/Common.hs:33:10-91\n      or from: KeyValue KnownSymbol (Instance1 ToFormKey h) x\n        bound by a type expected by the context:\n                   KeyValue KnownSymbol (Instance1 ToFormKey h) x =&gt;\n                   Membership xs x\n                   -&gt; HashMap Text [Text] -&gt; Field h x -&gt; HashMap Text [Text]\n        at src/Hrafnar/Service/Common.hs:(34,19)-(37,12)\n    • In the expression: toFormKey v\n      In the second argument of ‘HM.insert’, namely ‘[toFormKey v]’\n      In the expression:\n        HM.insert (toFormKey $ symbolVal $ proxyAssocKey k) [toFormKey v] m\n```\nというエラーが出て悩まされています。お心当たりありませんか",
-        "user": "U7155GPR9",
-        "type": "message"
-    },
-    {
-        "ts": "1531822685.000046",
-        "text": "結構めんどくさいというか、どうすればできるのだっけという感じがしております",
-        "user": "U74KTAG0N",
-        "type": "message"
-    },
-    {
-        "ts": "1531802636.000034",
-        "text": "そうなりますね。ちょっと書き換えが面倒くさそうですが...",
-        "user": "U4LGTMTMK",
-        "type": "message"
-    },
-    {
-        "ts": "1531802598.000025",
-        "text": "するとstatetつかっているようなものは\nreadertとioref/tvarとかの組み合わせにかえるのがいいのでしょうか。",
+        "ts": "1531800161.000136",
+        "text": "unlift.ioの対応でresourcetのインスタンスにstatetを受け付けなくなってますが、\nどのように修正するのがおすすめでしょうか。\n<http://hackage.haskell.org/package/conduit-find>\n（リンク張り間違えていました。find-conduitでなくてこっちでした。）\nちなみにこれを使いたいです。",
         "user": "U74KTAG0N",
         "type": "message"
     },
@@ -54,9 +12,51 @@
         "type": "message"
     },
     {
-        "ts": "1531800161.000136",
-        "text": "unlift.ioの対応でresourcetのインスタンスにstatetを受け付けなくなってますが、\nどのように修正するのがおすすめでしょうか。\n<http://hackage.haskell.org/package/conduit-find>\n（リンク張り間違えていました。find-conduitでなくてこっちでした。）\nちなみにこれを使いたいです。",
+        "ts": "1531802598.000025",
+        "text": "するとstatetつかっているようなものは\nreadertとioref/tvarとかの組み合わせにかえるのがいいのでしょうか。",
         "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1531802636.000034",
+        "text": "そうなりますね。ちょっと書き換えが面倒くさそうですが...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1531822685.000046",
+        "text": "結構めんどくさいというか、どうすればできるのだっけという感じがしております",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1531834207.000248",
+        "text": "何回も申し訳ありませんが質問です。 `Data.Extensible` のレコードから `Web.Internal.FormUrlEncoded` の `Form` に変換する以下のようなコードで\n```\n{-# LANGUAGE AllowAmbiguousTypes         #-}\n{-# LANGUAGE DataKinds         #-}\n{-# LANGUAGE FlexibleContexts         #-}\n{-# LANGUAGE FlexibleInstances         #-}\n{-# LANGUAGE MultiParamTypeClasses         #-}\n{-# LANGUAGE OverloadedStrings         #-}\n{-# LANGUAGE ScopedTypeVariables         #-}\n{-# LANGUAGE TypeOperators     #-}\n{-# LANGUAGE UndecidableInstances     #-}\n{-# LANGUAGE UndecidableSuperClasses #-}\n\n\nmodule Hrafnar.Service.Common\n  ( AwaitRequest\n  , Server\n  ) where\n\nimport           Data.Extensible\nimport           Data.HashMap.Strict as HM\nimport           GHC.TypeLits\nimport           Web.Internal.FormUrlEncoded\n\ninstance Forall (KeyValue KnownSymbol (Instance1 ToFormKey h)) xs =&gt; ToForm (Field h :* xs) where\n  toForm = Form . hfoldlWithIndexFor\n    (Proxy :: Proxy (KeyValue KnownSymbol (Instance1 ToFormKey h)))\n    (\\k m v -&gt; HM.insert (toFormKey $ symbolVal $ proxyAssocKey k)  [toFormKey v] m)\n    HM.empty\n```\nとしたのですがどうしても\n```\n    • Could not deduce (ToFormKey (Field h x))\n        arising from a use of ‘toFormKey’\n      from the context: Forall\n                          (KeyValue KnownSymbol (Instance1 ToFormKey h)) xs\n        bound by the instance declaration\n        at src/Hrafnar/Service/Common.hs:33:10-91\n      or from: KeyValue KnownSymbol (Instance1 ToFormKey h) x\n        bound by a type expected by the context:\n                   KeyValue KnownSymbol (Instance1 ToFormKey h) x =&gt;\n                   Membership xs x\n                   -&gt; HashMap Text [Text] -&gt; Field h x -&gt; HashMap Text [Text]\n        at src/Hrafnar/Service/Common.hs:(34,19)-(37,12)\n    • In the expression: toFormKey v\n      In the second argument of ‘HM.insert’, namely ‘[toFormKey v]’\n      In the expression:\n        HM.insert (toFormKey $ symbolVal $ proxyAssocKey k) [toFormKey v] m\n```\nというエラーが出て悩まされています。お心当たりありませんか",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531835050.000353",
+        "text": "あ、stack lts-9.12です",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531836474.000076",
+        "text": "おそらくですけど\nToJson のインスタンスとかを参考にしたと思うんですが <https://hackage.haskell.org/package/extensible-0.4.10/docs/src/Data.Extensible.Dictionary.html#line-216>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1531836654.000106",
+        "text": "です",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531836836.000567",
+        "text": "こんな風に Instance1 でいっきにやるには `Field h kv` のインスタンスも必要なので、 `instance ToFormKey (h (AssocValue kv)) =&gt; ToFormKey (Field h kv)` も定義すると通ると思います",
+        "user": "U56L7EVNY",
         "type": "message"
     }
 ]
