@@ -1,72 +1,44 @@
 [
     {
-        "messageType": "message",
-        "messageText": {
-            "unSlackMessageText": "hmmm"
-        },
-        "messageTs": "1530073828.000240",
-        "messageUser": {
-            "unUserId": "UACQ9J5D3"
-        }
+        "ts": "1530072171.000072",
+        "text": "TemplateHaskellって、生成したコードは `.hs` で出力できるの？例えば\n```{-# LANGUAGE TemplateHaskell #-}\nmodule Foo where\n\nimport Language.Haskell.TH.Syntax\n\nfoo = $(lift (\"foo\" ++ \"bar\"))\n```\n=======&gt;\n```\n{-# LANGUAGE TemplateHaskell #-}\nmodule Foo where\n\nimport Language.Haskell.TH.Syntax\n\nfoo = \"foobar\"\n```\nみたいな",
+        "user": "UACQ9J5D3",
+        "type": "message"
     },
     {
-        "messageType": "message",
-        "messageText": {
-            "unSlackMessageText": "そういうスクリプトを書くしかないでしょう。\n要は直接依存してないパッケージ名の解決とimportする部分さえ吐き出せればいいんでそんなに難しくはないはず..."
-        },
-        "messageTs": "1530073689.000130",
-        "messageUser": {
-            "unUserId": "U4LGTMTMK"
-        }
+        "ts": "1530073276.000232",
+        "text": "ghc に `-ddump-splices` というオプションで、生成したソースを書き出すことはできますが、 `.hs` として直接コンパイルできるものではありません。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     },
     {
-        "messageType": "message",
-        "messageText": {
-            "unSlackMessageText": "そして、自分で探して、コピペするには、多くなるとやばいなあ。\nTHの生成はローカル環境に関連あるから、THのコードを直接使えなくて。。。"
-        },
-        "messageTs": "1530073580.000101",
-        "messageUser": {
-            "unUserId": "UACQ9J5D3"
-        }
+        "ts": "1530073420.000182",
+        "text": "それは知ってるけど。。。直接repoにcommitできるようにしたいなあ。。。",
+        "user": "UACQ9J5D3",
+        "type": "message"
     },
     {
-        "messageType": "message",
-        "messageText": {
-            "unSlackMessageText": "変換してコピペしよう。"
-        },
-        "messageTs": "1530073536.000155",
-        "messageUser": {
-            "unUserId": "U4LGTMTMK"
-        }
+        "ts": "1530073536.000155",
+        "text": "変換してコピペしよう。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     },
     {
-        "messageType": "message",
-        "messageText": {
-            "unSlackMessageText": "それは知ってるけど。。。直接repoにcommitできるようにしたいなあ。。。"
-        },
-        "messageTs": "1530073420.000182",
-        "messageUser": {
-            "unUserId": "UACQ9J5D3"
-        }
+        "ts": "1530073580.000101",
+        "text": "そして、自分で探して、コピペするには、多くなるとやばいなあ。\nTHの生成はローカル環境に関連あるから、THのコードを直接使えなくて。。。",
+        "user": "UACQ9J5D3",
+        "type": "message"
     },
     {
-        "messageType": "message",
-        "messageText": {
-            "unSlackMessageText": "ghc に `-ddump-splices` というオプションで、生成したソースを書き出すことはできますが、 `.hs` として直接コンパイルできるものではありません。"
-        },
-        "messageTs": "1530073276.000232",
-        "messageUser": {
-            "unUserId": "U4LGTMTMK"
-        }
+        "ts": "1530073689.000130",
+        "text": "そういうスクリプトを書くしかないでしょう。\n要は直接依存してないパッケージ名の解決とimportする部分さえ吐き出せればいいんでそんなに難しくはないはず...",
+        "user": "U4LGTMTMK",
+        "type": "message"
     },
     {
-        "messageType": "message",
-        "messageText": {
-            "unSlackMessageText": "TemplateHaskellって、生成したコードは `.hs` で出力できるの？例えば\n```{-# LANGUAGE TemplateHaskell #-}\nmodule Foo where\n\nimport Language.Haskell.TH.Syntax\n\nfoo = $(lift (\"foo\" ++ \"bar\"))\n```\n=======&gt;\n```\n{-# LANGUAGE TemplateHaskell #-}\nmodule Foo where\n\nimport Language.Haskell.TH.Syntax\n\nfoo = \"foobar\"\n```\nみたいな"
-        },
-        "messageTs": "1530072171.000072",
-        "messageUser": {
-            "unUserId": "UACQ9J5D3"
-        }
+        "ts": "1530073828.000240",
+        "text": "hmmm",
+        "user": "UACQ9J5D3",
+        "type": "message"
     }
 ]

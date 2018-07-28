@@ -1,25 +1,7 @@
 [
     {
-        "ts": "1531954451.000284",
-        "text": "その場合、hofの中で最後にモナドを剥がすことになりますが、mがIOの場合はそれができないのでhofMが必要かなと考えました。",
-        "user": "U7GSVRQ6S",
-        "type": "message"
-    },
-    {
-        "ts": "1531953959.000061",
-        "text": "Data.Csv.Conversionに入っているのがData.Csvにインポートされています。\n<https://github.com/haskell-hvr/cassava/pull/158>",
-        "user": "U5LEE6C1J",
-        "type": "message"
-    },
-    {
-        "ts": "1531923768.000310",
-        "text": "`hofM`の実装に依りますが、型だけ見ると `hof` の時点で `f :: a -&gt; m b` を渡せませんか？",
-        "user": "U56L7EVNY",
-        "type": "message"
-    },
-    {
-        "ts": "1531917690.000255",
-        "text": "hof x f = runIdentity $ hofM x (return . f)\n\nで行けました。",
+        "ts": "1531916659.000068",
+        "text": "みなさんこんにちは。初歩的な質問で恐縮ですが、 モナドを使う関数の書き方について教えて下さい。\n\n自分で高階関数（ hof::a-&gt;(a-&gt;b)-&gt;b )を作ったところ、　引数となる関数に モナドを返す関数　f::a-&gt;m b   を使いたくなりました。\n\nここで、以下のような対応でやってみたのですが、このようなやり方でよいのでしょうか？\n\n(1)  hof をコピペして、  hofM::a-&gt;(a-&gt;m b)-&gt;m b  を作る。\n(2) hofMテストするときは  hofのテストに使った関数を再利用（？）して、Identity モナドでつつんで使う。",
         "user": "U7GSVRQ6S",
         "type": "message"
     },
@@ -30,8 +12,26 @@
         "type": "message"
     },
     {
-        "ts": "1531916659.000068",
-        "text": "みなさんこんにちは。初歩的な質問で恐縮ですが、 モナドを使う関数の書き方について教えて下さい。\n\n自分で高階関数（ hof::a-&gt;(a-&gt;b)-&gt;b )を作ったところ、　引数となる関数に モナドを返す関数　f::a-&gt;m b   を使いたくなりました。\n\nここで、以下のような対応でやってみたのですが、このようなやり方でよいのでしょうか？\n\n(1)  hof をコピペして、  hofM::a-&gt;(a-&gt;m b)-&gt;m b  を作る。\n(2) hofMテストするときは  hofのテストに使った関数を再利用（？）して、Identity モナドでつつんで使う。",
+        "ts": "1531917690.000255",
+        "text": "hof x f = runIdentity $ hofM x (return . f)\n\nで行けました。",
+        "user": "U7GSVRQ6S",
+        "type": "message"
+    },
+    {
+        "ts": "1531923768.000310",
+        "text": "`hofM`の実装に依りますが、型だけ見ると `hof` の時点で `f :: a -&gt; m b` を渡せませんか？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1531953959.000061",
+        "text": "Data.Csv.Conversionに入っているのがData.Csvにインポートされています。\n<https://github.com/haskell-hvr/cassava/pull/158>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1531954451.000284",
+        "text": "その場合、hofの中で最後にモナドを剥がすことになりますが、mがIOの場合はそれができないのでhofMが必要かなと考えました。",
         "user": "U7GSVRQ6S",
         "type": "message"
     }
