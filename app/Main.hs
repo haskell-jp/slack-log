@@ -18,6 +18,7 @@ limitations under the License.
   Export and upload messages from haskell-jp.slack.com
 -}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE LambdaCase #-}
 
 import           Control.Applicative      ((<|>))
 import           Control.Exception        (bracket)
@@ -43,6 +44,7 @@ import           System.IO                (BufferMode (NoBuffering), hGetEcho,
 import qualified System.Process.Typed     as P
 import qualified Web.Slack                as Slack
 import qualified Web.Slack.Common         as Slack
+import qualified Web.Slack.Channel        as Slack
 
 import           Web.Slack.Instances      ()
 
@@ -88,7 +90,19 @@ main = do
   config <- Slack.mkSlackConfig =<< slackApiToken <$> (failWhenLeft =<< decodeEnv)
   tss <- readLastTimestampsOrDefault ".timestamps.json"
   newTss <- HM.fromList <$> for targetChannels (saveChannel config tss)
+
   BL.writeFile ".timestamps.json" $ Json.encodePretty newTss
+
+  channelsByName <- Slack.channelsList (Slack.ListReq (Just True) (Just False))
+    `runReaderT` config >>= \case
+      Right (Slack.ListRsp chs) -> return $! HM.fromList
+        $ map ((,) <$> Slack.channelId <*> Slack.channelName) chs
+      Left err -> do
+        hPutStrLn stderr $ "WARNING: Error when fetching the list of channels:"
+        hPrint stderr err
+        return mempty
+
+  BL.writeFile "doc/json/.channels.json" $ Json.encodePretty channelsByName
 
   when (tss /= newTss) $ gitPushMessageLog
 
