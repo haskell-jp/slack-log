@@ -43,8 +43,9 @@ import           System.IO                (BufferMode (NoBuffering), hGetEcho,
                                            hSetEcho, stderr, stdin, stdout)
 import qualified System.Process.Typed     as P
 import qualified Web.Slack                as Slack
-import qualified Web.Slack.Channel        as Slack
+import qualified Web.Slack.Channel        as Channel
 import qualified Web.Slack.Common         as Slack
+import qualified Web.Slack.User           as User
 
 import           Web.Slack.Instances      ()
 
@@ -93,15 +94,23 @@ main = do
 
   BL.writeFile ".timestamps.json" $ Json.encodePretty newTss
 
-  Slack.channelsList (Slack.ListReq (Just True) (Just False))
+  Slack.channelsList (Channel.ListReq (Just True) (Just False))
     `runReaderT` config >>= \case
-      Right (Slack.ListRsp chs) -> do
-        let channelsByName = HM.fromList $ map ((,) <$> Slack.channelId <*> Slack.channelName) chs
+      Right (Channel.ListRsp chs) -> do
+        let channelsByName = HM.fromList $ map ((,) <$> Channel.channelId <*> Channel.channelName) chs
         BL.writeFile "doc/json/.channels.json" $ Json.encodePretty channelsByName
       Left err -> do
         hPutStrLn stderr $ "WARNING: Error when fetching the list of channels:"
         hPrint stderr err
 
+  Slack.usersList
+    `runReaderT` config >>= \case
+      Right (User.ListRsp us) -> do
+        let usersByName = HM.fromList $ map ((,) <$> Slack.unUserId . User.userId <*> User.userName) us
+        BL.writeFile "doc/json/.users.json" $ Json.encodePretty usersByName
+      Left err -> do
+        hPutStrLn stderr $ "WARNING: Error when fetching the list of users:"
+        hPrint stderr err
 
   when (tss /= newTss) $ gitPushMessageLog
 
