@@ -1,0 +1,50 @@
+[
+    {
+        "ts": "1534981418.000100",
+        "text": "私が知る限りできません。\n同じコマンドを打ち直したくないという場合、ghci_historyから入力したコマンドを貼り付ける、ぐらいでしょうかねぇ\n\nあるいは、そもそもの運用として、GHCiはじめREPLは記録が残らず、やってきたことをやり直すのに弱いので、なんどもやることは適当なファイルに書いておいた方がいいかと思います。\n別にpackage.yamlにlibraryやexecutableとして追加する必要はなくて、stack.yamlがあるのと同じディレクトリーにいれば\n\n```\nstack exec ghci -- lens-sample.hs\n```\n\nみたいなコードでlensに依存したファイルを読めるはずです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1534981645.000100",
+        "text": "捕捉: その状態でlensを同じstack.yamlがあるディレクトリーから使えるようにするには2つ方法があります。\n\n:one:「package.yamlにlensを追加」した上で\n```\nstack build --only-dependencies\n```\nするか、\n:two: package.yaml に特に追加することもなく、\n```\nstack build lens\n```\nしてください。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1535005597.000200",
+        "text": "<@UCDHJ6R6X> has joined the channel",
+        "user": "UCDHJ6R6X",
+        "type": "message"
+    },
+    {
+        "ts": "1535024473.000200",
+        "text": "<@UCDRZNE1Y> has joined the channel",
+        "user": "UCDRZNE1Y",
+        "type": "message"
+    },
+    {
+        "ts": "1535036164.000200",
+        "text": "<@UCDDDAKND> has joined the channel",
+        "user": "UCDDDAKND",
+        "type": "message"
+    },
+    {
+        "ts": "1535063731.000100",
+        "text": "igrep様、返答ありがとうございました。お返事が遅くなってしまい申し訳ありません。\nやはりreplはそういったものだ、と捉えるのが良さそうですね・・・package等に書かずに読み込むことができるとは！教えていただいてありがとうございました。",
+        "user": "UBF17AM6U",
+        "type": "message"
+    },
+    {
+        "ts": "1535065476.000200",
+        "text": "<@U8HK4CEVB> has joined the channel",
+        "user": "U8HK4CEVB",
+        "type": "message"
+    },
+    {
+        "ts": "1535065476.000300",
+        "text": "Hello. I am slacknowledge bot.\nWhen a thread is added a :memo: (memo) reaction, I will save it.\nEveryone can view the saved thread at <https://slacknowledge.pig-brewing.com> .",
+        "user": "U8HK4CEVB",
+        "type": "message"
+    }
+]
