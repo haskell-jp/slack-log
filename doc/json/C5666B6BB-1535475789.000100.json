@@ -1,0 +1,224 @@
+[
+    {
+        "ts": "1535465561.000100",
+        "text": "Conduit(cereal-conduit)について質問させてください。\ncereal-conduitで定義されている `conduitGet2` を真似して（ほぼコピペ）デシリアライズした値と一緒に、今何バイト目にいるのかをタプルで返すコードを書いてみたのですがコンパイルエラーになってしまいうまく行きません。\n`i &lt;- IO.hTell h` の部分を `i &lt;- return 123` などにするとコンパイルはできたのですが、なぜ `i &lt;- IO.hTell h` だとエラーになってしまうのかがわからない状況です。\n上記の質問とは少しずれてしまうのですが、自分で `conduitGet3` などを定義せず既存の `conduitGet2` を使いつつ今何バイト目にいるのかをデシリアライズした値と一緒に返す方法なんてあったりするのでしょうか？\nちなみにエラーメッセージはこんな感じです。よろしくお願い致します。\n```\n    • Couldn't match type ‘IO’\n                     with ‘ConduitT BS.ByteString (o, Integer) m’\n      Expected type: ConduitT BS.ByteString (o, Integer) m Integer\n        Actual type: IO Integer\n    • In a stmt of a 'do' block: i &lt;- IO.hTell h\n      In the expression:\n        do i &lt;- IO.hTell h\n           yield (x, i)\n           if BS.null rest then awaitNE &gt;&gt;= start else start rest\n      In an equation for ‘result’:\n          result (Done x rest)\n            = do i &lt;- IO.hTell h\n                 yield (x, i)\n                 if BS.null rest then awaitNE &gt;&gt;= start else start rest\n    • Relevant bindings include\n        x :: o (bound at app/Main.hs:73:18)\n        result :: Result o -&gt; ConduitT BS.ByteString (o, Integer) m ()\n          (bound at app/Main.hs:66:5)\n        awaitNE :: forall o. ConduitT BS.ByteString o m BS.ByteString\n          (bound at app/Main.hs:54:5)\n        g :: Get o (bound at app/Main.hs:49:15)\n        conduitGet3 :: IO.Handle\n                       -&gt; Get o -&gt; ConduitT BS.ByteString (o, Integer) m ()\n          (bound at app/Main.hs:49:1)\n   |\n74 |         i &lt;- IO.hTell h\n   |              ^^^^^^^^^^\n```",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535466661.000100",
+        "text": "まず単純なエラーメッセージの解釈ですが， `IO.hTell h` は `IO Integer` 型になりますが `result :: Data.Serialize.Result o -&gt; ConduitT BS.ByteString (o, Integer) m ()` 型になるため， `do` 構文の制約により `ConduitT BS.ByteString (o, Integer) m` モナドでなく `IO` モナドを使っているためエラーになります． `return 123` にするとうまくいくのは， `return 123 :: ConduitT BS.ByteString (o, Integer) m Integer` となるためです．\nなお，型がどう推論されているかは，Type holeという機能を使って `result :: _ -&gt; _` とすればエラーメッセージとして表示されるようになります．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535466915.000100",
+        "text": "それで修正案に入る前に，要件の確認なのですが，この関数は，\n`runConduit $ sourceHandle h .| conduitGet3 h .| sinkList`\nというような感じで `sourceHandle` に渡されたハンドルを `conduitGet3` にも渡される前提で使用するという想定で合ってますか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535467057.000100",
+        "text": "夜分遅くにありがとうございます！\nはい！そんな感じです！ `runConduit $ CC.sourceHandle h .| conduitGet3 h (get :: Get Value.Value) .| CC.mapM_ print` で画面に表示されるか試していました！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535467161.000100",
+        "text": "Type hole…知りませんでした…！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535467479.000100",
+        "text": "これは，HandleのPositionでなくてはだめでしょうか？例えば，Data.SerializeのbytesReadを使うと，\n```\nconduitGet3 :: MonadThrow m =&gt; Get o -&gt; ConduitT BS.ByteString (o, Int) m ()\nconduitGet3 g = conduitGet2 (twoOf g bytesRead)\n```\nみたいなことができます．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535467905.000100",
+        "text": "HandleのPositionにこだわりはありません！今何バイト目にいるのかがわかれば問題ありません！デシリアライズ対象のデータの先頭が何バイト目なのかが知りたいだけですので！\n`twoOf` という関数をググっても出てこないのですがこれはどこで定義されている関数でしょうか？",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535467915.000100",
+        "text": "いちよ，現状の `conduitGet3` を修正する場合， <http://hackage.haskell.org/package/base-4.11.1.0/docs/Control-Monad-IO-Class.html> を使用して `hTell h` の部分を `liftIO (hTell h)` にすれば動くはずです．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535467954.000100",
+        "text": "あ，すいません，s/twoOf/getTwoOf/ です． <http://hackage.haskell.org/package/cereal-0.5.7.0/docs/Data-Serialize-Get.html#v:getTwoOf> これですね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535468157.000100",
+        "text": "あ，できないかもしれないです．これだと，ずっとPositionが0になるのか…",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535468573.000100",
+        "text": "実行してみましたが確かに毎回Positionがリセットされてしまいますね",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535468822.000100",
+        "text": "liftIOを試してみましたがビルドエラーになってしまいました\n```\n    • Could not deduce (MonadIO m) arising from a use of ‘liftIO’\n      from the context: MonadThrow m\n        bound by the type signature for:\n                   conduitGet3 :: forall (m :: * -&gt; *) o.\n                                  MonadThrow m =&gt;\n                                  IO.Handle -&gt; Get o -&gt; ConduitT BS.ByteString (o, Integer) m ()\n        at app/Main.hs:49:1-93\n      Possible fix:\n        add (MonadIO m) to the context of\n          the type signature for:\n            conduitGet3 :: forall (m :: * -&gt; *) o.\n                           MonadThrow m =&gt;\n                           IO.Handle -&gt; Get o -&gt; ConduitT BS.ByteString (o, Integer) m ()\n    • In a stmt of a 'do' block: i &lt;- liftIO (IO.hTell h)\n      In the expression:\n        do i &lt;- liftIO (IO.hTell h)\n           yield (x, i)\n           if BS.null rest then awaitNE &gt;&gt;= start else start rest\n      In an equation for ‘result’:\n          result (Done x rest)\n            = do i &lt;- liftIO (IO.hTell h)\n                 yield (x, i)\n                 if BS.null rest then awaitNE &gt;&gt;= start else start rest\n   |\n75 |         i &lt;- liftIO (IO.hTell h)\n   |              ^^^^^^^^^^^^^^^^^^^\n```",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535469098.000100",
+        "text": "あ、 `conduitGet3 :: (MonadThrow m, MonadIO m) =&gt; IO.Handle -&gt; Get o -&gt; ConduitT BS.ByteString (o, Integer) m ()` にしたらビルドできました！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535469224.000100",
+        "text": "ビルドはできたのですが出力結果が\n```\n(Nil,3)\n(Bool True,3)\n(Bool False,3)\n```\nとなってしまいました :sob:\n\n本当は\n```\n(Nil,0)\n(Bool True,1)\n(Bool False,2)\n```\nとなってほしいのですが…",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535469318.000100",
+        "text": "遅延評価だから全部最後の状態のを見てしまっているということなのでしょうか…？",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535469462.000100",
+        "text": "ちなみに `echo -en \"\\x00\\x01\\x02\"` で作成したファイルを読ませていて、0x00がNil、0x01がBool True、0x02がBool Falseとなっております",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535469988.000100",
+        "text": "いえ実はその問題は指摘しようと思ってたのですが， sourceFile は256kBごとによみとるため， hTellで取り出せるのは読み込んだ後(パースされた文字列のポジションではなく)の値になります．今回の例では最初に最後までHandleが読み込まれてしまった結果そうなったのだと思います",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535470434.000100",
+        "text": "そ、そんな…この機能を実現するのはConduitではできないのでしょうか…？\nそもそも僕のこのやり方がおかしいのでしょうか…？",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535470477.000100",
+        "text": "HandleのPositionを使わない場合，こんな感じで書けます．\n<https://gist.github.com/mizunashi-mana/9e8f9703cf21698a4312ba19874bcd48>\n\nHandleのPositionを使う場合上の問題があるため，結局Position修正を行わなければならないためhTellを使うよりこっちのほうがいいかもしれません．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535470796.000100",
+        "text": "うーん，おそらくですが `conduitGet2` を流用するのは無理なんじゃないかなと思いますね．やるとしたらConduitに新しいAPIを足さなきゃいけない気がします(<http://hackage.haskell.org/package/conduit-1.3.0.3/docs/src/Data.Conduit.Internal.Pipe.html#Pipe> らへん低下層のデータ型を操作するようなAPIを足せば色々できると思いますね．今回の場合に使えるAPIはあってもおかしくないと思うんですが，探した感じ見つかりませんでした)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535470873.000100",
+        "text": "なるほど、内部でカウンタをもつということですね！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535470895.000100",
+        "text": "なるほど、流用は難しいですか…",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535471458.000100",
+        "text": "あー…！完全に後出しジャンケンなのですが、 `echo -en \"\\x00\\x01\\x02\\x08\\x01\"` こんな感じで `\\x08\\x01` の2つで `UInt8 1` のようなデータもあるんです…\nこれ、先程の内部でカウンタ持つやり方だとできないですかね…？",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535471497.000100",
+        "text": "あ、bytesReadで何バイト読んだかわかるからそれをカウンタに足せばいけますかね！？",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535471695.000100",
+        "text": "それさっき思いついて実装してます．ちょっと応用すれば簡単に流用できましたね…なるほど",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535471909.000100",
+        "text": "```\n\nconduitGet4 :: MonadThrow m =&gt; Get o -&gt; ConduitT BS.ByteString (o, Int) m ()\nconduitGet4 g = conduitGet2 ((,) &lt;$&gt; g &lt;*&gt; bytesRead) .| conduitPosFix 0\n  where\n    conduitPosFix !p = await &gt;&gt;= \\case\n      Nothing -&gt; pure ()\n      Just (x, l) -&gt; do\n        yield (x, p)\n        conduitPosFix $ p + l\n```\nこんな単純にできそうですね…",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535472062.000100",
+        "text": "おお！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535472172.000100",
+        "text": "あら、ビルドエラーになってしまいました…\n```\nerror: parse error on input ‘case’\n   |\n84 |     conduitPosFix !p = await &gt;&gt;= \\case\n   |\n```",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535472533.000100",
+        "text": "いろいろ試してみましたがまだHaskellの文法をきちんと理解できておらず↑のビルドエラーを直せませんでした…",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535472817.000100",
+        "text": "あ！ `-XLambdaCase` が必要なんですね！失礼しました！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535472837.000100",
+        "text": "あすいません、  {-# LANGUAGE LambdaCase #-} が必要です",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535473240.000100",
+        "text": "```\n    Variable not in scope:\n      conduitPosFix :: Integer -&gt; ConduitM (o, Int) (o, Int) m ()\n   |\n82 | conduitGet4 g = conduitGet2 ((,) &lt;$&gt; g &lt;*&gt; bytesRead) .| conduitPosFix 0\n   |                                                          ^^^^^^^^^^^^^\n```\nwhereでconduitPosFixが定義されているのにエラーになってしまう…",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535474190.000100",
+        "text": "うーん、なんででしょう...",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535474514.000100",
+        "text": "コピペミスしてるわけでもないみたいですし…うーん…",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535474547.000100",
+        "text": "これもまたフラグが必要なものだったりしますか？",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535475485.000100",
+        "text": "BangPatterns\nLambdaCase\nが必要です。",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535475789.000100",
+        "text": "BangPatternsをつけたらビルドできました！\n```\n(Nil,0)\n(Bool True,1)\n(Bool False,2)\n(UInt8 1,3)\n(UInt16 2,5)\n```\nおかげさまでやりたかったことができました！遅くまで本当にありがとうございました！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    }
+]
