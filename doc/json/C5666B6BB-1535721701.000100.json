@@ -1,0 +1,62 @@
+[
+    {
+        "ts": "1535695926.000100",
+        "text": "ちょっと前出てきたすごい長い英語のHaskell入門書ってなんていうんでしたっけ。書名が出てこない... :thinking_face:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1535695965.000100",
+        "text": "Get programming with haskell ですか？",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1535696026.000100",
+        "text": "多分それです！確か割とお勧めされてましたよね？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1535696066.000100",
+        "text": "僕はまだ読んでる途中なので、まだレビューできていないです:innocent:",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1535697599.000100",
+        "text": "<http://haskellbook.com/> のことだったかも！まぁ両方紹介しとくか！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1535705759.000100",
+        "text": "質問です。遊びでRedditのようなものを作ってたのですが。`Comment`のArbitraryインスタンスで躓いています。。\n<https://gist.github.com/HirotoShioi/94367f655bd0fb00e5acb27be1ed29eb>\n`runSumComment 100`\nと実行するとランダムなコメントをn個生成してその統計を取っているのですが、StackOverFlowで実行エラーになります。\n\n```\ndata Comment = Comment\n    { cId          :: !Integer\n    , cAuthor      :: !User\n    , cParentId    :: !(Maybe Integer)\n    , cPoint       :: !Int\n    , cDescription :: !Text\n    , cResponse    :: ![Comment]\n    } deriving Show\n```\n\n原因はcResponseがコメントのリストだからねずみ講の要領でとんでもない量のコメントに膨れ上がってるからだと睨んでます。\nできればコメントの返信の総数を200以下に留めたいのですが、それは可能なのでしょうか。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1535706091.000100",
+        "text": "総数ではなく深さを200に制限することになりますが、愚直にやるなら\n\n```\narbitrary = go 0\n where\n  go depth = do\n    ...\n    cResponse &lt;-\n      if depth == 200\n        then pure []\n        else vecorOf listLen $ go (depth + 1)\n    pure Comment {..}\n```\n\nですかね。\n（総数も各 `cResponse` の `length` をとって足し合わせればできるかな...?）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1535706189.000100",
+        "text": "あとは自分で試したことがないので自信がないのですが、 <http://hackage.haskell.org/package/smallcheck> を使えば大きさを指定した上でのテストができます。\n「任意の文字列のコメントに対してテスト」みたいなことはできなくなってしまいますが。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1535706367.000100",
+        "text": "ほかには、  `cResponse` の `!` を外すとメモリ消費量はめっちゃ増えそうですがstack overflowはしないかもしれません。\n（ :warning: これも試さないで想像で言ってます！）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1535721701.000100",
+        "text": "igrep さんのやり方でもいいと思いますが、 `sized` と `scale` を使うのがより正当なやり方かもしれません。 <http://hackage.haskell.org/package/QuickCheck-2.11.3/docs/Test-QuickCheck-Gen.html>\n```\narbitrary = scale (min 200) $ sized $ \\size -&gt; {- 最大でsize個のcResponseを持つCommentを生成する処理-}\n```\n（今手元に環境がないのでコードは適当です）",
+        "user": "U4M598NHM",
+        "type": "message"
+    }
+]
