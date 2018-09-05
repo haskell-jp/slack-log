@@ -1,0 +1,38 @@
+[
+    {
+        "ts": "1536104244.000100",
+        "text": "FlexibleInstancesが必要になっちゃうのを避けたいという信念じゃないっすかね。。。\n実害があるのかは知りませんが。\nDerivingViaでその辺の問題が解決してIxのインスタンスをderiveしやすくなるかも！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1536125511.000200",
+        "text": "<@UCLGS5XGQ> has joined the channel",
+        "user": "UCLGS5XGQ",
+        "type": "message"
+    },
+    {
+        "ts": "1536130696.000100",
+        "text": "一般論として、具体的でない型のインスタンスを定義するのは避けられています。もし`instance (Bounded a, Enum a) =&gt; Ix a`を定義してしまうと、それより特殊化された効率の良い実装を与えることができなくなってしまいますからね。もちろんigrepさんの言う通り、newtypeのラッパーを定義して、DerivingViaを活用するのも面白いと思います",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1536136672.000100",
+        "text": "Haskell Symposium 2018のproceedingsの一覧を作りました。PDFが公開されている論文にはURL付きです。\n<https://gitlab.com/igrep/papers-notes>\n個人的なメモを追記していく予定ですが、参考までにどうぞ。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1536137874.000100",
+        "text": "`instance (Bounded a, Enum a) =&gt; Ix a` って `{-# LANGUAGE UndecidableInstances #-}` も必要な奴では。\n\nUndecidableInstancesは、型推論が停止しなくなる可能性があるのがデメリットですね。\n<https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#instance-termination>\n\nもっとも、モダンな型関係ライブラリほとんどで使われてる `RankNTypes` を入れた時点で型推論は停止しなくなるので、最近のHaskellでは「型推論の停止性(笑)」状態っぽいですけど",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1536139296.000100",
+        "text": "いっそIxクラスをなくしてrangeやindexを `range :: Enum a =&gt; (a, a) -&gt; [a]`  等にしてしまったらどうか、と思ったんですが、例えばVoidはIxではあるけどEnumではないんですね",
+        "user": "U570660KX",
+        "type": "message"
+    }
+]
