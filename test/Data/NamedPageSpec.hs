@@ -15,7 +15,7 @@ import           Data.NamedPage
 spec :: Spec
 spec =
   describe "repaginate"
-    $ modifyMaxSize (* 10)
+    $ modifyMaxSize (* 5)
     $ prop "splits into pages with N elements"
     $ \(QC.Positive n, baseName, QC.NonEmpty sourcePages) -> do
         let result = repaginate n baseName (sourcePages :: [NamedPage Char])
