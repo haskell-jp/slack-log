@@ -100,7 +100,7 @@ main = do
         let channelsByName = HM.fromList $ map ((,) <$> Channel.channelId <*> Channel.channelName) chs
         BL.writeFile "doc/json/.channels.json" $ Json.encodePretty channelsByName
       Left err -> do
-        hPutStrLn stderr $ "WARNING: Error when fetching the list of channels:"
+        hPutStrLn stderr "WARNING: Error when fetching the list of channels:"
         hPrint stderr err
 
   Slack.usersList
@@ -109,10 +109,10 @@ main = do
         let usersByName = HM.fromList $ map ((,) <$> Slack.unUserId . User.userId <*> User.userName) us
         BL.writeFile "doc/json/.users.json" $ Json.encodePretty usersByName
       Left err -> do
-        hPutStrLn stderr $ "WARNING: Error when fetching the list of users:"
+        hPutStrLn stderr "WARNING: Error when fetching the list of users:"
         hPrint stderr err
 
-  when (tss /= newTss) $ gitPushMessageLog
+  when (tss /= newTss) gitPushMessageLog
 
 
 readLastTimestampsOrDefault :: FilePath -> IO TimestampsByChannel
