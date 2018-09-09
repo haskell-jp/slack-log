@@ -21,8 +21,10 @@ dependencies:
 - aeson
 - aeson-pretty
 - bytestring
+- directory
 - envy
 - extra
+- filepath
 - mtl
 - NoTrace
 - safe
@@ -41,6 +43,15 @@ library:
 executables:
   slack-log:
     main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - slack-log
+  paginate-old-jsons:
+    main:                paginate-old-jsons.hs
     source-dirs:         app
     ghc-options:
     - -threaded
