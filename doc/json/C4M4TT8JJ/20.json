@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1529033008.000146",
+        "text": "依存性については、実はLens APIを公開するだけだったらlensパッケージに依存する必要はなかったり。\n&gt; You can even define lenses without incurring a dependency on the lens library\n<http://hackage.haskell.org/package/lens-tutorial-1.0.3/docs/Control-Lens-Tutorial.html>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1529033107.000013",
+        "text": "ただ、これをやるためにtype MyLens = ...とか定義し始めると \"DO NOT REPEAT YOUSELF!!!!!!\" ってなるんですけど、どうすればいいんだろう",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1529033215.000091",
+        "text": "`makeLenses` をlens（やmicrolensなど）に依存しないでやるのを自動化できればいいって話ですよね。\nTHがなかったころのEtaでは、GHCに -ddump-splice させて出てきたものをコピペしろ、なんて言われてたなぁ（めんどい）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1529034713.000203",
+        "text": "最近はlensに依存したパッケージがかなり多くなったので、個人的にはライブラリでもあまり気にせずlensに依存してしまうこともあります。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1529034777.000114",
+        "text": "ああ、その問題もありますね……私が言おうとしたのは、 `point :: Lens' Atom Point` ではなく `point :: Functor f =&gt; (Point -&gt; f Point) -&gt; Atom -&gt; f Atom` みたいなシグネチャを大量に書く羽目になると可読性がアレなので、結局Lensと同じtype宣言を各プロジェクトでやる羽目になってしまう問題です。結局lens依存しちゃっていいやってなるかもしれませんね",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1529034883.000024",
+        "text": "型シノニム程度ならコピペしちゃうかな。。。この間実際 `Getting` と `view` がほしくなってしましたし。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1529035708.000024",
+        "text": "lens、使いたくなったら使っちゃう派！\n（不用意には使わないようにしてるけど、便利すぎる）",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1529041265.000152",
+        "text": "ライブラリでlensを使うことの是非については、ネストしたデータ構造なら推奨、コンテナに入れて処理しないような単なるパラメータなら非推奨という立場です",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1529043610.000185",
+        "text": "<@UB95DNP3R> has joined the channel",
+        "user": "UB95DNP3R",
+        "type": "message"
+    },
+    {
+        "ts": "1529066130.000419",
+        "text": "地味な内容ですが、広く影響のある提案が、ghc-proposalsに提案されています。\nカインド（種）の仕様から、'*'の表記を削除してしまおうというものです。\n今の期間内であれば、同意・反対などの意見や、改善提案などが可能です:slightly_smiling_face:\n<https://github.com/ghc-proposals/ghc-proposals/pull/143>",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1529066668.000204",
+        "text": "upvoteしました！",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1529067983.000554",
+        "text": "8年かけてやるという気の長い話しです。\n今なら止める側にも倒せますし、進める側にも倒せます。\n何か新しい観点に気づいたら教えてあげてください:slightly_smiling_face::haskell:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1529069597.000377",
+        "text": "全く中身を読んでないので書いてあったら申し訳ないんですが、これはhaskell primeにはプロポーサル出さないんですかね？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1529103469.000018",
+        "text": "ghc-proposalsの方が進めば、いずれ、Haskell primeの方にも提案されるかなぁと思います。\nちなみに、Haskell primeの方は、実装されて使用された実績のある仕様が、提案対象になっていたと思います。\nただ最近は、Haskell primeの方は動きが停滞してますね。 2020年直前になると活発化するのかな？",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1529119923.000002",
+        "text": "今日はHaskell Dayの日程候補挙げをやるぞい :shikamaro_kun:",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1529201000.000081",
+        "text": "`Type` の方が確かに説明しやすそうですね！私はupvoteしました。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1529204553.000046",
+        "text": "あと`*`だと、将来的にDependent Haskellの世代に、-XTypeOperatorsと見栄えが衝突するのが痛いんですよね。\n既存の説明文書が古くなってしまうことや、ライブラリの更新負担が発生することとのトレードオフですね。",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1529289603.000191",
+        "text": "あ、これreddit でも話題になってましたね。 私的には、* 種は無くさないほうに一票という感じです。 特に理論的な根拠や理由がある訳では有りませんが、 強いて言うなら、 Erik Meijerがいつか語ってたように、言語機能(と言って良いのか微妙ですが)を無くす事は言語を強化する事にならない。 (言っていた文脈は全く別で私が勝手にその部分だけ引用してますが) という感じでしょうか。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1529371927.000085",
+        "text": "確かghcidを解説している記事にあったかと思うのですが、型わからなくなったらとりあえず  `hoge :: ()`と注釈加えたり `() &lt;-` とパターンマッチしてみたりしてわざとコンパイルエラー起こすの、確かに有効ですね！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1529372399.000210",
+        "text": "type holeと比べてどうなんだろう。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1529409640.000287",
+        "text": "関連提案(#146)も出てきたので、まだまだ紆余曲折ありそうですね^^",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1529462763.000105",
+        "text": "<https://twitter.com/techbookfest/status/1009128549335195648>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1529462851.000291",
+        "text": "書くぞ～",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1529482422.000168",
+        "text": "そもそもGHC 8.6でこれが実装されるのが，ホットになってる要因なんですかね\n<https://github.com/ghc-proposals/ghc-proposals/pull/83>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1529498432.000120",
+        "text": "からみ具合を追いきれてないのですが、TypeInType関連で、激しく手を入れている関係なのでしょうね、、、おそらく。\n型とかカインド関連で、過激にいろんな試行をしてるようですが、本当は、言語オプションでうまくやりくりできるはずが、考慮もれがあって、workaroundを検討中という感じのようです。\n\n-XStarIsType拡張でうまく行くはずが、TypeOperatorsと競合して、他世代のライブラリの保守を考えると、いろいろと発散しているようです。 が、<https://github.com/ghc-proposals/ghc-proposals/pull/146> で抑えこもうとしている感じでしょうか。\nまだ、追いきれてません。（というか、各々の理解がまだ不十分で、、、）:sweat_smile:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1529643724.000126",
+        "text": "最近、 Menoh というDNN推論ライブラリ <https://research.preferred.jp/2018/06/menoh-release/> の Haskell binding を作ってみたので、ご参考までに。\n<http://hackage.haskell.org/package/menoh>\n命令的なAPIを素朴にラップしただけで、特に関数的なインターフェースは用意できていないですが。",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1529661510.000137",
+        "text": "<@UBD63QPAS> has joined the channel",
+        "user": "UBD63QPAS",
+        "type": "message"
+    },
+    {
+        "ts": "1529747773.000036",
+        "text": "<@UBCNEFCPM> has joined the channel",
+        "user": "UBCNEFCPM",
+        "type": "message"
+    },
+    {
+        "ts": "1529749118.000084",
+        "text": "現状の個人的な理解を， <https://www.reddit.com/r/haskell_jp/comments/8t8p4j/typeoperators_nostaristype%E3%81%AE%E5%BB%B6%E6%9C%9F%E3%81%AE%E6%8F%90%E6%A1%88/> にて書きました",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1529756170.000040",
+        "text": "複雑な関係がまとまってて分かりやすくて有り難いです！\n本題から外れますが１点だけ。 ghcの8.6のアルファ版は、これからリリースされる予定です。 ちょうど、8.6アルファのbranchが切られて、整備されている最中のようです。（この関連の修正を急ピッチで反映させるのかもしれません。）",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1529759046.000030",
+        "text": "なるほど、まだブランチが切られただけなんですね。ありがとうございます、該当部分修正しときます",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1529803992.000026",
+        "text": "GHCへの改善提案（ghc-proposals）について、現時点で、steering-committeeに提案されている案件の検討ステータス一覧です。\nGitHub上でのghc-proposalsの仕組みが出来てから、提案がかなり活況になっています。\n結構な数が並走して流れていくので、何かあればGitHub上でツッコんでみてください:haskell:\n\n<https://mail.haskell.org/pipermail/ghc-steering-committee/2018-June/000634.html>",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1529804069.000060",
+        "text": "<@UBD4A5LQ5> has joined the channel",
+        "user": "UBD4A5LQ5",
+        "type": "message"
+    },
+    {
+        "ts": "1529888463.000130",
+        "text": "直接Haskellと関係なくて申し訳ないんですが、みなさんRedditの新しいバージョンって見えてますかね。\n<https://www.reddit.com/r/haskell_jp/>\n古いバージョンで使っていたテーマが無効になってしまったのでせっかくなんでHaskell-jpのウェブサイトと同じような色にしてみました。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1529899078.000025",
+        "text": "Pandocに目次を自動生成する--tocオプションがあるから楽勝……と思ったんですけど --standaloneと一緒に指定しないと無効っぽいですね。自力でPandocの中間データを舐める感じで行きます <https://github.com/haskell-jp/blog/issues/117>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1529904783.000177",
+        "text": "<@UBDBUG2N9> has joined the channel",
+        "user": "UBDBUG2N9",
+        "type": "message"
+    },
+    {
+        "ts": "1529907299.000118",
+        "text": "僕の本もPandocで書いただから、この前に結構調べたけど、結果的に、個別の文章はPandocにやらせて、目次とカバーなどのページはやはりTexでやるのが楽だと思う。\nPandocはスイッチ少ないね",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1529928664.000017",
+        "text": "<https://cosmius.bitbucket.io/tkhe/>\n今書いてるHaskellの本です、無料ダウンロードできるよ ヽ(^。^)ノ",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1529928755.000346",
+        "text": "間違ったとこなどがあったら是非ともご指摘してください",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1529928997.000402",
+        "text": "現状では、基礎的な部分のみなので、最近Haskellを勉強し始めた方にお勧めです",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1529931876.000197",
+        "text": "reStructuredTextだと、`.. contents::`ディレクティブで目次を生成してくれるのですが、markdownだとラクな手がなさそうですね、、、",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1529968323.000183",
+        "text": "どうもです、色々試してみます！",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1529989305.000112",
+        "text": "<@UBDV4936E> has joined the channel",
+        "user": "UBDV4936E",
+        "type": "message"
+    },
+    {
+        "ts": "1529990505.000272",
+        "text": "Pandocの自動生成,日本語を食わせると不正なリンクを作るか,英語だけに切り詰めて重複リンクを作ってしまうか\nみたいな問題があるのでパーセントエンコーディングする修正しないと正しいリンクは作れなさそうです",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1530163629.000075",
+        "text": "久々にHaskellでNewline-deimited JSONでも読んでみるか…と思ってPipesを使おうとしたら意外と`readFile`的な関数がなくて、このコメントに行き当たりました。bracketで囲むパターンじゃ駄目なのかなあ\n\n&gt; The main reason is that I feel that pipes is the wrong abstraction for resource-safety. I feel that a more restricted abstraction (like Shell from turtle, for example) is necessary to get predictable resource management guarantees and a nice user experience.",
+        "user": "U5L06DM55",
+        "type": "message"
+    },
+    {
+        "ts": "1530197573.000456",
+        "text": "<@UBF17AM6U> has joined the channel",
+        "user": "UBF17AM6U",
+        "type": "message"
+    },
+    {
+        "ts": "1530203161.000257",
+        "text": "ですよね。 結局 パース出来ないだの、ファイル(コンソールを含む)を開けないだのは出る訳なんだから、  `withFile` みたいな(中身は `bracket` でしょうけど)関数くらい用意しても良いと思います。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1530239690.000130",
+        "text": "実務上不便ですよねー。結局、面倒なのでio-streamsにしました。",
+        "user": "U5L06DM55",
+        "type": "message"
+    },
+    {
+        "ts": "1530246788.000148",
+        "text": "リソース管理に対応したライブラリってconduit(かdrinkery)くらいしかないんですよね…大事なところなのに",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1530277701.000164",
+        "text": "<@UBFLEE4QY> has joined the channel",
+        "user": "UBFLEE4QY",
+        "type": "message"
+    }
+]

@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1525518103.000098",
+        "text": "<@UAJV7LY8M> has joined the channel",
+        "user": "UAJV7LY8M",
+        "type": "message"
+    },
+    {
+        "ts": "1525595344.000028",
+        "text": "<@U9U8B3LJV> has joined the channel",
+        "user": "U9U8B3LJV",
+        "type": "message"
+    },
+    {
+        "ts": "1525602697.000005",
+        "text": "syslog使ってます",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1525799562.000218",
+        "text": "fusion の質問です。Bird の本に頻出する型  f . foldr g a = foldr h b [PoFAD] (pp.34) が良く分かりません。何かもっと詳しい説明・文献がありますでしょうか？\n他の型であれば、例えば \"foldr/build fusion\" や \"destroy/unfoldr fusion\" や \"Church/Cochurch fusion\" ならば以下の文献がありますが、これらとも違いますよね？\n[PoFAD] (2010) \"Pearls of Funcional Algorithm Design\" Bird, R\n[FPCA 1993] \"A Short Cut to Deforestation\" Gill, A. Launchbury, J. Jones, S.L.P.\n[ICFP 2002] \"Shortcut Fusion for Accumulating Parameters &amp; Zip-like Functions\" Svenningsson, J.\n[Oxford 2011] \"Theory and Practice of Fusion,\" Hinze, R. Harper, James, D.W.H.",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1525820750.000267",
+        "text": "hsyslogのことですか？",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1525829196.000060",
+        "text": "そうです。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1525829255.000232",
+        "text": "特に理由はありませんが、成り行きでhsyslogを直接使う場合と monad-logger-syslogから使う場合があります。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1525836257.000187",
+        "text": "`optparse-applicative`に関する質問です。サブコマンドで定義したhelp文を`--help`コマンドで表示させる方法はあるのでしょうか。以下のようなコマンドを受け付けることを期待しています\n\n```\n:main processTicket --help\n```\n\nコードをGistに掲載しました。\n<https://gist.github.com/HirotoShioi/e88f3d1622d7d7961e906191263d3d31#file-optparse-applicative-L24>",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1525837593.000034",
+        "text": "普通に helper が使えたはず\n```\ncommand \"collectEmails\" (info (pure CollectEmails &lt;**&gt; helper)\n            (progDesc \"Collect emails requested by single user\"))\n```",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1525838048.000030",
+        "text": "できた。。！ありがとうございます！",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1525838232.000081",
+        "text": "Hutton の “A tutorial on the universality and expressiveness of fold” <http://www.cs.nott.ac.uk/~pszgmh/fold.pdf> の “3.2 The fusion property of fold” にも解説があります。 \nWadler の “Theorems for free!” <https://people.mpi-sws.org/~dreyer/tor/papers/wadler.pdf>  に Theorems for free の応用として ~ “Figure 1: Examples of Theorems from type” にも解説なしで~ （後から訂正：「3.2 Fold」に）出てきます。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1525839760.000192",
+        "text": "subparserの代わりにhsubparserっていうそれに特化したようなのがあったかと思います（今手元で調べられる状況じゃなくて恐縮ですが）。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1525840855.000147",
+        "text": "ありました！",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1525848117.000307",
+        "text": "ありがとうございました　特に前者は参考になりました",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1525852073.000292",
+        "text": "全く見当違いかもしれませんが、Cardano-SLはkatipを使いたいとか言ってました。\n<https://hackage.haskell.org/package/katip>\nRunning a program which logs 500k times a simple message using both `katip` and `log-warper` showed that `katip` is much faster and uses less memory than `log-warper`.",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1525856257.000429",
+        "text": "64bitの符号なし整数を、次のような形式のJSONで送ってくる（私が直接いじれない）サーバーがあります。\n```\n{ high: &lt;上位32bitを表す符号付き整数&gt;, low: &lt;下位32bitを表す符号付き整数&gt; }\n```\nこの形式のJSONから `Int64` を作り出す方法を考えているのですが、バイナリ力が低くて悩んでおります。\n上位ビットは `shiftL 32` とすればいいのはすぐにわかったですが、下位ビットについてどうすればいいか、教えていただきたいです。\n例:\ninput: `{ high: 177247787, low: -813694976 }`\noutput: `761273451934646272`",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1525856456.000374",
+        "text": "このサーバーおかしいだろう。。。",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1525856562.000282",
+        "text": "if low &gt; 0 then low else ((low :: Int64) + 2 ^ 32)",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1525856584.000075",
+        "text": "Word32にキャストできたような",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1525856595.000055",
+        "text": "そう、今同僚と話してたら気づきました。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1525856605.000433",
+        "text": "`fromIntegral (negate 813694976) :: Word32`",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1525856665.000034",
+        "text": "&gt; このサーバーおかしいだろう。。。\n\nJSの仕様上64bit整数を直接表現できない故の苦渋の策なんでしょうね。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1525856666.000146",
+        "text": "Prelude <http://Data.Int|Data.Int>&gt; (-1 :: Word)\n\n&lt;interactive&gt;:3:3: warning: [-Woverflowed-literals]\n    Literal -1 is out of the Word range 0..18446744073709551615\n18446744073709551615\n\n＝。＝Warningが出るけど",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1525856706.000433",
+        "text": "下位はWord32にキャストしてからInt64にキャスト、 `shiftL 32` した上位と足し算、で大丈夫…ですよね？多分",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1525856713.000231",
+        "text": "はい、リテラルでやると警告が出ますが明示的に `fromIntegral` する分には問題ないはずです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1525856832.000271",
+        "text": "Hmmm，Cの強制coercionが欲しい（",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1525856853.000084",
+        "text": "そもそもやはりこのサーバーがおかしいと思う＝。＝",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1525856904.000117",
+        "text": "```\n177247787 `shiftL` 32 + (fromIntegral (fromIntegral (negate 813694976) :: Word32) :: Word64)\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1525856908.000165",
+        "text": "まあ、「JSの仕様上64bit整数を直接表現できない故の苦渋の策」でしょうねぇ",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1525856933.000177",
+        "text": "え？？？そうなの？",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1525856953.000277",
+        "text": "JavaScriptは浮動小数点数しかございませんので",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1525856971.000099",
+        "text": "JSの数値リテラルは全部doubleとして処理されてしまうのです。。。 :disappointed_relieved:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1525856980.000557",
+        "text": "整数は（倍精度浮動小数点の仮数部である）53bitまでしか使えません\n<http://blog.tmyt.jp/entry/20101201/1291166929>",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1525856994.000548",
+        "text": "よってこういうことが起こる",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1525857007.000507",
+        "text": "これはさすが。。。",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1525857087.000146",
+        "text": "なので、高速化のためにJITコンパイラが「こいつはループカウンタとしてしか使われていないから整数に置き換えてもいいな」みたいな推論をしてやる必要があったりします。そういう涙ぐましい努力の結果JavaScriptのあのスピードがあるという感じだそうです",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1525857179.000331",
+        "text": "上記の回答でできたっぽいですが `fromIntegral` 2回使っているところが非常に醜いので `TypeApplications` を使ってみました。\n```\n177247787 `shiftL` 32 + (fromIntegral @Word64 (fromIntegral @Word32 (negate 813694976)))\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1525857242.000163",
+        "text": ":face_with_monocle:＠ とはなに？",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1525857801.000110",
+        "text": "TypeApplicationsは、\n`id` や `const`, 今回の `fromIntegral` のような多相関数を、「どの型に対する関数にするか」を `@&lt;型名&gt;` で明示できるようにしてくれます。\n\n例えば `id` は `a -&gt; a` という型ですが、 `id @Int` のように `@` で `Int` を明示することで、 `Int -&gt; Int` として処理させることができます。\n\nGHCiで試すと :point_down: のようになります。\n```\n&gt; :set -XTypeApplications\n&gt; :t id\nid :: a -&gt; a\n&gt; :t id @Int\nid @Int :: Int -&gt; Int\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1525858600.000210",
+        "text": "すみません、 `TypeApplications` を使った方法、間違いでした（最初の方でうまくいったように見えた理由がいまいちわかりませんが）。正しくは :point_down: です。\n```\n177247787 `shiftL` 32 + (fromIntegral @Word32 @Word64 (fromIntegral @Int32 @Word32 (negate 813694976)))\n```\n却って冗長になってしまいましたね。。。 :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1525858663.000168",
+        "text": "私の回答はこれです `shiftL 177247787 32 .|. 0xffffffff .&amp;. (-813694976)`",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1525858737.000477",
+        "text": "確かに。足し算しなくても `.|.` でいいのか。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1525858817.000406",
+        "text": "なるほど。よく考えたら元はJSONなんだから `Integer` として処理してしまったもいいんですね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1525859323.000385",
+        "text": "`.|.` と `+` ってどっちが「善」なんでしょうかね（ill-definedな問）",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1525859451.000196",
+        "text": "今回の場合 `.|.` の方が理にかなっていると思いますよ `+` の場合桁上がりを考慮しないといけない分わずかに処理が遅くなる可能性もありますが、今回のような計算の場合、起こりえないことがあらかじめわかっていますし。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1525860103.000540",
+        "text": "CPUのサイクル数はほとんど同じのはずですが、ビット演算の文脈なので.|.の方がいいと思います(なおxorも可といえば可)",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1525863618.000470",
+        "text": "大きな整数はStringで返ってくるような仕様もあるようです（サーバーは変えられないとの事ですが、正しい仕様は何かという議論について参考までに） <https://github.com/syucream/hastodon/issues/9>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1525921279.000178",
+        "text": "64bitの符号なし整数をInt64では1bitたりない気がします。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1525921326.000250",
+        "text": "64bitの符号あり整数ならいいでしょうが。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1525921948.000185",
+        "text": "64bitの符号なし整数はInt64でなくてWord64をつかうのですね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    }
+]

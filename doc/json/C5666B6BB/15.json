@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1519704472.000230",
+        "text": "何故正規表現を使いたく無いかよく分かって無いですが，ワイドルカードや許容文字が複数ある場合などは， `regex-applicative-text` や `regex-tdfa` などをよく使います",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1519707158.000035",
+        "text": "そういえば，ややこしそうなのであまり追ってなかったんですが，現状 `Typeable` のインスタンス解決が破綻してる件ってどうなってるんでしょうか？ `DeriveDataTypeable` はお亡くなりになる感じなのか，それともderiving自体は現状でも書いておくべきなんでしょうか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1519708242.000016",
+        "text": "GHC Wiki(<https://ghc.haskell.org/trac/ghc/wiki/Typeable#Long-termsolution>)によれば，まだ結局Long-term solutionが見つかってなくて， everything is `Typeable` でderivingされたものは無視するという方針でいく感じですかね？ そうなると現状， `AutoDeriveTypeable` が有効になってる前提で書くのがいいのか， `DeriveDataTypeable` でいちよderivingを書いていくのがいいのかどっちなんですかね？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1519720508.000136",
+        "text": "System.Process.procにShift_JISで引数を渡す方法はありますか?\nとあるELFバイナリがShfit_JISで文字列引数を受け取るのでShfit_JISで文字列引数を渡して起動する必要があります\nIConv.convert \"UTF-8\" \"SHIFT-JIS\"でStringをShift_JISのByteString文字列にすることは出来たのですが\nprocが受け取るのはUCS-4の集まりであるStringなので詰みました\nとりあえずData.ByteString.Lazy.Char8.unpackでStringにしてみたのですが普通に文字化けしました\nsetForeignEncodingしてみれば良いのではという助言を貰って\n<https://twitter.com/mod_poppo/status/968397772301873152>\nlatin1やchar8を設定してみたのですが文字化けするのは変わりません\nprocにはShift_JISの文字列引数を渡すことは出来ないのでしょうか?",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1519721210.000125",
+        "text": "Shift_JISを使うにはSystem.Posix.Process.ByteStringを使うしか無かったりするんでしょうか",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1519748214.000344",
+        "text": "sortがうまくいかず困っています。\n<https://github.com/wat-aro/hs-issues/issues/2>\n\nプログラミングElixirにあったGitHubからIssueを取ってきてテーブル表示するコマンドラインツールをHaskellで作ろうとしているんですが、取得したデータのリストをソートしようとして、なぜか一番上に来るはずの要素が一番下に来てしまいます。そのデータ以外は期待した並び順になっていてよくわかりません。\nこれなにがおかしくてこうなってしまうのでしょうか？\n<https://github.com/wat-aro/hs-issues/blob/master/app/Main.hs>",
+        "user": "U4LEB9UP4",
+        "type": "message"
+    },
+    {
+        "ts": "1519749181.000687",
+        "text": "自己解決しました。foldrで出力するときに先頭の要素を最後に持ってきていた。",
+        "user": "U4LEB9UP4",
+        "type": "message"
+    },
+    {
+        "ts": "1519783069.000052",
+        "text": "多分そうだと思います。\n:confused: .oO(typed-processを勧めようかと思ったけど、結局同じ問題があるな… 提案してみようかしら…)",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1519819462.000492",
+        "text": "ググったらRustをFFIするサンプルコードが結構でてきてホクホクしてきた\nこれ使おう",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519819797.000178",
+        "text": "よく考えたらコネクション保持しないといけないからそのままじゃだめだった",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519957857.000079",
+        "text": "<@U98QDF5EJ> has joined the channel",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519972493.000138",
+        "text": "<@U7PL7ACDU> has joined the channel",
+        "user": "U7PL7ACDU",
+        "type": "message"
+    },
+    {
+        "ts": "1519986091.000188",
+        "text": "<@U74KTAG0N> has joined the channel",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1520006388.000108",
+        "text": "<@U7V6G63LJ> has left the channel",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1520042790.000038",
+        "text": "QuickCheckを使ってライブラリのテストを書く時、 `instance Arbitrary` ってライブラリ側に書くのとテスト側に orphan instance として書くの、どちらがいいんでしょう。",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1520043481.000036",
+        "text": "公開して有用ならライブラリ側に書き、公開するつもりがないならテスト側に書けばいいでしょう。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1520043499.000141",
+        "text": "テスト側に書いたら `{-# OPTIONS_GHC -fno-warn-orphans #-}` を書いておきます。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1520223577.000029",
+        "text": "`imperative-edsl` の `System.IO.Fake` モジュールで定義されている `fakeIO` 関数を使ってこんな感じのテストを書いてみたんですが、他の方法って何かあります？\n\n```\nmodule Main where\n\nimport System.IO.Fake (fakeIO)\nimport Test.Hspec (hspec, describe, it)\nimport Test.Hspec.Expectations (shouldReturn)\n\nmain =  hspec $\n  describe \"Prelude.head\" $\n    it \"returns the first element of a list\" $\n      fakeIO act \"Haskell\" `shouldReturn` \"('H','a')\\n\"\n\nact :: IO ()\nact = do\n  x &lt;- getChar\n  getChar\n  y &lt;- getChar\n  print (x, y)\n```\n\n```\nFailures:\n\n  Main.hs:10:\n  1) Prelude.head returns the first element of a list\n       expected: \"('H','a')\\n\"\n        but got: \"('H','s')\\n\"\n```\n\n<https://github.com/emilaxelsson/imperative-edsl/blob/master/src/System/IO/Fake.hs>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1520242771.000492",
+        "text": "それは IO をテストする他の方法という意味ですか？それともfakeIOの他の使い方という意味でしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1520243251.000439",
+        "text": "`IO ()` をテストする他の方法という意味ですー。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1520289597.000085",
+        "text": "fakeIO がどういう仕組みでやっているのかは存じませんが（もしかしたら実質同じパターンかも）、 `IO` している関数に手を入れることができるなら、 :point_down: こういうちょっとした依存性注入パターンを使いますね。\n\n```\ndata Env m =\n  Env { print :: String -&gt; m (), read :: m String }\nuseIo :: Monad m =&gt; Env m -&gt; m ()\nuseIo e = do\n  s &lt;- read e\n  print s\n```\n\nこうすることで、実際に `IO` するかどうかを `Env` の中身に委ねつつ、 `useIo` を実質純粋な関数として維持できます。\nあとは `Env` を `ReaderT` を経由して渡すようにすれば、見かけとしてもバッチリになるでしょう。\n合わせて読みたい: <https://www.fpcomplete.com/blog/2017/07/the-rio-monad>\n\nあと、標準出力にしか対応していなくて悩ましいですが、全く違うアプローチとして、\n\n<http://syocy.hatenablog.com/entry/haskell-library-2016#%E3%83%86%E3%82%B9%E3%83%88>\n\nで触れている、 `silently` パッケージというのもあります。\nこちらは `stdout` を再オープンして書き換える、という大胆不敵なやり方をとっています。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1520333709.000043",
+        "text": "C++で書かれたライブラリのバインディングを作る際のオススメの方法ってありますか？\n今 <https://github.com/wavewave/fficxx> が少し気になっているのですが、使ったことある人がいたら、感想を知りたいです。",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1520337228.000012",
+        "text": "「テスト可能な形で入出力を切り離す」という目的ならば、Conduitを使うのもありかな、と思います\n\n```\nmodule Main where\n\nimport Data.Conduit (ConduitM, await, yield, runConduit, runConduitPure, (.|))\nimport qualified Data.Conduit.List as CL\nimport Conduit (stdinC, stdoutC)\nimport Data.ByteString.Char8 (pack, unpack)\nimport Test.Hspec (hspec, describe, it)\nimport Test.Hspec.Expectations (shouldBe)\n\nmain = hspec $\n  describe \"Prelude.head\" $\n    it \"returns the first element of a list\" $\n      runConduitPure (CL.sourceList \"Haskell\" .| act .| await) `shouldBe` Just ('H','a')\n\nact :: Monad m =&gt; ConduitM Char (Char, Char) m ()\nact = do\n  Just x &lt;- await\n  await\n  Just y &lt;- await\n  yield (x, y)\n\nactIO :: IO ()\nactIO = runConduit $\n  stdinC .|\n  CL.concatMap unpack .|\n  act .|\n  CL.map (pack . show) .|\n  stdoutC\n```",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1520338644.000084",
+        "text": "<@U7JEMP5SR> has joined the channel",
+        "user": "U7JEMP5SR",
+        "type": "message"
+    },
+    {
+        "ts": "1520389859.000178",
+        "text": "CPP GHC拡張の `MIN_VERSION_*` で4桁を指定する方法ってないですよね？\n具体的には `hoge-1.2.3.4` と `hoge-1.2.3.5` で振る舞いを分ける方法って無いですよね？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1520390185.000200",
+        "text": "そのマクロは3桁までしか扱わないので、できないと思います。PVP compliantならば最後の桁の違いによってユーザから見えるAPIの違いはないはずという考えだと思います。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1520390618.000239",
+        "text": "やっぱそうですよね....",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1520397995.000020",
+        "text": "<@U4LGTMTMK> ありがとうございます。\n`fakeIO` の実装は `silently` にインスパイアされたものなので、仕組み自体は `silently` に近いです。\n\n`Env` を使った依存性注入パターンでは、例えば通常 `putStrLn` を使って出力している箇所を `Env` の `print` に差し替える必要がありそうですね。\n\nこのやり方に近い感じですか？\n<https://lexi-lambda.github.io/blog/2017/06/29/unit-testing-effectful-haskell-with-monad-mock/>\n\n標準入出力だけしか考えてなかったので、参考になりました。ありがとうございます。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1520398337.000012",
+        "text": "&gt; このやり方に近い感じですか？\n&gt; <https://lexi-lambda.github.io/blog/2017/06/29/unit-testing-effectful-haskell-with-monad-mock/>\n\n型クラスはimplicit parameterなわけですから、 `Env` を implicit に渡していると考えれば近いかと思います。\n個人的には `Env` は直接渡した方が、型クラスより柔軟でお勧めです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1520398525.000053",
+        "text": "<@U570660KX> 今回の目的は `テスト可能な形で入出力を切り離す` というよりは、既存のコードをできるだけ変更せずにテストするためにはどうしたら良いのかな？という感じでした。 (ちゃんと明示してなくてすみません。)\n\n`Conduit` あまり詳しく無いのですが、こういうこともできるんですね。勉強になりました。ありがとうございます。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1520399627.000215",
+        "text": "一応、.cabalで `hoge &lt;=1.2.3.4` に依存するか `hoge &gt;=1.2.3.5` に依存するかのフラグを定義して、それに応じて `CPP-Options:` を設定する、という手はありますが。",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1520399686.000153",
+        "text": "ちょうど同じようなこと書こうとしてましたw \n参考までに。\n\npatchlevel より下の桁で試してないので勘で物を言っていますが、cabal の flags ソルバで cpp-options を切り替える方法はどうでしょうか？\nbuild-depends の条件が満たされない場合は、cabal のソルバが manual ではない flag の値を反転して条件が満たされるまで試すので、cpp-options で適当なマクロを define しておけば CPP マクロで参照できる気がします。\n\n```\nflag hogefuga-new-version\n  default: True\n  manual: False\n\nlibrary\n  ... (snip)\n  \n  if flag(hogefuga-new-version)\n    build-depends:\n      hogefuga &gt;= 1.2.3.5\n    cpp-options: -DHOGEFUGA_NEW_VERSION\n  else\n    build-depends:\n      hogefuga &gt;= 1 &amp;&amp; &lt; 1.2.3.5\n```",
+        "user": "U4KNX1LQ0",
+        "type": "message"
+    },
+    {
+        "ts": "1520399722.000196",
+        "text": "いいアイデアですね",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1520400347.000076",
+        "text": "この方法って、  `hogefuga-new-version` フラグを cabal build のときに渡して切り替える感じですか？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1520400391.000071",
+        "text": "manual: Falseだとcabalが勝手にon/offを切り替えてくれます",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1520400609.000129",
+        "text": "おぉ、ダメだったら勝手に切り替えてくれるんですね。\nありがとうございます、試してみます。\n<https://www.haskell.org/cabal/users-guide/developing-packages.html#pkg-field-flag-manual>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1520402940.000119",
+        "text": "どうやら、stack ではこの方法が出来無いようです(できなかった...)\n<https://github.com/commercialhaskell/stack/issues/2197>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1520405585.000021",
+        "text": "stack 使うのであれば、stack.yaml の resolver と extra-deps から hoge のバージョンが一意に定まるはずなので、stack.yaml の flags にどちらかを明示しておけば良い気がします。",
+        "user": "U4KNX1LQ0",
+        "type": "message"
+    },
+    {
+        "ts": "1520594742.000168",
+        "text": "`replicate 100 False` で作成したリストに対して、\n```\nmkcs :: Int -&gt; [Bool] \nmkcs n = [if (x`mod`n==0)then True else False|x&lt;-[1..100]]\n```\nを`n&lt;-[1.100]`でandを取りたいときのコードを以下のように書いてみたのですが、これよりスッキリとした書き方はないでしょうか？\n```\nturn :: ([Bool],Int) -&gt; ([Bool],Int)\nturn (cs.n)\n    | n == 100  = (nxt,100)\n    | otherwise = turn (nxt,(n+1))\n    where \n        nxt = zipWith xor cs (mkcs n)\n        xor a b = ((not a)&amp;&amp;b) || (a&amp;&amp;(not b))\n\nmain = do\n    let c = replicate 100 False\n    print turn (c, 2) \n```",
+        "user": "U86V3B4PJ",
+        "type": "message"
+    },
+    {
+        "ts": "1520595984.000097",
+        "text": "`mkcs` の定義自体は `mkcs n = [x `mod` n == 0 | x &lt;- [1..100]]` でも良いですよね",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1520597258.000295",
+        "text": "`ands` じゃなくて `turn` ??",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1520597532.000398",
+        "text": "`nxt = zipWith and cs (mkcs n)` も ` nxt = zipWith (&amp;&amp;) cs (mkcs n)` かな？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1520598003.000214",
+        "text": "スタート `False` だと何べん `(&amp;&amp;)` しても `False` だからなにしたいコードかよくわからないですね...",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1520600268.000038",
+        "text": "説明を簡略化しようとして，いろいろミスっていました\nands -&gt; turn \nand -&gt; xor とします．",
+        "user": "U86V3B4PJ",
+        "type": "message"
+    },
+    {
+        "ts": "1520600472.000027",
+        "text": "あー xor か",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1520600587.000367",
+        "text": "ちなみに、Haskell に xor あるよ\n<http://hackage.haskell.org/package/base-4.10.1.0/docs/Data-Bits.html#v:xor>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1520601088.000382",
+        "text": "うーん、すっきりかどうかは分からないけど\n```\nturn :: ([Bool], Int) -&gt; ([Bool], Int)\nturn = until ((&gt; 100) . snd) (\\(cs, n) -&gt; (zipWith xor cs (mkcs n), n + 1))\n```",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1520601395.000278",
+        "text": "欲しいのは `[Bool]` だけだったら普通に畳み込みでいいのか\n```\nimport Data.Bits\n\nmain = print $ turn [2..100] (replicate 100 False)\n\nturn :: [Int] -&gt; [Bool] -&gt; [Bool]\nturn ns cs = foldl (\\cs' n -&gt; zipWith xor cs' (mkcs n)) cs ns\n\nmkcs :: Int -&gt; [Bool] \nmkcs n = [x `mod` n == 0 | x &lt;- [1..100]]\n```",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1520604135.000611",
+        "text": "助言ありがとうございます\n畳み込みがまだ慣れてないのが，ネックになってそうなので，勉強がんばります",
+        "user": "U86V3B4PJ",
+        "type": "message"
+    },
+    {
+        "ts": "1520700707.000019",
+        "text": "もともとの問題を解くだけなら、100 という1つの整数からリストの構成を1回だけにするようなコードも書けるには書けますね。\n\n```\nmodule Main where\n\nimport Control.Arrow ((***))\nimport Data.Bool (bool)\n\nmain :: IO ()\nmain = print (fromEnum &lt;$&gt; mkes 100)\n\nmkes :: Int -&gt; [Bool]\nmkes b = hylo ((:) . mke b) [] phi b\n  where\n    phi 0 = Nothing\n    phi n = Just (succ (b - n), pred n)\n\nmke :: Int -&gt; Int -&gt; Bool\nmke b m = hylo xor False phi b\n  where\n    phi 0 = Nothing\n    phi n = Just (m `mod` succ (b - n) == 0, pred n)\n\nhylo :: (a -&gt; b -&gt; b) -&gt; b -&gt; (c -&gt; Maybe (a, c)) -&gt; c -&gt; b\nhylo f e phi x = maybe e (uncurry ($) . (f *** hylo f e phi)) (phi x)\n\nxor :: Bool -&gt; Bool -&gt; Bool\nxor p q = bool p (not p) q\n```",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    }
+]

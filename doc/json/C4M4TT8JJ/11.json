@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1518662343.000172",
+        "text": "ああ、説明が足りませんでした。\n構文木を評価した結果の型を以下のようにして、型の構造はシンプルなままにして外側から注釈をつけられるような Functor として扱えないかなって取り組んでみたのです\n\n```hs\ndata ValF a\n  = Unit\n  | Bool    Bool\n  | Integer Integer\n  | List    [a]\n  | Func ([a] -&gt; Either Error a)\n```\nビルトインの関数やラムダ式を `Func`   にあてがう用途に足したのですが、この時点でFunctorの導出は出来ないなって気づいて",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518662486.000122",
+        "text": "aはアノテーションにして，型情報とかを入れたい感じですか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1518662602.000163",
+        "text": "`Func` の型の意味がよく分かってないんですが， `([a], Either Error a)` ではなくて関数型なんです？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1518662627.000001",
+        "text": "更にコレを `newtype Fix f = Fix (f (Fix f))` でラップすると、外側から中に注釈を差し込めるっていう感じです",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518662820.000206",
+        "text": "`Func` はhaskellの方で実装しているビルトイン関数本体を渡すように考えていて eval する時にそれを適用させてインタプリタを実装する、という目論見でした。",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518662933.000070",
+        "text": "ここの “Adding basic primitives” の項に書いてあるような感じ <https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours/Evaluation,_Part_1>",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518663227.000179",
+        "text": "<https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours/Defining_Scheme_Functions>\nこっちの方が近いかもです。この例の `LispVal` のように、関数をメンバーに持たせて、apply の型を `Val -&gt; [Val] -&gt; Either Error Val` という風にしたかった",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518663231.000031",
+        "text": "うーん，それは，\n```\ntype Val = Fix ValF\neval :: Val -&gt; Either Error Val\n...\neval (FunApp name xs) = buildinf name xs\n```\nみたいな実装になる気がしたのですが(ビルトインをeval時に埋め込むなら)，Funはどういう感じの実装になるんでしょう？(ちょっと察しが悪くてすいません)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1518663367.000139",
+        "text": "あー分かりました．ListがFunAppなんですね(Lisp脳じゃなかった)．evalのシステムはFunctorなくても実装できそうな気がするんですが，ValFに関して何かトラバースがしたい感じなんでしょうか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1518663785.000133",
+        "text": "ValFに、「何も注釈つけてない版」でテストを書いて、AstからValFに変換する時にはシンボルの位置情報をつけたり、型推論の結果を注釈側に足したり、って言う風にしたかったんです。もちろん素朴にValの構造をコピペして `LocatedVal` とか `TypedVal` とかを作っても同様の事が出来はするんですが、ボイラープレートの山が出来るし…",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518664011.000114",
+        "text": "印象としては，Func fというデータで関数fは注釈情報を受け取ることは想定してないように見えるんですが，想定してるんですかね？想定してるなら，確かにうまくなんとかしたい感じはあるんですが，想定してないなら\n```\n  ...\n  | Func ([Val] -&gt; Either Error Val)\n\napply (Func f) args = &lt;argsから注釈抜いて[Val]に変換したのを適用する&gt;\n```\nみたいなんが正しそうな気がするんですよね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1518664398.000014",
+        "text": "!!",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518664498.000109",
+        "text": "ありがとうございます、確かにそうだった。後で試してみます",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518664618.000112",
+        "text": "ついでに、この手のテクニックって結構紹介されていて、　<https://stackoverflow.com/questions/38462563/how-to-work-with-ast-with-cofree-annotation>\n\nekmett さんのライブラリでも Fix-Functor の組み合わせでTHのライブラリ作っていたりします\n<https://github.com/ekmett/recursion-schemes/pull/23>",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518664859.000073",
+        "text": "ASTでcofree annotationを使ったことはあるんですが，実行時表現をそれで作るのはあまりやったことなかったです．\n(個人的にFixの辛いとこは，type synonymを使わなきゃいけないのも合わさって，型エラーがやばいことになるとこだと思ってるので，素直にannotation変数追加してDeriveFunctor使っちゃうことも多いです)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1518665584.000122",
+        "text": "たぶん実行時表現まで（本当はAstそのもの使いたい）そうしたがってしまうのはLispっ子ゆえの悪癖かもしれない…",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519011331.000030",
+        "text": "3/19（月）にオープンハウスがありますので、興味のある方は是非〜\n<https://preferred-networks.connpass.com/event/79219/>",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1519026160.000054",
+        "text": "<@U9C56J90X> has joined the channel",
+        "user": "U9C56J90X",
+        "type": "message"
+    },
+    {
+        "ts": "1519027141.000214",
+        "text": "話がちょっとそれて、cofree が何か知らないんですが、この ↓ AST って cofree 使ってるんですかね\nこの PDF 読みながら実装してるんですが <http://www.cs.ru.nl/~W.Swierstra/Publications/DataTypesALaCarte.pdf>\n<https://github.com/kakkun61/liquoh/blob/0eea3ea99e480f11e419febeac476fc3caa32d07/src/Text/Liquoh/Interpreter/Expression.hs>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1519039514.000199",
+        "text": "<@U4L0B71L1> 多分， <#C8KBGEBR7|code-review> の方がいいと思うので，そっち行きますね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1519227767.000810",
+        "text": "HPCでテストのカバレッジを取る時、deriving で導出した部分は（特にderiving (Eq, Show, Ord, Typeable) あたり）は除外したいって思ってしまうのですが、みなさんどうしてるんだろ",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519390651.000303",
+        "text": "<@U9D4PL91N> has joined the channel",
+        "user": "U9D4PL91N",
+        "type": "message"
+    },
+    {
+        "ts": "1519561156.000006",
+        "text": "<@U9EBE6ELT> has joined the channel",
+        "user": "U9EBE6ELT",
+        "type": "message"
+    },
+    {
+        "ts": "1519633041.000110",
+        "text": "なにがありましたっけ？「Haskell風の別の言語」というとPureScriptやElmが思い浮かびますが、それ以外があまり出てこない… Ivoryとか？ <https://twitter.com/qnighy/status/967959302118895616?s=09>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1519633609.000064",
+        "text": "Agda とか Idris とか？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1519633681.000154",
+        "text": "Fay, Haste, Royなどがありますが皆まだ生きてるのかは知らない…",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1519633742.000122",
+        "text": "Curry というのがあった\n<https://en.wikipedia.org/wiki/Curry_(programming_language)>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1519635239.000391",
+        "text": "定義によるが Haste は Haskell 風言語ではなく Haskell そのものと言えそう。",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1519637509.000379",
+        "text": "haskell実装だとlunaとかも",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519638672.000073",
+        "text": "JVM で動く Eta とか",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1519642184.000391",
+        "text": "ml系",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1519643881.000275",
+        "text": "ML系とHaskell違くない？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1519644552.000106",
+        "text": "JVM系で言うと、Eta は GHC を使ってるので Haskell そのものと十分言える。Frege は Haskell 2010 を参考にしている部分が多いが GHC を使っておらず Haskell 完全準拠ではないはずなので Haskell 系の別言語と言えそう。（このあたり <@U4M4XHKB8> さんが詳しいはず…）",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1519645917.000165",
+        "text": "ああ、すみません、熱に浮かされていたせいかいろいろど忘れしてました…:sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1519647741.000338",
+        "text": "<@U4M598NHM> Frege と Eta は Haskell と言ってしまってよいでしょう。両者とも Haskell 2010 準拠を謳って（少なくとも目指しては）います。Eta はさらに GHC7 相当の拡張を載せることで既存の Hackage ライブラリを再利用可能にしている、という点が Frege に対するアドバンテージです。C-FFI を使っているライブラリはそのままでは動かせないので、パッチを当てるための仕組みがあります。\n\nコードベースに関して言うなら、Frege は GHC とは別系統です（そもそも当初は JVM 言語ですらなく v1 は Perl 実装だった）。Eta は GHC のフォークで、STG 生成までは GHC と同じコードを使います。ちなみにビルドツール Etlas も Cabal のフォークです。",
+        "user": "U4M4XHKB8",
+        "type": "message"
+    },
+    {
+        "ts": "1519647784.000258",
+        "text": "なんか早口のオタクみたいになってしまった。",
+        "user": "U4M4XHKB8",
+        "type": "message"
+    },
+    {
+        "ts": "1519692370.000090",
+        "text": "<http://slackarchive.io|slackarchive.io> の収集がなんか止まってるように見えますね\n<https://haskell-jp.slackarchive.io>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1519716338.000201",
+        "text": "gtk2hsではなくてgi-gtkを使ったことがある人はいますか？gtk2hsはAPIに抜けがあったり公式に新しいアプリでは非推奨と書いてあるんですが、既存のアプリをポートする価値があるかなと検討してます。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1519720430.000295",
+        "text": "<@U9FAYSN12> has joined the channel",
+        "user": "U9FAYSN12",
+        "type": "message"
+    },
+    {
+        "ts": "1519722242.000325",
+        "text": "一度だけgtk2hsからgi-gtkに書き直したことがあります。\ncairo周りの変更への追従もあり、色々と修正が必要でしたが、使えない機能（ウィジェット）がないのはよいと思いました。",
+        "user": "U90FHSDFG",
+        "type": "message"
+    },
+    {
+        "ts": "1519723895.000125",
+        "text": "特にハマったところもない感じでしょうか。依存関係にxml-conduitが入っていて、conduit周りの依存を引っ張ってきてしまうのも気になるところです。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1519726455.000317",
+        "text": "そうですねえ、まずサンプルプログラムで違いを理解してから移植に取り組んだのですが、それほど大きな違いはなかったと思います。依存パッケージは増えますが、新しいHeaderBarなどを使いたかったのでgtk-giにしました。しかしgtk2hsも開発続いていたんですね（今知りました）。",
+        "user": "U90FHSDFG",
+        "type": "message"
+    },
+    {
+        "ts": "1519730689.000410",
+        "text": "私も最近 gi-gtk に移行したのですが、ListStore まわりの移植でちょっとハマったくらいですかね (gi-gtk-hs を知らなかった)",
+        "user": "U4KNX1LQ0",
+        "type": "message"
+    },
+    {
+        "ts": "1519763746.000311",
+        "text": "gi-gtkにListStoreがあってgi-gtk-hsにはSeqStoreというgtk2hsのListStoreのコピーがあるんですね。どう違うのでしょうか。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1519799513.000006",
+        "text": "インスタンスのメソッドが未定義でも警告で済まされてしまうせいで二度も足止めを食らってしまった… :hole: <https://hackage.haskell.org/package/exceptions-0.9.0/docs/Control-Monad-Catch.html#v:generalBracket>",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1519809862.000390",
+        "text": "gi-gtk の ListStore は gobject-introspection そのままなので、格納する値は GValue にする必要がありますが、\n一方、gi-gtk-hs の SeqStore だと Haskell の任意の型を入れられるという感じですかね？",
+        "user": "U4KNX1LQ0",
+        "type": "message"
+    },
+    {
+        "ts": "1519822511.000076",
+        "text": "なるほど、ListStoreの方は使いにくそうですね",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1519829703.000554",
+        "text": "知らなかった……\n<https://twitter.com/masahiro_sakai/status/968861617038360576>",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1519866293.000121",
+        "text": "気が向いたらでいいのでTwitterで突っついといて頂けると助かります:pray:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1519866689.000246",
+        "text": "今できることはそれぐらいしかないので…\n取り急ぎ私からも再度お願いしました \n<https://twitter.com/igrep/status/969016207432040449?s=19>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]

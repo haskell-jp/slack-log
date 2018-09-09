@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1533535227.000045",
+        "text": "<https://github.com/alanz/vscode-hie-server/blob/master/package.json#L100>\n<https://github.com/alanz/vscode-hie-server/blob/master/src/extension.ts#L153>\n<https://github.com/haskell/haskell-ide-engine/blob/master/src/Haskell/Ide/Engine/Options.hs#L23>\n\nたぶんデバッグログだと思うんですけど、使ったことないので自信ないです。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1533535431.000030",
+        "text": "なるほど。その `logLevel` 定数のありかが気になってました。\n一時ディレクトリーにログを書き込むってことか。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1533704512.000189",
+        "text": "Kan extension は何か具体的な用途や例などあるの？\n最近 Kan extensionを勉強して、なんとか理解できたけど、実際の用途は全然思いつかなくて…",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1533710149.000089",
+        "text": "Codensity Monad の理論的背景とか <http://myuon-myon.hatenablog.com/entry/2014/11/03/183032>",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1533714380.000073",
+        "text": "ありがとうございます。",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1533728880.000218",
+        "text": "以下のコードをビルドすると `Orphan instance: instance From Word8 HogeSerializeFormat` という警告が出てしまいます。\n<https://repl.it/repls/SilverIntentEmulator>\n`{-# OPTIONS_GHC -fno-warn-orphans #-}` をつければ警告を消せるようなのですが、そもそもこの警告は何が問題なのでしょうか？（実行時にエラーになる場合があるなど）\nネットで調べてみると `instance From Word8 HogeSerializeFormat` の部分のファイルを分ければよいということが書いてあったのですが、分けようとした（module Data.Word内に書いてみた）際に循環importになってしまいビルドができなくなってしまいました。\nhs-bootというものを使えば解決できると書いてあったのですが、僕の理解が間違っているのかhs-boot内でお互いをimportしてしまい、結局循環import問題が発生してしまいました。\n長くなりましたが、この問題はどう解決するのがベストなのでしょうか？ `{-# OPTIONS_GHC -fno-warn-orphans #-}` をつけて警告を消してしまってよいのか、それとも別の方法がよいのか。\nよろしくお願い致します。",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1533730689.000201",
+        "text": "&gt; `{-# OPTIONS_GHC -fno-warn-orphans #-}` をつければ警告を消せるようなのですが、そもそもこの警告は何が問題なのでしょうか？\n\n実行時エラーが起こると言うことはありません。\nこの警告は、\n- 「ある型クラスの定義」と「ある型に対するその型クラスのインスタンスの定義」\n- 「ある型の定義」と「その型に対するある型クラスのインスタンスの定義」\nがすべて別のモジュールに分かれてしまっている場合に起こります。\n今回の場合、\n```\ninstance From HogeSerializeFormat Word8\n```\nなどのインスタンスの定義が問題になっているわけですが、\nこれは、 `Word8` という型の定義と、 `From` という型クラスの定義、どちらのモジュールとも異なるモジュールで宣言しているから `Orphan instance` と言われてしまいます。\nインスタンスの定義だけが型クラスの定義からも型の定義からも離れた、 \"orphan\" （孤児）になってしまっているから \"Orphan instance\" といいます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1533730937.000111",
+        "text": "で、何が問題なのかというと、どのモジュールを import したらいいのかわかりづらくなってしまうという問題があります。\n`Word8` について `From` のインスタンスがあることを知っていても、 `Word8` が定義されたモジュール、 `From` が定義されたモジュール、どちらを import してもインスタンスが利用できないため、使おうとしたときに迷ってしまう恐れがあるのです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1533731623.000315",
+        "text": "実際のところ、orphan instanceは意図的に定義されることもしばしばあります。\nそういう場合のために、警告として、無効にできるようになっているのです。\n例えばいろいろな型に使える、汎用性の高い型クラスを提供するパッケージAがあるとします。\nAの作者はできるだけいろいろな型をその型クラスのインスタンスにしようとしますが、実際にはあらゆる型をサポートできるわけではありません。\nAがリリースされた後に新しい、Aが提供する型クラスにふさわしい型がリリースされるなんてことは十分あり得ますし、そもそそもあらゆる型をサポートするために、Aの依存パッケージを増やすということは、できるだけ避けるべきです。\n\nそれでもAが提供する型クラスのインスタンスを、あの型にも提供したい！という場合に、orphan instance専用のパッケージが作られることがしばしばあります。\n「hogehoge-instances」なんて名前のパッケージがあったら、多くの場合そうしたorphan instance専門のパッケージです。\n探してみると面白いでしょう。\n<http://hackage.haskell.org/packages/search?terms=instances>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1533731722.000262",
+        "text": "今回の場合は、 `instance From HogeSerializeFormat Word8` などを `Data.From` モジュールに移動させれば、\n「ある型クラスの定義」と「ある型に対するその型クラスのインスタンスの定義」\nが同じモジュールに含まれるようになるため、問題ないはずです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1533732128.000165",
+        "text": "後で調べてわかったんですが、Coercibleはユーザーが自分でインスタンスを定義できるものではなく、GHCが自動でCoercibleかどうか判定するという非常に特殊なものなので、RustのFromとはずいぶん性格が違うようです。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1533733975.000113",
+        "text": "なるほど！ `Data.From` に移動すればよかったのですね！\n移動したところ警告が出ずにビルドすることができました！\n丁寧にご説明していただき、ありがとうございます！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1533740355.000112",
+        "text": "Orphan instanceを避けるべき理由としては他に、ライブラリaとライブラリbがそれぞれ勝手にinstance宣言をして、それらが被っていると、それらを同じプロジェクトで使った時に問答無用で重複エラーになる、すなわちライブラリaとbを同時に使う事が出来なくなる、というのがありますね。なので、ライブラリでなくexeのソースでやる分には結構大丈夫なんじゃないかと思ったりします",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1533778791.000080",
+        "text": "GADTの計算するときに使えるときもあります",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1533780206.000023",
+        "text": "ライブラリでやりたいので注意してやっていこうと思います！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1534602712.000200",
+        "text": "<@UCB4XQW77> has joined the channel",
+        "user": "UCB4XQW77",
+        "type": "message"
+    },
+    {
+        "ts": "1535182965.000200",
+        "text": "<@UCG530TN3> has joined the channel",
+        "user": "UCG530TN3",
+        "type": "message"
+    },
+    {
+        "ts": "1535240078.000200",
+        "text": "<@UCDHJ6R6X> has joined the channel",
+        "user": "UCDHJ6R6X",
+        "type": "message"
+    },
+    {
+        "ts": "1535465561.000100",
+        "text": "Conduit(cereal-conduit)について質問させてください。\ncereal-conduitで定義されている `conduitGet2` を真似して（ほぼコピペ）デシリアライズした値と一緒に、今何バイト目にいるのかをタプルで返すコードを書いてみたのですがコンパイルエラーになってしまいうまく行きません。\n`i &lt;- IO.hTell h` の部分を `i &lt;- return 123` などにするとコンパイルはできたのですが、なぜ `i &lt;- IO.hTell h` だとエラーになってしまうのかがわからない状況です。\n上記の質問とは少しずれてしまうのですが、自分で `conduitGet3` などを定義せず既存の `conduitGet2` を使いつつ今何バイト目にいるのかをデシリアライズした値と一緒に返す方法なんてあったりするのでしょうか？\nちなみにエラーメッセージはこんな感じです。よろしくお願い致します。\n```\n    • Couldn't match type ‘IO’\n                     with ‘ConduitT BS.ByteString (o, Integer) m’\n      Expected type: ConduitT BS.ByteString (o, Integer) m Integer\n        Actual type: IO Integer\n    • In a stmt of a 'do' block: i &lt;- IO.hTell h\n      In the expression:\n        do i &lt;- IO.hTell h\n           yield (x, i)\n           if BS.null rest then awaitNE &gt;&gt;= start else start rest\n      In an equation for ‘result’:\n          result (Done x rest)\n            = do i &lt;- IO.hTell h\n                 yield (x, i)\n                 if BS.null rest then awaitNE &gt;&gt;= start else start rest\n    • Relevant bindings include\n        x :: o (bound at app/Main.hs:73:18)\n        result :: Result o -&gt; ConduitT BS.ByteString (o, Integer) m ()\n          (bound at app/Main.hs:66:5)\n        awaitNE :: forall o. ConduitT BS.ByteString o m BS.ByteString\n          (bound at app/Main.hs:54:5)\n        g :: Get o (bound at app/Main.hs:49:15)\n        conduitGet3 :: IO.Handle\n                       -&gt; Get o -&gt; ConduitT BS.ByteString (o, Integer) m ()\n          (bound at app/Main.hs:49:1)\n   |\n74 |         i &lt;- IO.hTell h\n   |              ^^^^^^^^^^\n```",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535466661.000100",
+        "text": "まず単純なエラーメッセージの解釈ですが， `IO.hTell h` は `IO Integer` 型になりますが `result :: Data.Serialize.Result o -&gt; ConduitT BS.ByteString (o, Integer) m ()` 型になるため， `do` 構文の制約により `ConduitT BS.ByteString (o, Integer) m` モナドでなく `IO` モナドを使っているためエラーになります． `return 123` にするとうまくいくのは， `return 123 :: ConduitT BS.ByteString (o, Integer) m Integer` となるためです．\nなお，型がどう推論されているかは，Type holeという機能を使って `result :: _ -&gt; _` とすればエラーメッセージとして表示されるようになります．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535466915.000100",
+        "text": "それで修正案に入る前に，要件の確認なのですが，この関数は，\n`runConduit $ sourceHandle h .| conduitGet3 h .| sinkList`\nというような感じで `sourceHandle` に渡されたハンドルを `conduitGet3` にも渡される前提で使用するという想定で合ってますか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535467057.000100",
+        "text": "夜分遅くにありがとうございます！\nはい！そんな感じです！ `runConduit $ CC.sourceHandle h .| conduitGet3 h (get :: Get Value.Value) .| CC.mapM_ print` で画面に表示されるか試していました！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535467161.000100",
+        "text": "Type hole…知りませんでした…！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535467479.000100",
+        "text": "これは，HandleのPositionでなくてはだめでしょうか？例えば，Data.SerializeのbytesReadを使うと，\n```\nconduitGet3 :: MonadThrow m =&gt; Get o -&gt; ConduitT BS.ByteString (o, Int) m ()\nconduitGet3 g = conduitGet2 (twoOf g bytesRead)\n```\nみたいなことができます．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535467905.000100",
+        "text": "HandleのPositionにこだわりはありません！今何バイト目にいるのかがわかれば問題ありません！デシリアライズ対象のデータの先頭が何バイト目なのかが知りたいだけですので！\n`twoOf` という関数をググっても出てこないのですがこれはどこで定義されている関数でしょうか？",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535467915.000100",
+        "text": "いちよ，現状の `conduitGet3` を修正する場合， <http://hackage.haskell.org/package/base-4.11.1.0/docs/Control-Monad-IO-Class.html> を使用して `hTell h` の部分を `liftIO (hTell h)` にすれば動くはずです．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535467954.000100",
+        "text": "あ，すいません，s/twoOf/getTwoOf/ です． <http://hackage.haskell.org/package/cereal-0.5.7.0/docs/Data-Serialize-Get.html#v:getTwoOf> これですね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535468157.000100",
+        "text": "あ，できないかもしれないです．これだと，ずっとPositionが0になるのか…",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535468573.000100",
+        "text": "実行してみましたが確かに毎回Positionがリセットされてしまいますね",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535468822.000100",
+        "text": "liftIOを試してみましたがビルドエラーになってしまいました\n```\n    • Could not deduce (MonadIO m) arising from a use of ‘liftIO’\n      from the context: MonadThrow m\n        bound by the type signature for:\n                   conduitGet3 :: forall (m :: * -&gt; *) o.\n                                  MonadThrow m =&gt;\n                                  IO.Handle -&gt; Get o -&gt; ConduitT BS.ByteString (o, Integer) m ()\n        at app/Main.hs:49:1-93\n      Possible fix:\n        add (MonadIO m) to the context of\n          the type signature for:\n            conduitGet3 :: forall (m :: * -&gt; *) o.\n                           MonadThrow m =&gt;\n                           IO.Handle -&gt; Get o -&gt; ConduitT BS.ByteString (o, Integer) m ()\n    • In a stmt of a 'do' block: i &lt;- liftIO (IO.hTell h)\n      In the expression:\n        do i &lt;- liftIO (IO.hTell h)\n           yield (x, i)\n           if BS.null rest then awaitNE &gt;&gt;= start else start rest\n      In an equation for ‘result’:\n          result (Done x rest)\n            = do i &lt;- liftIO (IO.hTell h)\n                 yield (x, i)\n                 if BS.null rest then awaitNE &gt;&gt;= start else start rest\n   |\n75 |         i &lt;- liftIO (IO.hTell h)\n   |              ^^^^^^^^^^^^^^^^^^^\n```",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535469098.000100",
+        "text": "あ、 `conduitGet3 :: (MonadThrow m, MonadIO m) =&gt; IO.Handle -&gt; Get o -&gt; ConduitT BS.ByteString (o, Integer) m ()` にしたらビルドできました！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535469224.000100",
+        "text": "ビルドはできたのですが出力結果が\n```\n(Nil,3)\n(Bool True,3)\n(Bool False,3)\n```\nとなってしまいました :sob:\n\n本当は\n```\n(Nil,0)\n(Bool True,1)\n(Bool False,2)\n```\nとなってほしいのですが…",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535469318.000100",
+        "text": "遅延評価だから全部最後の状態のを見てしまっているということなのでしょうか…？",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535469462.000100",
+        "text": "ちなみに `echo -en \"\\x00\\x01\\x02\"` で作成したファイルを読ませていて、0x00がNil、0x01がBool True、0x02がBool Falseとなっております",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535469988.000100",
+        "text": "いえ実はその問題は指摘しようと思ってたのですが， sourceFile は256kBごとによみとるため， hTellで取り出せるのは読み込んだ後(パースされた文字列のポジションではなく)の値になります．今回の例では最初に最後までHandleが読み込まれてしまった結果そうなったのだと思います",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535470434.000100",
+        "text": "そ、そんな…この機能を実現するのはConduitではできないのでしょうか…？\nそもそも僕のこのやり方がおかしいのでしょうか…？",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535470477.000100",
+        "text": "HandleのPositionを使わない場合，こんな感じで書けます．\n<https://gist.github.com/mizunashi-mana/9e8f9703cf21698a4312ba19874bcd48>\n\nHandleのPositionを使う場合上の問題があるため，結局Position修正を行わなければならないためhTellを使うよりこっちのほうがいいかもしれません．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535470796.000100",
+        "text": "うーん，おそらくですが `conduitGet2` を流用するのは無理なんじゃないかなと思いますね．やるとしたらConduitに新しいAPIを足さなきゃいけない気がします(<http://hackage.haskell.org/package/conduit-1.3.0.3/docs/src/Data.Conduit.Internal.Pipe.html#Pipe> らへん低下層のデータ型を操作するようなAPIを足せば色々できると思いますね．今回の場合に使えるAPIはあってもおかしくないと思うんですが，探した感じ見つかりませんでした)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535470873.000100",
+        "text": "なるほど、内部でカウンタをもつということですね！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535470895.000100",
+        "text": "なるほど、流用は難しいですか…",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535471458.000100",
+        "text": "あー…！完全に後出しジャンケンなのですが、 `echo -en \"\\x00\\x01\\x02\\x08\\x01\"` こんな感じで `\\x08\\x01` の2つで `UInt8 1` のようなデータもあるんです…\nこれ、先程の内部でカウンタ持つやり方だとできないですかね…？",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535471497.000100",
+        "text": "あ、bytesReadで何バイト読んだかわかるからそれをカウンタに足せばいけますかね！？",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535471695.000100",
+        "text": "それさっき思いついて実装してます．ちょっと応用すれば簡単に流用できましたね…なるほど",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535471909.000100",
+        "text": "```\n\nconduitGet4 :: MonadThrow m =&gt; Get o -&gt; ConduitT BS.ByteString (o, Int) m ()\nconduitGet4 g = conduitGet2 ((,) &lt;$&gt; g &lt;*&gt; bytesRead) .| conduitPosFix 0\n  where\n    conduitPosFix !p = await &gt;&gt;= \\case\n      Nothing -&gt; pure ()\n      Just (x, l) -&gt; do\n        yield (x, p)\n        conduitPosFix $ p + l\n```\nこんな単純にできそうですね…",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535472062.000100",
+        "text": "おお！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535472172.000100",
+        "text": "あら、ビルドエラーになってしまいました…\n```\nerror: parse error on input ‘case’\n   |\n84 |     conduitPosFix !p = await &gt;&gt;= \\case\n   |\n```",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535472533.000100",
+        "text": "いろいろ試してみましたがまだHaskellの文法をきちんと理解できておらず↑のビルドエラーを直せませんでした…",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535472817.000100",
+        "text": "あ！ `-XLambdaCase` が必要なんですね！失礼しました！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1535472837.000100",
+        "text": "あすいません、  {-# LANGUAGE LambdaCase #-} が必要です",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1535473240.000100",
+        "text": "```\n    Variable not in scope:\n      conduitPosFix :: Integer -&gt; ConduitM (o, Int) (o, Int) m ()\n   |\n82 | conduitGet4 g = conduitGet2 ((,) &lt;$&gt; g &lt;*&gt; bytesRead) .| conduitPosFix 0\n   |                                                          ^^^^^^^^^^^^^\n```\nwhereでconduitPosFixが定義されているのにエラーになってしまう…",
+        "user": "UC42RRAVC",
+        "type": "message"
+    }
+]

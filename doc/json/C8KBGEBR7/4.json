@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1524068601.000189",
+        "text": "それから，要件がどうなのかは分からないのですが，JSONログを吐けるならそっちを解析するといいのかなという感じがしました\n<https://github.com/input-output-hk/cardano-sl/blob/8d25c2ad3ca2354af8f8c43a2972d1b9a31bf440/lib/src/Pos/Client/CLI/NodeOptions.hs#L152>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1524091206.000201",
+        "text": "ご指摘ありがとうございます！\nベンチマークも実装してみます。\nログに関しては商用で利用されているCardano-slのログファイルがJSONではないため難しいと思います。。より解析しやすいフォーマットへの変更は現在検討しています。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1524102511.000074",
+        "text": "```\nhiroto@hiroto-XPS-13-9360:~/haskell/cardano-diagnosis-program$ stack exec diagnosis \"/home/hiroto/Downloads/logs (6).zip\" -- +RTS -s\nRunning analysis on logs\nAnalysis done successfully!! See result-2018-04-19.html\n   2,031,484,272 bytes allocated in the heap\n     791,850,816 bytes copied during GC\n     189,980,952 bytes maximum residency (12 sample(s))\n       3,383,016 bytes maximum slop\n             433 MB total memory in use (0 MB lost due to fragmentation)\n\n                                     Tot time (elapsed)  Avg pause  Max pause\n  Gen  0      1910 colls,  1910 par    3.579s   0.844s     0.0004s    0.1591s\n  Gen  1        12 colls,    11 par    0.018s   0.004s     0.0004s    0.0012s\n\n  Parallel GC work balance: 5.67% (serial 0%, perfect 100%)\n\n  TASKS: 18 (1 bound, 17 peak workers (17 total), using -N8)\n\n  SPARKS: 0 (0 converted, 0 overflowed, 0 dud, 0 GC'd, 0 fizzled)\n\n  INIT    time    0.000s  (  0.001s elapsed)\n  MUT     time    0.716s  (  0.818s elapsed)\n  GC      time    3.597s  (  0.848s elapsed)\n  EXIT    time    0.000s  (  0.023s elapsed)\n  Total   time    4.313s  (  1.691s elapsed)\n\n  Alloc rate    2,839,001,278 bytes per MUT second\n\n  Productivity  16.6% of total user, 49.8% of total elapsed\n\ngc_alloc_block_sync: 18951\nwhitehole_spin: 0\ngen[0].sync: 0\ngen[1].sync: 7944\n```\nmizunashiさんの言うとおりGCにかなり時間を食ってました。\nこの場合はストリームライブラリなどを使ったほうがよいのでしょうか。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1524104464.000235",
+        "text": "<https://github.com/input-output-hk/cardano-diagnosis-program/blob/master/src/Classifier.hs> を読んだ感じ、無理に `State` を使う必要はないように感じます。\n少なくともトップレベルの型を見る限り、 `State Analysis ()` な型の関数しか見当たらないためです。\n素直に `Analysis -&gt; Analysis` な関数にすればよいのではないでしょうか。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524104920.000054",
+        "text": "RTSオプションでメモリ制限をした場合に，かなり遅くなる場合は一般的にストリームライブラリを使うのがいいと思います．ガッと読んでガッと書き込むとGC無しの場合速い場合がありますが，GC込みの場合ちょびちょび読む(ストリーム処理)より遅いみたいなことがよくあるので，一旦試してみるのがいい気がします．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1524105279.000191",
+        "text": "で、気になる点にお答えしますと、\n&gt; 1. どのようなテストを行えばいいのかわかりません。（ダミーファイルを作ってそれをパースするとか？）\n詳しく見ないとなんともいえませんが、それが一番要求に近い部分をテストしているっぽいので、いいんじゃないでしょうか？\n&gt; 2. ログを解析する部分(`Classifier.hs`)が総当りに近いです...\nいい例はぱっと思いつきませんが、とりあえず今の実装でも十分にシンプル（ `State Analysis ()` をやめることでもっとシンプルになりますが）なのでよいのではないでしょうか。\n効率の観点で言えばもしかしたら <https://quasimal.com/posts/2018-01-08-prefix-tree-parsing.html> とかが使える、かもしれません（まだ実験的なライブラリーのようなので興味があったら、程度ですが）。\n\n&gt; とくにユーザー名に半角英数字以外を使用しているユーザーに対して動作するのか\n\nこれはほかはおそらく大丈夫ですが、Windowsでは結構厳しいでしょうね。。。\n残念ながら現状Haskellの日本語パスの扱いはWindowsではエラーが起こりやすかったように思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524107640.000130",
+        "text": "Windowsきついですよね。。\n英語版Windowsでユーザー名が日本語のユーザーを作成したらプロンプトが？？になってて「あ、これだめだ」って思いました。\n\nエラー処理はPR作成したので、まずテスト、そのあとストリームの実装に着手します。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1524109788.000137",
+        "text": "reactionがなかったので念のためもう一度貼り付けておきます。\n確認済みでしたらすみません。 :bow:\n<https://haskell-jp.slack.com/archives/C8KBGEBR7/p1524104464000235?thread_ts=1524038560.000043&amp;cid=C8KBGEBR7>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524113588.000130",
+        "text": "Stateの取り払いはすぐできそうなので、まずそれしますね。\n取り払ったら使用メモリもかなり減りました\n```\n   2,030,484,352 bytes allocated in the heap\n     552,951,344 bytes copied during GC\n     130,383,808 bytes maximum residency (10 sample(s))\n       2,306,112 bytes maximum slop\n             251 MB total memory in use (0 MB lost due to fragmentation)\n\n```",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1524113729.000053",
+        "text": "なるほど。lazyなStateだからスペースリークが起きていたと。。。こちらとしても勉強になります :smirk:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524113919.000235",
+        "text": "その考えに沿ってMapもStrictにしたほうがいいと思って書き換えてみたらかなり消費が抑えられました。。\n```\nhiroto@hiroto-XPS-13-9360:~/haskell/cardano-diagnosis-program$ stack exec diagnosis \"/home/hiroto/Downloads/logs (6).zip\" -- +RTS -s\nRunning analysis on logs\nAnalysis done successfully!! See result-2018-04-19.html\n   2,011,567,408 bytes allocated in the heap\n     127,421,808 bytes copied during GC\n      26,902,264 bytes maximum residency (10 sample(s))\n         432,904 bytes maximum slop\n              69 MB total memory in use (0 MB lost due to fragmentation)\n\n                                     Tot time (elapsed)  Avg pause  Max pause\n  Gen  0      1893 colls,  1893 par    1.366s   0.185s     0.0001s    0.0090s\n  Gen  1        10 colls,     9 par    0.011s   0.001s     0.0001s    0.0003s\n\n  Parallel GC work balance: 5.20% (serial 0%, perfect 100%)\n\n  TASKS: 18 (1 bound, 17 peak workers (17 total), using -N8)\n\n  SPARKS: 0 (0 converted, 0 overflowed, 0 dud, 0 GC'd, 0 fizzled)\n\n  INIT    time    0.001s  (  0.001s elapsed)\n  MUT     time    0.742s  (  0.693s elapsed)\n  GC      time    1.376s  (  0.186s elapsed)\n  EXIT    time    0.002s  (  0.011s elapsed)\n  Total   time    2.121s  (  0.891s elapsed)\n\n  Alloc rate    2,710,634,667 bytes per MUT second\n\n  Productivity  35.1% of total user, 79.0% of total elapsed\n\ngc_alloc_block_sync: 17614\nwhitehole_spin: 0\ngen[0].sync: 3\ngen[1].sync: 334\n```",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1524113934.000009",
+        "text": "69MB",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1524115037.000159",
+        "text": "余談ですが、Philip Wadler氏に「Haskellを１からやり直すとしたらなにを変えますか」ってきいたら「遅延評価をなくす」っていってました。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1524116925.000135",
+        "text": "なーんとなくですが`mapM_`を呼び出すたびに読み取ったファイルを全て評価しているのが原因だったきがします。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1524214762.000222",
+        "text": "stackを初めてちゃんと使ってみたんですが、予想以上に便利でしたという感想\n<https://github.com/sozysozbot/cerke/tree/master/cerkefs>\n気になっているのは、依存関係が面倒なことになっていることとか、速度とかで改善できる点があるのかどうか（`StateT` で `Lazy` の代わりに `Strict` 使っても速度に差はほとんどなかった） とかですね",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1524218024.000198",
+        "text": "会社の人にみてもらったら、ストリームよりfoldrの使い方が問題だといわれました。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1524218039.000197",
+        "text": "(すぐにやってみたい",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1524412920.000089",
+        "text": "<@U9U8B3LJV> has joined the channel",
+        "user": "U9U8B3LJV",
+        "type": "message"
+    },
+    {
+        "ts": "1524437943.000051",
+        "text": "さっと見て仕様を把握できませんでしたが何点か。\n&gt; 依存関係が面倒なことになっていることとか\n\n<https://github.com/sozysozbot/cerke/blob/0648daffb6100cb9652ec5f0476dc2eed1c7b830/cerkefs/package.yaml#L23-L26> を読んだ限り特に面倒な部分には見えませんが。。。\n\n&gt; 速度とかで改善できる点があるのかどうか\n\nすべてはプロファイリングしてから考えましょう。\n`stack test --profile` するだけでテスト時にプロファイリングまでしてくれるいい時代になりました。\n\nあと、このアプリケーションについては特に問題が起きていないのだろうし、急いで直す必要はないかと思いますが、 `StateT s IO a` はおすすめしません。例外が発生した際に状態を戻すすべがないからです。\n代わりに `ReaderT (IORef s) IO a` みたいな型で代用するのをおすすめします。\n\n最近はFPCompleteさんがそういう風に勧めています\n<https://www.fpcomplete.com/blog/2017/06/readert-design-pattern>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524530118.000142",
+        "text": "ありがとうございます。\n\n&gt; すべてはプロファイリングしてから考えましょう。\nたしかに。せっかくstack使っているんだから便利に使っていかねばですね\n\n依存関係は、自分で定義したモジュール同志の依存関係の意図でした（Internalという名前のついているものが非Internalにインポートされ、それが更に別のInternalなものにインポートされているなど）\n\n```ReaderT (IORef s) IO a``` の記事は私も目を通していました（「あっこれ直さなきゃ」ってなった）（とはいえ、現状のはデバッグ用のテストコードなので、そもそも全部書き直す可能性のほうが高そう）",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1524711408.000117",
+        "text": "<@U56PURX5H> has joined the channel",
+        "user": "U56PURX5H",
+        "type": "message"
+    },
+    {
+        "ts": "1524725729.000130",
+        "text": "ReaderT (IORef s) IO aにしました。モナドという共通インターフェースのおかげでほとんど書き換える必要がなく楽でした",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1524745094.000010",
+        "text": "プロファイル取ってみましたが、んー、意外にもData.Mapがボトルネックになってしまっているみたいですねぇ",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1524747312.000123",
+        "text": "Data.IntMapにしたらかなり速くなりました",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1524775857.000320",
+        "text": "Data.Vectorにしたら逆に遅くなった（まあイミュータブルでやってるからしかたない）（IntMap、速いのな）",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1524893061.000073",
+        "text": "代わりにUnboxedVectorを使用するのはだめでしょうか？\n<http://hackage.haskell.org/package/vector-0.12.0.1/docs/Data-Vector-Unboxed.html>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1524947503.000061",
+        "text": "中に入るのが代数的データ型なんですよね。Maybe (Int8, Int8, Int8)みたいな構造なので、ビット演算でInt32に埋め込めばUnboxedも使えるかと思いますが、変換と逆変換のオーバーヘッドが気になるところです",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1524957511.000009",
+        "text": "あ、これは失礼。完全に寝ぼけてました &gt; UnboxedVector",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1525966757.000081",
+        "text": "<@UAMGYKUP5> has joined the channel",
+        "user": "UAMGYKUP5",
+        "type": "message"
+    },
+    {
+        "ts": "1526200988.000008",
+        "text": "<@UAN607HTJ> has joined the channel",
+        "user": "UAN607HTJ",
+        "type": "message"
+    },
+    {
+        "ts": "1527468647.000121",
+        "text": "先々週から2週間近く格闘していた、\nextensibleにおける「レコードから指定したキーの要素を取り除いたレコードを返す関数」がようやくそれっぽい動きをするものが作れました。 :tada: \nみなさんのご協力のおかげです。 :bow:\n\n<https://gist.github.com/igrep/3e87871e900c98c0850a3b43b7cbff96>\nextensibleの使い方に各種GHC拡張の使い方など、ご指摘あればいただきたいです。\n特に <https://haskell-jp.slack.com/archives/C5666B6BB/p1526621270000191?thread_ts=1526606658.000243&amp;cid=C5666B6BB> で触れられている\n「Membershipが内部で持ってる位置をfilter後に移してやる必要があったりするんじゃないんですかね？」という指摘が若干気になります。\nこれからテストをいくつか書いてこちらでも確認してはみますが。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1527468649.000012",
+        "text": "<@U4LGTMTMK> shared a file: <https://haskell-jp.slack.com/files/U4LGTMTMK/FAXUT4Y1L/without.hs|without.hs>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1527483864.000187",
+        "text": "<@U8JGMG1QT> has joined the channel",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1528562784.000085",
+        "text": "<@U8R2EKE81> has joined the channel",
+        "user": "U8R2EKE81",
+        "type": "message"
+    },
+    {
+        "ts": "1531205715.000178",
+        "text": "<@UBNSMSW94> has joined the channel",
+        "user": "UBNSMSW94",
+        "type": "message"
+    },
+    {
+        "ts": "1531467803.000075",
+        "text": "先月のHaskell-jpもくもく会で <@U4LNDESN8> さんと話していて思い立ったんですが、HspecよりもRSpecらしく書けるテスティングライブラリーを作っています。\nで、まだ実装はほとんど書いていないのですが、使い方について「こんな感じで使えたらどうか」というものを書いて :point_down: のGistに書いたのでご意見募集します。\n<https://gist.github.com/igrep/6d1d0f1c3d9e8e4aff3746d0a51aedb8>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1531467804.000164",
+        "text": "<@U4LGTMTMK> shared a file: <https://haskell-jp.slack.com/files/U4LGTMTMK/FBQ4DM96Z/givens-sample.hs|givens-sample.hs>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1531467985.000242",
+        "text": "コメントに英語で書いたとおりなのですが、RSpecの `let!` ( `let` ではなく)に相当するものとして `given` という関数を用意したのですが、これで定義した値を参照するには `refer` を使わなければならない、という点が受け入れられるか気になっています。\nほかの実装方法や、よりよい単語などアイディアがあれば教えてください！ :pray:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1531468510.000312",
+        "text": "参考にならないかもしれないですが、個人的にRSpecを全く知らないので、よりRSpecらしく書けることによって何が便利になるのかピンときていません（将来的に公開される際にREADME.mdに書いてあると嬉しいなと思いました）:sweat_smile:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1531475373.000338",
+        "text": "すみません、その辺の文脈の共有を怠ってました…。:sweat_drops:ちょっと今から用事なのでまた落ち着いたときに書きます！ :bow: ",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1532012640.000633",
+        "text": "<@UA1D0NZK6> has joined the channel",
+        "user": "UA1D0NZK6",
+        "type": "message"
+    },
+    {
+        "ts": "1532037671.000135",
+        "text": "<@U5CFW1W49> has joined the channel",
+        "user": "U5CFW1W49",
+        "type": "message"
+    },
+    {
+        "ts": "1532049361.000112",
+        "text": "<@UBTSAUZ1Q> has joined the channel",
+        "user": "UBTSAUZ1Q",
+        "type": "message"
+    },
+    {
+        "ts": "1533462002.000017",
+        "text": "授業課題を題材にいい機会だったので，僕も気になっていたhigher order functorベースのSyntaxでPrinterとかを書いてみました．まだ，インタプリタとかは作ってないですが\n<https://github.com/mizunashi-mana/language-tf>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1534143796.000147",
+        "text": "<@U5AEZ47C7> has joined the channel",
+        "user": "U5AEZ47C7",
+        "type": "message"
+    },
+    {
+        "ts": "1534602659.000200",
+        "text": "<@UCB4XQW77> has joined the channel",
+        "user": "UCB4XQW77",
+        "type": "message"
+    },
+    {
+        "ts": "1534638792.000100",
+        "text": "<@U5LEE6C1J> cleared channel topic",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1534638842.000100",
+        "text": "もうずっと前に設定されたのが残ったままだったので消しました",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1535182994.000200",
+        "text": "<@UCG530TN3> has joined the channel",
+        "user": "UCG530TN3",
+        "type": "message"
+    },
+    {
+        "ts": "1535240110.000200",
+        "text": "<@UCDHJ6R6X> has joined the channel",
+        "user": "UCDHJ6R6X",
+        "type": "message"
+    }
+]

@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1511842590.000264",
+        "text": "tar.gzを書くと、extra-depsの設定がないとか言われちゃいますね。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511843064.000049",
+        "text": "stack.yamlですが、ターゲットのパッケージのフラグはどのように記述するのでしょうか？ 依存パッケージのフラグは書けるようですが。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511844449.000100",
+        "text": "こういう感じのフラグですか？\n<https://github.com/haskell/haskell-ide-engine/blob/master/stack.yaml>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1511845343.000183",
+        "text": "それですが、stack.yamlを置いてあるパッケージ自体のフラグをどうやって書けばいいのか分かりません。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511845389.000100",
+        "text": "とりあえず、こんな感じになりました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511845390.000178",
+        "text": "<https://github.com/vincenthz/hs-tls/issues/167#issuecomment-261823286>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511845482.000096",
+        "text": "<@U5G2BCVBN> わざわざありがとうございます！",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511845829.000146",
+        "text": "ターゲットのパッケージのフラグを定義するってことですよね\ncabal ファイルがそのまま使えますよ\nstack.yaml はあくまでも依存パッケージなどのバージョンや場所を記述してるだけです(正確にはもっとイロンナことがかけますが…)",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1511846321.000091",
+        "text": "`stack.yaml` にパッケージ名と好きなフラグを定義して、各パッケージの `.cabal` でそのフラグを使って処理すると思います。\n\n具体的にはこんな感じですか。\n\n```\nflags:\n  tls:\n    compat: true\n    network: true\n  tls-debug:\n    xxxx: true\n```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1511846540.000145",
+        "text": "<https://github.com/kazu-yamamoto/mighttpd2/blob/tls13/stack.yaml> のことですかね？\nいずれにしてもできたのであればよかったです！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511847160.000079",
+        "text": "ありがとうございました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511847233.000079",
+        "text": "<@U56L7EVNY>  cabal ファイルのデフォルトを書き換えることで対応しました。トピックブランチだから、まぁいいやって感じで。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511851807.000198",
+        "text": "<@U4KNU6N48> HRRの質問です。\nRelation型のプレースホルダーはなんのために…あるんですか？\nあと、ドキュメントにある `$(defineTable \"example.db\" \"account\") `の構文を教えてください。",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1511863878.000041",
+        "text": "個人的には、使いたいリポジトリをプロジェクト直下にsubmodule addしてpackagesに追加しちゃう事が多いですね",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1511918366.000197",
+        "text": "代わりに知っている範囲で答えちゃいます。\n&gt; Relation型のプレースホルダーはなんのために…あるんですか？\n\nSQLのPrepared Statementsを作るためのものだったかと思います。\n\n&gt; あと、ドキュメントにある `$(defineTable \"example.db\" \"account\") `の構文を教えてください。\n\nTemplate Haskellを使った、型定義の自動生成です、というので答えになってますかね？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511936222.000034",
+        "text": "Prepared Statements?ですか。\nTemplateHaskellの構文なんですか経験がないのでわかりませんでした。\nありがとうございます:musical_note:",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1511947030.000123",
+        "text": "プレースホルダについては、SQLそのものに関わる機構なので、まずはSQLについて調べるのがよいかと思います。参考: <https://qiita.com/Morinikiz/items/dfdb33f25df4df0f672c>",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1511999996.000326",
+        "text": "<@U87FHPYS0> has joined the channel",
+        "user": "U87FHPYS0",
+        "type": "message"
+    },
+    {
+        "ts": "1512016590.000086",
+        "text": "Hakyllの質問です。pygmentizeを走らせたりするためにSystem.ProcessのreadCreateProcessを使ってIO StringをHakyll.Core.CompilerのunsafeCompilerでCompiler Stringに変換して使っていました。Hakyll.Core.UnixFilterのことを知ってそちらの方を使うように書き換えた所、`hGetContents: invalid argument (invalid byte sequence)`と出て上手く使えません。<https://jaspervdj.be/hakyll/tutorials/faq.html> にあるようにE.setLocaleEncoding E.utf8を使おうにも、IOとCompilerでは型が合いません。unixFilterを使うにはどうすればよいでしょうか？",
+        "user": "U55UJK1B2",
+        "type": "message"
+    },
+    {
+        "ts": "1512019116.000120",
+        "text": "FAQにもあるとおり、\n`hakyll` に渡した `do` ブロックじゃなくて `main` 関数の中でやるのはダメなんですかね？\nそれがダメなら、 `compilerUnsafeIO` というのがあるみたいです。 <https://hackage.haskell.org/package/hakyll-4.9.8.0/docs/Hakyll-Core-Compiler-Internal.html#v:compilerUnsafeIO>\nあるいは、 `unixFilterLBS` を使って、 `ByteString` として読んでみてはいかがでしょうか？\n<https://hackage.haskell.org/package/hakyll-4.9.8.0/docs/Hakyll-Core-UnixFilter.html#v:unixFilterLBS>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1512019205.000089",
+        "text": "あ、あと、FAQでは触れてないみたいですが、Windowsであれば `chcp 65001` と言うコマンドを実行すれば回避できます。\nLinuxと違って端末を立ち上げる都度実行しないといけないのが悩ましいですが。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1512020684.000021",
+        "text": "返信ありがとうございます！ `unsafeCompiler = compilerUnsafeIO` となっていますね、 `unsafeCompiler (E.setLocaleEncoding E.utf8) &gt;&gt; unixFilter ...` みたいな感じで使うということでしょうか？ `unixFilterLBS` を使うのは確かに手ですね、両方試してみます。",
+        "user": "U55UJK1B2",
+        "type": "message"
+    },
+    {
+        "ts": "1512035534.000154",
+        "text": "お願いしますー",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1512035595.000274",
+        "text": "ちょっと今試す余裕ないんで自信ないんですが、 ScopedTypeVariablesでなんとかなる？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1512035629.000139",
+        "text": "<@U86V3B4PJ> has joined the channel",
+        "user": "U86V3B4PJ",
+        "type": "message"
+    },
+    {
+        "ts": "1512036008.000409",
+        "text": "`runST` 後の `do` 式の型を明示して `forall s.` して、それを中で使う形ですかね？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1512036062.000571",
+        "text": "恐らく。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1512036284.000208",
+        "text": "ホントだすごい\n```\n{-# LANGUAGE ScopedTypeVariables #-}\n\nmodule Main where\n\nimport <http://Control.Monad.ST|Control.Monad.ST>\nimport <http://Data.Array.ST|Data.Array.ST>\n\nmain :: IO ()\nmain = print $ runST st\n\nst :: forall s . ST s Int\nst = do\n  array &lt;- newArray (0, 1) 0 :: ST s (STArray s Int Int)\n  let\n      go :: Int -&gt; ST s Int\n      go = readArray array\n  writeArray array 1 1\n  go 1\n  -- go array 1\n```",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1512036320.000041",
+        "text": "<@U56L7EVNY> 手柄は譲った！ :bow:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1512036746.000480",
+        "text": "<@U4L0B71L1> さんが質問したのか(笑)\nこんがらがった(笑)\nじゃぁ向こうにも書いておきます",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1512037069.000474",
+        "text": "DONE",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1512040586.000169",
+        "text": "<@U56L7EVNY>あ、ですです 分かりにくくてすみません",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1512040727.000042",
+        "text": "<@U4LGTMTMK> <@U56L7EVNY>ありがとうございました",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1512040941.000209",
+        "text": "実際に問題になってたコードはもうちょっと複雑だったんですがそちらも同様に解決しました",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1512055697.000264",
+        "text": "<@U87QYA152> has joined the channel",
+        "user": "U87QYA152",
+        "type": "message"
+    },
+    {
+        "ts": "1512090076.000238",
+        "text": "お騒がせしているstackですが、少し理解できました。依存パッケージだけ見えて、ターゲットのパッケージが見えないのは、\n\n```\npackages:\n- location: .\n```\n\nを書いてないからでした。これは、.cabal ファイルへのパスだと思えばよいのですね。パス状にある .cabal ファイル全ての一覧を取得し、ファイル名をパッケージ名として扱うようです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1512090496.000312",
+        "text": "そうです！ `stack init` とか `stack new` していれば自動でその部分はやってくれるはずですが、一から書いてしまいましたか。。。 :sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1512090724.000009",
+        "text": "試しに`stack.yaml`を決して、`stack init`してみたけど、`stack.yaml`は作られません。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1512091317.000227",
+        "text": "フラグの件ですが、`location: .` を加えたら、ターゲットのフラグも指定できるようになったようです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1512091411.000080",
+        "text": "`stack exec foo` で起動される `foo`がどこにあるか調べる方法はないですか？ `stack which foo` とかできればいいのですが。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1512091557.000232",
+        "text": "うーん、直接調べる方法ではありませんが、\n`stack path --bin-path` して出てくるパスから調べることになりますかね。。。\nあ、 `stack exec which foo` ならいかがでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1512091618.000200",
+        "text": "`find .stack-work -name foo` でうまくいかないかなぁ(笑)",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1512091696.000004",
+        "text": "`stack exec which foo` がよさそう。ありがとうございます。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1512091725.000049",
+        "text": "`find` だと、`.stack-work`以外にあるコマンドが起動されていた場合に探せないのです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1512099810.000091",
+        "text": "Prelude の `(^)` の定義が多相になっているため、 `phi^7` などと書くと「Integer に defaulting したよ！」っていう警告が出てしまうんですが `phi^(7 :: Int)` と書く以外に何か回避策ってあるでしょうか？",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1512102148.000056",
+        "text": "ただ警告を出さないだけなら `-fno-warn-type-defaults` というオプションがあります。ほかに試してみたところでは、 default 宣言を使って `default(Int)` としても警告は出てしまうようです。",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1512103037.000013",
+        "text": "とりあえず\n`import Prelude hiding ( (^) )`\n`import qualified Prelude as Pre ( (^) )`\n`(^) :: (Num a) =&gt; a -&gt; Int -&gt; a`\n`x ^ y = x Pre.^ y`\nと再定義して回避しました。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1512287930.000010",
+        "text": "<@U4M598NHM> 敢えてRedditのスレにしてみたんですが、 <https://www.reddit.com/r/haskell_jp/comments/7h89ey/a_tour_of_go_in_haskell%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%A8go%E3%81%A8haskell%E3%81%AE%E6%AF%94%E8%BC%83_syocys/> どうなんでしょ？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1512288609.000031",
+        "text": ":naruhodo:",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1512735206.000045",
+        "text": "<@U8CJWHF0E> has joined the channel",
+        "user": "U8CJWHF0E",
+        "type": "message"
+    }
+]

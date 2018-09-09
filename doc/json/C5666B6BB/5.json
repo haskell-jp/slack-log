@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1511000732.000092",
+        "text": "それはコンパイルエラーになるということでしょうか？それとも，例外が出るということでしょうか？テンプレートが思った通りに表示できないということでしょうか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1511151257.000115",
+        "text": "<@U826HT001> has joined the channel",
+        "user": "U826HT001",
+        "type": "message"
+    },
+    {
+        "ts": "1511154969.000087",
+        "text": "import A() して export しても、instance が re-export されることを確かめました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511154974.000031",
+        "text": "ありがとうございました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511155002.000140",
+        "text": "`{-# OPTIONS_GHC -fno-warn-dodgy-exports #-}` と併用すると、警告がなくなるようです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511158251.000010",
+        "text": "失礼しました。コンパイルエラーが出たので、\nenv = fromPairs [\"list\".= toJSON [\"aa\",\"bb\",\"cc\"]] としても[String]がToJSONのinstanceになっていない?などのコンパイルエラーがでました",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1511165032.000025",
+        "text": "edeは，大雑把にはテンプレートをJSONデータをパラメータにしてレンダリングするライブラリです．で，HaskellではJSONを扱うライブラリの金字塔として， aeson というライブラリ(<https://www.stackage.org/package/aeson>)があり ede でもそれを使用しています．(.=)はaesonの関数です．aesonは，Valueという型 (<https://hackage.haskell.org/package/aeson-1.1.0.0/docs/Data-Aeson-Types.html#t:Value>) でJSONデータを表現しています．`fromPairs` は[(Text, Value)] というものから Value型の値を作る関数ですが，この関数はキーとその中身のJSONデータから新たなるJSONデータを作る関数 (イメージとしては， `[(\"ab\", { \"a\": \"b\" }), (\"cd\", { \"c\": \"d\" })] =&gt; { \"ab\": { \"a\": \"b\" }, \"cd\": { \"c\": \"d\" } }` というような変換を行う関数)です．\n\nまず一つ目ですが，aesonではToJSONという型クラスを用意しており，この型クラスには名前の通りJSONのデータへ変換できる型がインスタンスとして登録されています． (.=) は `&lt;キーとなるテキスト&gt; .= &lt;JSONになれる型の値(ToJSONのインスタンス)&gt;` という感じで使い，右の値は自動的にJSONデータに変換してくれます．なので， `fromPairs [ \"list\" .= toJSON [\"aa\", \"bb\", \"cc\" ]` は `fromPairs [ \"list\" .= [ \"aa\", \"bb\", \"cc\" ] ]` と同値です．JSONデータとしての表現は， aeson と bytestring というライブラリをロードしてghci上で\n```\n&gt;&gt;&gt; import Data.Aeson\n&gt;&gt;&gt; toJSON [ \"aa\", \"bb\", \"cc\" ] — Haskell上での表現が表示される\n```\nまたは\n```\n&gt;&gt;&gt; import qualified Data.ByteString.Lazy.Char8 as BS\n&gt;&gt;&gt; BS.putStrLn $ encode [ \"aa\", \"bb\", \"cc\" ] — JSONデータが表示される\n```\nとすれば見ることができます\n\nで，ここからは推測になるのですが，Haskell事情として文字列を表すデータ型にString型は扱いにくく(特に速度を求めるものでは) text というパッケージ(<https://www.stackage.org/package/text>) を代わりに使用されることが多くあります． aeson でも例に漏れずこのパッケージを使用しており， JSONのキーとしてString型ではなくText型というものを使います． なので `fromPairs [ (\"list\" :: String) .= [ \"aa\", \"bb\", \"cc\" ] ]` というのはコンパイルエラーを起こします． 正しい型は `fromPairs [ (Data.Text.pack \"list\" :: Data.Text.Text) .= [ \"aa\", \"bb\", \"cc\" ] ]` というのが正しい表記なのですがこのような書き方は良くするので， `OverloadedStrings` という拡張がよく使用されます．この拡張を有効にすると `fromPairs [ (\"list\" :: Data.Text.Text) .= [ \"aa\", \"bb\", \"cc\" ] ]` という表記が可能になります．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1511165623.000082",
+        "text": "この `OverloadedStrings` はよく使う拡張なので， edeのドキュメントには書かれていないのですが， それを有効にしていないままドキュメントのサンプルを動かそうとするとエラーが出るはずです．この拡張を有効にしていなかったりしないでしょうか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1511177091.000057",
+        "text": "Thread Scope で Raw Events をテキスト検索（Ctrll+f）することはできないでしょうか？ traceEvent で起こしたユーザイベントがどこにあるか探したいのですが。",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1511183116.000180",
+        "text": "現状では出来ないと思います。おそらく簡単に機能追加できると思うのでPR歓迎です。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1511183721.000048",
+        "text": "OverloadedStringsは有効にしてあるのですがここでのData.Text.TextはData.Text.Lazy.Textの方ですか?",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1511185225.000029",
+        "text": "いいえ、strictのですね。うーん、OverloadedStringsが有効になってるなら、逆に `fromPairs [\"list\" .= ([\"aa\",\"bb\",\"cc\"] :: [String])]` と書かなきゃいけない方ですかね？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1511186718.000555",
+        "text": "`:: [Data.Text.Text]`で型指定してみます",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1511188624.000417",
+        "text": "あ、後説明の都合上Data.Text.Textと書きましたが、 import Data.Text (Text) してモジュール名指定無しで使用することを想定しているのでその辺は都度読み替えていただけるとって感じです :pray: ",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1511189777.000469",
+        "text": "なるほど分かりました。ありがとうございます。PRは、余裕があればやってみたいと思います。",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1511250257.000071",
+        "text": "Textで型付けしましたが、実行してアクセスすると、eitherRenderにレンダリング不能と出力されました。\n丸投げをお許しください:sweat_drops:（スレッドでソース作れません）\n```\n&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n    &lt;head&gt;\n        &lt;title&gt;{{ title }}&lt;/title&gt;\n    &lt;/head&gt;\n    &lt;body&gt;\n        &lt;h1&gt;{{ title }}&lt;/h1&gt;\n        &lt;ol&gt;\n            {% for food in foods %}\n            &lt;li&gt;{{ food }}&lt;/li&gt;\n            {% endfor %}\n        &lt;/ol&gt;\n    &lt;/body&gt;\n&lt;/html&gt;\n```\n\n```\n{-# LANGUAGE OverloadedStrings #-}\n\nimport Web.Scotty\nimport Text.EDE\nimport Data.Aeson\nimport Data.Text(Text)\n\nmain :: IO()\n\nmain = do\n\n  path &lt;- eitherParseFile \"./html/index.html\"\n\n  let env = fromPairs [(\"title\" :: Text) .= (\"LIST\" :: Text)\n                      ,(\"foods\" :: Text) .= ([\"AA\",\"BB\",\"CC\"] :: [Text])]\n\n  let txt = either error id $ path &gt;&gt;= (`eitherRender` env)\n\n  scotty 3000 $ do\n    get \"/\" $ html txt\n```",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1511259666.000281",
+        "text": "ちょっと今試せる環境がないのですが、for文のとこは `{% for food in foods %} &lt;li&gt;{{ food.value }}&lt;/li&gt; {% endfor %}` な気がします",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1511265202.000345",
+        "text": "あ…それですね。",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1511353884.000016",
+        "text": "出来ました!ありがとうございます",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1511427155.000206",
+        "text": "<@U84LW224U> has joined the channel",
+        "user": "U84LW224U",
+        "type": "message"
+    },
+    {
+        "ts": "1511427539.000122",
+        "text": "<@U84LW224U> has left the channel",
+        "user": "U84LW224U",
+        "type": "message"
+    },
+    {
+        "ts": "1511673555.000013",
+        "text": "<@U85FBE23C> has joined the channel",
+        "user": "U85FBE23C",
+        "type": "message"
+    },
+    {
+        "ts": "1511708585.000012",
+        "text": "<@U5GP4SCMD> has joined the channel",
+        "user": "U5GP4SCMD",
+        "type": "message"
+    },
+    {
+        "ts": "1511831458.000006",
+        "text": "slack 初心者なんですが、`curl -sSL <https://get.haskellstack.org/> | sh` すると、slack はどこに入りますか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511831527.000139",
+        "text": "TLS 1.3 に対応した TLS パッケージをHaskellerじゃない人が使いたいそうで、ビルドする方法を書かないといけないの。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511831541.000195",
+        "text": "$ curl -sSL <https://get.haskellstack.org/> | grep DEFAULT_DEST\nDEFAULT_DEST=“/usr/local/bin/stack”\n    [ “$DEST” != “” ] || DEST=“$DEFAULT_DEST”",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1511831655.000188",
+        "text": "ありがたや。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511832362.000097",
+        "text": "(めちゃくちゃどうでもいいんですけど、slack と stack を typo してますよ(笑))",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1511832385.000024",
+        "text": "わー。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511834421.000129",
+        "text": "`cabal clean; cabal build` の代わりは `stack clean; stack build` ですか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511834467.000108",
+        "text": "そうですね",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1511834809.000193",
+        "text": "ありがとうございます。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511836048.000048",
+        "text": "<https://github.com/vincenthz/hs-tls/issues/167#issuecomment-263763622>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511836084.000195",
+        "text": "もしお時間があれば、これにパッと目を通していただいて、おかしなところがあれば、ご指摘いただけると嬉しいです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511837424.000062",
+        "text": "以下コマンド列にて動作を確認しました．\n$ docker run -it --rm debian /bin/bash\n# apt-get update\n# apt-get install -y curl sudo git\n# useradd -m -G users,sudo -s /bin/bash test\n# passwd test\n# su test\n$ cd\n$ curl -sSL <https://get.haskellstack.org/> | sh\n$ which stack\n/usr/local/bin/stack\n$ stack setup\n$ stack ghci\n$ git clone <https://github.com/kazu-yamamoto/hs-tls.git>\n$ cd hs-tls\n$ git checkout -t origin/tls13\n$ stack build\n$ stack exec tls-simpleclient -- --no-valid --http1.1 <http://www.mew.org|www.mew.org> 13443",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1511839022.000114",
+        "text": "stackについて、またまた質問です。あるパッケージを stack build するとします。依存しているライブラリは、githubの最新のものをとって来ないといけません。この依存って、どうやって指定するんでしょうか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511839078.000227",
+        "text": "mighttpd2をビルドする際に、tlsとwarp-tlsの `tls13` ブランチを使わせないといけないのです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511839299.000031",
+        "text": "<https://qiita.com/tanakh/items/6866d0f570d0547df026#stackyaml%E3%82%92%E7%B7%A8%E9%9B%86%E3%81%99%E3%82%8B>\nにあるとおり、\n```\npackages:\n- some-directory\n- <https://example.com/foo/bar/baz-0.0.2.tar.gz>\n- location:\n    git: git@github.com:commercialhaskell/stack\n    commit: 6a86ee32e5b869a877151f74064572225e1a0398\n```\nのように書いたりできます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511839332.000038",
+        "text": "公式ドキュメントはこのあたり <https://docs.haskellstack.org/en/stable/yaml_configuration/#complex-package-locations-location>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1511839478.000174",
+        "text": "補足すると、本件の場合 `extra-dep: true` を明記しないと多分ダメですね。\n例\n```\n- location:\n    git: git@github.com:commercialhaskell/stack\n    commit: 6a86ee32e5b869a877151f74064572225e1a0398\n    extra-dep: true\n```\n:sweat: .oO(経験上、外部のリポジトリーを使う場合ほぼ間違いなく `extra-dep: true` するし、デフォルトでそうしてもいい気もしますが。)",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511839848.000213",
+        "text": "`stack 1.6.0` からもう少し簡単になりますよ。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1511840091.000088",
+        "text": "<https://github.com/commercialhaskell/stack/blob/master/doc/custom_snapshot.md>\n<https://www.fpcomplete.com/blog/2017/07/stacks-new-extensible-snapshots>\n\nこの辺の話です:grinning:",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1511840212.000246",
+        "text": "`extra-deps` の指定はこっちでした。\n<https://github.com/commercialhaskell/stack/blob/master/doc/yaml_configuration.md#packages-and-extra-deps>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1511840368.000002",
+        "text": "Custom snapshots, 自前で作った新しいバージョンのパッケージの利用とか、GHCの新しいバージョンの利用とかが楽になりますね！ :smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511840479.000091",
+        "text": "git は commit 書かないとダメなんですか？ branch の先頭を使って欲しいんです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511840516.000098",
+        "text": "強いて言えば `stack clean` 恐らく大抵不要だとは思いますけどね！ :stuck_out_tongue_closed_eyes:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511840667.000218",
+        "text": "&gt; Note: it is highly recommended that you only use SHA1 values for a Git or Mercurial commit. Other values may work, but they are not officially supported, and may result in unexpected behavior (namely, stack will not automatically pull to update to new versions)\n\n先ほどの公式ドキュメント曰く、だそうです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511841150.000161",
+        "text": "tarballのURLでもいいみたいなんで、 <https://github.com/kazu-yamamoto/hs-tls/archive/tls13.tar.gz> みたいなURLを参照させるのはいかがでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511841215.000053",
+        "text": "<https://github.com/kazu-yamamoto/hs-tls/tree/tls13> にある、「Clone or download」というボタンをクリックすると出てくる、「Download ZIP」と書かれたリンクのURLをtar.gzに置き換えたものです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511841321.000091",
+        "text": "後は、相対パスを決め打ちしちゃって、都度 `git pull` なりしてもらう、ぐらいですかね。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]

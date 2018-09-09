@@ -1,0 +1,152 @@
+[
+    {
+        "ts": "1535717588.000100",
+        "text": "（私もちょっと寄稿しています）",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1535735544.000100",
+        "text": "すげーいいなー！",
+        "user": "U4M4XHKB8",
+        "type": "message"
+    },
+    {
+        "ts": "1535780459.000100",
+        "text": "ほんとすごい！！！",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1535901092.000200",
+        "text": "<@UCM4G8PGW> has joined the channel",
+        "user": "UCM4G8PGW",
+        "type": "message"
+    },
+    {
+        "ts": "1536082662.000100",
+        "text": "ここで聞く話なのかは微妙ですが、 Ix のインスタンスに (Bounded a, Enum a) =&gt; a が無いのは何故なのでしょう？ それだけあれば 必要要件は書けるはずなんですが。。。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1536082770.000100",
+        "text": "あ、要件だけで言えば、Bounded a の部分は要らないですね。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1536104244.000100",
+        "text": "FlexibleInstancesが必要になっちゃうのを避けたいという信念じゃないっすかね。。。\n実害があるのかは知りませんが。\nDerivingViaでその辺の問題が解決してIxのインスタンスをderiveしやすくなるかも！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1536125511.000200",
+        "text": "<@UCLGS5XGQ> has joined the channel",
+        "user": "UCLGS5XGQ",
+        "type": "message"
+    },
+    {
+        "ts": "1536130696.000100",
+        "text": "一般論として、具体的でない型のインスタンスを定義するのは避けられています。もし`instance (Bounded a, Enum a) =&gt; Ix a`を定義してしまうと、それより特殊化された効率の良い実装を与えることができなくなってしまいますからね。もちろんigrepさんの言う通り、newtypeのラッパーを定義して、DerivingViaを活用するのも面白いと思います",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1536136672.000100",
+        "text": "Haskell Symposium 2018のproceedingsの一覧を作りました。PDFが公開されている論文にはURL付きです。\n<https://gitlab.com/igrep/papers-notes>\n個人的なメモを追記していく予定ですが、参考までにどうぞ。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1536137874.000100",
+        "text": "`instance (Bounded a, Enum a) =&gt; Ix a` って `{-# LANGUAGE UndecidableInstances #-}` も必要な奴では。\n\nUndecidableInstancesは、型推論が停止しなくなる可能性があるのがデメリットですね。\n<https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#instance-termination>\n\nもっとも、モダンな型関係ライブラリほとんどで使われてる `RankNTypes` を入れた時点で型推論は停止しなくなるので、最近のHaskellでは「型推論の停止性(笑)」状態っぽいですけど",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1536139296.000100",
+        "text": "いっそIxクラスをなくしてrangeやindexを `range :: Enum a =&gt; (a, a) -&gt; [a]`  等にしてしまったらどうか、と思ったんですが、例えばVoidはIxではあるけどEnumではないんですね",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1536151293.000100",
+        "text": "良いですね！、英語版のredditに貼っておけば喜ばれるのではないかと。:haskell:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1536160316.000100",
+        "text": "ふっと思った事を聞いてみただけですが、色んな理由や考えがあるんですね。 まだまだ知らない事だらけだ",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1536200927.000100",
+        "text": "いっその事、型変数の量で選ばれる 0個が一番強くて大きくなると選ばれにくくなるみたいなのがあればいいんでしょうね。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1536201124.000100",
+        "text": "型変数の量っていうのは少々間違いで、正確には抽象度の少さ で選ぶ その基準の一つとして上げられるのが型変数の種類 っていう話です",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1536209910.000100",
+        "text": "<https://github.com/serokell/universum#gotchas->\n&gt; You can't call some Foldable methods over Maybe and some other types. Foldable generalization is useful but potentially error-prone. Instead we created our own fully compatible with Foldable Container type class but that restricts the usage of functions like length over Maybe, Either, Identity and tuples.\n:thinking_face: :thinking_face: :thinking_face: :thinking_face: :thinking_face:",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1536210052.000100",
+        "text": "MaybeにmapM_できないの、反知性的と言いたくなるデザインだ…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1536210268.000100",
+        "text": "<https://twitter.com/igrep/status/1022732186510811137> こういう話ですよね。\nエラーは絶対無視したくないっていうGo言語からきた発想だと、気持ちはわからなくもないです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1536210404.000100",
+        "text": "でもリスクをわかった上でMaybeにmapM_する自由ぐらい与えてやれよって気持ちもわかります。 :sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1536210801.000100",
+        "text": "何か制約を課す場合、それは論理に沿ったものあるべきと考えていて、このライブラリのように人間本位の制限を付けるのは好きにはなれないです。値を捨てたくないなら線形型のようにもっと筋の通った概念があるわけですし",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1536217616.000100",
+        "text": "どのインスタンスが選ばれるかはプログラムの意味を変えうる重要な問題なので、その基準が複雑になるほどプログラムの論証は難しくなります。書き換え規則(RULESプラグマ)のような補助的な機能でさえその問題は深刻なので、Haskellの根幹をなす型クラスは、できる限り簡潔にするのがよい設計だと思います",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1536219346.000100",
+        "text": "なるほどね。そういう抽象化が進めばボイラープレートが減るんじゃないかなと思ったんですが、実装が複雑化するのは否めないですね。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1536239519.000100",
+        "text": "今見てみたら、gitlabの表示で、レンダリングが崩れてるようですよ。",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1536272234.000100",
+        "text": "`&lt;details&gt;` 入れてからかな... 確認します",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]

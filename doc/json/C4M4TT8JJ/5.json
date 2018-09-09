@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1514448001.000128",
+        "text": "( <#C4M4TT8JJ|random> を占領するのもアレだし、 <#C5666B6BB|questions> とは別に「既に書いたコードを添削して頂く」ためのチャンネルがあってもいいかも、と思うなどした）",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1514448112.000218",
+        "text": "<#C8KBGEBR7|code-review> を立てました",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1514471624.000269",
+        "text": "mizunashiさん、別件です、NegativeLiterals について、脱糖の仕方が変わるというのは知りませんでした、よくdocumentを読み込まんでますね、すごい！\n\nただ、最近たまたまGHCのLexer.xのコードを読んでたのですが、NegativeLiteralsの設定によって、シンタックスに影響（変化）が出るようです。\nこの拡張を使うと、マイナスの符号がついた数値リテラルを、（カッコなしでも）負数として優先的に解釈しています。\n\n<https://github.com/ghc/ghc/blob/master/compiler/parser/Lexer.x#L494>\n\n例えば、通常は、マイナス記号は、数値の符号としては解釈されないで、マイナスの演算子として字句解析されているのでこういう結果になります。\n\n```\nPrelude&gt; 2 * -1\n&lt;interactive&gt;:16:1: error:\n    Precedence parsing error\n        cannot mix ‘*’ [infixl 7] and prefix `-' [infixl 6] in the same infix expression\n```\n\nですが、NegativeLiterals拡張を使うと、カッコでくくらなくても、`-1`のカタマリを数値リテラルとして直接、字句解析しています。\n\n```\nPrelude&gt; :set -XNegativeLiterals\nPrelude&gt; 2 * -1\n-2\n```\n\n以下も同様です。\n\n```\nPrelude&gt; :{\nPrelude| f (-1) = \"OK\"\nPrelude| f _ = \"NG\"\nPrelude| :}\n\nPrelude&gt; f (-1)\n\"OK\"\n\nPrelude&gt; f -1\n\n&lt;interactive&gt;:7:1: error:\n    • Non type-variable argument in the constraint: Num (a -&gt; [Char])\n      (Use FlexibleContexts to permit this)\n    • When checking the inferred type\n        it :: forall a. (Eq a, Num a, Num (a -&gt; [Char])) =&gt; a -&gt; [Char]\n\nPrelude&gt; :set -XNegativeLiterals\nPrelude&gt; f -1\n\"OK\"\n```\n\nと、ここまで書いて、そういう事を言ってるのではない？",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1514472146.000209",
+        "text": "Oh… シンタックス解釈に影響が出るんですね．知りませんでした…  特にUsers Guideに記載がなかったので，脱糖の仕方を `@negative @decimal` の時だけ変えるだけだと思ってました… Twitterの方は修正しておきます\n\nありがとうございます :bow:",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1514473222.000044",
+        "text": "なるほど，僕がドキュメントを読み間違えていたようですね．結果的に脱糖に違いが出るってことなんですね．\n\nお騒がせしました",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1514510871.000098",
+        "text": "Brickって公式Twitterあったんですねｗ\n<https://twitter.com/brick_haskell/>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1514514880.000024",
+        "text": "あ、いえ、脱糖のことは知らなかったので、面白くてためになりました！:+1:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1514515140.000042",
+        "text": "iruyanさん、sed での lisp 実装もあります。\n<https://news.ycombinator.com/item?id=10221515>\n<https://github.com/shinh/sedlisp>\n（Haskellから離た話題ですが、Lispがらみということで、まぁ:sweat_smile:）",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1514515350.000125",
+        "text": "頭おかしい(笑)",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1514516760.000152",
+        "text": "syocyさんの、「A tour of Go in Haskell」、 「the most popular links from Haskell Weekly in 2017」で6th:tada:\n<http://taylor.fausak.me/2017/12/28/haskell-weekly-in-2017/>\n\n今年もHaskell界からの豊富で多彩な情報で楽しませてもらいました。\nではこのへんで、皆さん良いお年を、Happy Haskell:haskell::bamboo:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1514530333.000029",
+        "text": "江添さんのブログ <https://cpplover.blogspot.jp/2017/12/haskell_26.html>\nのGHCのエラーメッセージの話が興味深いですね。\nGHC 8 になったときに型の判定の仕方が変ったんですかねぇ。Release Notes にはそれらしい記述がないように思いますが。。。",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1514531136.000012",
+        "text": "型シグネチャーがないとき、再帰的に定義する関数に対するプログラマの意図が左辺にあらわれると見なすか、右辺の使用に現れると見なすかが変更になってますよね。",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1514535257.000078",
+        "text": "なんと",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1514540912.000014",
+        "text": "<https://github.com/chrisdone/chaotic-ghc>",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1514542148.000051",
+        "text": "なにができるのか気になってます",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1514543293.000214",
+        "text": "GUIアプリケーションを作ろうと思ったんですが、色々試した結果lts-10系(ghc-8.2系)でビルドできるライブラリがそもそもないということが分かりました(泣いた)",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1514546339.000066",
+        "text": "ビルドできるようにprだそう",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1514711930.000068",
+        "text": "<@U8LLBJ59Q> has joined the channel",
+        "user": "U8LLBJ59Q",
+        "type": "message"
+    },
+    {
+        "ts": "1514834916.000041",
+        "text": "GUIの件、久々にGtk関係見ましたが、lts-10.xにはgtk3もgi-gtkも無いし、\nextra-deps追加してgi-gtkをビルドしても、GHC 8.2.xのバグでpanic起こすし、悲惨なことになってますね…:cry:\n\nとりあえず、lts-10.xでhaskell-giアプリを作成するための回避方法としては\n<https://github.com/haskell-gi/haskell-gi/wiki/Overloading#disabling-overloading>\nの方法で、overloadingを無効化してgi-gtkをビルドして、\nこちらで記述するアプリのソースも、OverloadedLabels拡張を使わないスタイルで記述する感じですね。\n※Window 7(64-bit)/lts-10.2でビルド確認済\n\nただ、GHCのバグが解決したら、再びOverloadedLabels拡張を使うスタイルが標準になることを思うと、\n今、OverloadedLabels拡張を使わないスタイルのソースを増やすのも何だかなぁ\nという感じです… :disappointed_relieved:",
+        "user": "U8LLBJ59Q",
+        "type": "message"
+    },
+    {
+        "ts": "1514853416.000029",
+        "text": "QtとwxWidgetのバインディングはそもそもメンテされてなくて、gtkだけが命綱という状況がそもそもつらい……",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1514895125.000265",
+        "text": "<@U8LFT6ESV> has joined the channel",
+        "user": "U8LFT6ESV",
+        "type": "message"
+    },
+    {
+        "ts": "1515034273.000223",
+        "text": "あけましておめでとうございます。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1515034401.000046",
+        "text": "GHC 8.2.xのバグ直したいですよね。たまにぶつかりますし。\n今年は頑張ってpatchだしていきたいです。（新年の抱負ということで。）\n<https://ghc.haskell.org/trac/ghc/wiki/Newcomers>",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1515049031.000123",
+        "text": "<https://twitter.com/ogtkzk/status/948195793827069952?s=09>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1515049956.000139",
+        "text": "名古屋で haskell ...",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1515055102.000109",
+        "text": "私もHaskellで働いてみたくはある(˘ω˘)",
+        "user": "U5P0CRDSP",
+        "type": "message"
+    },
+    {
+        "ts": "1515134468.000115",
+        "text": "GHCの数値リテラル系のsyntax highlightについて書いておきました。\n<https://mail.haskell.org/pipermail/haskell-cafe/2018-January/128395.html>\n\nついでに、ほろ酔い（しらふです、仕事します）正月ポエムも。\n<https://qiita.com/takenobu-hs/items/dc85d455fef41c091383>\n\nHappy New Haskell! :haskell:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1515141271.000130",
+        "text": "hirataraさん、typo情報有難うございました。 よく識別できますねすごい。",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1515291097.000011",
+        "text": "遅れましたが、みなさまあけましておめでとうございます。:clap:",
+        "user": "U8AEB7L21",
+        "type": "message"
+    },
+    {
+        "ts": "1515291849.000080",
+        "text": "<@U8P5W7YP6> has joined the channel",
+        "user": "U8P5W7YP6",
+        "type": "message"
+    },
+    {
+        "ts": "1515309544.000038",
+        "text": "reotaso [11:04 AM] \n場所が違ったら申し訳ありません。\n\n\n[11:05] \n一生懸命書いたのでご一読頂き、何かお気付きの点やご指摘がありましたらごいっぽうください。先生方の気持ちと日本にいるHaskellerの思いを届けたく。世界中のSPJ含む先生や教授、本の著者とメッセージをやりとりしました。\n\nそれではまだまだ続きますがこちらの件、お目通し、RTのほど何卒よろしくおねがいします。\n\nHaskell Advent Calender (その５)11日目、私が担当させて頂きました。\nSamuel Gélineau からの返信その1(翻訳) \n\n<https://qiita.com/reotasosan/items/cce796d32105a5f25854> (edited)\n\n\n\nmasako lee [11:24 AM] \njoined <#C4LFB6DE0|general>.\n\n\nkazu [1:07 PM] \n企業ではなく、起業ではないでしようか？\n\n\n[1:10] \nIBMを買はいない の意味が分かりません。\n直訳すると IBMを買って解雇された人はいない だと思います。\n\n\nmasako lee [1:44 PM] \n<@U56MBRKR9> 山本さんありがとうございます！早速修正させて頂きます。\n\n\nmasako lee [1:53 PM] \n<@U56MBRKR9> 山本さん、企業の訳ですが、companyなので一般的な企業だと思われます。\n仮に起業だとしたら、startupなどの言葉を使うのかなと思います。\nただcompanyは仲間という意味もあるのでSamuelに後ほど尋ねようと思います。\n\nIBMの件については、山本さんがご指摘くださったようにIBMを買ったからといって解雇された人はいない\nプラス意訳を加えるのであれば、30-40年前は、コンピューターと言えばIBMという時代がありました。\n故に新しい言語を採用するのはリスクが大きいと判断されました。\n意訳は加えた良いでしょうか？\n\nひとまず、IBMに関しては直訳をつっこみたいとおもいます。\nお忙しいところありがとうございます。 (edited)\n\n\nmatsubara0507 [2:24 PM] \n<@U8P5W7YP6>\n&gt; Choosing Haskell is still a bold choice at the moment. For example, a friend created a startup and chose Haskell for the backend,\n\n\n&gt; 2. Haskellを選択することは、今でも勇気が必要です。例えば、友人が企業してHaskellをバックエンドに使いました。\n\n\nこの部分の「企業」のコトでは？\n\n\nmasako lee [2:42 PM] \nああそっちのだったんですね。大変失礼しました。すぐ修正します。\n\nkazu [2:43 PM] \n先ほど携帯から入力したので、言葉足らずでしたが、そちらです。\n\nmasako lee [2:43 PM] \nかしこまりました。\n\n[2:44] \nIBMの補足についてはいかがしましょう。お手すきの際にお願いします。\n\n[2:45] \n修正しました\n\nkazu [2:50 PM] \n意訳の加筆は必要ないでしょう。原文は読者の知性を信頼しているような感じですし。:-) (edited)\n\n\nmasako lee [2:52 PM] \n承知です。またお気付きの点がございましたらお手すきの際にご指摘お願いします。ありがとうございます。\n\nkazu [2:58 PM] \n&gt; The reason the small number of available Haskellers makes it seem like hiring is going to be difficult is that with popular languages, it is often necessary to interview a large number of candidates before finding one which is worth hiring.\n\n\n[2:58] \nの訳ですが、\n\n[2:59] \nHaskellerの数が少なくて採用が難しいと思わせる理由は、多くの人気のある言語では、採用する価値のある人を見つけるには、しばしばたくさんの候補者に会う必要があるからです。\n\n[2:59] \nぐらいだと思います。\n\nmizunashi-mana [3:10 PM] \n“Haskellerの数が少ないために採用が難しいと思われてしまう理由は” ぐらいがいいのではないでしょうか？\n\n\nmasako lee [3:19 PM] \n文言編集しました。\n\n例えば10人のHaskellerをのなかで優秀な人を採用するのに1人だとして、\n人気言語は30人のうち2人か3人という認識であってますか？\n\n[3:19] \nそのくらいHaskellerが少ないという問題\n\nkazu [3:42 PM] \n他の言語ではたくさん合わないと良い人に巡り会えないが、Haskellだとすぐ良い人に出会うと言うことをマネージャーがわかってないと言うニュアンスです。\n\n\nnaohaq [3:43 PM] \nIBMの件、 \"IBMのPCを買ったという理由でクビになった人はいない\" (だからMacじゃなくてIBMにしておこう) というような観点では、Haskell は安全ではないように見える(Javaとかを選択した方が安全そうに見える) という意味を読み取るのにやや時間がかかりました^^;;\n\n\nmasako lee [3:45 PM] \n<!here>\nkazuさんがおしゃる「他の言語ではたくさん合わないと良い人に巡り会えないが、Haskellだとすぐ良い人に出会うと言うことをマネージャーがわかってない」と言うニュアンスです。これすごくわかりやすいです。でも前の訳の方が適してますか？\n\n\n[3:46] \n<!here>\nIBMの件、 \"IBMのPCを買ったという理由でクビになった人はいない\" (だからMacじゃなくてIBMにしておこう) というような観点では、Haskell は安全ではないように見える(Javaとかを選択した方が安全そうに見える) という意味を読み取るのにやや時間がかかりました^^;;\n\n\nこれについては、私も悩みまして、それで先ほど意訳プラスの\n「IBMの件については、山本さんがご指摘くださったようにIBMを買ったからといって解雇された人はいない\nプラス意訳を加えるのであれば、30-40年前は、コンピューターと言えばIBMという時代がありました。\n故に新しい言語を採用するのはリスクが大きいと判断されました。\n意訳は加えた良いでしょうか？」を加えた方が良いか尋ねました (edited)\n\n\n[3:50] \n<!channel>\nみなさま大変恐れ入りますが、これから仕事がありますので一旦スラックを閉じさせて頂きます。\n夜の10時近辺にまたお伺いします。お忙しい中ほんとうにありがとうございます。失礼いたします。",
+        "user": "U8P5W7YP6",
+        "type": "message"
+    },
+    {
+        "ts": "1515309809.000046",
+        "text": "<@U8P5W7YP6> Slackにおいて「通知が来る」投稿は「受け手にとって関係が深い」投稿です。\n特にhereやchannelを使う場合は、本当にそこにいる全員にとって「関係が深い」投稿かどうか注意深く考察してから利用していただきたいと思います。",
+        "user": "U57DM8PBK",
+        "type": "message"
+    },
+    {
+        "ts": "1515309858.000003",
+        "text": "(正直場所を間違えるより注意すべき事項ですね)",
+        "user": "U87FHPYS0",
+        "type": "message"
+    },
+    {
+        "ts": "1515309867.000030",
+        "text": "わたしは関係が深いとおもいました。知って欲しかったからです。",
+        "user": "U8P5W7YP6",
+        "type": "message"
+    },
+    {
+        "ts": "1515309978.000004",
+        "text": "とりあえず、原則として使わない方がいいと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1515310050.000038",
+        "text": "@here , @channel ですか？",
+        "user": "U8P5W7YP6",
+        "type": "message"
+    },
+    {
+        "ts": "1515310064.000008",
+        "text": "<@U8P5W7YP6> <#C4LFB6DE0|general> に書くだけで、全員がその投稿を見ることになります。僕はそれで十分だったのではないかと思っています。通知には「急かす」役割も担っているので、よく吟味して本当に必要な場面だけで使っていただけるとありがたいです。",
+        "user": "U57DM8PBK",
+        "type": "message"
+    },
+    {
+        "ts": "1515310082.000072",
+        "text": "細かいルールがわからないので\n規約？に含めていただけますと幸いです",
+        "user": "U8P5W7YP6",
+        "type": "message"
+    },
+    {
+        "ts": "1515310092.000011",
+        "text": "はい。ちゃんと興味がある人は未読になっていれば後で読みます。\nメンションを送るときは、重要かどうかというより、緊急性が重要です。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1515310146.000027",
+        "text": "<@U57DM8PBK> 承知です",
+        "user": "U8P5W7YP6",
+        "type": "message"
+    },
+    {
+        "ts": "1515310171.000026",
+        "text": "承知です",
+        "user": "U8P5W7YP6",
+        "type": "message"
+    },
+    {
+        "ts": "1515310198.000040",
+        "text": "規約に含めて頂きたいのでそれはおねがいします。すいません",
+        "user": "U8P5W7YP6",
+        "type": "message"
+    },
+    {
+        "ts": "1515310206.000066",
+        "text": "ほかにもあるかもしれないし",
+        "user": "U8P5W7YP6",
+        "type": "message"
+    },
+    {
+        "ts": "1515310235.000033",
+        "text": "蛇足ですが、今回であれば本文を書いた他に別に切り分けでgeneralにこういう議論してるからよければここに書いてるから見てねっていう風にすると良いと思いますね:)",
+        "user": "U87FHPYS0",
+        "type": "message"
+    },
+    {
+        "ts": "1515310235.000035",
+        "text": "kazuさんが助けてくださってほんとうに嬉しかったです\nみなさんのごめいわくにならないようにしますね",
+        "user": "U8P5W7YP6",
+        "type": "message"
+    },
+    {
+        "ts": "1515310299.000031",
+        "text": "<@U87FHPYS0> \n承知です。アドバイスありがとうございました",
+        "user": "U8P5W7YP6",
+        "type": "message"
+    },
+    {
+        "ts": "1515310709.000007",
+        "text": "改めて作ろうかとも思いましたが、よく考えたらすでに最低限のことは書いています（もっと見やすいところに置くことは別途検討するとしても）。\n<@U8P5W7YP6>  :point_down: に書いたことでは不十分ですか？\n<https://haskell.jp/blog/posts/2017/01-first.html>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1515310843.000009",
+        "text": "<@U4LGTMTMK>   \nあっとhere,channel は緊急性を要するのできほんNGとか一言加えていただけると・・・",
+        "user": "U8P5W7YP6",
+        "type": "message"
+    },
+    {
+        "ts": "1515311080.000031",
+        "text": "OK, Trelloのアカウントを持っていれば、ですが続きは <https://trello.com/c/zkJRAxtj/77-slack-work-pace%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%82%A8%E3%83%81%E3%82%B1%E3%83%83%E3%83%88>\nでいいでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1515311349.000030",
+        "text": "ちょっと見れないので後で確認させてください\n\n本当にシンプルに\nこれはやめましょうみたいなかんじでいいんですけど・・・\n初心者にはなかなかつたわりづらいかもしれません\n\nトレロはわたしもつかったことがありますので後でみます。失礼します。",
+        "user": "U8P5W7YP6",
+        "type": "message"
+    }
+]

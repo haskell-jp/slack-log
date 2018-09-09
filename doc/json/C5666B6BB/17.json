@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1522055190.000248",
+        "text": "そのドキュメントを読む限りでは、*.hi とバイナリがあれば、いけそうな感じはするんですよね。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1522055433.000034",
+        "text": "stack でビルドすると、 `.stack-work/install/` 以下に必要なものが出力されてるっぽいのですが、この中から必要な部分を抜き出して、他の環境にもっていけないかなー、と妄想してます。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1522055481.000560",
+        "text": "プラットフォームやアーキテクチャは揃っている、という前提で。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1522055516.000397",
+        "text": "ちなみに個人的にはソースコードをNDAを結びつつ渡すのと大差ないだろうと思っているんですが、そこまでしてやりたい理由ってあるんですか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1522055648.000185",
+        "text": "まさにそこなんですが、提供先にもコードは隠蔽して機能を提供したい、という判断があります。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1522055687.000248",
+        "text": "そのコードがビジネスのコアになっている、ということでして。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1522057120.000330",
+        "text": "&gt; :loadってexportされてない関数も読める\nそうだったのかー",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1522058624.000347",
+        "text": "型宣言の中に :~&gt; という記号を見かけることがあるのですが、これは何者なんでしょうか・・・？\nコード例としてはQiitaの以下の記事があります（コメントで質問しているのも私です）\n<https://qiita.com/cyclone_t/items/8443ed5d4a77f87b1f1b>",
+        "user": "U87QYA152",
+        "type": "message"
+    },
+    {
+        "ts": "1522059451.000046",
+        "text": "古い servant で定義されてる型みたいですね(その記事で使われているのは少なくとも)\n<http://hackage.haskell.org/package/servant-server-0.5/docs/Servant-Server-Internal-Enter.html#t::-126--62->",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1522059478.000215",
+        "text": "changelog をみると 0.7 ぐらいで無くなっているかな？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1522059950.000308",
+        "text": "hiのみの公開は仮に可能だったとしてもGHCのバージョンが変わるとビルドできなくなったりするので…隠蔽したい部分だけ.soや.dllにしてFFIで呼ぶのが常道な感じが",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1522060058.000044",
+        "text": "hiって、詳しくは知りませんが、インライン展開する関数とかの情報が入っているっぽいので、気密保持の観点でそこまで信用できるかなあという印象もあります",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1522062253.000285",
+        "text": "今自分がやっている分野ですと、 `type f :~&gt; g = forall a. f a -&gt; g a` などのFunctorの自然変換でよく見る type operator に使われていたりします。そちらのQiitaで使われている場合も `(forall a. MyAppHandler a -&gt; ExceptT ServantErr IO a)` の意味で使われているように思えました",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1522063445.000453",
+        "text": "`:` で始まる記号はただのコンストラクター（ただし中置演算子）ですよー\nという、そもそもの疑問なのかなと思いました（ロジック上の意味というよりも）\n（違ってるかも",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1522074747.000721",
+        "text": "なるほど、了解です。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1522074816.000578",
+        "text": "順当に so や dll にして FFI で呼ぶ方向で話が進みそうです。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1522102080.000459",
+        "text": "型でしたか！特別な演算子かと思いました。\nQiitaの記事は0.9以降に言及されているみたいなので、0.7くらいで廃止されたとするとちょっも不自然な気がします。\n調べてみます。",
+        "user": "U87QYA152",
+        "type": "message"
+    },
+    {
+        "ts": "1522136692.000144",
+        "text": "これ (<http://hackage.haskell.org/package/servant-0.13/docs/Servant-Utils-Enter.html#t::-126--62->) ですね．ちょっと一見複雑なんですが，\n```\nnewtype f :~&gt; g = NT (forall a. f a -&gt; g a)\n```\nみたいな感じです．(実際の定義は， <http://hackage.haskell.org/package/natural-transformation-0.4/docs/src/Control-Natural.html#line-51> にあります)\n\nなお，servant 0.12でbreaking changes (<https://github.com/haskell-servant/servant/pull/824>) があって，現在enterはdeprecatedです．最新のお作法は， <http://haskell-servant.readthedocs.io/en/stable/tutorial/Server.html#using-another-monad-for-your-handlers> にあります．(Servantはかなりbreaking changesがあるので，半年前の資料でも信用できないことがあって辛いですが，上のチュートリアルは少なくとも最新を保っているので，何か食い違いがあれば上のRead the docsを参照するのがいいと思います)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1522147643.000359",
+        "text": "フムフム…",
+        "user": "U87QYA152",
+        "type": "message"
+    },
+    {
+        "ts": "1522161665.000174",
+        "text": "と言ったはいいですが、かなり理解の範疇を超えています・・・\n<@U4L0B71L1> さんが書かれている\n「｀:｀ で始まる記号はただのコンストラクター（ただし中置演算子）ですよー」\nというところは、LANGUAGE TypeOperatorが付いているので ` : ` で始まる型を作れるようになっている、と理解しています。",
+        "user": "U87QYA152",
+        "type": "message"
+    },
+    {
+        "ts": "1522161689.000668",
+        "text": "ですので ` :~&gt; ` は型なのだ、というところまでは理解できたと思います。",
+        "user": "U87QYA152",
+        "type": "message"
+    },
+    {
+        "ts": "1522162034.000572",
+        "text": "しかしforallが理解できていないので、<@U98QDF5EJ> さんの説明や <@U57D08Z9U> さんの説明が理解不能です・・・",
+        "user": "U87QYA152",
+        "type": "message"
+    },
+    {
+        "ts": "1522163412.000308",
+        "text": "あ，なるほど．servantのAPIが理解できない話だと思ってました．ちゃんと言ってなかったですが，servant 0.13では `:~&gt;` の使用は非推奨なので，servantを使用する上では気にする必要はないです．その上でですが，この型の理解は具体的な例を考えてみるとなんとなく分かるのではないかと思い，ちょっと書いて見ました\n<https://gist.github.com/mizunashi-mana/0b7db5fb26704d47c42234a377fdd777>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1522163931.000893",
+        "text": "一般に， `~&gt;` や `:~&gt;` は型を省略するための記法と思って構いません(まあそれ以上の意味もあるんですが，その辺はnatural transformationで調べてもらう他ないです)．どういう場合に省略できるかというと，型が `f a -&gt; g a` というように最終的に型引数 `a` をとる2つの型に対しての関数型になってる時で，この時 `a` は本質的でない場合が多く `f` と `g` にさえ着目すればいいためそういう場合の省略記号として `f ~&gt; g` というように用いられます",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1522164277.000503",
+        "text": "`:~&gt;` は `~&gt;` のnewtypeで主にCategory型クラス (<http://hackage.haskell.org/package/base-4.10.1.0/docs/Control-Category.html#t:Category>) というもののインスタンスにするために，わざわざnewtypeにしています．しかし正直ここら辺で益を得てるものは見たことないですね．結局servantでも頑張ってそれを応用したAPIを提供しようとして，結果廃止することにしましたから．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1522164670.000826",
+        "text": "で，もっと技術的な部分ですが，ここの `forall` はRank N TypesというGHCの拡張機能で使えるキーワードです．調べて感じここの解説が一番分かりやすそうでしたので，ここを読んでみるといいかもしれません\n<http://sleepomeno.github.io/blog/2014/02/12/Explaining-Haskell-RankNTypes-for-all/>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1522168142.000123",
+        "text": "言葉が足りなくてすみません。でも、だいぶ見えてきた気がします。\n元々はservantのAPIを調べていたところ、 ` :~&gt; ` が出てきて「これは型なのか？それともHaskell言語の予約語（？）、つまりは ` -&gt; ` みたいなものなのか？？？」という疑問が出てきて、どこを調べればいいかを見失った、という背景があります。",
+        "user": "U87QYA152",
+        "type": "message"
+    },
+    {
+        "ts": "1522168199.000267",
+        "text": "教えていただいたリンク先を見てみます。",
+        "user": "U87QYA152",
+        "type": "message"
+    },
+    {
+        "ts": "1522169271.000238",
+        "text": "`TypeOperator` は普段 `Foo a b` みたいに宣言する型を、二項演算子記号で表現できる言語拡張なので `:~&gt;` はライブラリで宣言された「型」って認識で大丈夫です。 `GHC.Generics` などに、独自定義された TypeOperator の例が沢山あります（自分も順を追って説明すりゃよかった…）",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1522172253.000347",
+        "text": "なるほど！そういうことなのですね。\n最初の私の質問がかなり言葉が足りなかったと反省しています。どこまで分かっているかを、もっと書くべきでした。",
+        "user": "U87QYA152",
+        "type": "message"
+    },
+    {
+        "ts": "1522192749.000215",
+        "text": "あ，ついでにですが， `TypeOperator` (型演算子)は:で始まる必要はありません．今回は，元々の `~&gt;` と区別するために `:~&gt;` になってますが，\n```\ndata a * b = Pair a b\n```\nとかも書けます．混同されやすいですが，:を先頭につける必要があるのは値コンストラクタの方で，\n```\ndata Pair a b = a :* b -- a * b はダメ\n```\nみたいな感じです",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1522397997.000234",
+        "text": "<@U9XB88DU3> has joined the channel",
+        "user": "U9XB88DU3",
+        "type": "message"
+    },
+    {
+        "ts": "1522476821.000066",
+        "text": "<@U56K09PDY> has joined the channel",
+        "user": "U56K09PDY",
+        "type": "message"
+    },
+    {
+        "ts": "1522551549.000030",
+        "text": "functorの定義にreturnが入っていないのはどうしてですか？(圏論のfunctorの定義的には入って欲しいと思ったんですが)",
+        "user": "U8XGRJ3DZ",
+        "type": "message"
+    },
+    {
+        "ts": "1522552781.000079",
+        "text": "(専門じゃないから間違ってるかもだけど) Hask 圏の対象は型だからじゃない？\n`return` って型じゃなくて値を持ち上げてない？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1522552821.000063",
+        "text": "<https://stackoverflow.com/questions/21647659/why-functor-class-has-no-return-function>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1522553164.000025",
+        "text": "確かにそうですね(monadのreturnはunitなんですね)\nありがとうございます",
+        "user": "U8XGRJ3DZ",
+        "type": "message"
+    },
+    {
+        "ts": "1522553842.000038",
+        "text": "あ、なるほど、returnは自然変換だから多相関数で表現できてて、確かにこの自然変換は一般の関手に要請されるものじゃないですね",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1522571639.000033",
+        "text": "Haskellの型システム上、パラメータを持つ型F、任意の型aについて、F aも型になるので、FがFunctorになる条件の一つは必ず満たされます。だからこそ引っ掛かる人が多いのかも…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1522660251.000070",
+        "text": "<@U9YSSVB88> has joined the channel",
+        "user": "U9YSSVB88",
+        "type": "message"
+    },
+    {
+        "ts": "1522660470.000130",
+        "text": "私も今日気になって調べていたのですが下記のページも若干違うまとめ方がされていてわかりやすかったです。\n<https://wiki.haskell.org/Monad_Transformers>",
+        "user": "U9YSSVB88",
+        "type": "message"
+    },
+    {
+        "ts": "1522737355.000191",
+        "text": "module exportで昔からわからないことがあるんですが\n`import qualified Data.Text as T`\nのようにimportしたものを1つのファイルにまとめてprefixを共通させることは出来ますかね?\nプレフィクスなしのものはmodule exportで出来るんですが…\n`as Import.T`みたいに書いても出来ない",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1522737456.000164",
+        "text": "import文だけを書いたヘッダーファイルみたいなのを作ってCPPで `include` すれば一応できます。\n最近作っているプロダクトでは試しています。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1522738135.000244",
+        "text": "なるほどCプリプロセッサですか…1行2行なのでCPPプラグマ追加するのとimport書くのは同じぐらいの行数なので悩みどころですね…",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1522739054.000242",
+        "text": "いまいちやりたいことピンと来てないんですが、まとめて reexport は `qualified` ぬけばできません？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1522740441.000376",
+        "text": "まとめてreexport自体は出来ているんです\nプレフィクスを維持したままreexportが出来ないんですよね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1522740785.000088",
+        "text": ":point_down: の部分だけをプロジェクトで共通して利用したい、って話ですよね？\n```\nimport qualified Data.Text as T\nimport Other.Module (available, functions)\nimport qualified Qualified.Module as ReusableShortName\n....\n```\n繰り返しになりますが、私が知る限り今それをやる一番簡単な方法はCPPです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1522740875.000290",
+        "text": "そうです\nありがとうございます",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1522847740.000392",
+        "text": "import側で共通のprefixを付けるのでは。。。ダメですか？",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1522883737.000012",
+        "text": "今回のようにごく小さなケースではそれで十分かと思いますが、個人的には大きなプロジェクト、特に複数人が関わるようになると難しくなるだろうと考えています（だからCPPを使った方法を試してます）。\n規約を作って守らせるぐらいなら、自動で統一できた方がいいに決まってるし、プロジェクトの中でのコードのコピペしやすさも高まります。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]

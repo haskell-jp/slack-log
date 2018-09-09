@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1515739828.000083",
+        "text": "`stack clean` では不足ってことですよね。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1515744001.000315",
+        "text": "`clean` だと全部消しちゃいませんか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1515744188.000265",
+        "text": "正確に把握してませんが、 `stack clean --help` 曰く\n`local package` だけなので自分で作った（cabalファイルに書いた）パッケージだけではないかと認識しています。\nあとは `extra-dependencies` としてビルドしたものぐらい？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1515744240.000048",
+        "text": "おう，そもそも `clean` はビルド生成物だけを消すコマンドなんですね．ビルド生成物を消したいわけじゃなくて，hoogle dbとか各ltsごとに保持しているパッケージ情報を消したいです",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1515744750.000012",
+        "text": "もしかして、 `.stack-work` 以下に各resolverのコンパイル済みパッケージが入ると勘違いしてませんか...?\n実際には `~/.stack/` 以下のはずです。\nその辺はcabal sandboxから改善されているはずなので。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1515744827.000054",
+        "text": "うーんでも， 200M ぐらいあるので…",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1515744997.000266",
+        "text": "そういえば、と思って自分も手元のプロジェクトを見てみたら、334MBもあったw\nそして `du -hs` で掘ってみた感じ、どうも自分のパッケージをビルドしてできる\n`.stack-work/dist/x86_64-linux` 以下が主にとっているみたいですね。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1515745069.000050",
+        "text": "あ、と思ったら `.stack-work/install` 以下も結構とってるな。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1515745160.000166",
+        "text": "主に消したいのは `.stack-work/install` 以下の使わないlts分のものですね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1515745193.000006",
+        "text": "あってもおかしく無いと思ったんですけど，まあ無いなら普通に消します",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1515745257.000392",
+        "text": "なるほど。そっちも掘ってみましたが、やっぱり入っているのは自前のパッケージっぽいですね。\nだから思い切って消しちゃってもいいかも。\nそして `stack clean` しても消えない模様。。。 :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1515745360.000318",
+        "text": "結論、resolver毎にビルド結果を残してしまうstackの仕様に加え、GHCがビルドしたものがそもそも大きすぎるのが問題な気がしました :sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1515774272.000915",
+        "text": "<https://twitter.com/hsjoihs/status/951851803531816960>\nfreeモナドとかoperationalとかcontとかを学ぶ際に最初に読むべきもの、なんかオススメありますかね（英語可）（現状の理解度：StateTぐらいなら分かる、圏論の背景知識は不足している、LispとかSchemeとかcall/ccとかは全く理解していない）",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1515775218.000594",
+        "text": "freeモナドについては\n<https://apfelmus.nfshost.com/articles/operational-monad.html> などを見ながら，ひとまずこのパッケージで何か作って見るのがいい気がします．\n<https://hackage.haskell.org/package/MonadPrompt>\nオススメはIOモナドですかね？(ファイルの読み取りや書き込みなどを自分のDSLで書けるようにする，より良いIOのための小さなフレームワークを作るなど)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1515776535.000410",
+        "text": "継続(continuation/cont monad)については，話題が結構多岐にわたるんですが，基礎的な話についてはあまり良い資料を見つけられませんでした．\n<https://github.com/lotz84/haskell/blob/master/docs/continuation.md>\nとかで幾つか資料を見て見るのがいいんですかね？(誰か強い人にお任せ)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1515788627.000330",
+        "text": "僕もWindowsの挙動は詳しくないのですがstack corruptionが起きるそうです。<https://github.com/haskell/ThreadScope/commit/299546b7aef4155849437d327d34059589a82643#commitcomment-23352756>\nコメントの通りwindows_cconv.hを使うのがおすすめだそうです。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1515800573.000056",
+        "text": "Qiitaの僕の記事です。<https://qiita.com/YoshikuniJujo/items/c71644b5af1f5195cbf3>\nFreeモナドとOperationalモナドについての説明もありますので、もしよろしければ。ご参考までに。",
+        "user": "U4M78PX5K",
+        "type": "message"
+    },
+    {
+        "ts": "1515814588.000002",
+        "text": "入門向けではないですが私のお薦めは “FUNCTIONAL PEARL Data types a la carte” です。  <http://www.cs.ru.nl/~W.Swierstra/Publications/DataTypesALaCarte.pdf>",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1515831056.000020",
+        "text": "data types a la carteのfree monadに関しての洞察は，代数的な側面が強いので，あまりモナドに設置させるという感じでは無いかもしれないですね．freeモナドの方を重点的に解説してる記事としては\n<http://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html>\nとかもありますね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1515831207.000010",
+        "text": "ただ，data types a la carteの手法自体は，free monadとは独立に知っておくと面白いと思います(理論面でも技術面でもfreeモナドとつながりが深いですし)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1515988462.000070",
+        "text": "枝が Map k で分岐している木\n```\ndata X k a = Leaf a | Node (Map k (X k a))\n```\nに特別な名前が付いていますか。二分木とかトライ木のような。\nトライ木と呼んでもいいのかな。（キーが文字列でないだけで）",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1515988727.000080",
+        "text": "Map に Node が入り得るんですか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1515988739.000129",
+        "text": "例示したコードと若干異なりますが、\nRose treeの `Map` 版、ぐらいですかね。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1515988833.000052",
+        "text": "Freeモナドについては、私はfumievalさんやちゅーんさんのブログで勉強しました",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1515988844.000102",
+        "text": "<http://d.hatena.ne.jp/its_out_of_tune/20121111/1352632815>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1515988858.000084",
+        "text": "<http://d.hatena.ne.jp/fumiexcel/20121111/1352614885>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1515988897.000196",
+        "text": "`Cofree` はrose treeを一般化したものなので、 `Cofree f a` の `f` を `Map k` としたバージョンともいえそうです。\n<https://www.stackage.org/haddock/lts-10.3/free-4.12.4/Control-Comonad-Cofree.html#t:Cofree>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1515988953.000241",
+        "text": "あー、rose tree (多分木)ですね。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1515989008.000049",
+        "text": "Free (Map k) のつもりだったのですが\u0008、Cofree の方ですか？",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1515989053.000150",
+        "text": "ああー、例示したコードだとその方が近そうですね。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1515989311.000160",
+        "text": "多分木は Free [] ですよね。多分。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1515989402.000233",
+        "text": "そうか。私が想定していたrose treeの場合、木の各階層に値が入ると思っていたんですが、提案されたものの場合葉にしか値が入らないのか。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1515989465.000036",
+        "text": "枝に値が入るかどうかで名前が変わりそうですね。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1515989538.000077",
+        "text": "Leaf に値が入る木って、Haskell だとあまり見ないですね。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1515989639.000079",
+        "text": "トライ木は枝に値が付くのか。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1515989763.000036",
+        "text": "葉に値が付く木で、僕が Haskell で使ったことがあるのは、Huffuman 符号の木ぐらいですねぇ。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1515990220.000156",
+        "text": "入門本ではどういう例で載せているか見たら「H本」はNodeにだけ持ち、「関数プログラミング入門」ではLeafにだけ持ってました。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1515990401.000040",
+        "text": "そもそもは Free ((-&gt;) k) の例で名前がついているデータ型にどういうのがあるかなと思っての質問でした。\n例えば Bool -&gt; a の Free は（Leaf にだけ値を持つ）2分木、とか。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1515994235.000077",
+        "text": "話のついでで、これも入門向けではなくて圏論的な解説ですが読みやすく F代数の勉強にもなったので。\n“Free monads in category theory (part 1)” <https://www.paolocapriotti.com/blog/2013/11/20/free-monads-part-1/>\npart 3 まであります。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1516002128.000134",
+        "text": "もう決着がついてるのかわからないのですが，Free ((-&gt;) k)は多分木の一種だと思いますね． k = Bool なら2分木ですし， Ix k =&gt; ならFree []と同じです．多分木は通常Cofree ((-&gt;) k)だと思いますが，Free ((-&gt;) k)はそれの葉にだけ値を持つようなもの Cofree ((-&gt;) k) (Maybe a)のインスタンスのような感じだと思いますね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1516002285.000281",
+        "text": "通常アルゴリズム界隈だと，木の種類というよりは実益がある木かどうかでデータ構造を分類する風潮があるので，あまり抽象化したものに名前をつけるという感じでは無いと思います（まあ，あまり詳しく無いのでもしかしたら名前がついてるかもですが）",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1516002398.000199",
+        "text": "トライ木なんかも構造に注目した名前じゃなくて主な機能であるRetrievalの「trie」から来た名前ですもんね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1516002850.000170",
+        "text": "ありがとうござます。\n答えているのは、最近networkのメンテナーになった人ですね。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1516004063.000230",
+        "text": "Freeモナドはよく <https://hackage.haskell.org/package/free-4.12.4/docs/Control-Monad-Free.html> が題材に出されているのですが，個人的には Functorからmonadが抽出可能とか，圏論的な意味でのfree objectの代数的な性質の話というよりも(こちらも分かれば面白いのですが，分かる最短ルートは圏論を勉強することだと思っています)，Haskellプログラミングにおいての入門としては <https://hackage.haskell.org/package/MonadPrompt-1.0.0.5/docs/Control-Monad-Prompt.html> にあるように，\n&gt; 1. Prompt is pure; it is only through the observation function runPromptC that you can cause effects.\n&gt; 2. You don’t have to worry about the monad laws; they are correct by construction and you cannot break them.\n&gt; 3. You can implement several observation functions for the same type.\nとなるような抽象データであることが，一番重要だと思っています．その点で結構MonadPromptは良いチュートリアルになっていると思いますね．\noperationalもfreeも出回ってる実装は結構奇怪で，それの理解を行うためには圏論の知識を多少身につけておいたほうがいいのですが，どちらも一番の強みは中身の実装を気にしなくても(実際多くのパッケージは，中身は公開してないと思いますね)なぜかモナドに設置できることなので，中身のメカニズムを知るのはHaskellプログラミングにおいてそのアドバンテージが分かってからでもいいと思いますね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1516022500.000358",
+        "text": "返信遅くなってしまいすみません:bow: \nなるほど!どうもありがとうございます:pray:",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1516047402.000215",
+        "text": "あ，それから continuation については，この記事が非常にわかりやすいと思います．3本立てです\n<https://genkami.github.io/2018/01/14/01-haskell-continuation.html>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1516061013.000020",
+        "text": "<@U7V6G63LJ> has joined the channel",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1516338183.000196",
+        "text": "(Numではなく)任意の型クラスのデフォルトの型を指定する方法ってありましたっけ？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1516338397.000082",
+        "text": "ないはず",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1516338603.000083",
+        "text": "`default` キーワードでできた気がしましたが現状 Prelude の数値クラスに限定されているみたいですね。 <https://prime.haskell.org/wiki/Defaulting>",
+        "user": "U4M598NHM",
+        "type": "message"
+    }
+]

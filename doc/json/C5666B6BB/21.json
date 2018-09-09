@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1525921948.000207",
+        "text": "はい、なので実際のコードでは `Word64` にしています。\n実際のところは正確にわからないので本当は `Integer` のほうがいいのかもしれませんが。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1525922227.000062",
+        "text": "ありがとうございます。katipは何かのライブラリで使われているのをみたことがあります。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1525924006.000224",
+        "text": "わかりやすさの観点は別にして、Theorems for free の方は型の情報だけから fusion が導かれるのが興味深こうございました。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1525924331.000023",
+        "text": "圏論的には fold はF代数の catamorphism なのでそのユニーク性から融合法則を導く方法も多分あると思います。ググったところでは cata-fusion と呼ぶみたいです。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1525936270.000048",
+        "text": "皆さんPreludeは何を使っていますか。できれば使用感なども知りたいです。。！\n<https://github.com/sdiehl/protolude>\n<https://github.com/commercialhaskell/rio>\n<https://github.com/serokell/universum>\n今日 `universum` を使ってみたんですけど、第一印象は「かゆいところに手が届かない」Preludeでした。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1525936601.000142",
+        "text": "<@U4M5LDXK9> ずいぶん前にどこかで聞いた気がするんですが、デニスさんはたしか <https://hackage.haskell.org/package/classy-prelude> でしたっけ？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1525937334.000401",
+        "text": "さいきんは rio であそんでます\nlens 系演算子がもっと欲しいなぁって思う",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1525937862.000174",
+        "text": "rioはちょっと気になってるので勉強用で作ってるリポで遊んでみようかなと思ってます。\nUniversumすごく気まぐれなんですよね。。前のバージョンでは`containers`使えなかったのに今日触ったのは入ってたし、次のバージョンでは`text-format`が丸々削除されるらしくて、DevOpsが泣いてました。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1525938825.000322",
+        "text": "ごめんなさいやっぱり`containers`使えませんでした。\n僕がなにか勘違いしてるんですかね。。<https://hackage.haskell.org/package/universum-1.2.0/docs/Universum-Container-Reexport.html>\n`type SomeMap = Map String int `\nこれは`Map`を明示的にインポートしなくても定義できるのに、`Map`に関する関数は一切使えないんですよね。あと\n`import Data.Map.Strict`ができないんです。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1525954536.000350",
+        "text": "そうですね、classy-preludeを結構使っています。いろいろ便利な機能を提供していて、mono-traversableの関数をexportしているので使いやすいという印象です。",
+        "user": "U4M5LDXK9",
+        "type": "message"
+    },
+    {
+        "ts": "1525966783.000746",
+        "text": "<@UAMGYKUP5> has joined the channel",
+        "user": "UAMGYKUP5",
+        "type": "message"
+    },
+    {
+        "ts": "1526008760.000063",
+        "text": "Yesod開発者なのでclassy-preludeをよく使ってますがstackもrio行ったし移行するのかなあ",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1526029737.000188",
+        "text": "classy-prelude，最近もsafe-exceptions -&gt; UnliftIO.Exceptionの移行があったり，かなりAPI破壊してくるのが辛いですね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1526030366.000478",
+        "text": "classy-preludeは、以前よりはマシになったとはいえ、リエクスポートも過剰で正直出来が悪いと思います",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1526031211.000072",
+        "text": "個人的には，プロジェクトでかなり使用頻度の高い関数群や要請(保守性が高い方がいい/関数が所属してるモジュールの検索性は悪くてもいいので，Utilityが欲しい/dependencyが少ない方がいい)がかなり異なるので，プロジェクトごとにclassy-preludeなりbase-preludeなりをベースにPreludeモジュール作るのが好みですね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1526176535.000051",
+        "text": "基本は普通のPreludeなんですが、idと(.)はControl.Categoryの奴が使いたくて毎回hidingしてますね……自分に合う奴を探した方がいいのでしょうか",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1526193310.000027",
+        "text": "なるほど　後者は歯が立たないと思ったのは拙速でした　腰を据えて読み返してみれば　記法が異なるだけで `3.2 Fold` は確かに Parametricity と代数の可換性から自然に fusion が導かれているのが分かりました　重ねてご教示有難うございました",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1526200938.000058",
+        "text": "<@UAN607HTJ> has joined the channel",
+        "user": "UAN607HTJ",
+        "type": "message"
+    },
+    {
+        "ts": "1526277321.000233",
+        "text": "カスタムPreludeは潜在的にバグとなりうる関数、型クラスと取り除いてるので安全なコードが書けるというのが１つの利点だと思います。(UniversumではShowの型クラスインスタンスを定義できない（導出のみ）し、NonEmptyのリストのみhead,tail等ができる）RIOに関してはいえばReaderTパターン（変換子の中でも鉄板パターン）をベースにいれています。\nただ地雷Preludeもあるので注意しないといけません。。！",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1526433975.000231",
+        "text": "昨日の <https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1526345560000259> で、fumiさんから助言を受けて、「型レベルリストから要素を取り除く型族Remove :: k -&gt; [k] -&gt; [k]」を書いているところなんです。\n値レベルの関数を割と愚直に翻訳してこんな :point_down: ところまで書きました（よそのライブラリーで実装済みじゃないのか、という気もしますが）。\n```\ntype family ConsUnless (b :: Bool) (x :: k) (xs :: [k]) :: [k] where\n  ConsUnless False x xs = (x ': xs)\n  ConsUnless True _ xs = xs\n\ntype family Reject (p :: (k -&gt; Bool)) (xs :: [k]) :: [k] where\n  Reject p '[] = '[]\n  Reject p (x ': xs) = ConsUnless (p x) x (Reject p xs)\n\ntype family Same (x :: k) (y :: k) :: Bool where\n  Same x x = 'True\n  Same x y = 'False\n\ntype family Without (x :: k) (xs :: [k]) :: [k] where\n  Without x xs = Reject (Same x) xs\n```\nで、コンパイルするとなぜか\n```\n    • The type family ‘Same’ should have 2 arguments, but has been given 1\n    • In the equations for closed type family ‘Without’\n      In the type family declaration for ‘Without’\n```\nというエラーが出ます。 `Same` が2つ引数をとるのはいいとして、 `Reject` の第一引数が引数を1つとる型族をとるよう宣言しているので、 `Same x` とすればいいんじゃないかと思えるのですが、なんでエラーになってしまうのでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1526434199.000320",
+        "text": "補足: 名前が紛らわしくて申し訳ないんですが、 fumiさんのおっしゃる  `Remove` に相当するのは `Without` と呼んでいます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1526434824.000034",
+        "text": "型族ってカリー化みたいなのできたっけ？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1526435256.000091",
+        "text": "っぽいことが書いてある？\n<http://www.kotha.net/ghcguide_ja/latest/type-families.html#type-family-declarations>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1526440483.000050",
+        "text": "僕はあんまり詳しく無いですが、確かこの論文に色々書いてあったような\nPromoting Functions to Type Families in Haskell\n<https://repository.brynmawr.edu/cgi/viewcontent.cgi?referer=&amp;httpsredir=1&amp;article=1000&amp;context=compsci_pubs>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1526449957.000060",
+        "text": "型族は常に引数を飽和させる必要があります。エレガントさは損なわれますが、Withoutは直接定義することになると思います",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1526577909.000217",
+        "text": "<@UADFT2WQ6> has joined the channel",
+        "user": "UADFT2WQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1526606658.000243",
+        "text": "毎度ありがとうございます。\n「レコードから指定したキーの要素を取り除いたレコードを返す関数」作りの続きです。\n:point_down: のような、closedな型族と型クラスを組み合わせて、レコードが空の場合とそうでない場合とで実装をわけられるようにしました。\nが、残念ながら今度は実装で思わぬコンパイルエラーになってしまいます（エラーメッセージは後ほどコメントに張ります）\nおそらくもう一歩なところだと思うので、助言をいただきたく！\n```\ntype family Result (x :: k) (xs :: [k]) :: [k] where\n  Result x '[] = '[]\n  Result x (x ': xs) = Result x xs\n  Result x (y ': ys) = y ': Result x ys\n\nclass Without (x :: k) (xs :: [k]) where\n  without :: Membership xs x -&gt; (h :* xs) -&gt; (h :* Result x xs)\n\ninstance Without x '[] where\n  without _ _ = nil\n\ninstance Without x (x ': xs) where\n  without key rec =\n    let (_, ys) = huncons $ toHList rec\n    in without key (fromHList ys)\n\ninstance Without x (y ': ys) where\n  without key rec =\n    let (y, ys) = huncons $ toHList rec\n    in y &lt;: without key (fromHList ys)\n\nhuncons :: HList h (x ': xs) -&gt; (h x, HList h xs)\nhuncons (HCons hx hxs) = (hx, hxs)\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1526606686.000117",
+        "text": "エラーメッセージです :point_down: \n```\napp\\Main.hs:41:21: error:\n    ? Couldn't match type ‘xs’ with ‘x : xs’\n      ‘xs’ is a rigid type variable bound by\n        the instance declaration at app\\Main.hs:38:10-28\n      Expected type: h :* (x : xs)\n        Actual type: h :* xs\n    ? In the second argument of ‘without’, namely ‘(fromHList ys)’\n      In the expression: without key (fromHList ys)\n      In the expression:\n        let (_, ys) = huncons $ toHList rec in without key (fromHList ys)\n    ? Relevant bindings include\n        ys :: HList h xs (bound at app\\Main.hs:40:13)\n        rec :: h :* (x : xs) (bound at app\\Main.hs:39:15)\n        key :: Membership (x : xs) x (bound at app\\Main.hs:39:11)\n        without :: Membership (x : xs) x\n                   -&gt; (h :* (x : xs)) -&gt; h :* Result x (x : xs)\n          (bound at app\\Main.hs:39:3)\n   |\n41 |     in without key (fromHList ys)\n   |                     ^^^^^^^^^^^^\n\napp\\Main.hs:46:26: error:\n    ? Couldn't match type ‘ys’ with ‘y : ys’\n      ‘ys’ is a rigid type variable bound by\n        the instance declaration at app\\Main.hs:43:10-28\n      Expected type: h :* (y : ys)\n        Actual type: h :* ys\n    ? In the second argument of ‘without’, namely ‘(fromHList ys)’\n      In the second argument of ‘(&lt;:)’, namely\n        ‘without key (fromHList ys)’\n      In the expression: y &lt;: without key (fromHList ys)\n    ? Relevant bindings include\n        y :: h y (bound at app\\Main.hs:45:10)\n        ys :: HList h ys (bound at app\\Main.hs:45:13)\n        rec :: h :* (y : ys) (bound at app\\Main.hs:44:15)\n        key :: Membership (y : ys) x (bound at app\\Main.hs:44:11)\n        without :: Membership (y : ys) x\n                   -&gt; (h :* (y : ys)) -&gt; h :* Result x (y : ys)\n          (bound at app\\Main.hs:44:3)\n   |\n46 |     in y &lt;: without key (fromHList ys)\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1526607469.000052",
+        "text": "質問があります。\n\n練習のために、 stack resolver lts-11.9 の環境で数独に関するライブラリを作っています。\nいま、一つのセルの状態を表現するために Maybe を使おうと思ってます。\n例えば、あるセルに 1 が入っていれば Maybe 1 、空ならば Nothing という具合です。\n\nただ、そのままでは show した時に Maybe や Nothing が表示されてしまうので、\nこの表示を変えたいと思っています。\n例えば、 Maybe 1 ならば 1 、 Nothing ならば _ が出力されるという具合にです。\n出来れば read も同じように出来ると嬉しいです。\n\nMaybe 関連のライブラリ関数を使いたいので、さしあたって show と read の振る舞いだけ変えたいのです。\nこういった、ほとんど同じなんだけど、ほんの少し振る舞いが異なる型を表現したいときはどうしたら良いのでしょうか。\n\nよろしくお願いします。",
+        "user": "UADFT2WQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1526607546.000279",
+        "text": "```\nnewtype Cell = Cell (Maybe Int)\n```\nですねぱっと思いつくのは。\n\n`newtype` とすることで、 `Cell` はまさにおっしゃるような、 「 `Maybe Int` と ほとんど同じなんだけど、ほんの少し振る舞いが異なる型」として定義できます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1526607966.000024",
+        "text": "ただ、個人的には `Show` はあくまでもデバッグ用の文字列に変換するものとして使ったほうがよいのではないかと考えています。\nなので、 `newtype` でセル専用の型を用意するにせよしないにせよ、\n`Show` や `Read` のインスタンスを無理に書き換えずに、文字列からパースして作成したり文字列に変換する用の関数は独立して作った方がいいんじゃないかと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1526608361.000125",
+        "text": "あんまりよくわかってないですが，\n```\ninstance Without x ys =&gt; Without x (y:ys) where\n```\nが正しいのではないでしょうか？(Overlappingしそうですが)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1526609227.000251",
+        "text": "prettyprinter <https://hackage.haskell.org/package/prettyprinter> は、名前の通りShowよりも小奇麗に表示するのに適しています。整列表示などもできるのでお試しあれ",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1526611655.000184",
+        "text": "<@U4LGTMTMK> pinned a message to this channel.",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1526612591.000094",
+        "text": "文脈を把握してきたんですけど，うーん僕はあまり型レベルプログラミングには詳しくないんですが，hFilterは結構実装難しいんじゃないんですかね？上のエラーは，`Without x xs =&gt;` の制約がないため，xsに対してxのwithoutメソッドを呼べないエラーですが，おそらく呼べるようにしてみても\n```\ntype family Result (x :: k) (xs :: [k]) :: [k] where\n  Result x '[] = '[]\n  Result x (x ': xs) = Result x xs\n  Result x (y ': ys) = y ': Result x ys\n```\nのResult x (y ’: ys)の部分がかなり怪しくって，こいつをpolymorphicなままで呼び出すのはかなり技巧が必要だと思いますね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1526613189.000065",
+        "text": "まあ少なくとも，上の例ほど単純には書けないんじゃないかな？と思います(なんらかの，type equalityをラップする処理が必要なんじゃないかなと思います)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1526619855.000021",
+        "text": "ありがとうございます。newtype 使うといい感じに書けました。\n\n&gt; ただ、個人的には ｀Show｀ はあくまでもデバッグ用の文字列に変換するものとして使ったほうがよいのではないかと考えています。\n\nこれはなぜなんですかね? なんとなく Show や Read は標準のリーダ/ライタなのかなと思っていたのですが。\n\nprettyprinter ありがとうございます。見てみます。",
+        "user": "UADFT2WQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1526621056.000251",
+        "text": "なんか，知識が錆びついてたみたいですね．昔は一苦労必要だった気がするんですが， <https://hackage.haskell.org/package/base-4.10.1.0/docs/Data-Type-Equality.html#t:-61--61-> を使えば結構簡単にいけましたね．FunctionalDependenciesを使うといけると思います(HListがその方式っぽいですね)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1526621270.000191",
+        "text": "いちよ，書いたやつを置いときます(ただHListを参考にやって見た方が，分かりやすいかもしれません．あと，extensibleよく知らないんですがMembershipが内部で持ってる位置をfilter後に移してやる必要があったりするんじゃないんですかね？)\n<https://gist.github.com/mizunashi-mana/df1d54e87a9901b9f225f1ed658bdff6>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1526622308.000106",
+        "text": "コードがちょっとミスってたんで，微修正しました",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1526622632.000050",
+        "text": "絶対にそうした方がいいというつもりではないですが、\n例えば `String` の `show` 関数は、受け取った文字列をそのまま返すのではなく、\nダブルクォートで囲ったり、エスケープシーケンスがわかりやすくなるように変換したりして返すようになっています。\nこれと同じように、大概の `Show` のインスタンスは、\n変換後の文字列から、何の型の値を変換したかがわかりやすいように作られています。\n`traceShowId` など `Show` のインスタンスをデバッグ用に使う関数に渡して表示させた際、（特に何カ所も出力させた場合に）どの型の値を出力したのか区別できるようにした方が、視認性が上がるためでしょう。\nなので、自前で定義するにしても、何の型の値から変換された文字列かがわかりやすいように作った方がよいかと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1526627317.000013",
+        "text": "なるほど。 Show と Read はあくまで ghci 用だと考えたほうが良いってことですね。確かにそんな気がしてきました。ありがとうございます。",
+        "user": "UADFT2WQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1526961523.000255",
+        "text": "Readを自前実装しようとするとその型のリストをRead対応させるのがめっちゃ面倒という問題もあります",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1526965523.000272",
+        "text": "そうなんですよねぇ。\nただ、（おそらく）今回のように1アプリケーションでしか使わないデータ型であれば、あえて `Read` のインスタンスにする必要はないだろうな、と思って触れてませんでした。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1527990588.000004",
+        "text": "ライフゲームを作りたいんですが、そのためのGUIライブラリでいいものはありますか？",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1527990811.000086",
+        "text": "僕はglossをよく使ってます！\n<https://hackage.haskell.org/package/gloss>\nライフゲームならこの simulate って関数を使えば楽に実装できるんじゃないかなと思います~!\n<https://hackage.haskell.org/package/gloss-1.12.0.0/docs/Graphics-Gloss.html#v:simulate>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1527991129.000018",
+        "text": "早い返信ありがとうございます！想定している機能は停止/再開ボタンとクリックによるセルの反転が含まれているので すが、それもまた play で実現できそうですね！",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1527991162.000072",
+        "text": "はい、playで実現できると思います :raised_hands:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1528066580.000111",
+        "text": "glossを依存関係に加えた後にビルドしようとしたら、freeglutをインストールしていなかったために推移依存関係によるGLUTのビルド時に何かが壊れたようで、precompiled packageが全部読み込めなくなったみたいです。",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1528066600.000063",
+        "text": "glossを依存関係に加えたプロジェクトをstack buildでビルドした後に実行しようとしたらuser error (unknown GLUT entry glutInit)が出たため調べたらglutのインストールがいるよと出たため、一旦やめて他のプロジェクトをstack buildでビルドしようとしたら",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    }
+]

@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1506918287.000062",
+        "text": "少なくともHackageのソースを見る限り <https://hackage.haskell.org/package/bytestring-0.10.8.2/docs/src/Data.ByteString.html#local-6989586621679051445> 、findEOFというローカル関数が \"\\n\" かどうかしか見ていないのが直接的な原因ですね。で、ここで init で末尾の文字を取り除いた場合、改行コードが LF のみの環境では、末尾にある改行コードでない文字が削られてしまうので問題が起きます。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1506921715.000050",
+        "text": "<@U61BA2X0U> ありがとうございます　と言っても小生にはバグか仕様か分かりませんし　どう対処すべきなのか不明なのですが　まあ競プロなどにおいては　いっそのこと `Data.Text.IO.getLine` に乗り換えるべきでしょうか？　使った事が無いのですが　充分に速いのでしょうか　試してみます",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1506924572.000033",
+        "text": "<https://github.com/haskell/bytestring/issues/13> Issueが上がっていますが放置されているみたいですね…\\rも取れるように変えられないか聞いてみます",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1506991025.000146",
+        "text": "Data.ByteString のinitとlastはO(1)で計算されるみたいなので、とりあえずのworkaroundとして last str が '\\r' に等しかったら init str を、そうでなければ str を返す関数を書いておくのはどうでしょうか",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1506994000.000106",
+        "text": "とりあえずこんな関数を書いてみました。 <https://gist.github.com/naohaq/b90edfa7308dd8db51314829d005df5e>",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1506994937.000100",
+        "text": "```\nimport qualified Data.ByteString.Char8 as C\n\nchomp :: C.ByteString -&gt; C.ByteString\nchomp str | C.length str &lt; 1   = str\n          | C.last str == '\\r' = C.init str\n          | otherwise = str\n```",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1507003088.000178",
+        "text": "CRもLFもCRLFも取り除けるように直してみた。\n```\nchomp :: C.ByteString -&gt; C.ByteString\nchomp str = chompCRLF $ chompCRLF str\n  where chompCRLF s =\n          case C.unsnoc s of\n            Nothing -&gt; s\n            Just (s_c, '\\r') -&gt; s_c\n            Just (s_c, '\\n') -&gt; s_c\n            Just _ -&gt; s\n```",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1507010263.000094",
+        "text": "log 2 x の整数部分だけが欲しくなることがよくあり、以下のようなコードを使うことが多いです。\n\n```\nlog2Int :: Int -&gt; Int\nlog2Int x = truncate $ logBase 2 $ fromIntegral x\n```\n\n計算が Int で閉じていて、速度が速い関数ってありますか？\nfromIntegral と truncate が気に入らないとも言う。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507010493.000091",
+        "text": "Data.Bits の `countLeadingZeros` 使うのはどうですか？ <https://hackage.haskell.org/package/base-4.10.0.0/docs/Data-Bits.html#v:countLeadingZeros>\n```\nlogBase2 x = finiteBitSize x - 1 - countLeadingZeros x\n```",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1507011312.000014",
+        "text": "<@U4KUNQF9N> <@U61BA2X0U> Awesome, thank you much!",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1507011776.000135",
+        "text": "おー！ ありがとう！",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507012163.000046",
+        "text": "countLeadingZeros の Int 実装は clz# を呼んでますが、これって CPU 命令に翻訳されますか？\nもしかして、自分で strings.h ffsll とかの FFI を定義しなくていい？？？？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507012263.000108",
+        "text": "昔 ffsll が O(1) であること仮定したアルゴリズムを書いたことがあるんです。\n素直に Data.Bits を使えばよかったのか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507014084.000038",
+        "text": "とりあえずGHCのソースを見た感じだと、GHCのPrimitive Operation <https://ghc.haskell.org/trac/ghc/wiki/Commentary/PrimOps> として実装されているように見えます &lt; clz#",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1507017384.000228",
+        "text": "__builtin_clz*() is supported by GCC and Clang\nということで、コンパイラに任されるようですね。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507076790.000155",
+        "text": "そういえば、整数値をF_2を係数体とする多項式だと思って剰余を取る関数を書こうとしたときに、WordとかIntだと最上位の0じゃないビットを探すのにcountLeadingZerosが使えるけどIntegerだと使えないのをどうしようかと悩んだんですけど、こういうの普通はどうするんですかね？\n(追記)FiniteBits a とそうでない場合で実装を分けたいんだけど、という疑問です",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1507077967.000033",
+        "text": "log_2 の整数部分じゃだめですか？",
+        "user": "U6S3ARBDL",
+        "type": "message"
+    },
+    {
+        "ts": "1507078093.000031",
+        "text": "直前のkazuさんの質問を参照されたしー",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1507078147.000061",
+        "text": "おっと、thread見てなかったです",
+        "user": "U6S3ARBDL",
+        "type": "message"
+    },
+    {
+        "ts": "1507081193.000181",
+        "text": "リストから平衡二分木に変換するHaskell風のアルゴリズムがあれば教えてください。\nただし、ここでいう平衡二分木は、要素の数が2の累乗のとき、完全平衡になる二分木です。\n左の部分木から詰めて行きます。\nO(n)でできると思います。\nスタックを使う命令的なアルゴリズムは知っています。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507081362.000154",
+        "text": "Data.Map.fromListでやっているようなこと、ということでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1507081363.000088",
+        "text": "あー、探索木ではありません。\nリストに入っていた順に、底辺に要素が並べばいいです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507081494.000083",
+        "text": "ぶっちゃけていうと、Merkleハッシュ木をリストから作りたいのです。\n<https://goo.gl/pYMBDr>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507081912.000223",
+        "text": "mapAccumL とか使うのかな？\n考える。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507083966.000131",
+        "text": "すみません、逆にこちらから教えていただきたいのですが、\nハッシュ木というのは、大量（あるいは大容量？）のハッシュ値を一本の木にまとめて空間効率を高める、みたいなイメージであってますか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1507084880.000092",
+        "text": "結局、型クラスを作って Integer と {Int, Word, Word64, Word32, Word16, Word8} に対するinstantiationを陽に記述しました",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1507086655.000192",
+        "text": "ハッシュ木の構造は\n- 葉ノードが対象データのハッシュ値\n- 中間ノードが、連結させた子のハッシュ値のハッシュ値\nです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507086715.000222",
+        "text": "ハッシュ木の性質の全容は掴んでないのですが、2つのデータ間の整合性を高速に検証するために使われるのが一般的だと思います。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507086899.000041",
+        "text": "僕が今取り組んでいるのは、Certificate Transparencyでして、これは世の中にある証明書すべてを書き込み系としては追加しかできないログに記録するという仕組みです。\n読み出すことはできます。\nこのログにハッシュ木が使われています。\nユーザは、ハッシュ木の性質を使って、以下のことを高速に確かめられます。\n- ある証明書がログの中に存在している\n- ログが改ざんされてない",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507087024.000044",
+        "text": "Chrome が Symantec が発行する証明書を信用しなくしようとしてますが、これは Symantec が <http://www.google.com|www.google.com> の証明書を間違って発行したことによります。\nそれを見つけた手段が CT です。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507087090.000166",
+        "text": "CT の仕様書である RFC 6962 って、結構酷かったんですが、改訂版は分かりやすくなっているし、具体的なアルゴリズムが載っているので、今実装して理解しようとしています。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507087098.000063",
+        "text": "<https://tools.ietf.org/html/draft-ietf-trans-rfc6962-bis-26>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507090385.000035",
+        "text": "こんな感じか：\n\n```\nimport Data.Bits\nimport Data.List\n\ndata Tree a = Leaf a\n            | Node (Tree a) (Tree a) deriving (Eq, Show)\n\nsingleton :: a -&gt; Tree a\nsingleton = Leaf\n\njoin :: Tree a -&gt; Tree a -&gt; Tree a\njoin = Node\n\nfromList :: [a] -&gt; Tree a\nfromList xs = reduce $ snd $ foldl' add (0,[]) $ map singleton xs\n  where\n    add (i,ts) t = (i+1, merge (mergeCount i) (t:ts))\n    merge 0 ts        = ts\n    merge n (t1:t2:ts) = merge (n - 1) (join t2 t1:ts)\n    merge _ _ = error \"merge\"\n    reduce [t] = t\n    reduce (t1:t2:ts) = reduce (join t2 t1:ts)\n    reduce _ = error \"reduce\"\n\nmergeCount :: Int -&gt; Int\nmergeCount = countTrailingZeros . complement\n```",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507114942.000196",
+        "text": "これでどうでしょうか :sunglasses:\n\n```{-# LANGUAGE DeriveFoldable #-}\nimport Data.Foldable\n\ndata Tree a = Leaf a\n            | Node (Tree a) (Tree a) deriving (Eq, Show, Foldable)\n\nfromList :: [a] -&gt; Tree a\nfromList xs = case foldl' (flip $ push 0 . Leaf) [] xs of\n  [] -&gt; error \"empty\"\n  [(_, r)] -&gt; r\n  ts -&gt; error \"incomplete\"\n  where\n    push :: Int -&gt; Tree a -&gt; [(Int, Tree a)] -&gt; [(Int, Tree a)]\n    push m x ys'@((n, y) : ys)\n      | m == n = push (m + 1) (Node y x) ys\n      | otherwise = (m, x) : ys'\n    push m x [] = [(m, x)]\n```",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1507135111.000304",
+        "text": "ぱっと思いつくのは、\n```\ndata Tree a = Leaf a | Node (Tree a) (Tree a) deriving (Show)\n\nfromList :: [a] -&gt; Tree a\nfromList [] = error \"No Element\"\nfromList xs = construct (map Leaf xs)\n\nconstruct :: [Tree a] -&gt; Tree a\nconstruct [t] = t\nconstruct ts  = construct (pairing ts)\n\npairing :: [Tree a] -&gt; [Tree a]\npairing (t:u:vs) = Node t u : pairing vs\npairing ts       = ts\n```",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1507135264.000590",
+        "text": "<@U7DFU4JCD> has joined the channel",
+        "user": "U7DFU4JCD",
+        "type": "message"
+    },
+    {
+        "ts": "1507169180.000186",
+        "text": "あー、なるほど。\n言われてみると、簡単な話でしたね。&gt; nobsun",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507169199.000053",
+        "text": "fumieval くんもありがとう！",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507620228.000173",
+        "text": "GHCのmissing-home-modules警告について教えてください。\ncabalファイルにlibraryとexecutableがあって、executableの方がコンパイルされる際にlibraryで列挙しているモジュールを列挙せよと警告が出ます。\nexecutableの依存関係に、そのlibraryを書いてあるので警告が出るべきではないと思うのですが。。。\nモジュールを列挙せずに警告をなくすにはどうすればいいでしょうか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507620604.000095",
+        "text": "なんだかさっと  <https://ghc.haskell.org/trac/ghc/ticket/13129> を読む限り、仕様通りの挙動じゃないように聞こえますね。。。 :sweat: \nexecutableの方の `other-modules` に libraryのmoduleを列挙せよ、と警告してくるんですか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1507637395.000479",
+        "text": "なんとなくの推測ですがhs-source-dirsがデフォルトの.になっててexecutableがbuild-dependsに指定したライブラリではなく、ソースファイルを直接見に行ってるとかないですか？ ",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1507637586.000478",
+        "text": "cabal buildでlibとexeで同じモジュールを再コンパイルしていたら多分当たってます",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1507691302.000013",
+        "text": "<@U4M9NJ7QE> ビンゴでした。\ntest のソースはディレクトリを分けないと、自分に依存できない問題と同じでした！\nありがとうございます。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507762496.000205",
+        "text": "質問です、Haskellにおいて余再帰とは末尾再起でない関数のことを指すのでしょうか？あと、この記事(<http://d.hatena.ne.jp/kazu-yamamoto/touch/20121107/1352259739>)で\n&gt; そう、遅延評価だから、余再帰というテクニックが使える。\nと書かれているのですが、遅延評価でないと余再帰は出来ないのでしょうか？",
+        "user": "U56G77VM1",
+        "type": "message"
+    },
+    {
+        "ts": "1507769601.000092",
+        "text": "僕の理解では、入力が再帰構造を持っていて、関数がその構造を辿ると「再帰」と言います。つまり、[a] -&gt; b みたいな関数を再帰と言っています。\n余再帰はその逆で、a -&gt; [b] のように出力が再帰的な構造を持つ場合に使います。\nmapは再帰かつ余再帰です。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507769697.000041",
+        "text": "関数が無限のリストを生成する場合、正格評価だと手に負えませんが、遅延評価なら出力の消費者が制御できますね、ぐらいの意味でした。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507769861.000064",
+        "text": "参考：\n<http://d.hatena.ne.jp/kazu-yamamoto/20091122/1258899591>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507770028.000233",
+        "text": "通常は、ここでいう再帰も余再帰も区別せずに、再帰ということが多いです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1507772650.000020",
+        "text": "ありがとうございます！",
+        "user": "U56G77VM1",
+        "type": "message"
+    },
+    {
+        "ts": "1507773573.000246",
+        "text": "<@U7GCPTF3J> has joined the channel",
+        "user": "U7GCPTF3J",
+        "type": "message"
+    }
+]

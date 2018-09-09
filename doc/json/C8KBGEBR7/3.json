@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1519046529.000403",
+        "text": "VoQnさんので言うと， <https://github.com/VoQn/cacco/blob/master/src/Cacco/Ann.hs#L21> がまさにCofreeですね．(Indexed Fixはまだ導入してなさそう？)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1519091019.000057",
+        "text": "Ix＊ はまだ組み入れてないですね。ラムダ式や関数宣言とかの、AST内部の小分類が必要になってきたら組み込んでく予定です",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519100550.000080",
+        "text": "<@U7907NMGF> has joined the channel",
+        "user": "U7907NMGF",
+        "type": "message"
+    },
+    {
+        "ts": "1519124416.000220",
+        "text": "あれは閉じた型族などがなかった時代の苦肉の策なので、今では型レベルリストと型族を活用すれば簡単に実現できます。 extensibleも型族を使っています <http://hackage.haskell.org/package/extensible-0.4.7.1/docs/Data-Extensible-Sum.html>",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1519125117.000205",
+        "text": "型レベルリストってopen unionとかと同じように，sumするやつをリストに突っ込んでおいて，injectする時型レベルのmemberをするやつですか？あんまりよく知らないんですけど，それってかなりコンパイル時間がかかったり，型エラーがえぐくなったりしないですか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1519125461.000111",
+        "text": "実装が悪いとそうなりますが、extensibleは速いという評判を頂いています。ただ要素数が200くらいになってくるとコンパイルが遅くなる感じがあります。",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1519126577.000089",
+        "text": "なるほど，実装見てみます．ありがとうございます．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1519615487.000016",
+        "text": "<https://github.com/VoQn/cacco/blob/master/src/Cacco/Syntax/Parser/AST.hs>\nIxFIx を導入したASTのパーサが一応できました（IxCofree をインジェクションするのはまだ出来ていないので、純粋な構文木をパースするようになっています）",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519705552.000149",
+        "text": "できた",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519705715.000104",
+        "text": "haskellの好きなところ、書き終わった後に「ぜってぇこれもっといいやり方がある」ってモチベ上がるところですね",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519709576.000102",
+        "text": "これって，気になったとこ言っていい系なんでしょうか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1519709918.000079",
+        "text": "まぁ、 <#C8KBGEBR7|code-review> に貼ったぐらいなので何かアドバイスなり意見が欲しいので大丈夫です",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519711018.000186",
+        "text": "ここが(おそらくnat transのtype sigを適用できるようにするためだと思うんですが)f i aの順になっていないために，ixを固定した時に既存のFunctorのAPIを使えないのは残念だなと思いました\n<https://github.com/VoQn/cacco/blob/master/src/Data/IxFix.hs#L76>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1519711320.000014",
+        "text": "後，個人的には `UndecidableInstances` は避けてる人なので，ちょっと余計なインスタンス宣言が増えますが， `deriving (Show (f (Fix f)) =&gt; ...` の部分は `deriving (Show1 f) =&gt; ...` で書く派なので，そこの部分も気になりました",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1519711555.000048",
+        "text": "そうなんですよ。普通のfmapが上手に利用できないというか、評価器を作るところで通常のdoなども利用できないので作りを見直して克服したいところなんです",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519711619.000238",
+        "text": "あ、いや、たしかに逆にするだけで何とかなる？",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519711702.000232",
+        "text": "\"indexed\" なんだから、型の表記的にも i f  と続かせる方が正しいような気もしますね",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519711708.000041",
+        "text": "多分逆にして， deriving Functor すればいい気がしますね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1519713828.000099",
+        "text": "後，結構不要なところに `UndecidableInstances` が入ってる印象があるので，もし拡張のプラグマをコピペしてる感じだったらむしろ，cabalのdefault-extensionsを使って，モジュール別に必要な拡張だけモジュールごとに指定するのがいいかもしれません(<https://www.haskell.org/cabal/users-guide/developing-packages.html#pkg-field-default-extensions>)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1519715013.000232",
+        "text": "これも好みの問題かもですが，\n* <https://github.com/VoQn/cacco/blob/master/src/Cacco/Syntax/AST.hs#L43> -&gt; `Data.Proxy.Proxy`\n* <https://github.com/VoQn/cacco/blob/master/src/Data/IxFix.hs#L31> -&gt; `Data.Functor.Const`\n* <https://github.com/VoQn/cacco/blob/master/src/Data/IxFix.hs#L35> -&gt; `Data.Functor.Identity`\n* <https://github.com/VoQn/cacco/blob/master/src/Cacco/Syntax/Expr.hs#L52> -&gt; `DeriveTraversable` で代用可能\nみたいなのを思いました",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1519715168.000214",
+        "text": "それから，一部メッセージを良くunwordsして作ってる印象があったので，\n* <https://hackage.haskell.org/package/ansi-wl-pprint-0.6.8.1/docs/Text-PrettyPrint-ANSI-Leijen.html#t:Doc>\n* <https://hackage.haskell.org/package/pretty-1.1.3.6/docs/Text-PrettyPrint.html#t:Doc>\nみたいなのと相性が良さそうな気がしました．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1519717172.000094",
+        "text": "それから，<https://github.com/VoQn/cacco/blob/master/src/Cacco/Syntax/Parser/AST.hs#L131> の部分は， `GADTs` と `ScopedTypeVariables` 拡張を加えて，\n```\nastFix :: forall t (i :: AstIx). IxFunctor t =&gt; AstIxProxy i -&gt; AstIxFixParser t i\nastFix proxy d e p t = case proxy of\n    DeclProxy -&gt; d'\n    ExprProxy -&gt; e'\n    PattProxy -&gt; p'\n    TypeProxy -&gt; t'\n  where\n    astFix' :: (forall f. AstIxParser t f j) -&gt; Parser (IxFix t j)\n    astFix' f = In &lt;$&gt; f d' e' p' t'\n\n    d' = astFix' d\n    e' = astFix' e\n    p' = astFix' p\n    t' = astFix' t\n{-# INLINEABLE astFix #-}\n\nlocated :: forall f (i :: AstIx). AstIxParser AstF f i -&gt; AstIxParser (IxAnnF Location AstF) f i\nlocated f d e p t = IxAnnF &lt;$&gt; withLocation (f d e p t)\n{-# INLINE located #-}\n\nastParser :: AstIxProxy i -&gt; Parser (IxAnn Location AstF i)\nastParser proxy = astFix proxy\n  (located declAstF) (located exprAstF) (located pattAstF) (located typeAstF)\n\ndeclAst :: Parser (IxAnn Location AstF AstDecl)\ndeclAst = astParser DeclProxy\n{-# INLINEABLE declAst #-}\n\nexprAst :: Parser (IxAnn Location AstF AstExpr)\nexprAst = astParser ExprProxy\n{-# INLINEABLE exprAst #-}\n\npattAst :: Parser (IxAnn Location AstF AstPatt)\npattAst = astParser PattProxy\n{-# INLINEABLE pattAst #-}\n\ntypeAst :: Parser (IxAnn Location AstF AstType)\ntypeAst = astParser TypeProxy\n{-# INLINEABLE typeAst #-}\n```\nの感じで書くと，ボイラープレートが増えなくて良いかな？と思いました",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1519718434.000107",
+        "text": "Show1使ったことありませんでした… せっかくtransformers使ってんのに…",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519719407.000167",
+        "text": "あ、今はbaseに入ったのか…",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519719786.000150",
+        "text": "はい，baseにあるので気兼ねなく使えますね．GHC 8からいつのまにか，MonadIOとかも入ってました\n<https://hackage.haskell.org/package/base-4.9.1.0/docs/Control-Monad-IO-Class.html>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1519720511.000094",
+        "text": "書いてる途中でコンパイル一時的に通す為に入れたGHC拡張が残ったままになってたりするのか",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519720633.000270",
+        "text": "UndecidableInstances は意識的に入れたつもり無くて、StandaloneDerivingが使いたかっただけ、というパターンとかあります",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519723541.000188",
+        "text": "せっかくProxyを作ったんだからそれを利用すればよかったんだなぁ",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1520006371.000517",
+        "text": "<@U7V6G63LJ> has left the channel",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1520501034.000437",
+        "text": "<@U90881C13> has joined the channel",
+        "user": "U90881C13",
+        "type": "message"
+    },
+    {
+        "ts": "1520918707.000050",
+        "text": "やっとcompdataとData Types a la carte まで学習が進みました。 <http://hackage.haskell.org/package/compdata>",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1520922053.000184",
+        "text": "compdata ほう こんなものが",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1520922759.000127",
+        "text": "<http://www.timphilipwilliams.com/posts/2013-01-16-fixing-gadts.html>\nここで解説されている「任意のデータ型をFunctorからもう一段階高階の抽象化をして、『Int型しか受け付けない（あるいは評価結果がそうなる）構文』とかをできるようにする」手法が別のワークショップでそのまま実装されていたっていうオチ",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1520933688.000201",
+        "text": "ちょうど今 Data Types a la carte ベースでテンプレートエンジン作ってるから気になる\n後で見よう",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1520941309.000196",
+        "text": "<@U7JEMP5SR> has joined the channel",
+        "user": "U7JEMP5SR",
+        "type": "message"
+    },
+    {
+        "ts": "1521174705.000115",
+        "text": "<@U57D08Z9U> さんに指摘された Cofree annotation 、本当に `IndexedCofree f a i` っていう型を作って出来るか試してみたら出来ました",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1521174727.000086",
+        "text": "これだけでもこのチャンネル入って本当に良かった。ありがとうございます",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1521177090.000106",
+        "text": "<@U57D08Z9U> has left the channel",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1521177102.000089",
+        "text": "<@U57D08Z9U> has joined the channel",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1521935264.000018",
+        "text": "<@U7GSVRQ6S> has joined the channel",
+        "user": "U7GSVRQ6S",
+        "type": "message"
+    },
+    {
+        "ts": "1522397929.000042",
+        "text": "<@U9XB88DU3> has joined the channel",
+        "user": "U9XB88DU3",
+        "type": "message"
+    },
+    {
+        "ts": "1522427498.000258",
+        "text": "<@U9Z23SX61> has joined the channel",
+        "user": "U9Z23SX61",
+        "type": "message"
+    },
+    {
+        "ts": "1522803896.000278",
+        "text": "<@U5CSEFF7H> has joined the channel",
+        "user": "U5CSEFF7H",
+        "type": "message"
+    },
+    {
+        "ts": "1523499248.000187",
+        "text": "<@U5CQSLMRU> has joined the channel",
+        "user": "U5CQSLMRU",
+        "type": "message"
+    },
+    {
+        "ts": "1524038560.000043",
+        "text": "すごく簡素なプログラムですが、haskellで書きました。\nもしかしたらリリースされるかもしれません。（まだプロトタイプです）\nプログラムの目的、利用方法に関してはreadmeを読んでください。\n<https://github.com/input-output-hk/cardano-diagnosis-program>\n\n気になってる点:\n1. どのようなテストを行えばいいのかわかりません。（ダミーファイルを作ってそれをパースするとか？）\n2. ログを解析する部分(`Classifier.hs`)が総当りに近いです（`isInfixOf` を使って特定の文字をキャッチしています。）本当はregexやパーサーライブラリを使って解析したいのですが、１日かけても全く動きませんでした。これに関してなにか具体例みたいなものがあれば是非紹介して頂きたいです。。\n3. `LogExtractor`（ログファイルの有無を確認し、ある場合には読み込む）に関してOSごとにFilePathを指定する部分が若干不安です（とくにユーザー名に半角英数字以外を使用しているユーザーに対して動作するのか）\n\nその他気づいた点がありましたらお願いします。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1524040265.000050",
+        "text": "ログファイルのサンプルあったほうがいいですよね。夜にアップロードします。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1524041258.000279",
+        "text": "ちょっと覗いた程度ですが，1点だけ気になりました．\n<https://github.com/input-output-hk/cardano-diagnosis-program/blob/master/app/Main.hs#L38>\nの部分ですが，こういう場合throwIOを使われるのが好まれると思います．\n<https://mail.haskell.org/pipermail/libraries/2012-September/018410.html> のスレッドが参考になると思うのでどうぞ",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1524048568.000121",
+        "text": "ありがとうございます。その点に関しては僕も気になっていたのでさっそく取り組んでみます。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1524051160.000068",
+        "text": "<@U7Z4F723Z> uploaded a file: <https://haskell-jp.slack.com/files/U7Z4F723Z/FA9TKV40P/pub.zip|pub.zip> and commented: ログファイルのサンプル",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1524068406.000665",
+        "text": "あんまりよく読んでないので心証的な感じで申し訳ないんですが\n解析のパフォーマンスについては，どれぐらいの規模なのかよく分からないですが，複数ファイルを1回読み込んでしまうとメモリをかなり食ってGCの回数が増えるとかがあるのではないでしょうか？テストより先にプロファイリング用に余計な処理を省いたベンチマークを作ってみるのがいい気がしました",
+        "user": "U57D08Z9U",
+        "type": "message"
+    }
+]

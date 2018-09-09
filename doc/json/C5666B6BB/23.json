@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1530669901.000095",
+        "text": "“A monad is a monoid in the category of endofunctors.” Is there something similar for comonad? Hmm, say, comonoid? What does it looks like if there is?\nI tried to flip the arrow of monoid, but it looks strange…\n\n```\nclass Comonoid a where\n  coidentity :: a -&gt; ()\n  comultiple :: a -&gt; (a, a)\n```\n\nAnd I cannot find any law of it…\n\nmaybe … ?\n\n```\nclass Comonoid a where\n    v :: a -&gt; ()\n    p :: a -&gt; a\n    q :: a -&gt; a\n\nforall x.\n\n((p.p) x, (q.p) x , q x) = (p x, (p.q) x, (q.q) x)\n\np x = x\nq x = x\n```\n\nBut it’s nearly of no use…",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1530674337.000034",
+        "text": "That’s comonoid laws on Haskell (if you think about only in Set)\n\nHaskell has the instance of all types for Comonoid:\n```\ninstance Comonoid a where\n  coidentity _ = ()\n  comultiple x = (x, x)\n```\n\nThis instance is trivial and the only.\n\nSee also: <https://stackoverflow.com/questions/23855070/what-does-a-nontrivial-comonoid-look-like>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1530676518.000096",
+        "text": "面白そう、と思って似たようなパターンを試してるんですが、難しいですね。\nこういうのも実装できない感じでしょうか\n\n```\nimport Data.Type.Equality\n\nunProd :: a1 :~: a2 -&gt; b1 :~: b2 -&gt; '(a1, b1) :~: '(a2, b2)\nunProd r1 r2 = undefined -- Refl\n```",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1530676853.000052",
+        "text": "失礼、上のはこうしたら通りました。\n\n```\nunProd :: a1 :~: a2 -&gt; b1 :~: b2 -&gt; '(a1, b1) :~: '(a2, b2)\nunProd Refl Refl = Refl\n```",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1530680305.000063",
+        "text": "In Rust, it's drop and clone (<https://doc.rust-lang.org/std/mem/fn.drop.html> and <https://doc.rust-lang.org/beta/std/clone/trait.Clone.html>)",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1530680811.000005",
+        "text": "hmmm, so comonoid = droppable ^ clonable?\nit make sense if the value can be passed only once",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1530695866.000277",
+        "text": "あてずっぽうで色々試したら近くまでは行けたんですけど…… <https://wandbox.org/permlink/X10EaUGaJ385JWlj>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1530696174.000270",
+        "text": "型クラス要らなかった\n\n```\nextractedTuple' :: forall a b t. (t ~ '(a, b)) =&gt; '(Fst t, Snd t) :~: t\nextractedTuple' = apply (apply Refl (Refl :: Fst t :~: a)) (Refl :: Snd t :~: b)\n```",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1530708770.000041",
+        "text": "streams 、いいですね！これは使える！\nありがとうございます！",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1530709713.000308",
+        "text": "僕も気になっていろいろ試してみました。\nconstraintが増えていますが、以下の様な感じでできました：\n\n```\n{-# LANGUAGE KindSignatures #-}\n{-# LANGUAGE GADTs #-}\n{-# LANGUAGE PolyKinds #-}\n{-# LANGUAGE RankNTypes #-}\n{-# LANGUAGE ScopedTypeVariables #-}\n{-# LANGUAGE TypeApplications #-}\n{-# LANGUAGE TypeOperators #-}\n\nmodule Foo where\n\nimport Data.Singletons.Prelude (Fst, Snd)\nimport Data.Type.Equality ((:~:)(Refl))\n\nextractedTuple :: forall a fst snd. (fst ~ Fst a, snd ~ Snd a, a ~ '(fst, snd)) =&gt; '(Fst a, Snd a) :~: a\nextractedTuple = Refl\n\nuseExtractedTuple :: ()\nuseExtractedTuple =\n  case extractedTuple @'(Int, Bool) of\n    Refl -&gt; ()\n```",
+        "user": "U4M5LDXK9",
+        "type": "message"
+    },
+    {
+        "ts": "1530718187.000124",
+        "text": "お二方ともありがとうございます．どちらも `t ~ '(a, b)` と仮定して `Fst t` / `Snd t` が `'(a, b)` でパターンマッチできることを教えればできるという感じですかね？やっぱり，そういう感じの制約をつけないと厳しいですかね…",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1530864102.000186",
+        "text": "関数の `where` 内で、外側の型パラメータを参照することはできないのでしょうか？\n\n```\nhoge :: a -&gt; [a] -&gt; [a]\nhoge x = go\n  where\n    go :: [b] -&gt; [b]\n    go xs = x : xs\n```\n\n例えばこういうコード↑で b ~ a としたいです。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1530864256.000038",
+        "text": "あぁーっ！まさにそのための拡張があるんですが名前が出てこない！！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1530864272.000201",
+        "text": "ScopedTypeVariablesで出来ると思います",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1530864275.000025",
+        "text": "これや！ <http://maoe.hatenadiary.jp/entry/20110826/1314358615>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1530864559.000016",
+        "text": "それでできると思ったのですけど・・・",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1530864605.000109",
+        "text": "ありがちなミスは `forall` を該当の型変数に書き忘れる、とかですかね。（経験者談）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1530864642.000106",
+        "text": "あ、それでした！",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1530864707.000194",
+        "text": "OK\n\n```\nhoge :: forall a. a -&gt; [a] -&gt; [a]\nhoge x = go\n  where\n    go :: [a] -&gt; [a]\n    go xs = x : xs\n```",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1530864715.000104",
+        "text": "ありがとうございました！",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1530867015.000058",
+        "text": "readFile を使ってファイルを読み込もうとしています。ただ、 \"~/.bashrc\" のような形式のパスは解釈してくれないようです。こういったパスをまとめて扱ってくれるようなライブラリはありますか?",
+        "user": "UADFT2WQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1530867064.000110",
+        "text": "また、こういったライブラリを調べる際には、皆さんどういったところから探してきておられるのですかね?\n結構はやりすたりというか、どういうやり方でやるのが良いかという論争があったりするように聞いているので、出来るだけ現在の様子を知ってから選びたいと思っているのですが。",
+        "user": "UADFT2WQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1530867640.000381",
+        "text": "うーん、探すことだけに絞ると、hackageやGoogleで検索する、以上のことは私はしてないですね。\n後は一つ一つドキュメントがちゃんと書かれているかチェックしたり、実際に軽く使ってみて判断する、ぐらいでしょうか。\n英語ですが、そういう、パッケージの選び方について解説した記事が <http://www.haskellforall.com/2018/05/how-i-evaluate-haskell-packages.html> です。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1530877756.000050",
+        "text": "`~` をホームディレクトリに展開してくれるものは分からないですが、ホームディレクトリが参照できればいいのであれば path と path-io パッケージを使って以下のように書けるはずです。\n```\nh &lt;- getHomeDir\nreadFile $ toFilePath $ h &lt;/&gt; $(mkRelFile \".bashrc\")\n```",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1530882246.000016",
+        "text": "そのGabrielさんの、State of the Haskell ecosystem というのもありますね。\n<https://github.com/Gabriel439/post-rfc/blob/master/sotu.md>",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1530953576.000013",
+        "text": "最近はinteroで生成せずに移動できるようになったのでタグ生成自体やらなくなりましたね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1530954045.000046",
+        "text": "interoは何で使ってます？Emacs？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1530954527.000009",
+        "text": "はい,Emacsで使ってます\n最近は色々なエディタに対応し始めたみたいですね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1531111725.000070",
+        "text": "`Data.Vector.Storable.Mutable.unsafeFromForeignPtr` の説明で、\n<http://hackage.haskell.org/package/vector-0.12.0.1/docs/Data-Vector-Storable-Mutable.html#v:unsafeFromForeignPtr>\n&gt; Modifying data through the ForeignPtr afterwards is unsafe if the vector could have been frozen before the modification.\nとあるけれど、 `freeze` なら複製されるはずだし、 `unsafeFreeze` ならそれを呼ぶ側の責任だしで、これがどれくらい危険なのかよく分からず……\nどういう場合にどれくらい危険なのか、どなたかご存じないでしょうか?",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1531112748.000080",
+        "text": "純粋なのに例外を投げる関数に対する例外処理ついて質問です。\n例えばこのような例外を投げる純粋関数があるとし、そしてその例外を投げてくる原因が不明だったとします。\n\n```\n-- evilFunを使用する人には\"hiroto\"がエラーを吐くことがわからない。\nevilFun :: Text -&gt; Text\nevilFun \"hiroto\" = error \"This is evil function\"\nevilFun _ = \"Everything is alright!\"\n```\n\nこの関数を使用した際の例外処理はどのようにすればよいのでしょうか。（Either, Maybe, MonadCatch..?)",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1531112800.000155",
+        "text": "結局のところ読まないとエラーが起こるかどうかはわからないという問題は残りますが、こちらをどうぞ <https://qiita.com/techno-tanoC/items/1b725713cd01bdf83b40>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1531112822.000047",
+        "text": "不可能。\nExceptionはIOのみ処理できる、\n```evaluate :: a -&gt; IO a```",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1531113228.000134",
+        "text": "ありがとう！なんで全然できないんだろーって思ったらやっぱりややこしいんですね。。この関数を作った人を恨みます。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1531115608.000095",
+        "text": "```\nimport Data.Vector.Storable.Mutable\nimport Data.Vector.Storable (freeze)\nimport <http://Control.Monad.ST|Control.Monad.ST>\nimport Foreign.ForeignPtr\nimport Foreign.Storable\nimport Data.Foldable\n\nmain :: IO ()\nmain = do\n  fp &lt;- mallocForeignPtrArray 10\n  withForeignPtr fp $ \\p -&gt; flip traverse_ [0..10] $ \\i -&gt; do\n    pokeElemOff p i i\n  let nv = runST $ freeze (unsafeFromForeignPtr0 fp 10)\n  withForeignPtr fp $ \\p -&gt; do\n    poke p 42\n    pure ()\n  print nv\n  pure ()\n```",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1531115835.000146",
+        "text": "コピーされたとしても、改竄されたあとならあまり変わらないね",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1531116507.000110",
+        "text": "おお、なるほどー\n`unsafeFromForeignPtr` の結果は `IOVector` に限定されないから、 `STVector` として使うとこんなことができちゃうんですね。",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1531131413.000249",
+        "text": "特に汎用性を持つ必要がないなら\n`Text -&gt; Maybe Text`\n汎用性を持たせたいなら\n`MonadError e m =&gt; Text -&gt; m Text`\nあたりが僕は好きです！\n\n<https://aiya000.github.io/posts/2018-06-30-use-mtl-exceptt-no-eithert.html>\n（宣伝）",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1531131463.000041",
+        "text": "なるほど、そもそもその邪悪関数を改変できないことが前提なのかな…",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1531132062.000134",
+        "text": "改変できないんです。。！\nZipファイルを解凍するライブラリ<https://hackage.haskell.org/package/zip-archive-0.3.2.4/docs/Codec-Archive-Zip.html>\nを使用してるんですが、どうやらzlibの`decompress`っていう関数を使用しているみたいで、こいつが部分関数ではないかと推測してます\n<http://hackage.haskell.org/package/zlib-0.6.2/docs/Codec-Compression-Zlib.html>",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1531178355.000143",
+        "text": "内容次第ではPull requestいきですね... :disappointed: :muscle:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1531187504.000172",
+        "text": "効率のためにわざとPartial Functionを使うのも少なくないね",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1531206054.000232",
+        "text": "<@UBNSMSW94> has joined the channel",
+        "user": "UBNSMSW94",
+        "type": "message"
+    },
+    {
+        "ts": "1531219159.000060",
+        "text": "昨日はありがとうございました。\n色々考えたけど、部分関数の例外処理に`evaluate`は理にかなってると思いますね。部分関数を純粋な関数として扱おうとする方が危険な気がします。（もちろんMaybeやEitherで例外処理できれば理想ですが。。）",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1531304469.000245",
+        "text": "末尾再帰していなくてもHaskellでスタックオーバーフローってめったに見ないんですけどどうしてなんでしょうか？スタックがデフォルトで深めに設定されている？",
+        "user": "U56G77VM1",
+        "type": "message"
+    },
+    {
+        "ts": "1531304604.000261",
+        "text": "遅延評価での関数呼び出しは、jump であり、スタックを消費しません。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531304673.000196",
+        "text": "スタックが消費されるのは、正格評価で戻り値がその場で必要となるところだけです。Haskell では、それは case ... of のところです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531304798.000178",
+        "text": "話はそれますが、Monad のインスタンスの多くが順番を守るのは、&gt;&gt;= の中で case ... of が使われているからです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531304928.000021",
+        "text": "全然知りませんでした、すごい興味があるのでどうやってHaskellが遅延評価を実現しているか等の資料をもしご存知ならいただけないでしょうか？",
+        "user": "U56G77VM1",
+        "type": "message"
+    },
+    {
+        "ts": "1531312578.000077",
+        "text": "これかなぁ？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1531312579.000233",
+        "text": "<https://www.microsoft.com/en-us/research/wp-content/uploads/1992/04/spineless-tagless-gmachine.pdf>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    }
+]

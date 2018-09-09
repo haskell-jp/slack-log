@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1516338818.000123",
+        "text": "わーん。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1516338971.000115",
+        "text": "```\naccept :: Socket -&gt; IO (Socket, SockAddr)\n```\nの `SockAddr` をユーザが拡張できるように\n```\naccept :: SocketAddress sa =&gt; Socket -&gt; IO (Socket, sa)\n```\nとしたかったんですが、型が決まらないので、\n```\naccept :: Socket -&gt; IO (Socket, SockAddr)\naccept' :: SocketAddress sa =&gt; Socket -&gt; IO (Socket, sa)\n```\nとしてるんですが、かっこ悪いですねぇ。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1516373715.000645",
+        "text": "使ったことないのでわからないんですがExtendedDefaultRulesでこういうことが出来たりしないですかね？\n<https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/ghci.html?highlight=extendeddefaultrules#ghc-flag--XExtendedDefaultRules>",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1516375614.000802",
+        "text": "`ExtendedDefaultRules` は，ここにあるクラスしか，適用できない感がありますね\n<https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/ghci.html#interactive-classes>\n\n`TypeApplication` を使って， `accept @SockAddr` とする前提でAPIを設計する(いちよシグネチャを明示的に書けば， `TypeApplication` を使わなくても良い)感じはダメなんですかね？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1516417192.000137",
+        "text": "あと `OverloadedString` 拡張を有効にした時は `IsString` にも指定できるんだそうです。 <https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#overloaded-string-literals>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1516451823.000112",
+        "text": "<@U8WGPUHK9> has joined the channel",
+        "user": "U8WGPUHK9",
+        "type": "message"
+    },
+    {
+        "ts": "1516532864.000032",
+        "text": "<@U8P5W7YP6> has joined the channel",
+        "user": "U8P5W7YP6",
+        "type": "message"
+    },
+    {
+        "ts": "1516556572.000116",
+        "text": "<@U7XGESRSQ> has joined the channel",
+        "user": "U7XGESRSQ",
+        "type": "message"
+    },
+    {
+        "ts": "1516590817.000228",
+        "text": "どうもうまい方法はなさそうなので、Network.Socket は SockAddr 固定とし、generic な API は別モジュールで提供することにします。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1516590833.000221",
+        "text": "みなさん、いろいろありがとうございました。勉強になりました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1516762993.000127",
+        "text": "<@U8X01G6FJ> has joined the channel",
+        "user": "U8X01G6FJ",
+        "type": "message"
+    },
+    {
+        "ts": "1516784893.000214",
+        "text": "<@U8XGRJ3DZ> has joined the channel",
+        "user": "U8XGRJ3DZ",
+        "type": "message"
+    },
+    {
+        "ts": "1516877283.000417",
+        "text": "<@U8YBE1TTM> has joined the channel",
+        "user": "U8YBE1TTM",
+        "type": "message"
+    },
+    {
+        "ts": "1517071460.000046",
+        "text": "`Generic2` クラスがない理由ってなんか技術的な理由だったりするんでしょうか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1517175539.000040",
+        "text": "<@U8ZBMSPPB> has joined the channel",
+        "user": "U8ZBMSPPB",
+        "type": "message"
+    },
+    {
+        "ts": "1517195904.000180",
+        "text": "<@U90FHSDFG> has joined the channel",
+        "user": "U90FHSDFG",
+        "type": "message"
+    },
+    {
+        "ts": "1517213080.000038",
+        "text": "Queue のライブラリってありますか？\n「Haskell queue」でググると出てくる↓は Stackage には無いから枯れちゃってるのかなぁと思いますし、何がデファクトなんでしょうか？\n<https://hackage.haskell.org/package/queue>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1517214067.000209",
+        "text": "「Deprecated」って書いてありますもんね。 :disappointed: \nほしいのは並行計算で使う方じゃないキューですよね？\nであれば、\n<https://wiki.haskell.jp/データ構造列伝> でも触れているSeqか、確か銀行家キューを実装したパッケージもあったよな。。。 :thinking_face:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1517214280.000316",
+        "text": "ふつーの FIFO なデータ構造ですね\ndeque とか優先度つきのキューなら何種類かあるんですけど、それはそれでどれを使えばいいのやら。\nこんぐらいは自前で実装するのが当たり前なんですかね :thinking_face: ",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1517215021.000092",
+        "text": "<https://hackage.haskell.org/package/dequeue-0.1.12/docs/Data-Dequeue.html>\nこれか。\n<http://www.kmonos.net/pub/Presen/PFDS.pdf> とか  <http://fumieval.hatenablog.com/entry/2015/02/05/174342> で解説されている。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1517215104.000104",
+        "text": "なるほど",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1517215462.000546",
+        "text": "あでも、これも stackage にはない....",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1517215506.000432",
+        "text": "まぁstackageに置いているかどうかは作った人の裁量しだいなんで、的確な基準ではないんじゃないかな、と思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1517215772.000146",
+        "text": "まぁそうですね",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1517220133.000223",
+        "text": "```\n$ stack new blog hakyll-template\n$ cd blog\n# stack.yaml の resolver を nightly-2018-01-29 に\n$ stack build\n```\nすると ↓ のようなエラーが出るのですが解決方法が分かりません。\nObjective-C のコードを gcc が理解できてないんだろうなぐらいは分かるのですが。\n• OS X El Capitan 10.11.6\n• stack 1.6.3",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1517220193.000245",
+        "text": "<@U4L0B71L1> uploaded a file: <https://haskell-jp.slack.com/files/U4L0B71L1/F9031NU0L/building_hakyll_on_os_x.txt|building hakyll on OS X>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1517220603.000159",
+        "text": "恐らく別件ですが類似の問題:\n<https://github.com/luite/hfsevents/issues/9>\n報告した方がいいかもですね。。。\n\nちなみに、念のため言うと、GCCはObjective-Cもちゃんとサポートしています。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1517223395.000242",
+        "text": "あ、まさに hfsevents のビルドでこけてるのでこれっぽい",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1517225648.000137",
+        "text": "コミュニティに与えた損害の埋め合わせのために、明日は仕事を休み、Haskell-jpに貢献できるようなことに費やします。Trelloにあったコーディング規約について、Wikiに投稿しようと考えています。他にも、何か案があればご教示を願いたいです",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1517225769.000015",
+        "text": "そのイシューに Apple's Clang/LLVM 使えとあって Free Software Foundation GCC へのパスを消したら通りました\nstack の --with-gcc をオプションや stack.yaml ファイルに書いたりして GCC/Clang と FSF GCC と試したんだけどなぁ",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1517225824.000368",
+        "text": "GCC/Clang と書いているのはバックエンドが Clang だけど GCC 互換インターフェースをそなえている Apple の GCC です",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1517233777.000416",
+        "text": "これはダメなんでしょうか？使ったことないんですけど\n<https://hackage.haskell.org/package/heaps-0.3.6>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1517234352.000109",
+        "text": "Oh… FIFOなのが欲しいんですね．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1517234501.000015",
+        "text": "double-endedなのは， <https://hackage.haskell.org/package/deque-0.2/docs/Deque.html> もあるっぽいですが，どっちもあんまメンテされてなさそうですね… :sweat_smile:",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1517234818.000018",
+        "text": "<@U90881C13> has joined the channel",
+        "user": "U90881C13",
+        "type": "message"
+    },
+    {
+        "ts": "1517234955.000385",
+        "text": "kazu さんが昔記事にかいてるみたいに、需要がそもそも無いんですかね :sweat_smile: \n<http://d.hatena.ne.jp/kazu-yamamoto/touch/20121107/1352259739>\n\n効率が要るという訳でもないですし、おとなしく containers の Seq を使っておきます…\nありがとうございました。",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1517274454.000281",
+        "text": "<#C563RLDA4|haskell-jp-status> に移します。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1517301958.000283",
+        "text": "Haskell の歴史 :kininaru: \n<https://twitter.com/EzoeRyou/status/958258650505625603>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1517304309.000199",
+        "text": "今更なんですけど、実はほしかったのはdlistだったりしない？\n<https://hackage.haskell.org/package/dlist-0.8.0.4/docs/Data-DList.html>\n後ろに追加していって最後にまとめて先頭から処理する、みたいな用途だと十分いけるのかな、と思うのですがいかがでしょう？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1517317165.000053",
+        "text": "Applicativeも含めた型の俯瞰図の、歴史のスナップショットの２点はこういうのもありますね。\n\nTypeclasspedia の昔の版（ApplicativeとMonadが切れてるころ）の日本語訳\n<http://snak.tdiary.net/20091020.html>\n\nTypeclasspedia のAMPとFTPの各プロポーザル反映後の最新版\n<https://byorgey.wordpress.com/2017/06/07/the-typeclassopedia-is-now-up-to-date/>\n<https://wiki.haskell.org/Typeclassopedia>",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1517318564.000518",
+        "text": "DList は良く分からないですけど、ぼくが欲しかったのは、本当に一般的な FIFO キューですので違うかなぁ。",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1517805452.000096",
+        "text": "教えてください。\n\n```\nclass Foo a where\n    toFoo  :: Int -&gt; a\n    fromFoo :: a -&gt; Int\n```\n\nという型クラスがあったとして、\n\n```\nintToInt :: Int -&gt; Int\nintToInt = fromFoo . toFoo\n```\n\nというコードを書きたいとき、中間の Foo a =&gt; a が一致することを要求するよう要求し、型検査を通す方法ってありますか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1517808271.000167",
+        "text": "ぱっと思いつくのは `TypeApplication` ですね。\n<https://kseo.github.io/posts/2017-01-08-visible-type-application-ghc8.html>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1517809245.000109",
+        "text": "どの `Foo` のインスタンスを使うかで `intToInt` の実装は変わってしまうので、 `a` からは逃げられない気がしますよね・・・。\n```\n{-# LANGUAGE TypeApplications #-}\n{-# LANGUAGE ScopedTypeVariables #-}\n{-# LANGUAGE AllowAmbiguousTypes #-}\n\nclass Foo a where\n    toFoo  :: Int -&gt; a\n    fromFoo :: a -&gt; Int\n\nintToInt :: forall a. Foo a =&gt; Int -&gt; Int\nintToInt = fromFoo . toFoo @a\n```",
+        "user": "U4MAYDV9C",
+        "type": "message"
+    },
+    {
+        "ts": "1517810528.000040",
+        "text": "具体的な Foo のインスタンスを宣言してそれを使うようにするというのはどうですか？\n\n```\n{-# LANGUAGE TypeApplications #-}\n{-# LANGUAGE ScopedTypeVariables #-}\n{-# LANGUAGE GADTs #-}\n\nclass Foo a where\n  toFoo :: Int -&gt; a\n  fromFoo :: a -&gt; Int\n\ninstance Foo Integer where\n  toFoo = toInteger\n  fromFoo = fromInteger\n\nintToInt :: forall a. (Foo a, a ~ Integer) =&gt; Int -&gt; Int\nintToInt = fromFoo . toFoo @a\n```",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1517810968.000148",
+        "text": "ありがとうございます。\nTypeApplications でできることは確かめました。\nしかし、networkライブラリのメインテナとしては、GHC 7も救わないといけません。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1517811045.000054",
+        "text": "forall単独で変数を導入できるのは8.2からなので、Proxyを引数に加えてScopedTypeVariableを利用する必要があると思います。",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1517812400.000103",
+        "text": "ExplicitForAll を書かなくても、GHC *8.0* では forall が使えちゃうなぁ。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1517814369.000197",
+        "text": "ScopedTypeVariablesを有効にすると ExplicitForAll が有効になります。これはたぶん、7.10 でも同じだった気がします",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1517938152.000785",
+        "text": "明後日Philip Wadler氏の授業を受けるのですが、何か質問とか聞いてみたいことはありますか？（どんどん質問してこいと言われてます）\nちなみに今日の講義内容はProposition as Types, Session type、Process calculusに関するものでした。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    }
+]
