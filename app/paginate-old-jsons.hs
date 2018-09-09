@@ -6,7 +6,7 @@ import           Data.Monoid         ((<>))
 import           Data.Ord            (comparing)
 import qualified System.Directory    as Dir
 
-import           Data.NamedPage
+import           SlackLog.Pagination
 
 main :: IO ()
 main = do
