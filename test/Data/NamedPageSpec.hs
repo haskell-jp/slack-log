@@ -20,7 +20,7 @@ spec =
     $ \(QC.Positive n, baseName, QC.NonEmpty sourcePages) -> do
         let result = repaginate n baseName (sourcePages :: [NamedPage Char])
         map namedPageName result
-          `shouldSatisfy` all ((baseName ++ "-") `isPrefixOf`)
+          `shouldSatisfy` all ((baseName ++ "/") `isPrefixOf`)
 
         let resultPages = map namedPagePage result
 
