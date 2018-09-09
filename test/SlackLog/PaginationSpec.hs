@@ -13,7 +13,7 @@ import           SlackLog.Pagination
 
 
 spec :: Spec
-spec =
+spec = do
   describe "repaginate"
     $ modifyMaxSize (* 5)
     $ prop "splits into pages with N elements"
@@ -31,3 +31,14 @@ spec =
           (hd : tl) -> do
             tl `shouldSatisfy` all ((== n) . length)
             hd `shouldSatisfy` ((<= n) . length)
+
+  describe "chooseLatestPageOf" $ do
+    prop "returns file path with the latest number" $ \(QC.NonEmpty positiveNums) -> do
+      let nums = map QC.getPositive positiveNums
+          maxNum = maximum (nums :: [Integer])
+          maxFile = show maxNum ++ ".json"
+          numFiles = map ((++ ".json") . show) nums
+      chooseLatestPageOf numFiles `shouldReturn` maxFile
+
+    it "for a file list containing non number, returns an error" $
+      chooseLatestPageOf ["a.json"] `shouldBe` Nothing
