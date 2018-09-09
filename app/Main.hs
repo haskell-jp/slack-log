@@ -39,6 +39,7 @@ import           Data.Traversable         (for)
 import           Safe                     (headMay)
 import qualified System.Directory         as Dir
 import           System.Envy              (FromEnv, decodeEnv, env, fromEnv)
+import           System.FilePath          ((</>))
 import           System.IO                (BufferMode (NoBuffering), hGetEcho,
                                            hPrint, hPutStrLn, hSetBuffering,
                                            hSetEcho, stderr, stdin, stdout)
@@ -141,7 +142,7 @@ saveChannel cfg tss channelName = Dir.withCurrentDirectory "doc/json" $ do
                   tmpFileName = channelNameS <> "-tmp.json"
               BL.writeFile tmpFileName $ Json.encodePretty (reverse msgs)
               latestPageFileName <- chooseLatestPageOf =<< Dir.listDirectory channelNameS
-              paginateFiles defaultPageSize channelNameS [latestPageFileName, tmpFileName]
+              paginateFiles defaultPageSize channelNameS [channelNameS </> latestPageFileName, tmpFileName]
               Dir.removeFile tmpFileName
               return (channelName, latestTs)
             _ -> do
