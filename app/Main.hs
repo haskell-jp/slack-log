@@ -37,6 +37,7 @@ import           Data.Time.Calendar       (fromGregorian)
 import           Data.Time.Clock          (UTCTime (UTCTime), getCurrentTime)
 import           Data.Traversable         (for)
 import           Safe                     (headMay)
+import qualified System.Directory         as Dir
 import           System.Envy              (FromEnv, decodeEnv, env, fromEnv)
 import           System.IO                (BufferMode (NoBuffering), hGetEcho,
                                            hPrint, hPutStrLn, hSetBuffering,
@@ -47,6 +48,7 @@ import qualified Web.Slack.Channel        as Channel
 import qualified Web.Slack.Common         as Slack
 import qualified Web.Slack.User           as User
 
+import           SlackLog.Pagination      (defaultPageSize, paginateFiles, chooseLatestPageOf)
 import           Web.Slack.Instances      ()
 
 
@@ -124,7 +126,7 @@ readLastTimestampsOrDefault path = do
 
 
 saveChannel :: Slack.SlackConfig -> TimestampsByChannel -> T.Text -> IO (T.Text, Slack.SlackTimestamp)
-saveChannel cfg tss channelName = do
+saveChannel cfg tss channelName = Dir.withCurrentDirectory "doc/json" $ do
   new <- Slack.mkSlackTimestamp <$> getCurrentTime
   let old = fromMaybe (Slack.mkSlackTimestamp $ UTCTime (fromGregorian 2017 1 1) 0) (HM.lookup channelName tss)
   print old
@@ -135,7 +137,11 @@ saveChannel cfg tss channelName = do
             mbLatestTs = Slack.messageTs <$> headMay msgs
         case mbLatestTs of
             Just latestTs -> do
-              BL.writeFile ("doc/json/" <> T.unpack channelName <> "-" <> T.unpack (Slack.slackTimestampTs latestTs) <> ".json") $ Json.encodePretty (reverse msgs)
+              let channelNameS = T.unpack channelName
+                  tmpFileName = channelNameS <> "-tmp.json"
+              BL.writeFile tmpFileName $ Json.encodePretty (reverse msgs)
+              latestPageFileName <- chooseLatestPageOf =<< Dir.listDirectory channelNameS
+              paginateFiles defaultPageSize channelNameS [latestPageFileName, tmpFileName]
               return (channelName, latestTs)
             _ -> do
               hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show channelName ++ ": " ++ "Can't get latest timestamp!"

@@ -7,6 +7,7 @@ module SlackLog.Pagination
   , FileObj(..)
   , mkFileObj
   , paginateFiles
+  , chooseLatestPageOf
   , repaginate
   , repaginateJsons
   , writeNamedPages
@@ -16,14 +17,18 @@ where
 
 
 import           Control.Monad.Fail       (MonadFail, fail)
+import           Control.Monad.Loops      (maximumOnM)
 import           Data.Aeson               (FromJSON, ToJSON, eitherDecode)
 import           Data.Aeson.Encode.Pretty (encodePretty)
 import qualified Data.ByteString          as B
 import qualified Data.ByteString.Lazy     as BL
+import           Data.Char                (isDigit)
 import           Data.List.Extra          (chunksOf)
+import           Data.Maybe               (fromMaybe)
 import qualified System.Directory         as Dir
 import           System.FilePath          (addExtension, takeDirectory)
 import qualified Test.QuickCheck          as QC
+import           Text.Read                (readMaybe)
 import qualified Web.Slack.Common         as Slack
 
 import           Web.Slack.Instances      ()
@@ -58,6 +63,14 @@ paginateFiles :: Int -> Name -> [FilePath] -> IO ()
 paginateFiles size baseName paths =
   writeNamedPages
     =<< repaginateJsons @IO @Slack.Message size baseName (map mkFileObj paths)
+
+
+chooseLatestPageOf :: forall m. MonadFail m => [FilePath] -> m FilePath
+chooseLatestPageOf = fmap (fromMaybe (fail "Assertion failure: empty list")) . maximumOnM f
+ where
+  f path = case readMaybe $ takeWhile isDigit path of
+    Just pageN -> return pageN :: m Integer
+    _          -> fail $ "Assertion failure: Invalid path " ++ show path
 
 
 repaginate :: forall a . Int -> Name -> [NamedPage a] -> [NamedPage a]
