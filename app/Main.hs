@@ -142,6 +142,7 @@ saveChannel cfg tss channelName = Dir.withCurrentDirectory "doc/json" $ do
               BL.writeFile tmpFileName $ Json.encodePretty (reverse msgs)
               latestPageFileName <- chooseLatestPageOf =<< Dir.listDirectory channelNameS
               paginateFiles defaultPageSize channelNameS [latestPageFileName, tmpFileName]
+              Dir.removeFile tmpFileName
               return (channelName, latestTs)
             _ -> do
               hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show channelName ++ ": " ++ "Can't get latest timestamp!"
