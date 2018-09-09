@@ -1,170 +1,302 @@
 [
     {
-        "ts": "1535717588.000100",
-        "text": "（私もちょっと寄稿しています）",
-        "user": "U4M598NHM",
-        "type": "message"
-    },
-    {
-        "ts": "1535735544.000100",
-        "text": "すげーいいなー！",
-        "user": "U4M4XHKB8",
-        "type": "message"
-    },
-    {
-        "ts": "1535780459.000100",
-        "text": "ほんとすごい！！！",
-        "user": "U5LV76EJH",
-        "type": "message"
-    },
-    {
-        "ts": "1535901092.000200",
-        "text": "<@UCM4G8PGW> has joined the channel",
-        "user": "UCM4G8PGW",
-        "type": "message"
-    },
-    {
-        "ts": "1536082662.000100",
-        "text": "ここで聞く話なのかは微妙ですが、 Ix のインスタンスに (Bounded a, Enum a) =&gt; a が無いのは何故なのでしょう？ それだけあれば 必要要件は書けるはずなんですが。。。",
-        "user": "U9XHWQX7Z",
-        "type": "message"
-    },
-    {
-        "ts": "1536082770.000100",
-        "text": "あ、要件だけで言えば、Bounded a の部分は要らないですね。",
-        "user": "U9XHWQX7Z",
-        "type": "message"
-    },
-    {
-        "ts": "1536104244.000100",
-        "text": "FlexibleInstancesが必要になっちゃうのを避けたいという信念じゃないっすかね。。。\n実害があるのかは知りませんが。\nDerivingViaでその辺の問題が解決してIxのインスタンスをderiveしやすくなるかも！",
+        "ts": "1509257931.000009",
+        "text": ":serval: すごーい！\n<https://twitter.com/waddlaw/status/924513731890921473>",
         "user": "U4LGTMTMK",
         "type": "message"
     },
     {
-        "ts": "1536125511.000200",
-        "text": "<@UCLGS5XGQ> has joined the channel",
-        "user": "UCLGS5XGQ",
+        "ts": "1509337649.000082",
+        "text": "`((-&gt;) a)` が Applicative の instance で、\n```\nf :: ((-&gt;) a) b -&gt; c\ng :: ((-&gt;) a) b\n```\nのとき、\n```\nf &lt;*&gt; g :: ((-&gt;) a) c\n(f &lt;*&gt; g) x = f x (g x)\n```\nとなるから……ってことですね",
+        "user": "U61BA2X0U",
         "type": "message"
     },
     {
-        "ts": "1536130696.000100",
-        "text": "一般論として、具体的でない型のインスタンスを定義するのは避けられています。もし`instance (Bounded a, Enum a) =&gt; Ix a`を定義してしまうと、それより特殊化された効率の良い実装を与えることができなくなってしまいますからね。もちろんigrepさんの言う通り、newtypeのラッパーを定義して、DerivingViaを活用するのも面白いと思います",
-        "user": "U4KUNQF9N",
+        "ts": "1509340002.000032",
+        "text": "`&lt;$&gt;` と組み合わせて使っていないところが意外と面白い所かなと思っています:grinning:\n\nあと使っている関数が遅延評価版のフィボナッチ数列の式と似ているので、そっちと間違えた (?) 人が多かったです。\n\n```\nfib = 0 : 1 : zipWith (+) fib (tail fib)\n```\n\n一応、正解は `奇数の無限リスト` です。",
+        "user": "U5B3EGEFQ",
         "type": "message"
     },
     {
-        "ts": "1536136672.000100",
-        "text": "Haskell Symposium 2018のproceedingsの一覧を作りました。PDFが公開されている論文にはURL付きです。\n<https://gitlab.com/igrep/papers-notes>\n個人的なメモを追記していく予定ですが、参考までにどうぞ。",
-        "user": "U4LGTMTMK",
+        "ts": "1509525001.000144",
+        "text": "<@U7U0GSX9U> has joined the channel",
+        "user": "U7U0GSX9U",
         "type": "message"
     },
     {
-        "ts": "1536137874.000100",
-        "text": "`instance (Bounded a, Enum a) =&gt; Ix a` って `{-# LANGUAGE UndecidableInstances #-}` も必要な奴では。\n\nUndecidableInstancesは、型推論が停止しなくなる可能性があるのがデメリットですね。\n<https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#instance-termination>\n\nもっとも、モダンな型関係ライブラリほとんどで使われてる `RankNTypes` を入れた時点で型推論は停止しなくなるので、最近のHaskellでは「型推論の停止性(笑)」状態っぽいですけど",
+        "ts": "1509544402.000002",
+        "text": "haskell-jpに入ってから幽霊部員してたのでしばらく経ってますが年末が近くなって幽霊部員から脱却したいなと思ったのでまたこれからよろしくお願います\nquestionチャンネルでお世話になるかもしれません",
+        "user": "U5J6ELW3S",
+        "type": "message"
+    },
+    {
+        "ts": "1509550351.000574",
+        "text": "haskell weeklyがhaskellユーザ調査をやっているようです！\n<https://haskellweekly.news/surveys/2017.html>",
+        "user": "U5P0CRDSP",
+        "type": "message"
+    },
+    {
+        "ts": "1509553649.000504",
+        "text": "デフォルトにして欲しいオプションにArrowsを入れた以外は真面目に回答してみた",
         "user": "U570660KX",
         "type": "message"
     },
     {
-        "ts": "1536139296.000100",
-        "text": "いっそIxクラスをなくしてrangeやindexを `range :: Enum a =&gt; (a, a) -&gt; [a]`  等にしてしまったらどうか、と思ったんですが、例えばVoidはIxではあるけどEnumではないんですね",
-        "user": "U570660KX",
+        "ts": "1509604262.000239",
+        "text": "前に 1/(√2+√3+√5+√7) の分母の有理化( <https://twitter.com/kamo_hiroyasu/status/852512487740030979> )という話題がTwitterで流れていたので、",
+        "user": "U61BA2X0U",
         "type": "message"
     },
     {
-        "ts": "1536151293.000100",
-        "text": "良いですね！、英語版のredditに貼っておけば喜ばれるのではないかと。:haskell:",
-        "user": "U55V441FS",
+        "ts": "1509604330.000144",
+        "text": "有理数体の拡大体 ℚ(√2,√3,√5,√7) を作ってみました^^;;; <https://gist.github.com/naohaq/5ffc8a7ea6be11c27fdea37a462dea8f>",
+        "user": "U61BA2X0U",
         "type": "message"
     },
     {
-        "ts": "1536160316.000100",
-        "text": "ふっと思った事を聞いてみただけですが、色んな理由や考えがあるんですね。 まだまだ知らない事だらけだ",
-        "user": "U9XHWQX7Z",
+        "ts": "1509604674.000121",
+        "text": "割り算すると分母に無理数を含まない形で結果が求まりますw\n```\n*Q2357&gt; 1 / (root2 + root3 + root5 + root7)\n(37 % 43)√2 + ((-29) % 43)√3 + ((-133) % 215 + ((62 % 215)√2)√3)√5 + (27 % 43 + (((-10) % 43)√2)√3 + (((-34) % 215)√2 + (22 % 215)√3)√5)√7\n```",
+        "user": "U61BA2X0U",
         "type": "message"
     },
     {
-        "ts": "1536200927.000100",
-        "text": "いっその事、型変数の量で選ばれる 0個が一番強くて大きくなると選ばれにくくなるみたいなのがあればいいんでしょうね。",
-        "user": "U9XHWQX7Z",
+        "ts": "1509788145.000024",
+        "text": "なんとなく便乗で :grin: 、自作の toysolver パッケージに入れてある代数的実数の実装で計算してみました。\n```\n*ToySolver.Data.AlgebraicNumber.Real&gt; 1 / (nthRoot 2 2 + nthRoot 2 3 + nthRoot 2 5 + nthRoot 2 7)\nRealRoot (fromTerms [(1 % 46225,mfromIndices []),((-136) % 46225,mfromIndices [(X,2)]),(6476 % 46225,mfromIndices [(X,4)]),((-141912) % 46225,mfromIndices [(X,6)]),(1513334 % 46225,mfromIndices [(X,8)]),((-7453176) % 46225,mfromIndices [(X,10)]),(13950764 % 46225,mfromIndices [(X,12)]),((-1119368) % 9245,mfromIndices [(X,14)]),(1 % 1,mfromIndices [(X,16)])]) (Finite (0 % 1) &lt;..&lt;= Finite (666573 % 4403200))\n```\n多項式 `x^16 - 1119368/9245 x^14 + 13950764/46225 x^12 - 7453176/46225 x^10 + 1513334/46225 x^8 - 141912/46225 x^6 + 6476/46225 x^4 - 136/46225 x^2 + 1/46225` の実根のうち  `(0, 666573/4403200]` に含まれる根というのはわかったけれど、有理化には使えなかった…… (当たり前)",
+        "user": "U4MA78F6X",
         "type": "message"
     },
     {
-        "ts": "1536201124.000100",
-        "text": "型変数の量っていうのは少々間違いで、正確には抽象度の少さ で選ぶ その基準の一つとして上げられるのが型変数の種類 っていう話です",
-        "user": "U9XHWQX7Z",
+        "ts": "1509802931.000022",
+        "text": "Yesod で relational-record を使うための部分を分離しました\nとりあえず、自分の使ってた部分と `Database.Relational.Query.Documentation` の IO アクションを。\n<https://github.com/kakkun61/yesod-relational-record>",
+        "user": "U4L0B71L1",
         "type": "message"
     },
     {
-        "ts": "1536209910.000100",
-        "text": "<https://github.com/serokell/universum#gotchas->\n&gt; You can't call some Foldable methods over Maybe and some other types. Foldable generalization is useful but potentially error-prone. Instead we created our own fully compatible with Foldable Container type class but that restricts the usage of functions like length over Maybe, Either, Identity and tuples.\n:thinking_face: :thinking_face: :thinking_face: :thinking_face: :thinking_face:",
-        "user": "U4KUNQF9N",
+        "ts": "1509855271.000002",
+        "text": "ちなみに、「週刊 代数的実数を作る」 <https://miz-ar.info/math/algebraic-real/> のサンプルコードは全面的にHaskellで書かれています",
+        "user": "U61BA2X0U",
         "type": "message"
     },
     {
-        "ts": "1536210052.000100",
-        "text": "MaybeにmapM_できないの、反知性的と言いたくなるデザインだ…",
-        "user": "U4KUNQF9N",
+        "ts": "1509892035.000022",
+        "text": "<@U7V6G63LJ> has joined the channel",
+        "user": "U7V6G63LJ",
         "type": "message"
     },
     {
-        "ts": "1536210268.000100",
-        "text": "<https://twitter.com/igrep/status/1022732186510811137> こういう話ですよね。\nエラーは絶対無視したくないっていうGo言語からきた発想だと、気持ちはわからなくもないです。",
+        "ts": "1509926532.000114",
+        "text": "<@U7VAVLWQL> has joined the channel",
+        "user": "U7VAVLWQL",
+        "type": "message"
+    },
+    {
+        "ts": "1509936075.000027",
+        "text": "これ、まだ読んでないけど、ちゃんと読んで系統的に理解したい。 今の自分の代数的実数の実装は系統的な理解に基づいた系統的な実装、という感じではないので。",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1509944602.000110",
+        "text": "<@U7VCQPXDJ> has joined the channel",
+        "user": "U7VCQPXDJ",
+        "type": "message"
+    },
+    {
+        "ts": "1509944810.000083",
+        "text": "最近TidalCyclesというライブラリに興味を持ち始め、\nHaskellをかけるようになりたいと思い、Slackに参加させていただきました。\nよろしくおねがいします。",
+        "user": "U7VCQPXDJ",
+        "type": "message"
+    },
+    {
+        "ts": "1509945665.000130",
+        "text": "<@U7URL21G9> has joined the channel",
+        "user": "U7URL21G9",
+        "type": "message"
+    },
+    {
+        "ts": "1510026276.000184",
+        "text": "そういえば、先日のもくもく会で given n∈ℕ について GF(2ⁿ) が「同型を除いてただ1つ存在する」という主張について <@U57CGDBMG> さんに「そうなの？」と聞かれた件ですが、めちゃくちゃ大雑把にですがなんとなく理解したような気がします。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1510027244.000014",
+        "text": "n次の原始多項式 p(x) について、α を p(x)=0 の根とすると、α^2, α^4, ... , α^{2^(n-1)} も p(x)=0 の根になります。(∵ GF(2) 上の多項式 f(x) について、 f(x^2) = (f(x))^2 )\n生成多項式を p(x) としたとき、GF(2^n) の元は α, α^2, α^4, ... , α^{2^(n-1)} を基底とし、係数体をGF(2)とする n次元のベクトルとして表現でき、和とスカラー倍について線形ベクトル空間を構成します。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1510028227.000176",
+        "text": "n次の別の生成多項式 q(x) をもってきたとき、{α^{2^k}} を基底とする表現で q(x)=0 の根βが求まったとすると(←求まるはずだけど要証明)、やはり同様に β^2, β^4, ... , β^{2^n} も q(x)=0 の根になり、これらは線形独立なn本のn次元ベクトルになります(←これも要証明)。したがって q(k) を生成多項式とする体と p(k) を生成多項式とする体との対応はn本の基底 {β^{2^k}} からn本の基底 {α^{2^k}} への線形写像で表すことができ、ベクトル空間として同型になります。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1510060442.000178",
+        "text": "<@U7X2WF99C> has joined the channel",
+        "user": "U7X2WF99C",
+        "type": "message"
+    },
+    {
+        "ts": "1510112554.000054",
+        "text": "↑ちょっと議論が雑すぎました。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1510113695.000086",
+        "text": "<@U7W1XE04Q> has joined the channel",
+        "user": "U7W1XE04Q",
+        "type": "message"
+    },
+    {
+        "ts": "1510216762.000348",
+        "text": "<@U7XC5U1RR> has joined the channel",
+        "user": "U7XC5U1RR",
+        "type": "message"
+    },
+    {
+        "ts": "1510219739.000315",
+        "text": "<@U7XGESRSQ> has joined the channel",
+        "user": "U7XGESRSQ",
+        "type": "message"
+    },
+    {
+        "ts": "1510278661.000046",
+        "text": "<@U7Z4F723Z> has joined the channel",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1510379348.000046",
+        "text": "<https://twitter.com/mod_poppo/status/928606973876101120>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1510379434.000014",
+        "text": "<@U7ZPASHB9> has joined the channel",
+        "user": "U7ZPASHB9",
+        "type": "message"
+    },
+    {
+        "ts": "1510397422.000027",
+        "text": "<@U7YMV774J> has joined the channel",
+        "user": "U7YMV774J",
+        "type": "message"
+    },
+    {
+        "ts": "1510452914.000106",
+        "text": "<@U7YPZHR5Z> has joined the channel",
+        "user": "U7YPZHR5Z",
+        "type": "message"
+    },
+    {
+        "ts": "1510453705.000021",
+        "text": "「同型を除いてただ1つ存在する」というのは体としてなのですか？ベクトル空間としてなのですか？",
+        "user": "U7JQH5CP5",
+        "type": "message"
+    },
+    {
+        "ts": "1510454078.000025",
+        "text": "本題と異なるので敢えてThreadは生やしませんが、ちょっとHaskellから外れた質問なのが悩ましいですね。\n以前圏論の本を読んでいたときも思ったのですが、\n圏論用（あるいはHaskellに関連する数学の諸分野？）用のchannelを別途作った方がいいのかも知れません。",
         "user": "U4LGTMTMK",
         "type": "message"
     },
     {
-        "ts": "1536210404.000100",
-        "text": "でもリスクをわかった上でMaybeにmapM_する自由ぐらい与えてやれよって気持ちもわかります。 :sweat_smile:",
+        "ts": "1510454157.000027",
+        "text": "<https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1510026276000184>\nそういえばこれもHaskellからちょっと外れすぎか。。。\nなんでこのときは気にならなかったんだろう。いずれにしても数学チャンネルを作ったほうがよさそう。",
         "user": "U4LGTMTMK",
         "type": "message"
     },
     {
-        "ts": "1536210801.000100",
-        "text": "何か制約を課す場合、それは論理に沿ったものあるべきと考えていて、このライブラリのように人間本位の制限を付けるのは好きにはなれないです。値を捨てたくないなら線形型のようにもっと筋の通った概念があるわけですし",
-        "user": "U4KUNQF9N",
-        "type": "message"
-    },
-    {
-        "ts": "1536217616.000100",
-        "text": "どのインスタンスが選ばれるかはプログラムの意味を変えうる重要な問題なので、その基準が複雑になるほどプログラムの論証は難しくなります。書き換え規則(RULESプラグマ)のような補助的な機能でさえその問題は深刻なので、Haskellの根幹をなす型クラスは、できる限り簡潔にするのがよい設計だと思います",
-        "user": "U4KUNQF9N",
-        "type": "message"
-    },
-    {
-        "ts": "1536219346.000100",
-        "text": "なるほどね。そういう抽象化が進めばボイラープレートが減るんじゃないかなと思ったんですが、実装が複雑化するのは否めないですね。",
-        "user": "U9XHWQX7Z",
-        "type": "message"
-    },
-    {
-        "ts": "1536239519.000100",
-        "text": "今見てみたら、gitlabの表示で、レンダリングが崩れてるようですよ。",
-        "user": "U55V441FS",
-        "type": "message"
-    },
-    {
-        "ts": "1536272234.000100",
-        "text": "`&lt;details&gt;` 入れてからかな... 確認します",
+        "ts": "1510454702.000020",
+        "text": "アナウンスしたとおり、作りました。 <#C7Y71415W|math>",
         "user": "U4LGTMTMK",
         "type": "message"
     },
     {
-        "ts": "1536473096.000200",
-        "text": "<@UCP4R9U3A> has joined the channel",
-        "user": "UCP4R9U3A",
+        "ts": "1510476749.000034",
+        "text": "<@U7ZPSL3QE> has joined the channel",
+        "user": "U7ZPSL3QE",
         "type": "message"
     },
     {
-        "ts": "1536473922.000100",
-        "text": "ちょっと視点がずれますが，Haskell の Enum 型クラスはちょっと直感に反するところがあるような気がしますね．Double や Float が具体例だったり，列挙方法が与えられていなかったりします．列挙方法が示されるという意味では Ix の方が 「Enum」 の印象に近いですね．",
-        "user": "U4KU9ABL0",
+        "ts": "1510724048.000010",
+        "text": "<@U80GXHF6Y> has joined the channel",
+        "user": "U80GXHF6Y",
         "type": "message"
     },
     {
-        "ts": "1536510844.000200",
-        "text": "<@UCPNXSSGL> has joined the channel",
-        "user": "UCPNXSSGL",
+        "ts": "1510748069.000110",
+        "text": "前書いたこれですが、スクレイピングするやつを作りました。後はこれをtravisとかで定期的に実行してslackに送信すればいちおう購読できるという形になります(手作り感が否めないですが)\n<https://github.com/Hexirp/github-trends>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1510748776.000128",
+        "text": "なるほど。RSSフィードもないみたいなんでちょうど良さそうですね！詳しい手順だったり、設定に必要な情報を書いておいていただけますか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1510788264.000065",
+        "text": "すいません、「後は」と言った通り投稿まではまだ出来ていません。後でやるつもりなのでしばしお待ちください。現在はstackを使いビルドして実行すると、slackに投稿する予定の文が表示される形です。完成したらREADMEに手順を書いておきます。",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1510794847.000105",
+        "text": "GHCのビルドをshakeベースにしたのは、Hadrianって言うんですね。\n<https://github.com/ghc/ghc/tree/master/hadrian>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1510794890.000064",
+        "text": "Haskellに関するアンケートにご協力ください。\n<https://www.surveymonkey.com/r/fpcomplete-haskell-survey>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1510795612.000126",
+        "text": "Cabal 2.1 を要求しているから、簡単には試せないやん。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1510813070.000014",
+        "text": "<@U819ERB44> has joined the channel",
+        "user": "U819ERB44",
+        "type": "message"
+    },
+    {
+        "ts": "1510895388.000080",
+        "text": "日本語 UI の Slack 見慣れなくて違和感",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1511101387.000097",
+        "text": "<@U826HT001> has joined the channel",
+        "user": "U826HT001",
+        "type": "message"
+    },
+    {
+        "ts": "1511149670.000126",
+        "text": "DNSライブラリ v3.0.0 をリリースしました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511149737.000005",
+        "text": "WindowsでデフォルトのDNSサーバを探したり、複数のDNSサーバが見付かった/指定されていたら、一斉にクエリを出して一番早い応答を採用したりと、すぐれものです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511149795.000035",
+        "text": "<https://hackage.haskell.org/package/dns> ですね！",
+        "user": "U4LGTMTMK",
         "type": "message"
     }
 ]
