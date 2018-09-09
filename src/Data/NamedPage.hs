@@ -1,10 +1,12 @@
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TypeApplications    #-}
 
 module Data.NamedPage
   ( NamedPage(..)
   , Name
   , FileObj(..)
   , mkFileObj
+  , paginateFiles
   , repaginate
   , repaginateJsons
   , writeNamedPages
@@ -16,11 +18,15 @@ where
 import           Control.Monad.Fail       (MonadFail, fail)
 import           Data.Aeson               (FromJSON, ToJSON, eitherDecode)
 import           Data.Aeson.Encode.Pretty (encodePretty)
+import qualified Data.ByteString          as B
 import qualified Data.ByteString.Lazy     as BL
 import           Data.List.Extra          (chunksOf)
-import qualified System.Directory as Dir
+import qualified System.Directory         as Dir
 import           System.FilePath          (addExtension, takeDirectory)
 import qualified Test.QuickCheck          as QC
+import qualified Web.Slack.Common         as Slack
+
+import           Web.Slack.Instances      ()
 
 import           Prelude                  hiding (fail)
 
@@ -44,7 +50,14 @@ data FileObj m = FileObj
 
 
 mkFileObj :: FilePath -> FileObj IO
-mkFileObj path = FileObj path (BL.readFile path)
+mkFileObj path = FileObj path (BL.fromStrict <$> B.readFile path)
+--                            ^ Read all data strictly to safely overwrite files
+
+
+paginateFiles :: Int -> Name -> [FilePath] -> IO ()
+paginateFiles size baseName paths =
+  writeNamedPages
+    =<< repaginateJsons @IO @Slack.Message size baseName (map mkFileObj paths)
 
 
 repaginate :: forall a . Int -> Name -> [NamedPage a] -> [NamedPage a]
