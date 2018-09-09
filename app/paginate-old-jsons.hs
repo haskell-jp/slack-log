@@ -1,38 +1,34 @@
-{-# LANGUAGE TypeApplications #-}
-
+import           Control.Monad (filterM)
 import           Data.Char           (isAlphaNum)
 import           Data.Foldable       (for_)
 import           Data.List           (groupBy, isPrefixOf, sortBy)
 import           Data.Monoid         ((<>))
 import           Data.Ord            (comparing)
 import qualified System.Directory    as Dir
-import qualified Web.Slack.Common as Slack
 
 import           Data.NamedPage
-import           Web.Slack.Instances ()
 
 main :: IO ()
 main = do
   Dir.setCurrentDirectory "doc/json"
-  channelLogPaths <- filter isMessageLogJson <$> Dir.listDirectory "."
+  channelLogPaths <- filterM isMessageLogJson =<< Dir.listDirectory "."
   let logPathsByChannel =
         groupBy (\x -> (== EQ) . comparing extractChannelName x)
           $ sortBy existingMessageLogsOrder channelLogPaths
   for_ logPathsByChannel $ \sameChannelPaths -> do
     let channelName = extractChannelName $ head sameChannelPaths
-        files       = map mkFileObj sameChannelPaths
 
-    writeNamedPages =<< repaginateJsons @IO @Slack.Message defaultPageSize channelName files
+    paginateFiles defaultPageSize channelName sameChannelPaths
     -- putStrLn channelName
-    -- mapM_ (putStrLn . ("  " ++) . filePath) files
+    -- mapM_ (putStrLn . ("  " ++)) sameChannelPaths
 
 extractChannelName :: FilePath -> String
 extractChannelName = takeWhile isAlphaNum
 
 
-isMessageLogJson :: FilePath -> Bool
-isMessageLogJson = -- isPrefixOf "C4LFB6DE0"
-  not . isPrefixOf "."
+isMessageLogJson :: FilePath -> IO Bool
+isMessageLogJson path = -- isPrefixOf "C4LFB6DE0"
+  (&&) (not $ isPrefixOf "." path) <$> (not <$> Dir.doesDirectoryExist path)
 
 
 existingMessageLogsOrder :: FilePath -> FilePath -> Ordering
