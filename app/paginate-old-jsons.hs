@@ -18,7 +18,7 @@ main = do
   for_ logPathsByChannel $ \sameChannelPaths -> do
     let channelName = extractChannelName $ head sameChannelPaths
 
-    paginateFiles defaultPageSize channelName sameChannelPaths
+    paginateFiles defaultPageSize 1 channelName sameChannelPaths
     -- putStrLn channelName
     -- mapM_ (putStrLn . ("  " ++)) sameChannelPaths
 

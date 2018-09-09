@@ -17,14 +17,14 @@ where
 
 
 import           Control.Monad.Fail       (MonadFail, fail)
-import           Control.Monad.Loops      (maximumOnM)
 import           Data.Aeson               (FromJSON, ToJSON, eitherDecode)
 import           Data.Aeson.Encode.Pretty (encodePretty)
 import qualified Data.ByteString          as B
 import qualified Data.ByteString.Lazy     as BL
 import           Data.Char                (isDigit)
+import           Data.Foldable            (maximumBy)
 import           Data.List.Extra          (chunksOf)
-import           Data.Maybe               (fromMaybe)
+import           Data.Ord                 (comparing)
 import qualified System.Directory         as Dir
 import           System.FilePath          (addExtension, takeDirectory)
 import qualified Test.QuickCheck          as QC
@@ -59,25 +59,29 @@ mkFileObj path = FileObj path (BL.fromStrict <$> B.readFile path)
 --                            ^ Read all data strictly to safely overwrite files
 
 
-paginateFiles :: Int -> Name -> [FilePath] -> IO ()
-paginateFiles size baseName paths =
-  writeNamedPages
-    =<< repaginateJsons @IO @Slack.Message size baseName (map mkFileObj paths)
+paginateFiles :: Int -> Integer -> Name -> [FilePath] -> IO ()
+paginateFiles size basePageNum baseName paths =
+  writeNamedPages =<< repaginateJsons @IO @Slack.Message size
+                                                         basePageNum
+                                                         baseName
+                                                         (map mkFileObj paths)
 
 
-chooseLatestPageOf :: forall m. MonadFail m => [FilePath] -> m FilePath
-chooseLatestPageOf = fmap (fromMaybe (fail "Assertion failure: empty list")) . maximumOnM f
+chooseLatestPageOf
+  :: forall m . MonadFail m => [FilePath] -> m (FilePath, Integer)
+chooseLatestPageOf = fmap (maximumBy (comparing snd)) . mapM f
  where
   f path = case readMaybe $ takeWhile isDigit path of
-    Just pageN -> return pageN :: m Integer
+    Just pageN -> return (path, pageN)
     _          -> fail $ "Assertion failure: Invalid path " ++ show path
 
 
-repaginate :: forall a . Int -> Name -> [NamedPage a] -> [NamedPage a]
-repaginate n baseName =
-  zipWith toNamedPage [1 ..] . chunksOf n . concatMap namedPagePage
+repaginate
+  :: forall a . Int -> Integer -> Name -> [NamedPage a] -> [NamedPage a]
+repaginate n basePageNum baseName =
+  zipWith toNamedPage [basePageNum ..] . chunksOf n . concatMap namedPagePage
  where
-  toNamedPage :: Int -> [a] -> NamedPage a
+  toNamedPage :: Integer -> [a] -> NamedPage a
   toNamedPage pn = NamedPage (baseName ++ "/" ++ show pn)
 
 
@@ -85,11 +89,13 @@ repaginateJsons
   :: forall m a
    . (MonadFail m, FromJSON a)
   => Int
+  -> Integer
   -> Name
   -> [FileObj m]
   -> m [NamedPage a]
-repaginateJsons n baseName = fmap (repaginate n baseName)
-  . mapM (\f -> NamedPage (filePath f) <$> toJson f)
+repaginateJsons n basePageNum baseName =
+  fmap (repaginate n basePageNum baseName)
+    . mapM (\f -> NamedPage (filePath f) <$> toJson f)
  where
   toJson :: FileObj m -> m [a]
   toJson f = either fail return =<< eitherDecode <$> readFileObj f

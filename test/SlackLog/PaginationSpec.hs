@@ -18,7 +18,7 @@ spec = do
     $ modifyMaxSize (* 5)
     $ prop "splits into pages with N elements"
     $ \(QC.Positive n, baseName, QC.NonEmpty sourcePages) -> do
-        let result = repaginate n baseName (sourcePages :: [NamedPage Char])
+        let result = repaginate n 1 baseName (sourcePages :: [NamedPage Char])
         map namedPageName result
           `shouldSatisfy` all ((baseName ++ "/") `isPrefixOf`)
 
@@ -38,7 +38,7 @@ spec = do
           maxNum = maximum (nums :: [Integer])
           maxFile = show maxNum ++ ".json"
           numFiles = map ((++ ".json") . show) nums
-      chooseLatestPageOf numFiles `shouldReturn` maxFile
+      chooseLatestPageOf numFiles `shouldReturn` (maxFile, maxNum)
 
     it "for a file list containing non number, returns an error" $
       chooseLatestPageOf ["a.json"] `shouldBe` Nothing
