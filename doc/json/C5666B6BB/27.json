@@ -148,5 +148,53 @@
         "text": "<@UCPNXSSGL> has joined the channel",
         "user": "UCPNXSSGL",
         "type": "message"
+    },
+    {
+        "ts": "1536738218.000100",
+        "text": "ちょっと困ってるんですが、みなさん `stack --resolver lts-12.9 repl --package iCalendar-0.4.0.4 --package mime-0.4.0.2` と実行したらどうなります？\n（特にMacの人）\n<https://www.reddit.com/r/haskell/comments/9f5ovv/link_error_with_icalendar0404/>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1536738840.000100",
+        "text": "",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1536738881.000100",
+        "text": "全く同じエラーみたいですね。。。\n再現性が高いようで良かった。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1536738983.000100",
+        "text": "",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1536739035.000100",
+        "text": "Macですかね。やっぱりLinux版とよく似たエラーですな。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1536739149.000100",
+        "text": "シンボルテーブル見ると未定義となっており入ってない． `Paths_iCalendar` モジュールのシンボルなので，\n`<https://github.com/chrra/iCalendar/commit/91fc4ac7abdae0bed42f0282fe39c6072a88397f>` が原因？",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1536739482.000100",
+        "text": "確かに <https://github.com/chrra/iCalendar> をcloneしてビルドすると\n```\n&lt;no location info&gt;: warning: [-Wmissing-home-modules]\n[ 1 of 10] Compiling Paths_iCalendar  ( .stack-work\\dist\\7d103d30\\build\\autogen\\Paths_iCalendar.hs, .stack-work\\dist\\7d103d30\\build\\Paths_iCalendar.o )\n    These modules are needed for compilation but not listed in your .cabal file's other-modules: Paths_iCalendar\n```\nなどと出ますね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1536739552.000100",
+        "text": "ああー、報告されてた。これっぽいですね！ありがとうございました！\n<https://github.com/chrra/iCalendar/pull/30>",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
