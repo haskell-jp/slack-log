@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1507780337.000064",
+        "text": "再帰/余再帰という言葉は「数学的帰納法」と関連が深くて、帰納/余帰納とも呼ばれます。\n数学的帰納法で任意の自然数nについて性質p(n)が成り立つことの証明をすることを思い出してみます。\n(i) Base case: p(0) が成り立つことを示す。\n(ii) Hypothesis: ある自然数kについてp(k)が成り立つとする。\n(iii) Step case: (ii)の仮定の下で、p(k+1)が成り立つことを示す。\n(iv) (i),(ii),(iii) より、任意の自然数nについてp(n)が成り立つと主張して証明終わり。\nなぜこれで全ての自然数についての証明になっているかというと、全ての自然数は、0(ないしは1)から順に1を足していったものになっているからです(ペアノの公理)\n帰納的データ型を扱う関数は、これとそっくりな書き方ができます。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1507780791.000143",
+        "text": "例えば、リストを処理する関数fを書くとします。\n```\nf :: [a] -&gt; b\n-- Base case: 0の場合に相当\nf [] = z\n-- Step case: k+1の場合に相当\nf (x:xs) = x ⊕ f xs\n```\nなぜこれで全ての *有限な* リストに対する関数を定義したことになるかといえば、全ての有限なリストは、 [] (nil)に対して : (cons)で一つずつ要素を追加していくことで作られているからです。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1507782022.000061",
+        "text": "有限なリストのように、構造が帰納的(0から順に組み立てていくようなやり方)に定義されているデータ型を「帰納的データ型」と呼びます。\nじゃあ無限リストはどうかというと、どこまでいってもbase caseにたどり着きません。そもそも、そういう作られかたをしていないからです。このようなデータに対しては、帰納的に処理を記述することができません。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1507793608.000114",
+        "text": "`iterate` とか `unfoldr` が典型的な余再帰のための関数ってことですよね！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1507793637.000002",
+        "text": "Macをお使いの方に聞きたいのですが、 `brew install haskell-stack` したときって今でもGHCやcabalがOSにインストールされている場合はそのGHCでソースからビルドする、という面倒な仕様なのでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1507794092.000108",
+        "text": "formulaを見ると、以下のような記述があるのでおそらくそのままになっていると思います。\n```\nsystem \"stack\", \"-j#{jobs}\", \"--local-bin-path=#{bin}\", \"install\"\n```",
+        "user": "U57DM8PBK",
+        "type": "message"
+    },
+    {
+        "ts": "1507794575.000096",
+        "text": "<https://github.com/Homebrew/homebrew-core/blob/master/Formula/haskell-stack.rb> か。みたいですね。。。これはとても簡単なインストール方法とはいえないな。。。やっぱり報告しようか。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1507794639.000112",
+        "text": "そうですね...\nあるいは何か問題があってこのような形式になっているかもしれないのですけれども...",
+        "user": "U57DM8PBK",
+        "type": "message"
+    },
+    {
+        "ts": "1507877265.000118",
+        "text": "`newtype Show a =&gt; Foo a = Foo a` みたいなコードってコンパイル通らないと思うのですが（deprecated な `DatatypeContexts` を要求される）， `stack new Foo` して上記のコードのみ書き足して `stack build` すると一言もなくコンパイルが通って挙動も想定通りになります．`stack ghci` はちゃんと通さない．stack か何かのバグ…なんでしょうか？",
+        "user": "U5ANNFMNZ",
+        "type": "message"
+    },
+    {
+        "ts": "1507877699.000237",
+        "text": "追記： i) 問題かどうか（僕の勘違いじゃないか） ii) 既知かどうか iii) なんでやねん あたりで疑問に思っています．",
+        "user": "U5ANNFMNZ",
+        "type": "message"
+    },
+    {
+        "ts": "1507878382.000150",
+        "text": "`DatatypeContexts` は分からないのですが、 `stack build --pedantic` とすると警告が出るかもしれません。",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1507879077.000090",
+        "text": "ありがとうございます． `--pedantic` でも警告はでないようですね．どこで消えてるんだろう…",
+        "user": "U5ANNFMNZ",
+        "type": "message"
+    },
+    {
+        "ts": "1507882982.000138",
+        "text": "実際にstackがどのようなオプションをghcに渡しているかを `stack build --cabal-verbose` で見てみると， `-XHaskell2010` が渡されているのが確認できます．つまり `stack build` 時には `stack new` で生成したcabalファイルに含まれる設定 `default-language: Haskell2010` が有効となり，これは `DatatypeContexts` を包含しているのでエラーが出なくなります．一方 `stack ghci` でも同様に `stack -v ghci` でghcに渡されるオプション(と，一応ghci-scriptとして渡されるファイルの中身)を確認してみると，こちらではdefault-languageが渡されていません．ghciの場合でも `stack ghci --ghci-options=-XHaskell2010` としてあげるとbuild時同様にエラーが出なくなることが確認できます．これがstackの想定通りの挙動なのかはわかりませんが，少なくともbuild側についてはcabalファイルに書かれた設定に対し忠実に動作しているように思えます．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1507884910.000527",
+        "text": "関係してググっていて知ったんですが、 \n<https://ghc.haskell.org/trac/ghc/ticket/8026> によると\n`DatatypeContexts` 相当のことを今やりたくなったら GADTs を有効にして\n```\ndata Foo a where\n  Foo :: Eq a =&gt; a -&gt; Foo a\n```\nと書けばいいんですってね。 :naruhodo:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1507886367.000149",
+        "text": "なるほど！すごくスッキリしました，ありがとうございます． -XHaskell2010 のあたりを全然意識してなかったので教えていただけてよかったです．",
+        "user": "U5ANNFMNZ",
+        "type": "message"
+    },
+    {
+        "ts": "1507886922.000491",
+        "text": "実際のところ、DatatypeContextsはGADTsと違い、パターンマッチしてもコンテキストが使えるわけではない非常にむなしい機能なんですよね…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1507966229.000001",
+        "text": "<@U57A2859S> has joined the channel",
+        "user": "U57A2859S",
+        "type": "message"
+    },
+    {
+        "ts": "1507966308.000004",
+        "text": "<http://d.hatena.ne.jp/sumii/20110830/p1>",
+        "user": "U57A2859S",
+        "type": "message"
+    },
+    {
+        "ts": "1508030068.000039",
+        "text": "ghc-paths-0.1.0.9がGHC-7.0.4と7.2.2でビルド出来ないみたいなんですが、これはパッケージそのものの問題として報告したほうがいいんでしょうか？cabalをよく理解していないがためにパッケージの問題なのか原因を絞り切れないので助けを借りたいです。\n\nTravis CIでのログ(他のGHCバージョンでも失敗していますがそれは無関係です)\n<https://travis-ci.org/Hexirp/doctest-driver-gen/builds/284639068>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1508044203.000048",
+        "text": "要約: ビルド方法が悪いのかパッケージのせいなのか知りたいです。\n\n自分でforkしてビルドした結果\n<https://travis-ci.org/Hexirp/ghc-paths/builds/288111730>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1508051662.000052",
+        "text": "そのビルドには原因とおぼしきエラーメッセージが一切ないので全く分からないのですが、\n<https://travis-ci.org/Hexirp/ghc-paths/jobs/288111731>\nこちらのフォークしてビルドした結果にある\n```\nLinking /tmp/ghc-paths-0.1.0.9-4199/ghc-paths-0.1.0.9/dist/setup/setup ...\nunrecognized option `--disable-benchmarks'\n```\nこれが原因だとすると、 Setup.hs が想定しているCabalのバージョンと、cabal-installのバージョンが離れすぎているんじゃないか、と思えます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1508051692.000039",
+        "text": "そもそも、なんでそんな古いGHCでコンパイルしようとしているのでしょうか。。。？\n報告してもあまり対応してくれなさそう。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1508054468.000011",
+        "text": "cabal ファイルの custom-setup が 1.24 からで、実際に使ってるのが 1.16 だからかな\n<https://www.haskell.org/cabal/users-guide/developing-packages.html?highlight=custom%20setup#custom-setup-scripts>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1508065505.000064",
+        "text": "&gt; Warning: ghc-paths.cabal: Ignoring unknown section type: custom-setup\ncustom-setup についてはあくまで警告ですし、関係ないんじゃないっすかね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1508148364.000325",
+        "text": "答えていただいてありがとうございます。これだけ昔のGHCに対応しようとするとやっぱり色々問題が出てきますね。諦めることにします。\n\n恥ずかしいことに報告しても対応してくれなさそうという視点は持っていませんでした…",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1508389667.000101",
+        "text": "haddockで `spliceURL UnhelpfulSpan` というエラーがでてコケるんですがworkaround等ご存じの方いますか？\n\nstack-1.5.1で<https://github.com/myuon/sdlight> のドキュメントを生成しようとしてこのようなエラーになりました。\n<https://github.com/haskell/haddock/pull/558> のPRでfixされているような気がしますがstack upgradeしても変わりませんでした(まだ更新されていない？)\nスレッドにエラーメッセージを貼っておきます",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1508389739.000150",
+        "text": "```\n~$ stack haddock --no-haddock-deps\nsdlight-0.9.0.6: build (lib)\nPreprocessing library sdlight-0.9.0.6...\nsdlight-0.9.0.6: haddock\nRunning Haddock for sdlight-0.9.0.6...\nPreprocessing library sdlight-0.9.0.6...\nWarning: The documentation for the following packages are not installed. No\nlinks will be generated to these packages: fail-4.9.0.0\n\n\n(省略)\n\nWarning: SDLight.Widgets.Internal.Named: could not find link destinations for:\n    ~\nWarning: SDLight.Widgets.Core: could not find link destinations for:\n    WConfigR\nWarning: SDLight.Widgets.Effector: could not find link destinations for:\n    Op'Appear Op'Disappear Op'GetAlpha Op'IsAppeared Op'IsDisappeared Op'Start Op'GetValue\nWarning: SDLight.Widgets.Layer: could not find link destinations for:\n    Op'GetCounter\nWarning: SDLight.Widgets.Balloon: could not find link destinations for:\n    Op'Fly\nWarning: SDLight.Widgets.InputJapanese: could not find link destinations for:\n    Op'GetText\nWarning: SDLight.Widgets.MessageLayer: could not find link destinations for:\n    Op'IsWaiting\nWarning: SDLight.Widgets.ScriptEngine: could not find link destinations for:\n    Op'LoadMiniScript SimpleDSL RefImage\nWarning: SDLight.Widgets.Selector: could not find link destinations for:\n    Op'RenderSelector Op'SetLabels\nWarning: SDLight.Widgets.TabSelector: could not find link destinations for:\n    Op'GetTabName Op'RenderTabSelector Op'GetCurrentSelector Op'SetTabs\nhaddock: internal error: spliceURL UnhelpfulSpan\nCallStack (from HasCallStack):\n  error, called at utils/haddock/haddock-api/src/Haddock/Backends/Xhtml/Utils.hs:79:9 in main:Haddock.Backends.Xhtml.Utils\n\n--  While building package sdlight-0.9.0.6 using:\n      /home/ioijoi/.stack/setup-exe-cache/x86_64-linux/Cabal-simple_mPHDZzAJ_1.24.2.0_ghc-8.0.2 --builddir=.stack-work/dist/x86_64-linux/Cabal-1.24.2.0 haddock --html --html-location=../$pkg-$version/ --haddock-option=--hyperlinked-source\n    Process exited with code: ExitFailure 1\n```",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1508389816.000120",
+        "text": "template haskellで生成した関数をexportしているのが怪しいかもしれません",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1508399505.000049",
+        "text": "headだと直ってるというコメントもありますね <https://github.com/haskell/haddock/issues/565>",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1508404671.000116",
+        "text": "そのページの中ほどにある <https://github.com/haskell/haddock/issues/565#issuecomment-281133865> で解決したっぽいです。\nstack install haddockで最新のhaddockを入れて、それを `~/.stack/programs/x86_64-linux/ghc-8.0.2/lib/ghc-8.0.2/bin` のものに上書きしたらいけました\nstackが使っているhaddockの更新方法が分からなくて困っていたので助かりました。ありがとうございます :pray: :pray: :pray:",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1508515263.000717",
+        "text": "<@U7MDG53NF> has joined the channel",
+        "user": "U7MDG53NF",
+        "type": "message"
+    },
+    {
+        "ts": "1508628794.000017",
+        "text": "<@U7GSVRQ6S> has joined the channel",
+        "user": "U7GSVRQ6S",
+        "type": "message"
+    },
+    {
+        "ts": "1508893705.000145",
+        "text": "オススメのテンプレートライブラリを教えてください。\nたとえば、${DOMAIN}みたいな文字列を\"<http://example.jp|example.jp>\"とかに置き換えれる機能を欲しています。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1508894420.000055",
+        "text": "どの程度高機能なものを求めているかにもよりますが、\n<@U4KPQ676D> さんの <https://github.com/arowM/heterocephalus> はコンパイル時にテンプレートの間違いを検出してくれるのでいい感じですよ！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1508901092.000030",
+        "text": "パッケージをインストールする際に、ビルドには成功しますが、インストール時に\n```\nFailed to load interface for ‘Data.Hashable.Generic’\nno unit id matching ‘hashable-1.2.6.1-14fEJP30YhAG9w115PODz0’ was found\n```\nというエラーが出るんですが何かご存じの方いますか？\nghc-8.2.1とcabal-2.0.0.2を使用しています。\nスレッドに詳細を書いておきます。",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1508901289.000154",
+        "text": "インストールしようとしているのはこのパッケージです\n<https://github.com/myuon/widx/tree/feature/widget-modules>\n\n以下により詳細なログを貼ります",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1508901331.000237",
+        "text": "```\n/home/ioijoi/.stack/programs/x86_64-linux/ghc-8.2.1/bin/ghc returned\nExitFailure 1 with error message:\nFailed to load interface for ‘Data.Hashable.Generic’\nno unit id matching ‘hashable-1.2.6.1-14fEJP30YhAG9w115PODz0’ was found\nCallStack (from HasCallStack):\n  die', called at libraries/Cabal/Cabal/Distribution/Simple/Program/Run.hs:171:7 in Cabal-2.0.0.2:Distribution.Simple.Program.Run\n  getProgramInvocationOutput, called at libraries/Cabal/Cabal/Distribution/Simple/GHC.hs:1522:11 in Cabal-2.0.0.2:Distribution.Simple.GHC\n  libAbiHash, called at libraries/Cabal/Cabal/Distribution/Simple/Register.hs:260:30 in Cabal-2.0.0.2:Distribution.Simple.Register\n  abiHash, called at libraries/Cabal/Cabal/Distribution/Simple/Register.hs:239:21 in Cabal-2.0.0.2:Distribution.Simple.Register\n  generateRegistrationInfo, called at libraries/Cabal/Cabal/Distribution/Simple/Register.hs:135:25 in Cabal-2.0.0.2:Distribution.Simple.Register\n  generateOne, called at libraries/Cabal/Cabal/Distribution/Simple/Register.hs:121:28 in Cabal-2.0.0.2:Distribution.Simple.Register\n  register, called at libraries/Cabal/Cabal/Distribution/Simple.hs:770:10 in Cabal-2.0.0.2:Distribution.Simple\n  defaultRegHook, called at libraries/Cabal/Cabal/Distribution/Simple.hs:584:20 in Cabal-2.0.0.2:Distribution.Simple\n  regHook, called at libraries/Cabal/Cabal/Distribution/Simple/UserHooks.hs:120:5 in Cabal-2.0.0.2:Distribution.Simple.UserHooks\n  cmd_hook, called at libraries/Cabal/Cabal/Distribution/Simple.hs:452:38 in Cabal-2.0.0.2:Distribution.Simple\n  cmd_hook, called at libraries/Cabal/Cabal/Distribution/Simple.hs:469:4 in Cabal-2.0.0.2:Distribution.Simple\n  hookedActionWithArgs, called at libraries/Cabal/Cabal/Distribution/Simple.hs:451:5 in Cabal-2.0.0.2:Distribution.Simple\n  hookedAction, called at libraries/Cabal/Cabal/Distribution/Simple.hs:430:5 in Cabal-2.0.0.2:Distribution.Simple\n  registerAction, called at libraries/Cabal/Cabal/Distribution/Simple.hs:184:50 in Cabal-2.0.0.2:Distribution.Simple\n  defaultMainHelper, called at libraries/Cabal/Cabal/Distribution/Simple.hs:124:19 in Cabal-2.0.0.2:Distribution.Simple\n  defaultMainArgs, called at Main.hs:1210:18 in main:Main\ncabal: '/home/ioijoi/.stack/programs/x86_64-linux/ghc-8.2.1/bin/ghc' exited\nwith an error:\nFailed to load interface for ‘Data.Hashable.Generic’\nno unit id matching ‘hashable-1.2.6.1-14fEJP30YhAG9w115PODz0’ was found\ncabal: Leaving directory '/home/ioijoi/program/widx'\nCallStack (from HasCallStack):\n  die', called at ./Distribution/Client/Install.hs:995:15 in main:Distribution.Client.Install\ncabal: Error: some packages failed to install:\nwidx-0.1.0.0-ENE00C4n2nTCnkzTC7mfaY failed during the final install step. The\nexception was:\nExitFailure 1\n```",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1508901589.000174",
+        "text": "ちなみに、このパッケージ自体はhashableには依存していませんがすでにhashable-1.2.6.1がインストールされています",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1508905184.000013",
+        "text": "試してみたんですけども、僕の環境では  `widx` を依存関係に追加したプロジェクトで普通に使えました。\n\n```\n$ stack --version\nVersion 1.6.0, Git revision 0e756d486a5a4d6fe03e0d448bb8e706c5834ca1 (5293 commits) x86_64 hpack-0.18.1\n\n$ cat stack.yaml\nresolver: lts-9.10\npackages:\n- .\nextra-deps:\n- git: <https://github.com/myuon/widx.git>\n  commit: master\n- colors-0.3.0.2\n\n$ cat package.yaml\nname:                test-widx\nversion:             0.1.0.0\n#synopsis:\n#description:\nhomepage:            <https://github.com/githubuser/test-widx#readme>\nlicense:             BSD3\nauthor:              Author name here\nmaintainer:          <mailto:example@example.com|example@example.com>\ncopyright:           2017 Author name here\ncategory:            Web\nextra-source-files:\n- README.md\n\ndependencies:\n  - base &gt;= 4.7 &amp;&amp; &lt; 5\n  - widx\n\nexecutables:\n  test-widx:\n    source-dirs:      src\n    main:             Main.hs\n```\n\n`.stack-work` を削除して再度実行してみても同じですか？",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1508905418.000045",
+        "text": "ブランチはmasterじゃなくてfeature/widget-modulesなのでは？\n```\nextra-deps:\n- git: <https://github.com/myuon/widx.git>\n  commit: feature/widget-modules\n- colors-0.3.0.2\n```\nかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1508907020.000160",
+        "text": "&gt; ブランチはmasterじゃなくてfeature/widget-modulesなのでは？\n確かにそうですね！変更しても問題ありませんでした。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1508916944.000381",
+        "text": "わかりにくくてすみません、featureブランチの方です",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1508917061.000229",
+        "text": "あと、このパッケージはbackpackを使っているのでghc-8.2, cabal-2以上でないとビルドできません。stackはcabal2系に対応していないので、私はcabal-install-2.0.0.2とghc-8.2をstackで入れてパスなどを通したものを使ってビルドしています。",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1508929966.000116",
+        "text": "こういうSExpr型に被せたCallowSExpr型があって、\n\nPatternSynonymsでCons''パターンを（Cons'パターンのように）\n書きたいんですが、いまいちPatternSynonymsがわかりません…。\n\n（実際に通るコード）\n\n```haskell\n{-# LANGUAGE PatternSynonyms #-}\n\ndata SExpr = Cons SExpr SExpr | AtomInt Int\n\nnewtype CallowSExpr = CallowSExpr { growup :: SExpr }\n\npattern AtomInt' :: Int -&gt; CallowSExpr\npattern AtomInt' x = CallowSExpr (AtomInt x)\n\npattern Cons' :: SExpr -&gt; SExpr -&gt; CallowSExpr\npattern Cons' x y = CallowSExpr (Cons x y)\n\nmain :: IO ()\nmain = do\n  let x = Cons' (AtomInt 1) (AtomInt 2)\n  return ()\n```\n\n（通したい追加コード）\n\n```haskell\npattern Cons'' :: CallowSExpr -&gt; CallowSExpr -&gt; CallowSExpr\n--pattern Cons'' x y &lt;- (growup {- …？ -})\n\ny :: CallowSExpr\ny = Cons'' (AtomInt' 1) (AtomInt' 2)\n```\n\n愚直にパターンを組み立てようとすると、帰納的なのでこんなになってしまいそう。\n\n```haskell\npattern Cons'' (AtomInt' x) (AtomInt' y) = CallowSExpr (Cons x y)\npattern Cons'' (CallowSExpr (Cons (AtomInt x1) (AtomInt x2))) (AtomInt' y) = CallowSExpr (Cons (Cons (AtomInt x) (AtomInt y)) y)\n{-... 以下無限に続くと思う -}\n```\n\nCons''パターンを部分関数的にせずに、書く方法ってないですか？",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1508933679.000176",
+        "text": "そういえば、cabal sandboxを使ってるんですか？\nそれともnew-buildを使ってるんですか？\nそれとも普通のcabal buildですか？\n「インストール」というのはビルドしてからadd-sourceしてcabal installした場合を指してます？\nなど、再現手順がイマイチ不明瞭なので教えていただきたく。\nもっとも、私からぱっとできるアドバイスは、関連するファイル、 `.cabal-sandbox` とかを一旦削除してやり直せ、ぐらいしか思い浮かばないので、cabalにバグ報告した方がいいんじゃないかと思っています。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1508935035.000331",
+        "text": "この辺関係ありそうな感じもしますけど、どうかな。\n<https://ghc.haskell.org/trac/ghc/ticket/14304>\n<https://github.com/haskell/cabal/issues/4755>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1508937899.000051",
+        "text": "<@U4LGTMTMK> 再現手順についてはこれでいかがでしょうか(git cloneした直後からのログです)\n<https://gist.github.com/myuon/e49d89b6504cb645cb1d0a53d39e4b77>\n<@U5B3EGEFQ> 私もTH関係かなと思ったんですが、今のコードからTHを取り除いても(makeLenses関係を手書きしても)エラーメッセージは変わりませんでした",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1508938006.000026",
+        "text": "多分なんかのバグを踏んだのだろうという気はするんですが、ghcのバグなのかcabalのバグなのか依存してるパッケージに関連したバグなのかも不明なんですがそんな状態でcabalに報告してもいいんでしょうか？\nとりあえずもう少し調査を進めつつminimalな例を頑張って作ってみようとは思っています",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1508938279.000504",
+        "text": "うーん、確かに。MLで根回しするところからですかね。。。\nとりあえず <https://github.com/haskell/cabal#communicating> に書いてあったのですが、\n <https://mail.haskell.org/mailman/listinfo/cabal-devel> に投げてしまうのはありじゃないかと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1508938308.000018",
+        "text": "ありがとうございます。\nエスケーピングが不要なのと、Text.Printf.printf で事足りることを思い出したので、printfを使いました！",
+        "user": "U56MBRKR9",
+        "type": "message"
+    }
+]

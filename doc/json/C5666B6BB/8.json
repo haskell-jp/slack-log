@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1513817155.000033",
+        "text": ":+1:",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1513817550.000040",
+        "text": "`mingw32_HOST_OS` が定義されていたら、 `winsock2.h` は存在すると仮定してもいいですか？ (network パッケージ、過去の遺産が降り積もっていて、泣きそうです。)",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513818723.000140",
+        "text": "networkパッケージてC部分のコンパイル時にconfigureしてませんでしたっけ？ヘッダ(や，その他ライブラリ等)の存在確認がしたいならAC_CHECK_HEADERSとか使えば実際にconfigure時に確認してマクロをdefineできるんじゃないですか？",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1513819036.000019",
+        "text": "Array# …でしょうか。\n<https://hackage.haskell.org/package/ghc-prim-0.5.1.0/docs/GHC-Prim.html#t:Array-35->\nどうやってByteStringに変換したら良いのかわからなくて詰まってしまいましたorz",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1513825837.000022",
+        "text": "FFI には\n- UNIX 用の ccall\n- Win32 用の stdcall\nが定義してあるんですが、Win64用にはないんですよ。\nで、GHC はWin64上では ccall/stdcallどちらを指定しても、Win64用のABIを使うようです。しかし、stdcallを指定しいると、警告が出てうるさいです。\nなので、Win32だとstdcall、Win64だとccallにしたかったのでした。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513825882.000128",
+        "text": "警告はたったこれだけになった。\n<https://ci.appveyor.com/project/eborden/network/build/1.0.240/job/apgyl5iycnn3ab54>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513825915.000060",
+        "text": "一つ、stdcallの警告が残っているけど、それは取れます。あとは、Haskell的な警告をなくすだけ。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513826001.000051",
+        "text": "現在、どちらのマクロも使えるんですが、使い分けの基準が分かりません。同じ意味なら、どちらかに統一したいのです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513827706.000049",
+        "text": "どちらのって何と何ですか？",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1513828960.000022",
+        "text": "`mingw32_HOST_OS` と `winsock2.h` が存在するときに定義される `HAVE_WINSOCK2_H` です。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513831275.000177",
+        "text": "`mingw32_HOST_OS` であっても，includeパスがおかしいとかでconfigure時に見えてないような事態も考えられるので `winsock2.h` のincludeでは `HAVE_WINSOCK2_H` も見るようにしたほうがいいです．どちらかに統一というか `#ifdef mingw32_HOST_OS` → `#ifdef HAVE_WINSOCK2_H` → `#include &lt;winsock2.h&gt;`のように包含関係になるような感じじゃないかと",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1513831283.000005",
+        "text": "`Data.Array.Base` を読み込むと `UArray Int Bool` に対して `ByteArray#` を取り出せるので、後はなんとかなりませんかね？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513831625.000041",
+        "text": "ありがとうございます！\n`ByteArray#` について調べてる途中で UArray がByteArrayAccessのインスタンスになってることに気づいて convert を使えば思ってたことができそうです :bow: 詳しい実装もコードを読んで勉強してみます :pray: \n<https://hackage.haskell.org/package/memory-0.14.10/docs/Data-ByteArray.html#v:convert>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1513831888.000206",
+        "text": "Windows で `winsock2.h` が見えないときは、どのみちエラーにすべきなので、`mingw32_HOST_OS` だけでよくないですかね？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513831989.000149",
+        "text": "ああ、`convert` 使ってもいいなら、それが便利ですね。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513832019.000032",
+        "text": "UArray Int Bool が、本当にビット列をパックしているかは、確かめてください。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513833496.000094",
+        "text": "エラーの発報の観点から話をするなら，理想的には判明時点で早々に発報すべきです．その最速判明タイミングとはconfigure時点であり， `AC_CHECK_HEADERS` の `action-if-not-found` ケースでエラーにすることもできます．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1513836299.000022",
+        "text": "なるほど。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513836323.000090",
+        "text": "早期発見の努力はするとして、コードの方は、どっちかに統一してもいいですよね？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513836725.000113",
+        "text": "そちらは統一していない意図がわからないの恐らく…としか言えないですね．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1513836861.000037",
+        "text": "ええ、デッドコードです。今まで誰も手につけられなかったのです。僕がやらなければ、今後誰もやらないでしょう。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513848486.000059",
+        "text": "<@U4LGTMTMK> set the channel topic: お悩み相談専用チャンネル。回答は原則スレッド機能でやりましょう。複数の質問を同時に投稿しやすくするための配慮です。過去の質問は <https://slacknowledge.pig-brewing.com/> から。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1513848500.000255",
+        "text": "<@U4LGTMTMK> set the channel topic: お悩み相談専用チャンネル。回答は原則スレッド機能でやりましょう。複数の質問を同時に投稿しやすくするための配慮です。過去に :memo: された質問は <https://slacknowledge.pig-brewing.com/> から。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1514091345.000040",
+        "text": "Lazy I/O の readFile について resource exhausted (Too many open files) という例外を再現しようとして，\n\n```\nmain = readFile \"file_list.txt\" &gt;&gt;= mapM_ (readFile &gt;=&gt; print . length) . lines\n```\n\nというプログラムを書いて ghc-8.2.2 でコンパイルし実行してみたのですが，再現できませんでした．file_list.txt には10万個のファイル名が書いてあり，カレントディレクトリにその10万個のファイルがあります．どうすれば再現できるのでしょうか？．なにか勘違いしている可能性があります．指摘していただければ幸いです．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1514091572.000010",
+        "text": "推測ですが、 `length` だと全部読んで（そして自動で閉めて）しまいそうですし、 `take 1` とかしてみるのはいかがでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1514091725.000047",
+        "text": "take 1 でも問題なく実行できるようです。",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1514091977.000007",
+        "text": "`ulimit` でファイルディスクリプタ数の限界( `-n` オプション)を小さく設定した上で， `take 1` で実行してみてください．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1514092181.000052",
+        "text": "なるほど、ulimit -n 32 とすると再現できました。ありがとうございます。",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1514092389.000061",
+        "text": "デフォルトではファイルディスクリプタの上限が 1048576 になっていました。",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1514167677.000069",
+        "text": "昔(Linuxカーネルが2.4とかの頃)はファイルディスクリプタの変化を待つシステムコールがselectしかなかったので、上限も自ずと1024くらいの小さい値だったのが、今はepollとかがあるので大量のファイルディスクリプタが扱えるということですかね",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1514183838.000052",
+        "text": "<@U8JGMG1QT> has joined the channel",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1514188382.000068",
+        "text": "pollも思い出してあげて下さい。\n上限を引き上げたのはこの子です。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1514269396.000072",
+        "text": "また、教えて君です :slightly_smiling_face:\n型シノニムを使用するとき、宣言時のアリティを満さなければならないのですが、そうなっている理由について、いまだに、よくわからないでいます。\nそのような制限がないとどのようなことが起こるのでしょうか。",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1514272657.000123",
+        "text": "これのことでしょうか？\n<https://stackoverflow.com/questions/4922560/why-doesnt-typesynonyminstances-allow-partially-applied-type-synonyms-to-be-use>\n\npartial applyのことなら，type checkがundecidableになるので，Haskellの派生系でも許可してるものは見かけないですね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1514273931.000060",
+        "text": "type check が undecidable になるというところが、良くわからないのです。",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1514274715.000097",
+        "text": "type synonymは一種の型関数ですから， `type A a = B a a` という型関数において，型クラス `C :: * -&gt; *` のインスタンスとして `instance C A where` という定義があった時に，最終的にインスタンスを決める時に `(\\a -&gt; B a a) ~ A` をどうやって判定するかという問題になります．このような問題は，一般に実際に全ての値に対して返り値が一致しているかという方法で判断しますが，これをチェックするのは通常難しいですね．\n\n例に出したものだと単純なので決定的にできるかもしれませんが，上のstack overflowの例でこの問題を考えてみた場合，納得がいくと思います",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1514275183.000011",
+        "text": "すみません。「最終的にインスタンスを決める時に `(\\a a -&gt; B a a) ~ A` をどうやって判定するかという問題になります」の部分がよく判からないでいます。",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1514275561.000194",
+        "text": "例えば， `type A2 a = B a a` というのがあった時に， `A2 ~ A` なので `C A2` という制約は `instance C A` から成り立つはずです．これをどう判定するかということですね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1514275625.000158",
+        "text": "s/ `\\a a -&gt; B a a` / `\\a -&gt; B a a` / でした",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1514275776.000042",
+        "text": "A2 ~ A が判定できないということですか？",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1514276358.000064",
+        "text": "まあ一般にはその判定( `forall a :: *. A2 a ~ A a` が成り立つかどうか)が undecidable だということですね．この例の場合はdecidableにするアルゴリズムがあるかもしれません(なので，今回の場合はできるかもしれません)が，これを一般の場合で考えた場合(例えば，ブール論理を埋め込んだstack overflowの例の場合)，それを判定する決定的なアルゴリズムを構築するのが困難だということです",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1514276696.000110",
+        "text": "stack overflow の例でいうと、Not True ~ False を示すのが困難ということになりますか。",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1514276775.000030",
+        "text": "そうです",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1514279927.000109",
+        "text": "ううむ。外延的に決定するしかないとすれば、そうなのかな。",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1514281265.000202",
+        "text": "あまりパッといい文献を出せませんが，もし気になるならeta expansion problemsなどで調べてみると，いいかもしれません",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1514283115.000038",
+        "text": "ありがとうございます。",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1514323843.000124",
+        "text": "<@U5GP4SCMD> uploaded a file: <https://haskell-jp.slack.com/files/U5GP4SCMD/F8JPH5R5W/____________________________2017-12-27_06.04.08.png|nix で slack をインストールしようとしてコケました> and commented: nix-env -iA nixpkgs.stack とすると図のように、\n\nVariable not in scope:\n       hSetBuffering :: Handle -&gt; BufferMode -&gt; IO a0\n\nと出てしまいます。",
+        "user": "U5GP4SCMD",
+        "type": "message"
+    },
+    {
+        "ts": "1514324720.000182",
+        "text": "結局 slack は他の手段で （nix 使わないで）インストールしてしまったのですが、上記はどうしたものかなぁと",
+        "user": "U5GP4SCMD",
+        "type": "message"
+    },
+    {
+        "ts": "1514327658.000028",
+        "text": "話をちゃんと理解してませんが、シノニムの部分適用を許すと実質的に型レベルのラムダを許すことになり、高階単一化の決定不能性が問題になる、という話ではないかな、多分。",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1514333197.000059",
+        "text": "<@U4L0B71L1> commented on <@U5GP4SCMD>’s file <https://haskell-jp.slack.com/files/U5GP4SCMD/F8JPH5R5W/____________________________2017-12-27_06.04.08.png|nix で slack をインストールしようとしてコケました>: stack? slack?",
+        "user": null,
+        "type": "message"
+    }
+]

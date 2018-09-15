@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1522907322.000126",
+        "text": "<@UA2J5BXMM> has joined the channel",
+        "user": "UA2J5BXMM",
+        "type": "message"
+    },
+    {
+        "ts": "1522943810.000501",
+        "text": "<https://conscientiousprogrammer.com/blog/2014/08/07/understanding-cloure-transducers-through-types/>\n上記の記事の中で以下のような記載があったので `iteratee` について調べていたのですが、\n関連する資料は 2010 年ごろの物が多く最新の情報などはあまり反映されていないようでした。(気がするだけかも？)\n&gt; well-known types such as foldables, iteratees, lenses, etc.\n\n<https://www.yesodweb.com/blog/2010/09/enumerators-tutorial-part-1>\nこの記事は `enumerator` パッケージにおける実装などについて詳しく書いているのですが肝心の `enumerator` が deprecated になっていました。\n\nこのあたりについてどの辺が参考になるかなど教えていただけると嬉しいです。\nちなみに、オリジナルのものはまだ目を通せていないです。\n<http://okmij.org/ftp/Haskell/Iteratee/index.html)>",
+        "user": "U9YSSVB88",
+        "type": "message"
+    },
+    {
+        "ts": "1522945573.000668",
+        "text": "新しめのライブラリはこちらのベンチが参考になります <http://fumieval.hatenablog.com/entry/2017/10/17/172322> 出来る事が多いpipes、pipesに匹敵する高機能とpipesを遥かに上回る安全性を兼ね備える代わりに若干遅いconduit、それらより機能を制限する代わりに高速なライブラリとして幾つか選択肢が存在する感じです。まだ見てないんですがstreamlyというのも新しくて色々すごいらしいです。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1522965707.000322",
+        "text": "各種ライブラリーのベンチマークについては <https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1521628071000253> もどうぞ。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1523321379.000278",
+        "text": "<@UA4PSBSMU> has joined the channel",
+        "user": "UA4PSBSMU",
+        "type": "message"
+    },
+    {
+        "ts": "1523427578.000039",
+        "text": "machinecell の質問です。\nストリームを最後まで `accum` して、その結果を使ってストリームを最初から流し直す、みたいなプロセスってどう書けばよいのでしょうか？\n雰囲気的には、こんな感じのことがやりたいです。\n\n```\n-- |\n-- &gt;&gt;&gt; P.run pa [1 .. 3]\n-- [(1,6),(2,6),(3,6)]\npa :: Monad m =&gt; P.ProcessT m (P.Event Int) (P.Event (Int, Int))\npa = proc x -&gt; do\n  sum' &lt;- P.accum 0 -&lt; (+) &lt;$&gt; x\n  end &lt;- P.onEnd -&lt; x\n  sum'' &lt;- returnA -&lt; sum' &lt;$ end\n  returnA -&lt; (,) &lt;$&gt; x &lt;*&gt; sum''     -- Event a は Applicative でないのでここでエラー\n```",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1523428047.000309",
+        "text": "Hoppy - C++ FFI Generator for Haskell\n<http://khumba.net/projects/hoppy/>\nを使ってみています。",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1523431296.000073",
+        "text": "`(&amp;&amp;&amp;)` で分岐して片方で accum すれば、必要なストリームは作れる。\nあとはどうやって合流するか・・・",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1523443332.000255",
+        "text": "出先なので動作確認できてないんですが、こんなコードでどうでしょうか。\n\n```\npa = P.switch collect combine\n  where\n    collect = proc x -&gt; do\n      lRev &lt;- P.accum [] -&lt; (:) &lt;$&gt; x\n      sum' &lt;- P.accum 0 -&lt; (+) &lt;$&gt; x\n      ed &lt;- P.onEnd -&lt; x\n      P.muted &amp;&amp;&amp; returnA -&lt; (reverse lRev, sum') &lt;$ ed\n  \n    combine (l, sum') = proc _ -&gt; do\n      x &lt;- P.blockingSource l -&lt; P.ZeroEvent\n      returnA -&lt; (, sum') &lt;$&gt; x\n```",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1523443479.000201",
+        "text": "同じストリームを2度流すという事は必然的に、メモリ上に全要素を保持する事になるので、処理的にあんまりストリームライブラリ向けじゃないんですよね……上のコードでは一個目のaccumで明示的にリストをメモリに保持しています",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1523459563.000573",
+        "text": "おお、できました！\nありがとうございます！",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1523460029.000182",
+        "text": "しかし、確かにそうですね。要素を全部リストにしてしまうなら、別にストリーム上で和を算出しなくてもよいような・・・",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1523460406.000406",
+        "text": "和を作るプロセスとタプル化するプロセスを別々に定義して、同じストリームを順に流す方が自然なのかも。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1523507147.000156",
+        "text": "Stackを用いてGHCをインストールしていなくても各OSで実行可能なプログラムを生成する方法ってありますかね。。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1523507703.000232",
+        "text": "Haskell Platformを使うとか、GHCを直接インストールするとか、そういう話でしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1523508428.000079",
+        "text": "Haskellで書いたプログラムがあって、それをHaskellを実行できる環境が全くないパソコンでもダブルクリックとかで実行可能なものを生成したいんです。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1523508783.000142",
+        "text": "C言語のライブラリーとかに依存していない限り、普通はビルドされた実行ファイルはそのまま、ビルドしたOSと同じOSであればダブルクリックで実行できます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1523508865.000134",
+        "text": "stackの場合、 `stack --local-build-path=&lt;好きなパス&gt; install` と実行すれば、 `&lt;好きなパス&gt;` にビルドした実行ファイルが作成されます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1523509533.000007",
+        "text": "ありがとう！できました！ちなみにビルドしたOSとは別のOSの実行ファイルを生成するのって可能ですか。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1523509708.000045",
+        "text": "そういうのはクロスコンパイル機能というのですが、\n残念ながらクロスコンパイル機能は鋭意開発中という感じです（一応使えるけどかなり実験的だし手間もかかる）。\nLinuxの異なるディストリビューション同士ぐらいであればDockerを使うなりstatic binaryにするなりすればできますが。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1523509836.000194",
+        "text": "なるほどー。。ありがとうございます。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1523535458.000191",
+        "text": "どなたか、私の最初の回答でも直らなかったと言うことなので、もしほかに原因に思い当たる節があれば教えてください。 :bow:\n<https://teratail.com/questions/121456>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1523535485.000359",
+        "text": "（もちろん、質問者が何か入力を間違えてしまった可能性も捨てきれませんが...）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1523537664.000549",
+        "text": "<@UA5KF64CS> has joined the channel",
+        "user": "UA5KF64CS",
+        "type": "message"
+    },
+    {
+        "ts": "1523573105.000043",
+        "text": ":heavy_check_mark: 解決してた。やっぱりtypoだったようですね :relieved:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1523577073.000077",
+        "text": "<@UA5JPLRH8> has joined the channel",
+        "user": "UA5JPLRH8",
+        "type": "message"
+    },
+    {
+        "ts": "1523594601.000186",
+        "text": "`blaze-html`を用いて以下のようなものを生成したいのですが、どうすればよいでしょうか\n```\n&lt;p&gt;Hello &lt;span&gt;World&lt;/span&gt;&lt;/p&gt;\n```",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1523608453.000195",
+        "text": "blaze-htmlはあまり使ったことないですが、以下の感じでいけそうですね！\n```\n$ stack --resolver nightly-2018-03-18 ghci --package blaze-html\n\n&gt; import Text.Blaze.Html5\n&gt; import Text.Blaze.Html.Renderer.String\n&gt; import Data.Semigroup\n&gt; :set -XOverloadedStrings\n&gt; let inner = \"foo\" &lt;&gt; Text.Blaze.Html5.span \"bar\" &lt;&gt; \"baz\"\n&gt; let html = p inner\n&gt;  renderHtml html\n\"&lt;p&gt;foo&lt;span&gt;bar&lt;/span&gt;baz&lt;/p&gt;\"\n```",
+        "user": "U4M5LDXK9",
+        "type": "message"
+    },
+    {
+        "ts": "1523625219.000143",
+        "text": "なんと！やってみます！ありがとうー！",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1523695421.000001",
+        "text": "<@UA2SYG5LH> has joined the channel",
+        "user": "UA2SYG5LH",
+        "type": "message"
+    },
+    {
+        "ts": "1523925240.000019",
+        "text": "stackのtestフォルダー内にあるファイル（例えば`Spec.hs`）で定義した関数をghciを用いてターミナルで実行できるようなコマンドがあったと思うのですが、なんでしたっけ。。\n例えば `Spec.hs`内に`foo :: [Int] -&gt; Bool`という関数があった場合にはghci内で\n`quickCheck foo`\nと呼び出したいのです。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1523925795.000081",
+        "text": "`stack ghci --test` ではダメ？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1523926910.000230",
+        "text": "ありがとうございます。\n`stack ghci test/Spec.hs`でいけました!\n`stack ghci test/Spec`では実行できなかったので他に方法があるのかと勘違いしていました。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1523932993.000188",
+        "text": "haddock の質問です。\nモジュールや関数のドキュメントの出力する/しないを、環境変数か何かで切り替えたりするようなことはできますでしょうか？\n内部向け（development）と外部向け（production）で、出力内容を切り替えたいです。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1523933187.000084",
+        "text": "ちゃんと試してなくて恐縮ですが、\n<http://haskell-haddock.readthedocs.io/en/latest/markup.html#module-attributes> に書いてある\n```\n{-# OPTIONS_HADDOCK hide, prune, ignore-exports #-}\n```\nとかが捜し物ですかね？ :thinking_face:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1523938486.000030",
+        "text": "返信気が付きませんでした\n基本はimport側で共通のprefixを付けているのですがTextだけはコピペが増えてきたので楽に共通化出来るならやりたかったなと思いました",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1523944563.000191",
+        "text": "そのオプションを何らかの条件でオンオフする方法、というのが探しものです。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1523944647.000149",
+        "text": "{-# OPTIONS_HADDOCK hide #-}\nすると、そのモジュールが出力されなくなるのは確認しています。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1523944723.000227",
+        "text": "やりたいのは気分的には\n\n```\nIF PROD\n{-# OPTIONS_HADDOCK hide #-}\nEND\n```\n\nみたいなことです。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1523952047.000144",
+        "text": "機械学習のライブラリで良さげなものを教えてください。",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1523955285.000169",
+        "text": "重要な一言が抜けてました。あとはcabal のflagとCPPを組み合わせて使えばどうにでもなりそうな気がします。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1523955907.000016",
+        "text": "具体的には <https://guide.aelve.com/haskell/cpp-vww0qd72#item-oh9ytz0p> でやっているようなことです。\ncabalで特定のフラグをONにしたときだけcpp-optionsに-Dオプションを渡して定数を定義して、\nHaskellのソースコード側で\nifdefを使うのです",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524219730.000124",
+        "text": "例えば、FooをFで参照したいのならば、Fという名前のモジュールを作ってその中身でFooを再エクスポートをすれば、F.xxxという形で定義を参照できるようになる、という形でできませんか？",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1524268587.000095",
+        "text": "期待する内容と違うかもしれませんが、こういう情報があります。\n<https://github.com/Gabriel439/post-rfc/blob/master/sotu.md#machine-learning>\n\ntensorflowへのバインディングは、最新のtensorflow 1.7にも対応しているようです。\nHLearnは最近は開発が止まってるようです、、、",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1524282504.000015",
+        "text": "Hlearnそうなんですか…",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1524306252.000017",
+        "text": "もったいないですね、、、",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1524367368.000047",
+        "text": "同じような質問がStack Overflowにあるみたいで、回答はあきらめるかCPPを使うかといった感じです <https://stackoverflow.com/questions/49940351/what-is-an-alternative-to-a-prelude-with-qualfied-imports>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1524376568.000057",
+        "text": "凄く初歩的な質問で恐縮なのですが、\nText←→Intの変換は、どのような方法が定番なのでしょうか？\n\n今は、プログラム毎に(pack . show)や(read . unpack)で変換しているのですが、\n毎回記述するので、何かライブラリ側で提供されていないのかなぁと思う一方、\ntext-showとData.Text.Readで行うのも対称的じゃないので、どうなんでしょう？と思っている次第です。\nよろしくお願い致します。",
+        "user": "U8LLBJ59Q",
+        "type": "message"
+    },
+    {
+        "ts": "1524376913.000025",
+        "text": "確かに text-show 以外聞いたことがないですね。。。 :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524377382.000034",
+        "text": "そもそもRead自体手を抜きたいとき以外使うな（遅いし、ちゃんとしたのはパーサーを書けばいい）という風潮なので、あまり需要がないのかもしれません",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]

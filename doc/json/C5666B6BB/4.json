@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1510470054.000057",
+        "text": "型に言及するには，制約が `Monoid` しかないので，情報が足りないのではないでしょうか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510470161.000004",
+        "text": "多相関数というのは割と結構強い制約で，例えばFunctor則は `fmap` が多相関数なのでどちらかの則があれば自動的にもう一方を満たします(<https://www.schoolofhaskell.com/user/edwardk/snippets/fmap>)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510470210.000039",
+        "text": "なので， Foldableも多相関数を利用してる場合その時点で割と実装が限られて来ます (もっとも，ボトムを定義中に使われると色々と壊れるのですが)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510470466.000002",
+        "text": "そういう意味では、多相関数を使ってなくて Functor であってもなくてもよく（Functor でもなおかつという方が面白いですが）いかにも不自然な感じのする Foldable の例があるかという質問と思ってください。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1510470608.000024",
+        "text": "それはあり得ると思いますが，多相関数でない以上FoldableではないのでそれはfoldやfoldMapの型を特殊化したものと型が一致したただの別の関数ということになってしまうのではないでしょうか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510470730.000054",
+        "text": "なお， Foldableをもう少し弱めたものならば <https://hackage.haskell.org/package/recursion-schemes-5.0.2/docs/Data-Functor-Foldable.html#t:Recursive> などがあります",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510471096.000003",
+        "text": "うむむむ、リストとリスト以外のモノイドで実装を分けて書けないので多相的な実装しか書けないですね。確かに。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1510471145.000029",
+        "text": "これがfoldのチュートリアルみたいです．これを読んでみると疑問が解決するかもしれません？（ちょっと僕も読んでみます）\n<http://www.cs.nott.ac.uk/~pszgmh/fold.pdf>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510471478.000017",
+        "text": "では、木の形だけで判断するとして好きに選んだいくつかのある木のときだけは mempty にしてそれ以外では concat した値にするとしたら整合性や不自然さはどうでしょう。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1510471674.000018",
+        "text": "多分それも代数的には意味のある構造なのだと思います．それを木という代数的構造で考えると不自然なのですが，別の代数と考えるとそのfoldを考えてるようなものなのだと思います",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510471721.000041",
+        "text": "なので，Foldable的にはおかしくないのだと思うのですが(ちょっとFoldableの背景には明るくないので，明確には言えないです)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510472257.000025",
+        "text": "そもそもこのことを考え始めたきっかけは「Haskell 教養としての関数型プログラミング」に 「Foldable は並べられるという性質」とあって「並べられる」っぽっくない Foldable の例はないだろうかと考え始めたのでした。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1510472334.000066",
+        "text": "なるほど．並べられるというより並べ方を定義するの方が分かりやすいかもしれません",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510472424.000018",
+        "text": "foldMapを定義すれば基本的にtoListが定義できるので",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510472550.000014",
+        "text": "まあ「並べる」とはどういう意味かということに帰着されて `toList t = build (\\ c n -&gt; foldr c n t)` を「並べる」ということだ言ってしまえばその通りかもしれませんが普通の直感とは多分違うような気が。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1510472730.000004",
+        "text": "まあ確かに普通の直感とは異なるかもしれません．ただ，普通の直感の並べ方をもっと形式的に表せないかというのがfoldMapのアイデアの元になってて,",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510472843.000090",
+        "text": "リストに対してのfoldMapが出来てそれでtoListがちゃんと表せて，木もフラットにする方法がやっぱり同じ方法で出来て，じゃあFoldableにまとめたら他の代数でも同じように並べ方が定義できるようになったという感じだと思います．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510473084.000007",
+        "text": "なので直感的な感覚から始まって，色々な並べるをうまく表せるFoldableを一つの並べるの定義方法だと思えば，非直感的な並べ方に対しても同じようなことができてその並べ方に沿って並べるをアルゴリズムの一部として使うようなものが一般的に書けるという点では，Foldableも並べられるという性質を持っているといって問題ないのではないでしょうか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510473916.000008",
+        "text": "うーん、そうですね。上に書いたときどき mempty になる例も列に並ぶのをさぼるグループがいると考えれば「並べる」と言える気がしてきました。自分のコピーを作って複数人分潜り込ませて並ぶというのもありかな。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1510474985.000053",
+        "text": "```\nnewtype Square a = Square a\n```\nとかだったら意味論的にはありだと思いますね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510481874.000020",
+        "text": "リストも（標準のリストFoldableとは違いますが）\n```\nfold [] = mempty\nfold [m1] = m1 &lt;&gt; m1\nfold [m1, m2] = m2\nfold [m1, m2, m3] = m1 &lt;&gt; m3 &lt;&gt; m2 &lt;&gt; m3\nfold [m1, m2, m3, m4] = mempty\n...\n```\nのように要素と &lt;&gt;  と memtpy だけを組み合わせているかぎりどのように定義しても Foldable になりそうですね。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1510504726.000031",
+        "text": "あれ、toList の話に自分で build を出しましたが build は cata, ana を想定してない一般には定義されてないですよね。toList は fold からどう定義できるんでしたっけ。Foldableパッケージには toList = elems と書いてあるだけでその elems はどう定義するのでしょう。上の例では\n```\nelems [m1] = [m1,m1]\nelems [m1,m2] = [m2]\n...\n```\nと定義するという堂々巡りしているだけ？",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1510512428.000022",
+        "text": "どの `Foldable` を見てるかはよく分かりませんが，現状のbase( <https://hackage.haskell.org/package/base-4.10.0.0/docs/src/Data.Foldable.html#line-230> )では， `toList = build (\\ c n -&gt; foldr c n t)` がデフォルトになっています． `build` は <https://hackage.haskell.org/package/base-4.10.0.0/docs/src/GHC.Base.html#line-871> ですね．リストを作るためのビルダーになっていて， foldr/build変換なども適用されるようになります",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510555268.000089",
+        "text": "一回stack buildでcabalファイルを生成してから使えばpackage.yamlにも使えるのでは?手で編集できないほど依存ライブラリの数が多ければわかりませんが…",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1510561822.000162",
+        "text": "ううう、build はそうでした。上で書いた fold の例だと `toList [m1] = m1:m1:[] = [m1,m1]` ですね。\nelems と書いてあったのは `instance Foldable (Array i)` の中のところでした。\n`'toList = '` で検索したのが失敗だった orz。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1510715994.000101",
+        "text": "\u0008前に書いていた `fold . fmap f = f . fold` は f はモノイド準同型を前提してということですか。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1510726603.000115",
+        "text": "あ，そうですね． `f` がモノイド準同型であることが必要です",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510731561.000247",
+        "text": "初歩的な質問なのですが\n`import qualified Data.Text as T`とすると\n`T.Text`と型にもTが付くんですか?",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1510731628.000105",
+        "text": "はい。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1510731645.000081",
+        "text": "ありがとうございます。",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1510733750.000262",
+        "text": "型を `T.Text` にしたくない場合はこんな感じで定義されてることが多いですね！\n\n```\nimport Data.Text (Text)\nimport qualified Data.Text as T\n```\n\n`Data.Map` を `import` する際にも良くみかけます:grinning:",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1510734420.000172",
+        "text": "wado さんの提示してるやり方よくしますね",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1510735436.000187",
+        "text": "括弧付きimportのほうが優先順位が高いんですね",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1510735901.000080",
+        "text": "モジュールの括弧は優先順位とは全く無関係です。括弧によってモジュールから `import` するもの (関数や型など) を明示的に列挙できます。\n\n```\nimport Data.Text (Text)\n```\n\n上記は `Text` 型のみを `import` します。その際、 `qualified ... as` 形式ではないため `Text` という表記で利用できます。\n\n```\nimport qualified Data.Text as T\n```\n\n上記は `Text` モジュールで `export` されているもの全てが `import` されます。(`T.Text`, `T.null`, etc...)。こちらは `qualified ... as` 形式なので全て `T.` という修飾詞つきの表記で利用できます。( `Prelude` や他のモジュールで定義されている関数 (や型) の名前と被る場合に使います。)\n具体例:\n - [Text.null](<https://www.stackage.org/haddock/lts-9.13/text-1.2.2.2/Data-Text.html#v:null>)\n - [Prelude.null](<https://www.stackage.org/haddock/lts-9.13/base-4.9.1.0/Prelude.html#v:null>)。\n\nなので上記ように `import` を2つ書いた場合は `Text` 型は `Text` と `T.Text` の両方の形式で利用できるという理解が正しいです。\n\nただ両方利用できても、 `T.Text` って書くの面倒なので `Text` しか使わないという感じです。\n\n`T.Text` を `import` しないようにするためには `hiding` キーワードを使って明示的に `import` しないものを指定します。(`hiding` は暗黙的に `Prelude` から `import` されているものを隠したい場合によく利用します。 `import Prelude hiding (div)`)\n\n```\nimport Data.Text (Text)\nimport qualified Data.Text as T hiding (Text)\n```\n\n長くなりましたが、だいたいこんな感じだと思います。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1510744302.000321",
+        "text": "なるほど。\nありがとうございます:musical_note:",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1510790576.000058",
+        "text": "Stackを使った開発でのghc-modの利用について質問させてください．Stackage LTS-8.xにはghc-modがあったので問題なくインストールできましたが，LTS-9.xからは外されて(?)しまい，cabal-installで別途導入しようとしても途中でエラーになってしまいます．LTS-9.xでghc-modを利用できている方はどのようにやっていらっしゃるのでしょうか．",
+        "user": "U56LT20RJ",
+        "type": "message"
+    },
+    {
+        "ts": "1510791571.000276",
+        "text": "ghc-modは、もう僕の手を離れているので、よく分かりません。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1510791592.000054",
+        "text": "GHC 8.0.2では使えますし、僕も stack なしで使っています。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1510791612.000091",
+        "text": "なお、ghc-modは、まだ GHC 8.2.x には対応していません。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1510792155.000150",
+        "text": "`lts-9` 系でも `stack install ghc-mod` でインストールできたような気がします。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1510792785.000086",
+        "text": "試しにやってみたらインストールできたようです（macOS 10.13.1, Stack LTS-9.13）．LTS-9.x になって以来パッケージリストに ghc-mod が含まれていないので stack install ではできないものと思って試していませんでした．ありがとうございます．",
+        "user": "U56LT20RJ",
+        "type": "message"
+    },
+    {
+        "ts": "1510792839.000180",
+        "text": "便乗ですが、今だとEmacsでhaskellのコードを書く場合は `haskell-mode` を使っておくのがいいんでしょうか。(というかそれ以外に選択肢がない？)",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1510794752.000033",
+        "text": "はい。elpaに上がっているhaskell-modeが最新だと思います。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1510798655.000193",
+        "text": "単にsyntax highlightくらいできればいいならhaskell-modeでいいと思います\nもっとIDE的な機能が欲しければinteroっていうプラグインがありますね",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1510879403.000061",
+        "text": "ある typeclass の instance を reexport する方法って、Haskellにはないんでしたっけ？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1510882435.000032",
+        "text": "普通に <https://github.com/tfausak/autoexporter> などでやるように module ごと reexport すればできたように思います。\nちょっと記憶が怪しい（しかもTHによる例）ので恐縮ですが、\n<https://github.com/igrep/typesafe-precure/blob/5dc0800ae8f8f4e002ee3d32d92ae6450b86d653/src/ACME/PreCure/Textbook/KirakiraALaMode/Instances.hs> の時点のtypesafe-precureは\n`ACME.PreCure.Textbook.KirakiraALaMode.Instances` でインスタンスしか定義していない module を export して、\n更に src/ACME/PreCure/Textbook/KirakiraALaMode.hs などでreexport していました。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1510890461.000059",
+        "text": "” All instances defined in a module A are imported automatically when importing A, or importing any module that imports A, directly or indirectly.”  <https://wiki.haskell.org/Orphan_instance> だそうで、有無を言わさず自動的に再エクスポートされるみたいです",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1510994045.000043",
+        "text": "誰かText.EDEに詳しい人いませんか",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1510994928.000036",
+        "text": "`env = fromPairs [\"list\" .=[\"AA\",\"BB\",\"CC\"]]`",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1510994949.000038",
+        "text": "こうしてもうまくレンダリングできません",
+        "user": "U5FTM76CA",
+        "type": "message"
+    }
+]

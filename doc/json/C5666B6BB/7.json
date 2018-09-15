@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1513162443.000255",
+        "text": "<@U8DDVPNGZ> has joined the channel",
+        "user": "U8DDVPNGZ",
+        "type": "message"
+    },
+    {
+        "ts": "1513232451.000110",
+        "text": "Windowsユーザのみなさん、networkパッケージのメインテナーとしての質問です。\ncygwinってもうサポートしなくていいですかね？\nMSYSしかサポートしてないと宣言してもよいですか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513232934.000149",
+        "text": "私はGHC 7.8ぐらい（stackがサポートしている最も古いGHC）からWindowsで使い始めたので、それより前をサポートしないのであればいいと思います。\nstackは必ずMSYS版GHCを自動でインストールするので。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1513233510.000076",
+        "text": "情報ありがとう！",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513304413.000032",
+        "text": "<@U580LD4G7> has joined the channel",
+        "user": "U580LD4G7",
+        "type": "message"
+    },
+    {
+        "ts": "1513309250.000122",
+        "text": "Windowsで、`__OpenBSD__`というCのマクロをチェックしたら、エラーになってしまうんですけど、どうしてなんでしょうか？\n\n<https://ci.appveyor.com/project/eborden/network/build/1.0.182/job/g8lchejtxp4eg120>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513311185.000116",
+        "text": "355行目のディレクティブ，elseifじゃなくてelifじゃないですか？",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1513312046.000053",
+        "text": "Bingo!",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513312047.000046",
+        "text": "<https://ci.appveyor.com/project/eborden/network/build/1.0.183/job/l39qvaovwb3gf7ch>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513312063.000013",
+        "text": "やったぜ",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1513312071.000099",
+        "text": "ありがとうございます！\nありがとうございます！！\nありがとうございます！！！",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513480246.000028",
+        "text": "Emacsを使われてる方、教えて下さい。 （急ぎではありません。 かつ返信は遅くなります:bow:）\nEmacsでは、Haskellコードのsyntax highlightに、主に、どういうツールが使われていますか？\n（syntax highlightを修正しようとしています。）",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1513520824.000018",
+        "text": "stack初心者の質問です。stackのバージョンを1.5.1から1.6.1にアップグレードしようとすると以下のメッセージが表示されます。\n```\nWARNING: The \"stack\" executable found on the PATH environment variable is /usr/local/bin/stack, and not the version that was just installed.\nThis means that \"stack\" calls on the command line will not use this version.\nNew stack executable available at /Users/shioihiroto/.local/bin/stack\n```\nこれの解決方法はありますか。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1513521084.000028",
+        "text": "たぶん `curl` でインストールする方法だと思いますが、最近その警告が出るようになりました。\n\n古い `stack` が `/usr/local/bin`  に残っていると出たような気がしますが、どうでしょうか？",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1513521165.000077",
+        "text": "`stack upgrade` は `/Users/shioihiroto/.local/bin/stack` に新しいバージョンの `stack` をインストールしたけど、パスは `/usr/local/bin/stack` に通ってるんだけどいいの？\nって感じだから、 `/Users/shioihiroto/.local/bin/stack` のパスを `/usr/local/bin/stack` より優先度上げればいいんじゃない？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1513523529.000003",
+        "text": "<@U5B3EGEFQ> /usr/local/binにあったstackファイルを削除したら直りました！\n<@U56L7EVNY> パスの優先度の上げ方がわかりませんでした。。！",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1513523800.000060",
+        "text": "`stack` のバージョンが古すぎると `stack upgrade` した時にバイナリが落ちてこない (最新の `stack` をソースコードからコンパイルしだす) ので `/usr/local/bin/stack` を削除します。\n\n逆に新しめの `stack` であれば `stack upgrade` してしまって `export PATH=~/.local/bin:$PATH` を `.bashrc` などに追記しておくと良いと思います。\n\n逆に `export PATH=$PATH:~/.local/bin` にすると常にシステムの `stack` を参照するのではまります。\n\n最新の `stack` の `changelog` を見ると、この問題に対処したように思うのですが、試してないので良くわかってないです。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1513523975.000060",
+        "text": "昔、インデントをカスタマイズできないかと思ってhaskell-modeの中を見てみたのですが、かなりモノリシックなelispで変えるの無理やんって思った覚えがあります（役に立てず申し訳ない）",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1513572069.000086",
+        "text": "もう1つ質問です。haskell-jpにて求人募集を出すことはできますか。出す場合にはどのチャンネルが適切でしょうか。（仕事はもちろんhaskellを用いた開発です）。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1513573852.000111",
+        "text": "前例がなく、現状数が増える見込みもないので、\n<https://www.reddit.com/r/haskell_jp/> か <#C4M4TT8JJ|random> か、Haskell-jp Blog <https://haskell.jp/blog/> に投稿するという形でいかがでしょうか。 \n頻度が高くなるようであれば、（Slackにこだわらず）別のチャンネルを検討します。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1513574646.000210",
+        "text": "了解です！ありがとうございます！",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1513582716.000309",
+        "text": "<@U8G3R30J0> has joined the channel",
+        "user": "U8G3R30J0",
+        "type": "message"
+    },
+    {
+        "ts": "1513587850.000329",
+        "text": "<@U8G16FA59> has joined the channel",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1513600533.000013",
+        "text": "haskell-mode が、emacsでのsyntax highlightに使われているものなのですね、有難うございます！ \n助かりました、この中を見ていきます:+1:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1513605910.000075",
+        "text": "<https://hackage.haskell.org/package/base-4.10.1.0/docs/Data-Type-Equality.html> の `:~:` って何に使うのでしょうか?どうやって使うのでしょうか?¿ :sob::innocent::sob::oden:",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1513607081.000289",
+        "text": "通常のHaskellプログラミングの範囲ではあまり使用する用途はないと思います．この定義自体はとても単純なので `GADTs` が分かっていれば <https://hackage.haskell.org/package/base-4.10.1.0/docs/Data-Type-Equality.html#t::-126->: の定義そのままの意味を持ちます(つまり， `Refl :: a ~ b =&gt; a :~: b` という唯一のコンストラクタを持ちます)． 単純に考えると， `a :~: b` という型を持つ値があるならば(ボトムを考えなければ) `a ~ b` という命題が真にになります．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1513607398.000346",
+        "text": "2つの型が等しいという情報から何らかの実行時リフレクションをしたい場合や型レベルのプログラミングをしたい場合などに役に立ちます(等しいかどうかという情報は非常に重要なので標準の範囲に用意されていますが，型制約についてより汎用的なリフレクションを行いたいなら <https://hackage.haskell.org/package/constraints-0.9.1/docs/Data-Constraint.html#t:Dict> などもあるのでそれを使うと良いと思います． `a :~: b` は `Dict (a ~ b)` と同じです)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1513607551.000539",
+        "text": "なお，1つの主な用途としては，下の方にある <https://hackage.haskell.org/package/base-4.10.1.0/docs/Data-Type-Equality.html#t:TestEquality> があり，実行時表現の同値性を使用したリフレクションなどがあります(2つの値があった場合に同じ表現(型)として扱っていいかを実行時に判断する)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1513609365.000637",
+        "text": "ついでに，GHCの内部よりの話としての詳細は <https://github.com/ghc/ghc/blob/fe6848f544c2a14086bcef388c46f4070c22d287/compiler/prelude/TysPrim.hs#L581>\nに載っているので，もしリフレクションなどの応用的な話ではなく，GHCの内部的な話に興味があるのでしたら，こちらを読んでみるのがいいと思います．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1513612041.000819",
+        "text": "そのものではないのですが、同じ形の型 `Is` がmachinesパッケージで定義されていて、ストリームの入力を指定する手段として使用されています <https://hackage.haskell.org/package/machines-0.6.3/docs/Data-Machine-Process.html>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1513669138.000252",
+        "text": "ありがとうございます:sob::sob:\nまだあまりよくわかっていないのですが、GHCiで `:t Refl` とやると `Refl :: a :~: a` と出てくるのですが、 `Refl :: a ~ b =&gt; a :~: b` はどうしてわかるのでしょうか?:scream_cat:",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1513671215.000201",
+        "text": "FFI を Haskell 2010 で使うときは ForeignFunctionInterface プラグマを指定する必要はなくなったんでしたっけ？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513671253.000051",
+        "text": "Haskell 98 には FFI の話はなく、Haskell 2010 では FFI が記載されてますね。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513671305.000235",
+        "text": "ちなみに、Haskell 2010のサポートはGHC 7.0.1から。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513671995.000009",
+        "text": "あ!GADTsが全くわかってませんでした:sob::scream_cat:\n勉強してみます:sob::writing_hand:",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1513675928.000219",
+        "text": "GADTsに関しては、 <http://dev.stephendiehl.com/hask/#gadts-1> が良い導入になっていると思います",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1513676234.000072",
+        "text": "とりあえずGHCは 7.2.1 から ForeignFunctionInterface が enabled by default になっているようです <https://downloads.haskell.org/~ghc/7.2.1/docs/html/users_guide/ffi.html>",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1513695974.000693",
+        "text": "おおーありがとうございます:heart_eyes::sob:",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1513761620.000026",
+        "text": "Refl は reflexivity の略ですか?symやtrans はどのように使うの関数なのでしょうか?:oden:",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1513786759.000076",
+        "text": "これですね\n<https://ja.wikipedia.org/wiki/%E5%90%8C%E5%80%A4%E9%96%A2%E4%BF%82#.E5.AE.9A.E7.BE.A9>\nそれぞれ Refl(反射律/reflexivity)，sym(対称律/symmetric)，trans(推移律/transitive)を表しています．つまり，同値関係の基本的な公理となる関数ですね．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1513788568.000754",
+        "text": "<@U8HK4CEVB> has joined the channel",
+        "user": "U8HK4CEVB",
+        "type": "message"
+    },
+    {
+        "ts": "1513788569.000134",
+        "text": "Hello. I am slacknowledge bot.\nWhen a thread is added a :memo: (memo) reaction, I will save it.\nEveryone can view the saved thread at <https://slacknowledge.pig-brewing.com> .",
+        "user": "U8HK4CEVB",
+        "type": "message"
+    },
+    {
+        "ts": "1513789565.000144",
+        "text": "質問です :raising_hand: \n[0, 1, 1, 0, 0, 1, 0, … みたいな0と1のリスト（もしくは Array Word32 Word8 とか） があった時にこれをビット列とみなしてByteStringに変換する簡単な方法 or 便利な関数ってありませんか？\n8個ずつchunksして\u00082のn乗を掛けて足してWord8にしてpackするのは思いついたんですが…",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1513790463.000041",
+        "text": "このチャンネルでの知見を漁るのが結構大変だなと思い、slack上で行われたQ&amp;Aを保存して検索しやすくするためのbotを作ってみました。\n:memo: が付けられたスレッドを保存します。\nもしよければ使ってみて下さい:grinning:\n\nこのbotに関する問題などあれば私に教えて下さい:bow:",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1513807811.000452",
+        "text": "おー、ありがとうございます。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513807924.000304",
+        "text": "Bool の Array って、ワードでなく、ちゃんとビットで表現されてませんでしたっけ？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513807967.000061",
+        "text": "Windowsの質問ですが、Cのヘッダで32ビットか64ビットか判断する方法はありませんか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513816444.000164",
+        "text": "`_WIN64`とか `_WIN32`とかのcompiler predefinedマクロに頼らずにってことですか？",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1513816531.000068",
+        "text": "あ、`_WIN64` ってあるんですね。やってみます。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1513817093.000132",
+        "text": "うぉー。できた。ありがとうございます！",
+        "user": "U56MBRKR9",
+        "type": "message"
+    }
+]

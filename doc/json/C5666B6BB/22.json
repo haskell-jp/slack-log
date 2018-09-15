@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1528066615.000083",
+        "text": "ghc-paths-0.1.0.9: using precompiled package\nghc-pkg.EXE: cannot find package ghc-paths-0.1.0.9",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1528066631.000114",
+        "text": "このようなエラーメッセージが出てきまして、他のプロジェクトでも同様の状況でした。",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1528066660.000092",
+        "text": "TravisCI上でも再現しました <https://travis-ci.org/Hexirp/hasga/jobs/387543428#L449>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1528068062.000020",
+        "text": "とりあえず .stack-work を消したり\n~/.stack/ を消してみる、ですかね。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1528084166.000064",
+        "text": "アドバイスありがとうございます。色々試してみたところ <https://haskell.e-bigmoon.com/stack/tips/full-rebuild.html> の一番下で直りました",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1528162418.000100",
+        "text": "extensibleについて再び質問です。\n`Associate k v xs =&gt; FieldName k -&gt; Record xs -&gt; v`\nという型の関数を書くにはどうすればよいでしょうか？\n`FieldName k` はざっくりいうと `Optic` の 型シノニムなので普通のlensや `mkField` で作られたフィールドらしく\n`record ^. field` みたいな式で取り出せるかな、と思ったのですが、\n```\napp\\record-placeholder.hs:53:23: error:\n    • Couldn't match type ‘LabelPhantom\n                             k1\n                             (Inextensible (Field Proxy) '[k1 ':&gt; ()])\n                             (Proxy (Inextensible (Field Proxy) '[k1 ':&gt; ()]))’\n                     with ‘Record xs -&gt; Const a0 (Record xs)’\n      Expected type: Control.Lens.Getter.Getting a0 (Record xs) a0\n        Actual type: FieldName k1\n```\nという内容のコンパイルエラーで怒られてしまいました :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1528162496.000252",
+        "text": "OverloadedLabels を使わずに？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1528162929.000044",
+        "text": "使っています。\nで、 `FieldName` は `#field` のように `OverloadedLables` で多相化された状態ではなく、 `field :: FieldName k` という型の変数として渡されます。\nそこを `FieldName k` 以外の型にした方がいいんだろうか...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1528163053.000057",
+        "text": "FieldNameは`FieldOptic`の特殊な場合で、Proxyと基本的に同じ役割を持ちます。`FieldOptic`の方はLensの機能を持っています",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1528163331.000138",
+        "text": "もしかして謎の `訊` <https://hackage.haskell.org/package/extensible-0.4.9/docs/Data-Extensible-Label.html#v:-35338-> \nで変換するのが正解なんでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1528171038.000017",
+        "text": "引数がFieldNameでないといけないなら、itemAssoc(訊)で変換する必要がありますが、そうでない場合型をFieldOpticにすれば大丈夫だと思います",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1528285816.000488",
+        "text": "<@UB2C2BN2G> has joined the channel",
+        "user": "UB2C2BN2G",
+        "type": "message"
+    },
+    {
+        "ts": "1528355863.000138",
+        "text": "言い忘れていましたが 、オプティックを多相なまま引数に取るのはアンチパターンと考えられているようです(ALensなどがあるのはそのため)。そこを考慮すると、 `FieldName k` を引数に取って、 `hlookup (associate :: Membership xs (k ':&gt; v)` と書くのがよさそうです",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1528356351.000309",
+        "text": "ありがとうございます。\n報告が遅くなりましたが、私の用途で `FieldOptic k` を引数にすると `v` の型がうまく定まらないのかコンパイルエラーになってしまったので、\n`rec ^. itemAssoc (Proxy :: Proxy k)` と書いて解決しました。\n（ `Associate k v xs =&gt;` というコンテキストだったので）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1528552108.000042",
+        "text": "<@UB5NQ764F> has joined the channel",
+        "user": "UB5NQ764F",
+        "type": "message"
+    },
+    {
+        "ts": "1528683298.000064",
+        "text": "Is there a way to inspect the definition of derived instances?\nSay:\n```data Free f a = Pure a | Free (f (Free f a)) deriving Functor```",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1528683717.000158",
+        "text": "you can use the -ddump-deriv option: <https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/debugging.html?highlight=#ghc-flag--ddump-deriv>",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1528683781.000054",
+        "text": "Thanks!",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1529254455.000129",
+        "text": "```\ndata Tree a = Node a Tree Tree | Leaf a\n```\nのような循環した構造をextensibleで宣言するにはどうすればいいでしょうか？typeで愚直に宣言すると循環していると言ってエラーが出てしまったのですが……",
+        "user": "U56G77VM1",
+        "type": "message"
+    },
+    {
+        "ts": "1529283483.000115",
+        "text": "```data T a = N a (T a) (T a) | L a```\n多分こういう意味では？",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1529283573.000201",
+        "text": "data constructor fields の kind は `*` が必要",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1529292139.000068",
+        "text": "newtypeするのが無難です。data familyを活用して、再帰する為のラッパーを作るという力技もできなくはないです",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1529304365.000096",
+        "text": "ありがとうございます！",
+        "user": "U56G77VM1",
+        "type": "message"
+    },
+    {
+        "ts": "1529466454.000056",
+        "text": "Equality constraintsに関する質問です。型変数aはFoo型もしくはBar型であるって制約を課すことは可能なのでしょうか。。`someFun :: (a ~ (Foo || Bar), Monad m) =&gt; m a` みたいな",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1529476423.000236",
+        "text": "実行環境ないので試してないのですが\n```\nimport Data.Type.Bool\nimport Data.Type.Equality\n\nsomeFun :: (a == Foo || a == Bar) ~ True =&gt; ...\n```\nとかはどうでしょう？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1529479081.000043",
+        "text": "閉じた型族を使えば実現できます。\n```\n{-# LANGUAGE ConstraintKinds, TypeFamilies #-}\nimport Data.Constraint\ndata Foo\ndata Bar\n\ntype family IsFooOrBar x :: Constraint where\n  IsFooOrBar Foo = ()\n  IsFooOrBar Bar = ()\n  IsFooOrBar x = Bottom\n\nsomeFun :: (IsFooOrBar a, Monad m) =&gt; m a\nsomeFun = undefined\n```",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1529479221.000099",
+        "text": "わーありがとう。やってみます！",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1529629607.000072",
+        "text": "でも、その制約をしたら、後からどうやってFooとBarの型に取れるの？",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1529660416.000597",
+        "text": "open-unionを使うのが実用的で手っ取り早い解?\nしかしこれもliftUnionを通すので引数そのまま渡すわけではないですね…\nHaskellのジェネリクスは異種変換ではないですし,Rustのトレイトオブジェクトみたいなのを導入してしまったら結局は動的ディスパッチになる\nパターンマッチとかで型によって静的分岐出来たらそれは実質的な関数オーバーロードですね\nHaskellに関数オーバーロード入れてしまって良いんだっけ…?",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1529661544.000209",
+        "text": "<@UBD63QPAS> has joined the channel",
+        "user": "UBD63QPAS",
+        "type": "message"
+    },
+    {
+        "ts": "1529698010.000096",
+        "text": "<https://gist.github.com/notogawa/2fbf7b24cd4697d70dc70dc46c91bd04>",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1529737751.000045",
+        "text": "ansi-wl-pprint -&gt; prettyprinter + prettyprinter-ansi-terminalの話が出てますが，ansi-wl-pprintのDocをprettyprinter + prettyprinter-ansi-terminalのDoc AnsiStyleに変換する関数って誰か作ってたりしますかね？(諸事情で変換したくて自分では書きたくないのですが)\n<https://github.com/ekmett/ansi-wl-pprint/issues/18>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1529743351.000032",
+        "text": "ありがとうございます、解決しました！\nざっくり説明しますと、\n- サポートデスクからユーザー及び送られてきたチケットを解析するアプリを開発している。\n- サポートデスクのAPIでチケットをフェッチすると以下のデータが得られる。\nチケット\n```\n{ \"tickets\":[],\n  \"next_page\": some_url\n}\n```\nユーザー\n```\n{ \"users\":[],\n  \"next_page\": some_url\n}\n```\n最初別々の関数で取得してたけど、一般化させようって話になった。\nこれがその結果です。発送はnotogawaさんが教えてくれたものと似ていると思います。\n(`iteratePages`が取得関数です。)\n<https://github.com/input-output-hk/log-classifier/pull/19/commits/ef7b8e54df080e476053df1fdb3c9909bfd8f340>",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1529860312.000060",
+        "text": "<@UB1MW6THP> has joined the channel",
+        "user": "UB1MW6THP",
+        "type": "message"
+    },
+    {
+        "ts": "1530072171.000072",
+        "text": "TemplateHaskellって、生成したコードは `.hs` で出力できるの？例えば\n```{-# LANGUAGE TemplateHaskell #-}\nmodule Foo where\n\nimport Language.Haskell.TH.Syntax\n\nfoo = $(lift (\"foo\" ++ \"bar\"))\n```\n=======&gt;\n```\n{-# LANGUAGE TemplateHaskell #-}\nmodule Foo where\n\nimport Language.Haskell.TH.Syntax\n\nfoo = \"foobar\"\n```\nみたいな",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1530073276.000232",
+        "text": "ghc に `-ddump-splices` というオプションで、生成したソースを書き出すことはできますが、 `.hs` として直接コンパイルできるものではありません。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1530073420.000182",
+        "text": "それは知ってるけど。。。直接repoにcommitできるようにしたいなあ。。。",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1530073536.000155",
+        "text": "変換してコピペしよう。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1530073580.000101",
+        "text": "そして、自分で探して、コピペするには、多くなるとやばいなあ。\nTHの生成はローカル環境に関連あるから、THのコードを直接使えなくて。。。",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1530073689.000130",
+        "text": "そういうスクリプトを書くしかないでしょう。\n要は直接依存してないパッケージ名の解決とimportする部分さえ吐き出せればいいんでそんなに難しくはないはず...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1530073828.000240",
+        "text": "hmmm",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1530493493.000174",
+        "text": "tagの生成って皆さん何を使ってます？ :point_down: とかいろいろありますけど。\n<http://hackage.haskell.org/package/hothasktags>\n<http://hackage.haskell.org/package/haskdogs>\n<http://hackage.haskell.org/package/hasktags>\n<http://hackage.haskell.org/package/fast-tags>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1530506037.000129",
+        "text": "僕はhaskdogsを使ってます！\nむしろこんなに色々あったのかー",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1530508221.000093",
+        "text": "特に考えもなく最初に見つけた `hasktags` を使ってました。色々あるのね。",
+        "user": "U4M4XHKB8",
+        "type": "message"
+    },
+    {
+        "ts": "1530510682.000192",
+        "text": ":point_up: の4つ全部試したわけでもないし確かほかにもあったかと思いますが、とりあえず hasktags に戻ってます。 hothasktags はのLTSでビルドできなかったし...\nあとちなみに、haskdogsは実際にはhasktagsのラッパーです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1530585055.000160",
+        "text": "無限リストを NonEmpty みたいに表現する常套手段って何かありますか？\n\nふつうにこのようにやると、\n```\nxs = [1..] :: [Int]\nlet (x: _) = head $ drop 10 xs\n```\nパーシャルだぜ、って警告されてしまいます。これを（できれば型で）なんとかしたいです。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1530585366.000173",
+        "text": "<http://hackage.haskell.org/package/streams> が使えます",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1530589396.000037",
+        "text": "ありがとうございます！みてみます！",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1530601571.000033",
+        "text": "お手軽な  `ghci :etags`  を使ってます。なんにも依存しない:sweat_smile:",
+        "user": "U90FHSDFG",
+        "type": "message"
+    },
+    {
+        "ts": "1530624550.000194",
+        "text": "```\ntype family Fst (t :: (a, b)) :: a where\n  Fst '(a, b) = a\n\ntype family Snd (t :: (a, b)) :: b where\n  Snd '(a, b) = b\n\nextractedTuple :: '(Fst a, Snd a) :~: a\n```\nみたいなので， `extractedTuple` を `unsafeCoerce` 無しに実装する方法ってありますでしょうか？もしくは，Fst/Sndの代用となるtype utilityってなんかあったりするのでしょうか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    }
+]

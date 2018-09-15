@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1524378882.000009",
+        "text": "ありがとうございます。\n私の質問が言葉足らずでしたが、\nパーサーを使う程でもない、10数行程度の入門レベルのコンソールアプリのサンプルを作る際に、\n毎回(pack . show)と(read . unpack)で行数がやや膨らむので悩んだところでした。\n\n特に定番的なものがなければ、入門レベルならむしろその方が、追加のライブラリも不要ですし、\n対称的で見栄えも良い、という感じでも問題は無いでしょうか？",
+        "user": "U8LLBJ59Q",
+        "type": "message"
+    },
+    {
+        "ts": "1524381354.000050",
+        "text": "いいと思います。\n個人的には、入門程度のアプリケーションであれば、そもそもTextを使うまでもないかと思います（Textの勉強をしている場合は別ですが。。。）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524382426.000067",
+        "text": "textはデファクトみたいなもので、\n早いうちから慣れておいた方が後々楽かなぁという思いでした。\n\n自分のやり方があっているのかが不安でしたが、\nHaskellベテランの方のご意見をお伺い出来て安心しました。\nありがとうございました！",
+        "user": "U8LLBJ59Q",
+        "type": "message"
+    },
+    {
+        "ts": "1524406964.000035",
+        "text": "BuilderとLazy版Textを通るのでかなり遠回りですが、<http://hackage.haskell.org/package/text-1.2.3.0/docs/Data-Text-Lazy-Builder-Int.html> というモジュールもあります",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1524407811.000107",
+        "text": "ご紹介ありがとうございます！\n\n実は、これにも疑問があったのですが、Lazy版しか提供されていないのは\n何か理由があるのでしょうか？\nストリームから読み込む際に、変換可能なバイト列が揃うまで評価を待ちたいから、\nみたいな事情でしょうか？\n\n更に質問で恐縮ですが、よろしくお願いします。",
+        "user": "U8LLBJ59Q",
+        "type": "message"
+    },
+    {
+        "ts": "1524408870.000115",
+        "text": "私もなぜ正格なBuilderを提供しないのか、実はよくわかっていません。標準のBuilderは特別効率がよいとは言えないです…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1524410845.000047",
+        "text": "正格版があったほうがパフォーマンス的に有難い気もするのですが、\nパフォーマンス気にするならそもそもBuilder以外の方法を使いましょう、\nみたいな方針なのですかね…\n\nご回答ありがとうございました",
+        "user": "U8LLBJ59Q",
+        "type": "message"
+    },
+    {
+        "ts": "1524436360.000067",
+        "text": "多分大きな文字列を組み立てる前提だから、正格に結合するとメモリー消費量がすごく大きくなってしまうという想定でやってるんじゃないっすかね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524440609.000131",
+        "text": "扱う文字列の大きさが、(Lazyな)Builderを使うかの判断基準にはなりそうですね\nありがとうございます！",
+        "user": "U8LLBJ59Q",
+        "type": "message"
+    },
+    {
+        "ts": "1524448493.000059",
+        "text": "HDBC-mysqlで、ブロックが発生するクエリを実行した際に、他のスレッドが停止してしまい困っています。\n対処方法などご存知の方いたら教えて下さい。\n（HDBCというより、ffiで一般的な話な気もしますが、調べてもわからず、、）\n```\nmodule Main where\n\nimport Control.Monad\nimport Database.HDBC\nimport Database.HDBC.MySQL\nimport Control.Concurrent\n\nmain = do\n  forkIO $ do  -- quickQuery'でブロックが発生した時点で処理がとまる\n    forM_ [0..10] $ \\i -&gt; do\n      print i\n      threadDelay $ 1000*1000\n  conn &lt;- connectMySQL defaultMySQLConnectInfo {  } \n  withTransaction conn $ \\c -&gt; do\n    quickQuery' c \"select * from hoge where id = 1 for update\" [] -- 別途ロックしてから実行\n  threadDelay $ 10000*1000\n```\n\n```\nghc-options:         -threaded -rtsopts -with-rtsopts=-N -eventlog\n```",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1524450277.000049",
+        "text": "ブロックする可能性のある関数をunsafe ffiで呼び出しているのが原因だと思います。ライブラリ側でsafe ffiに直すか別のパッケージを使う以外方法はないと思います。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1524450800.000048",
+        "text": "mysqlパッケージの話ですが、基本的に同じなのでここを読むとわかりやすいかと思います。 \n<https://ro-che.info/articles/2015-04-17-safe-concurrent-mysql-haskell>",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1524451585.000043",
+        "text": "ベンチを取ってないので断言はできませんが、入力が短ければtoLazyTextによって作られるlazy textもsingletonになってtoStrictもコピーしないのでそれほど非効率にならないのではないかと思いました。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1524480539.000339",
+        "text": "リプライありがとうございます。\nBuilderがちょっとしたアプリでも使えそうな感じですが、\n一般的にもBuilferは良く使われるものなのでしょうか？\nLazyに変換するのをサボりたくなって、簡単な文字列変換なら、つい敬遠してshowとappendで済ませてしまいます…",
+        "user": "U8LLBJ59Q",
+        "type": "message"
+    },
+    {
+        "ts": "1524486296.000224",
+        "text": "ケースバイケースじゃないかと思います。時間、空間効率に問題がなければimportも少なくて済むpack.showが楽でしょうし、効率も気になるならBuilderが良いのではないかと思います。Stringは非常に富豪的なデータ構造なので、それが問題になるかを考えれば自ずと決まるのではないかと。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1524486809.000009",
+        "text": "皆様のお話でBuilderという選択肢が得られて勉強になりました。\nいろいろなご意見ありがとうございました！",
+        "user": "U8LLBJ59Q",
+        "type": "message"
+    },
+    {
+        "ts": "1524487406.000335",
+        "text": "HLearnはたしかsubhaskと併せて野心的なプロジェクトだったんですが、作者が自分の考える最高のコードを書くには、まだGHCが機能不足だという結論にいたって開発が止まったという話だった気がします。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1524487459.000212",
+        "text": "結局今はPythonを使ってるとredditかどこかで見かけた気がします",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1524487641.000463",
+        "text": "<http://www.datahaskell.org/docs//community/current-environment.html#machine-learning> dataHaskellというコミュニティがライブラリの情報をまとめています",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1524549790.000338",
+        "text": "ありがとうございます",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1524635726.000256",
+        "text": "<@UACQ9J5D3> has joined the channel",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1524635816.000134",
+        "text": "Algebraのことなら、個人的にArtinの本をお勧め\n<https://www.amazon.co.jp/Algebra-Classic-Classics-Advanced-Mathematics/dp/0134689607>",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1524638935.000310",
+        "text": "高いですねw",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1524665291.000248",
+        "text": "<@U4M9NJ7QE> ありがとうございます！\n原因と対応方法まで理解できました。",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1524704315.000063",
+        "text": "大変抽象的な聞き方で申し訳ないのですが。ソースコードを入力にコード規約のような複数のチェックを実施して、その結果を全て返すというような処理を書くとき、haskellの場合どのような書き方をするのが王道なのでしょう。",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1524704328.000069",
+        "text": "まだ詳しく調べ切れてないのですが、heterogeneous listの実装ってなにがおすすめですか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524704616.000198",
+        "text": "いまいち何が懸念なのかわかりませんが、\nその要件だけ聞いてざっくり設計するなら:point_down: な型の関数を書きますかね。。。\n```\ntype SourceCode = Text\n\ndata AST = {- ソースコードのASTを表す型 -}\n\ndata AnalysisResult = {- ... 解析結果を表す型 -}\n\nparse :: FilePath -&gt; SourceCode -&gt; AST\n\nanalyze :: AST -&gt; [AnalysisResult]\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524706881.000122",
+        "text": "すみません。具体的な懸念があるということではなく純粋にどういう形になるのが一般的なのかと思いまして。\n\nいただいた例ではテキストを抽象構文木に変換したのちに解析して最終的に解析結果のリストを返すということですね。いまひとつ具体的なイメージがわかないのはanalyze関数の部分です。チェックの内容にもよると思うのですが、複数のチェックを実施する場合、チェックの都度ASTを頭から舐めなおすことになるのかなと。\n\n単純化するためにチェックの内容を特定のインストラクションが含まれているとして、”A\"がある・”B\"がある・”C\"があるの３つのチェックをする場合、ASTに\"A\"が含まれるか→結果を結果リストに追加→ASTに”B\"が・・・→結果リストを戻すというような実装になるのか、それともASTを頭から葉まで一回舐めていくうちに結果を貯めていくような方法とするのか、それらを混在させるのか。\n毎回舐めなおすのはどんなチェックにも対応できそうですが効率が悪いですし、一方舐めるのを一回で済ませようとしても必ずバックトラックが必要なタイプのチェックもあるように思いますし。\n単にOK・NGを返す、もしくは最初にエラーとなった内容を返すだけなら個々のチェックを実施するパーサを連結すればできそうだなというイメージはあるのですが、全てを返す方法がイメージできていません。\n「単一の入力に対して複数のチェックを実施して、その結果を全て返却する」というような処理は私の仕事では頻出のパターンでして、比較的一般的な処理だと思いましたので、良く知られたオーソドックスな方法があるのかも？と思った次第です。全体的に分かりにくくて申し訳ありません。",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1524709134.000250",
+        "text": "もちろん一般論としてなるべくバックトラックが少ない方が効率的なのは間違いないでしょうし、その辺はやってみないとなんとも。。。という感じです。幸いhlintをはじめその手のHaskell製ツールはたくさんOSSで存在するので、読んでみるといいかもしれません。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524709428.000213",
+        "text": "ぱっと思いつくのは、Haskellのソースコードで言えば、「module単位で行うチェック」、「関数単位で行うチェック」、「型宣言に対して行うチェック」、「式に対して行うチェック」みたいにあらかじめ分類しておいた上で、各単位の頭から都度処理する、みたいなやり方ですかねぇ。\n\n式単位だと当然入れ子になる式が出てくるでしょうから、お話はまだ複雑になりますけども。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524780637.000404",
+        "text": "コマンドライン引数のオプションの解析、自分で書いたことはありますが「車輪の再発明やめよう」ということでライブラリを使おうと思い調べてみたところ、かなり候補が出てきたのですが、オススメとか避けるべきとかってありますかね\n<https://wiki.haskell.org/Command_line_option_parsers>",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1524781311.000159",
+        "text": "ほかとの比較はしたことないですが、optparse-applicativeはよく使われているイメージです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524791060.000198",
+        "text": "自分も最近は optparse-applicative をよく使ってます。 ただ、これが理想かというとう～ん……",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1524794841.000017",
+        "text": "extensible以外のものをお探しでしょうか？",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1524794959.000159",
+        "text": "<http://hackage.haskell.org/package/HList> ?",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1524796946.000217",
+        "text": "そうですね、extensibleも（もちろんいにしえのHListも）含めて見てみます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524797413.000182",
+        "text": "この際なのでついでにfumiさんに伺いたいのですが、OverloadedLabelsをextensibleに応用した、\n<https://hackage.haskell.org/package/extensible-0.4.8/docs/Data-Extensible-Label.html>\nを使った場合、どんな使用方法になるのでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524797600.000180",
+        "text": "もしかして、\n<https://www.schoolofhaskell.com/user/fumieval/extensible/extensible-records>\nの\n```\nmkField \"name collective cry\"\n```\nの箇所がなくなって\n```dove :: Animal\ndove = #name @= \"dove\"\n  &lt;: #collective @= \"dule\"\n  &lt;: #cry @= Just \"coo\"\n  &lt;: Nil\n```\nみたいに書けるイメージですかね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524797633.000054",
+        "text": "はい、従来はTemplate Haskellで生成したものをラベル記法にそのまま置き換えることができます",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1524804784.000089",
+        "text": "リストにないですが tanakh さんの optparse-declarative はそこそこ楽できた覚えがあります",
+        "user": "U5ANNFMNZ",
+        "type": "message"
+    },
+    {
+        "ts": "1524806263.000227",
+        "text": "選択肢を増やすようで申し訳ないですが、optparse-applicativeに対抗されて作られたalternativeです。\n上記のwikiにも載っていません。\n<https://github.com/lspitzner/butcher>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1524876327.000156",
+        "text": "stack new でテンプレートを指定しなかったときデフォルトで使われるファイルを new-template 以外のカスタムテンプレートを使うように簡便に指定できないものでしょうか．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1524892676.000118",
+        "text": "globalのconfig.yamlでdefault-templateを指定すればできるはずです\n<https://docs.haskellstack.org/en/latest/yaml_configuration/#default-template>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1525006040.000091",
+        "text": "できました．ありがとうございます:pray:",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1525184336.000503",
+        "text": "package.yaml or cabalで,stack testを実行した時に特定のプリプロセッサフラグを有効にする方法は無いでしょうか?\nDEVELOPMENTフラグを有効化してテスト時のみYesod.Auth.Dummyを読み込ませたいのですが…\n一々stack test --flag application:devとタイプするしか無いのでしょうか\nサンプルを見るとtest以下にcpp-options: -DDEVELOPMENTと書けば良いように見えたのですが,どうもそうではないっぽい",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1525192222.000354",
+        "text": "-Dオプションはパッケージ単位でしか効かなかった気がします(未確認)",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1525192346.000566",
+        "text": "<https://github.com/haskell/cabal/issues/2821> これが使えれば、テストスイートからだけフラグを有効にする、という事が可能かと思われますが、採用されるか分からない感じですね",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1525224759.000259",
+        "text": "なるほど、 cabal の flag はソースコード中でそのようにして参照できるのですね。\nやってみます！",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1525326102.000154",
+        "text": "ああなるほどそれが議論されているということは普通では無理ということでしょうね\n外部パッケージのためだけかと思ってました",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1525388436.000427",
+        "text": "yesod界隈では{fast,monad}-loggerが使われていますが、一般的にロガーを自分で選択するときは何を使っていますか？",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    }
+]

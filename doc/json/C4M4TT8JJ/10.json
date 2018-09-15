@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1518479005.000147",
+        "text": "最近社内Slackで江添さんのhaskellに纏わる誤解を説くbot化しています",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518483637.000124",
+        "text": "Haskell.orgが2年ぶり？にGoogle Summer of Codeにメンター組織として採択されました。\n\n<https://summerofcode.withgoogle.com/organizations/5706672807346176/>",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1518484722.000162",
+        "text": "本当に素朴なトピックっぽくなるのですが、LTSのソルバを更新して一式環境を新しくしたら、Hlint が `++ でなく &lt;&gt; でリスト結合しないの？` っていうサジェストをしなくなりましたね",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518484917.000035",
+        "text": "hlint は、バージョンによって言うことがコロコロ変わりますよ。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518484967.000038",
+        "text": "そうだったのか……",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1518484969.000097",
+        "text": "すばらしい！まとめて記事にしていただきたいぐらいです！ :yum:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1518484988.000315",
+        "text": "あと、&lt;&gt; が semigroup のメソッドになって、GHC 8.4 から semigroup パッケージが base に組み込まれます。現在、&lt;&gt; 周りは変化が激しいです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518485013.000084",
+        "text": "なので、ちょっと気になって調べたのですが、そもそも <https://hackage.haskell.org/package/base-4.10.1.0/docs/src/GHC.Base.html#local-6989586621679017803> の `[a]` に対する mappend の実装が \n```\n{-# INLINE mappend #-}\n        mappend = (++)\n```\nってなってて、思いっきり自分でたらい回しの順序を増やしているだけだった…",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518485038.000122",
+        "text": "デフォルトの実装もなくなったので、面倒でも実装を書いておくのが正しい対策のようです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518485182.000249",
+        "text": "別のプログラミング言語の `+ で文字列結合するよりビルダー経由で…` っていうノウハウが逆転してしまうアレを連想してしまった（普通に `[a]` に対しては `++` でよいっぽい）",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518485239.000242",
+        "text": "江添さん、なんだかんだで「わかり」を得ると途端に絶賛しだす",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518485304.000347",
+        "text": "いちいち `++` を `import Data.Monoid (&lt;&gt;)` して書き換える必要なんてなかったんや…（つらい）",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518485327.000200",
+        "text": "遅延評価されるリストですしね。 :smirk:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1518485447.000243",
+        "text": "実際のところ、文字列に関しては\n<https://hackage.haskell.org/package/text-1.2.3.0/docs/Data-Text-Lazy-Builder.html> や\n<https://hackage.haskell.org/package/bytestring-0.10.8.2/docs/Data-ByteString-Builder.html>\nなど、文字単位で1個ずつ結合していく `++` よりも効率のよいビルダーがあるので、参考までに。（すでにご存じでしたら済みません）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1518485529.000228",
+        "text": "参考：",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518485530.000234",
+        "text": "<https://github.com/kazu-yamamoto/logger/pull/155>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518485562.000100",
+        "text": "最終的にputStrLn程度に出力する、つまりは `Show a` 実装程度には `++` として、大規模にファイルとして出力する、あるいは pretty-print するとか `AST` みたいなデータ構造の場合にはビルダー使うっていうやり方してますねー",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518485562.000168",
+        "text": "`map` より `fmap` の方がいいんじゃね？とも言われるし、てっきり多相関数の方がコンテナ型を変えたとき( `[a]` から `Vector a` に変えるとか)に楽だから言ってるのかと思ってた。",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1518485688.000254",
+        "text": "ああ！ `map じゃなくて &lt;$&gt; つかいなよ` も前のHlintにありましたね。\nしかし…\n```\ninstance Functor [] where\n    {-# INLINE fmap #-}\n    fmap = map\n```",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518485804.000238",
+        "text": "こういうの、もちろん haskell の言語仕様ではなく GHC の実装であるから、もしかしたら処理系によっては何故か抽象的な方の関数の方が効率の良いパターンがあるかもしれないけれど、そもGHC拡張つかったファイルの時点でGHCに寄った実装でいいんや…",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518485871.000077",
+        "text": "将来型を変える気がないのであれば、素朴に専用の関数を使うのでいいです。メソッドを使う必要はありません。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518486014.000074",
+        "text": "Prelude の関数実装は一度ならずふとしたきっかけごとに見直すと学びがありますね…",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518486646.000227",
+        "text": "いやまぁ、きっかけは <#C8KBGEBR7|code-review> のところで `++` つかってる箇所についてそう指摘しようかと思ったら、そういえばホントに `&lt;&gt;` 使った方が効率いいんだっけか？ ってなったからでした",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518486818.000042",
+        "text": "`&lt;&gt;` で繋ぐようにコーディングする場合、意志的に左右の変数がそれこそ `[a]` でなく、ビルダーに置き換えたり `newtype` などで敢えて別のコンテナにした型として取り扱う予定があるとかになるでしょうね。 `&lt;$&gt;` についても同様（しかし、それだったらその必要なタイミングで書き直すので十分）",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518486940.000211",
+        "text": "Haskell に IntelliJ IDEA なみのIDEができれば、そういう書き換えも一瞬でできるんでしょうけどねぇ... :disappointed_relieved:\nhaskell-tools-refactorに期待か？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1518490672.000015",
+        "text": "<https://www.reddit.com/r/haskell/comments/3sm1j1/how_to_mix_the_base_functorrecursion_scheme_stuff/>\n自分でGADTsスタイルのASTFunctor書いてみてやっとインデックス付きFixのモチベーションが理解できてきた",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518491021.000187",
+        "text": "<https://stackoverflow.com/questions/25355570/simplifying-a-gadt-with-uniplate>\n関連 \n\n背景にある論文 <http://dreixel.net/research/pdf/gpif.pdf>",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518496172.000208",
+        "text": "<@U4LGTMTMK> ふと思いついてまだ深く考えてないんですが技術書典での自分と <@U4M4XHKB8> さんの卓で <http://Haskell.jp|Haskell.jp> の宣伝をするポストカードみたいなもの配りませんか？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1518496323.000060",
+        "text": "いいですね！誰か知り合いを手伝いに行こうと思っていたので、更によい口実ができました！ :smile: \n<https://trello.com/b/GfAyczPt/haskell-jp>\nに追加しましょう！\n最初からTODOで大丈夫です。\n期限ややることなどを挙げておいていただけると助かります！ :pray:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1518496682.000015",
+        "text": "見てる限りだとみなさん結構hlint使ってらっしゃるんですね\n前に使ってた時にうるせぇわざとこう書いてんだよっていいたくなる指摘ばっかりだったので使うのをやめてしまった…",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1518498418.000027",
+        "text": "うるさいルールは、--ignore で消せばよいかと。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518498441.000140",
+        "text": "`hlint --ignore=\"Use fewer imports\" --ignore=\"Use camelCase\"` とか",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518498693.000127",
+        "text": "了解です！",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1518505209.000200",
+        "text": "何も考えずhlintに矯正されてしまった",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1518517076.000469",
+        "text": "いっそ自動で直してもらいたい、すでにあるのかもしれませんが",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1518521908.000137",
+        "text": "迷惑メール判定されてたという初歩的なあれでした orz",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1518530197.000478",
+        "text": "コーディングスタイルは一貫したいしlintも機械がやってほしいっていう需要はあって。やっぱりみんな gofmt みたいなのを求めてしまうのです <https://hackage.haskell.org/package/hfmt>",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518563084.000167",
+        "text": "Suggestion: Reduce duplicationはコピペに対する抑止力になるので重宝してるんですが、ただfactor outしたところで「これにどんな名前をつければいいんだろ」みたいなコード片が出来上がることもあるので、うーんという感じです",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1518598749.000377",
+        "text": "3日前に PR 投げたけど音沙汰がない……\nメンテする気ないかな <https://github.com/projectorhq/haskell-liquid/pulls>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1518598961.000316",
+        "text": "一週間ぐらいたったら ping を打つとよいです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518598993.000258",
+        "text": "<https://github.com/vincenthz/hs-tls/issues/264>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518599003.000130",
+        "text": "こんな状況でも、くじけてはダメ。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518599064.000043",
+        "text": "3日ぐらいならよくありますよ。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1518599656.000400",
+        "text": "ただ、ちょっと気になったんですが、\n部外者ながら指摘しますと、\n<https://github.com/projectorhq/haskell-liquid/pull/6/files#diff-2d0936a8864887eabbf384ad52ad12da>\nの修正前のとおり、テストでわざわざ「空文字列の場合は失敗とする」と明記しているのにそれを修正すると言うことは、それなりの動機を description などに書いた方がいいんじゃないかと思います。\nその方が説得力があるかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1518600983.000284",
+        "text": "自分の利用には困らないので気長に待ってみます",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1518601057.000337",
+        "text": "空文字列の件は確かに 動機足しておこう",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1518659509.000074",
+        "text": "AstをFunctorとして、Fixコンビネータと組み合わせてめっちゃ柔軟に取り回せるところまでは良かったんですが、Ast -&gt; Env -&gt; Val の Val の型構成子に「組み込み関数およびユーザー定義関数」の実態が入る為に Functor に出来ないってところで詰まりました",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518659662.000031",
+        "text": "`[a] -&gt; Either e a` って関数の型をFunctorにする術ってあるのだろうか…",
+        "user": "U98QDF5EJ",
+        "type": "message"
+    },
+    {
+        "ts": "1518661859.000201",
+        "text": "ちょっとあまりやりたいことがよく分かってませんが，negative positionがなんらかのfunctorであるのを保ったままということなら，多分無理だと思いますね．\n<https://hackage.haskell.org/package/bifunctors-5.5/docs/Data-Bifunctor-Biff.html#t:Biff> において pがProfならBiff p f gはどうしてもProfになってしまうので",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1518662056.000020",
+        "text": "`newtype Foo e a = Foo([a] -&gt; Either e a)` したときに `fmap :: (a -&gt; b) -&gt; Foo e a -&gt; Foo e b` と考えてやると何らかの方法で `[b] -&gt; Either e b` な関数を作る必要がありますが、 `[b]` を `[a]` に変換して `[a] -&gt; Either e a` に渡す方法が無いので無理な気がします（圏論わからないけど多分mizunashi様の言っていることと同じ）",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    }
+]

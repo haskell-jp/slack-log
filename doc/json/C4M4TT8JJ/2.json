@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1511166909.000391",
+        "text": "GHC 8.4 はこんな感じ：",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511166910.000277",
+        "text": "<https://ghc.haskell.org/trac/ghc/wiki/Status/GHC-8.4.1>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511166920.000047",
+        "text": "DependentHaskell は入らないみたい。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511166949.000168",
+        "text": "hadrian は入る。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511167124.000204",
+        "text": "GHCが Haskell コードをコンパイルする速度が上がるみたいだけど、どれくらい速くなるのかなぁ。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511314597.000198",
+        "text": "『本物のプログラマは Haskell を使う』今の情報に更新して本の形にまとまってほしい\n<http://itpro.nikkeibp.co.jp/article/COLUMN/20060915/248215/>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1511315247.000245",
+        "text": "著者が音信不通で、みんな心配しています。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511315329.000060",
+        "text": "あら、そうなのですね",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1511317171.000023",
+        "text": "GHC 7.6 以降、Data.ByteString が IsString のインスタンスを export していたのか！",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511317174.000075",
+        "text": "知らなかった。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511317188.000091",
+        "text": "import Data.ByteString.Char8() しまくりだった。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511325934.000143",
+        "text": "Data.MonoidやControl.Applicativeのimport関係で、GHCのバージョンによって警告が出たり出なかったりする問題ですが、この度 #ifdef を使わない画期的な解決方法が発見されました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511325963.000037",
+        "text": "こんなモジュールを作成し、必要なら import すれば OK です。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511325964.000064",
+        "text": "<https://github.com/kazu-yamamoto/dns/blob/master/Network/DNS/Imports.hs>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511326034.000038",
+        "text": "魔法のようです。素晴らしいです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511337278.000066",
+        "text": "hlint がまた強力になっていて、昔出さなかった suggestion を出すようになっています。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511337303.000053",
+        "text": "unsafePerformIO を NOINLINE してないことも指摘されました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511337341.000139",
+        "text": "x == Nothing も isNothing を使えと言われるんですが、== だと辞書渡しになるから遅いんですかね？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511341418.000349",
+        "text": "少なくとも前者はxが `Eq a =&gt; Maybe a` でないといけないので後者の方が汎用的なコードではありますね(パフォーマンスのことは知りません)",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1511355826.000505",
+        "text": "bytestring-0.9.0.4からみたいですね。ByteString型はData.ByteStringとData.ByteString.Char8で同じで、かつインスタンスはモジュールではなく型に紐付く物なので、 `import Data.ByteString.Char8 ()` は不要ではないかと思いました。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1511356046.000171",
+        "text": "これAMPが実装されたときによく見た物だと思います。たいていの場合 `import Prelude` を最後に置くとCPPなしで警告を避けられます。\n参考: <https://ghc.haskell.org/trac/ghc/wiki/Migration/7.10#GHCsaysTheimportof...isredundant>",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1511356432.000022",
+        "text": "Coreを見ると少なくとも8.2.1では同じコードにコンパイルされるようです。unfoldingは少し違いますが。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1511356487.000320",
+        "text": "```\nisNothing                                                          \n  = \\ (@ a_a217) (ds_d21I :: Maybe a_a217) -&gt;\n      case ds_d21I of {\n        Nothing -&gt; GHC.Types.True;                         \n        Just ipv_s21X -&gt; GHC.Types.False\n      }\n               \nisNothing'     \n  = \\ (@ a_a210) _ [Occ=Dead] (x_a1TR :: Maybe a_a210) -&gt;\n      case x_a1TR of {                                        \n        Nothing -&gt; GHC.Types.True;                                  \n        Just a1_a22b -&gt; GHC.Types.False                      \n      }\n```\nisNothingがパターンマッチ、isNothing'が(==)です。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1511426979.000124",
+        "text": "<@U84LW224U> has joined the channel",
+        "user": "U84LW224U",
+        "type": "message"
+    },
+    {
+        "ts": "1511427200.000132",
+        "text": "投稿することが出来るようになりました。TravisCIのcron機能を使って実行し続ければOKだと思います。\n<https://github.com/Hexirp/github-trends>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1511427530.000242",
+        "text": "気になっていることは連携できるサービスの数の制限を回避するために古いタイプのトークンを使っていること、そのトークンは自分で取得するか代表者に取得してもらうかどっちがいいのか、どのチャンネルに投稿するようにしたらいいのか、このリポジトリは公式ユーザー <https://github.com/haskell-jp> に送るべきか、といったことです。",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1511479286.000062",
+        "text": "了解です。ちょっと詳細観て検討しますね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511480634.000099",
+        "text": "<@U5LEE6C1J> \n(1) 差し支えなければ <@U5LEE6C1J> に取得・設定までお任せしたいのですが、何か懸念点はありますか？\n(2) チャンネルは適当に作ってしまってください。作った後のアナウンスも <#C4LFB6DE0|general> にやっていただけると助かります。\n(3) 差し支えなければ <https://github.com/haskell-jp> をownerにさせていただきたいです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511487192.000024",
+        "text": "Stackage NightlyへのGHC 8.2.2の導入も順調なようですね！\n<https://github.com/fpco/stackage/issues/3037>\n:sweat: .oO(LTSにはいつ入るのか...)",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511492787.000028",
+        "text": "通常通りであれば約半年に1回のペースで `LTS` のメジャーバージョンがアップデートされるので12月か1月ぐらいですかね？:thinking_face:",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1511494992.000036",
+        "text": "Haskellコードのcyclomatic complexityを測るツールとして、Argonとかhomplexityがあるみたいなんですが、使っている人がいたら、使い物になるか教えてください。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511502110.000128",
+        "text": "あれ、LinearTypesもまだですね..",
+        "user": "U4L091RKK",
+        "type": "message"
+    },
+    {
+        "ts": "1511509595.000128",
+        "text": "両方とも保守されてない感じだ。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511529898.000352",
+        "text": "<@U4KPPQW7K> さんの Servant 入門記事と <@U56L7EVNY> さんの Elm との連携記事を読んだから土日やっていくぞ\n<https://qiita.com/lotz/items/883b41fa79f060e59efa>\n<https://matsubara0507.github.io/posts/2017-09-17-create-haskell-and-elm.html>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1511529942.000373",
+        "text": "拡張可能レコードは別の機会に",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1511559653.000083",
+        "text": "<@U84K1P2RE> has joined the channel",
+        "user": "U84K1P2RE",
+        "type": "message"
+    },
+    {
+        "ts": "1511612253.000056",
+        "text": "1&amp;2&gt;そうします。\n3&gt;実行時に使うslackのトークンはTravisCIの機能で暗号化しないといけないのですが、暗号化したものは暗号化した人のリポジトリでしか復号できない仕様になっています。そのため私がslackのトークンを設定/暗号化するのであれば譲渡はできないかと思います。あと、今使っている古いタイプのトークンはできる範囲が多すぎるため余り他人に渡したくないというのもあります。もしこれらを解決する良い方法が見つかったらその時でも譲渡は可能だと思いますので、とりあえず今は実際に動かしてみます。",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1511612576.000072",
+        "text": "了解です。ではリポジトリーのownerは hexirp さんのままでよろしくお願いします。\nほかに必要なことがあればなんなりといってください！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511671574.000026",
+        "text": "<@U84RD9F32> has joined the channel",
+        "user": "U84RD9F32",
+        "type": "message"
+    },
+    {
+        "ts": "1511673295.000011",
+        "text": "<@U85FBE23C> has joined the channel",
+        "user": "U85FBE23C",
+        "type": "message"
+    },
+    {
+        "ts": "1511748339.000099",
+        "text": "hlint をはじめて使ってみましたが、 `foldr (+) 0` は `sum` にしろとか、 `map (...) $ map (...)` は1個のmapにまとめろとか、なかなかアグレッシブな？指摘をしてくれますね",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1511833228.000139",
+        "text": "`hlint --ignore=\"Eta reduce\"` とかで、ルールを排除できますよ。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511833245.000230",
+        "text": "警告の前の文字列をコピペするだけです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1511868159.000090",
+        "text": "実際、警告に従って運算していったらEta reduceで引数なくせるだろ、と言われて微妙な気分になりました^^;",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1511999839.000143",
+        "text": "<@U87FHPYS0> has joined the channel",
+        "user": "U87FHPYS0",
+        "type": "message"
+    },
+    {
+        "ts": "1512035579.000186",
+        "text": "<@U86V3B4PJ> has joined the channel",
+        "user": "U86V3B4PJ",
+        "type": "message"
+    },
+    {
+        "ts": "1512055255.000364",
+        "text": "<@U87QYA152> has joined the channel",
+        "user": "U87QYA152",
+        "type": "message"
+    },
+    {
+        "ts": "1512089740.000043",
+        "text": "Haskell Advent Calendar 始まりましたね :tada:\nアドベントカレンダーのRSSを購読する #advent-calendar チャネル作っちゃってもいいですか？\n<https://qiita.com/advent-calendar/2017/haskell>\n<https://qiita.com/advent-calendar/2017/haskell2>\n<https://qiita.com/advent-calendar/2017/haskell3>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1512090685.000173",
+        "text": "<@U4KPPQW7K> Nice idea! やっちゃってください！ :pray:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1512090877.000104",
+        "text": "ありがとうございます！さっそく <#C89028A6S|advent-calendar> 作りました〜",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    }
+]

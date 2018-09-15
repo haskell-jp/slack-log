@@ -1,8 +1,0 @@
-[
-    {
-        "ts": "1530624550.000194",
-        "text": "```\ntype family Fst (t :: (a, b)) :: a where\n  Fst '(a, b) = a\n\ntype family Snd (t :: (a, b)) :: b where\n  Snd '(a, b) = b\n\nextractedTuple :: '(Fst a, Snd a) :~: a\n```\nみたいなので， `extractedTuple` を `unsafeCoerce` 無しに実装する方法ってありますでしょうか？もしくは，Fst/Sndの代用となるtype utilityってなんかあったりするのでしょうか？",
-        "user": "U57D08Z9U",
-        "type": "message"
-    }
-]

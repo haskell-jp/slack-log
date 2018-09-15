@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1518598106.000295",
+        "text": "Topic Request で OK です",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1518598108.000413",
+        "text": "あれ、なかったっけ。了解です。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1518598194.000087",
+        "text": "ありがとうございます。ブログについては見落としてました。この記事の3つの拡張ポイントが * のカインドとどう関係しているか、については、時間があるときに原論文を呼んでみたいです。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1518753371.000096",
+        "text": "こんな感じで型レべルリストに対する `(:)` 演算子みたいなものを作りたいのですが、どこかのパッケージで定義されていたりしないでしょうか。\n\n```\nclass KList (f :: k -&gt; *) (g :: [k] -&gt; *)\n  where\n    (&lt;:&lt;) :: f x -&gt; g xs -&gt; g (x ': xs)\n\n-- 利用例 (実際にはSingではなく情報のある型を使いたい)\ninstance KList Sing Sing\n  where\n   x &lt;:&lt; y = SCons x y\n\nmain =\n  do\n    let s = (sing :: Sing \"orange\") &lt;:&lt; (sing :: Sing '[\"apple\", \"grape\"])\n    print $ fromSing s\n```\n\n自分の作る型に対して専用の演算子を作ってもいいのですが、演算子をいたずらに増やしたくないので既存のものがあったら使いたいと思った次第です。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1518761689.000127",
+        "text": "Fractionalのインスタンスに必要なのって `(/)` と `fromRational` なので、「可除数」とかじゃダメですか。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1518761772.000176",
+        "text": "有限体もFractionalなので。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1518836506.000071",
+        "text": "自分で定義するにしても(:)演算子に限定せずに、singletonパッケージのTyFunに対して付随する値レベルの演算をインスタンス宣言できるように、型クラスを定義するのがベターかなと思いました",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1518881181.000021",
+        "text": "<@U979PBETG> has joined the channel",
+        "user": "U979PBETG",
+        "type": "message"
+    },
+    {
+        "ts": "1518928474.000055",
+        "text": "分数という訳語は、さんざん思案した結果採用したものです。:thinking_face:感覚的には可除数というのもありかなと思います。",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1518941236.000052",
+        "text": "shelarcy 著「本物のプログラマはHaskellを使う」は2013年の良記事 <http://tech.nikkeibp.co.jp/it/article/COLUMN/20060915/248215/?ST=develop> ですが 最新の Haskell に合わせた改訂版はありますか？\nまたこのような詳しいレベルの日本語解説記事が他にもあれば教えて下さい。",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1518945319.000016",
+        "text": "著者が音信不通だそうです…… <https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1511314597000198>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1519012478.000013",
+        "text": "虎本の訳者である <@U4KU9ABL0> さんから直接コメントいただけるとは感激です。訳者の皆さんが単語一つ一つに適切な訳語を選ぶために大変なご苦労されていることは存じ上げております。今回の皆さんのご指摘で、自身の分数のイメージが有理数側に偏っていたのが分かり大変勉強になりました。今後も宜しくお願いいたします。",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1519021953.000202",
+        "text": "これ、別に左辺が `f x` の形をしている必要はない事に気づいたので、APIを工夫して左辺が `g xs -&gt; g (x:xs)` になるようにして、ユーザーには `$` 演算子で適用してもらう事にしました。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1519026745.000218",
+        "text": "<@U9C56J90X> has joined the channel",
+        "user": "U9C56J90X",
+        "type": "message"
+    },
+    {
+        "ts": "1519047298.000208",
+        "text": "初学者です。「すごいHaskellたのしく学ぼう」の以下の記載(p121)、\n&gt;具体型とは、型引数を１つも取らない型か、あるいは、型引数を取るけれどもそれが全て埋まっている型のことを指します。\nこれについて、\n1. 「埋められていない型引数がある型」というのは `hoge :: [a] -&gt; b` の `[a]` などを想像していいものでしょうか？またはこの時の `b` も？\n2. 「埋められていない型引数がある型」というのは「抽象型」と呼んでいいのでしょうか？それともまた別の用語がありますか？\n\nまとめ\n1. どちらも具体型。 `(-&gt;)` や `([a] -&gt;)` がそれに該当し、型コンストラクタではあるが具体型ではない。また「型」という語には具体型のみを指す場合と、それ以外のものも含む場合があり、文脈に気を付けること( `Maybe a` でなく `Maybe` を型と呼ぶ場合がある、という話)\n2. 呼ばない。",
+        "user": "U9C56J90X",
+        "type": "message"
+    },
+    {
+        "ts": "1519047428.000324",
+        "text": "1つめの質問だと `(-&gt;)` や `([a] -&gt;)` が「埋められていない型引数がある型」ですね",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1519048239.000018",
+        "text": "ありがとうございます、 `(-&gt;)` って型コンストラクタなんですか…？と思ったらすごいH本のp231にその旨の記載がありますね…その周辺をざっと読んだ限りFunctorまで読めばこの疑問は解決しそうな気がしてきました。",
+        "user": "U9C56J90X",
+        "type": "message"
+    },
+    {
+        "ts": "1519049360.000579",
+        "text": "2つめの質問の回答になってるか分からないですが、『型システム入門』では、例えば `id` の型は `a -&gt; a` ですが、拡張を使えば `forall a. a -&gt; a` と書けて `forall a. T` のような型を全称型といいます。\nまたそのような型を持つ項を型抽象といいます。\n（誰かに合ってるかチェックしてもらいたい",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1519122303.000222",
+        "text": "「具象型」と呼ばれているのは `Int` `Maybe Int` `Maybe a` など、そうではない型コンストラクタは `Maybe` のことですね。混乱したらカインドを考えて、カインドが `*` のものが「具象型」と思うのがわかりやすい気がします。\n「具象型」ではない型コンストラクタのいい呼び方は、私は知りません。単に型コンストラクタと言ってしまうことも多いような・・・。",
+        "user": "U4MAYDV9C",
+        "type": "message"
+    },
+    {
+        "ts": "1519264826.000066",
+        "text": "どなたか、GHCのTracなどについて知見のある方お願いします！\n<https://www.reddit.com/r/haskell_jp/comments/7zb7ao/ghc%E3%81%AE%E7%89%B9%E5%AE%9A%E3%81%AE%E6%A9%9F%E8%83%BD%E3%81%AE%E9%96%8B%E7%99%BA%E7%8A%B6%E6%B3%81%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1519293501.000050",
+        "text": "Data.Array.IOで謎の挙動を踏んでしまって困っているのですが誰か助けてください…\n配列の要素の1つ目には値を代入していないのに変化してしまうのですが…\n<https://wandbox.org/permlink/cDzxFPMREeY0JSAE>",
+        "user": "U56G77VM1",
+        "type": "message"
+    },
+    {
+        "ts": "1519294610.000129",
+        "text": "17行目 `print =&lt;&lt; readArray arr n` で `n` じゃなくて `i` じゃね？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1519295049.000030",
+        "text": "あっ……",
+        "user": "U56G77VM1",
+        "type": "message"
+    },
+    {
+        "ts": "1519395474.000077",
+        "text": "すごいH本にカインドの記述が見られなかったので調べてきました、がそれなりに難しそうですね…Wikipedia の記載ですが、カインドが `*` を「零項の型コンストラクタ」というのは気に入りました、１以上の項の型コンストラクタを指す特別な用語がない、というのも何となく納得です。",
+        "user": "U9C56J90X",
+        "type": "message"
+    },
+    {
+        "ts": "1519460691.000086",
+        "text": "&gt; すごいH本にカインドの記述が見られなかったので\nFunctorを説明しているあたりにあるはずですよ！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1519471730.000002",
+        "text": "うおおおー、7.11(p155)にありますね！\nあと今見たら「種類」としては索引にありますね、「種(しゅ)」を探せば見つけられたのか…「kind」と「種(たね)」しか探してませんでした、ありがとうございます！",
+        "user": "U9C56J90X",
+        "type": "message"
+    },
+    {
+        "ts": "1519538775.000007",
+        "text": "Haskell 入門の p87 の注釈欄 *13 の下記の記載を見て何となく理解しました。\n&gt; IO や Maybe はカインドが * ではないので正確には型ではありませんが、(略)\n私の当初の疑問は\n&gt; 具体型とは、型引数を１つも取らない型か、あるいは、型引数を取るけれどもそれが全て埋まっている型\nという文から、型の中に具体型とそうでないものがある、という想像をしたのですが、実際には型と具体型は同じもので、型コンストラクタのうち特殊なものを型と呼ぶ、という理解になりました（間違ってたら誰かご指摘ください…）",
+        "user": "U9C56J90X",
+        "type": "message"
+    },
+    {
+        "ts": "1519543044.000075",
+        "text": "大丈夫なように思います。一点、「型」という語は具体型のみを指す場合と、それ以外のものも含む場合と両方あるので、読むときはそこに注意が必要ですね。",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1519561237.000055",
+        "text": "英語で質問する場所ってどこがいいです？Haskell Cafe思ったより人がいなくてもうメジャーじゃないのかな",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519561495.000082",
+        "text": "あとHaskellのメーリングリストにホスティングサイトの脆弱性っぽいの投げたけど他の場所だったら投げなおします",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519564064.000022",
+        "text": "英語だと Stackoverflow は Haskell の質問は結構投稿されていますね。ディスカッション寄りのことがしたいのであれば別の場所があるかもしれないですが、ちょっと私は分からないです。",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1519565681.000086",
+        "text": "Stackoverflowは功徳を積んでなくて投稿できないので今回は無理そうです。ここの皆さんは功徳を積んで投稿されてるんですかね",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519566403.000009",
+        "text": "いや今見たら投稿できるっぽいな…今度そっちも試してみます",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519574116.000074",
+        "text": "Haskellでマイナー気味なDBを使おうとするとドライバがなくてRustに流れそうなんですがこれはもうあきらめるところでしょうか…",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519604201.000036",
+        "text": "Redditですかね後は。\n<https://www.reddit.com/r/haskell/>\n<https://www.reddit.com/r/haskellquestions/> というのもありました",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1519604225.000099",
+        "text": "どのMLのことですか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1519605969.000023",
+        "text": "haskell@haskell.orgです",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519619322.000036",
+        "text": "僕もRocksDB使ってみたいなーとか思いますね",
+        "user": "U5P0CRDSP",
+        "type": "message"
+    },
+    {
+        "ts": "1519619981.000018",
+        "text": "cardano-sl で使われてるやつですね！",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1519620322.000121",
+        "text": "NoSQLはRest APIがあるようなのでそっちで頑張れるか試す予定",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519623171.000116",
+        "text": "バインディングとしてchrisdoneが作ったrocksdb-haskell-ngが使われているんですね。情報ありがとうございます。\n<https://github.com/chrisdone/rocksdb-haskell-ng>",
+        "user": "U5P0CRDSP",
+        "type": "message"
+    },
+    {
+        "ts": "1519625894.000198",
+        "text": "メーリスでもRCリリースの告知ありましたがRedditのほうが食いつきいいですね",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519634463.000455",
+        "text": "コピペ\n\nI become aware of the problem that\n<https://mail.haskell.org/mailman/listinfo/haskell> send a password to\n<http://mail.haskell.org/cgi-bin/mailman/subscribe/haskell>. Probably it\nmeans this page will send a password without encryption. Could you use\nhttps instead of http, or remove this duplicate page? I had used\n<https://mail.haskell.org/cgi-bin/mailman/listinfo/haskell> instead.",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519645994.000037",
+        "text": "なるほど。その程度でしたらわざわざセキュリティー専用のチャンネルを探す間でもないですね:cold_sweat::cold_sweat::cold_sweat:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1519647371.000381",
+        "text": "うっかりパスワード丸見えで送るとこだったので早く直してほしい",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519661197.000402",
+        "text": "Text 型で String のようなパターンマッチはできませんか？\n正規表現は使いたくないんですが、そうするとParsec使うしかないのでしょうか？",
+        "user": "U4LEB9UP4",
+        "type": "message"
+    },
+    {
+        "ts": "1519664863.000700",
+        "text": "正規表現を使うほど複雑な処理はわかりませんが、 `ViewPatterns` , `OverloadedStrings` を使えば先頭からxxxとかのマッチはできると思います。",
+        "user": "U5CSEFF7H",
+        "type": "message"
+    },
+    {
+        "ts": "1519694477.000137",
+        "text": "私も OverloadedStrings と文字列リテラル ( \"...\" ) のパターンを ByteString 等で良く使います。",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1519697229.000286",
+        "text": "AtomのHIEでStylish Haskellはどう適用するんでしたっけ？以前できたはずなのに思い出せない",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1519703539.000082",
+        "text": "なるほど。 `ViewPatterns` 覚えないと。\nありがとうございます！",
+        "user": "U4LEB9UP4",
+        "type": "message"
+    }
+]

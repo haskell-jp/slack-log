@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1532961670.000169",
+        "text": "<@UBZEU5L4V> has joined the channel",
+        "user": "UBZEU5L4V",
+        "type": "message"
+    },
+    {
+        "ts": "1532961839.000476",
+        "text": "<http://haskell.jp|haskell.jp> のトップページの SlackArchive へのリンクは消しておいたほうが良いかもしれませんね。ちょっとハマりました。",
+        "user": "UBZEU5L4V",
+        "type": "message"
+    },
+    {
+        "ts": "1532962181.000004",
+        "text": "`f :: a -&gt; b -&gt; c` を `f :: (a, b) -&gt; c` に変換するには `uncurry` ですが、 `f :: a -&gt; b -&gt; c -&gt; d -&gt; e` を `f:: (a, b, c, d) -&gt; e` に変換するイディオムのようなものはあるのでしょうか。",
+        "user": "UBZEU5L4V",
+        "type": "message"
+    },
+    {
+        "ts": "1532962717.000010",
+        "text": "`(\\(a, b, c, d) -&gt; f a b c d)` なんでしょうか。最近 `(f .)` というイディオムを知ったのでうまく表せるのかなと思った次第です。",
+        "user": "UBZEU5L4V",
+        "type": "message"
+    },
+    {
+        "ts": "1532993151.000028",
+        "text": "oh... すみません、 <https://github.com/haskell-jp/slack-log> でHTMLが出せるようになってから。。。なんて思ってましたが取り急ぎ対応します。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1532993795.000102",
+        "text": "そういうときに便利な <http://pointfree.io/> というサイトがあるんですよ！と言おうと思ったんですが、今試した限りなぜかうまくいきませんね。。。\n<https://github.com/bmillwood/pointfree> のパッケージをビルドしてみるといいのかも。\n\nただ、要素が3つ以上のタプルには、 `fst` や `snd` のような、中身を取り出す関数が標準でないため、その手のイディオムでやるのは難しい気がします！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1532994496.000092",
+        "text": "<https://github.com/haskell-jp/haskell-jp.github.io/commit/09623f7bf9f3171514992ebd2f363bb107da287f> で対応しました。すでに反映済みのはずです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1532997732.000110",
+        "text": "みんな自前で定義してる…… <https://www.stackage.org/lts-12.4/hoogle?q=uncurry4>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1533043820.000095",
+        "text": "やっぱり難しいんですね。",
+        "user": "UBZEU5L4V",
+        "type": "message"
+    },
+    {
+        "ts": "1533084996.000158",
+        "text": "汎用性を求めるなら、TemplateHaskellを考えたらどう？",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1533113779.000342",
+        "text": "ですよね。TemplateHaskell のチュートリアルにも載ってますし それが無難だと思います。 但し、spliceをして生成されるコードに型注釈を書けない(と思う)ので、そういうレベルでの保障はやり難いと思います。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1533113953.000412",
+        "text": "&gt;  但し、spliceをして生成されるコードに型注釈を書けない(と思う)ので\nSigEというコンストラクターでできるっぽいです。\n<http://hackage.haskell.org/package/template-haskell-2.13.0.0/docs/Language-Haskell-TH.html#t:Exp>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1533183924.000086",
+        "text": "おお！それなら意外ときれいなコードが生成できますね",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1533353449.000016",
+        "text": "<@UC42RRAVC> has joined the channel",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1533353613.000039",
+        "text": "最近Haskellの勉強を始めました！よろしくお願いします！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1533517223.000157",
+        "text": "Reminder: <https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233>",
+        "user": "USLACKBOT",
+        "type": "message"
+    },
+    {
+        "ts": "1533541482.000172",
+        "text": "<@UC3C29ML5> has joined the channel",
+        "user": "UC3C29ML5",
+        "type": "message"
+    },
+    {
+        "ts": "1533733945.000440",
+        "text": "<@UC5U9P8TZ> has joined the channel",
+        "user": "UC5U9P8TZ",
+        "type": "message"
+    },
+    {
+        "ts": "1533734868.000026",
+        "text": "最近憧れてたhaskellを始めました　すごいH本で勉強しています　よろしくお願いします!",
+        "user": "UC5U9P8TZ",
+        "type": "message"
+    },
+    {
+        "ts": "1533776889.000108",
+        "text": "エロ本？？？！（うぷぷ",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1533993564.000045",
+        "text": "<@UC6BZG5JM> has joined the channel",
+        "user": "UC6BZG5JM",
+        "type": "message"
+    },
+    {
+        "ts": "1534122019.000184",
+        "text": "Reminder: <https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233>",
+        "user": "USLACKBOT",
+        "type": "message"
+    },
+    {
+        "ts": "1534602495.000200",
+        "text": "<@UCB4XQW77> has joined the channel",
+        "user": "UCB4XQW77",
+        "type": "message"
+    },
+    {
+        "ts": "1534726801.000100",
+        "text": "Reminder: <https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233>",
+        "user": "USLACKBOT",
+        "type": "message"
+    },
+    {
+        "ts": "1534756010.000200",
+        "text": "<@UCANV57UG> has joined the channel",
+        "user": "UCANV57UG",
+        "type": "message"
+    },
+    {
+        "ts": "1534917533.000200",
+        "text": "<@UCCB4F94Z> has joined the channel",
+        "user": "UCCB4F94Z",
+        "type": "message"
+    },
+    {
+        "ts": "1534951197.000100",
+        "text": "あまりに初心者な質問で申し訳ありません。ghciの中でいろいろ作業中、例えばControl.Lensが必要だと気づいたとします。package.yamlにlensを追加まではいいとして、その後ghciを抜けることなくControl.Lensをロードすることは可能でしょうか。今は一旦ghciを抜けて、またstack ghciで入っているのですが、それまでいろいろ作業してきた内容をまた1からやり直しています。できればそれまでの作業や変数はそのままで追加でモジュールが読めれば最高なのですが・・・",
+        "user": "UBF17AM6U",
+        "type": "message"
+    },
+    {
+        "ts": "1534981418.000100",
+        "text": "私が知る限りできません。\n同じコマンドを打ち直したくないという場合、ghci_historyから入力したコマンドを貼り付ける、ぐらいでしょうかねぇ\n\nあるいは、そもそもの運用として、GHCiはじめREPLは記録が残らず、やってきたことをやり直すのに弱いので、なんどもやることは適当なファイルに書いておいた方がいいかと思います。\n別にpackage.yamlにlibraryやexecutableとして追加する必要はなくて、stack.yamlがあるのと同じディレクトリーにいれば\n\n```\nstack exec ghci -- lens-sample.hs\n```\n\nみたいなコードでlensに依存したファイルを読めるはずです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1534981645.000100",
+        "text": "捕捉: その状態でlensを同じstack.yamlがあるディレクトリーから使えるようにするには2つ方法があります。\n\n:one:「package.yamlにlensを追加」した上で\n```\nstack build --only-dependencies\n```\nするか、\n:two: package.yaml に特に追加することもなく、\n```\nstack build lens\n```\nしてください。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1535005597.000200",
+        "text": "<@UCDHJ6R6X> has joined the channel",
+        "user": "UCDHJ6R6X",
+        "type": "message"
+    },
+    {
+        "ts": "1535024473.000200",
+        "text": "<@UCDRZNE1Y> has joined the channel",
+        "user": "UCDRZNE1Y",
+        "type": "message"
+    },
+    {
+        "ts": "1535036164.000200",
+        "text": "<@UCDDDAKND> has joined the channel",
+        "user": "UCDDDAKND",
+        "type": "message"
+    },
+    {
+        "ts": "1535063731.000100",
+        "text": "igrep様、返答ありがとうございました。お返事が遅くなってしまい申し訳ありません。\nやはりreplはそういったものだ、と捉えるのが良さそうですね・・・package等に書かずに読み込むことができるとは！教えていただいてありがとうございました。",
+        "user": "UBF17AM6U",
+        "type": "message"
+    },
+    {
+        "ts": "1535065476.000200",
+        "text": "<@U8HK4CEVB> has joined the channel",
+        "user": "U8HK4CEVB",
+        "type": "message"
+    },
+    {
+        "ts": "1535065476.000300",
+        "text": "Hello. I am slacknowledge bot.\nWhen a thread is added a :memo: (memo) reaction, I will save it.\nEveryone can view the saved thread at <https://slacknowledge.pig-brewing.com> .",
+        "user": "U8HK4CEVB",
+        "type": "message"
+    },
+    {
+        "ts": "1535083405.000200",
+        "text": "<@UCE9SL89H> has joined the channel",
+        "user": "UCE9SL89H",
+        "type": "message"
+    },
+    {
+        "ts": "1535094205.000200",
+        "text": "<@UCDPCU7CY> has joined the channel",
+        "user": "UCDPCU7CY",
+        "type": "message"
+    },
+    {
+        "ts": "1535161291.000200",
+        "text": "<@UCF3FLVPC> has joined the channel",
+        "user": "UCF3FLVPC",
+        "type": "message"
+    },
+    {
+        "ts": "1535168816.000200",
+        "text": "<@UCG530TN3> has joined the channel",
+        "user": "UCG530TN3",
+        "type": "message"
+    },
+    {
+        "ts": "1535193155.000200",
+        "text": "<@UCFA431LM> has joined the channel",
+        "user": "UCFA431LM",
+        "type": "message"
+    },
+    {
+        "ts": "1535216070.000200",
+        "text": "<@UCELL0EP3> has joined the channel",
+        "user": "UCELL0EP3",
+        "type": "message"
+    },
+    {
+        "ts": "1535290235.000200",
+        "text": "<@UCF9DF00K> has joined the channel",
+        "user": "UCF9DF00K",
+        "type": "message"
+    },
+    {
+        "ts": "1535331605.000100",
+        "text": "Reminder: <https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233>",
+        "user": "USLACKBOT",
+        "type": "message"
+    },
+    {
+        "ts": "1535419278.000200",
+        "text": "<@UCG590FTM> has joined the channel",
+        "user": "UCG590FTM",
+        "type": "message"
+    },
+    {
+        "ts": "1535510475.000100",
+        "text": "VSCodeのStylish-haskellをアップデートすると正常に動作しなくなるそうです。注意してください\n<https://github.com/vigoo/stylish-haskell-vscode/issues/11>\nもし、アップデートしてしまったという人は0.0.9にダウングレードすると直ります。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1535510773.000100",
+        "text": "VSCode extensionダウングレード方法\n基本的にこのブログを参考すればできます。\n<https://inocop.hatenablog.com/entry/2018/03/14/135252>\n\nstylish-haskell 0.0.9のVSIXパッケージのリンクは以下のようになります。\n(クリックするとダウンロードが始まるので注意）\n<https://vigoo.gallery.vsassets.io/_apis/public/gallery/publisher/vigoo/extension/stylish-haskell/0.0.9/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage>\n注意：ダウングレードする際には\nUser settings の`\"extensions.autoUpdate\": false`にしてから行ってください！",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1535566990.000200",
+        "text": "<@UCHGLH5QT> has joined the channel",
+        "user": "UCHGLH5QT",
+        "type": "message"
+    },
+    {
+        "ts": "1535592463.000100",
+        "text": "<https://haskell.jp/blog/posts/about_us.html> にもリンクがまだ残ってました(アーカイブ探しててハマりました＆まだ見つけられてなくてきっとまだWEBで見られるページはないんだろうと思ってます)。",
+        "user": "U4MAYDV9C",
+        "type": "message"
+    },
+    {
+        "ts": "1535599706.000100",
+        "text": "ありがとうございます。\nhuman readableな形式じゃございませんが取り急ぎ <https://github.com/haskell-jp/slack-log/tree/master/doc/json> をcloneしてgrepなりjqなりしていただけると！ :pray:\n\nあと、リンクを消すPRを\n<https://github.com/haskell-jp/haskell-jp.github.io> に送っていただけると助かります！ :bow:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1535600335.000100",
+        "text": "しばらく時間とれなさそうなので、忘れてしまわないように issue だけ切っておきました。\n<https://github.com/haskell-jp/haskell-jp.github.io/issues/12>",
+        "user": "U4MAYDV9C",
+        "type": "message"
+    }
+]

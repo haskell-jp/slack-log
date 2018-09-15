@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1517959897.000229",
+        "text": "ExplicitForAll の方が ScopedTypeVariables よりも導入が後だった気がする。",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1518090183.000347",
+        "text": "appveyorで、バイナリを作りたいのですが、できあがったバイナリがどこにあるのか分かりません。どなたか、どう記述すればいいか、ご存知ありませんか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518090186.000016",
+        "text": "<https://ci.appveyor.com/project/kazu-yamamoto/hs-tls>\n<https://ci.appveyor.com/project/kazu-yamamoto/hs-tls/build/artifacts>\n<https://github.com/kazu-yamamoto/hs-tls/blob/tls13/appveyor.yml>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518146867.000099",
+        "text": "github からとってきたソースは C:\\projects\\&lt;packagename&gt; にあって、stack はここで実行される。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518146906.000223",
+        "text": "stack が作業に使うのは、stack_root にしていしたディレクトリ。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518146959.000230",
+        "text": "artifacts は、前者内での相対パスしか使えないので、バイナリが見えない。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518147011.000250",
+        "text": "`stack --local-bin-path . install &lt;package_name&gt;` すると、作業ディレクトリから後者へバイナリをコピーしてくれる。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518147023.000241",
+        "text": "やった！ &lt;- 今ココ",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518147260.000045",
+        "text": "う、スレッドになってなかった。ごめんなさい。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518147692.000048",
+        "text": "```\nCopying from C:\\projects\\hs-tls\\.stack-work\\install\\1e01afab\\bin\\tls-simpleclient.exe to C:\\projects\\hs-tls\\tls-simpleclient.exe\n```\nきたー！",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1518158706.000018",
+        "text": "ちょっとHaskellと外れた質問かな、と思いきや、なるほどAppVeyorではなくstackの使用についての質問でしたか。。。すみません、察せなくて。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1518327591.000032",
+        "text": "実行時の数値からNat種の型を作る(?)には `GHC.TypeLits` の `someNatVal` 関数などを使えばできるとおもうのですが、この時作られる型を自作の型クラスのインスタンスに限定するにはどのようにすればいいのでしょうか?:sob::sob::innocent:",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1518329567.000024",
+        "text": "補足します:man-bowing::writing_hand:\nZ/nZ を表す型として `IntResidueClass` というデータ型と、有限体を表す型クラスとして `FiniteField` 型クラスを作りました。\nn が素数のときにZ/nZが有限体になることを次のようにしてプログラムにしました:writing_hand::scream_cat:\n\n```\nclass FiniteField k where\n  hoge :: k -&gt; String\n\nnewtype IntResidueClass (n :: Nat) = MkIntResidueClass Integer deriving (Show)\n\ninstance (IsPrime p) =&gt; FiniteField (IntResidueClass p) where\n  hoge _ = \"hogehoge\"\n```\n\n`IsPrime` は以下のように型族として定義しました。Natの型が素数になってるかどうかコンパイル時に判定させることができました:exploding_head:\n\n```\ntype family (x :: Nat) % (y :: Nat) :: Nat  where\n  x % y = Mod' x y (y &lt;=? x)\n\ntype family Mod' (x :: Nat) (y :: Nat) (xGeqY :: Bool) :: Nat where\n  Mod' x y 'True  = Mod' (x - y) y (y &lt;=? (x - y))\n  Mod' x y 'False = x\n\ntype IsPrime p = IsPrimeB p ~ 'True\n  \ntype family IsPrimeB (p :: Nat) :: Bool where\n  IsPrimeB 0 = 'False\n  IsPrimeB 1 = 'False\n  IsPrimeB 2 = 'True\n  IsPrimeB p = IsPrimeB' p 3 (p % 2 == 0) (Not (3 ^ 2 &lt;=? p))\n\ntype family IsPrimeB' (p :: Nat) (i :: Nat) (hasFactor :: Bool) (searchEnd :: Bool) where\n  IsPrimeB' _ _ 'True _ = 'False\n  IsPrimeB' _ _ _ 'True = 'True\n  IsPrimeB' p i _ _     = IsPrimeB' p (i + 2) (p % i == 0) (Not ((i + 2) ^ 2 &lt;=? p))\n```\n\nさらに、実行時のユーザの入力によって n を決めて `IntResidueClass n` 型の値を作り出すことは、以下のようにしてできました:oden:\n\n```\nmain :: IO ()\nmain = do\n  s &lt;- getLine\n  let i = read s :: Integer\n  let sn = fromJust $ someNatVal i\n  case sn of\n    SomeNat p -&gt; do\n      let irc = mkIntResidueClassFromProxy p 0\n      print irc \n```\n\nこのとき、 `print $ hoge irc` とするなどの、`FiniteField`クラスのメソッドを使うことができません:sob:\n `FiniteField` クラスのインスタンスである `IntResidueClass` を実行時に作るにはどうすれば良いのでしょうか:sob::man-bowing:",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1518332550.000008",
+        "text": "<@U8ZN25NE7> has joined the channel",
+        "user": "U8ZN25NE7",
+        "type": "message"
+    },
+    {
+        "ts": "1518334587.000034",
+        "text": "KnownNat n からIntegerはいつでも変換できますが、どうしても値レベルの素数判定は使いたくないということですか？仮に型レベルの素数判定を使ったとしても、この場合結局実行時に評価することになって、性能はむしろ悪くなりそうですが",
+        "user": "U8ZN25NE7",
+        "type": "message"
+    },
+    {
+        "ts": "1518335266.000018",
+        "text": "どういう状況なのかは分かりませんが，基本的なアイデアとしては， `SomeNat` と同じようにまず `FiniteField` の制約を持つ存在型で包んであげて， `FiniteField` のリフレクションでインスタンスを導出してあげれば良いです．ただ，Haskellはこの辺があまり柔軟にはできていないので，リフレクションに多少工夫が必要です．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1518335452.000051",
+        "text": "そうですね。あとはGADTで型レベルのパターンマッチをするのもあると思います。GHCの型だけで数学を表現するのは大変で、たくさんの人が挫折してますね・・",
+        "user": "U8ZN25NE7",
+        "type": "message"
+    },
+    {
+        "ts": "1518336071.000046",
+        "text": "どの道どのリフレクションを使うにしろ，何らかのユーザー保証は入ってくる(素数判定の結果がIsPrimeを満たすことを，GHCではなくユーザーが保証する． ~型族の実装からの実行時動作を導出することは個人的には無理だと思っていますが，できるかもしれません~ できそうかもです．アイデアだけ次のコメントに書いておきました．)と思いますが，リフレクションの方法としては\n1. `IsPrime` が1つのメソッドしか持たないなら <https://www.schoolofhaskell.com/user/thoughtpolice/using-reflection> という方法があります．\n2. もう一つは， `Typeable` (<https://www.stackage.org/haddock/lts-10.5/base-4.10.1.0/Type-Reflection.html#t:Typeable>) を利用して `someNat` で持ち上げた `Nat` の型情報を持ってくる方法があります\n他にもいろいろありますが，代表的なのはこの辺ですかね？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1518339576.000019",
+        "text": "あまり頭のいいことをしようと考えなければ，結構簡単にいけそうですね．とりあえず思いついた方法を書いてみました．参考にどうぞ\n<https://gist.github.com/mizunashi-mana/30bccdd729e1a069580ac17e9d0853f2>\n後，型族からの実装の抽出は，IsPrimeBが構造的帰納法などで停止することを証明して，KnownNat n =&gt; IsPrimeB n ~ ’True \\/ IsPrimeB n ~ ’False であることを証明すれば，後はその証明を使って型レベルの’True/’Falseを値レベルのTrue/Falseに落としてTrueかどうか判定することでできそうな気がしました．まあ，ちょっとめんどそうなので，そっちの方は試してないです",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1518345282.000085",
+        "text": "singletonsとconstraintsを使いましょう．\n<https://gist.github.com/notogawa/83324a70e35049cd1ddccc005ea1a278>",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1518345900.000038",
+        "text": "今回は書き下してますが， `<http://Data.Singletons.TH|Data.Singletons.TH>` とか使うともっとラクに書けるんじゃないかなと思います．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1518367636.000053",
+        "text": "おお:heart_eyes:どうもありがとうございます:pray:\nプログラムまで書いて頂いてものすごく参考になりそうです:man-bowing:\nまだ全部理解できていないのですが、わからないことがあったらまた質問するかもしれないです:sweat_drops:",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1518500384.000177",
+        "text": "haskellの数値演算では型合わせが必須で、少しまともに書き始めると色々躓きまして、あちこち調べて整理しています。その中で過去の９８のクラス階層図<https://www.haskell.org/onlinereport/basic.htmlと、ここにある>　<https://en.wikibooks.org/wiki/Haskell/Classes_and_types#Standard_classes> おそらく最新と思われるものの間で違いがあります。具体的にはNumについていたEqやshowの型制約が外れているようなのですが、これは何故なのでしょう？",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1518501074.000102",
+        "text": "結構前に、 Num クラスに Eq, Show 制約は不要だからなくなったと記憶しています。 xuwei さんのブログ記事がありました: <http://xuwei-k.hatenablog.com/entry/20120123/1327325922>",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1518501190.000143",
+        "text": "<http://downloads.haskell.org/~ghc/latest/docs/html/users_guide/bugs.html#numbers-basic-types-and-built-in-classes> にも同じ話がありましたが、 ~やっぱり詳しい背景までは載ってませんね~ すみません、 :point_up: の記事でも軽く触れてますね。\n推測ですが、単純に `Eq` であることと `Show` であることとは `Num` に本質的でないと判断したんではないでしょうか。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1518502923.000016",
+        "text": "ありがとうございます。公式に外されたものなのですね。図の中で制約が外れた後も「All except～」とあるので、暗黙的に制約される何がしかの仕組みがあるのかと勘繰っていました。提案の中に書かれているように”意味がない”ということなのですね",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1518578885.000146",
+        "text": "引き続き、数値演算時の型変換の質問です。",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1518578911.000041",
+        "text": "<@U55UN00G0> uploaded a file: <https://haskell-jp.slack.com/files/U55UN00G0/F98PFFPMG/image.png|RWHに、このような図があります（レイアウト等一部アレンジしています）　>",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1518578945.000043",
+        "text": "これを見ながら色々考えていたのですが、`realToFrac`の使いどころが分からなくなりました。",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1518579128.000135",
+        "text": "整数型からの変換は`fromIntegral`一択。`Rational`へ・からの変換はそれぞれ専用関数があり、`Fractional`からの整数型への変換は何らかの切り捨て関数となると、`realToFrac`は`Fractional`間の変換時の使用に見えます。",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1518579194.000124",
+        "text": "ただ、<https://wiki.haskell.org/Converting_numbers>　では、浮動小数点型の変換に`realToFrac`を使うのは問題があるので、専用関数を使え、とあります。（上表にはRWHの記述にくわえて、相互変換関数を追記してあります）",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1518579301.000020",
+        "text": "となると、`realToFrac`の使いどころがわからなくなりました。ネット等にあるサンプルは比較的単純で`realToFrac`を使わずとも他の関数で書いても同じ結果になりました。もしかしてcomplexあたりとの演算？？分かれば単純なことな気がしていますが、思いつかなかったのでご教授いただけると嬉しいです",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1518580106.000082",
+        "text": "<https://www.stackage.org/haddock/lts-10.5/base-4.10.1.0/Prelude.html#t:Fractional> を見る限り、\nお察しの通りComplexはRealじゃないかつFractionalである場合があるみたいですね。\nただ、実際のところ\n```\nrealToFrac = fromRational . toRational\n```\nで定義される程度の、ユースケースの割にはシンプルな関数です（個人の感想です）。\n歴史の闇の中でいろいろ仕様変更しているうちに要らないものができちゃった、なんてことは普通にあり得ますが。。。 :cold_sweat:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1518580242.000126",
+        "text": "早々のお返事ありがとうございます。RWHには実際にはrealToFracではなく、fromRational.toRationalで書かれていますね。",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1518580311.000206",
+        "text": "いわゆる入門系の書籍やネットの記事等も比較的古めの情報が多いため、今ソースコードをみたときに事情が異なっているものが多いなあというのは昨日の例も含め、すごく感じています",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1518580402.000100",
+        "text": ":thinking_face: `realToFrac` を deprecate にした方がいいか議論した方がいいのだろうか。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1518580451.000125",
+        "text": "今 RWH 読むならこちらも参考にどうぞ <http://d.hatena.ne.jp/kazu-yamamoto/20140206/1391666962>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1518583762.000165",
+        "text": "質問です。\n以下のコードはDataKinds+PolyKindsではコンパイルが通らず、TypeInTypeを有効にすると通ります。\n\n```\n{-# LANGUAGE TypeFamilies, DataKinds, PolyKinds #-}\n\nimport GHC.TypeLits\n\ntype S = Symbol\n\ntype family T :: Symbol -- OK\ntype family T2 :: Maybe Symbol -- OK\ntype family T3 :: Maybe S -- Error!\n```\n\nエラー内容\n\n```\nkind.hs:8:25: error:\n    ? Type constructor ‘S’ cannot be used here\n        (Perhaps you intended to use TypeInType)\n    ? In the first argument of ‘Maybe’, namely ‘S’\n      In the kind ‘Maybe S’\n```\n\nTypeInTypeの意味は「*のカインドを*とし、型と同様に扱えるようにする」との事ですが、上記のコードが通る事がそれとどのように関係しているのか理解できていません。\nDataKinds+PolyKindsで上記のコードが通らないのはどのような制約によるもので、なぜTypeInTypeを指定するとそれが外れるのでしょうか。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1518585483.000201",
+        "text": "(ぜんぜん詳しく無いですけど)\nそもそも type alias の型では kind に昇格できないのではないですか？\n```\ntype family T4 :: S -- Error!\n```",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1518585685.000140",
+        "text": "最後の方に `TypeInType` について書いてありますね\n<https://haskell.jp/blog/posts/2017/13-about-kind-system-part2.html>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1518586501.000069",
+        "text": "僕も全然詳しくないですが，それは一重にDataKindsの型システムではtype aliasのpromotionが許可されていないけど，TypeInTypeの型システムでは許可されているからだと思いますね．GHCの現状のTypeInTypeの実装がどういう風になっているかはあまり知らないのですが，「*のカインドを*とする」のはinfiniteなtype hierarchyを許可することのように聞こえます",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1518587237.000214",
+        "text": "TypeInTypeの原論文のIntroductionがいちよ解になってる気がします．\n<http://www.seas.upenn.edu/~sweirich/papers/fckinds.pdf>\n型の同値判定を種の同値判定に昇格するのが難しいと言ってますね．おそらくですが，この辺の兼ね合いでtype aliasを含めた型の同値判定を，既存の型システムで種レベルに昇格するのが難しかったのではないでしょうか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1518587449.000089",
+        "text": "数値の型について、もうひとつ。\n\n皆さんは`Fracitonal‘ってどんな日本語をあてられますか？（日本語になんかしないよ、という意見は置いておいて）。\n直訳は「分数」で手元にある虎本でも思い切り「分数」と訳されていますが、クラス間の関係から考えると「非整数」あたりが一番正確なのかな、と思っています。\n「分数」だとサブクラスに√やpiや複素数があることと整合しない気がしまして・・\n\nこの流れでいうと`RealFrac`は非整数のうち実数のもの、`RealFloat`は浮動小数点の実数（`Floating`は複素数も含む）という理解で正しいでしょうか？",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1518587804.000117",
+        "text": "pi = pi / 1 \nだし、分数でもいいのでは？\npi や √ があるとおかしいのは有理数じゃない？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1518587975.000027",
+        "text": "Oh…\n&gt; Languages such as Coq and Agda avoid the *:* axiom because it introduces inconsistency, but that is not an issue here. The FC type language is already inconsistent in the sense that all kinds are inhabited.\nなんですね，知りませんでした… 本当に文面通り*のカインドを*にするんですね…",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1518588106.000009",
+        "text": "無理数とは分数で表現できない数値（分子分母ともに整数である分数＝有理数、以外の値）で、代表は２の平方根や円周率だと教わりました。分数で表現できないのが無理数なのに分数クラスっていうのはと思ったのですが、なるほどpi/1という捉え方も確かにありますね・・",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1518588248.000013",
+        "text": "無理数は 有理数 (分母と分子が整数の分数)で表現できない数だと思うよ\nぼくも専門ではないけど、分数はもっと一般化された概念なんじゃない？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1518588604.000108",
+        "text": "上の記述、おかしいですね。分子分母ともに整数である分数＝有理数で、それ以外が無理数。なので、よく「無理数は分数で表現できない数」といった説明がされています（ちょっと書き方直しました）",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1518588857.000113",
+        "text": "さらに`Rational`が`Ratio Integer`で（分母分子整数による分数）あることを考えると、やっぱり分数という日本語には個人的には違和感がありました",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1518589631.000178",
+        "text": "数学の話ですが、rational を有理数と訳したのは、誤りとだったと言われています。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    }
+]

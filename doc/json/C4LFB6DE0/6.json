@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1522125920.000030",
+        "text": "<@U4LGTMTMK> pinned a message to this channel.",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1522125939.000056",
+        "text": "回答期間は、約2週間後の4月11日 08:00までです。\n（すみません、一度公開してからでは自動で回答締め切りするのが難しそうなのでやっぱり自分でOFFにできる時間帯にします）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1522219353.000094",
+        "text": "<@U9WNR5V6D> has joined the channel",
+        "user": "U9WNR5V6D",
+        "type": "message"
+    },
+    {
+        "ts": "1522236925.000211",
+        "text": "<@U9XB88DU3> has joined the channel",
+        "user": "U9XB88DU3",
+        "type": "message"
+    },
+    {
+        "ts": "1522254156.000540",
+        "text": "<@U9X31FSLR> has joined the channel",
+        "user": "U9X31FSLR",
+        "type": "message"
+    },
+    {
+        "ts": "1522385863.000144",
+        "text": "趣味で、HaskellでFXのシストレを作ってます。よろしくお願いします。",
+        "user": "U9XB88DU3",
+        "type": "message"
+    },
+    {
+        "ts": "1522388682.000195",
+        "text": "<@U9ZP1SYCX> has joined the channel",
+        "user": "U9ZP1SYCX",
+        "type": "message"
+    },
+    {
+        "ts": "1522427371.000182",
+        "text": "<@U9Z23SX61> has joined the channel",
+        "user": "U9Z23SX61",
+        "type": "message"
+    },
+    {
+        "ts": "1522587605.000073",
+        "text": "<@U9YLQC8QG> has joined the channel",
+        "user": "U9YLQC8QG",
+        "type": "message"
+    },
+    {
+        "ts": "1522587681.000135",
+        "text": "hi, are there any Japanese Haskell users with Windows around that could try\n```\nimport GHC.IO.Encoding\ngetForeignEncoding\n```\nfor me and tell me what it outputs? I'm trying to fix a bug in Haskell's rocksdb bindings",
+        "user": "U9YLQC8QG",
+        "type": "message"
+    },
+    {
+        "ts": "1522622371.000031",
+        "text": "From my console:\n\n```\nλ stack exec ghci\nGHCi, version 8.2.2: <http://www.haskell.org/ghc/>  :? for help\nLoaded GHCi configuration from C:\\Users\\igrep\\Dropbox\\dot-files\\dot-files\\.ghci\n[Prelude]\n&gt; import GHC.IO.Encoding\n[Prelude GHC.IO.Encoding]\n&gt; getForeignEncoding\nCP932\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1522630817.000263",
+        "text": "Reminder: <https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233>",
+        "user": "USLACKBOT",
+        "type": "message"
+    },
+    {
+        "ts": "1522660125.000016",
+        "text": "<@U9YSSVB88> has joined the channel",
+        "user": "U9YSSVB88",
+        "type": "message"
+    },
+    {
+        "ts": "1522764016.000965",
+        "text": "<@U4LGTMTMK> Thanks a lot. How did you get this setting? Is it what happens when you install a Japanese Windows edition (and which version?), or after changing it from an English install? I'm trying to set my system so I also get `CP932`",
+        "user": "U9YLQC8QG",
+        "type": "message"
+    },
+    {
+        "ts": "1522767589.000645",
+        "text": "What it outputs, is really depending on the code page which the command prompt (or powershell) uses, by default Windows Japanese edition set it to CP932. If you get other than this, you need to change it to CP932 by calling `chcp 932` before running haskell or (I believe) you can use Japanese edition.",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1522777561.000306",
+        "text": "Yes, that makes sense. I'm just asking because I want to test my changes on as realistic a Japanese system as I can get (to reproduce the bug found by users reported to run on Japanese Windows), and I'm not sure if just the `chcp 932` is enough.",
+        "user": "U9YLQC8QG",
+        "type": "message"
+    },
+    {
+        "ts": "1522777582.000032",
+        "text": "The setting sets set this default seems to be <https://knowledgebase.progress.com/articles/Article/4677>:",
+        "user": "U9YLQC8QG",
+        "type": "message"
+    },
+    {
+        "ts": "1522777611.000834",
+        "text": "&gt; Open Windows Control Panel\n&gt; Select Region and Language\n&gt; Click on the Administrative tab\n&gt; Under Language for non-Unicode programs, click on Change System Locale",
+        "user": "U9YLQC8QG",
+        "type": "message"
+    },
+    {
+        "ts": "1522777744.000051",
+        "text": "I set this to `Japanese (Japan)` and after a reboot I got `CP932` in the ghci",
+        "user": "U9YLQC8QG",
+        "type": "message"
+    },
+    {
+        "ts": "1522785858.000377",
+        "text": "If the bug (maybe) rely on the result of `getForeignEncoding` then, I think `chcp 932` is just enough, since if we put `chcp 65001` and then run `getForeignEncoding`, it outputs `UTF-8`, as we intended the result to be.",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1522796298.000293",
+        "text": "I agree with りんご姫. If the error is related to character encoding, `chcp 65001` or `chcp 20127` is usually a sufficient workaround.",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1522796499.000273",
+        "text": "If your error is similar to one referred in <https://haskell.jp/blog/posts/2017/windows-gotchas.html>, codes in the article would help you.\n(Sorry, this is not translated into English yet...)",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1522801141.000091",
+        "text": "こちらですが残り一週間を切りました。大分集まったようですがまだまだ投票は受け付けているので是非！ hask(_ _)eller\n<https://docs.google.com/forms/d/e/1FAIpQLSdBR3hal7RdXnF2BML3qXCyEUnA7NoZ00dLY4_y4CLtikfTtQ/viewform>\n<https://haskell-jp.slack.com/archives/C4LFB6DE0/p1522125865000004>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1522905385.000029",
+        "text": "<@UA2J5BXMM> has joined the channel",
+        "user": "UA2J5BXMM",
+        "type": "message"
+    },
+    {
+        "ts": "1522905651.000233",
+        "text": "はじめまして、普段はwebアプリをつくるため、pythonやらjavaを書いています。Haskellに最近興味がわいて学習しています。\n初心者ですがよろしくお願いいたします。",
+        "user": "UA2J5BXMM",
+        "type": "message"
+    },
+    {
+        "ts": "1522921848.000027",
+        "text": "<@UA1D0NZK6> has joined the channel",
+        "user": "UA1D0NZK6",
+        "type": "message"
+    },
+    {
+        "ts": "1523235626.000247",
+        "text": "Reminder: <https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233>",
+        "user": "USLACKBOT",
+        "type": "message"
+    },
+    {
+        "ts": "1523274471.000230",
+        "text": "<@UA2SYG5LH> has joined the channel",
+        "user": "UA2SYG5LH",
+        "type": "message"
+    },
+    {
+        "ts": "1523314442.000297",
+        "text": "<@U4LGTMTMK> <@U9XHWQX7Z> thanks a lot!\nAlso your linked article seems to be very relevant to me right now.\nCan you tell me, does ghc itself usually work when working under the Japenese locale?\nFor me, when I run `stack exec -- ghc --version` with the locale set to Japanese, I get\n```\nC:\\Users\\\nghc-pkg.EXE: &lt;stdout&gt;: commitBuffer: invalid argument (invalid character)\n```\nIs that the same for you?",
+        "user": "U9YLQC8QG",
+        "type": "message"
+    },
+    {
+        "ts": "1523314884.000383",
+        "text": "GHC should work under the Japanese locale usually...\n```\n&gt; stack exec ghc -- --version\nThe Glorious Glasgow Haskell Compilation System, version 8.2.2\n```\nHmmm...  You might have got a bug of GHC...?:confused:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1523315035.000271",
+        "text": "<@U4LGTMTMK> I'm also not sure what's going on, I just installed it with the stack installer <https://www.stackage.org/stack/windows-x86_64-installer>",
+        "user": "U9YLQC8QG",
+        "type": "message"
+    },
+    {
+        "ts": "1523315102.000363",
+        "text": "<@U4LGTMTMK> just to double check, for me it fails when I have both the Japanese locale and a Japanese user name, do you think this combination should work?",
+        "user": "U9YLQC8QG",
+        "type": "message"
+    },
+    {
+        "ts": "1523315121.000339",
+        "text": "because that funny newline split is exactly where the user name should be",
+        "user": "U9YLQC8QG",
+        "type": "message"
+    },
+    {
+        "ts": "1523315206.000091",
+        "text": "<@U9YLQC8QG> Oh, yeah, it can be related.\nBecause GHC installed via stack is usually installed under `%LOCALAPPDATA%`.\nE.g.\n```\n&gt; stack exec which ghc\n/c/Users/Yuji/AppData/Local/Programs/stack/x86_64-windows/ghc-8.2.2/bin/ghc\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1523315283.000361",
+        "text": "We know we should avoid making `%USERPROFILE%` contain Japanese name, which causes some errors.",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1523316291.000026",
+        "text": "<@U4LGTMTMK> Is that also written down / documented somewhere? I would like to know more about it, maybe I can even fix it",
+        "user": "U9YLQC8QG",
+        "type": "message"
+    },
+    {
+        "ts": "1523316390.000196",
+        "text": "Hmmm... Sorry, I don't know the detail. Maybe we're too accustomed to avoid Japanese characters before fixing it... :disappointed_relieved:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1523316853.000032",
+        "text": "第1回Haskell-jpロゴ選挙、投票期間が残り24時間を切りました。\nまだ投票していないという方はお急ぎください！\n<https://docs.google.com/forms/d/e/1FAIpQLSdBR3hal7RdXnF2BML3qXCyEUnA7NoZ00dLY4_y4CLtikfTtQ/viewform>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1523317058.000082",
+        "text": "<@U4LGTMTMK> no worries, knowing that this is a known problem already helps a lot, so I know it isn't a fault of my setup",
+        "user": "U9YLQC8QG",
+        "type": "message"
+    },
+    {
+        "ts": "1523320312.000273",
+        "text": "<@UA4PSBSMU> has joined the channel",
+        "user": "UA4PSBSMU",
+        "type": "message"
+    },
+    {
+        "ts": "1523320413.000242",
+        "text": "こんにちは、はじめましてXmonadからHaskellに入ってきました、よろしくお願いします :pray:",
+        "user": "UA4PSBSMU",
+        "type": "message"
+    },
+    {
+        "ts": "1523401859.000342",
+        "text": "<@U4LGTMTMK> uploaded a file: <https://haskell-jp.slack.com/files/U4LGTMTMK/FA5EW3WG6/___1____haskell_jp_______________________.png|第1回 Haskell jp 新ロゴ選挙 結果.png> and commented: <!here> 第１回Haskell-jp 新ロゴ選挙、投票受付を完了しました。\n次のような結果になりました！\nA案に決定です！作成した <@U4KUNQF9N>さんありがとうございました！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1523402426.000095",
+        "text": "<@U4LGTMTMK> commented on <@U4LGTMTMK>’s file <https://haskell-jp.slack.com/files/U4LGTMTMK/FA5EW3WG6/___1____haskell_jp_______________________.png|第1回 Haskell jp 新ロゴ選挙 結果.png>: 念のため補足すると、A案とは\n<https://trello-attachments.s3.amazonaws.com/58ce7624b280ea1d77ac7376/58de0d81f11881e259fa9f48/97d66bb2f7e5e08eaeaef19ec91e7847/haskell-jp.png>\nのことです。",
+        "user": null,
+        "type": "message"
+    },
+    {
+        "ts": "1523484436.000042",
+        "text": "<@UA59JLF98> has joined the channel",
+        "user": "UA59JLF98",
+        "type": "message"
+    },
+    {
+        "ts": "1523494133.000123",
+        "text": "<@UA6CQEGR5> has joined the channel",
+        "user": "UA6CQEGR5",
+        "type": "message"
+    },
+    {
+        "ts": "1523498268.000015",
+        "text": "<@UA4R8D6SD> has joined the channel",
+        "user": "UA4R8D6SD",
+        "type": "message"
+    },
+    {
+        "ts": "1523498649.000138",
+        "text": "<@UA68LF694> has joined the channel",
+        "user": "UA68LF694",
+        "type": "message"
+    },
+    {
+        "ts": "1523498757.000172",
+        "text": "Haskell大好きな高校生です。よろしくお願いします！",
+        "user": "UA68LF694",
+        "type": "message"
+    },
+    {
+        "ts": "1523534438.000443",
+        "text": "<@UA5JPLRH8> has joined the channel",
+        "user": "UA5JPLRH8",
+        "type": "message"
+    },
+    {
+        "ts": "1523537264.000315",
+        "text": "<@UA5KF64CS> has joined the channel",
+        "user": "UA5KF64CS",
+        "type": "message"
+    }
+]

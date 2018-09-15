@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1509361120.000261",
+        "text": "<#C7RQKT49H|haskell-org-status> に <https://status.haskell.org/> の RSS を流すようにしてみました",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1509525001.000103",
+        "text": "<@U7U0GSX9U> has joined the channel",
+        "user": "U7U0GSX9U",
+        "type": "message"
+    },
+    {
+        "ts": "1509892035.000042",
+        "text": "<@U7V6G63LJ> has joined the channel",
+        "user": "U7V6G63LJ",
+        "type": "message"
+    },
+    {
+        "ts": "1509926532.000113",
+        "text": "<@U7VAVLWQL> has joined the channel",
+        "user": "U7VAVLWQL",
+        "type": "message"
+    },
+    {
+        "ts": "1509944602.000112",
+        "text": "<@U7VCQPXDJ> has joined the channel",
+        "user": "U7VCQPXDJ",
+        "type": "message"
+    },
+    {
+        "ts": "1509945665.000129",
+        "text": "<@U7URL21G9> has joined the channel",
+        "user": "U7URL21G9",
+        "type": "message"
+    },
+    {
+        "ts": "1510060441.000533",
+        "text": "<@U7X2WF99C> has joined the channel",
+        "user": "U7X2WF99C",
+        "type": "message"
+    },
+    {
+        "ts": "1510113695.000051",
+        "text": "<@U7W1XE04Q> has joined the channel",
+        "user": "U7W1XE04Q",
+        "type": "message"
+    },
+    {
+        "ts": "1510216762.000439",
+        "text": "<@U7XC5U1RR> has joined the channel",
+        "user": "U7XC5U1RR",
+        "type": "message"
+    },
+    {
+        "ts": "1510219739.000360",
+        "text": "<@U7XGESRSQ> has joined the channel",
+        "user": "U7XGESRSQ",
+        "type": "message"
+    },
+    {
+        "ts": "1510278661.000088",
+        "text": "<@U7Z4F723Z> has joined the channel",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1510379434.000003",
+        "text": "<@U7ZPASHB9> has joined the channel",
+        "user": "U7ZPASHB9",
+        "type": "message"
+    },
+    {
+        "ts": "1510397422.000028",
+        "text": "<@U7YMV774J> has joined the channel",
+        "user": "U7YMV774J",
+        "type": "message"
+    },
+    {
+        "ts": "1510452914.000071",
+        "text": "<@U7YPZHR5Z> has joined the channel",
+        "user": "U7YPZHR5Z",
+        "type": "message"
+    },
+    {
+        "ts": "1510454639.000063",
+        "text": "<!everyone> Haskellそのものからちょっと外れた、関連する数学の話題を話すためのチャンネル <#C7Y71415W|math> を作りました。\n圏論などの数学諸分野はHaskellの重要な基礎となってはいますが（そもそもコンピュータが数学の賜ですしね）\nHaskell自体は数学が分からなくても十分に使用できるものです。\nしかしながらHaskellをやっていて圏論を始め数学に関心を持った人はたくさんいるので、そうした人が自由に数学の話をできる場はあった方がいいだろうと思ったため作りました。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1510476749.000035",
+        "text": "<@U7ZPSL3QE> has joined the channel",
+        "user": "U7ZPSL3QE",
+        "type": "message"
+    },
+    {
+        "ts": "1510531287.000034",
+        "text": "またメンバーが増えた &amp; 上に流れてしまったまま忘れてた ので再掲します。\n<https://haskell-jp.slack.com/archives/C4LFB6DE0/p1500870616095473>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1510724048.000024",
+        "text": "<@U80GXHF6Y> has joined the channel",
+        "user": "U80GXHF6Y",
+        "type": "message"
+    },
+    {
+        "ts": "1510813069.000214",
+        "text": "<@U819ERB44> has joined the channel",
+        "user": "U819ERB44",
+        "type": "message"
+    },
+    {
+        "ts": "1511086743.000051",
+        "text": "```\ndata (Show a) =&gt; Color a = Red | Green | Blue | Rgb {r :: a, g :: a, b :: a} deriving (Show)\n```\nないし\n```\ndata (Show a) =&gt; Color a where\n  Red :: Color\n  Green :: Color\n  Blue :: Color\n  Rgb :: {r ::a, g :: a, b :: a} -&gt; Color\n  deriving (Show)\n```\nという制約はどう書いたら良いでしょうか？",
+        "user": "U7ZPASHB9",
+        "type": "message"
+    },
+    {
+        "ts": "1511086919.000023",
+        "text": "```\ndata Color a where\n  Red :: Color\n  Green :: Color\n  Blue :: Color\n  Rgb :: (Show a) =&gt; {r ::a, g :: a, b :: a} -&gt; Color\n  deriving (Show)\n```\nでどうでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511087026.000069",
+        "text": "<https://haskell-jp.slack.com/archives/C5666B6BB/p1507884910000527> でも触れてますね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511087292.000005",
+        "text": "```\n{-# LANGUAGE GADTs #-}\ndata Color a where\n  Red :: Color\n  Green :: Color\n  Blue :: Color\n  Rgb :: (Show a) =&gt; {r ::a, g :: a, b :: a} -&gt; Color\n  deriving (Show)\nmain = print (Red :: (Color Integer))\n```\nとすると\n```\nprog.hs:3:10: error:\n    • Expecting one more argument to ‘Color’\n      Expected a type, but ‘Color’ has kind ‘k0 -&gt; *’\n    • In the type ‘Color’\n      In the definition of data constructor ‘Red’\n      In the data declaration for ‘Color’\n  |\n3 |   Red :: Color\n  |          ^^^^^\n```\nとなります。注釈はどうつければよいでしょうか？",
+        "user": "U7ZPASHB9",
+        "type": "message"
+    },
+    {
+        "ts": "1511087350.000002",
+        "text": "おお、すみません、よく見てませんでした。\n\n```\ndata Color a where\n  Red :: Color a\n  Green :: Color a\n  Blue :: Color a\n  Rgb :: (Show a) =&gt; {r ::a, g :: a, b :: a} -&gt; Color a\n  deriving (Show)\nmain = print (Red :: (Color Integer))\n```\nではないかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511087615.000039",
+        "text": "```\n\nprog.hs:7:13: error:\n    • Can't make a derived instance of ‘Show (Color a)’:\n        Constructor ‘Rgb’ has constraints in its type\n        Possible fix: use a standalone deriving declaration instead\n    • In the data declaration for ‘Color’\n  |\n7 |   deriving (Show)\n  |    \n```\n\nとなるので\n\n```\n{-# LANGUAGE GADTs #-}\ndata (Show a) =&gt; Color a where\n  Red :: Color a\n  Green :: Color a\n  Blue :: Color a\n  Rgb :: {r ::a, g :: a, b :: a} -&gt; Color a\n  deriving (Show)\nmain = print (Red :: (Color Integer))\n```\n\n相当の書き方が必要になると思います",
+        "user": "U7ZPASHB9",
+        "type": "message"
+    },
+    {
+        "ts": "1511087740.000084",
+        "text": "```\n{-# LANGUAGE GADTs #-}\ndata Color a where\n  Red :: (Show a) =&gt; Color a\n  Green :: (Show a) =&gt; Color a\n  Blue :: (Show a) =&gt; Color a\n  Rgb :: (Show a) =&gt; {r ::a, g :: a, b :: a} -&gt; Color a\n  deriving (Show)\nmain = print (Red :: (Color Integer))\n```\nも\n```\nprog.hs:7:13: error:\n    • Can't make a derived instance of ‘Show (Color a)’:\n        Constructor ‘Red’ has constraints in its type\n        Constructor ‘Green’ has constraints in its type\n        Constructor ‘Blue’ has constraints in its type\n        Constructor ‘Rgb’ has constraints in its type\n        Possible fix: use a standalone deriving declaration instead\n    • In the data declaration for ‘Color’\n  |\n7 |   deriving (Show)\n  |             ^^^^\n```\nのようになり、導出できないようです",
+        "user": "U7ZPASHB9",
+        "type": "message"
+    },
+    {
+        "ts": "1511087880.000036",
+        "text": "自分で `Show` インスタンスを定義するか、どうしてもやりたければ <https://haskell-jp.slack.com/archives/C5666B6BB/p1507884910000527> でも触れているとおり `DatatypeContexts` を使えばよいのではないかと。\nちなみに、それなんで必要なんですか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1511088001.000060",
+        "text": "ふと\n```\ndata Color a = Red | Green | Blue | Rgb {r :: a, g :: a, b :: a}　deriving (Show)\n```\nをGADTで書いてみようとしたら思いのほかややこしかったという事象です",
+        "user": "U7ZPASHB9",
+        "type": "message"
+    },
+    {
+        "ts": "1511089152.000032",
+        "text": "上の警告文の通り StandaloneDeriving をつけたらいけました\n```\n{-# LANGUAGE GADTs, StandaloneDeriving #-}\n\ndata Color a where\n  Red :: (Show a) =&gt; Color a\n  Green :: (Show a) =&gt; Color a\n  Blue :: (Show a) =&gt; Color a\n  Rgb :: (Show a) =&gt; {r ::a, g :: a, b :: a} -&gt; Color a\n\nderiving instance Show (Color a)\n\nmain = print (Red :: (Color Integer))\n```",
+        "user": "U7ZPASHB9",
+        "type": "message"
+    },
+    {
+        "ts": "1511101388.000013",
+        "text": "<@U826HT001> has joined the channel",
+        "user": "U826HT001",
+        "type": "message"
+    },
+    {
+        "ts": "1511426979.000124",
+        "text": "<@U84LW224U> has joined the channel",
+        "user": "U84LW224U",
+        "type": "message"
+    },
+    {
+        "ts": "1511559653.000095",
+        "text": "<@U84K1P2RE> has joined the channel",
+        "user": "U84K1P2RE",
+        "type": "message"
+    },
+    {
+        "ts": "1511671574.000016",
+        "text": "<@U84RD9F32> has joined the channel",
+        "user": "U84RD9F32",
+        "type": "message"
+    },
+    {
+        "ts": "1511673295.000018",
+        "text": "<@U85FBE23C> has joined the channel",
+        "user": "U85FBE23C",
+        "type": "message"
+    },
+    {
+        "ts": "1511999839.000235",
+        "text": "<@U87FHPYS0> has joined the channel",
+        "user": "U87FHPYS0",
+        "type": "message"
+    },
+    {
+        "ts": "1512035579.000276",
+        "text": "<@U86V3B4PJ> has joined the channel",
+        "user": "U86V3B4PJ",
+        "type": "message"
+    },
+    {
+        "ts": "1512041683.000265",
+        "text": "<#C4M4TT8JJ|random> で以前から話していた件が実現しました。 <#C85U8HH0V|github-trends> でGitHubのトレンドをslackで購読することが出来るようになりました。",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1512055255.000499",
+        "text": "<@U87QYA152> has joined the channel",
+        "user": "U87QYA152",
+        "type": "message"
+    },
+    {
+        "ts": "1512056118.000798",
+        "text": "仕事でも趣味でもHaskell書いてます。\nEtaという言語を知り、そこから<@U4M4XHKB8> さんのSlideShareに行き着き、Haskell-jpを知りました。\nよろしくお願いします。",
+        "user": "U87QYA152",
+        "type": "message"
+    },
+    {
+        "ts": "1512056182.000311",
+        "text": "Etaの質問を <#C5666B6BB|questions> に投げるのはありですか？",
+        "user": "U87QYA152",
+        "type": "message"
+    },
+    {
+        "ts": "1512082895.000001",
+        "text": "実質Haskellなんでありだと思います！\nただ、Etaの場合Eta自身のバグにハマる可能性が高いので、 <https://gitter.im/typelead/eta> で聞かないと分からないものもあるかも知れません。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1512219817.000047",
+        "text": "<@U88NRUX26> has joined the channel",
+        "user": "U88NRUX26",
+        "type": "message"
+    },
+    {
+        "ts": "1512263042.000060",
+        "text": "名古屋で行われたイベントで、Liquid Haskell の LT をやってきました。もしよかったらご笑覧ください。",
+        "user": "U4M4XHKB8",
+        "type": "message"
+    },
+    {
+        "ts": "1512263044.000054",
+        "text": "<https://www.slideshare.net/y_taka_23/liquid-haskell-ngk2017b-83162127>",
+        "user": "U4M4XHKB8",
+        "type": "message"
+    },
+    {
+        "ts": "1512294025.000059",
+        "text": "<@U88QWFHJ7> has joined the channel",
+        "user": "U88QWFHJ7",
+        "type": "message"
+    },
+    {
+        "ts": "1512534643.000109",
+        "text": "<@U8AEB7L21> has joined the channel",
+        "user": "U8AEB7L21",
+        "type": "message"
+    },
+    {
+        "ts": "1512534909.000108",
+        "text": "Hello everyone, nice to talk to you.　どうぞよろしくお願いします。",
+        "user": "U8AEB7L21",
+        "type": "message"
+    },
+    {
+        "ts": "1512540624.000088",
+        "text": "[不定期] またメンバーが増えた &amp; 上に流れてしまったまま忘れてた ので再掲します。\n<https://haskell-jp.slack.com/archives/C4LFB6DE0/p1500870616095473>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1512625329.000179",
+        "text": "Hello, I started learning Haskell this month. Nice to meet you!",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1512633463.000032",
+        "text": "<@U8B59859T> has joined the channel",
+        "user": "U8B59859T",
+        "type": "message"
+    }
+]

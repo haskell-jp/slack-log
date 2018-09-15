@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1508938485.000479",
+        "text": "再現手順も概ねはっきりしているようですし。まぁ何か間違ったら誰か優しく教えてくれますよ。\n私も購読してみますね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1508938825.000291",
+        "text": "今たまたまcabalファイルのsignaturesの欄を削ったらエラーが出なくなったので多分backpackのバグですね\nバグであることが確定したっぽいのでそれっぽい例を作ってあとでissueを投げてみようと思います",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1508951276.000263",
+        "text": "hashableをimportすると死ぬことがわかったので報告しておきました :innocent: :innocent: :innocent: \n<https://github.com/haskell/cabal/issues/4847>",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1509025895.000429",
+        "text": "lensのIso' s a、Isoといいつつview (some :: Iso' S A) :: S -&gt; AというSからAの変換しか作れない気がしてきたんですが、A -&gt; Sって作れますか？",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1509026843.000363",
+        "text": "<@U7RDQ3WBZ> has joined the channel",
+        "user": "U7RDQ3WBZ",
+        "type": "message"
+    },
+    {
+        "ts": "1509031672.000278",
+        "text": "`from :: AnIso s t a b -&gt; Iso b a t s` ですね",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1509032575.000538",
+        "text": "若干邪悪な方法ですがViewPatternsを使うとかですかね\n```\npattern Cons'' :: CallowSExpr -&gt; CallowSExpr -&gt; CallowSExpr\npattern Cons'' x y &lt;- Cons' (CallowSExpr -&gt; x) (CallowSExpr -&gt; y) where\n  Cons'' x y = Cons' (growup x) (growup y)```",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1509066300.000102",
+        "text": "補足ですが．それこそViewPatternsでも使わない限りPatternSynonymsはその名の通りただのシノニムなので，パターンマッチで可能なこと以上のことができるようにはなりません．つまり，コンストラクタをかぶせていく(=マッチして取り出したい値を別の値に変質させずそのまま持たせる)だけで値を作れるルートがある場合にしか，コンストラクトの逆操作であるパターンマッチ(によるデストラクト，中身の取り出し)は定義できません．今回定義しようとしているシノニムに対してあてはめると，(パターンマッチにより分解して出そうとしている，パターンに現れる1，2番目の)CallowSExprをそのまま使って，つまり「その中身を一旦取り出す(grouup)」というコンストラクタをかぶせる以外の操作を挟まずには(パターンに現れる3番目の)CallowSExprをコンストラクトできるルートが無いので，パターンマッチによってCallowSExprを分解してCallowSExprを取り出すことはできないということになります．このことは定義したいなと思ったパターンの型を考えた際に，いろいろとその実現方法について試行錯誤せずとも，それらに現れる型のコンストラクタの情報からできそう/できなさそうについては判断可能かと思います．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1509067743.000088",
+        "text": "ありがとうございます！！",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1509075365.000217",
+        "text": "ViewPatternsを除けば、PatternSynonymsは有限なパターンマッチで表現可能なもののみ定義できるって感じですかね？ &gt; <@U5G2BCVBN>",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1509075419.000121",
+        "text": "うおおできた！！ ありがとうございます！！ &gt; <@U560KD6DN>",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1509088544.000378",
+        "text": "今のケースって、CallowSExpr型のtermをAtomの場合とConsの場合でそれぞれパターンマッチできるようにしたいってことだと思うんですが、newtypeで作った型をコンストラクト・デストラクトする方法は常に1通りしかないのでこういうpatternが記述できてもいいんじゃないかという気はした(ぼやき)",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1509088704.000184",
+        "text": "newtypeがdataの特殊な場合だと思うと(つまり一般にdataに対しては)こういうのは当然記述できないわけですが、newtypeは1つのコンストラクタのみからなる型と思えばそのコンストラクタに対するパターンは常にbidirectionalに作れるでしょみたいな",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1509111253.000364",
+        "text": "わかる～！\n\nこのような解決方法が存在していてよかった。",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1509419581.000222",
+        "text": "久々に <https://www.slideshare.net/pfi/ss-9780450> を読んでいて気になったのですが、Haskellにconcurrent revisionsの実装はあるんでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1509434917.000062",
+        "text": "参考: Purely Functional Concurrent Revisions <https://www.microsoft.com/en-us/research/publication/prettier-concurrency-purely-functional-concurrent-revisions/>",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1509678432.000160",
+        "text": "`Database.Relational.Type` が relational-query 0.9.5.0 の GitHub の cabal ファイルの exposed-modules にはあるのに Stackage LTS-9.11 見るとないのなんでなんでしょう？\n• GitHub <https://github.com/khibino/haskell-relational-record/blob/502ff25dcb0b8bd430951192d6deb31657d1ea04/relational-query/relational-query.cabal>\n• Stackage <https://www.stackage.org/lts-9.11/package/relational-query-0.9.5.0>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1509678903.000038",
+        "text": "<https://github.com/khibino/haskell-relational-record/blob/release-relational-query-0_9_5_0/relational-query/relational-query.cabal> にも\n<https://hackage.haskell.org/package/relational-query-0.9.5.0>\nにもないということは、\nリリース時のミスっぽい感じがしますね。。。 :cold_sweat:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1509678949.000184",
+        "text": "Issueとして送った方が良さそうな気が強います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1509679053.000175",
+        "text": "いや違うわ。\n<https://github.com/khibino/haskell-relational-record/blob/release-relational-query-0_9_5_0/relational-query/relational-query.cabal>\nにもなかったので、参照しているGitHubのコミットがおかしい気がします。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1509679107.000061",
+        "text": "lts-9 のブランチにはあるんで、単純に見てるコミットが 0.9.5 と 0.10.0 の間のコミットなだけだと思いますよ\n<https://github.com/khibino/haskell-relational-record/blob/lts-9/relational-query/relational-query.cabal>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1509679154.000197",
+        "text": "なるほど、バージョン番号上げる前の作業途中のリビジョンを見っちゃったのか",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1509679249.000088",
+        "text": "GitHub の検索欄から雑に検索して探してたのでちゃんと clone してブランチ指定して目的のもの探してみます\nありがとうございました",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1509926603.000088",
+        "text": "<@U7VAVLWQL> has joined the channel",
+        "user": "U7VAVLWQL",
+        "type": "message"
+    },
+    {
+        "ts": "1510066861.000505",
+        "text": ".cabal ファイルに書いてあるけど使っていないパッケージを調べる方法……は packageunused というパッケージを使えば良さそうでした（自己解決） <https://hackage.haskell.org/package/packunused>",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1510093633.000314",
+        "text": "<https://hackage.haskell.org/package/weeder> の方が簡単そうですよ！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1510217044.000027",
+        "text": "<@U7XC5U1RR> has joined the channel",
+        "user": "U7XC5U1RR",
+        "type": "message"
+    },
+    {
+        "ts": "1510278772.000141",
+        "text": "<@U7Z4F723Z> has joined the channel",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1510333224.000566",
+        "text": "weeder 試しているのですが色々報告してくれていいですね！",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1510365916.000084",
+        "text": "package.yaml には使えないですよね…",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1510380019.000012",
+        "text": "引数の命名規則的なのHaskellにありますか?",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1510382253.000032",
+        "text": "うーん、型や変数については <https://wiki.haskell.org/Programming_guidelines#Naming_Conventions> がありますが、引数についてはあまり聞かないですね。。。\nもしかして何か具体的に悩んでいたりしますか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1510399756.000058",
+        "text": "Maybeモナドを引数に取ってJustとNothingで場合分けする関数を作っていて、Maybeモナドの引数名を悩みました。細かいことなのですが…",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1510406228.000091",
+        "text": "長く書くのであればmaybeFooみたいにmaybeを頭に着けるか、短くするのであればmbっていうプレフィックスをつけますね。\nというか、Maybeを引数にとるのであれば\n```\nf (Just x) = ...\nf Nothing = ...\n```\nという書き方ができるので、そうすればMaybeを意識しなくて済むのでは？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1510408779.000016",
+        "text": "そもそも、関数の型は推論ができても書くっていう慣習があるので、引数の型によって引数名を考える必要は無さそう(関数の型定義を見ろ)。",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1510409061.000055",
+        "text": "<@U4LGTMTMK> ぼくも結局そう書いてました:sweat_drops:\n<@U56L7EVNY> C++畑出身なので名前がどうしても気になって…",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1510412909.000001",
+        "text": "必要というより、型から引数名考えた方が楽じゃないっすか。だから決してそのアプローチは悪くないと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1510423487.000017",
+        "text": "<@U55UMF3L0> has joined the channel",
+        "user": "U55UMF3L0",
+        "type": "message"
+    },
+    {
+        "ts": "1510465927.000009",
+        "text": "Foldable型クラスの foldMap は満たすべき\u0008 Foldable則はないんでしたっけ。ないとしたら型引数を1個持つすべての型コンストラクタは ```foldMap _ _ = memtpy``` で Foldable にできますか（役には立たなそうですが）。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1510467005.000048",
+        "text": "<https://hackage.haskell.org/package/base-4.10.0.0/docs/Data-Foldable.html>\n曰く\n```\nfoldr f z t = appEndo (foldMap (Endo . f) t ) z\nfoldl f z t = appEndo (getDual (foldMap (Dual . Endo . flip f) t)) z\nfold = foldMap id\n```\nを満たせ、とありますね。\n更にFunctorのインスタンスでもある場合は、\n```\nfoldMap f = fold . fmap f\n```\nも満たせ、と。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1510467157.000027",
+        "text": "`Endo` というのは関数の `(.)` を `mappend` として扱うための、関数に対する newtype で、 `Dual` というのは任意のMonoidの`mappend`を `flip` するための newtype だそうです。\nつまり最初の2つを要約すると、\nfoldrもfoldlも、 `foldMap` で合成した関数によって作られなければならないってことのようですね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1510467305.000008",
+        "text": "foldMap 以外のメソッドは foldMap を使ったデフォルト実装にするとすれば上記のメソッド間の関係は自動的に満たされますね（多分）。foldMap 単独で満たすべき則はないんでしょうか。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1510468829.000023",
+        "text": "foldMap _ _ = memptyの場合，Const m関手と同じFoldableを持つのでそれもFoldableといっていいものだと思います",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510468890.000011",
+        "text": "mempty のケースは結構一貫性が感じられますね。例えば、リストを要素に持つ木の fold は普通要素を左から並べて concat したものを想像しますが木ごとに「この木の fold結果は好きに選んだこのリストとする」のように対応を勝手に決めてしまっても Foldable と言ってよいでしょうか。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1510469197.000051",
+        "text": "foldの満たすべき性質の本質は，おそらくfold . fmap f = f . foldだと思います",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510469373.000022",
+        "text": "ただ，これはfoldがどんなmに対しても定義できる多相関数である以上，その他のFoldableの法則が満たされれば，満たされるものだと思います．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510469561.000048",
+        "text": "「この木の fold結果は好きに選んだこのリストとする」\nこれは結局木の形に言及したものになるのでそれも一つのfoldの仕方と言えるのではないでしょうか？（今，ちょっと文献を探してます）",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510469713.000032",
+        "text": "「この木」と書きましたが木の形だけでなく同じ木の形でも要素の値ごとに一貫性なく値を割り当てることも考えてました。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1510469831.000009",
+        "text": "要素の値というのは， `fold :: Monoid m =&gt; t m -&gt; m` での， `m` の型に言及するというのことでしょうか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1510469856.000012",
+        "text": "型にも具体的な値ごとにも。 `fold (Leaf [1]) = [3,5]; fold (Leaf [2]) = []; ...`",
+        "user": "U57CGDBMG",
+        "type": "message"
+    }
+]
