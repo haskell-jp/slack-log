@@ -214,5 +214,41 @@
         "text": "おお、ありがとう。連休中に読んで見ます。前に講義の課題でトライ木のArbitraryインスタンスを定義してたなーと思って見直したらえらい難解でした。。\n<https://gist.github.com/HirotoShioi/94ca87534be2144250fa10b61c7ce0d8>",
         "user": "U7Z4F723Z",
         "type": "message"
+    },
+    {
+        "ts": "1537417014.000100",
+        "text": "Persistent PostgreSqlに関する質問です。\n以下の記事にそって`createdAt UTCTime default=CURRENT_TIME`と設定しました。\n<https://www.yesodweb.com/book/persistent#persistent_attributes>\n\nしかしマイグレーションの際に以下のエラーメッセージが出力されます。\n\n```\n*** Exception: SqlError {sqlState = \"42804\", sqlExecStatus = FatalError, sqlErrorMsg = \"column \\\"created_at\\\" is of type timestamp with time zone but default expression is of type time with time zone\", sqlErrorDetail = \"\", sqlErrorHint = \"You will need to rewrite or cast the expression.\"}\n```\n\nこれに対する回避策はあるのでしょうか。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1537417909.000100",
+        "text": "代わりに，now()を使うのはどうでしょう？\n<https://github.com/yesodweb/persistent/blob/master/docs/Persistent-entity-syntax.md#default>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1537418378.000100",
+        "text": "ありがとうございます。やってみます。なにやらTimeZoneに関する記事がリンクされてますので、それも読んでみます。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1537418765.000100",
+        "text": "Postgresでは，timestamp型のデフォルト値用にCURRENT_TIMESTAMPとnow()がサポートされています(なので，CURRENT_TIMESTAMPを使っても良いと思いますね)．\n<https://www.postgresql.jp/document/10/html/functions-datetime.html>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1537418833.000100",
+        "text": "いけました！ありがとうございます。\n調べてみるとpostgresqlにおけるcurrent_timeはその日の時刻のみ（日付はない）返すようです。。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1537418848.000100",
+        "text": "<https://www.postgresql.jp/document/7.2/user/functions-datetime.html#FUNCTIONS-DATETIME-CURRENT>",
+        "user": "U7Z4F723Z",
+        "type": "message"
     }
 ]
