@@ -16,5 +16,59 @@
         "text": "これよさそうですね！ :100: ",
         "user": "U5LV76EJH",
         "type": "message"
+    },
+    {
+        "ts": "1537498120.000100",
+        "text": "&gt; 「プログラムの実行中を通して実行結果が変わらず、かつ、いつ実行されてもいい（されなくてもいい）式」\nという条件がなりたったとして，unsafePerformIOが使いたい場面ってどうときですか？",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1537499869.000100",
+        "text": "<@U4KU9ABL0> あまりないんですよね正直。「 開始時に排他ロックして終了時まで解放しないファイルからリード」も、最初に全部読んでしまった方が後腐れが無いし",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1537500517.000100",
+        "text": "Concurrent Clean でいうところの一意性が安全の条件だと思います．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1537501504.000100",
+        "text": "一意性ってこれですかね <https://qiita.com/7shi/items/ab3b819871d7b0710949>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1537501583.000100",
+        "text": "はい，そうです．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1537501746.000100",
+        "text": "これのファイルの例だと「書き込むたびにファイルハンドルが別物扱いになる」という仕様とワンセットで安全が実現されてるっぽいので、unsafePerformIOでいうと如何なるケースで同じ話が使えるのか、というのは、ちょっと考えてみたいところです",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1537507518.000200",
+        "text": "<@UCXV98292> has joined the channel",
+        "user": "UCXV98292",
+        "type": "message"
+    },
+    {
+        "ts": "1537518537.000200",
+        "text": "<@UCZJAMHL6> has joined the channel",
+        "user": "UCZJAMHL6",
+        "type": "message"
+    },
+    {
+        "ts": "1537519723.000100",
+        "text": "shakespeareで演算子コンストラクタがパターンマッチングに失敗する問題修正するついでに\n[added: parse pattern-match with operator constructor closed #222 by ncaq · Pull Request #223 · yesodweb/shakespeare](<https://github.com/yesodweb/shakespeare/pull/223>)\nGHC 7でTravisがコケてて全てのテストに失敗するようになってたから\nYesod本体でGHC 7のサポート終わってたからGHC 7対応コードとテストを消滅させることでテストを通したんですが\n[deleted: drop GHC 7 test by ncaq · Pull Request #225 · yesodweb/shakespeare](<https://github.com/yesodweb/shakespeare/pull/225>)\n結局何が原因でGHC 7でコケてたかはわからないままでしたね\nタイムアウトしてましたがGHC 7だとそんなに速度差が出るコードには見えなかったんですけどねえ…",
+        "user": "U57CUMWQ6",
+        "type": "message"
     }
 ]
