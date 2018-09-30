@@ -1,0 +1,74 @@
+[
+    {
+        "ts": "1537965036.000100",
+        "text": "",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1538017835.000100",
+        "text": ":cry:",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1538038244.000100",
+        "text": "メモリエラーという事はスペースリークかもしれないので、ソース晒せば誰か直してくれるかも",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1538056356.000100",
+        "text": "あ、すでに晒してます <https://haskell-jp.slack.com/files/U4L0B71L1/FD1666PLL/>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1538117755.000100",
+        "text": "こっちはTLEですね…リストとマップを配列とハッシュマップに直せば行けるのか、ロジック直さないと駄目なのか",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1538119225.000100",
+        "text": "&gt; リストとマップを配列とハッシュマップに直せば行けるのか、ロジック直さないと駄目なのか\nそう ここが分かってない\n競プロガチ勢なら制約とオーダーと制限時間見てこのアルゴリズムで行けるか分かるんでしょうけど",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1538157962.000100",
+        "text": "\"Testcase 1\" で Out of memory になるソースはこちらです　``` {-# LANGUAGE FlexibleInstances, UndecidableInstances, DuplicateRecordFields #-}\nmodule Main where\nimport Control.Monad\nimport Data.Array\nimport Data.List\nimport System.Environment\nimport <http://System.IO|System.IO>\n\nsubstringDiff k s1 s2 = bsearch 1 (min n1 n2) f\n    where\n    n1 = length s1\n    n2 = length s2\n    ar1 = listArray (1,n1) s1\n    ar2 = listArray (1,n2) s2\n    ar = array ((0,0),(n1,n2)) $ ((0,0),0):\n        [((i,0),0) | i &lt;- [1..n1]] ++ [((0,j),0) | j &lt;- [1..n2]] ++\n        [((i,j),ar!(i-1,j-1) + if ar1!i == ar2!j then 0 else 1) | i &lt;- [1..n1], j &lt;- [1..n2]]\n    f x = or [ar!(i,j) - ar!(i-x,j-x) &lt;= k | i &lt;- [x..n1], j &lt;- [x..n2], x &lt;= min i j]\n\nbsearch l r p\n  | l &gt;= r    = l\n  | p m       = bsearch m r p\n  | otherwise = bsearch l (m-1) p\n  where m = (l+r+1) `div` 2\n\nmain :: IO()\nmain = do\n    stdout &lt;- getEnv \"OUTPUT_PATH\"\n    fptr &lt;- openFile stdout WriteMode\n    t &lt;- readLn :: IO Int\n    forM_ [1..t] $ \\t_itr -&gt; do\n        kS1S2Temp &lt;- getLine\n        let kS1S2 = words kS1S2Temp\n        let k = read (kS1S2 !! 0) :: Int\n        let s1 = kS1S2 !! 1\n        let s2 = kS1S2 !! 2\n        let result = substringDiff k s1 s2\n        hPutStrLn fptr $ show result\n    hFlush fptr\n    hClose fptr\n ```",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1538195778.000200",
+        "text": "<@UD33KMXRP> has joined the channel",
+        "user": "UD33KMXRP",
+        "type": "message"
+    },
+    {
+        "ts": "1538203286.000100",
+        "text": "[HERP](<https://herp.co.jp/>)\nという会社がHaskellとYesod使っているということを知って興味を持ったので\n月曜日に話を聞きに行く予定なのですが\nhaskell-jpのメンバーにここの社員居たりしますかね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1538204566.000100",
+        "text": "プロファイル取ってみました。arのメモリ使用量削減が課題ですかね。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1538205074.000100",
+        "text": "おもむろにUnboxed Arrayに変えてみたら、arの右辺でarを使う所で無限ループになりました。Mutable Arrayを使うか、kakkun61さんのようにMemoモナドを使う必要がある模様",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1538207873.000100",
+        "text": "これで18MBまで減りました。",
+        "user": "U570660KX",
+        "type": "message"
+    }
+]
