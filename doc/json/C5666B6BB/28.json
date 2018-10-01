@@ -70,5 +70,17 @@
         "text": "これで18MBまで減りました。",
         "user": "U570660KX",
         "type": "message"
+    },
+    {
+        "ts": "1538355253.000100",
+        "text": "もう終わった話題だったら申し訳ないんですが、kakkun61さんのコードもタプルをStrictなタプルに変えるとか、適当なところでBangPatternsを使うだけで大分改善されそうな気がします。\n（ちょっと試せてないんですが、忘れないうちに。。。）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1538368939.000100",
+        "text": "よくよく考えなおしたら　最長解の探索の時に　一つのづれ毎に　２次元テーブルの対角方向しか使っていないので　このテーブルは不要でした　下記のコードで AC になりました　as_capabl さんお勧めの Unboxed Array も使いました　皆さんありがとうございました　　``` {-# LANGUAGE FlexibleInstances, UndecidableInstances, DuplicateRecordFields #-}\nmodule Main where\nimport Control.Monad\nimport <http://Control.Monad.ST|Control.Monad.ST>\nimport Data.Array.Unboxed\nimport <http://Data.Array.ST|Data.Array.ST>\nimport Data.List\nimport System.Environment\nimport <http://System.IO|System.IO>\n\nsubstringDiff k s1 s2 = maximum $ g &lt;$&gt; [1-n2..n1-1]\n    where\n    n1 = length s1\n    n2 = length s2\n    ar1 = listArray (1,n1) s1 :: UArray Int Char\n    ar2 = listArray (1,n2) s2 :: UArray Int Char\n    mn = min n1 n2\n    df = abs (n1-n2)\n    g y = bsearch 1 n f\n        where\n        (i,j) = (max 1 (1+y),max 1 (1-y))\n        n   | n1&gt;n2 = if y-df&gt;0 then mn-y+df else mn+min 0 y\n            | n1&lt;n2 = if y+df&lt;0 then mn+y-df else mn-max 0 y\n            | True  = mn - abs y\n        ar :: UArray Int Int\n        ar = runSTUArray $ do\n            arM &lt;- newArray_ (0,n)\n            writeArray arM 0 0\n            forM_ [1..n] $ \\x -&gt; do\n                prev &lt;- readArray arM (x-1)\n                writeArray arM x $ prev + if ar1!(i+x-1) == ar2!(j+x-1) then 0 else 1\n            return arM\n        f x = or [ar!i - ar!(i-x) &lt;= k | i &lt;- [x..n]]\n\nbsearch l r p\n  | l &gt;= r    = l\n  | p m       = bsearch m r p\n  | otherwise = bsearch l (m-1) p\n  where m = (l+r+1) `div` 2\n\nmain :: IO()\nmain = do\n    stdout &lt;- getEnv \"OUTPUT_PATH\"\n    fptr &lt;- openFile stdout WriteMode\n    t &lt;- readLn :: IO Int\n    forM_ [1..t] $ \\t_itr -&gt; do\n        kS1S2Temp &lt;- getLine\n        let kS1S2 = words kS1S2Temp\n        let k = read (kS1S2 !! 0) :: Int\n        let s1 = kS1S2 !! 1\n        let s2 = kS1S2 !! 2\n        let result = substringDiff k s1 s2\n        hPutStrLn fptr $ show result\n    hFlush fptr\n    hClose fptr\n ```",
+        "user": "U584T7GAH",
+        "type": "message"
     }
 ]
