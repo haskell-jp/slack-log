@@ -141,6 +141,7 @@ saveChannel cfg tss channelName = Dir.withCurrentDirectory "doc/json" $ do
               let channelNameS = T.unpack channelName
                   tmpFileName = channelNameS <> "-tmp.json"
               BL.writeFile tmpFileName $ Json.encodePretty (reverse msgs)
+              Dir.createDirectoryIfMissing False channelNameS
               (latestPageFileName, basePageNum) <- chooseLatestPageOf =<< Dir.listDirectory channelNameS
               paginateFiles defaultPageSize basePageNum channelNameS [channelNameS </> latestPageFileName, tmpFileName]
               Dir.removeFile tmpFileName
