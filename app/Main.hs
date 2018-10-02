@@ -21,6 +21,7 @@ limitations under the License.
 {-# LANGUAGE OverloadedStrings #-}
 
 import           Control.Applicative      ((<|>))
+import           Control.Arrow            as Arrow
 import           Control.Exception        (bracket)
 import           Control.Monad            (when)
 import           Control.Monad.IO.Class   (liftIO)
@@ -49,7 +50,8 @@ import qualified Web.Slack.Channel        as Channel
 import qualified Web.Slack.Common         as Slack
 import qualified Web.Slack.User           as User
 
-import           SlackLog.Pagination      (defaultPageSize, paginateFiles, chooseLatestPageOf)
+import           SlackLog.Pagination      (chooseLatestPageOf, defaultPageSize,
+                                           paginateFiles)
 import           Web.Slack.Instances      ()
 
 
@@ -142,8 +144,12 @@ saveChannel cfg tss channelName = Dir.withCurrentDirectory "doc/json" $ do
                   tmpFileName = channelNameS <> "-tmp.json"
               BL.writeFile tmpFileName $ Json.encodePretty (reverse msgs)
               Dir.createDirectoryIfMissing False channelNameS
-              (latestPageFileName, basePageNum) <- chooseLatestPageOf =<< Dir.listDirectory channelNameS
-              paginateFiles defaultPageSize basePageNum channelNameS [channelNameS </> latestPageFileName, tmpFileName]
+              channelDirItems <- Dir.listDirectory channelNameS
+              (latestPageFileNames, basePageNum) <-
+                if null channelDirItems
+                  then return ([], 1)
+                  else Arrow.first ((: []) . (channelNameS </>)) <$> chooseLatestPageOf channelDirItems
+              paginateFiles defaultPageSize basePageNum channelNameS (latestPageFileNames ++ [tmpFileName])
               Dir.removeFile tmpFileName
               return (channelName, latestTs)
             _ -> do
