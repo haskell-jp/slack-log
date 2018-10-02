@@ -81,6 +81,7 @@ targetChannels =
   , "C5666B6BB" -- questions
   , "C4M4TT8JJ" -- random
   , "C8R0H137H" -- translation
+  , "CCYF8H43A" -- nix
   ]
 
 
