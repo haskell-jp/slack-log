@@ -154,5 +154,29 @@
         "text": "自分の言っているのは体系の強さの意味です。\n通常の除去規則(J)を持つ通常の homogeneous な propositional equality と、 John Major’s equality を比べると、後者を持つ体系で前者は自明に定義できて更にKやUIP(Uniqueness of identity proof)等を満たすのに対して、前者しかない体系で後者を定義することは出来ないです(ただしKもしくはUIPもしくは制限のないパターンマッチがあれば定義できる)。\n\nCoqはKやUIPを前提としない体系(Agdaでの `--without-K` な状態)なので、 John Major’s equality は Axiom を使って定義されているはずです。 John Major’s equality の除去規則(とその計算規則?)を Axiom にすれば `a :~~: b -&gt; a :~: b` は証明できるはずですが、何らかの事情で別の定義を使っているのかも知れません。",
         "user": "U4MA78F6X",
         "type": "message"
+    },
+    {
+        "ts": "1538801813.000100",
+        "text": "最近ちまちま読んでた論文にも、良く見るとその辺の話めっちゃ出てきてました。 <https://arxiv.org/abs/1610.07978> モチベーションとして3.2節で　<@U4LGTMTMK> さんが挙げたような例が出てきて、論理的裏付けとして5章で <@U5LEE6C1J> さんや <@U4MA78F6X> さんが挙げてるような話が書いてあるっぽい",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1538801980.000100",
+        "text": "というか著者＝発表者だ",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1538806549.000100",
+        "text": "Haskell の話からはかなり脱線してしまいますが、 John Major’s equality の除去規則から 通常の propositional equality の K と UIP を示すのを Agda で書いてみました。 <https://gist.github.com/msakai/b3f3003b1ec900b84c0e5c6e5315c90b>",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1538814107.000100",
+        "text": "Haskell では homogeneous equality を表す型クラス a ~ b は heterogeneous equality を表す型クラス a ~~ b を使って class (a ~~ b) =&gt; (a :: k) ~ (b :: k) と定義されていますね。型クラスでは、もしインスタンスがあればそれは一意なので UIP は当然のことといえるかも？a :~: b と a :~~: b の間にはこういう関係はないです。",
+        "user": "U5LEE6C1J",
+        "type": "message"
     }
 ]
