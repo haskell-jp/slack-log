@@ -82,5 +82,77 @@
         "text": "よくよく考えなおしたら　最長解の探索の時に　一つのづれ毎に　２次元テーブルの対角方向しか使っていないので　このテーブルは不要でした　下記のコードで AC になりました　as_capabl さんお勧めの Unboxed Array も使いました　皆さんありがとうございました　　``` {-# LANGUAGE FlexibleInstances, UndecidableInstances, DuplicateRecordFields #-}\nmodule Main where\nimport Control.Monad\nimport <http://Control.Monad.ST|Control.Monad.ST>\nimport Data.Array.Unboxed\nimport <http://Data.Array.ST|Data.Array.ST>\nimport Data.List\nimport System.Environment\nimport <http://System.IO|System.IO>\n\nsubstringDiff k s1 s2 = maximum $ g &lt;$&gt; [1-n2..n1-1]\n    where\n    n1 = length s1\n    n2 = length s2\n    ar1 = listArray (1,n1) s1 :: UArray Int Char\n    ar2 = listArray (1,n2) s2 :: UArray Int Char\n    mn = min n1 n2\n    df = abs (n1-n2)\n    g y = bsearch 1 n f\n        where\n        (i,j) = (max 1 (1+y),max 1 (1-y))\n        n   | n1&gt;n2 = if y-df&gt;0 then mn-y+df else mn+min 0 y\n            | n1&lt;n2 = if y+df&lt;0 then mn+y-df else mn-max 0 y\n            | True  = mn - abs y\n        ar :: UArray Int Int\n        ar = runSTUArray $ do\n            arM &lt;- newArray_ (0,n)\n            writeArray arM 0 0\n            forM_ [1..n] $ \\x -&gt; do\n                prev &lt;- readArray arM (x-1)\n                writeArray arM x $ prev + if ar1!(i+x-1) == ar2!(j+x-1) then 0 else 1\n            return arM\n        f x = or [ar!i - ar!(i-x) &lt;= k | i &lt;- [x..n]]\n\nbsearch l r p\n  | l &gt;= r    = l\n  | p m       = bsearch m r p\n  | otherwise = bsearch l (m-1) p\n  where m = (l+r+1) `div` 2\n\nmain :: IO()\nmain = do\n    stdout &lt;- getEnv \"OUTPUT_PATH\"\n    fptr &lt;- openFile stdout WriteMode\n    t &lt;- readLn :: IO Int\n    forM_ [1..t] $ \\t_itr -&gt; do\n        kS1S2Temp &lt;- getLine\n        let kS1S2 = words kS1S2Temp\n        let k = read (kS1S2 !! 0) :: Int\n        let s1 = kS1S2 !! 1\n        let s2 = kS1S2 !! 2\n        let result = substringDiff k s1 s2\n        hPutStrLn fptr $ show result\n    hFlush fptr\n    hClose fptr\n ```",
         "user": "U584T7GAH",
         "type": "message"
+    },
+    {
+        "ts": "1538705059.000100",
+        "text": "難しそうな質問ですみません。HIW 2018にあった\n<https://icfp18.sigplan.org/event/hiw-2018-papers-coercion-quantification>\nこちらの発表の内容を理解しようとしているんですが、\n出てくる「homogeneous equality」「heterogeneous equality」というキーワードがさっぱりわからず、困っております。\n既存の `a ~ b` ともまた違うっぽいんですが、どう違うんでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1538705462.000100",
+        "text": "&gt; homogeneous equality, which means equality is between types of a same kind\nだから，同一kindでの関係か異なるkindでの関係かでは？",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1538705622.000100",
+        "text": "「異なるkindだけど等しい」という状態がどんな状態なのかちょっとイメージがわかないです。。。 :sweat:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1538707054.000100",
+        "text": "依存型を用いて長さを型やら種レベルに持つコンテナ `X` があって，さらにそれに交換則を満たすような結合操作が入っているときに，実際に交換して結合した2つのコンテナの値(型)の型(種)は `X (a+b)` と `X (b+a)` みたいなものが出てきますが，たとえばこれらのequalityが扱えないことがあるみたいな話ではないですか．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1538712049.000100",
+        "text": "<http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Type-Equality.html> ここにhomogeniousな `:~:` とheterogeniousな `:~~:` がそれぞれ定義されていますね。後者がなぜ必要なのか、私も理解できてないですが一応。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1538712318.000100",
+        "text": "HReflでパターンマッチすれば同じ型(必然的に同じkind)になるけど、マッチ前は異なるkindの型を両辺に書ける、って感じなのか",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1538725364.000100",
+        "text": "<https://icfp18.sigplan.org/event/hiw-2018-papers-coercion-quantification> に張ってあるスライドの17ページに例がありました（スライドのPDFファイルへの直リンはしにくくなってますね。。。）\nややでっち上げた例のようにも感じられますが、\n\n```\ndata Rep :: forall k. k -&gt; Type where\n  RepBool :: Rep Bool\n  RepMaybe :: Rep Maybe\n```\n\nみたいな、任意のkindを内包できる型があった場合に、\n`Rep Bool` と `Rep Maybe` の（型レベルでの）等値性を比較したい場合に kind errorになってしまう、という例です。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1538729833.000100",
+        "text": "ちなみに、依存型の世界だと heterogenious equality (John Major’s equality) は K を含意するので、通常の homogeneous equality よりも真に強いです。",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1538730454.000100",
+        "text": "a :~~: b -&gt; a :~: b が axiom K を含意する、の方が正確なような気がします",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1538730833.000100",
+        "text": "というか `a :~: b -&gt; a :~~: b` は成り立つのに対して `a :~~: b -&gt; a :~: b` は成り立たないので heterogenious equality のほうが弱い、といえると私は認識していたんですがこれであってますよね……？",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1538731501.000100",
+        "text": "ちょっと誤解していたんですが `a :~~: b -&gt; a :~: b` が成り立たないのは Coq においてで、 Haskell では成り立つみたいです。ｽﾐﾏｾﾝ",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1538794140.000100",
+        "text": "自分の言っているのは体系の強さの意味です。\n通常の除去規則(J)を持つ通常の homogeneous な propositional equality と、 John Major’s equality を比べると、後者を持つ体系で前者は自明に定義できて更にKやUIP(Uniqueness of identity proof)等を満たすのに対して、前者しかない体系で後者を定義することは出来ないです(ただしKもしくはUIPもしくは制限のないパターンマッチがあれば定義できる)。\n\nCoqはKやUIPを前提としない体系(Agdaでの `--without-K` な状態)なので、 John Major’s equality は Axiom を使って定義されているはずです。 John Major’s equality の除去規則(とその計算規則?)を Axiom にすれば `a :~~: b -&gt; a :~: b` は証明できるはずですが、何らかの事情で別の定義を使っているのかも知れません。",
+        "user": "U4MA78F6X",
+        "type": "message"
     }
 ]
