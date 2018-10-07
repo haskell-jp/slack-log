@@ -178,5 +178,65 @@
         "text": "Haskell では homogeneous equality を表す型クラス a ~ b は heterogeneous equality を表す型クラス a ~~ b を使って class (a ~~ b) =&gt; (a :: k) ~ (b :: k) と定義されていますね。型クラスでは、もしインスタンスがあればそれは一意なので UIP は当然のことといえるかも？a :~: b と a :~~: b の間にはこういう関係はないです。",
         "user": "U5LEE6C1J",
         "type": "message"
+    },
+    {
+        "ts": "1538891257.000200",
+        "text": "<@UD83WF8TA> has joined the channel",
+        "user": "UD83WF8TA",
+        "type": "message"
+    },
+    {
+        "ts": "1538895705.000100",
+        "text": "仕様と、上手く動かなかったプログラムを添付します。どうしても回数が多いのでOverflowするのと、計算精度が良くないようで結果もおかしな感じとなります。すいませんが、ご教示お願い致します。\n\n```{-# LANGUAGE Strict #-}\nimport System.Environment\n\nqnr :: Double -&gt; Double -&gt; Double -&gt; Double\nqnr n r 0 = 0\nqnr n r p\n  | n &lt; r     = 0\n  | n == r    = q\n  | otherwise = q + (n-r)*(log(1-p)) + (foldl (+) 0 (map log [n-r+1..n])) - (foldl (+) 0 (map log [2..r]))\n  where q = r * (log p)\n\nexp_qnr :: Double -&gt; Double -&gt; Double -&gt; Double\nexp_qnr n r p = exp (qnr n r p)\n\npnr :: Double -&gt; Double -&gt; Double -&gt; Double\npnr n r 0 = 0\npnr n r p\n  | n &lt; r     = 0\n  | n == r    = exp q\n  | otherwise = (pnr (n-1) r p) + (1 - (pnr (n-1) r p))*(exp_qnr n r p)\n  where q = r * (log p)\n\nmain = do\n  args &lt;- getArgs\n  (n,r,p) &lt;- case args of\n    n':r':p':_ -&gt; (,,) &lt;$&gt; readIO n' &lt;*&gt; readIO r' &lt;*&gt; readIO p'\n    _ -&gt; return (6400, 64, 0.8)\n  -- putStrLn $ \"qnr \" ++ show n ++ \" \" ++ show r ++ \" \" ++ show p ++ \" = \" ++ show (exp_qnr n r p)\n  putStrLn $ \"pnr \" ++ show n ++ \" \" ++ show r ++ \" \" ++ show p ++ \" = \" ++ show (pnr n r p)\n```",
+        "user": "U57A2859S",
+        "type": "message"
+    },
+    {
+        "ts": "1538895883.000100",
+        "text": "ソースコードの部分はバッククォート3つで囲っていただけると助かります！\n```\nこういう風に\n  行頭の\n  空白も保存されるので！\n```\n\n参考: <https://get.slack.help/hc/ja/articles/202288908-%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%81%AE%E6%9B%B8%E5%BC%8F%E8%A8%AD%E5%AE%9A#u12452u12531u12521u12452u12531u12467u12540u12489>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1538896619.000100",
+        "text": "直観主義型理論でも、 propositional equality はデータ構築子が一つしかないにも関わらず、UIPは証明できないので、この場合もインスタンスの一意性があるからといって自明ではないような気はしますが……\n\nただ、Haskellでは以下の定義は通るようですね。 (Haskellの型レベルプログラミングに詳しくないので適当ですが)\n```\ntype family UIP a (x :: a) (e :: x :~: x) :: e :~: Refl where\n  UIP a x Refl = Refl\n```",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1538896818.000100",
+        "text": "&gt; 依存型を用いて長さを型やら種レベルに持つコンテナ `X` があって，\n\n多次元配列の型付けで必要になる、お仕事っぽい話だ…… (^^;",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1538898458.000100",
+        "text": "引数の一部を整数にしてみました <https://gist.github.com/naohaq/281aebb3f29378109bb4f866e5068ef8>",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1538900678.000100",
+        "text": "漸化式を修正したバージョン <https://gist.github.com/naohaq/281aebb3f29378109bb4f866e5068ef8/2c348a0056fa6977e681f2a31b5ccf5e905c5a89>",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1538909425.000100",
+        "text": ":innocent:",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1538917124.000100",
+        "text": "この式は全然わからないけど、\n\n```\n(foldl (+) 0 (map log [n-r+1..n]))\n```\n\nこれは次のように書くと計算量は減るんじゃないかな（あと正格foldlも使ってる\n\n```\nfoldl' (\\acc num -&gt; log num + acc) 0 [n-r+1..n]\n```",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1538917258.000100",
+        "text": "<http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html#v:foldl-39->",
+        "user": "U7Z4F723Z",
+        "type": "message"
     }
 ]
