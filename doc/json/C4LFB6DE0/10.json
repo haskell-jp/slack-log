@@ -214,5 +214,23 @@
         "text": "テストするしかないと思います。ちなみにどんなふうに例外を投げるようになったんでしょうか。ユーザの1人として気になりました。",
         "user": "U4M9NJ7QE",
         "type": "message"
+    },
+    {
+        "ts": "1539223962.000100",
+        "text": "詳細書いてなくてすみません。\nparseUrlやparseUrlThowのだすRequestをhttplbsに渡していたのですが\n\n```\n parseUrl url &gt;&gt;= httpLbs\n```\n\nhttp-client-0.5でサーバーのレスポンスが\n2xx以外ならStatusCodeException を出すようになっていました。修正は2年前ですね。\nlts-7までhttp-client-0.4系で\nlts-8よりあとはhttp-client-0.5系ですね。\n\n<https://github.com/snoyberg/http-client/compare/http-client/0.4.31.2...http-client/0.5.0#diff-b89b6c5bb6a8d809979551170de79359R91>\n\n<https://github.com/snoyberg/http-client/blob/b476183dd3b3a0bdb878102f9e93d785ea8d10f8/http-client/Network/HTTP/Client/Request.hs#L95>",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1539224697.000100",
+        "text": "",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1539252031.000100",
+        "text": "ありがとうございます。influxdbパッケージでhttp-clientを使っているのですが、この時は他の破壊的変更の対応をしてるときに、たまたまこの挙動の変化に気がついた記憶があります。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
     }
 ]
