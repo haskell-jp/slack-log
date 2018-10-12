@@ -28,5 +28,59 @@
         "text": "あー、そうですね！",
         "user": "U56MBRKR9",
         "type": "message"
+    },
+    {
+        "ts": "1539297966.000100",
+        "text": "brew install haskell-stack\nがstackをソースからコンパイルしちゃう件って、今でもそうなんでしょうか。\n本来stackはコンパイル済みの実行ファイルからインストールした方が時間もかからないし安全なやり方なんですが、以前見たときはそうなっておらず、わざわざGHCをインストールしてstackのビルドから始めるという面倒な仕様でした。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1539298067.000100",
+        "text": "で、当時報告しようと思って、「その前にDiscourseというのを使ったフォーラムがあるみたいだしそっちでの相談からするか」と思ったらバグにハマってしまったのかログインできず、どこに報告すればいいかもわからなくて詰んだ、ということがあったんですが。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1539298641.000100",
+        "text": "homebrew-coreは基本的にソースからビルドする方針でバイナリインストールはCIでビルドしたbottoleのみ、それ以外のバイナリはhomebrew-caskでという方針だったような気がします。方針はどこかに書いてあるかなあ。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1539298736.000100",
+        "text": "なるほどそういうポリシーなんですね。。。確かに言われてみればどこかで聞いた気がする。。。悩ましいな。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1539300747.000100",
+        "text": "昔 cask に登録したんですが、 haskell-stack と重複するということで消されちゃいましたね…\n<https://github.com/Homebrew/homebrew-cask/commit/f3401525970dc2e0f3caf12b25f15ad74466f716#diff-d33387f91fa14758d5d2cd457700fcbe>",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1539305535.000100",
+        "text": "むー、わざわざ消したと言うことはそれなりの理由があるってことですよね。。。\nなんでバイナリーよりソースコードからのインストールを優先したんだろう。\n「brew installで入れないで」という記事でも書こうかと思ったけどその辺踏まえてからの方が良さそうですな。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1539319023.000100",
+        "text": "(昔の事情はよく知りませんが，)最新のだと普通にbottleにstackのバイナリがprebuiltで入ってる気がしますね\n```\ntar tf ~/Library/Caches/Homebrew/downloads/1e4899432ad59163362a51ca3f2df23d87312f999ac5fb08948a8d0cc59e14b3--haskell-stack-1.7.1.high_sierra.bottle.tar.gz\nhaskell-stack/1.7.1/\nhaskell-stack/1.7.1/.brew/\nhaskell-stack/1.7.1/bin/\nhaskell-stack/1.7.1/ChangeLog.md\nhaskell-stack/1.7.1/INSTALL_RECEIPT.json\nhaskell-stack/1.7.1/LICENSE\nhaskell-stack/1.7.1/README.md\nhaskell-stack/1.7.1/bin/stack\nhaskell-stack/1.7.1/.brew/haskell-stack.rb\n```",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1539321241.000100",
+        "text": "おっ、 <https://github.com/Homebrew/homebrew-core/blob/master/Formula/haskell-stack.rb> を読んだ限り相変わらずビルドしてるのかな、と思ってましたが、違うのか。\n読んだだけじゃわからないもんですね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1539321351.000100",
+        "text": "bottleのセクションがCIでビルドしたバイナリのハッシュです",
+        "user": "U4M9NJ7QE",
+        "type": "message"
     }
 ]
