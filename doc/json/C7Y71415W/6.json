@@ -16,5 +16,23 @@
         "text": "ありがとうございます！読んでみます！",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1539700499.000100",
+        "text": "pdf斜め読みした感じだとtype soundness示したっぽいですね",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1539728063.000100",
+        "text": "この話について「あれ？JMeqはCoqでも普通に定義できるよ？」って思って、Coqで色々試してみたら、このコードでいう `≅-elim` が `JMeq_eq` (このコードでの `≅→≡`) を仮定しただけでは証明できず、 `eq_JMeq` (このコードでの `≡→≅` 。公理なしで証明可能) が `JMeq_eq` の左逆射になることを仮定する必要があるっぽいなど、色々面白いことが分かりました\n<https://haskell-jp.slack.com/archives/C5666B6BB/p1538806549000100?thread_ts=1538705462.000100&amp;channel=C5666B6BB&amp;message_ts=1538806549.000100>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1539728284.000100",
+        "text": "ちなみにJMeqが定義できるというのはこんな感じ (ソースコード: <https://github.com/Hexirp/progra-gist/commit/c2f3c7eebd1a465517af912e740f6864d9280486>)\n```\nInductive JMeq (A : Type) (a : A) : forall B : Type, B -&gt; Type :=\n| JMeq_refl : JMeq A a A a\n.\n```",
+        "user": "U5LEE6C1J",
+        "type": "message"
     }
 ]
