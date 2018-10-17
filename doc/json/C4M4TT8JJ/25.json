@@ -172,5 +172,17 @@
         "text": "<https://ryota-ka.hatenablog.com/entry/2018/10/17/103000>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1539774662.000100",
+        "text": "僕が想定していたのは，monoidal functorから導き出すものですね． <@UDC1LV887> さんが上げているPDFにある通り，Applicativeは(Strong) monoidal functorと一致します．\n\nmonoidal functor同士の積はmonoidal functorになります．(m, -) ~ Const m * Identityで，\ninstance Monoidal Identity where\n  unit = Identity ()\n  Identity x * Identity y = Identity (x, y)\nと書けますから，後はConst mからmonoidal functorが作れれば自明な(m, -)のmonoidal functorが導出できます．Const m上ではfmapは意味を為さないので，ここから算出されるmonoidal functorはHaskでは唯一で，それが 4. Monoids are phontom Applicative functors に記述されている Accy ですね．\n\nこの(m, -)の実装は一般にはWriter Monadと呼ばれています．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1539775041.000100",
+        "text": "<@U57D08Z9U>\nConst m * Identity が 2-Tuple Applicativeになるよねというふわっとした理解がより補強されました、ありがとうございます！(唯一であることも気になっていたので、完全にすっきりしました :haskell: )",
+        "user": "UDC1LV887",
+        "type": "message"
     }
 ]
