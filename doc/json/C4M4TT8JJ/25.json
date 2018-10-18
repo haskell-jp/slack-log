@@ -184,5 +184,41 @@
         "text": "<@U57D08Z9U>\nConst m * Identity が 2-Tuple Applicativeになるよねというふわっとした理解がより補強されました、ありがとうございます！(唯一であることも気になっていたので、完全にすっきりしました :haskell: )",
         "user": "UDC1LV887",
         "type": "message"
+    },
+    {
+        "ts": "1539843537.000200",
+        "text": "<@UDG3H4X9N> has joined the channel",
+        "user": "UDG3H4X9N",
+        "type": "message"
+    },
+    {
+        "ts": "1539858512.000100",
+        "text": "ちょろっとやってみました：HaskellでDhallをExtensibleのレコードとして読み込めるようにする - Qiita - <https://qiita.com/A_kirisaki/items/a72cb21be08c6dd7cf92>",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1539874698.000100",
+        "text": "自分のやつも少し詳しく考えてみました。\n\n関手(a,)から(b,)への自然変換は `forall x. (a, x) -&gt; (b, x)` ですが、これは関数 `a-&gt;b` と同型です。\nしたがってこの自然変換を射とする圏、すなわちHask^Haskの関手圏の部分圏 (*,) と、関数を射とするHask圏は圏同値になります。\na-&gt;bを上記の自然変換にマップする関数を以下の通り定義しておきます。\n\n```\niso1 :: (a-&gt;b) -&gt; (a, x) -&gt; (b, x)\niso1 f = \\(a, x) -&gt; (f a, x)\n```",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1539874737.000100",
+        "text": "さらに、Data.Functor.Day (<http://hackage.haskell.org/package/kan-extensions-5.2/docs/Data-Functor-Day.html>) で定義されるDayについて、\n\n```\nDay (a,) (b,) x = forall p q. Day (a, p) (b, q) (p -&gt; q -&gt; x)\n&lt;-&gt; ((a, b) (forall p q. (p, q, p -&gt; q -&gt; x))\n&lt;-&gt; ((a, b), x)\n```\n\nという同型を考えられますが、これは前述の圏同値でHaskの `(a, b)` に対応する対象になります。つまり、圏同値によって(,)はDay convolution(の同型)に対応します。\n`Day (a,) (b,) x` を `((a,b), x)` にマップする関数を以下のように定義しておきます。\n\n```\niso2 :: Day (a,) (b,) x -&gt; ((a, b), x)\niso2 (Day (a, p) (b, q) f) = ((a, b), f p q)\n```",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1539874777.000100",
+        "text": "以上より圏同値によって、(,)をモノイド積としたHaskのモノイド対象Monoidは、Day convolutionを積とした(*,)のモノイド対象Applicativeと一対一関係になります。\n\n実際、(*,) の `&lt;*&gt;` は `\\x y -&gt; iso1 (uncurry (&lt;&gt;)) . iso2 $ day x y` によって作られます。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1539874946.000100",
+        "text": "確かに、Dayという概念を理解するためにEndの概念が必要で(私もあまりちゃんとは理解できてないと思います)、 <@UACQ9J5D3> さんが仰るように直観性に欠けるとは思います。",
+        "user": "U570660KX",
+        "type": "message"
     }
 ]
