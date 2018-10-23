@@ -250,5 +250,47 @@
         "text": "というかChar8使わず `Data.Word8` 使うべきなのかもしれませんね",
         "user": "U7155GPR9",
         "type": "message"
+    },
+    {
+        "ts": "1540250601.000100",
+        "text": "`OverloadedStrings` 使ってるときも同じ理由で良くハマるんですよね... :disappointed:\ncassavaみたいな、テキストファイルを扱うけど入力はByteStringなライブラリーがあって、そいつを使ったテストを書く際に入力を日本語が混ざった文字列リテラルで渡すと... :scream:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1540268705.000100",
+        "text": "私もOverloadedStringsでやられました。今更インスタンスを消すわけにはいかないので、encodeUTF8 . Data.Text.packにしてもよいような…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1540270048.000100",
+        "text": ":open_mouth: <https://www.tweag.io/posts/2018-10-04-capability.html> やっと読めたんですけど、これすごいっすね。\nこれで速度に問題がなければ事実上の標準になるのでは。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1540272546.000100",
+        "text": "HList-like indexed transformer?",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1540282051.000100",
+        "text": "QuickChekが `ByteString` に `Arbitary` のインスタンスを作っていてくれればこんなことには……",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1540282239.000100",
+        "text": "それは <http://hackage.haskell.org/package/quickcheck-instances> を使え、ということになるのでは。quickcheckとしては依存関係を絞りたいんでしょう。（もちろん `[Word8]` から簡単に作れちゃう、というのもありますし）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1540283727.000100",
+        "text": "アッこんなライブラリが！ありがとうございます",
+        "user": "U7155GPR9",
+        "type": "message"
     }
 ]
