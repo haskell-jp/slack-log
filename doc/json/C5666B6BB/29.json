@@ -118,5 +118,17 @@
         "text": "<@U8DR1FRRS> has joined the channel",
         "user": "U8DR1FRRS",
         "type": "message"
+    },
+    {
+        "ts": "1540292511.000100",
+        "text": "osx上でstackを使って`HDBC-postgresql`をビルドすると、`pgtypes.h` (<https://github.com/hdbc/hdbc-postgresql/blob/master/pgtypes.h>)で定義されてる定数が存在しないとのようなエラーが起きて困っています。\n環境により発生したりしなかったりするようで、私自身は再現できず、まだ深く追えてないのですが、この問題に見覚えがある方いませんでしょうか？\n\n```\n  [2 of 2] Compiling StackSetupShim   ( /Users/xxx/.stack/setup-exe-src/setup-shim-mPHDZzAJ.hs, /private/var/folders/hj/07whzwn919z_mltvgj717dy80000gp/T/stack29944/HDBC-pos\nt/x86_64-osx/Cabal-2.2.0.1/setup/StackSetupShim.o )\n    Linking /private/var/folders/hj/07whzwn919z_mltvgj717dy80000gp/T/stack29944/HDBC-postgresql-2.3.2.5/.stack-work/dist/x86_64-osx/Cabal-2.2.0.1/setup/setup ...\n    Configuring HDBC-postgresql-2.3.2.5...\n    Preprocessing library for HDBC-postgresql-2.3.2.5..\n    /private/var/folders/hj/07whzwn919z_mltvgj717dy80000gp/T/stack29944/HDBC-postgresql-2.3.2.5/PTypeConv.hsc:53:16: error: use of undeclared identifier 'PG_TYPE_CHAR'\n\thsc_const (PG_TYPE_CHAR);     \n(省略)\n    fatal error: too many errors emitted, stopping now [-ferror-limit=]\n    20 errors generated.\n    compiling .stack-work/dist/x86_64-osx/Cabal-2.2.0.1/build/Database/HDBC/PostgreSQL/PTypeConv_hsc_make.c failed (exit code 1)\n```",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1540301141.000100",
+        "text": "```\nbrew install postgres\n```\nすると，\n```\n$ brew ls postgresql | grep pgtypes.h\n/usr/local/Cellar/postgresql/10.5/include/pgtypes.h\n```\nというのが入ってきて，これが優先されてincludeされた結果，HDBC-postgresqlのpgtypes.hは読み込まれずそのままエラーになるらしいです",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
