@@ -148,5 +148,23 @@
         "text": "答えになっているかわからないですが、色々調べた結果です。\n\n<https://www.stackage.org/haddock/lts-12.14/haskell-src-exts-1.20.3/src/Language.Haskell.Exts.Extension.html#ghcDefault>\n\n```\n-- Not exported, just used locally in several places.\nallLangDefault :: [KnownExtension]\nallLangDefault = [MonomorphismRestriction, MonoPatBinds, ImplicitPrelude]\n\nghcDefault :: [Extension]\nghcDefault = map EnableExtension (NondecreasingIndentation:allLangDefault)\n```\n\nghci\n\n```\n*Main&gt; :show language\nbase language is: Haskell2010\nwith the following modifiers:\n  -XNoDatatypeContexts\n  -XNondecreasingIndentation\n```\n\nghc\n\n```\nmodule Main where\n\nimport GHC\nimport GHC.Paths (libdir)\nimport MonadUtils (liftIO)\nimport EnumSet (toList)\n\nmain :: IO ()\nmain =\n  runGhc (Just libdir) $ do\n    flags &lt;- getSessionDynFlags\n    liftIO $ print $ toList $ extensionFlags flags\n\n{- 実行結果\n[ MonomorphismRestriction\n, RelaxedPolyRec\n, ForeignFunctionInterface\n, ImplicitPrelude\n, DoAndIfThenElse\n, EmptyDataDecls\n, PatternGuards\n, NondecreasingIndentation\n, TraditionalRecordSyntax\n]\n-}\n```",
         "user": "U5B3EGEFQ",
         "type": "message"
+    },
+    {
+        "ts": "1540628086.001600",
+        "text": "ありがとうございます。\n<https://twitter.com/igrep/status/1056028202722721793> で気になったExtendedDefaultRulesについては載ってなさそうですね。。。 :thinking_face:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1540628262.001900",
+        "text": "その拡張なら、 `ghci` では別途有効になるはずです。\n\n<https://github.com/ghc/ghc/blob/master/ghc/GHCi/UI.hs#L433>\n\n```\ndflags &lt;- getDynFlags\n   let dflags' = (`xopt_set` LangExt.ExtendedDefaultRules)\n               . (`xopt_unset` LangExt.MonomorphismRestriction)\n               $ dflags\n   GHC.setInteractiveDynFlags dflags'\n```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1540628350.002500",
+        "text": "なるほどGHCi限定かー！どおりでー！",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
