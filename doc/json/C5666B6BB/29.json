@@ -136,5 +136,17 @@
         "text": "<@U57D08Z9U> ありがとうございます！",
         "user": "U59TQ3MJ9",
         "type": "message"
+    },
+    {
+        "ts": "1540611830.000800",
+        "text": "GHCの言語拡張のうち、デフォルトで有効になっているものの一覧ってどこにありましたっけ。。。user guideのどこかにあったようななかったような。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1540625483.001100",
+        "text": "答えになっているかわからないですが、色々調べた結果です。\n\n<https://www.stackage.org/haddock/lts-12.14/haskell-src-exts-1.20.3/src/Language.Haskell.Exts.Extension.html#ghcDefault>\n\n```\n-- Not exported, just used locally in several places.\nallLangDefault :: [KnownExtension]\nallLangDefault = [MonomorphismRestriction, MonoPatBinds, ImplicitPrelude]\n\nghcDefault :: [Extension]\nghcDefault = map EnableExtension (NondecreasingIndentation:allLangDefault)\n```\n\nghci\n\n```\n*Main&gt; :show language\nbase language is: Haskell2010\nwith the following modifiers:\n  -XNoDatatypeContexts\n  -XNondecreasingIndentation\n```\n\nghc\n\n```\nmodule Main where\n\nimport GHC\nimport GHC.Paths (libdir)\nimport MonadUtils (liftIO)\nimport EnumSet (toList)\n\nmain :: IO ()\nmain =\n  runGhc (Just libdir) $ do\n    flags &lt;- getSessionDynFlags\n    liftIO $ print $ toList $ extensionFlags flags\n\n{- 実行結果\n[ MonomorphismRestriction\n, RelaxedPolyRec\n, ForeignFunctionInterface\n, ImplicitPrelude\n, DoAndIfThenElse\n, EmptyDataDecls\n, PatternGuards\n, NondecreasingIndentation\n, TraditionalRecordSyntax\n]\n-}\n```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
     }
 ]
