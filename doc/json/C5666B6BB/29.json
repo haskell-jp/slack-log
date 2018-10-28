@@ -172,5 +172,23 @@
         "text": "wadoさんがまとめ済みですが、GHCiでの話はここみたいです。\n<https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/ghci.html#type-defaulting-in-ghci>\n\nGHC実行時のフラグ一覧と言語拡張一覧は各々以下ですが、肝心の言語拡張の方は、一覧からはデフォルトの状態はわからないですね〜。\n<https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/flags.html>\n<https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#options-language>\n\n面白そうなのでちょっと見てみました。 GHCのコードだと、たぶん、ここではないかと思います（GHCiは除いて。）\n<https://github.com/ghc/ghc/blob/ghc-8.6.1-release/compiler/main/DynFlags.hs#L2132:L2144>",
         "user": "U55V441FS",
         "type": "message"
+    },
+    {
+        "ts": "1540737664.003300",
+        "text": "<@U9XHWQX7Z> has joined the channel",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1540738212.007400",
+        "text": "ここで質問するか、randomチャンネルで質問するか迷ったのですが、 こちらで書かせて頂きますね。 どうして `data T = forall a. Show a =&gt; T a deriving Show` ってのはだめなんでしょうか、無論自分でインスタンスを書けばShowのインスタンスになるのは当然なんですが、 変数a は必ずShowのインスタンスである事が保障されてるので Showのインスタンスは機械的に導けると思うのですが。 例えば、T 型でEq を導きたいとかなら変ってくるとは思いますが。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1540761988.007500",
+        "text": "Gadtsやexistential typeは、自動導出されたものが正しいかはtype checkしてみないと分かりません(Haskell標準のものは自動導出されるものが必ずtype checkが通ることが保証されています)。なので、構文だけからvalidか判断できる機能とできない機能を分けるため、使えないようにしたのだと思います。\n\nStandaloneDerivingを使うと、自動導出をしたものにtype checkをかけることで、deriving可能にしています。このため、自動導出で生成されたものが型エラーを吐くこともあります。これが結構大きな差異ということなのでは無いですかね?",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
