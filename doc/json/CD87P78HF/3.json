@@ -166,5 +166,125 @@
         "text": "",
         "user": "U9LLMAJ95",
         "type": "message"
+    },
+    {
+        "ts": "1540770948.029600",
+        "text": "ビルド時間の問題は、pandoc依存を一旦あきらめて、insert-ordered-containersへの依存もやめれば大分短くなると思うんだよなぁ。\ninsert-ordered-containersがlensに依存してるので。。。\nただpandocをやめるとなると、今度はWindowsで <https://github.com/haskell-jp/makeMistakesToLearnHaskell/issues/9> を解決しつつ正常に表示するのが難しくなる。（`more`コマンドも試してみたけどchcp 65001してもうまく表示されないっぽい...）\n時間もないし、Windowsでの #9 の解決は諦めるかな。。。 :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1540771097.030500",
+        "text": ":bulb: Pandocの代わりに <http://hackage.haskell.org/package/cmark> を使うという手があるな。こっちはWindowsでも普通にインストールできたはず。この間仕事でも使ったし。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1540771361.030700",
+        "text": "",
+        "user": "U9LLMAJ95",
+        "type": "message"
+    },
+    {
+        "ts": "1540772374.031200",
+        "text": "cmark, windowsでもビルドできた。 :checkered_flag:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1540775356.031300",
+        "text": "",
+        "user": "U9LLMAJ95",
+        "type": "message"
+    },
+    {
+        "ts": "1540776921.031400",
+        "text": "",
+        "user": "U9LLMAJ95",
+        "type": "message"
+    },
+    {
+        "ts": "1540790094.031700",
+        "text": "",
+        "user": "U9LLMAJ95",
+        "type": "message"
+    },
+    {
+        "ts": "1540798225.032400",
+        "text": "",
+        "user": "U9LLMAJ95",
+        "type": "message"
+    },
+    {
+        "ts": "1540798227.032500",
+        "text": "",
+        "user": "U9LLMAJ95",
+        "type": "message"
+    },
+    {
+        "ts": "1540798264.032600",
+        "text": "",
+        "user": "U9LLMAJ95",
+        "type": "message"
+    },
+    {
+        "ts": "1540798436.033400",
+        "text": "branch protectionの設定を変更して、masterにマージするpull requestはappveyorによるビルドも必須にしました。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1540798769.034700",
+        "text": "issue 22 の優先度が高いのでやりたいんですが、windows 環境が無いので、他にやった方が良いやつありますか？",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1540799023.035900",
+        "text": "<@U5B3EGEFQ> <https://github.com/haskell-jp/makeMistakesToLearnHaskell/issues/37> の 2つめ\n&gt; なおかつ（lensに依存している）insert-ordered-containersへの依存をやめる\nはいかがでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1540799146.037400",
+        "text": "InsOrdHashMapに依存したのは、 <https://github.com/haskell-jp/makeMistakesToLearnHaskell/issues/7> を解決するときだったんですが、実際格納しているexerciseはたかだか数個なので、そもそもHashMapである必要もないと思われます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1540802943.037700",
+        "text": "",
+        "user": "U9LLMAJ95",
+        "type": "message"
+    },
+    {
+        "ts": "1540809627.039500",
+        "text": "<https://github.com/haskell-jp/makeMistakesToLearnHaskell/pull/35#discussion_r228872458> で参考資料として挙がった <https://www.fine.cs.kobe-u.ac.jp/members/kamada/old/scheme_web/let_1_2.html> についてですが、記述にかなり瑕疵があるように見えます(特に\"関数型言語では変数は値に直接束縛されます\"のあたり)。ラムダ計算に詳しい方の意見を求めます",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1540810035.041600",
+        "text": "私の理解が正しければ、<https://en.wikipedia.org/wiki/Lambda_calculus> この定義も示す通り「束縛」というのは変数と抽象の関係であり、決して値レベルの話ではないため、「値に束縛される」というような言い方をした時点で誤りだと思いました",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1540820156.051800",
+        "text": "構文の項(Term)とは別に，項の意味として値(Value)というものを考えれば，「評価する」とか「解釈する」とかの文脈において，「変数を値に束縛するという操作」を考えることは妥当な気がしますがどうでしょうか．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1540824778.054600",
+        "text": "何を参考にするかは自由だと思いますが、文献は多い方が良いと思うので色々はりますね。\n\n『計算論理学』講義資料\n<http://www.cs.tsukuba.ac.jp/~kam/complogic/main.pdf>\n\n&gt; このような λ と変数の出現の対応関係を「束縛」と言う。\n\n====\n\nラムダ計算入門\n<http://www.kb.ecei.tohoku.ac.jp/~sumii/class/keisanki-software-kougaku-2005/lambda.pdf>\n\n&gt; λ 抽象の仮引数となっている変数のことを束縛変数といい、\n\n===\n\nコンピュータ・サイエンス入門\n<http://www.kurims.kyoto-u.ac.jp/~cs/lecture2009/lecture090507.pdf>\n\n&gt; この位置の x が束縛されているとは、x が (λx. · · · ) によって囲まれている時、つまり\n&gt; · · · (λx. · · · x · · · )· · ·\n&gt; となっている時である。\n\n===\n\nラムダ計算と計算可能性\n<https://www.math.nagoya-u.ac.jp/~garrigue/lecture/2010_tenbo/lambda.pdf>\n\n&gt; λx.M では、M の中の全ての x の出現は「束縛されている」という。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1540824916.055200",
+        "text": "ソフトウェア基礎論配布資料 (3)\n<https://www.fos.kuis.kyoto-u.ac.jp/~igarashi/class/sf04w/resume3.pdf>\n\n&gt; λ 計算において，λx.t の x が変数宣言であり，その有効範囲は t である．t に現われる変数項 xは束縛変数である．\n&gt; 自由・束縛という概念は，より正確には，変数 (の名前) ではなく，変数の出現 (箇所) に対して使われると考えた方がよい．",
+        "user": "U5B3EGEFQ",
+        "type": "message"
     }
 ]
