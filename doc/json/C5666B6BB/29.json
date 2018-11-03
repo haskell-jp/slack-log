@@ -190,5 +190,89 @@
         "text": "Gadtsやexistential typeは、自動導出されたものが正しいかはtype checkしてみないと分かりません(Haskell標準のものは自動導出されるものが必ずtype checkが通ることが保証されています)。なので、構文だけからvalidか判断できる機能とできない機能を分けるため、使えないようにしたのだと思います。\n\nStandaloneDerivingを使うと、自動導出をしたものにtype checkをかけることで、deriving可能にしています。このため、自動導出で生成されたものが型エラーを吐くこともあります。これが結構大きな差異ということなのでは無いですかね?",
         "user": "U57D08Z9U",
         "type": "message"
+    },
+    {
+        "ts": "1541157993.009600",
+        "text": "<@UDVPWQ5T8> has joined the channel",
+        "user": "UDVPWQ5T8",
+        "type": "message"
+    },
+    {
+        "ts": "1541158190.013000",
+        "text": "初めまして、当方Slack初経験、プログラミングも初級〜中級者です。とても未熟な質問だとは思いますが、お答え出来る方いらっしゃいましたらお願いします。\n以下Yahoo知恵袋にて質問したものと同文になってます。\n---\nmacでインストールしたのにどこにも表示されないです。\n\nmacbookProを使っています。\n一年前にHakellのVer.7を持っていて、その時は有識者の方にインストールしてもらって、去年の夏に同じ方に最新版のVer.8にアップデートしてもらったはずなんですが、自分でHaskellを起動しようとしてVer.7が残っていてうまく動かなかったため、ターミナルでVer.7を消しました。（この時点で7しか動かず、8は存在していると表示されてるけど居場所はわからない状態でした）\nすると、ターミナルでghciというHaskellを起動するコマンドを打ったら、見つからないと言われたので、リセットしようと思い8も7も消しました。でも環境の再設定はやり方がわからなかったら嫌なので、全リセットはしていないと思います。\nそのあとにネットから再度haskell platformをダウンロードしたのですが、インストールが完了しましたとでても、どこに保存されているのか全くわかりません。Spolightの検索でも見つかりませんでした。\nこのmacについて＞システムレポート＞アプリケーションを開いたらhaskellは載っていなく、インストールの欄をみると、Haskell Platform 8.4.3が載っています。\n解決方法は何かありませんか？\nmacのOSは最新状態になっています。\n---\nお目汚し失礼致しました。",
+        "user": "UDVPWQ5T8",
+        "type": "message"
+    },
+    {
+        "ts": "1541179400.013100",
+        "text": "私もMacはあまり得意じゃないのですが、 Haskell Platform のインストール手順に従ってインストールしたのなら、stack というコマンドが使えるようになってるはずなのですが。 いかがでしょうか？",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1541215291.015200",
+        "text": "即出ならすみません。<https://haskell.jp/blog/>　のCopyrightが昨年度のままになっております。こちらは意図があっての事でしょうか。\nお忙しい中恐れ入りますが、オーナー様、ご返答のほどよろしくお願いいたします。",
+        "user": "U8P5W7YP6",
+        "type": "message"
+    },
+    {
+        "ts": "1541215426.015400",
+        "text": "体裁の問題はありますけど、別に法的な問題があるわけでもないので急いで更新しなくてもいいかな... という感じです。気が向いたら更新します。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1541215563.015600",
+        "text": "承知です。ハスケルに少し興味をもったプログラマーの方が気にしていらしたので少しだけ胸に留めていただけますと幸いです。お忙しい中ご返答ありがとうございました。",
+        "user": "U8P5W7YP6",
+        "type": "message"
+    },
+    {
+        "ts": "1541229839.017600",
+        "text": "本当に初心者でターミナルの使い方がよくわからないのですが、それは、stack Haskell 8.4.3とターミナルで打てば良いということですか？",
+        "user": "UDVPWQ5T8",
+        "type": "message"
+    },
+    {
+        "ts": "1541229945.017800",
+        "text": "ターミナルで `stack` と打てばいいです。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1541231679.018000",
+        "text": "Haskell Platform って stack 入るっけ？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1541232402.018200",
+        "text": "不安になって調べ直してみましたが、\n&gt; Minimal installers provide centrally the GHC compiler and the Cabal and Stack tools for installing packages. Some may install further build tools (i.e. for parsing and lexing) as well.\nと書いてあるので入ってるはずです。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1541233723.018400",
+        "text": "へぇそうなんだ",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1541234308.018600",
+        "text": "ちなみに、ぼくは stack を直接インストールして使ってます\n<https://docs.haskellstack.org/en/stable/install_and_upgrade/#macos>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1541234389.018800",
+        "text": "私も基本的にはそうです。。。 というかstackを直で使うっていうのが デファクトスタンダードなんじゃないんでしょうか？",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1541234488.019000",
+        "text": "あとはmacだったらHomebrew は入れといた方がいいですよね。。。(個人的には必須って言いたいところですけど)",
+        "user": "U9XHWQX7Z",
+        "type": "message"
     }
 ]
