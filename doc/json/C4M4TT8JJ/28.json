@@ -124,5 +124,89 @@
         "text": "&gt; 例えばparallel ifなどを実装する際多分そのままの定義ではできなくて\nparallel-orのことでしょうか？多分，⊥のように計算が停止しない値ではなく，値にバインドされていない変数が表示する値(emptyMVarの中身)みたいな計算をブロックするような値を考えないといけないですね．(たぶん)",
         "user": "U4KU9ABL0",
         "type": "message"
+    },
+    {
+        "ts": "1541419459.061300",
+        "text": "asyncパッケージにあるControl.Concurrent.Async.raceみたいなもの実装のことですよね．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541421279.062600",
+        "text": "はい，C[pif L then M else N](env) = { [M](env) if [L](env) = true; [N](env) if [L](env) = false; [N](env) if [L](env) = ⊥ and [M](env) = [N](env); ⊥ else } みたいなやつですね．parallel orでも同じ議論ができますし，そっちの方が単純なのでそっちで考えてもらっても大丈夫です．\n\n&gt; 停止が判定できないので，[e] = ⊥が判定できないです．\n\nこれがよく分からないのですが，別に意味論上は停止するかどうかは判定しなくてよくて，その表示を満たせば良いと思うのですが，何か勘違いしてるでしょうか？実装上は， `seq e1 . seq e2 $ e1 + e2` で問題ないはずです(Haskellの場合はそもそもe1 + e2でもいいですね)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1541421361.064700",
+        "text": "「MonadPlusは高階なモノイドである」っていう主張、妥当か否か？\n（e.g. MonadPlus Maybe は `Nothing mplus Just = Just` かつ右についてもそう）",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1541421754.065400",
+        "text": "また，自分の言っていることが混乱しているような気がしてきました．すみません．\n&gt;⊥に相当する部分がill-defined\nがよく判っていない気がします(私が)．どうなっていれば，well-definedですか？",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541422083.065600",
+        "text": "ああ．プリミティブの場合はおっしゃるとおりですね．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541422537.065800",
+        "text": "要は，⊥となるtermへの扱いが明確に定められていなくて，Haskellの式が結果的に計算が停止しないので評価器も停止しないようになっているだけで，por のような⊥の扱いが重要になる場合にそれが問題になりそうというのが言いたいことでした．個人的には，\n&gt; Haskellの意味関数を[]，Toy言語の意味関数を[| |]とした時，[|e|] = [interp e]でHaskellの意味領域に接地させることで，意味関数と主張している\nということでも問題ないとは思うのですが，denotativeと主張するならHaskellに接地させるのでなくtermに対する定義が明確になっていて，\n&gt; let inf = inf + 1 in inf みたいなの\nに対する定義が明示されているべきだという主張も分かる気がするという感じです(これが明示されていれば，おそらくporの導入もそれほど難しくないのかなという．例えば， <@U570660KX> さんがいうように評価器がちゃんとステップを陽に見えるよう書かれていれば，porはステップを同時進行させることで実装できるはずです)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1541423029.066000",
+        "text": "プログラムのコードでいうと，ValueにBotが含まれているべきということになりますか？",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541423286.066200",
+        "text": "それもありますが，主に\n&gt; progressionを使った手法を導入したはずなので、表示的意味論でinterpを定義するなら考慮しないと駄目では\nですね．多分ValueにBotを導入しただけではporは実装できないはずです(片方が停止しなくてももう片方が停止してtrueになれば結果が返せるので)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1541423354.066400",
+        "text": "x por y = if isBot x then y else x は無理ですよね．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541423596.066600",
+        "text": "はい，その定義は二重にだめで，isBotがおそらく停止するように実装するのが無理なのと，⊥ por falseは通常⊥になるはずっていうのですね(なので，結構実装は難しいはずです)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1541423830.066900",
+        "text": "&gt;let inf = inf + 1 in infに対する定義がなされているべき\nこれがそもそもできそうもない(私の能力的に)",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541424338.067100",
+        "text": "(まあ，本題からかなり外れる気がするのでどうなんですかね？個人的には，\n&gt; 実際，[Lazyな(おもちゃ)言語 <https://gist.github.com/nobsun/5b310dd4a397af624690b6ca4b0af2c8]も`interp`は意味関数>(semantic function あるいは meaning function)という表示意味論で登場する意味を決める関数なわけで，操作意味論における簡約過程を書いたものではない\nという文が気になったというだけなので．後この議論で不動点意味論の気持ちが分かったので，感謝の気持ちしかないです)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1541426114.068900",
+        "text": "よく分からないんですけど、Alt によって任意の MonadPlus は Monoid になるのと関係ありそうな気が\n<https://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Monoid.html#t:Alt>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1541426790.069100",
+        "text": "意味が定められない = ⊥  ?",
+        "user": "U4KU9ABL0",
+        "type": "message"
     }
 ]
