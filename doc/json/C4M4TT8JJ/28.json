@@ -208,5 +208,35 @@
         "text": "意味が定められない = ⊥  ?",
         "user": "U4KU9ABL0",
         "type": "message"
+    },
+    {
+        "ts": "1541461047.071200",
+        "text": "Iterモナドを使えば行ける...と思ったんですけど、意外に難しくてまだ組み途中です",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1541465882.071400",
+        "text": "Alternative は (Hask, (), (,)) -&gt; (Hask, Void, Either)の monoidal functorだから、monoidっぽいのは間違いなし\n\nf Void &lt;-&gt; f a — trivial\nf a -&gt; f b -&gt; f (Either a b) &lt;-&gt; f a -&gt; f a -&gt; f a — trivial",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1541476050.075400",
+        "text": "interpをinterpFの不動点として定義してできたことにする．じゃだめかな？ &lt;- 適当にいってます．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541476188.077500",
+        "text": "Monoidal functor であるという条件からこの二つの関数が得られて、\n\n() -&gt; f Void\nforall a b. (f a, f b) -&gt; f (Either a b)\n\nこれが Alternative である条件の二つの関数と対応するということですよね？\n\nforall a. f a\nforall a. f a -&gt; f a -&gt; f a\n\n（一瞬、forall a. f Void &lt;-&gt; f a に見えてびっくりした）",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1541477861.078100",
+        "text": "ww\nそうです、その &lt;-&gt; はisomorphicの記号みたいなものww",
+        "user": "UACQ9J5D3",
+        "type": "message"
     }
 ]
