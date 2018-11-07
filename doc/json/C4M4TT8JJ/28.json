@@ -244,5 +244,59 @@
         "text": "<https://gist.github.com/as-capabl/9dfb4cff6c08f6b5027741e2fc4bf40b> por実装したやつできました",
         "user": "U570660KX",
         "type": "message"
+    },
+    {
+        "ts": "1541565541.079500",
+        "text": "これは，call-by-name だけど，call-by-needじゃないようですが，そこは意図的ですか？",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541568543.079700",
+        "text": "なるほど、そこは意識できてなかったです。おそらく改良すればcall-by-needも実装可能ですが、考える事が増えそうですね",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1541568733.080000",
+        "text": "単純にnormalizeがcall-by-need用になっていないだけです．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541570676.081000",
+        "text": "たまたま正格版のコードを元にして作り始めて、そうすると非正格評価に戻したときlet内でbotが呼び出しエラーになる事が分かって、結果的にほとんどnormalizeしていない形に修正しました。上の非正格版のnormを埋め込めば動くかどうか。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1541570756.081200",
+        "text": "それはそれとして、このスレッドの本題としては「変数に束縛されるのはIter Valueだが、これを『値』とみなして良いのかどうか」かと",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1541574197.082100",
+        "text": "そうですね．Iter Value は値ではなく計算なので，「変数に束縛されるのは値ではなく，値を求める計算」ということになります．ただし，解釈器interp の最終結果すなわち，式が表示するものが，Iter Valueであるとするなら，Iter Valueを改めて値と読んでもよいと思います．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541575484.082400",
+        "text": "ちょっと強引かな．\n\nLazy版を修正してみました．Porの意味は勝手に替えてしまいましたが，動くようです．\n<https://gist.github.com/nobsun/5b310dd4a397af624690b6ca4b0af2c8>",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541578294.083400",
+        "text": "ありがとうございます！\nとても参考になりました\n\nMonadPlusは高階なモノイドである\n（任意のMonadPlusはAltを介して任意のaに対してMonoidである）\nって感じに主張しようかな:face_with_rolling_eyes:\n\nmonoidal functor、また何なのか忘れたのでみてみよw",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1541579700.083600",
+        "text": "そういえば， <@U570660KX> さんのだと\n```\n&gt;&gt;&gt; eval $ Div (Con 1) (Con 0) `Por` Div (Con 1) (Con 1)\n*** Exception: divide by zero\n```\nになるんですね( <@U4KU9ABL0> の修正見るまで気づかなかった)．本来のdenotational semanticsに立ち戻るならIter ValueはあくまでValueの近似であって，Iter Value ~ Valueとみなしても良いのではないでしょうか？まあただdenotationalにも近似を束縛する，計算を束縛するとも言えるかもしれないですね．",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]

@@ -1,0 +1,134 @@
+[
+    {
+        "ts": "1541580006.083800",
+        "text": "evalShow :: Int -&gt; Expr -&gt; String\nというのを実装してみました．値の近似列を指定した段数まで，または，確定するまで表示します．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541581558.084100",
+        "text": "<@U57D08Z9U> それは1/0が無限ループになるようにDivの定義を変えて辻褄合わせるしかないですね…",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1541581587.084500",
+        "text": "<https://twitter.com/mandel59/status/736973612444311553>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1541581625.084900",
+        "text": "<https://twitter.com/mandel59/status/656001097899773952>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1541581791.085200",
+        "text": "個人的にはdenotation、つまり式が抽象的に持つ値をvalueと呼ぶ立場は実はけっこう好きなんですが、ただ一般的なプログラマの感覚とずれる部分は間違いなくあるっぽいんですよね…",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1541581800.085400",
+        "text": "<@U570660KX> 停止するボトムにコンストラクタを割り当てることでも可能じゃないですかね?",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1541581830.085600",
+        "text": "変更したLazy版は 1/0が無限ループに落るようになってます．:)",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541581866.085800",
+        "text": "たとえば今回の場合、Iter Value'をvalueと呼んでしまうとcall-by-valueというタームが意味不明になってしまう",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1541582208.086000",
+        "text": "Porの定義は、何をfalseとするかの問題なので、あまり細かく考えてないです",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1541582475.086600",
+        "text": "call-by-hogehoge はあんまり使いたくないというのが正直なところ，\n一般的な「imperative」プログラマの感覚とはずれるけど．．．\n(私はもはやimperativeな感覚を失なっているようで，declarativeな表現の方がしっくりきます)",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541582941.086900",
+        "text": "新しいPorの定義だと、 `Por (Con 1) (Con 2)` と `Por (Let (...) (Con 1)) (Con 2)` が違う値になってしまうのが気持ち悪いかな…",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1541583252.087300",
+        "text": "この場合は Por の意味は先に計算が終った方という意味なので，ありかなと思います．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541583407.087500",
+        "text": "まあ，最適化とか考えるときに問題にはなると思いますが，あくまでToyなのでそこは突っ込みませんでした",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1541583422.087700",
+        "text": "もちろん，左のオペランドにすこしバイアスがありますが，",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541583598.087900",
+        "text": "Por は非決定性をもちこむことになるので，決定性があることが前提の最適化とは最悪の相性でしょうねぇ．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541583862.088100",
+        "text": "(かなり本題から外れる気がしますが)多分一番の問題はまともなequational reasoningが書けないことにあると思いますね(本来のporの定義であれば書けます)（なお， <@U570660KX> さんの方も書けなそう．あと，porがstrictじゃない(⊥ por ⊥ /= ⊥)のも気になる感じですね）．なので，今の定義だと幾つか嬉しい性質が壊れる気がします",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1541584870.088300",
+        "text": "eval (Por bot bot)が停止しないのと，evalShow 20 (Por bot bot) =&gt;\"⊥,⊥,⊥,⊥,⊥,⊥,⊥,⊥,⊥,⊥,⊥,⊥,⊥,⊥,⊥,⊥,⊥,⊥,⊥,⊥,...\"  なので多分 Por ⊥ ⊥ = ⊥になると思います．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541586437.088500",
+        "text": "あ，すいません勘違いでした． 想定してたのは Por (Div (Con 1) (Con 0)) (Div (Con 1) (Con 0)) みたいなやつなんですが，普通にこれは exception 吐くんですね．普通にstrictでした",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1541586543.088800",
+        "text": "あれっ．いまのは，例外をはかないと思います．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541586598.089000",
+        "text": "<https://gist.github.com/nobsun/5b310dd4a397af624690b6ca4b0af2c8>",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1541586762.089700",
+        "text": "あ， <@U570660KX> さんの方ので言っています．多分， <@U4KU9ABL0> の方も問題ないと思いますね (ミスって， <#C4M4TT8JJ|random> にも投稿してしまったっっ)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1541587119.090100",
+        "text": "一応補足ですが， <@U570660KX> さんの方で問題になりそうと思ったのは，\n```\n&gt;&gt;&gt; eval $ Div (Con 1) (Con 0) `Por` Con 1\n1\n&gt;&gt;&gt; eval $ Div (Con 1) (Con 0) `Por` Div (Con 1) (Con 1)\n*** Exception: divide by zero\n```\nですね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    }
+]
