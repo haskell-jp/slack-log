@@ -100,5 +100,41 @@
         "text": "英語ですみません、解答がくれた方いたら日本語でも英語でも大丈夫です &gt; &lt;\n\nnLab says:\n\n&gt; a free `C`-object on `x` consists of an object `y ∈ C` together with a morphism\n&gt; `η : x -&gt; U y`  in `D` there exists a unique `g : y -&gt; z` for every `f : x -&gt; U z ∈ C`\n\n<https://ncatlab.org/nlab/show/free+object> paragraph 4 of section 1.\n\nAnd I knows, though not 100% sure, that for a endofunctor `f`, the `Free f` is the `y`, and the `C` is the category of monads, and `D` is the category of endofunctors, U is the forgeful functor simply forgetting the identity and the composition of monad.\n\nMy question is, what is the `x` and `η : x -&gt; U(Free f)`?\nIt seems that `x` can be the identity functor, and `η` is just the identity natrual transformation of `Free f` monad, is that right?\nIf it is not right, what is `x` and `η`?\nIf it is right, is there any other possible definition of `x` and `η`?\n\nThanks in advance.",
         "user": "UACQ9J5D3",
         "type": "message"
+    },
+    {
+        "ts": "1541994448.019400",
+        "text": "<@UB1MW6THP> has joined the channel",
+        "user": "UB1MW6THP",
+        "type": "message"
+    },
+    {
+        "ts": "1541994635.019600",
+        "text": "Free objectについてはこのスレッドで初めて知りましたが、Free monadとの関係は確かに興味深いですね、勉強してみたい",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1541994722.019800",
+        "text": "理解できていなかったら申し訳ないのですが、 `η` が identity natrual transformation だとすると `x` は `U(Free f)` では？",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1542014416.020200",
+        "text": "質問の意図がよくわかってないですが\nC がモナド圏、D が自己関手圏、U が忘却関手の場合の自己関手 x に対する a free C-object on x は\n```\nFree x と η: x -&gt; U (Free x) からなる組\n```\nではないですかね。\n```\ndata Free f a = Impure (f (Free f a)) | Pure a\n```\nとすると、具体的には η は次の liftF（「haskell lifF」でググれば見つかるのと本質的に同じやつ）\n```\nliftF :: x a -&gt; Free x a\nliftF = Impure . fmap Pure\n```\nここで U は忘却関手なので U (Free x) と Free x を同一視して書いています。\n\nx が Identity関手ならば free C-object on Identity は\nFree Identity と liftF: Identity  -&gt; U (Free Identity) からなる組\nではないかと。\nちなみに Free Identityモナドは自然数の加算モノイドによる Writerモナドと同型のような気がします。（自然数が Impure のネストの深さを表す）",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1542041376.021600",
+        "text": "おお、確かに `x` は `Free f` の f なら `η : f -&gt; Free f` の方がidentity よりよっぽど意味があると思う。\n\nちなみに最初のスレッドの `identity functor` はHaskellのIdentityではなく、本物のIdentityの方。つまり `type I a = a`の方、残念だがHaskellにはこれを定義してもinstanceを定義できない\n\nありがとうございます",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1542042079.022400",
+        "text": "やはりちゃんと順番で勉強しなきゃだめなのね。。。\n\n<https://ncatlab.org/nlab/show/free+functor#free_objects>",
+        "user": "UACQ9J5D3",
+        "type": "message"
     }
 ]
