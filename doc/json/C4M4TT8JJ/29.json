@@ -244,5 +244,59 @@
         "text": ":sorena: <https://twitter.com/YoshikuniJujo/status/1062190741684838400>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1542162155.100900",
+        "text": "<@UE32KHRDY> has joined the channel",
+        "user": "UE32KHRDY",
+        "type": "message"
+    },
+    {
+        "ts": "1542200677.102100",
+        "text": "GHC か stack のバージョンが上がったせいなのか、Windows でこの手順で iconv がビルドできなくなっててしんどい\nresolver: lts-12.17\n<https://teratail.com/questions/102462#reply-157722>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1542201302.102300",
+        "text": "GHC 8.2 から GHC の iconv 依存がなくなったのかな？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1542203588.102500",
+        "text": "```\nstack exec -- pacman -S libiconv-devel\n```\nして\n```\nstack build --extra-include-dirs=\"$(stack path --programs)\\msys2-20180531\\usr\\include\" --extra-lib-dirs=\"$(stack path --programs)\\msys2-20180531\\usr\\lib\"\n```\nでいけた",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1542204400.102700",
+        "text": "リンク時にエラーになった……\n&gt; `libiconv_open' に対する定義されていない参照です",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1542204740.102900",
+        "text": "```\n--- a/iconv.cabal\n+++ b/iconv.cabal\n@@ -26,7 +26,7 @@ library\n   includes:        hsiconv.h\n   include-dirs:    cbits\n   c-sources:       cbits/hsiconv.c\n-  if os(darwin) || os(freebsd)\n+  if os(darwin) || os(freebsd) || os(windows)\n     -- on many systems the iconv api is part of the standard C library\n     -- but on some others we have to link to an external libiconv:\n     extra-libraries: iconv\n```\nで大丈夫っぽい",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1542204895.103200",
+        "text": "iconv って darcs 管理なんですけど PR とかどうすればいいんですかね？\nメールでパッチ？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1542208892.103500",
+        "text": "ちょっとずれるかもしれませんが、Windowsでposix系ライブラリを使う場合、msysを別途インスコしてstackでskip-msysする手順の方が色々うまくいく印象があります <http://fumieval.hatenablog.com/entry/2017/10/11/230117>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1542209042.103800",
+        "text": "もう一つ蛇足ですが、窓まで考慮に入れるとiconvよりicuの方が良さそうという意見も <https://twitter.com/as_capabl/status/783601389666643968>",
+        "user": "U570660KX",
+        "type": "message"
     }
 ]
