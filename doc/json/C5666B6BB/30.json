@@ -142,5 +142,71 @@
         "text": "そういえばこちらに流すの忘れてましたが、いちよイシュー立てときました\n<https://github.com/haskell-jp/blog/issues/142>",
         "user": "U57D08Z9U",
         "type": "message"
+    },
+    {
+        "ts": "1542335326.043100",
+        "text": "<@UE51MD4E6> has joined the channel",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1542353004.045000",
+        "text": "dhall で型などを別ファイル(例えば `types/hoge_type.dhall` )で定義して参照すると相対パスになるから `cat tmp/hoge.dhall | dhall` と実行するとうまくいかないんですけど良い方法ありますか？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1542353197.045100",
+        "text": "自己解決 `dhall &lt; tmp/hoge.dhall` ってすればいいのか",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1542355587.045700",
+        "text": "うそ、治ってないw",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1542360984.046400",
+        "text": "dhallおもしろい！",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1542361135.046600",
+        "text": "やっと見つけた！\n<https://github.com/dhall-lang/dhall-lang/issues/68>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1542361191.047000",
+        "text": "`dhall &lt;&lt;&lt; ./tmp/hoge.dhall` でいいみたい\n( `./` をつけないとダメ )",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1542362918.048700",
+        "text": ":thinking_face: `f :: Monad m =&gt; a -&gt; b -&gt; m c` なアクションと\n`x :: m a, y :: m b` な値があるとき\n`join (f &lt;$&gt; x &lt;*&gt; y)`\nと書くのが一番簡潔な書き方なんですかね。\nほかにあるかな。 `f` の引数が3つ以上の時もいけるっぽいです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1542363397.048800",
+        "text": "僕もそれが一番簡潔だと思います",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1542363409.049000",
+        "text": "無理やり作った例がこちら",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1542363541.049900",
+        "text": "どんな簡潔さかによりますが、 `join (liftA2 f a b)` だと 1文字短いとか…",
+        "user": "U578W9676",
+        "type": "message"
     }
 ]
