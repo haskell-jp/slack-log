@@ -34,5 +34,53 @@
         "text": "Dhall 移植作業、だいたいわかったので雑に作った\n<https://github.com/matsubara0507/yaml-to-dhall>",
         "user": "U56L7EVNY",
         "type": "message"
+    },
+    {
+        "ts": "1542596772.110100",
+        "text": "DhallのC/C++バインディングって存在してないんですね。 `hsc2hs` でCとHaskellの型をそれぞれ生成して、C/C++からFFIすれば読めそうなイメージ",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1542596795.110600",
+        "text": "Dhall布教のために、ちょっと検証してみましょうか",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1542598436.113100",
+        "text": "…と思ったのですが、Haskellの `data` で定義した型をCから読めるようにするのは `hsc2hs` では出来なさそうでした",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1542603305.113800",
+        "text": "Dhall のコメントアウトって冒頭しか残らないのか、フォーマッターとかで",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1542603505.114000",
+        "text": "dhall format の仕様でそうなっていますね",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1542603613.115100",
+        "text": "AST構築の関係でそうなっているっぽい？ <https://github.com/dhall-lang/dhall-haskell/issues/145>",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1542603962.116300",
+        "text": "なるほどコメントアウトを保持して整えるのって大変なのか",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1542606084.116900",
+        "text": "<https://taylor.fausak.me/2018/11/18/2018-state-of-haskell-survey-results/#>\nグラフとその下にある表のパーセンテージが全然噛み合ってないように見える（多分未回答の人の分もカウントしてるから？）から最初戸惑った。",
+        "user": "U7Z4F723Z",
+        "type": "message"
     }
 ]
