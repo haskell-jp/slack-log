@@ -94,5 +94,59 @@
         "text": "各回のHaskell Dayのページを作っていただきました！\n<https://wiki.haskell.jp/Workshop/HaskellDay/2018>\n<https://wiki.haskell.jp/Workshop/HaskellDay/2016>\n<https://wiki.haskell.jp/Workshop/HaskellDay/2012>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1542770014.119700",
+        "text": "Hasパターン使うと、env を共有できるのか（していいのかはわからないけど）",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1542785814.120000",
+        "text": "<@UE8N92RKN> has joined the channel",
+        "user": "UE8N92RKN",
+        "type": "message"
+    },
+    {
+        "ts": "1542797416.124500",
+        "text": "Haskell-jpではプロジェクトのビルドといえばstackが定番ですが、最近cabal-installはNix-style local buildという、依存関係をプロジェクト単位で管理する仕組みが充実してきています。そこで、ディスク使用量削減も兼ねて私のstack関係のデータを全消しし、代わりにcabal new-buildでビルドしてみる、名付けて「脱stack計画」の実行を宣言します。このスレッドで経過を報告するのでお楽しみに",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1542807324.127200",
+        "text": "ダツスタ",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1542808571.128500",
+        "text": "僕もしばらくcabal new-buildをメインに使っています。ライブラリを作る人は複数バージョンのGHCが試しやすいのでおすすめします。/opt/ghcにいろんなバージョンのGHCをインストールしてPATHを通しておき、-w ghc-8.6.2とオプションを渡すだけでバージョンを切り替えられて便利です。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1542808902.131900",
+        "text": "個人的な印象では不可解なビルドエラーに悩まされることがcabalの方が少ない、複数バージョンのGHCを切り替えやすい、backpackやパッケージ内複数ライブラリの対応など最新の機能がcabalから実装されること、プロファイルや最適化オプションの変更時などstackでは適切にリビルドしてくれないことが多かったことなどからnew-buildがメインになりました",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1542813365.133100",
+        "text": "実はstackしか使わず、cabal hellを伝え聞くだけの身としてcabalをなまで扱うのは恐れがあったりします",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1542834333.136700",
+        "text": "そうそう意外と、cabalも昔ほど地獄じゃなくなったんですよね。 ただ、stackを使う利点だなと思ってる事は、stack.yaml が与えられらプロジェクトでは安定したビルドが得られる (allow-newer が指定されてる場合を除く)事だと思ってるんですよね。 まぁ、正確にはcabalだけでも同じ事は出来ますが、build-dependsを全部正確に書いてるプロジェクトをそこまで見た事ないですね。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1542837525.137600",
+        "text": "cabalの場合はビルドが成功した時点でcabal new-freezeすると依存バージョンを固定できます",
+        "user": "U4M9NJ7QE",
+        "type": "message"
     }
 ]
