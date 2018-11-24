@@ -94,5 +94,137 @@
         "text": "各回のHaskell Dayのページを作っていただきました！\n<https://wiki.haskell.jp/Workshop/HaskellDay/2018>\n<https://wiki.haskell.jp/Workshop/HaskellDay/2016>\n<https://wiki.haskell.jp/Workshop/HaskellDay/2012>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1542770014.119700",
+        "text": "Hasパターン使うと、env を共有できるのか（していいのかはわからないけど）",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1542785814.120000",
+        "text": "<@UE8N92RKN> has joined the channel",
+        "user": "UE8N92RKN",
+        "type": "message"
+    },
+    {
+        "ts": "1542797416.124500",
+        "text": "Haskell-jpではプロジェクトのビルドといえばstackが定番ですが、最近cabal-installはNix-style local buildという、依存関係をプロジェクト単位で管理する仕組みが充実してきています。そこで、ディスク使用量削減も兼ねて私のstack関係のデータを全消しし、代わりにcabal new-buildでビルドしてみる、名付けて「脱stack計画」の実行を宣言します。このスレッドで経過を報告するのでお楽しみに",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1542807324.127200",
+        "text": "ダツスタ",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1542808571.128500",
+        "text": "僕もしばらくcabal new-buildをメインに使っています。ライブラリを作る人は複数バージョンのGHCが試しやすいのでおすすめします。/opt/ghcにいろんなバージョンのGHCをインストールしてPATHを通しておき、-w ghc-8.6.2とオプションを渡すだけでバージョンを切り替えられて便利です。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1542808902.131900",
+        "text": "個人的な印象では不可解なビルドエラーに悩まされることがcabalの方が少ない、複数バージョンのGHCを切り替えやすい、backpackやパッケージ内複数ライブラリの対応など最新の機能がcabalから実装されること、プロファイルや最適化オプションの変更時などstackでは適切にリビルドしてくれないことが多かったことなどからnew-buildがメインになりました",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1542813365.133100",
+        "text": "実はstackしか使わず、cabal hellを伝え聞くだけの身としてcabalをなまで扱うのは恐れがあったりします",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1542834333.136700",
+        "text": "そうそう意外と、cabalも昔ほど地獄じゃなくなったんですよね。 ただ、stackを使う利点だなと思ってる事は、stack.yaml が与えられらプロジェクトでは安定したビルドが得られる (allow-newer が指定されてる場合を除く)事だと思ってるんですよね。 まぁ、正確にはcabalだけでも同じ事は出来ますが、build-dependsを全部正確に書いてるプロジェクトをそこまで見た事ないですね。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1542837525.137600",
+        "text": "cabalの場合はビルドが成功した時点でcabal new-freezeすると依存バージョンを固定できます",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1542839656.138700",
+        "text": "`stack build --file-watch` 相当のものってあるんですかね。（まぁ、なくても他のアプリで代替できるでしょうけども）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1542840709.138900",
+        "text": "ないと思います",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1542842423.140200",
+        "text": "ghcid 使えば、それっぽい事は出来るんじゃ？。。。ってあれ？これじゃ、stackの存在意義って。。？",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1542843348.141300",
+        "text": "ghcidねぇ、プロジェクトによってはstack build --fastの方が速かったりもしたり、必ずしもイケてるとは思えないんですよねぇ。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1542843517.143800",
+        "text": "いずれにしても、「必ずビルドできるバージョン群」を提供する本来のStackage（と、その簡単なクライアントであるstack）の意義はなくならないと思いますよ。一発でビルドできない場合もあるでしょうから。\nそのうち置き換えられる可能性は確かにあると思いますが",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1542856023.146300",
+        "text": "たしかstackのモチベーションとしてライブラリ作者は自分で依存マネージができるけどユーザや初心者はそうではないから…というのがあった記憶が",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1542870218.148400",
+        "text": "この辺りですよね？書いてあることを読んだら Stack でやっていることと同じでびっくりでした <https://www.haskell.org/cabal/users-guide/nix-local-build-overview.html>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1542870347.150400",
+        "text": "あ、後、githubにホストされているライブラリに依存する機能が代替できるか気になります",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1542870417.150600",
+        "text": "出来ます <https://cabal.readthedocs.io/en/latest/nix-local-build.html?highlight=source-repository-package#specifying-packages-from-remote-version-control-locations>",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1542887570.152100",
+        "text": "脱スタ1日目: .stackと.stack-workを削除。.stackは19GB、各プロジェクトの.stack-workは合わせると9.6GBで、合計およそ29GBの領域を食っていました。~/.stack/config.yamlを残しておさらば :wastebasket:",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1542915122.153300",
+        "text": "<@UEBLMNJP8> has joined the channel",
+        "user": "UEBLMNJP8",
+        "type": "message"
+    },
+    {
+        "ts": "1542960246.154000",
+        "text": "脱スタ2日目: ghcup (<https://github.com/haskell/ghcup>) を使う。ghcupスクリプトを適当な所にダウンロードし、 `ghcup install 8.4.4` とかを実行すればインストールしてくれる。そして `ghcup install-cabal` でcabal-installをインストール",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1543021792.156600",
+        "text": "やはりdep hellに遭遇する頻度と、解決への労力が気になる:eyes:\nnew-freezeいいな",
+        "user": "U5LV76EJH",
+        "type": "message"
     }
 ]

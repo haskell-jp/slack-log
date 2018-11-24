@@ -250,5 +250,53 @@
         "text": "QuickCheckはもっぱら純粋な関数に対してテストをするために使われていて、状態を持っていてテストが難しいFRPに応用する枠組みを作るのは面白い研究だと思います",
         "user": "U4KUNQF9N",
         "type": "message"
+    },
+    {
+        "ts": "1542784883.060000",
+        "text": "Lensの `over` 関数の、Functorな値を返す関数を渡すバージョンってないんですかね。\n型宣言で言うと `overM :: Functor f =&gt; ASetter s t a b -&gt; (a -&gt; f b) -&gt; s -&gt; f t` みたいな型になるのかな、と思うのですが。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1542785109.060200",
+        "text": "それってまさにLensそのものでは…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1542785826.060600",
+        "text": "そうでしたね！普通に関数として使ってみたらできました！ありがとうございます！ :+1:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1542787422.061100",
+        "text": "そういえば%%~というid関数のエイリアスもありました。人によってはこちらのほうが驚きが少ないかもですね",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1542794454.063700",
+        "text": "hoogleのようなツールを用いて、型の定義やエイリアスのみを検索する良い方法はありますか？hoogleで普通に検索するとほとんど関数しかヒットせず、困る場面は少ないけどちょっと不便だなと思っています。",
+        "user": "U7907NMGF",
+        "type": "message"
+    },
+    {
+        "ts": "1542801484.063800",
+        "text": "<https://github.com/ndmitchell/hoogle#readme> に\n&gt; `:: a` searches for the type “a”\nとありますが、これで思ったように結果が絞れたりするでしょうか?",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1542803625.064200",
+        "text": "<@UE8N92RKN> has joined the channel",
+        "user": "UE8N92RKN",
+        "type": "message"
+    },
+    {
+        "ts": "1542839844.064400",
+        "text": ":thinking_face: 大文字で始まる名前に特に `-&gt;` とかを含めなければ普通に型の名前が優先されているように見えますが、これではダメなんでしょうか？\n<https://www.haskell.org/hoogle/?hoogle=Maybe>\n<https://www.stackage.org/lts-12.19/hoogle?q=Maybe>",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
