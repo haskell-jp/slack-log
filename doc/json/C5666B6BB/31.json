@@ -52,5 +52,47 @@
         "text": "<@UEBAETNPM> has joined the channel",
         "user": "UEBAETNPM",
         "type": "message"
+    },
+    {
+        "ts": "1543202611.075500",
+        "text": "stackって「特定のbinをstackローカルのbinパス以外にインストールする」という用途は想定していないんですかね。stack環境無しでも動くexeを作って圧縮して配布、みたいな事を考えた場合はcabalでビルドする事を考えないと駄目でしょうか",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1543202651.075600",
+        "text": "今やろうとしてるのはbinじゃなくてdllなんですが、それだと更にハードルがいくつかありそうです",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1543202789.075800",
+        "text": "`stack  --local-bin-path /path/to/install install hoge` ではダメなんですかね。\ndllはわからないですが。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543203863.076200",
+        "text": "ああ、 `--local-bin-path` でインストールされた奴はstack execなしでも動きますね。.stack-work/install以下と混同してたっぽいです。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1543203951.076400",
+        "text": "libとかincludeはそこにインストールされないんですが、それはdll固有の問題のようです",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1543242506.078600",
+        "text": "ああ、これすれば、Windows eshell でstack install した時に現在ディレクトリに~ とかいう謎ディレクトリが作られるの抑えられるのかな？",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543274173.078800",
+        "text": "stackのconfig.yaml（Windowsだとデフォルトで C:\\sr\\config.yaml になるはず）で、 `local-bin-path`で指定すれば、オプションで指定しなくてもそうなるはずです。 <https://docs.haskellstack.org/en/stable/yaml_configuration/#local-bin-path>",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
