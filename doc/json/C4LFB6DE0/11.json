@@ -220,5 +220,83 @@
         "text": "Reminder: <https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233>",
         "user": "USLACKBOT",
         "type": "message"
+    },
+    {
+        "ts": "1543301711.023600",
+        "text": "<@UEC0PN1PA> has joined the channel",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1543301901.024800",
+        "text": "仕事(といっても研究ベースですが)にHaskellを使っておりますが,環境が最高すぎて車輪の再発明ばかりしております.",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1543301931.025500",
+        "text": "わからないことが多々でてきたので,参加させていただきました.よろしくお願いいたします",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1543309448.027200",
+        "text": "早速で恐縮なんですが,現在スタンドアローンのWin7環境でHaskellPlatform(GHC 8.4.3)を使って作業をしています.csvデータを取り込みたく,以下のパーサーをReal World Haskell 等見ながら作成してみました.数100mのファイルなら問題なく動くのですが,4Gくらいになるとメモリヒープを起こします.マシンのメモリは128積んであるので,読めないことはないと思うのですが,理由がわかりません.ご知見ありましたら,ご教示いただければ幸いです.",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1543310360.027700",
+        "text": "GHC で吐いたプログラムのヒープサイズはデフォルトで無制限か\n<https://downloads.haskell.org/~ghc/8.4.3/docs/html/users_guide/runtime_control.html#rts-flag--M%20%E2%9F%A8size%E2%9F%A9>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1543310557.027900",
+        "text": "&gt; 4Gくらいになるとメモリヒープを起こします\n\nメモリ不足でOSによってkillされるってことですか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543310662.029900",
+        "text": "128gbまで使い切ってキルされるか自分で強制終了しています。色々とstrictにしてみたりはしたんですが変わらず、悩んでいます。",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1543310777.030100",
+        "text": "ヒーププロファイリングをしてみる、とかですかねぇ。\nちなみに、CSVパーサーと言えばcassavaが有名ですが、それでやるのはダメなんですかね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543310925.033500",
+        "text": "プロファイリングをしてみて動くサイズのファイルでは問題なさそうなのですが、一定サイズを超えるとプロファイルはくまえに死んでしまって困っています。既存のものを入れられると助かるんですがオフラインで依存環境が解決できずに車輪の再発明をしている次第です。",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1543311083.033900",
+        "text": "なので、プロファイリングして問題のないサイズの入力でたくさんアロケートしている関数を探すのです。\n\n... それはさておき、ざっと読んだ感じ、単純に Data.TextをData.Text.LazyにしてStrictにするのを止めるだけで大きく変わりそうな気がします。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543311210.035500",
+        "text": "メモリリークは結構、呼ぶ側のコードの影響もあるかもしれません。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1543311309.038000",
+        "text": "問題のないサイズで元々Lazyなものを使って試していたんですが、Strictの方がスコアが良かったので、こちらにしていました。Lazy vesionから順にbang pattern を付けて見たんですが、最終的にこれが一番結果が良かったです。cellの部分でdeepseqも試しましたがそちらは悪化したのでやめました。",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1543311361.039200",
+        "text": "`readCSVTWin path &gt;&gt;= mapM_ (mapM_ Text.putStrLn))` みたいに即座に消費するコードを書いてみてリークしないようなら、呼ぶ側の原因かも",
+        "user": "U570660KX",
+        "type": "message"
     }
 ]
