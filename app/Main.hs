@@ -83,6 +83,8 @@ targetChannels =
   , "C8R0H137H" -- translation
   , "CCYF8H43A" -- nix
   , "CD87P78HF" -- mmlh
+  , "CE368SB5G" -- ghc8x
+  , "GDTFWM8KX" -- haskell-day-staff
   ]
 
 
