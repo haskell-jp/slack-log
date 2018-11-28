@@ -70,20 +70,25 @@ instance FromEnv EnvArgs where
         putStrLn ""
         return t
 
+type ChannelName = T.Text
 
-targetChannels :: [T.Text]
+data Visibility = Private | Public deriving (Eq, Show)
+
+
+targetChannels :: [(ChannelName, Visibility)]
 targetChannels =
-  [ "C8KBGEBR7" -- code-review
-  , "C4P499EPQ" -- english
-  , "C4LFB6DE0" -- general
-  , "CAXQ09PN2" -- haskell-day
-  , "C7Y71415W" -- math
-  , "C5666B6BB" -- questions
-  , "C4M4TT8JJ" -- random
-  , "C8R0H137H" -- translation
-  , "CCYF8H43A" -- nix
-  , "CD87P78HF" -- mmlh
-  , "CE368SB5G" -- ghc8x
+  [ ("C8KBGEBR7", Public)-- code-review
+  , ("C4P499EPQ", Public)-- english
+  , ("C4LFB6DE0", Public)-- general
+  , ("CAXQ09PN2", Public)-- haskell-day
+  , ("C7Y71415W", Public)-- math
+  , ("C5666B6BB", Public)-- questions
+  , ("C4M4TT8JJ", Public)-- random
+  , ("C8R0H137H", Public)-- translation
+  , ("CCYF8H43A", Public)-- nix
+  , ("CD87P78HF", Public)-- mmlh
+  , ("CE368SB5G", Public)-- ghc8x
+  , ("GDTFWM8KX", Private) -- haskell-day-staff
   ]
 
 
@@ -98,7 +103,7 @@ main = do
 
   config <- Slack.mkSlackConfig =<< slackApiToken <$> (failWhenLeft =<< decodeEnv)
   tss <- readLastTimestampsOrDefault ".timestamps.json"
-  newTss <- HM.fromList <$> for targetChannels (saveChannel config tss)
+  newTss <- HM.fromList <$> for targetChannels (uncurry $ saveChannel config tss)
 
   BL.writeFile ".timestamps.json" $ Json.encodePretty newTss
 
@@ -131,12 +136,16 @@ readLastTimestampsOrDefault path = do
       Left err  -> fail $ "Error reading \"" ++ path ++ "\"\n" ++ show err
 
 
-saveChannel :: Slack.SlackConfig -> TimestampsByChannel -> T.Text -> IO (T.Text, Slack.SlackTimestamp)
-saveChannel cfg tss channelName = Dir.withCurrentDirectory "doc/json" $ do
+saveChannel :: Slack.SlackConfig -> TimestampsByChannel -> ChannelName -> Visibility -> IO (T.Text, Slack.SlackTimestamp)
+saveChannel cfg tss channelName vis = Dir.withCurrentDirectory "doc/json" $ do
   new <- Slack.mkSlackTimestamp <$> getCurrentTime
   let old = fromMaybe (Slack.mkSlackTimestamp $ UTCTime (fromGregorian 2017 1 1) 0) (HM.lookup channelName tss)
   print old
-  res <- runReaderT (Slack.historyFetchAll Slack.channelsHistory channelName 100 old new) cfg
+  let hist =
+        case vis of
+            Private -> Slack.groupsHistory
+            Public -> Slack.channelsHistory
+  res <- runReaderT (Slack.historyFetchAll hist channelName 100 old new) cfg
   case res of
       Right body -> do
         let msgs = Slack.historyRspMessages body
