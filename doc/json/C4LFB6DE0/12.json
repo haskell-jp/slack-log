@@ -202,5 +202,11 @@
         "text": "それと気になるのが,Parserのような処理で返り値をVectorにするとConsを各Char(をT.pack)したものに繰り返すことになりそうですが,そこが少し怖いです.以前,手当たり次第にVectorにしていて,snoc,cons,++あたりを繰り返して死んだことがあり,寧ろリストの方が安全ではないかと考えていました. いずれにしても手元で試させていただきます.",
         "user": "UEC0PN1PA",
         "type": "message"
+    },
+    {
+        "ts": "1543426319.069100",
+        "text": "勉強のために色々試してみたのですが、以下のように変更したら `total memory in use` が1/3ぐらいになりました。\n\n`cell = (quotedCell &lt;|&gt; many (noneOf \",\\n\\r\")) &gt;&gt;= (\\res -&gt; return $! T.pack res)`",
+        "user": "U5B3EGEFQ",
+        "type": "message"
     }
 ]
