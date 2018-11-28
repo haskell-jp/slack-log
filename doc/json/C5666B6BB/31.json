@@ -94,5 +94,71 @@
         "text": "stackのconfig.yaml（Windowsだとデフォルトで C:\\sr\\config.yaml になるはず）で、 `local-bin-path`で指定すれば、オプションで指定しなくてもそうなるはずです。 <https://docs.haskellstack.org/en/stable/yaml_configuration/#local-bin-path>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1543381236.080400",
+        "text": "1.15.1のDhallでInject, Interpretの型クラスインスタンスを定義した際に以下のように定義して、dhallファイルをパースしようとすると無限ループにはまるのですが、回避策などはありますか。\n\n```\ndata Person = Person {\n      pName :: !Text\n    , pAge  :: !Natural\n    } deriving (Eq, Show)\n\ninstance Interpret Person where\n    autoWith _ = autoWith $ defaultInterpretOptions {fieldModifier = T.drop 1}\n\ninstance Inject Person where\n    injectWith _ = injectWith $ defaultInterpretOptions {fieldModifier = T.drop 1}\n```\n\nInterpretなら以下の方法で定義すればいいんだけど、\n<http://hackage.haskell.org/package/dhall-1.15.1/docs/Dhall.html#t:RecordType>\n\n```\ninstance Interpret Person where\n    autoWith _ = record $ \n        Person &lt;$&gt; field \"name\" strictText \n               &lt;*&gt; field \"age\" natural\n```\n\nInjectの場合、dhall-1.15.1ではdefaultInterpretOptionsを使う以外方法が見当たらないのです。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543382757.081700",
+        "text": "`InputType Person` を自分で定義してあげないといけない予感？",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1543383159.081900",
+        "text": "ソースコードを見た限りそうなんですけど、レコード型のInputTypeを定義するサンプルコードが見当たらないんですよね。。\n<http://hackage.haskell.org/package/dhall-1.15.1/docs/src/Dhall.html#line-865>",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543383919.082300",
+        "text": "`RecordLits` 直接いじろうとしてもValueの肩が `Exp Src X` なのでうまく行きそうにないですね自前でレコードの `Interpret` インスタンス書いたときそれで詰まった気がします。現状レコードは柔軟に型定義できなさそうです",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1543384405.082600",
+        "text": "<@U7155GPR9>\nありがとうー\n思いっきり裏技になりますが、以下の方法なら可能でした（多分やったら怒られそう）\n\n```\ndata Person = Person {\n      pName :: !Text\n    , pAge  :: !Natural\n    } deriving (Eq, Generic, Show)\n\n-- 一旦Genericを用いてInjectのインスタンス定義\ninstance Inject Person\n\n-- !?\nclass MyInject a where\n    myInject :: InputType a\n\ninstance MyInject Person where\n    myInject = injectWith $ defaultInterpretOptions {fieldModifier = T.drop 1}\n\n&gt; let p = Person \"Hiroto\" 29\n&gt; pretty $ embed myInject p\n&gt; \"{ Name = \"hiroto\", Age = 29 }\"\n```",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543389080.083200",
+        "text": "でもこれどう考えても冗長的なコードだし、aesonのように定義できる気がするんですよねー。。他のチャンネルでもきいてみます。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543392829.083400",
+        "text": "1.19.1だと(&gt;*&lt;)とか使って出来そう？ <http://hackage.haskell.org/package/dhall-1.19.1/docs/Dhall.html#v:-62--42--60->",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1543392988.083600",
+        "text": "1.19.1にするならDevOpsと要相談になりますねー。\nいま作業してるプロジェクトは1.15.1がデフォルトのようです。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543399524.083800",
+        "text": "ちょっと勘違いしてたんですが、最初のコードが無限ループするのって、autoWithの中でautoWithを呼んでるからってだけではないですかね。autoWithのデフォルト定義 ` autoWith options = fmap <http://GHC.Generics.to|GHC.Generics.to> (evalState (genericAutoWith options) 1)` を貼り付けてoptionの所変えてやってみては？",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1543400966.084000",
+        "text": "やってみたんですけど、今度は型エラーでコンパイルができなくなりますね。同じ名前の関数を別からインポートする必要があるのかな。。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543401828.084200",
+        "text": "dhallは比較的まだ新しい言語だし、当時はInjectの型クラスインスタンスは定義できなかったというのも十分ありえると思います。あったとしても相当ややこしかったのかも？（少なくともチュートリアルにはサンプルコードはありませんでした",
+        "user": "U7Z4F723Z",
+        "type": "message"
     }
 ]
