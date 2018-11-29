@@ -208,5 +208,29 @@
         "text": "勉強のために色々試してみたのですが、以下のように変更したら `total memory in use` が1/3ぐらいになりました。\n\n`cell = (quotedCell &lt;|&gt; many (noneOf \",\\n\\r\")) &gt;&gt;= (\\res -&gt; return $! T.pack res)`",
         "user": "U5B3EGEFQ",
         "type": "message"
+    },
+    {
+        "ts": "1543461077.069600",
+        "text": "これ意識して避けるの絶対無理ですね…… Textでゴリゴリやりたい人はattoparsec使えって事なんでしょうか",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1543461167.069800",
+        "text": "megaparsecとかtrifectaならまた違ったりするのかな。 :thinking_face:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543461172.070000",
+        "text": "そもそもparsecはincremental parsingに対応していなかったと思うので、大きなデータを使う場合はattoparsecを使ってくださいということだと思います",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1543461194.070300",
+        "text": "megaparsec でも書き直してみましたが、同様でした。attoparsec なら違うかもしれないですね。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
     }
 ]
