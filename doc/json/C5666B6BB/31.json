@@ -172,5 +172,53 @@
         "text": "目を通してくれてありがとうー。\n<https://gist.github.com/HirotoShioi/69a63c11e0f73afe01f9182986c052a0>\n色々引っ張ってきてやっとできました！",
         "user": "U7Z4F723Z",
         "type": "message"
+    },
+    {
+        "ts": "1543470187.001000",
+        "text": "stack newで新しくプロジェクトを生成した際に予め用意した`.ghci`ファイルも自動的にそのプロジェクトに入れておく方法ってありますか？\n\n``` \n:set prompt \"&gt; \"\n :seti -XOverloadedStrings\n :seti -XScopedTypeVariables\n \n :set -Wall\n :set -fno-warn-type-defaults\n \n :set -DGHCI\n :set +s\n :set +t\n \n :set -package pretty-simple\n \n import Text.Pretty.Simple (pPrint)\n \n :set -interactive-print pPrint\n```\n\nプロジェクトを立ち上げる毎に自分のwikiから.ghciファイルをコピペするのが面倒なんです。かといってグローバルに設定すると色々問題がありそう（どのPreludeを使ってるのかわからなくなるとか）。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543470347.001100",
+        "text": "テンプレートに.ghciを含めておくことはできるかと思います。\nstackのconfig.yamlでdefault-templateという項目を設定しておけば、デフォルトで使うテンプレートを指定できるみたいです。\n<https://haskell.e-bigmoon.com/stack/tips/config-yaml.html>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543471965.001500",
+        "text": "できました！",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543471984.001700",
+        "text": "ありがとうー！",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543479477.002900",
+        "text": "テスト書いてて気づいたけど、Dhallって特定の文字列に対してはパースエラーを吐くっぽい？\n例えばこういうのとか\n\"\\uÞ07A\\u1635\"\n\n\"\\uö4BCX\"",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543479553.003200",
+        "text": "Questionじゃなかった。。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543486409.003800",
+        "text": "`\\u0000` みたいなのはコードポイントの表現なので、コードポイントとしてのパースに失敗するとパースエラーになるのかなと。",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1543503046.004900",
+        "text": "`\\\\uあああ` みたいなのならいけるんでしょうね。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
     }
 ]

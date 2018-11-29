@@ -232,5 +232,53 @@
         "text": "megaparsec でも書き直してみましたが、同様でした。attoparsec なら違うかもしれないですね。",
         "user": "U5B3EGEFQ",
         "type": "message"
+    },
+    {
+        "ts": "1543461327.070700",
+        "text": "attoparsecは\"Use the Text-oriented parsers whenever possible\" に従えば大丈夫そう？　<http://hackage.haskell.org/package/attoparsec-0.13.2.2/docs/Data-Attoparsec-Text.html>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1543461573.071000",
+        "text": "あと `&gt;&gt;=` で書いてある部分を `do` で書き換えて、全部の関数に型を明示的に書いたら、処理的には何も変更していませんが 50MB ぐらい減りましたね。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1543461624.071200",
+        "text": "Strict拡張があるので、doで変数束縛すると暗黙にseqが掛かるからそれじゃないですかね",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1543462141.071600",
+        "text": "確かに手元で確認したら `Strict` 拡張の有無でプロファイル結果が変わったので、それっぽいです。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1543470689.072000",
+        "text": "ここまでくると途中経過のソース全部含めてBIG MOONの記事になっていて欲しくなりますね :pray:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543472259.072200",
+        "text": "書いてみますね！",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1543472340.072600",
+        "text": "<@UEC0PN1PA> 念のため確認ですが、ソースを <@U5B3EGEFQ> さんのブログに載せちゃっても大丈夫でしょうか。。。？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543476156.073800",
+        "text": "<@U4LGTMTMK> 問題ありません。皆さん色々議論してくださって大変勉強になりましたので是非残してください。",
+        "user": "UEC0PN1PA",
+        "type": "message"
     }
 ]
