@@ -34,5 +34,149 @@
         "text": "むしろ、なんで去年はあんなに多かったのか",
         "user": "U56L7EVNY",
         "type": "message"
+    },
+    {
+        "ts": "1543545858.185100",
+        "text": "Haskellのサポートができる日も近いぜよ\n<https://www.publickey1.jp/blog/18/aws_lambdarubyaws_reinvent_2018.html>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543547525.185800",
+        "text": "&gt; このCustom Runtimesに対応したC++とRustの環境をAWSはオープンソースとして公開。さらにPHP、COBOL、Erlangなどのサポートを行うパートナーも発表されました。\n\nCOBOL すごい",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1543548412.186300",
+        "text": "Haskellがない。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1543548545.187600",
+        "text": "golangのaws lambdaは\n<https://golang.org/pkg/net/rpc/>\nこれをつかったTCPのサーバーをたてるだけだから\n同じような感じでhaskellも動かせるような気がしています。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1543548835.189300",
+        "text": "カスタムランタイムでどんな言語でもできるよ、公式は C++ と Rust の分を作ってOSS化しといたよ\nPHP、COBOL、Erlang のもやってくれる人がいるってさ\nぐらいに思ってたので、誰か Haskell やって公開すればいいんですよね",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1543548892.189600",
+        "text": "<https://aws.amazon.com/jp/blogs/opensource/rust-runtime-for-aws-lambda/>",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1543548899.189900",
+        "text": "<https://github.com/awslabs/aws-lambda-rust-runtime>\n<https://github.com/awslabs/aws-lambda-cpp>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1543548929.190500",
+        "text": "<https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/runtimes-custom.html>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1543549408.191500",
+        "text": "実行ファイルを zip 化して upload する感じなのかな &gt; Custom Runtimes",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1543550625.004900",
+        "text": "AWS Lambda の実行環境は Amazon Linux (CentOS) なので、Amazon Linux 向けにビルドした Haskell バイナリを JavaScript の zip に同梱して node API でキックすれば、今までも実はLambda上で Haskell を動かせないことはなかった。\nCustom Runtimeというのが実際何をしてくれるのかは把握していないですが。",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1543555665.005200",
+        "text": "1,  LAMBDAのAPIをたたいてリクエストもらう\n2, リクエストに基づいて処理\n3, LAMBDAのAPIをたたいて結果を返す\nという流れなのですね。\nCustom RuntimeというのはLAMBDAのAPI（RESTかなにか）の仕様なんでしょうかね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1543568164.005900",
+        "text": ":tune: ",
+        "user": "U5828Q4FR",
+        "type": "message"
+    },
+    {
+        "ts": "1543568186.006600",
+        "text": "（igrepさんに「ちゃんとHaskellerしてください」と怒られた気がする）",
+        "user": "U5828Q4FR",
+        "type": "message"
+    },
+    {
+        "ts": "1543569623.008600",
+        "text": "Haskell は dlopen みたいな機能あるかなあ？もしあったら汎用的な Runtime を作れるかもしれないなあ",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1543569821.009600",
+        "text": "plugins というpackageを知ってるけど、でもGHCを必要から、ばかでかくなっちゃう。。。",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1543569895.010600",
+        "text": "完全にGHCのランタイムから分離させたものは難しいでしょうね。。。 :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543570329.012700",
+        "text": "Haskell コード同士で FFI を使うという邪道を考えてみた ww :joy:",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1543570451.014100",
+        "text": "確かGHCでビルドしたsoファイルをGHCでforeign importするのはできなかったはず（多分、ランタイムの何かが衝突してしまうから）なので、同じ理由でそれも難しそう。。。 :sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543570547.014200",
+        "text": "rts 二人分で喧嘩しちゃうってこと？",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1543570901.014400",
+        "text": "はい、 <https://downloads.haskell.org/~ghc/8.4.4/docs/html/users_guide/shared_libs.html#shared-libraries-that-export-a-c-api> のWarningで言っていることはそういう意味のはず。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543570968.014600",
+        "text": "hmmm",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1543571156.014800",
+        "text": "... あ、と思ったけど、すぐ上のセクションで書いてある、 Shared libraries for Haskell packages の方法ならHaskellで書かれたパッケージをHaskellのプログラムからdynamic linkできるみたいですね。すみません。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543571320.015000",
+        "text": ":thinking_face:明日ちょっといじってみよう。。。",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1543571926.015700",
+        "text": "でもよく考えたらそうやるメリットが全然ない。。。",
+        "user": "UACQ9J5D3",
+        "type": "message"
     }
 ]
