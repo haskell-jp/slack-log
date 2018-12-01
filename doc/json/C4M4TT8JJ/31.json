@@ -178,5 +178,41 @@
         "text": "でもよく考えたらそうやるメリットが全然ない。。。",
         "user": "UACQ9J5D3",
         "type": "message"
+    },
+    {
+        "ts": "1543582608.016700",
+        "text": "WebAssemblyのイメージ図集を描きました。\nHaskellもWebAssemblyのバックエンド(Asteriusやdhc)があるので、ここでも共有しておきます:slightly_smiling_face:\n（ちょっと忙しくなりそうなので、現バージョンでopenしました。理解ミス箇所等は今後修正します。）\nちなみに、WebAssemblyのreference interpreterは、OCaml製です。\n\n<https://takenobu-hs.github.io/downloads/WebAssembly_illustrated.pdf>",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1543583128.018300",
+        "text": "そういえば、haskell(ghc)は、llvmを吐けるからそれ経由でwasmにできないかなとか思ったけどどうなのかな",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543587714.018600",
+        "text": "asteriusは、GHCから(LLVMを経ずに直接)Binaryen経由でwasmを吐かせているようです。\n<https://github.com/tweag/asterius>\n\nただ、原理的にはLLVMに持ち込めれば、Binaryen経由でwasmは吐けるのかなと思います。\n（LLVM自体がwasm用のバックエンドにBinaryenを使ってるようでした。）\n\nただ、ランタイムの部分をどうするかが、結構みなさんの工夫と腕力の見せ所のようです。\nasteriusは、GHCのランタイムの軽量版をwasm（とJavaScript）で自力で書いたようです。\nなかなか凄い腕力です！:star2:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1543587994.020800",
+        "text": "さすがはtweag 変態さんってことですね^^",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543593488.022000",
+        "text": "[fpco/stack-build](<https://hub.docker.com/r/fpco/stack-build/>) がめちゃ重だったので小さめのDockerイメージ作ってみました：kirisaki/overflow - Docker Hub <https://hub.docker.com/r/kirisaki/overflow/>",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1543624417.022600",
+        "text": "なんでoverflowっていうんですか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
