@@ -214,5 +214,89 @@
         "text": "なんでoverflowっていうんですか？",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1543624575.023000",
+        "text": "記憶が曖昧なんですが、wasmって使用できる命令はじめいろいろ制限が厳しいので、単純にGHCが吐いたLLVMを変換できるかは怪しかったかと思います。 :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543632645.023600",
+        "text": "確かに。 例えば、単純なgotoが使えないので、asteriusは tail callをwasmで工夫して実装してるようでした:muscle:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1543640798.024900",
+        "text": "",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1543640936.027000",
+        "text": "昨日話したHaskell同士でFFIで実行したい話し、なんとか出来たみたいけどが、join $ mkFun &lt;$&gt; dlsym dl \"library_close\" の一行を実行したらなぜか `main` が実行終わったらSegmentation fault: 11になっちゃう。。。",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1543640967.027400",
+        "text": "でも流石に実用性が皆無かなあ。。。",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1543641377.027800",
+        "text": "stackなので",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1543641685.030300",
+        "text": "ちなみに、単にlibraryをLoadして何もしないのもSegmentation fault: 11。。。やはりあのGHCの制限みたい。。。逆に、Initializeだけするならエラーなく実行できるのはちょっと不思議。。。",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1543641713.030400",
+        "text": "なるほどw",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1543642857.030700",
+        "text": "小さくするためにどんな工夫をしたんでしょ？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543643458.031100",
+        "text": "イメージにdebian:stretch使いました。あとstack-buildではいろいろ他にも入ってたみたいなので必要最低限に絞ったり",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1543671950.031600",
+        "text": "<@UEJCJMCRL> has joined the channel",
+        "user": "UEJCJMCRL",
+        "type": "message"
+    },
+    {
+        "ts": "1543704166.032000",
+        "text": "GHCのホスティングを、TracからGitLabへ移す先行テストが始まります:haskell:\n（GitHubのアカウントがあれば、GitLabへログインして試せます。）\n<https://mail.haskell.org/pipermail/ghc-devs/2018-December/016613.html>",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1543706270.032500",
+        "text": "‪Haskell のソースコードの複雑性を、型チェックの際のユニフィケーションの数で測ることを考えたことがあるんだけど、実現できそうですかね‬",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1543706302.033500",
+        "text": "意図しているところは (&lt;$&gt;) &lt;$&gt; (&lt;$&gt;) みたいなコードを排除すること",
+        "user": "U5LEE6C1J",
+        "type": "message"
     }
 ]
