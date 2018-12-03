@@ -262,5 +262,41 @@
         "text": "ありがとうございます！:cactus:",
         "user": "U5B3EGEFQ",
         "type": "message"
+    },
+    {
+        "ts": "1543823570.005400",
+        "text": "cabal new-buildやcabal new-testで、stack buildの--pedanticオプション相当のことはできるでしょうか？\ncabal new-build --ghc-options=\"-Werror -Wall\"\nでいけるだろうと思いきや、依存しているパッケージに警告があった場合までエラーになってしまうので、意図した動作にならず、悩んでおります。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543824023.005500",
+        "text": "`--ghc-options=\"-Wall -Werror\"` とすれば良いっぽい？",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543824139.005700",
+        "text": "と、現状のstackのpedantic がそう解釈するらしいので (参照: <https://github.com/commercialhaskell/stack/blob/master/src/Stack/Options/BuildParser.hs#L30>)",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543824257.006100",
+        "text": "さすがにそれでは `--ghc-options=\"-Werror -Wall\"` と結果は変わりません。。。\n依存パッケージに警告があった場合までエラーになってしまいます。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1543824298.006300",
+        "text": "すみません、、、-Wallしかしてないのかなと勝手に見間違いしてました&gt;&lt;",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1543826675.006600",
+        "text": "おそらくなのですが、cabal.projectを作って、\n\n```\npackages: ./gtk2hs-buildtools.cabal\n\npackage gtk2hs-buildtools\n  ghc-options: -Wall -Werror\n\nallow-newer: all\n```\n\nみたいな感じに設定すると望みの事が出来るのでは？ (例はgtk2hs-buildtoolsをghc-8.6.1でnew-buildしようとしたときの設定です)",
+        "user": "U9XHWQX7Z",
+        "type": "message"
     }
 ]
