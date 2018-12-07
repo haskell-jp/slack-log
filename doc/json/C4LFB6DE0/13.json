@@ -46,5 +46,83 @@
         "text": "<@UELP94BJN> has joined the channel",
         "user": "UELP94BJN",
         "type": "message"
+    },
+    {
+        "ts": "1544141319.011500",
+        "text": "<@UEM161796> has joined the channel",
+        "user": "UEM161796",
+        "type": "message"
+    },
+    {
+        "ts": "1544141462.012300",
+        "text": "はじめまして。Haskell初心者で分からないことだらけですが、頑張りますのでどうぞよろしくお願いいたします。",
+        "user": "UEM161796",
+        "type": "message"
+    },
+    {
+        "ts": "1544141823.015900",
+        "text": "質問させて頂きます。Haskellのwebアプリ（wai）の勉強をしているのですが、以下のソースコードの24行目、\"こんにちわ\"の部分が、ブラウザ上で見ると文字化けしてしまいます。文字コード変換の問題かと思うのですが、どうしても解消できませんでした。どうぞお知恵をお貸しください。\n\n{-# LANGUAGE OverloadedStrings #-}\n\nmodule Lib\n    ( someFunc\n    ) where\n\n\nimport Network.Wai (Application, responseLBS)\nimport Network.HTTP.Types (status200)\nimport Network.Wai.Handler.Warp (run,Port)\nimport System.Environment(getEnvironment)\nimport Data.List(lookup)\nimport Data.Maybe\n\n\nsomeFunc :: IO ()\nsomeFunc = do\n  port &lt;- getPort\n  Prelude.putStr \"start Server: http://localhost:\"\n  print port\n  run port helloApp\n\nhelloApp :: Application\nhelloApp req respond =respond\n                      $ responseLBS status200 [] \"こんにちわ\"　# ←　この部分です\n\ngetPort :: IO Port\ngetPort = getEnvironment &gt;&gt;= return . port\n  where\n    port = fromMaybe defaultPort . fmap read . lookup \"PORT\"\n\ndefaultPort :: Port\ndefaultPort = 3000",
+        "user": "UEM161796",
+        "type": "message"
+    },
+    {
+        "ts": "1544143899.016300",
+        "text": "ああー、ByteStringの文字列リテラルの罠ですね。。。\n取り急ぎ結論から言うと、\n`\"こんにちわ\"` に `Data.Text.Lazy.Encoding.encodeUtf8` <http://hackage.haskell.org/package/text-1.2.3.1/docs/Data-Text-Lazy-Encoding.html#v:encodeUtf8> を適用すれば解決するはずです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1544144797.016500",
+        "text": "IsString ByteStringは罠ですね…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1544145294.016700",
+        "text": "igrep 様、fumieval様、真に有難うございました。ソースコードを以下のように訂正しました所、文字化けが解消しました。大変お世話になり、真に有難うございました。\n　Chromeですと、さらにブラウザ自身の文字コードもUTF-8にしないといけないのですね。。大変勉強になりました。（FireFoxはそのままできれいに表示されました。）\n\nimport Data.Text.Lazy.Encoding # 追加\n\nhello= encodeUtf8 \"こんにちわ\" # 追加・変更",
+        "user": "UEM161796",
+        "type": "message"
+    },
+    {
+        "ts": "1544145386.017000",
+        "text": "grep 様、fumieval様、真に有難うございました。ソースコードを以下のように訂正しました所、文字化けが解消しました。大変お世話になり、真に有難うございました。\n　Chromeですと、さらにブラウザ自身の文字コードもUTF-8にしないといけないのですね。。大変勉強になりました。（FireFoxはそのままできれいに表示されました。）\n\nimport Data.Text.Lazy.Encoding # 追加\n\nhello= encodeUtf8 \"こんにちわ\" # 追加・変更",
+        "user": "UEM161796",
+        "type": "message"
+    },
+    {
+        "ts": "1544145477.017600",
+        "text": "igrep　様、名前のiが抜けてしまっておりました。大変失礼いたしました。申し訳ありませんでした。",
+        "user": "UEM161796",
+        "type": "message"
+    },
+    {
+        "ts": "1544145501.017900",
+        "text": "詳しく言うと、これはOverloadedStringsを使ってBytStringの文字列リテラルを書いたことによる問題です。\nOverloadedStringsを使ってBytStringの文字列リテラルを書いた場合、内部でBytStringのfromStringというStringからBytStringに変換する関数（<@U4KUNQF9N>さんが触れてるIsStringのメソッドです）を呼んでいるのですが、各Charの1バイト目の値しかとらないため、 \"こんにちわ\" の各文字が切れてしまうのです",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1544145513.018100",
+        "text": "&gt; Chromeですと、さらにブラウザ自身の文字コードもUTF-8に\nそんなことなかった気もしますが、その辺は WAI 関係なく web の話なので、 response header に `Content-Type:\ntext/html; charset=UTF-8` 加えるなどするのがいいと思います。",
+        "user": "U4MAYDV9C",
+        "type": "message"
+    },
+    {
+        "ts": "1544145571.018600",
+        "text": "<@UEM161796> すみません、原則として「Also send to <#C4LFB6DE0|general> 」は使わないでください。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1544145628.018900",
+        "text": "<@U4LGTMTMK> 有難うございます。よくわからないまま、チェックを入れてしまっておりました。申し訳ありません。",
+        "user": "UEM161796",
+        "type": "message"
+    },
+    {
+        "ts": "1544145730.019100",
+        "text": "hiratara　様　有難うございます。また、いろいろ試して、勉強してみたいと思います。",
+        "user": "UEM161796",
+        "type": "message"
     }
 ]
