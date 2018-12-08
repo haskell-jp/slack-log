@@ -46,5 +46,47 @@
         "text": "<https://qiita.com/waddlaw/items/65b57517f105fcbbe724>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1544195755.044500",
+        "text": "今日の MonadPlus IO の話が出たときの Parsec の話。\n\nやはり Parsec の `(p &lt;|&gt; q)` でも、\n`p` が失敗したときに入力を消費していないことが、\n`q` を実行する条件。\n`p` が失敗したときに入力を消費しているときには、 `(p &lt;|&gt; q)` が失敗する。\nなので、Parsec では effect が中途半端に実行されて実行が続いてしまうことは起こらない。\n\n<http://hackage.haskell.org/package/parsec-3.1.13.0/docs/Text-Parsec.html#v:-60--124--62->\n\n私の記憶違いではなかったらしい。",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1544196313.046600",
+        "text": "なのでどこかで `try` で捕まえなければ、結果的に全体が失敗する。",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1544196353.047000",
+        "text": "間違えた <https://mail.haskell.org/pipermail/haskell-cafe/2018-August/129829.html> のようです。\nそしてmegaparsecも日比野さんの仰る実装のようです。 :relieved:\n<http://hackage.haskell.org/package/megaparsec-7.0.4/docs/Text-Megaparsec.html#v:try>\nよく意味がわかってませんですみませんでした。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1544196653.049500",
+        "text": "バックトラックしたい箇所だけ選んで `try` を入れることで無駄なバックトラックを減らして効率化する方式なんですね。",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1544196990.049800",
+        "text": "hasmoku でも話題にしたことがあるけど、\n```\np *&gt; q &lt;|&gt; p *&gt; r === p *&gt; (q &lt;|&gt; r)\n```\nMonadPlus(Alternative) の分配法則が成立しないの、\nプログラム書きづらいと思うんですよね。",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1544197124.051100",
+        "text": "そこは。。。そんなにAlternativeでのコンビネーターを書くことがないのでやっぱりピンとこないです。。。書いたとしても、特定のインスタンス向けのものしか意識しません。。。 :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1544197387.052400",
+        "text": "むしろ、途中まで effect が実行された方が嬉しい例というのがあれば見てみたい。",
+        "user": "U4KNU6N48",
+        "type": "message"
     }
 ]
