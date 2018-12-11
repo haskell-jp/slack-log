@@ -136,5 +136,83 @@
         "text": "遅くなりましたが私の資料も上げておきました。\n<http://the.igreque.info/slides/2018-12-07-ghc8x.html#(1)>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1544491973.056300",
+        "text": "<@U4KNU6N48> さんが言うように、GHC 8 以降は IO が Alternative になっていて、実装を読んでみたら io-choice と一緒だった。io-choice は obsoleted でいいかな？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1544492025.056600",
+        "text": "自分のしか依存がない！ <https://packdeps.haskellers.com/reverse/io-choice>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1544511895.057500",
+        "text": "<@U4M9NJ7QE> 高速な pure Haskell integer ライブラリって、どれのことでしょうか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1544512076.057600",
+        "text": "<https://github.com/ch1bo/ghc-proposals/blob/patch-1/proposals/0000-integer-openssl.rst> で提案されている integer-opensslのことですね！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1544513463.058000",
+        "text": "ありがとう！",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1544513678.059100",
+        "text": "補足ですがpure HaskellではなくC bindingです",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1544513750.059300",
+        "text": "libcryptoというライブラリーを使っているので実際にはPure Haskellではないですが、libgmpのような、ライセンスの都合上での面倒ごとがない、ということでしたよね？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1544513869.059600",
+        "text": "NamedFieldPuns と RecordWildCards ついて調べました。\nNamedFieldPuns は x=x の代わりに x と書ける。\nRecordWildCards は、x=x の代わりに .. と書ける。\nのようです。\nRecord{x} は NamedFieldPuns\nRecord{..} は RecordWildCards\nRecord{x,..}は、NamedFieldPuns + RecordWildCards\nです。\n\n以前は、Record{..}を多用していたのですが、どのフィールドを使っているのかよく分からないから明記しろという指令が下りましたので、Record{x,z} のように書くようになりました。\n\nなので、RecordWildCards が減り NamedFieldPuns が増えました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1544513955.059700",
+        "text": "インターンが来たら、libgryptoを参考に、<https://github.com/erikd/haskell-big-integer-experiment/issues/8> を完成させることにします。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1544525075.060400",
+        "text": "&gt; index.html.ja、index.html の優先順位でファイルを返答するときに\n\nこの例だとファイルの読み込みが\n副作用の痕跡を残さないことを\n暗黙に期待している例になっていると思うので、\n実は effect が途中まで実行されて嬉しい例にはなっていないと思います。",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1544525674.060700",
+        "text": "IO の MonadPlus のインスタンスですが、\nマニュアルに書いてある MonadPlus の満たすべき性質の 2つめ\n\n```\nv &gt;&gt; mzero = mzero\n```\n\nを満たせていないですね。\n\n<http://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Monad.html#t:MonadPlus>",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1544525688.060900",
+        "text": "これが満たされるときには、\n連続実行の後に失敗があれば、\nそれは何もしなかったのと同じになる。\n\nおそらくこのときには分配法則も成立する。",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1544526484.061100",
+        "text": "Simon さんが STM のプレゼンで、\nミサイル発射しちゃったら巻き戻せない、\nみたいな例を挙げていたのを思い出しました。",
+        "user": "U4KNU6N48",
+        "type": "message"
     }
 ]
