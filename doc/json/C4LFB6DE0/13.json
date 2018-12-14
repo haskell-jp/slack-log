@@ -154,5 +154,53 @@
         "text": "Reminder: <https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233>",
         "user": "USLACKBOT",
         "type": "message"
+    },
+    {
+        "ts": "1544747872.021900",
+        "text": "<@UET37UPQR> has joined the channel",
+        "user": "UET37UPQR",
+        "type": "message"
+    },
+    {
+        "ts": "1544768067.027600",
+        "text": "抽象的な質問で恐縮ですが、質問させていただきます。\n先程hClose を忘れていたせいでoutput の末尾だけ欠損して毎回その数が異なるというバグと戦っておりました。\n何かを呼び出した後に、特定の関数を呼び出していない場合にエラーを表示するような機能を付ける場合、template Haskell 等でコンパイル時に判断する他に手段があるでしょうか。",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1544768453.027700",
+        "text": "いかなる条件でも絶対に呼び出すことを保証するのは、そもそもTemplate Haskellでも難しいです。\nそうしたAPIや型（ファイルの場合 `Handle` ）を実装した人が、 `bracket` を使って作ったAPI （ファイルの場合 `withFile` ）のみを利用してその型を利用できるようにする、という手はあります。\nあと、APIのユーザーとして、 極力 `withFile` などのAPIだけを利用する、というだけでもそれなりに防げるかと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1544769012.028100",
+        "text": "ありがとうございます.利用者側としては取り敢えずbracketを基本的に使うことを心がけるというのが一番なのですね",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1544775666.028500",
+        "text": "<@UET91JXLZ> has joined the channel",
+        "user": "UET91JXLZ",
+        "type": "message"
+    },
+    {
+        "ts": "1544781997.030300",
+        "text": "bracket や、withXXXX を使うのは前提として ResourceT を使うっていう手もあるにはありますよ。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1544798202.031400",
+        "text": "Conduitなら必ずhCloseされるよ定期",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1544798232.032000",
+        "text": "実装はResourceTです",
+        "user": "U570660KX",
+        "type": "message"
     }
 ]
