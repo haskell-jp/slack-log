@@ -142,5 +142,41 @@
         "text": "<@UEH3V5NRE> has joined the channel",
         "user": "UEH3V5NRE",
         "type": "message"
+    },
+    {
+        "ts": "1544846046.017000",
+        "text": "「Haskellによる並列・並行プログラミング」_Parallel and Concurrent Programming in Haskell_ (<https://www.oreilly.com/library/view/parallel-and-concurrent/9781449335939/ch04.html>)  の p.69 `Rate-limiting the Producer` にある流量制限をする `exercise` の解を教えて下さい　非力のため実行時エラーが取れません\n`stack overflow` (<https://stackoverflow.com/questions/24773130/parallel-haskell-rate-limiting-the-producer>)　にヒントがありますが　完全解は省略されています\nよろしくお願いします",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1544860031.017300",
+        "text": "ちょっとまだ状況把握できてないので解けるかどうかも自信がないのですが、いずれにしても、\n<@U584T7GAH> さんが自分でどこまで書いてみてどううまくいかなかったのか、教えていただけないでしょうか？\nそうでなければアドバイスしにくいです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1544863867.017500",
+        "text": "`parconc-examples` から `rsa-pipleline.hs` と `Stream.hs` を取り出して　`streamFromList` や他を次のように変えると　エラーになります　``` $ cabal unpack parconc-examples\n$ cd parconc-examples-0.4.7\n$ cabal install --only-dependencies\n\n$ diff rsa-pipeline2.hs rsa-pipeline.hs\n14c14\n&lt; import Stream2\n---\n&gt; import Stream\n42c42\n&lt;   s0 &lt;- streamFromList f c (chunk (size n) b)\n---\n&gt;   s0 &lt;- streamFromList (chunk (size n) b)\n47,49d46\n&lt;   where\n&lt;   f = 100\n&lt;   c = 200\n\n\n$ diff Stream2.hs Stream.hs\n10c10\n&lt; module Stream2\n---\n&gt; module Stream\n25d24\n&lt;   | Fork (Par ()) (IList a)\n34d32\n&lt;   rnf (Fork _ a) = rnf a\n40,41c38,39\n&lt; streamFromList :: NFData a =&gt; Int -&gt; Int -&gt; [a] -&gt; Par (Stream a)\n&lt; streamFromList f c xs = do\n---\n&gt; streamFromList :: NFData a =&gt; [a] -&gt; Par (Stream a)\n&gt; streamFromList xs = do\n43c41\n&lt;   fork $ loop f c xs var                -- &lt;2&gt;\n---\n&gt;   fork $ loop xs var                    -- &lt;2&gt;\n46,51c44,45\n&lt;   loop _ _ [] var = put var Nil         -- &lt;4&gt;\n&lt;   loop 0 c (x:xs) var = do\n&lt;     tail &lt;- new\n&lt;     let op = loop 0 c xs tail\n&lt;     put var (Fork op (Cons x tail))\n&lt;   loop f c (x:xs) var = do              -- &lt;5&gt;\n---\n&gt;   loop [] var = put var Nil             -- &lt;4&gt;\n&gt;   loop (x:xs) var = do                  -- &lt;5&gt;\n54c48\n&lt;     loop (f-1) c xs tail                -- &lt;8&gt;\n---\n&gt;     loop xs tail                        -- &lt;8&gt;\n67,68c61,62\n&lt;       Nil               -&gt; put outstrm Nil\n&lt;       Cons h t          -&gt; do\n---\n&gt;       Nil -&gt; put outstrm Nil\n&gt;       Cons h t -&gt; do\n72d65\n&lt;       Fork p (Cons h t) -&gt; fork p &gt;&gt; streamMap fn t &gt;&gt; return ()\n83,85c76,77\n&lt;     Nil               -&gt; return acc\n&lt;     Cons h t          -&gt; streamFold fn (fn acc h) t\n&lt;     Fork p (Cons h t) -&gt; fork p &gt;&gt; streamFold fn (fn acc h) t\n---\n&gt;     Nil      -&gt; return acc\n&gt;     Cons h t -&gt; streamFold fn (fn acc h) t\n\n\n$ ghc -O2 -threaded -rtsopts  rsa-pipeline2.hs\n\n$ ./rsa-pipeline2 /usr/share/dict/words &gt;/dev/null +RTS -N2\nrsa-pipeline2: no result\nCallStack (from HasCallStack):\n  error, called at ./Control/Monad/Par/Scheds/TraceInternal.hs:250:11 in monad-par-0.3.4.8-6smWrlrr5w82FJ0Oii5wmF:Control.Monad.Par.Scheds.TraceInternal\n```\n長くなってすみません",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1544864425.017700",
+        "text": "diffを当てるのも面倒なので、gistあたりに書いたものをアップロードしちゃってください。\n別にこのSlackに完結する必要はないです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1544888022.018700",
+        "text": "<@UEU4W901W> has joined the channel",
+        "user": "UEU4W901W",
+        "type": "message"
+    },
+    {
+        "ts": "1544890905.018900",
+        "text": "遅れましたがこちらになります　`<https://gist.github.com/karoyakani/3ef51ac74e0a7b72e44a1c6a418c44ec>`",
+        "user": "U584T7GAH",
+        "type": "message"
     }
 ]
