@@ -1,0 +1,62 @@
+[
+    {
+        "ts": "1545204632.033100",
+        "text": "了解です。ちょっと調べてみます。ありがとうございます！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1545204746.033300",
+        "text": "それはそれとして，コレって `(++)` と `happend` の中置演算子としての左右結合性が異なることから来てるから， `extensible` のほうで揃える修正もしたほうが便利な気がするけど，どう思いますか？ &gt; <@U4KUNQF9N>",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1545204930.033500",
+        "text": "修正しました！さっきextensible-0.5をリリースしてしまったのが悔やまれる… <https://github.com/fumieval/extensible/commit/ae5c1e07269cf80cfd55dca95b567c61707ef66d>",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1545204987.033900",
+        "text": "あ、そうですね。上記のソースのビルド通すだけならそれでいけますね :sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1545205002.034100",
+        "text": "こういう場合、ちゃんとした証明を実装しておいて、 ```unsafeCoerce `asTypeOf` proof``` のように定義するというテクニックもあります",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1545205263.034600",
+        "text": "ああ， `(++)` は `singletons` のものじゃなくて， `extensible` 内で独自に定義してるのか．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1545205386.034800",
+        "text": "話は逸れますが、要素の型レベルリストは固定してラッパーを変えるのがextensibleの流儀なので、happendは実は非推奨だったりします",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1545205497.035100",
+        "text": ":thinking_face: どういう意味でしょうか？\n`happend` を使わずに結合する方法があるんですか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1545205794.035300",
+        "text": "結合すること自体、あまり推奨はしていないです",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1545208495.035700",
+        "text": "解です <https://gist.github.com/notogawa/13422a72683d05cee989d60cd64479a2>",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    }
+]

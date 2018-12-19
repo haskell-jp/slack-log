@@ -232,5 +232,71 @@
         "text": "<@UEW2WMB7T> has joined the channel",
         "user": "UEW2WMB7T",
         "type": "message"
+    },
+    {
+        "ts": "1545201727.030200",
+        "text": "型レベルリストに対する結合演算 <http://hackage.haskell.org/package/extensible-0.4.10.1/docs/Data-Extensible-Struct.html#t:-43--43-> を使った際、結合則がGHCに認識されないのか、\n`Couldn't match type ‘(xs ++ ys) ++ zs’ with ‘xs ++ (ys ++ zs)’`\nというエラーになってしまうことがあります。\nこれを、（型注釈をつけられた） *式を変えない* かつ 型注釈の `xs ++ ys ++ zs` という箇所に、（ `xs ++ (ys ++ zs)` のように）明示的に括弧を加えないで型チェックを通すことはできるでしょうか？\n<https://gist.github.com/igrep/b3391a2287a0fcf093472cb6c57048db> に、テストケースとして使えるファイルを上げておきました。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1545201729.030300",
+        "text": "",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1545203808.030600",
+        "text": "&gt; 式を変えない\nって， ```xs `happend` (ys `happend` zs)``` にもしないという意味ですか？",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1545203888.031000",
+        "text": "そうです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1545204284.031200",
+        "text": "逆にどんなことならしてもいいんですか？GHCプラグインを挿すとかですか？",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1545204442.031400",
+        "text": "型宣言 `happend3 :: Record xs -&gt; Record ys -&gt; Record zs -&gt; Record (xs ++ ys ++ zs)`\nの `xs ++ ys ++ zs` 以外の箇所は変えてもいいです。\nGHCのプラグインはありだと思います。そういえばまさにそれをやるためのがあったような。。。 :thinking_face:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1545204461.031600",
+        "text": "それは一般に非自明なので前者を後者に変換する関数(証明)を定義してそれを全体にかぶせるとかになると思います\n(LiquidHaskellならこれくらいは解けたりしないのかな…量化子入ってると流石に厳しいか",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1545204537.031900",
+        "text": "結合律さえいえれば(x = y) -&gt; F x = F yとかを使ってゴニョゴニョやるとコンパイルも通ると思います(どうみてもただの定理証明ですが)",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1545204545.032100",
+        "text": "たぶん普通は `singletons` で `Sing` な結合則の証明オブジェクトを作ってそれで検査器に「わからせる」",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1545204547.032300",
+        "text": "ああ、そうですね。\n&gt; 前者を後者に変換する関数(証明)を定義\nの具体的なやり方を知りたいです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1545204611.032800",
+        "text": "上に同じくsingletons使うのが普通だと思います",
+        "user": "U560KD6DN",
+        "type": "message"
     }
 ]
