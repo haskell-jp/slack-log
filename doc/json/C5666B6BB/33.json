@@ -58,5 +58,47 @@
         "text": "解です <https://gist.github.com/notogawa/13422a72683d05cee989d60cd64479a2>",
         "user": "U5G2BCVBN",
         "type": "message"
+    },
+    {
+        "ts": "1545277650.036800",
+        "text": "こういう関数ってありませんでしたっけ。。ものすごく曖昧な記憶だけどあった気がするんです。\n\n```\n(&lt;**&gt;) :: (a -&gt; b) -&gt; [[a]] -&gt; [[b]]\n(&lt;**&gt;) = map . map\n-- こんなのなかったっけ・・\n```",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1545277873.038000",
+        "text": "Control.Applicativeにある同名の演算子は全然違いますからねぇ\n\n```\n(&lt;**&gt;) :: Applicative f =&gt; f a -&gt; f (a -&gt; b) -&gt; f b\n```",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1545278157.038500",
+        "text": "いや、完全に記憶違いだったかもしれないです。前に会社でこんな話してたなーっていうのをなんとなく覚えてただけなのかも。\nそのときの結論を思い出せないのが悔しい",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1545278518.039500",
+        "text": "これだー！\n<http://hackage.haskell.org/package/functor-utils-1.17.2/docs/Data-Functor-Utils.html#v:fmap2>",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1545280640.042700",
+        "text": "こういうのって どうにかならないんですかね？ 演算子を定義できるってのはhaskellの強みだとは思うのですが、同じ演算子を別の意味で定義されると混乱するというか、、、別にライブラリをまたいで無いので問題ないのはわかるんですけど、、、",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1545281683.043100",
+        "text": "自分がライブラリの開発してたら、まず著名なライブラリの演算子と被らないようにして、それでもどうしようもなかったらqualifiedでimportしてください。。!っていうかなー\n\n```\nimport qualified MyLib as M\n\nM.&lt;**&gt;\n```",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1545282502.043500",
+        "text": "演算子じゃないバージョン(普通の関数)も提供する",
+        "user": "U56L7EVNY",
+        "type": "message"
     }
 ]
