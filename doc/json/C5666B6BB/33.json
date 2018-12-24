@@ -106,5 +106,23 @@
         "text": "<@UF0HFC1FH> has joined the channel",
         "user": "UF0HFC1FH",
         "type": "message"
+    },
+    {
+        "ts": "1545613443.000300",
+        "text": "stackでpackageをimportする所でつまづいています。\n\nstackのUser guideを見ながらAdding dependenciesの項目のように\n以下のようなコンパイルエラーが出ています。\n\n/Users/you/Downloads/tanaoroshi/app/Main.hs:three:1: error:\n    Could not find module ‘Data.List.Split’\n    Use -v to see a list of the files searched for.\n  |\n3 | import Data.List.Split\n  | ^^^^^^^^^^^^^^^^^^^^^^\n\nUser guideのようにpackage.yamlに以下の記載を追加してstack buildしてみましたが上記のエラーが改善しません。\n\ndependencies:\n- base &gt;= 4.7 &amp;&amp; &lt; 5\n- split\n\n指定の仕方に問題があるのかとも思い、以下も試してみましたがダメでした。\n\ndependencies:\n- base &gt;= 4.7 &amp;&amp; &lt; 5\n- Data.List.Split\n\nどのようにすればパッケージを利用できるのでしょうか？",
+        "user": "UCDHJ6R6X",
+        "type": "message"
+    },
+    {
+        "ts": "1545627093.006500",
+        "text": "<https://gist.github.com/applePrincess/ff93cbee587beec9f7c00783c5292dea> な感じで出来ましたよ？ templateはsimple-hpack で resolver はlts-13.0を使いました。URL以外は変更をしてませんが。stack buildは通りましたよ。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1545627203.006700",
+        "text": "```\ndependencies:\n- base &gt;= 4.7 &amp;&amp; &lt; 5\n- split\n```\n\npackage.yaml でこう書くのが正しいやり方です。正しいはずなのにどうしてエラーになるのかはわからないのですが、 `stack build` をして出てきた文字を全部書いてもらえたら役に立つと思います。",
+        "user": "U5LEE6C1J",
+        "type": "message"
     }
 ]
