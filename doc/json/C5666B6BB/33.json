@@ -130,5 +130,89 @@
         "text": "- `.cabal` ファイルが何らかの理由で書き換えられたことになっている場合の警告が出ていないか（具体的なメッセージは忘れてしまいましたが）、\n- 実は間違えてpackage.yamlを `/Users/you/Downloads/tanaoroshi` 以外の場所に置いていないか\n\nの2点が気になりますね。",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1545703254.008200",
+        "text": "<@UF0N2EEAD> has joined the channel",
+        "user": "UF0N2EEAD",
+        "type": "message"
+    },
+    {
+        "ts": "1545721699.008700",
+        "text": "lts-13で結構なパッケージがstackageからdropされてるようなんですが，\nビルドできなくなったときとかauthorに連絡いかないんでしたっけ？",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1545721799.008800",
+        "text": "少なくともGitHubでIssueが立てられるはずです。\nそれでも反応がないときにメールが飛ぶのではないかと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1545721902.009000",
+        "text": "そのパッケージのgithub？lts-haskellのgithub？",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1545721972.009200",
+        "text": "Stackageですね。\n例えば <https://github.com/commercialhaskell/stackage/issues/4241>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1545722328.009500",
+        "text": "うーん． `Agda` とか `messagepack` とかissue無い気がするけど",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1545722789.009800",
+        "text": "普通は、あと数Minor Versionたったら戻るみたい",
+        "user": "UACQ9J5D3",
+        "type": "message"
+    },
+    {
+        "ts": "1545724405.010000",
+        "text": "igrepさんの指摘のように.cabalを手書きで修正しているというWarningが出ていました。エラーをよく読むとpackage.yamlを使いたいならcabalファイルを消すことって書いてました。\nWorning: /Users/you/Downloads/tanaoroshi/tanoroshi.cabal was modified manually. Ignoring /Users/you/tanaoroshi/package.yaml in favor of the cabal file. If you want to use the package.yaml file instead of the cabal file, then please delete the cabal file.\n\nそれ以外にも分からないまま色々なファイルを書き換えては戻したりしてしまったので、別のディレクトリでstack newからやり直してstackの環境をフレッシュにつくり直してやり直してみました。\nそれまでに書いたソースをコピーし、package.yamlにsplitの記載だけ追加してstack buildしたら問題なくコンパイルできました。\n\nありがとうございます。エラーメッセージをもっとちゃんと読まないとダメですね。",
+        "user": "UCDHJ6R6X",
+        "type": "message"
+    },
+    {
+        "ts": "1545724817.012700",
+        "text": "掻き乱す意図はないのですが、 package.yamlのタイムスタンプが cabalファイルのタイムスタンプより新しいと勝手に最新のcabalが上書きされたような？ ",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1545728043.012900",
+        "text": "メールはこないかな、すっごい有名なやつならわからないけど",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1545728564.013100",
+        "text": "あと、多分 Issue のでき方を勘違いしてるかな？\nGlob の Issue の見方は:\n- Glob のバージョンが上がりました\n- しかし、pandoc-2.5 がブロックして上げれない\n- 対応しないとドロップされるぞ(pandoc-2.5が)\nという感じなので Agda に警告言ってる Issue があるかどうかの問題ですね。",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1545728568.013300",
+        "text": "多分これ\n<https://github.com/commercialhaskell/stackage/issues/3990>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1545730703.013900",
+        "text": "lts のマイナーバージョン (e.g. lts-12.x) が上がってるうちは drop されることはないんですけど、メジャーバーションが上がるときは一気に drop されます（nightly に入ってたやつがそのまま取り込まれる）",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1545775681.014600",
+        "text": "package.yamlのタイムスタンプを.cabalよりも新しい状態にしてstack buildしてみました。\n（勘違いして.cabalのタイムスタンプを新しくしようとしたので.cabalも近い時間に更新されてます。）\n\n```\niMac27:tanaoroshi you$ stack build\ntanaoroshi-0.1.0.0: unregistering (local file changes: package.yaml)\ntanaoroshi-0.1.0.0: configure (lib + exe)\nConfiguring tanaoroshi-0.1.0.0...\ntanaoroshi-0.1.0.0: build (lib + exe)\nPreprocessing library for tanaoroshi-0.1.0.0..\nBuilding library for tanaoroshi-0.1.0.0..\nPreprocessing executable 'tanaoroshi' for tanaoroshi-0.1.0.0..\nBuilding executable 'tanaoroshi' for tanaoroshi-0.1.0.0..\ntanaoroshi-0.1.0.0: copy/register\nInstalling library in /Users/you/haskell/tanaoroshi/.stack-work/install/x86_64-osx/lts-13.0/8.6.3/lib/x86_64-osx-ghc-8.6.3/tanaoroshi-0.1.0.0-5xeICrctrISDA8KRnU1BAz\nInstalling executable tanaoroshi in /Users/you/haskell/tanaoroshi/.stack-work/install/x86_64-osx/lts-13.0/8.6.3/bin\nRegistering library for tanaoroshi-0.1.0.0..\niMac27:tanaoroshi you$ ls -l\ntotal 64\n-rwxr-xr-x@ 1 you  staff  1261 12 23 07:51 20181220Stock.csv\n-rw-r--r--  1 you  staff    50 12 25 16:33 ChangeLog.md\n-rw-r--r--  1 you  staff  1523 12 25 16:33 LICENSE\n-rw-r--r--  1 you  staff   171 12 25 17:23 README.md\n-rw-r--r--  1 you  staff    46 12 25 16:33 Setup.hs\ndrwxr-xr-x  3 you  staff    96 12 25 17:50 app\n-rw-r--r--  1 you  staff  1190 12 26 06:57 package.yaml\ndrwxr-xr-x  3 you  staff    96 12 25 16:33 src\n-rw-r--r--  1 you  staff  2133 12 25 16:33 stack.yaml\n-rw-r--r--  1 you  staff  1546 12 26 06:56 tanaoroshi.cabal\ndrwxr-xr-x  3 you  staff    96 12 25 16:33 test\n```\n\n.cabalのタイムスタンプはpackage.yamlよりも1分古いままでしたので今回の検証では上書きされませんでした。ご報告まで",
+        "user": "UCDHJ6R6X",
+        "type": "message"
     }
 ]
