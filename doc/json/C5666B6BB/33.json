@@ -214,5 +214,35 @@
         "text": "package.yamlのタイムスタンプを.cabalよりも新しい状態にしてstack buildしてみました。\n（勘違いして.cabalのタイムスタンプを新しくしようとしたので.cabalも近い時間に更新されてます。）\n\n```\niMac27:tanaoroshi you$ stack build\ntanaoroshi-0.1.0.0: unregistering (local file changes: package.yaml)\ntanaoroshi-0.1.0.0: configure (lib + exe)\nConfiguring tanaoroshi-0.1.0.0...\ntanaoroshi-0.1.0.0: build (lib + exe)\nPreprocessing library for tanaoroshi-0.1.0.0..\nBuilding library for tanaoroshi-0.1.0.0..\nPreprocessing executable 'tanaoroshi' for tanaoroshi-0.1.0.0..\nBuilding executable 'tanaoroshi' for tanaoroshi-0.1.0.0..\ntanaoroshi-0.1.0.0: copy/register\nInstalling library in /Users/you/haskell/tanaoroshi/.stack-work/install/x86_64-osx/lts-13.0/8.6.3/lib/x86_64-osx-ghc-8.6.3/tanaoroshi-0.1.0.0-5xeICrctrISDA8KRnU1BAz\nInstalling executable tanaoroshi in /Users/you/haskell/tanaoroshi/.stack-work/install/x86_64-osx/lts-13.0/8.6.3/bin\nRegistering library for tanaoroshi-0.1.0.0..\niMac27:tanaoroshi you$ ls -l\ntotal 64\n-rwxr-xr-x@ 1 you  staff  1261 12 23 07:51 20181220Stock.csv\n-rw-r--r--  1 you  staff    50 12 25 16:33 ChangeLog.md\n-rw-r--r--  1 you  staff  1523 12 25 16:33 LICENSE\n-rw-r--r--  1 you  staff   171 12 25 17:23 README.md\n-rw-r--r--  1 you  staff    46 12 25 16:33 Setup.hs\ndrwxr-xr-x  3 you  staff    96 12 25 17:50 app\n-rw-r--r--  1 you  staff  1190 12 26 06:57 package.yaml\ndrwxr-xr-x  3 you  staff    96 12 25 16:33 src\n-rw-r--r--  1 you  staff  2133 12 25 16:33 stack.yaml\n-rw-r--r--  1 you  staff  1546 12 26 06:56 tanaoroshi.cabal\ndrwxr-xr-x  3 you  staff    96 12 25 16:33 test\n```\n\n.cabalのタイムスタンプはpackage.yamlよりも1分古いままでしたので今回の検証では上書きされませんでした。ご報告まで",
         "user": "UCDHJ6R6X",
         "type": "message"
+    },
+    {
+        "ts": "1545785154.016800",
+        "text": "今\n<https://github.com/keera-studios/haskell-titan/tree/master>\nのサイトで\ninstallしようとしているのですが、\nその道中でSDL-0.6.7.0のインストールができなくて困っています",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1545787359.017000",
+        "text": "どんな状態でエラーが出来ていないんでしょうか？\nエラーメッセージが出て終了しましたか？\nそれともビルドが途中でフリーズしてしまっている、とかでしょうか？\n\nまた、使用しているGHCのバージョンやOSなどのご利用の環境についても教えてください。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1545788971.017200",
+        "text": "sawada@DESKTOP-LBTC33O:~/haskell-titan$ cabal install -fexamples titan-yampa-debugger/\nResolving dependencies...\nNotice: installing into a sandbox located at\n/home/sawada/haskell-titan/.cabal-sandbox\nConfiguring SDL-0.6.7.0...\nFailed to install SDL-0.6.7.0\nBuild log ( /home/sawada/haskell-titan/.cabal-sandbox/logs/SDL-0.6.7.0.log ):\ncabal: Entering directory '/tmp/cabal-tmp-11367/SDL-0.6.7.0'\n[1 of 1] Compiling Main             ( /tmp/cabal-tmp-11367/SDL-0.6.7.0/dist/dist-sandbox-eed7c60d/setup/setup.hs, /tmp/cabal-tmp-11367/SDL-0.6.7.0/dist/dist-sandbox-eed7c60d/setup/Main.o )\nLinking /tmp/cabal-tmp-11367/SDL-0.6.7.0/dist/dist-sandbox-eed7c60d/setup/setup ...Configuring SDL-0.6.7.0...\nconfigure: WARNING: unrecognized options: --with-compiler\nchecking for sdl-config... no\nchecking for sdl11-config... no\nconfigure: error: *** SDL not found! Get SDL from <http://www.libsdl.org|www.libsdl.org>.\nIf you already installed it, check it's in the path. If problem remains,\nplease send a mail to the address that appears in ./configure --version\nindicating your platform, the version of configure script and the problem.\ncabal: Leaving directory '/tmp/cabal-tmp-11367/SDL-0.6.7.0'\ncabal: Error: some packages failed to install:\nSDL-0.6.7.0 failed during the configure step. The exception was:\nExitFailure 1\nSDL-gfx-0.7.0.0 depends on SDL-0.6.7.0 which failed to install.\ntitan-yampa-debugger-0.1.0.0 depends on SDL-0.6.7.0 which failed to install.",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1545789253.017400",
+        "text": "windows10内のubuntsuで行っています",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1545790627.017600",
+        "text": "SDLを見つけられていないようです。 `stack` や `ghc` は勝手にやってくれないので、自分でインストールする必要があります。\nもしすでにインストールされているようであれば、PATHなどを確認する必要があります。\nなお、WSL上でSDKが動いてくれるのかは、私はわかっていません。\n&gt; checking for sdl-config... no\n&gt; checking for sdl11-config... no\n&gt; configure: error: *** SDL not found! Get SDL from <http://www.libsdl.org|www.libsdl.org>.\n&gt; If you already installed it, check it’s in the path.",
+        "user": "U4MAYDV9C",
+        "type": "message"
     }
 ]
