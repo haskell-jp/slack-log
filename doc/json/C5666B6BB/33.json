@@ -250,5 +250,35 @@
         "text": "<@UF29CNR1Q> has joined the channel",
         "user": "UF29CNR1Q",
         "type": "message"
+    },
+    {
+        "ts": "1545994052.025300",
+        "text": "こんばんは。\nemacsで関数の型注釈をemacsのコマンド経由で挿入したくて右往左往してます。 （vimの頃はghc-modに頼ってた）\nhaskell-ide-engineとhaskell-modeでそれが可能なのか、ghc-modが必要なのかということもはっきりさせられていません。\nもしghc-modだけしか型注釈の挿入ができないのであれば、ghc-modをインストールしたいと思います。\n今OSXの10.14.2を利用しているんですが、どのltsがベストかを知りたいです。お助けください :bow:\n\n```\n~/src/github.com/shokohara/mergecleanhs(develop*) » cat ~/.emacs.d/init.el                                                                                                                                                                                                    sho@shosimac\n(require 'cask \"~/.cask/cask.el\")\n(cask-initialize)\n\n(require 'lsp-mode)\n(require 'lsp-ui)\n(require 'lsp-haskell)\n(require 'company)\n(global-company-mode)\n\n(autoload 'ghc-init \"ghc\" nil t)\n(autoload 'ghc-debug \"ghc\" nil t)\n\n(add-hook 'lsp-mode-hook 'lsp-ui-mode)\n(add-hook 'haskell-mode-hook #'lsp)\n(add-hook 'haskell-mode-hook 'flycheck-mode)\n\n;; フックを設定\n(add-hook 'haskell-mode-hook 'haskell-indentation-mode)\n(add-hook 'haskell-mode-hook 'interactive-haskell-mode)\n(add-hook 'haskell-mode-hook 'haskell-decl-scan-mode)\n(add-hook 'haskell-mode-hook 'haskell-doc-mode)\n(add-hook 'haskell-mode-hook (lambda () (ghc-init)))\n\n(eval-after-load 'haskell-mode '(progn\n                                  (define-key haskell-mode-map (kbd \"C-c C-n C-t\") 'haskell-process-do-type)\n                                  (define-key haskell-mode-map (kbd \"C-c C-n C-i\") 'haskell-process-do-info)\n                                  (define-key interactive-haskell-mode-map (kbd \"M-.\") 'haskell-mode-goto-loc)\n                                  (define-key interactive-haskell-mode-map (kbd \"C-c C-t\") 'haskell-mode-show-type-at)))\n(setq lsp-haskell-process-path-hie \"hie-wrapper\")\n(setq haskell-process-type 'stack-ghci)\n(setq haskell-process-path-ghci \"stack\")\n(setq haskell-process-args-ghci \"ghci\")\n(add-hook 'haskell-mode-hook\n          (lambda ()\n            (set (make-local-variable 'company-backends)\n                 (append '((company-capf company-dabbrev-code))\n                         company-backends))))\n(put 'downcase-region 'disabled nil)\n```",
+        "user": "U5672KG1X",
+        "type": "message"
+    },
+    {
+        "ts": "1545994376.025400",
+        "text": "stack を使う前提なら、intero 経由でやったほうが楽なんじゃ？　ただし stackを使ってないプロジェクトには、、、どうなんだろ？ って感じですけど",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1545994644.025600",
+        "text": "お返事ありがとうございます。導入してみます。そのHPを見たところ下のようにありましたので、8.0.1から順に試してみます。\n\n&gt;&gt;&gt; Modern and backwards compatible\nTested on GHC 8.0.1, GHC 7.10.3, GHC 7.10.2, and GHC 7.8.4.",
+        "user": "U5672KG1X",
+        "type": "message"
+    },
+    {
+        "ts": "1545994804.025800",
+        "text": "最新リリースのやつなら多分8.4系(lts-12.x) でも行けるはずですよ。 8.6系はうーん。lts出たばかりだし、しばし待たれよって感じみたいですね(？)",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1545995450.026000",
+        "text": "globalとprojectの両方をlts12.25にして `emacs src/Main.hs` してみたところtype signatureの挿入が完全に動いてます！！\nここまで簡単に動くとは。お導き頂いて本当にありがとうございました :bow:\n(今までの苦労は何だったんだろう。。)",
+        "user": "U5672KG1X",
+        "type": "message"
     }
 ]
