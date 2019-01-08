@@ -1,0 +1,62 @@
+[
+    {
+        "ts": "1546927393.069700",
+        "text": "あ、あと、stack build --ghc-options=-jとすればモジュール単位の並列化までできますが、そういう話ではない？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1546927779.069800",
+        "text": "日本語は悪。はっきりわかんだね。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1546927994.070800",
+        "text": "-j、あったのか！！",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1546928685.070900",
+        "text": "プロジェクトのビルド早くしたくて前にそれ追いかけてたんですが現状だとそれやると何故かシングルスレッドより遅くなるみたいなベンチマークが出てきてましたね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1546929259.071300",
+        "text": "<https://ghc.haskell.org/trac/ghc/ticket/9221>\nこれですね\n8.6で解決されたとか書いてますし試してみるかー(私の本番プロダクションはesqueletoのせいでまだlts 10なんですが)",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1546936497.071900",
+        "text": "stackを新しくしてからglobal installしたモジュールがglobal importで読み込めなくなってるな\nと思ってghciを素で起動したら読み込まれる\ninteroがglobal moduleを認識しなくなっている?",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1546936729.072100",
+        "text": "あれ起動し直したら認識するようになった\nintero-restartでも認識しなかったのに…",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1546939370.072500",
+        "text": "esqueleto, countとかsumとか使いたくなった時にクソナガ型注釈が必要になるのやめてほしい",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1546939462.072900",
+        "text": "```\nE.orderBy [ E.desc $\n            -- 何故かsumには長大な型注釈が必要\n            (E.sum_ :: E.Esqueleto query expr backend =&gt; expr (E.Value Rational) -&gt; expr (E.Value (Maybe Rational))) $\n            foo E.^. Bar\n          ]\n```\n何故この型注釈が必要になるのか全くわかっていない",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1546942393.073200",
+        "text": "<@UF84P23L0> has joined the channel",
+        "user": "UF84P23L0",
+        "type": "message"
+    }
+]

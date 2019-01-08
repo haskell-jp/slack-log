@@ -28,5 +28,59 @@
         "text": "<@UF8B49RC2> has joined the channel",
         "user": "UF8B49RC2",
         "type": "message"
+    },
+    {
+        "ts": "1546916871.029500",
+        "text": "<@UFA3RBEUE> has joined the channel",
+        "user": "UFA3RBEUE",
+        "type": "message"
+    },
+    {
+        "ts": "1546942393.029800",
+        "text": "<@UF84P23L0> has joined the channel",
+        "user": "UF84P23L0",
+        "type": "message"
+    },
+    {
+        "ts": "1546947112.030100",
+        "text": "<@U5ARHDGPQ> has joined the channel",
+        "user": "U5ARHDGPQ",
+        "type": "message"
+    },
+    {
+        "ts": "1546952238.034700",
+        "text": "`func f [1, 2, 3] [False, True] = [[f 1 False, f 1 True], [f 2 False, f 2 True], [f 3 False, f 3 True]]` みたいな関数 (`f &lt;$&gt; a &lt;*&gt; b` の平らにしないバージョン) を簡単に書く方法ってあります？ 今は fmap の繰り返しで書いてます",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1546952288.034800",
+        "text": "あ、自己解決したかも。質問する前に思いつきたかった `func f a b = [ [ f as bs | as &lt;- a ] | bs &lt;- b ]`",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1546953190.035300",
+        "text": "`func f a b = [ [ f as bs | bs &lt;- b ] | as &lt;- a ]` でした",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1546954815.035600",
+        "text": "as と a は逆です。なんか頭がバグってた",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1546962007.035800",
+        "text": "`func f a = map (\\y -&gt; map (\\x -&gt; f x y) a)` とかまでは行けましたがそれから先はうーん。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1546972136.047900",
+        "text": "はじめまして。packagename.cabalのないpackageを依存packageとして使いたい場合、stack.yamlに上手い具合に設定して取ってきたpackageにpackage.yamlを追加するようなことはできないでしょうか。\n\n具体的には研究である著者のライブラリを依存パッケージとして利用する際package.yamlはもちろん、packagename.cabalもなかったため、自分で書き加え自分のリポジトリに追加しました。これだと研究成果を公開する際に問題が生じそうなので、gitで管理するのは依存packageのyamlだけにし、利用者がbuildするときpackage本体は自動でとってくるようにしたいと考えております。\n\nよろしくおねがいします",
+        "user": "UAMGYKUP5",
+        "type": "message"
     }
 ]
