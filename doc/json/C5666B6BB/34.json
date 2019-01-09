@@ -244,5 +244,23 @@
         "text": "ありがとうございます！",
         "user": "U7155GPR9",
         "type": "message"
+    },
+    {
+        "ts": "1547036246.075200",
+        "text": "[] が Traversable で (-&gt;) が Applicative であることを利用するんですね。すごい……。初めに考えたのは `func f as bs = fmap (flip (\\b -&gt; fmap (\\f -&gt; f b)) (fmap f as)) bs` です",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1547036490.075400",
+        "text": "より一般的な型である `(Functor f, Functor g) =&gt; (a -&gt; b -&gt; c) -&gt; f a -&gt; g b -&gt; g (f c)` はこう書くしかないっぽい？",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1547036967.075800",
+        "text": "無駄なところを削った `func f as bs = fmap (\\b -&gt; fmap ($ b) (fmap f as)) bs` の方がいいですね",
+        "user": "U5LEE6C1J",
+        "type": "message"
     }
 ]
