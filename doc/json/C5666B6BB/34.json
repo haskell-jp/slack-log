@@ -82,5 +82,167 @@
         "text": "はじめまして。packagename.cabalのないpackageを依存packageとして使いたい場合、stack.yamlに上手い具合に設定して取ってきたpackageにpackage.yamlを追加するようなことはできないでしょうか。\n\n具体的には研究である著者のライブラリを依存パッケージとして利用する際package.yamlはもちろん、packagename.cabalもなかったため、自分で書き加え自分のリポジトリに追加しました。これだと研究成果を公開する際に問題が生じそうなので、gitで管理するのは依存packageのyamlだけにし、利用者がbuildするときpackage本体は自動でとってくるようにしたいと考えております。\n\nよろしくおねがいします",
         "user": "UAMGYKUP5",
         "type": "message"
+    },
+    {
+        "ts": "1546991622.048100",
+        "text": "そのライブラリーがgitリポジトリーとして公開されているなら、git submoduleで自分のリポジトリーに追加して、\n自分のリポジトリーでは\n\n```\n... 省略 ...\nlibrary\n  hs-source-dirs: path/to/submodule\n... 省略 ...\n```\n\nと書いたcabalファイルで対象のライブラリーが入ったパスを参照するようにすれば、対象のライブラリーをcabalパッケージとして扱えるようになるはずなので、あとはstack.yamlで `extra-deps` にそのcabalファイルが入ったパスを書けば良いのではないかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1546992643.048700",
+        "text": "<@UF8SE896V> has joined the channel",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1546997471.048900",
+        "text": "(僕はやったことないけど)\nstack なら stack.yaml の `packages:` に追加すればいいんじゃないかな\n<https://docs.haskellstack.org/en/stable/yaml_configuration/#packages-and-extra-deps>\n```\npackages:\n- .\n- path/to/package\n```",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1546997617.049100",
+        "text": "こんな感じ\n<https://github.com/commercialhaskell/stack/blob/9900d99114967698223f43c84e4cedecc24cea97/stack.yaml#L3-L6>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1546997661.049400",
+        "text": "&gt; package本体は自動でとってくるようにしたい\n\nというかその package 本体はどこかに公開されてる？GitHubとか？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1547003810.049600",
+        "text": "最初 `packages:` に追加する方法を考えたんですが、その方法だと指定したディレクトリーの中にcabalファイルがないので結局ダメなんじゃないかと思いまして…:thinking_face:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1547003843.049900",
+        "text": "`traverse f [1,2,3] &lt;$&gt; [False, True]`はどうですか？",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1547004229.050100",
+        "text": "自分で足せばいいかなと思ってた &gt; cabal ファイルか package.yaml",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1547006071.055100",
+        "text": "利用したいpackageは <https://www.mathstat.dal.ca/~selinger/quipper/oldreleases.html> にあります．一応今はこれに.cabalを追加してmypackageに含めてstack.yamlのpackage:に追加しています．extra-deps: <https://www.mathstat.dal.ca/~selinger/quipper/downloads/quipper-0.8.tgz> のように追加したらquipperにcabalがないと言われたので．",
+        "user": "UAMGYKUP5",
+        "type": "message"
+    },
+    {
+        "ts": "1547006184.056400",
+        "text": "（extra-depsにこのように書けばstack build時に自動でとってきてくれるという認識です）",
+        "user": "UAMGYKUP5",
+        "type": "message"
+    },
+    {
+        "ts": "1547006299.056900",
+        "text": "Hackage にあるけど。。。？\n<http://hackage.haskell.org/package/quipper>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1547006317.057200",
+        "text": "これでいいなら\n```\nextra-deps:\n- quipper-0.8.2\n```\nを stack.yaml に足せば動作するはず",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1547006527.059700",
+        "text": "hackageの方は関数が足りず、著者のページから持ってくる必要があります...むしろ足りない関数を足したものを自分でhackageに登録すればよかったり...",
+        "user": "UAMGYKUP5",
+        "type": "message"
+    },
+    {
+        "ts": "1547006912.060000",
+        "text": "quipper に独自拡張を入れたい的な？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1547007245.060200",
+        "text": "ライセンス上問題がなければ追加したものを自分でhackageにアップロードしちゃってもいいんじゃないっすかね。\nCOPYRIGHTファイルを見た限り3条項BSDかな？\nもちろんより丁寧にやるなら作者に聞いた方がいいでしょうけども。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1547007339.060600",
+        "text": "更新履歴をみる限り、hackage も著者のサイトのも差はないきがするけど",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1547007476.062500",
+        "text": "著者の方にはQuipperLibの中にSimulationというモジュールがあると思います",
+        "user": "UAMGYKUP5",
+        "type": "message"
+    },
+    {
+        "ts": "1547007524.063600",
+        "text": "ありがとうございます、ライセンスについてよく調べてみます",
+        "user": "UAMGYKUP5",
+        "type": "message"
+    },
+    {
+        "ts": "1547008007.066400",
+        "text": "ちなみに、やりたいことはquipperの関数をある型レベル計算を行うモジュールで包む、という感じです",
+        "user": "UAMGYKUP5",
+        "type": "message"
+    },
+    {
+        "ts": "1547008601.066800",
+        "text": "igrep さんのいう通り bsd3ライセンスだし、ライセンスのファイルと、unofficial fork であることを足して GitHub にあげちゃってもいい気がする",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1547008707.067000",
+        "text": "あとは適当に cabal ファイルか stack の設定を足して",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1547011673.068500",
+        "text": "igrepさん，matsubara0507さんありがとうございます．その方針で進めてみようと思います．",
+        "user": "UAMGYKUP5",
+        "type": "message"
+    },
+    {
+        "ts": "1547013174.068900",
+        "text": "<@UF9JH176E> has joined the channel",
+        "user": "UF9JH176E",
+        "type": "message"
+    },
+    {
+        "ts": "1547018420.073400",
+        "text": "[extensible攻略WikiのDotenvレシピ](<https://wiki.hask.moe/Dotenv>)を見ていて疑問点が3つあります\n• `Data.Extensible.Util` の存在\n• `fromHashMapOf` と `strings` はどのライブラリから？\n• 大文字のフィールドに（`itemAssoc`を使わず）ラベルでアクセスする方法\nよろしくお願いします",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1547019783.073600",
+        "text": "`Data.Extensible.Util` は `master` にマージされていないモジュールなので `fromHashMapOf` ブランチを参照すると定義されています。(たぶん、そのうちマージされると思います)\n<https://github.com/fumieval/extensible/tree/fromHashMapOf>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1547020054.073900",
+        "text": "&gt; 大文字のフィールドに（`itemAssoc`を使わず）ラベルでアクセスする方法\n\nOverloadedLabels のページにも少し書いてある通りです。現状はアクセスする方法は無いと思います。\n<https://wiki.hask.moe/OverloadedLabels>\n\nただ、以下の proposal が受理されたので、近いうち解決しそうな気がします。\nUnrestricted OverloadedLabels #170\n<https://github.com/ghc-proposals/ghc-proposals/pull/170>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1547020153.074300",
+        "text": "ありがとうございます！",
+        "user": "U7155GPR9",
+        "type": "message"
     }
 ]
