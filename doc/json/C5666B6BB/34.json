@@ -280,5 +280,23 @@
         "text": "自分は改造したやつを使う時は\n\n```\nextra-deps:\n  - ../hakyll\n```\n\nのように別ディレクトリを参照するようにstack.yamlに書いてますね",
         "user": "U57CUMWQ6",
         "type": "message"
+    },
+    {
+        "ts": "1547387726.078400",
+        "text": "私が知る限りできないと思っているんですが、Haskellで、moduleをimportしただけで、そのmoduleに含まれている識別子を参照することなく、副作用を起こす（つまり何らかの形でunsafePerformIOを実行する）ことってできるんでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1547387793.078500",
+        "text": "試しに :point_down: みたいなコードを書いてみたんですが、やっぱりトップレベルでBang patternは使えないと怒られました。\n\n```\n{-# LANGUAGE BangPatterns #-}\n\nmodule Mod where\n\nimport Debug.Trace\n\nhoge :: ()\n!hoge = trace \"hoge\" ()\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1547388423.078700",
+        "text": "... あっ、Template Haskellがあるじゃないか... :cold_sweat:\nすみません、Template Haskellを使えば普通にできましたね... :sweat_drops:",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
