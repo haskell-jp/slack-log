@@ -40,5 +40,77 @@
         "text": "初めてプログラミングを始めたものです。かなり初歩的なとこで質問するかもしれませんが、よろしくお願い申し上げます:man-bowing:",
         "user": "UFDKZJBLK",
         "type": "message"
+    },
+    {
+        "ts": "1547550551.087500",
+        "text": "<https://api.slack.com/methods/conversations.history>\n↓のようなJSONの `ts` をaesonでパースしたいのですが、インスタンスを定義したいんですがエラーがでます。どんな対応がありますか？\n\n```\n{\n            \"type\": \"message\",\n            \"user\": \"U061F7AUR\",\n            \"text\": \"What, you want to smell my shoes better?\",\n            \"ts\": \"1512104434.000490\"\n        }\n```\n\n```\n\n/Users/sho/src/github.com/shokohara/automerge/slackworkcount/src/Main.hs:30:10: error:\n    Duplicate instance declarations:\n      instance FromJSON LocalTime -- Defined at src/Main.hs:30:10\n      instance FromJSON LocalTime\n        -- Defined in ‘aeson-1.4.2.0:Data.Aeson.Types.FromJSON’\n   |\n30 | instance FromJSON LocalTime where\n   |          ^^^^^^^^^^^^^^^^^^\n```",
+        "user": "U5672KG1X",
+        "type": "message"
+    },
+    {
+        "ts": "1547552020.087800",
+        "text": "エラーメッセージ自体は、 `LocalTime` の `FromJSON` インスタンスが二個定義されているといってます\n自分でインスタンスの定義をしなければ良いので？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1547552086.088000",
+        "text": "返信ありがとうございます。フォーマットが違うため自分で定義してみました。",
+        "user": "U5672KG1X",
+        "type": "message"
+    },
+    {
+        "ts": "1547552412.088200",
+        "text": "なるほど、それは難儀ですね…\nいくつかやり方がある気はしますが、もっとも行儀の良いやり方は `newtype` 宣言で `LocalTime` をラップした型を定義して、それを使う方法ですかね…",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1547554846.088500",
+        "text": "ちなみに、 <http://hackage.haskell.org/package/slack-web> にも同様のパーサーがすでに定義済みかと思いますが、それではダメなんですか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1547558142.091700",
+        "text": "この「-&gt;」で、この場合aがBoolを返すことはわかったのですがなぜもう一つaがあるのでしょうか？\n画像見にくくてすみません。",
+        "user": "UFDKZJBLK",
+        "type": "message"
+    },
+    {
+        "ts": "1547558319.092100",
+        "text": "(&gt;)の型表記は、型制約を示す `(Ord a) =&gt;` の部分と、引数および返値を表す `a -&gt; a-&gt; Bool` の部分に分かれています。\n(&gt;) は 2つの比較可能な値を取って、その大小をBoolで返すため、 `a` を2つ取る必要があります。",
+        "user": "U57DM8PBK",
+        "type": "message"
+    },
+    {
+        "ts": "1547559121.094000",
+        "text": "2つの比較可能な値はa.bで表すのではないのでしょうか？2つの値を取った上で、Bool値を、返す。ということではないのかと思ったのですが",
+        "user": "UFDKZJBLK",
+        "type": "message"
+    },
+    {
+        "ts": "1547559301.095200",
+        "text": "これが例えば `(Ord a, b) =&gt; a -&gt; b -&gt; Bool` のように定義してしまうと、例えば `a` が `Int` 、 `b` が `String` のようなものを比較可能になってしまいますよね。これを `(Ord a) -&gt; a -&gt; a -&gt; Bool` と定義することで、片方の型を入力するともう片方の型を自動的に固定して、同じ型でなければ比較できないという制約を作り出すことができるのです。",
+        "user": "U57DM8PBK",
+        "type": "message"
+    },
+    {
+        "ts": "1547559804.095900",
+        "text": "ほんとにわかりやすいです笑笑ありがとうございます:blush:",
+        "user": "UFDKZJBLK",
+        "type": "message"
+    },
+    {
+        "ts": "1547559834.096700",
+        "text": "これが謎で他のものも理解できなかったのでこれで一気にわかると思います笑笑",
+        "user": "UFDKZJBLK",
+        "type": "message"
+    },
+    {
+        "ts": "1547570518.097500",
+        "text": "返信ありがとうございます。\nnewtypeの方法を勉強も兼ねて試しました。ありがとうございます。\nslack-webに乗り換えを検討しています。教えてくださってありがとうございます。ただ、乗り換え中に `Left (SlackError \"invalid_ts_latest\")` という実行時エラーがでるようになり、この通信をデバッグしたいのですが、どのようにするのが良さそうでしょうか？（Java,Scalaだとlogback.xmlなどを書き換えたりしますが、、、）",
+        "user": "U5672KG1X",
+        "type": "message"
     }
 ]
