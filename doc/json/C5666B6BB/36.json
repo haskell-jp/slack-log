@@ -1,0 +1,146 @@
+[
+    {
+        "ts": "1547704255.129000",
+        "text": "そうなんですよー。でもやろうとするといくつかの関数でリストを期待してるのに実際はTextだよってエラーが出るんです",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1547704360.129200",
+        "text": "Text.Parsec.Text あるしできそうな <http://hackage.haskell.org/package/parsec-3.1.13.0/docs/Text-Parsec-Text.html>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1547704532.130300",
+        "text": "僕がなにか見落としてるんですかね。。もうちょっと調べてみます",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1547709141.130500",
+        "text": "Text を Segment 型にパースしたいんですか？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1547712762.131000",
+        "text": "そうです",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1547716228.131200",
+        "text": "おそらく、attoparsecの `takeWhile` みたいな物ですね <http://hackage.haskell.org/package/attoparsec-0.13.2.2/docs/Data-Attoparsec-Text.html>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1547716300.131400",
+        "text": "「 `takeWhile` みたいなTextに特化したコンビネータを使うとattoparsecが速いよ(意訳)」みたいな事が書いてあるので、parsecでリストを経由しない手段は恐らく無さそう",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1547718615.131800",
+        "text": "確かmegaparsecならだいたいそのあたり解決してたかと思います…",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1547723834.132200",
+        "text": "なるほどー。ではParsecを利用する場合には今の実装(fromStringを多用する）である意味あってるんですね。\nこのモジュールの使い方が本当にわからない。\nText.Parsec.Text\n<http://hackage.haskell.org/package/parsec-3.1.13.0/docs/Text-Parsec-Text.html>",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1547737304.132500",
+        "text": "<@UFG7U49H8> has joined the channel",
+        "user": "UFG7U49H8",
+        "type": "message"
+    },
+    {
+        "ts": "1547745206.133900",
+        "text": "stackで以下のプログラムを組んでコンパイルしたときに次のような感じになってしまったのですが原因などはわかるでしょうか？",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1547745236.134000",
+        "text": "",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1547745276.134300",
+        "text": "",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1547745306.134600",
+        "text": "",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1547745393.134900",
+        "text": "実行結果",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1547766121.135200",
+        "text": "取り急ぎぱっと見でわかることを。Access Violationが発生すると言うことはGHCとか関連する何かのバグである可能性が濃厚ですね…",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1547766394.135400",
+        "text": "ただ、それ以前に、Access Violationの手前に出てくるエラーからしてC:\\sr\\snapshots 以下にあるファイルが壊れているように見えます。\n一旦削除してやり直すと結果が変わるのではないかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1547766473.135600",
+        "text": "あと、エラーメッセージもなるべくコピペしてください。\n画像は困ります…\nもしかしてコマンドプロンプトでのやり方が分からなかった？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1547767822.135800",
+        "text": "",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1547767881.136600",
+        "text": "あれからsnapshot以下のファイルを消去して再ビルドしてみましたが先ほどあげたエラーを出しました。",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1547773229.137100",
+        "text": "OSはどれでしょうか？Windows 7 64bit?",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1547773257.137400",
+        "text": "OSはwindows10です",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1547773267.137600",
+        "text": "６４bitです",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1547778261.138100",
+        "text": "```\n\n    &lt;no location info&gt;: error:\n        Warning: Couldn't figure out C compiler information!\n                 Make sure you're using GNU gcc, or clang\n    Preprocessing library for Yampa-0.11..\n    Building library for Yampa-0.11..\n    `gcc.exe' failed in phase `C pre-processor'. (Exit code: 1)\n```\nこれを見るに gcc か clang がない？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    }
+]

@@ -76,5 +76,41 @@
         "text": "<@UFES5NULC> has joined the channel",
         "user": "UFES5NULC",
         "type": "message"
+    },
+    {
+        "ts": "1547703542.008500",
+        "text": "質問させていただきます. TemplateHaskell で以下のコードでコンパイル時に文字列を埋め込んでいます. UTF-8のcsvファイルの数値等は問題なく読み込めるのですが,日本語を埋め込む際に何故か先頭に｢・｣(中点)が入り込み困っています. この現象の原因に心当たりがありましたらご教示下さい. 環境は Win10 Docker for Windows 上のCent OS 7, GHC 8.6.3 です.",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1547704890.009100",
+        "text": "本題じゃないですが、\n```\n\tlift t + [|TL.pack $(lift $TL.unpack t) |]\n```\nの `+` は `=` のまちがいですかね？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1547705021.009300",
+        "text": "はい,間違いです. ご指摘ありがとうございます.",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1547705053.009600",
+        "text": "修正させていただきました.",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1547706305.009900",
+        "text": "大変申し訳ありませんが,自己解決しました.\nエディタの関係でBOMの\\65279が記述されており,TemplateHaskellがそれを書き込んでいたようです.",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1547737304.010700",
+        "text": "<@UFG7U49H8> has joined the channel",
+        "user": "UFG7U49H8",
+        "type": "message"
     }
 ]
