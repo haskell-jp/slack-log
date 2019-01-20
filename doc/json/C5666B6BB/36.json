@@ -268,5 +268,11 @@
         "text": "<@U4LGTMTMK> わざわざ追加コメしてくださりありがとうございます:blush:",
         "user": "UFDKZJBLK",
         "type": "message"
+    },
+    {
+        "ts": "1547985195.153900",
+        "text": "Aesonによる失敗の説明文が詳しくないため特定に時間がかかりそうです。THやGenericで作られたFromJSONインスタンスを元にして（手書きは避けたい）詳細なエラーを書き出す方法などありませんでしょうか。\n`\"Error in $: When parsing the record Message of type Web.Slack.Common.Message the key type was not present.\"`\n\nScalaのcirceでは以下のようなエラーが出ます。\n```\nscala&gt; parser.decode[User](\"\"\"{\"id\":1, \"name_fuga\":\"taro\"}\"\"\")\n//res96: cats.data.Xor[io.circe.Error,User] = Left(io.circe.DecodingFailure: Attempt to decode value on failed cursor: El(DownField(name),false))\n```\n元URL <https://qiita.com/ryoppy/items/664bd9a0dfd54ff1c6f6#decode>",
+        "user": "U5672KG1X",
+        "type": "message"
     }
 ]
