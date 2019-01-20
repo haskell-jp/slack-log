@@ -274,5 +274,29 @@
         "text": "Aesonによる失敗の説明文が詳しくないため特定に時間がかかりそうです。THやGenericで作られたFromJSONインスタンスを元にして（手書きは避けたい）詳細なエラーを書き出す方法などありませんでしょうか。\n`\"Error in $: When parsing the record Message of type Web.Slack.Common.Message the key type was not present.\"`\n\nScalaのcirceでは以下のようなエラーが出ます。\n```\nscala&gt; parser.decode[User](\"\"\"{\"id\":1, \"name_fuga\":\"taro\"}\"\"\")\n//res96: cats.data.Xor[io.circe.Error,User] = Left(io.circe.DecodingFailure: Attempt to decode value on failed cursor: El(DownField(name),false))\n```\n元URL <https://qiita.com/ryoppy/items/664bd9a0dfd54ff1c6f6#decode>",
         "user": "U5672KG1X",
         "type": "message"
+    },
+    {
+        "ts": "1547991106.154100",
+        "text": "残念ながらありません。THで出したものもそれなりに詳しく出している認識ですが... :disappointed:\n`\"Error in $: When parsing the record Message of type Web.Slack.Common.Message the key type was not present.\"`\n推測ですが `type` というキーがJSONに含まれてないものと読めます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1547991614.154400",
+        "text": "試しに <https://github.com/haskell-jp/slack-log> から持ってきた適当なJSONを元に、下記のような `test.json` を作って試したところ、同じメッセージを再現できたので、 「 `type` というキーがない」というエラーで間違いないと思います。\n\n```\n{\n    \"ts\": \"1541835316.110000\",\n    \"text\": \"test\",\n    \"user\": \"U4L0B71L1\"\n}\n```\n\n試したコードはこれ:\n\n```\nstack exec ghci\n:m + Web.Slack.Common Data.Aeson\neitherDecodeFileStrict \"test.json\" :: IO (Either String Message)\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1548022538.162200",
+        "text": "(igrep さんの推測が合っているという前提で) なんか type という言葉がレコード型のキーだから使われているのか意味ある言葉として使われているのかわかりづらいですね",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1548026720.162600",
+        "text": "ですね... ダブルクォートか何かで囲っていて欲しいところですね...",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
