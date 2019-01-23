@@ -244,5 +244,47 @@
         "text": "ところで，アルゴリズム的な指摘なんですが， Haskell では `[a]` は単連結リストになります．(実際には Haskell の構文に違反するので書けないですが，擬似的には次のようなデータ型になります\n\n```\ntype [a] = [] a\ndata [] a = [] | a : [a]\n```\n)\nなので， `splitAt` や `last` ， `length` は効率よくできるわけではなく， `[]` か `:` をパターンマッチでずっと紐解いていき所定の場所を見つけるみたいなことを行います．\nなので，今回の場合\n\n```\nfind :: Ord a =&gt; a -&gt; [a] -&gt; a\nfind _ [] = error \"empty list\"\nfind n [x] = x\nfind n (x:xs)\n  | x * x &gt;= n = x\n  | otherwise  = find n xs\n```\n\nと書いた方が実は速いです．一般にリストに対して線形探索より効率の良い二分探索は書けず，データを作る際二分探索木にするなどデータ構造の方を工夫する必要があります．",
         "user": "U57D08Z9U",
         "type": "message"
+    },
+    {
+        "ts": "1548245364.210800",
+        "text": "あと根本的な問題として、任意の桁数を求める場合に `Float` を出力にしてしまうと結局桁あふれするのでは。。。 :cold_sweat:\n<https://haskell-jp.slack.com/archives/C5666B6BB/p1548231787206900?thread_ts=1548220064.205400&amp;cid=C5666B6BB> で紹介している `Rational` にするのを推奨します。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1548245567.211800",
+        "text": "こうなりました。この場合はどうなんでしょうか？",
+        "user": "UFDKZJBLK",
+        "type": "message"
+    },
+    {
+        "ts": "1548245585.212700",
+        "text": "で、not scopeと出たので、hsを無くしてやってみても、結果は変わりませんでした。",
+        "user": "UFDKZJBLK",
+        "type": "message"
+    },
+    {
+        "ts": "1548245632.213400",
+        "text": "`load` じゃなくて `:load` ですね。。。GHCiの特別なコマンドは必ずコロン `:` で始まる点に注意してください。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1548249032.213800",
+        "text": "ついにこうなりました笑笑",
+        "user": "UFDKZJBLK",
+        "type": "message"
+    },
+    {
+        "ts": "1548252575.215700",
+        "text": "お二方、ありがとうございます！今飲み会空けで頭が回らないんですが、明日以降咀嚼します！",
+        "user": "UF797SSBC",
+        "type": "message"
+    },
+    {
+        "ts": "1548252597.216500",
+        "text": "漠然と投げたのにリアクションがあって、凄く嬉しいです！！",
+        "user": "UF797SSBC",
+        "type": "message"
     }
 ]
