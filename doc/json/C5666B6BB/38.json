@@ -94,5 +94,191 @@
         "text": "上の動画の通り、あえて地面の接触判定が雑なプログラムで地面に整地せず、想定とは違う動きになるというのをQuickCheckでさまざまな初期位置初期速度を入力したときに座標が負になることでbool型で返していくイメージです。",
         "user": "UE51MD4E6",
         "type": "message"
+    },
+    {
+        "ts": "1548371654.254600",
+        "text": "<@UFNL9EP98> has joined the channel",
+        "user": "UFNL9EP98",
+        "type": "message"
+    },
+    {
+        "ts": "1548375188.254800",
+        "text": "<http://hackage.haskell.org/package/Yampa-0.13/docs/FRP-Yampa.html#v:embed>　embed関数を使うと、SFの出力をリストとして取り出すことができます。`embed (bouncingBall p0 v0) ((), repeat (0.1, Just ()))`の結果を検査すれば良いのではないでしょうか",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1548383488.255100",
+        "text": "<@UFPRHDT8X> has joined the channel",
+        "user": "UFPRHDT8X",
+        "type": "message"
+    },
+    {
+        "ts": "1548389362.255400",
+        "text": "ありがとうございます。\nembed関数を用いてためしてみます",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1548390980.255600",
+        "text": "再度質問すみません\nstack ghci上で上に似たようなコマンドを入力してリストが出たのを確認したのですがこれをどうやってQuickCheckの判定を含めて導入すればよいのでしょうか？\nそもそもstack ghci上で上のコマンドを打つのが間違いなのでしょうか？",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1548391055.255800",
+        "text": "",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1548393069.261100",
+        "text": "これは(show a)と記載されてると言うことはaを返すのではないのですか？自分としてはたしかにaに入ってるものはstring値ですが、なぜ最後はaではないのですか？",
+        "user": "UFDKZJBLK",
+        "type": "message"
+    },
+    {
+        "ts": "1548393158.261500",
+        "text": "これは「aがShowである」という制約を示しているだけで、返り値を示しているわけではないですね。",
+        "user": "U57DM8PBK",
+        "type": "message"
+    },
+    {
+        "ts": "1548393473.262900",
+        "text": "あーそういうことか笑笑自分制約あまり分からないものでもう少し勉強してきます笑笑",
+        "user": "UFDKZJBLK",
+        "type": "message"
+    },
+    {
+        "ts": "1548395609.263100",
+        "text": "ちなみに `Show a` の S は大文字ですね",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1548396056.263400",
+        "text": "型は大文字から、関数は小文字から始まるのがHaskellの文法ですからね！",
+        "user": "U57DM8PBK",
+        "type": "message"
+    },
+    {
+        "ts": "1548402024.268800",
+        "text": "ラムダ式とクロージャって何が違うんですかね？ Haskell 関係でクロージャという言葉を聞いたことがないんですが、Haskell にクロージャはあります？",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1548402758.269000",
+        "text": "「自由変数が含まれる関数」を返す関数によって返された関数、ぐらいの認識でした。\n参照している自由変数はその「自由変数が含まれる関数」にしかアクセスできないのでprivateなフィールドをシミュレートする、みたいな例をあちこちの言語で見かけましたね。\n典型的には <https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%B8%E3%83%A3> の最初に出てくるSchemeの例です。\n同じ要領でHaskellでもできると思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1548403063.270700",
+        "text": "Haskellだと <https://en.wikipedia.org/wiki/Closure_(computer_programming)> に載っているようなPythonの例\n```\ndef h(x):\n    return lambda y: x + y  # Return a closure.\n```\nをそのまま再現しても単に2引数の関数を定義するのと変わらないので、意識されにくいというのはあるでしょうね。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1548403562.271200",
+        "text": "ラムダ式は構文で、クロージャはオブジェクト(値など)の一種であると言えば違いは明らかになると思います。<https://ghc.haskell.org/trac/ghc/wiki/Commentary/Rts/Storage/HeapObjects> でGHCのクロージャが説明されています",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1548403648.271500",
+        "text": "何かを習得するとき一般に言えることですが、複雑なことを成し遂げたいときはまず個々の動きから始めましょう。この場合の考え方は\n• QuickCheckは純粋な関数をテストする仕組みである\n• 簡単なもの(足し算の交換則など)をQuickCheckしてみて、基本的な使い方を知る\n• SFを純粋に検査できるようにする(embed)\n• 両者を組み合わせ、目標を達成する",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1548403810.272600",
+        "text": "そういう細かいとこも注意して頑張ってみます！！",
+        "user": "UFDKZJBLK",
+        "type": "message"
+    },
+    {
+        "ts": "1548406986.273300",
+        "text": "回答ありがとうございます！ どちらも言われてみればそうですね！ クロージャ内では破壊的な代入が可能な必要があるという変な勘違いをしていました。そして、GHC のクロージャについての説明をつまみ読みしたんですが、Heap に保存される一つ一つのオブジェクトは全てクロージャ (GHC の呼び方に従えば) という理解で合ってます？ まるで空気のようですね……",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1548408012.275300",
+        "text": "pure Haskell と言うとき、FFIやCとかがない Haskell コードを指すのか、IOなどの副作用がない Haskell コードを指すのか、どちらでしょうか。",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1548408814.275500",
+        "text": "前者かなという気持ち",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1548408817.275700",
+        "text": "私は no IO の方を連想したんですが、検索してみると no FFI という意味が多い感じでした <https://www.google.com/search?q=%22pure+haskell%22>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1548408918.275900",
+        "text": "もう少しQuickCheckについて勉強していこうと思います\nありがとうございました！",
+        "user": "UE51MD4E6",
+        "type": "message"
+    },
+    {
+        "ts": "1548410232.276400",
+        "text": "完全に感覚の話なのですが、僕も前者だと感じました:wink:",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1548410574.279500",
+        "text": "この場合のpureが前者だと感じるのは他言語からのアナロジーである可能性が多いと思います。無論私も前者と感じました pure JavaScriptだなどと言った場合に純JS製である事を意図していることから",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1548410669.279700",
+        "text": "GHC拡張などを使わないHaskell…というのはさておき私も前者派です",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1548412963.279900",
+        "text": "Haskell の関数は、デフォルトでカリー化されているので、クロージャが陽には見えません。部分適応すれば、他言語でいうクロージャが返されますが、それをクロージャだと意識することはないです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1548413021.280100",
+        "text": "ただ、Haskell の部分適応では、複数の関数で共有しているが、他からアクセスできないような変数は作れませんね。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1548413114.280300",
+        "text": "Haskell は pure であるというときと、pure Haskell で作るというときとでは、意味が変わると思います。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1548416637.280600",
+        "text": "タプルとか、何かしら複数の値を入れられるものに入れて返さない限りは無理でしょうから、確かに部分適用ではできませんね…",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1548421860.281100",
+        "text": "みなさんありがとうございます。pure Haskell というのを only Haskell のこととしてみる方が多いようですね。pure Haskell implementation という表現をしているライブラリがあって気になっていました。",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1548433844.281400",
+        "text": "<@UFP7VJHGT> has joined the channel",
+        "user": "UFP7VJHGT",
+        "type": "message"
     }
 ]

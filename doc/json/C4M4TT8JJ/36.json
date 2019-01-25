@@ -82,5 +82,143 @@
         "text": "OGP が展開されない……\n&gt; Haskell で Ctrl-C を制御する（Windows）\nという記事です",
         "user": "U4L0B71L1",
         "type": "message"
+    },
+    {
+        "ts": "1548368733.128400",
+        "text": "GHC本体のRTSとなんか食い合ってしまっているのかなぁ、ぐらいしか私はわからないですね。。。 :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1548371654.128700",
+        "text": "<@UFNL9EP98> has joined the channel",
+        "user": "UFNL9EP98",
+        "type": "message"
+    },
+    {
+        "ts": "1548375577.129500",
+        "text": ":wakarimasen:  ←このリアクションの意義がよくわかっていない…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1548375942.130100",
+        "text": "何も反応が得られないよりはマシだと思ってたんですが...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1548376808.132500",
+        "text": "どこかのスレッドのイベントハンドラが1回目を握りつぶしていて、2回目はそのスレッドがいないので、ランタイムが終了だったような。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1548376834.133300",
+        "text": "UNIXでも同じ振る舞いです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1548376904.134800",
+        "text": "イベントハンドラは、interruptをスルーするように作らないといけない。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1548377297.135200",
+        "text": "「読みました」くらいでは",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1548377733.135700",
+        "text": "この人ですらわからない問題なのかと認識することができますね...",
+        "user": "U57DM8PBK",
+        "type": "message"
+    },
+    {
+        "ts": "1548379019.138400",
+        "text": "質問していきなりわかりませんって言われたらちょっと萎縮しそうです。私だけかもしれませんが",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1548379025.138600",
+        "text": "その点に関しては、みんなカバーできてる分野に違いがあるので「他の知ってる人が答えてよ」みたいなニュアンスもあると受け取っていただければ。現に今日来た質問については私より他の人のほうが詳しかったわけですし。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1548379044.139100",
+        "text": "萎縮は確かにありえますね。。。 :confused:\n悩ましい。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1548383264.140300",
+        "text": "会社 PC（Windows 10）だと違う結果になった。cabal ファイルをコピーしてないからそれも合わせて試してみよう。\n```\n&gt; stack exec windows-interruption-exe\n0, 1, 2, 3, 4, 5, goodbye!\nwindows-interruption-exe.EXE: thread killed\nwindows-interruption-exe.EXE: warning: too many hs_exit()s\n```",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1548383489.140600",
+        "text": "<@UFPRHDT8X> has joined the channel",
+        "user": "UFPRHDT8X",
+        "type": "message"
+    },
+    {
+        "ts": "1548394409.141400",
+        "text": "haskellerあるある。\n気付けば自身のUtilモジュールには`extra`及び`either`から拝借した関数で埋まっている。　\ne.g `maybeM` , `eitherM`, `whenJust`",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1548408774.142300",
+        "text": "ビルド時の `-rtsopts` の有無で動作変わるみたいですね",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1548410097.144600",
+        "text": "extraやeither、いつも悩まずに依存させてしまう:female_fairy:",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1548413165.144800",
+        "text": "`-threaded` じゃなくて？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1548413218.145000",
+        "text": "`-threaded` だと、メインネイティブスレッドは死ぬけど、プロセスは死なないという状況になると思います。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1548417035.148200",
+        "text": ":arrow_left: extraみたいなパッケージはコピペされるためにあると思っているので変に内部で抽象化するよりはベタ書きにしてコピペしやすくしておいてほしいと思う派。\n特にライブラリーを作る側としてはね…:sweat:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1548417562.148300",
+        "text": "この話？ <https://ghc.haskell.org/trac/ghc/wiki/Commentary/Rts/Signals>",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1548425945.149000",
+        "text": "わかる……けどだるくて……",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1548433845.149300",
+        "text": "<@UFP7VJHGT> has joined the channel",
+        "user": "UFP7VJHGT",
+        "type": "message"
     }
 ]
