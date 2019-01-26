@@ -1,0 +1,50 @@
+[
+    {
+        "ts": "1548482409.286000",
+        "text": "<@UFP82PUF3> has joined the channel",
+        "user": "UFP82PUF3",
+        "type": "message"
+    },
+    {
+        "ts": "1548483818.293400",
+        "text": "（もくもく会の中でも相談したが、知見として投稿）\nある型を複数のMonadReaderのインスタンスにできないことで、設計上困っています。\nシチュエーションとしては、Xはフレームワークが提供している型で、Yはユーザーが拡張した型、という状況です。\n何かしらアドバイスいただけると嬉しいです。\n```\nnewtype X a = X {unX = ReaderT A IO a}\n deriving\n (MonadReader A)\n\nnewtype Y a = Y {unY = ReaderT B X a}\n deriving\n (\n  --MonadReader A -- 複数のMonadReaderにはできない\n  --MonadReader B\n )\n\nclass MonadReader A =&gt; C1 where ...\nclass MonadReader B =&gt; C2 where ...\n-- YをMonadReader A,Bどちらを要求するコンテキスト下でも使いたい。\n```",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1548483826.293500",
+        "text": "<@U4LGTMTMK> さんから`capability`を使って解決できるのではと教えていただきました。 <https://www.tweag.io/posts/2018-10-04-capability.html>",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1548485221.293900",
+        "text": "ぜんぜん解決策じゃないけど、似たような問題に対して fumi さんの extesnible の extensible effects ならフィールドで切り替えれたような",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1548485250.294100",
+        "text": "違ったかも",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1548486720.294400",
+        "text": "実際 <https://www.tweag.io/posts/2018-10-04-capability.html> でも最後の方で、free monadやextensible effectsはcapabilityの特殊なバージョンだ、と触れてますね。\n&gt; Another solution to many of the same problems has been known for a while: free monads and extensible effects. As it happens, capability and free monads can be formally compared. In this paper, Mauro Jaskelioff and Russell O'Connor, prove that free monads are a special case of capabilities (it's not phrased in these terms, of course, but that's what the paper amounts to).",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1548487173.294600",
+        "text": "状況の限られた方法になりますが、 `MonadReader a =&gt;`  制約の掛かった関数に渡したい、という用途であれば `(-&gt;) a` がMonadReaderになる事が利用できるかもしれません。適当にラムダ式でくるめば型が合うかも",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1548488582.294900",
+        "text": "許容解かどうか分かりませんが，\n\n```\nnewtype YA a = YA (Y a) deriving (MonadReader A)\nnewtype YB a = YB (Y a) deriving (MonadReader B)\n\naskA = coerce (ask @A @YA)\naskB = coerce (ask @B @YB)\n```\n\nみたいなのでもいけると思いますね．この解決策がまさに `capability` なので，そっちを使える状況ならそっちを使う方がいいと思いますが",
+        "user": "U57D08Z9U",
+        "type": "message"
+    }
+]
