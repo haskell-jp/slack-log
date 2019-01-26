@@ -77,17 +77,17 @@ data Visibility = Private | Public deriving (Eq, Show)
 
 targetChannels :: [(ChannelName, Visibility)]
 targetChannels =
-  [ ("C8KBGEBR7", Public)-- code-review
-  , ("C4P499EPQ", Public)-- english
-  , ("C4LFB6DE0", Public)-- general
-  , ("CAXQ09PN2", Public)-- haskell-day
-  , ("C7Y71415W", Public)-- math
-  , ("C5666B6BB", Public)-- questions
-  , ("C4M4TT8JJ", Public)-- random
-  , ("C8R0H137H", Public)-- translation
-  , ("CCYF8H43A", Public)-- nix
-  , ("CD87P78HF", Public)-- mmlh
-  , ("CE368SB5G", Public)-- ghc8x
+  [ ("C8KBGEBR7", Public)  -- code-review
+  , ("C4P499EPQ", Public)  -- english
+  , ("C4LFB6DE0", Public)  -- general
+  , ("CAXQ09PN2", Public)  -- haskell-day
+  , ("C7Y71415W", Public)  -- math
+  , ("C5666B6BB", Public)  -- questions
+  , ("C4M4TT8JJ", Public)  -- random
+  , ("C8R0H137H", Public)  -- translation
+  , ("CCYF8H43A", Public)  -- nix
+  , ("CD87P78HF", Public)  -- mmlh
+  , ("CE368SB5G", Public)  -- ghc8x
   , ("GDTFWM8KX", Private) -- haskell-day-staff
   ]
 
