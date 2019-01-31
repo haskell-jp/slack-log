@@ -1,0 +1,74 @@
+[
+    {
+        "ts": "1548925411.434600",
+        "text": "ざっと見、ネストが深くなった最初の行の空白を二重にパースしようとしている感じがします（whenJust mNumofSpaces のところで一回、その行自体を含めて続きを many1 $ do でパースしつづけるので、その行は blockParser (Just $ numOfSpaces + s) でもう一回）。",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1548926694.434900",
+        "text": "現状だとこれが返ってくるんです。\n```\nRight \n    [ List \n        [ ListItem \"list1\"\n        , ListItem \" item1\"\n        , ListItem \" item2\"\n        , ListItem \" item3\"\n        , ListItem \"list2\"\n        , ListItem \"list3\"\n        ] \n    ]\n```",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1548927030.435100",
+        "text": "最初は Nothing から Just 1 のインデントになるところはたぶん問題なく動いちゃうと思うんですが、 Just 1 のインデントのつもりで \"  item1\" の行をパースすると、まず1個スペースを読み飛ばして、残り1個のスペースの個数を数えて、合計2になって、その Just 2 を持って \" item1\\n  item2\\n  item3\\n...\" をパースする（最初の item1 の行にすでに残り一個しか空白がないことに注意）のでうまくいかないんじゃないかと",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1548927387.435300",
+        "text": "bulletpointParser として try しそこねたので itemParser でパースしちゃって ListItem \" item1\" が返る。そして次の行でまた Just 1 の bulletpointParser で同じことが起きる…の繰り返しになりそうです",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1548928700.435500",
+        "text": "なんとなく原因はわかったけど、ではどうすればいいのかっていうところが疲れててわからない。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1548928966.435700",
+        "text": "現状の延長で手っ取り早くやるなら一行目だけ特別扱いするのがいいんじゃないでしょうかねえ…空白を数えてしまった後はかならず itemParser できるはずなのでそこだけ自前でやって、残りを many1 じゃなくて many で処理してくっつける、みたいな感じで",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1548930009.436100",
+        "text": "先頭の空白を `\\s[^\\s]` でパースすると\n` bar` （空白1つ） にマッチして `  foo` （空白2つ）にマッチしないようになるので、まずはこれをitemParserみたいに名付けて、あとはそれ以前の空白の数でネストを数えると、字句解析がうまくいきそう :face_with_rolling_eyes:\n（貼っていただいたソース見てなくてすみません）\n（本文中の正規表現は適宜パーサーコンビネータの表現に置き換えて読んでください:eyeglasses:）",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1548930216.436400",
+        "text": "` foo` （空白1つ）は `itemParser` で、\n`  faa` （空白2つ）は `\\s &gt;&gt; itemParser` で、\n`   waa`  （空白3つ）は `\\s &gt;&gt; \\s &gt;&gt; itemParser` で\n……パースできるイメージ。",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1548930291.436700",
+        "text": "修正案あげておきます\n<https://gist.github.com/mizunashi-mana/d4c03b236f7a22d8c1ce411924ba1fe8>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1548930487.436900",
+        "text": "ありがとー。よく見ておきます。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1548930533.437100",
+        "text": "<@U5LV76EJH>\nごめんなさい。正規表現は全くわからないです（だからParsecに逃げました",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1548930576.437300",
+        "text": "ああ、やっぱり Maybe Int の Nothing をやめて単に Int の 0 にしたくなりますよね^^; &gt; indentの数",
+        "user": "UF8SE896V",
+        "type": "message"
+    }
+]
