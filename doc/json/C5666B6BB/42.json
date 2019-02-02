@@ -82,5 +82,95 @@
         "text": "<@UFUMHSDPB> has joined the channel",
         "user": "UFUMHSDPB",
         "type": "message"
+    },
+    {
+        "ts": "1549080665.440100",
+        "text": "どのパッケージがどれだけの数のパッケージから依存されているか、をリスト化しているサイトがあったと思うのですが、わかる方いますでしょうか？",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1549080882.440200",
+        "text": "ここですかね？ <https://packdeps.haskellers.com/reverse>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1549080905.440400",
+        "text": "おお、まさにそれです！ありがとうございます！",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1549082867.440700",
+        "text": "stackage でもみれたきがする",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1549082926.440900",
+        "text": "<https://www.stackage.org/package/servant/revdeps>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1549083475.441100",
+        "text": "見たいのは、依存されている数でした。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1549083536.441300",
+        "text": "論文でいうと、どれだけ引用されているか、みたいな指標に近い感覚です。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1549084610.441500",
+        "text": "stackage のリンクは依存されてるパッケージのリストです（もちろん 依存してるパッケージも別のページでみれますが）",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1549088391.441700",
+        "text": "Windowsでsupermonadパッケージを含むプロジェクトをビルドしようとすると、こんなエラーになります。解決方法が分かる方いたら教えて頂きたいです。他のパッケージはビルド出来ているので、supermonadがGHCプラグインを含んでいるせいで駄目なのかな？と予想しています",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1549088535.442000",
+        "text": "stackとcabal new-buildで試して同じエラーになりました。添付テキストはnew-buildの方です",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1549088644.442200",
+        "text": "あ、READMEに-dynamic付けてね、って書いてありましたね。stackやnew-buildではどう設定すればいいんでしょうか",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1549090153.442700",
+        "text": "--ghc-options=-dynamic\nかな。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1549090252.442900",
+        "text": "そういえばcabalファイルに書くのではダメでしたかね",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1549090576.443100",
+        "text": "そうですね。このページをみれば `servant` が、どれだけの数のパッケージから依存されているかはわかります。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1549090755.443300",
+        "text": "知りたかったのは、 `servant` だけでなく、パッケージ `a`, `b`, `c`,... と候補が複数あったとき、どれがどれだけ非依存数をもっているか、のリストです。",
+        "user": "U4LNDESN8",
+        "type": "message"
     }
 ]
