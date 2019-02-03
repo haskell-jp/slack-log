@@ -202,5 +202,11 @@
         "text": "`if` ってのがグローバルなスコープでは駄目だよって言ってますね。スコープって言っていいのか分りませんけど。。。 誤解されるような言い方をすれば、インデントしてないところじゃ使えんよ。 って事なんでしょ。(厳密には libraryか、executableの中だけ)",
         "user": "U9XHWQX7Z",
         "type": "message"
+    },
+    {
+        "ts": "1549191353.447900",
+        "text": "&gt; Conditional blocks may appear anywhere inside a library or executable section\n\nということなんでそうなんでしょうね。。。\nGHC 8.2以降の時だけtest-suiteを走らせたい場合、恐らく、\n```\nif impl(ghc &lt; 8.2.0)\n  buildable: False\n```\nと書くのが良いのではないかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
