@@ -172,5 +172,35 @@
         "text": "知りたかったのは、 `servant` だけでなく、パッケージ `a`, `b`, `c`,... と候補が複数あったとき、どれがどれだけ非依存数をもっているか、のリストです。",
         "user": "U4LNDESN8",
         "type": "message"
+    },
+    {
+        "ts": "1549157382.443800",
+        "text": "--ghc-options=dynamic にすると、他のパッケージでも同じエラーが出るように……baseをこのオプション付きでビルドした奴が必要、という状況のようです",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1549157754.444000",
+        "text": "new-buildだと.projectファイルのオプションshared, executable-dynamicが関係ありそうだったんですが、有効にしても直らない模様",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1549158128.444200",
+        "text": "stackが落としてきたghcに無理やりパス通して使っているのも関係してるかもしれません",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1549180109.447500",
+        "text": "<https://github.com/Hexirp/doctest-driver-gen/commit/610b470eaa22c6971693b08ebfe7f16bc6588fea> のような変更をしたんですが <https://travis-ci.org/Hexirp/doctest-driver-gen/builds/488028462#L479-L481> のように警告が出てしまいます。どういうことなんでしょうか？ Cabal のドキュメントの条件節のところ (<https://www.haskell.org/cabal/users-guide/developing-packages.html#conditional-blocks>) を見てもよくわかりません。",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1549185382.447600",
+        "text": "`if` ってのがグローバルなスコープでは駄目だよって言ってますね。スコープって言っていいのか分りませんけど。。。 誤解されるような言い方をすれば、インデントしてないところじゃ使えんよ。 って事なんでしょ。(厳密には libraryか、executableの中だけ)",
+        "user": "U9XHWQX7Z",
+        "type": "message"
     }
 ]
