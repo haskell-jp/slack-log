@@ -40,5 +40,17 @@
         "text": "moduleをqualifyした状態でre-exportできるようにする提案 <https://github.com/ghc-proposals/ghc-proposals/pull/205>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1549377518.170100",
+        "text": "そう言えば、去年の話になるけど、 <https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1545795271024900?thread_ts=1545795271.024900> な事を言ったと思うのですが、 それっぽい状況に遭遇した かな？ と思ったので追記\n\n```\nResolving dependencies...\ncabal.exe: Could not resolve dependencies:\n[__0] trying: generic-storable-0.1.0.0 (user goal)\n[__1] next goal: base (dependency of generic-storable)\n[__1] rejecting: base-4.12.0.0/installed-4.1... (conflict: generic-storable =&gt;\nbase==4.5.*)\n[__1] rejecting: base-4.12.0.0, base-4.11.1.0, base-4.11.0.0, base-4.10.1.0,\nbase-4.10.0.0, base-4.9.1.0, base-4.9.0.0, base-4.8.2.0, base-4.8.1.0,\nbase-4.8.0.0, base-4.7.0.2, base-4.7.0.1, base-4.7.0.0, base-4.6.0.1,\nbase-4.6.0.0, base-4.5.1.0, base-4.5.0.0, base-4.4.1.0, base-4.4.0.0,\nbase-4.3.1.0, base-4.3.0.0, base-4.2.0.2, base-4.2.0.1, base-4.2.0.0,\nbase-4.1.0.0, base-4.0.0.0, base-3.0.3.2, base-3.0.3.1 (constraint from\nnon-upgradeable package requires installed instance)\n[__1] fail (backjumping, conflict set: base, generic-storable)\nAfter searching the rest of the dependency tree exhaustively, these were the\ngoals I've had most trouble fulfilling: base, generic-storable\n````\n\n`cabal install generic-storable` で、でました。 無論 `allow-newer` で解決したんですが、、、SemVarが絶対の世界(っていうと問題ありそうだけど、、、)だと特になんの意識もしないで入れられる筈ですよね？",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1549401729.170400",
+        "text": "<@UFYU7K1DH> has joined the channel",
+        "user": "UFYU7K1DH",
+        "type": "message"
     }
 ]
