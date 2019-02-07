@@ -112,5 +112,47 @@
         "text": "勘違いかもしれませんが、PVPは、 Major1.Major2.Minor.Patch であって SemVer は Major.Minor.Patch ではないですかね？ まぁ SemVer ではMinor アップデートだった物がPVPとして解釈(Patchは実は必須ではなくて)されてMajor アップデートになるのは問題ないのですが、、、",
         "user": "U9XHWQX7Z",
         "type": "message"
+    },
+    {
+        "ts": "1549496343.183000",
+        "text": "その通りです。だから、base が 4.5 から 4.12 へ上がった時は Major が上がっていることになり、破壊的変更が許されます。base のバージョンの付け方は以下のようになっています。\n\n1. GHC のバージョンが上がった時に base の Major バージョンも上げる。\n2. Major バージョンを上げる時に、破壊的変更を計画的に行う。\n\nさて、ここから本件と関連しているかもしれないんですが、base の破壊的変更は計画的に行われ極力少なくなるようになっているため `base == 4.*` というように指定する慣習があります。そのため、本件のような時に大抵は問題が起きないようになっています。あたかも Major.Minor.Patch.Patch であるかのように扱われているってことですね。ただ、本来なら `base == 4.5.*` と指定するのが厳密です。",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1549496769.184600",
+        "text": "そういうことなら、私のリサーチ不足だったということですね。。。 お恥かしい。 お二方には感謝です。\n\nしかし、やっぱり バージョニングに頼らない互換性を見つける方法を見つけなくては。。。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1549512374.185700",
+        "text": "豆知識: DerivingViaをStandaloneDerivingと組み合わせて使うときは、 `deriving via Sum Int instance Monoid Counter` のように書く",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1549518238.188000",
+        "text": "GHC本体から切り離されたGHC API。ランタイムがないため実行することはできないが、パースしたり型チェックしたりは出来る。外部のパッケージを扱うのも難しそうなので、結構用途は限られそう。\n<https://github.com/digital-asset/ghc-lib>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1549530275.191000",
+        "text": "igrepさんだったかが「 `RebindableSyntax` で `(&lt;&lt;)` の定義を上書きし忘れてハマった」と言っているのを見かけた記憶があるんですが、すごく良さそうな解決法がありました。 <https://github.com/sleexyz/rebindable>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1549531924.191400",
+        "text": "なるほどRecordWildCardsで！\n<https://code.i-harness.com/en/q/b1f28b> の応用ですね！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1549531996.191700",
+        "text": "<https://github.com/isovector/do-notation> よりも安全で確実そう。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
