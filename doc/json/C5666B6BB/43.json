@@ -1,0 +1,74 @@
+[
+    {
+        "ts": "1549538311.464500",
+        "text": "お疲れ様です。\n<https://qiita.com/mod_poppo/items/03fc14f693b601e0a00f>\nなぜIORefだと遅いのでしょうか。\n自分でベンチマークとるのが一番かもしれませんが。\nあと既出だったらすみません。\n:man-bowing:",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1549538426.465500",
+        "text": "IORefだとヒープで、StateTだとスタックにのるとかあるのでしょうか。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1549540464.465700",
+        "text": "&gt; この程度のコードであれば GHC の最適化によって i と acc が正格評価 &amp; unbox 化されることが期待でき1、 C言語での普通のローカル変数を使ったようなアセンブリコードが（たぶん）出力されます。\n\nとあるとおり、やっぱりGHCにとって普通の引数の方が最適化を利かせやすいところにあるんじゃないっすかね。（その最適化の詳細を知りたいんだよ！という意味であればすみません、わかりません... :bow:）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1549540652.465900",
+        "text": "記事にも書いてありますが， IORef の場合余分なポインタによる Boxing が挟まるからです．\n通常は，そのままデータにアクセスすればいいですが， IORef の場合一度 IORef データのポインタから実際の IORef データにアクセスし，さらにそこに格納されているポインタからデータにアクセスする必要が出てきます．\n\n特に今回の記事の内容だと，Stateの場合もインライン展開と正確性解析によるwrapper変換がうまく入ります(GHC 8.6.3 ではうまく最適化されていることを確認しました)が， IORef はうまく上記の方法で最適化できないため Boxing のままになっているのが大きな差を生んでる原因だと思います",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1549543311.466500",
+        "text": "ありがとうございます",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1549551984.466800",
+        "text": "いくつかベンチマークをしての追記なのですが， IORef で書かれたコードはインライン展開からの変換による最適化が入りにくいようです．例えば， readIORef などを readMutVar# などのプリミティブ命令に変換した後特に最適化が入りにくいのに対し， State はタプルを使った単純な関数の場合が多く， IORef を使ったコードに比べかなりのレベルまでインライン展開され joinrec を使った loop optimization がかなり入りやすいようです．もちろん，今回の記事のように wrapper 変換も入りにくいため，一般には IORef より State の方が最適化が入りやすいため高速な処理が期待できそうです．\n\nなので， IORef の Boxing によるオーバーヘッドというよりは最適化がうまく入らないデメリットが大きそうですね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1549552453.467000",
+        "text": "あ，ついでに上の話は GHC 8.6.3 で調べたので，他のバージョンだと違った結果になるかもしれません(おそらく，他のバージョンも同じ状況だとは思うんですが)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1549553132.467200",
+        "text": "ついでに， wrapper 変換を避けるために書き直したベンチマークコードを上げておきます\n<https://gist.github.com/mizunashi-mana/1de1f69f2723d7cef51c9a57c506fdcf>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1549556705.467500",
+        "text": "<@UG0QR8Y7N> has joined the channel",
+        "user": "UG0QR8Y7N",
+        "type": "message"
+    },
+    {
+        "ts": "1549574755.467900",
+        "text": "```\nsomeCalculationWithFastMutInt :: IO Int\nsomeCalculationWithFastMutInt = do\n  sumRef &lt;- newFastMutInt\n  writeFastMutInt sumRef 0\n  forM_ [0..10000 * 10000] $ \\i -&gt; do\n    s &lt;- readFastMutInt sumRef\n    writeFastMutInt sumRef $! s + (i `rem` 3)\n  readFastMutInt sumRef\n```\n<http://hackage.haskell.org/package/ghc-8.6.1/docs/FastMutInt.html>\nこれだとunboxされるのですね。\n微妙に納得いかないですね。\n別件でSTRefもIORefと同様でした。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1549575367.468400",
+        "text": "次の疑問はなぜIORefがunboxされないのかというところです。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1549575853.468600",
+        "text": "<http://hackage.haskell.org/package/unboxed-ref>\nすでにそういうパッケージがありますね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    }
+]
