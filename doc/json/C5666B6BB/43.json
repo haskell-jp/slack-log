@@ -70,5 +70,47 @@
         "text": "<http://hackage.haskell.org/package/unboxed-ref>\nすでにそういうパッケージがありますね。",
         "user": "U74KTAG0N",
         "type": "message"
+    },
+    {
+        "ts": "1549603889.469600",
+        "text": "GHC ではスタックとヒープどちらに割り当てるかなどを扱うような段階より，ずっと以前の表層の部分で多くの最適化が行われます．特に worker/wrapper 変換は Haskell のプログラムをより効率の良いプログラムに変換するような最適化で(厳密には， Core-2-Core ですが)，単純に Int や Char などの unbox 型をラップした Boxing な型に対して書かれた幾つかの制約を満たす関数をアンラップする関数と unbox 型に対して処理を行う関数に分解することで，wrap/unwrap のオーバーヘッドを無くし不要なヒープ確保を抑えるといったものです．\n\n例えば，\n\n```\nsumInt :: [Int] -&gt; Int\nsumInt = go 0\n  where\n    go acc []     = acc\n    go acc (x:xs) = go (acc + x) xs\n```\n\nという関数を考えてみた時， `(+) :: Int -&gt; Int -&gt; Int` は `I# i1 + I# i2 = I# (i1 +# i2)` と定義されますから `(+)` 演算をする分だけ unwrap/wrap を繰り返すことになりますが，以下のように変形できればその操作を抑えることができます．\n\n```\nsumInt :: [Int] -&gt; Int\nsumInt = go 0\n  where\n     go (I# i) = goWork i\n\n     goWork acc []        = I# acc\n     goWork acc (I# x:xs) = goWork (acc +# x) xs\n```\n\nこの変形をより一般的に自動で行うのが worker/wrapper 変換による unbox 化です．もちろん，この後の段階で unbox 型の引数はヒープ確保を起こさない形に翻訳される可能性が高いです．ただこの変換は，見ての通りどの部分で `I#` の unwrap/wrap が起きるか分かっていないとその部分を削減できないため，インライン展開がうまく行われるかどうかに強く依存します．\n\nさて，本題の IORef がなぜ unbox されないかですが，厳密には IORef が unbox 化されないというより， IORef を使ったコードは最終的に IORef を操作するランタイム命令 readMutVar# / writeMutVar# までしかインライン展開されないため， unwrap/wrap の処理がインライン展開後も自動的に構文だけからは判断できず， worker/wrapper 変換が適用されないというのが大きいと思います． readMutVar# / writeMutVar# の動作特性を情報として別に持っておいて worker/wrapper 変換を適用できるようにするのは可能ではありますが，かなりヒューリスティックな部分となるのでおそらく実装されていないのだと思います．もちろん，これは STRef でも同じ話になります．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1549604413.470300",
+        "text": "ついでにですが，実行性能の差の要因は追記でも述べた通り unbox 化だけではないようです．なので，上の unboxed-ref を使えば worker/wrapper 変換は入るようになると思いますが，他の最適化が入りにくくなり結局 State の方が速くなるんじゃないかと思います(これは未検証なので，後でやってみたいと思います)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1549612404.470800",
+        "text": "-O: State &lt; IORefU &lt; Rec &lt; IORef\n-O2: Rec &lt; State &lt; IORefU &lt;&lt; IORef\nとなりました．そこまで有意差ではないと思いますが IORefU の方が State より遅い傾向が見られましたね．中間コード自体はほぼ同じでしたが，やることによっては差が出る場合もあるかもしれません．\n<https://gist.github.com/mizunashi-mana/176875a0af98578d0d9bafd2dabdf876>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1549612807.471200",
+        "text": "ありがとうございます！これって、計測はそれぞれの `someCalculation*` を適当な `main` 関数に含めて実行ファイル作ってtimeコマンドでやったんですかね？\nそれともcriterionかなにか使ったんすか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1549612967.471400",
+        "text": "time コマンドでやりました",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1549612997.471700",
+        "text": "criterion でやる場合は，もっと繰り返し数少なくした方が良いと思いますね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1549629516.472000",
+        "text": "<@UG1NKET4K> has joined the channel",
+        "user": "UG1NKET4K",
+        "type": "message"
     }
 ]
