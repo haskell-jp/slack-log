@@ -226,5 +226,29 @@
         "text": "斯く言う私も2文字インデント賛成派なので 2文字化が進むのは良いんですが、一度1文字インデントを試したのですが少なくとも私のHaskell力では理解できませんでした。。。",
         "user": "U9XHWQX7Z",
         "type": "message"
+    },
+    {
+        "ts": "1550025916.015800",
+        "text": "-Wall と -Wcompat を自分も付けてたんですが、ドキュメント見ると、-Wall で有効に *ならない* リストの中に、-Wcompat で有効になる警告が含まれてないってことは、-Wall は -Wcompat を内包する？\n<https://downloads.haskell.org/~ghc/8.6.3/docs/html/users_guide/using-warnings.html>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1550041566.016100",
+        "text": "これはドキュメントのミスだと思いますね． -Wall に -Wcompat は含まれません\n<https://github.com/ghc/ghc/blob/master/compiler/main/DynFlags.hs#L4733>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1550041631.016400",
+        "text": "実際-Wmissing-monadfail-instancesは-Wcompatを有効にしないと有効になりませんでしたしね…",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1550042405.016600",
+        "text": "個人的には，\n• -Wall\n• -Wcompat\n• -Wredundant-constraints\n• -Wincomplete-uni-patterns\n• -Wpartial-fields\n• -Wincomplete-record-updates\nを通常は使っています． redundant-constraints は必要な場合もあるのでその場合モジュールレベルでオフにしてますね．",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
