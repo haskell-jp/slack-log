@@ -190,5 +190,35 @@
         "text": "数独を解くコードを書いてみました。変な所があればご指摘いただけると嬉しいです。\n<https://gist.github.com/gaxiiiiiiiiiiii/0fab7374d7c3ef8f2a0801972aa0aea5>",
         "user": "UF797SSBC",
         "type": "message"
+    },
+    {
+        "ts": "1550575236.021000",
+        "text": "ぱっと見て気づいたところを。\n- `length empties == 0` は `null` で置き換えられるかと。\n- `data Tree = Node Board [Tree]` は <http://hackage.haskell.org/package/containers-0.6.0.1/docs/Data-Tree.html> の `Tree` で表すことができるかと（型定義だけしか要らなければ特に必要はないかと思いますが、もし便利な関数があれば使ってみるのも良いかと",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1550581569.021300",
+        "text": "`classify` は `div` で代用できそう",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1550581867.021500",
+        "text": "`head es` のところは、その前のパターンマッチで `e:_` とでも書けば取り出せると思います",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1550581995.021700",
+        "text": "`tree` のところで毎回 `empties` を生成しているのはもったいないですね",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1550582090.021900",
+        "text": "終了の判定を `tree` と `isSolved` の実質二ヶ所でやってるのももったいないです。",
+        "user": "U56L7EVNY",
+        "type": "message"
     }
 ]
