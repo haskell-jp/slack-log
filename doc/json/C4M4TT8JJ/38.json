@@ -136,5 +136,53 @@
         "text": "結局、MultiParamTypeClassesの場合のDeriving Viaは極めて限られた場合だけがサポートされて、残りは今後の課題になってるっぽいんですが、その後の議論とかあるんだろうか。上のCartesianの問題はユースケースとしてありうるんじゃないかと思います。",
         "user": "U570660KX",
         "type": "message"
+    },
+    {
+        "ts": "1550662373.045300",
+        "text": "<https://haskell-jp.slack.com/archives/C5666B6BB/p1550661256027500> の質問に答えているうちに思ったんですが、\n`stack ghc` と `stack runghc` からの類推で `stack haddock` が使えないのって悩ましい仕様ですよね。。。あと `stack ghci` も。 :confused:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1550662428.045700",
+        "text": "あれ、 `stack ghci` は使えませんか？",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550662529.046800",
+        "text": "使えるんですが、実は挙動が違ってまして...。\n適当なstack.yamlとcabalファイルが入ったプロジェクトディレクトリーで実行してみるとわかります。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1550662551.047300",
+        "text": "勝手にロードされますよね。それはそういうものだと思えばまあ納得できるのですが。",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550662614.048400",
+        "text": "あ、そういえば `stack runghc` もスクリプトに引数を渡せないという面倒な仕様だった！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1550662759.049800",
+        "text": "オプションの渡し方が違う（ `stack ghc` だけは唯一 `stack exec ghc` と同じような受け取り方をする）点とか、結構一貫性に欠けるし運が悪けりゃ誤解を招くなぁ、と。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1550673010.000200",
+        "text": "<@UGBS873L4> has joined the channel",
+        "user": "UGBS873L4",
+        "type": "message"
+    },
+    {
+        "ts": "1550677025.000500",
+        "text": "<@UGBUQR35J> has joined the channel",
+        "user": "UGBUQR35J",
+        "type": "message"
     }
 ]

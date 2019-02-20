@@ -262,5 +262,41 @@
         "text": "`stack exec ghc -- --version` や\n`stack exec haddock -- --version` のことですか？",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1550661852.027800",
+        "text": "をを、 exec をつければよかったのですね。 stack haddock --version とかしても出てこなかったので気付かなかったです^^;",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550661890.028000",
+        "text": "あれ、でもだめっぽいですね…",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550661911.028200",
+        "text": "```\n% stack exec ghc --version                              ~/haskelltest/hoge\nInvalid option `--version'\n\nUsage: stack exec CMD [-- ARGS (e.g. stack exec -- ghc-pkg describe base)]\n                  ([--plain] | [--[no-]ghc-package-path] [--[no-]stack-exe]\n                  [--package ARG] [--rts-options RTSFLAG] [--cwd DIR]) [--help]\n  Execute a command\n```",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550661957.028400",
+        "text": "あ -- がいるのか！",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550662028.028600",
+        "text": "<https://employment.en-japan.com/engineerhub/entry/2017/08/25/110000#%E8%A9%A6%E3%81%97%E3%81%AB%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%BE%E3%81%97%E3%82%87%E3%81%86Haskell%E3%81%A7%E9%96%A2%E6%95%B0%E3%81%AE%E5%AE%9A%E7%BE%A9%E3%81%A8%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97> より。\n&gt; これはstackの残念な仕様で、stackコマンド経由でghcに--versionなどのオプションを渡そうとした場合、意図に反してstackコマンドが（正確には、stackコマンドのサブコマンドであるstack ghcが）--versionオプションを解釈してしまうことによるエラーです。 これを回避するには、--versionオプションより前に--を渡します。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1550662029.028800",
+        "text": "ありがとうございます、やっとわかりました。 :slightly_smiling_face:",
+        "user": "UF8SE896V",
+        "type": "message"
     }
 ]
