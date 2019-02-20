@@ -112,5 +112,29 @@
         "text": "ThreadScopeはAppVeyorでchocoを使ってGHCを入れています。 <https://github.com/haskell/ThreadScope/blob/master/appveyor.yml>",
         "user": "U4M9NJ7QE",
         "type": "message"
+    },
+    {
+        "ts": "1550628132.041500",
+        "text": "AppVeyor、無料でWin環境が使えるCIですね。バイナリ公開する予定なので参考にしたいです",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1550631756.042100",
+        "text": "categoriesパッケージのCartesianをインスタンス定義するためには、親クラスとして\nPFunctor, QFunctor, Bifunctor, Associative, Monoidal, Braided, Symmetry, Cartesianを\n全て定義する必要があり記述量が厳しい\n\nしかしこれらは全てArrowから導出できるので、\n\n```\nimport ArrowToCats (ArrowToCartesian) -- Cartesianと必要クラス全部定義\n\ndata MyArr a b = ...\n  deriving (PFunctor, ..., Cartesian) via (ArrowToCartesian MyArr)\n\ninstance Category MyArr where ...\ninstance Arrow MyArr where ...\n```\n\nと書ければ素晴らしい。\n<http://hackage.haskell.org/package/categories>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1550631861.042300",
+        "text": "ところが、導出したいクラス群はderiving via対象外のMultiParamTypeClassesとなっており、上記は実際には書けない。\n\n<https://www.kosmikus.org/DerivingVia/deriving-via-paper.pdf> の6.2章参照",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1550632149.042500",
+        "text": "結局、MultiParamTypeClassesの場合のDeriving Viaは極めて限られた場合だけがサポートされて、残りは今後の課題になってるっぽいんですが、その後の議論とかあるんだろうか。上のCartesianの問題はユースケースとしてありうるんじゃないかと思います。",
+        "user": "U570660KX",
+        "type": "message"
     }
 ]

@@ -220,5 +220,47 @@
         "text": "終了の判定を `tree` と `isSolved` の実質二ヶ所でやってるのももったいないです。",
         "user": "U56L7EVNY",
         "type": "message"
+    },
+    {
+        "ts": "1550615648.022200",
+        "text": "細かいスタイルのお話ですがもう3点ほど。\n\n- `(==) (row c)` は「セクション」という `(== (row c))` と置き換えられるはずです。\n- さらに、「関数呼び出しは一番結合の優先順位が高い」という事実を利用すれば、 `(== row c)` と書けます。ほかにも同様に括弧を取り除ける箇所があるはずですので、探してみてください。\n- `overWrite (Cell _ r c b) n = Cell n r c b` は、せっかくレコード型を使っているんですし、 `c { num = n }` と書いてはいかがでしょうか？\n\n加えて、この手の細かいスタイルに関する指摘は、大抵HLintというツールが自動でやってくれるはずです。\n参考: <https://haskell.e-bigmoon.com/posts/2018-01-29-awesome-hlint.html>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1550623990.022900",
+        "text": "みなさん、ありがとうございます！修正してみます！！",
+        "user": "UF797SSBC",
+        "type": "message"
+    },
+    {
+        "ts": "1550628539.024500",
+        "text": "細かい話。\n<https://gist.github.com/gaxiiiiiiiiiiii/0fab7374d7c3ef8f2a0801972aa0aea5#file-sudoku-hs-L10>\nShowのインスタンスはあまり変えないほうがいいと思う。詳しくは\n<http://www.stephendiehl.com/posts/strings.html>\n\n\n```\n-- Ummm\ninstance Show Cell where\n    show (Cell n _ _ _) = show n\n\n\n-- Do this instead\nshowNum :: Cell -&gt; String\nshowNum (Cell n _ _ _) = show n\n```",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1550628551.024800",
+        "text": "あとは実務レベルのコードにするならコードの整形とHaddockコメントがほしいね。コメントがないから頭が弱い自分にはそれぞれのデータ型、関数がなにをしてるのかよくわからない。。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1550645373.025900",
+        "text": "見て頂く立場なのに、読みにくくて申し訳ないです。読みやすさも心がけます。。。",
+        "user": "UF797SSBC",
+        "type": "message"
+    },
+    {
+        "ts": "1550661256.027500",
+        "text": "stack 経由で使われている ghc や haddock のバージョン番号を調べるにはどうしたらいいのでしょうか？ stack 自体のバージョン番号は stack --version ででてくるのですが…　（しょうがないので ~/.stack/programs を直接見て確認したりしているのですが）",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550661682.027600",
+        "text": "`stack exec ghc -- --version` や\n`stack exec haddock -- --version` のことですか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
