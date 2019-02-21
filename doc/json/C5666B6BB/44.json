@@ -16,5 +16,179 @@
         "text": "<@UGBUQR35J> has joined the channel",
         "user": "UGBUQR35J",
         "type": "message"
+    },
+    {
+        "ts": "1550712876.001000",
+        "text": "Haskellでいう「作用」とは、「主目的である値」を返すこと以外の関数の振る舞いのこと。「副作用」とは、「作用」の一種で、特に外界との入出力やグローバル変数の変更などのこと。で、いいでしょうか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1550718077.006000",
+        "text": "Haskell の IO を指して副作用と言うのは、それが意図している動作であるから間違いであり、作用と言うべきだという話を前に聞いたことがあります。どっちが正しいのか議論をするつもりはなくて、こんな話もあったよー、というだけですが……",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1550719704.006300",
+        "text": "<https://qiita.com/Mizunashi_Mana/items/e82214dfae2765c6839a> こういう話ですかね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1550719838.006600",
+        "text": "ただ説明する上で「副作用」という言葉は使った方が便利かなぁと思いますし、「「副作用」とは、「作用」の一種で、特に外界との入出力やグローバル変数の変更などのこと」という定義にはそんなに違和感を感じません。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1550722480.006900",
+        "text": "プロセス間通信に関する質問です。２つのプロセスがお互いのHandleを相手に渡すことで通信を実現しようとしているのですが、子プロセスから親プロセスにHandleを渡す方法がわかりません。なにか方法はありますでしょうか。\n<https://gist.github.com/HirotoShioi/a0222e19c5dd2746ae04d3a2ba88c1c0>",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1550723225.007100",
+        "text": "あ、、わかったかも！！",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1550723467.007300",
+        "text": "回答と関係ないですが、どうせ `fdToHandle` するなら `createPipeFd` ではなく `createPipe` を使った方がよいのではないかと。\nソースを読んだ限り結局やってることは同じみたいです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1550724513.007600",
+        "text": "OK!",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1550728394.007800",
+        "text": "fork前に作ったfdとそれに紐付いたリソースはforkで子プロセスにも継がれますが，\nfork後に作ったfdのその数値だけを単に伝えて表面上だけfdの値を再構成できたとしても，\n伝えられた側のプロセス内にそのリソースが実際に存在するわけではないので利用できません．\nunix domain socket と sendmsg/recvmsg syscall を利用するとかによる descriptor passing が必要だと思います．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1550730783.008300",
+        "text": "なるほど、ありがとうございます",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1550747460.008600",
+        "text": "fork 「後」につくった場合は notogawa さんのおっしゃるとおりですが、 fork 「前」に作った fd の番号は fork 後に特に何もしなければ「同じ番号で両方のプロセスが同じリソースをつかんでいる」状態になります。なので、 pipe システムコールで作った二つの fd は「write 側でかいたものが read 側でよめる」という状態になります。ただしこれは「片方向パイプ」の役割しか果たさないので、通常は「書きたい側のプロセスは fork 後に read 側だけ閉じて write 側だけ残し、読みたい側のプロセスは fork 後に write 側だけ閉じて read 側だけ残す」ということをやると思います。",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550747532.008900",
+        "text": "双方向に通信したい場合（どちらのプロセスからも書いたら相手側で読めるようにしたい）のなら、 fork 前に二つ pipe を作る（つまり全部で4つ fd を確保する）か、 socketpair システムコールを使うことになると思います",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550747543.009100",
+        "text": "Haskell で socketpair が使えるのかは知りません^^;",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550747647.009300",
+        "text": "「前」の話はわざわざ言うことないかなと思って1行目だけ言及して流しました．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1550747683.009500",
+        "text": "今回のソースをざっと見た感じでは単に双方向通信をしたいだけに見えるので、デスクリプタパッシングとか出してこなくても…という気がしたのです^^;",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550747793.009700",
+        "text": "(デスクリプタパッシング、存在は知ってるけど一度も使ったことないし^^;)",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550748168.011600",
+        "text": "先日の数独のコード、修正してみました。諸々の細かい修正に加えて、効率化を図って `Tree` とは別のやり方を試してみました。また、おかしな所があればご指摘いただけると嬉しいです。\n<https://gist.github.com/gaxiiiiiiiiiiii/b1e58813d9afea011c4466c1c18bc1ca>",
+        "user": "UF797SSBC",
+        "type": "message"
+    },
+    {
+        "ts": "1550748481.011900",
+        "text": "今気づきましたが、 `sortBy row b` がダブってますね。。。",
+        "user": "UF797SSBC",
+        "type": "message"
+    },
+    {
+        "ts": "1550748695.012100",
+        "text": "サンプルコードはあくまで質問のために簡略化しているだけでしょうし，本当にやりたいことがサンプルコードになっているとは私は受け取らないので，こういうケースではできるだけ質問内容「子プロセスから親プロセスにHandleを渡す方法」を正面から突破する方法を答えるようにしていますね",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1550750009.012300",
+        "text": "Data.List に\n`sortOn :: Ord b =&gt; (a -&gt; b) -&gt; [a] -&gt; [a]`\nがありますよ",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550751014.012500",
+        "text": "Tree を使わなくなってすっきりしてるので、さらにすっきりさせるなら `loop` を `State -&gt; Maybe State` ではなくて `getStates` とおなじ `State -&gt; [State]` にすると、場合分けが `null empties = [(filled, [])]` か `otherwise = concatMap loop $ getState states` だけで済む（たぶん）ので簡単になりそうです",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550751066.012700",
+        "text": "あんまり詳しく見てないので細かいことですが，\n```\nfilled  = filter ((/= 0) . num) board\nempties = filter ((== 0) . num) board\n```\nとかも Data.List モジュールの `partition` を使って\n```\n(filled, empties) = partition ((/= 0) . num) board\n```\nと置き換えられます．リスト関係で標準にありそうだなと思った機能は GHC 8.6 をお使いで型が類推できれば Data.List を import した上で， valid hole fits を使うと良いと思います．例えば， `partition` の型は `(a -&gt; Bool) -&gt; [a] -&gt; ([a], [a])` と類推でき， ghci でこの型や `sortBy` の型を検索すると以下のようになります．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1550751180.013100",
+        "text": "Valid hole fits のサンプルです．長かったのでファイルにしました",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1550751351.013600",
+        "text": "それから，個人的な好みでもありますが，\n```\nclassify = flip div 3\n```\nは，セクションを使って\n```\nclassify = (`div` 3)\n```\nと書く方が適用の仕方が視覚的で好きです．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1550751514.013900",
+        "text": "あ、あとパターンマッチで使わない変数に名前がついているのが気になりました（getCandidates の e:es の es とか）。\n使わないところはアンダースコアにしたほうがいいと思います",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550751580.014100",
+        "text": "`null empties = [state]` としてしまえば filled のほうの名前も要らなくなりそうですね",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550751831.014400",
+        "text": "というか loop の定義をわけて `loop state@(_,[]) = [state]` と `loop state = concatMap loop $ getStates state` にしたほうがすっきりするかも",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550757147.014800",
+        "text": "おお！見違えるほどスッキリに！変に小難しく考えていたようでお恥ずかしい限り、、\n\nありがとうございます！",
+        "user": "UF797SSBC",
+        "type": "message"
+    },
+    {
+        "ts": "1550766660.015300",
+        "text": "<@UGD7EBDFC> has joined the channel",
+        "user": "UGD7EBDFC",
+        "type": "message"
     }
 ]
