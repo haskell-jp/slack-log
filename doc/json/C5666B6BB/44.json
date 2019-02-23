@@ -190,5 +190,113 @@
         "text": "<@UGD7EBDFC> has joined the channel",
         "user": "UGD7EBDFC",
         "type": "message"
+    },
+    {
+        "ts": "1550793123.017800",
+        "text": "cabal new-build使用時、ビルド成果物のディレクトリを取得する方法はありますか？ stackなら `stack path --dist-dir` で出来るやつです",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1550798309.018100",
+        "text": "無さそうな雰囲気がありますね・・・。\n<https://github.com/haskell/cabal/issues/4661>\n<https://github.com/haskell/cabal/issues/3850>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1550798581.018500",
+        "text": "モナドの説明時に、「作用」といった場合、おっしゃる通り「「主目的である値」を返すこと以外の関数の振る舞いのこと」を指していると思います。しかし、その文脈で「特に外界との入出力やグローバル変数の変更などのこと」を「副作用」と呼び分けてはいないように思います。\n純粋な計算に関する文章では「「主目的である値」を返すこと」が「作用」で、モナドの作用は「副作用」に。\nモナドに関する文章では「「主目的である値」を返すこと以外の関数の振る舞いのこと」が作用になるように思います。\n用語の統一を主眼としてのお話であれば「作用」「副作用」のどちらかしか使わない、というのもありかなと思います。",
+        "user": "UFNL9EP98",
+        "type": "message"
+    },
+    {
+        "ts": "1550799156.018700",
+        "text": "ないので、doctest で困ります。困った場合、 `cabal-doctest` を使うのが解決方法のようです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1550799296.019000",
+        "text": "Programming in Haskell 2nd ed を翻訳中で、その中に両方の言葉が出てくるので、副作用という言葉を使わないという選択肢はないのです。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1550799397.019200",
+        "text": "ちなみに本書で effect は、純粋な計算の対義語として使われています。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1550800174.019600",
+        "text": "逆に、「主目的である値」を返すこと以外の関数の振る舞いのうち、「外界との入出力やグローバル変数の変更」じゃないものって何を含めてるんですか？ :thinking_face:\nこと `IO` に関して言えば大半がそれに該当しそうな気がしますが... （例外を投げるとかスレッドを作るとか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1550802024.020000",
+        "text": "なるほど、ありがとうございます。とりあえず今はこんな感じです。わざわざ親プロセスにハンドルを渡さなくても、子プロセス側でメッセージを送って、後で親プロセス側で受け取れることがわかりました。\n<https://gist.github.com/HirotoShioi/443ab877898efa5f85cabd89b62d6bfd>\n\n\n「いや、親プロセスから送れるようにしろ」と言われる可能性も一応あるので、koyamaさん、notogawaさんがおっしゃってることに関しても調べてみます。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1550802366.020200",
+        "text": "全く同じではないのです用途次第ですが、executableをリストアップするなら `cabal-plan list-bins` が使えます。 <http://hackage.haskell.org/package/cabal-plan>",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1550802404.020500",
+        "text": "plan.json を直接読むことも出来ると思いますが、中身の構造が安定しているわけではなさそうな気がしています",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1550802753.020700",
+        "text": "solveはMaybe Boardを返すようにしたほうがいいと思う。理由は２つあって、まず与えられたBoardが必ず解けるわけではないことを型で表現したほうがいい。例えば全てのマスが１だったらそれは解けないよね。そういうのにも対応していると型レベルで宣言すると印象が良い。\nもう１つはfromJustは（おそらく）部分関数だから使わないほうがいい。\n<http://hackage.haskell.org/package/base-4.12.0.0/docs/src/Data.Maybe.html#fromJust>\n<http://tanakh.jp/posts/2011-12-25-partial-function-considered-harmful.html>\n部分関数はその場しのぎで使うにはいいけど、最終的には取り除く必要があります。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1550802968.020900",
+        "text": "Maybe Boardに変更するのは、do記法を使えばそんなに難しくないと思う。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1550803767.021100",
+        "text": "あと懸念要素としてぱっと見た感じ、getStates、getCandidatesの計算量がかなり大きいから、大量の問題を解こうとすると危ないかもしれない。\n<https://gist.github.com/gaxiiiiiiiiiiii/b1e58813d9afea011c4466c1c18bc1ca#file-numberplatemaybe-hs-L84>\n<https://gist.github.com/gaxiiiiiiiiiiii/b1e58813d9afea011c4466c1c18bc1ca#file-numberplatemaybe-hs-L89>\nでも正直これはどうにもならないかもしれないから、その場合は気にしなくてもいい。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1550809217.021700",
+        "text": "むしろ余詰めも含めて可能な解を全て求めるという考え方でリストにした方がよいとも思うのです。（最初の一個を取り出して表示しているのは単に表示時のポリシーの問題ということで、 solve 自体の機構ではない、という考え）",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550809336.021900",
+        "text": "ちなみに高速化したいのなら、 empties のたまたま左上のやつを次の一手に選ぶのではなく、先に「すべての empties に対して candidates を求めてからその中でもっとも少ない candidate を返したマス」を次の一手に選ぶようにすると劇的に高速になると思います",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550809424.022100",
+        "text": "<https://www.ipsj.or.jp/07editj/promenade/4611.pdf> この論文がそういう解法だったとおもいます",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550809677.022300",
+        "text": "…と書いておくと執筆者ご本人 <@U4KU9ABL0> さんからフォローがあるかしら^^;",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1550815944.023500",
+        "text": "ありがとうございます、cabal-plan辺りを調べてみようと思います！",
+        "user": "U570660KX",
+        "type": "message"
     }
 ]
