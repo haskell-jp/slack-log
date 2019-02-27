@@ -76,5 +76,101 @@
         "text": "当該の勉強会でCartというHaskellerと出会えたのですが楽しかったですよ。",
         "user": "U57DQSMP0",
         "type": "message"
+    },
+    {
+        "ts": "1551223396.033900",
+        "text": "Google Summer of Code 2019 :sunny: のOrganizationとして :haskell: <http://Haskell.org|Haskell.org> が承認されました！:tada:\n<https://summerofcode.withgoogle.com/organizations/5556388114202624/>\nこちらがプロジェクトの一覧です。 <https://summer.haskell.org/ideas.html>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1551223425.034300",
+        "text": "<@UGH60TV17> has joined the channel",
+        "user": "UGH60TV17",
+        "type": "message"
+    },
+    {
+        "ts": "1551223712.034700",
+        "text": "学生さんはこれらのプロジェクトに参加し、今年の夏の間（3ヶ月間）に課題をクリアすれば賞金をもらえます！ :money_mouth_face:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1551224084.035000",
+        "text": "いくつか補足があります。\n1. このアイデア一覧がすべてではなく、新しくアイデアを追加することができます。その場合は <https://github.com/haskell-org/summer-of-haskell> からPRを送ってください。\n2. <https://summer.haskell.org/news/2019-02-26-accepted-for-gsoc.html> の通り、参加する学生とメンターをどちらも募集しています。各プロジェクトに2名のメンターをアサインするので十分な人数のメンターが必要です。\n3. 参加者として、あるいはメンターとして参加する場合は、なるべく早く関係者に連絡を取ると良いと思います。誰に連絡を取ればいいかわからない場合は <mailto:committee@haskell.org|committee@haskell.org> または僕に連絡をください。\n4. 随時質問を受け付けています。メンションなりDMしてください。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1551232480.035900",
+        "text": "条件には当てはまってますけど、そうすると今度は雇用条件がマッチするかも問題になりそうですねえ。",
+        "user": "U4MAYDV9C",
+        "type": "message"
+    },
+    {
+        "ts": "1551259051.038400",
+        "text": "今日の社内勉強会で、リスト型の値コンストラクターについて解説したとき感じたんですが、\n```\n:i []\n```\nしたとき出てくる\n```\ndata [] a = [] | a : [a]\n```\nを、\n```\ndata [a] = [] | a : [a]\n```\nに変えることが出来れば少しはリスト型の定義がわかりやすくなるんじゃないかと思ったんですがいかがでしょうか？\n再帰的な定義であることがより明確になりますし。\n実装が面倒くさいかも知れませんが、proposalを書いてみようかと思いまして。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1551259182.039100",
+        "text": "なるほど確かに左辺 (`[] a`) と右辺 (`[a]`) で記法が違うのが統一感がないですよね…",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551259218.039400",
+        "text": "どちらかというと右辺も `[] a` に統一できたらいいのかな、と思ってしまいましたが^^;",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551259270.039600",
+        "text": "（普段つかっている [a] 記法はあくまでシンタックスシュガーであるという立場で考えるとそのほうが kind がわかりやすいかな、と）",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551259344.040000",
+        "text": "なるほど。ここで `[]` という記法がしゃしゃり出てくるのか... ぐぬぬ\n```\n&gt; :k []\n[] :: * -&gt; *\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1551259398.040200",
+        "text": "というか `instance Monad []` としか書きようがないですよね",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551259528.040600",
+        "text": "やっぱり `NoStarIsType` に倣って `NoBracketIsList` 拡張を提案して `[a]` の代わりに `List a` を作るしか... :innocent:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1551259644.040900",
+        "text": "果て何年かかるだろう。さすがにドラスティック過ぎる割に `NoStarIsType` ほどの恩恵をもたらさないような... :disappointed_relieved:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1551260253.041500",
+        "text": "そうか、今更気づいたんですが\n```\n[] :: [] Int\n```\nと書くことも出来るんですね。それなら確かに「右辺も `[] a` に統一」という案の方が現実的な気がしてきました。 :bulb:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1551264468.042200",
+        "text": "リスト型を理解するという目的であれば、記号を使わない方法で説明した方がわかりやすいような気がします。\n\n僕がバイトの人に説明するときは以下の定義で進めることが多いです。\n\n```\ndata List a = Nil | Cons a (List a)\n```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1551265757.042600",
+        "text": "```\ndata [a]\n```\nは通常のデータ型宣言の記法と異なるので，統一するなら `data [] a = [] | a : ([] a)` の方が好みですね．ただ， Haskell Language Report では\n`data [a] = [] | a : [a]` が使われています:\n<https://www.haskell.org/onlinereport/haskell2010/haskellch6.html#x13-1200006.1.3>",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]

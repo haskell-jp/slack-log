@@ -238,5 +238,59 @@
         "text": "<@UGHR31EDD> has joined the channel",
         "user": "UGHR31EDD",
         "type": "message"
+    },
+    {
+        "ts": "1551223425.051000",
+        "text": "<@UGH60TV17> has joined the channel",
+        "user": "UGH60TV17",
+        "type": "message"
+    },
+    {
+        "ts": "1551244900.051800",
+        "text": "WSL Ubuntu 18.04 から Visual Studio Code を立ち上げると Editor の default EOL は auto ですから　ほとんどの directories で CRLF になります",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1551248189.052100",
+        "text": "それは、さすがに既存のLFなファイルを開いた場合はLFのままですよね？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1551257355.052600",
+        "text": "ふと思ったんですけど、型クラスReadってどれくらい優秀なんですか？\nread . show == id\nが成り立つデータ型なら、それがどれだけ複雑になったとしてもRead可能なのかなーと気になりました。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1551257401.052800",
+        "text": "逆に\nread . show == id\nであってもreadできないものってありますか。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1551258522.053200",
+        "text": "標準の Read クラスの場合、 readsPrec の設計思想の範囲でまともなパーザが書けるか？という話になるかと思いますが、たぶん（性能を気にしなければ）ひたすら分岐してやり直す形のパーザならば書けそうだと思います。ただしデータ構造の複雑度のべき乗で遅くなりそうな気はするので、それを「Read 可能」と言っていいかどうか…\nで、それだと効率がわるいということで ghc の Read クラスは拡張されてるみたいですね（今調べて知ったのですが^^;）。 <http://hackage.haskell.org/package/base-4.12.0.0/docs/src/GHC.Read.html>",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551258856.053500",
+        "text": "おおう、ありがとうございます。このモジュールに書いてあるコメントを読んでみます。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1551259811.054300",
+        "text": "気になった理由としては、Readには地雷があって、いずれ踏み抜くんじゃないかとふと思ったからです。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1551260063.054400",
+        "text": "速さを気にするなら、遅いのでデバッグ用途や書き捨てぐらいの気持ちで使った方がいい気はします",
+        "user": "U4L0B71L1",
+        "type": "message"
     }
 ]
