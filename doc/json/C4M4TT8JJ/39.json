@@ -172,5 +172,23 @@
         "text": "```\ndata [a]\n```\nは通常のデータ型宣言の記法と異なるので，統一するなら `data [] a = [] | a : ([] a)` の方が好みですね．ただ， Haskell Language Report では\n`data [a] = [] | a : [a]` が使われています:\n<https://www.haskell.org/onlinereport/haskell2010/haskellch6.html#x13-1200006.1.3>",
         "user": "U57D08Z9U",
         "type": "message"
+    },
+    {
+        "ts": "1551266548.042900",
+        "text": "&gt; リスト型を理解するという目的であれば、記号を使わない方法で説明した方がわかりやすいような気がします。\n\n確かにそれでいいし、私もそれに近い方法で説明したんですが、どの道その定義を本来の定義に翻訳しないといけない瞬間は来るので、その時を思うと少しでも翻訳しやすい形になっていた方がいいかなぁ、と思いまして。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1551269713.043300",
+        "text": "そういえば，思い出したんですが表示は <https://gitlab.haskell.org/ghc/ghc/blob/master/libraries/ghc-prim/GHC/Types.hs#L116> を出してるだけですね ( `data [] a` は GHC ではパースした後リネームで落とされますが， `data [a]` はパース段階で完全に illegal です． GHCi の表示だけなら，パース後の AST のプリティプリントを `[]` 型コンストラクタだけ特別扱いすればいいんでしょうが， GHC.Types モジュールと乖離が生じるので微妙なとこですね)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1551269959.043600",
+        "text": "なるほど、やっぱり左辺を変えるとなるとパーサーの問題が出ますか。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
