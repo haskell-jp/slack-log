@@ -8,8 +8,9 @@
 module SlackLog.Html
   ( converToHtmlFile
   , renderSlackMessages
+  , loadWorkspaceInfo
   , PageInfo(..)
-  , WorkspaceConfig(..)
+  , RenderingConfig(..)
   , WorkspaceInfo(..)
   ) where
 
@@ -49,7 +50,7 @@ data PageInfo = PageInfo
   , channelId        :: ChannelId
   } deriving (Eq, Show)
 
-data WorkspaceConfig = WorkspaceConfig
+data RenderingConfig = RenderingConfig
   { workspaceName :: T.Text
   , timeZone      :: String
   } deriving (Eq, Show, Generic, Json.FromJSON)
@@ -64,7 +65,7 @@ data WorkspaceInfo = WorkspaceInfo
 
 converToHtmlFile :: PageInfo -> IO ()
 converToHtmlFile pg = do
-  ws <- loadWorkspaceInfo
+  ws <- loadWorkspaceInfo "json"
   let jsonPath = pathFromPageInfo "json" pg
       htmlPath = pathFromPageInfo "html" pg
   BL.writeFile htmlPath
@@ -125,17 +126,16 @@ renderSlackMessages WorkspaceInfo {..} PageInfo {..} msgs = H.renderByteString
       Slack.messageToHtml Slack.defaultHtmlRenderers getUserName messageText
     timestampBlock tm =
       let lt = LT.utcToZonedTime (getTimeDiff tm) tm
-      in TF.formatTime TF.defaultTimeLocale "" lt
-      --                              TODO: ^ configure format!!!
+      in TF.formatTime TF.defaultTimeLocale "%Y-%m-%d<br/>%T %z" lt
 
 
 -- | Assumes this function is executed in doc/ directory
-loadWorkspaceInfo :: IO WorkspaceInfo
-loadWorkspaceInfo = do
-  userNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' "json/.users.json"
-  channelNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' "json/.channels.json"
+loadWorkspaceInfo :: FilePath -> IO WorkspaceInfo
+loadWorkspaceInfo dir = do
+  userNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".users.json")
+  channelNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".channels.json")
 
-  cfg <- failWhenLeft =<< Json.eitherDecodeFileStrict' "json/.workspace.json"
+  cfg <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".rendering.json")
   let workspaceInfoName = workspaceName cfg
   getTimeDiff <- fmap TZ.timeZoneForUTCTime . TZ.loadTZFromDB $ timeZone cfg
 
