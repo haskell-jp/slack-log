@@ -9,6 +9,8 @@ copyright:           "2018 Japan Haskell User Group"
 extra-source-files:
 - README.md
 - ChangeLog.md
+- test/assets/*.html
+- test/assets/*.json
 
 # Metadata used when publishing your package
 # synopsis:            Short description of your package
@@ -32,12 +34,15 @@ dependencies:
 - time
 - template-haskell
 - typed-process
+- tz
 - unordered-containers
 - QuickCheck
 - quickcheck-instances
 
 library:
   source-dirs: src
+  dependencies:
+  - type-of-html
 
 executables:
   slack-log:
