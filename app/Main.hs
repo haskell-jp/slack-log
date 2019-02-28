@@ -50,6 +50,7 @@ import qualified Web.Slack.Channel        as Channel
 import qualified Web.Slack.Common         as Slack
 import qualified Web.Slack.User           as User
 
+import           SlackLog.Util            (failWhenLeft)
 import           SlackLog.Pagination      (chooseLatestPageOf, defaultPageSize,
                                            paginateFiles)
 import           Web.Slack.Instances      ()
@@ -138,7 +139,7 @@ readLastTimestampsOrDefault path = do
 
 
 saveChannel :: Slack.SlackConfig -> TimestampsByChannel -> ChannelName -> Visibility -> IO (T.Text, Slack.SlackTimestamp)
-saveChannel cfg tss channelName vis = Dir.withCurrentDirectory "doc/json" $ do
+saveChannel cfg tss channelName vis = Dir.withCurrentDirectory "doc" $ do
   new <- Slack.mkSlackTimestamp <$> getCurrentTime
   let old = fromMaybe (Slack.mkSlackTimestamp $ UTCTime (fromGregorian 2017 1 1) 0) (HM.lookup channelName tss)
   print old
@@ -153,17 +154,19 @@ saveChannel cfg tss channelName vis = Dir.withCurrentDirectory "doc/json" $ do
             mbLatestTs = Slack.messageTs <$> headMay msgs
         case mbLatestTs of
             Just latestTs -> do
-              let channelNameS = T.unpack channelName
-                  tmpFileName = channelNameS <> "-tmp.json"
-              BL.writeFile tmpFileName $ Json.encodePretty (reverse msgs)
-              Dir.createDirectoryIfMissing False channelNameS
-              channelDirItems <- Dir.listDirectory channelNameS
-              (latestPageFileNames, basePageNum) <-
-                if null channelDirItems
-                  then return ([], 1)
-                  else Arrow.first ((: []) . (channelNameS </>)) <$> chooseLatestPageOf channelDirItems
-              paginateFiles defaultPageSize basePageNum channelNameS (latestPageFileNames ++ [tmpFileName])
-              Dir.removeFile tmpFileName
+              Dir.withCurrentDirectory "json" $ do
+                let channelNameS = T.unpack channelName
+                    tmpFileName = channelNameS <> "-tmp.json"
+                BL.writeFile tmpFileName $ Json.encodePretty (reverse msgs)
+                Dir.createDirectoryIfMissing False channelNameS
+                channelDirItems <- Dir.listDirectory channelNameS
+                (latestPageFileNames, basePageNum) <-
+                  if null channelDirItems
+                    then return ([], 1)
+                    else Arrow.first ((: []) . (channelNameS </>)) <$> chooseLatestPageOf channelDirItems
+                paginateFiles defaultPageSize basePageNum channelNameS (latestPageFileNames ++ [tmpFileName])
+                Dir.removeFile tmpFileName
+              -- TODO: Convert the updated JSON file to HTML here.
               return (channelName, latestTs)
             _ -> do
               hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show channelName ++ ": " ++ "Can't get latest timestamp!"
@@ -172,10 +175,6 @@ saveChannel cfg tss channelName vis = Dir.withCurrentDirectory "doc/json" $ do
         hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show channelName ++ ":"
         hPrint stderr err
         return (channelName, old)
-
-
-failWhenLeft :: Either String a -> IO a
-failWhenLeft = either fail return
 
 
 gitPushMessageLog :: IO ()
