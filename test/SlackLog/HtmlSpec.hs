@@ -6,7 +6,6 @@ module SlackLog.HtmlSpec
 
 
 import qualified Data.Aeson              as Json
-import qualified Data.HashMap.Strict     as HM
 import qualified Data.Text.Lazy          as TL
 import qualified Data.Text.Lazy.Encoding as TLE
 import qualified Data.Text.Lazy.IO       as TLI
@@ -26,11 +25,7 @@ spec =
             , channelId        = "id_of_random"
             }
 
-          w = WorkspaceInfo
-            { userNameById      = HM.fromList [("U12345", "example_user")]
-            , channelNameById   = HM.fromList [("id_of_random", "random")]
-            , workspaceInfoName = "haskell-jp"
-            }
+      w <- loadWorkspaceInfo "test/assets"
 
       expected <-
         TLE.encodeUtf8
@@ -38,6 +33,6 @@ spec =
           .   map TL.strip
           .   TL.lines
           <$> TLI.readFile "test/assets/expected.html"
-      Just msgs <- Json.decodeFileStrict' "test/assets/test.json"
+      Just msgs <- Json.decodeFileStrict' "test/assets/testMessage.json"
 
       renderSlackMessages w p msgs `shouldBe` expected
