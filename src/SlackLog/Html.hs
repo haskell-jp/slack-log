@@ -8,6 +8,7 @@
 module SlackLog.Html
   ( convertToHtmlFile
   , renderSlackMessages
+  , renderIndexOfPages
   , loadWorkspaceInfo
   , PageInfo(..)
   , WorkspaceInfo(..)
@@ -70,6 +71,7 @@ pathFromPageInfo dirName PageInfo { channelId, pageNumber } =
   dirName </> T.unpack channelId </> show pageNumber ++ "." ++ dirName
 
 
+-- TODO: For API consistency with renderIndexOfPages, get page number from path, read JSON from the path, and then return IO BL.ByteString
 renderSlackMessages :: WorkspaceInfo -> PageInfo -> [Slack.Message] -> BL.ByteString
 renderSlackMessages WorkspaceInfo {..} PageInfo {..} msgs = H.renderByteString
   ( H.doctype_
@@ -79,7 +81,7 @@ renderSlackMessages WorkspaceInfo {..} PageInfo {..} msgs = H.renderByteString
       # H.title_ title
       # H.link_A
         ( A.rel_ ("stylesheet" :: T.Text)
-        # A.href_ ("style.css" :: T.Text)
+        # A.href_ ("messages.css" :: T.Text)
         # A.type_ ("text/css" :: T.Text)
         # A.media_ ("screen" :: T.Text)
         )
@@ -132,3 +134,8 @@ loadWorkspaceInfo dir = do
   getTimeDiff <- fmap TZ.timeZoneForUTCTime . TZ.loadTZFromDB $ timeZone cfg
 
   return WorkspaceInfo {..}
+
+
+renderIndexOfPages :: WorkspaceInfo -> [(ChannelId, FilePath)] -> IO BL.ByteString
+renderIndexOfPages _ =
+  error "renderIndexOfPages is not defined yet!"
