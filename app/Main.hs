@@ -113,14 +113,6 @@ main = do
   when (tss /= newTss) gitPushMessageLog
 
 
-readLastTimestampsOrDefault :: FilePath -> IO TimestampsByChannel
-readLastTimestampsOrDefault path = do
-  result <- Json.eitherDecode <$> BL.readFile path
-  case result of
-      Right tbc -> return tbc
-      Left err  -> fail $ "Error reading \"" ++ path ++ "\"\n" ++ show err
-
-
 saveChannel :: Slack.SlackConfig -> TimestampsByChannel -> ChannelName -> Visibility -> IO (T.Text, Slack.SlackTimestamp)
 saveChannel cfg tss channelName vis = Dir.withCurrentDirectory "doc" $ do
   new <- Slack.mkSlackTimestamp <$> getCurrentTime
