@@ -1,0 +1,260 @@
+[
+    {
+        "ts": "1551410882.000900",
+        "text": "Hutton本2に「newtypeで宣言するデータ型も再帰的にできる」って書いてあるんですが、これは誤りですよね？ 再帰的にできるのは、data だけですよね？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551411167.001000",
+        "text": "GHCだと、newtype を再帰的に使えるみたいですが、どう使うんでしょうか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551411302.001200",
+        "text": "こんな感じでしょうか？\n`newtype NewTypeRecursion a = N (Either (NewTypeRecursion a) a)`",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551411392.001400",
+        "text": "fix コンビネーターが newtype で作れるみたいです <http://ilyaletre.hatenablog.com/entry/2018/03/20/224320>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1551411567.001800",
+        "text": "はるかに良い例を出されてしまった^^;",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551411593.002000",
+        "text": "要は場合分けがないと再帰が止まらないだろうという話だったんだと思いますが、中身が場合分けを持つ型ならできるじゃんというのが私の発想で、そうでなくとも無限再帰的な型でも意味がある場合があるってことですね…",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551411670.002200",
+        "text": "不動点オペレータの場合、結局「f」に場合分けがあることを期待している、というべきでしょうか",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551411703.002400",
+        "text": "勉強になりました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551411727.002600",
+        "text": "しかし、Hutton本2で紹介すべきか疑問ですね。Huttonさんに意図を聞いてみます。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551412912.002800",
+        "text": "EmptyCase拡張が無かった昔は `newtype Void = Void Void` みたいなのも使いましたよ．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1551413448.003100",
+        "text": "依存型っぽいことをするためですか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551414188.004900",
+        "text": "パッと思いつくのは phantom type で「型の違いを作るための目印として使うが実際には無視される型引数」に入れるのに使う、ってやつでしょうか（phantom type でぐぐると実例がでてきます）",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551414222.005300",
+        "text": "なるほど。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551414351.005500",
+        "text": "一般に， `type` は型の計算が遅延しませんが， `newtype` は遅延するのが強みだと思っていました(再帰型の場合は `type` は無限再帰が起き停止しなくなりますが， `newtype` は型上は `data` と同じ扱いなので新しい型が作られるだけですね)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1551414354.005700",
+        "text": "↑の `Void` は「値を構成できない型」を作るためで，“矛盾“に相当します．定理証明をするためですね．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1551414441.006300",
+        "text": "勉強になります",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551414524.006500",
+        "text": "実用的には「定理証明が必要となるような強力で厳密な依存型インターフェースを提供するため．」かな．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1551415231.006900",
+        "text": "`newtype` で再帰型は割と使う人なのですが， `Cofree` とかは\n\n```\nnewtype Cofree f a = Cofree (a, f (Cofree f a))\n```\n\nとも書けますね(やってることは同じなので， `data` を使うべきというのはそうですが)\n\nHutton本を読んだことがないので，どういうレベルの本なのか分からないですが， `type` と `newtype` ， `data` の大きな違いは\n• `type` は再帰型が書けないが， `newtype` / `data` は書ける (<https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-740004.2.3> でも強調されてますね)\n• `type` はインスタンスにできないが， `newtype` / `data` はインスタンスにできる\n• `newtype` はコンストラクタが実行時に無いように振舞う\nということだと思うので，この3つは Haskell を書く上では押さえておいてほしいとは思います(特に強調するべきだとは思いませんが，入門書に書いておいてほしいとは思いますね． すごいH本には確か書いてあった気がします)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1551415588.007200",
+        "text": "評価の違い(3点目の付帯ではあるけど)も明示はあってほしい．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1551415758.007400",
+        "text": "(あ，主に3点目は評価の違いをさしてました．パターンマッチの意味論が違う点ですね)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1551415863.007800",
+        "text": "Hutton本は初心者用です。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551415894.008000",
+        "text": "`newtype` で再帰ができると書いてしまうと、例を出すべきですが、例が初心者のレベルを超えていると思います。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551415952.008200",
+        "text": "あと、H本をぱらっと読み返してみましたが、 `newtype` は再帰できるという説明は見つけられませんでした。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551416079.008500",
+        "text": "Hutton本の訳注で、「例としては Fix だが、気にしなくていい」みたいに書くのはありだとは思います。でも「 `newtype` が再帰できる」とは書かない方がいいと思います。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551416673.008700",
+        "text": "&gt; H本をぱらっと読み返してみましたが、 `newtype` は再帰できるという説明は見つけられませんでした。\nすいません，確かに書いてないようですね．これは僕の勘違いでした．\n\nHutton本2が手元にないのでどういう文脈で出てくるのか分からないですが例として\n\n```\nnewtype Tree = Tree (Int, [Tree])\n```\n\nみたいなのも出せるので，一概に `Fix` を出す必要はないんじゃないかと(これは， Hutton本1だと type declaration で書けない例として紹介されていますね)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1551416875.009100",
+        "text": "(Hutton本1で newtype に関する記述を見つけられなかったんですが， Hutton 本2から入ったんですかね？)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1551417057.009300",
+        "text": "この `Tree` の例は素敵ですね。訳注にこれを書くのが補完し合っていていいかも。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551417088.009500",
+        "text": "`newtype` は、初版にはなく、第2版から入りました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551417134.009700",
+        "text": "第2版は、大幅に書き換わっていて、訳が大変です。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551494788.011400",
+        "text": "<@UGM9F7XQS> has joined the channel",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1551520784.011700",
+        "text": "<@UGMAQ64SG> has joined the channel",
+        "user": "UGMAQ64SG",
+        "type": "message"
+    },
+    {
+        "ts": "1551573016.013800",
+        "text": "試しに `print $ (unsafeCoerce True :: Int)` を実行してみたら `2305843009213693952` と表示されました。64bit に変換すると `0010000000000000000000000000000000000000000000000000000000000000` になり、GHCの内部表現と関係していそうなんですけど、どうしてこうなるんですか？",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1551573480.013900",
+        "text": "<https://takenobu-hs.github.io/downloads/haskell_ghc_illustrated.pdf>\n自己解決しました（多分）。上のスライドでの Pointer Tagging の節によると、最初の 3bit が以下のようになっているそうです。\n• 000 - 未評価\n• 001 - 評価済みで一番目のコンストラクタ\n• 010 - 評価済みで二番目のコンストラクタ\n• 011 - ...",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1551573611.014100",
+        "text": "そして、True は定数なので何も参照せず、後の 61bit が空になる……ということみたいです（これ、7個以上コンストラクタがあったときはどうするんだろう）",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1551591369.014600",
+        "text": "<https://ghc.haskell.org/trac/ghc/wiki/Commentary/Rts/HaskellExecution/PointerTagging>\nに書かれている通り、64bitだと8個以上コンストラクタを持つ場合コンストラクタ情報はtaggingされず、evaluatedかどうかで000/001のどちらかになり、コンストラクタ情報はinfo tableを見に行くことになります",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1551594758.014900",
+        "text": "Pointer Tagging はたぶん最下位ビット側だと思うので上位が立ってるのは不思議ですね…そして True は Bool にとっては「二番目」の値のはず（deriving Ord 的に False &lt; True なので）なので、その点でも辻褄があってない気がします",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551603754.015700",
+        "text": "面白いですね。\npointer taggingの話題自体については解決済みと思いますが、元々のコードの出力値は妙ですね。\n\npointer taggingは、「ヒープ上のオブジェクト(closure)」へのポインタの下位3bitに印をつける機能なので、そのポインタの値そのものは通常、ユーザーコードからは見えないです。\n（つまり、print関数では、ポインタの値自体は出力していないです。）\n\nそしてprintが出力しているのは、データ構築子`True`のマシン上での表現を、unsafeCoerceを使ってInt型に強引に解釈させたときの値です。 なので、不整合な値が出力されているのだと思います。（例え的には、Float型のバイナリ値を、Int型に解釈させて出力させたような不整合が。）\n\n試しに、マシン上での表現が似ているInt型をWord型へ、強引にunsafeCoerceで解釈変更させたら、以下のように値自体は矛盾しない結果になりました。（CPUやOS依存あると思います。）\n\n```\nghci&gt; import Unsafe.Coerce\nghci&gt; print $ (unsafeCoerce (-1::Int) :: Word)\n18446744073709551615\n```\n\n18446744073709551615 は、16進表現では、ffffffffffffffff です。（つまりInt型の-1）\n\nunsafeCoerceは、型をごまかすだけで、実行時の表現自体は変更しないというところですね。\n（勘違いあればフォローお願いします。）",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1551604333.015900",
+        "text": "解決済みと思いますが念の為です。 Haskell 2010 Language Reportでも、newtypeは再帰的使われることを想定しているようです。\n\n\"Also, unlike type synonyms, newtype may be used to define recursive types.\"\n\n<https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-740004.2.3>",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1551606182.016100",
+        "text": "print は I# を紐解くので、そもそも表示されてるものはオブジェクトの純正の表示では無いはずですね。ついでにうちの環境(mac/GHC 8.6.3)では再現しなかったです",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1551610202.016300",
+        "text": "うちの環境で試した結果です:\n<https://gist.github.com/mizunashi-mana/67df53477ef464232f9e97588e099cf9>\n\n`print (unsafeCoerce True :: IntOrBool)` が SEGV になったのは， `5764607523051092410` をBool値のヒープを指し示すポインタだと思って飛ぼうとしたせいだと思いますね．Bool値のコンストラクタはフィールドを特に持たないので，フィールドじゃない領域をフィールドだと思って参照した結果，そういう結果が返ってくるんだと思います(主に True だと True_closure + 9 ， False だと False_closure + 8 を I64 表現だと解釈した結果こういう表示になってるようです．毎回実行するごとに結果が変わっていたので，多分空いてるヒープ領域なんだと思います)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1551612186.016600",
+        "text": "<https://github.com/Hexirp/haskell-gist/blob/1a233daa267b6647bbfede385ab9be653fd0983e/Unsafe.hs>\nなるほど…そう単純に考えられないみたいですね。こっちの環境は Windows 10 です。上の結果は3か月前のもので、今でも再現しました",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1551612406.016900",
+        "text": "あっ、こっちの方が重要かも。実行は ghci でやってます",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1551612521.017100",
+        "text": "……GHCiとGHCって内部表現がだいぶ異なりますよね？ 根本から勘違いしてたかも",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    }
+]
