@@ -42,11 +42,6 @@ data PageInfo = PageInfo
   , channelId        :: ChannelId
   } deriving (Eq, Show)
 
-data RenderingConfig = RenderingConfig
-  { workspaceName :: T.Text
-  , timeZone      :: String
-  } deriving (Eq, Show, Generic, Json.FromJSON)
-
 data WorkspaceInfo = WorkspaceInfo
   { userNameById      :: HM.HashMap UserId UserName
   , channelNameById   :: HM.HashMap ChannelId ChannelName
