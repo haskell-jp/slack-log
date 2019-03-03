@@ -106,9 +106,9 @@ renderSlackMessages WorkspaceInfo {..} PageInfo {..} msgs = H.renderByteString
  where
   channelName = channelNameById HM.! channelId
   title = workspaceInfoName <> " / " <> channelName <> " #" <> T.pack (show pageNumber)
-  pager = H.div_
-    ( ((\pp -> H.a_A (A.href_ pp) ("Previous" :: T.Text)) <$> previousPagePath)
-    # ((\pp -> H.a_A (A.href_ pp) ("Next" :: T.Text)    ) <$> nextPagePath)
+  pager = H.div_A (A.class_ ("pager" :: T.Text))
+    ( ((\pp -> H.a_A (A.href_ pp # A.class_ ("pager__previous" :: T.Text)) ("Previous" :: T.Text)) <$> previousPagePath)
+    # ((\pp -> H.a_A (A.href_ pp # A.class_ ("pager__next" :: T.Text)    ) ("Next"     :: T.Text)) <$> nextPagePath)
     )
   messageDiv Slack.Message {messageTs, messageUser, messageText} =
     H.div_A (A.class_ ("message" :: T.Text) # A.id_ ("message-" <> Slack.slackTimestampTs messageTs))
