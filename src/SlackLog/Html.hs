@@ -76,11 +76,11 @@ renderSlackMessages WorkspaceInfo {..} PageInfo {..} msgs = H.renderByteString
       ( H.meta_A (A.charset_ ("utf-8" :: T.Text))
       # H.title_ title
       # H.link_A
-          ( A.rel_ ("stylesheet" :: T.Text)
-          # A.href_ ("style.css" :: T.Text)
-          # A.type_ ("text/css" :: T.Text)
-          # A.media_ ("screen" :: T.Text)
-          )
+        ( A.rel_ ("stylesheet" :: T.Text)
+        # A.href_ ("style.css" :: T.Text)
+        # A.type_ ("text/css" :: T.Text)
+        # A.media_ ("screen" :: T.Text)
+        )
       )
     # H.body_
       ( H.h1_ title
