@@ -14,9 +14,11 @@ module SlackLog.Html
   ) where
 
 
+import           Control.Applicative     ((<|>))
 import qualified Data.Aeson              as Json
 import qualified Data.ByteString.Lazy    as BL
 import qualified Data.HashMap.Strict     as HM
+import           Data.Maybe              (fromMaybe)
 import qualified Data.Text               as T
 import qualified Data.Time.Clock         as TC
 import qualified Data.Time.Format        as TF
@@ -91,7 +93,8 @@ renderSlackMessages WorkspaceInfo {..} PageInfo {..} msgs = H.renderByteString
     )
   )
  where
-  channelName = channelNameById HM.! channelId
+  channelName =
+    fromMaybe channelId (HM.lookup channelId channelNameById <|> HM.lookup channelId groupNameById)
   title = workspaceInfoName <> " / " <> channelName <> " #" <> T.pack (show pageNumber)
   pager = H.div_A (A.class_ ("pager" :: T.Text))
     ( ((\pp -> H.a_A (A.href_ pp # A.class_ ("pager__previous" :: T.Text)) ("Previous" :: T.Text)) <$> previousPagePath)
