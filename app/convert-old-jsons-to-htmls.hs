@@ -15,7 +15,6 @@ limitations under the License.
 -}
 
 import qualified Control.Arrow       as A
-import           Data.Char           (isDigit)
 import           Data.Foldable       (for_)
 import qualified Data.HashMap.Strict as HM
 import           Data.List           (sortOn)
@@ -24,7 +23,7 @@ import           SlackLog.Html
 import           SlackLog.Types      (targetChannels)
 import           SlackLog.Util       (readJsonFile)
 import qualified System.Directory    as Dir
-import           System.FilePath     (takeBaseName, (<.>), (</>))
+import           System.FilePath     ((</>))
 
 main :: IO ()
 main = Dir.withCurrentDirectory "doc" $ do
@@ -61,11 +60,3 @@ putBetweenPreviousAndNext = go Nothing
     []
   go _ [] =
     error "putBetweenPreviousAndNext: Impossible!"
-
-
-addPageNumber :: FilePath -> (Integer, FilePath)
-addPageNumber path = (read $ takeWhile isDigit path, path)
-
-
-toHtmlPath :: FilePath -> FilePath
-toHtmlPath name = takeBaseName name <.> "html"
