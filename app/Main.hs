@@ -101,6 +101,21 @@ main = do
         hPutStrLn stderr "WARNING: Error when fetching the list of channels:"
         hPrint stderr err
 
+  Slack.groupsList
+    `runReaderT` apiConfig >>= \case
+      Right (Group.ListRsp chs) -> do
+        -- Groups (private channels) should be saved only
+        -- if specified in 'targetChannels' to hide their group names.
+        let groupsByName =
+              HM.fromList
+                . filter ((`HM.member` targets) . fst)
+                $ map ((,) <$> Group.groupId <*> Group.groupName) chs
+        -- Save groups separately from channels to avoid to save empty hash when error.
+        BL.writeFile "doc/json/.groups.json" $ Json.encodePretty groupsByName
+      Left err -> do
+        hPutStrLn stderr "WARNING: Error when fetching the list of channels:"
+        hPrint stderr err
+
   Slack.usersList
     `runReaderT` apiConfig >>= \case
       Right (User.ListRsp us) -> do

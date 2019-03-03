@@ -45,6 +45,7 @@ data PageInfo = PageInfo
 data WorkspaceInfo = WorkspaceInfo
   { userNameById      :: HM.HashMap UserId UserName
   , channelNameById   :: HM.HashMap ChannelId ChannelName
+  , groupNameById     :: HM.HashMap ChannelId ChannelName
   , workspaceInfoName :: T.Text
   , getTimeDiff       :: TC.UTCTime -> LT.TimeZone
   }
@@ -107,7 +108,8 @@ renderSlackMessages WorkspaceInfo {..} PageInfo {..} msgs = H.renderByteString
         (H.Raw messageBody)
       )
    where
-    getUserName = (userNameById HM.!) . Slack.unUserId
+    getUserName suid =
+      let uid = Slack.unUserId suid in fromMaybe uid (HM.lookup uid userNameById)
     userName = maybe "<non-user>" getUserName messageUser
     messageBody =
       Slack.messageToHtml Slack.defaultHtmlRenderers getUserName messageText
@@ -121,6 +123,7 @@ loadWorkspaceInfo :: FilePath -> IO WorkspaceInfo
 loadWorkspaceInfo dir = do
   userNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".users.json")
   channelNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".channels.json")
+  groupNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".groups.json")
 
   cfg <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".config.json")
   let workspaceInfoName = workspaceName cfg
