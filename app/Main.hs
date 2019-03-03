@@ -136,7 +136,7 @@ saveChannel cfg tss channelName vis = Dir.withCurrentDirectory "doc" $ do
   let hist =
         case vis of
             Private -> Slack.groupsHistory
-            Public -> Slack.channelsHistory
+            Public  -> Slack.channelsHistory
   res <- runReaderT (Slack.historyFetchAll hist channelName 100 old new) cfg
   case res of
       Right body -> do
