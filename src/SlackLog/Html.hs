@@ -6,7 +6,7 @@
 {-# LANGUAGE StrictData        #-}
 
 module SlackLog.Html
-  ( converToHtmlFile
+  ( convertToHtmlFile
   , renderSlackMessages
   , loadWorkspaceInfo
   , PageInfo(..)
@@ -51,9 +51,8 @@ data WorkspaceInfo = WorkspaceInfo
   }
 
 
-converToHtmlFile :: PageInfo -> IO ()
-converToHtmlFile pg = do
-  ws <- loadWorkspaceInfo "json"
+convertToHtmlFile :: WorkspaceInfo -> PageInfo -> IO ()
+convertToHtmlFile ws pg = do
   let jsonPath = pathFromPageInfo "json" pg
       htmlPath = pathFromPageInfo "html" pg
   BL.writeFile htmlPath
