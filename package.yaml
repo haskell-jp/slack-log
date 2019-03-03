@@ -63,6 +63,15 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - slack-log
+  convert-old-jsons-to-htmls:
+    main:                convert-old-jsons-to-htmls.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - slack-log
 
 tests:
   slack-log-test:
