@@ -26,7 +26,6 @@ import           Control.Exception        (bracket)
 import           Control.Monad            (when)
 import           Control.Monad.IO.Class   (liftIO)
 import           Control.Monad.Reader     (runReaderT)
-import qualified Data.Aeson               as Json
 import qualified Data.Aeson.Encode.Pretty as Json
 import qualified Data.ByteString.Lazy     as BL
 import qualified Data.HashMap.Strict      as HM
@@ -48,11 +47,15 @@ import qualified System.Process.Typed     as P
 import qualified Web.Slack                as Slack
 import qualified Web.Slack.Channel        as Channel
 import qualified Web.Slack.Common         as Slack
+import qualified Web.Slack.Group          as Group
 import qualified Web.Slack.User           as User
 
-import           SlackLog.Util            (failWhenLeft)
 import           SlackLog.Pagination      (chooseLatestPageOf, defaultPageSize,
                                            paginateFiles)
+import           SlackLog.Types           (ChannelId, ChannelName,
+                                           Visibility (Private, Public),
+                                           targetChannels)
+import           SlackLog.Util            (failWhenLeft, readJsonFile)
 import           Web.Slack.Instances      ()
 
 
@@ -71,30 +74,7 @@ instance FromEnv EnvArgs where
         putStrLn ""
         return t
 
-type ChannelName = T.Text
-
-data Visibility = Private | Public deriving (Eq, Show)
-
-
-targetChannels :: [(ChannelName, Visibility)]
-targetChannels =
-  [ ("C8KBGEBR7", Public)  -- code-review
-  , ("C4P499EPQ", Public)  -- english
-  , ("C4LFB6DE0", Public)  -- general
-  , ("CAXQ09PN2", Public)  -- haskell-day
-  , ("C7Y71415W", Public)  -- math
-  , ("C5666B6BB", Public)  -- questions
-  , ("C4M4TT8JJ", Public)  -- random
-  , ("C8R0H137H", Public)  -- translation
-  , ("CCYF8H43A", Public)  -- nix
-  , ("CD87P78HF", Public)  -- mmlh
-  , ("CE368SB5G", Public)  -- ghc8x
-  , ("CGT2Q4KHP", Public)  -- hatchobori-haskell
-  , ("GDTFWM8KX", Private) -- haskell-day-staff
-  ]
-
-
-type TimestampsByChannel = HM.HashMap T.Text Slack.SlackTimestamp
+type TimestampsByChannel = HM.HashMap ChannelId Slack.SlackTimestamp
 
 
 main :: IO ()
@@ -103,14 +83,17 @@ main = do
   hSetBuffering stdout NoBuffering
   hSetBuffering stderr NoBuffering
 
-  config <- Slack.mkSlackConfig =<< slackApiToken <$> (failWhenLeft =<< decodeEnv)
-  tss <- readLastTimestampsOrDefault ".timestamps.json"
-  newTss <- HM.fromList <$> for targetChannels (uncurry $ saveChannel config tss)
+  apiConfig <- Slack.mkSlackConfig =<< slackApiToken <$> (failWhenLeft =<< decodeEnv)
+  tss <- readJsonFile ".timestamps.json" -- TODO: move to doc/json
+  logConfig <- readJsonFile "doc/.config.json"
+  let targets = targetChannels logConfig
+  newTss <- HM.fromList
+    <$> for (HM.toList targets) (uncurry $ saveChannel apiConfig tss)
 
   BL.writeFile ".timestamps.json" $ Json.encodePretty newTss
 
   Slack.channelsList (Channel.ListReq (Just True) (Just False))
-    `runReaderT` config >>= \case
+    `runReaderT` apiConfig >>= \case
       Right (Channel.ListRsp chs) -> do
         let channelsByName = HM.fromList $ map ((,) <$> Channel.channelId <*> Channel.channelName) chs
         BL.writeFile "doc/json/.channels.json" $ Json.encodePretty channelsByName
@@ -119,7 +102,7 @@ main = do
         hPrint stderr err
 
   Slack.usersList
-    `runReaderT` config >>= \case
+    `runReaderT` apiConfig >>= \case
       Right (User.ListRsp us) -> do
         let usersByName = HM.fromList $ map ((,) <$> Slack.unUserId . User.userId <*> User.userName) us
         BL.writeFile "doc/json/.users.json" $ Json.encodePretty usersByName
