@@ -1,0 +1,46 @@
+{-# LANGUAGE DeriveAnyClass    #-}
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE LambdaCase        #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE StrictData        #-}
+
+module SlackLog.Types where
+
+import qualified Data.Aeson          as Json
+import qualified Data.Aeson.Types    as JsonTypes
+import qualified Data.HashMap.Strict as HM
+import qualified Data.Text           as T
+import           GHC.Generics        (Generic)
+import           Safe                (headMay)
+
+
+data Config = Config
+  { workspaceName  :: T.Text
+  , timeZone       :: String
+  , targetChannels :: TargetChannels
+  } deriving (Eq, Show, Generic, Json.FromJSON)
+
+
+data Visibility = Private | Public deriving (Eq, Show)
+
+instance Json.FromJSON Visibility where
+  parseJSON = JsonTypes.withText typ $ \t -> do
+    let err = JsonTypes.typeMismatch "Visibility" (JsonTypes.String t)
+    -- Parse only the first word of the text to allow users to leave comments.
+    firstWord <- maybe err pure . headMay $ T.words t
+    case firstWord of
+        "Private" -> pure Private
+        "Public"  -> pure Public
+        _         -> err
+   where
+    typ = "Visibility"
+
+type TargetChannels = HM.HashMap ChannelId Visibility
+
+type UserName = T.Text
+
+type UserId = T.Text
+
+type ChannelName = T.Text
+
+type ChannelId = T.Text

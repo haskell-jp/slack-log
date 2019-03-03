@@ -10,7 +10,6 @@ module SlackLog.Html
   , renderSlackMessages
   , loadWorkspaceInfo
   , PageInfo(..)
-  , RenderingConfig(..)
   , WorkspaceInfo(..)
   ) where
 
@@ -23,7 +22,6 @@ import qualified Data.Time.Clock         as TC
 import qualified Data.Time.Format        as TF
 import qualified Data.Time.LocalTime     as LT
 import qualified Data.Time.Zones         as TZ
-import           GHC.Generics            (Generic)
 import           Html                    (( # ))
 import qualified Html                    as H
 import qualified Html.Attribute          as A
@@ -31,16 +29,10 @@ import           System.FilePath         ((</>))
 import qualified Web.Slack.Common        as Slack
 import qualified Web.Slack.MessageParser as Slack
 
+import           SlackLog.Types          (ChannelId, ChannelName,
+                                          Config (timeZone, workspaceName),
+                                          UserId, UserName)
 import           SlackLog.Util           (failWhenLeft)
-
-
-type UserName = T.Text
-
-type UserId = T.Text
-
-type ChannelName = T.Text
-
-type ChannelId = T.Text
 
 
 data PageInfo = PageInfo
@@ -49,11 +41,6 @@ data PageInfo = PageInfo
   , nextPagePath     :: Maybe FilePath
   , channelId        :: ChannelId
   } deriving (Eq, Show)
-
-data RenderingConfig = RenderingConfig
-  { workspaceName :: T.Text
-  , timeZone      :: String
-  } deriving (Eq, Show, Generic, Json.FromJSON)
 
 data WorkspaceInfo = WorkspaceInfo
   { userNameById      :: HM.HashMap UserId UserName
@@ -135,7 +122,7 @@ loadWorkspaceInfo dir = do
   userNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".users.json")
   channelNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".channels.json")
 
-  cfg <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".rendering.json")
+  cfg <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".config.json")
   let workspaceInfoName = workspaceName cfg
   getTimeDiff <- fmap TZ.timeZoneForUTCTime . TZ.loadTZFromDB $ timeZone cfg
 
