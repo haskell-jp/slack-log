@@ -274,5 +274,29 @@
         "text": "そういえば True / False は data section に置かれるはずなので、ヒープ領域とは限らないのですね。 True_closure + 9 の場所が Windows だと別の data section の静的データがマッピングされる(ので毎回同じ出力になる)のに対し、 Mac/Linux とかだとゴミ領域になってる(ので初期化されていないゴミデータが出力される)とかかもですね。Mac/Linux 系でも上位ビットは毎回同じなので、元々何かがいたのかもですが",
         "user": "U57D08Z9U",
         "type": "message"
+    },
+    {
+        "ts": "1551679556.020200",
+        "text": "各種ライブラリでhttp-client-opensslでなくてhttp-client-tlsがデフォルトなのは\nなにか理由があるのでしょうか。\ntlsのほうのパフォーマンスが悪いのでopensslに切り替えているのですが、\nそういうのをやめたいですね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1551679589.020800",
+        "text": "http-client-tlsはcryptonite_gf_mul（cryptoniteのパッケージにあります） というcの関数を呼んでいるのですが、これが特に遅いです。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1551680505.021300",
+        "text": "正確な理由は存じませんが、ビルドはhttp-client-tlsの方が楽ですね。（特にWindowsだと... :disappointed_relieved:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1551680746.021600",
+        "text": "確かに。",
+        "user": "U74KTAG0N",
+        "type": "message"
     }
 ]
