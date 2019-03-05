@@ -58,5 +58,215 @@
         "text": "とりあえず、hs-tlsのissueに登録していただけると助かります。",
         "user": "U56MBRKR9",
         "type": "message"
+    },
+    {
+        "ts": "1551761909.028400",
+        "text": "<@U90TTJDB7> has joined the channel",
+        "user": "U90TTJDB7",
+        "type": "message"
+    },
+    {
+        "ts": "1551762061.028700",
+        "text": "<@U4MMHDSNT> has joined the channel",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551762073.029000",
+        "text": "おしえてー",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551762079.029200",
+        "text": "くだされ",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551762100.029700",
+        "text": "ゼロから作るDeep LearningをRepaでなぞってるんだけど",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551762149.030700",
+        "text": "Performanceが悪いのでどうやるのが良いのか",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551762174.031200",
+        "text": "現在4章の2層ネットでバッチ処理をしたいというところ.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551762226.032200",
+        "text": "誤差逆伝搬の前で数値微分によるミニバッチ学習をやろうとしている.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551762292.033500",
+        "text": "パフォーマンスについては書籍の公開しているpythonコードをダウンロードしてきて走らせて比較してみた結果,今の実装が遅すぎると判明.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551762325.034600",
+        "text": "Shift + Enterで\n改行できるので\nまとめると良いですよ",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551762400.035700",
+        "text": "pyhonのはどうやら誤差逆伝搬のアルゴリズムの方をenableにしてたからひとまず数値微分の方を有効にしてみたら,確かに遅めだけど待ってられない程じゃない.\nそれに比べたら今の私の実装は終わるまで待ってられないレベル.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551762582.038600",
+        "text": "Pythonの実装だとネットワークを1枚用意しておいて代入操作で各ノードを書き換えつつ計算しているのだけど,RepaだとArray DのままだとmmultできずどうもそこでUnboxedな配列として実体化されてしまうのが問題なのかなーというところです.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551764162.054100",
+        "text": "100*784の2次元配列(Double)に対して順に100*784回もUnboxedな配列が実体化されるはずで,これ回避できないか?(小さい層もあるのでもう少し回数増える)\nあるいはRepaでそういことやるときのノウハウとかありましたら是非お願いします.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551764277.055200",
+        "text": "たぶん，どういうコードを書いてるのかわからないので何も言いようがない雰囲気",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1551764315.055500",
+        "text": "<https://github.com/cutsea110/deep-learning-from-scratch>",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551764660.059800",
+        "text": "今一歩一歩試しつつやってたのでmainの中がごちゃごちゃしているけど,TwoLayerNet.hsの99行目の処理がミニバッチサイズ100に対して1回numerical gradientを走らせただけの処理です.\nここを改善したいのです.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551767870.060500",
+        "text": "<https://github.com/vincenthz/hs-tls/issues/357>\nこんな感じです。\nよろしくお願いします。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1551767896.060900",
+        "text": "おおー",
+        "user": "U4MA78F6X",
+        "type": "message"
+    },
+    {
+        "ts": "1551772620.061300",
+        "text": "<@UDUBKLQMD> has joined the channel",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551774203.061500",
+        "text": "とりあえずSystem.Randomは非常に遅いので`mwc-random`等速い乱数生成ライブラリを使ったほうが良いです。",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551774912.061700",
+        "text": "あとUtil.hs内の型クラス制約をもつ関数にINLINABLEプラグマをつけると改善するかもしれません。",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551777090.061900",
+        "text": "この分野には詳しくないんですけど、 `fromFunction` で作った行列はインデックスアクセスする度に関数を計算するんですね。だとすると、実体化した方が速くなるポイントとかありそう。メモ化的な。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1551777194.062100",
+        "text": "ミュータブルな代入を使ったアルゴリズムがあるならHaskellでもそれ使った方がいい気がするんですが、repaでミュータブルアルゴリズムの併用ってどうやるんだろう",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1551779126.066400",
+        "text": "<@UA903N8Q5> has joined the channel",
+        "user": "UA903N8Q5",
+        "type": "message"
+    },
+    {
+        "ts": "1551779307.070700",
+        "text": "アドバイスありがとうございます。\nINLINABLEプラグマも試してみます。がRepaでもINLINE段数まで指定してるっぽいんでなかなか厳しそう。\n\n実体化した方が速いと思ってたんですが回数が多いのと、ほとんどは同じエリアの値にアクセスするので流石に作りすぎだと思うんですよね。\n今はmmultSとかがArray Uを要求するから実体化してるという認識です。\n常に100*784のうちの1箇所だけ値を変えて計算するんだけどそれっきりなんで、使い捨てる感じなんです。\nそうすると実体化するより計算で使い捨ての方が速いと読んでるんだけどその方法がよく分からない。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551780302.072300",
+        "text": "ほとんどmmultSに時間かかってるみたいですけどこれ計算量どのくらいなんですか？",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551780693.080300",
+        "text": "mmultSは行列の積を求めてるけどそれ自体はそんなに時間食ってないと思ってたんですが。\n基本的には転置してからzipWithなんで転置はやはりfromFunctionでアクセスを変換するだけだからそれ自体はO(1)かな。zipWithするけどl*mとm*nであればO(l*n)にはなりそうかなぁ。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551780855.082400",
+        "text": "それと同程度のオーダーでNNも作り直し(実体化)てるはずなんですよね。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551790873.082900",
+        "text": "各重み(784 * 100 + 100 * 10 変数)の微小変化に対して(100,784) * (784, 100)の行列乗算(naiveには100*100*784回の演算が必要）を行なっているので計算量的に絶望的だと思います。Pythonの実装の方は何か工夫がされているのではないでしょうか？",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551791904.093100",
+        "text": "行列の積自体はNumPyの中なので多分FFI通してC/C++なのかな。\nでもnumerical gradientは代入操作でスキャンしてるけど都度lossを計算つまり初期値を投入して計算してるので全体の計算量自体は同じなんじゃないかなぁ。\nこれが遅いからbackpropergationするぞーという流れのようです。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551794059.096200",
+        "text": "Python実装って<https://github.com/oreilly-japan/deep-learning-from-scratch/blob/master/ch04/train_neuralnet.py>\nですか？これ `network.numerical_gradient`の呼び出しがコメントアウトされてて代わりに　　 `network.gradient` を呼び出しているんですが、コメントアウトを逆にして実行すると全く進まないので`numerical_gradient`が遅いのは仕様なのではないでしょうか？",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551794838.096500",
+        "text": "&gt; pyhonのはどうやら誤差逆伝搬のアルゴリズムの方をenableにしてたからひとまず数値微分の方を有効にしてみたら,確かに遅めだけど待ってられない程じゃない.\nこれはそのことでしたか。失礼しました。",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551803276.096700",
+        "text": "全く進まないですかね.\n私の手元のnoteだと1min20sec~1min30sec程度で1回のnumerical_gradientは返るんですよ.\n私のコードだとその1回すら40分待っても返ってこないのでさすがにこれは無いだろうと思っているんだけど.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551804570.096900",
+        "text": "私の手元でも確かに数分に一回くらいは返ってきましたね。numpyの行列乗算が速すぎるのでpureなHaskellで匹敵するのは難しいと思います。\n手元で高速化して見たコードをプルリクで送りましたのでよろしければ参考にしてください。多分１０分以内には一回のnumerical_gradientが終わると思います。\n<https://github.com/cutsea110/deep-learning-from-scratch/pull/1>",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551804677.097600",
+        "text": "おお、ありがとうございます",
+        "user": "U4MMHDSNT",
+        "type": "message"
     }
 ]
