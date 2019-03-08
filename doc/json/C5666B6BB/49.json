@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1551860438.113300",
+        "text": "あとLLVMも\n<https://ghc.haskell.org/trac/ghc/wiki/Commentary/Compiler/Backends/LLVM/Installing>\nこれみるとGHC 8.4系だとLLVM5.0なんですね.\n最初LLVM7.0が入ったときにビルド時にwarnning出て,6.0にdowngradeしたら黙ったから気付かなかったけど",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551860545.113500",
+        "text": "だがapt searchしても見当らないのであった.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551860639.113700",
+        "text": "and u zlib!!!",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551860647.113900",
+        "text": "sudo apt install libghc-zlib-prof",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551860723.114100",
+        "text": "うーんまたこうしてaptで入れているのとcabal で入れているのがgotchaになっていく.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551860764.114300",
+        "text": "`ghc`のバイナリインストールなら最近は `ghcup`がオススメです.",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551860796.114500",
+        "text": "初耳 &gt; ghcup",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551860918.114700",
+        "text": "祝コンパイル成功!!",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551860952.114900",
+        "text": "まだスタートライン100メートル手前の心境.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551861053.115100",
+        "text": "cabal new-exec main -- +RTS -p -N8 -smain.log\n\nが起動したので涙でモニタが見えない.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551861116.115300",
+        "text": "この顛末をqiitaに残すべきかどうか",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551861319.115500",
+        "text": "こんな状態.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551861527.115900",
+        "text": "yesodやってたころは最終的に必要になったからstack使ったけど今はもっぱらcabalしか使ってないです.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551863040.120000",
+        "text": "`[Network.Simple.TCP.TLS](<http://hackage.haskell.org/package/network-simple-tls-0.3.1/docs/Network-Simple-TCP-TLS.html>)`というパッケージで以下のようなコードを実行させてchromeでhttpsでアクセスするとスレッドが残ったままになってしまいます（Firefox、Safariでは起こらない）。\n```\n{-# LANGUAGE LambdaCase        #-}\n{-# LANGUAGE OverloadedStrings #-}\n\nmodule Lib\n    ( someFunc\n    ) where\n\nimport           Control.Concurrent\nimport           Control.Monad\nimport           Data.X509.CertificateStore\nimport           Network.Simple.TCP.TLS\nimport           Network.TLS\n\nsomeFunc :: IO ()\nsomeFunc = do\n  credentialLoadX509 \"./localhost.pem\" \"./localhost-key.pem\" &gt;&gt;=\n    \\case\n      Right c -&gt;\n        void $ forkIO $ serve (makeServerSettings c Nothing) \"localhost\" \"8080\" $ \\(ctx, _) -&gt; establish ctx\n      _ -&gt;\n        putStrLn \"Error\"\n  -- 終了させないためだけの処理\n  _ &lt;- getLine\n  pure ()\n\nestablish :: Context -&gt; IO ()\nestablish ctx = do\n  r &lt;- recv ctx\n  case r of\n    Just r' -&gt; print r'\n    _       -&gt; pure ()\n```\n[このあたり](<https://github.com/k0001/network-simple-tls/blob/68a152e8e834ed3e0b5f5cac9d60927df385e682/src/Network/Simple/TCP/TLS.hs#L537-L543>)の例外ハンドリングがまずってるんじゃないかと同僚と推測しているのですが、何かお心当たりありませんか",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551863380.120300",
+        "text": "今更 ghc と runghc を混同していたのに気が付きました。今まで ghc として示していた結果は runghc のです。 ghc での結果はこれです（一定）。\n```\n0\nMyI# 0#\nIBI# 0#\n1729382256910270464\nMyI# 1729382256910270464#\nCB\n10\nCB\nCA\nCA\n```",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1551863874.120500",
+        "text": "無事profile採取できました.\nありがとうございました.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551865289.120900",
+        "text": "<@UGRT7TBPG> has joined the channel",
+        "user": "UGRT7TBPG",
+        "type": "message"
+    },
+    {
+        "ts": "1551875626.121600",
+        "text": "<@UGQGVSB4L> has joined the channel",
+        "user": "UGQGVSB4L",
+        "type": "message"
+    },
+    {
+        "ts": "1551878632.121800",
+        "text": "&gt; +9 （アラインメントしていない場所）からの8バイト、というのがすごく気持ち悪いです… intel だから読めるけどそれ以外のアーキテクチャだったらアラインメントエラーになるのでは、という感が\n\nそうなんですよね、「+9」は気持ち悪いです。\n正しいInt型のコードだと、payloadのInt値を読み取る箇所は、「+8」のコードを正しく吐いていました。ところが、unsafeCoerceで無理矢理に型をひねると、Cmm出力の時点でコードが「+9」を指すように変わりました。（ただ、非保証動作で深そうなので、コード生成のどこで不整合が起きているかは、それ以上追いませんでした ^^;）",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1551939979.122600",
+        "text": "stylish-haskellに関する質問です。\n指定したディレクトリ内の.hsファイルすべてにstylish-haskellを適用するコマンドってありますか？\nsrc内のhaskellモジュールが結構な数になったので一気に適用できればいいなーと考えたのです。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1551940517.122700",
+        "text": "<http://manpages.ubuntu.com/manpages/bionic/man1/stylish-haskell.1.html> これでしょうか？\n--inplace オプションを指定してワイルドカードで複数ファイルを指定すればよさそうですが…。",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551940525.122900",
+        "text": "<https://haskell.e-bigmoon.com/stack/etc/stylish-haskell.html>\nにワンライナーが載ってる",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1551940542.123200",
+        "text": "実は正しいオプションがあるかもだけど",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1551940567.123400",
+        "text": "上記ワンライナーも -i オプション(--inplace の短縮形)使ってるようですね",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551940585.123600",
+        "text": "ワイルドカードの代わりに find の結果を使ってるだけのようです",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551940713.123900",
+        "text": "自己解決しました。このプルリクエストが解決策でした <https://github.com/k0001/network-simple-tls/pull/13>",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551940766.124200",
+        "text": "ありがとうございます！神は存在した！",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1551940905.124400",
+        "text": "find の方を使う場合は、ファイル名やディレクトリ名に特殊な文字（空白や引用符など）が含まれているとあのままでは動かないことにご注意ください",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551941020.124600",
+        "text": "`find . -type f -name \"*hs\" …その他の絞り込み条件…  -print0 | xargs -0 stylish-haskell -i` のように find の -print0 オプションと xargs の -0 オプションのコンボを使うとどんな変な文字が含まれていても大丈夫になります",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551941639.124900",
+        "text": "`find . -type f -name \"*hs\" -not -path '.git' -not -path '*.stack-work*' -print0 | xargs -0 stylish-haskell -i`\nこんな感じ？",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1551941816.125100",
+        "text": "もとのワンライナーの通りならそうですね",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551941848.125300",
+        "text": "なるほど！ではこっちを使ってみます。ありがとうー",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1551941971.125500",
+        "text": "(シェルが zsh なら `stylish-haskell -i **/*.hs` だけで行けるんですけどね^^;)",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551949470.126000",
+        "text": "<@UGRUDUG3X> has joined the channel",
+        "user": "UGRUDUG3X",
+        "type": "message"
+    },
+    {
+        "ts": "1551949902.128200",
+        "text": "git管理しているならfindよりgit ls-files|egrep hs¥$の方が安全という説も",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1551950550.129200",
+        "text": "ライブラリのビルド時に使われた GHC の settings の情報 (<https://gitlab.haskell.org/ghc/ghc/blob/master/settings.in>) を取れるモジュールとかってありますか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1551951029.129900",
+        "text": "NOINLINEプラグマって必ずインライン化を抑制するわけではないのでしょうか?",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551951250.130800",
+        "text": "The NOINLINE pragma does exactly what you’d expect: it stops the named function from being inlined by the compiler. You shouldn’t ever need to do this, unless you’re very cautious about code size.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551951346.132700",
+        "text": "とあるんだけど,私の手元で-ddump-simpl-statsを見る限り,-Oを付けるとそうでもないような.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551951471.134900",
+        "text": "小さいコード片なのでINLINEプラグマは正直関係なく,-Oを付けようが付けまいがそれなりにやってくれてそうだけど,NOINLINE付けたときに-Oでビルドすると一番激しく(Grand total simplifier statisticsが大きく,しかも生成されたコードも一番良さげみ見受ける)最適化が走っているような",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551951607.135000",
+        "text": "今試しているコードはこれですが,",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551951811.135800",
+        "text": "プラグマをはずしてから-Oも付けずにddumpすると,\n```\n==================== Grand total simplifier statistics ====================\nTotal ticks:     15\n\n6 PreInlineUnconditionally\n  2 x\n  2 x\n  2 y\n1 PostInlineUnconditionally 1 x'\n2 UnfoldingDone 2 timesInt\n1 LetFloatFromLet 1\n4 BetaReduction\n  2 x\n  2 y\n1 KnownBranch 1 wild\n3 SimplifierDone 3\n\n:\n:\n==================== CorePrep ====================\nResult size of CorePrep\n  = {terms: 53, types: 26, coercions: 0, joins: 0/0}\n\n-- RHS size: {terms: 15, types: 7, coercions: 0, joins: 0/0}\ntimesInt :: Int -&gt; Int -&gt; Int\ntimesInt\n  = \\ (x :: Int) (y :: Int) -&gt;\n      case x of { I# x' -&gt;\n      case y of { I# y' -&gt; case *# x' y' of sat { __DEFAULT -&gt; I# sat } }\n      }\n\n-- RHS size: {terms: 22, types: 9, coercions: 0, joins: 0/0}\ncube :: Int -&gt; Int\ncube\n  = \\ (x :: Int) -&gt;\n      case x of wild { I# x' -&gt;\n      case wild of wild1 { I# y' -&gt;\n      case wild1 of { I# y'1 -&gt;\n      case *# x' y' of sat { __DEFAULT -&gt;\n      case *# sat y'1 of sat { __DEFAULT -&gt; I# sat }\n      }\n      }\n      }\n      }\n```",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551951881.136400",
+        "text": "プラグマを付けずに-Oを付けると\n```\n==================== Grand total simplifier statistics ====================\nTotal ticks:     17\n\n4 PreInlineUnconditionally\n  2 x\n  2 y\n3 PostInlineUnconditionally\n  2 y'\n  1 x'\n2 UnfoldingDone 2 timesInt\n1 LetFloatFromLet 1\n4 BetaReduction\n  2 x\n  2 y\n3 KnownBranch\n  2 wild\n  1 wild\n9 SimplifierDone 9\n\n:\n:\n==================== CorePrep ====================\nResult size of CorePrep\n  = {terms: 47, types: 22, coercions: 0, joins: 0/0}\n\n-- RHS size: {terms: 15, types: 7, coercions: 0, joins: 0/0}\ntimesInt :: Int -&gt; Int -&gt; Int\ntimesInt\n  = \\ (x :: Int) (y :: Int) -&gt;\n      case x of { I# x' -&gt;\n      case y of { I# y' -&gt; case *# x' y' of sat { __DEFAULT -&gt; I# sat } }\n      }\n\n-- RHS size: {terms: 16, types: 5, coercions: 0, joins: 0/0}\ncube :: Int -&gt; Int\ncube\n  = \\ (x :: Int) -&gt;\n      case x of { I# x' -&gt;\n      case *# x' x' of sat { __DEFAULT -&gt;\n      case *# sat x' of sat { __DEFAULT -&gt; I# sat }\n      }\n      }\n```",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551951959.137400",
+        "text": "上のコードのようにNOINLINEを付けて-Oを付けなければ\n```\n==================== Grand total simplifier statistics ====================\nTotal ticks:     1\n\n1 LetFloatFromLet 1\n2 SimplifierDone 2\n\n:\n:\n==================== CorePrep ====================\nResult size of CorePrep\n  = {terms: 39, types: 19, coercions: 0, joins: 0/1}\n\n-- RHS size: {terms: 15, types: 7, coercions: 0, joins: 0/0}\ntimesInt :: Int -&gt; Int -&gt; Int\ntimesInt\n  = \\ (x :: Int) (y :: Int) -&gt;\n      case x of { I# x' -&gt;\n      case y of { I# y' -&gt; case *# x' y' of sat { __DEFAULT -&gt; I# sat } }\n      }\n\n-- RHS size: {terms: 8, types: 2, coercions: 0, joins: 0/1}\ncube :: Int -&gt; Int\ncube\n  = \\ (x :: Int) -&gt;\n      let {\n        sat :: Int\n        sat = timesInt x x } in\n      timesInt sat x\n```",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551952084.138400",
+        "text": "最後にNOINLINEが付いてて-Oも指定したら\n```\n==================== Grand total simplifier statistics ====================\nTotal ticks:     28\n\n8 PreInlineUnconditionally\n  3 w\n  3 w\n  1 x\n  1 y\n6 PostInlineUnconditionally\n  2 ww\n  1 x'\n  1 y'\n  1 ww\n  1 ww\n2 UnfoldingDone 2 timesInt\n1 LetFloatFromLet 1\n1 EtaReduction 1 ww\n4 BetaReduction\n  2 w\n  2 w\n6 KnownBranch\n  2 ww\n  1 wild\n  1 wild\n  1 ww\n  1 ww\n9 SimplifierDone 9\n\n:\n:\n==================== CorePrep ====================\nResult size of CorePrep\n  = {terms: 53, types: 27, coercions: 0, joins: 0/0}\n\n-- RHS size: {terms: 5, types: 2, coercions: 0, joins: 0/0}\n$wtimesInt :: Int# -&gt; Int# -&gt; Int#\n$wtimesInt = \\ (eta :: Int#) (eta :: Int#) -&gt; *# eta eta\n\n-- RHS size: {terms: 15, types: 7, coercions: 0, joins: 0/0}\ntimesInt :: Int -&gt; Int -&gt; Int\ntimesInt\n  = \\ (w :: Int) (w1 :: Int) -&gt;\n      case w of { I# ww1 -&gt;\n      case w1 of { I# ww3 -&gt;\n      case $wtimesInt ww1 ww3 of ww4 { __DEFAULT -&gt; I# ww4 }\n      }\n      }\n\n-- RHS size: {terms: 16, types: 5, coercions: 0, joins: 0/0}\ncube :: Int -&gt; Int\ncube\n  = \\ (x :: Int) -&gt;\n      case x of { I# ww1 -&gt;\n      case $wtimesInt ww1 ww1 of ww2 { __DEFAULT -&gt;\n      case $wtimesInt ww2 ww1 of ww3 { __DEFAULT -&gt; I# ww3 }\n      }\n      }\n```\nこれworker/wrapper変換かかってませんか?",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551952746.138700",
+        "text": "<http://hackage.haskell.org/package/ghc-8.6.1/docs/HscTypes.html>\nこれとかのことですかね.\nやったことないけど.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551953006.138900",
+        "text": "すいません，これって HscEnv のことですか？ ビルド時の情報を取得する API 見つけられないんですが，どれのことでしょう？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1551953109.139100",
+        "text": "これな気がしますね．別にそこまでコードが肥大化してるわけではないと思いますが (worker には NOINLINE がつくようなので)， w/w が入ると問題となるコードとかはあるのでしょうか？ あるのでしたら， GHC Trac に投げてみると良いかもしれませんが\n<https://gitlab.haskell.org/ghc/ghc/blob/ghc-8.6.4-release/compiler/stranal/WorkWrap.hs#L204>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1551953414.139500",
+        "text": "DynFlagsの中とかがそうかなと思って見ているところですが違うかな",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551953693.139700",
+        "text": "あ，えっと取りたい構造自体は <https://hackage.haskell.org/package/ghc-8.2.1/docs/DynFlags.html#t:Settings> の中の sRawSettings に入り，ライブラリのビルド時にそれが使用されることは分かっているのですが，そのライブラリの実行時にその情報を読めるような API はあるのかなというのが，質問です．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    }
+]

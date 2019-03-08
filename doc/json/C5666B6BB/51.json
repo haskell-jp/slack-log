@@ -1,0 +1,290 @@
+[
+    {
+        "ts": "1551963300.155300",
+        "text": "もし本当に「リストの長さが違っていて長い方のリストの後ろの方に Nothing がある場合も Nothing」にしたいなら、先にそれぞれ sequence してから liftA2 zip して fmap fromList すればよさそうですね",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551963329.155500",
+        "text": "`fmap fromList $ liftA2 zip (sequence keys) (sequence values)`",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551963387.156600",
+        "text": "せっかくだから `fromList &lt;$&gt; liftA2 zip (sequence keys) (sequence values)` と書きたいか^^;",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551963404.157300",
+        "text": "なぜapplicativeスタイルで書かないのだ？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551963411.157500",
+        "text": "いや書きましたｗ",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551963424.157700",
+        "text": "liftA2 までやるとちょっと読みにくいかなーと^^;",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551963440.158300",
+        "text": "丸括弧で囲む。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551963464.158500",
+        "text": "`fromList &lt;$&gt; (zip &lt;$&gt; sequence keys &lt;*&gt; sequence values)` ですね、はい^^;",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551963668.158700",
+        "text": "あ、これちがうな、なんかペアがつくれてないな",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551963702.158900",
+        "text": "これだと keyばっかりのリストとvalueばっかりのリストがペアになるだけでした^^;",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551963789.159100",
+        "text": "なるほど！とても勉強になります！！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551963814.159300",
+        "text": "あれ、いや\nちゃんとペアできてた",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551963875.161000",
+        "text": "等価な変換で結果が違う方がおかしい。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551963896.161200",
+        "text": "いや、元のやつが間違ってるかと思ったのでした…目がおかしかったようです",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551963968.161400",
+        "text": "こんな初心者の質問に皆さんいろんな意見を出して頂けてとても嬉しいです！:relaxed:",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551963978.161600",
+        "text": "で、もちろんそれぞれ sequence するということはそれぞれスキャンし終えてからもう一度 zip でたどることになるんですけど、それが仕様ならそうするしかないですよね",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551964083.161800",
+        "text": "あ、ちなみに今回の僕のケースだとkeysとvaluesでサイズが違う場合があります",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551964115.162000",
+        "text": "ただ、まあ、元のコードはスキャンの回数よりもむしろ fromJust が部分関数なあたりが怖いので、それをなくせれば良さそうな感じはしますね",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551964158.162200",
+        "text": "はい！allでチェック済みとはいえ部分関数を使っていたのですごくどうにかしたい気持ちがありました",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551964651.162500",
+        "text": "僕も勉強になった！そして最終的にこうなった。(これは間違っています)\n\n```\nsome ::　(Ord key) =&gt; [Maybe key] -&gt; [Maybe value] -&gt; Maybe (M.Map key value)\nsome keys values = M.fromList &lt;$&gt; zipWithM f keys values\n  where\n    f :: Maybe key -&gt; Maybe value -&gt; Maybe (key, value)\n    f mkey mvalue = (,) &lt;$&gt; mkey &lt;*&gt; mvalue\n```",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1551964710.162800",
+        "text": "ああ、つまり「長い方の後ろのほうにある Nothing」は無視するほうの仕様になったんですね",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551965074.163300",
+        "text": "そうだった。。忘れてた。。もう寝ます",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1551966936.164100",
+        "text": "各リストをちょうど一回ずつ舐めるようにするなら\n```\nfoldM step (M.empty,values) keys &gt;&gt;= (\\(acc,l) -&gt; acc &lt;$ sequence_ l)\n        where\n        step (!acc, []) mkey = (acc, []) &lt;$ mkey\n        step (!acc, mval:vals) mkey = \n            (,vals) &lt;$&gt; (M.insert &lt;$&gt; mkey &lt;*&gt; mval &lt;*&gt; pure acc)\n```\nみたいな感じですけど、さすがにkazuさんのいう通り再帰関数書いた方が読みやすいですね。",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551969570.165800",
+        "text": "&gt; あ、ちなみに今回の僕のケースだとkeysとvaluesでサイズが違う場合があります\n\nそれなら自分ならこう\n\n```\npairWith f (Just x) (Just y) = Just (f x y)\npairWith _ _        _        = Nothing\n\npair = pairWith (,)\nleft = pairWith const\n-- right = pairWith (flip const)\ncross f g (x, y) = (f x, g y)\n\nsome :: [Maybe a] -&gt; [Maybe b] -&gt; Maybe [(a, b)]\nsome xs ys = sequence ps `left` sequence rs\n  where\n    dummy = repeat (Just undefined)\n    (ps, rs) = go xs ys []\n    go []     ys     ps = (ps, zipWith pair dummy ys)\n    go xs     []     ps = (ps, zipWith pair xs dummy)\n    go (x:xs) (y:ys) ps = cross (pair x y:) id $ go xs ys ps\n```\n多分最初に書いたのもfの実装で欲しかったのはむしろpairだったか.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551972496.166200",
+        "text": "後ろを `Just undefined` で詰めるんですね^^;",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551973691.166400",
+        "text": "undefinedは積極的に使っていくタチです.(undefined忌み嫌っているけど...)",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551974756.166600",
+        "text": "pairWith って liftA2 だったりしませんか",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551974989.166800",
+        "text": "<@U4MMHDSNT> さんの見ながら直してたらこんなんできました\n```\n(&lt;:&gt;) = liftA2 (:)\n(&lt;.&gt;) = liftA2 (,)\nleft  = liftA2 const\n\nsome :: [Maybe a] -&gt; [Maybe b] -&gt; Maybe [(a,b)]\nsome (x:xs) (y:ys) = (x &lt;.&gt; y) &lt;:&gt; some xs ys\nsome []     ys     = Just [] `left` sequence ys\nsome xs     []     = Just [] `left` sequence xs\n```",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551975060.167000",
+        "text": "# `&lt;,&gt;` が作りたかったけどカンマは無理だった…",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551975529.167300",
+        "text": "liftA2のためにControl.Applicative入れるんならcrossもControl.Arrow ((***))をimportするか.\n最近はこのテの小さいサンプルコードの場合にはimportを書かずに済ませたいのだけどbaseの範囲なら別に良いか.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551975825.167600",
+        "text": "たしかにこれ、 Control.Applicative をまるっと import すると some がぶつかるんですよね^^;",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551977750.167800",
+        "text": "hylomorphism の具体例として書くのがいいとおもいます．recursion-schemesを使えばカッコいいけど，まぁリスト限定で以下のようにするのもありかな．\n```\nimport Data.Map (Map)\nimport qualified Data.Map as M\n\nsome :: Ord k =&gt; ([Maybe k], [Maybe v]) -&gt; Maybe (Map k v)\nsome = hylo phi z psi\n  where\n    z = Just M.empty\n    phi (Just Nothing, _) _ = Nothing\n    phi (_, Just Nothing) _ = Nothing\n    phi _ Nothing = Nothing\n    phi (Nothing, _) _     = z\n    phi (_, Nothing) _     = z\n    phi (Just (Just k), Just (Just v)) (Just m) = Just (M.insert k v m)\n    psi ([], [])   = Nothing\n    psi (k:ks, []) = Just ((Just k, Nothing), (ks, []))\n    psi ([], v:vs) = Just ((Nothing, Just v), ([], vs))\n    psi (k:ks,v:vs) = Just ((Just k, Just v), (ks,vs))\n    \nhylo :: (b -&gt; c -&gt; c) -&gt; c -&gt; (a -&gt; Maybe (b, a)) -&gt; a -&gt; c\nhylo phi z psi x = case psi x of\n  Nothing      -&gt; z\n  Just (y, x') -&gt; phi y (hylo phi z psi x')\n```",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1551980343.168000",
+        "text": "hylomorphism まで出てくると、 [The Evolution of a Haskell Programmer](<https://www.willamette.edu/~fruehr/haskell/evolution.html>) を思いだしました :sweat_smile:",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1551980707.168300",
+        "text": "つ「関数プログラミングの楽しみ」「関数プログラミング珠玉のアルゴリズムデザイン」",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1551980753.168500",
+        "text": ":grinning:",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1551996577.202600",
+        "text": "初見これhylo?って思ったけどナルホド\n\nリストにspecializeされてるから関手がMaybeなので分からなかったけどphi . fmap hylo . psi versionの方なのね.\n\ncata . anaと同じもんだとザツに理解してたけどまたちょっと流れが違って面白いもんですね\n合成するパスが違えば流れも違うんだなぁと当たり前のことを今更納得しました\n\nただ今回の場合はMaybeが3階層に出現しててpsiの意味を把握するのなかなか大変だと思う\n\nこれもしMaybeのリストじゃなくてMaybeのbinary treeだったらMaybe -Either-Maybeとかになってもっと判別しやすかったかな",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551996916.202800",
+        "text": "recursion-schemes パッケージの Data.Functor.Foldable をつかったほうが，むしろ，スッキリわかるかも？\n```\nbuildMap :: Ord k =&gt; ([Maybe k], [Maybe v]) -&gt; Maybe (Map k v)\nbuildMap = hylo phi psi\n  where\n    z = Just M.empty\n    phi Nil                                            = z\n    phi (Cons (Just Nothing, _)              _      )  = Nothing\n    phi (Cons (_, Just Nothing)              _      )  = Nothing\n    phi (Cons _                              Nothing)  = Nothing\n    phi (Cons (Nothing, _)                   _      )  = z\n    phi (Cons (_, Nothing)                   _      )  = z\n    phi (Cons (Just (Just k), Just (Just v)) (Just m)) = Just (M.insert k v m)\n    psi ([], [])    = Nil\n    psi (k:ks, [])  = Cons (Just k, Nothing) (ks, [])\n    psi ([], v:vs)  = Cons (Nothing, Just v) ([], vs)\n    psi (k:ks,v:vs) = Cons (Just k, Just v)  (ks,vs)\n```",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1551997351.203000",
+        "text": "Maybe は内側が元データのもの，外側が元データのリストにあるかどうかを表していて，短い分はNothingが充填されています．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1551997946.203200",
+        "text": "元のコードでphiのrhsのNothingもdouble meaningくさいですよね.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551997963.203400",
+        "text": "doubleじゃなくduplexか",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551998106.203600",
+        "text": "最初のはunfoldの停止サインで2,3番目のパターンのNothingはNothingなkかvがあるから潰していると",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551998500.203800",
+        "text": "はいそうです．\n3重Maybeの一番外は[]のベース函手ListF aのNil と Cons を表現したものですね．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552001848.207400",
+        "text": "hyloって自分で書くときは気にならないと思いますが中間データ型として何を見て(想定して)いるのかが隠れてしまって分かりづらいので敢えてローカルでも型を明示すると良いのかなと思ってます",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1552002484.210700",
+        "text": "ghc packageって初めて使ってみたけど-package ghcを与えるんですね.\nemacs使ってるんですけどロードできなくてコンパイル通すのも辛い.\nなんか設定しないとやってらんないですね,これは...",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1552037862.213500",
+        "text": "スレッドの内容をページに反映させました。空白を含む場合について全然考えていませんでした。ありがとうございます:star:\n<https://haskell.e-bigmoon.com/stack/etc/stylish-haskell.html>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1552040954.214400",
+        "text": "<https://twitter.com/hsjoihs/status/1103965106616983552>\n「Haskellの演算子に使う記号で、なんかこういうのにはこれを使うみたいな慣習」がまとまっていたりする記事とかってありますかね？",
+        "user": "U8EJKMNVA",
+        "type": "message"
+    },
+    {
+        "ts": "1552042552.218100",
+        "text": "一応学術誌に頻出するようなのは、それと近いものにするとかあるみたいですが、後は型が別の演算子に似てたらそれに似せるとか、そういう程度ではないのでしょうか。 正直無数にありすぎて実質無法地帯な感は否めませんが、、、 と個人的に思ってます",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1552045137.218500",
+        "text": "<https://twitter.com/fumieval/status/1103983314270973953>",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    }
+]

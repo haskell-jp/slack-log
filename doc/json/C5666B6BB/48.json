@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1551837468.100600",
+        "text": "プロファイルは `cabal.project.local` という名前のファイルに `profiling: True`と書いて `cabal new-build`でコンパイルすると良い感じにやってくれます。これだと各モジュールの公開される関数にSCCをつけてくれます。より細かいのを見る場合は `{-# OPTIONS_GHC -fprof-auto #-}` をつけたいコードの先頭に置けばできますが、やりすぎると最適化と競合を起こして本質がわからなくなるので注意する必要があります。",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551837494.100800",
+        "text": "パフォーマンスの違いがaesniを使っているかというところになってくるとcryptoniteじゃなくてcryptonite-opensslを使うというシナリオがあるような気がしております。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1551837565.101000",
+        "text": "&gt; `cabal.project.local` という名前のファイルに `profiling: True`と書いて `cabal new-build`でコンパイルする\ncabal new-build --enable-profでも同じことが出来ます。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1551837844.101200",
+        "text": "numpyと同等の性能を出したいのであればblasというFortranで書かれた線形代数ライブラリをFFIで使う必要があるらしく、詳しくはわからないですが `hmatrix`というライブラリが使いやすそうですね。　<https://qiita.com/lotz/items/2c932b45f78f6fc70e9c> <http://lqtmirage.hatenablog.com/entry/2018/07/12/232852>",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551839790.101600",
+        "text": "あとはcudaにバックエンドしてくれるAccelerateもありましたね。一時期開発が止まってた気がするんですが、去年の10月に更新されてる <http://hackage.haskell.org/package/accelerate>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1551840040.101900",
+        "text": "accelerateは開発の中心がaccelerate-cudaからaccelerate-llvmに移っています。CUDAにはaccelerate-llvm-ptx、CPUにはaccelerate-llvm-nativeを使います。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1551842505.102400",
+        "text": "hmatrixでやっているのは知ってたんですが同じことやってもなぁと思ったのでRepaかAccelerateかだと思いまして,Aの方はGPUを使うものだと思ったのでnote pcベースでやってるんでRepaになったという事情.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551845208.102600",
+        "text": "-threadedと-profって食い合わせ悪い?\nプロファイル取りつつと思ったけどビルドに失敗するんで調べたら過去の記事ではそんなおと書いてある.(しぇらしーさんのやつだ.)",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551845536.102900",
+        "text": "-fprof-autoはイケたけどruntimeで+RTS -pがやはりダメ.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551845712.103100",
+        "text": "どうやって実行してますか？",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551845775.103300",
+        "text": "今試しているのは\n\nghc-options: -Odph -rtsopts -threaded -fno-liberate-case -funfolding-use-threshold1000 -funfolding-keeness-factor1000 -fllvm -optlo-O3 -fprof-auto -eventlog\n\nとしておいてからの+RTS -s -N8 -l\n\nです.これで起動してみてるところ.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551845870.103600",
+        "text": "`-eventlog` と `-prof` は両立できないです",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551845872.103800",
+        "text": "あ,pullreqしてもらったものをcoしてそこで試し中です.\n一度そのまま実行してみて終了することは確認させてもらったのでこれでプロファイラを使いつつどうやって攻めれば良いのかを学習させてもらうつもりです.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551845875.104000",
+        "text": "はい.\n今丁度それを知って,-profではなく-eventlogを仕込んでから+RTSで-pではなく-lを利用して試しているところです",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551846154.104400",
+        "text": "`cabal new-exec main -- +RTS -p`でできるはずです。 `--`を忘れると `cabal`の方に+RTSが渡ってできないという罠があります。",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551846305.104700",
+        "text": "並列の場合にも-pでOKということですか?",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551846441.104900",
+        "text": "大丈夫なはずです。",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551846451.105100",
+        "text": "cutsea110@waikiki ~/devel/haskell/deep-learning-from-scratch (autotaker-speedup *)\n$ cabal new-exec ./dist/build/main/main -- +RTS -p -s -N8\ncabal: The program './dist/build/main/main' is required but it could not be\nfound.\n\nと出てしまいます.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551846503.105300",
+        "text": "cabal buildはsuccessでmainもあるのですが,見つけられない様子.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551846727.105500",
+        "text": "`cabal new-exec`はcabalファイルに設定した実行バイナリ名（おそらく `main`)を指定すれば良いです。また　`cabal new-`系ではビルド結果は `dist-newstyle`以下に保存されます。昔のコンパイル結果を参照しているのではないでしょうか？",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551851080.105900",
+        "text": "cabal clean\nrm -rf dist-newstyle\ncabal new-build --enable-prof\ncabal new-exec main -- +RTS -p -s -N8\nという流れで良いのかな...",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551851221.106200",
+        "text": "ああダメか. --enable-profが通らない...",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551851393.106400",
+        "text": "cabal clean\nrm -rf dist-newstyle\ncabal new-build\ncabal new-exec main -- +RTS -s -N8\nならOKだけど-pが使えないーーー",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551851465.106600",
+        "text": "new-execは使えたけど-pが-threadedと両立しないのかなやはり.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551851984.106800",
+        "text": "152,496,672 bytes allocated in the heap\n      51,950,384 bytes copied during GC\n      10,468,032 bytes maximum residency (8 sample(s))\n         324,928 bytes maximum slop\n              29 MB total memory in use (0 MB lost due to fragmentation)\n\n                                     Tot time (elapsed)  Avg pause  Max pause\n  Gen  0       137 colls,   137 par    0.360s   0.049s     0.0004s    0.0030s\n  Gen  1         8 colls,     7 par    0.090s   0.013s     0.0017s    0.0041s\n\n  Parallel GC work balance: 32.42% (serial 0%, perfect 100%)\n\n  TASKS: 18 (1 bound, 17 peak workers (17 total), using -N8)\n\n  SPARKS: 0 (0 converted, 0 overflowed, 0 dud, 0 GC'd, 0 fizzled)\n\n  INIT    time    0.006s  (  0.004s elapsed)\n  MUT     time    0.106s  (583.563s elapsed)\n  GC      time    0.450s  (  0.062s elapsed)\n  EXIT    time    0.002s  (  0.003s elapsed)\n  Total   time    0.564s  (583.633s elapsed)\n\n  Alloc rate    1,437,976,164 bytes per MUT second\n\n  Productivity  19.2% of total user, 100.0% of total elapsed\n\ngc_alloc_block_sync: 9791\nwhitehole_spin: 0\ngen[0].sync: 5\ngen[1].sync: 89",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551852188.107000",
+        "text": "Productivity 19.2%",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551852225.107200",
+        "text": "MUTが0.106sなのにelapsed 583sってこれ何やってんだって感じなんだが.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551852684.108200",
+        "text": "—enable-profではなく—enable-profiling のようです。",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551854975.108400",
+        "text": "&gt; —enable-profではなく—enable-profiling のようです。\n手元のcabal-installは--enable-profに限らず一意に定まるなら長いオプションの途中までで問題なく使えるのですが、古いcabal-installでは全部指定しないとダメかもしれません。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1551855108.108600",
+        "text": "&gt; `-eventlog` と `-prof` は両立できないです\nこちらも比較的新しいGHCなら一緒に使えます。例えば8.2あたりからheap profilingの情報をeventlogに出力できるようになったはずです。threadscopeがまだ対応してないのであまり便利ではないですが。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1551858446.108900",
+        "text": "Repa選んだのも並列でやれるってのも当然あるので,-threaded前提で考えています.その場合にはどっちが良いのかな?",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551858954.109100",
+        "text": "&gt; `-p`と `-threaded`が両立しない\nそんなことないはずなんですが・・・",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551859076.109400",
+        "text": "昔はダメだったという話はあるようです.当時も理論上はダメなことはないはずだけど実際にはやるとコンパイルできなかったりランタイムで落ちたりすると.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551859212.109600",
+        "text": "今手元で試すと,\nghc-options: -Odph -rtsopts -threaded -fno-liberate-case -funfolding-use-threshold1000 -funfolding-keeness-factor1000 -fllvm -optlo-O3\nで\ncabal new-build --enable-profiling\nするとビルドに失敗しますねぇ.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551859234.109800",
+        "text": "どんなエラーが出ますか？",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551859285.110000",
+        "text": "あーライブラリモジュールが見付けられない",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551859390.110200",
+        "text": "snippetとしてログを貼ってくれますか？",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551859436.110400",
+        "text": "Data/Default/Class.hs:61:1: error:\n    Could not find module ‘GHC.Generics’\n    Perhaps you haven't installed the profiling libraries for package ‘base-4.11.1.0’?\n    Use -v to see a list of the files searched for.\n   |\n61 | import GHC.Generics\n   | ^^^^^^^^^^^^^^^^^^^\ncabal: Failed to build StateVar-1.1.1.1 (which is required by exe:main from\ndeep-learning-from-scratch-0.1.0.0). See the build log above for details.\nFailed to build base-compat-0.10.5 (which is required by exe:main from\ndeep-learning-from-scratch-0.1.0.0). See the build log above for details.\nFailed to build basement-0.0.10 (which is required by exe:main from\ndeep-learning-from-scratch-0.1.0.0). See the build log above for details.\nFailed to build blaze-builder-0.4.1.0 (which is required by exe:main from\ndeep-learning-from-scratch-0.1.0.0). See the build log above for details.\nFailed to build bmp-1.2.6.3 (which is required by exe:main from\ndeep-learning-from-scratch-0.1.0.0). See the build log above for details.\nFailed to build byteable-0.1.1 (which is required by exe:main from\ndeep-learning-from-scratch-0.1.0.0). See the build log above for details.\nFailed to build cereal-0.5.8.0 (which is required by exe:main from\ndeep-learning-from-scratch-0.1.0.0). See the build log above for details.\nFailed to build data-accessor-0.2.2.8 (which is required by exe:main from\ndeep-learning-from-scratch-0.1.0.0). See the build log above for details.\nFailed to build data-default-class-0.1.2.0 (which is required by exe:main from\ndeep-learning-from-scratch-0.1.0.0). See the build log above for details.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551859440.110600",
+        "text": "こんなやつです.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551859452.110800",
+        "text": "-libdirを指定でよいのかな.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551859550.111000",
+        "text": "profiling libraryって昔と違って今はどれもdefaultで入ってたという認識なんだが...",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551859819.111300",
+        "text": "cabalファイルのbaseのdependencyを &lt; 4.13に変えて見てもらえますか？",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551859856.111500",
+        "text": "ghc-8.6.3でコンパイルしているならbaseが4.12のはずなので外からインストールしようとして失敗している気がします。",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551859877.111700",
+        "text": "あーいえ8.4.4だったりします.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551859893.111900",
+        "text": "debianのaptで入れているので",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551860032.112100",
+        "text": "あ,<https://ghc.haskell.org/trac/ghc/wiki/Commentary/Compiler/Backends/LLVM/Installing>",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551860135.112300",
+        "text": "<https://stackoverflow.com/questions/23450592/haskell-reinstall-base-with-profiling-enabled> これではないでしょうか？",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551860193.112600",
+        "text": "グェ..",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551860265.112800",
+        "text": "apt installing",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551860326.113000",
+        "text": "ビルド通りそう!",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    }
+]

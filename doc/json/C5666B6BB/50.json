@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1551953978.139900",
+        "text": "ああ失礼。私も今Settingsに到達しました.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551955719.140100",
+        "text": "GhcMonadのgetSessionDynFlagsかな",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551956556.140300",
+        "text": "このコードをかっこよくするにはどのようにすればいいのでしょうか？\n`all isJust` でチェックしてから `map fromJust` しているところなどがとてもダサく感じています。\n`&gt;&gt;=` を繋げるみたいな感じでかっこよく書きたいです。\nよろしくお願い致します。",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551956835.140600",
+        "text": "多分 `Data.Maybe` にあるこの関数でイケると思います <http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Maybe.html#v:catMaybes>",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551956867.140800",
+        "text": "あーいえ,問題になるわけじゃなく今パフォーマンスチューニングするためにコンパイラの最適化がどうなってるかイチから調べているところなだけです.ありがとうございます.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551956946.141000",
+        "text": "おっと、途中で `values` が増えてたので期待する動作がわからなく……",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551957907.141200",
+        "text": "説明不足ですみません！\nkeys、もしくはvaluesに一つでもNothingが入っていたらNothingを返したいんです",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551958401.141500",
+        "text": "foo xs ys = sequenceA $ zipWith f xs ys\n  where\n    f mx my = do { x &lt;- mx; y &lt;- my; return (x, y) }",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551958406.141700",
+        "text": "これでどうでしょ?",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551958414.141900",
+        "text": "```\nget :: [Maybe a] -&gt; Maybe [a]\nget = undefined\n\nsome :: [Maybe Char] -&gt; [Maybe Int] -&gt; Maybe (Map Char Int)\nsome keys values = do\n    k &lt;- get keys\n    v &lt;- get values\n    return Map.fromList $ zip k v\n```",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1551958487.142200",
+        "text": "λ&gt; keys\n[Just \"a\",Just \"b\",Nothing]\nλ&gt; values\n[Just 1,Just 2,Just 3]\nλ&gt; foo keys values\nNothing\nλ&gt; keys\n[Just \"a\",Just \"b\",Just \"c\"]\nλ&gt; values\n[Just 1,Just 2,Just 3]\nλ&gt; foo keys values\nJust [(\"a\",1),(\"b\",2),(\"c\",3)]",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551958491.142400",
+        "text": "こうなる.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551958541.142600",
+        "text": "codeどうやって貼り付けるんだ (じじぃまるだし",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551958633.143000",
+        "text": "とりあえず、\"```\"で囲む。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551958730.143200",
+        "text": "mdキホーでしたか.\n```\nfoo xs ys = sequenceA $ zipWith f xs ys\n  where\n    f mx my = do { x &lt;- mx; y &lt;- my; return (x, y) }\n```",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551958771.143500",
+        "text": "cutsea110さんの `f` を `liftA2 (,)` で書けば1行で行ける",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1551958808.143700",
+        "text": "おおステキ",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551959085.143900",
+        "text": "あ、ちがうちがう. fのコンテキストはMaybeなのでmxやmyはJust 1とかNothing.\nliftA2したら直積作っちゃうな.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551959314.144100",
+        "text": "す、すごい…！\nみなさんありがとうございます！\nこんなにかっこよく書けるんですね！！（見たことない関数がある…seequenceA…）",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551959427.146100",
+        "text": "オリジナルのコードが一番分かりやすいので、変にかっこよく書く必要はないと思いますよ。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551959473.146300",
+        "text": "sequenceAはsequenceで良さげ.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1551959521.146900",
+        "text": "そりゃそうだ。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551959582.148300",
+        "text": "リストが長く効率を求めるなら、再帰で書くといいでしょう。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1551959633.148500",
+        "text": "確かにオリジナルは一番分かりやすいですね！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551959641.148700",
+        "text": "自分はこうなった。確かにかずさんのいうとおり、これだと長いリストだと危ない。\n```\nsome :: [Maybe String] -&gt; [Maybe Int] -&gt; Maybe (M.Map String Int)\nsome keys values = do\n    k &lt;- sequence keys\n    v &lt;- sequence values\n    return $ M.fromList $ zip k v\n\n```",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1551959743.149000",
+        "text": "確かに、allとfromListでリストを二回参照するとスペースリークするので、zip(With)でくっつけてから回すか再帰で2つのリストを同時にマッチしないとダメなのには注意です",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1551959746.149200",
+        "text": "おお！こちらはわかりやすいのにかっこいいですね！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551959874.149400",
+        "text": "GhcMonadって単にGHCを起動して指定された場所のsettingsファイルを読みに行く実装しかなくないですか?",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1551959887.149600",
+        "text": "多相にするとこうなる\n\n```\nsome ::　(Ord key) =&gt; [Maybe key] -&gt; [Maybe value] -&gt; Maybe (M.Map key value)\nsome keys values = do\n    k &lt;- sequence keys\n    v &lt;- sequence values\n    return $ M.fromList $ zip k v\n\n```",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1551959946.149800",
+        "text": "2回参照するだけでもスペースリークって発生してしまうのですか…知りませんでした・・・",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551960074.150000",
+        "text": "これのREADMEの解説が分かりやすいです&gt;リーク <http://hackage.haskell.org/package/foldl>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1551960239.150400",
+        "text": "熟読します…！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551960341.150600",
+        "text": "リストが長いと危ないというのはsequenceが原因ということですか？？",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551960407.150800",
+        "text": "レベルが低く皆さんの会話についていけず…質問ばかりですみません…",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551960469.151000",
+        "text": "リストの長さが同じことが仮定できるなら\n```\nfmap M.fromList $ zipWithM (liftA2 (,)) keys values\n```\nでもいいですね",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551960524.151200",
+        "text": "sequence, sum, foldr, allとかの「リストを全部なめる関数」は、1回だけ呼ぶ分には遅延評価で上手いこと「生成→消費」のループを回して、余計なメモリを使わずに処理できるんですが、",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1551960587.151400",
+        "text": "この類の関数を2回以上呼んでしまうと、生成した要素を捨てずに覚えておかないといけないので、リストの長さ分のメモリを使ってしまうんですね",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1551960669.151600",
+        "text": "（さっきのページそれほど親切に書いてないですね、所詮ライブラリの説明なので）",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1551960695.151800",
+        "text": "なるほど…知りませんでした…！！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551960780.152100",
+        "text": "<@UDUBKLQMD> おお！そんな書き方もできるんですね！！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551961196.152300",
+        "text": "先程のリンクを見ているのですが ( <http://hackage.haskell.org/package/foldl> )\n`sumAndLength xs = (sum xs, length xs)`\nこれを見るとlength xsが終わった段階でxsは必要なくなってガベージコレクトの対象になるように見えるのですが、実際は違うのはなぜなのでしょうか？",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551961306.152700",
+        "text": "あ、length xsが終わったらxsは必要なくなるけどsum xsの実行時点では次のlength xsがあるからxsを捨てられないということですか？",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551961455.153000",
+        "text": "なるほど！！",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551961564.153200",
+        "text": "なんとなくわかったようなわかってないような…\nそれとリストが長いと危険というのはどう関係するのでしょうか？\n長いリストを持っている時点でメモリ上に長いリストが展開されているわけではないのでしょうか？",
+        "user": "UC42RRAVC",
+        "type": "message"
+    },
+    {
+        "ts": "1551962221.153400",
+        "text": "&gt; 長いリストを持っている時点でメモリ上に長いリストが展開されている\nそれはその通りです。\n問題になるのは、たとえばkeysが\n\n```\nlet keys = [Just (show n )| n &lt;- [1..] ]\n```\n\nのようにメモリに展開されていない状態で処理を始める場合なので、結構限られたケースかもしれません。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1551962275.153700",
+        "text": "今回のケースでは最終的にできる `M.Map String Int`がO(n)のメモリを消費するのであまり気にしなくてもいい気がします。",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1551962487.154100",
+        "text": "＞リストの長さが同じことが仮定できるなら\nこの仮定は必要なのでしょうか？ zipシリーズは長さがずれているなら短い方に合わせて処理しそうですが…",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551962621.154300",
+        "text": "一番始めのコードの場合、長い方のリストの末尾にNothingが入っててもNothingになるので、厳密にいうと動きが違うんですよね……",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1551962652.154500",
+        "text": "ああなるほど",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1551962704.154700",
+        "text": "危険という表現は微妙だったかもしれない！\n今回の場合なら、２つのリストを同時に辿ったほうが効率いいんじゃないかなーって",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    }
+]
