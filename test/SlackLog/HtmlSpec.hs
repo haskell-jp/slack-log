@@ -37,7 +37,7 @@ spec = do
     it "build index HTML of HTML pages." $ do
       expected <- readAsExpectedHtml "test/assets/expected-index.html"
       w <- loadWorkspaceInfo "test/assets"
-      let channelAndPaths = [("id_of_random", "test/assets/testMessages.json")]
+      let channelAndPaths = [("id_of_random", ["test/assets/testMessages.json"])]
       renderIndexOfPages w channelAndPaths `shouldReturn` expected
 
 
