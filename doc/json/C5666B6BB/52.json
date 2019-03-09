@@ -58,5 +58,53 @@
         "text": "あー、とても単純なところを勘違いしていました…… バイナリの中で True_closure+9 である 4fb019 の所を指していることと、実行結果も 0000000000004bc2 である 19394 が表示されることを確認しました。回答していただいたみなさん、ありがとうございました！",
         "user": "U5LEE6C1J",
         "type": "message"
+    },
+    {
+        "ts": "1552137027.224400",
+        "text": "このような string literal をコンパイルできる環境を探してます．どういう条件でコンパイルすると通るんでしょう？\n<https://gitlab.haskell.org/ghc/ghc/blob/master/compiler/main/GHC.hs#L1063>\n( 今後 master は変更されるかもなので， GHC 8.6.4 版のリンクも貼っておきます: <https://gitlab.haskell.org/ghc/ghc/blob/ghc-8.6.4-release/compiler/main/GHC.hs#L1055> )",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552137098.224600",
+        "text": "Haskell2010 上だと， `\\` の後に空白(改行を含む)を続けて再度 `\\` があるとそこの部分が無視されるのは知ってるんですが，終わりの `\\` も無いようですし",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552137235.224900",
+        "text": "ついでに，素の GHC 8.6.3 の GHCi 上で\n\n```\n&gt;&gt;&gt; :{\ns = \"a\\\n   \\b\"\n:}\n&gt;&gt;&gt; s\n\"ab\"\n&gt;&gt;&gt; :{\ns = \"a\\\n   b\"\n:}\n\n&lt;interactive&gt;:8:3: error:\n    lexical error in string/character literal at character 'b'\n```\n\nとなるのは試しました",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552137701.225200",
+        "text": "これCPPの効果だって某所で聞いた記憶が",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1552137873.225700",
+        "text": "なるほど，今それありそうだなって思ってやってみてます",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552137990.225900",
+        "text": "(例のghc-compiler-notesプロジェクトやってたときに、わどさんが同じ箇所で引っかかってCPPによるものみたいです、って教えてもらった)",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1552138058.226100",
+        "text": "(今まさに ghc-compiler-notes の書き直しをやってて引っかかってます)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552138918.226500",
+        "text": "なるほど，こんな話があるんですね( CPP 使ってる場合 string gap が使えないので， CPP のこの機能を使わざるを得ない)\n<https://downloads.haskell.org/~ghc/8.6.4/docs/html/users_guide/phases.html?#cpp-and-string-gaps>",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
