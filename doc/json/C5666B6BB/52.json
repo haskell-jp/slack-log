@@ -1,0 +1,62 @@
+[
+    {
+        "ts": "1552105357.220800",
+        "text": "<@UGTGBD50B> has joined the channel",
+        "user": "UGTGBD50B",
+        "type": "message"
+    },
+    {
+        "ts": "1552105775.221100",
+        "text": "<@UGTGD0XQB> has joined the channel",
+        "user": "UGTGD0XQB",
+        "type": "message"
+    },
+    {
+        "ts": "1552106757.221400",
+        "text": "<@UGUN400AK> has joined the channel",
+        "user": "UGUN400AK",
+        "type": "message"
+    },
+    {
+        "ts": "1552113528.221800",
+        "text": "<@UGTH9LHFV> has joined the channel",
+        "user": "UGTH9LHFV",
+        "type": "message"
+    },
+    {
+        "ts": "1552113596.222100",
+        "text": "<@UGV47EC0N> has joined the channel",
+        "user": "UGV47EC0N",
+        "type": "message"
+    },
+    {
+        "ts": "1552118643.222300",
+        "text": "逆アセンブリした結果は以下のようになりました（一部分だけ）\n```\n00000000004fb010 &lt;Main_boolzuvar1_closure&gt;:\n  4fb010: b8 c2 4b 00 00        mov    $0x4bc2,%eax\n  4fb015: 00 00                 add    %al,(%rax)\n  ...\n\n00000000004fb018 &lt;Main_zdtrModule3_closure&gt;:\n  4fb018: f8                    clc\n  4fb019: c2 4b 00              retq   $0x4b\n  4fb01c: 00 00                 add    %al,(%rax)\n  4fb01e: 00 00                 add    %al,(%rax)\n  4fb020: 00 90 50 00 00 00     add    %dl,0x50(%rax)\n  ...\n\n00000000004fb028 &lt;Main_zdtrModule1_closure&gt;:\n  4fb028: f8                    clc\n  4fb029: c2 4b 00              retq   $0x4b\n  4fb02c: 00 00                 add    %al,(%rax)\n  4fb02e: 00 00                 add    %al,(%rax)\n```",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1552119504.222500",
+        "text": "んー、Cmm と asm の時点では +9 があるんですが、バイナリから +9 が消えているみたい？",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1552121881.222800",
+        "text": "<@UGUPRD547> has joined the channel",
+        "user": "UGUPRD547",
+        "type": "message"
+    },
+    {
+        "ts": "1552122975.223000",
+        "text": "違いますね。アセンブリ言語に関する知識がなくて頭の中がクエスチョンマークだらけです",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1552124089.223300",
+        "text": "あー、とても単純なところを勘違いしていました…… バイナリの中で True_closure+9 である 4fb019 の所を指していることと、実行結果も 0000000000004bc2 である 19394 が表示されることを確認しました。回答していただいたみなさん、ありがとうございました！",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    }
+]

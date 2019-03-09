@@ -52,5 +52,155 @@
         "text": "シリアライズライブラリwinery 1.0、解説記事（日英）とともに近日公開予定です。お楽しみに",
         "user": "U4KUNQF9N",
         "type": "message"
+    },
+    {
+        "ts": "1552096259.054700",
+        "text": "Twitter で Haskell 初心者がハマったと教えてもらったコード\n確かにしばらく悩んだ\n```\nmain = do { let x = 1 ; print x }\n```\n<https://wandbox.org/permlink/fizUVfdvTZYRUwJ5>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1552097411.054900",
+        "text": "`let x = 1; y = 2`がvalidなんですね。使ったことないですけど",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1552099099.055200",
+        "text": "そう。言われてみると let の後インデントでまとめられるのでそうなるんですよね。",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1552099941.057000",
+        "text": "ああー、分かりにくいですね。コードの形を保ったまま正しくするならば `main = do { let { x = 1 } ; print x }` かな？",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1552105140.057400",
+        "text": "<@UGTJNBA4C> has joined the channel",
+        "user": "UGTJNBA4C",
+        "type": "message"
+    },
+    {
+        "ts": "1552105322.057700",
+        "text": "<@UGST7QY00> has joined the channel",
+        "user": "UGST7QY00",
+        "type": "message"
+    },
+    {
+        "ts": "1552105357.058000",
+        "text": "<@UGTGBD50B> has joined the channel",
+        "user": "UGTGBD50B",
+        "type": "message"
+    },
+    {
+        "ts": "1552105775.058300",
+        "text": "<@UGTGD0XQB> has joined the channel",
+        "user": "UGTGD0XQB",
+        "type": "message"
+    },
+    {
+        "ts": "1552106757.058600",
+        "text": "<@UGUN400AK> has joined the channel",
+        "user": "UGUN400AK",
+        "type": "message"
+    },
+    {
+        "ts": "1552109614.058800",
+        "text": "`stack` を使う場合のコマンドってどんな感じを想定してますか？(curl で stack をインストールしてからの流れです)\nグローバル環境で使うことがほとんど無いのであんまり具体的なコマンドが想像できなくて・・・:turtle:",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1552110904.059000",
+        "text": "これはparse errorにするのが正しいのですかねぇ？",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552111590.059200",
+        "text": "full-bracedじゃないからややこしいのかなぁ\n```\nvalidSyntax = do\n  { let x = 1\n  ; print x\n  }\n```\nはvalidなのに．．．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552113528.059700",
+        "text": "<@UGTH9LHFV> has joined the channel",
+        "user": "UGTH9LHFV",
+        "type": "message"
+    },
+    {
+        "ts": "1552113596.060000",
+        "text": "<@UGV47EC0N> has joined the channel",
+        "user": "UGV47EC0N",
+        "type": "message"
+    },
+    {
+        "ts": "1552113669.060200",
+        "text": "そか．\n```\nvalidSyntax = do\n  { let x = 1; y = 2\n  ; print $ x + y\n  }  \n```\nはOKだけど，\n```\ninvalidSyntax = do\n  { let x = 1\n  ;     y = 2\n  ; print $ x + y\n  }\n```\nはNG\n```\nvalidSyntax = do\n  { let x = 1\n        y = 2\n  ; print $ x + y\n  }\n```\nはOKってことね．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552120546.060500",
+        "text": "`stack setup --resolver lts-13.10` をして、コンパイルは今までの `ghc -o ./a.out -O2 ./Main.hs` でできそうに思います。",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1552121277.060700",
+        "text": "あ、すみません、 ghc は `stack ghc` で呼ばないといけないですね…",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1552121295.060900",
+        "text": "`PATH` に `stack setup` して入れたGHCへのパスを追加する必要がありますね。\nちょっと調べてみましたが、 `$(stack path --programs)\\ghc-&lt;version&gt;\\bin\\` を追加すればよいかと。\nあるいは、 `stack exec ghc --` とするのが一番確実でよいかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1552121404.061400",
+        "text": "紛らわしいですね。。。その書き方はするな、が正解なんでしょうけども。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1552121676.061600",
+        "text": "`stack ghc` と `stack exec ghc` って同じなんでしょうか? <https://docs.haskellstack.org/en/stable/GUIDE/#ghcrunghc> を見るとたぶん同じっぽい…?",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1552121742.061800",
+        "text": "変に `stack` が噛まないぶん、 `stack exec ghc` のほうがいいんですかね…",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1552121874.062100",
+        "text": "ああ、この間 <https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1550662373045300> あたりで話題になった件ですね...\n`stack ghc` に *限れば* `stack exec ghc` と何も変わらない（はず）なので、どちらでもいいと思います。\n私は他と一貫させるために癖で `stack exec ghc` を使っていただけです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1552121881.062500",
+        "text": "<@UGUPRD547> has joined the channel",
+        "user": "UGUPRD547",
+        "type": "message"
+    },
+    {
+        "ts": "1552122712.062700",
+        "text": "&gt; ｀PATH｀ に ｀stack setup｀ して入れたGHCへのパスを追加する必要がありますね。\n&gt; ちょっと調べてみましたが、 ｀$(stack path --programs)\\ghc-&lt;version&gt;\\bin\\｀ を追加すればよいかと。\n&gt; あるいは、 ｀stack exec ghc --｀ とするのが一番確実でよいかと。\n\nありがとうございます。Dockerfile 作って試してみます。\n\nグローバル環境で `--package vector` のようにパッケージをインストールおよび指定する際は普通に `stack install vector` してから `stack exec ghc --package vector` とかで動くんですかね。(一応この手順で上手くいくかどうか確認してみます)",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1552122778.063000",
+        "text": "`--package` オプションは要らないはずです。多分エラーになります。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
