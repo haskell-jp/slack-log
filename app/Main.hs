@@ -88,6 +88,7 @@ targetChannels =
   , ("CCYF8H43A", Public)  -- nix
   , ("CD87P78HF", Public)  -- mmlh
   , ("CE368SB5G", Public)  -- ghc8x
+  , ("CGT2Q4KHP", Public)  -- hatchobori-haskell
   , ("GDTFWM8KX", Private) -- haskell-day-staff
   ]
 
