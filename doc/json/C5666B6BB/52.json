@@ -118,5 +118,119 @@
         "text": "<@UGV3S98P9> has joined the channel",
         "user": "UGV3S98P9",
         "type": "message"
+    },
+    {
+        "ts": "1552366344.228300",
+        "text": "<@U4KU9ABL0> もしかしてcata . ana合成したhyloだと中間データ構造を作ってしまい,hyloの再帰型だとDeforestationされると理解して良い?…んだよね?",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1552377393.228500",
+        "text": "はい．そうです．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552377731.228700",
+        "text": "さらに hyloを展開してしまって， 直截再帰的に定義してしまえば，psiで生成するMaybe (b,a) も生成しなくていいよね．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552378070.228900",
+        "text": "```\nbuildMap :: (Ord key) =&gt; ([Maybe key], [Maybe val]) -&gt; Maybe (Map key val)\nbuildMap = \\ case\n  (Just k : ks, Just v : vs) -&gt; Map.insert k v &lt;$&gt; buildMap (ks, vs)\n  (Nothing : _, _)           -&gt; Nothing\n  (_, Nothing : _)           -&gt; Nothing\n  ([], [])                   -&gt; Just (Map.empty)\n  (_:ks, [])                 -&gt; const (Map.empty) &lt;$&gt; buildMap (ks, [])\n  (e@[], _:vs)               -&gt; asTypeOf (Map.empty) &lt;$&gt; buildMap ([], vs)\n```",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552378342.230000",
+        "text": "おお、ありがとうございます",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1552379168.234800",
+        "text": "``mkMap :: Ord k =&gt; ([Maybe k], [Maybe v]) -&gt; Maybe (Map k v)``を定義しようとして，\n```\nmkMap :: Ord k =&gt; ([Maybe k], [Maybe v]) -&gt; Maybe (Map k v)\nmkMap ([], v:vs) = const Map.empty &lt;$&gt; mkMap ([], vs)\n```\nとすると，この部分で以下のようなエラーがでるのですが，なぜ推論できないんでしょうか？\n(ghc-8.6.4)\n\n```\n/home/nobsun/work/ny-sketch-book/src/BuildMap.hs:57:40: error:\n    • Could not deduce (Ord k0) arising from a use of ‘mkMap’\n      from the context: Ord k\n        bound by the type signature for:\n                   mkMap :: forall k v.\n                            Ord k =&gt;\n                            ([Maybe k], [Maybe v]) -&gt; Maybe (Map k v)\n        at /home/nobsun/work/ny-sketch-book/src/BuildMap.hs:56:1-59\n      The type variable ‘k0’ is ambiguous\n      These potential instances exist:\n        instance (Ord a, Ord b) =&gt; Ord (Either a b)\n          -- Defined in ‘Data.Either’\n        instance forall k (s :: k). Ord (Proxy s)\n          -- Defined in ‘Data.Proxy’\n        instance forall k (a :: k) (b :: k). Ord (a :~: b)\n          -- Defined in ‘Data.Type.Equality’\n        ...plus 28 others\n        ...plus 12 instances involving out-of-scope types\n        (use -fprint-potential-instances to see them all)\n    • In the second argument of ‘(&lt;$&gt;)’, namely ‘mkMap ([], vs)’\n      In the expression: const Map.empty &lt;$&gt; mkMap ([], vs)\n      In an equation for ‘mkMap’:\n          mkMap ([], v : vs) = const Map.empty &lt;$&gt; mkMap ([], vs)\n   |\n57 | mkMap ([], v:vs) = const Map.empty &lt;$&gt; mkMap ([], vs)\n   |                                        ^^^^^^^^^^^^^^\nFailed, no modules loaded.\n```",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552379699.235000",
+        "text": "ぱっと思いつくのは、 `const Map.empty ....` と、戻り値を必ず `Map.empty` にしてしまっているからではないかと。\n`asTypeOf` に変えたら通りましたし。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1552379872.235200",
+        "text": "これ、ひょっとして本当にやりたいことは `const` ではなく `Map.union` ではないでしょうか？再帰の基底部で必ず `Map.empty` を返してしまったら意味がないような...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1552381203.235400",
+        "text": "やりたいことは，\n<https://haskell-jp.slack.com/archives/C5666B6BB/p1552378070228900?thread_ts=1551956556.140300&amp;cid=C5666B6BB>\n です．Map.unionをつかっても同じ意図を実装できますが，なぜ，上の書き方でだめなのかが理解できていません．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552381431.235900",
+        "text": "`mkMap ([], vs) :: Maybe (Map k v)` の `k` と `mkMap :: Ord k =&gt; …` の `k` が同じだということが分からないような",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1552382069.236200",
+        "text": "Map.unionを使うと判るのは．．．なぜだろう．．．:thinking_face:",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552382278.236600",
+        "text": "`const` は `a -&gt; b -&gt; a` という型なので `mkMap ([], vs) :: Maybe (Map k v)` の `k` が `Map.empty` の型と同じとは限りませんが、\n`Map.union` （や、 `asTypeOf` ）は戻り値も引数もすべて同じ型なのでわかる、ということではないでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1552382472.236800",
+        "text": ":sweat_smile:ああそうかなるほど！ありがとうございます．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552383160.237200",
+        "text": "あらっ？ mkMap ([], vs) :: Maybe (Map k v) みたいな型注釈をつけてもいけそうなんだけど．．．だめなのか．．．:open_mouth:",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552383286.237500",
+        "text": "`ScopedTypeVariables` の出番ですかね。 :smirk:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1552383318.237700",
+        "text": "それを指定したんだけど．．．だめみたい．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552383378.237900",
+        "text": "`forall` を書き忘れるというミスを犯してませんか... （経験者談 :sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1552383771.238100",
+        "text": ":sweat_smile: おもいっきりヤラカしてました．ありがとうございます．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552390790.238700",
+        "text": "<@UGW3ZV0AH> has joined the channel",
+        "user": "UGW3ZV0AH",
+        "type": "message"
     }
 ]

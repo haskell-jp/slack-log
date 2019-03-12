@@ -214,5 +214,65 @@
         "text": "<@UGV3S98P9> has joined the channel",
         "user": "UGV3S98P9",
         "type": "message"
+    },
+    {
+        "ts": "1552374371.066900",
+        "text": "http-clientが｢newManagerを使え,使い終えたらGCで自動回収される,closeやwithはDeprecatedだから使うな｣って主張してるんですけど,\nこういう設計ってメモリに余裕があってもポート番号が死ぬとかが容易に発生しそうなのでwith系のAPIを使っていきたいと思うんですが間違った考え方なんですかね…?\nそもそもhttp-client的には1つのManagerを使いまわせって感じで書いてるんですがマルチスレッドプログラムだとどのへんまで使い回せば良いのかよくわからなくなってきます.\n<https://www.stackage.org/haddock/lts-13.12/http-client-0.5.14/Network-HTTP-Client.html#v:newManager>",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1552374511.067300",
+        "text": "私の記憶が正しければ、 `Manager` は別にコネクションとか解放必須なリソースを保持しているわけではなかったような気がします。\nプロキシ設定とかその辺のmanagerだったような...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1552374634.067500",
+        "text": "確かによくソースを見てみたら\n```\ncloseManager _ = return ()\n```\nでした…この場合close何の意味もないですね…",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1552374770.067700",
+        "text": "<https://github.com/snoyberg/http-client/blob/b8e08b80475b5ed2c2a234bc170ced1324085b14/http-client/Network/HTTP/Client/Core.hs> を読むと、実際にいつconnectionを取得しているか察せられるかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1552375100.068200",
+        "text": "ああ、と思ったけどすみません、実際にはconnection poolは保持してますね...\nおそらくポート不足などにはならないようにしたり排他処理したりはこのconnection poolがよしなにやってくれているのではないかと...\n<https://github.com/snoyberg/http-client/blob/c1c6ffa9e7bf3556f8577b12fc2ccb3e92b080a4/http-client/Network/HTTP/Client/Manager.hs#L123>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1552375581.068800",
+        "text": "こんなのあるんだ\n<https://gitlab.haskell.org/ghc/ghc/wikis/language-pragma-history>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1552380914.070000",
+        "text": "中規模Yesodプロジェクトの古いLTSからLTS 13(Yesod 1.6)への移行やっと終わった\nesqueletoが死んだら引き取って自分で新しいGHC向けに治さないと死ぬと思ってヒヤヒヤものだった",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1552381763.070300",
+        "text": "これ、自分も気になった記憶がある",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1552381861.070600",
+        "text": "JavaとかならThreadPoolExecutorみたいなのがあってもオブジェクトなので不自然ではないですが,\nHaskellでIOを使うと言っても単独の関数がプーリングしてるとなんか気味が悪いと思ってしまいますね…",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1552390790.071100",
+        "text": "<@UGW3ZV0AH> has joined the channel",
+        "user": "UGW3ZV0AH",
+        "type": "message"
     }
 ]
