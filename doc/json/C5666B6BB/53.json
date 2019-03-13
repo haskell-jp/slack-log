@@ -1,0 +1,38 @@
+[
+    {
+        "ts": "1552480507.253700",
+        "text": "```\nMap.insert k v &lt;$&gt; buildMap (ks, vs)\n```\n\nこれはbuildMapが全部返ってきてからMaybeでパターンマッチする形になるから、確かにスタック積み上がりそう。こういう所はHaskellでも末尾再帰気にしないといけないんですね",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1552480780.253900",
+        "text": "ここのfromListはなんかinsertじゃない処理やっているような……？\n<http://hackage.haskell.org/package/containers-0.6.0.1/docs/src/Data.Map.Internal.html#fromList>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1552481752.254200",
+        "text": "foldr なのは，キーリストとかバリューリストにNothingがあったときのショートカット用です．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552484005.256600",
+        "text": "あ、自分の見てたcontainersのバージョンが古かったようです。\nでもソートされていないリストに対しては\nやっぱりinsertで実装されてますね",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1552485522.258300",
+        "text": "確かに、たまたま先頭が昇順になってた場合だけ違う処理してるのか",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1552491276.260900",
+        "text": "末尾再帰については、集積引数を増やして積んでも結局変わらないですね…速度的にも、二回に分けるのが実は正解なのではと思い始める",
+        "user": "U570660KX",
+        "type": "message"
+    }
+]

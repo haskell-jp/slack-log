@@ -250,5 +250,53 @@
         "text": "ScopedTypeVariables は型変数のスコープの開始を forall で指定するという仕様なのです。",
         "user": "U4KNU6N48",
         "type": "message"
+    },
+    {
+        "ts": "1552477977.243800",
+        "text": "<@UGX42JN9H> has joined the channel",
+        "user": "UGX42JN9H",
+        "type": "message"
+    },
+    {
+        "ts": "1552478495.244100",
+        "text": "オーダーとしては線形で同じなので，あとは実測値でどうかということになると思います．10^6くらいサイズならオリジナルの方が速いみたいですよ．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552478989.246200",
+        "text": "あー、もしかしてfromListならソートして一気にマップ作れるのに対して、全部insertでやってるから遅いんじゃないですかね",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1552479742.246800",
+        "text": "末尾再帰になっていないのがよくない気がします。",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1552479768.247100",
+        "text": "リストのソートもMapへのinsertもオーダーとしてはO(n log n)だから，基本オペレーションの性能かでしょうかね．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552479963.249600",
+        "text": "fromListもfoldで実装されてますね\n```\nfromList :: Ord k =&gt; [(k,a)] -&gt; Map k a \nfromList xs       \n  = foldlStrict ins empty xs\n  where\n    ins t (k,x) = insert k x t\n```",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1552480147.252900",
+        "text": "insertなのか、ちょっと意外です。赤黒木とかならソートしてやった方が速かった木がするんですが、フィンガーツリーだと違うのか",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1552480210.253500",
+        "text": "木がするとは",
+        "user": "U570660KX",
+        "type": "message"
     }
 ]
