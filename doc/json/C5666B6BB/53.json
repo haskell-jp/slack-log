@@ -46,5 +46,101 @@
         "text": "<@UGYDCQXU3> has joined the channel",
         "user": "UGYDCQXU3",
         "type": "message"
+    },
+    {
+        "ts": "1552657517.262200",
+        "text": "等式論証って何ですか？ググってもわからず。",
+        "user": "UGHG1RKDL",
+        "type": "message"
+    },
+    {
+        "ts": "1552658857.262400",
+        "text": "<@UH181T815> has joined the channel",
+        "user": "UH181T815",
+        "type": "message"
+    },
+    {
+        "ts": "1552669928.265400",
+        "text": "```\ndata Hoge = II\nhuga x = x\n\nmain = do\n    i &lt;- huga II\n    putStrLn \"hello, world\"\n```\nを実行すると、\n```\n    • Couldn't match expected type 'IO a0' with actual type 'Hoge'\n    • In a stmt of a 'do' block: i &lt;- huga II\n      In the expression:\n        do i &lt;- huga II\n           putStrLn \"hello, world\"\n      In an equation for 'main':\n          main\n            = do i &lt;- huga II\n                 putStrLn \"hello, world\"\n  |\n5 |     i &lt;- huga II \n  |          ^^^^^^^\n```\nとエラーが出ます。iはtype ‘IO a0’を期待していますが。\n```\ndata Hoge = II\nhuga x = x\n\nmain = do\n    i &lt;- return II\n    putStrLn \"hello, world\"\n\n```\nとして、iはmonado typeを受けていますが。これは、type ‘IO a0’じゃないですが、なぜいいんでしょう？\nあと、type ‘IO a0’とはなんでしょう？\nIOなのはわかっているんですが。",
+        "user": "UGHG1RKDL",
+        "type": "message"
+    },
+    {
+        "ts": "1552670414.266600",
+        "text": "```\ndata Hoge = II\nhuga x = x\n\nmain = do\n    i &lt;- return II\n    putStrLn \"hello, world\"\n```\ntype Hogeはmonadのインスタンスではないのに、returnできるのはなぜでしょう？",
+        "user": "UGHG1RKDL",
+        "type": "message"
+    },
+    {
+        "ts": "1552672316.268600",
+        "text": "ただの値だからでは...？",
+        "user": "UAMGYKUP5",
+        "type": "message"
+    },
+    {
+        "ts": "1552672569.271000",
+        "text": "まずiに期待されている型はIO a0じゃないですね...それはi &lt;-の右側の式に期待されている型です\n\n質問を理解するために質問したいのですが，”モナド型”を受けるとはなんでしょうか...",
+        "user": "UAMGYKUP5",
+        "type": "message"
+    },
+    {
+        "ts": "1552673313.275600",
+        "text": "あとhugaは純粋な関数なのでそこに書く必要はなさそうです．純粋な式はletで束縛するとよいと思います．",
+        "user": "UAMGYKUP5",
+        "type": "message"
+    },
+    {
+        "ts": "1552673508.278100",
+        "text": "そして後者の型はIO ?? の形になってます．return で包んでいるので．",
+        "user": "UAMGYKUP5",
+        "type": "message"
+    },
+    {
+        "ts": "1552674893.278400",
+        "text": "`return` の型は `Monad m =&gt; a -&gt; m a` であり、引数の型 (ここでは `a` という型変数で表されています) が Monad のインスタンスかどうかを気にしないからです…というのではどうでしょう?",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1552692812.279000",
+        "text": "一つ前の質問とまとめて回答します。\n\nまず、IOモナドの `do`記法で\n```\ni &lt;- e\n```\n( `e`はなんらかの式）と書くと、 `e`は `IO a`型、 `i`は `a`型に推論されます。一つ目のプログラムでは\n`huga II`は `Hoge`型であり、`IO a`型とマッチできないので型エラーが発生しています。\n一方、二つ目のプログラムでは\n`return II`は `Monad m =&gt; m Hoge`という型に推論されます。これを `IO a`型とマッチさせると、 `m = IO, a = Hoge`という解が見つかるのでエラーは発生しません。",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1552693621.283400",
+        "text": "```\ndata Fool where\n  Fool :: ('True ~ 'False) =&gt; Fool\ntheFool  :: Fool\ntheFool = ???\nmain :: IO ()\nmain = case theFool of\n  Fool -&gt; pure () \n```\nとしてunsafeな関数を使っても良いので`Fool`型の値を得ることってできますか？(mainを実行時エラー起こさずに実行したい）",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1552696235.283600",
+        "text": "`Fool` 型の値は得られない(Emptyである)ことが証明できるので，得られません．\n```\ntheFool :: Fool\ntheFool = case refl of {} where\n  refl :: (a ~ b) =&gt; a :~: b\n  refl = Refl\n```",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1552696479.283800",
+        "text": "これが得られるようになるレベルのunsafeとは「任意の型の値が作成できる」という度合いのunsafeさであり，型による安全性を投げ捨てることになります．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1552697099.284000",
+        "text": "実行時エラーを起こさないというのを文字通りに取れば `theFool = theFool` も要件を満たしますがそういうことではないですよね。\n `theFool = unsafeCoerce $ \\_ -&gt; ()` とか。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1552697161.284200",
+        "text": "引数は使われないので `unsafeCoerce ()` でも動くと思いますが `Fool` のarityは1になると思うので `const ()` の方が良いかもしれません。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1552703454.284500",
+        "text": "&gt; ｀Fool｀ 型の値は得られない(Emptyである)ことが証明できるので，得られません．\n\n実際にやりたいのは `True ~ False`ほど邪悪なのではなくて、 `SomeConstraint :: * -&gt; Constraint` をtype familyとして、\n```\ndata Cert a where\n  Cert :: SomeConstraint a =&gt; Cert a\n```\nみたいなことです。 `a`がコンパイル時に分かっている場合には `SomeConstraint a`が簡約できてうまくいくんですが、 `a`が実行時にしかわからないケースもサポートしたくて、動的に `SomeConstraint`相当のチェックをしてから `Cert`の値を作りたいという状況です。\n\n&gt; 引数は使われないので ｀unsafeCoerce ()｀ でも動くと思いますが ｀Fool｀ のarityは1になると思うので ｀const ()｀ の方が良いかもしれません。\nやはり `unsafeCoerce`を使うのが無難そうですね。",
+        "user": "UDUBKLQMD",
+        "type": "message"
     }
 ]

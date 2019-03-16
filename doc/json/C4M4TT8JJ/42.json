@@ -34,5 +34,95 @@
         "text": "<@UGYDCQXU3> has joined the channel",
         "user": "UGYDCQXU3",
         "type": "message"
+    },
+    {
+        "ts": "1552635481.081100",
+        "text": "この2つの型クラスって表現できるものが似てるなーと感じてる。何が決定的に違うんですかね。\n```\nclass FD a b | a -&gt; b\nclass TF a where\n  type T a\n```\n<https://wandbox.org/permlink/hlCk0uyguUJpfGnM>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1552635760.081300",
+        "text": "たいていの場合（少なくとも型クラスに紐付いたものは）TypeFamiliesはFunctionalDependenciesで代用できるはずなので、その直感は間違ってないかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1552637194.081600",
+        "text": "もともと(ghc6のころまで?) function dep. しかなかったところに、よりストレートな解法として type family が実装された、という流れなのかな、と理解しています",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1552638687.082000",
+        "text": "似たような事考えて違いを調べた事があったと思うんですが、すっきりしなかった記憶があります。\n個人的には、最初Type familiesでやってても、FunDepの方が推論しやすくて結局FunDepになってしまうパターンが多い感じです",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1552638970.082300",
+        "text": "Swiftがextensionsあたりでの型引数を導入してない理由として、associated type families（相当のSwiftの機能）で代用できるから、という\n……のがあった気がする（気がする）",
+        "user": "U5LV76EJH",
+        "type": "message"
+    },
+    {
+        "ts": "1552639697.083100",
+        "text": "あとそういえば、推論については最近入ったInjectiveTypeFamiliesでだいぶ改善されているらしいので、試したい <https://qiita.com/lotz/items/6c038698c8f04f57113a>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1552640044.083600",
+        "text": "injective type families でできなくて func deps でできる例を幾つか知っていますが，確か型検査は func deps より type families の方が相当速いため，最近は assoc type families の方を使う動きがあると聞きました (func deps は multi param クラスになってしまうのに対し， assoc type family を使ったクラスは single param で済むことも多いので)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552640092.083800",
+        "text": "(なんかそこらへんをまとめた記事を読んだ気がするんですが，思い出せない…)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552640576.084400",
+        "text": "とりあえず <https://wiki.haskell.org/Functional_dependencies_vs._type_families> が結構まとまってますね．<@U570660KX> さんと同じで，僕も type families をなるべく使おうとしてますが， assoc type families はインスタンスに複雑な制約を付けようとするとうまく解決できない場合があって func deps に流れちゃうことも多いですね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552643097.090800",
+        "text": "Extensible攻略wikiがエラー吐いとる…… <https://wiki.hask.moe/>",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1552643398.093400",
+        "text": "GHCだと，変数識別子に日本語文字が使えたりするので，\n「小文字」ではじまる名前を勝手に，「大文字」ではない文字で始まる名前と脳内変換して，\nすっかりそのつもりだったのですが，hlintとかではparseエラーになる．\n```\nIden.hs:5:1: Error: Parse error\nFound:\n    import Data.Char\n    \n  &gt; あ :: Char\n    あ = 'あ'\n  \n\n1 hint\n```\n「なんだよhlint，プンプン」と思ってたんだけど，Haskell 2010を見直すと，\n```\nvarid\t→\t(small {small | large | digit | ' })⟨reservedid⟩\n```\nとなっている．small は unicode lowercase letter，large は uppercase letter or titlecase letterとあるので，\nhlintは正しい．申し訳けございません．hlint様:sweat:",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1552651168.093600",
+        "text": "<@U4KUNQF9N>さーん！エラーメッセージからして、間違えてlocalhostにHTTPリクエストを送っちゃってるっぽいんですが、なんかミスった？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1552652142.093900",
+        "text": "apusが落ちてました…今起動しました。\n同じマシンでリバースプロキシとapusの両方が走っているのでlocalhostにリクエストを送っているのは意図的です",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1552652330.094100",
+        "text": "ご迷惑おかけしました！",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1552658857.094500",
+        "text": "<@UH181T815> has joined the channel",
+        "user": "UH181T815",
+        "type": "message"
     }
 ]
