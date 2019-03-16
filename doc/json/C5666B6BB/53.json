@@ -142,5 +142,149 @@
         "text": "&gt; ｀Fool｀ 型の値は得られない(Emptyである)ことが証明できるので，得られません．\n\n実際にやりたいのは `True ~ False`ほど邪悪なのではなくて、 `SomeConstraint :: * -&gt; Constraint` をtype familyとして、\n```\ndata Cert a where\n  Cert :: SomeConstraint a =&gt; Cert a\n```\nみたいなことです。 `a`がコンパイル時に分かっている場合には `SomeConstraint a`が簡約できてうまくいくんですが、 `a`が実行時にしかわからないケースもサポートしたくて、動的に `SomeConstraint`相当のチェックをしてから `Cert`の値を作りたいという状況です。\n\n&gt; 引数は使われないので ｀unsafeCoerce ()｀ でも動くと思いますが ｀Fool｀ のarityは1になると思うので ｀const ()｀ の方が良いかもしれません。\nやはり `unsafeCoerce`を使うのが無難そうですね。",
         "user": "UDUBKLQMD",
         "type": "message"
+    },
+    {
+        "ts": "1552712738.287300",
+        "text": "<@UH215BHKR> has joined the channel",
+        "user": "UH215BHKR",
+        "type": "message"
+    },
+    {
+        "ts": "1552713620.287900",
+        "text": "これのGADTの節みたいな感じでしょうか <https://propella.hatenablog.com/entry/20101218/p1>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1552713874.288200",
+        "text": "`data Cert a where ...` ではなく `data Cert where` にして、あとはtheFoolにあたる関数theCertの型を `theCert :: SomeConstraint a =&gt;  a -&gt; Cert` とするイメージかなと思います",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1552726047.288500",
+        "text": "<@UDUBKLQMD> さんの回答よくわかりました。",
+        "user": "UGHG1RKDL",
+        "type": "message"
+    },
+    {
+        "ts": "1552726074.288700",
+        "text": "returnの型はわかるんですが、本体はどこにあるのでしょう？",
+        "user": "UGHG1RKDL",
+        "type": "message"
+    },
+    {
+        "ts": "1552728599.288900",
+        "text": "<http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#v:return>\nですね。もう少し細かいことを言うと、GHCが提供する標準ライブラリの中にあり、管理の都合上 GHC.Base モジュールで定義されていて、それをHaskellを書く際暗黙で import される Prelude モジュールが含んでいる形になります",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552729243.289100",
+        "text": "<@UDUBKLQMD> なぜm = IOになるのでしょう。これは、monado IOのreturnを使っているからだと思うのですが、なぜmonad IOなのでしょう？(これは、型推論….?",
+        "user": "UGHG1RKDL",
+        "type": "message"
+    },
+    {
+        "ts": "1552729534.289500",
+        "text": "あと、IO a0のa0って何ですか？",
+        "user": "UGHG1RKDL",
+        "type": "message"
+    },
+    {
+        "ts": "1552730552.289900",
+        "text": "なぜ、 `i &lt;- e` とかくとeはIO aに推論されるのでしょう？mainがIOのため？",
+        "user": "UGHG1RKDL",
+        "type": "message"
+    },
+    {
+        "ts": "1552731059.290100",
+        "text": "そうです，型推論により `m = IO` となります．Haskell では，\n```\ndo\n  i &lt;- e\n  …\n```\nは，\n```\ne &gt;&gt;= \\i -&gt; ...\n```\nの略記法になります．ここで， `&gt;&gt;=` は <https://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#v:-62--62--61-> の型を持つ型クラスのメソッドになります．今回は `putStrLn \"Hello World!\" :: IO ()` が続くのでここから\n1. `(&gt;&gt;=) :: m a -&gt; (a -&gt; m b) -&gt; m b` の `m b` の部分が `IO ()` と一致すると判定され `m = IO` / `b = ()` となります\n2. `m = IO` から `return II :: m Hoge` の部分の `m`  も `m = IO` と推論されます",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552731319.290300",
+        "text": "型エラーにおいて表示されている `IO a0` の `a0` は例えば\n```\nf :: Maybe a -&gt; ()\nf _ = ()\n\ng :: Maybe a -&gt; ()\ng _ = ()\n\nh = f (g ())\n```\nというようなプログラムにおいて， `f` の引数における型変数 `a` のことなのか， `g` の引数における型変数 `a` のことなのか分からなくなることを避けるため，番号を暗黙に振り分けるということが内部で行われている結果です．確かに，少し分かりにくいですね．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552732529.290600",
+        "text": "<@U57D08Z9U> なるほど。わかりやすい説明ありがとうございます。",
+        "user": "UGHG1RKDL",
+        "type": "message"
+    },
+    {
+        "ts": "1552732742.290900",
+        "text": "あと、質問なのですが、 `(&gt;&gt;=) :: m a -&gt; (a -&gt; m b) -&gt; m b`は `ma` と `(a -&gt; mb)`の二つ引数をとるのに、`e &gt;&gt;= \\i -&gt; ...`  だと `e` 一つしか引数に取らないように見えますがどうなんでしょう？",
+        "user": "UGHG1RKDL",
+        "type": "message"
+    },
+    {
+        "ts": "1552733207.291700",
+        "text": "あ、もしかして、&gt;&gt;=の右側が第二引数…",
+        "user": "UGHG1RKDL",
+        "type": "message"
+    },
+    {
+        "ts": "1552733302.291900",
+        "text": "はい． Haskell では記号の関数か文字の関数かで演算子かどうかが分かれていて，記号の関数はデフォルトで二項演算子になります",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552733326.292100",
+        "text": "了解です。あざす",
+        "user": "UGHG1RKDL",
+        "type": "message"
+    },
+    {
+        "ts": "1552733367.292400",
+        "text": "別スレッドで、解決しました。返答していただき、ありがとうございました。",
+        "user": "UGHG1RKDL",
+        "type": "message"
+    },
+    {
+        "ts": "1552747810.292700",
+        "text": "<@UH12AKL2G> has joined the channel",
+        "user": "UH12AKL2G",
+        "type": "message"
+    },
+    {
+        "ts": "1552749095.294500",
+        "text": "doは&gt;&gt;=のシンタックスシュガーのため、do構文で書いたものは、それなしに書きかえれますよね？\n以下のは書きかえれますかね？\n```\ndata Hoge = II deriving (Show)\nhuga x = x\n\nmain = do\n    i &lt;- return 3\n    let x = huga i\n    print $ 1\n```",
+        "user": "UGHG1RKDL",
+        "type": "message"
+    },
+    {
+        "ts": "1552749838.294600",
+        "text": "できます。\n<https://en.wikibooks.org/wiki/Haskell/do_notation> が参考になるかと思います。 `&lt;-` を `&gt;&gt;=` とラムダ式に、 `let` は `let ... in ...` に、逐次処理は `&gt;&gt;` でつなげばよい感じです。",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1552751592.294800",
+        "text": "できたけど、in …が余分…\n```\ndata Hoge = II deriving (Show)\nhuga x = x\n\nmain =\n    return 3 &gt;&gt;= (\\i -&gt; let x = huga in return 1 ) &gt;&gt; print $ 1\n```",
+        "user": "UGHG1RKDL",
+        "type": "message"
+    },
+    {
+        "ts": "1552751640.295100",
+        "text": "do 構文の変換の覚え方でオススメは\n\n```\ndo\n  v &lt;- e1\n  e2\n==&gt;\ne1 &gt;&gt;= \\v -&gt; e2\n```\n\n```\ndo\n  e1\n  e2\n==&gt;\ndo\n  _ &lt;- e1\n  e2\n```\n\n```\ndo\n  let v1 = e1\n        ...\n        vN = eN\n  e\n==&gt;\nlet v1 = e1\n      ...\n      vN = eN\nin e\n```\n\n```\ndo\n  e\n==&gt;\ne\n```\n\n```\ndo\n  line1\n  line2\n  …\n  lineN\n==&gt;\ndo\n  line1\n  do\n    line2\n    ...\n    lineN\n```\n\nこの5つによる変換ですね．\n(厳密にはパフォーマンスを考慮してもっと良い変換( `&gt;&gt;` を使った変換)が行われたり， `p &lt;- e` の `p` の部分にパターンが使われると `fail` という関数を使った変換が行われたりするのですが，厳密さを求めないなら大体は上の変換を想定してもらえば大丈夫だと思います)\n\n今回の例では\n```\ndo\n  i &lt;- return 3\n  let x = huga i\n  print $ 1\n==&gt;\ndo\n  i &lt;- return 3\n  do\n    let x = huga i\n    print $ 1\n==&gt;\nreturn 3 &gt;&gt;= \\i -&gt; do\n  let x = huga i\n  print $ 1\n==&gt;\nreturn 3 &gt;&gt;= \\i -&gt;\n  let x = huga i\n  in print $ 1\n```\nみたいな感じです",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552751815.295400",
+        "text": "ありがとうございます",
+        "user": "UGHG1RKDL",
+        "type": "message"
+    },
+    {
+        "ts": "1552752248.295800",
+        "text": "(ちょっと変換の仕方を修正しました．基本的には3行以上のものは do をネストさせて2行に書き直せて，2行の do は `&gt;&gt;=` で書き直せる感じですね)",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]

@@ -10,5 +10,59 @@
         "text": "<@UH181T815> has joined the channel",
         "user": "UH181T815",
         "type": "message"
+    },
+    {
+        "ts": "1552712738.011600",
+        "text": "<@UH215BHKR> has joined the channel",
+        "user": "UH215BHKR",
+        "type": "message"
+    },
+    {
+        "ts": "1552712791.012500",
+        "text": "参加しました！\nすごいH本で勉強中のHaskell初心者です、よろしくお願いします:man-bowing:",
+        "user": "UH215BHKR",
+        "type": "message"
+    },
+    {
+        "ts": "1552730200.017700",
+        "text": "はじめまして！Haskell 初心者の吉田と申します。\n基本的なことをお聞きしたいのですが、Haskell では変数や関数の型情報を出力するメソッドなどはありますでしょうか？\nghci では :type コマンドで見れるようですが、スクリプトとして実行（rungch main.hs など）する方法がなかなか調べても出てこず..\n\nGolangでいうと\n`fmt.Printf(\"%T\",  \"hello\")  // string `\nというようなものを探しています",
+        "user": "UELP94BJN",
+        "type": "message"
+    },
+    {
+        "ts": "1552731838.017900",
+        "text": "`Data.Typeable` を import して， `showType = show . typeOf` という関数を呼び出せば文字列が得られます．これを出力することで可能です(一部この方法でできないものもありますが，大抵は大丈夫だと思います)\n\nGHCi 上でも次のようにできます:\n```\n&gt;&gt;&gt; import Data.Typeable\n&gt;&gt;&gt; showType = show . typeOf\n&gt;&gt;&gt; putStrLn $ showType $ Just 1\nMaybe Integer\n```\n\nところで，コンパイルエラーで型を教えてくれるTyped Hole という機能が， GHC には搭載されており，型を知りたい式に `(Just () :: _) &lt;&gt; Nothing` というように `:: _` という表記を記載すると型情報をコンパイル時にエラーメッセージとして表示してくれます．GHCi 上でも可能で\n```\n&gt;&gt;&gt; (Just () :: _) &lt;&gt; Nothing\n(Just () :: _) &lt;&gt; Nothing\n\n&lt;interactive&gt;:8:14: error:\n    • Found type wildcard '_' standing for 'Maybe ()'\n      To use the inferred type, enable PartialTypeSignatures\n    • In an expression type signature: _\n      In the first argument of '(&lt;&gt;)', namely '(Just () :: _)'\n      In the expression: (Just () :: _) &lt;&gt; Nothing\n    • Relevant bindings include\n        it :: Maybe () (bound at &lt;interactive&gt;:8:2)\n```\n\nという感じです(少し見にくいですが，上のメッセージが主で “Found type wildcard ‘_’ standing for ‘Maybe ()’” で型が `Maybe ()` であることを教えてくれます)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552732534.018100",
+        "text": "あ、 typeOf を使う際の注意点を一つ言い忘れていましたが、型変数を伴う型ではうまく動きません。例えば、\n```\nf :: a -&gt; String\nf x = show $ typeOf x\n```\nといったことはできません(これの回避策はあって、Typeable の型制約を追加すると出来るのですが、基本無理だと思ってもらった方が良いです)。型変数を含まない式のみで可能です。\n\nなお、 Typed Hole はそのような制約はないので、もし型の確認が目的なら Typed Hole の方が良いと思います",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552733279.018300",
+        "text": "ついでに表層のデータ型の名前だけを取得したいならもう1つ方法があり\n```\n&gt;&gt;&gt; import GHC.Generics\n&gt;&gt;&gt; putStrLn $ datatypeName $ from $ Just 1\nMaybe\n```\nということも可能です．こちらの方法は自分で定義した型の情報を見たい場合は\n```\n{-# LANGUAGE DeriveGeneric #-}\n\nimport GHC.Generics\n\ndata A = A deriving Generic\n```\nみたいなことが必要なのと，この方法では名前の取得が無理なものもかなりある上， `Typeable` の手法と同じく完全な型変数になっている\n```\nf :: a -&gt; String\nf x = datatypeName $ from x\n```\nのようなものは無理という制約がありますが，\n```\nf :: a -&gt; String\nf x = datatypeName $ from $ Just x\n```\nのようなことは可能です(これは Typeable ではできません)．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552735650.018800",
+        "text": "なんと..！大変ご丁寧に回答してくださってありがとうございます！\nコンパイル時にメッセージ出力という方法もあるんですね、自分が知っている他の言語にはなかった機能でとても面白いです\n\n基本的に具体型ならとれるようになっているみたいですね（理解が間違っていたらすみません）、\nまさに回答いただいたようなことがしたかったので大変助かります",
+        "user": "UELP94BJN",
+        "type": "message"
+    },
+    {
+        "ts": "1552735671.019000",
+        "text": "解説いただいた手法を一通り試してみたいと思います！",
+        "user": "UELP94BJN",
+        "type": "message"
+    },
+    {
+        "ts": "1552747810.019700",
+        "text": "<@UH12AKL2G> has joined the channel",
+        "user": "UH12AKL2G",
+        "type": "message"
     }
 ]
