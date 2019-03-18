@@ -202,5 +202,101 @@
         "text": "情報不足でした。 Benさんが、wikiの編集権限を緩めようとされています。（ログインしていれば編集可能に。）\n月曜日には、GitLabにそのためのパッチをあてるそうです。\n<https://mail.haskell.org/pipermail/ghc-devs/2019-March/017299.html>",
         "user": "U55V441FS",
         "type": "message"
+    },
+    {
+        "ts": "1552880480.102200",
+        "text": "めっちゃ速いAho-Corasick法（文字列探索アルゴリズム）の実装を作った話（大分無理してる感ある\n<https://tech.channable.com/posts/2019-03-13-how-we-made-haskell-search-strings-as-fast-as-rust.html>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1552881317.102300",
+        "text": "404になったな &gt; Page History",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1552892042.103500",
+        "text": "<@UH1L934RZ> has joined the channel",
+        "user": "UH1L934RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1552902977.103800",
+        "text": "そうこれ、Python以外比較されたコードを一切書いてないのはまずいですよね。そもそもPythonmもこのコードで実験したのか不明ですが。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1552905956.104200",
+        "text": "もしよければ， GHC 8.6.3 / GHC 8.6.4 で以下のプロジェクトのビルドが通るか試していただけると嬉しいです\n<https://github.com/mizunashi-mana/maybreak-derivingvia>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552906431.104500",
+        "text": "GHC 8.6.3 (MacOS 10.13.6) ではビルドが通りませんでした。\n```\nBuild profile: -w ghc-8.6.3 -O1\nsrc/TestSpace/PolyKinds.hs:11:47: error:\n    • Expected kind ‘* -&gt; *’, but ‘m’ has kind ‘k -&gt; *’\n    • In the first argument of ‘Functor’, namely ‘m’\n      In the stand-alone deriving instance for\n        ‘Functor m =&gt; Functor (T m)’\n   |\n11 | deriving via (ReaderT Int m) instance Functor m =&gt; Functor (T m)\n   |\n```",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1552906605.104900",
+        "text": "<@U4M598NHM> なるほど，ありがとうございます．ついでに， cabal new-freeze を実行してからもう一度試してもらえると嬉しいです",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552906857.105100",
+        "text": "`cabal new-freeze` を実行してからリトライしましたが同じエラーメッセージで失敗しました。\ncabal.project.freeze\n```\nconstraints: any.base ==4.12.0.0,\n             any.ghc-prim ==0.5.3,\n             any.integer-gmp ==1.0.2.0,\n             any.rts ==1.0,\n             any.transformers ==0.5.5.0\n```",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1552906946.105300",
+        "text": "<@U4M598NHM> まじですか… ありがとうございます",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552909163.105500",
+        "text": "あ、すみません。README読まないでやっていました。READMEの2つ方法で再度試しましたがどのパターンでもエラーになりました。",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1552909862.105700",
+        "text": "<@U57D08Z9U> いろいろやっていたら結果が変わりました。完全版です(fishシェル)↓\n```\n&gt; rm cabal.project.freeze ; and ghcup set 8.6.3 ; and rm -rf dist* ; and cabal new-build ; ghcup set 8.6.4 ; and rm -rf dist* ; and cabal new-build\n  -&gt; 8.6.3 Error\n  -&gt; 8.6.4 OK\n&gt; cabal new-freeze ; and ghcup set 8.6.3 ; and rm -rf dist* ; and cabal new-build ; ghcup set 8.6.4 ; and rm -rf dist* ; and cabal new-build\n  -&gt; 8.6.3 OK\n  -&gt; 8.6.4 OK\n```",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1552913728.105900",
+        "text": "論点がずれるようで申し訳ないが、PolyKinds.hs のderivingを無くしてghciでソースを読んだ後にderivingをghciのプロンプトで書くと通りました。(GHC 8.6.3)\n\n嘘言いました mに種注釈付けてました ソース改変すいません。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1552918893.106200",
+        "text": "わざわざありがとうございます．freeze する際に， transformers のバージョンによってどっちもエラーになったり，OKになったりする感じがしますね．これは， cabal と GHC ，どっちに報告すればいいんだろう…",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1552919492.108400",
+        "text": "さいきん quora にあの毛の壁な人が出現してるようですね…　だいぶマトモそうな感じではあるんですけどあいかわらず細かいところであやしげな感じがします\n<https://jp.quora.com/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E8%A8%80%E3%81%86-%E5%89%AF%E4%BD%9C%E7%94%A8-%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%A7%E3%81%99%E3%81%8B-%E5%89%AF%E4%BD%9C%E7%94%A8%E3%81%8C/answers/126433034>",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1552919958.111400",
+        "text": "transformers のバージョンですか。 ちょっと（Control.Monad.Trans.Readerの）ソース見てみたのですが、0.5.5.0から0.5.6.0 の変化でPolyKinds拡張が消えているのですがこれが影響しているってことはないですかね？",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1552920789.111900",
+        "text": "なるほど，それかもですね． GHC 8.6.3 だと resolver が 0.5.5.0 だと判断しますが， GHC 8.6.4 だと resolver が 0.5.6.0 と判断する結果，このような動作になるんですね．freeze する場合はそのような変動が起きないので，バージョンによる違いが起きない感じっぽいですね．\n\nなるほど，解決しました．ありがとうございます",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
