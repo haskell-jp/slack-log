@@ -82,5 +82,95 @@
         "text": "<https://scrapbox.io/haskell-shoen/Monoid> 参加してみたくて、とりあえずモノイドの記事を書いてみました。",
         "user": "U570660KX",
         "type": "message"
+    },
+    {
+        "ts": "1553481896.130200",
+        "text": "RWSってなんて呼ぶんでしょうね。自分は心の中で「るーす」と呼んでますが（そもそも口に出す機会がない）",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1553482535.130300",
+        "text": "そのままアールダブリュエス（そもそもあまり使わない",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1553485361.131000",
+        "text": "条件によって評価されたりされなかったりする変数をifとかの外に置いても気にしなくていいのは遅延評価の典型的なメリットですよな。ガードについたwhereは確かに意識から漏れそう。\n<https://qiita.com/pxfnc/items/a26bda6d11402daba675>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1553485689.131200",
+        "text": "RWS Monad, どんなときに使うのがいいんすかね。普通にReaderT, WriterT, StateTを重ねるだけでも今のGHCならいい感じに最適化してくれるという認識でしたが...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1553487808.131400",
+        "text": "アールダブリュエス派です。普通に変換子をスタックするよりは2割くらい速くなります（しかしWriter部分が遅いので結局うちではRWSIOを直接定義していますが…）",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1553488304.131700",
+        "text": "<http://hackage.haskell.org/package/transformers-0.5.6.2/docs/Control-Monad-Trans-RWS-CPS.html> ができた今なら自前で定義する必要はないかも知れませんね！ :bulb:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1553491216.132300",
+        "text": "haskellのruntimeじゃなくてnode.jsの上で動いてますね。\n一度haskellのruntimeをみてみましたが、単にprocessを起動しているだけで実質node.jsの上で動かすのと大差ないですからね。（ちゃんと動くか不安しかなく、あまりメリットを感じなかったです。）",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1553493896.133000",
+        "text": "transformersのRWS.CPSはモナドの中のタプルがCPSになってないんですね…\n(RankNTypesくらいは入れてしまってもよいのでは、と思わなくもない)",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1553495224.133300",
+        "text": "Writerで累積させる仕組みを関数にするというだけで、一般的な意味でのCPSモナドとは作りが違うようで…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1553495802.133700",
+        "text": "CPSしたいときはふみさん作のmtl-cを使おう！",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1553499247.135600",
+        "text": "Haskellのパッケージの性質を表すアイコンの作成を試みているんですが、抽象的なので難しい（一応左から制御構造、データ、IO、エンコーディング、テスト、パーサのつもり）",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1553505833.136800",
+        "text": "<@UH65CARPS> has joined the channel",
+        "user": "UH65CARPS",
+        "type": "message"
+    },
+    {
+        "ts": "1553511518.138000",
+        "text": "パッケージのティアリスト(対戦型ゲームなどで強いとされる、よく使われているもののランキング)を作りました　<https://scrapbox.io/haskell-shoen/%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%86%E3%82%A3%E3%82%A2%E3%83%AA%E3%82%B9%E3%83%88>",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1553511581.138200",
+        "text": "カタカナでハスケルって見るといつもちょっとびっくりしません？:smirk:\nnon-Haskeller向けの文脈に出てきたな、って感じがしまして。\n<https://coinpiace.com/cardano/news/iohk-haskell-course-graduation/?amp=1&amp;__twitter_impression=true>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1553512888.138500",
+        "text": "<@UH8KHK1KN> has joined the channel",
+        "user": "UH8KHK1KN",
+        "type": "message"
     }
 ]
