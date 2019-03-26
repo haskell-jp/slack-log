@@ -136,5 +136,29 @@
         "text": "AWS Lambda上でHaskellを動かす知見をお持ちの方はいらっしゃらないでしょうか・・・\n\naws-lambda-haskell-runtime（<https://github.com/theam/aws-lambda-haskell-runtime）>\nや\nServerless Haskell（<https://github.com/seek-oss/serverless-haskell）>\nを試してみて、単純なサンプルは動作するのですがDynamoDBにアクセスしてみると90秒などという長大な時間がかかってしまい、とても使い物にならないのです。\nDynamoDBだけでなくHTTPS通信全般がどうも遅いようで、S3へのアクセスや単なるWebサイトのデータを取ってくるだけでも非常に時間がかかってしまいます。",
         "user": "U87QYA152",
         "type": "message"
+    },
+    {
+        "ts": "1553583486.324600",
+        "text": "https全般はtlsがおそいのでopenssl使ってますが、それ以外は気にならないですね\nnodeとかでかいたものよりメモリも使わず快適に動いています\n",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1553584416.324800",
+        "text": "haskell-runtimeつかってません。\nnode.jsからデータを渡してつかっています。\nruntimeの問題かもですね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1553585194.326600",
+        "text": "Travisなどで複数バージョンのGHCに対してテストすると良いと思います <https://github.com/haskell-CI/haskell-ci> が便利です。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1553585274.328400",
+        "text": "cabal sdist してビルドしたりcabal checkもしてくれるので簡単なミスも気がつけます",
+        "user": "U4M9NJ7QE",
+        "type": "message"
     }
 ]

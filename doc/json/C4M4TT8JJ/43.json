@@ -172,5 +172,113 @@
         "text": "<@UH8KHK1KN> has joined the channel",
         "user": "UH8KHK1KN",
         "type": "message"
+    },
+    {
+        "ts": "1553568629.139600",
+        "text": "そのコース、最後の2週間はフィリップ・ワドラー氏が携わったスマートコントラクト言語を本人から直々に教えてもらったそうです。羨ましい。\n<https://wadler.blogspot.com/2019/03/two-weeks-of-teaching-in-ethiopia.html>",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1553570114.141400",
+        "text": "rio全盛なので、ベースモナドはRIOにしたいからResourceTを噛みたくない、っていう理由があるのかな、と思った（rio使うプロジェクト作ってないからわからないけど) <https://twitter.com/myuon_myon/status/1110214453897752576>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1553570405.142000",
+        "text": "Considered harmful系エントリ書かれてた <https://www.fpcomplete.com/blog/2018/10/resourcet-necessary-evil>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1553572096.142300",
+        "text": "RIOをResourceT相当にできるインスタンスが便利です <http://hackage.haskell.org/package/rio-orphans-0.1.1.0/docs/RIO-Orphans.html#t:HasResourceMap>",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1553572696.142900",
+        "text": "「bracketで済む所はbracket使えよ」っていうのが上のFPCompleteの記事の要旨ですが、RIOのReaderのデータにHandle入れたい、みたいな状況では凄く役に立ちそうです &gt; rio-orphans",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1553575887.143100",
+        "text": "<https://hackage.haskell.org/package/http-conduit-1.2.6/docs/Network-HTTP-Conduit.html>\nここのwithManagerがResourceT付でしたが、\n\n上記の認識が広がり（ResourceTやめる）\n<https://hackage.haskell.org/package/http-conduit-2.3.6.1/docs/Network-HTTP-Conduit.html>\nなくなったのはいいのですが、\ngcで回収という話になり、\nいつ解放されるか不安です。\n\nなにかご存じであればよろしくお願いします。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1553581819.143600",
+        "text": "問題になるとしたら `Manager` が保持しているコネクションプールですが、いい感じにやってくれてる、と信じるほかないのではないかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1553581937.143900",
+        "text": "ちなみにその実装は <https://github.com/snoyberg/http-client/blob/master/http-client/Data/KeyedPool.hs> にあります。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1553583164.144400",
+        "text": "ありがとうございます",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1553587020.145500",
+        "text": "<https://scrapbox.io/haskell-shoen/%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%86%E3%82%A3%E3%82%A2%E3%83%AA%E3%82%B9%E3%83%88> こうして見ると、Hackageには星の数ほどパッケージはあれど、必修レベルのものは意外と少ないですね",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1553587752.145700",
+        "text": "glやOpenGLよりglossの方が採用件数は多そうだと思いました",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1553588126.145900",
+        "text": "そもそも抽象度が違うパッケージですが、glossはOpenGL/GLUTを使っていますね",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1553588455.146100",
+        "text": "間接依存を「よく使うライブラリ」に含むかどうか、はちょっと主観が入りそうですね。vectorなんかは直接にも間接にも非常によく使うので、文句なくよく使うライブラリに入ると思います",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1553589213.146400",
+        "text": "glossはグラフィック入門としては非凡なライブラリですけど、凝った事をやろうとすると卒業して低レイヤーに行きたくなる感じなので、評価が難しいですね",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1553590804.146600",
+        "text": "やってる事の詳細については分からないのですが、withManagerと同じ事をしたい場合は\n\n```\nbracket (newManager xxx) closeManager $ \\manager -&gt; do\n  ...\n```\n\nでいいと思います",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1553591494.146900",
+        "text": "async便利だと思うんですけど、世間的には使われてるんですかね。あとsafe-exceptionsとか",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1553593037.147200",
+        "text": "`closeManager` は今はもうなんもしてないんです。。。\n<https://stackage.org/haddock/lts-13.14/http-client-0.5.14/src/Network.HTTP.Client.Manager.html#closeManager>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1553593087.148100",
+        "text": "あーgc任せってそういう事なんですね",
+        "user": "U570660KX",
+        "type": "message"
     }
 ]
