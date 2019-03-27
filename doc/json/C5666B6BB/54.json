@@ -166,5 +166,53 @@
         "text": "<@UHAJ3KE3F> has joined the channel",
         "user": "UHAJ3KE3F",
         "type": "message"
+    },
+    {
+        "ts": "1553658157.340400",
+        "text": "Either モナドの使い方をお尋ねします。\n\nEitherを返す複数の関数を組み合わせ Eitherを返す関数を作るとき、組み合わせに含まれるどの関数のLeftで処理が中断されたかわかるようにする方法はありますか？\n\n例えば以下のようなコードがあったとき、\n```\ncaller x= do\n      case someFunc x of\n            Left err -&gt; print err\n            Right y -&gt; ..\n\nsomeFunc:: MyType -&gt; Either String OtherType\nsomeFunc mt = do\n       first &lt;- SomeEitherFunc mt\n       second &lt;- AnotherEitherFunc first\n       …\n```\n\ncaller 側でLeftを受け取ったとき、 SomeEitherFuncから来たか、AnotherEitherFuncから来たかを区別したいです。\n区別する目的は、デバッグや障害時の原因究明で、どこでLeftが発生したかを把握するためです。SomeEitherFunc の Left や、 AnotherEitherFunc  の Leftは、どのようなメッセージを持つか事前に分かりません。\n\n```\n     case SomeEitherFunc mt of\n          Left err -&gt; Left ( \"from SomeEitherFunc:\" ++ err)\n```\n\nとしていけば目的達成できますが、書き方として冗長な気がするので、別の方法があれば教えていただきたいです。",
+        "user": "U7GSVRQ6S",
+        "type": "message"
+    },
+    {
+        "ts": "1553659195.340600",
+        "text": ".o( 何らかソースコードを書き換えないとムリかなぁ",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1553661037.340800",
+        "text": "結論から言うと直接実現するのは無理です。\n挙げていただいた :point_down: 相当のことを行う、errorsパッケージの `Data.EitherR.fmapL` 関数を使って頑張るしかないでしょう。\n同じような関数はほかのパッケージにもたくさんあるので、探して依存するなりコピペするなりするとよいかと思います。\n\n```\ncase SomeEitherFunc mt of\n\n         Left err -&gt; Left ( \"from SomeEitherFunc:\" ++ err)\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1553661184.341000",
+        "text": "&gt; デバッグや障害時の原因究明\nのためならロガーをしこむのが順当な対応ですかね",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1553661321.341300",
+        "text": "someFuncをいじって良いなら、こんな感じに書きます(例として挙がっているやつを関数化しただけ)\n\n```haskell\nePrefix :: String -&gt; Either String r -&gt; Either String r\nePrefix pfx (Left orig) = Left (pfx ++ orig)\nePrefix _ r = r\n\nsomeFunc:: MyType -&gt; Either String OtherType\nsomeFunc mt = do\n       first &lt;-  ePrefix \"someEitherFunc\"    $ someEitherFunc mt\n       second &lt;- ePrefix \"anotherEitherFunc\" $ anotherEitherFunc first\n```",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1553662309.341800",
+        "text": "自分ならEither String OtherTypeからEither MyException OtherTypeに変換して、caller側でMyExceptionの値に応じて場合分けするかなー。こんな感じ\n\n```\ncaller x= do\n      case someFunc x of\n            Left err -&gt; print err\n            Right y -&gt; print y\n\ntype MyType = Int\ntype OtherType = String\n\nsomeFunc:: MyType -&gt; Either MyException OtherType\nsomeFunc mt = do\n       first &lt;- someEitherFuncWithException mt\n       second &lt;- anotherEitherFuncWithException first\n       return second\n  where\n    someEitherFuncWithException = convert SomeEitherError . someEitherFunc\n    anotherEitherFuncWithException first = convert AnotherEitherFuncError (anotherEitherFunc first)\n    someEitherFunc _    = Left \"wrong\"\n    anotherEitherFunc _ = Right \"Correct!\"\n\ndata MyException = SomeEitherError | AnotherEitherFuncError\n    deriving Show\n\nconvert :: MyException -&gt; Either String a -&gt; Either MyException a\nconvert myException (Left _)      = Left myException\nconvert _           (Right other) = return other\n```",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1553671756.342600",
+        "text": "今来ました。こんな風にコールスタックを使うのはいかが？\n```\nimport GHC.Stack\n\nthrow :: HasCallStack =&gt; String -&gt; Either (CallStack, String) a\nthrow msg = Left (popCallStack callStack, msg)\n\nfoo :: HasCallStack =&gt; Either (CallStack, String) ()\nfoo = throw \"err\"\n\nbar :: HasCallStack =&gt; Either (CallStack, String) ()\nbar = throw \"err\"\n\nmain = case foo &gt;&gt; bar of\n  Left (e, msg) -&gt; do\n    putStrLn $ prettyCallStack e\n    putStrLn msg\n  Right a -&gt; print a\n```",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1553671784.342800",
+        "text": "実行するとこんな感じで場所がわかります\n```\nCallStack (from HasCallStack):\n  foo, called at stack.hs:12:13 in main:Main\nerr\n```",
+        "user": "U4KUNQF9N",
+        "type": "message"
     }
 ]
