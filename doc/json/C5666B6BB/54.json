@@ -250,5 +250,41 @@
         "text": "閉鎖された環境はdockerで手に入りますし。",
         "user": "U74KTAG0N",
         "type": "message"
+    },
+    {
+        "ts": "1553770944.000500",
+        "text": "閉鎖された環境が欲しいんじゃなくて、ファイルシステムっぽく振る舞うtest doubleが欲しいのです。\n例えば今やりたいのは\n\n```\nreadHoge :: Monad m =&gt; (FilePath -&gt; m String) -&gt; m String\nreadHoge readF = do\n  hogeContent &lt;- readF \"hoge\"\n  return $ \"Hoge: \" ++ hogeContent\n```\n\nみたいに、 `readFile` っぽくふる舞う関数をパラメーターとして受け取れるようにすることで、 `IO` に依存した処理をテストしやすくする、ということを私はよくやるのですが、その際にテスト用のファイルシステムの実装が必要となるのです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1553771931.000700",
+        "text": "ちなみに、環境の分離、という意味では <https://www.haskell.org/> にある「Try It!」で使用されています。\nDockerよりもお手軽！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1553775188.001100",
+        "text": "なるほど。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1553775268.001300",
+        "text": "<https://www.gnu.org/software/libc/manual/html_node/Replacing-malloc.html>\nLD_PRELOAD\nつかうのが簡単ですがそういうのじゃないですよね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1553775441.001700",
+        "text": "そっすね。あくまでHaskellレベルでお手軽にDIしたいので。（まぁ人によってはそっちの方が簡単に感じるかも知れませんが）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1553778682.002100",
+        "text": "どうせならextensibleとか使ってみてはどうでしょう",
+        "user": "U570660KX",
+        "type": "message"
     }
 ]
