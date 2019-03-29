@@ -112,5 +112,179 @@
         "text": "stackageに頼れない状況、giじゃないgtkでうっかりプロジェクトを立ち上げてしまい、そのまま移行できないケースとかですね",
         "user": "U570660KX",
         "type": "message"
+    },
+    {
+        "ts": "1553828469.001600",
+        "text": "このページめちゃくちゃ面白いですね！\n&gt; conduit かつてはトップメタだったが、ストリーミングライブラリに依存しない方向に環境がシフトしたためここに落ち着いた。\nconduit B Tier なんですね-! ストリーミングライブラリって使われなくなってきてるんですか :thinking_face: 今ってどういう流れなのか気になりました:tired_face:（全然わかっておらず）",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1553829201.001900",
+        "text": "例えばwaiが2.xから3になったとき、今までConduitを使ってストリームを表していたのをやめて、`IO ByteString`を繰り返し実行してデータを受け取るようになりました。色々なライブラリで同様の変更がなされたと記憶しています",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1553829638.002700",
+        "text": "そうなんですね！conduit依存のままだとパフォーマンスを上げるのが難しかったとかでしょうか :thinking_face:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1553829782.002900",
+        "text": "waiについては、conduitにロックインしているとpipesや他の仕組みを使いづらいから、という理由で切り離された感じもありそう？ 一応conduitと連携する部分は別パッケージとして提供されていますね <http://hackage.haskell.org/package/wai-conduit>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1553829811.003300",
+        "text": "他のストリーミングライブラリの選択肢を奪ってしまうというのが主な理由だったそうです(確かにパフォーマンスの問題もありますが…) <https://www.yesodweb.com/blog/2014/04/disemboweling-wai>",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1553830259.003700",
+        "text": "なるほど！（勉強になります :bow: ）\nストリーミングライブラリに問題があったというよりはストリーミングライブラリの選択肢がたくさんあるから、ライブラリが特定のストリーミングライブラリに依存した型を提供しないように conduit 離れの動きがあったという流れだったんですね_φ(･_･",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1553830348.005600",
+        "text": "あとは、私の主観ですが、とっつきづらいせいで使用者がいっこうに増えない、というのもあるのではと思います",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1553830391.007300",
+        "text": "何がなんでもconduit使わないといけない、という状況って基本的に存在しないので",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1553830610.007800",
+        "text": "とはいえ実用上必要となるリソース管理や残余処理に対応しているのはconduit(とほとんど使われていないiteratee、drinkery)だけという実情も…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1553830624.008000",
+        "text": "最近そもそもそんなにストリーミング処理ライブラリ必要なほど処理が複雑になる場面あるんだろうかと疑問を感じています",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1553830706.008700",
+        "text": "shoen のアップデート、なんらかの方法で何かに通知できないかな",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1553830779.009400",
+        "text": "これ使えそうですね\n<https://scrapbox.io/help-jp/Slack%E3%81%AB%E6%9B%B4%E6%96%B0%E3%82%92%E9%80%9A%E7%9F%A5%E3%81%99%E3%82%8B>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1553830816.009900",
+        "text": "ちょうど同じのみてたw",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1553830888.010500",
+        "text": "しかしNotificationsタブが見つからない… :cold_sweat:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1553830920.010900",
+        "text": "有料プランのみとか？",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1553830952.011300",
+        "text": "oh...",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1553830955.011500",
+        "text": "もしくは管理者のみとか",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1553831213.012200",
+        "text": "自分で作ったとこだとNotificationsあったんでそうっぽいですね",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1553831628.012900",
+        "text": "こういうのもあった\n<https://scrapbox.io/help-jp/RSS>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1553831690.013500",
+        "text": "<https://scrapbox.io/api/feed/haskell-shoen>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1553831807.013600",
+        "text": "でかい入力を扱うときにメモリ消費がすごい、みたいなお悩みは結構上がるので、ユースケース自体はあると思うんですけどね。\nそれが習得コストと比べてペイするかというと:thinking_face: になります",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1553831936.014600",
+        "text": "適当に管理者を増やしました。ただhaskell-jp公式ではないので通知送るかどうかは <@U4LGTMTMK> さんに委ねます…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1553836212.015400",
+        "text": "<@UHC4HR532> has joined the channel",
+        "user": "UHC4HR532",
+        "type": "message"
+    },
+    {
+        "ts": "1553841352.016200",
+        "text": "とりあえずチャンネル作ったので後は権限ある人がやっちゃってください！ <#CHG1KAE3Y|haskell-shoen>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1553841423.016700",
+        "text": "あ、とりあえずRSSでやってみますね。\nどのみちintegrationの数的にいっぱいいっぱいな可能性があるので",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1553844227.017400",
+        "text": "そういえばHaskell-jp Slackのユーザー数がいつの間にか600人を突破しましたね",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1553849486.018800",
+        "text": "Conduitの布教のために、recipe-collectionのconduit版を作りたいと思ってたんですよね。いい機会なのでhaskell-shoenに項目作ってしまって良いでしょうか",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1553849623.019200",
+        "text": "世界最大のナレッジベースにすることを目論んでいるのでぜひ！",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1553849654.019500",
+        "text": "ありがとうございます！",
+        "user": "U570660KX",
+        "type": "message"
     }
 ]
