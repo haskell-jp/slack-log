@@ -70,5 +70,161 @@
         "text": "<@UHPSK1Y3G> has joined the channel",
         "user": "UHPSK1Y3G",
         "type": "message"
+    },
+    {
+        "ts": "1554423176.009800",
+        "text": "ざっくりした質問で恐縮なんですが、cabal new-buildってどういう仕組みでcabal sandboxや古いcabal buildの問題点を解決しているんでしょうか。参考になるリンクでも良いので教えてください！ hask(_ _)eller",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1554425012.009900",
+        "text": "Nix-style というだけあって、 Nix ぽいです。もし Nix を知っていれば、類推でなんとなくつかめるかもしれません。端的にいえば、 sandbox に加えて、ライブラリのビルドキャッシュがホームディレクトリ単位になったものと理解しています。\n古い cabal build は同一ライブラリの複数バージョンを持てませんでしたが、 new-build は sandbox 相当の機能を持っているのでこれを解消しています。\nsandbox はプロジェクト毎に分離されていたので、プロジェクト間でライブラリのビルドが重複してしまいます。 new-build ではホームディレクトリ単位でキャッシュされているので、同じライブラリの同じバージョンのビルドは全体で一回ですみます。\n\nというのが自分の理解ですが、本格的に調べたわけではないので違うところがあったらごめんなさい。\n参考になるドキュメントはとりあえず公式の <https://cabal.readthedocs.io/en/latest/nix-local-build-overview.html> を挙げておきます……",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1554426237.014900",
+        "text": "ビルドの成果物に影響を及ぼす入力、例えばソースコードの内容、各種GHCフラグ、依存パッケージのバージョンなどから一意に決まるハッシュ値を計算して、ハッシュ値ごとに成果物をstoreにキャッシュして、同じハッシュ値を使うビルドにはキャッシュの内容を再利用するとりかいしてます",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1554427355.015200",
+        "text": "Hutton本2でDefunctionalizationなるテクニックが使われています。\nどうも、関数をデータ構成子で置き換えることのようです。\n<https://en.wikipedia.org/wiki/Defunctionalization>\nこの説明中の first-order と higher-order は、どういう意味でしょうか？\nあと、Defunctionalizationの訳語があれば、教えてください。\n「関数の除去」ぐらいでいいかなとは思っています。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1554429174.015700",
+        "text": "大体わかりました！ドキュメントも読んでみます！\nありがとうございます！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1554431398.016800",
+        "text": "一般的な語法通り、高階関数とそうでない関数のことだと思います。化学用語などに倣ってあえて訳すとすれば「脱関数」でしょう",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1554431423.017200",
+        "text": "Higher-Order Programming Languagesの所であれば「高階関数を扱う」というくらいに考えていました．\nfirst-orderはhigher-orderの対義語くらいの意味なんだと思います．\n&gt; The M-language of McCarthy (1960) is first order, as there is no provision to pass a function as argument or return a function as result5.\n<https://www.cs.kent.ac.uk/people/staff/dat/tfp12/tfp12.pdf>",
+        "user": "UH195J82Y",
+        "type": "message"
+    },
+    {
+        "ts": "1554431626.017500",
+        "text": "Hutton2 では、高階関数を置き換える感じじゃないんです。関数を構成子に置き換えるだけ。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1554431646.017700",
+        "text": "Hutton2では、first-orderを訳さない方向で検討します。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1554432072.017900",
+        "text": "<https://github.com/cutsea110/aop/blob/master/src/Defunctionalization.hs>",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1554432140.018200",
+        "text": "wikipediaのexampleのやっていることは分かったけどLamを差し込む意義が良く分からないな...",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1554432267.018400",
+        "text": "このexampleを見る限りTreeとLamは完全に同型なのでだから何?みたいな.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1554432937.018900",
+        "text": "そうか関数と構成子の違いってパターンマッチできるとかcase splitできる点にあることを考えると,Lamがexampleの例のままだと非力すぎるってことなのかな.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1554432964.019100",
+        "text": "Lamの構成子を豊かにしてやれば差が見えてくる?",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1554434082.019300",
+        "text": "C言語に直して言うと「関数ポインタを引数に取る関数(高階関数)があって、それに指定される関数ポインタがすべて分かっているとき、関数ポインタをenum、その呼び出しをswitchに置き換える」という最適化なのだと理解しました",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1554434217.019500",
+        "text": "で、enumをもっと複雑な代数データ型に拡張できるよというのがDefunctionalizationの要点で、それがLamなのか",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1554434370.019700",
+        "text": "Defunctionalizationは\"functional\"を除去するという意味じゃないかと思います。functional(汎関数)はHigher-order functionの別名の一つです。 <https://en.wikipedia.org/wiki/Higher-order_function>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1554435304.020100",
+        "text": "<@U4MMHDSNT> Hutton2 では、導出したコンパイラ＆仮想マシンから、継続（関数）を取り除いて、仮想マシンのコマンドに変えています。ので、かなり意味があります。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1554435528.020400",
+        "text": "<https://blog.poisson.chat/posts/2018-08-06-one-type-family.html> の普通の関数版のお話ってことですかね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1554435599.020700",
+        "text": "具体的には、\n\n```\naddC :: Cont -&gt; Cont\n```\n\nを\n\n```\ndata Code = HALT | PUSH Int Code | ADD Code\n                 deriving Show\n```\n\nの `ADD` で置き換えます。\n\n```\ntype Cont = Stack -&gt; Stack\n```\n\nなので、 `addC` は高階関数ですね。\n\n脱高階関数と訳そうかな。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1554436694.021700",
+        "text": "関数のままだと適用されて計算が進んじゃうけどデータ構成子を被せればWHNFで一旦ストップするからコンパイラが手を出せる、最適化などが出来るってところかな.狙いとしては.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1554437145.022000",
+        "text": "SICPの積極制御評価器ぽいネタだ.おもしろそう.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1554438422.022700",
+        "text": "数式の eval 関数が、コンパイラcompと仮想マシンexecに分離され、その間が `Code` で取り持たれます。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1554439108.026300",
+        "text": "プログラム解析の文脈ですと一階のプログラム(Cなど)の解析手法(抽象解釈など)で関数オブジェクトを扱いたいときに使われているとおもいます。いわゆるクロージャ変換のことを指すこともある気がします。",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1554440406.026600",
+        "text": "<https://typesandkinds.wordpress.com/2013/04/01/defunctionalization-for-the-win/>\nこれなんかはそれに近い話をしてるのかなぁ",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1554442360.027100",
+        "text": "shiatsumat さんは脱関数化と訳してるっぽいですね．脱高階関数化の方が適切だとは思います\n<https://github.com/shiatsumat/fp-papers/wiki/%E8%84%B1%E9%96%A2%E6%95%B0%E5%8C%96%E3%82%92%E5%AE%9F%E7%94%A8%E3%81%99%E3%82%8B>",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
