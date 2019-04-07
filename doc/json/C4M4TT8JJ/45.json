@@ -178,5 +178,47 @@
         "text": "GHCのGitLab移行について、Issue(Ticket)管理やWikiの移行も落ち着いたので、以下のリンク集を更新しておきました。\n\n- GHC(Haskell)の上流リポジトリ等がGitLabに移行しました\n    - <https://qiita.com/takenobu-hs/items/a2eeb327088bb1d2fe77>\n- Haskell GHC開発に関する情報源いろいろ\n    - <https://qiita.com/takenobu-hs/items/0752931f2472c0705af0>\n\nGitLabへの移行によって、contributionがより容易になっています:slightly_smiling_face:\nパッチの送付がPhabiricatorからGitLabに変わり、以前よりパッチを送りやすいです。\nあとWikiについても、TracのマークダウンからGitLabの普通のマークダウン書式に変わり、ページを編集しやすいです。\nでは:haskell:",
         "user": "U55V441FS",
         "type": "message"
+    },
+    {
+        "ts": "1554628742.055900",
+        "text": "<https://mail.haskell.org/pipermail/libraries/2019-April/> (,,)と(,,,)にMonadとTraversableのインスタンスを追加する提案をしたんですがやっぱりFoldableインスタンスが嫌いな人が多いみたいですね…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1554653940.056600",
+        "text": "ちょっと手元に ubuntu が無くて確かめられないのですが、 haskell-platform パッケージは、パッケージ名を並べた依存関係のみのパッケージになっているはずなので、現在 ubuntu で提供されている ghc やライブラリが入るはずです。\n&gt; Ubuntuですと、aptで入れると最新のcosmicでも2014.2.0.0（GHC7とか）が入ってしまうようなので最新のパッケージをいれるようにはしたいですね",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1554654265.056900",
+        "text": "haskell-platform のパッケージ名一覧は現行バージョンとも合っていると思います",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1554654280.057100",
+        "text": "<https://packages.ubuntu.com/cosmic/haskell-platform>",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1554654356.057400",
+        "text": "ghc は cosmic だと 8.2.2, disco だと 8.4.4 のようですね。\n<https://packages.ubuntu.com/search?keywords=ghc>",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1554654401.057600",
+        "text": "なので、ghc 8.2.2 あるいは ghc 8.4.4 相当でよければ、\n`apt-get install haskell-platform`\nでいいんじゃないかな",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1554655130.058000",
+        "text": "ところでグラフのライブラリですが、haskell-platform があるなら fgl も使えますね。",
+        "user": "U4KNU6N48",
+        "type": "message"
     }
 ]
