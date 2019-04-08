@@ -220,5 +220,65 @@
         "text": "ところでグラフのライブラリですが、haskell-platform があるなら fgl も使えますね。",
         "user": "U4KNU6N48",
         "type": "message"
+    },
+    {
+        "ts": "1554698251.058500",
+        "text": "AtCoder で利用している GlobalPackageDB の内容を確認したところ、やはり Haskell Platform を使っている感じですね。\n<https://gist.github.com/waddlaw/b6a14d4dbc94d282a175abe7f9596ae7#globalpackagedb-%E3%81%AB%E7%99%BB%E9%8C%B2%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%82%8B%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%81%A8%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%81%AE%E4%B8%80%E8%A6%A7>\n\n&gt; なので、ghc 8.2.2 あるいは ghc 8.4.4 相当でよければ、\n&gt; ｀apt-get install haskell-platform｀\n&gt; でいいんじゃないかな\n\nhaskell-platform でインストールした後で追加のパッケージを含めたい場合、stack や cabal を使う感じになるのでしょうか？それとも ghc-pkg を使うのかな。\n`vector-algorithms` や `mwc-random` などは Haskell Platform に入っていないですが、あっても良いのかなと思ったり。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1554698543.058900",
+        "text": "cabalが入っているので普通に `cabal new-install mwc-random` ではないかと。\n<https://packages.ubuntu.com/cosmic/haskell-platform>\nでもAtCoder的にOKならなるべく新しいのをビルドすべきだとは思いますが...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1554698860.059400",
+        "text": "システムワイドに入れるなら cabal のオプションに --global とか必要かも",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1554698955.059700",
+        "text": "オプション無しで --user 相当だとすると、unix ユーザーが変わると見えなくなってしまいます。",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1554699334.060100",
+        "text": "あと、直接は関係無いですが `network` とか `Cabal` パッケージは逆に使えない方が良いような気が・・・",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1554699472.060300",
+        "text": "さすがにそのあたりは sandbox で防がれているのでは?",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1554699722.060500",
+        "text": "それなら僕らは気にしなくて良いですね :slightly_smiling_face:",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1554705126.060800",
+        "text": "Ubuntu のサポート期間を考えると `18.04 LTS` が選ばれる可能性も結構ありそう。\nその場合の haskell-platform に含まれる ghc は `8.0.2` です。\n<https://www.ubuntu.com/about/release-cycle>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1554720210.064400",
+        "text": "この間のHaskell Weeklyから。\n純粋な関数によるパーサーでは構築しにくいデータ構造の扱い方。FromJSON (IO Hoge)みたいなインスタンスを作ればIOでもいいわけだ。\n<https://esham.io/2019/03/parsing-json-with-more-context>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1554726335.065000",
+        "text": "これはバッドノウハウだと思います。使う側が正しく型を指定しないといけない(ImageSizeTableが必要ということを型推論してくれない)だけでなく、JSONパーサーの失敗とMaybeの失敗が混在しているというのが主な理由です。しかしreflectionを使って `Given ImageSizeTable =&gt; FromJSON Headers` のように定義すれば簡単に解決できる問題でもあります",
+        "user": "U4KUNQF9N",
+        "type": "message"
     }
 ]
