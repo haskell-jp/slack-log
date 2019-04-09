@@ -250,5 +250,53 @@
         "text": "Applicativeは逐次実行、Monadは分岐という制御能力がありますが、Functorにはないからではないでしょうか？もっとも、ControlとDataの区別はかなり曖昧ではあると思います",
         "user": "U4KUNQF9N",
         "type": "message"
+    },
+    {
+        "ts": "1554790447.035900",
+        "text": "あれ、 BiFunctor って Control にも Data にもあるようですが、  Control の方ってたぶん古いような感じがするんですがどうなんでしょうか",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1554790554.036100",
+        "text": "ついでに元の話について思うところを書くと、 Functor は Traversable の親でもあるので、さすがに Control.Traversable は違和感があるのでそこまではひっくるめて Data っていうニュアンスなんじゃないかなあ、という気がします",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1554793066.040300",
+        "text": "<@UHTD6P10F> has joined the channel",
+        "user": "UHTD6P10F",
+        "type": "message"
+    },
+    {
+        "ts": "1554793399.043600",
+        "text": "こんにちは。いつもお世話になります。\nファイルの書き出しを正格に（？）実行する方法はありますか？\n\ndo 構文の中で、\n`writeFile` ( <http://hackage.haskell.org/package/bytestring-0.10.8.2/docs/Data-ByteString.html#g:28> )に filepathとコンテンツを渡したあと、このfilepathのファイルを別のところに送信するプログラムを書いているのですが、 `writeFile`呼び出し直後にはファイルが存在しないことがあります。\n\n`writeFile`の同期処理についてグーグルで検索すると、\n`readFile`の内容を`seq`で評価して`writeFile`に渡す、という例は多数見つかるのですが、 `writeFile`で出力される予定のファイルをすぐに使う例が見当たりませんでした。",
+        "user": "U7GSVRQ6S",
+        "type": "message"
+    },
+    {
+        "ts": "1554793894.043800",
+        "text": "`writeFile` が遅延するとしたら、少なくともlazy IOによるものではないとおもいます。\n書き込む系はlazy IOではないはずです。\nバッファリングとか、ほかの問題が起きていないでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1554796117.044100",
+        "text": "writeFileは閉じるときにバッファを流すはずなのでファイルシステムの問題ではないでしょうか？",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1554796824.044400",
+        "text": "ありがとうございます。調べてみます。",
+        "user": "U7GSVRQ6S",
+        "type": "message"
+    },
+    {
+        "ts": "1554797318.044700",
+        "text": "<@UHTER4KP1> has joined the channel",
+        "user": "UHTER4KP1",
+        "type": "message"
     }
 ]
