@@ -10,5 +10,35 @@
         "text": "BiFunctorは完全に私の勘違いでした＞＜",
         "user": "U9XHWQX7Z",
         "type": "message"
+    },
+    {
+        "ts": "1554864543.049400",
+        "text": "みなさん、議論、ありがとうございました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1554864561.049600",
+        "text": "訳語はとりあえず「脱高階関数」としました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1554867601.052000",
+        "text": "cabal new-buildって、UNIX系OSの伝統的なビルド方法である「一般ユーザーでconfigure&amp;コンパイル→スーパーユーザーでmake install」みたいなフローはできるんでしょうか",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1554868493.052300",
+        "text": "デフォルトだとインストール先にシンボリックリンクを張るようになっていて、コピーするオプションがこの前追加された事は調査したのですが、これをグローバルインストールに使えるのかどうか判然としないのですね <https://github.com/haskell/cabal/issues/5837>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1554868701.052600",
+        "text": "--install-method=copyでバイナリのコピーは出来ますが、sudo make install的に使うのは難しいと思います。依存ライブラリは~/.cabal/storeに書き込まれるのとバイナリ以外の例えばdata-filesなどは~/.cabal以下に入ると思うのでnew-buildとnew-installを別ユーザでやるとnew-installは新たにビルドしてインストールする動作になると思います。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
     }
 ]

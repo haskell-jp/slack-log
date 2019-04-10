@@ -16,5 +16,59 @@
         "text": "Cのコードを生成する組み込みシステム向けHaskell製DSL <https://copilot-language.github.io/>\n同じようにCのコードを生成するDSLといえばIvoryがありますが、こちらはまた対象がちょっと違うのかな？",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1554858057.072700",
+        "text": "あんまりHaskellerっぽくはないCコードを生成しますね．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1554858693.073000",
+        "text": "サンプルコードから生成されたものですが，.cと.hがセットで吐かれて，.hが\n```\nuint8_t temperature;\nvoid heatoff(float heatoff_arg0);\nvoid heaton(float heaton_arg0);\nvoid step(void);\n```\nみたいな感じ．.cで実装されてるのは `step` のみで， `heaton` や `heatoff` は自分で別途実装する．これを利用する側では「 `temperature` にセンサ等から拾った温度を代入して `step` 呼ぶ」 を無限ループするような処理を書くと， `temperature` がHaskell側で定義した条件に合致したときに `heaton` や `heatoff` が呼ばれるような `step` になっているので，ハードウェアの制御とかができますよ的な．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1554876557.075400",
+        "text": "GHC 8.6.5-rc1, やっぱり <https://gitlab.haskell.org/ghc/ghc/issues/16408> この問題直していただけてました。 :tada:\n久々に手元のパッケージのhaddockを手元で変なワークアラウンドなしに出せたのでうれしい。 :joy:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1554886466.076600",
+        "text": "Stackでpackage.yaml使う場合alexとhappy入れておけば自動で使ってくれるという知見を得ました",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1554888315.076800",
+        "text": "ん？どういう意味ですか？\nhpackを入れておけば自動で使ってくれる、ではなくて？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1554888536.077000",
+        "text": "cabalファイルみたく明示的に書かなくても.xと.yで自動的にalexとhappy使ってくれるという、多分自明っぽいやつです",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1554888712.078100",
+        "text": ".chsとかはどうなんでしょ？ ",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1554889070.078400",
+        "text": "stackのソース見たら対応してるっぽいですね　<https://github.com/commercialhaskell/stack/blob/ba8c5e54bb7bc4c17f808672cacd9d950d9d7763/src/Stack/Constants.hs#L139>",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1554889421.078800",
+        "text": "そうか... cabalでalexやhappyを使ったことがないので存じませんでした... :serval:",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
