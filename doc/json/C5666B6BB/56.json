@@ -40,5 +40,95 @@
         "text": "--install-method=copyでバイナリのコピーは出来ますが、sudo make install的に使うのは難しいと思います。依存ライブラリは~/.cabal/storeに書き込まれるのとバイナリ以外の例えばdata-filesなどは~/.cabal以下に入ると思うのでnew-buildとnew-installを別ユーザでやるとnew-installは新たにビルドしてインストールする動作になると思います。",
         "user": "U4M9NJ7QE",
         "type": "message"
+    },
+    {
+        "ts": "1554953962.053400",
+        "text": "本件、 `cabal new-freeze` で固定した依存関係を元に `runhaskell Setup` を実行できれば、やりたかった事は概ね実現しそうです。「ghcのバージョンに合ったfreezeファイルをリネームしてからconfigureして下さい」みたいなビルド指示になるのかな",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1554973353.057400",
+        "text": "<https://kazu-yamamoto.hatenablog.jp/entry/2019/04/11/111238> こちらに関連して気になりました。\n実際のところApplicative styleの「おすすめの形」は\n```\nf &lt;$&gt; t &lt;*&gt; u &lt;*&gt; v\n```\nだと思うのですけど、 `&lt;$&gt;` (fmap) と `&lt;*&gt;` の関係が、Applicative則に書いてないので、\n```\npure f &lt;*&gt; t &lt;*&gt; u &lt;*&gt; v\n```\nから、どうやって\n```\nf &lt;$&gt; t &lt;*&gt; u &lt;*&gt; v\n```\nを導けばいいのかわかりません。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1554973417.057500",
+        "text": "と、ここまで書いて「すごいH本に書いてあったような...」と思って読んでみたけど省略されてる... :disappointed: (p. 252より)",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1554973479.058000",
+        "text": "<http://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Applicative.html#t:Applicative> でも、\n\n&gt; As a consequence of these laws, the Functor instance for f will satisfy\n&gt;    fmap f x = pure f &lt;*&gt; x\n\nとまでしか書いてなかったか... :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1554973650.058400",
+        "text": "すごい Haskell の方は\n&gt; 中でも一番重要なのは `pure f &lt;*&gt; x = fmap f x` です。\nと書いてあるのでこれを使えばいいのでないですか？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1554973694.058600",
+        "text": "ああ、だからそれがどうやってほかのApplicative則やFunctor則から導かれるのかがわからないのです...。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1554973873.058800",
+        "text": "他の則から導かれるようなものではないような？\n他の則から導かれるならそれは則に含めなくてよいと思うのですが。\n（何か igrep さんの主張を読みまちがってますかね",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1554973989.059000",
+        "text": "&gt; 他の則から導かれるようなものではないような？\nでも、さっき言及したApplicativeのドキュメントでは、\n\n&gt; As a consequence of these laws, the Functor instance for f will satisfy\n&gt;    fmap f x = pure f &lt;*&gt; x\n\nとあるのでさもほかの則から導かれるかのように書かれてるんですよね...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1554974065.059200",
+        "text": "と、またここまで書いて気づいたんですが、ひょっとして :point_down: の箇所もApplicative則に含まれるのか。\nだとすれば納得。\n\n&gt; A minimal complete definition must include implementations of pure and of either &lt;*&gt; or liftA2. If it defines both, then they must behave the same as their default definitions:\n&gt;    (&lt;*&gt;) = liftA2 id\n&gt;    liftA2 f x y = f &lt;$&gt; x &lt;*&gt; y",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1554974211.059700",
+        "text": "ああー、すみません、すごいH本の「これ以外のアプリカティブ則の一覧はこちらです」の「これ以外の」を見逃してました... :bow: :cold_sweat:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1554979308.060200",
+        "text": "ついでにですが，\n```\n[(+ 1), (+ 2)] &lt;*&gt; [1, 2]\n```\nみたいなのは， `f &lt;$&gt; x &lt;*&gt; y` の形ではないと思いますね． `f &lt;$&gt; x &lt;*&gt; y` の形は実用上は良くでてくる形ですが， applicative style 一般の形がそうとは限らないと思います．一応\n```\nid &lt;$&gt; [(+ 1), (+ 2)] &lt;*&gt; [1, 2]\n```\nとも書けますが",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1554986903.060500",
+        "text": "Functor がまずあって、しかる後に Applicative があります。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1554986929.060700",
+        "text": "なので、まず `&lt;$&gt;` があって、その次に `pure` と `&lt;*&gt;` が出てきます。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1554986982.060900",
+        "text": "そのときに、 `&lt;$&gt;` は実は、 `f &lt;$&gt; x = pure f &lt;*&gt; x` に分解できるという話です。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1554987050.061300",
+        "text": "定義であって、Applicative 法則に含めるような規則じゃないと思います。",
+        "user": "U56MBRKR9",
+        "type": "message"
     }
 ]
