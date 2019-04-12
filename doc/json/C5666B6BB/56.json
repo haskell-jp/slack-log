@@ -130,5 +130,125 @@
         "text": "定義であって、Applicative 法則に含めるような規則じゃないと思います。",
         "user": "U56MBRKR9",
         "type": "message"
+    },
+    {
+        "ts": "1555031759.069500",
+        "text": "`(&lt;$&gt;)`は関数型(function type)の引数に適用できるので， `a -&gt; (b -&gt; c)`のような型をもつ関数にも適用できます．\nたとえば， `someFunc :: a -&gt; (b -&gt; c)`という関数に `(&lt;$&gt;)`を適用した値 `(&lt;$&gt;) someFunc`の型は `f (b -&gt; c)`という関数っぽい型になります．\nそうすると，この関数のような値を `f b`という型の値に適用できるように `f b -&gt; f c`という関数に変換して使いたくなるのが人情でしょう．\nつまり， `f (a -&gt; b) -&gt; (f a -&gt; f b)`という変換関数が欲しくなりますよね．それが， `(&lt;*&gt;)`というわけです．\nもともとの動機を考えれば， `(someFunc &lt;$&gt; (x :: f a)) &lt;*&gt; (y :: f b)  ≡ (pure someFunc &lt;*&gt; (x :: f a)) &lt;*&gt; (y :: f b)`を満たして欲しいですよね．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1555032764.000100",
+        "text": "釈迦に説法ですが， `$` は右結合ですが， `&lt;$&gt;` や `&lt;*&gt;` は左結合です．これでハマった方を知っています．:sweat_smile:",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1555033956.000400",
+        "text": "&gt; 定義であって、Applicative 法則に含めるような規則じゃないと思います。\nでも、満たさないように `&lt;*&gt;` を実装することはできる（はず）なので、すごいH本やApplicativeのドキュメントに書いてあるとおり、則の一部であると解釈していいと思います。\nもちろんデフォルトの実装にしたがっていれば破られることはありませんが...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1555035130.000600",
+        "text": "```\npure f &lt;*&gt; x = f &lt;$&gt; x\n```\nは法則であって，定義ではないのでは？．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1555036226.001100",
+        "text": "ApplicativeがFunctorであるために満すべき性質(法則)かな．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1555036317.001500",
+        "text": "`&lt;$&gt;`がメソッドから、単なる演算子に格下げされたら、法則が定義になる？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555036706.001900",
+        "text": "あ、 `&lt;$&gt;` は単なる演算子。 `fmap` との関係を調べないといけないのか。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555036877.002300",
+        "text": "4つの Applicative 法則が満たされれば、 `fmap f x = pure f &lt;*&gt; x` は自動的に満たされるらしい。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555036980.002500",
+        "text": "逆も言えますか？",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1555037349.002700",
+        "text": "直感的には、言えないような。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555037806.002900",
+        "text": "関手の単位元：\n\n```\npure id &lt;*&gt; x = x\n```\n\n関手の合成法則：\n\n```\npure f &lt;*&gt; (pure g &lt;*&gt; x)\n= pure (.) &lt;*&gt; pure f &lt;*&gt; pure g &lt;*&gt; x\n= pure ((.) f g) &lt;*&gt; x\n= pure (f . g) &lt;*&gt; x\n```",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555037877.003100",
+        "text": "`pure f &lt;*&gt; x` は関手法則を満たすので、 `fmap` ですな。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555037964.003300",
+        "text": "4つのApplicative法則が満たされれば、自動的に `f &lt;$&gt; x = pure f &lt;*&gt; x` は満たされるので、これ自体は補題？ぐらいで、法則じゃなさそう。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555050713.004300",
+        "text": "私も気になったのでRedditでも質問してみました <https://www.reddit.com/r/haskell/comments/bcaead/how_to_derive_pure_f_x_fmap_f_x/>",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1555050764.004600",
+        "text": "補足ですが，\n```\nfmap' f x = pure f &lt;*&gt; x\n```\nでの `fmap'` は， kazu さんがおっしゃるように Applicative law から Functor law を満たすことが示せます．\n\nただ，もし一つの型に対し， functor law を満たす `fmap` が複数あれば（ここでの違いとは実装の違いではなく，振る舞いの違いであることに注意してください）， `fmap = fmap'` と一概には言えません．しかし，実は fmap の多相性からこれらは一意であることが知られています: <https://wiki.haskell.org/Typeclassopedia#Laws>\n\nなので， Functor の一意性と Applicative law から `f &lt;$&gt; x = pure f &lt;*&gt; x` が導けます．これは定理ですね．なお，これは Applicative law が Functor law を含んでいるからですが，もう少し明確に分離できる別の Applicative law set も知られていて，\n```\n(*) :: f a -&gt; f b -&gt; f (a, b)\nx * y = (,) &lt;$&gt; x &lt;*&gt; y\n\nunit :: f ()\nunit = pure ()\n```\nに対して，\n• naturality : `fmap (f *** g) (u * v) = fmap f u * fmap g v`\n• left identity: `fmap snd (unit * v) = v`\n• right identity: `fmap fst (v * unit) = v`\n• associativity: `fmap (\\(x, (y, z)) -&gt; (x, y, z)) (u * (v * w)) = fmap (\\((x, y), z) -&gt; (x, y, z)) ((u * v) * w)`\nで，これは元の Applicative law が fmap から独立しているのと異なり， fmap を元に law が作られています．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1555051611.004800",
+        "text": "<@U56MBRKR9> 記事中で気づいたのですが Monad の「交換の法則ですが、左辺は、」のところは「結合の法則」ですね。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1555051640.005100",
+        "text": "Functor則，Pointed則と(&lt;*&gt;) . pure = fmap という法則？から，簡単にIdentity則とHomomorphism則は導くことができますね．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1555052538.005300",
+        "text": "<@U57CGDBMG> う。ありがとうございます。訂正しました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555055902.005800",
+        "text": "<@U56MBRKR9>「do は入れ子で書かずに、平坦な形でスッキリ書いてね」のところですが、右辺の `do { x &lt;- mx; y &lt;- f x; g x }` は左辺（と同じ意味の）の `do { y &lt;- h mx; g x }; h mx = do { x &lt;- mx; f x }` に書き換えられるように「do の中の一部分を関数に切り出しても大丈夫だよ」という解釈の方がプログラミングでは役に立つ気がします。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1555056434.006700",
+        "text": "<@U57CGDBMG> 昔、だれかが「どこで切ってもMonad」と言っていたのを思い出します。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
     }
 ]
