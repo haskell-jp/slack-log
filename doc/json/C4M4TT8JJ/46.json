@@ -118,5 +118,83 @@
         "text": "<@UJ05UB286> has joined the channel",
         "user": "UJ05UB286",
         "type": "message"
+    },
+    {
+        "ts": "1555379574.013000",
+        "text": "<http://prime.haskell.org|prime.haskell.org> の証明書って、期限切れになってませんか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555379609.013200",
+        "text": "なってる",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1555379625.013400",
+        "text": "`2019年4月11日木曜日 6時03分43秒 日本標準時`",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1555380582.014800",
+        "text": "GHC 8.8 では、Monadクラスからfailメソッドが取り除かれ、パッケージが多数死亡。リリースされても、嵐が通り過ぎるのを待ってご利用下さい。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555381396.016300",
+        "text": "お使いのパッケージがまだ対応できてない！という場合、 <http://head.hackage.haskell.org/> のご利用もご検討ください。\n<https://github.com/hvr/head.hackage> で管理されている、パッチを当てたバージョンを取得することが出来ます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1555381443.016800",
+        "text": "（まぁ、8.8がリリースされる頃には本家Hackageに対応済みのバージョンがリリースされると思いますが）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1555382071.018300",
+        "text": "ありがとう。headを試してみたけど、最新の Cabal &amp; cabal-install が入ってないと、結局使えないみたい。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555404303.024900",
+        "text": "baseライブラリの fail の報告イケてないと思います 絶対消すって決定した時点でdeprecated なりwarning なり入れとくべきでしょ。 少なくともそれで多くのユーザにまだ、 Monad.failを使ってるって情報を与えて変更しやすくしないと…",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1555404544.026200",
+        "text": "MonadFailに関する仕様変更は当初の計画とも違っており、反面教師にしなければならない例ですね…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1555404595.027600",
+        "text": "8.6の時点で壊れるのはdoの中で部分的なパターンを使った場合のみで、8.8ではかなりのコードが壊れることが予想されます",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1555404609.028100",
+        "text": "-Wcompat が-Wallに含まれてない問題？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555409626.029300",
+        "text": "-Wcampat有効にしてたから警告消すの気持ち良いんじゃ~ってやってましたね\nこういう破壊的変更は確かに一度-Wallにも入れるべきな気がします",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1555423357.033900",
+        "text": "GHC 8.8 では StarIsType が次の段階に行く他、 local の kind generalization のアルゴリズムも変わるので、 type level coding を多用してるコードも、 warning なりコンパイル出来なくなったりすることが増えそうですね\n<https://gitlab.haskell.org/ghc/ghc/wikis/migration/8.8>",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
