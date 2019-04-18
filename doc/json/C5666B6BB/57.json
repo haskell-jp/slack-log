@@ -16,5 +16,89 @@
         "text": "aws-lambda-haskell-runtime で同様の現象を経験しました。メモリの割り当てを増やしながらベンチをとったところ 1sec 程度までは改善しましたが、それ以上縮まらず実用は諦めました。",
         "user": "U4M4XHKB8",
         "type": "message"
+    },
+    {
+        "ts": "1555568013.016600",
+        "text": "たとえば、「a -&gt; a を満たす実装は一つ(id)しかない」は、何の定理から言えることですか？ theorem for free だと思って読んだんですが、それらしいことが書かれているとは思えませんでした。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555568233.016800",
+        "text": "∀a. a -&gt; a という論理式で考えれば、「Int -&gt; Int ∧ Char -&gt; Char ∧ ... ∧ SomeType -&gt; SomeType」と無限論理積に展開できるので、自明に id しか存在しないと考えていますが、どうなんでしょう？",
+        "user": "UDC1LV887",
+        "type": "message"
+    },
+    {
+        "ts": "1555568319.017100",
+        "text": "直感的にはそうなんですが。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555568383.017400",
+        "text": "fmap の実装は一つしかないは、どこから来るのかが元々の疑問で、まず簡単な a -&gt; a から質問しました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555570579.018300",
+        "text": "多相関数を数える(<https://qiita.com/nobsun/items/5662968f1c381695e7ff>)かな",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1555570623.019800",
+        "text": "aの構成方法が未知なので引数としてもらったものをそのまま返す関数しか構成できないからですね",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1555570690.021600",
+        "text": "もちろんHaskellではundefinedがあるのでidの他にもう一つconst undefinedがあります。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1555570761.023700",
+        "text": "なので関数(全域関数)なら一本しかなくHaskellのように部分関数まで考慮するなら二本になる",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1555570843.025100",
+        "text": "というような話を上の <@U4KU9ABL0> の記事に対して書いたのが <https://qiita.com/cutsea110/items/3496394968cb7ac73047>",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1555570891.025800",
+        "text": "このまえMizunashi_Manaさんから教えてもらったんですが、Parametricityという性質らしいです。 <https://www.well-typed.com/blog/2015/05/parametricity/>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1555570968.026100",
+        "text": "Theorems for freeについては読んだ事がないのですが、上の記事中にはFree theoremの事が出てきている模様",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1555574234.026400",
+        "text": "free theorems については，\n• <https://reasonablypolymorphic.com/blog/theorems-for-free/>\n• <http://www21.in.tum.de/~boehmes/diplomathesis.pdf>\nとかが分かりやすいかもです．で， id については次の theorem が得られます\n\n```\nforall f =&gt; id' . f = f . id'\n```\n\nこれは， <https://alexknvl.com/cgi-bin/free-theorems-webui.cgi> で `a -&gt; a` で theorem を取得するといいと思います．\n\nここで，例えば任意の x について f = const x を考えてみると，\n```\nid' (const x y) = const x (id' y)\n&lt;=&gt; id' x = x\n```\nとなるため， id の free theorem から `f :: a -&gt; a; \\x -&gt; x` が一意に決まります",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1555574288.026600",
+        "text": "( lambdabot が Slack で導入できるらしいので， lambdabot で free theorem が取得できるとこういう時便利だなと思いました) (使う機会あるのかな？)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1555574894.026800",
+        "text": "ついでに， fmap の一意性については，簡単な証明を先日降臨された ekmett 先生が書いてます: <https://www.schoolofhaskell.com/user/edwardk/snippets/fmap>\nこちらは， `fmap' id = id` を仮定した時に `fmap' :: (a -&gt; b) -&gt; (f a -&gt; f b)` の free theorem から `fmap' f = fmap f` が示せるため一意であるという感じですね",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
