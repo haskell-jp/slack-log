@@ -1,0 +1,146 @@
+[
+    {
+        "ts": "1555628844.048100",
+        "text": "どういう文脈でTsuru Capitalが出てきているのでしょうか",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1555629326.050800",
+        "text": "ファイナンシャル関係でHaskellを実務で利用している代表的な企業としてTsuru Capital が挙げられてました。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1555629377.051000",
+        "text": "なるほど、そうなんですね。ありがとうございます。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1555629673.053200",
+        "text": "ライブ配信されてたので、その箇所があったらここにリンクを貼ります。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1555632072.053600",
+        "text": "<https://youtu.be/0Bn2NQP2i7A?t=908>",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1555632088.053900",
+        "text": "ありがとうございます！",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1555645043.055300",
+        "text": "haskell-cafe で MonadFail の話題が盛り上がらない。ライブラリのメインテナーが苦労すればいい、オレ stackage を使うから関係ないって感じなのか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555646705.055800",
+        "text": "<@UHPLQ24KV> has joined the channel",
+        "user": "UHPLQ24KV",
+        "type": "message"
+    },
+    {
+        "ts": "1555657283.059200",
+        "text": "マルチスレッド環境でnetwork-3.0を使っているとき、ソケットが予期しないタイミングで閉じられるというバグが発見されました。Stackageはまだ2.8なのでstackユーザーには影響はなさそうですが、しばらく移行は見送ったほうがよさそうです　<https://github.com/haskell/network/issues/396>",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1555658151.062100",
+        "text": "逆説的ですが、stackageではなくHackageの最新版を追いかけることの重要性を感じました。使わなければバグは見つからず何ヶ月も放置されてしまうので…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1555658336.062500",
+        "text": "ごめんなさい。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555658368.063300",
+        "text": "まだ、よくわかってないですが、accept の中で、どうしてソケットが GC されちゃうんでしょうか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555658572.063500",
+        "text": "<https://github.com/haskell/network/blob/7e3f16d57b8745ef12cec8c9164bb91eeac90b5b/Network/Socket/Internal.hs#L194> この関数の中で発生します。fdSocketでFdを取り出したら元のIORefは必要なくなるので、threadWaitRead fdしている間にGCされる可能性があります",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1555658681.064800",
+        "text": "「fdSocketでFdを取り出したら元のIORefは必要なくなる」が理解できなかったんですが、高野さんのサンプルコードだと、accept が呼ばれたら、どこからも sock が指されてないってことですかね？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555658930.065600",
+        "text": "`_ &lt;- accept sock` の次に `print sock` を入れると問題は起きないので、そういうことかな。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555659116.067000",
+        "text": "`fdSocket` が原因とされている理由がまだ分かりません。ブロックするAPIが、ソケットがGCされないことを保守すればよい(できるか分からないけど)？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555659327.068800",
+        "text": "はい。一度しかacceptやrecvしないようなプログラムではこの問題が起こります",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1555659472.070400",
+        "text": "<https://github.com/haskell/network/pull/352>　このPRで実装されているように、acceptの終わり際にtouch#(あるいはwith#)する必要がありそうです",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1555659986.073400",
+        "text": "fdSocketは原因ではないけど、使われている場所では問題が起きやすいから、安全なAPIを作って、それに移行しましょうということですね。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555660207.074400",
+        "text": "いつ閉じられるかわからないリソースを返す関数は危険ですからね",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1555661630.075000",
+        "text": "<@U56MBRKR9> PR送りました :curling_stone: <https://github.com/haskell/network/pull/398>",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1555666545.075500",
+        "text": "肖像画みたいなのはどういう人々ですか。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1555679274.075900",
+        "text": "<@UJ1D2CSV6> has joined the channel",
+        "user": "UJ1D2CSV6",
+        "type": "message"
+    },
+    {
+        "ts": "1555680184.076100",
+        "text": "IOHKではカルダノっていう暗号通貨を開発してて、そこでは予定している大型アップデートにそれぞれ著名人の名前がつけられます。なので、うしろの絵はその人たちの肖像画ですね。\nCardano, Ada, Byron, Shelley, Goguen, Basho, Voltaire",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    }
+]
