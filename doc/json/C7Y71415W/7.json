@@ -124,5 +124,17 @@
         "text": "逆関係 ~&gt; #t\ndom/codom ~&gt; #t\n関係Rをpreorderとしてみるのはどんな関係であれpreorderならなんでもいいです。&lt;=に限定しないです。でも&lt;=と見て良いと思う。\n∈はelemだと思ってください。\nmnlはminimal(最小限?)のことです。\n関係Rのもとで集合xのminimalな要素aとはa∈xで、bRaなるどんなb∈xについてもaRbとなるようなもの。\nmnl R = min (R^o ⇒ R)となっています。",
         "user": "U4MMHDSNT",
         "type": "message"
+    },
+    {
+        "ts": "1555861726.024000",
+        "text": "最近の foldable の話題の\n```\nMonoid ∀m =&gt; (a -&gt; m) -&gt; m = Free a```\nは\n```\nNat(Hom_Set(A,U(-)), U(-))\n {- U は忘却関手。Freeとの随伴により -}\n= Nat(Hom_Monoid(Free(A),-), U(-))\n {- 米田の補題により -}\n= U(Free(A))\n= Free(A)```\n\nという解釈で筋としてあってますかね。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1555867560.024700",
+        "text": "集合圏上のモナド M に対して EM構成の随伴対 F と U として\n```\nNat(Hom(A,U(-)), U(-))\n {- U と F の随伴により -}\n= Nat(Hom(F(A),-), U(-))\n {- 米田の補題により -}\n= U(F(A))\n= M(A)```\n\nこれが codensityモナド？\n```\nMonad m =&gt; ∀b. (a -&gt; m b) -&gt; m b = m a```",
+        "user": "U57CGDBMG",
+        "type": "message"
     }
 ]
