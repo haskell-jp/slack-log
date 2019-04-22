@@ -214,5 +214,83 @@
         "text": "<https://github.com/fumieval/membership> 以前からおびただしい数の再実装がされており共通化の必要性が叫ばれていた、拡張可能レコード・バリアント・エフェクトなどに応用できる型レベルリストのためのライブラリを新しく作りました(ほとんどextensibleから切り取っただけですが)。今後extensibleを上回るようなものが出るかどうかはともかく、似たようなライブラリを作る際に面倒な部分をやる必要がなくなります",
         "user": "U4KUNQF9N",
         "type": "message"
+    },
+    {
+        "ts": "1555901632.087500",
+        "text": "<@U4KUNQF9N> 土日を挟んで遅くなりましたが、修正の PR を出しました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1555920685.090600",
+        "text": "Haskell performance(色々なパッケージのベンチマークをしている謎の組織)にwineryで殴り込みをかけてみました。<https://github.com/fumieval/serialization/blob/master/report.md>　スピード特化のstoreやflatにも迫る、期待以上の結果が出ました",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1555927519.091700",
+        "text": "<@UJ4H83SJ3> has joined the channel",
+        "user": "UJ4H83SJ3",
+        "type": "message"
+    },
+    {
+        "ts": "1555936269.093500",
+        "text": "ちょっとしたサーベイなんですが、最近Haskellで取り組んでいる問題や、知りたい情報などがあれば教えていただけませんか？今後のネタ作りに使います",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1555936277.093600",
+        "text": "↓こちらから↓",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1555939653.093800",
+        "text": "最近あきらめたのが（extensible の話で少し退屈かもだけど）\n```\nclass C a b | a -&gt; b where\n    ...\n\nhoge :: Forall2 (ValueIs C) as bs =&gt; Record as  -&gt; Record bs\n```\nみたいな関数を作ること。\nユースケースとしてはコマンドライン引数から特定のレコード型を構築できないかなと考えてた。\nコマンドラインからは ID 的なのを与えて。\n（うーん…出来ないような気がするけど…）\n\nあとは GraphQL クライアントが欲しいなぁとずっと考えてる（とくにデコード先が extesnible record になる）\n\nこんな感じ？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1555941569.094200",
+        "text": "限りなくそれに近いメカニズムを考えてみました <https://github.com/fumieval/extensible/blob/promote/src/Data/Extensible/Promote.hs>",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1555942199.094800",
+        "text": "GraphQLクライアント、確かに欲しい…リクエストとレスポンスの関係があるがそれがwell-definedではないというのが厄介なところですね",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1555942290.095100",
+        "text": "なるほど。 `C a b` の `b` 側を `h :* xs`  の `h` に載せるのか。TypeFamily で。\nあざっす！（爆速で終わっちゃたけど…）",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1555942473.095300",
+        "text": "あ、そうだ。\n別にHaskellで取り組んでた問題とかじゃないけど、RubyKaigiでクックパッドの遠藤さんと笹田さんが、 `ソースコードに任意のテキスト書き加えて \"Hello world\" と出力させるクイズ` をやってました。\n書き加えるテキストの文字数が少ないほど良いというルールで（なお全て1文字で解ける）",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1555942809.095900",
+        "text": "こういうの (メモから書き起こしてるので間違ってるかも)\n```\ninclude Math\n\nOut, *,\n     Count = $&gt;,\n             $&lt;, E ** (2 * PI)\nOut.puts(\"Hello world\" *\n         Count.abs.round)\n```\n```\ndef say\n  }-&gt; {\n    \"Hello world\"\n  }\n  yield\nend\n\nputs say { \"Goodbye world\" }\n```\nまぁ Haskell だと、Ruby ほどの自由度はないかもだけど。。。",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1555942953.096200",
+        "text": "クイズ面白そうですね",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1555943319.097500",
+        "text": "常用漢字2136字を出力するプログラムを、2136文字以内のコードで実装するという問題を思いつきました",
+        "user": "U4KUNQF9N",
+        "type": "message"
     }
 ]
