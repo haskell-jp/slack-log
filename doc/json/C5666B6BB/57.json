@@ -274,5 +274,29 @@
         "text": "<@UCSPW8XLP> has joined the channel",
         "user": "UCSPW8XLP",
         "type": "message"
+    },
+    {
+        "ts": "1556347516.002600",
+        "text": "`extensible` についてです。\nこのようなタイプ↓があります。\n```\nnewtype Required a = Required a\nnewtype Optional a = Optional (Maybe a)\n\ntype PersonParams =\n  Record\n  '[ \"name\" &gt;: Required Text\n   , \"age\" &gt;: Optional Int\n   ]\n```\n\nこれをこのように↓バラすことってできますでしょうか？\n```\ntype PersonRequiredParams =\n  RecordOf Required\n  '[ \"name\" &gt;: Text\n   ]\n\ntype PersonOptionalParams =\n  RecordOf Optional\n  '[ \"age\" &gt;: Int\n   ]\n```",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1556347777.002700",
+        "text": "key や value はポリモーフィックに扱いたいです。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1556348730.002900",
+        "text": "こういう関数ならかけますけど `Required a` や `Optional b` は知らないです。\n```\nhello :: Associate \"name\" Text xs =&gt; Record xs -&gt; Text\nhello r = mconcat [ \"Hello \", r ^. #name, \"!\"]\n```",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1556349497.003100",
+        "text": "ちょっと質問点がわかりにくかったかもしれないですね。\nやりたいのはこういうことです。",
+        "user": "U4LNDESN8",
+        "type": "message"
     }
 ]

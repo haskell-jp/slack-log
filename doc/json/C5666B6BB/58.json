@@ -1,0 +1,38 @@
+[
+    {
+        "ts": "1556349500.003300",
+        "text": "```\ntype PersonParams (f :: * -&gt; *) (g :: * -&gt; *) =\n  Field Identity :*\n  '[ \"name\" &gt;: f Text\n   , \"age\" &gt;: g Int\n   ]\n```\n↓\n```\ntype PersonRequiredParams (f :: * -&gt; *) =\n  Field f :*\n  '[ \"name\" &gt;: Text\n   ]\n\ntype PersonOptionalParams (g :: * -&gt; *) =\n  Field g :*\n  '[ \"age\" &gt;: Int\n   ]\n```",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1556349695.003700",
+        "text": "`h *: xs` の `xs` のなかに入っているファンクタをフィルターしながら `h` の方に上げたいのです。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1556350546.004200",
+        "text": "なるほど、勘違いしてたw\n例えば `PersonParams -&gt; PersonOptionalParams` であれば Nullable の `wrench` に近いやもしれません。\n<http://hackage.haskell.org/package/extensible-0.5/docs/Data-Extensible-Nullable.html#v:wrench>\n参考になるかも",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1556351109.004500",
+        "text": "`wrench` は `h` に作用するだけなので、 `xs` が不変でないと使えないのです。。。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1556351171.004700",
+        "text": "難しいのは `xs` が変わってしまう点ですね。",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1556351391.005000",
+        "text": "気分的にはこんな感じのコンストレイントが書けないかな、と。\n`(xs ~ [f x1, g x2, f x3], ys ~ [x1, x3], Include xs (f * ys))`",
+        "user": "U4LNDESN8",
+        "type": "message"
+    }
+]
