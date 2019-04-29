@@ -58,5 +58,11 @@
         "text": "今更ながら。開発中の古い資料なんで実際はどうか分かりませんが、こんなのがありました。\n当初はビルド時の入力のハッシュ値をとるというプランだったみたいですが、なんかいろいろ試行錯誤してたみたいですね…\n\n<https://www.haskell.org/wikiupload/5/50/Hiw2012-philipp-schuster.pdf>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1556506761.013400",
+        "text": "`aeson` についてなんですが\n\nFoo型を表すJSONとして\n\n`{ \"a\":100, \"b\":200}`\n\nが与えられる場合\n\n```\ndata Foo = Foo { a :: Int, b :: Int} deriving Generic\ninstance FromJSON Foo\n```\n\nのようにして簡単に実装できるのですが。\nレコード b が省略されているときはb に50が入ってるものだと過程する。\nみたいな場合はbの型をMaybe Int にするしかないのでしょうか？\nもちろん手書きすればいいのはわかるのですが。\nデフォルト値を与えられたりしないでしょうか？",
+        "user": "U9XHWQX7Z",
+        "type": "message"
     }
 ]
