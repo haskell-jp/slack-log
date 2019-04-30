@@ -64,5 +64,65 @@
         "text": "`aeson` についてなんですが\n\nFoo型を表すJSONとして\n\n`{ \"a\":100, \"b\":200}`\n\nが与えられる場合\n\n```\ndata Foo = Foo { a :: Int, b :: Int} deriving Generic\ninstance FromJSON Foo\n```\n\nのようにして簡単に実装できるのですが。\nレコード b が省略されているときはb に50が入ってるものだと過程する。\nみたいな場合はbの型をMaybe Int にするしかないのでしょうか？\nもちろん手書きすればいいのはわかるのですが。\nデフォルト値を与えられたりしないでしょうか？",
         "user": "U9XHWQX7Z",
         "type": "message"
+    },
+    {
+        "ts": "1556511638.013500",
+        "text": "一つの型では難しいんじゃないっすかね。\n一旦 `Maybe Int` として読んでから変換するとか。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1556511892.014000",
+        "text": ":bulb: あとは `FomJSON` を別途実装した `newtype` で囲うとか\n\n```\nnewtype Default50 = Default50 :: Int\ninstance FromJSON Default50 where\n  parseJSON = withScientific ...\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1556511911.014200",
+        "text": "ｆｍｆｍ Maybe Int 経由するのが無難ですかね？:sweat: まぁしょうがないか。 回答どうもです！",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1556512002.014400",
+        "text": "あ。 `newtype` 使う作戦もありなのか。そっちにしよっと :smile:",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1556513170.014800",
+        "text": "Stackoverflowに関係ありそうな質問がありました。FromJSONとデフォルトの値を持つ型クラスを満たすnewtypeでラップするという戦略のようです。\n<https://stackoverflow.com/questions/26683693/aeson-generics-with-default-values>",
+        "user": "U59GW4U4T",
+        "type": "message"
+    },
+    {
+        "ts": "1556515042.015300",
+        "text": "完全にオーバーウェポンって感じだけど extensible の Nullable を駆使すればそれっぽいのを実現できる気がする",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1556515875.015600",
+        "text": "`Maybe` な `RecordOf` 作って各フィールドごとに `&lt;|&gt;` を適用させるってのをやってましたね。そんで最後に `htraverse` で `Nothing` が1つでもあれば全体として `mzero` になるみたいな",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1556516038.015900",
+        "text": "できた\n<https://gist.github.com/matsubara0507/0d0fe2fa59171547ee438dacb0cf6d9c>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1556516136.016100",
+        "text": "```\n$ ghci\n&gt;&gt;&gt; :set -XOverloadedStrings\n&gt;&gt;&gt; import Data.Aeson\n&gt;&gt;&gt; decode \"{ \\\"a\\\": 1, \\\"b\\\": 2 }\" :: Maybe Foo\nJust (a @= 1 &lt;: b @= 2 &lt;: nil)\n&gt;&gt;&gt; decode \"{ \\\"a\\\": 1 }\" :: Maybe Foo\nNothing\n&gt;&gt;&gt; decode \"{ \\\"a\\\": 1 }\" :: Maybe Foo'\nJust (Nullable {getNullable = Just (a @= 1)} &lt;: Nullable {getNullable = Nothing} &lt;: nil)\n&gt;&gt;&gt; fromNullable defaultFoo &lt;$&gt; decode \"{ \\\"a\\\": 1 }\" :: Maybe Foo\nJust (a @= 1 &lt;: b @= 50 &lt;: nil)\n```",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1556516206.016600",
+        "text": "ただデフォルト値なしはできないけど。。。もう少し工夫すればできる気もするが",
+        "user": "U56L7EVNY",
+        "type": "message"
     }
 ]
