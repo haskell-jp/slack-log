@@ -196,5 +196,35 @@
         "text": "（ドンピシャ、と言ったけどちょっとわからないところがある…）",
         "user": "U55V45LQ0",
         "type": "message"
+    },
+    {
+        "ts": "1556692512.021200",
+        "text": "最初の一歩としては、単純にそういう `FromJSON` のインスタンスを定義する、というのがよいと思います。\n```\nimport Data.Aeson\n\ndata Foo = Foo { a :: Int, b :: Int}\n  deriving Show\n\ninstance FromJSON Foo where\n  parseJSON = withObject \"Foo\" $ \\o -&gt; do\n    a &lt;- o .: \"a\"\n    b &lt;- o .:? \"b\" .!= 50\n    pure $ Foo a b\n\n-- |\n-- &gt;&gt;&gt; run\n-- Just (Foo {a = 100, b = 200})\n-- Just (Foo {a = 100, b = 50})\nrun :: IO ()\nrun = do\n  print (decode \"{ \\\"a\\\":100, \\\"b\\\":200}\" :: Maybe Foo)\n  print (decode \"{ \\\"a\\\":100}\" :: Maybe Foo)\n```",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1556697298.021500",
+        "text": "<@U55V45LQ0> 型に依存する部分だけ型クラスで分ければよいのではないでしょうかね？\n\n```\nempty :: (Ord a, h ~ LeftistHeap x) =&gt; h a\nempty = E\n\nisEmpty :: (Ord a, h ~ LeftistHeap x) =&gt; h a -&gt; Bool\nisEmpty E = True\nisEmpty _ = False\n\ninsert :: (Ord a, h ~ LeftistHeap x, Heap h) =&gt; a -&gt; h a -&gt; h a\ninsert x h = merge (T 1 x E E) h\n\nfind :: (Ord a, h ~ LeftistHeap x) =&gt; h a -&gt; Maybe a\nfind E = Nothing\nfind (T _ x _ _) = Just x\n\ndelete :: (Ord a, h ~ LeftistHeap x, Heap h) =&gt; h a -&gt; Maybe (h a)\ndelete E = Nothing\ndelete (T _ _ a b) = Just (merge a b)\n\n\nclass Heap h where\n  merge :: Ord a =&gt; h a -&gt; h a -&gt; h a\n\ninstance Heap (LeftistHeap Min) where\n  merge h E = h\n  merge E h = h\n  merge h1@(T _ x a1 b1) h2@(T _ y a2 b2)\n    = if x &lt;= y\n      then makeT x a1 $ merge b1 h2\n      else makeT y a2 $ merge h1 b2\n\ninstance Heap (LeftistHeap Max) where\n  merge h E = h\n  merge E h = h\n  merge h1@(T _ x a1 b1) h2@(T _ y a2 b2)\n    = if x &gt;= y\n      then makeT x a1 $ merge b1 h2\n      else makeT y a2 $ merge h1 b2\n```",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1556709561.021800",
+        "text": "わからない箇所が解消しました。\n `Proxy`の使い方がいまいちわかっていなかったですが、具体的な値を定義せずに型を使いたい時に使用するのですね。ありがとうございます。",
+        "user": "U55V45LQ0",
+        "type": "message"
+    },
+    {
+        "ts": "1556709848.022100",
+        "text": "<@U4LNDESN8> 最初はそれも考えましたが、Heap構造に対する抽象的な操作として他のメソッドも定義しているので、できれば他のメソッドもHeap型クラスに含めたいですね…（現在「純粋関数型データ構造」を読んでいて、それにいくつかのHeap構造が出てくるのでそれに合わせたい、というのもあります）",
+        "user": "U55V45LQ0",
+        "type": "message"
+    },
+    {
+        "ts": "1556709956.022300",
+        "text": "もちろん、 `LeftistHeap` に固有の操作は型クラスに含めず、独立に定義するものだと思います。",
+        "user": "U55V45LQ0",
+        "type": "message"
     }
 ]
