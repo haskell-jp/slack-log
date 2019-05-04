@@ -256,5 +256,17 @@
         "text": "```\n(*), (+) :: Num a =&gt; a -&gt; a-&gt; a\n```\nですので `(*)` に `b` 型を代入すると `b -&gt; b` になります。 `b` が `(+)` だとすると `(a -&gt; a-&gt; a) -&gt; (a-&gt; a-&gt; a) `になります。結合性から右のかっこは省略しても良いので `(a -&gt; a-&gt; a) -&gt; a -&gt; a -&gt; a `となります",
         "user": "U7155GPR9",
         "type": "message"
+    },
+    {
+        "ts": "1556955454.025900",
+        "text": "`(*)` も `(+)` も、それぞれ `Num` 型クラスのインスタンスであればどれでも受け取るようになっています。\nなので、 `:t` の結果が `(Num a, Num (a -&gt; a -&gt; a)) =&gt; ...` となっているとおり、これらの条件を満たす型が *本当にあれば* この式も普通に型チェックを通ります。\n\nただ、実際のところ `(Num a, Num (a -&gt; a -&gt; a))` を満たす型は意図的に、頑張って作らない限りは存在しないので、いざ `((*) (+))` を使おうとしたその時に型エラーになる可能性が高いです。\n例えば以下のように:\n\n```\n&gt; ((*) (+)) (+) 1 2 3 :: Integer\n\n&lt;interactive&gt;:4:1: error:\n    ? No instance for (Num\n                         ((Integer -&gt; Integer)\n                          -&gt; (Integer -&gt; Integer) -&gt; Integer -&gt; Integer))\n        arising from a use of ‘*’\n        (maybe you haven't applied a function to enough arguments?)\n    ? In the expression: ((*) (+)) (+) 1 2 3 :: Integer\n      In an equation for ‘it’: it = ((*) (+)) (+) 1 2 3 :: Integer\n\n&lt;interactive&gt;:4:6: error:\n    ? No instance for (Num (Integer -&gt; Integer))\n        arising from a use of ‘+’\n        (maybe you haven't applied a function to enough arguments?)\n    ? In the first argument of ‘(*)’, namely ‘(+)’\n      In the expression: ((*) (+)) (+) 1 2 3 :: Integer\n      In an equation for ‘it’: it = ((*) (+)) (+) 1 2 3 :: Integer\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1556958445.026200",
+        "text": "なるほど...\n助かりました。ありがとうございます",
+        "user": "UJG3B0CT1",
+        "type": "message"
     }
 ]
