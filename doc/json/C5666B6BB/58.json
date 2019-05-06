@@ -274,5 +274,11 @@
         "text": "それほど頑張らなくても，あまり違和感なく定義できそう．\n```\n{-# LANGUAGE NoMonomorphismRestriction #-}\n{-# LANGUAGE FlexibleContexts #-}\n{-# LANGUAGE FlexibleInstances #-}\ninstance Num a =&gt; Num (a -&gt; a -&gt; a) where\n  (f + g) x y = f x y + g x y\n  (f * g) x y = f x y * g x y\n  (f - g) x y = f x y - g x y\n  abs f x y = abs (f x y)\n  signum f x y = signum (f x y)\n  fromInteger i = const (const (fromInteger i))\n```\nとかどうですかねぇ．",
         "user": "U4KU9ABL0",
         "type": "message"
+    },
+    {
+        "ts": "1557137034.027000",
+        "text": "<@UJ8P66TRP> has joined the channel",
+        "user": "UJ8P66TRP",
+        "type": "message"
     }
 ]
