@@ -148,5 +148,77 @@
         "text": "<@UJBCU6PCH> has joined the channel",
         "user": "UJBCU6PCH",
         "type": "message"
+    },
+    {
+        "ts": "1557371092.060200",
+        "text": "最近stackからcabalへ移行しようと色々試してるんだけど、それに関してFAQ及び参考となるリポジトリを公開してくれると嬉しいです。\n\ncabalに移行する利点とは?\n\ncabalを使用する際には、開発環境を整えるためにnixを使ったほうがいいのか、もしその場合にはどのように設定すればいいのでしょうか？\nGHCのバージョンを指定してビルド方法がNix以外に見当たらなかった・上手くいかなかった。\n色々調べたけど、Nixを使った方法を紹介する記事が一番多かった。\n参考にした記事\n<https://maybevoid.com/posts/2019-01-27-getting-started-haskell-nix.html>\n<https://www.reddit.com/r/haskell/comments/8xh4dk/installing_and_running_multiple_ghc_versions/>\n\nstackにあるコマンドをcabalに置き換えると・・・？\n`stack ide targets`: List all available stack targets\n`stack haddock --open &lt;library name&gt;`: Enable opening the local Haddock documentation in the browser\n`stack ghci  &lt;library name&gt;:lib &lt;library name&gt;:test:&lt;library name&gt;-test` (ライブラリとテストを同時に読み込む）\n\ncabalファイルに記載されていないパッケージをビルドする方法はありますか？\npretty-printerなどの、cabalファイルには記載されていないがビルドしたいパッケージがある場合、それをcabalにてビルドする方法があるのでしょうか。\n\n.gitignoreに追加するべきファイル/ディレクトリは？\n\nghcidを実行する際のコマンドは？\n現在は`ghcid --command \"cabal new-repl\"`で実行しているが、他に最適化されたコマンドがあるのであれば是非知りたい。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1557375479.060500",
+        "text": "スレッド違いで恐縮ですが、取り急ぎ...\n&gt; GHCのバージョンを指定してビルド方法がNix以外に見当たらなかった・上手くいかなかった。\n「参考にした記事」でも触れているように、 `-w ghc-8.6.5` みたいなオプションを `cabal new-build` に渡せばとりあえずnix関係なく出来たかと思います。\n（`--with-ghc=ghc8.6.5` でもできたはずだし私もそっちなら使ったことがある）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1557376743.060800",
+        "text": "それ試したんですけど、僕のマシンではビルドできませんでした。一度aptを使ってghc-8.6.5をインストールしたけど、それでも動かなかったので諦めました。\n hiroto@hiroto-XPS-13-9360  ~/haskell/coding/my-app  cabal new-build -w ghc-8.6.5\ncabal: Cannot find the program 'ghc'. User-specified path 'ghc-8.6.5' does not\nrefer to an executable and the program is not on the system path.",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1557376878.061000",
+        "text": "`which ghc-8.6.5` した結果はどうでした？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1557377382.061200",
+        "text": "✘ hiroto@hiroto-XPS-13-9360  ~/haskell/coding/my-app  sudo apt install ghc-8.6.5\nReading package lists... Done\nBuilding dependency tree\nReading state information... Done\nghc-8.6.5 is already the newest version (8.6.5-9~18.04).\n0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.\n hiroto@hiroto-XPS-13-9360  ~/haskell/coding/my-app  which ghc-8.6.5\nghc-8.6.5 not found",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1557377452.061500",
+        "text": "普通に `PATH` にさえ登録すればいけそうに見えますね。 :thinking_face:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1557377593.061700",
+        "text": "PATHの通し方がわからないです。。わかったとしても、この記述と一致しないのが気になります。\nUsing either of the above methods, we will find our GHC versions on the PATH.\n<https://qfpl.io/posts/multiple-ghcs/>",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1557377906.062300",
+        "text": "えっ、私が言っていることそのとおりだと思うのですが...\nどちらの方法であれ、 PATH に登録しているパスからGHCを見つけるという意味でしょうし。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1557378029.062700",
+        "text": "PATHの通し方については広く知られているので、「PATH 環境変数 ubuntu」などで検索してみてください。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1557378432.062900",
+        "text": "そもそも ghc-8.6.5 がどのパスにあるかわからない、という場合は `dpkg -L ghc-8.6.5` と実行すれば、 `apt install ghc-8.6.5` がインストールしたファイルの一覧が見えるはずなので、そこから探してください。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1557379770.063200",
+        "text": "通りました！ありがとうー。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1557411750.063500",
+        "text": "cabalとstackとの対応関係は、Bigmoonのブログが詳しいのでおすすめです <https://haskell.e-bigmoon.com/stack/tips/cabal.html>",
+        "user": "U4KUNQF9N",
+        "type": "message"
     }
 ]
