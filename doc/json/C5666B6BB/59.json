@@ -40,5 +40,35 @@
         "text": "<@UJQ5HAP8E> has joined the channel",
         "user": "UJQ5HAP8E",
         "type": "message"
+    },
+    {
+        "ts": "1557835670.039500",
+        "text": "<@UEL0LE3V4> has joined the channel",
+        "user": "UEL0LE3V4",
+        "type": "message"
+    },
+    {
+        "ts": "1557844555.044200",
+        "text": "Emacs + lsp-mode + HIEを使っている方に質問です。\n補完のバックエンドとして `company-lsp` を使用しているのですが、こちらで予約語の補完は効いていますか？\n現在、モジュールや関数の補完は効いているのですが、 `import` など予約語の補完が効かず、スニペットにがんばってもらっている状態です。",
+        "user": "U55V45LQ0",
+        "type": "message"
+    },
+    {
+        "ts": "1557844632.044700",
+        "text": "他のエディタ + HIEを使用している方も、ちゃんと予約語まで補完されているでしょうか？",
+        "user": "U55V45LQ0",
+        "type": "message"
+    },
+    {
+        "ts": "1557846956.054800",
+        "text": "こんばんは、ご無沙汰です。最近 GHCJS をビルドするために Nix を使い始めたのですが、もし詳しい方がいたらお力添えください。\n\nMiso によるアプリを Nix でビルドしようとしていて、リンク先の README.md (<ttps://github.com/dmjio/miso>) にあるサンプル (`miso-0.12.0.0`) はビルドできるのですが、バージョンを最新の `0.21.2.0` まで上げようとしたところエラーになりました。cabal から見えていないようです。\n\n```\nConfiguring app-0.2.0.0...\nSetup: At least the following dependencies are missing:\nmiso -any\nbuilder for '/nix/store/c7b2w4d0p1wnnjl3ajayarc12y4jvdgp-app-0.2.0.0.drv' failed with exit code 1\nerror: build of '/nix/store/c7b2w4d0p1wnnjl3ajayarc12y4jvdgp-app-0.2.0.0.drv' failed\n```\n\nビルドしようとしている nix expression は以下です。pinned nixpkgs `miso-0.12.0.0` で成功した際の `app` のビルドおよび `miso-0.21.2.0` ライブラリ自身のビルドと同じで、`miso` の `rev` と `sha256` は miso 最新 release から `nix-prefetch-url --unpacked` で取ってきています。\n\n```\n$ cat default.nix\n{ pkgs ? import ((import &lt;nixpkgs&gt; {}).fetchFromGitHub {\n    owner = \"NixOS\";\n    repo = \"nixpkgs\";\n    rev = \"a0aeb23\";\n    sha256 = \"04dgg0f2839c1kvlhc45hcksmjzr8a22q1bgfnrx71935ilxl33d\";\n  }){}\n}:\nlet\n  result = import (pkgs.fetchFromGitHub {\n    owner = \"dmjio\";\n    repo = \"miso\";\n    sha256 = \"07k1rlvl9g027fp2khl9kiwla4rcn9sv8v2dzm0rzf149aal93vn\";\n    rev = \"bb2be3264ff3c6aa3b18e471d7cf04296024059b\";\n  }) {};\nin pkgs.haskell.packages.ghcjs.callPackage ./app.nix {\n  miso = result.miso-ghcjs;\n}\n\n$ cat app.nix\n{ mkDerivation, base, miso, stdenv }:\nmkDerivation {\n  pname = \"app\";\n  version = \"0.2.0.0\";\n  src = ./.;\n  isLibrary = false;\n  isExecutable = true;\n  executableHaskellDepends = [ base miso ];\n  description = \"First miso app\";\n  license = stdenv.lib.licenses.bsd3;\n}\n```",
+        "user": "U4M4XHKB8",
+        "type": "message"
+    },
+    {
+        "ts": "1557874442.054900",
+        "text": "Neovim + LanguageClientでHIEを使っていますが、予約語は補完されなかったと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
