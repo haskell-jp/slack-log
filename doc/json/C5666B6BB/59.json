@@ -154,5 +154,77 @@
         "text": "Scottyのソース見ててなんとなくわかってきたんですが、自前のモナドを定義してそれを `Application` に変換する関数あればよさそう？",
         "user": "U7155GPR9",
         "type": "message"
+    },
+    {
+        "ts": "1558343939.072900",
+        "text": "とある型クラスのメソッドを呼んだとき、どのインスタンスに解決されたかを可視化するにはどうするのが一番お手軽でしょうか？\n具体的には、現在、 `Foldable` の `null` メソッドを意図しない型に対して適用してしまったことによるバグに遭遇したため、同じミスをやらかしている箇所がないか探したい、というのが主な目的です。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1558344447.073100",
+        "text": "なんだろう、Type Hole でしょうか？ :thinking_face:\n```\n&gt; ((&lt;&gt;) :: _) \"a\" \"b\"\n\n&lt;interactive&gt;:7:10: error:\n    • Found type wildcard ‘_’ standing for ‘[Char] -&gt; [Char] -&gt; [Char]’\n      To use the inferred type, enable PartialTypeSignatures\n```",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1558344582.073300",
+        "text": "ああー、いや、プロジェクト内のソースコード全体から探したいんですよねぇ。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1558344689.073500",
+        "text": "今の私のプロジェクトの話を単純化すると、\n```\ntype Foo = [Int]\n```\nを、\n```\ntype Foo = ([Int], Bool)\n```\nみたいな型に変えた結果、 `Foo` に対して意図せず `null` を適用していてもわからない（コンパイルエラーにならない）、という状況なので...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1558344799.074400",
+        "text": "ああー理解しました…\nCoreをダンプしてテキスト検索…？",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1558344818.074600",
+        "text": "やっぱそれっすかねー :muscle: :sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1558346179.074800",
+        "text": "期待する型をTypeApplicationsで書いてしまうとか…？（使い方間違ってたらすみません）",
+        "user": "U59GW4U4T",
+        "type": "message"
+    },
+    {
+        "ts": "1558346297.075000",
+        "text": "残念ながら、問題の「間違って `null` などを意図しない型に適用してしまっている」箇所がそもそもどこかわからない（それを知りたい）という状況なのでその方法は使えません... :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1558346434.075300",
+        "text": "ただ、それを聞いて気づいたんですが、 <https://haskell.e-bigmoon.com/posts/2018/05-23-extended-prelude.html> のテクニックでカスタムPreludeを作り、 `null` や `length` の定義を書き換えるというのは有効ですね :bulb:\n`Prelude` にある型クラスじゃないと使いにくいテクニックではありますが。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1558346743.075600",
+        "text": "nullをFoldableからリストに限定するという感じですかね？",
+        "user": "U59GW4U4T",
+        "type": "message"
+    },
+    {
+        "ts": "1558346852.075800",
+        "text": "そう、リストに限定したバージョンを作ってそれをカスタムPreludeからexportする、という感じで。Prelude以外のモジュールでも、cabalファイルで工夫すれば出来そうな気がします。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1558347114.076100",
+        "text": "Coreのダンプと果たしてどっちが楽かな...",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
