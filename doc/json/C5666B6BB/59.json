@@ -250,5 +250,47 @@
         "text": "ついでにform-check-inputをつける方法もわからないしなんかもう絶望的ですね",
         "user": "U57CUMWQ6",
         "type": "message"
+    },
+    {
+        "ts": "1558485801.084500",
+        "text": "こんにちは。いつも初歩的な質問ばかりで恐縮ですが、`Traversable`のインスタンスに対して、 `Data.List`の`take`, `drop` に相当する関数をご存知でしょうか？\n`Data.Csv.Stream`パッケージを使い、数百MBのCSVを読んで、１００件毎にデータベースに書き込む、といった処理を作っています。\nリストであれば、↓のようにできるのではないかと思い、これを`Traversable`で置き換えようとしております。\n```\ndo \n  xs &lt;- parseCsv\n  saveLines xs\nwhere\n  saveLines xs = saveToDb (take 100 xs) &gt;&gt; saveLines (drop 100 xs)\n```",
+        "user": "U7GSVRQ6S",
+        "type": "message"
+    },
+    {
+        "ts": "1558486727.084600",
+        "text": "「 `Data.List` の `take`, `drop` に相当する関数」はないはずです。\n`Traversable` はあくまでも全体をなめることができるだけなので。\nmono-traversableパッケージの  `IsSequence` 型クラスのインスタンスであればできるみたいですが... <http://hackage.haskell.org/package/mono-traversable-1.0.11.0/docs/Data-Sequences.html#t:IsSequence>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1558486869.084900",
+        "text": "`take` したいのは <https://www.stackage.org/haddock/lts-13.22/cassava-0.5.1.0/Data-Csv-Streaming.html#t:Records> のことですか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1558486989.085200",
+        "text": "であれば、自前で作るか、いったん（遅延IOの力を信じて）リストに変換しちゃうか、ですね。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1558488869.085400",
+        "text": "take したいのはそのとおりです。",
+        "user": "U7GSVRQ6S",
+        "type": "message"
+    },
+    {
+        "ts": "1558499661.085600",
+        "text": "あるいは、 <http://hackage.haskell.org/package/cassava-conduit> を経由すればConduitのtakeやdropが使えるのではないかと",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1558499764.085900",
+        "text": "情報ありがとうございます。このパッケージだとヘッダ付きのCSVは扱えないようなので残念！\n\n&gt;Streaming to CSV is not 100% complete at this stage, and doesn’t support encoding to CSV with a header yet",
+        "user": "U7GSVRQ6S",
+        "type": "message"
     }
 ]
