@@ -1,0 +1,38 @@
+[
+    {
+        "ts": "1558658628.093400",
+        "text": "こんにちは。型クラスについて質問です。\nInt64をラップしたMyNumberという型をつくりました。\nこの型について、以下のような操作を定義したいのですが、どうもうまくいきません。そもそもこのようなことが可能なのか、可能であればどうしたらよいのか、ぜひ教えてください。\n\nやりたいこと：\n- 許可：MyNumber 同士の 足し算、引き算\n- 許可：MyNumber の整数倍\n- 許可：MyNumber 同士の大小比較\n- 不許可： MyNumber と整数の足し算、引き算\n- 不許可：MyNumberと 整数の大小比較\n- 不許可：MyNumber同士の掛け算。\n\n不許可については、コンパイル時にエラーとなるのが理想です。\n\nこんな感じで書き進めてみたものの、なにか根本的に違うような気がしています。\n作戦として、MyNumberをNumやOrdのインスタンスにして、不許可の操作を実装しない、もしくは何らかの方法でコンパイルエラーにする、ということを考えました。\n\n```haskell\nmodule Main where\n\nimport qualified <http://GHC.Int|GHC.Int> as GI (Int64)\n\nnewtype MyNumber = MyNumber { getNumber::GI.Int64} deriving(Eq, Show)\ninstance Num MyNumber where\n    (+) (MyNumber x) (MyNumber y) = MyNumber $ x + y\n    -- (*) _ _ = undefined -- not sure how to achieve \"MyNumber 150 * 2\"\n    -- fromInteger x = undefined -- to avoid comparison against Num\n\ninstance Ord MyNumber where\n    (&lt;=) (MyNumber x) (MyNumber y) = x &lt;= y\n\nmain :: IO ()\nmain = do\n    putStrLn $ (++) \"Allow MyNumber + MyNumber : \" $ show $ MyNumber 100 + MyNumber 200 == MyNumber 300\n    putStrLn $ (++) \"Allow MyNumber &gt; MyNumber : \" $ show $ MyNumber 330 &gt; MyNumber 100 -- not detected by compiler\n    putStrLn $ (++) \"Allow MyNumber * Integer :\" $ show $ (MyNumber 150) * 2  -- show can I do this?\n    putStrLn $ (++) \"Don't allow MyNumber &gt; Integger : \" $ show $ (MyNumber 330) &gt; 100 -- not detected by compiler\n    putStrLn $ (++) \"Don't allow MyNumber * MyNumber : \" $ show $ (MyNumber 330) * (MyNumber 100) -- not detected by compiler?\n```",
+        "user": "U7GSVRQ6S",
+        "type": "message"
+    },
+    {
+        "ts": "1558659783.093500",
+        "text": "```\n1. 許可：MyNumber 同士の 足し算、引き算\n2. 許可：MyNumber の整数倍\n3. 許可：MyNumber 同士の大小比較\n4. 不許可： MyNumber と整数の足し算、引き算\n5. 不許可：MyNumberと 整数の大小比較\n6. 不許可：MyNumber同士の掛け算。\n```\n便宜上ナンバリング。\n`Num a` 型クラスは型 `a` 同士の足し算 `(+)` と掛け算 `(*)` を両方定義する必要があるので、その方針( `Num` のインスタンスにする)で 1 と 6 を実現することはできないです。",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1558659954.093700",
+        "text": "まぁ方法としては\n(1) 足し算だけの型クラス `Add a` なんかを独自で定義する\n(2) 足し算を `Monoid a` 型クラスかなんかで定義する(演算子が `(&lt;&gt;)` に変わってしまうが)\n\nがあるかなぁ。。。",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1558664779.094100",
+        "text": "演算子の見かけにこだわりたいのであれば、カスタムPreludeを作って(+)や(-)を上書きすればいいでしょうね。\n（やり過ぎ感は否めませんが…）\n<https://haskell.e-bigmoon.com/posts/2018/05-23-extended-prelude.html>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1558666437.094500",
+        "text": "<http://hackage.haskell.org/package/vector-space> 演算子は変わりますがvector-space を使ってみてはどうでしょうか？まさに加算とスカラー倍のためのインターフェイスです",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1558693882.000400",
+        "text": "Numに全部ぶちこんだのはHaskellの初期設計過ち四天王に入りそうで入らなさそう",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    }
+]
