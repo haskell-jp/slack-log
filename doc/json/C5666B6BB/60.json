@@ -46,5 +46,65 @@
         "text": "<@UJPKD2R2P> has joined the channel",
         "user": "UJPKD2R2P",
         "type": "message"
+    },
+    {
+        "ts": "1559009020.001400",
+        "text": "<@UJQ0WEJG2> has joined the channel",
+        "user": "UJQ0WEJG2",
+        "type": "message"
+    },
+    {
+        "ts": "1559011117.003200",
+        "text": "Haskellで｢送られてきたメールアドレスの少なくともドメインがメールサーバとして成立しているかどうか(DNSでMXもしくはAもしくはAAAAを持つか)｣どうか調べる必要があって,汎用性があるからOSSにしようかと思ってるのですが既出なら教えてください\n後DNS周りで楽に取れるやつが欲しい…パフォーマンス気にしなければ <http://hackage.haskell.org/package/resolv-0.1.1.2/docs/Network-DNS.html> で良いんですが…いや別に気にしなくても良いのか",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1559011160.003300",
+        "text": "いやパフォーマンスの問題ではなく使い勝手の問題ですねこれは",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1559017840.006300",
+        "text": "&gt; which is why we recommend using `try` rather than `catch` for ordinary exception recovery.\n&gt; <https://www.stackage.org/haddock/lts-13.23/base-4.12.0.0/Control-Exception.html#g:3>\nとあるので `try` の方を使うかという気持ちなんですが、複数の型の例外を捕捉したいとき何かイディオムあるんですかね？\nつまり `catch` ならこう ↓ なるケース（ `catches` を使ってもいい）\n```\nprint $ (head []) `div` (0 :: Int)\n  `catch` (\\e -&gt; putStrLn $ \"arith \" &lt;&gt; displayException (e :: ArithException))\n  `catch` (\\e -&gt; putStrLn $ \"some \" &lt;&gt; displayException (e :: SomeException))\n```\n`try` でベタで書くとこうなる\n```\ndo\n  v &lt;- try $ do\n    v &lt;- try $ print $ (head []) `div` (0 :: Int)\n    case v of\n      Right _ -&gt; pure ()\n      Left e -&gt; putStrLn $ \"arith \" &lt;&gt; displayException (e :: ArithException)\n  case v of\n    Right _ -&gt; pure ()\n    Left e -&gt; putStrLn $ \"some \" &lt;&gt; displayException (e :: SomeException)\n```\n<https://wandbox.org/permlink/FSlRioZ1EPWcWXjf>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1559018427.006500",
+        "text": "dns: DNS library in Haskell - <http://hackage.haskell.org/package/dns> もありますが、使い勝手は似たようなものっぽいですね",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1559019191.006800",
+        "text": "口頭での議論のとおりですが、簡潔に書くなら諦めて `catches` するしかなさそうな気がします。\n\n&gt; which is why we recommend using `try` rather than `catch` for ordinary exception recovery.\n\nの部分ですが、例外処理が十分に軽い処理（非同期例外がmaskされてもすぐに終わる）であれば問題ないでしょうし。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559021399.007000",
+        "text": "1つのアプリーケーション内なら、直和型を宣言して適宜ラップするとか",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1559024673.007300",
+        "text": "実際に `try` 関数が `catch` を使ってやっているように、直和型でラップするだけ、というのが正解なんでしょうね\n参考: <https://hackage.haskell.org/package/base-4.12.0.0/docs/src/Control.Exception.Base.html#try>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559024850.007500",
+        "text": "こんなのはどうでしょう？\n<https://gist.github.com/mizunashi-mana/c2d6b87206e9c1f43046f84b135fd445>\n\nやってることは大体 `catches` と同じです",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1559026004.007900",
+        "text": "なるほでぃうす",
+        "user": "U4L0B71L1",
+        "type": "message"
     }
 ]
