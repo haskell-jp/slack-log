@@ -178,5 +178,17 @@
         "text": "「`」のせいでうまい表示にならない（全角のバックチックを使う裏技があるんだけど",
         "user": "U4L0B71L1",
         "type": "message"
+    },
+    {
+        "ts": "1559094017.015900",
+        "text": "<https://haskell-jp.slack.com/customize/loading> に書いてある\n&gt; 《関数のApplicative》`\\x -&gt; f (g x) (h x)`は、`f &lt;$&gt; g &lt;*&gt; h`とも書ける。\nがすごい役に立った。\n\n:point_down: みたいな感じの、callbackをたくさん入れたデータ型があって、\n```\ndata Handlers = Handlers\n  { handleFoo :: Foo -&gt; IO ()\n  , handleFooBar :: Foo -&gt; Bar -&gt; IO ()\n  , handleBar :: Bar -&gt; IO ()\n  -- ...\n  }\n```\n「必ず呼ばれる処理（ライブラリー側が提供）」の後に「ユーザーが設定した `Handlers` を呼ぶ」みたいなことを表現しようとして\n```\nHandlers\n  { handleFoo = (&gt;&gt;) &lt;$&gt; baseHandleFoo &lt;*&gt; handleFoo userHandlers\n  , handleFooBar = (&gt;&gt;) &lt;$&gt; baseHandleFooBar &lt;*&gt; handleFooBar userHandlers\n  , handleBar = (&gt;&gt;) &lt;$&gt; baseHandleBar &lt;*&gt; handleBar userHandlers\n  -- ...\n  }\n```\n\nと書けた。当たり前っちゃ当たり前なんだけど、各レコードラベルに入れる関数の引数の数や型がバラバラでも、ちゃんと関数Applicativeとして扱ってくれるのすごい。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559118620.017100",
+        "text": "<@UJRDL35U3> has joined the channel",
+        "user": "UJRDL35U3",
+        "type": "message"
     }
 ]
