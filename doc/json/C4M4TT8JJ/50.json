@@ -190,5 +190,23 @@
         "text": "<@UJRDL35U3> has joined the channel",
         "user": "UJRDL35U3",
         "type": "message"
+    },
+    {
+        "ts": "1559265453.001600",
+        "text": "ところで上のような全フィールドが同じような型を持つレコードを扱うアプローチはhigher-kinded dataと呼ばれていますが、最近Genericsを応用した新しいライブラリができたそうです <https://github.com/i-am-tom/higgledy>",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1559265747.002000",
+        "text": "i-am-tom",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1559268125.002800",
+        "text": "既に定義されてるレコードを後からhigher-kinded dataにできるの便利そうですね~\n```\ndata User\n  = User\n      { name :: String\n      , age  :: Int\n      , ...\n      }\n  deriving Generic\n\n-- HKD for free!\ntype UserF f = HKD User f\n```",
+        "user": "U4KPPQW7K",
+        "type": "message"
     }
 ]
