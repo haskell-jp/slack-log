@@ -190,5 +190,47 @@
         "text": "<@UK8LM56K0> has joined the channel",
         "user": "UK8LM56K0",
         "type": "message"
+    },
+    {
+        "ts": "1559487843.017400",
+        "text": "haskell初心者です\nテストに関して質問させてください\n\n自分で定義したリスト型を返す関数のテストをhspecを用いて実行しようとしています。\n\n```\n-- src/Lexer.hs\nmodule Lexer (TokenType, Token, lexer) where\ndata TokenType = TK_NUM | TK_OP | TK_EOF deriving (Show)\ndata Token = Token {\n    tokenType :: TokenType,\n    valueString :: String\n} deriving (Show)\n\n-- 中略\n\nlexer :: String -&gt; [Token]\n\n-- 中略\n\n```\n\nこのlexer関数に“3+3”を入力に実行した結果をprintすると\n\n```\n[Token {tokenType = TK_NUM, valueString = \"3\"},Token {tokenType = TK_OP, valueString = \"+\"},Token {tokenType = TK_NUM, valueString = \"3\"}]\n```\n\nと出力されます。\nこれが正しい結果であることのテストを書きたいです。\n\n```\n-- tests/LexerSpec.hs\nmodule LexerSpec (spec) where\n\nimport Test.Hspec\nimport Lexer\n\nspec :: Spec\nspec = do\n  describe \"Lexer\" $ do\n    it \"number and `+` and `-`\" $ do\n        lexer \"3\" `shouldBe` [Token {tokenType = TK_NUM, valueString = \"3\"}] -- ←ここ\n```\n\n`stack test`を実行すると、以下のようなエラーが出ます\n```\n Not in scope: data constructor 'Token'\n Not in scope: data constructor 'tokenType'\n Not in scope: data constructor 'valueString'\n```\n\n理解が曖昧な点がたくさんあり、どこに問題があるのかわかっていない状態です。(module、テスト、などなど)\n\n考えられる問題点\n- そもそもhpecを用いるべきでない\n- testファイルでのimportがうまくいっていない\n- exportがうまくいっていない\n- テストの書き方がまずい\n\nよろしくおねがいします:man-bowing:",
+        "user": "UCM4G8PGW",
+        "type": "message"
+    },
+    {
+        "ts": "1559488892.017600",
+        "text": "パッと見た感じ\n• exportがうまくいっていない\nが原因だと思います．\n\nちょっと分かりにくいのですが，\n```\ndata A = A { valueA :: Int }\n```\nというプログラムは， 2 つのものを作ります．それは，\n• `A` という名前の型 (この名前は左側から類推されます)\n• `A` という名前の値コンストラクタ (data constructor) (この名前は右側から類推されます)\nです．そして， export の際それぞれ export するかが選べます．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1559489361.017800",
+        "text": "今回問題になっているのは，\n```\nmodule Lexer (TokenType, Token, lexer) where\n```\nの部分で，データ型の export は\n```\nmodule M\n  ( 型名( 値コンストラクタ1, 値コンストラクタ2, ..., フィールド名1, ...)\n  ) where\n```\nという風に書きます．この場合， 型名とコンストラクタ，フィールドがそれぞれ export され外部モジュールから使えます (書かなければ使えません) ．なお， `()` の部分は省略できて，それが今回使われてる書き方になります．\n\nなので， `Token` という型名は export されてるものの， 値コンストラクタ `Token` やフィールド `tokenType` / `valueString` は export されていないため上記のエラーが起きているのだと思います．\n\nデータ型の全てを export したい場合は `型名(..)` という記法も用意されています．なので，それを使って\n```\nmodule Lexer (TokenType, Token(..), lexer) where\n```\nと修正するか，または\n```\nmodule Lexer (TokenType, Token(Token, tokenType, valueString), lexer) where\n```\nと修正するのがいい気がします．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1559491538.018000",
+        "text": "丁寧な回答有り難うございます！！！\n`Token(..)`でexportする方法があるんですね！\n少し進むことが出来ました",
+        "user": "UCM4G8PGW",
+        "type": "message"
+    },
+    {
+        "ts": "1559491659.018200",
+        "text": "しかし、また別のエラーが出てしまいました\n(①~④という番号は僕が振っています)\n```\n   ① • No instance for (Eq Token) arising from a use of 'shouldBe'\n   ②• In a stmt of a 'do' block:\n        lexer \"3\"\n          `shouldBe` [Token {tokenType = TK_NUM, valueString = \"3\"}]\n      ③In the second argument of '($)', namely\n        'do lexer \"3\"\n              `shouldBe` [Token {tokenType = TK_NUM, valueString = \"3\"}]'\n      ④In a stmt of a 'do' block:\n        it \"number and `+` and `-`\"\n          $ do lexer \"3\"\n                 `shouldBe` [Token {tokenType = TK_NUM, valueString = \"3\"}]\n```\n\nテストコード側の、shuoldBeの後の部分での[Token]の書き方が合ってる気がしないのですが、どうしたら良いのでしょうか..\n```\n-- tests/LexerSpec.hs\nmodule LexerSpec (spec) where\n\nimport Test.Hspec\nimport Lexer\n\nspec :: Spec\nspec = do\n  describe \"Lexer\" $ do\n    it \"number and `+` and `-`\" $ do\n        lexer \"3\" `shouldBe` [Token {tokenType = TK_NUM, valueString = \"3\"}] -- ←ここ\n```\n\nそもそも、僕はHaskellのエラーの読み方がわかっていないようです。\nエラーとして表示されている①~④はどれを参考にすればよいのでしょうか。\n①はshoulBe関数にはEq Token型クラスのインスタンスではない、という意味でしょうか(だとしても解決方法がわからない)\n②~④は同じようなことを言っているようですが、意味がわかりません",
+        "user": "UCM4G8PGW",
+        "type": "message"
+    },
+    {
+        "ts": "1559514923.018500",
+        "text": "①～④は別々のエラーではなくてそれで一続きのメッセージですね。①のエラーが起きた場所が②の部分であり、その②の部分は（より大きな範囲で見ると）③であり、それは（さらに大きな範囲で見ると）④である、と言っているだけなので、①と②ぐらいを見て場所がわかるのならそれ以降を見る必要はないと思います。\nで、①のエラーは「shouldBe を使うことに起因して、 Token 型についての Eq クラスのインスタンス宣言が無いことが問題」だと言っているので、 `instance Eq Token where …` を必要とする、ということになります。あるいは `data Token …` の後ろに `deriving Eq` を書いて自動的に Eq のインスタンス宣言を導出するのでもよいと思います",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1559515048.018800",
+        "text": "すでに `deriving Show` が書いてあるので `deriving (Show, Eq)` のようにカッコにくくってカンマで列挙して書くことになりますね",
+        "user": "UF8SE896V",
+        "type": "message"
     }
 ]
