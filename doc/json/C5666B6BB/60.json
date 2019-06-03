@@ -232,5 +232,71 @@
         "text": "すでに `deriving Show` が書いてあるので `deriving (Show, Eq)` のようにカッコにくくってカンマで列挙して書くことになりますね",
         "user": "UF8SE896V",
         "type": "message"
+    },
+    {
+        "ts": "1559518366.019400",
+        "text": "全般的なお話をすると、GHCが出す型エラーは、一つのエラーが概ね以下のような形式で、必ず複数の行に渡ります。\n\n```\nPath/To/Module.hs:123:45: error:\n    ・&lt;エラーメッセージの内容1&gt;\n    ・&lt;エラーメッセージの内容2 以下、詳しい診断情報がいくつか続く&gt;\n    ・&lt;エラーメッセージの内容3&gt;\n      &lt;エラーメッセージの内容3。一つの診断情報が複数行に及ぶ場合「・」以降をインデントする\n    ・...\n```\n\nいずれにしても、一つの型エラーは「エラーが発生した場所（ :point_up: で言うところの `Path/To/Module.hs:123:45: error:` ）」で始まる行からインデントしている範囲が一つの型エラーです。\n型エラーもオフサイドルールに従っていると思っていただけると分かりやすいかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559535589.020400",
+        "text": "「必ず」複数の行に渡ります、はさすがに言いすぎではないでしょうか。シンプルな構文エラーだと\n`Main.hs:1:13: error: parse error on input 'whree'`\nてな感じですし…（where をタイプミスした例）",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1559535686.020700",
+        "text": "あ、「型エラー」は、と書かれていました、失礼しました。型エラーは確かに必ず複数行になりますね",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1559536959.021200",
+        "text": "<@UK0MXUCAV> has joined the channel",
+        "user": "UK0MXUCAV",
+        "type": "message"
+    },
+    {
+        "ts": "1559538648.021500",
+        "text": "<@UF8SE896V>\nあああ、できました！！！ありがとうございます…\n\n<@UF8SE896V> <@U4LGTMTMK>\nなるほど！！ありがとうございます\nエラー文の読み方、参考になりました:man-bowing:",
+        "user": "UCM4G8PGW",
+        "type": "message"
+    },
+    {
+        "ts": "1559544831.027800",
+        "text": "Haskellの問題ではない可能性も高いのですが，\nSQLite3(SQLite.Simple)で複数回の書き込み後にErrorCan’tOpenがでてしまいます．\nおそらく100回程度の書き込み(成功) -&gt; しばらくErrorCan’tOpen -&gt; 時間を置いて復活\nという謎挙動でまいっています．．．\n拙作ですがコメント以外そのままのコードを載せます．\n```\nlogger :: String -&gt; Middleware\nlogger db app req sendResponse = do\n    t0 &lt;- getCurrentTime\n    app req $ \\rsp -&gt; do\n        let isRaw =\n                case rsp of\n                  ResponseRaw{} -&gt; True\n                  _ -&gt; False\n        t1 &lt;- getCurrentTime\n        let logRow = LogField\n              { getDatetime = t0\n              , getRemoteHost = remoteHost req\n              , getRequestMethod = requestMethod req\n              , getStatusCode = if isRaw then Nothing else Just $ H.statusCode . responseStatus $ rsp\n              , getPath = rawPathInfo req\n              , getQuery = rawQueryString req\n              , getRequestHeaderHost = requestHeaderHost req\n              , getRequestHeaderReferer = requestHeaderReferer req\n              , getRequestHeaderUserAgent = requestHeaderUserAgent req\n              , getResponseTime = diffUTCTime t1 t0\n              }\n        void $ forkIO $ do\n            insertLogRetry db logRow\n\n        sendResponse rsp\n    where\n        insertLogRetry :: String -&gt; LogField -&gt; IO()\n        insertLogRetry db' logRow = insertLog db' logRow\n                                    `catch` (\\x -&gt; case sqlError x of\n                                        ErrorBusy -&gt; insertLogRetry' db' logRow\n                                        ErrorLocked -&gt; insertLogRetry' db' logRow\n                                        e -&gt; putStrLn $ \"unknown error: \" ++ show e ++ \"\\n\" ++ show logRow) -- ErrorCan'tOpenが発生する\n        insertLogRetry' :: String -&gt; LogField -&gt; IO()\n        insertLogRetry' db' lr = (retry 100 $ do\n                                    gen &lt;- Rand.newStdGen\n                                    let (t, _) = Rand.randomR (1, 10) gen\n                                    threadDelay t\n                                    insertLog db' lr)\n                                  `catch` (\\x -&gt; case sqlError x of\n                                    e -&gt; putStrLn $ show e ++ \"error occurs after retry 100 times\")\n        insertLog :: String -&gt; LogField -&gt; IO()\n        insertLog db' lf = do\n                         conn &lt;- open db'\n                         execute conn \"INSERT INTO log VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)\" lf\n                         close conn\n```\nもしどなたか心当たりあれば不確実な情報でもお願いします…_(:3 」∠ )_",
+        "user": "UH195J82Y",
+        "type": "message"
+    },
+    {
+        "ts": "1559546450.028100",
+        "text": "さきほどレポジトリの設定をPublicにしたので，こちらから見れます．．．\n<https://gitlab.com/sarashino/prida>",
+        "user": "UH195J82Y",
+        "type": "message"
+    },
+    {
+        "ts": "1559550579.028400",
+        "text": "多分 <https://gitlab.com/sarashino/prida/blob/master/src/Web/Prida/Logger.hs#L127-131> で `insert` する度にコネクションを開いてしまっているのが原因なんじゃないかと思います。\nWAIのmiddlewareの設定からして、レスポンスを書く度にforkしてログに書き込んでいるわけですよね？\nとなると、リクエストを受け取る度に書き込むスレッドをforkしてDBをオープンしていることになるので、結果として同時にオープンできる量の限界に達してしまっているのではないかと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559550868.028700",
+        "text": "通常、Webアプリケーションが使うDBへのコネクションは、コネクションプールを使って、一定量のコネクションを常時開けておくのが定石です。\nHaskellでそれをやる場合、 <http://hackage.haskell.org/package/resource-pool> にコネクションプールを任せ、 `Pool` オブジェクトを `ReaderT` で引き回すか、愚直に必要な関数の引数に渡して回ることになるかと思います。\n\n:thinking_face: *もう少しWebアプリに慣れた人へ* ほかにいいパッケージありますかね... 試したことないのでちょっと自信ない",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559551556.029200",
+        "text": "しかし sqlite3 なのでコネクションといっても単にローカルファイルを open してるだけな気がするのですよね…100個ぐらいで限界がくるものなのだろうか？という気がします",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1559551710.029500",
+        "text": "書き込みの際はDB全体でロックがかかっている、と読めますね。。。 :cold_sweat:\n<https://stackoverflow.com/questions/9017762/what-is-the-maximum-connections-for-sqlite3-database>",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
