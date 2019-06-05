@@ -52,5 +52,89 @@
         "text": "<@UK96V3T2L> has joined the channel",
         "user": "UK96V3T2L",
         "type": "message"
+    },
+    {
+        "ts": "1559699224.002100",
+        "text": "こちらの方法、今日になって気づいたんですが、 *引数が2つ以上ある関数の場合、 `(&gt;&gt;)` の第2引数に渡した関数しか実行されない* という落とし穴があるようです。 :scream:\n自分でも調べてみますが、どなたか詳しい理由がわかったら教えてください...\nHaskell-jp Blogの記事にしようかな...\n<https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1559094017015900>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559699573.002400",
+        "text": "例:\n```\n&gt; a x y = putStrLn (\"a: \" ++ x ++ y)\n&gt; b x y = putStrLn (\"b: \" ++ x ++ y)\n&gt; ((&gt;&gt;) &lt;$&gt; a &lt;*&gt; b) \"x\" \"y\"\nb: xy\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559700169.002700",
+        "text": "(&gt;&gt;)が関数のモナドに対するものなので、ask &gt;&gt; ...みたいなふるまいをしていますね",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1559700211.003100",
+        "text": "っぽいですね... 自分も等式変換しているうちに見えてきました... :disappointed_relieved:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559700723.003400",
+        "text": "`((&lt;*&gt;) &lt;$&gt; (((&lt;$&gt;) (&gt;&gt;)) . a) &lt;*&gt; b) \"x\" \"y\"`",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1559700782.003700",
+        "text": "おおかわさんさすがです... :joy:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559700980.003900",
+        "text": "というわけで，単に2以上のarityに対して等価な変換じゃないというだけですね．落とし穴ではない",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1559702158.004300",
+        "text": "地道に簡約してみました\n\n```\n((&gt;&gt;) &lt;$&gt; a &lt;*&gt; b) \"x\" \"y\"\n((fmap (&gt;&gt;) a) &lt;*&gt; b) \"x\" \"y\"\n(((&gt;&gt;) . a) &lt;*&gt; b) \"x\" \"y\"\n((\\arg -&gt; ((&gt;&gt;) (a arg))) &lt;*&gt; b) \"x\" \"y\"\n((\\arg2 -&gt; (\\arg -&gt; ((&gt;&gt;) (a arg))) arg2 (b arg2))) \"x\" \"y\"\n((\\arg2 -&gt; (\\arg -&gt; (\\k -&gt; (a arg &gt;&gt;= (\\_ -&gt; k)))) arg2 (b arg2))) \"x\" \"y\"\n((\\arg2 -&gt; (\\arg -&gt; (\\k -&gt; (a arg &gt;&gt;= (\\_ -&gt; k)))) arg2 (b arg2))) \"x\" \"y\" -- Monadの (&gt;&gt;) を展開\n((\\arg2 -&gt; (\\arg -&gt; (\\k -&gt; (\\r -&gt; (\\_ -&gt; k) (a arg r) r))) arg2 (b arg2))) \"x\" \"y\" -- (-&gt; r) Monadの (&gt;&gt;=) を展開\n(\\arg2 -&gt; (\\arg k r -&gt; (\\_ -&gt; k) (a arg r) r) arg2 (b arg2)) \"x\" \"y\" -- 入れ子になったλ式をくっつける\n(\\arg2 -&gt; (\\arg k r -&gt; k r) arg2 (b arg2)) \"x\" \"y\" -- (\\_ -&gt; k) (a arg r) を簡約。aが消えた！\n(\\arg2 -&gt; (\\r -&gt; (b arg2) r)) \"x\" \"y\" -- (\\arg k r -&gt; k r) arg2 (b arg2) を簡約。\n(\\r -&gt; (b \"x\") r) \"y\" -- (\\arg2 -&gt; (\\r -&gt; (b arg2) r)) \"x\" を簡約。\n(b \"x\") \"y\" -- (\\r -&gt; (b \"x\") r) \"y\" を簡約。\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559702969.004500",
+        "text": "これ、:point_down: みたいに引数を一切追加しないで `do` に直したら `unused-do-bind` の警告になりましたね。\n```\ndo\n  a\n  b\n```\n戻り値が関数になっている（あるいは、もっとアグレッシブに戻り値が `()` 以外の）アクションに対して `(&gt;&gt;)` を使うと警告が出る、みたいな仕組みを作るといいのかもしれません。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559726420.004900",
+        "text": "自分がYesodとPostgreSQLで同じような問題に突き当たった時は,コネクションを取得している文脈でコネクションを開放せずにコネクションをもう一度取得しようとしていて,複数の関数でコネクションを取得しようとしてデッドロックに陥ってました\nSimpleの仕組みはよくわかりませんがDBを使ったらその場でコネクションを削除するようにすれば問題なくなるかもしれません",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1559728105.005100",
+        "text": "doはシンタックスシュガーだからコンパイル時に警告が出てくれるとありがたいですけど、 `(&gt;&gt;)` は第一引数のアクションの戻り値を捨てる関数だから、警告出すのは微妙な気がしますね……。 `const 1 (f x)` って書いたときに `(f x)` は評価されないよーっていう警告を出すかどうかみたいな。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1559729351.005300",
+        "text": "気分的には、HLintに「こういう組み合わせの式は使わないで、こっちを使ってね」と警告させるのと同じような感じにすれば、オプトイン・オプトアウトも簡単になるしいいかな、と思うのですが、いかがでしょう？（現状のHLintにそこまでできたかは忘れましたが）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559734020.005500",
+        "text": "文脈を理解していないですが引数を必ず使わせたいなら linear types の出番？",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1559735186.005700",
+        "text": "それは確かにそのとおりですが、ちょっとオーバーキルかな... と。 :sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
