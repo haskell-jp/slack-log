@@ -1,0 +1,26 @@
+[
+    {
+        "ts": "1559810918.019600",
+        "text": "うーん、それで `No module named 'GHC.Arr' is imported.` というエラーはさすがに不自然ですね。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559811590.019800",
+        "text": "試してみましたが、エラーメッセージは変わってるはずですよね？\n`Module ‘GHC.Arr’ does not export ‘unsafeFreezeSTUArray’`\n\nとすると、なるほど、なぜか `unsafeFreezeSTArray` は `GHC.Arr` にあるけど `unsafeFreezeSTUArray` にないってことか。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559811909.020000",
+        "text": "すみません、わざわざ unsafe なAPIを使わなくても `freeze` 関数というのがあるみたいですね。\n\n```\nimport Data.Array.Unboxed\nimport <http://Data.Array.ST|Data.Array.ST>\nimport <http://Control.Monad.ST|Control.Monad.ST>\n\nmain :: IO ()\nmain = print arr2\n\narr2 :: (UArray Int Int, UArray Int Int)\narr2 = runST $ do\n  a &lt;- newArray (0,2) 0 :: ST s (STUArray s Int Int)\n  writeArray a 0 999\n  b &lt;- newArray (0,2) 0 :: ST s (STUArray s Int Int)\n  writeArray b 0 999\n  -- detail ommitted\n  (,) &lt;$&gt; freeze a &lt;*&gt; freeze b\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559813083.020200",
+        "text": "` (,) &lt;$&gt; freeze a &lt;*&gt; freeze b ` ですか！　素晴らしい　有難うございました  orz",
+        "user": "U584T7GAH",
+        "type": "message"
+    }
+]

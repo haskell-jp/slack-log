@@ -160,5 +160,143 @@
         "text": "よく考えたら何の意味もない例でした。すみません",
         "user": "U4KUNQF9N",
         "type": "message"
+    },
+    {
+        "ts": "1559797340.007900",
+        "text": "<@UKAS45C80> has joined the channel",
+        "user": "UKAS45C80",
+        "type": "message"
+    },
+    {
+        "ts": "1559806186.010400",
+        "text": "STArray (または STUArray )を複数同時に初期化するにはどうしたら良いでしょうか？\n例えば一つならば　\n```\nbuildA = runSTUArray $ do\n  a &lt;- newArray (0,2) 0 :: ST s (STUArray s Int Int)\n  writeArray a 0 999\n  -- detail omitted\n  return a\n\nλ&gt; a = buildA\na :: U.UArray Int Int\nλ&gt; a U.! 0\n999\n```\nこれでOKですが\n２つ同時にするとエラーとなります\n```\nbuildAB = runSTUArray $ do\n  a &lt;- newArray (0,2) 0 :: ST s (STUArray s Int Int)\n  b &lt;- newArray (1,9) 1 :: ST s (STUArray s Int Int)\n  writeArray a 0 999\n  writeArray a 1 111\n  -- detail omitted\n  return (a, b)\n\n• Couldn't match type ‘(STUArray s Int Int, STUArray s Int Int)’\n                  with ‘STUArray s i e’\n  Expected type: ST s (STUArray s i e)\n    Actual type: ST s (STUArray s Int Int, STUArray s Int Int)\n```",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1559806446.013400",
+        "text": "Lensを使っていて、ちょっと気になる挙動に出遭ったので、どなたか理由をご存知であれば教えていただきたいです。\nこちらのコード <https://gist.github.com/igrep/19139bb4e3bc7fe7988597559b9ab2dd> なんですが、\n```\nviewThenSet :: Sample -&gt; Lens' Sample Int -&gt; (Int, Sample)\n```\nという `Lens` を受け取る関数を使って、\n```\nmain = print . viewThenSet (Sample 1 2) $ field' @\"sample1\"\n```\nというコードを書くと、 `Functor f` が曖昧だよ！という型エラーになってしまいます（エラーメッセージの詳細はコードにコメントとして張りました）。\n\nしかし、 `.` の代わりに `$` を使い、 :point_down: のように書き換えると、エラーがなくなります（あるいは、どちらも使わずに括弧で囲うか）。\n```\nmain = print $ viewThenSet (Sample 1 2) $ field' @\"sample1\"\n```\n通常、 `f $ g $ x` という式は `f . g $ x` という式に書き換えられることが知られてますが、なぜこの場合は `.` を使うと型エラーになるのでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559806448.013500",
+        "text": "",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559806851.014100",
+        "text": "`main = print $ viewThenSet (Sample 1 2) $ field' @\"sample1\"`\n2つ目はこう？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1559806979.014300",
+        "text": "すぐに思い付いたのはこれですが、これだとそれぞれの初期化が独立である必要がありますね。\nおそらく配列 a と b の初期化で何らか相互に関係するのですよね？\n<https://wandbox.org/permlink/9cSyhgzxGAGprbN1>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1559807087.014600",
+        "text": "もっといい方法がありそうな気がしますが、ぱっと思いつくところでは、 `runSTArray`  <https://www.stackage.org/haddock/lts-13.24/array-0.5.3.0/src/Data-Array-ST.html#runSTArray> がやっているように、 `GHC.Arr.unsafeFreezeSTArray` を自前で呼んで `runST `すればよいのではないかと思います。\nhackageにhaddockも生成されてないモジュールの関数なんで大丈夫なのか？という気もしますが...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559807125.014800",
+        "text": "おっと済みません凡ミスでした...\n修正済みです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559807481.015200",
+        "text": "<https://twitter.com/YoshikuniJujo/status/1136537216665079808> こんな指摘をいただいた。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559808639.015500",
+        "text": "このぐらいで再現できますね\n```\n{-# LANGUAGE RankNTypes #-}\nrankNfunc :: (forall a. Show a =&gt; a-&gt;b) -&gt; [b]\nrankNfunc f = [f 42, f True]\n\nf = length $ rankNfunc $ show  -- OK\ng = length . rankNfunc $ show   -- NG\n```",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1559808900.015900",
+        "text": "impredicative polymorphismと `$` の特別扱いの話は以前記事を書いたので参考までに： <https://qiita.com/mod_poppo/items/806c9c3e0ccb46be92ae#%E9%96%A2%E6%95%B0%E9%81%A9%E7%94%A8%E6%BC%94%E7%AE%97%E5%AD%90%E3%81%AE%E7%89%B9%E4%BE%8B>",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1559808954.016400",
+        "text": "ありがとうございます！案の定読んではてブしてるのに忘れてるw",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559809664.016700",
+        "text": "それにしても `{-# LANGUAGE ImpredicativeTypes #-}` をつけると `g = (length . rankNfunc) show` はいけるようになるのに `g = length . rankNfunc $ show` だとだめなままなのはなんでだろう… `($)` の特別扱いが逆に悪さしてるんですかね",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1559809878.017000",
+        "text": "ただ、なるべく独立して初期化させた方が行儀のいいコードにはなりそうな気がします。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559810023.017300",
+        "text": "kakkun61 さんどうもありがとうございます　お察しのとうり訳アリで `a` と `b` の初期化は絡み合っていて　分離は出来ません\n\n<@U4LGTMTMK> さん　環境設定が悪いのかもしれませんが　出来ませんでした\n```\nNot in scope: ‘GHC.Arr.unsafeFreezeSTUArray’\nNo module named ‘GHC.Arr’ is imported.\n```",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1559810052.017600",
+        "text": "`import GHC.Arr (unsafeFreezeSTUArray)` してください。そういう意味です。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559810060.017800",
+        "text": "いや、あれ、 ghci のバージョンによって挙動が違う気がしてきました…\n手元にあった 8.0.2 だと ImpredicativeTypes で `(length . rankNfunc) show` が通るけれど 8.4.4 と 8.6.3 では ImpredicativeTypes をつけてもダメっぽい",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1559810345.018200",
+        "text": "それはしてあります",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1559810393.018400",
+        "text": "参照するときは `GHC.Arr.` をつけずに `unsafeFreezeSTUArray` と呼べばいいはずですが...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559810595.018700",
+        "text": "それにしても `@\"sample1\"` ってなんだろうとおもったら、これ、 TypeApplications と DataKinds のコンボですか？",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1559810703.018900",
+        "text": "そうです。generic-lensを使っていますので。すみません、言及が漏れてましたね。。。 <https://github.com/kcsongor/generic-lens>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1559810789.019200",
+        "text": "いえ、脳内が Haskell2010 のままで止まっているので勉強になります^^; （イヤ、下手したら Haskell98 のままで止まってるかも…）",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1559810875.019400",
+        "text": "```\n...\nimport GHC.Arr (unsafeFreezeSTUArray)\n...\nbuildA' = runST $ do\n  a &lt;- newArray (0,2) 0 :: ST s (STUArray s Int Int)\n  writeArray a 0 999\n  -- detail omitted\n  a &gt;&gt;= unsafeFreezeSTUArray\n```\nこれでテストしました",
+        "user": "U584T7GAH",
+        "type": "message"
     }
 ]
