@@ -40,5 +40,83 @@
         "text": "<@UKD4B2J6L> has joined the channel",
         "user": "UKD4B2J6L",
         "type": "message"
+    },
+    {
+        "ts": "1560132380.021800",
+        "text": "cryptonite速くなりましたね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1560132390.022300",
+        "text": "---",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1560132544.024200",
+        "text": "MagicHaskellerを動かしたいのですが、\nGHCAPIをつかっているのですが、モジュールのロードがうまくいかず、困っています。\n<http://hackage.haskell.org/package/MagicHaskeller-0.9.6.7/src/MagicHaskeller/SimpleServer.hs>\nこのファイルのprepareGHCAPI です。\n\nstackでlts-3.22でビルドはできたのですが。\nMagicHaskeller/Minimal.hsがロードできないというエラーで落ちてしまいます。\nどなたかノウハウがあれば教えていただきたいです。\n\n手順通りcabalでコンパイルするとNetworkモジュールのロードでこけます。自分の環境のせいかどうかもよくわからないです。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1560132656.025400",
+        "text": "また、たくさんの関数を推論させたいのでポータル（<http://nautilus.cs.miyazaki-u.ac.jp/~skata/MagicHaskeller.html）ではなく>\nローカルで実行したいです。WEB サーバーにする必要はありません。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1560142682.026700",
+        "text": "正直なところGHC APIをあまり使ったことがないのでわかるかどうかも不明ですが、再現するリポジトリーを上げていただけるとサポートしやすいです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1560143012.027000",
+        "text": "そうしますね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1560143056.027300",
+        "text": "GHC APIの使い方がわからない問題でデバッグできないですね。\nなにかパスを追加とかなのでしょうが",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1560143853.027500",
+        "text": "<https://circleci.com/gh/junjihashimoto/MagicHaskeller>\n<https://github.com/junjihashimoto/MagicHaskeller>\nここで再現するはずです。\nちょっとお待ちください。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1560153167.028400",
+        "text": "ちょっと見た感じだと、GHC API を使ってパッケージデータベースから `MagicHaskeller` を指定し、Prelude とともに `MagicHaskeller.Minimal` モジュールと `MagicHaskeller.FastRatio` モジュールを読み込もうとしてますね。\n\n<https://github.com/junjihashimoto/MagicHaskeller/blob/master/MagicHaskeller/SimpleServer.hs#L445>\n<https://github.com/junjihashimoto/MagicHaskeller/blob/master/MagicHaskeller/SimpleServer.hs#L207>\n\nエラーになっている原因はたぶん、デフォルトのパッケージデータベースに `MagicHaskeller` が存在しないためだと思います。\n\n色々とやり方はあると思いますが、Docker で動かすのが一番簡単かもしれません。\n\n```\nFROM ubuntu:bionic-20190307\nRUN apt-get update\nRUN apt-get install -y haskell-platform\n\nRUN cabal update\nRUN cabal install MagicHaskeller-0.9.6.7 --global\n\n###########################\n# ghc: 8.0.2\n# cabal-install: 1.24.0.2\n###########################\n```\n\n良くわかりませんが、動いてる気がします。\n\n```\n$ docker run --rm -it waddlaw/magic-haskeller:0.9.6.7 bash\n/# MagicHaskeller -d 5 -t predicates -i\nMagicHaskeller/MagicExceller backend server version 0.9.6.7 built with GHC-8.0 at 2019-06-10 07:33:54.682998096 UTC\nstarted at 2019-06-10 07:46:43.917068284 UTC\n\\f -&gt; ?\nf \"e\" 2 == \"ee\"\nthe predicate is f \"e\" 2 == \"ee\"\n\n\n\n\n\\a b -&gt; concat (replicate b a)\n\n\\a b -&gt; replicate b (last (' ' : a))\n\\a b -&gt; concat (replicate b (reverse a))\n\\a b -&gt; take b (a ++ a)\n\\a b -&gt; replicate b (foldr const ' ' a)\n\\a b -&gt; concat (transpose (replicate b a))\n\\a b -&gt; concat (replicate (abs b) a)\n\\a b -&gt; a ++ take b a\n\\a b -&gt; concatMap (\\_ -&gt; a) (replicate 2 b)\n\\a b -&gt; concatMap (\\_ -&gt; a) [b..3]\n```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1560155650.029100",
+        "text": "時間経ってからでアレですが、実現方法思いついたのでコメント\n\n関数Applicativeをネストさせる作戦\n```(liftA2 . liftA2) (&gt;&gt;) a b \"x\" \"y\"```\n\nuncurry する作戦\n```(liftA2 (&gt;&gt;) `on` uncurry) a b (\"x\", \"y\")```",
+        "user": "UFP82PUF3",
+        "type": "message"
+    },
+    {
+        "ts": "1560155863.029500",
+        "text": "元々考えていたケースは引数の数が2もあれば3や4もあるので、根本的な間違いの回避にはつながりませんが、いいですね！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1560157006.029800",
+        "text": "ありがとうございます。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1560157045.030000",
+        "text": "助かります。",
+        "user": "U74KTAG0N",
+        "type": "message"
     }
 ]
