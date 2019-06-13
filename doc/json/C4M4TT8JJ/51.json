@@ -154,5 +154,83 @@
         "text": "<@UK50TKYSE> has joined the channel",
         "user": "UK50TKYSE",
         "type": "message"
+    },
+    {
+        "ts": "1560400243.031700",
+        "text": "<https://github.com/fumieval/extensible/tree/flip> extensibleテクニカルプレビュー第二弾: ベースとなる型 `:*` と `:|` のパラメータを、リストが先、包装型が後になるよう入れ替える大胆な変更です。リストを固定することが多いので取り回しがよくなり、barbiesのインターフェイスも利用できるようになります",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1560400360.032100",
+        "text": "barbies は逆なんだ",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1560400530.032900",
+        "text": "`data Foo h = Foo (h Int) (h Double)`みたいな非extensibleなHKDが増えてきたので、この際そちらに合わせようと",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1560410544.034000",
+        "text": "<http://fumieval.hatenablog.com/entry/2019/06/13/155557>　こちらにも宣伝。バッチリクエストを安全に表現するためのアイデア",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1560410893.034500",
+        "text": "デザインがいつのまにか変わってた",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1560413139.035600",
+        "text": "以前から、 `h :* xs` を見たとき `xs` の先頭に `h` をのっけているように感じられてならなかったので、それが少し改善されますね！ :+1:\n（ `xs :&amp; h` なら `xs` が前なのでそうとは思えない！）\n\nただ同時に思ったのですが、敢えてこれらを演算子にする意味ってありますかね。。。普通に英語の名前を与えた方がわかりやすい気がしてきました。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1560418970.035900",
+        "text": "むしろいい名前が思いつかなかったので演算子にしたという経緯があります…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1560419156.036200",
+        "text": ":naruhodo: 。そんなこともあろうかとちょっと考えてましたが、まだ `Product` も `Sum` も型の名前としては使ってないし、ちょうどいい気がしますね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1560419642.036400",
+        "text": "さすがに標準ライブラリと被るのは…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1560419926.036700",
+        "text": "どっちもPreludeに入っているわけじゃないし... とは思いますが Data.Functor.{Sum, Product}があったんですね... 使われる文脈を考えると確かにちょっと紛らわしいかも知れませんね（ひょっとしてextensibleパッケージの中でも使ってる？）。\n`EProduct`, `ESum` と妥協するのはダメでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1560426936.037200",
+        "text": "なるほど…どちらにせよ利用者が直接触れることは少ないので、決してダメということはないですね(型名にアルファベットの接頭辞を付けるのは避けていました)。",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1560426992.037400",
+        "text": "なお演算子にした理由は、括弧が節約できて見やすいからです",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1560466504.037900",
+        "text": "Stack 2が出ましたね。 <https://github.com/commercialhaskell/stack/releases/tag/v2.1.1>",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
