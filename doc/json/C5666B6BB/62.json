@@ -214,5 +214,17 @@
         "text": "Dormantになった提案を強力に前に進める人がいるといいなあと思ったりします。提案者の熱があるうちはいいですが、息切れしてきた時に細かい指摘を拾って提案自体にPRを送ってくれるような。",
         "user": "U4M9NJ7QE",
         "type": "message"
+    },
+    {
+        "ts": "1560858589.018000",
+        "text": "継続 + IO + 失敗系モナド？な感じのパッケージってあります？\n具体的には以下のような関数が欲しいんですけど:\n```\nfromMaybeWith :: MonadIO m =&gt; m (Maybe a) -&gt; m r -&gt; ContT r m a\nfromMaybeWith m e = lift m &gt;&gt;= \\case\n  Nothing -&gt; ContT (const e)\n  Just a  -&gt; ContT ($ a)\n\nfromEitherWith :: MonadIO m =&gt; m (Either a e) -&gt; (e -&gt; m r) -&gt; ContT r m a\nfromEitherWith m act = lift m &gt;&gt;= \\case\n  Left e  -&gt; ContT (const $ act e)\n  Right a -&gt; ContT ($ a)\n```",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1560899464.020600",
+        "text": "副作用を伴うAPIの設計で、「成功時はNothing, 失敗時はJust でエラーを返す」というのはよくあるパターンなのでしょうか？\nkafkaのライブラリ(hw-kafka-client)を使っていて、そういう場面に出会いまして、「ああ、そうなのか」と思いつつ、失敗したときのエラーを返すなら、Either を使って、Leftにエラー、Rightは() ? としたほうが自然なのかとも思いました。\n\n\n<https://github.com/haskell-works/hw-kafka-client>\n```\nsendMessages prod = do\n  err1 &lt;- produceMessage prod (mkMessage Nothing (Just \"test from producer\") )\n  forM_ err1 print\n```",
+        "user": "U7GSVRQ6S",
+        "type": "message"
     }
 ]
