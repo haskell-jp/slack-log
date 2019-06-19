@@ -226,5 +226,77 @@
         "text": "副作用を伴うAPIの設計で、「成功時はNothing, 失敗時はJust でエラーを返す」というのはよくあるパターンなのでしょうか？\nkafkaのライブラリ(hw-kafka-client)を使っていて、そういう場面に出会いまして、「ああ、そうなのか」と思いつつ、失敗したときのエラーを返すなら、Either を使って、Leftにエラー、Rightは() ? としたほうが自然なのかとも思いました。\n\n\n<https://github.com/haskell-works/hw-kafka-client>\n```\nsendMessages prod = do\n  err1 &lt;- produceMessage prod (mkMessage Nothing (Just \"test from producer\") )\n  forM_ err1 print\n```",
         "user": "U7GSVRQ6S",
         "type": "message"
+    },
+    {
+        "ts": "1560905540.021000",
+        "text": "ExceptTの中で使うことを考えると、確かに `IO (Either e ())` の方が良さそうですね。私もそうします。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1560905640.021400",
+        "text": "フォーク元のhaskakafkaを引き継いでいるようですね。Maybeでエラーを返すのは私もアンチパターンと考えています",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1560905820.021700",
+        "text": "これは欲しい！MonadIO制約はいらないような…？",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1560905938.022000",
+        "text": "たしかに、 MonadIO いらない！\nぼくがよく IO (Maybe a) で使ってたのでw",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1560906970.022900",
+        "text": "yesodを使ってローカルのPostgreSQLのテーブルに保存されたユーザー情報で認証をするようにしたいのですが、うまく行かないので教えて頂きたいです。\n\n使用している環境は以下のような構成です。\nyesod-bin version: 1.6.0.3\nyesod-auth-hashdb-1.7.1.1\nPostgreSQL(11.1)\n\nYesod.Auth.HashDBのドキュメントを参考にして作業しています。\n<https://www.stackage.org/haddock/nightly-2019-06-17/yesod-auth-hashdb-1.7.1.1/Yesod-Auth-HashDB.html>\n\n```\n[config/models]\n--認証用のテーブルとしてclient_authをmigrationで作成\nClientAuth                                                              \n\tclientId ClientId    \n\tsystemid Int                               \n\tusername Text              \n\tpassword Text                                                             \n\tUniqueClientAuth username                  \n\tderiving Show      \n```\n\nHashDBのドキュメントのサンプルを元に以下のコマンドで管理用のパスワードを生成し、psqlで手入力で認証情報をテーブルにinsertしました。\n\n```\n&gt; makePassword \"admin\" 17\n\"sha256|17|gQ3ny1p2WBkGrxrz5krLXg==|bKJ2rPrKczl3eFjQLRwsZi3OpiVepEH0511ocjcAO98=\"\n```\n\nデータベースの現在の状態です。\n\n```\n select * from client_auth;\n id | client_id | systemid | username |                                     password                                      \n----+-----------+----------+----------+-----------------------------------------------------------------------------------\n  1 |         1 |        1 | admin    | \"sha256|17|gQ3ny1p2WBkGrxrz5krLXg==|bKJ2rPrKczl3eFjQLRwsZi3OpiVepEH0511ocjcAO98=\"\n(1 row)\n```\nusername:admin\tpassword:admin　で認証したいです。\n\nパスワードの正しさをチェックするためにYesod.Auth.Util.PasswordStoreのページを参考にverifyPasswordでも確かめてみました。\n<https://www.stackage.org/haddock/nightly-2019-06-17/yesod-auth-1.6.6/Yesod-Auth-Util-PasswordStore.html>\n\n```\n&gt; verifyPassword \"admin\" \"sha256|17|gQ3ny1p2WBkGrxrz5krLXg==|bKJ2rPrKczl3eFjQLRwsZi3OpiVepEH0511ocjcAO98=\"\nTrue\n```\n\n\nHashDBのドキュメントを参考に以下のように書きました。\n```\n[src/Foundation.hs]\nimport Yesod.Auth.HashDB (authHashDB, HashDBUser(..))\n\ninstance YesodAuth App where                                \n    type AuthId App = ClientAuthId                                \n                                 \n    -- Where to send a user after successful login                                \n    loginDest :: App -&gt; Route App                                \n    loginDest _ = HomeR                                \n    -- Where to send a user after logout                                \n    logoutDest :: App -&gt; Route App                                \n    logoutDest _ = HomeR                                \n    -- Override the above two destinations when a Referer: header is present                                \n    redirectToReferer :: App -&gt; Bool                                \n    redirectToReferer _ = True                                \n                                 \n    authPlugins _ = [authHashDB (Just . UniqueClientAuth)]                                \n                                 \ninstance HashDBUser ClientAuth where                                \n  userPasswordHash = Just . clientAuthPassword                                \n  setPasswordHash hash clientauth = clientauth { clientAuthPassword = hash } \n```\n\n開発環境を起動\n`stack exec -- yesod devel`\n\nこの構成でブラウザを開いてデフォルトのログインフォームが表示される所までは良いのですが、admin:adminの\n入力でログインしようとしても“Invalid username/password combination”のメッセージがブラウザ上に表示され、\nコンソール側には以下のメッセージが表示されます。\n\n```\n19/Jun/2019:10:01:28 +0900 [Debug#SQL] SELECT \"id\",\"client_id\",\"systemid\",\"username\",\"password\" FROM \"client_auth\" WHERE \"username\"=?; [PersistText \"admin\"]\nPOST /auth/page/hashdb/login\n  Params: [(\"_token\",\"7rrCxvYLlw\"),(\"username\",\"admin\"),(\"password\",\"admin\")]\n  Request Body: _token=7rrCxvYLlw&amp;username=admin&amp;password=admin\n  Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\n  Status: 303 See Other 0.026735s\nGET /auth/login\n  Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\n  Status: 200 OK 0.000806s\n```\n\nParamsで表示されたフォームの入力値も正しいですし、表示されているSQLも正しいように思います。どこをチェックすれば良いでしょうか？",
+        "user": "UCDHJ6R6X",
+        "type": "message"
+    },
+    {
+        "ts": "1560909504.023100",
+        "text": "`authenticate` メソッドが正しく定義できていないのかもしれないですね。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1560911393.023300",
+        "text": "ありがとうございます。皆さんの意見を聞いて安心しました。",
+        "user": "U7GSVRQ6S",
+        "type": "message"
+    },
+    {
+        "ts": "1560914102.023500",
+        "text": "どんなユースケースなんすか",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1560916740.023900",
+        "text": "例えば、API かなんかで http get でリスト取得、List.lookup 的なのする、Nothing なら pure () して終わり、Just なら別のを http get .... 的な\n```\n-- 疑似コード\nmain :: IO ()\nmain = evalConstT $ do\n  target &lt;- List.lookup isTarget &lt;$&gt; Http.get \"<http://example.com/api/fuga>\" `fromMaybeWith` pure ()\n  hoge &lt;- List.lookup (isHoge target) &lt;$&gt; Http.get \"<http://example.com/api/hoge>\" `fromMaybeWith` pure ()\n  lift $ <http://Logger.info|Logger.info> (show hoge)\n```",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1560916794.024200",
+        "text": "```\n`fromMaybeWith` pure ()\n```\nの部分を `Logger.warn \"not found\"` とかして終えたりもできますね。",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1560916818.024400",
+        "text": "あ、これを一般化できないかなぁと思った次第で\n<https://haskell.e-bigmoon.com/posts/2018/06-26-cont-param.html>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1560917343.024900",
+        "text": "なるほど。自分なら ExceptT と `failWith` <https://hackage.haskell.org/package/errors-2.3.0/docs/Control-Error-Util.html#v:failWith> でやりそうなケースですけども、その方が簡潔そうですね！Eitherを伴わない分速いのかも。\n※ `noteT` じゃなくて `failWith` でした。修正。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
