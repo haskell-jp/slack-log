@@ -16,5 +16,59 @@
         "text": "<@UKS07QBSA> has joined the channel",
         "user": "UKS07QBSA",
         "type": "message"
+    },
+    {
+        "ts": "1560995611.026600",
+        "text": "なさそうなので自作するか。",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1561010023.027100",
+        "text": "<https://haskell.e-bigmoon.com/posts/2018/06-26-cont-param.html>　演算子として使えるとさらに便利なのでぜひ :bikeshed:",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1561010167.027400",
+        "text": "演算子、センスが求められる…！",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1561011634.027700",
+        "text": "思い切ってPull request送ってerrorsパッケージの一部にしちゃうのはいかがでしょう :smirk:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1561013677.028100",
+        "text": "なるほど？\nでも僕、errors 使わないですよ。。。\nどっちかというと rio に入れて欲しいw",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1561018058.028500",
+        "text": "以下のようにauthenticateを作ってみたのですが、Invalid username/password combinationの\nエラーになって行き詰まっています。\n```\nauthenticate creds = liftHandler $ runDB $ do\n  maybeClientAuth &lt;- getBy $ UniqueClientAuth $ credsIdent creds\n    case maybeClientAuth of\n      Just (Entity clientAuthId _) -&gt; return $ Authenticated clientAuthId\n      Nothing -&gt; return $ UserError InvalidUsernamePass\n```\nドキュメントのauthenticateの説明が２行だけなのでどのように書くと正しく認証されるのかが分からず、困っています。\n&gt; Perform authentication based on the given credentials.\n&gt; Default implementation is in terms of getAuthId\n古いバージョンでは以下のように書くサンプルを見かけたのですが、\n`getAuthId creds = getAuthIdHashDB AuthR (Just . UniqueUser) creds`\ngetAuthIdは廃止予定のようですし、getAuthIdHashDBは既に無いようです。\nどのようにauthenticateを実装するときちんと認証されるのでしょうか？",
+        "user": "UCDHJ6R6X",
+        "type": "message"
+    },
+    {
+        "ts": "1561018479.028700",
+        "text": "ContTから脱出する部分は独立して実装できるので、こんな感じにするといいのではと思いました ```\n{-# LANGUAGE TypeFamilies #-}\nimport Control.Monad.Trans.Cont\n\nclass Fallible f where\n  type Failure f :: *\n  tryFallible :: f a -&gt; Either (Failure f) a\n\ninstance Fallible Maybe where\n  type Failure Maybe = ()\n  tryFallible = maybe (Left ()) Right\n\ninstance Fallible (Either e) where\n  type Failure (Either e) = e\n  tryFallible = id\n\n(??=) :: (Applicative f, Fallible t) =&gt; t a -&gt; (Failure t -&gt; f a) -&gt; f a\nt ??= k = either k pure $ tryFallible t\n{-# INLINE (??=) #-}\ninfixl 1 ??=\n\n(???) :: (Applicative f, Fallible t) =&gt; t a -&gt; f a -&gt; f a\nt ??? k = t ??= const k\n{-# INLINE (???) #-}\ninfixl 1 ???\n\n(!?=) :: (Monad m, Fallible t) =&gt; m (t a) -&gt; (Failure t -&gt; m a) -&gt; m a\nt !?= k = t &gt;&gt;= (??=k)\n{-# INLINE (!?=) #-}\ninfixl 1 !?=\n\n(!??) :: (Monad m, Fallible t) =&gt; m (t a) -&gt; m a -&gt; m a\nt !?? k = t &gt;&gt;= (???k)\n{-# INLINE (!??) #-}\ninfixl 1 !??\n\nexit :: m r -&gt; ContT r m a\nexit = ContT . const\n{-# INLINE exit #-}\n```",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1561020855.029100",
+        "text": "sqlite + hashDB の最小のサンプルが手元にあったので、参考になれば・・・。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1561022486.029600",
+        "text": "ひょえぇ抽象度が一気に上がったw\n今回のユースケースで実際に使うのは `!??` だけっすね\n```\n-- さっきの疑似コードがこうなる\nmain :: IO ()\nmain = evalConstT $ do\n  target &lt;- List.lookup isTarget &lt;$&gt; Http.get \"<http://example.com/api/fuga>\" !?? exit (pure ())\n  hoge &lt;- List.lookup (isHoge target) &lt;$&gt; Http.get \"<http://example.com/api/hoge>\" !?? exit (pure ())\n  lift $ <http://Logger.info|Logger.info> (show hoge)\n```",
+        "user": "U56L7EVNY",
+        "type": "message"
     }
 ]
