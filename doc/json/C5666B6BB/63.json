@@ -70,5 +70,53 @@
         "text": "ひょえぇ抽象度が一気に上がったw\n今回のユースケースで実際に使うのは `!??` だけっすね\n```\n-- さっきの疑似コードがこうなる\nmain :: IO ()\nmain = evalConstT $ do\n  target &lt;- List.lookup isTarget &lt;$&gt; Http.get \"<http://example.com/api/fuga>\" !?? exit (pure ())\n  hoge &lt;- List.lookup (isHoge target) &lt;$&gt; Http.get \"<http://example.com/api/hoge>\" !?? exit (pure ())\n  lift $ <http://Logger.info|Logger.info> (show hoge)\n```",
         "user": "U56L7EVNY",
         "type": "message"
+    },
+    {
+        "ts": "1561080708.029900",
+        "text": "ありがとうございます。参考にさせて頂きます。\n\n見た所、`authenticate`の実装はほぼ同じ内容なので原因は別の所にありそうですね。",
+        "user": "UCDHJ6R6X",
+        "type": "message"
+    },
+    {
+        "ts": "1561083748.030200",
+        "text": "&gt; psqlで手入力で認証情報をテーブルにinsertしました。\n\n`settings.yml` の DB とは違うところに insert してる可能性もあるかもしれないですね。\nこれ以上は実際のコード見てみないと、僕には解決できなさそうです。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1561102568.030400",
+        "text": "ということで99%上記の fumi san のコードまんまですがパッケージを作成しました！（GitHub にしか置いてませんけど）\n<https://github.com/matsubara0507/fallible>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1561105655.031700",
+        "text": "<https://github.com/matsubara0507/fallible#usage> にある `slack` は `stack` のtypeですかね :thinking_face:",
+        "user": "UK0LLUCE6",
+        "type": "message"
+    },
+    {
+        "ts": "1561105710.032300",
+        "text": "ほんとだw どうもありがとう！",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1561105733.032400",
+        "text": "いえいえｗ",
+        "user": "UK0LLUCE6",
+        "type": "message"
+    },
+    {
+        "ts": "1561107399.032600",
+        "text": "すごく今更なんですが\n\n```\nfromMaybeWith :: Monad m =&gt; m (Maybe b) -&gt; m r -&gt; ContT r m b\nfromMaybeWith m e = withCont (maybe e) $ lift m\n\nfromEitherWith :: Monad m =&gt; m (Either a b) -&gt; (a -&gt; m r) -&gt; ContT r m b\nfromEitherWith m act = withContT (either act) $ lift m\n```\n\nって書けますね",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1561107570.033100",
+        "text": "個人的には、fumiさんのexitだけを何処かで定義しておいて\n\n```\ndo\n...\nmr &lt;- action\nr &lt;- maybe (exit \"なんとか\") return mr\n```\n\nみたいに書く事が多いです",
+        "user": "U570660KX",
+        "type": "message"
     }
 ]
