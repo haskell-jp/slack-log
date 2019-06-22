@@ -118,5 +118,17 @@
         "text": "個人的には、fumiさんのexitだけを何処かで定義しておいて\n\n```\ndo\n...\nmr &lt;- action\nr &lt;- maybe (exit \"なんとか\") return mr\n```\n\nみたいに書く事が多いです",
         "user": "U570660KX",
         "type": "message"
+    },
+    {
+        "ts": "1561171236.033800",
+        "text": "返信ありがとうございます。\n\nマイグレーションでYesodが生成してくれたテーブルにpsqlで手入力したのでDBが違うという事はないと思います。\n\nauth-hashdbが勝手にsaltとかつけてるのかも知れないと思い、psqlから手入力ではなくてyesodから管理者アカウントを登録してみようと思っています。migration時に管理者アカウントを追加できれば良いのですが、モナドトランスフォーマーの理解が不十分なので上手く行かなくて苦戦しています。\n\nそれで入力フォームを先に作成しようと頑張っているのですが、まだHaskell自体に不慣れなので苦戦しています。\n\n```\n--認証情報のフォーム(src/Handler/ClientAuth.hs)\nclientAuthForm :: Html -&gt; MForm Handler (FormResult ClientAuth, Widget)\nclientAuthForm = renderDivs $ ClientAuth\n    &lt;$&gt; areq (selectFieldList clients) \"クライアント\" Nothing\n    &lt;*&gt; areq (selectFieldList systems) \"システム\" Nothing\n    &lt;*&gt; areq textField \"Username\" Nothing\n    &lt;*&gt; areq textField \"Password\" Nothing\n    where\n \tclients :: [(Text,Key Client)]\n        clients = do\n            list &lt;- runDB $ selectList [] [Asc ClientId]\n            fmap (\\(Entity clientId c) -&gt; (clientName c::Text,clientId)) list\n\t\n\tsystems :: [(Text,Key System)]       \n        systems = do\n            list &lt;- runDB $ selectList [] [Asc SystemId]\n            fmap (\\(Entity systemId s) -&gt; (systemType s::Text,systemId)) list\n\n --認証情報のモデル(config/models)\nClientAuth                                                      \n    clientId ClientId\n    systemId Int       \n    username Text      \n    password Text      \n    UniqueClientAuth username\n    deriving Show    \n ```\n\nこのフォームがコンパイルできないんですが、ClientIdやSystemIdはIntに変えないとダメなんでしょうか？\nそうすると正しくない数値を受け付けてしまいそうなんですが、、、。\n\n```\n    • Couldn't match type ‘Int’ with ‘Key Client’\n      Expected type: AForm (HandlerFor App) (Key Client)\n        Actual type: AForm (HandlerFor App) Int\n    • In the second argument of ‘(&lt;$&gt;)’, namely\n        ‘areq (selectFieldList clients) \"クライアント\" Nothing’\n      In the first argument of ‘(&lt;*&gt;)’, namely\n        ‘ClientAuth &lt;$&gt; areq (selectFieldList clients) \"クライアント\" Nothing’\n      In the first argument of ‘(&lt;*&gt;)’, namely\n        ‘ClientAuth &lt;$&gt; areq (selectFieldList clients) \"クライアント\" Nothing\n           &lt;*&gt; areq (selectFieldList systems) \"システム\" Nothing’\n   |\n11 |     &lt;$&gt; areq (selectFieldList clients) \"クライアント\" Nothing\n```",
+        "user": "UCDHJ6R6X",
+        "type": "message"
+    },
+    {
+        "ts": "1561172515.034000",
+        "text": "&gt; auth-hashdbが勝手にsaltとかつけてるのかも知れないと思い\n\n内部では特に `salt` とかは付けていなかったと思います。\n\n&gt; このフォームがコンパイルできないんですが、ClientIdやSystemIdはIntに変えないとダメなんでしょうか？\n\nこれは `models` で `systemId Int` と宣言しているのに、form では `Key System` の値を返しているからだと思います。\n\n```\nClientAuth                                                      \n    clientId ClientId\n    systemId Int       \n    username Text      \n    password Text      \n    UniqueClientAuth username\n    deriving Show    \n```\n\nけど、エラーメッセージは、なんか違いますね・・・。\n\n```\n• Couldn't match type 'Int' with 'Key Client'\n      Expected type: AForm (HandlerFor App) (Key Client)\n        Actual type: AForm (HandlerFor App) Int\n```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
     }
 ]
