@@ -130,5 +130,71 @@
         "text": "&gt; auth-hashdbが勝手にsaltとかつけてるのかも知れないと思い\n\n内部では特に `salt` とかは付けていなかったと思います。\n\n&gt; このフォームがコンパイルできないんですが、ClientIdやSystemIdはIntに変えないとダメなんでしょうか？\n\nこれは `models` で `systemId Int` と宣言しているのに、form では `Key System` の値を返しているからだと思います。\n\n```\nClientAuth                                                      \n    clientId ClientId\n    systemId Int       \n    username Text      \n    password Text      \n    UniqueClientAuth username\n    deriving Show    \n```\n\nけど、エラーメッセージは、なんか違いますね・・・。\n\n```\n• Couldn't match type 'Int' with 'Key Client'\n      Expected type: AForm (HandlerFor App) (Key Client)\n        Actual type: AForm (HandlerFor App) Int\n```",
         "user": "U5B3EGEFQ",
         "type": "message"
+    },
+    {
+        "ts": "1561183369.034300",
+        "text": "ありがとうございます。ご指摘の通り modelの\n`systemId Int`\nの部分に問題がありました。それを直したらエラーがそれぞれ１箇所だけになりました。\n\n\n```\n-- ソース\nclientAuthForm :: Html -&gt; MForm Handler (FormResult ClientAuth, Widget)\nclientAuthForm = renderDivs $ ClientAuth\n    &lt;$&gt; areq (selectFieldList clients) \"クライアント\" Nothing\n    &lt;*&gt; areq (selectFieldList systems) \"システム\" Nothing\n    &lt;*&gt; areq textField \"Username\" Nothing\n    &lt;*&gt; areq textField \"Password\" Nothing\n    where\n        clients :: [(Text,Key Client)]\n        clients = do\n            list &lt;- runDB $ selectList [] [Asc ClientId]\n            fmap (\\(Entity clientId c) -&gt; (clientName c::Text,clientId)) list\n\n        systems :: [(Text,Key System)]\n        systems = do\n            list &lt;- runDB $ selectList [] [Asc SystemId]\n            fmap (\\(Entity systemId s) -&gt; (systemType s::Text,systemId)) list\n```\n\n```\n-- エラー\n/Users/you/haskell/CustomerLedger/src/Handler/ClientAuth.hs:18:21: error:\n    • Couldn't match type ‘HandlerFor site1’ with ‘[]’\n      Expected type: [[Entity Client]]\n        Actual type: HandlerFor site1 [Entity Client]\n    • In a stmt of a 'do' block:\n        list &lt;- runDB $ selectList [] [Asc ClientId]\n      In the expression:\n        do list &lt;- runDB $ selectList [] [Asc ClientId]\n           fmap\n             (\\ (Entity clientId c) -&gt; (clientName c :: Text, clientId)) list\n      In an equation for ‘clients’:\n          clients\n            = do list &lt;- runDB $ selectList [] [Asc ClientId]\n                 fmap\n                   (\\ (Entity clientId c) -&gt; (clientName c :: Text, clientId)) list\n   |\n18 |             list &lt;- runDB $ selectList [] [Asc ClientId]\n   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n/Users/you/haskell/CustomerLedger/src/Handler/ClientAuth.hs:23:21: error:\n    • Couldn't match type ‘HandlerFor site0’ with ‘[]’\n      Expected type: [[Entity System]]\n        Actual type: HandlerFor site0 [Entity System]\n    • In a stmt of a 'do' block:\n        list &lt;- runDB $ selectList [] [Asc SystemId]\n      In the expression:\n        do list &lt;- runDB $ selectList [] [Asc SystemId]\n           fmap\n             (\\ (Entity systemId s) -&gt; (systemType s :: Text, systemId)) list\n      In an equation for ‘systems’:\n          systems\n            = do list &lt;- runDB $ selectList [] [Asc SystemId]\n                 fmap\n                   (\\ (Entity systemId s) -&gt; (systemType s :: Text, systemId)) list\n   |\n23 |             list &lt;- runDB $ selectList [] [Asc SystemId]\n   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n```\n\nなぜこのコードでExpected typeが２重のリストになってしまうのでしょうか？\nデータベースからEntityのリストを所得してそれをタプルのリストにするという処理のつもりなのですが、\nどこに問題があるのでしょうか？_",
+        "user": "UCDHJ6R6X",
+        "type": "message"
+    },
+    {
+        "ts": "1561186499.034500",
+        "text": "どこから説明するべきか悩みますが、以下の `clients` は明らかにコンパイルが通らないコードです。\n\n```\nclients :: [(Text,Key Client)]\nclients = do\n    list &lt;- runDB $ selectList [] [Asc ClientId]\n    fmap (\\(Entity clientId c) -&gt; (clientName c::Text,clientId)) list\n```\n\nなぜなら `do` と `runDB` があるので、正しい `clients` の型は `HandlerFor site a` のような型になっていて欲しいはずです。\nまずは、実際にそれぞれの式の型がどのようになっているか、ghci で確認してみると良いと思います。\n\n```\n# クラス制約は省略しているので、正確な結果ではありません。\n\nghci&gt; :t selectList\n  [Filter record]\n    -&gt; [SelectOpt record]\n    -&gt; ReaderT backend m [Entity record]\n\nghci&gt; :t selectList []\n  [SelectOpt record]\n    -&gt; ReaderT backend m [Entity record]\n\nghci&gt; :t selectList [] []\n  ReaderT backend m [Entity record]\n\nghci&gt; :t runDB\n  ReaderT (YesodPersistBackend site) (HandlerFor site) a\n     -&gt; HandlerFor site a\n```\n\nここで `runDB (selectList [] [])` の型は `HandlerFor site [Entity record]` になります。\n型変数はそれぞれ `backend` が `YesodPersistBackend site`, `m` が `HandlerFor site`, `a` が `[Entity record]` に対応します。\n\n```\nlist &lt;-runDB (selectList [] [])\n```\n\nこの時の `list` の型は当然 `[Entity record]` です。(この辺りが良くわからない場合は、モナドの *使い方* を簡単に復習しておくと良いと思います。)\n\n&gt; なぜこのコードでExpected typeが２重のリストになってしまうのでしょうか？\n\n`fmap` の型から考えてみましょう。\n\n```\nghci&gt; :t fmap\n   Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b\n```\n\n`fmap` の第二引数は `f a` の型である必要があるので、 `list` の型は `f a` になりますよね。\nそして、さらに\n\n```\nlist &lt;- runDB (...)\n```\n\nというコードになっているため、 `runDB (...)` の結果の型 (clients の型) は `m (f a)` になっている必要がありますよね。\nこの `m` と `f` が両方とも `リスト ([])` に推論され、二重のリストを期待するというコンパイルエラーになっています。\n\nこんな感じで伝わりますか？",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1561195159.034800",
+        "text": "ローカルで試したら問題無く動きました。\nサンプルコードあげておきます。\n<https://github.com/waddlaw/yesod-hashdb-example-psql>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1561195484.035100",
+        "text": "```\npostgres-hashdb-example=# select * from \"user\";\n id | ident  |                                    password                                     \n----+--------+---------------------------------------------------------------------------------\n 1 | admin | sha256|17|gQ3ny1p2WBkGrxrz5krLXg==|bKJ2rPrKczl3eFjQLRwsZi3OpiVepEH0511ocjcAO98=\n(1 rows)\n```\n\n`user` テーブルはこんな感じです。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1561209227.041400",
+        "text": "Haskell初心者です\nHaskellのデータ構造についての質問です。\nhaskellを使って簡単なparserを書きたいと考えていています\n\n```\nparser :: [String] -&gt; Ast\n```\n\nですが、このAstがどんな感じの表現になるのかがわかりません。\n普段はTypeScriptを書いていて、jsonに慣れているのでつい\n\n```\nconst ast = {\n    lhs: {\n        lhs: 2,\n        op: '*',\n        rhs: 3\n    },\n    op: '+',\n    rhs: {\n        lhs: 2,\n        op: '-',\n        rhs: 4\n    }\n}\n```\n\nのように、「プロパティ名: 値」の入れ子の構造を考えてしまいます。\nそして、tsなら `console.log(ast)` で、上のような文字列が表示されるので、なるほどってなるのですが、Haskellの場合はどうやって表現し、それを出力(?)するのでしょうか。\n\n上の例のように\n\n```\ndata Ast = Ast {\n    op :: TokenType,\n    lhs :: String,\n    rhs :: String\n} deriving (Show, Eq)\n```\nのようにするのかもしくはもっと簡潔にS式のような構造で表現したりするのでしょうか。\n\n`1+2*3`のような簡単な数式をAstに変換した際の文字列を示して頂けると、すぐにわかる気がします。\n\n自分でもどこがわかっていないのかわかっていない状態なので、すごくわかりにくい質問文になってしまってます。すみません。\n\nよろしくおねがいします",
+        "user": "UCM4G8PGW",
+        "type": "message"
+    },
+    {
+        "ts": "1561209691.041500",
+        "text": "Haskell と json の違いというよりは、静的な型がある言語と無い言語での発想の違いかな、という気がします。\n```\ndata Expr = Add Expr Expr -- \"+\" 演算子を表現\n          | Sub Expr Expr -- \"-\" 演算子を表現\n          | Mul Expr Expr -- \"*\" 演算子を表現\n          | Div Expr Expr -- \"/\" 演算子を表現\n         | LitInt Integer -- リテラルの整数値を表現\n```\nみたいな感じにするのがよくあるパターンなんじゃないかなと思います",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1561209977.041700",
+        "text": "あえて `data Ast =` と書かなかったのは、たぶんこの `Expr` という型は Ast 全体ではなくてその一部になるだろう、という予想をしたからです。おそらく Ast としては「式」以外に「文」とかも扱うことになると思うのですがそれはそれでさらに別の型を必要とすることになり、そういうものを組み合わせてようやく目的の Ast 型を作ることができると思います。",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1561210031.041900",
+        "text": "json は、 json さえあれば何でも表現できてしまうので、そういう発想をしないんですよね…。",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1561210332.042100",
+        "text": "printデバッグをしたい場合は `Debug.Trace` パッケージの `traceShowId` という関数が使えます。 `Show` なやつは `traceShowId (hoge)` みたいにくるんでやると `hoge` が評価される時にprintされます。",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1561215631.042300",
+        "text": "なるほど！！ありがとうございます\nちょっと試してみます",
+        "user": "UCM4G8PGW",
+        "type": "message"
+    },
+    {
+        "ts": "1561233611.042500",
+        "text": "詳しい説明とサンプルコードありがとうございます。問題解決致しました。\n\n意外な所にミスがあってお恥ずかしい限りなのですが、DBに登録されているpasswordのダブルコーテーションが問題でした。:sweat_smile:\n\n誤\n\"sha256|17|gQ3ny1p2WBkGrxrz5krLXg==|bKJ2rPrKczl3eFjQLRwsZi3OpiVepEH0511ocjcAO98=\"\n\n正\nsha256|17|gQ3ny1p2WBkGrxrz5krLXg==|bKJ2rPrKczl3eFjQLRwsZi3OpiVepEH0511ocjcAO98=\n\nフォームに関してはモナドとモナドトランスフォーマー辺りの勉強が足りてないのが原因だと思うので頂いた情報を元にghciで型を調べながら進めていこうと思います。\n\n丁寧にご回答頂いてとても助かりました。ありがとうございました。",
+        "user": "UCDHJ6R6X",
+        "type": "message"
     }
 ]
