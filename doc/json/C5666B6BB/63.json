@@ -214,5 +214,11 @@
         "text": "<@UKVSCFEEA> has joined the channel",
         "user": "UKVSCFEEA",
         "type": "message"
+    },
+    {
+        "ts": "1561432976.048500",
+        "text": "こちらのコミット <https://github.com/iij-ii/direct-hs/commit/4f45018eb92bc557de3e563e90db2637f46d02eb> に書いたcabal.projectを用意して、開発中のパッケージをGHC 8.8.1-alpha2でビルドしてみてるところなのですが、\n下記のようなエラーで依存関係の解決に失敗してしまいます。\ncomonadパッケージがSetup.hsでCabalパッケージに依存していることが原因のようなんですが、\n実際にComonadパッケージのcabalファイルの該当箇所 <https://github.com/ekmett/comonad/blob/d9aeb5e09d3e98f0efccffda52c63ceed2a2ec9e/comonad.cabal#L43> を読む限り、特にCabalパッケージのバージョンに制約を加えてはいません。これはどう回避すればいいでしょうか？\n\n```\n&gt; cabal v2-build direct-hs\nResolving dependencies...\ncabal.exe: Could not resolve dependencies:\n[__0] trying: skews-0.1.0.2 (user goal)\n... 省略 ...\n[__6] next goal: comonad:setup.Cabal (dependency of comonad)\n[__6] rejecting: comonad:setup.Cabal-3.0.0.0 (constraint from maximum version\nof Cabal used by Setup.hs requires &lt;2.6)\n[__6] rejecting: comonad:setup.Cabal-2.4.1.0, comonad:setup.Cabal-2.4.0.1,\ncomonad:setup.Cabal-2.4.0.0, comonad:setup.Cabal-2.2.0.1,\n... 省略 ...\ncomonad:setup.Cabal-1.1.6, comonad:setup.Cabal-1.24.1.0 (constraint from\nproject config TODO requires &gt;=3)\n[__6] fail (backjumping, conflict set: comonad, comonad:setup.Cabal)\nBackjump limit reached (currently 2000, change with --max-backjumps or try to\nrun with --reorder-goals).\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
