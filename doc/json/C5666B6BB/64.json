@@ -1,0 +1,68 @@
+[
+    {
+        "ts": "1561621843.063700",
+        "text": "こんにちは。いつもお世話になります。\n関数の定義で型変数を使った場合、実際にどの型が使われたかを、その関数内部で取得することはできますか？  ログ出力を目的としていて、`typeOf`を使えばよいのですが、それだと冗長になるケースがありまして、お尋ねしています。\n\n以下のケースで`f`の中で`typeOf g`とすれば`String-&gt;IO [Integer]`が取れるのですが、関心があるのは `Integer` だけなので、それを取得する方法がないか探しています。\n\n```\ng::String-&gt;IO [Integer]\ng = ...\n\nf::(Eq a)=&gt;String-&gt;(String-&gt;IO [a])-&gt;IO Bool\nf x g = ..   -- \"Integerだよ\"というメッセージを表示したい。 \n```",
+        "user": "U7GSVRQ6S",
+        "type": "message"
+    },
+    {
+        "ts": "1561621997.063800",
+        "text": "`g` を実行した後だけになっちゃいますが、 `typeOf &lt;$&gt; g x` すればよいのではないかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1561622154.064000",
+        "text": "あるいは、 `funResultTy` やその辺りの関数を使えばできそうです（詳細確認中）。\n<https://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Typeable.html#v:funResultTy>\nおそらくこっちがより正当な方法でしょうね。。。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1561622372.064200",
+        "text": "`funResultTy` の第2引数はなんなんだろう、と思ったら、引数の型を表すみたいです。\nGHCiで試したところ :point_down: となってました。\n\n```\n&gt; import Data.Typeable\n&gt; import Data.Proxy\n&gt; funResultTy (typeRep (Proxy :: Proxy (String -&gt; IO [Integer]))) (typeRep (Proxy :: Proxy String))\nJust (IO [Integer])\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1561622671.064700",
+        "text": "<@UKXF4D5UL> has joined the channel",
+        "user": "UKXF4D5UL",
+        "type": "message"
+    },
+    {
+        "ts": "1561622900.064900",
+        "text": "Typeableを使って良いならば、ScopedTypeVariableを使って書けます。\n\n```\n{-# LANGUAGE ScopedTypeVariables #-}\n...\nf :: forall a. (Typeable a, Eq a) =&gt; String -&gt; (String-&gt;IO [a]) -&gt; IO Bool\nf _ _ =\n  do\n    print $ typeOf (undefined :: a)\n    return True\n```",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1561623233.065700",
+        "text": "undefinedはダサいので `typeRep (Proxy :: Proxy a)` としたり、さらにTypeApplicationsを有効にして `typeRep (Proxy @a) ` にするともっと良さそうです",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1561626075.066100",
+        "text": "いずれにせよ `Typeable a` は必要ですね。 `Typeable` 制約のない型変数から型の名前を取得することはできないので。\n`f` が普通の関数であれば定義を変えれば良いだけですが、型クラスのメソッドだったりするとちょっと厄介かもしれません。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1561627141.066300",
+        "text": "ScopedTypeVariablesを使わない方法としては\n```\nfnToProxy :: (String -&gt; IO [a]) -&gt; Proxy a\nfnToProxy _ = Proxy\n```\nという補助関数を用意して `typeRep (fnToProxy g)` とするという手があります。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1561637543.066500",
+        "text": "とんでもなく邪悪ですが、RULESプラグマを使って型制約の追加を回避する方法があったり……\n\n```\nprintType :: Proxy a -&gt; IO ()\nprintType _ = putStrLn \"&lt;unknown&gt;\"\n{-# NOINLINE printType #-}\n\nprintTypeT :: Typeable a =&gt; Proxy a -&gt; IO ()\nprintTypeT p = print $ typeRep p\n\n{-# RULES\n\"T-String\" forall (p::Proxy String). printType p = printTypeT p\n\"T-Integer\" forall (p::Proxy Integer). printType p = printTypeT p\n#-}\n{-以下来そうな型を列挙-}\n\nf :: forall a. Eq a =&gt; String -&gt; (String-&gt;IO [a]) -&gt; IO Bool\nf _ _ =\n do\n   printType (Proxy :: Proxy a)\n   return True\n```",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1561675035.069700",
+        "text": "この件、まだ試せてないのですが思いつきました。\nTemplate Haskellをコンパイル時ではなく実行時に実行すればできるはずです。 `Q` モナドは `runQ` 関数で `IO` に変換できるので。\nプロファイリングもできるはず。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]
