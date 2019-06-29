@@ -64,5 +64,11 @@
         "text": "この件、まだ試せてないのですが思いつきました。\nTemplate Haskellをコンパイル時ではなく実行時に実行すればできるはずです。 `Q` モナドは `runQ` 関数で `IO` に変換できるので。\nプロファイリングもできるはず。",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1561706911.070500",
+        "text": "みなさん、ありがとうございいました。\n\n今回は、 <@U570660KX> さんの、 `typeRep (Proxy :: Proxy a)`  の方法で対応することにしました。\n\n`typeOf (undefined :: a)` は、hlint 2.1では何もいわれなかったのですが、2.2に上げたら、  `typeRep (Proxy :: Proxy a)`  をサジェスチョンしてきました。",
+        "user": "U7GSVRQ6S",
+        "type": "message"
     }
 ]
