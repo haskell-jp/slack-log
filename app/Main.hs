@@ -90,6 +90,7 @@ targetChannels =
   , ("CE368SB5G", Public)  -- ghc8x
   , ("CGT2Q4KHP", Public)  -- hatchobori-haskell
   , ("GDTFWM8KX", Private) -- haskell-day-staff
+  , ("CL3AXB1AL", Public)  -- atcoder-lang-update
   ]
 
 
