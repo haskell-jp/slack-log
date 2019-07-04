@@ -136,5 +136,23 @@
         "text": "Stackっ子で、Cabal Hellにぶち当たったことがない人間の素朴な疑問なのですが、「Haskell-Platform packages + α」っていう意見がライブラリの方であったと思うんですけど、ghcupを使うとしたら、Haskell-PlatformにもStackにも頼らないことになりそうで、Version consistencyは大丈夫かなという不安があるんですが、どうなんでしょう。",
         "user": "UL1HFJATE",
         "type": "message"
+    },
+    {
+        "ts": "1562238800.027400",
+        "text": "依存関係の問題は、大抵の場合インストールの時点でわかるはずです。そしてそれはstackでも本質的には変わりません。\nちなみに *古い* cabalで一番厄介だったのは、同じバージョンの同じパッケージは同じパッケージデータベースに一つだけ、という制限があったことによるものでして、一度に必要なパッケージをまとめて入れている限りは問題にならないはずです。\n詳しくは英語ですが <http://www.well-typed.com/blog/2015/01/how-we-might-abolish-cabal-hell-part-2/> を。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1562238937.028900",
+        "text": "唯一テストが失敗する（ようなバグった）組み合わせのバージョンが混ざってしまう、というリスクはStackageを使わないと防げませんが、それが不安ならcabalからStackageを使うこともできますし。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1562241189.031500",
+        "text": "なるほど、それは古い問題なんですね！ リンクは今から確認してみますが、とりあえず安心しました！ ご丁寧にありがとうございます。",
+        "user": "UL1HFJATE",
+        "type": "message"
     }
 ]
