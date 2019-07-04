@@ -130,5 +130,35 @@
         "text": "<@UL5PAB0F9> has joined the channel",
         "user": "UL5PAB0F9",
         "type": "message"
+    },
+    {
+        "ts": "1562201404.075500",
+        "text": "みなさんこんにちは。\n以下のようなコードで、 “process” 関数の型を変えずに “server”関数の結果をキャッシュするような方法はありますか？\nIOモナドが登場するのは “server”関数のが原因なので、どうせなら “server”関数内部でキャッシュを実現したい。\n[CachedIO](<http://hackage.haskell.org/package/cached-io-1.1.0.0/docs/Control-Concurrent-CachedIO.html>)というパッケージをみましたが、これは `cachedIO` でIOアクションを包んでキャッシュを実現するもので、 `cachedIO` そのものを、関数呼び出しをまたがって、誰かがが保持していないといけないので、ちょっと違いました。\n\n```\nmodule Main where\n\nimport           Control.Monad (forM_)\n\nmain :: IO ()\nmain = forM_ [1..] $ \\_ -&gt;\n  do putStrLn \"[Enter your key]\"\n     key &lt;- getLine\n     process key &gt;&gt;= putStrLn\n\nprocess::String-&gt;IO String\nprocess key = do\n  ret &lt;- server key\n  return $ if ret then \"Success\" else \"Failure\"\n\nserver::String-&gt;IO Bool\n-- ^このIOアクションの引数ー結果をキャッシュしたい。\nserver key\n  | key == \"ABC\" = putStrLn \"Accessing heavy resource.\" &gt;&gt; return True\n  | otherwise = putStrLn \"Yet another heavy resource access.\" &gt;&gt; return False\n```",
+        "user": "U7GSVRQ6S",
+        "type": "message"
+    },
+    {
+        "ts": "1562206217.076100",
+        "text": "可変なハッシュテーブルでいけそうかと思いましたけど、それを渡さないといけませんね……\nunsafe な関数でグローバルな可変参照作れば何とかなるでしょうが、おすすめしません。",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1562209769.076300",
+        "text": "おっしゃるとおり `unsafePerformIO` を使わない限り無理かと思います。\nそういう、「すべての関数が意識するべきでない値」は、いわゆるReaderT IOパターンで隠すのが得策かと。\n\n`IORef (HashMap String Bool)` みたいな型を `Env` に含める形になるでしょう。\n更新時は `atomicModifyIORef'` を使うのを忘れずに！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1562218706.076700",
+        "text": "最近そういうことしたかったのでファイルにシリアライズしてぶちこみました\n<https://github.com/ncaq/dic-nico-intersection-pixiv/blob/d5f240c3f4bdcb657c5c852b77b42d3a292c1abe/src/Main.hs#L94>",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1562223631.077200",
+        "text": "<@U57CUMWQ6> さんの例をみて思いついたのですが、私の場合はキャッシュさせたいデータが少量なので、`setEnv` で環境変数を使ってキャッシュさせる方法もありそうです。使い方として筋悪な気がする一方、もともとキャッシュさせたいデータが、環境変数の外部化みたいなものなので、意味的にそれほど遠いわけでもない。",
+        "user": "U7GSVRQ6S",
+        "type": "message"
     }
 ]
