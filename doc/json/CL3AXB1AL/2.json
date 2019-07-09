@@ -22,5 +22,83 @@
         "text": "<@UJ8P66TRP> has joined the channel",
         "user": "UJ8P66TRP",
         "type": "message"
+    },
+    {
+        "ts": "1562690725.072400",
+        "text": "Ubuntu 18.04.2のLive DVDで環境構築を試してますが、 libtinfo.so.6 が見つからないというエラーが出ます。システムに存在するのは libtinfo.so.5 のようです。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562690809.072900",
+        "text": "Live環境じゃなくてちゃんとインストールすれば解消するんですかね？",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562691222.073700",
+        "text": "<https://packages.ubuntu.com/ja/cosmic/libs/libtinfo6> libtinfo6 は cosmic (18.10) 以降っぽい？",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562691854.074600",
+        "text": "GHC 8.2.2はインストール可能、GHC 8.4以降はインストール不可っぽいです。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562692858.076500",
+        "text": "Ubuntu 18.04.2にghcupでGHC 8.6.5の導入に成功したので、スレッド形式でメモしておきます。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562692900.076600",
+        "text": "ghcupは公式で配布されているバイナリを取ってくるわけですが、公式で配布されているLinux向けのバイナリにはディストリごとにいくつか種類があります。 <https://www.haskell.org/ghc/download_ghc_8_6_5.html>",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562693034.076800",
+        "text": "GHC 8.6.5の場合は、Linux (x86_64)に対して Debian 9 / Debian 9 (with DWARF support) / Debian 8 / Fedora 27 が用意されています。Ubuntu向けのはありません。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562693158.077000",
+        "text": "じゃあUbuntuでghcupを実行したらどれがインストールされるのかというと、 .download-urls というファイルの指定によって決まります。今のところ、Ubuntu向けにはFedora用バイナリが使われるようです。 <https://gitlab.haskell.org/haskell/ghcup/blob/master/.download-urls>",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562693288.077300",
+        "text": ".download-urls のURLをカスタマイズしたい場合は、環境変数 `GHCUP_META_DOWNLOAD_URL` を設定します。実際に使われるURLは `ghcup debug-info` で確認できます。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562693455.077500",
+        "text": "最新のUbuntuは知りませんが、Ubuntu 18.04に関してはDebian 8かDebian 9向けのバイナリを使うようにしたいところです。そのために .download-urls の内容をカスタマイズします（公式の .download-urls をダウンロードして手元でいじり、先述の環境変数に `file://$HOME/.download-urls` みたいな感じで設定します）。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562693556.077700",
+        "text": "Debian 9向けのバイナリを使いたい場合は、 .download-urls の `debian=9,debian,mint` となっている部分を `...,mint,ubuntu=18.04` に書き換えます。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562693729.077900",
+        "text": "Debian 9向けのバイナリに関してはまだ `ghc-8.6.5 --version` くらいしか動作確認できていませんが、ちゃんと動作することが確認出来たらghcupの方へMerge Requestを投げるとよさそうです。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562694220.078100",
+        "text": "stack setupはどうしているのかと思ったら、実際にシステムに存在する共有ライブラリを調べてダウンロードするバイナリを決めているみたいですね。えらい <https://github.com/commercialhaskell/stack/blob/master/src/Stack/Setup.hs#L907> <https://raw.githubusercontent.com/fpco/stackage-content/master/stack/stack-setup-2.yaml>",
+        "user": "UGM9F7XQS",
+        "type": "message"
     }
 ]
