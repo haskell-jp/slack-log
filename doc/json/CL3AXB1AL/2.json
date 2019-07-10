@@ -100,5 +100,95 @@
         "text": "stack setupはどうしているのかと思ったら、実際にシステムに存在する共有ライブラリを調べてダウンロードするバイナリを決めているみたいですね。えらい <https://github.com/commercialhaskell/stack/blob/master/src/Stack/Setup.hs#L907> <https://raw.githubusercontent.com/fpco/stackage-content/master/stack/stack-setup-2.yaml>",
         "user": "UGM9F7XQS",
         "type": "message"
+    },
+    {
+        "ts": "1562716351.079300",
+        "text": "Oh... <https://github.com/haskell-jp/atcoder-haskell-resources/blob/master/spec.md> の手順ではうまくいっているように書いてありましたが... なぜ食い違ってしまったんだろう... :confused:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1562717142.081500",
+        "text": "たしかに不思議ですね。Docker でしか確認してなかったので、追試助かります！\n\nUbuntu 18.04 のインスタンスを実際に作って、もう一度確認してみますね。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1562722002.083700",
+        "text": "&gt; Ubuntu 18.04.2のLive DVDで環境構築を試してますが、 libtinfo.so.6 が見つからないというエラーが出ます。システムに存在するのは libtinfo.so.5 のようです。\n\nAtCoder と同じような環境で確かめたところ、たしかにエラーが再現しました。(Docker は何で大丈夫だったんだろう・・・)\n\n```\n$ uname -a\nLinux ip-***_***_***_*** 4.15.0-1043-aws #45-Ubuntu SMP Mon Jun 24 14:07:03 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux\n$ cat /etc/lsb-release\nDISTRIB_ID=Ubuntu\nDISTRIB_RELEASE=18.04\nDISTRIB_CODENAME=bionic\nDISTRIB_DESCRIPTION=\"Ubuntu 18.04.2 LTS\"\n\n$ curl <https://get-ghcup.haskell.org> -sSf | sh\n\"/home/ubuntu/.ghcup/ghc/8.6.5/lib/ghc-8.6.5/bin/ghc-pkg\" --force --global-package-db \"/home/ubuntu/.ghcup/ghc/8.6.5/lib/ghc-8.6.5/package.conf.d\" update rts/dist/package.conf.install\n/home/ubuntu/.ghcup/ghc/8.6.5/lib/ghc-8.6.5/bin/ghc-pkg: error while loading shared libraries: libtinfo.so.6: cannot open shared object file: No such file or directory\n<http://ghc.mk:985|ghc.mk:985>: recipe for target 'install_packages' failed\nmake[1]: *** [install_packages] Error 127\nMakefile:51: recipe for target 'install' failed\nmake: *** [install] Error 2\nFailed to install, consider updating this script via: ghcup upgrade\n\"ghcup --cache install\" failed!\n```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1562722934.085700",
+        "text": "<@UGM9F7XQS>\nだめぽさんのメモ通りに `download-urls` を修正したファイルをリポジトリにあげました。詳細なメモで助かりました！ありがとうございます。\n<https://github.com/haskell-jp/atcoder-haskell-resources/blob/master/download-urls>\n\n手元の環境では、以下の手順でインストールに成功したので、ドキュメントを更新しておきます。\n\n```\n$ sudo apt-get update\n$ sudo apt-get install -y curl g++ gcc libgmp-dev libtinfo-dev make ncurses-dev python3 libnuma-dev coreutils\n\n$ export GHCUP_META_DOWNLOAD_URL=<https://raw.githubusercontent.com/haskell-jp/atcoder-haskell-resources/master/download-urls>\n\n$ curl <https://get-ghcup.haskell.org> -sSf | sh\n```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1562725052.087300",
+        "text": "修正版です:grinning:\n<https://github.com/haskell-jp/atcoder-haskell-resources/blob/master/spec.md>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1562730005.088000",
+        "text": "確かに <https://packages.ubuntu.com/search?keywords=libtinfo> で調べた限り、libtinfo6が使えるのは18.10からみたいですね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1562736719.088400",
+        "text": "`ghcup print-system-reqs` の結果が間違っていたので修正しました。\n`Docker` で実行した時は `default` の方が表示されてたみたいです。\n<https://gitlab.haskell.org/haskell/ghcup/blob/master/.requirements/ghc/default>\n\n正しくはこっち\n<https://gitlab.haskell.org/haskell/ghcup/blob/master/.requirements/ghc/ubuntu>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1562738879.089500",
+        "text": "<https://gitlab.haskell.org/haskell/ghcup/issues/108> ghcupがUbuntuでFedora向けバイナリを使うようになったのはつい数日前っぽいですね",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562738961.090100",
+        "text": "&gt; The current bindist for ubuntu (<https://downloads.haskell.org/~ghc/8.6.5/ghc-8.6.5-x86_64-deb9-linux.tar.xz>) tries to use libtinfo.so.5, but since at least 16.04, Ubuntu provides libtinfo.so.6 but not libtinfo.so.5.\n:thinking_face:",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562740739.090800",
+        "text": "<@UL9NV3ZC0> has joined the channel",
+        "user": "UL9NV3ZC0",
+        "type": "message"
+    },
+    {
+        "ts": "1562740780.091000",
+        "text": "<@ULBJH190F> has joined the channel",
+        "user": "ULBJH190F",
+        "type": "message"
+    },
+    {
+        "ts": "1562741051.091100",
+        "text": "ghcupの方にIssue立てました <https://gitlab.haskell.org/haskell/ghcup/issues/111>",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562743055.094700",
+        "text": "AtCoderでLLVMバックエンドを試せると楽しそうなのでやってみました。\n<https://gitlab.haskell.org/ghc/ghc/wikis/commentary/compiler/backends/llvm/installing> によると、GHC 8.6が依存するLLVMのバージョンは6.0なので、aptで `llvm-6.0` を入れます。\nGHCに `-fllvm` を指定するとLLVMの `opt` コマンドを呼び出そうとするわけですがこの状態では `opt` は `$PATH` に含まれていない（代わりに `opt-6.0` がある）ので、\n```\nenv PATH=/usr/lib/llvm-6.0/bin:$PATH ghc -fllvm -O2 Main.hs\n```\nという風にすると良いようです。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562743299.095800",
+        "text": "環境変数をいじる代わりに\n```\nghc -O2 -fllvm -pgmlo opt-6.0 -pgmlc llc-6.0 Main.hs\n```\nでも良いですね。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1562751484.096400",
+        "text": "Haskell (GHC (LLVM))って行を例のスプレッドシートに追加してみるのも良さそうですね！ :+1:",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
