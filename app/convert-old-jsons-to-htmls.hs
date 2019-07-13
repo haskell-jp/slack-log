@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -}
 
-import qualified Control.Arrow       as A
 import           Data.Foldable       (for_)
 import qualified Data.HashMap.Strict as HM
 import           Data.List           (sortOn)
@@ -39,12 +38,12 @@ main = Dir.withCurrentDirectory "doc" $ do
     triples
       <- putBetweenPreviousAndNext
       .   sortOn fst
-      .   map (A.second toHtmlPath . addPageNumber)
+      .   map (\jsonPath -> (toHtmlName jsonPath, jsonPath))
       <$> Dir.listDirectory ("json" </> channelIdStr)
-    for_ triples $ \(mPrev, (pageNum, _htmlPath), mNext) -> do
-      let pg = PageInfo pageNum (snd <$> mPrev) (snd <$> mNext) chanId
+    for_ triples $ \(mPrev, (htmlPath, jsonPath), mNext) -> do
+      let pg = PageInfo htmlPath (snd <$> mPrev) (snd <$> mNext) chanId
       putStrLn $ "  " ++ show pg
-      convertToHtmlFile ws pg
+      convertToHtmlFile ws pg jsonPath
 
 
 putBetweenPreviousAndNext :: [a] -> [(Maybe a, a, Maybe a)]

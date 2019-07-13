@@ -19,6 +19,7 @@ module SlackLog.Html
 
 
 import           Control.Applicative     ((<|>))
+import           Control.Monad           ((<=<))
 import qualified Data.Aeson              as Json
 import qualified Data.ByteString.Lazy    as BL
 import           Data.Char               (isDigit)
@@ -45,7 +46,7 @@ import           SlackLog.Util           (failWhenLeft, readJsonFile)
 
 
 data PageInfo = PageInfo
-  { pageNumber       :: Integer
+  { currentPagePath  :: FilePath
   , previousPagePath :: Maybe FilePath
   , nextPagePath     :: Maybe FilePath
   , channelId        :: ChannelId
@@ -60,48 +61,39 @@ data WorkspaceInfo = WorkspaceInfo
   }
 
 
-convertToHtmlFile :: WorkspaceInfo -> PageInfo -> IO ()
-convertToHtmlFile ws pg = do
-  let jsonPath = pathFromPageInfo "json" pg
-      htmlPath = pathFromPageInfo "html" pg
-  BL.writeFile htmlPath
-    =<< fmap (renderSlackMessages ws pg)
-      . failWhenLeft
-    =<< Json.eitherDecodeFileStrict' jsonPath
+convertToHtmlFile :: WorkspaceInfo -> PageInfo -> FilePath -> IO ()
+convertToHtmlFile ws pg =
+  BL.writeFile (currentPagePath pg) <=< renderSlackMessages parsePageNumber ws pg
 
 
--- | Assumes this function is executed in doc/ directory
---   So the returned path of JSON and HTML should be prefixed with "json/" or "html/"
-pathFromPageInfo :: FilePath -> PageInfo -> FilePath
-pathFromPageInfo dirName PageInfo { channelId, pageNumber } =
-  dirName </> T.unpack channelId </> show pageNumber ++ "." ++ dirName
-
-
--- TODO: For API consistency with renderIndexOfPages, get page number from path, read JSON from the path, and then return IO BL.ByteString
-renderSlackMessages :: WorkspaceInfo -> PageInfo -> [Slack.Message] -> BL.ByteString
-renderSlackMessages wsi@WorkspaceInfo {..} PageInfo {..} msgs = H.renderByteString
-  ( H.doctype_
-  # H.html_
-    ( H.head_
-      ( H.meta_A (A.charset_ ("utf-8" :: T.Text))
-      # H.title_ title
-      # H.link_A
-        ( A.rel_ ("stylesheet" :: T.Text)
-        # A.href_ ("messages.css" :: T.Text)
-        # A.type_ ("text/css" :: T.Text)
-        # A.media_ ("screen" :: T.Text)
+renderSlackMessages
+  :: (Ord a, Show a)
+  => (FilePath -> a) -> WorkspaceInfo -> PageInfo -> FilePath -> IO BL.ByteString
+renderSlackMessages key wsi@WorkspaceInfo {..} PageInfo {..} = fmap render . readJsonFile
+ where
+  render msgs = H.renderByteString
+    ( H.doctype_
+    # H.html_
+      ( H.head_
+        ( H.meta_A (A.charset_ ("utf-8" :: T.Text))
+        # H.title_ title
+        # H.link_A
+          ( A.rel_ ("stylesheet" :: T.Text)
+          # A.href_ ("messages.css" :: T.Text)
+          # A.type_ ("text/css" :: T.Text)
+          # A.media_ ("screen" :: T.Text)
+          )
+        )
+      # H.body_
+        ( H.h1_ title
+        # pager
+        # H.div_A (A.class_ ("message_list" :: T.Text)) (map messageDiv msgs)
+        # pager
         )
       )
-    # H.body_
-      ( H.h1_ title
-      # pager
-      # H.div_A (A.class_ ("message_list" :: T.Text)) (map messageDiv msgs)
-      # pager
-      )
     )
-  )
- where
-  title = workspaceInfoName <> " / " <> getChannelScreenName wsi channelId <> " #" <> T.pack (show pageNumber)
+
+  title = workspaceInfoName <> " / " <> getChannelScreenName wsi channelId <> " #" <> T.pack (show $ key currentPagePath)
   pager = H.div_A (A.class_ ("pager" :: T.Text))
     ( ((\pp -> H.a_A (A.href_ pp # A.class_ ("pager__previous" :: T.Text)) ("Previous" :: T.Text)) <$> previousPagePath)
     # ((\pp -> H.a_A (A.href_ pp # A.class_ ("pager__next" :: T.Text)    ) ("Next"     :: T.Text)) <$> nextPagePath)
@@ -138,10 +130,7 @@ loadWorkspaceInfo dir = do
 
 renderIndexOfPages
   :: (Ord a, Show a)
-  => (FilePath -> a)
-  -> WorkspaceInfo
-  -> [(ChannelId, [FilePath])]
-  -> IO BL.ByteString
+  => (FilePath -> a) -> WorkspaceInfo -> [(ChannelId, [FilePath])] -> IO BL.ByteString
 renderIndexOfPages key wsi@WorkspaceInfo {..} =
   fmap wrapBody
     . traverse (\(cid, jsonPaths) -> do

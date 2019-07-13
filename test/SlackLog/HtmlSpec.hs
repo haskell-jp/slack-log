@@ -5,7 +5,6 @@ module SlackLog.HtmlSpec
   ) where
 
 
-import qualified Data.Aeson              as Json
 import qualified Data.ByteString.Lazy as BL
 import qualified Data.Text.Lazy          as TL
 import qualified Data.Text.Lazy.Encoding as TLE
@@ -21,16 +20,15 @@ spec = do
   describe "renderSlackMessages" $
     it "converts messages in Slack into a byte string of HTML" $ do
       let p = PageInfo
-            { pageNumber       = 35
+            { currentPagePath  = "/html/35.html"
             , previousPagePath = Just "/html/34.html"
             , nextPagePath     = Just "/html/36.html"
             , channelId        = "id_of_random"
             }
 
       expected <- readAsExpectedHtml "test/assets/expected-messages.html"
-      Just msgs <- Json.decodeFileStrict' "test/assets/testMessages.json"
 
-      renderSlackMessages w p msgs `shouldBe` expected
+      renderSlackMessages id w p "test/assets/testMessages.json" `shouldReturn` expected
 
   describe "renderIndexOfPages" $
     it "build index HTML of HTML pages." $ do
