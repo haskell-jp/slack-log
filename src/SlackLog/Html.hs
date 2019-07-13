@@ -11,6 +11,8 @@ module SlackLog.Html
   , renderSlackMessages
   , renderIndexOfPages
   , loadWorkspaceInfo
+  , parsePageNumber
+  , toHtmlName
   , PageInfo(..)
   , WorkspaceInfo(..)
   ) where
@@ -39,7 +41,7 @@ import qualified Web.Slack.MessageParser as Slack
 import           SlackLog.Types          (ChannelId, ChannelName,
                                           Config (timeZone, workspaceName),
                                           UserId, UserName)
-import           SlackLog.Util           (failWhenLeft)
+import           SlackLog.Util           (failWhenLeft, readJsonFile)
 
 
 data PageInfo = PageInfo
@@ -111,12 +113,10 @@ renderSlackMessages wsi@WorkspaceInfo {..} PageInfo {..} msgs = H.renderByteStri
       # H.div_A (A.class_ ("message__header" :: T.Text))
         userName
       # H.div_A (A.class_ ("message__body" :: T.Text))
-        (H.Raw messageBody)
+        (H.Raw $ mkMessageBody wsi messageText)
       )
    where
     userName = getUserScreenName wsi messageUser
-    messageBody =
-      Slack.messageToHtml Slack.defaultHtmlRenderers (getUserName wsi) messageText
     timestampBlock tm =
       let lt = LT.utcToZonedTime (getTimeDiff tm) tm
       in TF.formatTime TF.defaultTimeLocale "%Y-%m-%d<br/>%T %z" lt
@@ -136,16 +136,21 @@ loadWorkspaceInfo dir = do
   return WorkspaceInfo {..}
 
 
-renderIndexOfPages :: WorkspaceInfo -> [(ChannelId, [FilePath])] -> IO BL.ByteString
-renderIndexOfPages wsi@WorkspaceInfo {..} =
+renderIndexOfPages
+  :: (Ord a, Show a)
+  => (FilePath -> a)
+  -> WorkspaceInfo
+  -> [(ChannelId, [FilePath])]
+  -> IO BL.ByteString
+renderIndexOfPages key wsi@WorkspaceInfo {..} =
   fmap wrapBody
     . traverse (\(cid, jsonPaths) -> do
-      let sortedJsonPaths = sortOn parsePageNumber jsonPaths
+      let sortedJsonPaths = sortOn key jsonPaths
       case lastMay sortedJsonPaths of
           Just lastPath -> do
             lastLastMessage <- readLastMessage lastPath
             Just . channelSummary cid lastPath lastLastMessage
-              <$> mapM (channelDetail cid . readFirstMessage) sortedJsonPaths
+              <$> mapM (\path -> channelDetail cid path <$> readFirstMessage path) sortedJsonPaths
           _ ->
             return Nothing
       )
@@ -175,7 +180,7 @@ renderIndexOfPages wsi@WorkspaceInfo {..} =
   channelSummary cid lastJsonPath Slack.Message { messageTs } details =
     H.details_A (A.class_ ("channel" :: T.Text))
     ( H.summary_A (A.class_ ("channel__name" :: T.Text))
-      ( H.a_A (A.href_ (cid <> "/" <> toHtmlName lastJsonPath)) (getChannelScreenName wsi cid)
+      ( H.a_A (A.href_ (cid <> "/" <> T.pack (toHtmlName lastJsonPath))) (getChannelScreenName wsi cid)
       # (" (Last updated at " <> timestampWords (Slack.slackTimestampTime messageTs) <> ")")
       )
       # details
@@ -184,35 +189,40 @@ renderIndexOfPages wsi@WorkspaceInfo {..} =
   channelDetail cid jsonPath Slack.Message { messageTs, messageUser, messageText } =
     H.ul_A (A.class_ ("pages_list" :: T.Text))
     ( H.li_A (A.class_ ("page" :: T.Text))
-      ( H.a_A (A.href_ (cid <> "/" <> toHtmlName jsonPath))
-        ("#" <> T.pack (show (parsePageNumber jsonPath)))
+      ( H.a_A (A.href_ (cid <> "/" <> T.pack (toHtmlName jsonPath)))
+        ("#" <> T.pack (show (key jsonPath)))
       # (" " :: T.Text)
       # H.span_A (A.class_ ("page__first_message" :: T.Text))
-        (H.span_A (A.class_ ("page__first_message__header" :: T.Text)) (getUserScreenName wsi messageUser))
+        ( (H.span_A (A.class_ ("page__first_message__header" :: T.Text)) (getUserScreenName wsi messageUser))
         # (": " :: T.Text)
-        # (H.span_A (A.class_ ("page__first_message__body" :: T.Text)) messageText) -- TODO: HTML inline quote
+        #  H.span_A (A.class_ ("page__first_message__body" :: T.Text))
+            (H.Raw $ mkMessageBody wsi messageText)
         # (" at " :: T.Text)
         # ( H.span_A (A.class_ ("page__first_message__timestamp" :: T.Text))
             . timestampWords $ Slack.slackTimestampTime messageTs
           )
+        )
       )
     )
 
   readFirstMessage :: FilePath -> IO Slack.Message
-  readFirstMessage =
-    error "readFirstMessage is not defined yet!"
+  readFirstMessage = fmap head . readJsonFile
 
   readLastMessage :: FilePath -> IO Slack.Message
-  readLastMessage _ =
-    error "readLastMessage is not defined yet!"
+  readLastMessage = fmap last . readJsonFile
 
   timestampWords tm =
     let lt = LT.utcToZonedTime (getTimeDiff tm) tm
     in TF.formatTime TF.defaultTimeLocale "%Y-%m-%d %T %z" lt
 
 
-toHtmlName :: FilePath -> T.Text
-toHtmlName name = T.pack (takeBaseName name <.> "html")
+mkMessageBody :: WorkspaceInfo -> Slack.SlackMessageText -> T.Text
+mkMessageBody wsi mText =
+  Slack.messageToHtml Slack.defaultHtmlRenderers (getUserName wsi) mText
+
+
+toHtmlName :: FilePath -> String
+toHtmlName name = takeBaseName name <.> "html"
 
 
 getChannelScreenName :: WorkspaceInfo -> ChannelId -> ChannelName

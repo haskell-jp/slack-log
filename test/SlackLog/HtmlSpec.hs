@@ -17,6 +17,7 @@ import           SlackLog.Html
 
 spec :: Spec
 spec = do
+  w <- runIO $ loadWorkspaceInfo "test/assets"
   describe "renderSlackMessages" $
     it "converts messages in Slack into a byte string of HTML" $ do
       let p = PageInfo
@@ -26,8 +27,6 @@ spec = do
             , channelId        = "id_of_random"
             }
 
-      w <- loadWorkspaceInfo "test/assets"
-
       expected <- readAsExpectedHtml "test/assets/expected-messages.html"
       Just msgs <- Json.decodeFileStrict' "test/assets/testMessages.json"
 
@@ -36,9 +35,8 @@ spec = do
   describe "renderIndexOfPages" $
     it "build index HTML of HTML pages." $ do
       expected <- readAsExpectedHtml "test/assets/expected-index.html"
-      w <- loadWorkspaceInfo "test/assets"
       let channelAndPaths = [("id_of_random", ["test/assets/testMessages.json"])]
-      renderIndexOfPages w channelAndPaths `shouldReturn` expected
+      renderIndexOfPages id w channelAndPaths `shouldReturn` expected
 
 
 readAsExpectedHtml :: FilePath -> IO BL.ByteString
