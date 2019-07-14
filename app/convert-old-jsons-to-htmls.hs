@@ -35,15 +35,16 @@ main = Dir.withCurrentDirectory "doc" $ do
 
     putStrLn channelIdStr
 
+    let key = parsePageNumber
+
     triples
       <- putBetweenPreviousAndNext
-      .   sortOn fst
-      .   map (\jsonPath -> (toHtmlName jsonPath, jsonPath))
+      .   sortOn key
       <$> Dir.listDirectory ("json" </> channelIdStr)
-    for_ triples $ \(mPrev, (htmlPath, jsonPath), mNext) -> do
-      let pg = PageInfo htmlPath (snd <$> mPrev) (snd <$> mNext) chanId
+    for_ triples $ \(mPrev, name, mNext) -> do
+      let pg = PageInfo name mPrev mNext chanId
       putStrLn $ "  " ++ show pg
-      convertToHtmlFile ws pg jsonPath
+      convertToHtmlFile key ws pg
 
 
 putBetweenPreviousAndNext :: [a] -> [(Maybe a, a, Maybe a)]
