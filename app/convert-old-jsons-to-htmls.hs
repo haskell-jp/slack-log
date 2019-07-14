@@ -14,37 +14,42 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -}
 
-import           Data.Foldable       (for_)
-import qualified Data.HashMap.Strict as HM
-import           Data.List           (sortOn)
-import qualified Data.Text           as T
+import qualified Data.ByteString.Lazy as BL
+import qualified Data.HashMap.Strict  as HM
+import           Data.List            (sortOn)
+import qualified Data.Text            as T
+import           Data.Traversable     (for)
 import           SlackLog.Html
-import           SlackLog.Types      (targetChannels)
-import           SlackLog.Util       (readJsonFile)
-import qualified System.Directory    as Dir
-import           System.FilePath     ((</>))
+import           SlackLog.Types       (targetChannels)
+import           SlackLog.Util        (readJsonFile)
+import qualified System.Directory     as Dir
+import           System.FilePath      ((</>))
 
 main :: IO ()
 main = Dir.withCurrentDirectory "doc" $ do
   ws <- loadWorkspaceInfo "json"
   logConfig <- readJsonFile "json/.config.json"
-  for_ (HM.toList $ targetChannels logConfig) $ \(chanId, _vis) -> do
+
+  namesByChannel <- for (HM.toList $ targetChannels logConfig) $ \(chanId, _vis) -> do
     let channelIdStr = T.unpack chanId
 
     Dir.createDirectoryIfMissing True $ "html" </> channelIdStr
 
     putStrLn channelIdStr
 
-    let key = parsePageNumber
-
     triples
       <- putBetweenPreviousAndNext
-      .   sortOn key
+      .   sortOn parsePageNumber
       <$> Dir.listDirectory ("json" </> channelIdStr)
-    for_ triples $ \(mPrev, name, mNext) -> do
+    names <- for triples $ \(mPrev, name, mNext) -> do
       let pg = PageInfo name mPrev mNext chanId
       putStrLn $ "  " ++ show pg
-      convertToHtmlFile key ws pg
+      convertToHtmlFile ws pg
+      return name
+
+    return (chanId, names)
+
+  BL.writeFile "index.html" =<< renderIndexOfPages ws namesByChannel
 
 
 putBetweenPreviousAndNext :: [a] -> [(Maybe a, a, Maybe a)]
