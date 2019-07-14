@@ -12,14 +12,12 @@ module SlackLog.Html
   , renderIndexOfPages
   , loadWorkspaceInfo
   , parsePageNumber
-  , toHtmlName
   , PageInfo(..)
   , WorkspaceInfo(..)
   ) where
 
 
 import           Control.Applicative     ((<|>))
-import           Control.Monad           ((<=<))
 import qualified Data.Aeson              as Json
 import qualified Data.ByteString.Lazy    as BL
 import           Data.Char               (isDigit)
@@ -61,14 +59,19 @@ data WorkspaceInfo = WorkspaceInfo
   }
 
 
-convertToHtmlFile :: WorkspaceInfo -> PageInfo -> FilePath -> IO ()
-convertToHtmlFile ws pg =
-  BL.writeFile (currentPagePath pg) <=< renderSlackMessages parsePageNumber ws pg
+-- | Assumes this function is executed in doc/ directory
+convertToHtmlFile :: Show a => (FilePath -> a) -> WorkspaceInfo -> PageInfo -> IO ()
+convertToHtmlFile key ws pg =
+  BL.writeFile htmlPath =<< renderSlackMessages key ws pg jsonPath
+ where
+  cid = channelId pg
+  currentPath = currentPagePath pg
+  jsonPath = ensurePathIn "json" cid currentPath
+  htmlPath = ensurePathIn "html" cid currentPath
 
 
 renderSlackMessages
-  :: (Ord a, Show a)
-  => (FilePath -> a) -> WorkspaceInfo -> PageInfo -> FilePath -> IO BL.ByteString
+  :: Show a => (FilePath -> a) -> WorkspaceInfo -> PageInfo -> FilePath -> IO BL.ByteString
 renderSlackMessages key wsi@WorkspaceInfo {..} PageInfo {..} = fmap render . readJsonFile
  where
   render msgs = H.renderByteString
@@ -79,7 +82,7 @@ renderSlackMessages key wsi@WorkspaceInfo {..} PageInfo {..} = fmap render . rea
         # H.title_ title
         # H.link_A
           ( A.rel_ ("stylesheet" :: T.Text)
-          # A.href_ ("messages.css" :: T.Text)
+          # A.href_ ("/messages.css" :: T.Text)
           # A.type_ ("text/css" :: T.Text)
           # A.media_ ("screen" :: T.Text)
           )
@@ -93,11 +96,21 @@ renderSlackMessages key wsi@WorkspaceInfo {..} PageInfo {..} = fmap render . rea
       )
     )
 
-  title = workspaceInfoName <> " / " <> getChannelScreenName wsi channelId <> " #" <> T.pack (show $ key currentPagePath)
+  title =
+    workspaceInfoName <> " / " <> getChannelScreenName wsi channelId <> " #" <> T.pack (show $ key currentPagePath)
+
   pager = H.div_A (A.class_ ("pager" :: T.Text))
-    ( ((\pp -> H.a_A (A.href_ pp # A.class_ ("pager__previous" :: T.Text)) ("Previous" :: T.Text)) <$> previousPagePath)
-    # ((\pp -> H.a_A (A.href_ pp # A.class_ ("pager__next" :: T.Text)    ) ("Next"     :: T.Text)) <$> nextPagePath)
+    ( ((\pp -> H.a_A (A.href_ pp # prevClass) prevLabel) . ("/" ++) . ensurePathIn "html" channelId <$> previousPagePath)
+    # ((\pp -> H.a_A (A.href_ pp # nextClass) nextLabel) . ("/" ++) . ensurePathIn "html" channelId <$> nextPagePath)
     )
+   where
+    prevClass = A.class_ ("pager__previous" :: T.Text)
+    nextClass = A.class_ ("pager__next" :: T.Text)
+
+    prevLabel, nextLabel :: T.Text
+    prevLabel = "Previous"
+    nextLabel = "Next"
+
   messageDiv Slack.Message { messageTs, messageUser, messageText } =
     H.div_A (A.class_ ("message" :: T.Text) # A.id_ ("message-" <> Slack.slackTimestampTs messageTs))
       ( H.div_A (A.class_ ("message__timestamp" :: T.Text))
@@ -153,7 +166,7 @@ renderIndexOfPages key wsi@WorkspaceInfo {..} =
           # H.title_ title
           # H.link_A
             ( A.rel_ ("stylesheet" :: T.Text)
-            # A.href_ ("index.css" :: T.Text)
+            # A.href_ ("/index.css" :: T.Text)
             # A.type_ ("text/css" :: T.Text)
             # A.media_ ("screen" :: T.Text)
             )
@@ -169,7 +182,7 @@ renderIndexOfPages key wsi@WorkspaceInfo {..} =
   channelSummary cid lastJsonPath Slack.Message { messageTs } details =
     H.details_A (A.class_ ("channel" :: T.Text))
     ( H.summary_A (A.class_ ("channel__name" :: T.Text))
-      ( H.a_A (A.href_ (cid <> "/" <> T.pack (toHtmlName lastJsonPath))) (getChannelScreenName wsi cid)
+      ( H.a_A (A.href_ ("/" ++ ensurePathIn "html" cid lastJsonPath)) (getChannelScreenName wsi cid)
       # (" (Last updated at " <> timestampWords (Slack.slackTimestampTime messageTs) <> ")")
       )
       # details
@@ -178,7 +191,7 @@ renderIndexOfPages key wsi@WorkspaceInfo {..} =
   channelDetail cid jsonPath Slack.Message { messageTs, messageUser, messageText } =
     H.ul_A (A.class_ ("pages_list" :: T.Text))
     ( H.li_A (A.class_ ("page" :: T.Text))
-      ( H.a_A (A.href_ (cid <> "/" <> T.pack (toHtmlName jsonPath)))
+      ( H.a_A (A.href_ ("/" ++ ensurePathIn "html" cid jsonPath))
         ("#" <> T.pack (show (key jsonPath)))
       # (" " :: T.Text)
       # H.span_A (A.class_ ("page__first_message" :: T.Text))
@@ -210,8 +223,8 @@ mkMessageBody wsi mText =
   Slack.messageToHtml Slack.defaultHtmlRenderers (getUserName wsi) mText
 
 
-toHtmlName :: FilePath -> String
-toHtmlName name = takeBaseName name <.> "html"
+ensurePathIn :: String -> ChannelId -> FilePath -> FilePath
+ensurePathIn typ cid name = typ ++ "/" ++ T.unpack cid ++ "/" ++ takeBaseName name <.> typ
 
 
 getChannelScreenName :: WorkspaceInfo -> ChannelId -> ChannelName
