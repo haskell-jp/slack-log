@@ -60,19 +60,18 @@ data WorkspaceInfo = WorkspaceInfo
 
 
 -- | Assumes this function is executed in doc/ directory
-convertToHtmlFile :: Show a => (FilePath -> a) -> WorkspaceInfo -> PageInfo -> IO ()
-convertToHtmlFile key ws pg =
-  BL.writeFile htmlPath =<< renderSlackMessages key ws pg jsonPath
+convertToHtmlFile :: WorkspaceInfo -> PageInfo -> IO ()
+convertToHtmlFile ws pg =
+  BL.writeFile htmlPath =<< renderSlackMessages ws pg
  where
   cid = channelId pg
   currentPath = currentPagePath pg
-  jsonPath = ensurePathIn "json" cid currentPath
   htmlPath = ensurePathIn "html" cid currentPath
 
 
-renderSlackMessages
-  :: Show a => (FilePath -> a) -> WorkspaceInfo -> PageInfo -> FilePath -> IO BL.ByteString
-renderSlackMessages key wsi@WorkspaceInfo {..} PageInfo {..} = fmap render . readJsonFile
+renderSlackMessages :: WorkspaceInfo -> PageInfo -> IO BL.ByteString
+renderSlackMessages wsi@WorkspaceInfo {..} PageInfo {..} =
+  fmap render . readJsonFile $ ensurePathIn "json" channelId currentPagePath
  where
   render msgs = H.renderByteString
     ( H.doctype_
@@ -97,7 +96,7 @@ renderSlackMessages key wsi@WorkspaceInfo {..} PageInfo {..} = fmap render . rea
     )
 
   title =
-    workspaceInfoName <> " / " <> getChannelScreenName wsi channelId <> " #" <> T.pack (show $ key currentPagePath)
+    workspaceInfoName <> " / " <> getChannelScreenName wsi channelId <> " #" <> T.pack (show $ parsePageNumber currentPagePath)
 
   pager = H.div_A (A.class_ ("pager" :: T.Text))
     ( ((\pp -> H.a_A (A.href_ pp # prevClass) prevLabel) . ("/" ++) . ensurePathIn "html" channelId <$> previousPagePath)
@@ -141,18 +140,16 @@ loadWorkspaceInfo dir = do
   return WorkspaceInfo {..}
 
 
-renderIndexOfPages
-  :: (Ord a, Show a)
-  => (FilePath -> a) -> WorkspaceInfo -> [(ChannelId, [FilePath])] -> IO BL.ByteString
-renderIndexOfPages key wsi@WorkspaceInfo {..} =
+renderIndexOfPages :: WorkspaceInfo -> [(ChannelId, [FilePath])] -> IO BL.ByteString
+renderIndexOfPages wsi@WorkspaceInfo {..} =
   fmap wrapBody
     . traverse (\(cid, jsonPaths) -> do
-      let sortedJsonPaths = sortOn key jsonPaths
+      let sortedJsonPaths = sortOn parsePageNumber jsonPaths
       case lastMay sortedJsonPaths of
           Just lastPath -> do
-            lastLastMessage <- readLastMessage lastPath
+            lastLastMessage <- readLastMessage $ ensurePathIn "json" cid lastPath
             Just . channelSummary cid lastPath lastLastMessage
-              <$> mapM (\path -> channelDetail cid path <$> readFirstMessage path) sortedJsonPaths
+              <$> mapM (\path -> channelDetail cid path <$> readFirstMessage (ensurePathIn "json" cid path)) sortedJsonPaths
           _ ->
             return Nothing
       )
@@ -192,7 +189,7 @@ renderIndexOfPages key wsi@WorkspaceInfo {..} =
     H.ul_A (A.class_ ("pages_list" :: T.Text))
     ( H.li_A (A.class_ ("page" :: T.Text))
       ( H.a_A (A.href_ ("/" ++ ensurePathIn "html" cid jsonPath))
-        ("#" <> T.pack (show (key jsonPath)))
+        ("#" <> T.pack (show (parsePageNumber jsonPath)))
       # (" " :: T.Text)
       # H.span_A (A.class_ ("page__first_message" :: T.Text))
         ( (H.span_A (A.class_ ("page__first_message__header" :: T.Text)) (getUserScreenName wsi messageUser))

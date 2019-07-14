@@ -5,10 +5,11 @@ module SlackLog.HtmlSpec
   ) where
 
 
-import qualified Data.ByteString.Lazy as BL
+import qualified Data.ByteString.Lazy    as BL
 import qualified Data.Text.Lazy          as TL
 import qualified Data.Text.Lazy.Encoding as TLE
 import qualified Data.Text.Lazy.IO       as TLI
+import qualified System.Directory        as Dir
 import           Test.Hspec
 
 import           SlackLog.Html
@@ -27,14 +28,16 @@ spec = do
             }
 
       expected <- readAsExpectedHtml "test/assets/expected-messages.html"
-
-      renderSlackMessages id w p "test/assets/testMessages.json" `shouldReturn` expected
+      Dir.withCurrentDirectory "test/assets" $
+        renderSlackMessages w p `shouldReturn` expected
 
   describe "renderIndexOfPages" $
     it "build index HTML of HTML pages." $ do
       expected <- readAsExpectedHtml "test/assets/expected-index.html"
-      let channelAndPaths = [("id_of_random", ["test/assets/testMessages.json"])]
-      renderIndexOfPages id w channelAndPaths `shouldReturn` expected
+      let channelAndPaths = [("id_of_random", ["test/assets/35.json"])]
+
+      Dir.withCurrentDirectory "test/assets" $
+        renderIndexOfPages w channelAndPaths `shouldReturn` expected
 
 
 readAsExpectedHtml :: FilePath -> IO BL.ByteString
