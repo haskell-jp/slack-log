@@ -8,6 +8,7 @@
 
 module SlackLog.Html
   ( convertToHtmlFile
+  , generateIndexHtml
   , renderSlackMessages
   , renderIndexOfPages
   , loadWorkspaceInfo
@@ -18,6 +19,7 @@ module SlackLog.Html
 
 
 import           Control.Applicative     ((<|>))
+import           Control.Monad           ((<=<))
 import qualified Data.Aeson              as Json
 import qualified Data.ByteString.Lazy    as BL
 import           Data.Char               (isDigit)
@@ -67,6 +69,10 @@ convertToHtmlFile ws pg =
   cid = channelId pg
   currentPath = currentPagePath pg
   htmlPath = ensurePathIn "html" cid currentPath
+
+
+generateIndexHtml :: WorkspaceInfo -> [(ChannelId, [FilePath])] -> IO ()
+generateIndexHtml ws = BL.writeFile "index.html" <=< renderIndexOfPages ws
 
 
 renderSlackMessages :: WorkspaceInfo -> PageInfo -> IO BL.ByteString

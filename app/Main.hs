@@ -29,7 +29,7 @@ import           Control.Monad.Reader     (runReaderT)
 import qualified Data.Aeson.Encode.Pretty as Json
 import qualified Data.ByteString.Lazy     as BL
 import qualified Data.HashMap.Strict      as HM
-import           Data.Maybe               (fromMaybe)
+import           Data.Maybe               (fromMaybe, maybeToList)
 import           Data.Monoid              ((<>))
 import qualified Data.Text                as T
 import qualified Data.Text.IO             as T
@@ -50,9 +50,11 @@ import qualified Web.Slack.Common         as Slack
 import qualified Web.Slack.Group          as Group
 import qualified Web.Slack.User           as User
 
+import           SlackLog.Html            (PageInfo (PageInfo), WorkspaceInfo,
+                                           convertToHtmlFile, loadWorkspaceInfo)
 import           SlackLog.Pagination      (chooseLatestPageOf, defaultPageSize,
                                            paginateFiles)
-import           SlackLog.Types           (ChannelId, ChannelName,
+import           SlackLog.Types           (ChannelId, TargetChannels,
                                            Visibility (Private, Public),
                                            targetChannels)
 import           SlackLog.Util            (failWhenLeft, readJsonFile)
@@ -84,23 +86,50 @@ main = do
   hSetBuffering stderr NoBuffering
 
   apiConfig <- Slack.mkSlackConfig =<< slackApiToken <$> (failWhenLeft =<< decodeEnv)
-  tss <- readJsonFile ".timestamps.json" -- TODO: move to doc/json
-  logConfig <- readJsonFile "doc/.config.json"
-  let targets = targetChannels logConfig
-  newTss <- HM.fromList
-    <$> for (HM.toList targets) (uncurry $ saveChannel apiConfig tss)
 
-  BL.writeFile ".timestamps.json" $ Json.encodePretty newTss
+  Dir.withCurrentDirectory "doc" $ do
+    ws <- loadWorkspaceInfo "json"
+    oldTss <- readJsonFile ".timestamps.json"
+    targets <- targetChannels <$> readJsonFile ".config.json"
 
+    -- These actions have to be performed before generating HTMLs.
+    -- Because generating HTMLs requires channelsByName, usersByName, groupsByName
+    saveChannelsList apiConfig
+    saveUsersList apiConfig
+    saveGroupsList apiConfig targets
+
+    newTss <- HM.fromList
+      <$> for (HM.toList targets) (uncurry $ saveChannel apiConfig ws oldTss)
+
+    BL.writeFile ".timestamps.json" $ Json.encodePretty newTss
+
+    when (oldTss /=  newTss) gitPushMessageLog
+
+
+saveChannelsList, saveUsersList :: Slack.SlackConfig -> IO ()
+
+saveChannelsList apiConfig =
   Slack.channelsList (Channel.ListReq (Just True) (Just False))
     `runReaderT` apiConfig >>= \case
       Right (Channel.ListRsp chs) -> do
         let channelsByName = HM.fromList $ map ((,) <$> Channel.channelId <*> Channel.channelName) chs
-        BL.writeFile "doc/json/.channels.json" $ Json.encodePretty channelsByName
+        BL.writeFile "json/.channels.json" $ Json.encodePretty channelsByName
       Left err -> do
         hPutStrLn stderr "WARNING: Error when fetching the list of channels:"
         hPrint stderr err
 
+saveUsersList apiConfig =
+  Slack.usersList
+    `runReaderT` apiConfig >>= \case
+      Right (User.ListRsp us) -> do
+        let usersByName = HM.fromList $ map ((,) <$> Slack.unUserId . User.userId <*> User.userName) us
+        BL.writeFile "json/.users.json" $ Json.encodePretty usersByName
+      Left err -> do
+        hPutStrLn stderr "WARNING: Error when fetching the list of users:"
+        hPrint stderr err
+
+saveGroupsList :: Slack.SlackConfig -> TargetChannels -> IO ()
+saveGroupsList apiConfig targets =
   Slack.groupsList
     `runReaderT` apiConfig >>= \case
       Right (Group.ListRsp chs) -> do
@@ -111,65 +140,62 @@ main = do
                 . filter ((`HM.member` targets) . fst)
                 $ map ((,) <$> Group.groupId <*> Group.groupName) chs
         -- Save groups separately from channels to avoid to save empty hash when error.
-        BL.writeFile "doc/json/.groups.json" $ Json.encodePretty groupsByName
+        BL.writeFile "json/.groups.json" $ Json.encodePretty groupsByName
       Left err -> do
         hPutStrLn stderr "WARNING: Error when fetching the list of channels:"
         hPrint stderr err
 
-  Slack.usersList
-    `runReaderT` apiConfig >>= \case
-      Right (User.ListRsp us) -> do
-        let usersByName = HM.fromList $ map ((,) <$> Slack.unUserId . User.userId <*> User.userName) us
-        BL.writeFile "doc/json/.users.json" $ Json.encodePretty usersByName
-      Left err -> do
-        hPutStrLn stderr "WARNING: Error when fetching the list of users:"
-        hPrint stderr err
 
-  when (tss /= newTss) gitPushMessageLog
-
-
-saveChannel :: Slack.SlackConfig -> TimestampsByChannel -> ChannelName -> Visibility -> IO (T.Text, Slack.SlackTimestamp)
-saveChannel cfg tss channelName vis = Dir.withCurrentDirectory "doc" $ do
+saveChannel :: Slack.SlackConfig -> WorkspaceInfo -> TimestampsByChannel -> ChannelId -> Visibility -> IO (ChannelId, Slack.SlackTimestamp)
+saveChannel cfg ws tss channelId vis = do
   new <- Slack.mkSlackTimestamp <$> getCurrentTime
-  let old = fromMaybe (Slack.mkSlackTimestamp $ UTCTime (fromGregorian 2017 1 1) 0) (HM.lookup channelName tss)
+  let old = fromMaybe (Slack.mkSlackTimestamp $ UTCTime (fromGregorian 2017 1 1) 0) (HM.lookup channelId tss)
   print old
   let hist =
         case vis of
             Private -> Slack.groupsHistory
             Public  -> Slack.channelsHistory
-  res <- runReaderT (Slack.historyFetchAll hist channelName 100 old new) cfg
+  res <- runReaderT (Slack.historyFetchAll hist channelId 100 old new) cfg
   case res of
       Right body -> do
         let msgs = Slack.historyRspMessages body
             mbLatestTs = Slack.messageTs <$> headMay msgs
         case mbLatestTs of
             Just latestTs -> do
-              Dir.withCurrentDirectory "json" $ do
-                let channelNameS = T.unpack channelName
+              (mSecondLatestPage, newLatestPage) <- Dir.withCurrentDirectory "json" $ do
+                let channelNameS = T.unpack channelId
                     tmpFileName = channelNameS <> "-tmp.json"
                 BL.writeFile tmpFileName $ Json.encodePretty (reverse msgs)
                 Dir.createDirectoryIfMissing False channelNameS
+
                 channelDirItems <- Dir.listDirectory channelNameS
-                (latestPageFileNames, basePageNum) <-
+                (mLatestPageFileName, basePageNum) <-
                   if null channelDirItems
-                    then return ([], 1)
-                    else Arrow.first ((: []) . (channelNameS </>)) <$> chooseLatestPageOf channelDirItems
-                paginateFiles defaultPageSize basePageNum channelNameS (latestPageFileNames ++ [tmpFileName])
+                    then return (Nothing, 1)
+                    else Arrow.first (Just . (channelNameS </>)) <$> chooseLatestPageOf channelDirItems
+                paginateFiles defaultPageSize basePageNum channelNameS (maybeToList mLatestPageFileName ++ [tmpFileName])
                 Dir.removeFile tmpFileName
-              -- TODO: Convert the updated JSON file to HTML here.
-              return (channelName, latestTs)
-            _ -> do
-              hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show channelName ++ ": " ++ "Can't get latest timestamp!"
-              return (channelName, old)
+
+                -- After running `paginateFiles` at the line above,
+                -- `chooseLatestPageOf` returns the new latest page
+                (,) mLatestPageFileName <$> (fst <$> chooseLatestPageOf channelDirItems)
+
+              let pg = PageInfo newLatestPage mSecondLatestPage Nothing channelId
+              convertToHtmlFile ws pg
+
+              return (channelId, latestTs)
+            Nothing -> do
+              hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show channelId ++ ": " ++ "Can't get latest timestamp!"
+              return (channelId, old)
       Left err -> do
-        hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show channelName ++ ":"
+        hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show channelId ++ ":"
         hPrint stderr err
-        return (channelName, old)
+        return (channelId, old)
 
 
 gitPushMessageLog :: IO ()
 gitPushMessageLog = do
-  P.runProcess_ $ P.proc "git" ["add", "./.timestamps.json", "./doc/"]
+  P.runProcess_ $ P.proc "git" ["add", "."]
   now <- getCurrentTime
   P.runProcess_ $ P.proc "git" ["commit", "-m", "Slack log update at " ++ show now]
   P.runProcess_ $ P.proc "git" ["push"]
