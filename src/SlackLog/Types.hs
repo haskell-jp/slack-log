@@ -14,10 +14,18 @@ import           GHC.Generics        (Generic)
 import           Safe                (headMay)
 
 
+-- | Configuration type used mainly when converting JSON files into HTML.
 data Config = Config
   { workspaceName  :: T.Text
+  , rootPath       :: Maybe String
+  -- ^ Any paths in the generated HTML files are prefixed with this path.
+  --   Default: "/"
   , timeZone       :: String
+  -- ^ Show the times on this timezone.
   , targetChannels :: TargetChannels
+  -- ^ Target channels whose messages are collected by slack-logger.
+  --   This is the only configuration item used when collecting JSON files
+  --   from Slack: not only when converting JSON files into HTML.
   } deriving (Eq, Show, Generic, Json.FromJSON)
 
 
