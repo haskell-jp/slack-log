@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -}
 
-import qualified Data.ByteString.Lazy as BL
 import qualified Data.HashMap.Strict  as HM
 import           Data.List            (sortOn)
 import qualified Data.Text            as T
@@ -49,7 +48,7 @@ main = Dir.withCurrentDirectory "doc" $ do
 
     return (chanId, names)
 
-  BL.writeFile "index.html" =<< renderIndexOfPages ws namesByChannel
+  generateIndexHtml ws namesByChannel
 
 
 putBetweenPreviousAndNext :: [a] -> [(Maybe a, a, Maybe a)]
