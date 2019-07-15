@@ -1,0 +1,129 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #62</title><link rel="stylesheet" href="/messages.css" type="text/css" media="screen"></head><body><h1>haskell-jp / questions #62</h1><div class="pager"><a href="/html/C5666B6BB/61.html" class="pager__previous">Previous</a><a href="/" class="pager__top">Top</a><a href="/html/C5666B6BB/63.html" class="pager__next">Next</a></div><div class="message_list"><div class="message" id="message-1559810918.019600"><div class="message__timestamp">2019-06-06<br/>17:48:38 +0900</div><div class="message__header">igrep</div><div class="message__body">うーん、それで <code>No module named 'GHC.Arr' is imported.</code> というエラーはさすがに不自然ですね。。。</div></div><div class="message" id="message-1559811590.019800"><div class="message__timestamp">2019-06-06<br/>17:59:50 +0900</div><div class="message__header">igrep</div><div class="message__body">試してみましたが、エラーメッセージは変わってるはずですよね？<br/><code>Module ‘GHC.Arr’ does not export ‘unsafeFreezeSTUArray’</code><br/><br/>とすると、なるほど、なぜか <code>unsafeFreezeSTArray</code> は <code>GHC.Arr</code> にあるけど <code>unsafeFreezeSTUArray</code> にないってことか。。。</div></div><div class="message" id="message-1559811909.020000"><div class="message__timestamp">2019-06-06<br/>18:05:09 +0900</div><div class="message__header">igrep</div><div class="message__body">すみません、わざわざ unsafe なAPIを使わなくても <code>freeze</code> 関数というのがあるみたいですね。<br/><br/><pre>
+import Data.Array.Unboxed
+import <http://Data.Array.ST|Data.Array.ST>
+import <http://Control.Monad.ST|Control.Monad.ST>
+
+main :: IO ()
+main = print arr2
+
+arr2 :: (UArray Int Int, UArray Int Int)
+arr2 = runST $ do
+  a &lt;- newArray (0,2) 0 :: ST s (STUArray s Int Int)
+  writeArray a 0 999
+  b &lt;- newArray (0,2) 0 :: ST s (STUArray s Int Int)
+  writeArray b 0 999
+  -- detail ommitted
+  (,) &lt;$&gt; freeze a &lt;*&gt; freeze b
+</pre></div></div><div class="message" id="message-1559813083.020200"><div class="message__timestamp">2019-06-06<br/>18:24:43 +0900</div><div class="message__header">karoyakani</div><div class="message__body"><code> (,) &lt;$&gt; freeze a &lt;*&gt; freeze b </code> ですか！　素晴らしい　有難うございました  orz</div></div><div class="message" id="message-1559882218.020700"><div class="message__timestamp">2019-06-07<br/>13:36:58 +0900</div><div class="message__header">kazasiki</div><div class="message__body">@kazasiki has joined the channel</div></div><div class="message" id="message-1559907367.021000"><div class="message__timestamp">2019-06-07<br/>20:36:07 +0900</div><div class="message__header">shsato.t.t.n</div><div class="message__body">@shsato.t.t.n has joined the channel</div></div><div class="message" id="message-1559950218.021300"><div class="message__timestamp">2019-06-08<br/>08:30:18 +0900</div><div class="message__header">tomozx8</div><div class="message__body">@tomozx8 has joined the channel</div></div><div class="message" id="message-1560132380.021800"><div class="message__timestamp">2019-06-10<br/>11:06:20 +0900</div><div class="message__header">junji.hashimoto</div><div class="message__body">cryptonite速くなりましたね。</div></div><div class="message" id="message-1560132390.022300"><div class="message__timestamp">2019-06-10<br/>11:06:30 +0900</div><div class="message__header">junji.hashimoto</div><div class="message__body">---</div></div><div class="message" id="message-1560132544.024200"><div class="message__timestamp">2019-06-10<br/>11:09:04 +0900</div><div class="message__header">junji.hashimoto</div><div class="message__body">MagicHaskellerを動かしたいのですが、<br/>GHCAPIをつかっているのですが、モジュールのロードがうまくいかず、困っています。<br/><a href='http://hackage.haskell.org/package/MagicHaskeller-0.9.6.7/src/MagicHaskeller/SimpleServer.hs'>http://hackage.haskell.org/package/MagicHaskeller-0.9.6.7/src/MagicHaskeller/SimpleServer.hs</a><br/>このファイルのprepareGHCAPI です。<br/><br/>stackでlts-3.22でビルドはできたのですが。<br/>MagicHaskeller/Minimal.hsがロードできないというエラーで落ちてしまいます。<br/>どなたかノウハウがあれば教えていただきたいです。<br/><br/>手順通りcabalでコンパイルするとNetworkモジュールのロードでこけます。自分の環境のせいかどうかもよくわからないです。</div></div><div class="message" id="message-1560132656.025400"><div class="message__timestamp">2019-06-10<br/>11:10:56 +0900</div><div class="message__header">junji.hashimoto</div><div class="message__body">また、たくさんの関数を推論させたいのでポータル（<http://nautilus.cs.miyazaki-u.ac.jp/~skata/MagicHaskeller.html）ではなく><br/>ローカルで実行したいです。WEB サーバーにする必要はありません。</div></div><div class="message" id="message-1560142682.026700"><div class="message__timestamp">2019-06-10<br/>13:58:02 +0900</div><div class="message__header">igrep</div><div class="message__body">正直なところGHC APIをあまり使ったことがないのでわかるかどうかも不明ですが、再現するリポジトリーを上げていただけるとサポートしやすいです。</div></div><div class="message" id="message-1560143012.027000"><div class="message__timestamp">2019-06-10<br/>14:03:32 +0900</div><div class="message__header">junji.hashimoto</div><div class="message__body">そうしますね。</div></div><div class="message" id="message-1560143056.027300"><div class="message__timestamp">2019-06-10<br/>14:04:16 +0900</div><div class="message__header">junji.hashimoto</div><div class="message__body">GHC APIの使い方がわからない問題でデバッグできないですね。<br/>なにかパスを追加とかなのでしょうが</div></div><div class="message" id="message-1560143853.027500"><div class="message__timestamp">2019-06-10<br/>14:17:33 +0900</div><div class="message__header">junji.hashimoto</div><div class="message__body"><a href='https://circleci.com/gh/junjihashimoto/MagicHaskeller'>https://circleci.com/gh/junjihashimoto/MagicHaskeller</a><br/><a href='https://github.com/junjihashimoto/MagicHaskeller'>https://github.com/junjihashimoto/MagicHaskeller</a><br/>ここで再現するはずです。<br/>ちょっとお待ちください。</div></div><div class="message" id="message-1560153167.028400"><div class="message__timestamp">2019-06-10<br/>16:52:47 +0900</div><div class="message__header">wado</div><div class="message__body">ちょっと見た感じだと、GHC API を使ってパッケージデータベースから <code>MagicHaskeller</code> を指定し、Prelude とともに <code>MagicHaskeller.Minimal</code> モジュールと <code>MagicHaskeller.FastRatio</code> モジュールを読み込もうとしてますね。<br/><br/><a href='https://github.com/junjihashimoto/MagicHaskeller/blob/master/MagicHaskeller/SimpleServer.hs#L445'>https://github.com/junjihashimoto/MagicHaskeller/blob/master/MagicHaskeller/SimpleServer.hs#L445</a><br/><a href='https://github.com/junjihashimoto/MagicHaskeller/blob/master/MagicHaskeller/SimpleServer.hs#L207'>https://github.com/junjihashimoto/MagicHaskeller/blob/master/MagicHaskeller/SimpleServer.hs#L207</a><br/><br/>エラーになっている原因はたぶん、デフォルトのパッケージデータベースに <code>MagicHaskeller</code> が存在しないためだと思います。<br/><br/>色々とやり方はあると思いますが、Docker で動かすのが一番簡単かもしれません。<br/><br/><pre>
+FROM ubuntu:bionic-20190307
+RUN apt-get update
+RUN apt-get install -y haskell-platform
+
+RUN cabal update
+RUN cabal install MagicHaskeller-0.9.6.7 --global
+
+###########################
+# ghc: 8.0.2
+# cabal-install: 1.24.0.2
+###########################
+</pre><br/><br/>良くわかりませんが、動いてる気がします。<br/><br/><pre>
+$ docker run --rm -it waddlaw/magic-haskeller:0.9.6.7 bash
+/# MagicHaskeller -d 5 -t predicates -i
+MagicHaskeller/MagicExceller backend server version 0.9.6.7 built with GHC-8.0 at 2019-06-10 07:33:54.682998096 UTC
+started at 2019-06-10 07:46:43.917068284 UTC
+\f -&gt; ?
+f "e" 2 == "ee"
+the predicate is f "e" 2 == "ee"
+
+
+
+
+\a b -&gt; concat (replicate b a)
+
+\a b -&gt; replicate b (last (' ' : a))
+\a b -&gt; concat (replicate b (reverse a))
+\a b -&gt; take b (a ++ a)
+\a b -&gt; replicate b (foldr const ' ' a)
+\a b -&gt; concat (transpose (replicate b a))
+\a b -&gt; concat (replicate (abs b) a)
+\a b -&gt; a ++ take b a
+\a b -&gt; concatMap (\_ -&gt; a) (replicate 2 b)
+\a b -&gt; concatMap (\_ -&gt; a) [b..3]
+</pre></div></div><div class="message" id="message-1560155650.029100"><div class="message__timestamp">2019-06-10<br/>17:34:10 +0900</div><div class="message__header">spinylobster</div><div class="message__body">時間経ってからでアレですが、実現方法思いついたのでコメント<br/><br/>関数Applicativeをネストさせる作戦<br/><pre>(liftA2 . liftA2) (&gt;&gt;) a b "x" "y"</pre><br/><br/>uncurry する作戦<br/><pre>(liftA2 (&gt;&gt;) `on` uncurry) a b ("x", "y")</pre></div></div><div class="message" id="message-1560155863.029500"><div class="message__timestamp">2019-06-10<br/>17:37:43 +0900</div><div class="message__header">igrep</div><div class="message__body">元々考えていたケースは引数の数が2もあれば3や4もあるので、根本的な間違いの回避にはつながりませんが、いいですね！</div></div><div class="message" id="message-1560157006.029800"><div class="message__timestamp">2019-06-10<br/>17:56:46 +0900</div><div class="message__header">junji.hashimoto</div><div class="message__body">ありがとうございます。</div></div><div class="message" id="message-1560157045.030000"><div class="message__timestamp">2019-06-10<br/>17:57:25 +0900</div><div class="message__header">junji.hashimoto</div><div class="message__body">助かります。</div></div><div class="message" id="message-1560245129.000300"><div class="message__timestamp">2019-06-11<br/>18:25:29 +0900</div><div class="message__header">merrynewyear6593</div><div class="message__body">@merrynewyear6593 has joined the channel</div></div><div class="message" id="message-1560307025.000700"><div class="message__timestamp">2019-06-12<br/>11:37:05 +0900</div><div class="message__header">shibahas.has</div><div class="message__body">@shibahas.has has joined the channel</div></div><div class="message" id="message-1560314228.001000"><div class="message__timestamp">2019-06-12<br/>13:37:08 +0900</div><div class="message__header">stekitou</div><div class="message__body">@stekitou has joined the channel</div></div><div class="message" id="message-1560478122.001400"><div class="message__timestamp">2019-06-14<br/>11:08:42 +0900</div><div class="message__header">takakuni1118</div><div class="message__body">@takakuni1118 has joined the channel</div></div><div class="message" id="message-1560603623.001700"><div class="message__timestamp">2019-06-15<br/>22:00:23 +0900</div><div class="message__header">chikusat</div><div class="message__body">@chikusat has joined the channel</div></div><div class="message" id="message-1560760940.004400"><div class="message__timestamp">2019-06-17<br/>17:42:20 +0900</div><div class="message__header">kakkun61</div><div class="message__body">レコードのフィールドの関数用法は、値構築子が複数あると部分関数になってよくないので GHC に partial-fields って警告オプションがあるのですが、これだとパターンマッチでしか使っていなくて安全なときでも、そういうフィールドを宣言した時点で警告が出てしまうので、そういうフィールド（もしくはレコードのフィールドすべて）を関数用法をしたときだけ警告が出るようなオプションってありましたっけ？</div></div><div class="message" id="message-1560761281.004500"><div class="message__timestamp">2019-06-17<br/>17:48:01 +0900</div><div class="message__header">igrep</div><div class="message__body">更新ならあるんですけど、かゆいところに手が届かないですね... :disappointed:<br/><a href='https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/using-warnings.html#ghc-flag--Wincomplete-record-updates'>https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/using-warnings.html#ghc-flag--Wincomplete-record-updates</a></div></div><div class="message" id="message-1560761316.004700"><div class="message__timestamp">2019-06-17<br/>17:48:36 +0900</div><div class="message__header">kakkun61</div><div class="message__body">そういえば更新も危険でしたね</div></div><div class="message" id="message-1560762714.005100"><div class="message__timestamp">2019-06-17<br/>18:11:54 +0900</div><div class="message__header">igrep</div><div class="message__body">Proposal出しましょう！ <a href='https://github.com/ghc-proposals/ghc-proposals'>https://github.com/ghc-proposals/ghc-proposals</a></div></div><div class="message" id="message-1560762914.005400"><div class="message__timestamp">2019-06-17<br/>18:15:14 +0900</div><div class="message__header">igrep</div><div class="message__body">チャンネル違いで恐縮ですが: -Wallに-Wincomplete-record-updatesを含めるproposalはacceptedされたそうです。<br/><a href='https://github.com/ghc-proposals/ghc-proposals/pull/71'>https://github.com/ghc-proposals/ghc-proposals/pull/71</a></div></div><div class="message" id="message-1560763215.005700"><div class="message__timestamp">2019-06-17<br/>18:20:15 +0900</div><div class="message__header">igrep</div><div class="message__body">今の予定ではGHC 8.10からか！ <a href='https://gitlab.haskell.org/ghc/ghc/issues/15656'>https://gitlab.haskell.org/ghc/ghc/issues/15656</a></div></div><div class="message" id="message-1560764337.006100"><div class="message__timestamp">2019-06-17<br/>18:38:57 +0900</div><div class="message__header">kakkun61</div><div class="message__body">英語版 Reddit あたりに投げてみますかね</div></div><div class="message" id="message-1560767168.006700"><div class="message__timestamp">2019-06-17<br/>19:26:08 +0900</div><div class="message__header">maoe</div><div class="message__body"><a href='https://github.com/ghc-proposals/ghc-proposals/pull/184'>https://github.com/ghc-proposals/ghc-proposals/pull/184</a> これですかね</div></div><div class="message" id="message-1560817483.007400"><div class="message__timestamp">2019-06-18<br/>09:24:43 +0900</div><div class="message__header">tsuzuki357</div><div class="message__body">@tsuzuki357 has joined the channel</div></div><div class="message" id="message-1560822768.007600"><div class="message__timestamp">2019-06-18<br/>10:52:48 +0900</div><div class="message__header">kakkun61</div><div class="message__body">読んでみました。まさにこんな感じですね。<br/>スレッドが SPJ の質問で止まっちゃってますね……</div></div><div class="message" id="message-1560826922.012600"><div class="message__timestamp">2019-06-18<br/>12:02:02 +0900</div><div class="message__header">maoe</div><div class="message__body">Dormantになった提案を強力に前に進める人がいるといいなあと思ったりします。提案者の熱があるうちはいいですが、息切れしてきた時に細かい指摘を拾って提案自体にPRを送ってくれるような。</div></div><div class="message" id="message-1560858589.018000"><div class="message__timestamp">2019-06-18<br/>20:49:49 +0900</div><div class="message__header">matsubara0507</div><div class="message__body">継続 + IO + 失敗系モナド？な感じのパッケージってあります？<br/>具体的には以下のような関数が欲しいんですけど:<br/><pre>
+fromMaybeWith :: MonadIO m =&gt; m (Maybe a) -&gt; m r -&gt; ContT r m a
+fromMaybeWith m e = lift m &gt;&gt;= \case
+  Nothing -&gt; ContT (const e)
+  Just a  -&gt; ContT ($ a)
+
+fromEitherWith :: MonadIO m =&gt; m (Either a e) -&gt; (e -&gt; m r) -&gt; ContT r m a
+fromEitherWith m act = lift m &gt;&gt;= \case
+  Left e  -&gt; ContT (const $ act e)
+  Right a -&gt; ContT ($ a)
+</pre></div></div><div class="message" id="message-1560899464.020600"><div class="message__timestamp">2019-06-19<br/>08:11:04 +0900</div><div class="message__header">shunsuke.masuda</div><div class="message__body">副作用を伴うAPIの設計で、「成功時はNothing, 失敗時はJust でエラーを返す」というのはよくあるパターンなのでしょうか？<br/>kafkaのライブラリ(hw-kafka-client)を使っていて、そういう場面に出会いまして、「ああ、そうなのか」と思いつつ、失敗したときのエラーを返すなら、Either を使って、Leftにエラー、Rightは() ? としたほうが自然なのかとも思いました。<br/><br/><br/><a href='https://github.com/haskell-works/hw-kafka-client'>https://github.com/haskell-works/hw-kafka-client</a><br/><pre>
+sendMessages prod = do
+  err1 &lt;- produceMessage prod (mkMessage Nothing (Just "test from producer") )
+  forM_ err1 print
+</pre></div></div><div class="message" id="message-1560905540.021000"><div class="message__timestamp">2019-06-19<br/>09:52:20 +0900</div><div class="message__header">igrep</div><div class="message__body">ExceptTの中で使うことを考えると、確かに <code>IO (Either e ())</code> の方が良さそうですね。私もそうします。</div></div><div class="message" id="message-1560905640.021400"><div class="message__timestamp">2019-06-19<br/>09:54:00 +0900</div><div class="message__header">fumieval</div><div class="message__body">フォーク元のhaskakafkaを引き継いでいるようですね。Maybeでエラーを返すのは私もアンチパターンと考えています</div></div><div class="message" id="message-1560905820.021700"><div class="message__timestamp">2019-06-19<br/>09:57:00 +0900</div><div class="message__header">fumieval</div><div class="message__body">これは欲しい！MonadIO制約はいらないような…？</div></div><div class="message" id="message-1560905938.022000"><div class="message__timestamp">2019-06-19<br/>09:58:58 +0900</div><div class="message__header">matsubara0507</div><div class="message__body">たしかに、 MonadIO いらない！<br/>ぼくがよく IO (Maybe a) で使ってたのでw</div></div><div class="message" id="message-1560906970.022900"><div class="message__timestamp">2019-06-19<br/>10:16:10 +0900</div><div class="message__header">yuichi</div><div class="message__body">yesodを使ってローカルのPostgreSQLのテーブルに保存されたユーザー情報で認証をするようにしたいのですが、うまく行かないので教えて頂きたいです。<br/><br/>使用している環境は以下のような構成です。<br/>yesod-bin version: 1.6.0.3<br/>yesod-auth-hashdb-1.7.1.1<br/>PostgreSQL(11.1)<br/><br/>Yesod.Auth.HashDBのドキュメントを参考にして作業しています。<br/><a href='https://www.stackage.org/haddock/nightly-2019-06-17/yesod-auth-hashdb-1.7.1.1/Yesod-Auth-HashDB.html'>https://www.stackage.org/haddock/nightly-2019-06-17/yesod-auth-hashdb-1.7.1.1/Yesod-Auth-HashDB.html</a><br/><br/><pre>
+[config/models]
+--認証用のテーブルとしてclient_authをmigrationで作成
+ClientAuth                                                              
+	clientId ClientId    
+	systemid Int                               
+	username Text              
+	password Text                                                             
+	UniqueClientAuth username                  
+	deriving Show      
+</pre><br/><br/>HashDBのドキュメントのサンプルを元に以下のコマンドで管理用のパスワードを生成し、psqlで手入力で認証情報をテーブルにinsertしました。<br/><br/><pre>
+&gt; makePassword "admin" 17
+"sha256|17|gQ3ny1p2WBkGrxrz5krLXg==|bKJ2rPrKczl3eFjQLRwsZi3OpiVepEH0511ocjcAO98="
+</pre><br/><br/>データベースの現在の状態です。<br/><br/><pre>
+ select * from client_auth;
+ id | client_id | systemid | username |                                     password                                      
+----+-----------+----------+----------+-----------------------------------------------------------------------------------
+  1 |         1 |        1 | admin    | "sha256|17|gQ3ny1p2WBkGrxrz5krLXg==|bKJ2rPrKczl3eFjQLRwsZi3OpiVepEH0511ocjcAO98="
+(1 row)
+</pre><br/>username:admin	password:admin　で認証したいです。<br/><br/>パスワードの正しさをチェックするためにYesod.Auth.Util.PasswordStoreのページを参考にverifyPasswordでも確かめてみました。<br/><a href='https://www.stackage.org/haddock/nightly-2019-06-17/yesod-auth-1.6.6/Yesod-Auth-Util-PasswordStore.html'>https://www.stackage.org/haddock/nightly-2019-06-17/yesod-auth-1.6.6/Yesod-Auth-Util-PasswordStore.html</a><br/><br/><pre>
+&gt; verifyPassword "admin" "sha256|17|gQ3ny1p2WBkGrxrz5krLXg==|bKJ2rPrKczl3eFjQLRwsZi3OpiVepEH0511ocjcAO98="
+True
+</pre><br/><br/><br/>HashDBのドキュメントを参考に以下のように書きました。<br/><pre>
+[src/Foundation.hs]
+import Yesod.Auth.HashDB (authHashDB, HashDBUser(..))
+
+instance YesodAuth App where                                
+    type AuthId App = ClientAuthId                                
+                                 
+    -- Where to send a user after successful login                                
+    loginDest :: App -&gt; Route App                                
+    loginDest _ = HomeR                                
+    -- Where to send a user after logout                                
+    logoutDest :: App -&gt; Route App                                
+    logoutDest _ = HomeR                                
+    -- Override the above two destinations when a Referer: header is present                                
+    redirectToReferer :: App -&gt; Bool                                
+    redirectToReferer _ = True                                
+                                 
+    authPlugins _ = [authHashDB (Just . UniqueClientAuth)]                                
+                                 
+instance HashDBUser ClientAuth where                                
+  userPasswordHash = Just . clientAuthPassword                                
+  setPasswordHash hash clientauth = clientauth { clientAuthPassword = hash } 
+</pre><br/><br/>開発環境を起動<br/><code>stack exec -- yesod devel</code><br/><br/>この構成でブラウザを開いてデフォルトのログインフォームが表示される所までは良いのですが、admin:adminの<br/>入力でログインしようとしても“Invalid username/password combination”のメッセージがブラウザ上に表示され、<br/>コンソール側には以下のメッセージが表示されます。<br/><br/><pre>
+19/Jun/2019:10:01:28 +0900 [Debug#SQL] SELECT "id","client_id","systemid","username","password" FROM "client_auth" WHERE "username"=?; [PersistText "admin"]
+POST /auth/page/hashdb/login
+  Params: [("_token","7rrCxvYLlw"),("username","admin"),("password","admin")]
+  Request Body: _token=7rrCxvYLlw&amp;username=admin&amp;password=admin
+  Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+  Status: 303 See Other 0.026735s
+GET /auth/login
+  Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+  Status: 200 OK 0.000806s
+</pre><br/><br/>Paramsで表示されたフォームの入力値も正しいですし、表示されているSQLも正しいように思います。どこをチェックすれば良いでしょうか？</div></div><div class="message" id="message-1560909504.023100"><div class="message__timestamp">2019-06-19<br/>10:58:24 +0900</div><div class="message__header">wado</div><div class="message__body"><code>authenticate</code> メソッドが正しく定義できていないのかもしれないですね。</div></div><div class="message" id="message-1560911393.023300"><div class="message__timestamp">2019-06-19<br/>11:29:53 +0900</div><div class="message__header">shunsuke.masuda</div><div class="message__body">ありがとうございます。皆さんの意見を聞いて安心しました。</div></div><div class="message" id="message-1560914102.023500"><div class="message__timestamp">2019-06-19<br/>12:15:02 +0900</div><div class="message__header">igrep</div><div class="message__body">どんなユースケースなんすか</div></div><div class="message" id="message-1560916740.023900"><div class="message__timestamp">2019-06-19<br/>12:59:00 +0900</div><div class="message__header">matsubara0507</div><div class="message__body">例えば、API かなんかで http get でリスト取得、List.lookup 的なのする、Nothing なら pure () して終わり、Just なら別のを http get .... 的な<br/><pre>
+-- 疑似コード
+main :: IO ()
+main = evalConstT $ do
+  target &lt;- List.lookup isTarget &lt;$&gt; Http.get "<http://example.com/api/fuga>" `fromMaybeWith` pure ()
+  hoge &lt;- List.lookup (isHoge target) &lt;$&gt; Http.get "<http://example.com/api/hoge>" `fromMaybeWith` pure ()
+  lift $ <http://Logger.info|Logger.info> (show hoge)
+</pre></div></div><div class="message" id="message-1560916794.024200"><div class="message__timestamp">2019-06-19<br/>12:59:54 +0900</div><div class="message__header">matsubara0507</div><div class="message__body"><pre>
+`fromMaybeWith` pure ()
+</pre><br/>の部分を <code>Logger.warn "not found"</code> とかして終えたりもできますね。</div></div><div class="message" id="message-1560916818.024400"><div class="message__timestamp">2019-06-19<br/>13:00:18 +0900</div><div class="message__header">matsubara0507</div><div class="message__body">あ、これを一般化できないかなぁと思った次第で<br/><a href='https://haskell.e-bigmoon.com/posts/2018/06-26-cont-param.html'>https://haskell.e-bigmoon.com/posts/2018/06-26-cont-param.html</a></div></div><div class="message" id="message-1560917343.024900"><div class="message__timestamp">2019-06-19<br/>13:09:03 +0900</div><div class="message__header">igrep</div><div class="message__body">なるほど。自分なら ExceptT と <code>failWith</code> <a href='https://hackage.haskell.org/package/errors-2.3.0/docs/Control-Error-Util.html#v:failWith'>https://hackage.haskell.org/package/errors-2.3.0/docs/Control-Error-Util.html#v:failWith</a> でやりそうなケースですけども、その方が簡潔そうですね！Eitherを伴わない分速いのかも。<br/>※ <code>noteT</code> じゃなくて <code>failWith</code> でした。修正。</div></div></div><div class="pager"><a href="/html/C5666B6BB/61.html" class="pager__previous">Previous</a><a href="/" class="pager__top">Top</a><a href="/html/C5666B6BB/63.html" class="pager__next">Next</a></div></body></html>
