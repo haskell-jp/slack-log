@@ -89,8 +89,8 @@ main = do
 
   Dir.withCurrentDirectory "doc" $ do
     ws <- loadWorkspaceInfo "json"
-    oldTss <- readJsonFile ".timestamps.json"
-    targets <- targetChannels <$> readJsonFile ".config.json"
+    oldTss <- readJsonFile "json/.timestamps.json"
+    targets <- targetChannels <$> readJsonFile "json/.config.json"
 
     -- These actions have to be performed before generating HTMLs.
     -- Because generating HTMLs requires channelsByName, usersByName, groupsByName
@@ -103,7 +103,7 @@ main = do
     let newTss = HM.fromList $ map (\(chanId, _names, ts) -> (chanId, ts)) newNamesAndTss
         newNames = map (\(chanId, names, _ts) -> (chanId, names)) newNamesAndTss
 
-    BL.writeFile ".timestamps.json" $ Json.encodePretty newTss
+    BL.writeFile "json/.timestamps.json" $ Json.encodePretty newTss
 
     when (oldTss /=  newTss) $ do
       gitPushMessageLog
