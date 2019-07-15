@@ -7,7 +7,7 @@
 {-# LANGUAGE StrictData        #-}
 
 module SlackLog.Html
-  ( convertToHtmlFile
+  ( convertJsonsInChannel
   , generateIndexHtml
   , renderSlackMessages
   , renderIndexOfPages
@@ -31,10 +31,12 @@ import qualified Data.Time.Clock         as TC
 import qualified Data.Time.Format        as TF
 import qualified Data.Time.LocalTime     as LT
 import qualified Data.Time.Zones         as TZ
+import           Data.Traversable        (for)
 import           Html                    (( # ))
 import qualified Html                    as H
 import qualified Html.Attribute          as A
 import           Safe                    (lastMay)
+import qualified System.Directory        as Dir
 import           System.FilePath         (takeBaseName, (<.>), (</>))
 import qualified Web.Slack.Common        as Slack
 import qualified Web.Slack.MessageParser as Slack
@@ -59,6 +61,26 @@ data WorkspaceInfo = WorkspaceInfo
   , workspaceInfoRootPath :: String
   , getTimeDiff           :: TC.UTCTime -> LT.TimeZone
   }
+
+
+convertJsonsInChannel :: WorkspaceInfo -> ChannelId -> IO [FilePath]
+convertJsonsInChannel ws chanId = do
+  let channelIdStr = T.unpack chanId
+
+  Dir.createDirectoryIfMissing True $ "html" </> channelIdStr
+
+  putStrLn channelIdStr
+
+  triples
+    <- putBetweenPreviousAndNext
+    .   sortOn parsePageNumber
+    <$> Dir.listDirectory ("json" </> channelIdStr)
+
+  for triples $ \(mPrev, name, mNext) -> do
+    let pg = PageInfo name mPrev mNext chanId
+    putStrLn $ "  " ++ show pg
+    convertToHtmlFile ws pg
+    return name
 
 
 -- | Assumes this function is executed in doc/ directory
@@ -250,3 +272,18 @@ getUserScreenName wsi = maybe "<non-user>" $ getUserName wsi
 
 parsePageNumber :: FilePath -> Integer
 parsePageNumber = read . takeWhile isDigit . takeBaseName
+
+
+putBetweenPreviousAndNext :: [a] -> [(Maybe a, a, Maybe a)]
+putBetweenPreviousAndNext = go Nothing
+ where
+  go mbx (x1 : x2 : x3 : xs) =
+    (mbx, x1, Just x2) : (Just x1, x2, Just x3) : go (Just x2) (x3 : xs)
+  go mbx [x1, x2] =
+    [(mbx, x1, Just x2), (Just x1, x2, Nothing)]
+  go mbx [x1] =
+    [(mbx, x1, Nothing)]
+  go Nothing [] =
+    []
+  go _ [] =
+    error "putBetweenPreviousAndNext: Impossible!"
