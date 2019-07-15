@@ -191,6 +191,9 @@ addMessagesToChannelDirectory channelId msgs = do
       if null channelDirItems
         then return (Nothing, 1)
         else Arrow.first (Just . (channelNameS </>)) <$> chooseLatestPageOf channelDirItems
+    -- OPTIMIZE: Return updated/created JSON files so that `convertJsonsInChannel` can convert only them.
+    --           Current implementation of `convertJsonsInChannel` converts *all* JSON files anytime when
+    --           messages are fetched.
     paginateFiles defaultPageSize basePageNum channelNameS (maybeToList mLatestPageFileName ++ [tmpFileName])
     Dir.removeFile tmpFileName
 
