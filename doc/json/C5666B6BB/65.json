@@ -4,5 +4,77 @@
         "text": "`--write-ghc-environment-files=always`でいけました。ありがとうございました。",
         "user": "U74KTAG0N",
         "type": "message"
+    },
+    {
+        "ts": "1563243381.100300",
+        "text": "おそらく無理だろうと思うのですが、何か妙案や回避策があったら教えてください :pray:\n↓みたいな定義の型の値を、IOをなるべく行わないテスト用に作りたくなったとします。\n\n```\ndata Client = Client {\n    clientConnection :: SomeConnectionToExternalService\n  , clientState :: IORef SomeState\n}\n```\n\nこのうち、 `clientState` の変化についてテストするために `Client` の値を作ろうとしたのですが、\n`clientConnection` については、 `IO` を伴わずに生成するのが難しいので、 `error` 関数を使って無効な値で埋めておき、テスト時には一切参照しない、ということにしました。\n\nしかし、この `clientConnection` フィールドが `StrictData` 拡張などを使って `Client` 定義時に正格に評価されるフィールドとして定義されていた場合、必ず `error` 関数が評価され、テストが実行できません。\n\nこういう場合において、 `Client` や `SomeConnectionToExternalService` の *型定義を変えずに* `clientConnection` を `undefined` などの簡単に作れる値で埋めつつテストを実行することはできないでしょうか？\n\nあるいは、そもそもそうならないようにうまいこと設計するのがいいんでしょうけども...\n頭の中でうまく一般化できません。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1563243605.100800",
+        "text": "よくあるオブジェクト指向言語で、 stub や mock を作る問題と本質的に同じ問題だと思うのですが、Haskellでどうそれを達成したものか...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1563243962.101000",
+        "text": "何もしない `SomeConnectionToExternalService` をテスト時にIO伴う形で作ってそれを入れておくというのはどうでしょう。 `SomeConnectionToExternalService` がどんな型なのかわからないとなんとも言えませんが",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1563244625.101300",
+        "text": "確かに。 `SomeConnectionToExternalService` の側を作りやすいように変えるのが一番応用が利いて良さそうですね... 現行の実装だと\n- `withSomeConnectionToExternalService` みたいないわゆるwith系の関数を伴わないと作れない\n- 作成時にバックグラウンドで動くスレッドを作る\n\nといった重い部分があるので避けていたのですが、そっちから変えましょう。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1563245410.101500",
+        "text": "unsafeCoerceで誤魔化すと上手く行ったりしないでしょうか(試してないので分かりませんが)",
+        "user": "U560KD6DN",
+        "type": "message"
+    },
+    {
+        "ts": "1563246763.101800",
+        "text": "(Haskeller型大好きな癖に型検査器を騙すことばっか考えてるな)",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1563247386.102200",
+        "text": "<https://twitter.com/cutsea110/status/1150965674392428544>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1563248351.102900",
+        "text": "`data Client h = Client (h Connection) (h (IORef SomeState))` のようなHKDにして、`h` にテスト用の構造に変化させる型をはめるのとかはいかがでしょう？",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1563249173.103400",
+        "text": "それもそれでいろいろ応用が利いて面白そうですが、型定義を変える手間を思うとStrictDataやめた方が簡単そうですね…:sweat:\n少なくとも今回に関してはどうせ数個しか作らない値なので、リークしたところで全く問題にならないはずだし…",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1563252296.103700",
+        "text": "`unsafeCoerce`, どうせ `error` と大して変わらんやろ、と思いつつ試してみたらイケそうですね... :open_mouth:\n<https://ideone.com/MYims5>\n\n```\n{-# LANGUAGE StrictData #-}\n\nimport Unsafe.Coerce\n\ndata Hoge = Hoge\n  { foo1 :: Foo\n  , foo2 :: Foo\n  }\n\ndata Foo = Foo Int Int deriving Show\n\nmain :: IO ()\nmain = print . foo2 $ Hoge (unsafeCoerce ()) (Foo 1 2)\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1563266166.104100",
+        "text": "俺は騙そうとしないぞ.\n<https://haskell-jp.slack.com/archives/C5666B6BB/p1563246763101800?thread_ts=1563243381.100300&amp;cid=C5666B6BB>",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1563266303.104900",
+        "text": "結局最後まで騙しきれない.と思うから.",
+        "user": "U4MMHDSNT",
+        "type": "message"
     }
 ]

@@ -250,5 +250,11 @@
         "text": "すげぇくわしそう <https://haskell.e-bigmoon.com/posts/2019/07-14-megaparsec-tutorial.html>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1563259076.114700",
+        "text": "overloaded record fields 使ってみたんだけどハマって、それは型検査される箇所で `#foo` なら `foo` フィールドがスコープにないといけないことだった。\n`foo` をフィールドに持つが露出しないレコードと、 `IsLabel \"foo\" a` な制約を持つ関数を露出するとき、その関数を「使う」ところで `foo` がスコープにないといけなかった。\n`#foo` と書いているのはモジュールの中に閉じているにもかかわらず。\n<https://github.com/ghc-proposals/ghc-proposals/blob/7790b73fa685f42773b895a11845a40916839a27/proposals/0002-overloaded-record-fields.rst#solving-hasfield-constraints>",
+        "user": "U4L0B71L1",
+        "type": "message"
     }
 ]
