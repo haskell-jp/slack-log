@@ -256,5 +256,47 @@
         "text": "overloaded record fields 使ってみたんだけどハマって、それは型検査される箇所で `#foo` なら `foo` フィールドがスコープにないといけないことだった。\n`foo` をフィールドに持つが露出しないレコードと、 `IsLabel \"foo\" a` な制約を持つ関数を露出するとき、その関数を「使う」ところで `foo` がスコープにないといけなかった。\n`#foo` と書いているのはモジュールの中に閉じているにもかかわらず。\n<https://github.com/ghc-proposals/ghc-proposals/blob/7790b73fa685f42773b895a11845a40916839a27/proposals/0002-overloaded-record-fields.rst#solving-hasfield-constraints>",
         "user": "U4L0B71L1",
         "type": "message"
+    },
+    {
+        "ts": "1563328807.116600",
+        "text": "State Monadマジ戻り値の順番どっちが結果でどっちが状態かわからなくなりますね...。Stackageで検索したらすごい紛らわしいのがヒットしてハマりました... :angry:\n偽物: <https://www.stackage.org/haddock/lts-13.28/containers-0.6.0.1/Data-Sequence-Internal.html#t:State>\n本物: <https://www.stackage.org/haddock/lts-13.28/transformers-0.5.6.2/Control-Monad-Trans-State-Lazy.html#t:StateT>\nなんでcontainersパッケージが `State` を公開してるんだ... :cry:\nと思ったらこれInternalだからってことか...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1563329050.116800",
+        "text": "はてどこに文句を言うべきか...\n- containersパッケージ？\n- Stackage？\n- Hoogle？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1563329610.117000",
+        "text": "どこに文句言うのも筋違いでは",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1563330760.117400",
+        "text": "<@UL5BYTF4J> has joined the channel",
+        "user": "UL5BYTF4J",
+        "type": "message"
+    },
+    {
+        "ts": "1563331330.117600",
+        "text": "なぜ？例えばInternalなモジュールをデフォルトで検索結果から避けるとかはできると思うんですけども",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1563332854.117800",
+        "text": "newtypeされてるから関係ないんですけど、偽物の方が `(,) s a` の順番になってて部分適用しやすそうなのが余計罠っぽいですね",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1563333024.118100",
+        "text": "付け加えると、 `runState` で検索したとき偽物の方が先頭にヒットした、というのも大きな理由です。 :disappointed:\n<https://www.stackage.org/lts-13.28/hoogle?q=runState>\n<https://hoogle.haskell.org/?hoogle=runState>",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
