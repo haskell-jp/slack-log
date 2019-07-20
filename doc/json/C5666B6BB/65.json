@@ -100,5 +100,23 @@
         "text": "<@ULJNCPK5W> has joined the channel",
         "user": "ULJNCPK5W",
         "type": "message"
+    },
+    {
+        "ts": "1563522280.119300",
+        "text": "GHC.TypeLits を使ってNat上の型レベルかけ算をしようとして，失敗してます．\nなにか勘違いしてますかねぇ．\n```\n% stack exec -- ghci\nGHCi, version 8.6.5: <http://www.haskell.org/ghc/>  :? for help\nLoaded GHCi configuration from /home/nobsun/.ghci\n&gt; :set -XDataKinds\n&gt; :set -XTypeOperator\n&gt; :kind! 2 + 3\n2 + 3 :: Nat\n= 5\n&gt; :kind! 2 * 3\n\n&lt;interactive&gt;:1:1: error:\n    • Expected kind ‘* -&gt; Nat -&gt; k0’, but ‘2’ has kind ‘Nat’\n    • In the type ‘2 * 3’\n```",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1563522660.119500",
+        "text": "GHC 8.6で型レベル `*` を演算子として使うには `NoStarIsType` 拡張が必要です。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1563522909.121000",
+        "text": "```\n&gt; :set -XNoStarIsType\n&gt; :kind! 2 * 3\n2 * 3 :: Nat\n= 6\n```\nありがとうございます．",
+        "user": "U4KU9ABL0",
+        "type": "message"
     }
 ]
