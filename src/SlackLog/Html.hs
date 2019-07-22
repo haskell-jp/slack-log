@@ -9,6 +9,7 @@
 module SlackLog.Html
   ( convertJsonsInChannel
   , generateIndexHtml
+  , collectTargetJsons
   , renderSlackMessages
   , renderIndexOfPages
   , loadWorkspaceInfo
@@ -23,6 +24,7 @@ import           Control.Monad           ((<=<))
 import qualified Data.Aeson              as Json
 import qualified Data.ByteString.Lazy    as BL
 import           Data.Char               (isDigit)
+import           Data.Foldable           (for_)
 import qualified Data.HashMap.Strict     as HM
 import           Data.List               (sortOn)
 import           Data.Maybe              (fromMaybe)
@@ -31,7 +33,6 @@ import qualified Data.Time.Clock         as TC
 import qualified Data.Time.Format        as TF
 import qualified Data.Time.LocalTime     as LT
 import qualified Data.Time.Zones         as TZ
-import           Data.Traversable        (for)
 import           Html                    (( # ))
 import qualified Html                    as H
 import qualified Html.Attribute          as A
@@ -63,24 +64,25 @@ data WorkspaceInfo = WorkspaceInfo
   }
 
 
-convertJsonsInChannel :: WorkspaceInfo -> ChannelId -> IO [FilePath]
-convertJsonsInChannel ws chanId = do
+collectTargetJsons :: ChannelId -> IO [FilePath]
+collectTargetJsons = Dir.listDirectory . ("json" </>) . T.unpack
+
+
+convertJsonsInChannel :: WorkspaceInfo -> ChannelId -> [FilePath] -> IO ()
+convertJsonsInChannel ws chanId jsonPaths = do
   let channelIdStr = T.unpack chanId
 
   Dir.createDirectoryIfMissing True $ "html" </> channelIdStr
 
   putStrLn channelIdStr
 
-  triples
-    <- putBetweenPreviousAndNext
-    .   sortOn parsePageNumber
-    <$> Dir.listDirectory ("json" </> channelIdStr)
+  let triples =
+        putBetweenPreviousAndNext $ sortOn parsePageNumber jsonPaths
 
-  for triples $ \(mPrev, name, mNext) -> do
+  for_ triples $ \(mPrev, name, mNext) -> do
     let pg = PageInfo name mPrev mNext chanId
     putStrLn $ "  " ++ show pg
     convertToHtmlFile ws pg
-    return name
 
 
 -- | Assumes this function is executed in doc/ directory

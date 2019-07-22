@@ -27,7 +27,8 @@ main = Dir.withCurrentDirectory "doc" $ do
   logConfig <- readJsonFile "json/.config.json"
 
   namesByChannel <- for (HM.keys $ targetChannels logConfig) $ \chanId -> do
-    names <- convertJsonsInChannel ws chanId
-    return (chanId, names)
+    jsonPaths <- collectTargetJsons chanId
+    convertJsonsInChannel ws chanId jsonPaths
+    return (chanId, jsonPaths)
 
   generateIndexHtml ws namesByChannel

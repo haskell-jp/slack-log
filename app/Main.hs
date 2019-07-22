@@ -29,6 +29,7 @@ import           Control.Monad.Reader     (runReaderT)
 import qualified Data.Aeson.Encode.Pretty as Json
 import qualified Data.ByteString.Lazy     as BL
 import qualified Data.HashMap.Strict      as HM
+import           Data.List                (unzip)
 import           Data.Maybe               (fromMaybe, maybeToList)
 import           Data.Monoid              ((<>))
 import qualified Data.Text                as T
@@ -50,8 +51,7 @@ import qualified Web.Slack.Common         as Slack
 import qualified Web.Slack.Group          as Group
 import qualified Web.Slack.User           as User
 
-import           SlackLog.Html            (WorkspaceInfo, convertJsonsInChannel,
-                                           generateIndexHtml, loadWorkspaceInfo)
+import           SlackLog.Html
 import           SlackLog.Pagination      (chooseLatestPageOf, defaultPageSize,
                                            paginateFiles)
 import           SlackLog.Types           (ChannelId, TargetChannels,
@@ -98,10 +98,15 @@ main = do
     saveUsersList apiConfig
     saveGroupsList apiConfig targets
 
-    newNamesAndTss <- for (HM.toList targets) (uncurry $ saveChannel apiConfig ws oldTss)
+    saveResult <- for (HM.toList targets) $ \(chanId, vis) -> do
+      newTs <- saveChannel apiConfig oldTss chanId vis
 
-    let newTss = HM.fromList $ map (\(chanId, _names, ts) -> (chanId, ts)) newNamesAndTss
-        newNames = map (\(chanId, names, _ts) -> (chanId, names)) newNamesAndTss
+      jsonPaths <- collectTargetJsons chanId
+      convertJsonsInChannel ws chanId jsonPaths
+
+      return ((chanId, newTs), (chanId, jsonPaths))
+
+    let (newTss, newNames) = Arrow.first HM.fromList $ unzip saveResult
 
     BL.writeFile "json/.timestamps.json" $ Json.encodePretty newTss
 
@@ -150,38 +155,42 @@ saveGroupsList apiConfig targets =
         hPrint stderr err
 
 
-saveChannel :: Slack.SlackConfig -> WorkspaceInfo -> TimestampsByChannel -> ChannelId -> Visibility -> IO (ChannelId, [FilePath], Slack.SlackTimestamp)
-saveChannel cfg ws tss channelId vis = do
+saveChannel
+  :: Slack.SlackConfig
+  -> TimestampsByChannel
+  -> ChannelId
+  -> Visibility
+  -> IO Slack.SlackTimestamp
+saveChannel cfg tss chanId vis = do
   new <- Slack.mkSlackTimestamp <$> getCurrentTime
-  let old = fromMaybe (Slack.mkSlackTimestamp $ UTCTime (fromGregorian 2017 1 1) 0) (HM.lookup channelId tss)
+  let old = fromMaybe (Slack.mkSlackTimestamp $ UTCTime (fromGregorian 2017 1 1) 0) (HM.lookup chanId tss)
   print old
   let hist =
         case vis of
             Private -> Slack.groupsHistory
             Public  -> Slack.channelsHistory
-  res <- runReaderT (Slack.historyFetchAll hist channelId 100 old new) cfg
+  res <- runReaderT (Slack.historyFetchAll hist chanId 100 old new) cfg
   case res of
       Right body -> do
         let msgs = Slack.historyRspMessages body
             mbLatestTs = Slack.messageTs <$> headMay msgs
         case mbLatestTs of
             Just latestTs -> do
-              addMessagesToChannelDirectory channelId msgs
-              names <- convertJsonsInChannel ws channelId
-              return (channelId, names, latestTs)
+              addMessagesToChannelDirectory chanId msgs
+              return latestTs
             Nothing -> do
-              hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show channelId ++ ": " ++ "Can't get latest timestamp!"
-              return (channelId, [], old)
+              hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show chanId ++ ": " ++ "Can't get latest timestamp!"
+              return old
       Left err -> do
-        hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show channelId ++ ":"
+        hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show chanId ++ ":"
         hPrint stderr err
-        return (channelId, [], old)
+        return old
 
 
 addMessagesToChannelDirectory :: ChannelId -> [Slack.Message] -> IO ()
-addMessagesToChannelDirectory channelId msgs = do
+addMessagesToChannelDirectory chanId msgs = do
   Dir.withCurrentDirectory "json" $ do
-    let channelNameS = T.unpack channelId
+    let channelNameS = T.unpack chanId
         tmpFileName = channelNameS <> "-tmp.json"
     BL.writeFile tmpFileName $ Json.encodePretty (reverse msgs)
     Dir.createDirectoryIfMissing False channelNameS
