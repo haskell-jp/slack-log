@@ -44,7 +44,6 @@ import           System.FilePath          ((</>))
 import           System.IO                (BufferMode (NoBuffering), hGetEcho,
                                            hPrint, hPutStrLn, hSetBuffering,
                                            hSetEcho, stderr, stdin, stdout)
-import qualified System.Process.Typed     as P
 import qualified Web.Slack                as Slack
 import qualified Web.Slack.Channel        as Channel
 import qualified Web.Slack.Common         as Slack
@@ -110,8 +109,7 @@ main = do
 
     BL.writeFile "json/.timestamps.json" $ Json.encodePretty newTss
 
-    when (oldTss /=  newTss) $ do
-      gitPushMessageLog
+    when (oldTss /=  newTss) $
       generateIndexHtml ws newNames
 
 
@@ -205,11 +203,3 @@ addMessagesToChannelDirectory chanId msgs = do
     --           messages are fetched.
     paginateFiles defaultPageSize basePageNum channelNameS (maybeToList mLatestPageFileName ++ [tmpFileName])
     Dir.removeFile tmpFileName
-
-
-gitPushMessageLog :: IO ()
-gitPushMessageLog = do
-  P.runProcess_ $ P.proc "git" ["add", "."]
-  now <- getCurrentTime
-  P.runProcess_ $ P.proc "git" ["commit", "-m", "Slack log update at " ++ show now]
-  P.runProcess_ $ P.proc "git" ["push"]
