@@ -154,5 +154,83 @@
         "text": "<@ULN5BGD7W> has joined the channel",
         "user": "ULN5BGD7W",
         "type": "message"
+    },
+    {
+        "ts": "1563853567.007200",
+        "text": "例えば， `len :: Int` の時，\n```\nlast $ take len $ cycle [1..100::Int]\n```\nは `cycle=cycle2` ならば二つの `Int#` に関する単純なループに展開されます． `cycle=Data.List.cycle` ならば `take len` が ~`cycle` で出てきたリストを食いつぶす（consして直ちにパターンマッチで消費する）~ ヒープ上に存在し続ける `cycle [1..100]` を舐め回すコードになりますね．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1563857289.007600",
+        "text": "実行速度とかアロケーション量に大きな差がでますか？",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1563860504.007800",
+        "text": "このコードを\n```\n$ ghc -O2 CycleTest.hs\n$ time ./CycleTest &gt; dev/null\n```\nで実行すると，手元環境(MacBook Pro 2017, 8GB memory)で\n```\nreal\t0m12.438s\nuser\t0m12.189s\nsys\t0m0.021s\n```\nになりますが，myCycleをcycleに書き換えて実行すると\n```\nreal\t0m35.823s\nuser\t0m34.861s\nsys\t0m0.087s\n```\nになります．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1563860905.008400",
+        "text": "多分 `rep = 1, cycleLen = 107` では，いくら `takenLen` を大きくしても， `cycle` のresultがGCが必要なほど長くならず，固定されたcircular listをunconsしてるだけになるので，そこまで遅くはなりません．allocation量はそこまで大きくならないだろうと想像します．\nここでは `rep` を大きくすることで，allocationが増大し，GCをtriggerして時間がかかるようになったんだと思います．(memory usage analysisをやってないので，正確なことはわかりませんが）",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1563861313.008700",
+        "text": "まあ，早くなるかあんまり改善しないだけなんだったら，気づいてないんだろうから普通にpull-req投げちゃおうかな，と思っているんですが，パフォーマンスを悪化させるケースがあったら怖いんですよねえ…．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1563861926.009300",
+        "text": "上の返信の内容を訂正しました．cycleによって構成されるリストがfoldr/build fusionによる生成抑制を受けないというのは，ポインタレベルでcircularなリストがヒープに生成されて，使用されている間中保存され続けるということですので、適当なことを言っていました．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1563865653.009900",
+        "text": "<@ULBC77RC3> has joined the channel",
+        "user": "ULBC77RC3",
+        "type": "message"
+    },
+    {
+        "ts": "1563870287.011100",
+        "text": "Alternativeのあの演算子 `&lt;|&gt;` ってなんて発音しますか？\n演算子の発音と言えばおなじみの <https://wiki.haskell.org/Pronunciation> には載ってませんでした... :cry:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1563870405.011200",
+        "text": "すみません、ちょっと検索方法を変えてみたら <https://stackoverflow.com/questions/7746894/are-there-pronounceable-names-for-common-haskell-operators> という回答がありました。\n\"or\" か \"alternative\", と。確かに違和感ない。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1563872139.011600",
+        "text": "私はただ「or」って読んでましたが、気になりますね",
+        "user": "ULKNZRRSS",
+        "type": "message"
+    },
+    {
+        "ts": "1563874770.013300",
+        "text": "演算子だけを敢えて口にするときは 「less than pipe greater than」と言ってましたが。。。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1563876754.014000",
+        "text": "<http://hackage.haskell.org/package/stm-2.5.0.0/docs/Control-Monad-STM.html#v:orElse> stmにはorElseというシノニム関数があるので、or elseと呼んでいます",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1563887264.014900",
+        "text": "自分もor elseって呼んでますね…",
+        "user": "ULBC77RC3",
+        "type": "message"
     }
 ]
