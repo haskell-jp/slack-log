@@ -4,7 +4,6 @@ module Web.Slack.InstancesSpec
 
 
 import qualified Data.Aeson            as Json
-import           Debug.NoTrace
 import           Test.Hspec
 import           Test.Hspec.QuickCheck
 import qualified Web.Slack.Common      as Slack
@@ -15,5 +14,5 @@ spec :: Spec
 spec =
   describe "ToJSON Instance of Slack.Message" $
     prop "the encoded json is decoded as " $ \msg -> do
-      actual <- either fail return $ Json.eitherDecode $ traceShowId $ Json.encode msg
+      actual <- either fail return $ Json.eitherDecode $ Json.encode msg
       actual `shouldBe` (msg :: Slack.Message)

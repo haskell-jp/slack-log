@@ -26,11 +26,11 @@ import           Control.Exception        (bracket)
 import           Control.Monad            (when)
 import           Control.Monad.IO.Class   (liftIO)
 import           Control.Monad.Reader     (runReaderT)
-import qualified Data.Aeson               as Json
 import qualified Data.Aeson.Encode.Pretty as Json
 import qualified Data.ByteString.Lazy     as BL
 import qualified Data.HashMap.Strict      as HM
-import           Data.Maybe               (fromMaybe)
+import           Data.List                (unzip)
+import           Data.Maybe               (fromMaybe, maybeToList)
 import           Data.Monoid              ((<>))
 import qualified Data.Text                as T
 import qualified Data.Text.IO             as T
@@ -44,14 +44,19 @@ import           System.FilePath          ((</>))
 import           System.IO                (BufferMode (NoBuffering), hGetEcho,
                                            hPrint, hPutStrLn, hSetBuffering,
                                            hSetEcho, stderr, stdin, stdout)
-import qualified System.Process.Typed     as P
 import qualified Web.Slack                as Slack
 import qualified Web.Slack.Channel        as Channel
 import qualified Web.Slack.Common         as Slack
+import qualified Web.Slack.Group          as Group
 import qualified Web.Slack.User           as User
 
+import           SlackLog.Html
 import           SlackLog.Pagination      (chooseLatestPageOf, defaultPageSize,
                                            paginateFiles)
+import           SlackLog.Types           (ChannelId, TargetChannels,
+                                           Visibility (Private, Public),
+                                           targetChannels)
+import           SlackLog.Util            (failWhenLeft, readJsonFile)
 import           Web.Slack.Instances      ()
 
 
@@ -70,31 +75,7 @@ instance FromEnv EnvArgs where
         putStrLn ""
         return t
 
-type ChannelName = T.Text
-
-data Visibility = Private | Public deriving (Eq, Show)
-
-
-targetChannels :: [(ChannelName, Visibility)]
-targetChannels =
-  [ ("C8KBGEBR7", Public)  -- code-review
-  , ("C4P499EPQ", Public)  -- english
-  , ("C4LFB6DE0", Public)  -- general
-  , ("CAXQ09PN2", Public)  -- haskell-day
-  , ("C7Y71415W", Public)  -- math
-  , ("C5666B6BB", Public)  -- questions
-  , ("C4M4TT8JJ", Public)  -- random
-  , ("C8R0H137H", Public)  -- translation
-  , ("CCYF8H43A", Public)  -- nix
-  , ("CD87P78HF", Public)  -- mmlh
-  , ("CE368SB5G", Public)  -- ghc8x
-  , ("CGT2Q4KHP", Public)  -- hatchobori-haskell
-  , ("GDTFWM8KX", Private) -- haskell-day-staff
-  , ("CL3AXB1AL", Public)  -- atcoder-lang-update
-  ]
-
-
-type TimestampsByChannel = HM.HashMap T.Text Slack.SlackTimestamp
+type TimestampsByChannel = HM.HashMap ChannelId Slack.SlackTimestamp
 
 
 main :: IO ()
@@ -103,85 +84,122 @@ main = do
   hSetBuffering stdout NoBuffering
   hSetBuffering stderr NoBuffering
 
-  config <- Slack.mkSlackConfig =<< slackApiToken <$> (failWhenLeft =<< decodeEnv)
-  tss <- readLastTimestampsOrDefault ".timestamps.json"
-  newTss <- HM.fromList <$> for targetChannels (uncurry $ saveChannel config tss)
+  apiConfig <- Slack.mkSlackConfig =<< slackApiToken <$> (failWhenLeft =<< decodeEnv)
 
-  BL.writeFile ".timestamps.json" $ Json.encodePretty newTss
+  Dir.withCurrentDirectory "doc" $ do
+    ws <- loadWorkspaceInfo "json"
+    oldTss <- readJsonFile "json/.timestamps.json"
+    targets <- targetChannels <$> readJsonFile "json/.config.json"
 
+    -- These actions have to be performed before generating HTMLs.
+    -- Because generating HTMLs requires channelsByName, usersByName, groupsByName
+    saveChannelsList apiConfig
+    saveUsersList apiConfig
+    saveGroupsList apiConfig targets
+
+    saveResult <- for (HM.toList targets) $ \(chanId, vis) -> do
+      newTs <- saveChannel apiConfig oldTss chanId vis
+
+      jsonPaths <- collectTargetJsons chanId
+      convertJsonsInChannel ws chanId jsonPaths
+
+      return ((chanId, newTs), (chanId, jsonPaths))
+
+    let (newTss, newNames) = Arrow.first HM.fromList $ unzip saveResult
+
+    BL.writeFile "json/.timestamps.json" $ Json.encodePretty newTss
+
+    when (oldTss /=  newTss) $
+      generateIndexHtml ws newNames
+
+
+saveChannelsList, saveUsersList :: Slack.SlackConfig -> IO ()
+
+saveChannelsList apiConfig =
   Slack.channelsList (Channel.ListReq (Just True) (Just False))
-    `runReaderT` config >>= \case
+    `runReaderT` apiConfig >>= \case
       Right (Channel.ListRsp chs) -> do
         let channelsByName = HM.fromList $ map ((,) <$> Channel.channelId <*> Channel.channelName) chs
-        BL.writeFile "doc/json/.channels.json" $ Json.encodePretty channelsByName
+        BL.writeFile "json/.channels.json" $ Json.encodePretty channelsByName
       Left err -> do
         hPutStrLn stderr "WARNING: Error when fetching the list of channels:"
         hPrint stderr err
 
+saveUsersList apiConfig =
   Slack.usersList
-    `runReaderT` config >>= \case
+    `runReaderT` apiConfig >>= \case
       Right (User.ListRsp us) -> do
         let usersByName = HM.fromList $ map ((,) <$> Slack.unUserId . User.userId <*> User.userName) us
-        BL.writeFile "doc/json/.users.json" $ Json.encodePretty usersByName
+        BL.writeFile "json/.users.json" $ Json.encodePretty usersByName
       Left err -> do
         hPutStrLn stderr "WARNING: Error when fetching the list of users:"
         hPrint stderr err
 
-  when (tss /= newTss) gitPushMessageLog
+saveGroupsList :: Slack.SlackConfig -> TargetChannels -> IO ()
+saveGroupsList apiConfig targets =
+  Slack.groupsList
+    `runReaderT` apiConfig >>= \case
+      Right (Group.ListRsp chs) -> do
+        -- Groups (private channels) should be saved only
+        -- if specified in 'targetChannels' to hide their group names.
+        let groupsByName =
+              HM.fromList
+                . filter ((`HM.member` targets) . fst)
+                $ map ((,) <$> Group.groupId <*> Group.groupName) chs
+        -- Save groups separately from channels to avoid to save empty hash when error.
+        BL.writeFile "json/.groups.json" $ Json.encodePretty groupsByName
+      Left err -> do
+        hPutStrLn stderr "WARNING: Error when fetching the list of channels:"
+        hPrint stderr err
 
 
-readLastTimestampsOrDefault :: FilePath -> IO TimestampsByChannel
-readLastTimestampsOrDefault path = do
-  result <- Json.eitherDecode <$> BL.readFile path
-  case result of
-      Right tbc -> return tbc
-      Left err  -> fail $ "Error reading \"" ++ path ++ "\"\n" ++ show err
-
-
-saveChannel :: Slack.SlackConfig -> TimestampsByChannel -> ChannelName -> Visibility -> IO (T.Text, Slack.SlackTimestamp)
-saveChannel cfg tss channelName vis = Dir.withCurrentDirectory "doc/json" $ do
+saveChannel
+  :: Slack.SlackConfig
+  -> TimestampsByChannel
+  -> ChannelId
+  -> Visibility
+  -> IO Slack.SlackTimestamp
+saveChannel cfg tss chanId vis = do
   new <- Slack.mkSlackTimestamp <$> getCurrentTime
-  let old = fromMaybe (Slack.mkSlackTimestamp $ UTCTime (fromGregorian 2017 1 1) 0) (HM.lookup channelName tss)
+  let old = fromMaybe (Slack.mkSlackTimestamp $ UTCTime (fromGregorian 2017 1 1) 0) (HM.lookup chanId tss)
   print old
   let hist =
         case vis of
             Private -> Slack.groupsHistory
-            Public -> Slack.channelsHistory
-  res <- runReaderT (Slack.historyFetchAll hist channelName 100 old new) cfg
+            Public  -> Slack.channelsHistory
+  res <- runReaderT (Slack.historyFetchAll hist chanId 100 old new) cfg
   case res of
       Right body -> do
         let msgs = Slack.historyRspMessages body
             mbLatestTs = Slack.messageTs <$> headMay msgs
         case mbLatestTs of
             Just latestTs -> do
-              let channelNameS = T.unpack channelName
-                  tmpFileName = channelNameS <> "-tmp.json"
-              BL.writeFile tmpFileName $ Json.encodePretty (reverse msgs)
-              Dir.createDirectoryIfMissing False channelNameS
-              channelDirItems <- Dir.listDirectory channelNameS
-              (latestPageFileNames, basePageNum) <-
-                if null channelDirItems
-                  then return ([], 1)
-                  else Arrow.first ((: []) . (channelNameS </>)) <$> chooseLatestPageOf channelDirItems
-              paginateFiles defaultPageSize basePageNum channelNameS (latestPageFileNames ++ [tmpFileName])
-              Dir.removeFile tmpFileName
-              return (channelName, latestTs)
-            _ -> do
-              hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show channelName ++ ": " ++ "Can't get latest timestamp!"
-              return (channelName, old)
+              addMessagesToChannelDirectory chanId msgs
+              return latestTs
+            Nothing -> do
+              hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show chanId ++ ": " ++ "Can't get latest timestamp!"
+              return old
       Left err -> do
-        hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show channelName ++ ":"
+        hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show chanId ++ ":"
         hPrint stderr err
-        return (channelName, old)
+        return old
 
 
-failWhenLeft :: Either String a -> IO a
-failWhenLeft = either fail return
+addMessagesToChannelDirectory :: ChannelId -> [Slack.Message] -> IO ()
+addMessagesToChannelDirectory chanId msgs = do
+  Dir.withCurrentDirectory "json" $ do
+    let channelNameS = T.unpack chanId
+        tmpFileName = channelNameS <> "-tmp.json"
+    BL.writeFile tmpFileName $ Json.encodePretty (reverse msgs)
+    Dir.createDirectoryIfMissing False channelNameS
 
-
-gitPushMessageLog :: IO ()
-gitPushMessageLog = do
-  P.runProcess_ $ P.proc "git" ["add", "./.timestamps.json", "./doc/"]
-  now <- getCurrentTime
-  P.runProcess_ $ P.proc "git" ["commit", "-m", "Slack log update at " ++ show now]
-  P.runProcess_ $ P.proc "git" ["push"]
+    channelDirItems <- Dir.listDirectory channelNameS
+    (mLatestPageFileName, basePageNum) <-
+      if null channelDirItems
+        then return (Nothing, 1)
+        else Arrow.first (Just . (channelNameS </>)) <$> chooseLatestPageOf channelDirItems
+    -- OPTIMIZE: Return updated/created JSON files so that `convertJsonsInChannel` can convert only them.
+    --           Current implementation of `convertJsonsInChannel` converts *all* JSON files anytime when
+    --           messages are fetched.
+    paginateFiles defaultPageSize basePageNum channelNameS (maybeToList mLatestPageFileName ++ [tmpFileName])
+    Dir.removeFile tmpFileName

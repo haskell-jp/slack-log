@@ -9,6 +9,8 @@ copyright:           "2018 Japan Haskell User Group"
 extra-source-files:
 - README.md
 - ChangeLog.md
+- test/assets/*.html
+- test/assets/json/id_of_random/*.json
 
 # Metadata used when publishing your package
 # synopsis:            Short description of your package
@@ -31,19 +33,22 @@ dependencies:
 - text
 - time
 - template-haskell
-- typed-process
+- tz
 - unordered-containers
 - QuickCheck
 - quickcheck-instances
 
 library:
   source-dirs: src
+  dependencies:
+  - type-of-html
 
 executables:
   slack-log:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
+    # TODO: Delete unnecessary options after testing
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
@@ -52,10 +57,11 @@ executables:
   paginate-old-jsons:
     main:                paginate-old-jsons.hs
     source-dirs:         app
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
+    dependencies:
+    - slack-log
+  convert-old-jsons-to-htmls:
+    main:                convert-old-jsons-to-htmls.hs
+    source-dirs:         app
     dependencies:
     - slack-log
 
@@ -63,10 +69,6 @@ tests:
   slack-log-test:
     main:                Spec.hs
     source-dirs:         test
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
     dependencies:
     - slack-log
     - hspec
