@@ -40,5 +40,35 @@
         "text": "<@ULTR03388> has joined the channel",
         "user": "ULTR03388",
         "type": "message"
+    },
+    {
+        "ts": "1564207277.033100",
+        "text": "<@ULGDZNXS7> has joined the channel",
+        "user": "ULGDZNXS7",
+        "type": "message"
+    },
+    {
+        "ts": "1564208415.033400",
+        "text": "<@ULGE3QW5R> has joined the channel",
+        "user": "ULGE3QW5R",
+        "type": "message"
+    },
+    {
+        "ts": "1564213476.035800",
+        "text": "質問です :raising_hand:\ncassavaを使ってCSV をパースした結果をextensibleのRecordにしようとしてるのですが\n```\nreadCSV :: WrapForall Csv.FromField Vector xs =&gt; FilePath -&gt; IO (RecordOf Vector xs)\nreadCSV filepath = do\n    csvBs &lt;- BL.readFile filepath\n    case Csv.decode Csv.HasHeader csvBs :: Either String (Vector (Record xs)) of\n        Left reason -&gt; error reason\n        Right vs -&gt; undefined\n```\n以下のような感じでカインドが合わないと怒られてしまいます…\n```\n....hs:36:82: error:\n    • Expected kind '[membership-0:Type.Membership.Internal.Assoc\n                        k0 *]',\n        but 'xs' has kind '[*]'\n    • In the second argument of 'RecordOf', namely 'xs'\n      In the first argument of 'IO', namely '(RecordOf Vector xs)'\n      In the type signature:\n        readCSV :: WrapForall Csv.FromField Vector xs =&gt;\n                   FilePath -&gt; IO (RecordOf Vector xs)\n   |\n36 | readCSV :: WrapForall Csv.FromField Vector xs =&gt; FilePath -&gt; IO (RecordOf Vector xs)\n   |   \n```\nどなたか対処方法を教えていただけませんでしょうか :bow:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1564213875.036200",
+        "text": "<@U4LGTMTMK>\n```\n{-# LANGUAGE PolyKinds #-}\n```\n試したけどできず…",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1564213935.036400",
+        "text": "`WrapForall Csv.FromField Vector`がxsの種を `[*]` に固定する原因となっています。 `Forall (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs`としてはどうでしょう",
+        "user": "U4KUNQF9N",
+        "type": "message"
     }
 ]
