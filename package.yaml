@@ -59,6 +59,13 @@ executables:
     source-dirs:         app
     dependencies:
     - slack-log
+  devserver:
+    main:                app/devserver.hs
+    dependencies:
+    - warp
+    - wai
+    - http-types
+    - utf8-string
 
 tests:
   slack-log-test:
