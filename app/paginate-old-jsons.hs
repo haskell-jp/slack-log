@@ -10,7 +10,7 @@ import           SlackLog.Pagination
 
 main :: IO ()
 main = do
-  Dir.setCurrentDirectory "doc/json"
+  Dir.setCurrentDirectory "docs/json"
   channelLogPaths <- filterM isMessageLogJson =<< Dir.listDirectory "."
   let logPathsByChannel =
         groupBy (\x -> (== EQ) . comparing extractChannelName x)

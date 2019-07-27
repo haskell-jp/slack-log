@@ -86,7 +86,7 @@ main = do
 
   apiConfig <- Slack.mkSlackConfig =<< slackApiToken <$> (failWhenLeft =<< decodeEnv)
 
-  Dir.withCurrentDirectory "doc" $ do
+  Dir.withCurrentDirectory "docs" $ do
     ws <- loadWorkspaceInfo "json"
     oldTss <- readJsonFile "json/.timestamps.json"
     targets <- targetChannels <$> readJsonFile "json/.config.json"

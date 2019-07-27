@@ -22,7 +22,7 @@ import           SlackLog.Util        (readJsonFile)
 import qualified System.Directory     as Dir
 
 main :: IO ()
-main = Dir.withCurrentDirectory "doc" $ do
+main = Dir.withCurrentDirectory "docs" $ do
   ws <- loadWorkspaceInfo "json"
   logConfig <- readJsonFile "json/.config.json"
 

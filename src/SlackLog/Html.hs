@@ -6,6 +6,8 @@
 {-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE StrictData        #-}
 
+-- | Assumes functions in this module are executed in doc/ directory
+
 module SlackLog.Html
   ( convertJsonsInChannel
   , generateIndexHtml
@@ -85,7 +87,6 @@ convertJsonsInChannel ws chanId jsonPaths = do
     convertToHtmlFile ws pg
 
 
--- | Assumes this function is executed in doc/ directory
 convertToHtmlFile :: WorkspaceInfo -> PageInfo -> IO ()
 convertToHtmlFile ws pg =
   BL.writeFile htmlPath =<< renderSlackMessages ws pg
@@ -159,7 +160,6 @@ renderSlackMessages wsi@WorkspaceInfo {..} PageInfo {..} =
       in TF.formatTime TF.defaultTimeLocale "%Y-%m-%d<br/>%T %z" lt
 
 
--- | Assumes this function is executed in doc/ directory
 loadWorkspaceInfo :: FilePath -> IO WorkspaceInfo
 loadWorkspaceInfo dir = do
   userNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".users.json")
