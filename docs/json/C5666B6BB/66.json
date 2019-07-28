@@ -70,5 +70,113 @@
         "text": "`WrapForall Csv.FromField Vector`がxsの種を `[*]` に固定する原因となっています。 `Forall (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs`としてはどうでしょう",
         "user": "U4KUNQF9N",
         "type": "message"
+    },
+    {
+        "ts": "1564214375.037100",
+        "text": "<@U4KUNQF9N> ありがとうございます！今度は以下のようなエラーメッセージになりました:bow:\n```\n....hs:30:125: error:\n    • Expected kind '[membership-0:Type.Membership.Internal.Assoc\n                        * *]',\n        but 'xs' has kind '[membership-0:Type.Membership.Internal.Assoc\n                              ghc-prim-0.5.3:GHC.Types.Symbol *]'\n    • In the first argument of 'DataFrame', namely 'xs'\n      In the first argument of 'IO', namely '(DataFrame xs)'\n      In the type signature:\n        readCSV :: Forall (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs =&gt;\n                   FilePath -&gt; IO (DataFrame xs)\n```",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1564214540.037300",
+        "text": "今度こそPolyKinds事案に見えますね… :thinking_face:",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1564215334.037500",
+        "text": "PolyKindsを入れたらエラーが変わりました…！ :pray:\n```\nreadCSV :: Forall (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs =&gt; FilePath -&gt; IO (RecordOf Vector xs)\nreadCSV filepath = do\n    csvBs &lt;- BL.readFile filepath\n    case Csv.decode Csv.HasHeader csvBs :: Either String (Vector (Record xs)) of\n        Left reason -&gt; error reason\n        Right vs -&gt; undefined\n```\n\n```\n...hs:52:10: error:\n    • Could not deduce (Forall\n                          (Instance1 Csv.FromField (Field Identity)) xs1)\n        arising from a use of 'Csv.decode'\n      from the context: Forall\n                          (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs\n        bound by the type signature for:\n                   readCSV :: forall (xs :: [membership-0:Type.Membership.Internal.Assoc\n                                               ghc-prim-0.5.3:GHC.Types.Symbol *]).\n                              Forall\n                                (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs =&gt;\n                              FilePath -&gt; IO (RecordOf Vector xs)\n        at src/Data/Frame/Reader.hs:49:1-115\n    • In the expression:\n          Csv.decode Csv.HasHeader csvBs ::\n            Either String (Vector (Record xs))\n      In a stmt of a 'do' block:\n        case  Csv.decode Csv.HasHeader csvBs ::\n                Either String (Vector (Record xs))\n        of\n          Left reason -&gt; error reason\n          Right vs -&gt; undefined\n      In the expression:\n        do csvBs &lt;- BL.readFile filepath\n           case  Csv.decode Csv.HasHeader csvBs ::\n                   Either String (Vector (Record xs))\n           of\n             Left reason -&gt; error reason\n             Right vs -&gt; undefined\n   |\n52 |     case Csv.decode Csv.HasHeader csvBs :: Either String (Vector (Record xs)) of\n   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n```",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1564215360.037700",
+        "text": "インスタンスの導出が出来てない… :thinking_face:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1564215435.037900",
+        "text": "ScopedTypeVariablesとRankNTypesでxsを束縛していないような雰囲気…？",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1564215645.038100",
+        "text": "あ、LANGUAGEも含めて貼りますね :bow:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1564215690.038300",
+        "text": "```\n{-# LANGUAGE DataKinds #-}\n{-# LANGUAGE FlexibleContexts #-}\n{-# LANGUAGE PolyKinds #-}\n{-# LANGUAGE RankNTypes #-}\n{-# LANGUAGE ScopedTypeVariables #-}\n{-# LANGUAGE TypeOperators #-}\n\nmodule Data.Frame.Reader where\n\nimport qualified Data.ByteString.Lazy as BL\n\nimport qualified Data.Csv as Csv\nimport Data.Extensible \nimport Data.Vector (Vector)\n\nreadCSV :: forall xs. Forall (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs =&gt; FilePath -&gt; IO (RecordOf Vector xs)\nreadCSV filepath = do\n    csvBs &lt;- BL.readFile filepath\n    case Csv.decode Csv.HasHeader csvBs :: Either String (Vector (Record xs)) of\n        Left reason -&gt; error reason\n        Right vs -&gt; undefined\n```\n\n```\n.hs:19:10: error:\n    • Could not deduce (Forall\n                          (Instance1 Csv.FromField (Field Identity)) xs)\n        arising from a use of 'Csv.decode'\n      from the context: Forall\n                          (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs\n        bound by the type signature for:\n                   readCSV :: forall (xs :: [Assoc\n                                               ghc-prim-0.5.3:GHC.Types.Symbol *]).\n                              Forall\n                                (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs =&gt;\n                              FilePath -&gt; IO (RecordOf Vector xs)\n        at src/Data/Frame/Reader.hs:16:1-126\n    • In the expression:\n          Csv.decode Csv.HasHeader csvBs ::\n            Either String (Vector (Record xs))\n      In a stmt of a 'do' block:\n        case  Csv.decode Csv.HasHeader csvBs ::\n                Either String (Vector (Record xs))\n        of\n          Left reason -&gt; error reason\n          Right vs -&gt; undefined\n      In the expression:\n        do csvBs &lt;- BL.readFile filepath\n           case  Csv.decode Csv.HasHeader csvBs ::\n                   Either String (Vector (Record xs))\n           of\n             Left reason -&gt; error reason\n             Right vs -&gt; undefined\n```",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1564215718.038500",
+        "text": "現状このような感じです！",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1564216168.038700",
+        "text": "ああ、無名のレコードと互換性がないと言うだけのことでした！こんな感じにすると通ります ```\nreadCSV :: forall xs. Forall (KeyValue KnownSymbol (Instance1 Csv.FromField Identity)) xs =&gt; FilePath -&gt; IO (RecordOf Vector xs)\nreadCSV filepath = do\n    csvBs &lt;- BL.readFile filepath\n    case Csv.decodeByName csvBs :: Either String (Csv.Header, Vector (Record xs)) of\n        Left reason -&gt; error reason\n        Right vs -&gt; undefined\n```",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1564216303.038900",
+        "text": "通りました!!\nそうか、インスタンスにするべきは Vector じゃなくて Identity とだったんですね。\nいただいたコードを参考にしながら勉強します :pray:\nありがとうございました :bow:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1564216854.039100",
+        "text": "なるほど！\nFromRecord と FromNamedRecord の差ですか…！\n<https://gyazo.com/59a3a33419ebec83181cf24c6d42c972>\n\n今パースしたいCSV、ヘッダーついてないんですよね… :sweat_smile:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1564216965.039400",
+        "text": "CSVのByteStringの頭に無理やりヘッダー行追加するか :thinking_face:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1564218058.039600",
+        "text": "なるほど…その場合こんな感じですかね　```readCSV :: forall xs. (Forall (Instance1 Csv.FromField (Field Identity)) xs) =&gt; FilePath -&gt; IO (RecordOf Vector xs)\nreadCSV filepath = do\n    csvBs &lt;- BL.readFile filepath\n    case Csv.decode Csv.HasHeader csvBs :: Either String (Vector (Record xs)) of\n        Left reason -&gt; error reason\n        Right vs -&gt; undefined\n```",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1564218142.039800",
+        "text": "すごい！！出来るんですね！！\n型クラス制約の定義読んで勉強します :sob: :arigatougozaimasu:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1564218159.040000",
+        "text": "（手元でもコンパイル通りました!! :bow: ）",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1564218172.040300",
+        "text": "<@ULMGVGLP3> has joined the channel",
+        "user": "ULMGVGLP3",
+        "type": "message"
+    },
+    {
+        "ts": "1564274912.041100",
+        "text": "<@ULU4TAFLG> has joined the channel",
+        "user": "ULU4TAFLG",
+        "type": "message"
+    },
+    {
+        "ts": "1564303895.041500",
+        "text": "<@ULTPB579A> has joined the channel",
+        "user": "ULTPB579A",
+        "type": "message"
     }
 ]

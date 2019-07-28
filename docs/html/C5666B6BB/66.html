@@ -1,7 +1,7 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #66</title><link rel="stylesheet" href="/slack-log/messages.css" type="text/css" media="screen"></head><body><h1>haskell-jp / questions #66</h1><div class="pager"><a href="/slack-log/html/C5666B6BB/65.html" class="pager__previous">Previous</a><a href="/slack-log/" class="pager__top">Top</a></div><div class="message_list"><div class="message" id="message-1564031792.030700"><div class="message__timestamp">2019-07-25<br/>14:16:32 +0900</div><div class="message__header">notogawa</div><div class="message__body">型の上で計算するだけで終わりにしていいのならそのように大概のことはできるんですが，今やろうとしているのは証明であり，値レベルで云々する(≒singletonsとかでゴニョゴニョする)必要があります．たとえば，<br/><pre>
 sNatToNat' :: Sing n -&gt; Sing (ConvertNat n)
 sNat'ToNat :: Sing (ConvertNat n) -&gt; Sing n
-</pre><br/>みたいな部品が必要になると思いますが，コレを定義してやろうとすると正攻法では詰むと思います．</div></div><div class="message" id="message-1564183015.031300"><div class="message__timestamp">2019-07-27<br/>08:16:55 +0900</div><div class="message__header">shunkichi.sato</div><div class="message__body">@shunkichi.sato has joined the channel</div></div><div class="message" id="message-1564196017.031600"><div class="message__timestamp">2019-07-27<br/>11:53:37 +0900</div><div class="message__header">woodsondelhia88</div><div class="message__body">@woodsondelhia88 has joined the channel</div></div><div class="message" id="message-1564202852.031900"><div class="message__timestamp">2019-07-27<br/>13:47:32 +0900</div><div class="message__header">ogahiro0720</div><div class="message__body">@ogahiro0720 has joined the channel</div></div><div class="message" id="message-1564202948.032200"><div class="message__timestamp">2019-07-27<br/>13:49:08 +0900</div><div class="message__header">yama_aoi</div><div class="message__body">@yama_aoi has joined the channel</div></div><div class="message" id="message-1564202962.032500"><div class="message__timestamp">2019-07-27<br/>13:49:22 +0900</div><div class="message__header">cj.bc-sd</div><div class="message__body">@cj.bc-sd has joined the channel</div></div><div class="message" id="message-1564203079.032800"><div class="message__timestamp">2019-07-27<br/>13:51:19 +0900</div><div class="message__header">wuthering1118</div><div class="message__body">@wuthering1118 has joined the channel</div></div><div class="message" id="message-1564207277.033100"><div class="message__timestamp">2019-07-27<br/>15:01:17 +0900</div><div class="message__header">ULGDZNXS7</div><div class="message__body">@ULGDZNXS7 has joined the channel</div></div><div class="message" id="message-1564208415.033400"><div class="message__timestamp">2019-07-27<br/>15:20:15 +0900</div><div class="message__header">ULGE3QW5R</div><div class="message__body">@ULGE3QW5R has joined the channel</div></div><div class="message" id="message-1564213476.035800"><div class="message__timestamp">2019-07-27<br/>16:44:36 +0900</div><div class="message__header">lotz</div><div class="message__body">質問です :raising_hand:<br/>cassavaを使ってCSV をパースした結果をextensibleのRecordにしようとしてるのですが<br/><pre>
+</pre><br/>みたいな部品が必要になると思いますが，コレを定義してやろうとすると正攻法では詰むと思います．</div></div><div class="message" id="message-1564183015.031300"><div class="message__timestamp">2019-07-27<br/>08:16:55 +0900</div><div class="message__header">shunkichi.sato</div><div class="message__body">@shunkichi.sato has joined the channel</div></div><div class="message" id="message-1564196017.031600"><div class="message__timestamp">2019-07-27<br/>11:53:37 +0900</div><div class="message__header">woodsondelhia88</div><div class="message__body">@woodsondelhia88 has joined the channel</div></div><div class="message" id="message-1564202852.031900"><div class="message__timestamp">2019-07-27<br/>13:47:32 +0900</div><div class="message__header">ogahiro0720</div><div class="message__body">@ogahiro0720 has joined the channel</div></div><div class="message" id="message-1564202948.032200"><div class="message__timestamp">2019-07-27<br/>13:49:08 +0900</div><div class="message__header">yama_aoi</div><div class="message__body">@yama_aoi has joined the channel</div></div><div class="message" id="message-1564202962.032500"><div class="message__timestamp">2019-07-27<br/>13:49:22 +0900</div><div class="message__header">cj.bc-sd</div><div class="message__body">@cj.bc-sd has joined the channel</div></div><div class="message" id="message-1564203079.032800"><div class="message__timestamp">2019-07-27<br/>13:51:19 +0900</div><div class="message__header">wuthering1118</div><div class="message__body">@wuthering1118 has joined the channel</div></div><div class="message" id="message-1564207277.033100"><div class="message__timestamp">2019-07-27<br/>15:01:17 +0900</div><div class="message__header">k.kent8192</div><div class="message__body">@k.kent8192 has joined the channel</div></div><div class="message" id="message-1564208415.033400"><div class="message__timestamp">2019-07-27<br/>15:20:15 +0900</div><div class="message__header">drmaruyama</div><div class="message__body">@drmaruyama has joined the channel</div></div><div class="message" id="message-1564213476.035800"><div class="message__timestamp">2019-07-27<br/>16:44:36 +0900</div><div class="message__header">lotz</div><div class="message__body">質問です :raising_hand:<br/>cassavaを使ってCSV をパースした結果をextensibleのRecordにしようとしてるのですが<br/><pre>
 readCSV :: WrapForall Csv.FromField Vector xs =&gt; FilePath -&gt; IO (RecordOf Vector xs)
 readCSV filepath = do
     csvBs &lt;- BL.readFile filepath
@@ -23,4 +23,114 @@ readCSV filepath = do
    |   
 </pre><br/>どなたか対処方法を教えていただけませんでしょうか :bow:</div></div><div class="message" id="message-1564213875.036200"><div class="message__timestamp">2019-07-27<br/>16:51:15 +0900</div><div class="message__header">lotz</div><div class="message__body">@igrep<br/><pre>
 {-# LANGUAGE PolyKinds #-}
-</pre><br/>試したけどできず…</div></div><div class="message" id="message-1564213935.036400"><div class="message__timestamp">2019-07-27<br/>16:52:15 +0900</div><div class="message__header">fumieval</div><div class="message__body"><code>WrapForall Csv.FromField Vector</code>がxsの種を <code>[*]</code> に固定する原因となっています。 <code>Forall (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs</code>としてはどうでしょう</div></div></div><div class="pager"><a href="/slack-log/html/C5666B6BB/65.html" class="pager__previous">Previous</a><a href="/slack-log/" class="pager__top">Top</a></div></body></html>
+</pre><br/>試したけどできず…</div></div><div class="message" id="message-1564213935.036400"><div class="message__timestamp">2019-07-27<br/>16:52:15 +0900</div><div class="message__header">fumieval</div><div class="message__body"><code>WrapForall Csv.FromField Vector</code>がxsの種を <code>[*]</code> に固定する原因となっています。 <code>Forall (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs</code>としてはどうでしょう</div></div><div class="message" id="message-1564214375.037100"><div class="message__timestamp">2019-07-27<br/>16:59:35 +0900</div><div class="message__header">lotz</div><div class="message__body">@fumieval ありがとうございます！今度は以下のようなエラーメッセージになりました:bow:<br/><pre>
+....hs:30:125: error:
+    • Expected kind '[membership-0:Type.Membership.Internal.Assoc
+                        * *]',
+        but 'xs' has kind '[membership-0:Type.Membership.Internal.Assoc
+                              ghc-prim-0.5.3:GHC.Types.Symbol *]'
+    • In the first argument of 'DataFrame', namely 'xs'
+      In the first argument of 'IO', namely '(DataFrame xs)'
+      In the type signature:
+        readCSV :: Forall (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs =&gt;
+                   FilePath -&gt; IO (DataFrame xs)
+</pre></div></div><div class="message" id="message-1564214540.037300"><div class="message__timestamp">2019-07-27<br/>17:02:20 +0900</div><div class="message__header">fumieval</div><div class="message__body">今度こそPolyKinds事案に見えますね… :thinking_face:</div></div><div class="message" id="message-1564215334.037500"><div class="message__timestamp">2019-07-27<br/>17:15:34 +0900</div><div class="message__header">lotz</div><div class="message__body">PolyKindsを入れたらエラーが変わりました…！ :pray:<br/><pre>
+readCSV :: Forall (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs =&gt; FilePath -&gt; IO (RecordOf Vector xs)
+readCSV filepath = do
+    csvBs &lt;- BL.readFile filepath
+    case Csv.decode Csv.HasHeader csvBs :: Either String (Vector (Record xs)) of
+        Left reason -&gt; error reason
+        Right vs -&gt; undefined
+</pre><br/><br/><pre>
+...hs:52:10: error:
+    • Could not deduce (Forall
+                          (Instance1 Csv.FromField (Field Identity)) xs1)
+        arising from a use of 'Csv.decode'
+      from the context: Forall
+                          (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs
+        bound by the type signature for:
+                   readCSV :: forall (xs :: [membership-0:Type.Membership.Internal.Assoc
+                                               ghc-prim-0.5.3:GHC.Types.Symbol *]).
+                              Forall
+                                (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs =&gt;
+                              FilePath -&gt; IO (RecordOf Vector xs)
+        at src/Data/Frame/Reader.hs:49:1-115
+    • In the expression:
+          Csv.decode Csv.HasHeader csvBs ::
+            Either String (Vector (Record xs))
+      In a stmt of a 'do' block:
+        case  Csv.decode Csv.HasHeader csvBs ::
+                Either String (Vector (Record xs))
+        of
+          Left reason -&gt; error reason
+          Right vs -&gt; undefined
+      In the expression:
+        do csvBs &lt;- BL.readFile filepath
+           case  Csv.decode Csv.HasHeader csvBs ::
+                   Either String (Vector (Record xs))
+           of
+             Left reason -&gt; error reason
+             Right vs -&gt; undefined
+   |
+52 |     case Csv.decode Csv.HasHeader csvBs :: Either String (Vector (Record xs)) of
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+</pre></div></div><div class="message" id="message-1564215360.037700"><div class="message__timestamp">2019-07-27<br/>17:16:00 +0900</div><div class="message__header">lotz</div><div class="message__body">インスタンスの導出が出来てない… :thinking_face:</div></div><div class="message" id="message-1564215435.037900"><div class="message__timestamp">2019-07-27<br/>17:17:15 +0900</div><div class="message__header">fumieval</div><div class="message__body">ScopedTypeVariablesとRankNTypesでxsを束縛していないような雰囲気…？</div></div><div class="message" id="message-1564215645.038100"><div class="message__timestamp">2019-07-27<br/>17:20:45 +0900</div><div class="message__header">lotz</div><div class="message__body">あ、LANGUAGEも含めて貼りますね :bow:</div></div><div class="message" id="message-1564215690.038300"><div class="message__timestamp">2019-07-27<br/>17:21:30 +0900</div><div class="message__header">lotz</div><div class="message__body"><pre>
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE PolyKinds #-}
+{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TypeOperators #-}
+
+module Data.Frame.Reader where
+
+import qualified Data.ByteString.Lazy as BL
+
+import qualified Data.Csv as Csv
+import Data.Extensible 
+import Data.Vector (Vector)
+
+readCSV :: forall xs. Forall (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs =&gt; FilePath -&gt; IO (RecordOf Vector xs)
+readCSV filepath = do
+    csvBs &lt;- BL.readFile filepath
+    case Csv.decode Csv.HasHeader csvBs :: Either String (Vector (Record xs)) of
+        Left reason -&gt; error reason
+        Right vs -&gt; undefined
+</pre><br/><br/><pre>
+.hs:19:10: error:
+    • Could not deduce (Forall
+                          (Instance1 Csv.FromField (Field Identity)) xs)
+        arising from a use of 'Csv.decode'
+      from the context: Forall
+                          (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs
+        bound by the type signature for:
+                   readCSV :: forall (xs :: [Assoc
+                                               ghc-prim-0.5.3:GHC.Types.Symbol *]).
+                              Forall
+                                (KeyValue KnownSymbol (Instance1 Csv.FromField Vector)) xs =&gt;
+                              FilePath -&gt; IO (RecordOf Vector xs)
+        at src/Data/Frame/Reader.hs:16:1-126
+    • In the expression:
+          Csv.decode Csv.HasHeader csvBs ::
+            Either String (Vector (Record xs))
+      In a stmt of a 'do' block:
+        case  Csv.decode Csv.HasHeader csvBs ::
+                Either String (Vector (Record xs))
+        of
+          Left reason -&gt; error reason
+          Right vs -&gt; undefined
+      In the expression:
+        do csvBs &lt;- BL.readFile filepath
+           case  Csv.decode Csv.HasHeader csvBs ::
+                   Either String (Vector (Record xs))
+           of
+             Left reason -&gt; error reason
+             Right vs -&gt; undefined
+</pre></div></div><div class="message" id="message-1564215718.038500"><div class="message__timestamp">2019-07-27<br/>17:21:58 +0900</div><div class="message__header">lotz</div><div class="message__body">現状このような感じです！</div></div><div class="message" id="message-1564216168.038700"><div class="message__timestamp">2019-07-27<br/>17:29:28 +0900</div><div class="message__header">fumieval</div><div class="message__body">ああ、無名のレコードと互換性がないと言うだけのことでした！こんな感じにすると通ります <pre>
+readCSV :: forall xs. Forall (KeyValue KnownSymbol (Instance1 Csv.FromField Identity)) xs =&gt; FilePath -&gt; IO (RecordOf Vector xs)
+readCSV filepath = do
+    csvBs &lt;- BL.readFile filepath
+    case Csv.decodeByName csvBs :: Either String (Csv.Header, Vector (Record xs)) of
+        Left reason -&gt; error reason
+        Right vs -&gt; undefined
+</pre></div></div><div class="message" id="message-1564216303.038900"><div class="message__timestamp">2019-07-27<br/>17:31:43 +0900</div><div class="message__header">lotz</div><div class="message__body">通りました!!<br/>そうか、インスタンスにするべきは Vector じゃなくて Identity とだったんですね。<br/>いただいたコードを参考にしながら勉強します :pray:<br/>ありがとうございました :bow:</div></div><div class="message" id="message-1564216854.039100"><div class="message__timestamp">2019-07-27<br/>17:40:54 +0900</div><div class="message__header">lotz</div><div class="message__body">なるほど！<br/>FromRecord と FromNamedRecord の差ですか…！<br/><a href='https://gyazo.com/59a3a33419ebec83181cf24c6d42c972'>https://gyazo.com/59a3a33419ebec83181cf24c6d42c972</a><br/><br/>今パースしたいCSV、ヘッダーついてないんですよね… :sweat_smile:</div></div><div class="message" id="message-1564216965.039400"><div class="message__timestamp">2019-07-27<br/>17:42:45 +0900</div><div class="message__header">lotz</div><div class="message__body">CSVのByteStringの頭に無理やりヘッダー行追加するか :thinking_face:</div></div><div class="message" id="message-1564218058.039600"><div class="message__timestamp">2019-07-27<br/>18:00:58 +0900</div><div class="message__header">fumieval</div><div class="message__body">なるほど…その場合こんな感じですかね　```readCSV :: forall xs. (Forall (Instance1 Csv.FromField (Field Identity)) xs) =&gt; FilePath -&gt; IO (RecordOf Vector xs)<br/>readCSV filepath = do<br/>    csvBs &lt;- BL.readFile filepath<br/>    case Csv.decode Csv.HasHeader csvBs :: Either String (Vector (Record xs)) of<br/>        Left reason -&gt; error reason<br/>        Right vs -&gt; undefined<br/>```</div></div><div class="message" id="message-1564218142.039800"><div class="message__timestamp">2019-07-27<br/>18:02:22 +0900</div><div class="message__header">lotz</div><div class="message__body">すごい！！出来るんですね！！<br/>型クラス制約の定義読んで勉強します :sob: :arigatougozaimasu:</div></div><div class="message" id="message-1564218159.040000"><div class="message__timestamp">2019-07-27<br/>18:02:39 +0900</div><div class="message__header">lotz</div><div class="message__body">（手元でもコンパイル通りました!! :bow: ）</div></div><div class="message" id="message-1564218172.040300"><div class="message__timestamp">2019-07-27<br/>18:02:52 +0900</div><div class="message__header">ULMGVGLP3</div><div class="message__body">@ULMGVGLP3 has joined the channel</div></div><div class="message" id="message-1564274912.041100"><div class="message__timestamp">2019-07-28<br/>09:48:32 +0900</div><div class="message__header">ULU4TAFLG</div><div class="message__body">@ULU4TAFLG has joined the channel</div></div><div class="message" id="message-1564303895.041500"><div class="message__timestamp">2019-07-28<br/>17:51:35 +0900</div><div class="message__header">ULTPB579A</div><div class="message__body">@ULTPB579A has joined the channel</div></div></div><div class="pager"><a href="/slack-log/html/C5666B6BB/65.html" class="pager__previous">Previous</a><a href="/slack-log/" class="pager__top">Top</a></div></body></html>
