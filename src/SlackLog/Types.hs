@@ -1,6 +1,5 @@
 {-# LANGUAGE DeriveAnyClass    #-}
 {-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE LambdaCase        #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData        #-}
 
@@ -17,9 +16,6 @@ import           Safe                (headMay)
 -- | Configuration type used mainly when converting JSON files into HTML.
 data Config = Config
   { workspaceName  :: T.Text
-  , rootPath       :: Maybe String
-  -- ^ Any paths in the generated HTML files are prefixed with this path.
-  --   Default: "/"
   , timeZone       :: String
   -- ^ Show the times on this timezone.
   , targetChannels :: TargetChannels

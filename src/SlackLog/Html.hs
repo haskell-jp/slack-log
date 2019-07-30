@@ -1,5 +1,3 @@
-{-# LANGUAGE DeriveAnyClass    #-}
-{-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE NamedFieldPuns    #-}
 {-# LANGUAGE OverloadedStrings #-}
@@ -44,7 +42,7 @@ import           System.FilePath         (takeBaseName, (<.>), (</>))
 import qualified Web.Slack.Common        as Slack
 import qualified Web.Slack.MessageParser as Slack
 
-import           SlackLog.Types          (ChannelId, ChannelName, Config (rootPath, timeZone, workspaceName),
+import           SlackLog.Types          (ChannelId, ChannelName, Config (timeZone, workspaceName),
                                           UserId, UserName)
 import           SlackLog.Util           (failWhenLeft, readJsonFile)
 
@@ -61,7 +59,6 @@ data WorkspaceInfo = WorkspaceInfo
   , channelNameById       :: HM.HashMap ChannelId ChannelName
   , groupNameById         :: HM.HashMap ChannelId ChannelName
   , workspaceInfoName     :: T.Text
-  , workspaceInfoRootPath :: String
   , getTimeDiff           :: TC.UTCTime -> LT.TimeZone
   }
 
@@ -112,7 +109,7 @@ renderSlackMessages wsi@WorkspaceInfo {..} PageInfo {..} =
         # H.title_ title
         # H.link_A
           ( A.rel_ ("stylesheet" :: T.Text)
-          # A.href_ (workspaceInfoRootPath ++ "messages.css")
+          # A.href_ ("../../messages.css" :: T.Text)
           # A.type_ ("text/css" :: T.Text)
           # A.media_ ("screen" :: T.Text)
           )
@@ -130,9 +127,9 @@ renderSlackMessages wsi@WorkspaceInfo {..} PageInfo {..} =
     workspaceInfoName <> " / " <> getChannelScreenName wsi channelId <> " #" <> T.pack (show $ parsePageNumber currentPagePath)
 
   pager = H.div_A (A.class_ ("pager" :: T.Text))
-    ( ((\pp -> H.a_A (A.href_ (workspaceInfoRootPath ++ pp) # prevClass) prevLabel) . ensurePathIn "html" channelId <$> previousPagePath)
-    #          H.a_A (A.href_  workspaceInfoRootPath        # topClass ) topLabel
-    # ((\pp -> H.a_A (A.href_ (workspaceInfoRootPath ++ pp) # nextClass) nextLabel) . ensurePathIn "html" channelId <$> nextPagePath)
+    ( ((\pp -> H.a_A (A.href_ ("../../" ++ pp) # prevClass) prevLabel) . ensurePathIn "html" channelId <$> previousPagePath)
+    #          H.a_A (A.href_ ("../../" :: T.Text) # topClass ) topLabel
+    # ((\pp -> H.a_A (A.href_ ("../../" ++ pp) # nextClass) nextLabel) . ensurePathIn "html" channelId <$> nextPagePath)
     )
    where
     topClass = A.class_ ("pager__top" :: T.Text)
@@ -168,7 +165,6 @@ loadWorkspaceInfo dir = do
 
   cfg <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".config.json")
   let workspaceInfoName = workspaceName cfg
-      workspaceInfoRootPath = fromMaybe "/" $ rootPath cfg
   getTimeDiff <- fmap TZ.timeZoneForUTCTime . TZ.loadTZFromDB $ timeZone cfg
 
   return WorkspaceInfo {..}
@@ -197,7 +193,7 @@ renderIndexOfPages wsi@WorkspaceInfo {..} =
           # H.title_ title
           # H.link_A
             ( A.rel_ ("stylesheet" :: T.Text)
-            # A.href_ (workspaceInfoRootPath ++ "index.css")
+            # A.href_ ("index.css" :: T.Text)
             # A.type_ ("text/css" :: T.Text)
             # A.media_ ("screen" :: T.Text)
             )
@@ -213,7 +209,7 @@ renderIndexOfPages wsi@WorkspaceInfo {..} =
   channelSummary cid lastJsonPath Slack.Message { messageTs } details =
     H.details_A (A.class_ ("channel" :: T.Text))
     ( H.summary_A (A.class_ ("channel__name" :: T.Text))
-      ( H.a_A (A.href_ (workspaceInfoRootPath ++ ensurePathIn "html" cid lastJsonPath)) (getChannelScreenName wsi cid)
+      ( H.a_A (A.href_ (ensurePathIn "html" cid lastJsonPath)) (getChannelScreenName wsi cid)
       # (" (Last updated at " <> timestampWords (Slack.slackTimestampTime messageTs) <> ")")
       )
       # details
@@ -222,7 +218,7 @@ renderIndexOfPages wsi@WorkspaceInfo {..} =
   channelDetail cid jsonPath Slack.Message { messageTs, messageUser, messageText } =
     H.ul_A (A.class_ ("pages_list" :: T.Text))
     ( H.li_A (A.class_ ("page" :: T.Text))
-      ( H.a_A (A.href_ (workspaceInfoRootPath ++ ensurePathIn "html" cid jsonPath))
+      ( H.a_A (A.href_ (ensurePathIn "html" cid jsonPath))
         ("#" <> T.pack (show (parsePageNumber jsonPath)))
       # (" " :: T.Text)
       # H.span_A (A.class_ ("page__first_message" :: T.Text))
