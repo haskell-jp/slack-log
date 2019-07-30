@@ -184,5 +184,83 @@
         "text": "定作用形についてブログ書くかと書いてたら分からなくなってきました\n```\nfact3 :: Int -&gt; Integer\nfact3 = (map fact' [0..] !!)\n  where\n    fact' 0 = 1\n    fact' n = fromIntegral n * fact' (n-1)\n```\n`fact3` はなんで CAF なんでしょう？ `map` は定数でもなければコンビネーターでもない変数なような……\n<https://kakkun61.hatenablog.com/entry/2019/07/29/%E9%96%A2%E6%95%B0%E3%81%AE%E3%83%A1%E3%83%A2%E5%8C%96>",
         "user": "U4L0B71L1",
         "type": "message"
+    },
+    {
+        "ts": "1564380382.044200",
+        "text": "<@ULU5SQJ2G> has joined the channel",
+        "user": "ULU5SQJ2G",
+        "type": "message"
+    },
+    {
+        "ts": "1564381544.044400",
+        "text": "CAFかどうかと関係あるかわからない、かつ自信がないので元記事のコメントではなくここで。\nちょうど途中まで読んでたこの話 <https://treszkai.github.io/2019/07/13/haskell-eval> がすごく関係ありそうな気がします。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1564385022.044700",
+        "text": "スーパーコンビネータは，一般の文脈では確かにコンビネータで部分項がスーパーコンビネータであるものを指しますが， CAF の文脈では，\n• ラムダ式でない\n• ローカル関数が全てグローバルに出しても問題ない定義になっている\nだと思うのが良いと思います．厳密には，\n<https://gitlab.haskell.org/ghc/ghc/wikis/commentary/rts/storage/gc/CAFs>\nに書いてある通り，要はサンクとなる static closure のことを指しています．\n\nところでメモ化の要因は，確かに `fact3` が CAF であることもありますが，一番の要因として， Core では関数適用の引数は let を通して変数に束縛されることになるので，実際にはこのプログラムは\n```\nfact3 = (!!) fact3'\n   where\n       fact3' = map fact' l\n       l = [0..]\n       fact' 0 = 1\n       fact' n = ...\n```\nみたいなものと等価になります (厳密にはこれも怪しいですが) ．で， fact3' が CAF となるからというのが大きいですね (なお実際 GHC 8.6.5 では fact3' が floating out されていて， fact3 自体は最終的に eta expand されて `fact3 = \\x -&gt; (!!) fact3' x` という形になっていました)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1564412515.047300",
+        "text": "はっきりと質問というわけでもないですがrandomよりは質問よりなのでこちらで。  ghc でアノテーション(カスタムアノテーションも含む)が削除されるタイミングっていつなんですかね？ Cmmの段階まで保持されるんですかね？",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1564414903.047400",
+        "text": "あ、これ色々質問が間違ってるや。 そもそも アノテーションではなくプラグマだし。 一般のプラグマに関しては言及不可なやつでしたね。。。すみません。 質問の意図としては。 たとえばLiquid Haskell を用いて ある評価木の一部（またはすべて）の範囲で値が一定の範囲収まるといった情報を知った上でレジスタの配置とかそういった最適化（？）みたいなのができるのかなと思い質問しました。",
+        "user": "U9XHWQX7Z",
+        "type": "message"
+    },
+    {
+        "ts": "1564453083.047800",
+        "text": "これをめっちゃざっくりJSで例えてみました。\n<https://gist.github.com/igrep/afcf4789d88da3b3995308e2e12c59df>\n要するに、メモ化に使うリストをラムダ式の中で定義するか、外で定義してキャッシュするか、という違いですよね？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1564453085.048000",
+        "text": "",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1564453849.049000",
+        "text": ":point_up: スレッドへの返信でGistを張っただけなのにこっちにも出てくるのか... 驚かせてたらすみません。 :bow:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1564458305.049200",
+        "text": "違うような\n（意味論上は同じにもかかわらず）中で定義しても、形によってキャッシュされたりされなかったりという違いかと\n理論上は参照透過だから一度計算したものは全部保存してもいいんだけど、現実はメモリーの制約があるから基本的には捨てていて、ただ CAF の形式のときは保存している、という話だと認識している",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1564458874.049400",
+        "text": "すみません、付け加えた言葉がまずかった。「JavaScriptで強引に例えるならあたかも外で定義してキャッシュするかのように振る舞う（Haskellの場合実際には、最初に呼ばれたときにキャッシュされる）」みたいなことを言いたかった。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1564459211.049600",
+        "text": "外で定義して、っていうか `fact3` を定義したときに、というべきか。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1564459462.049800",
+        "text": "少し修正して実態に近づけてみた",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1564460182.050100",
+        "text": "13章が読むリスト積まれた <https://www.microsoft.com/en-us/research/publication/the-implementation-of-functional-programming-languages/>",
+        "user": "U4L0B71L1",
+        "type": "message"
     }
 ]
