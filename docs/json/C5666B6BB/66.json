@@ -262,5 +262,23 @@
         "text": "13章が読むリスト積まれた <https://www.microsoft.com/en-us/research/publication/the-implementation-of-functional-programming-languages/>",
         "user": "U4L0B71L1",
         "type": "message"
+    },
+    {
+        "ts": "1564492113.050600",
+        "text": "<@ULW9GKNQ0> has joined the channel",
+        "user": "ULW9GKNQ0",
+        "type": "message"
+    },
+    {
+        "ts": "1564495379.050800",
+        "text": "この辺の分かりやすい説明はHaskell High Perfomance Programmingのchaper 1に書いてあります.\nblog記事にも出てたので持っている前提で書きますがp8です.\n\nfib_memとfib_mem_argとを比較して\n「map fib [0..]は引数に依存せずメモ化することが可能だけれど関数に引数を適用すると暗黙のうちに以前の関数適用からの式へのポインタを持つことができない新しい式を作ってしまうからです」\nつまりwhereで定義しているローカル関数fibはfib_memにぶら下がっているのに対してfib_mem_argの方はfib_mem_arg n(というnに適用した式)に対してローカル関数fibがぶらさがっている.つまりnが適用される都度別のfibになるとみなすとよい(のかな).\n結果としてmap fib [0..]のfibは毎度違ってしまう.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1564496016.051100",
+        "text": "CAFsがポイントになるのは結局トップレベルにリフトできるからで,トップレベルから掴んでいられるから評価が進めばサンクが潰れて値に置き換わって再利用できるということで,fib_mem_argのようにトップレベルに着地できうに宙に浮いてしまってたら一度評価したものも失われるのでメモ化されない.\n逆に言えばメモリを解放する手段がないわけだからメモリリーク(と言っていいのかどうかいまだに私は迷うのだけど)している.\nなので速度は出るけどメモリは食い続ける一方でGCできないはず.\nというわけで,やっぱりtabulationするのが一番いいんじゃないかと思うけどそれはまた別の話か.",
+        "user": "U4MMHDSNT",
+        "type": "message"
     }
 ]
