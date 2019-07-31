@@ -4,5 +4,29 @@
         "text": "一応補足ですが，現在の GHC では full laziness が入るタイミングが調整されていて，\n```\nfactMemo :: Int -&gt; Integer\nfactMemo = (map fact' [0..] !!)\n  where\n    fact' 0 = 1\n    fact' n = fromIntegral n * factMemo (n - 1)\n\nfact :: Int -&gt; Integer\nfact x = map fact' [0..] !! x\n  where\n    fact' 0 = 1\n    fact' n = fromIntegral n * fact (n - 1)\n```\nはどちらも `fact'` は外に出されます．このため， `map fact' [0..]` も CAF として扱われます． GHCi のバイトコード出すパスでは， core 2 core のパスが少し簡略化されてるので， full laziness が真面目に入ってないだけだと思いますね．\n\nなので，スーパーコンビネータかどうかは指標の一つではありますが，実際にはどう最適化が入るかによって CAF になるかはかなり左右されます",
         "user": "U57D08Z9U",
         "type": "message"
+    },
+    {
+        "ts": "1564577136.064100",
+        "text": "<@ULXKBEPR6> has joined the channel",
+        "user": "ULXKBEPR6",
+        "type": "message"
+    },
+    {
+        "ts": "1564580251.064400",
+        "text": "<@ULZRSHT1C> has joined the channel",
+        "user": "ULZRSHT1C",
+        "type": "message"
+    },
+    {
+        "ts": "1564587041.064600",
+        "text": "Liquid Haskell について言えば、`{-@ @-}` は GHC にとっては単なるコメントなのでもっと早い段階で消えそう……な気がしますが根拠はないです。",
+        "user": "U4M4XHKB8",
+        "type": "message"
+    },
+    {
+        "ts": "1564590486.066800",
+        "text": "確かに あれはただのコメントでプラグまですらなかったですね:persevere: 雰囲気的に(?) 型が削除される以前に消されてそうですね…",
+        "user": "U9XHWQX7Z",
+        "type": "message"
     }
 ]
