@@ -1,0 +1,13 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #67</title><link rel="stylesheet" href="../../messages.css" type="text/css" media="screen"></head><body><h1>haskell-jp / questions #67</h1><div class="pager"><a href="../../html/C5666B6BB/66.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div><div class="message_list"><div class="message" id="message-1564557369.063600"><div class="message__timestamp">2019-07-31<br/>16:16:09 +0900</div><div class="message__header">mizunashi-mana</div><div class="message__body">一応補足ですが，現在の GHC では full laziness が入るタイミングが調整されていて，<br/><pre>
+factMemo :: Int -&gt; Integer
+factMemo = (map fact' [0..] !!)
+  where
+    fact' 0 = 1
+    fact' n = fromIntegral n * factMemo (n - 1)
+
+fact :: Int -&gt; Integer
+fact x = map fact' [0..] !! x
+  where
+    fact' 0 = 1
+    fact' n = fromIntegral n * fact (n - 1)
+</pre><br/>はどちらも <code>fact'</code> は外に出されます．このため， <code>map fact' [0..]</code> も CAF として扱われます． GHCi のバイトコード出すパスでは， core 2 core のパスが少し簡略化されてるので， full laziness が真面目に入ってないだけだと思いますね．<br/><br/>なので，スーパーコンビネータかどうかは指標の一つではありますが，実際にはどう最適化が入るかによって CAF になるかはかなり左右されます</div></div></div><div class="pager"><a href="../../html/C5666B6BB/66.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>
