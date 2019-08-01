@@ -34,5 +34,23 @@
         "text": "はい、”外に出す”ということをコンパイラがやるかどうかはまた別ですもんね. &gt; 真面目に入ってない\nただ後者のfact’がxを巻き込まずに外に出せるとすると意味論的に変わっちゃわないのかなという疑問が湧いてきたんだけど…",
         "user": "U4MMHDSNT",
         "type": "message"
+    },
+    {
+        "ts": "1564632506.072200",
+        "text": "<@ULYJX1PU5> has joined the channel",
+        "user": "ULYJX1PU5",
+        "type": "message"
+    },
+    {
+        "ts": "1564646022.072500",
+        "text": "<@ULMAZ8XQB> has joined the channel",
+        "user": "ULMAZ8XQB",
+        "type": "message"
+    },
+    {
+        "ts": "1564668616.072700",
+        "text": "GHC の最適化は通常 equational reasoning に基づいて行われてるので，その意味で意味論が変わるものはあまりないと思いますね (Haskell はちゃんとした formal semantics はないので，ある程度簡略化したラムダ計算の体系の元でということにはなりますが)．\n\nCAF を static closure にして欲しくないという話であれば， <https://stackoverflow.com/questions/6090932/how-to-make-a-caf-not-a-caf-in-haskell/6091166#6091166> みたいな話があって，今回の場合 `map fact' [0..]` の部分を切り出して， `fact` の引数を受け取るようにして `NOINLINE` すればいいと思いますね．と，思ったんですが，\n```\nfact2 :: Int -&gt; Integer\nfact2 x = factMemo2 x fact' !! x\n  where\n    fact' 0 = 1\n    fact' n = fromIntegral n * fact' (n - 1)\n\nfactMemo2 :: Int -&gt; (Int -&gt; Integer) -&gt; [Integer]\nfactMemo2 _ f = map f [0..]\n{-# NOINLINE factMemo2 #-}\n```\nみたいなのだと， w/w が入って `factMemo2` の参照が worker の方に書き換えられてしまいますね… 一応次の形式にすると `-O` ならいい感じに CAF 化を妨害できるみたいです:\n```\nfact2 :: Int -&gt; Integer\nfact2 x = factMemo2 (x &lt; 0) fact' !! x\n  where\n    fact' 0 = 1\n    fact' n = fromIntegral n * fact' (n - 1)\n\nfactMemo2 :: Bool -&gt; (Int -&gt; Integer) -&gt; [Integer]\nfactMemo2 !_ f = map f [0..]\n{-# NOINLINE factMemo2 #-}\n```",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
