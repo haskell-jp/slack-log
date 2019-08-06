@@ -94,5 +94,35 @@
         "text": "blaze-html はテンプレートエンジンとはまた違うか :tashikani:",
         "user": "U56L7EVNY",
         "type": "message"
+    },
+    {
+        "ts": "1565050460.077000",
+        "text": "関連議論を全部は追い切れていないのですが、再コンパイルが問題であるなら、現状の仕組みをrunghcで動かすのはどうでしょうか？",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1565051059.077200",
+        "text": "Dhallもテンプレートエンジンとして使える事を謳っているのですが、現状パフォーマンスがすこぶる悪いのが難点です <http://www.haskellforall.com/2017/06/dhall-is-now-template-engine.html>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1565054059.077800",
+        "text": "我々だけでなく、ほかのSlack Workspaceの管理者も使えるように、実行ファイルのリリースも視野に入れているので、runghcだとちとつらいですね...\n<https://github.com/haskell-jp/slack-log/issues/22>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1565083258.080300",
+        "text": "<https://qiita.com/autotaker1984/items/5ec0bbd5a44e146dbada> を読んでいて気になったのですが、\nリストリテラル `[1, 2, 3]` が `build  (\\c n -&gt; c 1 (c 2 (c 3 n)))` に変換されるというルールはどこに載っているでしょうか？\nbaseパッケージのGHC.List moduleやGHC.Base moduleを探してみましたが見つかりませんでした。\nきっとコンパイラーのどこかの層に組み込まれているから、librariesの方を見てもわからないってことですよね...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1565089371.080600",
+        "text": "一応 <https://gitlab.haskell.org/ghc/ghc/blob/ghc-8.6.5-release/compiler/deSugar/DsExpr.hs#L837> の部分がそうです。リテラルは Haskell レベルだといじれないので通常は脱糖で扱われることになりますね",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
