@@ -148,5 +148,89 @@
         "text": "なかなかまとまってる資料が見当たらず、いまのところは Data.Tree とか Data.Graph とかのソースを読んでいます。",
         "user": "UKYUFC94P",
         "type": "message"
+    },
+    {
+        "ts": "1565332911.087200",
+        "text": "GHC って並行 GC あるんでしたっけ？\n（並列 GC があるという記述は見つけた。）\nというのも `System.Mem.Weak.Weak` のファイナライザーは別スレッドから（例えば main スレッドしか使っていなかったとして main 以外のスレッドから）呼ばれることを考慮すべきなのかと思いまして。",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1565349607.087400",
+        "text": "タイミング的に別スレッドっぽい（ `ThreadID` 見ろよという話",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1565404121.091200",
+        "text": "type instance が定義されてるかのテストってどう書くのがいいんでしょう？\n```\ntype family Foo :: Type -&gt; Type\ntype instance Foo Bar = Baz\n```\nがあったとき `Foo Bar` はあるけど `Foo Qux` はないことをテストに書きたい。",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1565404708.091300",
+        "text": "自己解決した\n追加情報として、別モジュールで `type instance Foo Qux = Quux` があって、 `Quux` でないことが確認できればよかったので次のように書けた\n```\ndo\n  let\n    target :: Foo Qux ~ Quxx =&gt; ()\n    target = ()\n  shouldNotTypecheck target\n```\nでうまくいったっぽい\n`Foo Qux` が本当になかった場合はどう書けるんだろう",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1565568147.094100",
+        "text": "それはそれとして、本物の並行GCがGHC 8.10で使えるようになるという噂も　<https://gitlab.haskell.org/ghc/ghc/merge_requests/972>",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1565609491.095000",
+        "text": "<@UM9E9PXJ4> has joined the channel",
+        "user": "UM9E9PXJ4",
+        "type": "message"
+    },
+    {
+        "ts": "1565703499.099300",
+        "text": "ちょっとhaskellの話ではなくって数学の初歩みたいな質問失礼します(ここで聞いていいのかな…)\n減法のプロパティベーステストを書きたいのですが、減法の性質ってなんなのでしょうか…(どういう条件を満たせばいいのかが調べてもわからなかったです…)\nここで言いたい`条件`というのは、例えば加法で言えば以下のようなものです(これは調べられました)\n```\na + b = b + a\na + 0 = a\n(a + b) + c = a + (b + c)\n```",
+        "user": "ULTBB86UC",
+        "type": "message"
+    },
+    {
+        "ts": "1565706078.099900",
+        "text": "減法の性質というよりは `-1` がどのように導入されるかという話になりますが、\n\n- 自然数 N を考える\n- n ∈ N なる元を取ったときに、n + m = 0 となる m は (n = 0 のときを除いて) N に存在しない\n- ここで、N 上の代数方程式 N[x] に関して、x^2 = 1となる特別な元 `-1` を考え、N に添加 (代数拡大) する\n- これにより、n + m = 0 をみたす元として m = -n (-1 × n) を考えることができるようになる\n\nという感じが多いと思います。つまり、減法の性質もあくまで加法の性質と同様で、元として `-1` も含まれているだけ、ということです\n\n---\n\nテストの書き方は他のHaskell強者の方にゆずります :pray:\n(∀n ∈ Z，∃!m ∈ Z，n + m = 0 を書ければ良いと思いますが)",
+        "user": "UDC1LV887",
+        "type": "message"
+    },
+    {
+        "ts": "1565706354.100300",
+        "text": "厳密な資料だとこのあたりが参考になると思います↓\n<https://www.slideshare.net/yoshihiromizoguchi/ss-28541012>",
+        "user": "UDC1LV887",
+        "type": "message"
+    },
+    {
+        "ts": "1565707938.100700",
+        "text": "ありがとうございます！！\nhaskellの `-` の実装を見て `n - m = n + negate m` と書けるのは確認してましたが、数学的にはそう考えるのですね…\n難しいけど楽しい。とても為になりました！\n今の数学力でどこまで行けるかわからないですが資料も読んでみます。ありがとうございます",
+        "user": "ULTBB86UC",
+        "type": "message"
+    },
+    {
+        "ts": "1565913900.104300",
+        "text": "RIO使用時、 `Storable` のインスタンスを `Handle` から一個読み込むのに、なにか良い感じの書き方はあるでしょうか。\n\n```\nliftIO $ BS.hGet h (sizeOf @Int32 undefined) &gt;&gt;= BS.useAsCString `flip` (peek @Int32 . castPtr)\n```\n\nでいいでしょうか",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1565914276.104700",
+        "text": "allocaなどで環境にバッファを確保しておいて、hGetBufからのpeekをすると効率がよいはずです",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1565914560.104900",
+        "text": "hGetBuf見落としてました。ありがとうございます！",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1565934422.105500",
+        "text": "余談になりますが、一般的に可換モノイド（今回のケースでは自然数）から可換群（今回のケースでは整数）を構成するグロタンディーク構成というのがあるようです。\n自然数から整数への具体的なグロタンディーク構成（本質的に Guvalifさんが紹介されている資料の方法と同じですが）については\n<https://ja.wikipedia.org/wiki/%E6%95%B4%E6%95%B0#%E5%8E%B3%E5%AF%86%E3%81%AA%E6%A7%8B%E6%88%90>",
+        "user": "U57CGDBMG",
+        "type": "message"
     }
 ]
