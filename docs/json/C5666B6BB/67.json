@@ -232,5 +232,23 @@
         "text": "余談になりますが、一般的に可換モノイド（今回のケースでは自然数）から可換群（今回のケースでは整数）を構成するグロタンディーク構成というのがあるようです。\n自然数から整数への具体的なグロタンディーク構成（本質的に Guvalifさんが紹介されている資料の方法と同じですが）については\n<https://ja.wikipedia.org/wiki/%E6%95%B4%E6%95%B0#%E5%8E%B3%E5%AF%86%E3%81%AA%E6%A7%8B%E6%88%90>",
         "user": "U57CGDBMG",
         "type": "message"
+    },
+    {
+        "ts": "1566008950.106300",
+        "text": "<@UMHA23D0F> has joined the channel",
+        "user": "UMHA23D0F",
+        "type": "message"
+    },
+    {
+        "ts": "1566051320.111000",
+        "text": "こんばんは. Haskell &amp; Parsec入門者です\nParsecを使ってパーサーを作っているのですが、\n`&gt;=`, `&gt;`, `&lt;`, `&lt;=`をパースする関数がどうも不格好で冗長な見た目をしています。\nもっとわかりやすく書くために、こういう書き方もあるよ、というのがあれば教えていただけませんでしょうか\n\n```\n-- relational ::= add | add (\"&lt;\" add | \"&lt;=\" add | \"&gt;\" add | \"&gt;=\" add)\nrelational :: Parser Expr\nrelational = do\n    a &lt;- spaces *&gt; add\n    (do\n            spaces *&gt; char '&lt;'\n            (Lt a &lt;$&gt; (spaces *&gt; relational))\n                &lt;|&gt; (Lte a &lt;$&gt; (char '=' *&gt; spaces *&gt; relational))\n        )\n        &lt;|&gt; (do\n                spaces *&gt; char '&gt;'\n                (Gt a &lt;$&gt; (spaces *&gt; relational))\n                    &lt;|&gt; (Gte a &lt;$&gt; (char '=' *&gt; spaces *&gt; relational))\n            )\n        &lt;|&gt; pure a\n```\n\nコード全体はこちらにあります。\n<https://github.com/mrsekut/hcc/blob/master/src/Parser.hs>\n\n今回の質問の主点は上記の部分ですが、もしコードを見てくださった上で気になる点があればご指摘いただけると嬉しいです。\n僕のレベル感としてはこんな感じです。↓\nState,Maybe,Eitherモナド→なんとなくわかった\nSTモナド、モナド変換子、Parsecのlexemeとかの使い方や概念を理解していない、パーサーとパーサコンビネータの見分け方を知らない\n\n雑な質問ですがよろしくお願いします",
+        "user": "UCM4G8PGW",
+        "type": "message"
+    },
+    {
+        "ts": "1566082042.111700",
+        "text": "<@UMJ0A18LE> has joined the channel",
+        "user": "UMJ0A18LE",
+        "type": "message"
     }
 ]
