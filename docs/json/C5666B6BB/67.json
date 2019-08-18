@@ -250,5 +250,17 @@
         "text": "<@UMJ0A18LE> has joined the channel",
         "user": "UMJ0A18LE",
         "type": "message"
+    },
+    {
+        "ts": "1566131161.111900",
+        "text": "よくあるパーサー作りのこつとして、あらかじめ空白文字をスキップするようにラップしたバージョンを用意する、という方法があります。\n例えば「プログラミングHaskell」という本の第1版では（恐らく最近出た第2版でも同じ話があります）、下記のようなパーサーを作ることで、空白文字のスキップを楽にしています。\n\n```\ntoken p = do\n  space\n  v &lt;- p\n  space\n  return v\n\nnat = do\n  xs &lt;- many1 digit\n  return (read xs)\n\n-- natの「前後の空白をスキップするバージョン」を作っておく\nnatural = token nat\n```\n\nこんな感じで <@UCM4G8PGW> さんのパーサーについても、 `spaces *&gt; ...` という部分を抽象化するだけで結構すっきりするのではないかと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1566151362.112400",
+        "text": "ありがとうございます！\nアドバイスを受けて修正をしようとしたのですが、うまくいきません。。。\nアドバイスの一歩前段階の以下のような変形です\n\n↓元のやつ。factorは “(123)“も”(    123   )“もパース可能\n```\n-- factor ::= '(' expr ')' | nat\nfactor :: Parser Expr\nfactor =\n    (spaces *&gt; char '(' *&gt; spaces *&gt; expr &lt;* spaces &lt;* char ')' &lt;* spaces)\n        &lt;|&gt; spaces\n        *&gt;  nat\n        &lt;*  spaces\n\n\n-- nat ::= '0' | '1' | '2' | ...\nnat :: Parser Expr\nnat = Nat . read &lt;$&gt; many1 digit\n```\n\n\n少し変形したもの。 factorは“(123)“も”(    123   )“もパース不可能\n```\n-- factor ::= '(' expr ')' | nat\nfactor :: Parser Expr\nfactor =\n    (spaces *&gt; char '(' *&gt; spaces *&gt; expr &lt;* spaces &lt;* char ')' &lt;* spaces) &lt;|&gt; h\n\n\n-- nat ::= '0' | '1' | '2' | ...\nnat :: Parser Expr\nnat = Nat . read &lt;$&gt; many1 digit\n\n\nh :: Parser Expr\nh = space *&gt; nat &lt;* space\n```\n\nただfactorの一部をhとして取り出しただけの間隔なのですが、挙動が全く異なるものになってしまいます。\nモナドの場合はこういった雑な取り出しはできないのでしょうか",
+        "user": "UCM4G8PGW",
+        "type": "message"
     }
 ]

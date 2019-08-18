@@ -61,4 +61,44 @@ relational = do
                     &lt;|&gt; (Gte a &lt;$&gt; (char '=' *&gt; spaces *&gt; relational))
             )
         &lt;|&gt; pure a
-</pre><br/><br/>コード全体はこちらにあります。<br/><a href='https://github.com/mrsekut/hcc/blob/master/src/Parser.hs'>https://github.com/mrsekut/hcc/blob/master/src/Parser.hs</a><br/><br/>今回の質問の主点は上記の部分ですが、もしコードを見てくださった上で気になる点があればご指摘いただけると嬉しいです。<br/>僕のレベル感としてはこんな感じです。↓<br/>State,Maybe,Eitherモナド→なんとなくわかった<br/>STモナド、モナド変換子、Parsecのlexemeとかの使い方や概念を理解していない、パーサーとパーサコンビネータの見分け方を知らない<br/><br/>雑な質問ですがよろしくお願いします</div></div><div class="message" id="message-1566082042.111700"><div class="message__timestamp">2019-08-18<br/>07:47:22 +0900</div><div class="message__header">kh2yam1</div><div class="message__body">@kh2yam1 has joined the channel</div></div></div><div class="pager"><a href="../../html/C5666B6BB/66.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>
+</pre><br/><br/>コード全体はこちらにあります。<br/><a href='https://github.com/mrsekut/hcc/blob/master/src/Parser.hs'>https://github.com/mrsekut/hcc/blob/master/src/Parser.hs</a><br/><br/>今回の質問の主点は上記の部分ですが、もしコードを見てくださった上で気になる点があればご指摘いただけると嬉しいです。<br/>僕のレベル感としてはこんな感じです。↓<br/>State,Maybe,Eitherモナド→なんとなくわかった<br/>STモナド、モナド変換子、Parsecのlexemeとかの使い方や概念を理解していない、パーサーとパーサコンビネータの見分け方を知らない<br/><br/>雑な質問ですがよろしくお願いします</div></div><div class="message" id="message-1566082042.111700"><div class="message__timestamp">2019-08-18<br/>07:47:22 +0900</div><div class="message__header">kh2yam1</div><div class="message__body">@kh2yam1 has joined the channel</div></div><div class="message" id="message-1566131161.111900"><div class="message__timestamp">2019-08-18<br/>21:26:01 +0900</div><div class="message__header">igrep</div><div class="message__body">よくあるパーサー作りのこつとして、あらかじめ空白文字をスキップするようにラップしたバージョンを用意する、という方法があります。<br/>例えば「プログラミングHaskell」という本の第1版では（恐らく最近出た第2版でも同じ話があります）、下記のようなパーサーを作ることで、空白文字のスキップを楽にしています。<br/><br/><pre>
+token p = do
+  space
+  v &lt;- p
+  space
+  return v
+
+nat = do
+  xs &lt;- many1 digit
+  return (read xs)
+
+-- natの「前後の空白をスキップするバージョン」を作っておく
+natural = token nat
+</pre><br/><br/>こんな感じで @k.marumaru524 さんのパーサーについても、 <code>spaces *&gt; ...</code> という部分を抽象化するだけで結構すっきりするのではないかと思います。</div></div><div class="message" id="message-1566151362.112400"><div class="message__timestamp">2019-08-19<br/>03:02:42 +0900</div><div class="message__header">k.marumaru524</div><div class="message__body">ありがとうございます！<br/>アドバイスを受けて修正をしようとしたのですが、うまくいきません。。。<br/>アドバイスの一歩前段階の以下のような変形です<br/><br/>↓元のやつ。factorは “(123)“も”(    123   )“もパース可能<br/><pre>
+-- factor ::= '(' expr ')' | nat
+factor :: Parser Expr
+factor =
+    (spaces *&gt; char '(' *&gt; spaces *&gt; expr &lt;* spaces &lt;* char ')' &lt;* spaces)
+        &lt;|&gt; spaces
+        *&gt;  nat
+        &lt;*  spaces
+
+
+-- nat ::= '0' | '1' | '2' | ...
+nat :: Parser Expr
+nat = Nat . read &lt;$&gt; many1 digit
+</pre><br/><br/><br/>少し変形したもの。 factorは“(123)“も”(    123   )“もパース不可能<br/><pre>
+-- factor ::= '(' expr ')' | nat
+factor :: Parser Expr
+factor =
+    (spaces *&gt; char '(' *&gt; spaces *&gt; expr &lt;* spaces &lt;* char ')' &lt;* spaces) &lt;|&gt; h
+
+
+-- nat ::= '0' | '1' | '2' | ...
+nat :: Parser Expr
+nat = Nat . read &lt;$&gt; many1 digit
+
+
+h :: Parser Expr
+h = space *&gt; nat &lt;* space
+</pre><br/><br/>ただfactorの一部をhとして取り出しただけの間隔なのですが、挙動が全く異なるものになってしまいます。<br/>モナドの場合はこういった雑な取り出しはできないのでしょうか</div></div></div><div class="pager"><a href="../../html/C5666B6BB/66.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>
