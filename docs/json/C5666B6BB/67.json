@@ -262,5 +262,29 @@
         "text": "ありがとうございます！\nアドバイスを受けて修正をしようとしたのですが、うまくいきません。。。\nアドバイスの一歩前段階の以下のような変形です\n\n↓元のやつ。factorは “(123)“も”(    123   )“もパース可能\n```\n-- factor ::= '(' expr ')' | nat\nfactor :: Parser Expr\nfactor =\n    (spaces *&gt; char '(' *&gt; spaces *&gt; expr &lt;* spaces &lt;* char ')' &lt;* spaces)\n        &lt;|&gt; spaces\n        *&gt;  nat\n        &lt;*  spaces\n\n\n-- nat ::= '0' | '1' | '2' | ...\nnat :: Parser Expr\nnat = Nat . read &lt;$&gt; many1 digit\n```\n\n\n少し変形したもの。 factorは“(123)“も”(    123   )“もパース不可能\n```\n-- factor ::= '(' expr ')' | nat\nfactor :: Parser Expr\nfactor =\n    (spaces *&gt; char '(' *&gt; spaces *&gt; expr &lt;* spaces &lt;* char ')' &lt;* spaces) &lt;|&gt; h\n\n\n-- nat ::= '0' | '1' | '2' | ...\nnat :: Parser Expr\nnat = Nat . read &lt;$&gt; many1 digit\n\n\nh :: Parser Expr\nh = space *&gt; nat &lt;* space\n```\n\nただfactorの一部をhとして取り出しただけの間隔なのですが、挙動が全く異なるものになってしまいます。\nモナドの場合はこういった雑な取り出しはできないのでしょうか",
         "user": "UCM4G8PGW",
         "type": "message"
+    },
+    {
+        "ts": "1566169017.112600",
+        "text": "~`&lt;|&gt;` と `&lt;*`, `*&gt;` の演算子の結合が、変更前後で意図しない形に変わってしまっているのではないかと。~\nと、思ったけどすみません、違いますね...\n\nGHCiで調べたところ、\n```\n&gt; :i (&lt;|&gt;)\nclass Applicative f =&gt; Alternative (f :: * -&gt; *) where\n  ...\n  (&lt;|&gt;) :: f a -&gt; f a -&gt; f a\n  ...\n        -- Defined in ‘GHC.Base’\ninfixl 3 &lt;|&gt;\n&gt; :i (&lt;*)\nclass Functor f =&gt; Applicative (f :: * -&gt; *) where\n  ...\n  (&lt;*) :: f a -&gt; f b -&gt; f a\n        -- Defined in ‘GHC.Base’\ninfixl 4 &lt;*\n&gt; :i (*&gt;)\nclass Functor f =&gt; Applicative (f :: * -&gt; *) where\n  ...\n  (*&gt;) :: f a -&gt; f b -&gt; f b\n  ...\n        -- Defined in ‘GHC.Base’\ninfixl 4 *&gt;\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1566169186.113000",
+        "text": "もしかして `h` に切り出したときに `spaces` から `space` に変わってしまっているから？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1566169414.113300",
+        "text": "捕捉: 私が例示した「プログラミングHaskell」に出てくるパーサーはParsecではなくオリジナルなものなので、 `space` と `spaces` のように、言葉遣いが違います... :bow:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1566184424.113500",
+        "text": "パーサあまり詳しくないのですが、以下のように構文木を書き換えるのはどうでしょうか。\n\n```\nrelOp ::= \"&lt;\" | \"&lt;=\" | \"&gt;\" | \"&gt;=\"\nrelational ::= add | add relOp add\n```\n\nrelOpは以下のように書けると思います(動作未検証)\n\n```\nrelOp :: Parser (Expr -&gt; Expr -&gt; Expr)\nrelOp = l &lt;|&gt; g\n  where\n    l = do\n      char '&lt;'\n      (char '=' *&gt; pure Lte) &lt;|&gt; pure Lt\n    g = do\n      char '&gt;'\n      (char '=' *&gt; pure Gte) &lt;|&gt; pure Gt\n```",
+        "user": "U570660KX",
+        "type": "message"
     }
 ]

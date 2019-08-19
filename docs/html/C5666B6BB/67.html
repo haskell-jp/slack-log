@@ -101,4 +101,38 @@ nat = Nat . read &lt;$&gt; many1 digit
 
 h :: Parser Expr
 h = space *&gt; nat &lt;* space
-</pre><br/><br/>ただfactorの一部をhとして取り出しただけの間隔なのですが、挙動が全く異なるものになってしまいます。<br/>モナドの場合はこういった雑な取り出しはできないのでしょうか</div></div></div><div class="pager"><a href="../../html/C5666B6BB/66.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>
+</pre><br/><br/>ただfactorの一部をhとして取り出しただけの間隔なのですが、挙動が全く異なるものになってしまいます。<br/>モナドの場合はこういった雑な取り出しはできないのでしょうか</div></div><div class="message" id="message-1566169017.112600"><div class="message__timestamp">2019-08-19<br/>07:56:57 +0900</div><div class="message__header">igrep</div><div class="message__body"><strike><code>&lt;|&gt;</code> と <code>&lt;*</code>, <code>*&gt;</code> の演算子の結合が、変更前後で意図しない形に変わってしまっているのではないかと。</strike><br/>と、思ったけどすみません、違いますね...<br/><br/>GHCiで調べたところ、<br/><pre>
+&gt; :i (&lt;|&gt;)
+class Applicative f =&gt; Alternative (f :: * -&gt; *) where
+  ...
+  (&lt;|&gt;) :: f a -&gt; f a -&gt; f a
+  ...
+        -- Defined in ‘GHC.Base’
+infixl 3 &lt;|&gt;
+&gt; :i (&lt;*)
+class Functor f =&gt; Applicative (f :: * -&gt; *) where
+  ...
+  (&lt;*) :: f a -&gt; f b -&gt; f a
+        -- Defined in ‘GHC.Base’
+infixl 4 &lt;*
+&gt; :i (*&gt;)
+class Functor f =&gt; Applicative (f :: * -&gt; *) where
+  ...
+  (*&gt;) :: f a -&gt; f b -&gt; f b
+  ...
+        -- Defined in ‘GHC.Base’
+infixl 4 *&gt;
+</pre></div></div><div class="message" id="message-1566169186.113000"><div class="message__timestamp">2019-08-19<br/>07:59:46 +0900</div><div class="message__header">igrep</div><div class="message__body">もしかして <code>h</code> に切り出したときに <code>spaces</code> から <code>space</code> に変わってしまっているから？</div></div><div class="message" id="message-1566169414.113300"><div class="message__timestamp">2019-08-19<br/>08:03:34 +0900</div><div class="message__header">igrep</div><div class="message__body">捕捉: 私が例示した「プログラミングHaskell」に出てくるパーサーはParsecではなくオリジナルなものなので、 <code>space</code> と <code>spaces</code> のように、言葉遣いが違います... :bow:</div></div><div class="message" id="message-1566184424.113500"><div class="message__timestamp">2019-08-19<br/>12:13:44 +0900</div><div class="message__header">as_capabl</div><div class="message__body">パーサあまり詳しくないのですが、以下のように構文木を書き換えるのはどうでしょうか。<br/><br/><pre>
+relOp ::= "&lt;" | "&lt;=" | "&gt;" | "&gt;="
+relational ::= add | add relOp add
+</pre><br/><br/>relOpは以下のように書けると思います(動作未検証)<br/><br/><pre>
+relOp :: Parser (Expr -&gt; Expr -&gt; Expr)
+relOp = l &lt;|&gt; g
+  where
+    l = do
+      char '&lt;'
+      (char '=' *&gt; pure Lte) &lt;|&gt; pure Lt
+    g = do
+      char '&gt;'
+      (char '=' *&gt; pure Gte) &lt;|&gt; pure Gt
+</pre></div></div></div><div class="pager"><a href="../../html/C5666B6BB/66.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>
