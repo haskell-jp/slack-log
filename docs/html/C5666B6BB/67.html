@@ -135,4 +135,45 @@ relOp = l &lt;|&gt; g
     g = do
       char '&gt;'
       (char '=' *&gt; pure Gte) &lt;|&gt; pure Gt
+</pre></div></div><div class="message" id="message-1566204147.114100"><div class="message__timestamp">2019-08-19<br/>17:42:27 +0900</div><div class="message__header">takenobu.hs</div><div class="message__body">同じく空白の件ではなくて、元のrelational関数の見通しを良くする件です。<br/>込み入ってきたら、以下のように一旦ベタっと書いてしまう手もあります。 入れ子の中身をwhere節に追い出すのと、比較演算子の文字がかぶるのを <code>try</code> を使って素直に書いてしまいます。好みですが^^ (検証していないので、優先度ミスなどで期待通りに動かないかも。 あと、where節はほぼ同じパターンの繰り返しなので、さらにまとめられます。)<br/><br/><pre>
+relational :: Parser Expr
+relational = do
+    a &lt;- add
+    try (lte a) &lt;|&gt; (lt a) &lt;|&gt; try (gte a) &lt;|&gt; (gt a) &lt;|&gt; pure a
+  where
+    lte t = Lte t &lt;$&gt; (string "&lt;=" *&gt; relational)
+    lt  t = Lt  t &lt;$&gt; (char   '&lt;'  *&gt; relational)
+    gte t = Gte t &lt;$&gt; (string "&gt;=" *&gt; relational)
+    gt  t = Gt  t &lt;$&gt; (char   '&gt;'  *&gt; relational)
+</pre><br/><br/>そこからさらに、 <code>&lt;|&gt;</code> の替わりに <code>choice</code> を使って、まとめてしまうことも。<br/><br/><pre>
+relational :: Parser Expr
+relational = do
+    a &lt;- add
+    choice $ map try
+        [ Lte a &lt;$&gt; (string "&lt;=" *&gt; relational)
+        , Lt  a &lt;$&gt; (char   '&lt;'  *&gt; relational)
+        , Gte a &lt;$&gt; (string "&gt;=" *&gt; relational)
+        , Gt  a &lt;$&gt; (char   '&gt;'  *&gt; relational)
+        , pure a
+        ]
+</pre></div></div><div class="message" id="message-1566204192.114300"><div class="message__timestamp">2019-08-19<br/>17:43:12 +0900</div><div class="message__header">takenobu.hs</div><div class="message__body">あと、余談ですが、 <code>chainl1</code>  を使って、全体をコンパクトに書く原典が以下にあります。 （as_capablさんスタイルですね。）<br/><a href='http://www.cs.nott.ac.uk/~pszgmh/pearl.pdf'>http://www.cs.nott.ac.uk/~pszgmh/pearl.pdf</a><br/><br/>chainl1 を使うと、例えば以下のようにも書けます。 どこで止めるかは、保守性/可読性含めて好み次第ですね。<br/><br/><pre>
+-- relational ::= add (relop add | e)
+relational :: Parser Expr
+relational = add `chainl1` relop
+
+relop :: Parser (Expr -&gt; Expr -&gt; Expr)
+relop = choice $ map try 
+    [ Lte &lt;$ string "&lt;="
+    , Lt  &lt;$ string "&lt;"
+    , Gte &lt;$ string "&gt;="
+    , Gt  &lt;$ string "&gt;"
+    ]
+
+-- add ::= term (addop term | e)
+add :: Parser Expr
+add = term `chainl1` addop
+
+addop :: Parser (Expr -&gt; Expr -&gt; Expr)
+addop = Add &lt;$ char '+'
+    &lt;|&gt; Sub &lt;$ char '-'
 </pre></div></div></div><div class="pager"><a href="../../html/C5666B6BB/66.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>

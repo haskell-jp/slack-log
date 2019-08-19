@@ -238,5 +238,11 @@
         "text": "何名か ICFP 行くかと思うのでその連絡用に <#CM4J6EDHR|icfp> 作りました",
         "user": "U4L0B71L1",
         "type": "message"
+    },
+    {
+        "ts": "1566199564.035200",
+        "text": "GHCではunsafe foreign callの最中はGCが起こらないことが保証されていますが、前段階としてスレッドを同期（世界を止める）するのは防げないので、一つのスレッドがファイルに書き込んでいる間他のスレッドまで停止してしまうというやっかいな現象に遭遇しました。この場合内部でsafeに呼び出す`openFileBlocking`を使うことで回避できました( <http://hackage.haskell.org/package/base-4.12.0.0/docs/GHC-IO-Handle-FD.html#v:openFileBlocking> )が、アロケーションをバリバリに絞ったコードでも同様の問題が発生しうるので注意が必要です",
+        "user": "U4KUNQF9N",
+        "type": "message"
     }
 ]

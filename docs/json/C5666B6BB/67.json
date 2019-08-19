@@ -286,5 +286,17 @@
         "text": "パーサあまり詳しくないのですが、以下のように構文木を書き換えるのはどうでしょうか。\n\n```\nrelOp ::= \"&lt;\" | \"&lt;=\" | \"&gt;\" | \"&gt;=\"\nrelational ::= add | add relOp add\n```\n\nrelOpは以下のように書けると思います(動作未検証)\n\n```\nrelOp :: Parser (Expr -&gt; Expr -&gt; Expr)\nrelOp = l &lt;|&gt; g\n  where\n    l = do\n      char '&lt;'\n      (char '=' *&gt; pure Lte) &lt;|&gt; pure Lt\n    g = do\n      char '&gt;'\n      (char '=' *&gt; pure Gte) &lt;|&gt; pure Gt\n```",
         "user": "U570660KX",
         "type": "message"
+    },
+    {
+        "ts": "1566204147.114100",
+        "text": "同じく空白の件ではなくて、元のrelational関数の見通しを良くする件です。\n込み入ってきたら、以下のように一旦ベタっと書いてしまう手もあります。 入れ子の中身をwhere節に追い出すのと、比較演算子の文字がかぶるのを `try` を使って素直に書いてしまいます。好みですが^^ (検証していないので、優先度ミスなどで期待通りに動かないかも。 あと、where節はほぼ同じパターンの繰り返しなので、さらにまとめられます。)\n\n```\nrelational :: Parser Expr\nrelational = do\n    a &lt;- add\n    try (lte a) &lt;|&gt; (lt a) &lt;|&gt; try (gte a) &lt;|&gt; (gt a) &lt;|&gt; pure a\n  where\n    lte t = Lte t &lt;$&gt; (string \"&lt;=\" *&gt; relational)\n    lt  t = Lt  t &lt;$&gt; (char   '&lt;'  *&gt; relational)\n    gte t = Gte t &lt;$&gt; (string \"&gt;=\" *&gt; relational)\n    gt  t = Gt  t &lt;$&gt; (char   '&gt;'  *&gt; relational)\n```\n\nそこからさらに、 `&lt;|&gt;` の替わりに `choice` を使って、まとめてしまうことも。\n\n```\nrelational :: Parser Expr\nrelational = do\n    a &lt;- add\n    choice $ map try\n        [ Lte a &lt;$&gt; (string \"&lt;=\" *&gt; relational)\n        , Lt  a &lt;$&gt; (char   '&lt;'  *&gt; relational)\n        , Gte a &lt;$&gt; (string \"&gt;=\" *&gt; relational)\n        , Gt  a &lt;$&gt; (char   '&gt;'  *&gt; relational)\n        , pure a\n        ]\n```",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1566204192.114300",
+        "text": "あと、余談ですが、 `chainl1`  を使って、全体をコンパクトに書く原典が以下にあります。 （as_capablさんスタイルですね。）\n<http://www.cs.nott.ac.uk/~pszgmh/pearl.pdf>\n\nchainl1 を使うと、例えば以下のようにも書けます。 どこで止めるかは、保守性/可読性含めて好み次第ですね。\n\n```\n-- relational ::= add (relop add | e)\nrelational :: Parser Expr\nrelational = add `chainl1` relop\n\nrelop :: Parser (Expr -&gt; Expr -&gt; Expr)\nrelop = choice $ map try \n    [ Lte &lt;$ string \"&lt;=\"\n    , Lt  &lt;$ string \"&lt;\"\n    , Gte &lt;$ string \"&gt;=\"\n    , Gt  &lt;$ string \"&gt;\"\n    ]\n\n-- add ::= term (addop term | e)\nadd :: Parser Expr\nadd = term `chainl1` addop\n\naddop :: Parser (Expr -&gt; Expr -&gt; Expr)\naddop = Add &lt;$ char '+'\n    &lt;|&gt; Sub &lt;$ char '-'\n```",
+        "user": "U55V441FS",
+        "type": "message"
     }
 ]
