@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #67</title><link rel="stylesheet" href="../../messages.css" type="text/css" media="screen"></head><body><h1>haskell-jp / questions #67</h1><div class="pager"><a href="../../html/C5666B6BB/66.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div><div class="message_list"><div class="message" id="message-1564557369.063600"><div class="message__timestamp">2019-07-31<br/>16:16:09 +0900</div><div class="message__header">mizunashi-mana</div><div class="message__body">一応補足ですが，現在の GHC では full laziness が入るタイミングが調整されていて，<br/><pre>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #67</title><link rel="stylesheet" href="../../messages.css" type="text/css" media="screen"></head><body><h1>haskell-jp / questions #67</h1><div class="pager"><a href="../../html/C5666B6BB/66.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a><a href="../../html/C5666B6BB/68.html" class="pager__next">Next</a></div><div class="message_list"><div class="message" id="message-1564557369.063600"><div class="message__timestamp">2019-07-31<br/>16:16:09 +0900</div><div class="message__header">mizunashi-mana</div><div class="message__body">一応補足ですが，現在の GHC では full laziness が入るタイミングが調整されていて，<br/><pre>
 factMemo :: Int -&gt; Integer
 factMemo = (map fact' [0..] !!)
   where
@@ -176,4 +176,4 @@ add = term `chainl1` addop
 addop :: Parser (Expr -&gt; Expr -&gt; Expr)
 addop = Add &lt;$ char '+'
     &lt;|&gt; Sub &lt;$ char '-'
-</pre></div></div></div><div class="pager"><a href="../../html/C5666B6BB/66.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>
+</pre></div></div></div><div class="pager"><a href="../../html/C5666B6BB/66.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a><a href="../../html/C5666B6BB/68.html" class="pager__next">Next</a></div></body></html>
