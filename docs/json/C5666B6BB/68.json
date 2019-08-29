@@ -172,5 +172,53 @@
         "text": "<@UMET4N6Q3> has joined the channel",
         "user": "UMET4N6Q3",
         "type": "message"
+    },
+    {
+        "ts": "1567075207.005000",
+        "text": "GHCのRTSについての質問です。 <https://twitter.com/igrep/status/1167019215489863681> に書いたとおりなのですが、\n<https://gitlab.haskell.org/ghc/ghc/wikis/commentary/rts/haskell-execution/pointer-tagging> で解説されている「tagged pointerによる最適化」というのは、 <https://gitlab.haskell.org/ghc/ghc/blob/bd660edeb783a74e5ca3f1f82713b2aeedae19dc/includes/Cmm.h#L279-285> で行われている、\n「タグを取得してみてタグが0じゃなかったらタグの値をそのまま返して、0だったら `%INFO_PTR` というマクロを呼ぶ」処理のこと、という理解で正しいでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1567082253.005200",
+        "text": "Pointer Tagging は、ヒープオブジェクトが評価済みか否かを、ポインタの下位ビットを使って表す実装方法になります。\n\nタグが0でなければ「評価済み」であると判断して、そのヒープオブジェクトの評価を省略できます。\nそのヒープオブジェクトが値コンストラクタの場合は、タグのビットが値をそのものを表します。\n例えば、Maybe型の値であれば、タグが1なら「Nothing」で、タグが2なら「Just x」であることがわかります。\n\nなお、タグが0の場合は「未評価」であるとして、そのヒープオブジェクトを評価（ENTER）します。\n\n参考までに、pointer taggingの実装イメージはこんな感じです。\n<https://takenobu-hs.github.io/downloads/haskell_ghc_illustrated.pdf#page=37>",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1567084567.005400",
+        "text": "なお、Pointer Tagging を使ったコードは、GHCのランタイムシステムだけでなく、GHCによるコンパイル結果のコード側にも表れます。例えば、 `case x of ... ` の `x` が評価済みかを、pointer tagging で切り分けています。\n\n少しコード例が古いですが、Pointer Tagging については、以下の箇所付近も参考になります。\n<https://gitlab.haskell.org/ghc/ghc/wikis/commentary/compiler/generated-code#example-7-case-expressions>",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1567089206.006300",
+        "text": "型の切り出しによる関数の書き換え方ついて質問させてください。\n\n今まで以下のような型だったものを\n```\ndata Expr = Add Expr Expr\n          | Sub Expr Expr\n          | Nat Int\n            deriving (Show, Eq)\n```\n\n以下のように切り出したいと考えています\n```\ndata BinOp = Add | Sub deriving (Show, Eq)\ndata Expr = BinOp Expr Expr\n          | Nat Int\n            deriving (Show, Eq)\n```\n\nそれに伴い、今まで使っていた関数も少し手を加えなければいけないのですが、書き換え方がわかりません。\n```\n-- 従来のもの\n-- add ::= term | term ('+' add | \"-\" add)\nadd :: Parser Expr\nadd = term `chainl1` skipW1 addop\n\naddop :: Parser (Expr -&gt; Expr -&gt; Expr)\naddop = Add &lt;$ char '+' &lt;|&gt; Sub &lt;$ char '-'\n```\n\n欲しいaddopの型は`addop :: Parser (Expr -&gt; Expr -&gt; Expr)`ですが、このままだと`addop :: ParsecT String () Identity BinOp`になってしまいます。\n\n今まで通り以下のように書けば、コンパイルは通りますが、欲しい物と結果が異なります。\n```\naddop :: Parser (Expr -&gt; Expr -&gt; Expr)\naddop = BinOp &lt;$ char '+' &lt;|&gt; BinOp &lt;$ char '-'\n```\n\n欲しい物の例→`Add (Nat 1) (Nat 2)\n得られる物の例→`BinOp (Nat 1) (Nat 2)\n\n怒られている理由はわかりますが、直し方がわからないという状態です。\n\nまた、この問題を解決するために「Haskell 型 切り出し」などでいくつかググってみたのですが、良い成果が得られませんでした。\nもし今回の件のようなものに対して適当な用語などがあれば教えていただけると嬉しいです。\n\nよろしくお願いします。\n\n\n変更前のコードの全体はいかにあります\n<https://github.com/mrsekut/hcc/blob/master/src/Parser.hs>",
+        "user": "UCM4G8PGW",
+        "type": "message"
+    },
+    {
+        "ts": "1567089924.006800",
+        "text": "この型の切り出し方で、記述する関数の数が減ったりするわけではないので、このように切り出す事自体が微妙なのかなとも思い始めました。\n単純にExprの定義が多少見やすくなるかなというのと、こういう切り出し方をしている例をよく見るなというのがモチベーションですが、それがそもそも正しいのかもわかりません",
+        "user": "UCM4G8PGW",
+        "type": "message"
+    },
+    {
+        "ts": "1567090511.007100",
+        "text": "まず、切り出したあとの Expr の定義間違ってない？\n`Expr = B BinOp Expr Expr | Nat Int` じゃないとじゃない？\nただの typo ならいいんだけど",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1567091201.007300",
+        "text": "typoのつもりではありませんでした\nなるほど！、ただ切り出してエイリアスのように使うものではなく、ネストが一階層深くなるのですね\nそうすることでパターンマッチなどもできるのですね.\n型コンストラクタや値コンストラクタなどに対する理解が甘いのかもしれません。\nご教示頂いたコードなら動かすことができました。\nありがとうございます！",
+        "user": "UCM4G8PGW",
+        "type": "message"
+    },
+    {
+        "ts": "1567121011.008000",
+        "text": "tagで切り分けている、というのは `if (R1 &amp; 3 != 0) goto ccA;` の行のことですよね？",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
