@@ -118,5 +118,77 @@
         "text": "もしかして、HEADでビルドした上で実行しないといけなかったですかね... :cold_sweat:",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1567246895.005500",
+        "text": "version-historyのページは表自体を編集したことがない（生成ツールを使ったことがない）ので把握できていないのですが、もしかするとツールを使う上で何か手順が要るのかもしれませんね。\nあるいは、HEAD列は手編集という可能性もあるかも:thinking_face:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1567254078.005700",
+        "text": "ツールの履歴をざっと見てみましたが、HEADと各バージョンは、別々に編集されてるみたいですね。\n\nHEAD\n<https://github.com/bgamari/ghc-utils/blame/master/library-versions/pkg_versions.txt#L102>\n\nGHC 8.6.5\n<https://github.com/bgamari/ghc-utils/pull/17>\n\nHEAD側は、おそらく、HEADでビルドした ghc-pkg コマンドを使ったか、手編集っぽいですね。",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1567255685.006200",
+        "text": "わざわざすみません...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1567255716.006400",
+        "text": "手で編集するとしたら、HEADに入ってる各パッケージのcabalファイルを確認するのが確実ですかね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1567258211.006600",
+        "text": "いちから手で編集するのは大変そうだと思いますが、今のmaster(ghc 8.9)ブランチのHEADでの各ライブラリのバージョンを、手っ取り早くリストアップするには、以下のページの右の列を使えると思います。\n以下は、masterのHEADを使ってビルドされている、ライブラリのドキュメント群です。\n<https://ghc.gitlab.haskell.org/ghc/doc/libraries/index.html>\n\n\nただ、結構数が多いので、可能ならmasterでghcをビルドしてから、そこでの ghc-pkg をつかってベースを作ってから、手編集するのが良い気がします。\nその場合の手編集の対象は、 `8.9.2019...` となっている箇所を、今のHEAD列に合わせて `8.9*` とか `8.9` に修正するくらいだと思います。\n\n\nHEADの情報の精度で今すぐ困る人は少ないと思うので、しばらくおいておくという手もあります:sweat_smile:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1567258613.007000",
+        "text": "バージョンをとるだけならビルドしなくても、\nlibraries/以下にある各cabalファイルからgrepで抜き出すワンライナーでも書くのが簡単かな、と思いますがいかがでしょうか？\n来週そうします。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1567259399.007200",
+        "text": "と思ってましたが教えていただいた <https://ghc.gitlab.haskell.org/ghc/doc/libraries/index.html> からDevToolsで\n```\nArray.from(new Set(Array.from(document.getElementsByClassName(\"package\")).map((e) =&gt; e.innerText.replace(/8\\.9\\..*/, \"8.9*\")))).join(\"\\n\")\n```\nというワンライナーでとれました。残りの加工は明日以降やります\n```\nbase-4.13.0.0\ntransformers-0.5.6.2\nstm-2.5.0.0\ndeepseq-1.4.4.0\nmtl-2.2.2\narray-0.5.4.0\nbinary-0.8.7.0\nbytestring-0.10.9.0\ncontainers-0.6.2.1\ntext-1.2.3.1\ntime-1.9.3\nCabal-3.0.0.0\nghc-boot-8.9*\nghc-prim-0.6.1\nghc-compact-0.1.0.0\nghc-heap-8.9*\nghc-boot-th-8.9*\ninteger-gmp-1.0.2.0\nghci-8.9*\nlibiserv-8.9*\ntemplate-haskell-2.16.0.0\nprocess-1.6.5.1\nhaskeline-0.7.5.0\nterminfo-0.4.1.4\ndirectory-1.3.3.2\nfilepath-1.4.2.1\nunix-2.7.2.2\nparsec-3.1.14.0\npretty-1.1.3.6\nxhtml-3000.2.2.1\nhpc-0.6.0.3\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1567259705.007400",
+        "text": "すごい。 急がないで良いと思いますよ:+1:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1567259869.007700",
+        "text": "あと、せっかくだったら、作られた `pkg_versions.txt` を以下みたいに pull request送るのもよいかも（必須ではないです）:haskell:\n<https://github.com/bgamari/ghc-utils/pull/17>",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1567260039.008100",
+        "text": "GitLabにあるのが本家なのかな、と思って実はすでにやってます。 :smirk:\n<https://gitlab.haskell.org/bgamari/ghc-utils/merge_requests/14>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1567261486.008400",
+        "text": "失礼しました、GitLab側がメインなのですね。 仕事が速い！:tada:\nWikiページの、このツールへのリンクも GitHubからGitLab側へ変えとかないといけないですね。",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1567293330.008600",
+        "text": "いや... 実際のところBenさんに訊かないとわからないのでWikiのリンクを変えるのは時期尚早かと...",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
