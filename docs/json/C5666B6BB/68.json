@@ -238,5 +238,29 @@
         "text": "<@UMKGDJ2RZ> has joined the channel",
         "user": "UMKGDJ2RZ",
         "type": "message"
+    },
+    {
+        "ts": "1567523189.015500",
+        "text": "ある式がWHNFまで評価されたときに占めるメモリー消費量の比較を、criterion <http://hackage.haskell.org/package/criterion> や\ngauge <http://hackage.haskell.org/package/gauge>\nのような要領で行えたら便利かな、と思うのですが、\n(1) そういう目的のパッケージはあるでしょうか？あるいは、素直にGHCのプロファイリング機能を使った方が良いのでしょうか？\n(2) 仮にそうした処理を自分で書くとしたら、\nSystem.Mem <http://hackage.haskell.org/package/base-4.12.0.0/docs/System-Mem.html> の\n`setAllocationCounter` や `getAllocationCounter` を使うのが正解なんでしょうか。\nというのも、今回の私のユースケースにおいては、基本的に同じサイズのデータを何度も割り当てる式を比較するため、簡易的な比較としてはアリなんじゃないかと思いまして。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1567524131.015700",
+        "text": "Heap allocation なら weigh <http://hackage.haskell.org/package/weigh> というのがありますね。ただ strict のあれのやつなら測るべきはスタックのサイズなので、それはちょっと分からないですね。 stack leak は rts option でスタックサイズを小さくしてやるとお手軽に確認できます",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1567550715.017400",
+        "text": "criterionでも—regress=allocated:itersみたいなオプションでできるはずです",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1567550760.018300",
+        "text": "<http://www.serpentine.com/criterion/tutorial.html> allocatedで検索すると書いてあります",
+        "user": "U4M9NJ7QE",
+        "type": "message"
     }
 ]
