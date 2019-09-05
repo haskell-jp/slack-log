@@ -34,5 +34,41 @@
         "text": "GHCでも使われてるし字句解析と構文解析が別れるからわかりやすいのかなーと思った次第です。エラーメッセージのパースは考えましたが本末転倒すぎるので見なかったことにします……",
         "user": "U7155GPR9",
         "type": "message"
+    },
+    {
+        "ts": "1567641138.032300",
+        "text": "パーサのエラー出力って割とホットな問題なんですよね。GHCですらパースエラーについては、最初の一個をぶん投げて終わり、にしてる奴なので。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1567641171.032500",
+        "text": "なので妥協するか、または良いアプローチを自力で探ってみるかの2択かと思います",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1567641979.032700",
+        "text": "招待リンクは\n<http://bit.ly/2GwPFrs|bit.ly/2GwPFrs>\nでした",
+        "user": "UE1SBEZTR",
+        "type": "message"
+    },
+    {
+        "ts": "1567643653.033000",
+        "text": "Safe/Trustworthy プラグマに関する質問です。\nある時点で、importしているモジュールがTrustworthyであったために、そのモジュールも Trustworthy にしていたとします。\nimportしているモジュールがパージョンアップして、Safe に変わりました。\nすると、\n'XXX' is marked as Trustworthy but has been inferred as safe!\nみたいな警告が出るようになります。\nこの警告を消すスマートな方法はありますか？\nプラグマ部分に #ifdef って有効なんですかね？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1567643980.033100",
+        "text": "なるほど……ありがとうございます。とりあえずMegaparsecあたりを触ってみて、それでもしっくりこないようなら言語仕様に沿ったパーサを自前で書く、といった方向で試してみます",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1567648189.033500",
+        "text": "<https://github.com/ekmett/lens/blob/60b89993903af95f138411a0721e952e84047a6c/src/Control/Lens/Internal/Setter.hs#L4> のように、Trustworthyを切り替えるのはしばしば見られます。あるいは-Wno-trustworthy-safeで無視するのもありだと思います",
+        "user": "U4KUNQF9N",
+        "type": "message"
     }
 ]
