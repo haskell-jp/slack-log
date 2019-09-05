@@ -70,5 +70,125 @@
         "text": "<https://github.com/ekmett/lens/blob/60b89993903af95f138411a0721e952e84047a6c/src/Control/Lens/Internal/Setter.hs#L4> のように、Trustworthyを切り替えるのはしばしば見られます。あるいは-Wno-trustworthy-safeで無視するのもありだと思います",
         "user": "U4KUNQF9N",
         "type": "message"
+    },
+    {
+        "ts": "1567653675.034000",
+        "text": "ベストプラクティスかはわからないけど、自分が関わっているプロジェクトの開発環境はこうなっているという回答でもいいかな。。？",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1567661704.034300",
+        "text": "megaparsec で簡単な言語をパースする例としては、ぼくにはこれがわかりやすかったです <https://markkarpov.com/megaparsec/parsing-simple-imperative-language.html>",
+        "user": "UKYUFC94P",
+        "type": "message"
+    },
+    {
+        "ts": "1567661844.034500",
+        "text": "ありがとうございます！読んでみます",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1567661973.034800",
+        "text": "う・・でも改めて見たら冒頭に「The text here may be obsolete. See this tutorial instead.」とありました。",
+        "user": "UKYUFC94P",
+        "type": "message"
+    },
+    {
+        "ts": "1567661978.035000",
+        "text": "<https://haskell.e-bigmoon.com/posts/2019/07-14-megaparsec-tutorial.html>",
+        "user": "UKYUFC94P",
+        "type": "message"
+    },
+    {
+        "ts": "1567662047.035500",
+        "text": "さっきのはバージョンやらスタイルやらが古いかもしれません。こちらのほうが網羅的でよいようです。長いですが…。",
+        "user": "UKYUFC94P",
+        "type": "message"
+    },
+    {
+        "ts": "1567665842.036300",
+        "text": "大丈夫です\nお願いします",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1567669632.037400",
+        "text": "megaparsecで書いたパーサーがeofで止まらず無をパースしようとして死ぬんですが、助けてください\n<https://github.com/1inguini/mud/blob/detailedAST/src/Parse.hs>",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1567669834.037600",
+        "text": "詳細ぱっとわかりませんが、 `many` には本当に慎重になった方がいいです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1567670823.037800",
+        "text": "思い出した。普通のパーサコンビネータだと左再帰がうまく書けそうにないような気がしたのでAlex+Happyで自動生成にしたんでした。やりたいことは `x y z` を右結合の指定なしに `Apply (Apply x y) z` という構文木にしたいのです。そのへんHappyがうまくやってくれます",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1567671043.038400",
+        "text": "Elmが（Idrisもらしい）Happy使わずパーサコンビネータだけであの文法をパースしてるのを見るとできないこともなさそうなんですが……",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1567671076.038600",
+        "text": "たしかに many のどれかを some にしたら急に動いたりするかもしれないですね。",
+        "user": "UKYUFC94P",
+        "type": "message"
+    },
+    {
+        "ts": "1567671103.038800",
+        "text": "左再帰とかもろもろの演算子のあれこれを、演算子の結合と優先順位を指定するだけでどうにかしてくれる `makeExprParser` という関数がparser-combinatorsというパッケージにありまして :smirk:\n<http://hackage.haskell.org/package/parser-combinators-1.2.0/docs/Control-Monad-Combinators-Expr.html#v:makeExprParser>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1567671142.039000",
+        "text": "『右結合の指定なしに』",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1567672523.039300",
+        "text": "お、ifdef が効くのですね。ありがとうございます！",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1567672619.039500",
+        "text": "ご存知かもしれませんが。\n<https://kazu-yamamoto.hatenablog.jp/entry/20110127/1296098875>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1567672822.040000",
+        "text": "ちょうどそこに行き着いたところでした！",
+        "user": "U7155GPR9",
+        "type": "message"
+    },
+    {
+        "ts": "1567672832.040300",
+        "text": "(一旦諦めました)",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1567680958.040600",
+        "text": "(全然関係ないけど、GitHub 上のコードを貼るときはコミットハッシュ込みの方がいいよ（あとでみた時に変わってしまう）)",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1567681456.040800",
+        "text": "あと、出だしがよくわからないや\n例えば、ghci でこういう風に実行したら止まらない（理想はこう）とかを書いてくれると実装を追いやすいです。",
+        "user": "U56L7EVNY",
+        "type": "message"
     }
 ]
