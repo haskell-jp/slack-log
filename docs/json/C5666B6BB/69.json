@@ -262,5 +262,41 @@
         "text": "なお、GHCのバージョンは8.6.5です。\nコマンドにバックスラッシュが混ざっていることから察せられるとおり、Windows版を使っています。",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1567935315.048400",
+        "text": "単項マイナスを括弧で囲むとパースできなくなってしまいます(囲まなければちゃんとパースできる)\n<https://github.com/1inguini/mud/commit/3bce80c19ea34ce74fec88eac34c765f1def1d70>\n```\n❯❯❯ stack run parse '(-12)'\n\n&lt;stdin&gt;:2:2:\n  |\n2 | (-12)\n  |  ^\nunexpected '-'\nexpecting '\"', ''', '(', ')', ':', '[', digit, or integer\n```",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1567936839.049300",
+        "text": "(1) そのコミット以前はできていたんですか？それともこのコミットは関係がない？\n(2) 念のため確認ですがパーサーの全体像は <https://github.com/1inguini/mud/blob/3bce80c19ea34ce74fec88eac34c765f1def1d70/src/Parse.hs> ということですよね？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1567937088.049600",
+        "text": "(1)git checkoutして試したらできました\n(2)言ってることがよくわかりませんが、そのリポジトリかと言われればそうですが、ブランチはparser_from_scratchです",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1567937133.049800",
+        "text": "あとeofで死ぬ問題は解決しました",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1567937207.050000",
+        "text": "パーサを書き直してsepByをsepEndByにしたらなんか動きました(もとのパーサのsepByを置き換えても別に直りませんでしたが)",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1567938336.050500",
+        "text": "anonFunsが悪さしていました",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
     }
 ]
