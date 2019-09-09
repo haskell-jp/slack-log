@@ -52,5 +52,11 @@
         "text": "`Q` モナドは， `runQ` を使えば `IO` の元で走らせることができるようになっているので，それでデバッグできます．大体のデータ型は `Show` が実装されているので，単純に表示してみると良いと思います．\n\n```\n&gt;&gt;&gt; runQ (consType 1) :: IO [Dec]\n[TySynInstD Data.Tuple.List.Data.Cons (TySynEqn [VarT x_2,TupleT 0] (AppT (TupleT 1) (VarT x_2)))]\n```\n\nみたいな感じでそれぞれの関数の `Dec` を表示する `Main` モジュールを書いて，プロファイルを取ってみるといいと思いますね．\n\nついでにですが，無限リストの利用は計画的に行った方が良いと思いますね",
         "user": "U57D08Z9U",
         "type": "message"
+    },
+    {
+        "ts": "1567992697.056300",
+        "text": "`runQ` したのをわざわざコピーしてました……",
+        "user": "U4L0B71L1",
+        "type": "message"
     }
 ]
