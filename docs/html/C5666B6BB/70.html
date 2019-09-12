@@ -11,4 +11,59 @@ let k = \ z x -&gt; x : z in (([] `k` 1) ... `k` n)
 foldr (\x z -&gt; x : z) [] [1 .. size]
 </pre><br/>と、 <code>foldr</code> にした場合、<br/><code>Strict</code> をつけた場合最適化を有効にしてもスタックがあふれますね。大体理屈は <code>foldl</code> の場合と同じ、ですよね？<br/><code>foldr</code> に渡した関数 <code>(\x z -&gt; x : z)</code> は実質的に両辺をWHNFまで評価する <code>:</code> ということでしょうから。</div></div><div class="message" id="message-1568135882.062900"><div class="message__timestamp">2019-09-11<br/>02:18:02 +0900</div><div class="message__header">mizunashi-mana</div><div class="message__body"><code>foldr</code> の場合 <code>foldl</code> の時と事情が少々異なっていて，まず strict な <code>foldr</code> 相当のものは通常リストを reverse するなどしない限り，固定スタックの再帰にできません．それは，リストの後ろの要素から得られる値が分からないと前の要素に対しての計算ができないからです． <code>foldr</code> の場合，<br/><pre>
 let k = \ x z -&gt; x : z in (1 `k` foldr k [] [2 .. n])
-</pre><br/>みたいなものが最初にヒープに乗ることになります．そして，このサンクを評価する時 <code>k</code> が strict なので， <code>foldr k [] [2 .. n]</code> 部分の評価が始まりこの時スタックに値が退避されます．同様の操作がされることによってスタックがどんどん積み上がっていくことになりますが，ヒープの消費量はサンクが nursery にいる間に処理されるため抑えられます．<br/><br/><code>foldr'</code> は <code>foldl</code> を使って実装されているため，スタックを消費しない代わりにヒープを消費する実装になっています (これは前回のやつの原理からですね．今回はリストを生成するため，そちらの方にもヒープが割かれて顕著な差がないですが， <code>\ x z -&gt; x</code> とかだと差が出ると思います) なので，基本的に Strict 拡張下では <code>foldr</code> 系統は使ってはいけません．代わりに <code>foldl'</code> を使ってなんとかするか， lazy にするか， mutable の使用を検討すべきです．<br/><br/> <code>foldl</code> の例は一見 strict にしたらいけそうに見えるけど，実は中身が正格消費になっていないので heap を辿りながらスタックオーバーフローしてしまう例になっていて， strict にするだけではダメで中身も正格消費なものを使わないといけないということになります．ここらへんは， (`foldl` は有名な例ですが) 遅延評価での罠を知っていないと判断できないですし，逆に strict 拡張はこういう遅延評価の罠から生まれたもので， BangPattern と strictness flag を書くのがめんどい人用の拡張なので，背景を抑えると strict 拡張がどういう動作をするのかは見えやすいのでは？ というのがあのコメントで言いたいことですね</div></div><div class="message" id="message-1568137511.063100"><div class="message__timestamp">2019-09-11<br/>02:45:11 +0900</div><div class="message__header">mizunashi-mana</div><div class="message__body">なので基本的には、<br/>* foldr 系統は strict 下では使ってはいけない<br/>* foldl 系統は (strict 下でなくても) 正格消費版を使うこと<br/>みたいな感じですね</div></div><div class="message" id="message-1568157804.063500"><div class="message__timestamp">2019-09-11<br/>08:23:24 +0900</div><div class="message__header">igrep</div><div class="message__body">詳しい解説ありがとうございます！</div></div><div class="message" id="message-1568158296.063800"><div class="message__timestamp">2019-09-11<br/>08:31:36 +0900</div><div class="message__header">makoto.atarashi0607</div><div class="message__body">@makoto.atarashi0607 has joined the channel</div></div><div class="message" id="message-1568171614.064000"><div class="message__timestamp">2019-09-11<br/>12:13:34 +0900</div><div class="message__header">hiroto.shioi</div><div class="message__body">こんにちは！OSSでHydraを使うならこれを参考にするといいよっていわれました。<br/><a href='https://nixos.org/hydra/manual/#chap-installation'>https://nixos.org/hydra/manual/#chap-installation</a></div></div><div class="message" id="message-1568192880.065800"><div class="message__timestamp">2019-09-11<br/>18:08:00 +0900</div><div class="message__header">junji.hashimoto</div><div class="message__body">ありがとうございます。</div></div><div class="message" id="message-1568206505.066100"><div class="message__timestamp">2019-09-11<br/>21:55:05 +0900</div><div class="message__header">UMVKD1482</div><div class="message__body">@UMVKD1482 has joined the channel</div></div></div><div class="pager"><a href="../../html/C5666B6BB/69.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>
+</pre><br/>みたいなものが最初にヒープに乗ることになります．そして，このサンクを評価する時 <code>k</code> が strict なので， <code>foldr k [] [2 .. n]</code> 部分の評価が始まりこの時スタックに値が退避されます．同様の操作がされることによってスタックがどんどん積み上がっていくことになりますが，ヒープの消費量はサンクが nursery にいる間に処理されるため抑えられます．<br/><br/><code>foldr'</code> は <code>foldl</code> を使って実装されているため，スタックを消費しない代わりにヒープを消費する実装になっています (これは前回のやつの原理からですね．今回はリストを生成するため，そちらの方にもヒープが割かれて顕著な差がないですが， <code>\ x z -&gt; x</code> とかだと差が出ると思います) なので，基本的に Strict 拡張下では <code>foldr</code> 系統は使ってはいけません．代わりに <code>foldl'</code> を使ってなんとかするか， lazy にするか， mutable の使用を検討すべきです．<br/><br/> <code>foldl</code> の例は一見 strict にしたらいけそうに見えるけど，実は中身が正格消費になっていないので heap を辿りながらスタックオーバーフローしてしまう例になっていて， strict にするだけではダメで中身も正格消費なものを使わないといけないということになります．ここらへんは， (`foldl` は有名な例ですが) 遅延評価での罠を知っていないと判断できないですし，逆に strict 拡張はこういう遅延評価の罠から生まれたもので， BangPattern と strictness flag を書くのがめんどい人用の拡張なので，背景を抑えると strict 拡張がどういう動作をするのかは見えやすいのでは？ というのがあのコメントで言いたいことですね</div></div><div class="message" id="message-1568137511.063100"><div class="message__timestamp">2019-09-11<br/>02:45:11 +0900</div><div class="message__header">mizunashi-mana</div><div class="message__body">なので基本的には、<br/>* foldr 系統は strict 下では使ってはいけない<br/>* foldl 系統は (strict 下でなくても) 正格消費版を使うこと<br/>みたいな感じですね</div></div><div class="message" id="message-1568157804.063500"><div class="message__timestamp">2019-09-11<br/>08:23:24 +0900</div><div class="message__header">igrep</div><div class="message__body">詳しい解説ありがとうございます！</div></div><div class="message" id="message-1568158296.063800"><div class="message__timestamp">2019-09-11<br/>08:31:36 +0900</div><div class="message__header">makoto.atarashi0607</div><div class="message__body">@makoto.atarashi0607 has joined the channel</div></div><div class="message" id="message-1568171614.064000"><div class="message__timestamp">2019-09-11<br/>12:13:34 +0900</div><div class="message__header">hiroto.shioi</div><div class="message__body">こんにちは！OSSでHydraを使うならこれを参考にするといいよっていわれました。<br/><a href='https://nixos.org/hydra/manual/#chap-installation'>https://nixos.org/hydra/manual/#chap-installation</a></div></div><div class="message" id="message-1568192880.065800"><div class="message__timestamp">2019-09-11<br/>18:08:00 +0900</div><div class="message__header">junji.hashimoto</div><div class="message__body">ありがとうございます。</div></div><div class="message" id="message-1568206505.066100"><div class="message__timestamp">2019-09-11<br/>21:55:05 +0900</div><div class="message__header">atsushi.sato.3r</div><div class="message__body">@atsushi.sato.3r has joined the channel</div></div><div class="message" id="message-1568250017.072200"><div class="message__timestamp">2019-09-12<br/>10:00:17 +0900</div><div class="message__header">cutsea110</div><div class="message__body"><pre>
+cutsea110@waikiki ~/.ghc/x86_64-linux-8.6.5/package.conf.d (master *)
+$ ghci -V
+The Glorious Glasgow Haskell Compilation System, version 8.6.5
+cutsea110@waikiki ~/.ghc/x86_64-linux-8.6.5/package.conf.d (master *)
+$ ghc -V
+The Glorious Glasgow Haskell Compilation System, version 8.6.5
+$ cabal -V
+cabal-install version 3.0.0.0
+compiled using version 3.0.0.0 of the Cabal library
+</pre><br/><br/>な環境で,cabal install criterionしたらひととおりinstallされて最後にcriterion-reportも${HOME}/.cabal/bin以下でsymlinkされた様子.<br/>ところが肝心のCriterion関係のモジュールが見当りません.<br/><br/><pre>
+cutsea110@waikiki ~/.ghc/x86_64-linux-8.6.5/package.conf.d (master *)
+$ ghci
+GHCi, version 8.6.5: <http://www.haskell.org/ghc/>  :? for help
+Loaded GHCi configuration from /home/cutsea110/.ghci
+ghci&gt; :m +Criterion.Main
+
+&lt;no location info&gt;: error:
+    Could not find module ‘Criterion.Main’
+    It is not a module in the current program, or in any known package.
+ghci&gt;
+</pre><br/><br/>一応ghc-pkgで探してみましたが...<br/><br/><pre>
+cutsea110@waikiki ~/.ghc/x86_64-linux-8.6.5/package.conf.d (master *)
+$ ghc-pkg find-module Data.Vector
+/usr/lib/ghc/package.conf.d
+    (no packages)
+/home/cutsea110/.ghc/x86_64-linux-8.6.5/package.conf.d
+    vector-0.12.0.3
+cutsea110@waikiki ~/.ghc/x86_64-linux-8.6.5/package.conf.d (master *)
+$ ghc-pkg find-module Criterion.Main
+/usr/lib/ghc/package.conf.d
+    (no packages)
+/home/cutsea110/.ghc/x86_64-linux-8.6.5/package.conf.d
+    (no packages)
+</pre><br/><br/>それとは別に<br/><br/><pre>
+${HOME}/.cabal/store/ghc-8.6.5/criterion-1.5.6.0-ca84ad97c60c610760a3be5cf2c9aa3cb940af0857a14e85a3e329ed3111cd2b/lib
+</pre><br/><br/>には<br/><br/><pre>
+$ ls
+.   Criterion         Criterion.hi            Paths_criterion.hi                                                                                   libHScriterion-1.5.6.0-ca84ad97c60c610760a3be5cf2c9aa3cb940af0857a14e85a3e329ed3111cd2b.a
+..  Criterion.dyn_hi  Paths_criterion.dyn_hi  libHScriterion-1.5.6.0-ca84ad97c60c610760a3be5cf2c9aa3cb940af0857a14e85a3e329ed3111cd2b-ghc8.6.5.so
+</pre><br/><br/>という具合でモジュールが入っている様子です.<br/>.cabal側のstoreってのがどうも良く分かってないのですが...<br/>これはどうやればCriterion.Mainモジュールを使えるようになるんでしょうか?</div></div><div class="message" id="message-1568250446.072500"><div class="message__timestamp">2019-09-12<br/>10:07:26 +0900</div><div class="message__header">cutsea110</div><div class="message__body">あう.自己解決したぽい.<br/>cabal replから<br/><br/><pre>
+$ cabal repl
+Resolving dependencies...
+Build profile: -w ghc-8.6.5 -O1
+In order, the following will be built (use -v for more details):
+ - h2p2-0.1.0.0 (exe:h2p2) (first run)
+Preprocessing executable 'h2p2' for h2p2-0.1.0.0..
+GHCi, version 8.6.5: <http://www.haskell.org/ghc/>  :? for help
+Loaded GHCi configuration from /home/cutsea110/.ghci
+[1 of 1] Compiling Main             ( Main.hs, interpreted )
+Ok, one module loaded.
+ghci&gt; :m +Criterion.Main
+ghci&gt; :t defaultMain
+defaultMain :: [Benchmark] -&gt; IO ()
+ghci&gt;
+</pre><br/><br/>とすればうまくloadできました.</div></div><div class="message" id="message-1568250532.072700"><div class="message__timestamp">2019-09-12<br/>10:08:52 +0900</div><div class="message__header">cutsea110</div><div class="message__body">build-dependsに入れてロードできなかったので調べはじめてたのに今はうまくロードできている.謎ですがひとまず解消しました.</div></div><div class="message" id="message-1568250699.072900"><div class="message__timestamp">2019-09-12<br/>10:11:39 +0900</div><div class="message__header">as_capabl</div><div class="message__body">確かcabal 3.X ってnew-**がデフォルトになる(new-無しでもnew-**が呼ばれる)って話でしたよね。なので、適切な.cabalのあるディレクトリでcabal replやcabal buildをすれば、最悪インストールされていなくても宜しくやってくれるはず</div></div><div class="message" id="message-1568250814.073100"><div class="message__timestamp">2019-09-12<br/>10:13:34 +0900</div><div class="message__header">as_capabl</div><div class="message__body">素のghc(i)からでもロードできるようにするには、ライブラリの <code>cabal  (new-)install</code> に  <code>--lib</code> オプションを付けるんだったと思います</div></div></div><div class="pager"><a href="../../html/C5666B6BB/69.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>

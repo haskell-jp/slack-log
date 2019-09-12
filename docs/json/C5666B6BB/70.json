@@ -124,5 +124,35 @@
         "text": "<@UMVKD1482> has joined the channel",
         "user": "UMVKD1482",
         "type": "message"
+    },
+    {
+        "ts": "1568250017.072200",
+        "text": "```\ncutsea110@waikiki ~/.ghc/x86_64-linux-8.6.5/package.conf.d (master *)\n$ ghci -V\nThe Glorious Glasgow Haskell Compilation System, version 8.6.5\ncutsea110@waikiki ~/.ghc/x86_64-linux-8.6.5/package.conf.d (master *)\n$ ghc -V\nThe Glorious Glasgow Haskell Compilation System, version 8.6.5\n$ cabal -V\ncabal-install version 3.0.0.0\ncompiled using version 3.0.0.0 of the Cabal library\n```\n\nな環境で,cabal install criterionしたらひととおりinstallされて最後にcriterion-reportも${HOME}/.cabal/bin以下でsymlinkされた様子.\nところが肝心のCriterion関係のモジュールが見当りません.\n\n```\ncutsea110@waikiki ~/.ghc/x86_64-linux-8.6.5/package.conf.d (master *)\n$ ghci\nGHCi, version 8.6.5: <http://www.haskell.org/ghc/>  :? for help\nLoaded GHCi configuration from /home/cutsea110/.ghci\nghci&gt; :m +Criterion.Main\n\n&lt;no location info&gt;: error:\n    Could not find module ‘Criterion.Main’\n    It is not a module in the current program, or in any known package.\nghci&gt;\n```\n\n一応ghc-pkgで探してみましたが...\n\n```\ncutsea110@waikiki ~/.ghc/x86_64-linux-8.6.5/package.conf.d (master *)\n$ ghc-pkg find-module Data.Vector\n/usr/lib/ghc/package.conf.d\n    (no packages)\n/home/cutsea110/.ghc/x86_64-linux-8.6.5/package.conf.d\n    vector-0.12.0.3\ncutsea110@waikiki ~/.ghc/x86_64-linux-8.6.5/package.conf.d (master *)\n$ ghc-pkg find-module Criterion.Main\n/usr/lib/ghc/package.conf.d\n    (no packages)\n/home/cutsea110/.ghc/x86_64-linux-8.6.5/package.conf.d\n    (no packages)\n```\n\nそれとは別に\n\n```\n${HOME}/.cabal/store/ghc-8.6.5/criterion-1.5.6.0-ca84ad97c60c610760a3be5cf2c9aa3cb940af0857a14e85a3e329ed3111cd2b/lib\n```\n\nには\n\n```\n$ ls\n.   Criterion         Criterion.hi            Paths_criterion.hi                                                                                   libHScriterion-1.5.6.0-ca84ad97c60c610760a3be5cf2c9aa3cb940af0857a14e85a3e329ed3111cd2b.a\n..  Criterion.dyn_hi  Paths_criterion.dyn_hi  libHScriterion-1.5.6.0-ca84ad97c60c610760a3be5cf2c9aa3cb940af0857a14e85a3e329ed3111cd2b-ghc8.6.5.so\n```\n\nという具合でモジュールが入っている様子です.\n.cabal側のstoreってのがどうも良く分かってないのですが...\nこれはどうやればCriterion.Mainモジュールを使えるようになるんでしょうか?",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1568250446.072500",
+        "text": "あう.自己解決したぽい.\ncabal replから\n\n```\n$ cabal repl\nResolving dependencies...\nBuild profile: -w ghc-8.6.5 -O1\nIn order, the following will be built (use -v for more details):\n - h2p2-0.1.0.0 (exe:h2p2) (first run)\nPreprocessing executable 'h2p2' for h2p2-0.1.0.0..\nGHCi, version 8.6.5: <http://www.haskell.org/ghc/>  :? for help\nLoaded GHCi configuration from /home/cutsea110/.ghci\n[1 of 1] Compiling Main             ( Main.hs, interpreted )\nOk, one module loaded.\nghci&gt; :m +Criterion.Main\nghci&gt; :t defaultMain\ndefaultMain :: [Benchmark] -&gt; IO ()\nghci&gt;\n```\n\nとすればうまくloadできました.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1568250532.072700",
+        "text": "build-dependsに入れてロードできなかったので調べはじめてたのに今はうまくロードできている.謎ですがひとまず解消しました.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1568250699.072900",
+        "text": "確かcabal 3.X ってnew-**がデフォルトになる(new-無しでもnew-**が呼ばれる)って話でしたよね。なので、適切な.cabalのあるディレクトリでcabal replやcabal buildをすれば、最悪インストールされていなくても宜しくやってくれるはず",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1568250814.073100",
+        "text": "素のghc(i)からでもロードできるようにするには、ライブラリの `cabal  (new-)install` に  `--lib` オプションを付けるんだったと思います",
+        "user": "U570660KX",
+        "type": "message"
     }
 ]
