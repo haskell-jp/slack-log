@@ -154,5 +154,149 @@
         "text": "素のghc(i)からでもロードできるようにするには、ライブラリの `cabal  (new-)install` に  `--lib` オプションを付けるんだったと思います",
         "user": "U570660KX",
         "type": "message"
+    },
+    {
+        "ts": "1568270158.073800",
+        "text": "<@UELFKSH0V> has joined the channel",
+        "user": "UELFKSH0V",
+        "type": "message"
+    },
+    {
+        "ts": "1568271504.077200",
+        "text": "質問するのが初めてでありますので必要な情報が足りなければすみません。こちらの情報としてGithubのURLを貼っておきますが、ピンポイントで欲しい情報があればそこだけピックアップして貼ります。\n\nSlackBotを作ろうと思い、ネットの記事やSlackAPIのGitHubのページを参照してサンプルコードをとりあえず実行しようと思ったのですが、\n\n```\n    Not in scope: type constructor or class 'SlackHandle'\n   |\n27 | echoBot :: SlackHandle -&gt; IO ()\n   |            ^^^^^^^^^^^\n\n```\nビルド時にこのようなエラーが出てきます。検索しても同じような状況で困っている人がいなそうなので、質問させていただきます。どうか知恵を貸していただけませんでしょうか。\n\n↓GithubのURLです。\n<https://github.com/P0ngCh4ng/OkSlackBot>",
+        "user": "UELFKSH0V",
+        "type": "message"
+    },
+    {
+        "ts": "1568271701.077400",
+        "text": "参考にしたページがあるとありがたいです",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1568271871.077600",
+        "text": "<https://qiita.com/kentahama/items/261c9c86d02161680933>\n\n<https://23prime.hatenablog.com/entry/2017/10/13/214619>\n\nこちらのページです〜〜",
+        "user": "UELFKSH0V",
+        "type": "message"
+    },
+    {
+        "ts": "1568272101.078100",
+        "text": "どちらの記事でも `SlackHandle` なる型は使ってないようですね...\n本当にこの記事なんでしょうか？ :thinking_face:\n\nいずれにしても、そのエラーは 「 `SlackHandle` という型が存在していない」というエラーです。\nおそらく参考にした記事の内容が古く、APIが変ってしまっているのが原因と思われます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1568272228.078300",
+        "text": "あっ、元ネタがわかりました。\n<https://github.com/mpickering/slack-api> のREADMEですか... :cold_sweat:\n確かに `SlackHandle` 使ってる...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1568272379.078600",
+        "text": "実を言うと記事の方は依存関係を参考にしたんですが、記事のコードを丸パクしても全く違うエラーが出てくるのでそちらからのアプローチは諦めて、依存関係はそのままにAPIのGithubのExampleを参考にした形です。",
+        "user": "UELFKSH0V",
+        "type": "message"
+    },
+    {
+        "ts": "1568272579.078800",
+        "text": "ぱっと見Qiitaの記事の方が最新版のAPI <http://hackage.haskell.org/package/slack-api-0.12/docs/Web-Slack.html> に則っていて正しそうに見えるんですが、 <https://qiita.com/kentahama/items/261c9c86d02161680933#comment-d9420910bf8304645efd> なんて指摘されてるな..",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1568272631.079000",
+        "text": "GitHub の README は新しすぎるようですね． `SlackHandle` は現状の開発版で新しく入ったもののようです．参考にすべきは，こっちの方かもしれません:\n<https://github.com/mpickering/slack-api/tree/v0.12>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1568272910.079500",
+        "text": "なおリリースが 2017 年なので， Slack の現在の API に追いついてないかもしれませんね．最新のものがちゃんと動くかは分からないですが， master のを使ってみるといいかもしれません．少なくとも 0.12 では次のようなエラーが報告されてますね:\n<https://github.com/mpickering/slack-api/issues>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1568273116.080000",
+        "text": "そちらのバージョンで試してみます！",
+        "user": "UELFKSH0V",
+        "type": "message"
+    },
+    {
+        "ts": "1568273221.080200",
+        "text": "ついでにこちらの方は一応メンテされてそうですね:\n<https://hackage.haskell.org/package/slack-web>\n\nexample はなさそうですが…",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1568273271.080500",
+        "text": "使用する場合は `stack.yaml` に\n\n```\nextra-deps:\n- git: <https://github.com/mpickering/slack-api.git>\n  commit: &lt;使用したいコミットのSHA&gt;\n```\n\nと書き加えてください。\n参考: <https://docs.haskellstack.org/en/stable/yaml_configuration/#extra-deps>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1568273313.080700",
+        "text": "slack-webの方はSlack Web API向けのライブラリーです。bot作りには向いてません（我らが <https://github.com/haskell-jp/slack-log> を作るのにはぴったりでしたが）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1568273597.081200",
+        "text": "0.12の一番新しいコミットSHAを登録して今ビルドし直しています。\nコードは0.12のexampleを使いました。",
+        "user": "UELFKSH0V",
+        "type": "message"
+    },
+    {
+        "ts": "1568273671.081600",
+        "text": "```\nuser error (When parsing the record Preferences of type Web.Slack.Types.Preferences.Preferences the key email_misc was not present.)\n```\nこのエラーが出てきました；；\n記事を丸パクしたやつと同じエラーでした。正直これはslackAPI側の権限とかそっち周りな気がするんですが見たことある方いらっしゃいますか？",
+        "user": "UELFKSH0V",
+        "type": "message"
+    },
+    {
+        "ts": "1568273903.081800",
+        "text": "<https://github.com/mpickering/slack-api/commit/5fbc7732272289d5bdde9227b68c9ec362115f27>\nこのコミットで修正されている問題だと思われます。\nmasterの最新版を使わないとダメなのかも知れません... :fearful:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1568273906.082000",
+        "text": "多分これですね．現状の master では治ってるようですが，リリースはないと思うので master のコミットを使うしかないような気がします\n<https://github.com/mpickering/slack-api/pull/99>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1568274030.082400",
+        "text": "こっちでビルドし直してみます！",
+        "user": "UELFKSH0V",
+        "type": "message"
+    },
+    {
+        "ts": "1568274214.082700",
+        "text": "```\nuser error (When parsing the record Preferences of type Web.Slack.Types.Preferences.Preferences the key full_text_extracts was not present.)\n```\nこ、今度は違うkeyのエラーが、、\n最新版でこれだと直近のバージョンだとslackbotは作れないのでしょうか,,,",
+        "user": "UELFKSH0V",
+        "type": "message"
+    },
+    {
+        "ts": "1568274288.082900",
+        "text": "要するに最近のSlackの仕様変更に追いついてない、ということなので\n<https://github.com/mpickering/slack-api/pull/99> みたいに直すPull requestを送るしかなさそうですね... :disappointed_relieved:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1568274298.083200",
+        "text": "それも修正が入ってるようです\n<https://github.com/mpickering/slack-api/pull/100>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1568274335.083500",
+        "text": "多分使うコミットは <https://github.com/mpickering/slack-api/commit/d084fdbf1ab1a9e705dbd1f43645175fab0d5940> がいいのではないでしょうか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1568274630.083800",
+        "text": "ずっとghciで確認してて、ロードできなくて、cabal replしてみたらうまくいったので、そのあとでemacsからC-cC-lしたら通ったんだけど、もしかしてcabal replしたことで活が入った??",
+        "user": "U4MMHDSNT",
+        "type": "message"
     }
 ]
