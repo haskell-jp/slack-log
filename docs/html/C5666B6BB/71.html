@@ -1,1 +1,72 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #71</title><link rel="stylesheet" href="../../messages.css" type="text/css" media="screen"></head><body><h1>haskell-jp / questions #71</h1><div class="pager"><a href="../../html/C5666B6BB/70.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div><div class="message_list"><div class="message" id="message-1568284394.084300"><div class="message__timestamp">2019-09-12<br/>19:33:14 +0900</div><div class="message__header">pontyan12</div><div class="message__body">出先でしたのでご返信遅れてしまいすいません。<br/><br/>動作確認できました！<br/>お手伝いいただいたみなさまありがとうございました！！<br/><br/>これからの拡張はどこを参考にしたらよいでしょうか…?</div></div><div class="message" id="message-1568287291.084700"><div class="message__timestamp">2019-09-12<br/>20:21:31 +0900</div><div class="message__header">mizunashi-mana</div><div class="message__body">一応 <a href='https://github.com/mpickering/slack-api/tree/master/example'>https://github.com/mpickering/slack-api/tree/master/example</a> にいくつかサンプルが載ってるみたいですね</div></div><div class="message" id="message-1568289137.085100"><div class="message__timestamp">2019-09-12<br/>20:52:17 +0900</div><div class="message__header">igrep</div><div class="message__body">あとはどこまで書かれているか分かりませんのでexampleの方が確実そうですが、exampleでわからなければslack-apiのドキュメントを読め、ってところですね…。<br/>残念ながらhackageにまだ公開されていないバージョンなので、slack-apiのリポジトリーをgit cloneしてcdして、<br/>stack haddock --open<br/>と実行すれば、ビルド実行後にドキュメントが開かれます</div></div><div class="message" id="message-1568289841.085400"><div class="message__timestamp">2019-09-12<br/>21:04:01 +0900</div><div class="message__header">kakkun61</div><div class="message__body">（ <code>--open</code> 知らなかった</div></div></div><div class="pager"><a href="../../html/C5666B6BB/70.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #71</title><link rel="stylesheet" href="../../messages.css" type="text/css" media="screen"></head><body><h1>haskell-jp / questions #71</h1><div class="pager"><a href="../../html/C5666B6BB/70.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div><div class="message_list"><div class="message" id="message-1568284394.084300"><div class="message__timestamp">2019-09-12<br/>19:33:14 +0900</div><div class="message__header">pontyan12</div><div class="message__body">出先でしたのでご返信遅れてしまいすいません。<br/><br/>動作確認できました！<br/>お手伝いいただいたみなさまありがとうございました！！<br/><br/>これからの拡張はどこを参考にしたらよいでしょうか…?</div></div><div class="message" id="message-1568287291.084700"><div class="message__timestamp">2019-09-12<br/>20:21:31 +0900</div><div class="message__header">mizunashi-mana</div><div class="message__body">一応 <a href='https://github.com/mpickering/slack-api/tree/master/example'>https://github.com/mpickering/slack-api/tree/master/example</a> にいくつかサンプルが載ってるみたいですね</div></div><div class="message" id="message-1568289137.085100"><div class="message__timestamp">2019-09-12<br/>20:52:17 +0900</div><div class="message__header">igrep</div><div class="message__body">あとはどこまで書かれているか分かりませんのでexampleの方が確実そうですが、exampleでわからなければslack-apiのドキュメントを読め、ってところですね…。<br/>残念ながらhackageにまだ公開されていないバージョンなので、slack-apiのリポジトリーをgit cloneしてcdして、<br/>stack haddock --open<br/>と実行すれば、ビルド実行後にドキュメントが開かれます</div></div><div class="message" id="message-1568289841.085400"><div class="message__timestamp">2019-09-12<br/>21:04:01 +0900</div><div class="message__header">kakkun61</div><div class="message__body">（ <code>--open</code> 知らなかった</div></div><div class="message" id="message-1568333124.085800"><div class="message__timestamp">2019-09-13<br/>09:05:24 +0900</div><div class="message__header">as_capabl</div><div class="message__body">3.0のリリースノートによるとデフォルトはnew-**に変更済みとの事なので、上記発言の文言を断定形に直しました</div></div><div class="message" id="message-1568333241.086000"><div class="message__timestamp">2019-09-13<br/>09:07:21 +0900</div><div class="message__header">as_capabl</div><div class="message__body">cabal replをしてもグローバルstoreには入らないはずなので、多分C-cC-lでcabalのstoreを参照するか、cabal replするようになってるんじゃないですかね</div></div><div class="message" id="message-1568347090.089800"><div class="message__timestamp">2019-09-13<br/>12:58:10 +0900</div><div class="message__header">hiroto.shioi</div><div class="message__body">Hackageにあるライブラリのコードを一部借用するときに、そのライブラリがBSD-3ライセンスの場合にはライセンス表記はどうすればいいのでしょうか。<br/><br/><br/><a href='http://hackage.haskell.org/package/template-0.2.0.10'>http://hackage.haskell.org/package/template-0.2.0.10</a><br/>チーム内の話し合いでData.Text.Templateを使おうって話があったんですが、一部のコードが自分たちのニーズに合わないのでその部分だけ改変して使用しようと決めました。この場合PRを送るのが一番なのでしょうが、残念ながらこのライブラリは９年前のもので、作者も消息不明だそうです（同僚の知り合いらしい）。<br/>よって、利用するコードがごく一部（200行ほど）なので、そこだけを借用しようという話になりました。<br/>問題はそのライブラリがBSD-3ライセンスなので、その表記をどうすればいいのかよくわからないという点です。個人的には借用したプロジェクト内にライセンス表記を記載したMarkdownファイルを添加？しておくのがいいのかなーと考えていますがいかがでしょうか。<br/><a href='http://hackage.haskell.org/package/template-0.2.0.10/src/LICENSE'>http://hackage.haskell.org/package/template-0.2.0.10/src/LICENSE</a></div></div><div class="message" id="message-1568350340.090400"><div class="message__timestamp">2019-09-13<br/>13:52:20 +0900</div><div class="message__header">masahiro.kasahara</div><div class="message__body">@masahiro.kasahara has joined the channel</div></div><div class="message" id="message-1568360620.090900"><div class="message__timestamp">2019-09-13<br/>16:43:40 +0900</div><div class="message__header">kakkun61</div><div class="message__body">常識的に読めるように元のライセンス原文をパッケージに含めておけばいい気がします<br/>（個人の意見で責任は云々</div></div><div class="message" id="message-1568361469.091100"><div class="message__timestamp">2019-09-13<br/>16:57:49 +0900</div><div class="message__header">hiroto.shioi</div><div class="message__body">なるほど！ありがとうございます。</div></div><div class="message" id="message-1568392617.091300"><div class="message__timestamp">2019-09-14<br/>01:36:57 +0900</div><div class="message__header">mizunashi-mana</div><div class="message__body">僕もあまりライセンス系統は自信ないですが，<br/><br/>• ソースコードの再配布やコンパイルしたバイナリの配布などをしないなら特に記載なくて問題ないはずです．例えば Web サイトのバックエンドに使うなどはライセンス表記はなくて問題なくて，ゲームアプリなどユーザにインストールしてもらうもので使う場合，ライセンス表記を含める必要があります． (ただし， AGPL などはその限りではないです)<br/>• オープンソースの場合，使ったライブラリが cabal ファイルなどから辿れるのでライセンスが分かるとして，特別な表記をしなくて問題ないという暗黙的な合意があります (ちゃんとライセンスをまとめたものを用意しておくのが親切ですが)<br/><br/>今回の場合どういう配布形態になるのか分からないですが，バイナリ形式 (アプリ配布など) での配布を検討されているなら， BSD3 の条文にあるように，そのアプリのドキュメントまたは何かライセンス表記用の特別なファイルにこのライセンス全文を表示するスペースを用意しておけば問題ないはずです (どこの部分にそれを使ったかを明記しておくとより親切ですが)</div></div><div class="message" id="message-1568472454.000200"><div class="message__timestamp">2019-09-14<br/>23:47:34 +0900</div><div class="message__header">UNCCD41PS</div><div class="message__body">@UNCCD41PS has joined the channel</div></div><div class="message" id="message-1568519981.000400"><div class="message__timestamp">2019-09-15<br/>12:59:41 +0900</div><div class="message__header">yuichi</div><div class="message__body">ページネーションを実装するためにEsqueletoでテーブルの検索結果件数を所得しようとしていますが、countRowsの値が所得できません。<br/><br/>このページを参考にしながら作っています。<br/><a href='https://ersocon.net/blog/2016/10/10/pagination-in-yesod-from-naive-to-monads'>https://ersocon.net/blog/2016/10/10/pagination-in-yesod-from-naive-to-monads</a><br/><br/>StackOverflowからselectCount関数を取ってきたと言っているので調べて以下の記事を見つけました。<br/><a href='https://codeday.me/jp/qa/20190405/557765.html'>https://codeday.me/jp/qa/20190405/557765.html</a><br/><br/>ここで手に負えないエラーが出てきたので助けて頂きたいです。<br/>どのように修正したらcountRowsの値を所得できますか？</div></div><div class="message" id="message-1568526656.000700"><div class="message__timestamp">2019-09-15<br/>14:50:56 +0900</div><div class="message__header">wado</div><div class="message__body"><pre>
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE GADTs #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE TypeFamilies #-}
+import Control.Monad.IO.Class (MonadIO, liftIO)
+import Control.Monad.Logger (runNoLoggingT)
+import Database.Persist
+import Database.Persist.Sqlite
+import <http://Database.Persist.TH|Database.Persist.TH>
+import qualified Database.Esqueleto as E
+
+share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
+  Person
+    name String
+    age  Int Maybe
+    deriving Eq Show
+|]
+
+main :: IO ()
+main = runNoLoggingT . withSqlitePool ":memory:" 10 . runSqlPool $ do
+  runMigration migrateAll
+
+  insert $ Person "John"  (Just 18)
+  insert $ Person "Peter" (Just 20)
+  insert $ Person "Mary"  (Just 30)
+  insert $ Person "Jane"  (Just 14)
+
+  selectCount
+  selectCount' (\p -&gt; do
+                  E.where_ (p E.^. PersonName E.==. E.val "John")
+                  return p
+               )
+
+selectCount :: MonadIO m =&gt; SqlPersistT m ()
+selectCount = do
+  cnt &lt;- E.select $ E.from $
+    (\(_ :: E.SqlExpr (Entity Person)) -&gt; return (E.countRows :: E.SqlExpr (E.Value Int)))
+  liftIO $ print cnt
+
+selectCount' :: (E.From a, MonadIO m) =&gt; (a -&gt; E.SqlQuery b) -&gt; SqlPersistT m ()
+selectCount' q = do
+  cnt &lt;- E.select $ E.from $
+    (\x -&gt; q x &gt;&gt; return (E.countRows :: E.SqlExpr (E.Value Int)))
+  liftIO $ print cnt
+</pre><br/><br/>上記のコードでそれっぽく動きました。<br/><br/><pre>
+λ stack repl Es.hs --resolver lts-14.5 --package persistent-sqlite --package esqueleto --package persistent --package persistent-template --package monad-logger
+
+*Main&gt; main
+Migrating: CREATE TABLE "person"("id" INTEGER PRIMARY KEY,"name" VARCHAR NOT NULL,"age" INTEGER NULL)
+[Value {unValue = 4}]
+[Value {unValue = 1}]
+</pre><br/><br/><code>esqueleto</code> のことはあまり知らないのでアドバイスしづらいですが、 <code>E.countRows</code> の型を明示的に書いてあげると動きました。</div></div><div class="message" id="message-1568537609.001800"><div class="message__timestamp">2019-09-15<br/>17:53:29 +0900</div><div class="message__header">9647142</div><div class="message__body"><pre>
+parseTest    
+((between (optional $ single ' ') (optional $ single ' ')
+   (single 'a' `sepBy` single ' ')) &lt;* eof :: Parsec Void Text [Char]) $ pack "a a "
+</pre><br/>が<br/><pre>
+1:6:
+  |
+1 |  a a 
+  |      ^
+unexpected end of input
+expecting 'a'
+</pre><br/>と失敗するのは何故ですか?</div></div><div class="message" id="message-1568540265.003000"><div class="message__timestamp">2019-09-15<br/>18:37:45 +0900</div><div class="message__header">matsubara0507</div><div class="message__body"><code>sepBy (single ' ')</code> が空白を先に受理して、空白のあとは <code>'a'</code> が来ないと行けないからじゃない？</div></div><div class="message" id="message-1568540379.003400"><div class="message__timestamp">2019-09-15<br/>18:39:39 +0900</div><div class="message__header">9647142</div><div class="message__body">どうすれば解決できますか?`sepEndBy`を使う?</div></div><div class="message" id="message-1568541612.003700"><div class="message__timestamp">2019-09-15<br/>19:00:12 +0900</div><div class="message__header">matsubara0507</div><div class="message__body">少なくとも <code>sepEndBy</code> でパースはできそう（それが意図してる動作なのかは怪しいけど）</div></div><div class="message" id="message-1568601114.004100"><div class="message__timestamp">2019-09-16<br/>11:31:54 +0900</div><div class="message__header">UNF7BUJ14</div><div class="message__body">@UNF7BUJ14 has joined the channel</div></div><div class="message" id="message-1568615364.004400"><div class="message__timestamp">2019-09-16<br/>15:29:24 +0900</div><div class="message__header">UND4BGYKF</div><div class="message__body">@UND4BGYKF has joined the channel</div></div><div class="message" id="message-1568620724.004600"><div class="message__timestamp">2019-09-16<br/>16:58:44 +0900</div><div class="message__header">yuichi</div><div class="message__body">ありがとうございます。以下のようにしたら無事コンパイルが通るコードになりました。<br/><pre>
+selectCount :: (MonadIO m, E.From a) =&gt; (a -&gt; E.SqlQuery b) -&gt; SqlPersistT m [E.Value Int]
+selectCount q = E.select $ E.from $ (\x -&gt; q x &gt;&gt; return (E.countRows :: E.SqlExpr (E.Value Int))) 
+</pre></div></div></div><div class="pager"><a href="../../html/C5666B6BB/70.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>

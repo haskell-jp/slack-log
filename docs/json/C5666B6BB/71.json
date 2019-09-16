@@ -22,5 +22,107 @@
         "text": "（ `--open` 知らなかった",
         "user": "U4L0B71L1",
         "type": "message"
+    },
+    {
+        "ts": "1568333124.085800",
+        "text": "3.0のリリースノートによるとデフォルトはnew-**に変更済みとの事なので、上記発言の文言を断定形に直しました",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1568333241.086000",
+        "text": "cabal replをしてもグローバルstoreには入らないはずなので、多分C-cC-lでcabalのstoreを参照するか、cabal replするようになってるんじゃないですかね",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1568347090.089800",
+        "text": "Hackageにあるライブラリのコードを一部借用するときに、そのライブラリがBSD-3ライセンスの場合にはライセンス表記はどうすればいいのでしょうか。\n\n\n<http://hackage.haskell.org/package/template-0.2.0.10>\nチーム内の話し合いでData.Text.Templateを使おうって話があったんですが、一部のコードが自分たちのニーズに合わないのでその部分だけ改変して使用しようと決めました。この場合PRを送るのが一番なのでしょうが、残念ながらこのライブラリは９年前のもので、作者も消息不明だそうです（同僚の知り合いらしい）。\nよって、利用するコードがごく一部（200行ほど）なので、そこだけを借用しようという話になりました。\n問題はそのライブラリがBSD-3ライセンスなので、その表記をどうすればいいのかよくわからないという点です。個人的には借用したプロジェクト内にライセンス表記を記載したMarkdownファイルを添加？しておくのがいいのかなーと考えていますがいかがでしょうか。\n<http://hackage.haskell.org/package/template-0.2.0.10/src/LICENSE>",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1568350340.090400",
+        "text": "<@UACKFF96W> has joined the channel",
+        "user": "UACKFF96W",
+        "type": "message"
+    },
+    {
+        "ts": "1568360620.090900",
+        "text": "常識的に読めるように元のライセンス原文をパッケージに含めておけばいい気がします\n（個人の意見で責任は云々",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1568361469.091100",
+        "text": "なるほど！ありがとうございます。",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1568392617.091300",
+        "text": "僕もあまりライセンス系統は自信ないですが，\n\n• ソースコードの再配布やコンパイルしたバイナリの配布などをしないなら特に記載なくて問題ないはずです．例えば Web サイトのバックエンドに使うなどはライセンス表記はなくて問題なくて，ゲームアプリなどユーザにインストールしてもらうもので使う場合，ライセンス表記を含める必要があります． (ただし， AGPL などはその限りではないです)\n• オープンソースの場合，使ったライブラリが cabal ファイルなどから辿れるのでライセンスが分かるとして，特別な表記をしなくて問題ないという暗黙的な合意があります (ちゃんとライセンスをまとめたものを用意しておくのが親切ですが)\n\n今回の場合どういう配布形態になるのか分からないですが，バイナリ形式 (アプリ配布など) での配布を検討されているなら， BSD3 の条文にあるように，そのアプリのドキュメントまたは何かライセンス表記用の特別なファイルにこのライセンス全文を表示するスペースを用意しておけば問題ないはずです (どこの部分にそれを使ったかを明記しておくとより親切ですが)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1568472454.000200",
+        "text": "<@UNCCD41PS> has joined the channel",
+        "user": "UNCCD41PS",
+        "type": "message"
+    },
+    {
+        "ts": "1568519981.000400",
+        "text": "ページネーションを実装するためにEsqueletoでテーブルの検索結果件数を所得しようとしていますが、countRowsの値が所得できません。\n\nこのページを参考にしながら作っています。\n<https://ersocon.net/blog/2016/10/10/pagination-in-yesod-from-naive-to-monads>\n\nStackOverflowからselectCount関数を取ってきたと言っているので調べて以下の記事を見つけました。\n<https://codeday.me/jp/qa/20190405/557765.html>\n\nここで手に負えないエラーが出てきたので助けて頂きたいです。\nどのように修正したらcountRowsの値を所得できますか？",
+        "user": "UCDHJ6R6X",
+        "type": "message"
+    },
+    {
+        "ts": "1568526656.000700",
+        "text": "```\n{-# LANGUAGE FlexibleContexts #-}\n{-# LANGUAGE GADTs #-}\n{-# LANGUAGE GeneralizedNewtypeDeriving #-}\n{-# LANGUAGE MultiParamTypeClasses #-}\n{-# LANGUAGE OverloadedStrings #-}\n{-# LANGUAGE QuasiQuotes #-}\n{-# LANGUAGE ScopedTypeVariables #-}\n{-# LANGUAGE TemplateHaskell #-}\n{-# LANGUAGE TypeFamilies #-}\nimport Control.Monad.IO.Class (MonadIO, liftIO)\nimport Control.Monad.Logger (runNoLoggingT)\nimport Database.Persist\nimport Database.Persist.Sqlite\nimport <http://Database.Persist.TH|Database.Persist.TH>\nimport qualified Database.Esqueleto as E\n\nshare [mkPersist sqlSettings, mkMigrate \"migrateAll\"] [persistLowerCase|\n  Person\n    name String\n    age  Int Maybe\n    deriving Eq Show\n|]\n\nmain :: IO ()\nmain = runNoLoggingT . withSqlitePool \":memory:\" 10 . runSqlPool $ do\n  runMigration migrateAll\n\n  insert $ Person \"John\"  (Just 18)\n  insert $ Person \"Peter\" (Just 20)\n  insert $ Person \"Mary\"  (Just 30)\n  insert $ Person \"Jane\"  (Just 14)\n\n  selectCount\n  selectCount' (\\p -&gt; do\n                  E.where_ (p E.^. PersonName E.==. E.val \"John\")\n                  return p\n               )\n\nselectCount :: MonadIO m =&gt; SqlPersistT m ()\nselectCount = do\n  cnt &lt;- E.select $ E.from $\n    (\\(_ :: E.SqlExpr (Entity Person)) -&gt; return (E.countRows :: E.SqlExpr (E.Value Int)))\n  liftIO $ print cnt\n\nselectCount' :: (E.From a, MonadIO m) =&gt; (a -&gt; E.SqlQuery b) -&gt; SqlPersistT m ()\nselectCount' q = do\n  cnt &lt;- E.select $ E.from $\n    (\\x -&gt; q x &gt;&gt; return (E.countRows :: E.SqlExpr (E.Value Int)))\n  liftIO $ print cnt\n```\n\n上記のコードでそれっぽく動きました。\n\n```\nλ stack repl Es.hs --resolver lts-14.5 --package persistent-sqlite --package esqueleto --package persistent --package persistent-template --package monad-logger\n\n*Main&gt; main\nMigrating: CREATE TABLE \"person\"(\"id\" INTEGER PRIMARY KEY,\"name\" VARCHAR NOT NULL,\"age\" INTEGER NULL)\n[Value {unValue = 4}]\n[Value {unValue = 1}]\n```\n\n`esqueleto` のことはあまり知らないのでアドバイスしづらいですが、 `E.countRows` の型を明示的に書いてあげると動きました。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1568537609.001800",
+        "text": "```\nparseTest    \n((between (optional $ single ' ') (optional $ single ' ')\n   (single 'a' `sepBy` single ' ')) &lt;* eof :: Parsec Void Text [Char]) $ pack \"a a \"\n```\nが\n```\n1:6:\n  |\n1 |  a a \n  |      ^\nunexpected end of input\nexpecting 'a'\n```\nと失敗するのは何故ですか?",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1568540265.003000",
+        "text": "`sepBy (single ' ')` が空白を先に受理して、空白のあとは `'a'` が来ないと行けないからじゃない？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1568540379.003400",
+        "text": "どうすれば解決できますか?`sepEndBy`を使う?",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1568541612.003700",
+        "text": "少なくとも `sepEndBy` でパースはできそう（それが意図してる動作なのかは怪しいけど）",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1568601114.004100",
+        "text": "<@UNF7BUJ14> has joined the channel",
+        "user": "UNF7BUJ14",
+        "type": "message"
+    },
+    {
+        "ts": "1568615364.004400",
+        "text": "<@UND4BGYKF> has joined the channel",
+        "user": "UND4BGYKF",
+        "type": "message"
+    },
+    {
+        "ts": "1568620724.004600",
+        "text": "ありがとうございます。以下のようにしたら無事コンパイルが通るコードになりました。\n```\nselectCount :: (MonadIO m, E.From a) =&gt; (a -&gt; E.SqlQuery b) -&gt; SqlPersistT m [E.Value Int]\nselectCount q = E.select $ E.from $ (\\x -&gt; q x &gt;&gt; return (E.countRows :: E.SqlExpr (E.Value Int))) \n```",
+        "user": "UCDHJ6R6X",
+        "type": "message"
     }
 ]
