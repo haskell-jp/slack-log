@@ -1,0 +1,7 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #72</title><link rel="stylesheet" href="../../messages.css" type="text/css" media="screen"></head><body><h1>haskell-jp / questions #72</h1><div class="pager"><a href="../../html/C5666B6BB/71.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div><div class="message_list"><div class="message" id="message-1569686578.026200"><div class="message__timestamp">2019-09-29<br/>01:02:58 +0900</div><div class="message__header">shunkichi.sato</div><div class="message__body">添付の例で期待した結果が得られません<br/>ターミナルで実行すると <code>["</code> とだけ表示され、あとは <code>Ctrl+C</code> するしかない状態になります<br/>最終行の <code>(c:r)</code> の部分が犯人らしいことは分かっているのですが<br/>どういうわけなのでしょうか</div></div><div class="message" id="message-1569689522.026800"><div class="message__timestamp">2019-09-29<br/>01:52:02 +0900</div><div class="message__header">minorinoki_haskjp</div><div class="message__body">最終行<br/><pre>
+    (l,(c:r)) = break (== c) str
+</pre><br/>の左辺の <code>c</code> は <code>split</code> の引数の <code>c</code> ではなく、新たに束縛される変数の名前となります。そして、その新たに束縛された <code>c </code> が <code>break (== c)</code> で参照されます。つまり、その行は<br/><pre>
+    (l,(d:r)) = break (== d) str
+</pre><br/>と書いたのと同じ意味になります。<br/>直し方ですが、この場合は <code>break</code> の結果の2番目の最初の文字は必要ないので、単にワイルドカードで受けて<br/><pre>
+    (l,(_:r)) = break (== c) str
+</pre><br/>と書けば良いでしょう。</div></div></div><div class="pager"><a href="../../html/C5666B6BB/71.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>
