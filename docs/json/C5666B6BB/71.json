@@ -256,5 +256,35 @@
         "text": "<https://shop.ohmsha.co.jp/smartphone/detail.html?id=000000001859>",
         "user": "U56L7EVNY",
         "type": "message"
+    },
+    {
+        "ts": "1569660343.024000",
+        "text": "<https://twitter.com/coord_e/status/1177861179965767680> こちらのスレッドでしゃべっていて気になったんですが、\n```\nclass MyEq a where\n  eq :: a -&gt; a -&gt; Bool\n\ninstance MyEq Integer where\n  eq = (==)\n```\nというEq型クラスと等価な型クラスとそのインスタンスがあったとして、\n`main = print $ eq 1 2` は `Ambiguous type variable` になるのに\n`main = print $ 1 == 2` は `Ambiguous type variable` にならないのはなぜでしょうか。\n`Num` 型クラスのデフォルトである `Integer` が選ばれた、まではわかるのですが、なぜ `Eq` 型クラスの場合のみデフォルトが採用されたのでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1569662314.024300",
+        "text": "Haskell の仕様として、 context に現れるのが全て標準の型クラスでないと defaulting は適用されないという制約があるからですね\n<https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-790004.3.4>",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1569663610.024500",
+        "text": "ghci の中では eq 1 2 は False になりますね．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1569663708.024700",
+        "text": "GHCi 上では ExtendedDefaultRules が有効になるので、その場合標準のではない場合にも defaulting が行われます",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1569663800.025000",
+        "text": "ですね．",
+        "user": "U4KU9ABL0",
+        "type": "message"
     }
 ]

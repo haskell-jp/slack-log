@@ -64,5 +64,17 @@
         "text": "超今更なんですけど， `bytestring-to-vector` ( `ByteString` とStorable `Vector` の間の変換をcopylessに行う)ってどう思います？ このパッケージ自体はnaiveに考えると文字列問題系のときに気軽に使えそうでちょっと欲しいな，とも思うんですが，申請しようかは迷っております． `vector-bytestring` ( `ByteString` reimplemented as Storable `Vector` of `Word8` …しかし性能は追いついていないので代替にはならない)とかとモジュール名被りを起こしていたり，そのあとStream Fusionで連鎖的に変換することを前提にするなら `unfoldrN n ByteString.uncons` でもいいような気もしたり，で……",
         "user": "UL1HFJATE",
         "type": "message"
+    },
+    {
+        "ts": "1569669796.011600",
+        "text": "いつまで経ってもアップデート実施されないですね…。今更 `vector-th-unbox` (それに伴い `template-haskell`) , `mutable-containers`, `hashable` (`psqueues` の関係で) くらいあった方が良さそうだと気がついたので、明日か明後日あたりプルリク投げます",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1569670117.013000",
+        "text": "`vector-th-unbox` は `unboxing-vector` があればいらなさそう、というのはありますが。",
+        "user": "UL1HFJATE",
+        "type": "message"
     }
 ]
