@@ -10,5 +10,17 @@
         "text": "最終行\n```\n    (l,(c:r)) = break (== c) str\n```\nの左辺の `c` は `split` の引数の `c` ではなく、新たに束縛される変数の名前となります。そして、その新たに束縛された `c ` が `break (== c)` で参照されます。つまり、その行は\n```\n    (l,(d:r)) = break (== d) str\n```\nと書いたのと同じ意味になります。\n直し方ですが、この場合は `break` の結果の2番目の最初の文字は必要ないので、単にワイルドカードで受けて\n```\n    (l,(_:r)) = break (== c) str\n```\nと書けば良いでしょう。",
         "user": "UGM9F7XQS",
         "type": "message"
+    },
+    {
+        "ts": "1569720556.027300",
+        "text": "<@UNG6PFFUJ> has joined the channel",
+        "user": "UNG6PFFUJ",
+        "type": "message"
+    },
+    {
+        "ts": "1569728119.028300",
+        "text": "<@UNUGRB41J> has joined the channel",
+        "user": "UNUGRB41J",
+        "type": "message"
     }
 ]
