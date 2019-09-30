@@ -94,5 +94,47 @@
         "text": "とりあえず含めて投げますね",
         "user": "UL1HFJATE",
         "type": "message"
+    },
+    {
+        "ts": "1569833080.023300",
+        "text": "亀ですが `bytestring-to-vector` 、DL数の少なさから、今後メンテされるか不安が。どうしても添え字アクセスがしたければ `unsafeUseAsCString` と `peekElemOff` で似たような事が可能ですし",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1569833285.024400",
+        "text": "というか普通に `index` 関数ありましたね。 `Vector` にしかないアルゴリズムをどうしても使いたい、みたいなユースケースでしょうか",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1569840855.026600",
+        "text": "というか，\n`ByteString`\n-&gt; `Vector`\n-(`unsafeThaw`)-&gt; `MVector`\n-(modifications)-&gt; `MVector`\n-(`create`)-&gt; `Vector`\n-(Stream-fusible transformations)-&gt; `Vector`\n-&gt; Output, みたいなユースケースを想定してました．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1569841416.027000",
+        "text": "`bytestring-to-vector` も（容易に削除可能な形で）含めてプルリク投げたので，みなさまコメントをお願いします\n<https://github.com/haskell-jp/atcoder-haskell-resources/pull/3>",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1569842889.027500",
+        "text": "不安の声があったので，とりあえずbytestring-to-vectorを除外しました．別のプルリクにします．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1569844229.027700",
+        "text": "別のpull requestとして投げました．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1569844712.028900",
+        "text": "<@U5B3EGEFQ> このプルリクには問題なさそうなのだけ残してあるので，確認の上mergeしてもらえると嬉しいです． <https://github.com/haskell-jp/atcoder-haskell-resources/pull/3>",
+        "user": "UL1HFJATE",
+        "type": "message"
     }
 ]
