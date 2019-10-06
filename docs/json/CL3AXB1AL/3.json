@@ -154,5 +154,77 @@
         "text": "どうぞー。今日の夜確認しますね。",
         "user": "U5B3EGEFQ",
         "type": "message"
+    },
+    {
+        "ts": "1570358972.034900",
+        "text": "<@UL1HFJATE>\n以下のPRをマージしました。ありがとうございます。\n<https://github.com/haskell-jp/atcoder-haskell-resources/pull/3>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1570359018.035400",
+        "text": "<@U5B3EGEFQ> ありがとうございます。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1570359357.035600",
+        "text": "<https://github.com/haskell-jp/atcoder-haskell-resources/pull/4>\n\n上記のPRについては、他の方の意見も聞いた方が良いということなのでまだマージしていません。個人的には以下の点が気になるのですが、みなさんご意見ありますか？\n\n&gt; vector-bytestring とモジュール名被りを起こしている\n\nまた、実際の AtCoder の問題でこんな感じで使えそうです。というような実例とかってありますか？<@UL1HFJATE>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1570359960.036800",
+        "text": "ちょっと待ってください．今探してます・・・．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1570361276.037100",
+        "text": "「使える」… `ByteString` って，入力のタイミング以外ではほとんど使いません．だから，メリットって，使うと実行時間とメモリ使用量をO(N) [N:入力サイズ] 減少できる（精神衛生上良い）ぐらいしかないんですよね．Constant mutipleでTLE/MLEになるような問題で微妙に時間計算量を稼ぐとか，それくらいなんですよねえ．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1570361534.037600",
+        "text": "実行時間を微妙に縮められる可能性がある，ということであれば，\n<https://atcoder.jp/contests/joi2008ho/submissions/3927679>\nとかが例になります．Storable Arrayとして入力を受け取っておいて，それをVectorとしてコピーしています．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1570361645.037900",
+        "text": "名前かぶりは最悪PackageImportsを使うと言うことでいいんじゃないっすかね。\n端から見るにそこまでするメリットがあるの、という気もしますが。\nでもPackageImports使うことを周知しておけばいいと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1570361885.038100",
+        "text": "ちなみにさっきあげた点についてはさっきまで気がついていませんでした．コンテスト終わった後にC++レベルにまで実行時間縮めて悦に入るのが趣味の人間の悪いところが出た感じかなあ．[追記] 気が付いていなかったというよりは，入力時間を数ms縮めることを目的にものを考えることになんの疑いも持っていなかった．[/追記]",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1570362494.038300",
+        "text": "&gt; 名前かぶりは最悪PackageImportsを使うと言うことでいいんじゃないっすかね。\n\n方法論としては可能ですが、あまり得策ではない気がしています。\nAtCoder にそのような注意点を書ける場所があれば良いのかもしれませんが、現状そうなっていないためコンテスト参加者への周知が難しいと思います。\n\n&gt; 端から見るにそこまでするメリットがあるの、という気もしますが。\n\n僕も同じ意見です。(AtCoder の簡単な問題しか解いたことが無いので必要性に気づけていないだけなのかもしれませんが・・・)",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1570363066.038500",
+        "text": "O(入力サイズ)の高速化にしかならないのですから，もう別に入れなくてもいい感じはします．\n\n＊ちなみに＊付言しておくと， `vector-bytestring` についてはそこまで気にしないでもいいという意見を持っています．というのも，正直， `vector-bytestring` には `bytestring-to-vector` に比べても全く使い道が見当たらないんですよね．\n\n `bytestring-to-vector` は `ByteString` と Storable `Vector` の代数的データ型としての違いを単純に吸収するだけなので，データ型としての定義が変更されない限りメンテナンスの必要がありません．しかし，\n<https://stackoverflow.com/questions/24517995/why-bytestring-is-not-vector-word8>\nを見るに， `bytestring` そのものの速度を得るには `bytestring` と同レベルの開発リソースが注がれる必要がありそうですが，メンテナンスは活発ではなさそうです．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1570363549.038900",
+        "text": "ただ，逆にいうといきなり開発が活発になってStackageに `vector-bytestring` が導入されて `bytestring-to-vector` が除外されるレベルで `vector-bytestring` がポピュラーになるなんて未来もないではない(本当に？)し，最悪遊びがしたければdata型の書き換えを手でやっても良いんですよね．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1570367030.045900",
+        "text": "なんか、こう、 `VU.unfoldrN n BS.uncons` と書くたびに生じる「無駄なコピーをしているときの強迫的な罪悪感」みたいなもの、から離れて競技に対する集中力を取り戻したい、みたいな動機が近い気がするので、正直、時間が経てば経つほどこのパッケージを強く推すのには躊躇が生まれてきてしまっています。",
+        "user": "UL1HFJATE",
+        "type": "message"
     }
 ]
