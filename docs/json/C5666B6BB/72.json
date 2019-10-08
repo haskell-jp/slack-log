@@ -118,5 +118,29 @@
         "text": "<@UP5THSTDM> has joined the channel",
         "user": "UP5THSTDM",
         "type": "message"
+    },
+    {
+        "ts": "1570545309.037100",
+        "text": "こんばんは\nOSX 10.14.6でGHC7.10.3用にinteroをビルドしようとしてるんですが、`Guess: You might need the \"tinfo\" package, e.g. libtinfo-dev.` と言われてinteroを入れられません。どうしたらいいでしょうか？\n<https://twitter.com/shokohara_/status/1179957099675054080?s=20>\n<https://twitter.com/shokohara_/status/1179968733105672193?s=20>",
+        "user": "U5672KG1X",
+        "type": "message"
+    },
+    {
+        "ts": "1570547313.045600",
+        "text": "問題の解決ではないのでアレですが、私はAtCoder用コードの動作確認は最新のGHC (8.6.5)でやってます。GHC 8.0以降で追加された言語拡張を使わないこと、モノイド周りの関数を使うときはData.Monoidをimportすることに気をつければだいたい大丈夫です。うっかりでCEをやらかしてもペナルティーはつきませんし、提出してCEが出たら直す、というやり方で大抵は問題ないと思います。（直前の提出のCEに気づかず解けない問題にチャレンジして数十分経過、なんてことになると悲惨ですけども）",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1570547639.048600",
+        "text": "libtinfoはLinuxっぽい響きですし、その「Guess:」は的外れなguessだと思います。interoのソース <https://github.com/chrisdone/intero/blob/bab8e85b1aea9b03dfe05048bcdc0395e05e9b20/elisp/intero.el#L2252> を見た感じ、インストールに失敗すると無条件に「Guess: tinfoがどうのこうの」というメッセージを出すようですし。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1570548267.048900",
+        "text": "そのGuess云々のちょい上あたりで新しいhaskelineとかを入れようとして，古いghc-7.10.3とbaseバージョンが合わないためinteroのビルドは失敗します．ghc-7.10.3時代のlts-6.29あたりに合わせて，そこを\n```\n           \"haskeline-0.7.2.1\"\n           \"ghc-paths-0.1.0.9\" \"mtl-2.2.1\" \"network-2.6.3.1\" \"random-1.1\" \"syb-0.6\"))\n```\nとかに変更すると，interoのビルドが成功するようになります．この際 `intero.el` の隣りに `intero.elc` がある場合，これを消しておかないと上記変更しても読み込む設定が何も変わらないので注意してください．\nただし，この変更すると逆に今度は新しいresolverに対してinteroがビルドできなくなるかもしれない？ので，何か適切に工夫するなり諦めるなりしてください．\n本来 `intero.el` は，このあたりのバージョンをハードコードしてしまうのではなく．要求されたresolverから対応するltsに含まれる各パッケージバージョンを採用するようにすべきかもしれません．",
+        "user": "U5G2BCVBN",
+        "type": "message"
     }
 ]
