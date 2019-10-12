@@ -244,5 +244,59 @@
         "text": "できるっぽい <https://github.com/haskell-infra/hackage-trustees/blob/master/cookbook.md#best-practice-for-managing-meta-data>",
         "user": "U4L0B71L1",
         "type": "message"
+    },
+    {
+        "ts": "1570747248.004600",
+        "text": "今週のHaskell Weeklyから。「Haskell from the Very Beginning」という新しいHaskellの入門書の告知だそうで。\n<https://www.haskellfromtheverybeginning.com/>\n:thinking_face: 以前もこのタイトル話題にした気がするんだけど「これから書くよ」って告知の時だったろうか。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1570761135.004800",
+        "text": "GHCのeventlogはプロファイリングほど多くの情報はとれないけど、リビルドが要らず再リンクだけでいいし、パフォーマンスへの影響も少ないし、ユーザー定義のイベントも挟めるしいいよという話\n<https://www.well-typed.com/blog/2019/09/eventful-ghc/>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1570832845.005300",
+        "text": "fpco/stack-build の Docker Image ってタグを resolver の lts に合わせると stack setup 時のダウンロードするものがなくなっていいんだろうか？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1570847454.005400",
+        "text": "確かに、GHC のインストールはいらない\n\n```\n$ docker run --rm fpco/stack-build:lts-14.4 ghc --version\nThe Glorious Glasgow Haskell Compilation System, version 8.6.5\n```\n\nけど、イメージの pull が。。。\n（ちなみに、tag を指定しないと勝手に合わせてくれる）",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1570848266.005600",
+        "text": "ほほん\nCI でどのイメージを使うべきなのかーと思って",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1570848916.005800",
+        "text": "fpco/stack-build はイメージサイズがでかいので。。。\nfpco/stack-build-small の方がまだマシかと\n\n```\n$ docker run --rm fpco/stack-build-small:lts-14.4 ghc --version\nThe Glorious Glasgow Haskell Compilation System, version 8.6.5\n```",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1570849211.006100",
+        "text": "<@UPCUGG4CX> has joined the channel",
+        "user": "UPCUGG4CX",
+        "type": "message"
+    },
+    {
+        "ts": "1570853598.006300",
+        "text": "そんなものが",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1570872318.007500",
+        "text": "wadoさん、 ghci `:k!` の補完、merge requestを送っておきました:slightly_smiling_face:",
+        "user": "U55V441FS",
+        "type": "message"
     }
 ]
