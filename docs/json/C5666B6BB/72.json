@@ -262,5 +262,41 @@
         "text": "algebraic-graphの `scc :: Ord a =&gt; AdjacencyMap a -&gt; AdjacencyMap (AdjacencyMap a)`適用すればdagになるし僕の目的的には良いかな",
         "user": "UMKGDJ2RZ",
         "type": "message"
+    },
+    {
+        "ts": "1570929293.013700",
+        "text": "最近標準ライブラリのData.Graph(<http://hackage.haskell.org/package/containers>)使ってみて,そのときはbuildGとtopSortだけ使っただけですが足りた.",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1570939612.018800",
+        "text": "`State`モナドの型についてなのですが、\n`すごいHaskell楽しく学ぼう`では`s -&gt; (a, s)`と書かれているのに\n`stackage`で見つけられる`State`は`s -&gt; (s, a)`と書かれていて混乱しています。(<https://www.stackage.org/haddock/lts-14.8/containers-0.6.0.1/src/Utils-Containers-Internal-State.html#State>)\n更にいうと`state`関数については`(s -&gt; (a, s)) -&gt; m a`の型になっていてもう混乱してきています…(<https://www.stackage.org/haddock/lts-14.8/mtl-2.2.2/src/Control.Monad.State.Class.html#state>)\nそもそも`state`に関しては様々な場所で定義されている名前のようですし(<https://www.stackage.org/lts-14.8/hoogle?q=state>)、今見ているのが正しくない可能性もあるのですが…\n\nこれは、バージョンアップで変更されたと考えていいんでしょうか？それとも何かしら私が読み違えている…?\n(ちなみにこんなことをしているのは、純粋に興味本位でStateモナドを自分で書いてみているというだけなのであまりにも複雑な話があれば諦めます)",
+        "user": "ULTBB86UC",
+        "type": "message"
+    },
+    {
+        "ts": "1570940601.018900",
+        "text": "一般的にStateといえばmtlのものだと思いますし(初心者なので間違ってる可能性は高い)、最初のものに関してはcontainersパッケージで内部的に使われるものっぽい",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1570940985.019100",
+        "text": "ちょっと趣旨違うけど、まえに紛らわしいねって話してた\n<https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1563328807116600?thread_ts=1563328807.116600&amp;cid=C4M4TT8JJ>\n\n（ここの趣旨は internal な定義は Hoogle でフィルターしたいって点）",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1570941754.019600",
+        "text": ":point_up: のとおり、 `containers` パッケージの作者が `mtl` や `transformers` に依存したくないな、と思って独自に定義しただけのものなので、全く気にしなくていいです。\nありふれた定義を元ネタのパッケージに依存しないで自前で定義しちゃう、というのはHaskellコミュニティーではよくあることです。\n（特に `lens` パッケージが提供する諸々はそうする前提で作られています）\n依存関係を増やさないために敢えてDRYにしない、っていう。\n`containers` パッケージの件については、こういうときはせめてコピペにして欲しかった... :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1570961202.020100",
+        "text": "なるほど…\nつまり、実際に使われているのはこれ↓という認識でいいですか…?\n<https://www.stackage.org/haddock/lts-14.8/mtl-2.2.2/Control-Monad-State-Strict.html#t:State>\n思ったよりも複雑な作りになっている…というかStateTが先に定義されてるのか…",
+        "user": "ULTBB86UC",
+        "type": "message"
     }
 ]
