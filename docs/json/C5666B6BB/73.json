@@ -46,5 +46,71 @@
         "text": "<@UPJ0N5RPH> has joined the channel",
         "user": "UPJ0N5RPH",
         "type": "message"
+    },
+    {
+        "ts": "1571294939.028900",
+        "text": "勉強のためにいくつかの基本的な部品を自分でも書いてみているところです。ExceptT の &lt;*&gt; の定義なんですが、Control.Monad.Trans.Except のソース（<http://hackage.haskell.org/package/transformers-0.5.6.2/docs/src/Control.Monad.Trans.Except.html#line-185> ）だと",
+        "user": "UKYUFC94P",
+        "type": "message"
+    },
+    {
+        "ts": "1571295026.029000",
+        "text": "",
+        "user": "UKYUFC94P",
+        "type": "message"
+    },
+    {
+        "ts": "1571295123.030100",
+        "text": "こうなんですが、単に以下でもよさそうに思うんですがどうでしょう。",
+        "user": "UKYUFC94P",
+        "type": "message"
+    },
+    {
+        "ts": "1571295200.030200",
+        "text": "",
+        "user": "UKYUFC94P",
+        "type": "message"
+    },
+    {
+        "ts": "1571301558.030900",
+        "text": "それだと「fがLeftを返した場合にvが実行されない」という挙動を実現できないのではないでしょうか",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1571301886.031100",
+        "text": "Data.Either （<http://hackage.haskell.org/package/base-4.12.0.0/docs/src/Data.Either.html#line-149> ）のソースによると",
+        "user": "UKYUFC94P",
+        "type": "message"
+    },
+    {
+        "ts": "1571301928.031300",
+        "text": "Either の &lt;*&gt; はこうなってるようなので、mf が Left e ならそのまま Left e が返るように見えます。",
+        "user": "UKYUFC94P",
+        "type": "message"
+    },
+    {
+        "ts": "1571302105.031800",
+        "text": "vに副作用がなければそれでいいんですが、現実にはvが副作用を持っているかもしれないので、 `mv &lt;- v` が実行される前にLeft eを返す必要があります",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1571302169.032000",
+        "text": "なるほど！",
+        "user": "UKYUFC94P",
+        "type": "message"
+    },
+    {
+        "ts": "1571302330.032200",
+        "text": "だからわざわざこう書いてあるわけなんですね…。すごい。ありがとうございます！",
+        "user": "UKYUFC94P",
+        "type": "message"
+    },
+    {
+        "ts": "1571318262.032800",
+        "text": "<@UPH191QVB> has joined the channel",
+        "user": "UPH191QVB",
+        "type": "message"
     }
 ]
