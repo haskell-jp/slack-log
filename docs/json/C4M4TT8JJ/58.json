@@ -280,5 +280,23 @@
         "text": "HIE 小さいプロジェクトだと動くけど、大きくなるとなぜかあやしくなるんですよね……",
         "user": "U4L0B71L1",
         "type": "message"
+    },
+    {
+        "ts": "1571888064.034000",
+        "text": "頑張って改善してはいるらしいっすよ。大きさというよりコードの内容に依存するのかも。\nGHC本体のコードだとするとTHとか特殊なことはあまりしてないでしょうし。\n<https://github.com/haskell/haskell-ide-engine/issues/1357#issuecomment-520127513>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1571897828.035200",
+        "text": "postgresql-pure リリースしました\n&gt;&gt;&gt; Hello.\n\nI published a library “postgresql-pure”, which is a PostgreSQL driver\nwritten in pure Haskell, a few days ago.\n\nThis library is developed to aim:\n\n- to increase the performance on multi CPU core environments\n- to run on multi platform\n  - to build it easier especially on Windows to remove the dependency\non libpq, which is made by C\n  - there is postgres-wire which is a fast implementation but it\ndoesn't support Windows\n\nI confirmed that:\n\n- the performance was proportional to the number of cores\n- the performance on 12 cores were 28% better than postgres-wire, 300%\nbetter than postgresql-simple\n\nBoth test cases are simple constant value queries like “SELECT\n2147483647 :: int4, …” to decrease server's load.\n\nI'm writing a report about this development and I will send email again.\n\nPlease try this and feel free to report issues.\n\nBest,\nKazuki Okamoto\n\nHackage: <http://hackage.haskell.org/package/postgresql-pure>\nGitHub: <https://github.com/iij-ii/postgresql-pure>\n\n<https://mail.haskell.org/pipermail/haskell-cafe/2019-October/131609.html>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1571898824.035900",
+        "text": "ちなみに HDBC インタフェースを提供しているので relational-record のバックエンドとして使える\n<https://github.com/iij-ii/postgresql-pure/blob/master/test-relational-record/Spec.hs>",
+        "user": "U4L0B71L1",
+        "type": "message"
     }
 ]
