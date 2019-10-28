@@ -220,5 +220,11 @@
         "text": "<@UPWJ8R9ST> has joined the channel",
         "user": "UPWJ8R9ST",
         "type": "message"
+    },
+    {
+        "ts": "1572226415.046000",
+        "text": "いわゆるRecord of Functionsを好んでよく作るのですが、例えば以下のように `print` 関数をセットできるRecord型を作ろうとすると、Impredicative Typeを作ってしまい、コンパイルが通せません。\n```\ndata Env m = Env\n  { print :: forall a. Show a =&gt; a -&gt; m ()\n  , otherFields :: m Int\n  }\n```\nRecord of Functionsを諦めてreflectionsパッケージを使うとか、妥協して `print` を `String -&gt; m ()` に変えるとか、いろいろ回避策は考えられると思うのですが、どんな方法がいいと思いますか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
