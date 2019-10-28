@@ -3,4 +3,12 @@ data Env m = Env
   { print :: forall a. Show a =&gt; a -&gt; m ()
   , otherFields :: m Int
   }
-</pre><br/>Record of Functionsを諦めてreflectionsパッケージを使うとか、妥協して <code>print</code> を <code>String -&gt; m ()</code> に変えるとか、いろいろ回避策は考えられると思うのですが、どんな方法がいいと思いますか？</div></div></div><div class="pager"><a href="../../html/C5666B6BB/72.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>
+</pre><br/>Record of Functionsを諦めてreflectionsパッケージを使うとか、妥協して <code>print</code> を <code>String -&gt; m ()</code> に変えるとか、いろいろ回避策は考えられると思うのですが、どんな方法がいいと思いますか？</div></div><div class="message" id="message-1572234908.046300"><div class="message__timestamp">2019-10-28<br/>12:55:08 +0900</div><div class="message__header">as_capabl</div><div class="message__body">その宣言だけなら普通に通るっぽいです<br/><br/><pre>
+Prelude&gt; :set -XRankNTypes
+Prelude&gt; data Env m = Env { print :: forall a. Show a =&gt; a -&gt; m (), otherFields :: m Int }
+Prelude&gt; :type Env
+Env :: (forall a. Show a =&gt; a -&gt; m ()) -&gt; m Int -&gt; Env m
+Prelude&gt; x = Env Prelude.print (return 0)
+Prelude&gt; :info x
+x :: Env IO     -- Defined at &lt;interactive&gt;:10:1
+</pre></div></div><div class="message" id="message-1572234968.046600"><div class="message__timestamp">2019-10-28<br/>12:56:08 +0900</div><div class="message__header">igrep</div><div class="message__body">あれ、どこで間違えたんだろう... すみません... :sweat_drops:</div></div></div><div class="pager"><a href="../../html/C5666B6BB/72.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>
