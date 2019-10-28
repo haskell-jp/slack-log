@@ -11,4 +11,16 @@ Env :: (forall a. Show a =&gt; a -&gt; m ()) -&gt; m Int -&gt; Env m
 Prelude&gt; x = Env Prelude.print (return 0)
 Prelude&gt; :info x
 x :: Env IO     -- Defined at &lt;interactive&gt;:10:1
-</pre></div></div><div class="message" id="message-1572234968.046600"><div class="message__timestamp">2019-10-28<br/>12:56:08 +0900</div><div class="message__header">igrep</div><div class="message__body">あれ、どこで間違えたんだろう... すみません... :sweat_drops:</div></div></div><div class="pager"><a href="../../html/C5666B6BB/72.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>
+</pre></div></div><div class="message" id="message-1572234968.046600"><div class="message__timestamp">2019-10-28<br/>12:56:08 +0900</div><div class="message__header">igrep</div><div class="message__body">あれ、どこで間違えたんだろう... すみません... :sweat_drops:</div></div><div class="message" id="message-1572280112.050200"><div class="message__timestamp">2019-10-29<br/>01:28:32 +0900</div><div class="message__header">pontyan12</div><div class="message__body">2重リストにmapを適用させる関数を書きたいのですが、<br/><br/><code>[[2],[2]Listed: Listed.hs:(10,1)-(11,55): Non-exhaustive patterns in function secmap</code><br/><br/>このようなエラーが出てしまいます。どなたかアドバイスいただけないでしょうか？<br/>また、haskellでは多重リストに対してはあまり関数を作らないのでしょうか？ネットにあまりそう言った記事がなかったので多重リストに対し処理を行うのであれば他のアプローチがあるのであれば教えていただけると幸いです。<br/>よろしくお願いします。<br/><br/><pre>
+module Listed(main) where
+
+main :: IO ()
+main = do
+       print $ secmap (+1) [[1],[1]]
+       print 1
+
+
+secmap :: (a-&gt; b) -&gt; [[a]] -&gt; [[b]]
+secmap f [[]]           = [[]]
+secmap f ((x : xs):xxs) = ((f x:map f xs):secmap f xxs)
+</pre></div></div><div class="message" id="message-1572303640.050800"><div class="message__timestamp">2019-10-29<br/>08:00:40 +0900</div><div class="message__header">9647142</div><div class="message__body"><code>[[][]]</code>にマッチしないからですかね?</div></div><div class="message" id="message-1572303649.051000"><div class="message__timestamp">2019-10-29<br/>08:00:49 +0900</div><div class="message__header">matsubara0507</div><div class="message__body">ちなみに、エラーの意味はわかってますか？</div></div></div><div class="pager"><a href="../../html/C5666B6BB/72.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>

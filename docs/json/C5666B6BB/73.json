@@ -238,5 +238,23 @@
         "text": "あれ、どこで間違えたんだろう... すみません... :sweat_drops:",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1572280112.050200",
+        "text": "2重リストにmapを適用させる関数を書きたいのですが、\n\n`[[2],[2]Listed: Listed.hs:(10,1)-(11,55): Non-exhaustive patterns in function secmap`\n\nこのようなエラーが出てしまいます。どなたかアドバイスいただけないでしょうか？\nまた、haskellでは多重リストに対してはあまり関数を作らないのでしょうか？ネットにあまりそう言った記事がなかったので多重リストに対し処理を行うのであれば他のアプローチがあるのであれば教えていただけると幸いです。\nよろしくお願いします。\n\n```\nmodule Listed(main) where\n\nmain :: IO ()\nmain = do\n       print $ secmap (+1) [[1],[1]]\n       print 1\n\n\nsecmap :: (a-&gt; b) -&gt; [[a]] -&gt; [[b]]\nsecmap f [[]]           = [[]]\nsecmap f ((x : xs):xxs) = ((f x:map f xs):secmap f xxs)\n```",
+        "user": "UELFKSH0V",
+        "type": "message"
+    },
+    {
+        "ts": "1572303640.050800",
+        "text": "`[[][]]`にマッチしないからですかね?",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1572303649.051000",
+        "text": "ちなみに、エラーの意味はわかってますか？",
+        "user": "U56L7EVNY",
+        "type": "message"
     }
 ]
