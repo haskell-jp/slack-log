@@ -1,1 +1,33 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #74</title><link rel="stylesheet" href="../../messages.css" type="text/css" media="screen"></head><body><h1>haskell-jp / questions #74</h1><div class="pager"><a href="../../html/C5666B6BB/73.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div><div class="message_list"><div class="message" id="message-1572323419.058600"><div class="message__timestamp">2019-10-29<br/>13:30:19 +0900</div><div class="message__header">matonix</div><div class="message__body">学習用途でしたら，ぜひ再帰版もがんばってみてください．（私なら，リストのリストを処理する再帰関数Aから，リストを処理する再帰関数Bを呼ぶ，みたいな方針にすると思います）</div></div><div class="message" id="message-1572323602.058800"><div class="message__timestamp">2019-10-29<br/>13:33:22 +0900</div><div class="message__header">pontyan12</div><div class="message__body">もう一点よろしいでしょうか？<br/>haskellではリストを処理する関数とリストのリストを処理する関数は型を分けて考える必要があるのでしょうか？</div></div><div class="message" id="message-1572325608.059000"><div class="message__timestamp">2019-10-29<br/>14:06:48 +0900</div><div class="message__header">matsubara0507</div><div class="message__body">たぶん、分けて考える必要はないですよ（意図してる範囲がわからないけど）</div></div><div class="message" id="message-1572325876.059300"><div class="message__timestamp">2019-10-29<br/>14:11:16 +0900</div><div class="message__header">pontyan12</div><div class="message__body">例えば、intのリストとリストのリストは同じように扱うことができるのでしょうか？</div></div><div class="message" id="message-1572325971.059500"><div class="message__timestamp">2019-10-29<br/>14:12:51 +0900</div><div class="message__header">matonix</div><div class="message__body">リストの中身がIntかリストかに関わらず，引数で受け取った関数に受け渡すなら（つまり要素に直接触れないなら），同じように扱えると思います．</div></div><div class="message" id="message-1572326406.059700"><div class="message__timestamp">2019-10-29<br/>14:20:06 +0900</div><div class="message__header">pontyan12</div><div class="message__body">なるほど、、ありがとうございます！！</div></div></div><div class="pager"><a href="../../html/C5666B6BB/73.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #74</title><link rel="stylesheet" href="../../messages.css" type="text/css" media="screen"></head><body><h1>haskell-jp / questions #74</h1><div class="pager"><a href="../../html/C5666B6BB/73.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div><div class="message_list"><div class="message" id="message-1572323419.058600"><div class="message__timestamp">2019-10-29<br/>13:30:19 +0900</div><div class="message__header">matonix</div><div class="message__body">学習用途でしたら，ぜひ再帰版もがんばってみてください．（私なら，リストのリストを処理する再帰関数Aから，リストを処理する再帰関数Bを呼ぶ，みたいな方針にすると思います）</div></div><div class="message" id="message-1572323602.058800"><div class="message__timestamp">2019-10-29<br/>13:33:22 +0900</div><div class="message__header">pontyan12</div><div class="message__body">もう一点よろしいでしょうか？<br/>haskellではリストを処理する関数とリストのリストを処理する関数は型を分けて考える必要があるのでしょうか？</div></div><div class="message" id="message-1572325608.059000"><div class="message__timestamp">2019-10-29<br/>14:06:48 +0900</div><div class="message__header">matsubara0507</div><div class="message__body">たぶん、分けて考える必要はないですよ（意図してる範囲がわからないけど）</div></div><div class="message" id="message-1572325876.059300"><div class="message__timestamp">2019-10-29<br/>14:11:16 +0900</div><div class="message__header">pontyan12</div><div class="message__body">例えば、intのリストとリストのリストは同じように扱うことができるのでしょうか？</div></div><div class="message" id="message-1572325971.059500"><div class="message__timestamp">2019-10-29<br/>14:12:51 +0900</div><div class="message__header">matonix</div><div class="message__body">リストの中身がIntかリストかに関わらず，引数で受け取った関数に受け渡すなら（つまり要素に直接触れないなら），同じように扱えると思います．</div></div><div class="message" id="message-1572326406.059700"><div class="message__timestamp">2019-10-29<br/>14:20:06 +0900</div><div class="message__header">pontyan12</div><div class="message__body">なるほど、、ありがとうございます！！</div></div><div class="message" id="message-1572398226.060300"><div class="message__timestamp">2019-10-30<br/>10:17:06 +0900</div><div class="message__header">igrep</div><div class="message__body">思い出せました。うまくいかないのは extensibleパッケージのレコードをRecord of Functionsとして扱った場合でした。<br/><br/><pre>
+{-# LANGUAGE DataKinds           #-}
+{-# LANGUAGE ExplicitNamespaces  #-}
+{-# LANGUAGE LiberalTypeSynonyms #-}
+{-# LANGUAGE OverloadedLabels    #-}
+{-# LANGUAGE RankNTypes          #-}
+{-# LANGUAGE TypeOperators       #-}
+
+import           Data.Extensible (type (&gt;:))
+import qualified Data.Extensible as E
+
+type DebugEnvFields m =
+   '[ "print" &gt;: (forall a. Show a =&gt; a -&gt; m ())
+    ]
+
+type DebugEnv m = E.Record (DebugEnvFields m)
+</pre></div></div><div class="message" id="message-1572398454.060700"><div class="message__timestamp">2019-10-30<br/>10:20:54 +0900</div><div class="message__header">igrep</div><div class="message__body">そして、いただいた回答から気づいたんですが、そうした場合でも <code>print</code> 関数相当のものを一旦 <code>newtype</code> でラップしてあげればいけるんですね。<br/>この程度のボイラープレートなら許容できそう。<br/><br/><pre>
+type DebugEnvFields m =
+   '[ "print" &gt;: Printer m
+    ]
+
+newtype Printer m = Printer (forall a. Show a =&gt; a -&gt; m ())
+</pre></div></div><div class="message" id="message-1572398929.061200"><div class="message__timestamp">2019-10-30<br/>10:28:49 +0900</div><div class="message__header">igrep</div><div class="message__body">誰も指摘してなかったので補足すると、 <code>-Wall</code> で警告を有効にしていれば、どのパターンを網羅していないのか教えてくれるので、参考にするとよいでしょう。<br/>今回の場合 :point_down: のように教えてくれます。<br/><br/><pre>
+listed.hs:10:1: warning: [-Wincomplete-patterns]
+    Pattern match(es) are non-exhaustive
+    In an equation for ‘secmap’:
+        Patterns not matched:
+            _ []
+            _ ([]:_:_)
+   |
+10 | secmap f [[]]           = [[]]
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...
+</pre></div></div></div><div class="pager"><a href="../../html/C5666B6BB/73.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>

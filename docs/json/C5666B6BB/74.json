@@ -34,5 +34,23 @@
         "text": "なるほど、、ありがとうございます！！",
         "user": "UELFKSH0V",
         "type": "message"
+    },
+    {
+        "ts": "1572398226.060300",
+        "text": "思い出せました。うまくいかないのは extensibleパッケージのレコードをRecord of Functionsとして扱った場合でした。\n\n```\n{-# LANGUAGE DataKinds           #-}\n{-# LANGUAGE ExplicitNamespaces  #-}\n{-# LANGUAGE LiberalTypeSynonyms #-}\n{-# LANGUAGE OverloadedLabels    #-}\n{-# LANGUAGE RankNTypes          #-}\n{-# LANGUAGE TypeOperators       #-}\n\nimport           Data.Extensible (type (&gt;:))\nimport qualified Data.Extensible as E\n\ntype DebugEnvFields m =\n   '[ \"print\" &gt;: (forall a. Show a =&gt; a -&gt; m ())\n    ]\n\ntype DebugEnv m = E.Record (DebugEnvFields m)\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1572398454.060700",
+        "text": "そして、いただいた回答から気づいたんですが、そうした場合でも `print` 関数相当のものを一旦 `newtype` でラップしてあげればいけるんですね。\nこの程度のボイラープレートなら許容できそう。\n\n```\ntype DebugEnvFields m =\n   '[ \"print\" &gt;: Printer m\n    ]\n\nnewtype Printer m = Printer (forall a. Show a =&gt; a -&gt; m ())\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1572398929.061200",
+        "text": "誰も指摘してなかったので補足すると、 `-Wall` で警告を有効にしていれば、どのパターンを網羅していないのか教えてくれるので、参考にするとよいでしょう。\n今回の場合 :point_down: のように教えてくれます。\n\n```\nlisted.hs:10:1: warning: [-Wincomplete-patterns]\n    Pattern match(es) are non-exhaustive\n    In an equation for ‘secmap’:\n        Patterns not matched:\n            _ []\n            _ ([]:_:_)\n   |\n10 | secmap f [[]]           = [[]]\n   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
