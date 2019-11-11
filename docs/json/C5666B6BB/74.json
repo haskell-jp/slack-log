@@ -160,5 +160,53 @@
         "text": "ありがとうございます。試してみます",
         "user": "U5GP4SCMD",
         "type": "message"
+    },
+    {
+        "ts": "1573453991.091900",
+        "text": "`Addr#` -valued literal って各文字が `&lt;=0xFF` である文字列リテラルに `#` を後置すれば良いんですよね？ 特に、値としては改行コードを含めたくないがソースの読みやすさ上改行したいときには、 `\\` の 直後に改行をして、適切な数の空白文字のあと `\\` 、そしてその後に続きを書けばいいんですよね？\nなんかそのつもりでコードを書いていたら `Addr#` 中に大量の `\\x20` が出現してひっどいバグが出てきたので…。\n厄介なのは、同一のリテラルなのにそのリテラルが現れる状況によって挙動が異なったりしているように見えることです。AtCoder用のsnippetなので、必要になるたびプログラムに埋め込んで用いているのですが、snippet ファイルをそのままコンパイルしても `\\x20` は現れないのに、 埋め込んだファイルの方を解析すると `\\x20` がバグをひき起こしているように見えるんですよね…。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1573454469.092400",
+        "text": "考えているのはこんなのです：",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1573457526.092900",
+        "text": "CPPが有効だと複数行文字列リテラルの挙動が変わるはずです。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1573457841.093400",
+        "text": "それだ！",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1573475997.093800",
+        "text": "<@UQ200195H> has joined the channel",
+        "user": "UQ200195H",
+        "type": "message"
+    },
+    {
+        "ts": "1573481574.108300",
+        "text": "surveyの結果、次の事実を確認しました。\n• CPPが有効だと、行末の `\\` は改行文字と一緒に削除される(複数行 `#define` を可能にするための処理)。Haskellの複数行文字列はこのC preprocessのあと `\\` と改行文字があるのを見て字句解析されるため、次の行の開始から `\\` までが文字列に含まれてしまう。\n• Haskellの複数行文字列は `\\ &lt;newline&gt; &lt;whitespace&gt;* \\` ではなく `\\ &lt;whitespace&gt;+ \\` なので、 `\\` の後に空白文字を挟めば大丈夫、と書いてるのをどこかで見ましたが手元環境では見事死亡。GCCなら大丈夫、と書いてあったから、手元環境がclang (MacOS Catalina)であるせいかもしれない。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1573493848.108700",
+        "text": "行末のバックスラッシュを二重にしてはどうですか\n\n```\n{-# LANGUAGE CPP #-}\nstr = \"foo \\\\\n  \\bar baz\"\nmain = print str\n```",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1573493911.109000",
+        "text": "「行末にスペースを入れるといいよ」と書いてあるのは <https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/phases.html#cpp-and-string-gaps> ですね。情報が古いのか……",
+        "user": "UGM9F7XQS",
+        "type": "message"
     }
 ]
