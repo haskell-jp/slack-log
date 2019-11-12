@@ -208,5 +208,23 @@
         "text": "「行末にスペースを入れるといいよ」と書いてあるのは <https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/phases.html#cpp-and-string-gaps> ですね。情報が古いのか……",
         "user": "UGM9F7XQS",
         "type": "message"
+    },
+    {
+        "ts": "1573520197.109300",
+        "text": "やって見ました．確かにうまくいきますね．GCCだと\n• `\\ &lt;newline&gt;` → empty\nClangだと\n• `\\ &lt;non-newline-whitespace&gt;* &lt;newline&gt;` → empty\nで処理されてるんでしょうか．どっちにしてもHaskell multiline stringはその処理が終わったあと\n• `\\ &lt;whitespace&gt;+ \\` → empty\n(newlineはいらない)で処理されるから，次行のインデントが0でもない限りはうまくいくと．なんだこのdirty hackは…",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1573520354.109500",
+        "text": "Emacsのsyntax highlighterがバグりそうで嫌だなあ……．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1573520835.110000",
+        "text": "予測通り，\n```\n{-# LANGUAGE CPP #-}\nstr0 = \"J'ai mal \\\\\n\\a tete\"\nstr1 = \"J'ai mal \\\\a tete\"\nmain = print $ str0 == str1\n```\n→ True でした．ah…",
+        "user": "UL1HFJATE",
+        "type": "message"
     }
 ]
