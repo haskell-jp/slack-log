@@ -41,4 +41,34 @@ str0 = "J'ai mal \\
 \a tete"
 str1 = "J'ai mal \\a tete"
 main = print $ str0 == str1
-</pre><br/>→ True でした．ah…</div></div><div class="message" id="message-1573546292.110400"><div class="message__timestamp">2019-11-12<br/>17:11:32 +0900</div><div class="message__header">rebornwwp</div><div class="message__body">@rebornwwp has joined the channel</div></div></div><div class="pager"><a href="../../html/C5666B6BB/73.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>
+</pre><br/>→ True でした．ah…</div></div><div class="message" id="message-1573546292.110400"><div class="message__timestamp">2019-11-12<br/>17:11:32 +0900</div><div class="message__header">rebornwwp</div><div class="message__body">@rebornwwp has joined the channel</div></div><div class="message" id="message-1573736547.110700"><div class="message__timestamp">2019-11-14<br/>22:02:27 +0900</div><div class="message__header">ogahiro0720</div><div class="message__body">こんにちは。代数的データ型のデータコンストラクタから何か別の値への写像を作ろうとして、以下のような方法を取りました。しかし`-- ****`で囲った部分がどうもボイラープレート感がします(?)、何か簡潔な方法はありますか？<br/><https://wandbox.org/permlink/uzGh67fybpF9M6Sq><br/>(加えて、代数的データ型のデータコンストラクタの種類(コード中の`FruitKind`に当たる型)を指してどう呼べばいいのかいまいちわからず検索に苦戦しています。何かいい呼び名があったら教えてください。variantとかでしょうか)</div></div><div class="message" id="message-1573746722.110900"><div class="message__timestamp">2019-11-15<br/>00:52:02 +0900</div><div class="message__header">mizunashi-mana</div><div class="message__body">単純にデータコンストラクタを表すデータ型を作りたいということではないでしょうか？幾つか方法はあります．<br/><br/>まず型安全でない方法として， Data インスタンスを使うという方法があります．<br/><br/><pre>
+import Data.Data
+
+data ConstrK a where
+  ConstrK :: Data a =&gt; Constr -&gt; ConstrK a
+  deriving (Eq, Show)
+
+instance Ord (ConstrK a) where
+  compare (ConstrK x) (ConstrK y) = show x `compare` show y
+
+toConstrK :: Data a =&gt; a -&gt; ConstrK a
+toConstrK x = ConstrK $ toConstr x
+</pre><br/>みたいな感じのデータ型を使うと，同じようなことができると思います．なお，コンストラクタの一覧は <code>dataTypeConstrs $ dataTypeOf (undefined :: a)</code> とかで取れます．</div></div><div class="message" id="message-1573747146.111300"><div class="message__timestamp">2019-11-15<br/>00:59:06 +0900</div><div class="message__header">mizunashi-mana</div><div class="message__body">もう一つは，作るデータ型を工夫するという手があって，今流行の HKD を使うことで次のように定義できると思います:<br/><br/><pre>
+import Data.Barbie
+
+data FruitSkel f
+  = Apple (f Int)
+  | Orange (f String)
+  | Banana (f Char)
+  deriving (Generic, FunctorB, ConstraintsB)
+
+deriving instance AllBF Show f FruitSkel =&gt; Show (FruitSkel f)
+deriving instance AllBF Eq f FruitSkel =&gt; Eq   (FruitSkel f)
+deriving instance AllBF Ord  f FruitSkel =&gt; Ord   (FruitSkel f)
+
+type Fruit = FruitSkel Identity
+type FruitK = FruitSkel (Const ())
+
+toKind :: Fruit -&gt; FruitK
+toKind = bmap $ const $ Const ()
+</pre></div></div><div class="message" id="message-1573747513.111800"><div class="message__timestamp">2019-11-15<br/>01:05:13 +0900</div><div class="message__header">mizunashi-mana</div><div class="message__body">他にも Generic のインスタンスであれば data constructor の情報が載ってるのでそこから情報を抜き出して data family を作るような型クラスを定義する方法や， Template Haskell でデータ型を作る方法などはありますが，多分手軽なのは上の二つだと思いますね</div></div><div class="message" id="message-1573751260.112100"><div class="message__timestamp">2019-11-15<br/>02:07:40 +0900</div><div class="message__header">ogahiro0720</div><div class="message__body">ありがとうございます。HKDでやってみます</div></div></div><div class="pager"><a href="../../html/C5666B6BB/73.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>

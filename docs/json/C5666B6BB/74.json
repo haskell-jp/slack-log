@@ -232,5 +232,35 @@
         "text": "<@UQGTA9L2J> has joined the channel",
         "user": "UQGTA9L2J",
         "type": "message"
+    },
+    {
+        "ts": "1573736547.110700",
+        "text": "こんにちは。代数的データ型のデータコンストラクタから何か別の値への写像を作ろうとして、以下のような方法を取りました。しかし`-- ****`で囲った部分がどうもボイラープレート感がします(?)、何か簡潔な方法はありますか？\n<https://wandbox.org/permlink/uzGh67fybpF9M6Sq>\n(加えて、代数的データ型のデータコンストラクタの種類(コード中の`FruitKind`に当たる型)を指してどう呼べばいいのかいまいちわからず検索に苦戦しています。何かいい呼び名があったら教えてください。variantとかでしょうか)",
+        "user": "ULW04DUEA",
+        "type": "message"
+    },
+    {
+        "ts": "1573746722.110900",
+        "text": "単純にデータコンストラクタを表すデータ型を作りたいということではないでしょうか？幾つか方法はあります．\n\nまず型安全でない方法として， Data インスタンスを使うという方法があります．\n\n```\nimport Data.Data\n\ndata ConstrK a where\n  ConstrK :: Data a =&gt; Constr -&gt; ConstrK a\n  deriving (Eq, Show)\n\ninstance Ord (ConstrK a) where\n  compare (ConstrK x) (ConstrK y) = show x `compare` show y\n\ntoConstrK :: Data a =&gt; a -&gt; ConstrK a\ntoConstrK x = ConstrK $ toConstr x\n```\nみたいな感じのデータ型を使うと，同じようなことができると思います．なお，コンストラクタの一覧は `dataTypeConstrs $ dataTypeOf (undefined :: a)` とかで取れます．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1573747146.111300",
+        "text": "もう一つは，作るデータ型を工夫するという手があって，今流行の HKD を使うことで次のように定義できると思います:\n\n```\nimport Data.Barbie\n\ndata FruitSkel f\n  = Apple (f Int)\n  | Orange (f String)\n  | Banana (f Char)\n  deriving (Generic, FunctorB, ConstraintsB)\n\nderiving instance AllBF Show f FruitSkel =&gt; Show (FruitSkel f)\nderiving instance AllBF Eq f FruitSkel =&gt; Eq   (FruitSkel f)\nderiving instance AllBF Ord  f FruitSkel =&gt; Ord   (FruitSkel f)\n\ntype Fruit = FruitSkel Identity\ntype FruitK = FruitSkel (Const ())\n\ntoKind :: Fruit -&gt; FruitK\ntoKind = bmap $ const $ Const ()\n```",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1573747513.111800",
+        "text": "他にも Generic のインスタンスであれば data constructor の情報が載ってるのでそこから情報を抜き出して data family を作るような型クラスを定義する方法や， Template Haskell でデータ型を作る方法などはありますが，多分手軽なのは上の二つだと思いますね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1573751260.112100",
+        "text": "ありがとうございます。HKDでやってみます",
+        "user": "ULW04DUEA",
+        "type": "message"
     }
 ]
