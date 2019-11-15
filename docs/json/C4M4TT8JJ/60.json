@@ -52,5 +52,59 @@
         "text": "やはり、syscall とのやりとりは ByteString で、内部的には pinned じゃないShortByteString で持つのが安全かなぁ。",
         "user": "U56MBRKR9",
         "type": "message"
+    },
+    {
+        "ts": "1573785550.092400",
+        "text": "ByteString を使いたくないのは fragmentation とかですか？",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1573785955.092600",
+        "text": "意図せずに共有してしまうとリークします。そして、そのうち断片化しますね。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1573786536.097000",
+        "text": "なるほど。大きな ByteString の一部を thunk が保持していて GC されないみたいなのもよくあります。retainer profilerがpinned objectを検出できるようになればいいのですが今はそうなってないので、デバッグが少し難しいタイプのリークですね。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1573786610.097600",
+        "text": "関連チケット: <https://gitlab.haskell.org/ghc/ghc/issues/7275>",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1573786775.099400",
+        "text": "僕は、遅延評価も ByteString も捨てる方向です。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1573788272.101500",
+        "text": "遅延評価はともかくByteString はブートライブラリの一つでほとんどのライブラリが前提としてるので捨てるのは難しくないですか？",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1573788346.101800",
+        "text": "FFI には使いますよ！ 内部データとして ByteString は使わないということです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1573788608.102100",
+        "text": "内部ではShortByteStringで持っておいて、APIの境界部分でByteStringにcopyしなおす感じですか？",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1573788628.102300",
+        "text": "そうです！",
+        "user": "U56MBRKR9",
+        "type": "message"
     }
 ]
