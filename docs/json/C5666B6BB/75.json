@@ -1,0 +1,38 @@
+[
+    {
+        "ts": "1574235741.117100",
+        "text": "一例を挙げます。\n環境: stack を使っています。それによって GHC 8.6.5, cabal 2.4.0.1 が使われています。 cabal-install はちょっとわかりません。\ncabal ファイル: <https://github.com/Hexirp/hexirp-hakyll/blob/e6b28eaf95031baf6193c8bd4bb652eefa31f70b/hexyll/hexyll.cabal>\nログ (on Travis CI): <https://travis-ci.org/Hexirp/hexirp-hakyll/builds/614356184>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1574236389.117500",
+        "text": "<https://github.com/haskell/cabal/issues/5022> 曰くパッケージそのもののバージョンではなく依存パッケージのバージョンのことを言っている可能性もありますね... でもぱっと見おかしなところがわからない。 :confused:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1574236757.117900",
+        "text": "この変更から hexyll に関する `Cabal file warning ***.cabal@0:0: version with tags` というエラーがなくなっているようなのですが、手掛かりになりますでしょうか\n<https://github.com/Hexirp/hexirp-hakyll/commit/2f857cd001109d7587ab4e82f8f15e40d5c746aa>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1574236872.118200",
+        "text": "もしかしてライセンスの GPL-3-or-later という指定が原因……？",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1574237570.118400",
+        "text": "cabal がバージョンとライセンスに同じ処理をかけていたりしているかもしれないですね",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1574245196.118700",
+        "text": "確かに、cabalはどっかのバージョンでLICENCEで使用できる値を変えたのでそれが関係しているかも知れません",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]
