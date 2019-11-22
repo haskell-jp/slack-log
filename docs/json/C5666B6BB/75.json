@@ -58,5 +58,47 @@
         "text": "<@UQGDTBMV1> has joined the channel",
         "user": "UQGDTBMV1",
         "type": "message"
+    },
+    {
+        "ts": "1574426028.120100",
+        "text": "cabal-version がファイルの先頭にない場合、旧バージョンのファイルとして前処理されます。 SPDX の式が書けるのは、新バージョンからなはずです。詳しく見てないので断言できませんが、それが関係してる気がしますね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1574426105.120300",
+        "text": "hpack はその仕様が出来てから cabal-version を最初に吐き出すようになったはずですね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1574427495.120600",
+        "text": "Oh… 適当を言うのはやっぱだめですね．手元で試せる環境ができたので試しましたが，まず cabal は 1.2 からファイル仕様に関してバージョン指定ができ，どのファイル仕様を使うか cabal-version で指定できるようになりました．で， cabal-version: x.y と指定するのが普通ですが，\ncabal-version: >=1.10\ncabal-version: >=2.0\nだけ特別扱いされ，それぞれ 1.12 の形式と 2.0 の形式が選ばれます．\n\nで， 2.2 の形式から license に書ける式が変わっており，旧来は cabal 独自の形式だったのが SPDX expression で指定するようになりました．\n独自の形式の AST は， <http://hackage.haskell.org/package/Cabal-3.0.0.0/docs/Distribution-License.html#t:License> で，見ての通り GPL はバージョンだけしか指定できず or-later は指定できません．それが警告として表示されていて， 「GPL のライセンス指定してるんだと思うけど書く形式間違ってるんじゃない？」と言ってるんだと思います．で， hpack は多分 cabal-version: 2.4 とかで出力してるので通ってるとかではないですかね？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1574429207.121000",
+        "text": "その通りでした。 hpack による出力は `cabal-version: 2.2` と一番最初の個所に書いてありました。詳細な回答ありがとうございます。",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1574429282.121200",
+        "text": "ところで、もっと詳細に知るには <https://www.haskell.org/cabal/users-guide/file-format-changelog.html> と <https://www.haskell.org/cabal/users-guide/developing-packages.html#package-properties> を読めばOKでしょうか？",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1574432989.121500",
+        "text": "そうだと思います (僕が知った経緯は，たまたま cabal file の AST を最近いじろうと思ったことがあってっていうだけなので，本当にそのドキュメントを読むだけで良いかはちょっと自信ないですが)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1574433076.121700",
+        "text": "(現状， cabal の仕様は複雑になっていく一方なんですが，エラーメッセージはかなり不親切で cabal user  guide もあまり網羅性がないので，置いてけぼり食ってるユーザかなりいそうな気がするんですよね…)",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
