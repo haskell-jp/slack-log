@@ -154,5 +154,41 @@
         "text": "<@UR6UEM24X> has joined the channel",
         "user": "UR6UEM24X",
         "type": "message"
+    },
+    {
+        "ts": "1575391713.128700",
+        "text": "<@U590WPG3A> has joined the channel",
+        "user": "U590WPG3A",
+        "type": "message"
+    },
+    {
+        "ts": "1575421690.129900",
+        "text": "はじめまして。初歩的な質問で恐縮いたしますが、、、\nこの MyInteger の型クラスインスタンスの実装だと MyInteger と Integer が同一の型として扱われるようになっちゃうんですがなぜなんでしょうか？\n```newtype MyInteger = MyInteger { getInteger :: Integer } deriving (Eq, Show)\n\ninstance Num MyInteger where\n  fromInteger = MyInteger\n  x + y       = MyInteger $ getInteger x + getInteger y\n  x - y       = MyInteger $ getInteger x - getInteger y\n  x * y       = MyInteger $ getInteger x * getInteger y\n  abs x       = if getInteger x &lt; 0 then x * (-x) else x\n  signum x    = if getInteger x &lt; 0 then -1 else 1\n\n-- え？\nghci&gt;MyInteger 1 + 1\nMyInteger {getInteger = 2}\n\nghci&gt;MyInteger 1 == 1\nTrue```",
+        "user": "UQBK4AKNG",
+        "type": "message"
+    },
+    {
+        "ts": "1575421832.130000",
+        "text": "Haskellの整数値リテラルは `Num a =&gt; a` という型とみなされるので、\n```&gt; :t 1\n1 :: Num p =&gt; p```\n`MyInteger` はNumのインスタンスになっているので == の右辺にある 1 は MyInteger と認識されているはずです！",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1575421872.130200",
+        "text": "<https://downloads.haskell.org/~ghc/latest/docs/html/libraries/base-4.13.0.0/Prelude.html#v:fromInteger>",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1575421887.130400",
+        "text": "つまり\n```MyInteger 1 == 1```\nは\n```MyInteger 1 == fromInteger 1```\nと同じ挙動をしてます",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1575422241.131500",
+        "text": "おおー！そうなんですね！\n理解しました！ありがとうございました:raised_hands:",
+        "user": "UQBK4AKNG",
+        "type": "message"
     }
 ]
