@@ -196,5 +196,101 @@
         "text": "何のバグだろう... :confused:",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1575526696.150200",
+        "text": "いつか使うだろうしとっても重要そうなんですが、ちょっと今上がっているissueに答える時間も知識もなさそうですね... :bow:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1575540018.153200",
+        "text": "同じ問題にぶち当たる人がいるかわかりませんが。\nhedis-configという、hedis（現在一番開発されているRedisクライアント）の `ConnectInfo` をYAMLファイルからサクッと作りたい人向けの手抜き用パッケージをフォークしました。\n<https://twitter.com/igrep/status/1202526807167078401>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1575541176.153700",
+        "text": "<#C89028A6S|advent-calendar> は人が少ないので、いつも通りこちらで宣伝しちゃいます <http://fumieval.hatenablog.com/entry/2019/12/05/191010>",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1575543624.156500",
+        "text": "bytestring builder を fast-builder に置き換えて計測したことがあって、ほとんど差がなかったのは作る byte string が小さすぎたのか、差が出る場合、出ない場合があるのか？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1575544130.156600",
+        "text": "インライン化が不十分だったか、あるいはTextやIntegerのような最適化された実装がないものを使っていたとかですかね？別のデータ構造に格納したりしてもかなり減速します",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1575544424.156800",
+        "text": "ふむ\nどっちにしろ mason ためしてみます！",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1575544563.157100",
+        "text": "あ、1つ思い出したのは\n```good :: YourDataStructure -> Builder\nbad0 :: YourDataStructure -> (Int, Builder)```\nというすすめに従えなくて\n```foo :: Foo -> Bar -> Maybe Builder```\nになってたんでした\n（引数の組み合わせによって失敗するビルダー）",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1575544590.157300",
+        "text": "（WYSIWYG エディターに慣れずに送ってしまった",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1575545002.157600",
+        "text": "切れるようになったらしいですよ",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1575545048.157800",
+        "text": "WYSIWYGのはなし",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1575545278.159400",
+        "text": "cabal 3.0.0.0 にしたら `MIN_VERSION_foo` が生成されないっぽいエラーにぶつかったんですが誰か詳細知りませんか？\n<https://twitter.com/kakkun61/status/1198927793611923457>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1575545361.159600",
+        "text": "WYSIWYG いうて……と思って切ってなかったけど思った以上につらかった（というか IME 使った場合にバグってるな",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1575545521.159800",
+        "text": "3.0.0.0 というか v2-build だからか？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1575546437.160100",
+        "text": "このあたりに書いてありそう <https://www.haskell.org/cabal/users-guide/developing-packages.html#custom-setup-scripts>",
+        "user": "U4M598NHM",
+        "type": "message"
+    },
+    {
+        "ts": "1575547004.160400",
+        "text": "こっちか？ <https://www.haskell.org/cabal/users-guide/developing-packages.html#conditional-compilation>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1575547577.161000",
+        "text": "advent calendar の RSS を random に流していいかもね",
+        "user": "U4L0B71L1",
+        "type": "message"
     }
 ]
