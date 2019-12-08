@@ -208,5 +208,23 @@
         "text": "<@URG7HKSMV> has joined the channel",
         "user": "URG7HKSMV",
         "type": "message"
+    },
+    {
+        "ts": "1575795579.137000",
+        "text": "stack ghciで、開発しているパッケージと、それを使ったサンプルコードを同時に（ `:reload` でリロードできるよう）読もうとして\n```stack ghci -- &lt;パッケージ名&gt;:lib サンプルコード.hs```\nと書いたのですが、\n```Cannot use 'stack ghci' with both file targets and package targets```\nというエラーが出てしまいます。\n多分 `サンプルコード.hs` の方をパッケージのcabalファイルにおける `executable` なり `test-suite` なりに一時的にせよ書いてしまえばいいと思うのですが、他に良い方法はないでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1575795929.137100",
+        "text": "多分自己解決しました。一旦\n`stack ghci -- &lt;パッケージ名&gt;:lib` でパッケージを読んだ後、 `:add` コマンドで`サンプルコード.hs` を追加するといいみたいです。 `:add` なんて便利なのがあったんですね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1575797458.137300",
+        "text": "面白い。 `stack ghci` を `-v` オプション付きで実行してみたら\n```Run process: ghc-8.6.5.exe --interactive -ghci-script=C:\\Users\\igrep\\AppData\\Local\\Temp\\haskell-stack-ghci\\0752026d\\ghci-script```\nなんて出てきて（実際にはもっと長いコマンド）、\nその `C:\\Users\\igrep\\AppData\\Local\\Temp\\haskell-stack-ghci\\0752026d\\ghci-script` を開いてみたら\n```:add 読み込んでいるパッケージのモジュール...\n:module + 読み込んでいるパッケージのモジュール...```\nってしてた。\n要はどちらもひたすら `:add` してるだけってことか:sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
