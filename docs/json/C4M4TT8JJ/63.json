@@ -184,5 +184,23 @@
         "text": "問題なのは Posix においてバックスラッシュがパス区切りではないことで、提供されている関数を組み合わせるだけでは無理そう",
         "user": "U5LEE6C1J",
         "type": "message"
+    },
+    {
+        "ts": "1576281381.003000",
+        "text": ":question: イマイチよくわからないのですが、一旦 `splitPath` 関数でリストに変換すれば良い、という話ではないんですか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1576281976.004000",
+        "text": "はい、 Posix 環境において `splitPath \"foo\\\\bar\\\\\" = \"foo\\\\bar\\\\\"` となるので駄目です",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1576282020.004500",
+        "text": "あ、 Posix のパスも Windows のパスも使えるようにするという前提が抜けていました",
+        "user": "U5LEE6C1J",
+        "type": "message"
     }
 ]
