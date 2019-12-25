@@ -76,5 +76,29 @@
         "text": "<https://haskell.e-bigmoon.com/posts/2019/12-24-ap-monoid.html>\n`&lt;&gt;` をliftしているんですね。",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1577230575.012800",
+        "text": "クリスマス :christmas_tree: らしいものを見つけた。Windowsでは動かないっぽいので誰か試してスクショ上げてください :pray:\n（VMは手元にあるけど面倒くさい！）\n<https://mail.haskell.org/pipermail/haskell-cafe/2019-December/131749.html>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1577254595.013000",
+        "text": "ascii-holidays xmas-0",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1577255336.013600",
+        "text": "ブラウザーのタブに :speaker: のマークが出てたからてっきり音が出るのかと期待してしまった :sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1577260367.013900",
+        "text": "そうです。記事では `Monad` で話を進めていましたが、 `Data.Monoid` で定義されている `Ap` の実装を見ると `lift` してる感じがわかりやすいですね。\n\n```-- | @since 4.12.0.0\ninstance (Applicative f, Semigroup a) =&gt; Semigroup (Ap f a) where\n        (Ap x) &lt;&gt; (Ap y) = Ap $ liftA2 (&lt;&gt;) x y\n\n-- | @since 4.12.0.0\ninstance (Applicative f, Monoid a) =&gt; Monoid (Ap f a) where\n        mempty = Ap $ pure mempty```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
     }
 ]

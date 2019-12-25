@@ -52,5 +52,83 @@
         "text": "ありがとうございます！",
         "user": "ULTN48U8Y",
         "type": "message"
+    },
+    {
+        "ts": "1577259274.024900",
+        "text": "Persistent で `Integer` 型のフィールドを定義する方法はあるのでしょうか\nテーブル定義で Integer とすると、そんなものはないと言われるので仕方なく Int にしています\nPostgreSQLの場合、内部的には bigint で扱ってくれているようです\nところがHaskell側にもってくると、やはり正体は Int です\n20億は超えてくる可能性があるので、Integer で定義したいのですが...",
+        "user": "ULTN48U8Y",
+        "type": "message"
+    },
+    {
+        "ts": "1577259395.025100",
+        "text": "persistentは全く使ったことがないので伺いたいのですが、\n&gt; そんなものはないと言われる\nというのはどんなエラーですか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1577259424.025300",
+        "text": "はい、少々お待ち下さい",
+        "user": "ULTN48U8Y",
+        "type": "message"
+    },
+    {
+        "ts": "1577259564.025500",
+        "text": "おまたせしました、そのまま貼ります",
+        "user": "ULTN48U8Y",
+        "type": "message"
+    },
+    {
+        "ts": "1577259622.025900",
+        "text": "`Int64` もありそうでないのです",
+        "user": "ULTN48U8Y",
+        "type": "message"
+    },
+    {
+        "ts": "1577259733.026200",
+        "text": "terminal というのはフィールド名です",
+        "user": "ULTN48U8Y",
+        "type": "message"
+    },
+    {
+        "ts": "1577260093.026400",
+        "text": "`No instance for (persistent-2.9.2:Database.Persist.Sql.Class.PersistFieldSql Integer`\nこれはやはり `Integer` を `persistent` パッケージの `Database.Persist.Sql.Class.PersistFieldSql` のインスタンスにするのが正解、ってことなんでしょうね。ただ、一般にRDBがサポートする整数型に多倍長のもの（最大値が無限のもの）はないため、自明なインスタンス定義がない、ということなんでしょう。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1577260122.026600",
+        "text": "でも、 `Int64` については <https://hackage.haskell.org/package/persistent-2.10.4/docs/Database-Persist-Sql.html#t:PersistFieldSql> を読む限り定義されている、ような...？ :thinking_face:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1577260229.026800",
+        "text": "そうなのです\n`Int64` とするとまた別の短いメッセージがあります",
+        "user": "ULTN48U8Y",
+        "type": "message"
+    },
+    {
+        "ts": "1577260340.027300",
+        "text": "`import <http://Data.Int|Data.Int>` が必要ですね。\n`Int64` は `Prelude` にありません...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1577260589.027700",
+        "text": "定義できたみたいです、ありがとうございます",
+        "user": "ULTN48U8Y",
+        "type": "message"
+    },
+    {
+        "ts": "1577260892.027900",
+        "text": "Haskell の型との対応表はこの辺にまとまってるので参考にどうぞ.\n<https://github.com/yesodweb/persistent/blob/master/docs/Persistent-entity-syntax.md#conversion-table-migrations>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1577260948.028200",
+        "text": "一つ忘れてた。\n`Int` は64bitな環境であればちゃんと64bitになります... まぁ、精度を明示するのはいい作戦だと思いますが。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
