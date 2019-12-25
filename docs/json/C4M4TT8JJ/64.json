@@ -100,5 +100,35 @@
         "text": "そうです。記事では `Monad` で話を進めていましたが、 `Data.Monoid` で定義されている `Ap` の実装を見ると `lift` してる感じがわかりやすいですね。\n\n```-- | @since 4.12.0.0\ninstance (Applicative f, Semigroup a) =&gt; Semigroup (Ap f a) where\n        (Ap x) &lt;&gt; (Ap y) = Ap $ liftA2 (&lt;&gt;) x y\n\n-- | @since 4.12.0.0\ninstance (Applicative f, Monoid a) =&gt; Monoid (Ap f a) where\n        mempty = Ap $ pure mempty```",
         "user": "U5B3EGEFQ",
         "type": "message"
+    },
+    {
+        "ts": "1577276915.016100",
+        "text": "Haskell Advent Calendar用の記事を1本書いてみたんですけど、代理投稿すべきか……どうせ今日中に全枠埋まる確率は低そうなので、割り込むメリットなさそうですかね？",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1577277539.016200",
+        "text": "というか、明日以降でも全部埋めればランキング載るんでしたっけ",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1577277613.016400",
+        "text": "ランキングは特に興味ないので存じませんが、少しでも埋まっていた方が気持ちいいのでぜひ :pray:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1577278616.016600",
+        "text": "では、日付早い順で枠をいただきます。失敬:pray:",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1577281492.017100",
+        "text": "<http://fumieval.hatenablog.com/entry/2019/12/25/224329> 私も14日目埋めちゃいました",
+        "user": "U4KUNQF9N",
+        "type": "message"
     }
 ]
