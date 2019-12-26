@@ -40,5 +40,23 @@
         "text": "ご教示のとおりmysqlのプログラムのままで動きました。ありがとうございます。\n<https://github.com/ringo-apo/hs_mariadb>",
         "user": "UFPRHDT8X",
         "type": "message"
+    },
+    {
+        "ts": "1577372741.009400",
+        "text": "vscode で Haskell Language Server のプラグインを使っての開発環境を作っているのですが、コードを編集する度に  `\"print-build-platform\" (exit 1): failed` というエラーが出てうっとおしく思っているのですが黙らせるにはどうしたら良いのでしょうか。\n\nネットに転がっている記事を読んみたところ `export PATH=$(stack path --compiler-bin):$PATH` を ~/.bash_profile に書き込むと解決するらしかったので試してみたのですがダメでした…。",
+        "user": "UQBK4AKNG",
+        "type": "message"
+    },
+    {
+        "ts": "1577373044.009500",
+        "text": "役に立つかわかりませんが参考になりそうなコマンドのログ貼っておきます:sweat:\n```$ ghc --version\nThe Glorious Glasgow Haskell Compilation System, version 8.6.5\n\n$ stack path --compiler-bin\n~/.stack/programs/x86_64-osx/ghc-8.6.5/bin\n\n$ which hie\n~/.local/bin/hie\n\n$ ~/haskell-ide-engine/.stack-work/install/x86_64-osx/hogehogehoge/8.6.5/bin/cabal-helper-wrapper \"print-build-platform\"\nx86_64-osx```",
+        "user": "UQBK4AKNG",
+        "type": "message"
+    },
+    {
+        "ts": "1577374012.009700",
+        "text": "あ、すみません、何故かはわからないのですが以下のオペレーションやったら何故か解決しました:thinking_face:\n```1. ブラウザからDLした古い verison の vscode を rm コマンドで削除\n2. brew cask install visual-studio-code```",
+        "user": "UQBK4AKNG",
+        "type": "message"
     }
 ]
