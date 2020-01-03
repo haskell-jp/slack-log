@@ -136,5 +136,113 @@
         "text": "組織紹介なのにしれっと ekmett いるのウケる <https://scrapbox.io/haskell-shoen/%E7%B5%84%E7%B9%94%E7%B4%B9%E4%BB%8B>",
         "user": "U4L0B71L1",
         "type": "message"
+    },
+    {
+        "ts": "1577416402.021200",
+        "text": "gtk2hs の README 見ると新規プロジェクトには haskell-gi を使えとあって haskell-gi の README 見たんですが、例が overloaded labels 使って何かハックしてますね\n<https://github.com/haskell-gi/haskell-gi>\n```{-# LANGUAGE OverloadedStrings, OverloadedLabels #-}\n{- cabal:\nbuild-depends: base, haskell-gi-base, gi-gtk\n-}\n\nimport qualified GI.Gtk as Gtk\nimport Data.GI.Base\n\nmain :: IO ()\nmain = do\n  Gtk.init Nothing\n\n  win &lt;- new Gtk.Window [ #title := \"Hi there\" ]\n\n  on win #destroy Gtk.mainQuit\n\n  button &lt;- new Gtk.Button [ #label := \"Click me\" ]\n\n  on button #clicked (set button [ #sensitive := False,\n                                   #label := \"Thanks for clicking me\" ])\n\n  #add win button\n\n  #showAll win\n\n  Gtk.main```",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1577418653.021400",
+        "text": "asterius（Haskell to WebAssembly compiler）がdiagramsパッケージをコンパイルできるようになったのでSVGを描画してみたらしい\n<https://www.tweag.io/posts/2019-12-19-asterius-diagrams.html|https://www.tweag.io/posts/2019-12-19-asterius-diagrams.html>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1577420156.022300",
+        "text": ":sakulambda: サクラムダ テーマ を作ってみた\n#FFFFFF,#FAD9E1,#767C53,#FFFFFF,#FAD9E1,#960028,#94E864,#767C53",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1577420198.022800",
+        "text": "背景が赤い版\n#FAD9E1,#FFB0C3,#767C53,#FFFFFF,#FFFFFF,#960028,#94E864,#767C53",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1577425168.023900",
+        "text": "GTKはいかんせんクラス数がめっちゃ多いので、OverloadedLabelsは待ってましたとばかりに使い始めたような記憶があります",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1577427820.024100",
+        "text": "なるほど",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1577427841.024300",
+        "text": "しかも多相なレコードラベルとしての用法じゃなさそうですね",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1577429004.027600",
+        "text": "onをオーバーロードさせるためだけのダミーデータ(Proxyみたいなやつ)を作ってるんですね",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1577436283.028000",
+        "text": "Write Junior Code\n<https://www.parsonsmatt.org/2019/12/26/write_junior_code.html>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1577441762.028200",
+        "text": "めっちゃ頷ける:sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1577442188.028800",
+        "text": "<@US388KN85> has joined the channel",
+        "user": "US388KN85",
+        "type": "message"
+    },
+    {
+        "ts": "1577450582.029300",
+        "text": "この記事からも参照されてる Boring Haskell Manifesto も改めて:slightly_smiling_face:\n<https://www.snoyman.com/blog/2019/11/boring-haskell-manifesto>\n\nシンプルなHaskellで間口を広げる:haskell:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1577547656.030300",
+        "text": "<@US439GT0Q> has joined the channel",
+        "user": "US439GT0Q",
+        "type": "message"
+    },
+    {
+        "ts": "1577621935.030900",
+        "text": "Advent Calendarが埋まった！ :tada:\n<https://qiita.com/cyclone_t/items/3a12df6f1aab2cae923d>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1577695666.031900",
+        "text": "*多分* 今年最後のHaskell-jp Blogの更新です。\n<https://haskell.jp/blog/posts/2019/regex-applicative.html>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1577702977.032200",
+        "text": "<@US4UKMB29> has joined the channel",
+        "user": "US4UKMB29",
+        "type": "message"
+    },
+    {
+        "ts": "1577783215.033000",
+        "text": "それでは皆さん良いお年を、Happy New Haskelling:haskell::bamboo:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1577837880.034400",
+        "text": "Happy New Year Haskellers!\n<https://twitter.com/HaskellOrg/status/1212005716392845312?s=20|https://twitter.com/HaskellOrg/status/1212005716392845312?s=20>",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]

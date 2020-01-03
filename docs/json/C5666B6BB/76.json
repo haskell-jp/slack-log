@@ -58,5 +58,77 @@
         "text": "あ、すみません、何故かはわからないのですが以下のオペレーションやったら何故か解決しました:thinking_face:\n```1. ブラウザからDLした古い verison の vscode を rm コマンドで削除\n2. brew cask install visual-studio-code```",
         "user": "UQBK4AKNG",
         "type": "message"
+    },
+    {
+        "ts": "1577421842.010400",
+        "text": "<https://github.com/input-output-hk/plutus/blob/master/example/shell.nix>\nnix-shellするだけで\nvscodeとhieとghcのセットアップが完了したりしないですかね。（まだ試してないです。）",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1577440745.018900",
+        "text": "`http-client`の`Network.Http.Simple.httpJSON` について質問です\n\nステータスコードによって異なる内容のJSONを返すAPIを叩こうとしています。(<https://misskey.io/api-doc#operation/users/show>)\nステータスコードが200なら `Right`、それ以外なら `Left`に包んで返したいです。\nしかし `response` に `getResponseBody`を使うと、強制的に成功時の型として扱われてパースできずにエラーになってしまい、困っています。\n自分で思いついた解法は、「 `httpJSON`の代わりに `httpLbs`を使い、最後値を返すときにJSONとしてパースする」くらいなのですが他に方法はあるのでしょうか\n以下のコードです:\n```usersShow :: APIRequest -&gt; ReaderT MisskeyEnv IO (Either APIError User)\nusersShow req = do\n    env &lt;- ask\n    initReq &lt;- parseRequest $ (env^.url) ++ \"/api/users/show\"\n    let requestObject = object [ \"userId\"   .= (req^.userId)\n                               , \"userIds\"  .= (req^.userIds)\n                               , \"username\" .= (req^.username)\n                               , \"host\"     .= (req^.host)\n                               ]\n        request       = initReq { method = \"POST\"\n                                , requestBody = RequestBodyLBS $ encode requestObject\n                                , requestHeaders =\n                                      [(\"Content-Type\", \"application/json; charset=utf-8\")]\n                                }\n\n    response &lt;- httpJSON request\n    case getResponseStatusCode response of\n        200 -&gt; return $ Right $ getResponseBody response\n        400 -&gt; return $ Left  $ getResponseBody response -- APIError型になって欲しいけどならない```",
+        "user": "ULTBB86UC",
+        "type": "message"
+    },
+    {
+        "ts": "1577442022.019000",
+        "text": "ちょっとすぐに調べられる状態ではないので推測ですが、4XXや5XXだと例外が投げられるのでcatchせよ、という仕様じゃないかと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1577442090.019300",
+        "text": "この場合tryの方がいいですね。理由は忘れちゃいましたが一般にcatchよりも推奨されてたはず",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1577442188.019600",
+        "text": "<@US388KN85> has joined the channel",
+        "user": "US388KN85",
+        "type": "message"
+    },
+    {
+        "ts": "1577443131.019900",
+        "text": "parseRequestを使っているのでステータスによる例外は発生しないはずです。まず`Value` 型として取得し、`fromJSON` でさらに変換するのはいかがでしょうか",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1577453003.020300",
+        "text": "なるほどすみません、問題を誤解してました:sweat_drops:\n実質fumiさんの方法と同じですがFromJSONのインスタンスを:point_down:️のように定義すればいいかもしれませんね。\n\n```\nnewtype EitherJson a b = EitherJson (Either a b)\n\ninstance (FromJSON a, FromJSON b) =&gt; FromJSON (EitherJson a b) where\n  parseJSON v = EitherJson &lt;$&gt; (Right &lt;$&gt; parseJSON v) &lt;|&gt; (Left &lt;$&gt; parseJSON v)\n```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1577453121.020500",
+        "text": ":thinking_face:.oO(そう言えばこれの値コンストラクターが3つ以上のバージョンを会社の同僚が欲しがってたな。割と需要あるだろうからパッケージにしてもいいかも)",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1577508723.020700",
+        "text": "なるほど、ありがとうございます！\nとりあえず試してみます(コードは書き直したものの、他の場所がエラー出てて試せていない)",
+        "user": "ULTBB86UC",
+        "type": "message"
+    },
+    {
+        "ts": "1577541186.020900",
+        "text": "これは初めて知りました:sweat:",
+        "user": "UQBK4AKNG",
+        "type": "message"
+    },
+    {
+        "ts": "1577547656.021300",
+        "text": "<@US439GT0Q> has joined the channel",
+        "user": "US439GT0Q",
+        "type": "message"
+    },
+    {
+        "ts": "1577702977.021600",
+        "text": "<@US4UKMB29> has joined the channel",
+        "user": "US4UKMB29",
+        "type": "message"
     }
 ]
