@@ -214,5 +214,53 @@
         "text": "<@U7YMV774J> has joined the channel",
         "user": "U7YMV774J",
         "type": "message"
+    },
+    {
+        "ts": "1578454514.032800",
+        "text": "<https://qiita.com/Dooteeen/items/fbfaf4fd513066ecc554#comment-e0c17b34a7f1453f0d5e> のコメントを書いていて気になったんですが、リストの `foldr'` が `Data.List` にない（`Data.Foldable` から `import` すれば使えますが、普通使うことはないはず） のってなんででしたっけ？\n多分こうだろうというイメージはあるのですが、自信を持って説明できません...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1578455934.033300",
+        "text": "Data.Foldable.foldr'の定義はトリッキーでややわかりにくいですが、foldr' (+) 0 [1,2,3]は、 `+!`を右から評価するものとして表すと`1 +! 2 +! (3 +! 0)` のような形になります。結局、この式を評価するには最後まで辿ってスタックを消費せねばならず、メリットがないからだと言えます",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1578464733.033600",
+        "text": "リストに対してパターンマッチする度に `x : xs` における `x` と `xs` の分だけスタックを消費してる、というイメージで合ってますかね？\n`+!` がeagerにパターンマッチするからリストの長さだけスタックを消費してる、と。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1578469052.033800",
+        "text": "それは事実ですが、パターンマッチ関係なしに、1 +! rを評価する際、1を残したままrを先に評価するので1がスタックに残ります(再帰的にも同様)",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1578469262.034100",
+        "text": "<https://github.com/haskell-jp/playground/blob/master/Strictness/Fold.hs> playgroundにpushしてみました。やはりfoldr'が一番イヤな感じにコンパイルされている…",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1578469959.034500",
+        "text": "```exL = exL'```\nってことは `foldl' (+) 0 [1..1000]` と `foldl (+) 0　[1..1000]` は同じ式として最適化されたってことですか... 正格性解析の結果でしょうか... すごい。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1578480980.035000",
+        "text": "cf. <https://qiita.com/autotaker1984/items/09c5ceaa13e9077f5359>\n部分適用したりしない限りは、どちらでも良さそうですね",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1578482783.035400",
+        "text": "<https://www.reddit.com/r/haskell/comments/elcyb8/yet_another_haskell_development_environment_using/>\n\n<https://github.com/GuillaumeDesforges/haskell-nix-dev-template>",
+        "user": "U74KTAG0N",
+        "type": "message"
     }
 ]
