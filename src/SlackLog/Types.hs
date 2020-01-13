@@ -24,22 +24,16 @@ data Config = Config
   --   from Slack: not only when converting JSON files into HTML.
   } deriving (Eq, Show, Generic, Json.FromJSON)
 
+data TargetChannel = TargetChannel
+  { visibility :: Visibility
+  , label :: T.Text
+  } deriving (Show, Eq, Generic)
+instance Json.FromJSON TargetChannel
 
-data Visibility = Private | Public deriving (Eq, Show)
+data Visibility = Private | Public deriving (Eq, Show, Generic)
+instance Json.FromJSON Visibility
 
-instance Json.FromJSON Visibility where
-  parseJSON = JsonTypes.withText typ $ \t -> do
-    let err = JsonTypes.typeMismatch "Visibility" (JsonTypes.String t)
-    -- Parse only the first word of the text to allow users to leave comments.
-    firstWord <- maybe err pure . headMay $ T.words t
-    case firstWord of
-        "Private" -> pure Private
-        "Public"  -> pure Public
-        _         -> err
-   where
-    typ = "Visibility"
-
-type TargetChannels = HM.HashMap ChannelId Visibility
+type TargetChannels = HM.HashMap ChannelId TargetChannel
 
 type UserName = T.Text
 

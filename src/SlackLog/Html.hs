@@ -42,8 +42,8 @@ import           System.FilePath         (takeBaseName, (<.>), (</>))
 import qualified Web.Slack.Common        as Slack
 import qualified Web.Slack.MessageParser as Slack
 
-import           SlackLog.Types          (ChannelId, ChannelName, Config (timeZone, workspaceName),
-                                          UserId, UserName)
+import           SlackLog.Types          (ChannelId, ChannelName, Config (..),
+                                          UserId, UserName, TargetChannel(..))
 import           SlackLog.Util           (failWhenLeft, readJsonFile)
 
 
@@ -157,13 +157,12 @@ renderSlackMessages wsi@WorkspaceInfo {..} PageInfo {..} =
       in TF.formatTime TF.defaultTimeLocale "%Y-%m-%d<br/>%T %z" lt
 
 
-loadWorkspaceInfo :: FilePath -> IO WorkspaceInfo
-loadWorkspaceInfo dir = do
+loadWorkspaceInfo :: Config -> FilePath -> IO WorkspaceInfo
+loadWorkspaceInfo cfg dir = do
   userNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".users.json")
-  channelNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".channels.json")
+  let channelNameById = label <$> targetChannels cfg
   groupNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".groups.json")
 
-  cfg <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".config.json")
   let workspaceInfoName = workspaceName cfg
   getTimeDiff <- fmap TZ.timeZoneForUTCTime . TZ.loadTZFromDB $ timeZone cfg
 
