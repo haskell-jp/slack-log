@@ -46,5 +46,35 @@
         "text": "<@US8QGD3GR> has joined the channel",
         "user": "US8QGD3GR",
         "type": "message"
+    },
+    {
+        "ts": "1578879349.009200",
+        "text": "手元の環境でも、たぶん再現しました。\n\nこの issue っぽいです。\nHIE doesn’t work after build. “haskell-lsp: Failed to parse message header” error #1499\n<https://github.com/haskell/haskell-ide-engine/issues/1499>\n\nプロジェクト作ってから、一度 `stack build` すると直るかもしれません。(その後一応vscodeを再起動した方が良いかも)\n\n```$ stack new testproj\n$ cd testproj\n$ stack build```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1578879775.009800",
+        "text": "また、プロジェクトのトップに以下の内容で `hie.yaml` というファイルを作成することでも直るようです。\n\n```cradle:\n  stack:```\n",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1578879876.010000",
+        "text": "hie.yaml を追加する場合はこんな感じ",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1578885024.010500",
+        "text": "<@UEH3V5NRE> has joined the channel",
+        "user": "UEH3V5NRE",
+        "type": "message"
+    },
+    {
+        "ts": "1578899284.012200",
+        "text": "ありがとうございます。\n一度 stack build することで解決しました。\nどうもお騒がせしました。今後ともよろしくお願いします。",
+        "user": "US5EYP5HQ",
+        "type": "message"
     }
 ]
