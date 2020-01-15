@@ -37,6 +37,7 @@ import qualified Data.Text.IO             as T
 import           Data.Time.Calendar       (fromGregorian)
 import           Data.Time.Clock          (UTCTime (UTCTime), getCurrentTime)
 import           Data.Traversable         (for)
+import           Data.Yaml                as Yaml
 import           Safe                     (headMay)
 import qualified System.Directory         as Dir
 import           System.Envy              (FromEnv, decodeEnv, env, fromEnv)
@@ -54,6 +55,7 @@ import           SlackLog.Html
 import           SlackLog.Pagination      (chooseLatestPageOf, defaultPageSize,
                                            paginateFiles)
 import           SlackLog.Types           (ChannelId, TargetChannels,
+                                           TargetChannel(..),
                                            Visibility (Private, Public),
                                            targetChannels)
 import           SlackLog.Util            (failWhenLeft, readJsonFile)
@@ -63,7 +65,7 @@ import           Web.Slack.Instances      ()
 newtype EnvArgs = EnvArgs { slackApiToken :: T.Text } deriving (Eq, Show)
 
 instance FromEnv EnvArgs where
-  fromEnv =
+  fromEnv _ =
     EnvArgs <$> (env "SLACK_API_TOKEN" <|> readHidden)
     where
       readHidden = liftIO $ do
@@ -84,12 +86,13 @@ main = do
   hSetBuffering stdout NoBuffering
   hSetBuffering stderr NoBuffering
 
+  config <- Yaml.decodeFileThrow "slack-log.yaml"
   apiConfig <- Slack.mkSlackConfig =<< slackApiToken <$> (failWhenLeft =<< decodeEnv)
 
   Dir.withCurrentDirectory "docs" $ do
-    ws <- loadWorkspaceInfo "json"
+    ws <- loadWorkspaceInfo config "json"
     oldTss <- readJsonFile "json/.timestamps.json"
-    targets <- targetChannels <$> readJsonFile "json/.config.json"
+    let targets = targetChannels config
 
     -- These actions have to be performed before generating HTMLs.
     -- Because generating HTMLs requires channelsByName, usersByName, groupsByName
@@ -97,7 +100,7 @@ main = do
     saveUsersList apiConfig
     saveGroupsList apiConfig targets
 
-    saveResult <- for (HM.toList targets) $ \(chanId, vis) -> do
+    saveResult <- for (HM.toList targets) $ \(chanId, TargetChannel{visibility=vis}) -> do
       newTs <- saveChannel apiConfig oldTss chanId vis
 
       jsonPaths <- collectTargetJsons chanId

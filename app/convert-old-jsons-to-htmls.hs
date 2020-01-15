@@ -20,15 +20,17 @@ import           SlackLog.Html
 import           SlackLog.Types       (targetChannels)
 import           SlackLog.Util        (readJsonFile)
 import qualified System.Directory     as Dir
+import qualified Data.Yaml            as Yaml
 
 main :: IO ()
-main = Dir.withCurrentDirectory "docs" $ do
-  ws <- loadWorkspaceInfo "json"
-  logConfig <- readJsonFile "json/.config.json"
+main = do
+  logConfig <- Yaml.decodeFileThrow "slack-log.yaml"
+  Dir.withCurrentDirectory "docs" $ do
+    ws <- loadWorkspaceInfo logConfig "json"
 
-  namesByChannel <- for (HM.keys $ targetChannels logConfig) $ \chanId -> do
-    jsonPaths <- collectTargetJsons chanId
-    convertJsonsInChannel ws chanId jsonPaths
-    return (chanId, jsonPaths)
+    namesByChannel <- for (HM.keys $ targetChannels logConfig) $ \chanId -> do
+      jsonPaths <- collectTargetJsons chanId
+      convertJsonsInChannel ws chanId jsonPaths
+      return (chanId, jsonPaths)
 
-  generateIndexHtml ws namesByChannel
+    generateIndexHtml ws namesByChannel
