@@ -6,11 +6,9 @@
 module SlackLog.Types where
 
 import qualified Data.Aeson          as Json
-import qualified Data.Aeson.Types    as JsonTypes
 import qualified Data.HashMap.Strict as HM
 import qualified Data.Text           as T
 import           GHC.Generics        (Generic)
-import           Safe                (headMay)
 
 
 -- | Configuration type used mainly when converting JSON files into HTML.

@@ -18,7 +18,6 @@ import qualified Data.HashMap.Strict  as HM
 import           Data.Traversable     (for)
 import           SlackLog.Html
 import           SlackLog.Types       (targetChannels)
-import           SlackLog.Util        (readJsonFile)
 import qualified System.Directory     as Dir
 import qualified Data.Yaml            as Yaml
 

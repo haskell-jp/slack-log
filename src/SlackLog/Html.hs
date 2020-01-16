@@ -221,9 +221,9 @@ renderIndexOfPages wsi@WorkspaceInfo {..} =
         ("#" <> T.pack (show (parsePageNumber jsonPath)))
       # (" " :: T.Text)
       # H.span_A (A.class_ ("page__first_message" :: T.Text))
-        ( (H.span_A (A.class_ ("page__first_message__header" :: T.Text)) (getUserScreenName wsi messageUser))
+        ( H.span_A (A.class_ ("page__first_message__header" :: T.Text)) (getUserScreenName wsi messageUser)
         # (": " :: T.Text)
-        #  H.span_A (A.class_ ("page__first_message__body" :: T.Text))
+        # H.span_A (A.class_ ("page__first_message__body" :: T.Text))
             (H.Raw $ mkMessageBody wsi messageText)
         # (" at " :: T.Text)
         # ( H.span_A (A.class_ ("page__first_message__timestamp" :: T.Text))
@@ -245,8 +245,8 @@ renderIndexOfPages wsi@WorkspaceInfo {..} =
 
 
 mkMessageBody :: WorkspaceInfo -> Slack.SlackMessageText -> T.Text
-mkMessageBody wsi mText =
-  Slack.messageToHtml Slack.defaultHtmlRenderers (getUserName wsi) mText
+mkMessageBody =
+  Slack.messageToHtml Slack.defaultHtmlRenderers . getUserName
 
 
 ensurePathIn :: String -> ChannelId -> FilePath -> FilePath

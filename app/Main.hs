@@ -46,7 +46,6 @@ import           System.IO                (BufferMode (NoBuffering), hGetEcho,
                                            hPrint, hPutStrLn, hSetBuffering,
                                            hSetEcho, stderr, stdin, stdout)
 import qualified Web.Slack                as Slack
-import qualified Web.Slack.Channel        as Channel
 import qualified Web.Slack.Common         as Slack
 import qualified Web.Slack.Group          as Group
 import qualified Web.Slack.User           as User
@@ -96,7 +95,6 @@ main = do
 
     -- These actions have to be performed before generating HTMLs.
     -- Because generating HTMLs requires channelsByName, usersByName, groupsByName
-    saveChannelsList apiConfig
     saveUsersList apiConfig
     saveGroupsList apiConfig targets
 
@@ -116,18 +114,7 @@ main = do
       generateIndexHtml ws newNames
 
 
-saveChannelsList, saveUsersList :: Slack.SlackConfig -> IO ()
-
-saveChannelsList apiConfig =
-  Slack.channelsList (Channel.ListReq (Just True) (Just False))
-    `runReaderT` apiConfig >>= \case
-      Right (Channel.ListRsp chs) -> do
-        let channelsByName = HM.fromList $ map ((,) <$> Channel.channelId <*> Channel.channelName) chs
-        BL.writeFile "json/.channels.json" $ Json.encodePretty channelsByName
-      Left err -> do
-        hPutStrLn stderr "WARNING: Error when fetching the list of channels:"
-        hPrint stderr err
-
+saveUsersList :: Slack.SlackConfig -> IO ()
 saveUsersList apiConfig =
   Slack.usersList
     `runReaderT` apiConfig >>= \case
@@ -189,7 +176,7 @@ saveChannel cfg tss chanId vis = do
 
 
 addMessagesToChannelDirectory :: ChannelId -> [Slack.Message] -> IO ()
-addMessagesToChannelDirectory chanId msgs = do
+addMessagesToChannelDirectory chanId msgs =
   Dir.withCurrentDirectory "json" $ do
     let channelNameS = T.unpack chanId
         tmpFileName = channelNameS <> "-tmp.json"
