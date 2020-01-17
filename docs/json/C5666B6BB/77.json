@@ -16,5 +16,161 @@
         "text": "<@USC6N666N> has joined the channel",
         "user": "USC6N666N",
         "type": "message"
+    },
+    {
+        "ts": "1579249884.000200",
+        "text": "<@USS5JD12Q> has joined the channel",
+        "user": "USS5JD12Q",
+        "type": "message"
+    },
+    {
+        "ts": "1579251070.005600",
+        "text": "来ていきなり質問で申し訳ないのですが…、トップレベルの関数に型注釈を書くのと書かないのとで、まるで実行性能が変わってしまうということは、ありますか？\n\n最近、Haskell で AtCoder の問題に挑戦していて、そのように見える場面に遭遇したのですが、どうにもわからなくて。\n\nたとえば、このコードは、2秒以上かかるケースがあって TLE (時間制限超過）：\n<https://atcoder.jp/contests/abc040/submissions/9522041>\n\nなんですが、このコードの65行目ｰ66行目の二行をコメントアウトすると、速くなってしまいます： <https://atcoder.jp/contests/abc040/submissions/9545116>\n\nなぜなんでしょうか？？\n\n※ Vector むけのソートが欲しくて、山本さんのコード (<https://gist.github.com/kazu-yamamoto/3051375>) を利用させていただきました。",
+        "user": "USS5JD12Q",
+        "type": "message"
+    },
+    {
+        "ts": "1579251155.005800",
+        "text": "型注釈がまちがっていて（例えば、保守的すぎて？）、型推論まかせの場合と、注釈を書いた場合とで違う型になっている、とかかなぁ、など思い悩むものの、自分ではわかりそうな気がせず…。",
+        "user": "USS5JD12Q",
+        "type": "message"
+    },
+    {
+        "ts": "1579251623.006200",
+        "text": "あまりこの手の経験がないので自信がないのですが、\nインライン化できなさそうな関数ですし、 <https://blog.miz-ar.info/2016/06/writing-efficient-program-with-haskell/#2.specialization> じゃないっすかね。\n型注釈がなかったときは `MonomorphismRestriction` が働いて、 `Int` か何かに特殊化された `quickSortVec` が作られたのではないかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1579252370.006600",
+        "text": "```quickSortVec :: _```\nのように `_` を書くと推論した結果を表示してくれるのですが\n```Int -&gt; Int -&gt; VM.MVector (PrimState m0) a0 -&gt; m0 ()```\nと推論したみたいです",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1579252572.006800",
+        "text": "別途制約が必要だよというエラーが出ている",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1579252855.007000",
+        "text": "競プロでこういうハマり方するのヤダなぁ（競プロじゃなくても",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1579253002.007300",
+        "text": "igrep さんのに「なるほど」と思い、SPECIALIZE pragma 書いてみようかとしたのですが、なんと書けばいいのかわからなかったりして…\n\nわたしが書いた型注釈は、ghci 上で :t  して聞いたものです。\n``` quickSortVec :: (PrimMonad m, VM.Unbox a, Ord a) =&gt;\n                Int -&gt; Int -&gt; VM.MVector (PrimState m) a -&gt; m ()```",
+        "user": "USS5JD12Q",
+        "type": "message"
+    },
+    {
+        "ts": "1579253264.007500",
+        "text": "速いケースは特殊化の最適化がかかってタプルになったのかな\n（タプルでもビルドできた\n```quickSortList :: [(Int, (Int, Int))] -&gt; [(Int, (Int, Int))]\nquickSortList :: (Ord a, VM.Unbox a) =&gt; [a] -&gt; [a]```",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1579253519.008800",
+        "text": "最適化のトリガーが何かは識者の意見を待ちたい……\n（`quickSortVec` が再帰してるので抽象的な型の注釈をしたときに特殊化されないのかな",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1579253524.009000",
+        "text": "いや、specializeを書くんじゃなくて、GHCが最適化してるときに気づいた具体的な型を書くのが正解かと思います。\nGHCiの `:t` がその結果を出したのは、`quickSortList` も多相化されているからではないかと思います。\n `quickSortList` の型を書いていても `quickSortVec` に型を書かなければ `Int` に特殊化できていたのは、おそらく `quickSortList` がインライン化されたからではないかと思います。（GHCが最適化注に気づいて）インライン化した時点で `quickSortList` は `Int` に特殊化された、と。\n\nなので、 `quickSortList` に対する型注釈を消した上で `:t` してみると、kakkun61が今上げたような結果になり、無事最適化がかかると思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1579253532.009200",
+        "text": "quickSortVecは引数を取る関数なのでmonomorphism restrictionは関係ないはずです。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1579253752.011100",
+        "text": "すみません、確かにそうでした。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1579253850.012700",
+        "text": "今回のケースはどうして違いが出るのか私にもよくわかりませんし、GHCのバージョン次第で違う結果になる案件な気もします。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1579253900.013900",
+        "text": "いろいろ書きましたが、結論というか教訓としては「型はなるべく具体的になるように注釈しましょう」ですかね（mod_poppo さんのブログの「特殊化する」と同じことだけど",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1579253990.016300",
+        "text": "えー、でも、ライブラリは多相にしたい！",
+        "user": "USS5JD12Q",
+        "type": "message"
+    },
+    {
+        "ts": "1579254019.017000",
+        "text": "ユーザーとしてできることは、\n・具体的な型で型注釈をつける（特にPrimMonadやUnbox制約のついた型変数を具体的にする）（SPECIALIZEプラグマでも良い）\n・INLINEプラグマをつける（具体的な型注釈をつけるのと同じような効果が見込める）\nあたりでしょうか",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1579254030.017200",
+        "text": "C++ 使えばいいんじゃないっすか :upside_down_face:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1579254124.019700",
+        "text": "多相で使えるライブラリにしたいのであれば、IOやST, Intなどのよく使う型に対してSPECIALIZEを書きまくるか、INLINEをつけるか、ですね",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1579254155.019900",
+        "text": "競プロに限れば「型注釈を書かない」でいいような気がしました。\n多相の注釈が最適化（特殊化）を阻害しうるとわかったので（わかったのかな？）、個人的には、ちょっとすっきりしました。\nありがとうございます！",
+        "user": "USS5JD12Q",
+        "type": "message"
+    },
+    {
+        "ts": "1579254373.021500",
+        "text": "今回のように再帰関数が絡む場合はこういう泥臭いテクニックがあるらしいです。 :serval:\n<https://mkotha.hatenadiary.org/entry/20131206/1386330227>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1579254535.021900",
+        "text": "型注釈を書かなくても型推論で同じ型が推論されるのなら同じコードが生成されてもいいような気がするんですがね……。GHCだとそうでもないのかな……。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1579254755.022100",
+        "text": "そうなんですよね、コンパイラが推論するのと同じ型注釈を書いたからといって、コンパイラの挙動がかわるのは、自明でも自然でもないように思います。\nべつに、書いている側としては「特殊化しないでください」というメッセージではないのだけど…",
+        "user": "USS5JD12Q",
+        "type": "message"
+    },
+    {
+        "ts": "1579255699.022400",
+        "text": "GHC 8.6でコンパイルしてみたところ、型注釈ありの場合となしの場合でほぼ同様の（特殊化された）コードが生成されるようです。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1579255700.022600",
+        "text": "`PrimMonad m =&gt;`が付く関数定義は全てインライン化するのが定石です。これを忘れると、その中のすべての(&gt;&gt;=)が辞書渡しになるので、非常に遅くなるのは必至です(会社のコードにもそのような部分を見つけたばかりです…)",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1579261156.023300",
+        "text": "わかんない＆気持ち悪くて、悩んでいたのですが、ここで尋ねてみてよかったです。みなさん、ありがとうございました！",
+        "user": "USS5JD12Q",
+        "type": "message"
     }
 ]
