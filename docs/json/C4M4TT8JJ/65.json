@@ -286,5 +286,17 @@
         "text": "kowainik/awesome-cabal\n<https://kowainik.github.io/projects/awesome-cabal>\n<https://github.com/kowainik/awesome-cabal>",
         "user": "U5B3EGEFQ",
         "type": "message"
+    },
+    {
+        "ts": "1579343104.011100",
+        "text": "元の質問とはそろそろ関係なくなってきそうなのでこっちで続けます。\nぶっちゃけ、競プロで整数に関するdefaultingの変更が役立つ場面はそんなにないと思います。\nまず、競プロで整数に関するdefaultingが発生するのは\n• べき乗の指数にリテラルまたは `readLn` した変数を書いた場合\n• `readLn` して簡単な計算をして `print` する場合（ABCのA問題など）\nの2つかと思われます。これらの状況では、 `Integer` が使用されてもそんなに問題にはならないでしょう。これ以外の状況では、例えば\n• `ByteString` の関数を使って整数列を読み取る場合は `readInt` や `readInteger` を使うので型の曖昧さは発生しない\n• unboxed vectorに格納する場合はdefaultingが発動しない（`Unbox` 制約がかかるので）\nなのでdefaultingのお世話になることは少ないかと思います。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1579343877.011400",
+        "text": "まあ私自身は最近競プロはやってませんし、コーディングスタイルも人それぞれだと思うので、もしかするとdefault宣言が役立つ場面もあるかもしれません。defaultingでハマった・defaultを変えたくなった・変えてよかったなどの経験談があったら知りたいです。",
+        "user": "UGM9F7XQS",
+        "type": "message"
     }
 ]
