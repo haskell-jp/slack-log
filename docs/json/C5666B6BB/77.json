@@ -184,5 +184,29 @@
         "text": "この件、型注釈を書かないにしても\n```\ndefault (Int, Double)\n```\nくらいは書いておいた方がいいかもしれないことに気づきました。\nあまり型を省略して整数がIntegerになってしまうと競プロでは困るでしょうし。",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1579430165.026500",
+        "text": "```stack install gtk```\nをしようとしたところ、\n\nstack.yamlに\n```extra-deps:\n    - gi-pangocairo-1.0.23@sha256:04dacf055fef4e19dd0276a8c2b5df08332877600b0014beecd2eaa764495ec6,3158\n    - cairo-0.13.8.0@sha256:9b64a376ebaa4f153bba5866a32291fd4bed48147009cce9158ce6533928eba8,4075\n    - gtk2hs-buildtools-0.13.8.0@sha256:132f38155fc677430a47ea750918973161c876fb6f281d342ac2f07eb99229ce,5238\n    - gio-0.13.8.0@sha256:5691212b07dc4193ea6f8202a625c9515d750b249aeafc659139e29a5ec61436,3116\n    - glib-0.13.8.0@sha256:97698bd054bad38756f3ef0220d7684f72e42660d261e9b118aa73419ce9207d,3136\n    - pango-0.13.8.0@sha256:690149ea2efb03c783937b69a5ec6ac854806146fd760e28e800634a6c2243c1,3897```\nこう書いてくださいとあったのでそうしたのですが、ビルドすると\n```09/glib-0.13.8.0/.stack-work/dist/x86_64-osx/Cabal-2.4.0.1/setup/setup ...\nglib &gt; Configuring glib-0.13.8.0...\nglib &gt; build      \nglib &gt; Preprocessing library for glib-0.13.8.0..\nglib &gt; setup: Error in C header file.\nglib &gt;            \nglib &gt; /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/time.h:153: (column 17) [FATAL] \nglib &gt;   &gt;&gt;&gt; Syntax error!\nglib &gt;   The symbol `__attribute__' does not fit here.```\nこのようなエラーが出てしまいビルドできません。どなたかお助けいただけませんでしょうか？",
+        "user": "UELFKSH0V",
+        "type": "message"
+    },
+    {
+        "ts": "1579433779.026600",
+        "text": "こちらに似たエラーとその対応が記載されていました\n<https://github.com/gtk2hs/gtk2hs/issues/276>\n（GCC 関連の話なので詳細まで理解せずに書いていますが",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1579434860.028200",
+        "text": "- <https://scrapbox.io/LugendrePublic/Haskell書いてるときになんとなく気をつけていること>\n- <https://haskell.e-bigmoon.com/stack/test/tasty.html>\n\n↑のあたりを見て、自分のコードで hspec を tasty で置き換えてみようかなと思い、 hspec-discover のかわりに tasty-discover を見つけました。しかし tasty-discover のリポジトリ (<https://git.coop/decentral1se/tasty-discover>) はアーカイブされています。開発が止まっているなら tasty-discover を使うのはちょっと躊躇してしまいます。\n\ntasty-discover を使っている人 (もしいれば)、便利なので気にせず使っていますか?",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1579438448.028500",
+        "text": "おぉ、知らなかった、アーカイブされてるの。\n最近はもう手書きするようにしてました（tasty-discover をインストールするのがめんどくさくて）",
+        "user": "U56L7EVNY",
+        "type": "message"
     }
 ]
