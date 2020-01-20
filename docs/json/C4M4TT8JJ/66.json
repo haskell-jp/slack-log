@@ -52,5 +52,11 @@
         "text": "wa nihongo ga benkyou shitai desu",
         "user": "USSU9JV28",
         "type": "message"
+    },
+    {
+        "ts": "1579483421.021500",
+        "text": "extensible の Wrapper って型クラスが地味に使いやすくて感動してる（今更）\n<https://hackage.haskell.org/package/extensible/docs/Data-Extensible-Wrapper.html#t:Wrapper>\n`wrap . unwrap` とやるだけで `Field` と `Nullable` の順番を入れ替えれる笑\n```liftNullable :: Wrapper h =&gt; Field (Nullable h) x -&gt; Nullable (Field h) x\nliftNullable = wrap . unwrap\n\nunliftNullable :: Wrapper h =&gt; Nullable (Field h) x -&gt; Field (Nullable h) x\nunliftNullable = wrap . unwrap```",
+        "user": "U56L7EVNY",
+        "type": "message"
     }
 ]
