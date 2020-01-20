@@ -16,4 +16,61 @@ glib &gt; setup: Error in C header file.
 glib &gt;            
 glib &gt; /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/time.h:153: (column 17) [FATAL] 
 glib &gt;   &gt;&gt;&gt; Syntax error!
-glib &gt;   The symbol `__attribute__' does not fit here.</pre><br/>このようなエラーが出てしまいビルドできません。どなたかお助けいただけませんでしょうか？</div></div><div class="message" id="message-1579433779.026600"><div class="message__timestamp">2020-01-19<br/>20:36:19 +0900</div><div class="message__header">kakkun61</div><div class="message__body">こちらに似たエラーとその対応が記載されていました<br/><a href='https://github.com/gtk2hs/gtk2hs/issues/276'>https://github.com/gtk2hs/gtk2hs/issues/276</a><br/>（GCC 関連の話なので詳細まで理解せずに書いていますが</div></div><div class="message" id="message-1579434860.028200"><div class="message__timestamp">2020-01-19<br/>20:54:20 +0900</div><div class="message__header">cohei</div><div class="message__body">- <a href='https://scrapbox.io/LugendrePublic/Haskell書いてるときになんとなく気をつけていること'>https://scrapbox.io/LugendrePublic/Haskell書いてるときになんとなく気をつけていること</a><br/>- <a href='https://haskell.e-bigmoon.com/stack/test/tasty.html'>https://haskell.e-bigmoon.com/stack/test/tasty.html</a><br/><br/>↑のあたりを見て、自分のコードで hspec を tasty で置き換えてみようかなと思い、 hspec-discover のかわりに tasty-discover を見つけました。しかし tasty-discover のリポジトリ (<https://git.coop/decentral1se/tasty-discover>) はアーカイブされています。開発が止まっているなら tasty-discover を使うのはちょっと躊躇してしまいます。<br/><br/>tasty-discover を使っている人 (もしいれば)、便利なので気にせず使っていますか?</div></div><div class="message" id="message-1579438448.028500"><div class="message__timestamp">2020-01-19<br/>21:54:08 +0900</div><div class="message__header">matsubara0507</div><div class="message__body">おぉ、知らなかった、アーカイブされてるの。<br/>最近はもう手書きするようにしてました（tasty-discover をインストールするのがめんどくさくて）</div></div><div class="message" id="message-1579476802.028700"><div class="message__timestamp">2020-01-20<br/>08:33:22 +0900</div><div class="message__header">igrep</div><div class="message__body">毎度もにょるんですが、Hspecとtastyはそもそも守備範囲が違うので、単純比較できないかと。<br/>私自身tastyを全然使ったことがないので恐縮ですが、ドキュメントを読む限りあくまでもtastyはいろんな種類のテストを一つのテストスイートで記述するためのものであって、少なくともhspecで小さなテストを書いているだけの状態から置き換えても特にメリットがあるとは思えません。</div></div></div><div class="pager"><a href="../../html/C5666B6BB/76.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>
+glib &gt;   The symbol `__attribute__' does not fit here.</pre><br/>このようなエラーが出てしまいビルドできません。どなたかお助けいただけませんでしょうか？</div></div><div class="message" id="message-1579433779.026600"><div class="message__timestamp">2020-01-19<br/>20:36:19 +0900</div><div class="message__header">kakkun61</div><div class="message__body">こちらに似たエラーとその対応が記載されていました<br/><a href='https://github.com/gtk2hs/gtk2hs/issues/276'>https://github.com/gtk2hs/gtk2hs/issues/276</a><br/>（GCC 関連の話なので詳細まで理解せずに書いていますが</div></div><div class="message" id="message-1579434860.028200"><div class="message__timestamp">2020-01-19<br/>20:54:20 +0900</div><div class="message__header">cohei</div><div class="message__body">- <a href='https://scrapbox.io/LugendrePublic/Haskell書いてるときになんとなく気をつけていること'>https://scrapbox.io/LugendrePublic/Haskell書いてるときになんとなく気をつけていること</a><br/>- <a href='https://haskell.e-bigmoon.com/stack/test/tasty.html'>https://haskell.e-bigmoon.com/stack/test/tasty.html</a><br/><br/>↑のあたりを見て、自分のコードで hspec を tasty で置き換えてみようかなと思い、 hspec-discover のかわりに tasty-discover を見つけました。しかし tasty-discover のリポジトリ (<https://git.coop/decentral1se/tasty-discover>) はアーカイブされています。開発が止まっているなら tasty-discover を使うのはちょっと躊躇してしまいます。<br/><br/>tasty-discover を使っている人 (もしいれば)、便利なので気にせず使っていますか?</div></div><div class="message" id="message-1579438448.028500"><div class="message__timestamp">2020-01-19<br/>21:54:08 +0900</div><div class="message__header">matsubara0507</div><div class="message__body">おぉ、知らなかった、アーカイブされてるの。<br/>最近はもう手書きするようにしてました（tasty-discover をインストールするのがめんどくさくて）</div></div><div class="message" id="message-1579476802.028700"><div class="message__timestamp">2020-01-20<br/>08:33:22 +0900</div><div class="message__header">igrep</div><div class="message__body">毎度もにょるんですが、Hspecとtastyはそもそも守備範囲が違うので、単純比較できないかと。<br/>私自身tastyを全然使ったことがないので恐縮ですが、ドキュメントを読む限りあくまでもtastyはいろんな種類のテストを一つのテストスイートで記述するためのものであって、少なくともhspecで小さなテストを書いているだけの状態から置き換えても特にメリットがあるとは思えません。</div></div><div class="message" id="message-1579489726.030500"><div class="message__timestamp">2020-01-20<br/>12:08:46 +0900</div><div class="message__header">maoe</div><div class="message__body">最新のglibはmacOSでビルドできません。手元の環境では <a href='https://github.com/gtk2hs/gtk2hs/issues/291#issuecomment-570829903'>https://github.com/gtk2hs/gtk2hs/issues/291#issuecomment-570829903</a> で通るようになりました。</div></div><div class="message" id="message-1579510929.031000"><div class="message__timestamp">2020-01-20<br/>18:02:09 +0900</div><div class="message__header">pontyan12</div><div class="message__body">kakkun61さんにいただいたページはどうやらLinux環境のものっぽい(使っているdpkgと言うコマンドがLinuxのものっぽかったので、、）のでちょっと試せなそうです。<br/><br/>maoeさんにいただいたページのコマンドを試したところ、<br/><pre>cabal: Encountered missing dependencies:
+gi-cairo -any,
+gi-gdk -any,
+gi-glib -any,
+gi-gtk -any,
+gi-gtk-hs -any,
+gi-pango -any,
+gi-pangocairo -any,
+haskell-gi-base -any</pre><br/>このようなエラーがおきたため、<br/><pre>cabal install gtk --with-gcc=gcc-9</pre><br/>このコマンドを試してみたのですが、gtkのビルド中にこのようなエラー（長いです）が出てしまいました。<br/><pre>Graphics/UI/Gtk/Embedding/Socket.chs:175:6: error:
+    • Couldn't match expected type 'Ptr ()'
+                  with actual type 'Maybe DrawWindow'
+    • In the second argument of '\ (Socket arg1) arg2
+                                   -&gt; withForeignPtr arg1
+                                        $ \ argPtr1 -&gt; gtk_socket_add_id argPtr1 arg2', namely
+        '(fromNativeWindowId windowId)'
+      In the expression:
+        (\ (Socket arg1) arg2
+           -&gt; withForeignPtr arg1
+                $ \ argPtr1 -&gt; gtk_socket_add_id argPtr1 arg2)
+          (toSocket self) (fromNativeWindowId windowId)
+      In an equation for 'socketAddId':
+          socketAddId self windowId
+            = (\ (Socket arg1) arg2
+                 -&gt; withForeignPtr arg1
+                      $ \ argPtr1 -&gt; gtk_socket_add_id argPtr1 arg2)
+                (toSocket self) (fromNativeWindowId windowId)
+    |
+175 |     (fromNativeWindowId windowId)
+    |      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Graphics/UI/Gtk/Embedding/Socket.chs:187:3: error:
+    • Couldn't match type 'Ptr ()' with 'Maybe DrawWindow'
+      Expected type: IO (Maybe DrawWindow)
+        Actual type: IO (Ptr ())
+    • In the second argument of '($)', namely
+        '(\ (Socket arg1)
+            -&gt; withForeignPtr arg1 $ \ argPtr1 -&gt; gtk_socket_get_id argPtr1)
+           (toSocket self)'
+      In the expression:
+        liftM toNativeWindowId
+          $ (\ (Socket arg1)
+               -&gt; withForeignPtr arg1 $ \ argPtr1 -&gt; gtk_socket_get_id argPtr1)
+              (toSocket self)
+      In an equation for 'socketGetId':
+          socketGetId self
+            = liftM toNativeWindowId
+                $ (\ (Socket arg1)
+                     -&gt; withForeignPtr arg1 $ \ argPtr1 -&gt; gtk_socket_get_id argPtr1)
+                    (toSocket self)
+    |
+187 |   {# call unsafe socket_get_id #}
+    |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...
+cabal: Leaving directory '/var/folders/hd/fpfqf1rs28g30x7rcffkyrnh0000gp/T/cabal-tmp-79499/gtk-0.15.4'
+cabal: Error: some packages failed to install:
+gtk-0.15.4-8aDu81HrSCJZyllLlxBkN failed during the building phase. The
+exception was:
+ExitFailure 1</pre><br/>gtkのインストールは他のコマンドを用いるのでしょうか？</div></div><div class="message" id="message-1579512969.031200"><div class="message__timestamp">2020-01-20<br/>18:36:09 +0900</div><div class="message__header">cohei</div><div class="message__body">その辺は認識してはいるのですが、 tasty 推しの 2記事 (上のリンク) を見たので、試してみようとしたところなのです。<br/><br/>テスト結果の出力の見やすさが一番気になります。 hspec は cabal 経由だと環境変数でオプションを渡さないと色がつかないし……<br/><br/>そうですね、tasty にするとして、tasty-discover なしで手で書いても、そんな大規模でもなければいけますね。</div></div><div class="message" id="message-1579513039.031400"><div class="message__timestamp">2020-01-20<br/>18:37:19 +0900</div><div class="message__header">kakkun61</div><div class="message__body"><pre>$ brew install gcc
+$ cabal build --with-gcc=gcc-9</pre><br/>が意図するところは、macOS のデフォルトである clang を呼ぶ gcc コマンドではなく（でしたよね？）本物の gcc を使うようにするということだと思います。なので gcc コマンドで本物の gcc を呼ぶようにシンボリックリンクを張るなりした後に元々の<br/><pre>$ stack install gtk</pre><br/>を実行するとどうでしょうか？</div></div><div class="message" id="message-1579514612.034100"><div class="message__timestamp">2020-01-20<br/>19:03:32 +0900</div><div class="message__header">maoe</div><div class="message__body">今手元にラップトップがないのですが、gtk のビルドオプションに have-quartz みたいな名前のフラグを有効にする必要があります</div></div></div><div class="pager"><a href="../../html/C5666B6BB/76.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>

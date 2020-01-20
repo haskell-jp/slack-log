@@ -214,5 +214,35 @@
         "text": "毎度もにょるんですが、Hspecとtastyはそもそも守備範囲が違うので、単純比較できないかと。\n私自身tastyを全然使ったことがないので恐縮ですが、ドキュメントを読む限りあくまでもtastyはいろんな種類のテストを一つのテストスイートで記述するためのものであって、少なくともhspecで小さなテストを書いているだけの状態から置き換えても特にメリットがあるとは思えません。",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1579489726.030500",
+        "text": "最新のglibはmacOSでビルドできません。手元の環境では <https://github.com/gtk2hs/gtk2hs/issues/291#issuecomment-570829903|https://github.com/gtk2hs/gtk2hs/issues/291#issuecomment-570829903> で通るようになりました。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1579510929.031000",
+        "text": "kakkun61さんにいただいたページはどうやらLinux環境のものっぽい(使っているdpkgと言うコマンドがLinuxのものっぽかったので、、）のでちょっと試せなそうです。\n\nmaoeさんにいただいたページのコマンドを試したところ、\n```cabal: Encountered missing dependencies:\ngi-cairo -any,\ngi-gdk -any,\ngi-glib -any,\ngi-gtk -any,\ngi-gtk-hs -any,\ngi-pango -any,\ngi-pangocairo -any,\nhaskell-gi-base -any```\nこのようなエラーがおきたため、\n```cabal install gtk --with-gcc=gcc-9```\nこのコマンドを試してみたのですが、gtkのビルド中にこのようなエラー（長いです）が出てしまいました。\n```Graphics/UI/Gtk/Embedding/Socket.chs:175:6: error:\n    • Couldn't match expected type 'Ptr ()'\n                  with actual type 'Maybe DrawWindow'\n    • In the second argument of '\\ (Socket arg1) arg2\n                                   -&gt; withForeignPtr arg1\n                                        $ \\ argPtr1 -&gt; gtk_socket_add_id argPtr1 arg2', namely\n        '(fromNativeWindowId windowId)'\n      In the expression:\n        (\\ (Socket arg1) arg2\n           -&gt; withForeignPtr arg1\n                $ \\ argPtr1 -&gt; gtk_socket_add_id argPtr1 arg2)\n          (toSocket self) (fromNativeWindowId windowId)\n      In an equation for 'socketAddId':\n          socketAddId self windowId\n            = (\\ (Socket arg1) arg2\n                 -&gt; withForeignPtr arg1\n                      $ \\ argPtr1 -&gt; gtk_socket_add_id argPtr1 arg2)\n                (toSocket self) (fromNativeWindowId windowId)\n    |\n175 |     (fromNativeWindowId windowId)\n    |      ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nGraphics/UI/Gtk/Embedding/Socket.chs:187:3: error:\n    • Couldn't match type 'Ptr ()' with 'Maybe DrawWindow'\n      Expected type: IO (Maybe DrawWindow)\n        Actual type: IO (Ptr ())\n    • In the second argument of '($)', namely\n        '(\\ (Socket arg1)\n            -&gt; withForeignPtr arg1 $ \\ argPtr1 -&gt; gtk_socket_get_id argPtr1)\n           (toSocket self)'\n      In the expression:\n        liftM toNativeWindowId\n          $ (\\ (Socket arg1)\n               -&gt; withForeignPtr arg1 $ \\ argPtr1 -&gt; gtk_socket_get_id argPtr1)\n              (toSocket self)\n      In an equation for 'socketGetId':\n          socketGetId self\n            = liftM toNativeWindowId\n                $ (\\ (Socket arg1)\n                     -&gt; withForeignPtr arg1 $ \\ argPtr1 -&gt; gtk_socket_get_id argPtr1)\n                    (toSocket self)\n    |\n187 |   {# call unsafe socket_get_id #}\n    |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...\ncabal: Leaving directory '/var/folders/hd/fpfqf1rs28g30x7rcffkyrnh0000gp/T/cabal-tmp-79499/gtk-0.15.4'\ncabal: Error: some packages failed to install:\ngtk-0.15.4-8aDu81HrSCJZyllLlxBkN failed during the building phase. The\nexception was:\nExitFailure 1```\ngtkのインストールは他のコマンドを用いるのでしょうか？",
+        "user": "UELFKSH0V",
+        "type": "message"
+    },
+    {
+        "ts": "1579512969.031200",
+        "text": "その辺は認識してはいるのですが、 tasty 推しの 2記事 (上のリンク) を見たので、試してみようとしたところなのです。\n\nテスト結果の出力の見やすさが一番気になります。 hspec は cabal 経由だと環境変数でオプションを渡さないと色がつかないし……\n\nそうですね、tasty にするとして、tasty-discover なしで手で書いても、そんな大規模でもなければいけますね。",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1579513039.031400",
+        "text": "```$ brew install gcc\n$ cabal build --with-gcc=gcc-9```\nが意図するところは、macOS のデフォルトである clang を呼ぶ gcc コマンドではなく（でしたよね？）本物の gcc を使うようにするということだと思います。なので gcc コマンドで本物の gcc を呼ぶようにシンボリックリンクを張るなりした後に元々の\n```$ stack install gtk```\nを実行するとどうでしょうか？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1579514612.034100",
+        "text": "今手元にラップトップがないのですが、gtk のビルドオプションに have-quartz みたいな名前のフラグを有効にする必要があります",
+        "user": "U4M9NJ7QE",
+        "type": "message"
     }
 ]

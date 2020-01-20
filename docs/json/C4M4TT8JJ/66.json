@@ -58,5 +58,11 @@
         "text": "extensible の Wrapper って型クラスが地味に使いやすくて感動してる（今更）\n<https://hackage.haskell.org/package/extensible/docs/Data-Extensible-Wrapper.html#t:Wrapper>\n`wrap . unwrap` とやるだけで `Field` と `Nullable` の順番を入れ替えれる笑\n```liftNullable :: Wrapper h =&gt; Field (Nullable h) x -&gt; Nullable (Field h) x\nliftNullable = wrap . unwrap\n\nunliftNullable :: Wrapper h =&gt; Nullable (Field h) x -&gt; Field (Nullable h) x\nunliftNullable = wrap . unwrap```",
         "user": "U56L7EVNY",
         "type": "message"
+    },
+    {
+        "ts": "1579507140.028600",
+        "text": "randomかquestionか迷ったけども． `bytestring`と`vector`の`Semigroup`インスタンスの`Data.Semigroup.stimes` (<http://hackage.haskell.org/package/base-4.12.0.0/docs/Data-Semigroup.html>)，実装が高速化されてないしなんなら `Data.Semigroup.stimesMonoid` (0で `mempty`を返す)への実装変更もされてないんですが，これって不便なのかな．patch投げてやろうと思っていたらずっと放置してしまってたんですけど．",
+        "user": "UL1HFJATE",
+        "type": "message"
     }
 ]
