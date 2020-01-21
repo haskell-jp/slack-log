@@ -73,4 +73,53 @@ cabal: Error: some packages failed to install:
 gtk-0.15.4-8aDu81HrSCJZyllLlxBkN failed during the building phase. The
 exception was:
 ExitFailure 1</pre><br/>gtkのインストールは他のコマンドを用いるのでしょうか？</div></div><div class="message" id="message-1579512969.031200"><div class="message__timestamp">2020-01-20<br/>18:36:09 +0900</div><div class="message__header">cohei</div><div class="message__body">その辺は認識してはいるのですが、 tasty 推しの 2記事 (上のリンク) を見たので、試してみようとしたところなのです。<br/><br/>テスト結果の出力の見やすさが一番気になります。 hspec は cabal 経由だと環境変数でオプションを渡さないと色がつかないし……<br/><br/>そうですね、tasty にするとして、tasty-discover なしで手で書いても、そんな大規模でもなければいけますね。</div></div><div class="message" id="message-1579513039.031400"><div class="message__timestamp">2020-01-20<br/>18:37:19 +0900</div><div class="message__header">kakkun61</div><div class="message__body"><pre>$ brew install gcc
-$ cabal build --with-gcc=gcc-9</pre><br/>が意図するところは、macOS のデフォルトである clang を呼ぶ gcc コマンドではなく（でしたよね？）本物の gcc を使うようにするということだと思います。なので gcc コマンドで本物の gcc を呼ぶようにシンボリックリンクを張るなりした後に元々の<br/><pre>$ stack install gtk</pre><br/>を実行するとどうでしょうか？</div></div><div class="message" id="message-1579514612.034100"><div class="message__timestamp">2020-01-20<br/>19:03:32 +0900</div><div class="message__header">maoe</div><div class="message__body">今手元にラップトップがないのですが、gtk のビルドオプションに have-quartz みたいな名前のフラグを有効にする必要があります</div></div></div><div class="pager"><a href="../../html/C5666B6BB/76.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>
+$ cabal build --with-gcc=gcc-9</pre><br/>が意図するところは、macOS のデフォルトである clang を呼ぶ gcc コマンドではなく（でしたよね？）本物の gcc を使うようにするということだと思います。なので gcc コマンドで本物の gcc を呼ぶようにシンボリックリンクを張るなりした後に元々の<br/><pre>$ stack install gtk</pre><br/>を実行するとどうでしょうか？</div></div><div class="message" id="message-1579514612.034100"><div class="message__timestamp">2020-01-20<br/>19:03:32 +0900</div><div class="message__header">maoe</div><div class="message__body">今手元にラップトップがないのですが、gtk のビルドオプションに have-quartz みたいな名前のフラグを有効にする必要があります</div></div><div class="message" id="message-1579602485.038100"><div class="message__timestamp">2020-01-21<br/>19:28:05 +0900</div><div class="message__header">igrep</div><div class="message__body">extensibleのレコード型 <a href='https://hackage.haskell.org/package/extensible-0.6/docs/Data-Extensible-Field.html#t:RecordOf'>https://hackage.haskell.org/package/extensible-0.6/docs/Data-Extensible-Field.html#t:RecordOf</a> から、envyパッケージのParser <a href='https://hackage.haskell.org/package/envy-2.0.0.0/docs/System-Envy.html#t:Parser'>https://hackage.haskell.org/package/envy-2.0.0.0/docs/System-Envy.html#t:Parser</a> を作る関数を書いてみたのですが、型エラーを解決できません...<br/>（ソースコードとエラーメッセージはスレッドに続けて張ります）</div></div><div class="message" id="message-1579602585.038500"><div class="message__timestamp">2020-01-21<br/>19:29:45 +0900</div><div class="message__header">igrep</div><div class="message__body">ソースコード:<br/><pre>{-# LANGUAGE DataKinds           #-}
+{-# LANGUAGE FlexibleContexts    #-}
+{-# LANGUAGE KindSignatures      #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TypeOperators       #-}
+
+module Data.Extensible.Envy
+  ( recordFromEnv
+  ) where
+
+
+import           Data.Extensible ((:&amp;), Forall, Instance1)
+import qualified Data.Extensible as Ex
+import           Data.Kind       (Type)
+import           Data.Proxy      (Proxy (Proxy))
+import           GHC.TypeLits    (KnownSymbol, Symbol)
+import qualified System.Envy     as Env
+
+
+recordFromEnv
+  :: forall (xs :: [Ex.Assoc Symbol Type]) h
+   . Forall (Ex.KeyTargetAre KnownSymbol (Instance1 Env.Var h)) xs
+  =&gt; Env.Parser (Ex.RecordOf h xs)
+recordFromEnv =
+  Ex.hgenerateFor (Proxy :: Proxy (Ex.KeyTargetAre KnownSymbol (Instance1 Env.Var h))) f
+ where
+  f membership = Ex.Field &lt;$&gt; Env.env (Ex.stringKeyOf membership)</pre></div></div><div class="message" id="message-1579602627.038700"><div class="message__timestamp">2020-01-21<br/>19:30:27 +0900</div><div class="message__header">igrep</div><div class="message__body">エラーメッセージ:<br/><pre>src\Data\Extensible\Envy.hs:25:88: error:
+    • Couldn't match kind 'Symbol' with '*'
+      When matching types
+        kv1 :: Ex.Assoc * *
+        x :: Ex.Assoc Symbol *
+      Expected type: Ex.Membership xs x -&gt; Env.Parser (Ex.Field h x)
+        Actual type: Ex.Membership xs x -&gt; Env.Parser (Ex.Field h kv1)
+    • In the second argument of 'Ex.hgenerateFor', namely 'f'
+      In the expression:
+        Ex.hgenerateFor
+          (Proxy ::
+             Proxy (Ex.KeyTargetAre KnownSymbol (Instance1 Env.Var h)))
+          f
+      In an equation for 'recordFromEnv':
+          recordFromEnv
+            = Ex.hgenerateFor
+                (Proxy ::
+                   Proxy (Ex.KeyTargetAre KnownSymbol (Instance1 Env.Var h)))
+                f
+            where
+                f membership = Ex.Field &lt;$&gt; Env.env (Ex.stringKeyOf membership)
+   |
+25 |   Ex.hgenerateFor (Proxy :: Proxy (Ex.KeyTargetAre KnownSymbol (Instance1 Env.Var h))) f
+   |                                                                                        ^</pre></div></div><div class="message" id="message-1579603832.039000"><div class="message__timestamp">2020-01-21<br/>19:50:32 +0900</div><div class="message__header">matsubara0507</div><div class="message__body">PolyKinds ？</div></div><div class="message" id="message-1579604059.039200"><div class="message__timestamp">2020-01-21<br/>19:54:19 +0900</div><div class="message__header">igrep</div><div class="message__body">ホントだ... ありがとう...! :joy:<br/><a href='https://qiita.com/A_kirisaki/items/a72cb21be08c6dd7cf92'>https://qiita.com/A_kirisaki/items/a72cb21be08c6dd7cf92</a> とかでも言及がない（別の拡張がimplyしてる？）からまさかと思ってたけど <code>PolyKinds</code> か...!</div></div><div class="message" id="message-1579604196.039500"><div class="message__timestamp">2020-01-21<br/>19:56:36 +0900</div><div class="message__header">matsubara0507</div><div class="message__body">僕は書いたことあるなぁと思って <code>site:<http://matsubara0507.github.io|matsubara0507.github.io> PolyKinds</code> って検索したらこんなの出てきた笑<br/><a href='https://matsubara0507.github.io/test-extensible/memo/00.html'>https://matsubara0507.github.io/test-extensible/memo/00.html</a><br/><blockquote>カインドでエラーが出るときは、だいたい `PolyKinds` 拡張が足りない</blockquote></div></div><div class="message" id="message-1579604294.039900"><div class="message__timestamp">2020-01-21<br/>19:58:14 +0900</div><div class="message__header">igrep</div><div class="message__body">PolyKinds、安易に有効にしたら余計に多相に推論されて却って面倒なことになった苦い思い出があるのであんまり使いたくないんだよなぁ...<br/>でも今回のエラーは確かにPolyKindsですね... <code>*</code> と <code>Symbol</code> が合わないっていってるわけだし...</div></div></div><div class="pager"><a href="../../html/C5666B6BB/76.html" class="pager__previous">Previous</a><a href="../../" class="pager__top">Top</a></div></body></html>

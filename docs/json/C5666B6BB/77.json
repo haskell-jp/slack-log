@@ -244,5 +244,47 @@
         "text": "今手元にラップトップがないのですが、gtk のビルドオプションに have-quartz みたいな名前のフラグを有効にする必要があります",
         "user": "U4M9NJ7QE",
         "type": "message"
+    },
+    {
+        "ts": "1579602485.038100",
+        "text": "extensibleのレコード型 <https://hackage.haskell.org/package/extensible-0.6/docs/Data-Extensible-Field.html#t:RecordOf> から、envyパッケージのParser <https://hackage.haskell.org/package/envy-2.0.0.0/docs/System-Envy.html#t:Parser> を作る関数を書いてみたのですが、型エラーを解決できません...\n（ソースコードとエラーメッセージはスレッドに続けて張ります）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1579602585.038500",
+        "text": "ソースコード:\n```{-# LANGUAGE DataKinds           #-}\n{-# LANGUAGE FlexibleContexts    #-}\n{-# LANGUAGE KindSignatures      #-}\n{-# LANGUAGE ScopedTypeVariables #-}\n{-# LANGUAGE TypeOperators       #-}\n\nmodule Data.Extensible.Envy\n  ( recordFromEnv\n  ) where\n\n\nimport           Data.Extensible ((:&amp;), Forall, Instance1)\nimport qualified Data.Extensible as Ex\nimport           Data.Kind       (Type)\nimport           Data.Proxy      (Proxy (Proxy))\nimport           GHC.TypeLits    (KnownSymbol, Symbol)\nimport qualified System.Envy     as Env\n\n\nrecordFromEnv\n  :: forall (xs :: [Ex.Assoc Symbol Type]) h\n   . Forall (Ex.KeyTargetAre KnownSymbol (Instance1 Env.Var h)) xs\n  =&gt; Env.Parser (Ex.RecordOf h xs)\nrecordFromEnv =\n  Ex.hgenerateFor (Proxy :: Proxy (Ex.KeyTargetAre KnownSymbol (Instance1 Env.Var h))) f\n where\n  f membership = Ex.Field &lt;$&gt; Env.env (Ex.stringKeyOf membership)```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1579602627.038700",
+        "text": "エラーメッセージ:\n```src\\Data\\Extensible\\Envy.hs:25:88: error:\n    • Couldn't match kind 'Symbol' with '*'\n      When matching types\n        kv1 :: Ex.Assoc * *\n        x :: Ex.Assoc Symbol *\n      Expected type: Ex.Membership xs x -&gt; Env.Parser (Ex.Field h x)\n        Actual type: Ex.Membership xs x -&gt; Env.Parser (Ex.Field h kv1)\n    • In the second argument of 'Ex.hgenerateFor', namely 'f'\n      In the expression:\n        Ex.hgenerateFor\n          (Proxy ::\n             Proxy (Ex.KeyTargetAre KnownSymbol (Instance1 Env.Var h)))\n          f\n      In an equation for 'recordFromEnv':\n          recordFromEnv\n            = Ex.hgenerateFor\n                (Proxy ::\n                   Proxy (Ex.KeyTargetAre KnownSymbol (Instance1 Env.Var h)))\n                f\n            where\n                f membership = Ex.Field &lt;$&gt; Env.env (Ex.stringKeyOf membership)\n   |\n25 |   Ex.hgenerateFor (Proxy :: Proxy (Ex.KeyTargetAre KnownSymbol (Instance1 Env.Var h))) f\n   |                                                                                        ^```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1579603832.039000",
+        "text": "PolyKinds ？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1579604059.039200",
+        "text": "ホントだ... ありがとう...! :joy:\n<https://qiita.com/A_kirisaki/items/a72cb21be08c6dd7cf92> とかでも言及がない（別の拡張がimplyしてる？）からまさかと思ってたけど `PolyKinds` か...!",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1579604196.039500",
+        "text": "僕は書いたことあるなぁと思って `site:<http://matsubara0507.github.io|matsubara0507.github.io> PolyKinds` って検索したらこんなの出てきた笑\n<https://matsubara0507.github.io/test-extensible/memo/00.html>\n&gt; カインドでエラーが出るときは、だいたい `PolyKinds` 拡張が足りない",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1579604294.039900",
+        "text": "PolyKinds、安易に有効にしたら余計に多相に推論されて却って面倒なことになった苦い思い出があるのであんまり使いたくないんだよなぁ...\nでも今回のエラーは確かにPolyKindsですね... `*` と `Symbol` が合わないっていってるわけだし...",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
