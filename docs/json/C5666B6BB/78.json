@@ -16,5 +16,17 @@
         "text": "ちなみに`cabal install gtk --with-gcc=gcc-9` を試されていますがcabal v3以降ではプロジェクト外での cabal install は実行ファイルをインストールするコマンドです。ライブラリをインストールする場合は `cabal install --lib` を使う必要があります。",
         "user": "U4M9NJ7QE",
         "type": "message"
+    },
+    {
+        "ts": "1579695907.046100",
+        "text": "競プロ用に`Data.Vector.Fusion.Bundle.Monadic`を弄っていて，\n```-- | Monadic streams\ndata Bundle m v a = Bundle { sElems  :: Stream m a\n                           , sChunks :: Stream m (Chunk v a)\n                           , sVector :: Maybe (v a)\n                           , sSize   :: Size\n                           }```\nを見たんですが，この第三フィールド(`sVector`)，なんで存在するのか分かる方っていらっしゃいます？ `Data.Vector.Generic.unstream`でさえこれを消費しているように見えないので，本当になんのためにあるのか分からなくて……．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1579701801.046400",
+        "text": "<@UT17P5TRU> has joined the channel",
+        "user": "UT17P5TRU",
+        "type": "message"
     }
 ]
