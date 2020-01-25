@@ -142,5 +142,23 @@
         "text": "<@U56LT20RJ> has joined the channel",
         "user": "U56LT20RJ",
         "type": "message"
+    },
+    {
+        "ts": "1579926348.001000",
+        "text": "ghci上にて、data宣言で型を定義し、その値を表示させようとすると、以下のエラーとなります。どこが間違っていますか？   [連載QA]\n\n```Prelude&gt; data Signal = Red | Yellow | Blue\n\nPrelude&gt; Red\n&lt;interactive&gt;:3:1: error:\n    • No instance for (Show Signal) arising from a use of 'print'\n    • In a stmt of an interactive GHCi command: print it```\n",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1579926479.001100",
+        "text": "data宣言で定義した型の値を表示するためには、その型が Show クラスのインスタンスになっている必要があります。\n次のように、`deriving Show`をつけることで、簡単に、Showクラスのインスタンスに出来ます。\n\n```Prelude&gt; data Signal = Red | Yellow | Blue deriving Show\n\nPrelude&gt; Red\nRed```\nderivingや、Show については、以下の記事が参考になります。\n\n<https://employment.en-japan.com/engineerhub/entry/2017/09/11/110000#deriving%E3%81%A7%E5%9E%8B%E3%82%AF%E3%83%A9%E3%82%B9%E3%81%AB%E5%B1%9E%E3%81%99%E3%82%8B%E5%9E%8B%E3%82%A4%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%B3%E3%82%B9%E3%82%92%E8%87%AA%E5%8B%95%E3%81%A7%E5%AE%9A%E7%BE%A9%E3%81%99%E3%82%8B>",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1579945531.001800",
+        "text": "<@UT3D6KADS> has joined the channel",
+        "user": "UT3D6KADS",
+        "type": "message"
     }
 ]
