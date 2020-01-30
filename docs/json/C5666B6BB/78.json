@@ -112,5 +112,101 @@
         "text": "<@USZA2JQF3> has joined the channel",
         "user": "USZA2JQF3",
         "type": "message"
+    },
+    {
+        "ts": "1580343114.055900",
+        "text": "基本的なことなのですが、たとえば\n```\nmain :: IO ()\nmain = do\n                 putStrLn “string”\n                 putStrLn “string”\n```\nがメモイズされないのってなぜですか？\nIO独自で阻害する何かがあるのか、もっと一般的なことなのでしょうか。",
+        "user": "UH195J82Y",
+        "type": "message"
+    },
+    {
+        "ts": "1580346074.056100",
+        "text": "何がメモ化されるべきだと考えているのですか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1580346254.056300",
+        "text": "一つ目の `putStrLn \"string\"` がメモ化されて1回しか出力されないのでは、という話ですかね？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1580347091.058000",
+        "text": "そうです！\nメモ化されるべきではないですが、メモ化されるべきではないという明示がない同引数の関数をメモ化していないのはIO自体に細工があるのでしょうか？",
+        "user": "UH195J82Y",
+        "type": "message"
+    },
+    {
+        "ts": "1580347603.059600",
+        "text": "うーん。フィボナッチの計算などでいうメモ化のことであれば、Haskellでもメモ化のためのライブラリなどを使わないとメモ化されないと思います。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1580347630.060100",
+        "text": "参考： <https://www.ipsj.or.jp/07editj/promenade/4608.pdf>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1580347701.061600",
+        "text": "あれ、そうでしたっけ。\n資料ありがとうございます。\n読んでみます。\n\nもう少しHaskellのメモ化戦略について調べてみますorz",
+        "user": "UH195J82Y",
+        "type": "message"
+    },
+    {
+        "ts": "1580347817.061800",
+        "text": "（もう回答済みで恐縮ですが）そもそも、別々の場所にあるたまたま同じ形の式が自動でメモ化されるなんてことはありません。\nじゃぁどういう条件だとメモ化されるの、というと、結構複雑です、こちらのスレッドや記事なども参考にどうぞ、とだけ :sweat_smile:\n<https://haskell-jp.slack.com/archives/C5666B6BB/p1564340963043600>\n<http://www.kotha.net/hperf/basics.html>\n<https://kakkun61.hatenablog.com/entry/2019/07/29/%E9%96%A2%E6%95%B0%E3%81%AE%E3%83%A1%E3%83%A2%E5%8C%96>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1580347830.062100",
+        "text": "これも： <https://github.com/kazu-yamamoto/recursion-drill/blob/master/drill/7.md>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1580347914.063700",
+        "text": "たぶん、メモイズが提供される高階関数とHaskell自体の機能を混同してました。\nありがとうございました。\n\n<https://stackoverflow.com/questions/13059381/an-option-to-make-memoization-the-default-behaviour-of-haskell|https://stackoverflow.com/questions/13059381/an-option-to-make-memoization-the-default-behaviour-of-haskell>",
+        "user": "UH195J82Y",
+        "type": "message"
+    },
+    {
+        "ts": "1580347943.064200",
+        "text": "自動的にメモ化されるとなると、コンパイラが動的計画法を自動的に実装してくれることになりますが、一般的にそんなことはしません。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1580347980.064800",
+        "text": "資料ありがとうございます！\n助かります！",
+        "user": "UH195J82Y",
+        "type": "message"
+    },
+    {
+        "ts": "1580349241.068000",
+        "text": "すみません、高階関数の機能ではなくcommon subexpression eliminationについてでした！\n\n&gt; So GHC does do CSE, but only in specific circumstances --- see the GHC manual. (Section??)\n詳細への参照が「セクション？？」になってます笑\n\n単純にこのIOのケースではCSEは動かないし、そんなにCSEが動く場面はないよ、ということでした。\n\n<https://wiki.haskell.org/GHC_optimisations#Common_subexpression_elimination|https://wiki.haskell.org/GHC_optimisations#Common_subexpression_elimination>",
+        "user": "UH195J82Y",
+        "type": "message"
+    },
+    {
+        "ts": "1580350731.068400",
+        "text": "ところで，CSE が動けば IO はメモ化されますが，IO のメモ化とIO effect のメモ化は異なる概念なので，effect がメモ化されるわけではありません:\n```main = let e = putStrLn \"string\" in e &gt;&gt; e```\nで，e の二回目の呼び出しは (最適化を考えなければ)メモ化されますが， string は2回出力されます．GHC の場合，IO は単純な State モナドで実装されているので，e は状態操作関数が束縛されていると思えば良くて，状態操作関数をメモ化したところで，関数の実行は2回行われるので作用は2回行われるというのが，作用がメモ化されない要因ですね\n(ただし，この前提は最適化次第では崩れる場合があり，特にインライン展開の順番には GHC は気を使っていて，IO 相当の状態操作関数はインライン展開が幾つか阻害される場合があります)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1580350852.068600",
+        "text": "最適化を考えない場合の話は，State モナドでも同様なので，State モナドの作用がメモ化されないのはなぜか考えてみるのがいい気がします",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1580378035.069500",
+        "text": "<@UTAPYCPDW> has joined the channel",
+        "user": "UTAPYCPDW",
+        "type": "message"
     }
 ]
