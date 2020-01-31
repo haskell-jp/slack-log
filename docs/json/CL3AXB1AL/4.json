@@ -22,5 +22,131 @@
         "text": "ライブラリは全部入ったみたいです。\n<https://docs.google.com/spreadsheets/d/1PmsqufkF3wjKN6g1L0STS80yP4a6u-VdGiEv5uOHe0M/edit#gid=299133921>",
         "user": "UJ8P66TRP",
         "type": "message"
+    },
+    {
+        "ts": "1580454605.000200",
+        "text": "<https://twitter.com/atcoder/status/1223141026707017728>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1580456239.002000",
+        "text": "ああ，これでやっと `read @ Int` を `readInt` みたいに書く一連の関数を書かなくても良くなったんですね………",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1580456443.002200",
+        "text": "不具合報告は質問タブから行うそうです。\n<https://twitter.com/atcoder/status/1223141246475984897?s=20>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1580457893.002500",
+        "text": "Language Testの“Welcome to AtCoder”への提出ですが，これが75msかかるって何かおかしくなってますね．これまでのGHC7.10.3なら1msで通っていたはずの提出です．\n```\n{-# LANGUAGE TypeApplications #-}\n\nmain :: IO ()\nmain = do\n    a &lt;- readLn @ Int\n    [b, c] &lt;- map read . words &lt;$&gt; getLine\n    s &lt;- getLine\n    putStrLn $ show (a + b + c) ++ \" \" ++ s```",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1580458055.002800",
+        "text": "ジャッジサーバー側の問題かもしれないです。\n<https://atcoder.jp/contests/language-test-202001/submissions/9837502>\n<https://atcoder.jp/contests/language-test-202001/submissions/9838632>\n\n同じサンプルコードを入力しましたが、最初は 1ms で、今は 74ms になりました。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1580458313.003200",
+        "text": "16:22時点の提出ならGHC7.10.3による処理かもしれません\n<https://twitter.com/chokudai/status/1223145615607001093?s=21>",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1580458372.003500",
+        "text": "そんなことが起きていたとは・・・。\nアップデートで何かおかしくなった可能性ありますね。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1580458492.003700",
+        "text": "-O2 の overrideか，あるいはcompilation timeが誤って算入されたかあたりではないかと睨んでいます．あ，そうだ，自分のtemplate fileに組み込んで提出してみますね",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1580458597.003900",
+        "text": "C++ の人も同じぐらいの時間ですね。\n<https://atcoder.jp/contests/language-test-202001/submissions?f.Language=4003&amp;f.Status=AC&amp;f.Task=practice_1&amp;f.User=&amp;orderBy=time_consumption>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1580458728.004700",
+        "text": "提案パッケージに含まれるモジュールが全てコンパイルできることは確認しました。\n以下のファイルに含まれるモジュールは全部OK\n<https://github.com/haskell-jp/atcoder-haskell-resources/blob/master/Import.hs>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1580458811.005800",
+        "text": "不具合? かわかりませんが、コンパイルエラーのところに以下のメッセージが出てますね。\n```Loaded package environment from /home/contestant/.ghc/x86_64-linux-8.6.5/environments/default```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1580459048.005900",
+        "text": "これ関連\nHide “Loading package environment” message\n<https://gitlab.haskell.org/ghc/ghc/issues/16879>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1580459632.006800",
+        "text": "コードテスト動いてないっぽいですよね。以下のエラーが表示されている・・・。\n```Loaded package environment from /home/contestant/.ghc/x86_64-linux-8.6.5/environments/default\ntarget `{filename}' is not a module name or a source file```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1580459739.006900",
+        "text": "たしかに．こちらでも再現を確認しました．\n```main :: IO ()\nmain = putStrLn \"Hello World!\"```",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1580459814.007100",
+        "text": "不具合報告しました。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1580459827.007300",
+        "text": "こちらも一応不具合報告ずみ",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1580460193.007500",
+        "text": "私の方でも報告してるんですが，これ，同じ件について大量の問い合わせがきてると思うと頭が下がりますね………",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1580460287.007700",
+        "text": "質問って自分の画面には自分の内容しか表示されないんですね。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1580460344.007900",
+        "text": "はい，それはそうなってます．全体に公開するかはコンテスト運営側の判断になりますね．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1580460381.008100",
+        "text": "なるほど。それだと確かに誰も質問していないと思って同じ質問めっちゃありそう・・・",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1580461853.008400",
+        "text": "Rust などの他の言語でも動いていないっぽいので、Haskell 特有の問題ってわけじゃなさそうですね。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
     }
 ]
