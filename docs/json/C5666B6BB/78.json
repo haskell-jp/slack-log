@@ -280,5 +280,17 @@
         "text": "Template Haskellの `[e| |]` について、:point_down: のようなちょっと面白い挙動を見つけたんですが、これはどこのドキュメントに書かれているでしょうか？\n\nTemplate Haskellのマクロを定義しているコード: Lib.hs\n```{-# LANGUAGE TemplateHaskell #-}\n\nmodule Lib where\n\nimport <http://Language.Haskell.TH|Language.Haskell.TH> (ExpQ)\n\n-- definedInMainはLib.hsでは定義されてない！\nexpq :: ExpQ\nexpq = [e| putStrLn definedInMain |]```\nLib.hsが定義したマクロを展開するコード: test.hs\n```{-# LANGUAGE TemplateHaskell #-}\n\nimport Lib\n\nmain :: IO ()\nmain = do\n  -- 代わりに、test.hsで定義する\n  let definedInMain = \"hello!\"\n  $(expq)```\nというLib.hsとtest.hsを書いたとき、Lib.hsの `[e| putStrLn definedInMain |]` で定義されていない、 `definedInMain` をマクロを展開しているtest.hsから参照する、という挙動です。",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1580966592.080300",
+        "text": "なるほど！みなさんありがとうございます！",
+        "user": "ULTBB86UC",
+        "type": "message"
+    },
+    {
+        "ts": "1581031328.080600",
+        "text": "--constraintオプションがいつからあったのかはわかりませんが、cabal-installは古いGHCでも使えるので、常に最新のバージョンを使うのがおすすめです。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
     }
 ]
