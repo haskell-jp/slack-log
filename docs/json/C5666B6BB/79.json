@@ -4,5 +4,77 @@
         "text": "そうですね。正確には、 `[e| |]` のなかで束縛されてない変数が自動で `unboundVarE $ mkName \"e\"` されるところが、です。",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1581047019.081300",
+        "text": "うーんと，検討外れの答えをしていたらすいません．QuasiQuote の中の式は，\n1. パース時そのまま一緒に Haskell の式として解析され Ast になります．\n2. で，そのままリネームされます．\n3. その時に，値の変数は，スコープ内にない変数は unboundVarE 相当に，スコープ内に変数がある場合はそのままその変数に解決され varE 相当で解決されます．\nQuasiQuote はあまりドキュメントがないですが，基本的に変数の解決の挙動は， ~`Language.Haskell.TH.lookupValueName` に合わせてありますね~ 通常のHaskell 式としてのスコープ解決に合わせてあるが正解ですね．なので， `lookupValueName` とは異なる挙動になるのですね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1581048785.082000",
+        "text": "訂正はどっちかというと lookupValueName の挙動を僕が誤解してたからなんですが、 QuasiQuote の挙動の方は個人的には割と自然な挙動だと思っていて、quote を書いたところで解決できる変数が解決されず、splice 時まで遅延されるのはむしろ特殊な挙動な気がします",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1581048950.082200",
+        "text": "&gt;  quote を書いたところで解決できる変数が解決されず、splice 時まで遅延されるのはむしろ特殊な挙動\nん？それって `[e| |]` の挙動では？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1581049440.082400",
+        "text": "~話をドキュメントの話に戻しますが、これが件の挙動についての記述かなぁ。~\n~<https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-TemplateHaskellQuotes>~\n&gt; ~Local names, which are not in scope at splice locations, are actually evaluated when the quotation is processed.~\n~なんか \"splice\" と \"quotation\" という用語の使い方が違う気がしますが...~\nすみません、やっぱ違うっぽいですね...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1581049685.082800",
+        "text": "splice と言うのは TH 式を実際に Haskell の式に展開するフェーズのことで、quote を TH 式に展開するフェーズとは異なることに注意です",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1581049840.083000",
+        "text": "thE = [e|v|]\nf v = $(thE)\nにおいて、thE の値を計算するのが quotation processing / f の式を計算するのが splice です",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1581049921.083200",
+        "text": "lookupValueName は splice 時に与えられた名前を解決し、quote 中の変数は quote processing 時に名前を解決します",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1581050004.083400",
+        "text": "あっ、もしかしてquoteの中の束縛されてない変数の話じゃなくてquoteの中で見える変数の話、ということですか？\nそれなら納得です。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1581051934.083700",
+        "text": "ここまでの話は，`v` が見えない状況で `[e|v|]` が `unboundVarE $ mkName \"v\"` 相当になるのは何故かという説明のつもりでしたが，元の質問は\n```&gt;&gt;&gt; :set -XTemplateHaskell\n&gt;&gt;&gt; import <http://Language.Haskell.TH|Language.Haskell.TH>\n&gt;&gt;&gt; let e = () in $(unboundVarE $ mkName \"e\")\n()```\nの挙動がなぜこうなってるのか単純に分からないということですか？\n&gt; 正確には、 [e| |] のなかで束縛されてない変数が自動で unboundVarE $ mkName “e” されるところが、です。\nの文面がどういうことを言いたいのかいまいち分かってないです",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1581053139.083900",
+        "text": "ここまでの話は、splice においてTH 式の内容を Haskell の式に設置させる時にどう名前解決されるかの話はしていなくて、lookupValueName の話も含め TH 式の Name がどう解決されるかの話をしています",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1581054673.084100",
+        "text": "&gt; ここまでの話は，`v` が見えない状況で `[e|v|]` が `unboundVarE $ mkName \"v\"` 相当になるのは何故かという説明のつもりでしたが\nはい、その認識で合っています。\n\nそしてようやく気づきましたが\n&gt; lookupValueName は splice 時に与えられた名前を解決し、quote 中の変数は quote processing 時に名前を解決します\nどうやらここがわかっていないようです。\n念のため確認ですがここでいう「quote 中の変数」とは`[e|v|]` における `v` ですよね？\nquote processingが（`v`が `[e|v|]` の外には定義されてない状態で） `[e|v|]` を`unboundVarE $ mkName \"v\"` に変換するという意味ならば、`v`は定義されてないのですし、「quote processing 時に名前を解決」できず、結局spliceするときに解決することになるのでは？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1581058743.084300",
+        "text": "quote processing での名前解決と言ってるのは，正確には変数が quote processing 時に解決できるならその名前 n で varE n に，それ以外の時は unboundVarE n にするということを言っています．で， unboundVarE n の splice 時の解決方法に，quote で書かれた変数かということは関係ありません．\nunboundVarE n は，unresolved identifier を表すということになっていますが，正確には identifier expected to be resolved というニュアンスが正しく， splice 時のリネーム時に通常のリネームと同じように (元々の Haskell プログラムも最初変数部分は全て unboundVarE で構成され，リネーム時に varE に解決されます) 解決されるため，\n```&gt;&gt;&gt; let e = () in $(unboundVarE $ mkName \"e\")\n()```\nという挙動になります",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
