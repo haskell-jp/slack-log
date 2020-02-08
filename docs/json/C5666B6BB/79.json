@@ -76,5 +76,11 @@
         "text": "quote processing での名前解決と言ってるのは，正確には変数が quote processing 時に解決できるならその名前 n で varE n に，それ以外の時は unboundVarE n にするということを言っています．で， unboundVarE n の splice 時の解決方法に，quote で書かれた変数かということは関係ありません．\nunboundVarE n は，unresolved identifier を表すということになっていますが，正確には identifier expected to be resolved というニュアンスが正しく， splice 時のリネーム時に通常のリネームと同じように (元々の Haskell プログラムも最初変数部分は全て unboundVarE で構成され，リネーム時に varE に解決されます) 解決されるため，\n```&gt;&gt;&gt; let e = () in $(unboundVarE $ mkName \"e\")\n()```\nという挙動になります",
         "user": "U57D08Z9U",
         "type": "message"
+    },
+    {
+        "ts": "1581141363.084800",
+        "text": "<@UTT86DWLE> has joined the channel",
+        "user": "UTT86DWLE",
+        "type": "message"
     }
 ]
