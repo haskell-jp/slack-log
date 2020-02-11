@@ -146,10 +146,7 @@ renderSlackMessages wsi@WorkspaceInfo {..} PageInfo {..} =
 
   messageDiv Slack.Message { messageTs, messageUser, messageText } =
     H.div_A (A.class_ "message event" # A.id_ (T.pack "message-" <> Slack.slackTimestampTs messageTs))
-      ( H.div_A (A.class_ "label")
-        ( H.i_A (A.class_ "user outline icon") ()
-        )
-      # H.div_A (A.class_ "content")
+      ( H.div_A (A.class_ "content")
         ( H.div_A (A.class_ "summary")
           ( H.div_A (A.class_ "message__header user")
             userName
