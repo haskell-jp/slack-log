@@ -1,6 +1,5 @@
 {-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE NamedFieldPuns    #-}
-{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE StrictData        #-}
 
@@ -105,56 +104,64 @@ renderSlackMessages wsi@WorkspaceInfo {..} PageInfo {..} =
     ( H.doctype_
     # H.html_
       ( H.head_
-        ( H.meta_A (A.charset_ ("utf-8" :: T.Text))
+        ( H.meta_A (A.charset_ "utf-8")
         # H.title_ title
         # H.link_A
-          ( A.rel_ ("stylesheet" :: T.Text)
-          # A.href_ ("../../messages.css" :: T.Text)
-          # A.type_ ("text/css" :: T.Text)
-          # A.media_ ("screen" :: T.Text)
+          ( A.rel_ "stylesheet"
+          # A.href_ "../../main.css"
+          # A.type_ "text/css"
+          # A.media_ "screen"
           )
         )
       # H.body_
-        ( H.h1_ title
-        # pager
-        # H.div_A (A.class_ ("message_list" :: T.Text)) (map messageDiv msgs)
-        # pager
+        ( H.div_A (A.class_ "ui container")
+          ( H.h1_ title
+          # pager
+          # H.div_A (A.class_ "message_list ui feed") (map messageDiv msgs)
+          # pager
+          )
         )
       )
     )
 
   title =
-    workspaceInfoName <> " / " <> getChannelScreenName wsi channelId <> " #" <> T.pack (show $ parsePageNumber currentPagePath)
+    (  workspaceInfoName
+    <> T.pack " / " <> getChannelScreenName wsi channelId
+    <> T.pack " #" <> T.pack (show (parsePageNumber currentPagePath))
+    )
 
-  pager = H.div_A (A.class_ ("pager" :: T.Text))
+  pager = H.div_A (A.class_ "pager ui pagination menu")
     ( ((\pp -> H.a_A (A.href_ ("../../" ++ pp) # prevClass) prevLabel) . ensurePathIn "html" channelId <$> previousPagePath)
-    #          H.a_A (A.href_ ("../../" :: T.Text) # topClass ) topLabel
+    #          H.a_A (A.href_ "../../" # topClass ) topLabel
     # ((\pp -> H.a_A (A.href_ ("../../" ++ pp) # nextClass) nextLabel) . ensurePathIn "html" channelId <$> nextPagePath)
     )
    where
-    topClass = A.class_ ("pager__top" :: T.Text)
-    prevClass = A.class_ ("pager__previous" :: T.Text)
-    nextClass = A.class_ ("pager__next" :: T.Text)
+    topClass = A.class_ "pager__top item"
+    prevClass = A.class_ "pager__previous item"
+    nextClass = A.class_ "pager__next item"
 
-    topLabel, prevLabel, nextLabel :: T.Text
     topLabel = "Top"
     prevLabel = "Previous"
     nextLabel = "Next"
 
   messageDiv Slack.Message { messageTs, messageUser, messageText } =
-    H.div_A (A.class_ ("message" :: T.Text) # A.id_ ("message-" <> Slack.slackTimestampTs messageTs))
-      ( H.div_A (A.class_ ("message__timestamp" :: T.Text))
-        (H.Raw . timestampBlock $ Slack.slackTimestampTime messageTs)
-      # H.div_A (A.class_ ("message__header" :: T.Text))
-        userName
-      # H.div_A (A.class_ ("message__body" :: T.Text))
-        (H.Raw $ mkMessageBody wsi messageText)
+    H.div_A (A.class_ "message event" # A.id_ (T.pack "message-" <> Slack.slackTimestampTs messageTs))
+      ( H.div_A (A.class_ "content")
+        ( H.div_A (A.class_ "summary")
+          ( H.div_A (A.class_ "message__header user")
+            userName
+          # H.div_A (A.class_ "message__timestamp date")
+            (H.Raw . timestampBlock $ Slack.slackTimestampTime messageTs)
+          )
+        # H.div_A (A.class_ "message__body description")
+          (H.Raw $ mkMessageBody wsi messageText)
+        )
       )
    where
     userName = getUserScreenName wsi messageUser
     timestampBlock tm =
       let lt = LT.utcToZonedTime (getTimeDiff tm) tm
-      in TF.formatTime TF.defaultTimeLocale "%Y-%m-%d<br/>%T %z" lt
+      in TF.formatTime TF.defaultTimeLocale "%Y-%m-%d&nbsp;%T %z" lt
 
 
 loadWorkspaceInfo :: Config -> FilePath -> IO WorkspaceInfo
@@ -188,50 +195,54 @@ renderIndexOfPages wsi@WorkspaceInfo {..} =
       ( H.doctype_
       # H.html_
         ( H.head_
-          ( H.meta_A (A.charset_ ("utf-8" :: T.Text))
+          ( H.meta_A (A.charset_ "utf-8")
           # H.title_ title
           # H.link_A
-            ( A.rel_ ("stylesheet" :: T.Text)
-            # A.href_ ("index.css" :: T.Text)
-            # A.type_ ("text/css" :: T.Text)
-            # A.media_ ("screen" :: T.Text)
+            ( A.rel_ "stylesheet"
+            # A.href_ "main.css"
+            # A.type_ "text/css"
+            # A.media_ "screen"
             )
           )
         # H.body_
-          ( H.h1_ title
-          # H.div_A (A.class_ ("channels_list" :: T.Text)) body
+          ( H.div_A (A.class_ "ui container")
+            ( H.h1_ title
+            # H.div_A (A.class_ "channels_list ui relaxed divided list") body
+            )
           )
         )
       )
-  title = "Slack log of " <> workspaceInfoName
+  title = T.pack "Slack log of " <> workspaceInfoName
 
   channelSummary cid lastJsonPath Slack.Message { messageTs } details =
-    H.details_A (A.class_ ("channel" :: T.Text))
-    ( H.summary_A (A.class_ ("channel__name" :: T.Text))
-      ( H.a_A (A.href_ (ensurePathIn "html" cid lastJsonPath)) (getChannelScreenName wsi cid)
-      # (" (Last updated at " <> timestampWords (Slack.slackTimestampTime messageTs) <> ")")
-      )
-      # details
-    )
-
-  channelDetail cid jsonPath Slack.Message { messageTs, messageUser, messageText } =
-    H.ul_A (A.class_ ("pages_list" :: T.Text))
-    ( H.li_A (A.class_ ("page" :: T.Text))
-      ( H.a_A (A.href_ (ensurePathIn "html" cid jsonPath))
-        ("#" <> T.pack (show (parsePageNumber jsonPath)))
-      # (" " :: T.Text)
-      # H.span_A (A.class_ ("page__first_message" :: T.Text))
-        ( H.span_A (A.class_ ("page__first_message__header" :: T.Text)) (getUserScreenName wsi messageUser)
-        # (": " :: T.Text)
-        # H.span_A (A.class_ ("page__first_message__body" :: T.Text))
-            (H.Raw $ mkMessageBody wsi messageText)
-        # (" at " :: T.Text)
-        # ( H.span_A (A.class_ ("page__first_message__timestamp" :: T.Text))
-            . timestampWords $ Slack.slackTimestampTime messageTs
+    H.div_A (A.class_ "item")
+      ( H.div_A (A.class_ "content")
+        ( H.details_A (A.class_ "channel")
+          ( H.summary_A (A.class_ "channel__name")
+            ( H.a_A (A.href_ (ensurePathIn "html" cid lastJsonPath)) (getChannelScreenName wsi cid)
+            # " "
+            # H.span_A () ("(Last updated at " <> timestampWords (Slack.slackTimestampTime messageTs) <> ")")
+            )
+          # H.div_A (A.class_ "pages_list ui items") details
           )
         )
       )
-    )
+
+  channelDetail cid jsonPath Slack.Message { messageTs, messageUser, messageText } =
+    H.div_A (A.class_ "page item")
+      ( H.div_A (A.class_ "content")
+        ( H.a_A (A.class_ "header" # A.href_ (ensurePathIn "html" cid jsonPath))
+          (T.pack "#" <> T.pack (show (parsePageNumber jsonPath)))
+        # H.div_A (A.class_ "meta")
+          ( H.span_A (A.class_ "page__first_message__header")
+            (getUserScreenName wsi messageUser)
+          # H.span_A (A.class_ "page__first_message__timestamp")
+            (timestampWords $ Slack.slackTimestampTime messageTs)
+          )
+        # H.div_A (A.class_ "page__first_message__body description")
+          (H.Raw $ mkMessageBody wsi messageText)
+        )
+      )
 
   readFirstMessage :: FilePath -> IO Slack.Message
   readFirstMessage = fmap head . readJsonFile
@@ -263,8 +274,8 @@ getUserName WorkspaceInfo {..} suid =
   let uid = Slack.unUserId suid in fromMaybe uid (HM.lookup uid userNameById)
 
 
-getUserScreenName :: WorkspaceInfo -> Maybe Slack.UserId -> UserName
-getUserScreenName wsi = maybe "<non-user>" $ getUserName wsi
+getUserScreenName :: WorkspaceInfo -> Maybe Slack.UserId -> T.Text
+getUserScreenName wsi = maybe (T.pack "<non-user>") $ getUserName wsi
 
 
 parsePageNumber :: FilePath -> Integer
