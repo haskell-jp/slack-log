@@ -145,13 +145,15 @@ renderSlackMessages wsi@WorkspaceInfo {..} PageInfo {..} =
     nextLabel = "Next"
 
   messageDiv Slack.Message { messageTs, messageUser, messageText } =
-    H.div_A (A.class_ "message event" # A.id_ (T.pack "message-" <> Slack.slackTimestampTs messageTs))
+    H.div_A (A.class_ "message event" # A.id_ messageId)
       ( H.div_A (A.class_ "content")
         ( H.div_A (A.class_ "summary")
           ( H.div_A (A.class_ "message__header user")
             userName
           # H.div_A (A.class_ "message__timestamp date")
-            (H.Raw . timestampBlock $ Slack.slackTimestampTime messageTs)
+            ( H.a_A (A.class_ "date" # A.href_ (T.pack "#" <> messageId))
+                (H.Raw . timestampBlock $ Slack.slackTimestampTime messageTs)
+            )
           )
         # H.div_A (A.class_ "message__body description")
           (H.Raw $ mkMessageBody wsi messageText)
@@ -162,6 +164,7 @@ renderSlackMessages wsi@WorkspaceInfo {..} PageInfo {..} =
     timestampBlock tm =
       let lt = LT.utcToZonedTime (getTimeDiff tm) tm
       in TF.formatTime TF.defaultTimeLocale "%Y-%m-%d&nbsp;%T %z" lt
+    messageId = T.pack "message-" <> Slack.slackTimestampTs messageTs
 
 
 loadWorkspaceInfo :: Config -> FilePath -> IO WorkspaceInfo
