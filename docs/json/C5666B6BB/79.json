@@ -124,5 +124,119 @@
         "text": "<@UTXJK93BL> has joined the channel",
         "user": "UTXJK93BL",
         "type": "message"
+    },
+    {
+        "ts": "1582386783.000200",
+        "text": "<@UU12WCQ3V> has joined the channel",
+        "user": "UU12WCQ3V",
+        "type": "message"
+    },
+    {
+        "ts": "1582418554.000400",
+        "text": "モジュール名の決定についての質問です\nライブラリ内のモジュール名を決めるとき、特に一番上のモジュール(`Data`とか`Control`とか)を決めるときに則った方が良いルールなどあるのでしょうか\n具体的には、今分散型SNSであるMisskeyのAPI用ライブラリを書いているのですが、これは`Network`以下か`Web`以下かどちらが適切なのでしょうか…\n（とりあえず`Network.Misskey`にしているのですが、Hastodonが`Web.Hastodon`であることに気づいて気になった次第です）\nどちらでも良いのなら今のままにしようと思っています",
+        "user": "ULTBB86UC",
+        "type": "message"
+    },
+    {
+        "ts": "1582420309.000500",
+        "text": "私が知る限り、決まりなくみんなめいめいにやってる感じですね。。。\nただ今回に限っていえば、いわゆるWeb APIのクライアントは `Web` を使う傾向があるようなので私は `Web` の方がいいと思います。\n例:\n• <http://hackage.haskell.org/package/slack-web> \n• <http://hackage.haskell.org/package/twitter-types>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1582420389.000800",
+        "text": "成程ありがとうございます！\n`Web`に変えておきます",
+        "user": "ULTBB86UC",
+        "type": "message"
+    },
+    {
+        "ts": "1582424231.001100",
+        "text": "Haskell での mealy machine (`newtype Mealy a b = Mealy { runMealy :: a -&gt; (b, Mealy a b) }`) ですが、これをモナドにする方法って何かあるでしょうか？\n• `ArrowMonad` を使えるが、その場合では a が () になってしまうので問題がある\n• Free Monad 系もあるが、それ以外で何かがないか",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1582425455.001300",
+        "text": "無限ストリーム的な構造をモナドにする方法として対角化が考えられます。例えば[1,2,3..]を出力する機械にkをバインドすると、k 0の0番目、k 1の1番目、k 2の2番目の要素を採取していくような操作です。ムーアマシンでは実装できることが知られていますが(cf. <http://hackage.haskell.org/package/machines-0.7/docs/src/Data.Machine.Moore.html#line-100>)、ミーリマシンについてはわかりません",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1582427204.001500",
+        "text": "んー、なるほど、そのまま扱わず streaming 系に変換するのが現実的ですかね",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1582462646.001800",
+        "text": "a ~ () で定義できるならReaderTと合成すれば一般に行けそうな感じがします",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1582463179.002000",
+        "text": "```pure x = Mealy $ \\_ -&gt; (x, pure x)\nMealy p &gt;&gt;= fq = Mealy $ \\x -&gt; let {(y, p') = p x; (z, q') = runMealy (fq y) x} in (z, p' &gt;&gt;= q')```\n",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1582463186.002200",
+        "text": "だとどうだろう",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1582463616.002400",
+        "text": "あと、YampaのSFがMealy machineで、`switch` <https://hackage.haskell.org/package/Yampa-0.13.1/docs/FRP-Yampa-Switches.html#v:switch> を継続モナド `Cont`  で書くとモナドチェインが出来て嬉しい、という話もあります",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1582464302.002700",
+        "text": "<@UU1H0UC75> has joined the channel",
+        "user": "UU1H0UC75",
+        "type": "message"
+    },
+    {
+        "ts": "1582534910.002900",
+        "text": "Yampa のやつの話はモナドとして `Cont (Mealy a b)`  を使った方がいいみたいな感じですかね。 `a -&gt; Mealy a b`  の newtype ならモナドになれるかですが、モナド則を満たせずになれなさそうな気がします。",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1582539541.011500",
+        "text": "プロファイリングをしようとして，\n```ghc-options:\n- -rtsopts\n- -prof\n- -fprof-auto```\nを指定したら，\n```ghc: panic! (the 'impossible' happened)\n  (GHC version 8.6.5 for x86_64-unknown-linux):\n\tlookupGlobal\n  Failed to load interface for 'GHC.Integer.Type'\n  Perhaps you haven't installed the \"p_dyn\" libraries for package 'integer-gmp'?\n  Use -v to see a list of the files searched for.\n  Call stack:\n      CallStack (from HasCallStack):\n        callStackDoc, called at compiler/utils/Outputable.hs:1160:37 in ghc:Outputable\n        pprPanic, called at compiler/typecheck/TcEnv.hs:132:32 in ghc:TcEnv\n\nPlease report this as a GHC bug:  <http://www.haskell.org/ghc/reportabug>```\n最小の再現状況を作ろうと思うのですが，この場合どこから手をつけるのがいいでしょうか．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1582540538.014800",
+        "text": "are you using cabal? then you shouldn't pass `-prof` directly in the `ghc-options` but use `--enable-profiling`",
+        "user": "USBAF8CM9",
+        "type": "message"
+    },
+    {
+        "ts": "1582540765.015300",
+        "text": "<https://github.com/haskell/cabal/issues/2827>",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1582541001.015600",
+        "text": "I'm using stack. how can i use 'stack build' ?",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1582541121.015800",
+        "text": "`stack build --profile`",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1582541653.016000",
+        "text": "ありがとうございます．Thank you.\nうまくビルドできました．",
+        "user": "U4KU9ABL0",
+        "type": "message"
     }
 ]
