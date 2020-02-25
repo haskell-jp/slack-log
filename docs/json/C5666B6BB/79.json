@@ -238,5 +238,29 @@
         "text": "ありがとうございます．Thank you.\nうまくビルドできました．",
         "user": "U4KU9ABL0",
         "type": "message"
+    },
+    {
+        "ts": "1582594723.017200",
+        "text": "失礼、上の奴はだいぶボケてました。\n\n`ArrowMonad Mealy` のMonadインスタンスは、 `Mealy` の `ArrowApply` インスタンスから導出されるので、\n問題はMealyがArrowApplyになるかどうかです。\n\nとりあえず型合わせで `app` を定義してみます。\n\n```app = Mealy $ \\(f, x) -&gt; let (y, g) = f x in (y, ???)```\n???に合う型の変数にはfまたはgがあるのですが、\n\n• fを選ぶと、内部状態が毎回リセットされてしまう。\n• gを選ぶと、2回目以降の入力値fが捨てられてしまうため、fが変化しても追従しない\nと、いずれも問題があります。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1582594794.017400",
+        "text": "これは単に直観的な問題だけではなく、実際にArrowApplyのlawどれかを満たさないはずです <https://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Arrow.html#t:ArrowApply>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1582594870.017600",
+        "text": "Yampaのやつは、Contはあまり本質じゃなくて\n\n```newtype Switch a b c = Switch (Mealy a (b, Maybe c))```",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1582595007.017800",
+        "text": "と置いてやると、「cがJustの時だけ内部状態をリセットしてやる事で、必要に応じた動作ができる」というのがやりたい事でした",
+        "user": "U570660KX",
+        "type": "message"
     }
 ]
