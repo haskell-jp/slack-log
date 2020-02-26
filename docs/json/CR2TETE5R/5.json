@@ -16,5 +16,47 @@
         "text": "上のチュートリアルにもある話でした",
         "user": "U570660KX",
         "type": "message"
+    },
+    {
+        "ts": "1582686575.006900",
+        "text": "stackを使ってライブラリを作って公開するのにはどうすればいいでしょうか? 普通にstack newするとバイナリパッケージ用の構成になるっぽいので...",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1582687657.007100",
+        "text": "~`executable`~ `executables:`  のセクションを `package.yaml` から削除すればライブラリーだけになりますよ！\n`stack new project simple-library` してみてできるプロジェクトを参考にしてみるのもよいかと。\n\nちなみに、公開する際はhackageのアカウントを作った上で（そういえば今どうやって作るんだろう）\n`stack upload .` すればできます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1582700530.007400",
+        "text": "`stack new project simple-library` だとpackage.yamlができないんですね",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1582700902.007600",
+        "text": "ああー、そういえばそうでしたね...\n<https://github.com/commercialhaskell/stack-templates>\nsimple-libraryやデフォルトのsimple含め各種テンプレートは :point_up: のリポジトリーに置いてあるんですが、ここ、あんまり真面目にメンテされてないんですよねぇ。 :disappointed_relieved:\nとりあえず、先ほど触れたとおり単純に `executables:` の箇所を削除するだけでライブラリーのみのビルドになるのでそれだけやればよいかと！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1582701033.008000",
+        "text": "ちなみにcabalからpackage.yamlへの変換は <https://github.com/yamadapc/hpack-convert> でいけるっぽいです",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1582701934.008300",
+        "text": "オレオレ templates を作ろう！",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1582707786.008700",
+        "text": "ディレクトリ構成をtemplatesにギュっとするスクリプトを昔作ったので良かったら使ってやってください（ただしプレースホルダーとかには非対応なのでちょっと中途半端…）<https://github.com/matonix/hsfiles>",
+        "user": "U59GW4U4T",
+        "type": "message"
     }
 ]
