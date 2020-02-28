@@ -28,5 +28,47 @@
         "text": "同型作れるのかこれ……（だんだん不安になる）",
         "user": "U570660KX",
         "type": "message"
+    },
+    {
+        "ts": "1582877987.029400",
+        "text": "ものすごいニッチな質問なのですが、REPL上でTextをプリントする際、<http://Data.Text.IO|Data.Text.IO>.putStrLnよりもRIOが提供しているlogInfoのほうが出力される速度が圧倒的に速いのはなぜだかわかる人いますか。\n<https://hackage.haskell.org/package/text-1.2.4.0/docs/Data-Text-IO.html#v:putStrLn>\n<https://hackage.haskell.org/package/rio-0.1.14.0/docs/RIO.html#v:logInfo>",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1582879409.035000",
+        "text": "簡単な例をRepoにしてみました。\n<https://github.com/HirotoShioi/speed-test>",
+        "user": "U7Z4F723Z",
+        "type": "message"
+    },
+    {
+        "ts": "1582879416.035200",
+        "text": "Windows環境でMySQLの接続確認したかったけど、mysql_config not foundの直し方(それらしいSetup.hsかSetup.lhsがみあたらない)がわからないのでPostgresqlで試したら動いたのでよしとするか",
+        "user": "UU21TJHHV",
+        "type": "message"
+    },
+    {
+        "ts": "1582881982.039500",
+        "text": "<https://qiita.com/Lugendre/items/6b4a8c8a9c85fcdcb292> によると `arr (b, c) d === b -&gt; arr c d` という同型が ArrowApply ならあるらしいので問題ないと思います。というか、下みたいに作れませんかね？\n```(&gt;&gt;=) :: ArrowApply arr =&gt; arr a b -&gt; (b -&gt; arr a c) -&gt; arr a c\nx &gt;&gt;= f = proc a -&gt;\n  b &lt;- x -&lt; a\n  f b -&lt;&lt; a```",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1582882311.041200",
+        "text": "そういえば Prelude の putStrLn を使っていたら、出力なしの時よりもかなり遅くなったということがありますね。早い出力方法ってあるんでしょうか",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1582882426.041500",
+        "text": "<https://github.com/commercialhaskell/rio/blob/b01145fd4df4ee80b39996a04450a764ae8baffa/rio/src/RIO/Prelude/Logger.hs#L349-L362>\nこの部分が、おそらく実際に使われている実装だと思います。その先まではよくわかりませんが。",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1582882481.041800",
+        "text": "<https://haskell-jp.slack.com/archives/C5666B6BB/p1582882311041200> の質問も含めて、 `Utf8Builder` というやつが速いから `<http://Data.Text.IO|Data.Text.IO>.putStrLn` よりも速いんだろうし、 `putStrLn` の代わりに `Utf8Builder` とやらを使えば速くなるんじゃないっすかね。\nただこの手のビルダー類、ほかにもいくつか作られていたと記憶しているので、探すのもよいかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
