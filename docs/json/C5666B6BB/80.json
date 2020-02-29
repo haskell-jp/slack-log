@@ -76,5 +76,47 @@
         "text": "ビルダーについていろいろ調べてみます。ありがとう！",
         "user": "U7Z4F723Z",
         "type": "message"
+    },
+    {
+        "ts": "1582942007.042900",
+        "text": "はい、その同型で `c ~ ()` としたものを考えればいいかと思っていたのですが、 `Mealy a b` から `a -&gt; Mealy () b` への関数で、元の情報を落とさないようなものが作れないのです",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1582942087.043200",
+        "text": "同型って「型と型のSetとしての同型」の事ではないのだろうか",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1582942236.043400",
+        "text": "あるいは、ArrowApplyが扱っているのって要するに冪対象だと思っていて、その同型というのは <https://ja.wikipedia.org/wiki/%E5%86%AA%E5%AF%BE%E8%B1%A1#%E5%AE%9A%E7%BE%A9> にあるhomの式だと思うのですが、それをHaskellにエンコードすると `arr (b, c) d === arr b (arr c d)` が正しくて、右辺の形がちょっと違うのではと",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1582942592.043800",
+        "text": "実際、 `Mealy (a, b) c` を `Mealy a (Mealy b c)` で表すのは、まさにMealyのArrowApply(app)の定義がはまりそうな感じがします",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1582943597.044100",
+        "text": "圏論に強い人の意見を聞きたいです",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1582943771.044500",
+        "text": "`a -&gt; b ==&gt; Mealy a b` はできるけど `Mealy a b ==&gt; a -&gt; b` はできないわけで、 as_capabl さんの考察があっているように思います",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1582944179.044700",
+        "text": "Idioms are oblivious, arrows are meticulous, monads are promiscuous という論文にこのあたりのことが書かれているらしいです",
+        "user": "U5LEE6C1J",
+        "type": "message"
     }
 ]
