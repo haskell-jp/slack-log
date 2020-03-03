@@ -243,7 +243,7 @@ renderIndexOfPages wsi@WorkspaceInfo {..} =
             (timestampWords $ Slack.slackTimestampTime messageTs)
           )
         # H.div_A (A.class_ "page__first_message__body description")
-          (H.Raw $ mkMessageBody wsi messageText)
+          (mkTruncatedMessage messageText)
         )
       )
 
@@ -257,11 +257,17 @@ renderIndexOfPages wsi@WorkspaceInfo {..} =
     let lt = LT.utcToZonedTime (getTimeDiff tm) tm
     in TF.formatTime TF.defaultTimeLocale "%Y-%m-%d %T %z" lt
 
-
 mkMessageBody :: WorkspaceInfo -> Slack.SlackMessageText -> T.Text
 mkMessageBody =
   Slack.messageToHtml Slack.defaultHtmlRenderers . getUserName
 
+truncatedMessageMaxLength = 300
+
+mkTruncatedMessage :: Slack.SlackMessageText -> T.Text
+mkTruncatedMessage Slack.SlackMessageText { unSlackMessageText = msg }
+  | T.length msg > truncatedMessageMaxLength
+  = T.take truncatedMessageMaxLength msg <> T.pack "..."
+  | otherwise = msg
 
 ensurePathIn :: String -> ChannelId -> FilePath -> FilePath
 ensurePathIn typ cid name = typ ++ "/" ++ T.unpack cid ++ "/" ++ takeBaseName name <.> typ
