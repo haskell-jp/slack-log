@@ -220,5 +220,29 @@
         "text": "（念のため）回路的記述は私の目的ではないです。",
         "user": "U5LEE6C1J",
         "type": "message"
+    },
+    {
+        "ts": "1583510945.065000",
+        "text": "なんでこれが型エラーになるのかがわかりません...(これから寝るのですぐに返信しなくて大丈夫です)",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1583511042.065300",
+        "text": "エラーメッセージはこんな感じです",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1583512712.065900",
+        "text": "<https://downloads.haskell.org/ghc/latest/docs/html/users_guide/glasgow_exts.html#explicit-universal-quantification-forall>\n&gt; Haskell type signatures are implicitly quantified.\nなので，`tester :: token -&gt; Bool` の型変数`token` と，`loop`の型変数`token` に実際は何も関係が無いためエラーになります．\n<https://downloads.haskell.org/ghc/latest/docs/html/users_guide/glasgow_exts.html#scoped-type-variables>\nで型変数を字句的に一致みるようにすることでも解決できますが，`loop` を `tester` を受け取るように変更するとか，`loop`の型注釈を省略するなどしたほうが余計な拡張入れずに済むでしょう．",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1583530871.072000",
+        "text": "`Alternative` の `many` って `Parser` とか `Maybe` とかの文脈だと最終的な結果が出るまで生成済みのリストの頭部をクロージャとして丸抱えにするから遅そうに見えるんですけど、実際どうなんでしょう？",
+        "user": "UL1HFJATE",
+        "type": "message"
     }
 ]
