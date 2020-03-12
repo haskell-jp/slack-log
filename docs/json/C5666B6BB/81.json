@@ -46,5 +46,11 @@
         "text": "<https://github.com/haskell/bytestring/blob/95fe6bdf13c9cc86c1c880164f7844d61d989574/Data/ByteString/Builder/Internal.hs#L348-L353>\nbytestring パッケージの Builder の実装ってどうしてこうなっているんですか？　予想としては差分リストと BufferRange を状態に持つアロー的な何か ( <http://hackage.haskell.org/package/arrows-0.4.4.2/docs/Control-Arrow-Transformer-CoState.html> ) の組み合わせだと思っています。",
         "user": "U5LEE6C1J",
         "type": "message"
+    },
+    {
+        "ts": "1584024050.093000",
+        "text": "おひさしぶりです\n\nHaskellで、repl付きのinterprerを実装するときの話です。\n以下の、HaskellでSchemeを作るサイトでは、inteprerの環境の型にIORefを使用しています。\n<https://ja.wikibooks.org/wiki/48%E6%99%82%E9%96%93%E3%81%A7Scheme%E3%82%92%E6%9B%B8%E3%81%93%E3%81%86/%E5%A4%89%E6%95%B0%E3%81%A8%E4%BB%A3%E5%85%A5>\n\n\nここで3つ質問があります。\n1. なぜStateが適していなくて、IORefが適しているのか\n2. IORefを使った場合にenvを持ち回らない方法はあるのか\n3. Stateを使ったときにreplが正しく動かないのはそういうものなのか、単純に僕の実装が悪いのか\n特に、1,2についてお聞きしたいです。\n質問はさておき、最終的にやりたいことは「envを持ち回らずにreplでevalを実行すること」です\n\n\n1に関しては、上記のページの上の方に解説がありますが、理由をよく理解できませんでした。\n関数の呼び出しの際にenvが入れ子になっていくのはわかりますが、そのときになぜStateではだめで、IORefならうまく機能するのかがわかりません\n\n\n2に関して、上のサイトを少し参考にして実装していっているものが以下です。IORefを使っていてeval関数はenvを引き回しています。StateモナドやReaderモナドを使うときのようにenvを隠蔽する必要はあるのでしょうか\n<https://github.com/mrsekut/Hytl/blob/86cca753fc/src/Eval.hs>\n\n\n3に関して、「これIORefじゃなくてStateにすればenv隠蔽できるやん！」と早とちりして途中まで実装したものが以下になります。Stateを使うことでenvを持ち回る事がなくなりましたが、replで動かしたときに変数呼び出しがうまく機能しません。というのも、一行入力する毎にStateあるEnvが空になっているようです。これは単に僕のreplの実装が悪いだけなのか、IOが絡む場合はStateだけではうまく動かないのか、というのをお聞きしたいです。\n<https://github.com/mrsekut/Hytl/blob/2bbf7c4058/src/Eval.hs>\n\n\n\nよろしくおねがいします。",
+        "user": "UCM4G8PGW",
+        "type": "message"
     }
 ]
