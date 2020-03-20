@@ -160,5 +160,35 @@
         "text": "<@U0100JBRCFL> has joined the channel",
         "user": "U0100JBRCFL",
         "type": "message"
+    },
+    {
+        "ts": "1584662977.050500",
+        "text": "今週のHaskell Weeklyから。 `let x = x` は無限ループになっちゃうけど `x &lt;- pure x` はならない、という話。Haskellに `let rec` を導入するか論争が勃発か\n<https://neilmitchell.blogspot.com/2020/03/the-pure-pattern.html>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1584664536.051600",
+        "text": "&gt; With the `let` formulation you get an infinite loop which never terminates, whereas with the `&lt;- pure` pattern you take the previously defined `x` and add `1` to it.\nなるほど、困ったら `&lt;- pure` 使おと思ったけどHLintに怒られるのは嫌ですねｗ :sweat_smile:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1584665004.053400",
+        "text": "(コンパイラから見て)自明な無限ループは&lt;&lt;loop&gt;&gt;と出るだけで、どこから発生しているか使い手には分からないケースもあるので、letの再帰を防ぐ仕組みは欲しいですね",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1584665584.053900",
+        "text": ":sorena: しかもランタイムエラーですしね... :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1584669187.057500",
+        "text": "個人的には、既存の `let` の互換性がなくなってしまうのはつらいので、静的解析で頑張ってほしいなぁという気持ちです。\nまあ、ちゃんと移行プランを立てれば互換性は問題ないと思いますけど… MonadFailみたいになりかねない。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
