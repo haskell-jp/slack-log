@@ -243,7 +243,7 @@ renderIndexOfPages wsi@WorkspaceInfo {..} =
             (timestampWords $ Slack.slackTimestampTime messageTs)
           )
         # H.div_A (A.class_ "page__first_message__body description")
-          (truncatedMessage messageText)
+          (unescapeHtmlEntities $ truncatedMessage messageText)
         )
       )
 
@@ -268,6 +268,12 @@ truncatedMessage Slack.SlackMessageText { unSlackMessageText = msg }
   | T.length msg > truncatedMessageMaxLength
   = T.take truncatedMessageMaxLength msg <> T.pack "..."
   | otherwise = msg
+
+unescapeHtmlEntities :: T.Text -> T.Text
+unescapeHtmlEntities =
+  T.replace (T.pack "&lt;") (T.pack "<")
+  . T.replace (T.pack "&gt;") (T.pack ">")
+  . T.replace (T.pack "&amp;") (T.pack "&")
 
 ensurePathIn :: String -> ChannelId -> FilePath -> FilePath
 ensurePathIn typ cid name = typ ++ "/" ++ T.unpack cid ++ "/" ++ takeBaseName name <.> typ
