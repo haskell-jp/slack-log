@@ -261,7 +261,7 @@ mkMessageBody :: WorkspaceInfo -> Slack.SlackMessageText -> T.Text
 mkMessageBody =
   Slack.messageToHtml Slack.defaultHtmlRenderers . getUserName
 
-truncatedMessageMaxLength = 300
+truncatedMessageMaxLength = 150
 
 truncatedMessage :: Slack.SlackMessageText -> T.Text
 truncatedMessage Slack.SlackMessageText { unSlackMessageText = msg }
