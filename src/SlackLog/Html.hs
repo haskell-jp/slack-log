@@ -1,7 +1,7 @@
-{-# LANGUAGE FlexibleContexts  #-}
-{-# LANGUAGE NamedFieldPuns    #-}
-{-# LANGUAGE RecordWildCards   #-}
-{-# LANGUAGE StrictData        #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE NamedFieldPuns   #-}
+{-# LANGUAGE RecordWildCards  #-}
+{-# LANGUAGE StrictData       #-}
 
 -- | Assumes functions in this module are executed in doc/ directory
 
@@ -42,7 +42,7 @@ import qualified Web.Slack.Common        as Slack
 import qualified Web.Slack.MessageParser as Slack
 
 import           SlackLog.Types          (ChannelId, ChannelName, Config (..),
-                                          UserId, UserName, TargetChannel(..))
+                                          TargetChannel (..), UserId, UserName)
 import           SlackLog.Util           (failWhenLeft, readJsonFile)
 
 
@@ -54,11 +54,11 @@ data PageInfo = PageInfo
   } deriving (Eq, Show)
 
 data WorkspaceInfo = WorkspaceInfo
-  { userNameById          :: HM.HashMap UserId UserName
-  , channelNameById       :: HM.HashMap ChannelId ChannelName
-  , groupNameById         :: HM.HashMap ChannelId ChannelName
-  , workspaceInfoName     :: T.Text
-  , getTimeDiff           :: TC.UTCTime -> LT.TimeZone
+  { userNameById      :: HM.HashMap UserId UserName
+  , channelNameById   :: HM.HashMap ChannelId ChannelName
+  , groupNameById     :: HM.HashMap ChannelId ChannelName
+  , workspaceInfoName :: T.Text
+  , getTimeDiff       :: TC.UTCTime -> LT.TimeZone
   }
 
 
@@ -243,7 +243,7 @@ renderIndexOfPages wsi@WorkspaceInfo {..} =
             (timestampWords $ Slack.slackTimestampTime messageTs)
           )
         # H.div_A (A.class_ "page__first_message__body description")
-          (mkTruncatedMessage messageText)
+          (truncatedMessage messageText)
         )
       )
 
@@ -263,8 +263,8 @@ mkMessageBody =
 
 truncatedMessageMaxLength = 300
 
-mkTruncatedMessage :: Slack.SlackMessageText -> T.Text
-mkTruncatedMessage Slack.SlackMessageText { unSlackMessageText = msg }
+truncatedMessage :: Slack.SlackMessageText -> T.Text
+truncatedMessage Slack.SlackMessageText { unSlackMessageText = msg }
   | T.length msg > truncatedMessageMaxLength
   = T.take truncatedMessageMaxLength msg <> T.pack "..."
   | otherwise = msg
