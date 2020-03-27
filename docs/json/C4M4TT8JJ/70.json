@@ -1,0 +1,296 @@
+[
+    {
+        "ts": "1585130385.058300",
+        "text": "```λ&gt; e a b = either a b\nλ&gt; :t e \ne :: (a -&gt; c) -&gt; (b -&gt; c) -&gt; Either a b -&gt; c\nλ&gt; ```\n",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585130396.058900",
+        "text": "？？",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585130404.059200",
+        "text": "いやマグマは `M × M → M` なので `Either a b = a` が求められるので結局無理な気がしますね Haskellの問題ではなくSemiGroupではない何かになってしまう",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1585130437.059800",
+        "text": "`either` と `Either` は違って, eitherはEitherを同じ型にする関数です",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1585130444.060100",
+        "text": "`maybe` と同じ",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1585130605.060400",
+        "text": "???",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585130793.062600",
+        "text": "```λ&gt; :t maybe \nmaybe :: b -&gt; (a -&gt; b) -&gt; Maybe a -&gt; b```\nこれは、、、",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585131076.063900",
+        "text": "```λ&gt; maybe False odd (Just 4) \nFalse\nλ&gt; maybe False odd (Just 3) \nTrue\nλ&gt; maybe False odd Nothing \nFalse```\nなるほど。Nothing の場合に適応するのを第一引数ととるのか",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585131102.064400",
+        "text": "fmap_maybe 関数(追記: fold_maybe を間違えたと勘違いし、fmap_maybe と訂正したが、やはり正しくは fold_maybe ) と書いてくれれば分かりやすい？",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585131177.065300",
+        "text": "なるほど、fmap_either (追記: これも同様に正しくは、fold_either )関数が `either` な訳ですね。理解しました。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585131219.066500",
+        "text": "fmapとは無関係です",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1585131226.067000",
+        "text": "えええ？",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585131242.068100",
+        "text": "代数的に同じ構造してない？",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585131249.068400",
+        "text": "普通MaybeでもJustの時にやるなら `&lt;$&gt;` 使いますし `fromMaybe` はともかく `maybe` も `either` も私はあまり使いませんね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1585131331.070900",
+        "text": "Functorの要件である写像は、Maybe a → Maybe bのように同じ構造にマップするものです。eitherやmaybeなどの関数は圏論ではF-代数と呼ばれます",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1585131341.071200",
+        "text": "MaybeもEitherも剥がれちゃってるので `fmap` とは余り近くないですね… 他の言語で言う unwrap_or みたいなのにこれらの関数は相当するかと",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1585131372.071800",
+        "text": "いや、それは違うんじゃないでしょうか",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585131393.072300",
+        "text": "List A -&gt; B も構造を保つわけですし",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585131400.072600",
+        "text": "それと同じです。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585131423.073500",
+        "text": "fmapというよりcase~ofでは",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1585131469.075500",
+        "text": "少なくともHaskellにおける `fmap` は違いますね。。。\nリスト型に対する `fmap` も  `(a -&gt; b) -&gt; [a] -&gt; [b]` ですし。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1585131493.076700",
+        "text": "maybe 0 (const 0)はMaybeの構造を保つと言えるでしょうか？",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1585131550.078300",
+        "text": "```1 -&gt; List A &lt;- A x List A \n\n1 -&gt; B &lt;- B x B  ```\nのようなものであれば\n例えば、\nA = B = Nat で\n下は、0 , (+)",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585131575.078800",
+        "text": "maybeはMaybeの構造を潰すものじゃないかしらん．catamorphismだろうから．",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1585131758.081200",
+        "text": "なるほど、やっぱ fold_either でいいのか。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585131769.081600",
+        "text": "なるほど、fmap ではない。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585131775.081900",
+        "text": "ありがとうございます。\n（ただ、\n• fmap と fold を無関係とは思わない。\n• catamorphism は準同型を保つわけだから構造が潰れているというのもちょっと　）",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585131999.084100",
+        "text": "stackageがk8sのデプロイミスったのか証明書ぶっ壊れてる",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1585132088.085100",
+        "text": ":interrobang: 手元で見た感じアクセスできましたが、そういう意味ではない？\n<https://www.stackage.org/>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1585132223.085400",
+        "text": "あ,今アクセスできましたね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1585132264.085600",
+        "text": "さっきの一瞬はデプロイミスなのかデプロイ中だったからなのかわからないですがこうなってたので",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1585133383.087300",
+        "text": "ここに、1000 人規模でユーザがいるので、\nAgda_JP クラスタ、Coq_JP クラスタってあるのだろうなあと思うのですが、オープンなものってありますか？\nメーリスくらいだろうか。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585138015.090000",
+        "text": "上の方のdataかtypeかの話、dataで定義してPrismを使えば、必要な時だけMaybeやEitherの恩恵を受ける事ができないかな",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1585138036.090300",
+        "text": "逆にtypeで定義したものにPatternSysnonyms拡張を使って `pattern E1 x = Left (Right x)` みたいにやる手も。\nしかしPatternSynonymsは微妙にコンパイラバグがあったりするので（少なくともdataで済む所では）あえて使いたくない、みたいな認識です。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1585143956.092800",
+        "text": "僕はパターンシノニム使うぐらいに共通基盤ほしいなら、open union 使いますね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1585144307.094900",
+        "text": "<@U010FB0EKR7> has joined the channel",
+        "user": "U010FB0EKR7",
+        "type": "message"
+    },
+    {
+        "ts": "1585171686.097000",
+        "text": "今朝起きてそういや PatternSynonyms とか ViewPatterns が使えたなと気付いて戻ってきたら書いてあった。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585171942.099100",
+        "text": "3直和程度で open union は個人的にはやりすぎかな。だったら素直に data するのが一番平和そう。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585171995.100000",
+        "text": "逆にパターンシノニム利用の動機が分かった気がする。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585172007.100200",
+        "text": "さて、実際 PatternSynonyms 程度ならちょちょっと使ってみて、思ったほどよくなければ data が現時点で一番素直で読みやすいってなりそうだな。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585177639.102000",
+        "text": "<https://summer.haskell.org> 今年のGoogle Summer of CodeのStudent Application Periodは4/1 3am JSTまでです。学生はふるってご参加ください。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1585177724.102900",
+        "text": "プロジェクトアイデアは <https://summer.haskell.org/ideas.html> にあります。学生が自身のアイデアを出すこともできます。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1585213689.104200",
+        "text": "以下の件、03/29（日）いっぱいで締めます\n<https://haskell-jp.slack.com/archives/C4NDY2TF1/p1584637552010400>\n<https://haskell-jp.slack.com/archives/C4NDY2TF1/p1585019424018000>",
+        "user": "ULTN48U8Y",
+        "type": "message"
+    },
+    {
+        "ts": "1585217821.106600",
+        "text": "指定した範囲内のみをスクリーンキャストするウェブアプリ。Herokuなどにデプロイすればすぐ使えるらしい。\n新型コロナウイルス拡大をきっかけにオンラインで授業を行うために作ったらしい。すごい名前だ... :joy:\n<https://discourse.haskell.org/t/covideo19-a-quirk-dirty-screen-sharing-app/1153>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1585221329.107600",
+        "text": "Googleは消したいものの名前を付ける(Chrome, Map)と噂されてますがそんな感じの命名センスを覚えますね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1585221509.108000",
+        "text": "地図とクロムを消したい、とは？ :thinking_face:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1585223553.108300",
+        "text": ":balloon:ハイライト :balloon:\n• レイテンシの少ない並行GC(`+RTS --nonmoving-gc` で有効にできるぞ！)\n• コンパイラの出力の改善\n• Addr#のようなUnliftedな型もnewtype可能に\n• `ImportQualifiedPost` : `import Data.ByteString qualified as BS`  のように、文法的にも自然かつソートしやすい構文でインポートできる拡張機能\n• GeneralisedNewtypeDerivingとDeriveAnyClassを併用したときの怪しいインスタンスに警告が出るようになった\n• `StandaloneKindSignatures` *種*シグネチャを明示的に書ける\n• GHCiにおいて、`-fobject-code` を明示しなくても状況に応じて自動で有効化される\n• `RecordWildCards` で `Foo{..}` のようなパターンを記述した際、Fooのフィールドを一つも使っていないなら警告が出る(Tsuru Capitalの賞金首第一弾)\n• ビット反転操作`bitReverse#` を追加",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1585223581.109100",
+        "text": "Chromeはメッキなので,Google Chromeでメッキを消したいとか,Mapで紙の地図を見なくなるようになるとかそういう文脈です",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1585224034.109500",
+        "text": "「`GeneralisedNewtypeDeriving` と `DeriveAnyClass` を併用したときの怪しいインスタンスに警告が出るようになった」のは以前からで、8.10では `-Wno-deriving-defaults` でその警告を抑制できるようになった、というのが変化ですね",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    }
+]

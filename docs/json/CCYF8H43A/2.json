@@ -52,5 +52,161 @@
         "text": "<@U0108S1LS2W> has joined the channel",
         "user": "U0108S1LS2W",
         "type": "message"
+    },
+    {
+        "ts": "1585136075.000400",
+        "text": "このチャネルだれも使ってない？",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585136125.001100",
+        "text": "なにも投稿がない。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585136184.002500",
+        "text": "はい、ご覧のとおり誰も使ってないです。\n当初は名前のとおりNixパッケージマネージャーについて議論してましたが...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1585136203.003000",
+        "text": "なるほどです。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585136255.004100",
+        "text": "NixOS はよくつかうのですが、\nMacOS で、Nix package の導入の仕方がいまいちぱっとしないので、\n質問したいななどと考えていました。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585136380.006300",
+        "text": "公式のページにある通りに、shell をたたけば、/nix フォルダがつくられて、例のごとく、\n/nix/store にパッケージがたまっていくのですが、\n/etc/nixos/configuration.nix のような\n「統一的に管理するファイルは、ここにおく」といった慣習があるのかと言った質問です。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585137387.006900",
+        "text": "<https://chris-martin.org/2015/installing-nixos>\n\nNixOS はいいぞ",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585212355.009000",
+        "text": "nixosなのか nix on macos, nix on ubuntuなのかどれをいっているのかだんだんわからなくなっていきますね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1585212383.009500",
+        "text": "openglはnixosとnix on ubuntuで作法が違っていてつらいです。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1585212603.011400",
+        "text": "haskellとnixの関係も複雑で\nstack with nix, cabal-v1 with nix, cabal-v2 with nixとかあたまがいたい",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1585212637.012100",
+        "text": "なるほど、OpenGL などのライブラリはMacOS だとややこしいかもしれないですね...",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585212653.012500",
+        "text": "ためしてないや",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585212720.013300",
+        "text": "私の場合、Haskell はNixOS では stack 取り除いてやってます。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585212746.013900",
+        "text": "反対に、OCaml は、OPAM のみでやってます。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585212797.014400",
+        "text": "haskellのほうがそれだけ使われているからでしょうね",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1585212816.015100",
+        "text": "そうですね、充実しているイメージが強いです。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585212816.015200",
+        "text": "rubyとかpythonとかも扱いたいですが、これも難しいです",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1585212846.015900",
+        "text": "python は virtual env かなにかそういった名前のものを導入してなんだかんだ",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585212852.016200",
+        "text": "ってやった記憶があります",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585212934.018100",
+        "text": "virtual env ならpython以外のライブラリをどうリンクしているのでしょうか。\nよろしければ教えてください。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1585213047.019800",
+        "text": "```python27Full python27Packages.pygments pypyPackages.virtualenv\n(python37.withPackages (x: with x; [python pynvim pip numpy scipy networkx matplotlib toolz pytest ipython jupyter virtualenvwrapper tkinter ])) ```",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585213081.020600",
+        "text": "私の、python 関連パッケージはこれだけです。（手打ちなので、ちょっとミスあったらすみません）",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585213141.021300",
+        "text": "上のパッケージをそのまま environment.systemPackages の中に放り込んでいます。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585213245.022100",
+        "text": "答えになっているのかな？",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585213287.022300",
+        "text": "ありがとうございます\n",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1585213381.023600",
+        "text": "いえ",
+        "user": "U0108S1LS2W",
+        "type": "message"
     }
 ]

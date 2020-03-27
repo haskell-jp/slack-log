@@ -46,5 +46,257 @@
         "text": ":tada:<https://discourse.haskell.org/t/ghc-8-10-1-available/1152| GHC 8.10.1 available >:tada: <https://discourse.haskell.org/t/ghc-8-10-1-available/1152>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1585093147.111500",
+        "text": "遅延評価云々にかかわらず、プログラミングにおける典型的なミスや勘違いによるエンバグ例とデバッグ例をストックしておくと役にたちそう。とおもって、はや幾星霜:sweat_smile:",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1585125723.002300",
+        "text": "3つの型の直和型が欲しくなったとき、新たに型を定義します？それともEither (Either a b) c ないし Either a (Either b c)なりします?",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585125768.003000",
+        "text": "新しく型を定義しますね",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1585125942.003600",
+        "text": "新しく定義する場合、dataで作っちゃいますか? それとも type synonym を使いますか?",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585125991.004000",
+        "text": "data で作ります",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1585126063.005100",
+        "text": "なるほど、個人的にはそれぞれありえるかなーとは思ってて、煮え切らないけどケースバイケースな気がしていたのですが、 <@U5LEE6C1J> さんが data 一択(?)なのはどういった理由からでしょう",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585126100.005600",
+        "text": "混乱する可能性があるので、分かりやすさのためですね",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1585126129.005900",
+        "text": "なるほど、そこになりますかね。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585126410.009000",
+        "text": "dataについて分かりやすいというのは私もそこだなと思います。一方で、Either や Maybe、タプルは多くのライブラリでも視野に入ってて結構使えるライブラリが存在するのでそこはメリットかなと思っています。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585126428.009400",
+        "text": "で、今ちょっと微妙な気になっているのが type synonym です。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585126494.010800",
+        "text": "重要な抽象化であれば、type class を用いればいいのでは。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585126566.012100",
+        "text": "重要な抽象化だとアドホック多相になりますか？",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585126628.012800",
+        "text": "object oriented 型の polymorphism かと問われると:question:となります。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585126660.013100",
+        "text": "どういう意味でしょう？",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585126700.014200",
+        "text": "アドホック多相とはそういう意味（Java にみられるような、overload の形の多相(polymorphism) ）ではないのでしょうか。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585127399.022700",
+        "text": "話を戻すと type synonym は割と軽いのでよく使ってたのですが、型構成子がオリジナルのものが使える(RWH流)といいつつ、逆に言えば上のようなEitherの場合Left/Rightが入れ子になるので読みづらくない？という話がありまして。\nこれはまぁ専用のコンストラクタを用意してもいいのですが、今度はパターンマッチでバラす方でやっぱりLeft/Rightが入れ子になるので抽象の壁破れてるじゃんみたいな気になってしまいまして。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585127488.024000",
+        "text": "これ型シノニムって微妙なのか?と思って質問投げてみた次第。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585127571.024900",
+        "text": "type synonym って\n```type Hoge a b c = Either (Either a b) c```\nみたいなイメージですか？",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1585127642.027000",
+        "text": "そっか、型クラスはアドホックか。型によって関数の定義が異なるか。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585127658.027400",
+        "text": "はい、そうです。そのHogeなる幻想を与えようということなんですが、パターンマッチのところで結局\n```Left (Right x) -&gt; ...```\nみたいに書かないといけないので破れとるなぁと。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585127718.028800",
+        "text": "確かに :sweat_smile: あと使う側もLeftとRightで剥がす順番を覚えておかないといけないのでtype synonym で別名を付けてる意味…ってなりそうですね…\nやはり data か",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1585127931.032300",
+        "text": "多分今回はそういうケースではないんだろうとは思いますが、\n値コンストラクターのうち2つが明確に「エラーの場合の値」（あるいはその逆）を表しているといえるなら\n```data Val = E1 | E2 | R```\nを、\n```data Err = E1 | E2\ndata R = R\ntype Val = Either Err R```\nと書き換えるのはいいと思いますけどね",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1585128000.033500",
+        "text": "「エラーの場合の値」といえなくとも、3つの値コンストラクターがきれいに2つのグループに大別できる、ならいいか",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1585128036.034000",
+        "text": "実はいい線いってますそれ。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585128105.034700",
+        "text": "なるほど、下だけdataもありえるか。。。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585128319.037000",
+        "text": "Haskell で、associativity をもつ型クラスみたいなのってないのだろうか。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585128364.038000",
+        "text": "Semigroup?",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1585128397.039000",
+        "text": "おおお、そうか semigroup だといけるのか。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585128481.040500",
+        "text": "ありがとうございます。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585129070.045700",
+        "text": "いちいち積をあたえなくても、\nAssoc type があるみたいですね。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585129095.045900",
+        "text": "<http://hackage.haskell.org/package/chr-data-0.1.0.1/docs/CHR-Data-AssocL.html>",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585129324.049200",
+        "text": "semigroup はassociativity が制約として課されている訳であって、ものは、積によって演算されてしまうので、つぶれているので、\nこの場合は、そのように考えるならば、\n\n例えば、いっそ identity を付加して、monoid にするとどのような弊害があるのだろうか。\n\n```{E1} * {R} = {E1}\n{E1} * {E2} = {E1, E2}```\nなどと定義するとして。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585129884.051200",
+        "text": "Either : Types -&gt; Types -&gt; Types が積とすればいいのか。\nこれって Haskell で書けるのか？",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585129970.052600",
+        "text": "```e a b = Either a b ```\nでいけるか",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585130008.052800",
+        "text": "`read` が失敗した時謎の場所で実行時エラーになってreadが原因だとしばらく気が付かなかったことはありますね\n`readMaybe` 使えば良いんですけど",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1585130044.053300",
+        "text": "？",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585130109.054200",
+        "text": "型変数を自由に扱えるほど、Haskell は自由ではないか。\nなんかしらの拡張機能がいるのかな。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585130150.054600",
+        "text": "無理ゲーかもしれない",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585130255.055100",
+        "text": "とりあえずそれだとEitherのLeftとRightが同じ型じゃないといけなくなりそうですね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1585130287.055700",
+        "text": "マグマの時点で同じ型じゃないと演算ダメですし",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1585130311.056300",
+        "text": "<@U010EQYFQ0H> has joined the channel",
+        "user": "U010EQYFQ0H",
+        "type": "message"
+    },
+    {
+        "ts": "1585130341.057200",
+        "text": "なるほど、たしかに、そうですね。\n```e a b = either a b //either の頭文字が小文字```\nだといけるのか",
+        "user": "U0108S1LS2W",
+        "type": "message"
     }
 ]
