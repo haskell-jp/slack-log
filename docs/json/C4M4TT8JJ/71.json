@@ -94,5 +94,47 @@
         "text": "おお、すみません、周辺をちゃんと読めてませんでした",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1585492482.159100",
+        "text": "haskell のghci 上で",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585492544.159600",
+        "text": "```λ&gt; m x = x x ```\n",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585492592.160500",
+        "text": "とたたくと\n```&lt;interactive&gt;:1:10: error:\n  • Occurs check: cannot construct the infinite type: t ~ t -&gt; t1\n  • In the first argument of 'x', namely 'x'\n   In the expression: x x\n   In an equation for 'm': m x = x x\n  • Relevant bindings include\n    x :: t -&gt; t1 (bound at &lt;interactive&gt;:1:3)\n    m :: (t -&gt; t1) -&gt; t1 (bound at &lt;interactive&gt;:1:1)```\nと出てきますが、\ninfinite type を haskell では導入できないのでしょうか。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585492930.163400",
+        "text": "```&gt; m m ```\nが型つけできないだけであれば、\ninfinite type を許して、型付けできない場合に error を検出すればいいのではないか、などと安易に考えましたが、\nこれを検出することは難しいでのでしょうか。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585493048.165500",
+        "text": "なんらかの polymorphism が入っており、infinite type によって rank-2 polymorhism を許してしまうからダメだ。\nというのであれば、infinite type も拡張機能として入っているのかななどと思いました。\nこのあたり実際どうなっているのでしょうか。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585493693.167300",
+        "text": "これに答えがのっていそう( OCaml の -rectypes フラッグは知らなかった )\n<https://www.quora.com/Why-doesnt-Haskell-implement-infinite-types>",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585493913.168100",
+        "text": "```[T] = T ```\nを許すからか。納得。",
+        "user": "U0108S1LS2W",
+        "type": "message"
     }
 ]
