@@ -70,5 +70,29 @@
         "text": "ありがとうございます。",
         "user": "U0108S1LS2W",
         "type": "message"
+    },
+    {
+        "ts": "1585437555.157300",
+        "text": "<@U0111FK01HD> has joined the channel",
+        "user": "U0111FK01HD",
+        "type": "message"
+    },
+    {
+        "ts": "1585456248.157700",
+        "text": "詳しい <https://qiita.com/mod_poppo/items/80c442a1d95471e6ac55>\n自前でrewrite rule書かないと最適化はされないのか... :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1585460704.158000",
+        "text": "記事中にもありますが、あくまで Addr 用の変換関数が用意できる場合、それを元に rewrite rule が書けるという話で、厳密に言えば最適化ではありません\n\nunpackCString との rewrite による変換がない場合でも、foldr で pack 処理が書いてあり、インライン展開できるなら、foldr / build は入るようになっています (この場合、unpack 処理は unpackFoldrCString# という関数で行なわれ、リストは生成されません)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1585472241.158400",
+        "text": "おお、すみません、周辺をちゃんと読めてませんでした",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
