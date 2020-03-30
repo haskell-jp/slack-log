@@ -1,0 +1,50 @@
+[
+    {
+        "ts": "1585548122.008700",
+        "text": "あ、なるほど、representational 以外の role 持つやつだと表示されるんですね。ありがとうございます、解決しました",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1585548203.008900",
+        "text": "解決したみたいでよかったです。\nいちおう、8.8.3で\n```GHCi, version 8.8.3: <https://www.haskell.org/ghc/>  :? for help\nghci&gt; :set -XTypeFamilies\nghci&gt; :set -XGADTs\nghci&gt; type family F a\nghci&gt; data T a b c = MkT b (F c)\nghci&gt; :i T\ntype role T phantom representational nominal\ndata T a b c = MkT b (F c)\n        -- Defined at &lt;interactive&gt;:4:1```\nでした。",
+        "user": "U6BUS25MX",
+        "type": "message"
+    },
+    {
+        "ts": "1585553848.009400",
+        "text": "<@U4LGTMTMK> set the channel topic: お悩み相談専用チャンネル。回答は原則スレッド機能でやりましょう。複数の質問を同時に投稿しやすくするための配慮です。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1585559354.009800",
+        "text": "popl 2011 年からの概念なんですね。勉強せねば。\nありがとうございます。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585560874.010200",
+        "text": "equivalent な型を同じ role をもつというのですね。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585562533.010500",
+        "text": "どういう equivalent を持ってくるかが重要で、ここでは representational equivalent という概念を持ってきます。なお、やってる事は基本的に structural equivalent とあまり変わりませんが、role system によって各データ型の equivalent のレベルを調整できる点が異なります。その調整を行うために指定するのが(パラメータの) role です",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1585562644.010700",
+        "text": "representational equivalent とは直感的には、実行時に同じ表現を持つということを表します",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1585566505.011300",
+        "text": "ありがとうございます。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    }
+]

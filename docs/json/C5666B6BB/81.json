@@ -250,5 +250,53 @@
         "text": "<@U0111FK01HD> has joined the channel",
         "user": "U0111FK01HD",
         "type": "message"
+    },
+    {
+        "ts": "1585541346.005700",
+        "text": "GHCi で type constructor の role を確認する方法はありますか?",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1585543875.007200",
+        "text": "```&gt; data Hoge = Fuga \n&gt; :i Fuga ```\nで定義情報はみれそうですが、質問の意図とは違うのかな？",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585547297.007400",
+        "text": "role とは、<https://downloads.haskell.org/~ghc/8.8.3/docs/html/users_guide/glasgow_exts.html#roles|https://downloads.haskell.org/~ghc/8.8.3/docs/html/users_guide/glasgow_exts.html#roles> の仕様のことを指しています",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1585547439.007600",
+        "text": "```:set -XTypeFamilies\n:set -XGADTs\ntype family F a\ndata T a b c = MkT b (F c)\n\n:set -XTemplateHaskell\nimport <http://Language.Haskell.TH|Language.Haskell.TH>\n$( stringE . show =&lt;&lt; reifyRoles ''T )\n-- \"[PhantomR,RepresentationalR,NominalR]\"```\nとかはどうでしょうか？",
+        "user": "U6BUS25MX",
+        "type": "message"
+    },
+    {
+        "ts": "1585547551.007800",
+        "text": "なるほど、ありがとうございます。GHCi の機能としてはないですよね? (無いなら機能追加を提案しようと思ってます)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1585547884.008100",
+        "text": "探してみた感じではなさそう、\n\nと思ったんですが\n\n```ghci&gt; :i T\ntype role T phantom representational nominal\ntype T :: * -&gt; * -&gt; * -&gt; *\ndata T a b c = MkT b (F c)\n        -- Defined at &lt;interactive&gt;:4:1```\nなんか表示されてますね…",
+        "user": "U6BUS25MX",
+        "type": "message"
+    },
+    {
+        "ts": "1585548020.008300",
+        "text": "あれ、それって GHC バージョンいくつでしょう? (うちの 8.8 の環境だと表示されませんでした...)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1585548065.008500",
+        "text": "```&gt;ghci --version\nThe Glorious Glasgow Haskell Compilation System, version 8.10.1```\nでした。",
+        "user": "U6BUS25MX",
+        "type": "message"
     }
 ]
