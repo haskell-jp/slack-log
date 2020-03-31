@@ -100,5 +100,71 @@
         "text": "読みました。その通りですね。最悪計算量が O(n log n) であるアルゴリズムが全滅しているのは偶然なのかな？",
         "user": "U5LEE6C1J",
         "type": "message"
+    },
+    {
+        "ts": "1585621172.019100",
+        "text": "<@U570660KX>「同型があることが前提で」と書いたのは間違いでした。 \nlaw を満たすと以下のような随伴関係が成り立つので自然な同型になり、\n随伴関手からモナドはできる、となるようです。\n```左随伴関手\nF(X) = (X, C)\nF(f) = pure((f, id))\n右随伴関手\nG(Y) = Hom_α(C, Y) （Hom_α(C, Y) は本でいえば α C Y のこと）\nG(g) = (&gt;&gt;&gt; g)\n単位 η = mkPair\n余単位 ε = app\n随伴関手 (F,G,η,ε)\nε の自然性が合成則\n余単位-単位恒等式\nεF ・ Fη = 1_F が簡約則\nGε ・ ηG = 1_G が外延性則```",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1585627308.019400",
+        "text": "なるほど。ちょっとMerlyのケースにあてはめてみます",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1585638302.019700",
+        "text": "`G(Y) = C -&gt; Y` と書いてしまいましたが `G(Y) = α C Y` だったので修正しました。",
+        "user": "U57CGDBMG",
+        "type": "message"
+    },
+    {
+        "ts": "1585638943.022800",
+        "text": "Haskell と圏論との関連性を追求したいならば、（個人的意見(要望にあたるのかな)ですが、）\n\nAwodey \"Category Theory\"\n\nを読んでおいたほうがいいように思います。\n重要な具体例のオンパレードで、\n滑らかに議論が進むと思います。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585639064.023900",
+        "text": "ざっと思いつくのだと、\n\n• Free Monad \n• Free Category \n• Group as an category \n• the category of logic \n随伴などでは\n\n• 随伴の構成的な定義\n• product -| exponential \n• Free (Monoid) -| Forgetful \n• Free (Category) -| Forgetful \nくらいかなあ。\nあんましでてこないや,,,",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585639404.025900",
+        "text": "Awodey わかりやすいですよね!\n英語版ならPDFもあるし\n（PDF 注意）<http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.211.4754&amp;rep=rep1&amp;type=pdf>\n邦訳も出ているし（訳があまり良くないという話もありますが :sweat_smile: ）\n<https://www.kyoritsu-pub.co.jp/bookdetail/9784320111158>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1585640348.028500",
+        "text": "あと,ついでに",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585640440.030100",
+        "text": "随伴 -&gt; モナドは、\nF -| G -&gt; GF ですが、\n\nモナド -&gt; 随伴は、\nMacLane （邦訳は圏論の基礎？だったかな？）に記述があります。(Chapter VI. Monads and Algebras の Theorem I )",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585640708.031300",
+        "text": "Monad T をT-algebra とみたとき、\n随伴が確か構成できたと記憶しています。",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585644489.034700",
+        "text": "うーん、あんまり活発な議論にならんわりに無駄に時間取られるので、退出します...",
+        "user": "U0108S1LS2W",
+        "type": "message"
+    },
+    {
+        "ts": "1585644529.034900",
+        "text": "<@U0108S1LS2W> has left the channel",
+        "user": "U0108S1LS2W",
+        "type": "message"
     }
 ]
