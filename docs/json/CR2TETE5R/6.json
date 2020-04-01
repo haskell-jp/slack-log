@@ -184,5 +184,65 @@
         "text": "皆さまご回答ありがとうございます。どうも私のslackからnotificatjonが来なくて気付きませんでした。",
         "user": "U6RPDAT8E",
         "type": "message"
+    },
+    {
+        "ts": "1585702582.005800",
+        "text": "さっきTelegramにあるとあるHaskellチャンネル <https://t.me/haskell_en> でも聞いたのですが ...",
+        "user": "U6RPDAT8E",
+        "type": "message"
+    },
+    {
+        "ts": "1585702633.006000",
+        "text": "v' no",
+        "user": "U6RPDAT8E",
+        "type": "message"
+    },
+    {
+        "ts": "1585702692.007200",
+        "text": "v' の型を Integer ではなく、Num p =&gt; p にするにはどうすればよいのでしょうか？",
+        "user": "U6RPDAT8E",
+        "type": "message"
+    },
+    {
+        "ts": "1585703663.007300",
+        "text": "修正して試してから回答したいので、\n画像ではなく、直接ソースコードを```などで囲って張っていただけると助かります :pray:\nあと、 `instance` の行の後の `v` などの定義は慣習上インデントしたほうが読みやすいです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1585704004.007700",
+        "text": "``` {-# LANGUAGE FlexibleInstances #-}\n {-# LANGUAGE UndecidableInstances #-}\n\n--------------------\nclass C a where\n  f :: a -&gt; a\n  f x = x\n\ninstance C Int\n\nv = f (3 :: Int)\n\n\n--------------------\nclass C' a where\n  f' ::  a -&gt; a\n  f' x = x\n\ninstance Num a =&gt; C' a\n\nv' = f' 3```",
+        "user": "U6RPDAT8E",
+        "type": "message"
+    },
+    {
+        "ts": "1585704012.007900",
+        "text": ":grinning:",
+        "user": "U6RPDAT8E",
+        "type": "message"
+    },
+    {
+        "ts": "1585704400.008000",
+        "text": "すみません、読み違えてました。\n`v` や `v'` はメソッドだと思ってました。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1585704614.008200",
+        "text": "で、解決方法ですが、単純に\n```v' :: Num p =&gt; p\nv' = f' 3```\nと、 `v'` に型注釈を入れる方法が確実でおすすめです。\n`NoMonomophismRestriction` という言語拡張を有効にする、というてもありますが。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1585710017.008500",
+        "text": "Reminder: \nbeginnersチャンネルは、新しい人がスムーズにHaskellに慣れるための質問を歓迎するチャンネルです。\nHaskell-Beginners ML や IRCの#haskell-beginners  や RedditのMonthly Hask Anythingのような位置づけを意図しています。\n\nbeginnersチャンネルでの回答側は、以下の左側のような応答を厳禁とする運用です。\n• それはくだらない質問だ → くだらない質問など無い\n• その質問は以前にもあった → 質問者はそんなこと知らない\n• Google検索せよ → 検索できないから質問している\nbeginnersチャンネルでは、例えば以下のレベルの質問から歓迎します。\n• `:` とは何のことですか。\n• タプルとは何ですか。\n",
+        "user": "USLACKBOT",
+        "type": "message"
+    },
+    {
+        "ts": "1585712078.008700",
+        "text": "<@U4LGTMTMK> ありがとうございます。そういうことなんですね。おかげで、<https://stackoverflow.com/questions/32496864/what-is-the-monomorphism-restriction>　とかも分かって、大変ありがたいです。:grinning:",
+        "user": "U6RPDAT8E",
+        "type": "message"
     }
 ]

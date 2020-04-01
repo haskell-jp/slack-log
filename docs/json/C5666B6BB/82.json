@@ -52,5 +52,47 @@
         "text": "<@U011352B5LY> has joined the channel",
         "user": "U011352B5LY",
         "type": "message"
+    },
+    {
+        "ts": "1585710648.014800",
+        "text": "hourglassパッケージにおける `WeekDay` <https://hackage.haskell.org/package/hourglass-0.2.12/docs/Time-Types.html#t:WeekDay> と `Date` を受け取って、「指定した日付から次のhoge曜日まで何日かかるかを返す」関数 `daysUntilNext` という関数を定義してみました。もっとクールな計算方法があれば教えていただきたいです。\nなんかうまいことやれば  `if` とかで分岐しなくて済みそうなんですが、ぱっと思いつきませんでした。\n```daysUntilNext :: WeekDay -&gt; Date -&gt; Int\ndaysUntilNext nextWeekDay baseDate =\n    if nextWeekDay &gt; baseWeekDay\n      then fromEnum nextWeekDay - fromEnum baseWeekDay\n      else fromEnum nextWeekDay - fromEnum baseWeekDay + 7\n    where\n      baseWeekDay = getWeekDay baseDate```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1585710885.014900",
+        "text": "例えば、以下のように計算します:\n• 今日（2020年4月1日(水)）から次の月曜日（2020年4月6日）であれば `5`\n• 今週日曜日（2020年4月5日）から次の月曜日であれば `1`\n• 今週月曜日（2020年3月30日）から次の月曜日であれば `7`",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1585713632.015100",
+        "text": "```(fromEnum nextWeekDay - fromEnum baseWeekDay) `mod` 7```\n すればいいかと思いましたが、月→月が0になってしまうので良くないですね",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1585713767.015400",
+        "text": "負の数の剰余は、ちょっと前にTwitterでバズってたツイートがあった気がする",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1585713924.015700",
+        "text": "どちらにしても、完全に分岐をなくすのはやっぱ難しそうですね...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1585714709.016000",
+        "text": "少し汚いですが、こんな感じでどうでしょうか？",
+        "user": "ULBC77RC3",
+        "type": "message"
+    },
+    {
+        "ts": "1585719148.016600",
+        "text": "今試してみたらテスト通りました。ありがとうございます！",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
