@@ -196,5 +196,107 @@
         "text": "コードテストはまた壊れてる感じがしますね。\nあとインストールされているライブラリも提案したものと違う感じになっているような",
         "user": "U5B3EGEFQ",
         "type": "message"
+    },
+    {
+        "ts": "1585791479.009200",
+        "text": "1.  GHCのバージョンを上げられてしまった(Stackage LTS/ghcup-recommendedなバージョンの採用になって良かったと思うべきか…)ので、GHC-includedなパッケージのバージョンがそもそもずれるから、仕方ない部分はあると思います。パッケージ自体の追加・削除がありましたか？\n2.  コードテストは `main = putStrLn \"Hello World!\"` なら動いたのですが、何が動かないですか？",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1585792013.011100",
+        "text": "bug fixのminor bumpくらいは受け入れてもらえる気がしますが、せいぜいそれくらいかなあと。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1585793722.013300",
+        "text": "例えば解答例のコードを実行すると `a.out: &lt;stdin&gt;: hGetLine: end of file` となります。\n\n```{- お客様の中でHaskellを書ける方はいらっしゃいますか？\n    と、Haskellの例がなくて困っていたところを @tanakh さんに助けて頂きました。本当にありがとうございました。-}\nimport Control.Applicative\n \nmain :: IO ()\nmain = do\n    -- 整数の入力\n    a &lt;- readLn\n    -- スペース区切り整数の入力\n    [b, c] &lt;- map read . words &lt;$&gt; getLine\n    -- 文字列の入力\n    s &lt;- getLine\n    -- 出力\n    putStrLn $ show (a + b + c) ++ \" \" ++ s```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1585793945.017100",
+        "text": "時間がかかっているので、アップデートが出た言語についてはバージョンを上げている旨AtCoderの情報提供YouTube liveでも出ていました。`vector-algorithms` でbugfixが出たけど放置だったから、あんだけパッケージ数も多いし、Haskellは例外になるのかな？　と思ってたら、ghcup recommendedの8.8.3が出た途端にGHCのバージョンごと上げてこられるのは、ちょっと面食らいましたね…。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1585794064.017400",
+        "text": "対応が一貫しないのは困りますね... :confused:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1585794412.020300",
+        "text": "…あ。そうか。定期的に指定通りのアップデートが通るかやり直しているのか。あのリポジトリのインストール手順、ghcupにバージョンの指示をしてなかったから、何もしないとrecommendedのバージョンを引っ張って落としてきますね。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1585794566.022000",
+        "text": "そんでライブラリとバージョン競合を起こしたから一斉にバージョンを最新にしたと。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1585794639.022100",
+        "text": "入力が足りてないだけではないでしょうか。以下の入力だと正常終了します。\n```100\n2 3\nhoge```",
+        "user": "UL3EYH36Z",
+        "type": "message"
+    },
+    {
+        "ts": "1585795116.022300",
+        "text": "本当ですね！入力足りてませんでした。\nちゃんと動いていました。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1585795233.022600",
+        "text": "&gt; パッケージ自体の追加・削除がありましたか？\n例えば `massiv` をインポートしようとしてエラーになってます。\n\n前回はAC\n<https://atcoder.jp/contests/language-test-202001/submissions/9838835>\n\n今回は CE\n<https://atcoder.jp/contests/language-test-202001/submissions/11418966>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1585795641.023500",
+        "text": "なるほど、どうなるかわかりませんが一応手順を更新しておいた方が良さそうですね。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1585796083.024000",
+        "text": "ああー、`massiv`, 0.4.2.0から0.5.1.0のmajor updateですね。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1585796174.024600",
+        "text": "ghc-8.8.3 に合わせてライブラリのバージョンを更新する方針が良いですかねー？",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1585796326.026300",
+        "text": "ですかね。と言っても、大体バージョンを最新ににしているように見えるので、現状追認でいい気がします。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1585796448.028500",
+        "text": "randomized eye-grepなんですけどね",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1585796663.031400",
+        "text": "では、更新内容としては以下のような方針でいいですかね。\n• GHC-8.8.3 に更新\n• ライブラリのバージョンについては、できる限り最新を採用\n<@U57D08Z9U> 追加したいライブラリ教えてください。(追加理由もあると嬉しいです)\n現状の提案ライブラリは以下にまとまっています。\n<https://github.com/haskell-jp/atcoder-haskell-resources/blob/master/spec.md#%E8%BF%BD%E5%8A%A0%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1585796836.031600",
+        "text": "念のため `ghcup` のインストール方法も少し変更して、明示的に ghc-8.8.3 をインストールするように変更します。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
     }
 ]
