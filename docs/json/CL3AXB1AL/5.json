@@ -82,5 +82,101 @@
         "text": "`cabal` に任せるって具体的にはどういう感じでしょう？",
         "user": "U5B3EGEFQ",
         "type": "message"
+    },
+    {
+        "ts": "1586235705.049200",
+        "text": "`cabal install --lib vector bytestring` とするか、",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1586235759.050400",
+        "text": "`cabal install --lib vector-0.12 bytestring-0.10` とするか、みたいなことを指しています。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1586235789.051300",
+        "text": "後者にする場合GHCのバージョンを固定できる方法でしたほうがいいかも、とも。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1586236505.051500",
+        "text": "バージョンを明記しない1つめの方法だと\n\n• `index-state` を指定しないと、どのバージョンがインストールされるかわからない。\n• `index-state` を指定したとしても、インストールするパッケージが増えるにつれ、制約が満たせなくなる可能性が高くなり、その場合は手動でパッケージのバージョンを指定する必要がある。\nという問題がありませんか？",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1586236660.051700",
+        "text": "2つ目の方式は今回のインストール方法と同じですね。\n<https://github.com/haskell-jp/atcoder-haskell-resources/blob/master/spec.md#%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E6%89%8B%E9%A0%86>\n\n```$ cabal install --lib --package-env /opt/.cabal/global.env \\\n    QuickCheck-2.13.2 \\\n    array-0.5.4.0 \\\n    attoparsec-0.13.2.4 \\\n...```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1586236706.052100",
+        "text": "&gt; GHCのバージョンを固定できる方法\n`cabal install -w ghc-8.8.3` のように `-w` オプションを指定するということですか？",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1586236814.052300",
+        "text": "あ、ちょっと違いましたね。\n`vector-0.12.1.2` と完全にバージョンを指定するのではなく、`vector-0.12` で止めておくってことですか。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1586237748.052600",
+        "text": "基本的には大丈夫だと思いますが、個人的には全部指定しておいた方が安全だと思っています。\n\n例えば、具体的な例でいうと `vector` パッケージ `0.12.1.0` と `0.12.1.1` はミスで breaking change になってしまい、\nこの影響で `rio` など `mkType` を利用しているパッケージがビルドできなくなったりしました。(`vector ^&gt;=0.12` という感じでバージョン指定している場合です)\nすぐに  `0.12.1.2` が出たので、そこまで気にする話ではないかもしれませんが、環境構築手順としてはできるだけ冪等性を保つようにした方が良いと思います。(そのため、今回の ghcup の件は次回の手順では明示的にバージョンを指定する方針に変更した方が良さそうですね)\n\n0.12.1.1 breaking change w.r.t. 0.12.0.3 #287\n<https://github.com/haskell/vector/issues/287>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1586239239.059600",
+        "text": "うーん・・・。ただ、こんだけアップデートの完了に時間がかかると、bugfixが出ても全く更新されないって言うのはやっぱり痛いと思ったんですよね。何度もインストール自体をやり直すやり方をとっているようだったから、むしろアップデートが完了した時点でインストールしたライブラリのバージョンをAtCoder側に公開してほしいって気分になってしまって・・・。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1586239327.060500",
+        "text": "はい、同じ気持ちです。時間かかるのは良いのですが、情報が一方通行すぎてつらいですね・・・。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1586239599.064000",
+        "text": "Stackageから最新LTSに収載のパッケージのバージョンだけ下ろしてきて、cabalでインストールしてもらって、バージョンを公開してもらう、とか、可能か不可能かわからないけど、妄想してしまいます。 ",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1586239828.064200",
+        "text": "`lts-15` など、スナップショットの最新のバージョン制約は取得できるのですが、stackage の `lts` を利用する時点で最新のパッケージではなくなるので、残念ながら期待する結果にはならない気がします。\n<https://www.stackage.org/lts-15/cabal.config>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1586240149.067000",
+        "text": "バージョンを明示しても、freezeしてからもかなり長い間待たされるわけなので、最新ではないんですよね…さすがにnightly使うのは怖いか…あー…",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1586240604.067200",
+        "text": "あと、stackage にあがっていないパッケージについては extra-deps で追加する必要があるので、それはバージョン固定になりますね。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1586241095.068100",
+        "text": "確かに。でも今回、そんなパッケージ追加してましたっけ？",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1586243478.068300",
+        "text": "今回の話だと `repa` とか該当しますね。\n<https://www.stackage.org/package/repa>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
     }
 ]
