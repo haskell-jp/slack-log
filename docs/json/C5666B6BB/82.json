@@ -190,5 +190,107 @@
         "text": "<@U011C2X3B1D> has joined the channel",
         "user": "U011C2X3B1D",
         "type": "message"
+    },
+    {
+        "ts": "1586497930.037100",
+        "text": "`Enum` って、特に要素のenumeration typeについてderived instance以外を用いるのって許容されてるんでしょうか？ されてるとして、番号が飛び飛びになってるのとか、って許容されてるんでしょうか・・・。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1586499578.037300",
+        "text": "試しにそういうインスタンスを作ってみて、  `enumFromThen` などのメソッドがちゃんと動くか気になりますね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1586499938.037500",
+        "text": "まぁ、いずれにしても、すべてのメソッドを則を満たすように実装すれば、飛び飛びになっていても特に問題はないかと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1586500101.038900",
+        "text": "そもそも、 `Enum` に則があるのかわかんないんですよね…",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1586500177.040900",
+        "text": "`succ . fromEnum = fromEnum . succ` が則なのかとか。これが課されると飛び飛びはあり得なくなりますし。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1586500239.041200",
+        "text": "ドキュメントにはそんな則書いてませんよ\n<https://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#t:Enum>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1586500636.045700",
+        "text": "…_sequentially_ ってどうなんでしょう。或いは、The nullary constructors are assumed to be numbered left-to-right by fromEnum from 0 through n-1.に暗黙についているのが、In the derived instance, なのか In this case , which is of that `Enum` is derivable, なのか… ついてる動詞が_assigned_とかじゃなくて_assumed_なので・・・。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1586500854.046200",
+        "text": "sequentially orderedなのは変換される前の値についての性質であって、`Int`に変換してどう対応させるか、については何も言ってないと思います。\n「The nullary constructors are assumed to be numbered left-to-right by fromEnum from 0 through n-1.」はあくまでもderived instanceについての話であって、独自に作る分には関係がないのではないでしょうか。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1586501176.046800",
+        "text": "「あくまでもderived instanceについての話であって」に補足しますと、\n「Instances of `Enum` may be derived for any enumeration type」で始まる段落にあったためです。\n同じ文がHaskell 2010 Reportにもあり、そちらでも「Derived instances of Enum」についての話として書かれています。なので、あくまでもderived instanceの文脈だと思っています。\n<https://www.haskell.org/onlinereport/haskell2010/haskellch11.html#x18-18400011.2>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1586501231.048000",
+        "text": "なるほど。となると、基本的に `Enum` には則はない、ということでいいのかな。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1586501255.048900",
+        "text": "`fromEnum (succ x) &gt; fromEnum x` とか。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1586501304.049100",
+        "text": "強いて挙げるなら `succ maxBound` がボトムであることとか、\n```   enumFrom     x   = enumFromTo     x maxBound\n   enumFromThen x y = enumFromThenTo x y bound\n     where\n       bound | fromEnum y &gt;= fromEnum x = maxBound\n             | otherwise                = minBound```\nでしょうね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1586501360.049500",
+        "text": "確かに `fromEnum (succ x) &gt; succ x` も明確に言及されてないですがそうあってほしいですね... :thinking_face:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1586501598.052900",
+        "text": "`enumFrom x = x : enumFrom (succ x)` where `succ x` is non-bottomとか課されてないって考えるとちょっと背筋が寒くなるというか……これは sequentially orderedで課されてるって認識でいいんでしょうか。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1586501945.056100",
+        "text": "それはちょっとわからないんですが、一つ重要な見落としがありました。\nデフォルトの実装は明らかに飛び飛びになっていることを想定してなさそうなので、もし飛び飛びにしない場合はすべてのメソッドを実装しなきゃですね...\n<https://hackage.haskell.org/package/base-4.12.0.0/docs/src/GHC.Enum.html#succ>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1586501946.056300",
+        "text": "もちろんわかるはずがない、これ、よくないなあ（というか `Double` のインスタンスが満たしてないだろうから、課すわけにもいかなかったのかな）",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1586501974.056900",
+        "text": "あ、それはそうです。",
+        "user": "UL1HFJATE",
+        "type": "message"
     }
 ]
