@@ -40,5 +40,23 @@
         "text": "Hackage は semantic versioning じゃなくて PVP なので（メンテナーがちゃんとしたがってるなら）0.x.y でも x が上がれば破壊的変更があるはずですが、メンテナーしだいですね……",
         "user": "U4L0B71L1",
         "type": "message"
+    },
+    {
+        "ts": "1586945621.059900",
+        "text": "<@U0121PJA7BN> has joined the channel",
+        "user": "U0121PJA7BN",
+        "type": "message"
+    },
+    {
+        "ts": "1586949831.062200",
+        "text": "```data Term = V Char\n            | Abs (Term, Term)\n            | App (Term, Term)\n--replaceは\nreplace :: Term -&gt; Term -&gt; Term -&gt; Term \nreplace (V x) s r =\n    case r of \n            (V y) -&gt; if x == y then s else (V y)\n            Abs((V y), t) -&gt; \n                Abs(V y, (replace (V x) s t))\n            App(Abs(V y,t),u) -&gt; \n                App(Abs((V y),(replace (V x) s t)), replace (V x) s u)```\nこのようなコードを書いたのですがreplace((V x) s t)のところでParse errorが出てしまいます。なぜこのようなエラーが出てしまうのかわかりません。よろしくお願いします。",
+        "user": "U5FTM76CA",
+        "type": "message"
+    },
+    {
+        "ts": "1586950244.062300",
+        "text": "挙げていただいた部分をコピペしただけだと問題のエラーは再現できませんね...\nこれより前の箇所でカッコの対応がとれてないとか、別の箇所で問題が起きているのかも知れません。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
