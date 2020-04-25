@@ -124,5 +124,65 @@
         "text": "コンパイルタイムならC++、Rust、Haskellが激遅3兄弟なのであんまり気にしないのが吉です。ランタイムはHaskellは遅いんですがC++とRustのどっちが遅いのかについては諸説あるので気にしないのが吉です。",
         "user": "U570660KX",
         "type": "message"
+    },
+    {
+        "ts": "1587800854.076000",
+        "text": "<@U0137RHDV7S> has joined the channel",
+        "user": "U0137RHDV7S",
+        "type": "message"
+    },
+    {
+        "ts": "1587801705.076300",
+        "text": "はじめまして、質問があります!\n\ntoInts :: String -&gt; [Int]\ntoInts = map read . lines\n\nの意味するところが不明です。\n\nlinesは改行文字で文字列を区切り、文字列のリストを返す\n(lines :: String -&gt; [String])\n\nそれと、readを関数合成すると何ができるのでしょうか",
+        "user": "U0137RHDV7S",
+        "type": "message"
+    },
+    {
+        "ts": "1587807069.076400",
+        "text": "こんにちは。\ntoIntsの優先度をカッコで明確化すると、 `map (read . lines)` ではなく、 `(map read) . lines` となります。\nなので関数合成しているのは、`map read` と `lines` になります。\n従ってtoIntsは、「 `lines`  の出力結果を、 `map read` に入力する関数」を表しています。\n`map read` は、入力されたリストの各々に、`read` 関数を適用したリストを返します。",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1587809001.076800",
+        "text": "Prelude 代替を何か試してみようかと思っているのですが、RIO が最有力でしょうか？　stack の templates に Foundations もあったのでこちらも気になっています。",
+        "user": "U6JPU2DD2",
+        "type": "message"
+    },
+    {
+        "ts": "1587811253.077000",
+        "text": "あんまりalt Preludeはほぼ使ったことがないですがRIOだけはちょっと使ったことがあって、確かにあれはよくできてると思います。\nFoundationsは、わざわざStringなどを独自に作っていて、気持ちはわかるけどちょっと野心的すぎない？という印象です。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1587811507.077200",
+        "text": "RIO 愛用してますが、ほかと比べたわけじゃなくなんとなくで使ってます（とくに不満はありません）",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1587814238.078100",
+        "text": "ありがとうございます！　RIO を試してみようと思います",
+        "user": "U6JPU2DD2",
+        "type": "message"
+    },
+    {
+        "ts": "1587816183.078300",
+        "text": "ありがとうございます。\n一般にはrustのコンパイル時間も遅いという認識なのですね。ghcがメモリを使うというのは経験的にありますが。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1587824774.078600",
+        "text": "<@U012JCZR01Z> has joined the channel",
+        "user": "U012JCZR01Z",
+        "type": "message"
+    },
+    {
+        "ts": "1587827432.078800",
+        "text": "よく分かりましたありがとうございます",
+        "user": "U0137RHDV7S",
+        "type": "message"
     }
 ]
