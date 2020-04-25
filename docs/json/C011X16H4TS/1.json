@@ -166,5 +166,41 @@
         "text": "次回、04/26（日） 2030-2130\n<https://eigenspace.connpass.com/event/174086/>\np.48- §3.4 GCされるスパークと投機的並列性 <@U59GW4U4T> さん",
         "user": "ULTN48U8Y",
         "type": "message"
+    },
+    {
+        "ts": "1587705663.018400",
+        "text": "質問です。前回の部分を復習していて、日本語訳 p.40 `./kmeans seq` コマンドの下の行に\n\n&gt; このプログラムは1回の反復ごとにクラスタを表示し、65回の反復の後収束するはずです。\nとあるんですが、実際に実行してみると20回で収束してるみたいです。\n\n```$ cabal exec -- kmeans seq\niteration 0\nCluster {clId = 0, clCent = Point (-0.539760960351114) (-0.15981340012166456)}\nCluster {clId = 1, clCent = Point (-0.5193016808259251) (-0.1783867429360103)}\nCluster {clId = 2, clCent = Point (-0.536178111509908) (-0.14876040981797228)}\nCluster {clId = 3, clCent = Point (-0.5173021540019762) (-0.1723059196602831)}\nCluster {clId = 4, clCent = Point (-0.5251322344850621) (-0.16970608558866543)}\n\n...\n\niteration 20\nCluster {clId = 0, clCent = Point (-5.843594657217429) (-5.465023143155277)}\nCluster {clId = 1, clCent = Point 8.316354592277696 (-8.330430847304271)}\nCluster {clId = 2, clCent = Point (-9.06455081846093) 7.561852464109018}\nCluster {clId = 3, clCent = Point 9.24359773112845 6.138576051709859}\nCluster {clId = 4, clCent = Point (-3.6217091143407467) (-1.824581243202074)}\n[Cluster {clId = 0, clCent = Point (-5.843594657217429) (-5.465023143155277)},Cluster {clId = 1, clCent = Point 8.316354592277696 (-8.330430847304271)},Cluster {clId = 2, clCent = Point (-9.06455081846093) 7.561852464109018},Cluster {clId = 3, clCent = Point 9.24359773112845 6.138576051709859},Cluster {clId = 4, clCent = Point (-3.6217091143407467) (-1.824581243202074)}]\nTotal time: 0.76```\n書籍通り、65 回反復することを確認できる方いますか？環境等教えて欲しいです。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1587705826.018900",
+        "text": "僕の手元でも20回で収束してました :thinking_face:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1587705980.019100",
+        "text": "やっぱりそうなんですね〜",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1587706032.019900",
+        "text": "図3-1 を生成するためのコマンドっぽいのが Makefile に書いてあったので実際に実行したんですが、書籍と画像が違ってるし何か変わったんですかね・・・。\n<https://github.com/simonmar/parconc-examples/blob/master/kmeans/Makefile>\n\n```view : points\n\tgnuplot -e 'set terminal png; plot \"points\"' &gt;points.png; eog points.png  ```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1587706082.020300",
+        "text": "こんな感じ",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1587706866.020700",
+        "text": "図3-1は標本集合の例と書いてあるので、適当に `GenSamples` のパラメータを調整したものなんですね。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
     }
 ]
