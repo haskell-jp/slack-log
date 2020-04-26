@@ -160,5 +160,23 @@
         "text": "<@U012JCZR01Z> has joined the channel",
         "user": "U012JCZR01Z",
         "type": "message"
+    },
+    {
+        "ts": "1587887523.032700",
+        "text": "初めて質問させていただきます。\n\n```-- 【1】\nmain = do\n    let hoge = [1,2,3] &gt;&gt;= \\x -&gt; return $ x + 10\n    print hoge```\n↑はコンパイルできるのですが、\n\n```-- 【2】\nmain = do\n    let hoge = do\n      x &lt;- [1,2,3]\n      return $ x + 10\n    print hoge```\nこれだとシンタックスエラーになります。\n\n```parse error on input '&lt;-'\nPerhaps this statement should be within a 'do' block?```\n「&lt;-」はdoブロックの中に記述してると思うのですが。。。。\n\n更にわからないのが、【2】の方でも、stack runghc app/Main.hs　とするとエラーにならず実行できます。\n【2】をどのように修正したらエラー解消できるのでしょうか？\n\nよろしくお願いいたします。",
+        "user": "UTK43JS4X",
+        "type": "message"
+    },
+    {
+        "ts": "1587887692.032800",
+        "text": "```x &lt;- [1, 2, 3]\nreturn $ x + 10```\nのブロックを `hoge` よりもさらに字下げしてみてください。\n`runghc` だと通る理由はわかりませんが、いずれにしても恐らくそれで直ります。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1587890684.033000",
+        "text": "字下げしてコンパイル通りました。\nありがとうございます！:slightly_smiling_face:",
+        "user": "UTK43JS4X",
+        "type": "message"
     }
 ]
