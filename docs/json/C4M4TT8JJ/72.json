@@ -214,5 +214,89 @@
         "text": "<@U012JCZR01Z> has joined the channel",
         "user": "U012JCZR01Z",
         "type": "message"
+    },
+    {
+        "ts": "1587947782.240800",
+        "text": "復旧したようです :relieved:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1587949949.241400",
+        "text": "本件acceptされましたね！ :tada: :eagle:\n<https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1584687633066100>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1587974718.243300",
+        "text": "Haskell IDE Engineがぶっ壊れてエラー表示してくれない問題調べたら\n[Temp object file issue (hie is unresponsive) · Issue #1520 · haskell/haskell-ide-engine](<https://github.com/haskell/haskell-ide-engine/issues/1520>)\nが出てきて,\nghcideかhlsを使用しようって書いてたのでhlsを設定したら普通に動いたので移行することにしました\n複数のexecutableがあると動かない問題も `hie.yaml` を配置することで解決",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1587974894.243600",
+        "text": "`hie.yaml` 万歳と思いましたがこれpackage.yaml(cabal)と同じこと書いてるのでよく考えてみるとここは自動的に読み取ってほしい気もしますね\n本質的に暗黙な所もあるだろうのでうまく行かないんでしょうが…",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1587975160.244000",
+        "text": "<https://github.com/haskell/haskell-language-server> これか。hlsなんて略して呼ばれてるんですね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1587975196.244300",
+        "text": "rlsとかpylsとかあるのでhlsになるのは妥当な気がしますね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1587975230.244600",
+        "text": "hieですとGHCのバージョンごとにコンパイルする必要がありましたけど、hlsの場合どうなんですか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1587975287.244800",
+        "text": "現在はどっちにしろ最新のGHCにしか対応してないので不要ですけど,hieのインストールインターフェイスそのままなので必要になりそうな気がしますね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1587975427.245000",
+        "text": "hie.yaml置いてもhspec-discover使ってるテストに対してマトモに動いたこと無いんですけどそのへんも良くなってたりします？",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1587975534.245300",
+        "text": "とりあえずうちのプロジェクトではhie.yaml置くことによってテスト版のライブラリちゃんと認識してますね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1587975722.245500",
+        "text": "念のため手元emacs上でどうなるか情報だけ置いとこう．\n`LSP :: \"could not execute: hspec-discover\"`",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1587975790.245700",
+        "text": "確かにSpec.hsを開くと\n```compiler: haskell-language-server-8.8.3: could not execute: hspec-discover```\nとなりますが実際に書くテスト実行ファイルではちゃんと動くのでまあ問題ないなって認識です",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1587975850.245900",
+        "text": "HogeSpec.hs とかを編集してても入力補助やflycheck挙動に問題無いカンジです？",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1587976009.246100",
+        "text": "入力補完に問題ありますね…\nflycheckで問題なかったので問題ないものかと思っていました\nでもこれはテストファイルだけじゃなくて全てのファイルでダメっぽいですね…",
+        "user": "U57CUMWQ6",
+        "type": "message"
     }
 ]
