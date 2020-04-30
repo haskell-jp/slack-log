@@ -220,5 +220,59 @@
         "text": "<@U012KLD4SSW> has joined the channel",
         "user": "U012KLD4SSW",
         "type": "message"
+    },
+    {
+        "ts": "1588213938.084200",
+        "text": "以下のような型クラスを含むライブラリってありますか？\n\n```class Writable a where\n  write :: Handle -&gt; a -&gt; IO ()```\nまた、このような型クラスを使うのは設計としてどうですか？",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1588214016.084300",
+        "text": "<https://github.com/Hexirp/hexirp-hakyll/blob/b0757b0b5d64871907f19cf03a5bcf6c246d1a00/hexyll-core/src/Hexyll/Core/Writable.hs>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1588214125.084600",
+        "text": "cerealを採用しない理由はどういうものですか？",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1588214659.084900",
+        "text": "cereal は良く知りませんでした。シリアライズのためのライブラリということですね。この型クラスは hPut や hPutStr のような関数を抽象化するためのもので、シリアライズとは少しずれているように私は思っています",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1588225353.085200",
+        "text": "とりあえず名前の方に違和感があります\ncerealが提案された理由にも繋がっていて\nWriterableみたいな名前をつけると他言語の経験から\n[std::io::Write - Rust](<https://doc.rust-lang.org/std/io/trait.Write.html>)\nや\n[Writer (Java Platform SE 8 )](<https://docs.oracle.com/javase/jp/8/docs/api/java/io/Writer.html>)\nが連想されて｢書き込む先｣を抽象化しているように見えます\nもちろん `Writable` と `Writer` は違う名前なのですが一見同じに見えてしまうので\n\n`hPutStrLn` を抽象化するというのは\n[Data.ListLike](<https://www.stackage.org/haddock/lts-15.10/ListLike-4.6.3/Data-ListLike.html#t:ListLikeIO>)\nが達成はしているようですね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1588235587.085500",
+        "text": "<https://hackage.haskell.org/package/hakyll-4.13.3.0/docs/Hakyll-Core-Writable.html> から引き継いだ名前なのですが、そう取られるんですね。代替として Puttable はどうかなと思ったんですが、これもシリアライズのライブラリの Put とかと混同されそうで怖いですね。",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1588244621.085800",
+        "text": "自分がcerealを引き合いに出したのは，どちらかというと機能直交性(serializeすることと，それを何にどう使う/書き込むかは直交している筈)の点で気になるためです",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1588249733.086100",
+        "text": "僕も notogawa さんに賛同で，これは出力先が Handle じゃなくても通用する気がして，ByteString に変換できれば良さそうな気がします (ただ，おそらく cereal はオーバーキルな気がしていて，名前的には StringLike みたいな感じなんですよね．僕はこれは，このプロジェクト独自の機能であって抽象化されるべきではない (例えば，String をファイルに書き込むときにエンコーディングの選択などで実装が一意でない) と思うので，このままでいいと思います)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1588250090.086300",
+        "text": "(ついでに，個人的には，これらは Handle の種類や実際のデータ型によって，適切なバッファリング設定が違うはずで，書き込みの抽象化はそういうパフォーマンス面での制御がしにくく逆に結構面倒 (今回はおそらくそこまで IO パフォーマンスを気にするものではないと思うのですが) なので，結構避けてるというのがあります)",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
