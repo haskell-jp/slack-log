@@ -226,5 +226,29 @@
         "text": "<@U012NFZ34S3> has joined the channel",
         "user": "U012NFZ34S3",
         "type": "message"
+    },
+    {
+        "ts": "1588761227.040800",
+        "text": "お世話になっております。\nまたまた基本的な質問ですみません。:man-bowing:\n\n```\nmain = do\n  putStrLn \"aaa\"\n  putStr \"bbb\"\n  s &lt;- getLine\n  putStrLn s```\nこれを実行すると、「aaa」が出力された後に「bbb」は出力されず入力待ち状態になります。\nそして、何か入力すると初めて「bbb」と入力した文字が出力されます。\n３行目をputStrLn にすると「aaa」「bbb」が出力されて、入力待ちになります。（期待した動作）\n\nなぜこのような動作になるのでしょうか？",
+        "user": "UTK43JS4X",
+        "type": "message"
+    },
+    {
+        "ts": "1588762340.040900",
+        "text": "BufferModeという概念があって出力するタイミングを制御できるようになってます。通常はLineBufferingに設定されていて改行されるタイミングまで出力されないのでそのような挙動になっているかと!\nputStr でもすぐに出力したい場合は\n```hSetBuffering stdout NoBuffering```\nのように設定してBufferingをやめれば大丈夫です!\n<http://hackage.haskell.org/package/base-4.14.0.0/docs/System-IO.html#t:BufferMode>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1588763563.041100",
+        "text": "早速ありがとうございます。\nNoBuffering に設定することで期待通りに動きました。\nありがとうございます。:man-bowing:",
+        "user": "UTK43JS4X",
+        "type": "message"
+    },
+    {
+        "ts": "1588776434.042200",
+        "text": "<@UNMR2NY1W> has joined the channel",
+        "user": "UNMR2NY1W",
+        "type": "message"
     }
 ]
