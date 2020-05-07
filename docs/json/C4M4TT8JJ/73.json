@@ -178,5 +178,47 @@
         "text": ":confetti_ball: :sunny: :confetti_ball: Google Summer of CodeとしてHaskell.orgが採択したプロジェクトが決まりました\n<https://summerofcode.withgoogle.com/organizations/6387985961975808/>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1588822924.271400",
+        "text": "多相レコードのブログ記事、初心者向けの体で書こうと思ったんですが、\nlensでやると記号がエグくて初心者バイバイ感半端ないという問題が発覚\n\n```main = do\n    let p = Person { name = \"Taro\", age = 10 }\n\n    -- レコード要素へのアクセス\n    print $ p ^. #name\n\n    -- レコード要素への代入\n    print $ p &amp; #age .~ 11```\n初心者に勧めるのはRecordDotSyntaxを待った方が良いかも……",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1588823138.271600",
+        "text": "`RecordDotSyntax` が普及したらその紹介事態が「最新多相レコード事情」になりますねw\n個人的には初心者向けは端から諦めるか、軽く背景を注釈しつつ「表層的な構文なんて飾りだよ？」って考えを受け入れられる人をターゲットにするべきかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1588824235.271800",
+        "text": "慣れてしまうとlensの書き方も読みやすいと感じてしまうのもまた罠ですね :sweat_smile:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1588824331.272300",
+        "text": "使いづらいシステムにも人間は順応しちゃいますからね... :cold_sweat:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1588824427.272500",
+        "text": "lens、初心者にとって辛いのはシンタックスのほかにもあって、型エラーになったときの対処なんですね。\n型推論のストーリーくらいは紹介しないといけなくて、どうしても中級者以上になってしまう",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1588824844.273000",
+        "text": "ではlensじゃなくて、普通に `#age :: Person -&gt; Int` になるIsLabelインスタンスを使う、というのも手なのですが、 現状 `instance (HasField x r a) =&gt; IsLabel x (r -&gt; a)` のインスタンス定義がない。\n各自が勝手にOrphan Instanceを定義すると、他と被ったときに死ぬので xxx-orphans みたいなライブラリが欲しい",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1588832383.273600",
+        "text": "lensに関しては演算子よりもアルファベットの名前のついた関数（viewやset）を使ったほうが初心者に優しいような気がします",
+        "user": "UGM9F7XQS",
+        "type": "message"
     }
 ]
