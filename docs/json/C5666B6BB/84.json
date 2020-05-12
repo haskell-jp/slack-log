@@ -244,5 +244,59 @@
         "text": "Hackage / Stackage にも登録がある cabal package (non-stack project)を修正した上で、 Hackage 版ではなく修正版に依存するように、 `cabal exec ghc` (これがどれくらいまともに稼働するコマンドか理解していません)か `stack ghc` か、またはそれに類する何かを走らせるにはどうすればいいでしょうか？ \nライブラリコードがインラインされた時の最適化がうまくいくように修正を掛けたつもりなので、それを適当な短いコードに対する  `ghc -ddump-simpl` で確認したいのですが、別にtestをいきなり追加したいわけではないし、自分のパッケージでもないので、いきなりそのパッケージの `cabal.project` を弄るのにも抵抗があるんですよね・・・。(いやもちろん git-managedなので弄るのに問題はないんですが)",
         "user": "UL1HFJATE",
         "type": "message"
+    },
+    {
+        "ts": "1589241662.115500",
+        "text": "修正したパッケージは手元にあって、まだhackageに公開してないってことですよね？\n該当のパッケージのディレクトリーで `stack build` した上で `stack exec ghc` すればいけるはずだったかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1589245019.115700",
+        "text": "今考えているのって non-stack project ですから，その場合， `stack.yaml` と `package.yaml`  を `***.cabal` から適当に作ってから，ってことになるんでしょうか．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1589245909.116100",
+        "text": "ああー、確かにstackでやる場合 `stack init` はしないといけませんね（別に `package.yaml` は必須じゃないですよ！）。\nで、cabalでやる場合でもstackと同様あらかじめ `cabal build` してから `cabal exec ghc` でいけるはずです（普段cabal使わないのでちょっと自信ない）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1589249007.116400",
+        "text": "型シグネチャを書かずに `cabal v2-repl` で正常にロードできるコードがあります。\n`:t` で確認した型をそのまま型シグネチャとして追加して `:reload` するとエラーになる。\nこのような一見矛盾と思える挙動について、そもそもどういった原因が考えられますか?",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1589258462.116500",
+        "text": "お手元のcabalのバージョンが2系だった場合、cabal new-{build,exec}の方がおすすめかもです。ただ、cabalのexecってghcのオプションはケアしてくれるんだったかな…",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1589258922.116700",
+        "text": "GHC関係の環境変数はいい感じに整えてくれるからうまくいくだろう、と信じています...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1589261420.117200",
+        "text": "<@U013MTWTQ4U> has joined the channel",
+        "user": "U013MTWTQ4U",
+        "type": "message"
+    },
+    {
+        "ts": "1589263290.124600",
+        "text": "(cabal-3.2.0.0に甘えてnewを忘れてしまった人間なので) `cabal exec ghc` を試したのですが、\n```import Data.Vector\n\nmain = return ()\n```\nケア、してもらえなかったです・・・。リコンパイルをはじめた挙句多分 `cabal.project` も `vector.cabal` すらも読んでない… (`vector.cabal` に記述があるはずの `vector.h` が発見できないとか抜かしやがりましたので）。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1589263484.128900",
+        "text": "あとで `stack ghc` と、あと `cabal.project.local` を用いた `cabal build` を試してみます。",
+        "user": "UL1HFJATE",
+        "type": "message"
     }
 ]
