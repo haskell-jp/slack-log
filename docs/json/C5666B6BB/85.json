@@ -16,5 +16,95 @@
         "text": "`stack build` -&gt; `stack ghc` でとりあえずうまくいきました！ ただ， `vector` は project root 直下に `&lt;projectroot&gt;/src/Data/Vector` とあるのではなく `&lt;projectroot&gt;/Data/Vector` とあるので，project rootでコンパイルしようとすると `cabal` でも `stack` でも失敗するのは盲点でした (これを改善しても `cabal` だと失敗するのですが・・・．)",
         "user": "UL1HFJATE",
         "type": "message"
+    },
+    {
+        "ts": "1589336050.133300",
+        "text": "<@U0133EY6LPR> has joined the channel",
+        "user": "U0133EY6LPR",
+        "type": "message"
+    },
+    {
+        "ts": "1589345019.133500",
+        "text": "REPLと本番コードで有効な言語拡張が一致していないとか?",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1589349600.133700",
+        "text": "それはありそうだと思ってググったりもしたのですが、ghciから今有効になっている言語拡張のリストとか出せますかね。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1589349674.133900",
+        "text": "`:show language` で出せるはずです",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1589349845.134100",
+        "text": "おお、出ました。ありがとうございます。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1589349867.134300",
+        "text": "`:set`でも出る感じ。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1589349931.134500",
+        "text": "あと思いつく原因としてはexportの範囲の違いが考えられますね どうもghciはpackageがexportしてなかったりimportしてない型も構わず出すようですけど, それを指定すると当然エラーになります",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1589350095.134700",
+        "text": "プログラムに付与したプラグマと合わせたけど変わらん。",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1589353829.140500",
+        "text": "`gitrev` パッケージって誰か使ったことのある方いらっしゃいます? Template Haskell 使って実行バイナリの中に Git revision hashを書き込んでくれる可愛いパッケージで、Option parser library (`&lt;project root&gt;/src/TheApplicationProject/OptionParser.hs` みたいなファイル)で `--version` の実装に使っています。ですが、 `&lt;project root&gt;` で `git checkout` して `stack build` しても `stack exec executable -- --version` の Git revision hashが更新されないことが多数で、いちいち `stack clean` しないといけなくて困っています。`gitrev` の実装では `addDependentFile` を `.git/HEAD` やらに対してちゃんと実行しているように見えるので、行き詰まってしまっているのですが、どなたかお心当たりのある方いらっしゃいます?",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1589354479.144900",
+        "text": "gitrev はメンテされていないので githash の方が良いかも？\n<https://github.com/snoyberg/githash>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1589355093.145300",
+        "text": "自己解決しました。\n<https://wiki.haskell.org/GHC/Type_families>\nこの What is the problem? にある\n```GHC will happily infer the type g :: F a -&gt; F a. But you can't write that type signature or, indeed, the more specific one above. (Arguably this behaviour, where GHC infers a type it can't check, is very confusing. I suppose we could make GHC reject both programs, with and without type signatures.)```\nでした。\nそうか、GHC will infer the type, But You can't that type.\n確かに very confusing だった。 :bomb:",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1589360668.152400",
+        "text": "ありがとうございます。しかし、この問題は `gitrev` 及び `githash` 共通の問題であることが発覚しました。 `.git/HEAD` が コミットハッシュである際には `addDependentFile \".git/HEAD\"` されますが、 `.git/HEAD` が `ref: branch` の際には `addDependentFile \"branch\"` のみが呼ばれ、 `addDependentFile \".git/HEAD\"` は呼ばれないため、 `git checkout` では recompileはtriggerされない、という問題のようです。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1589360841.154300",
+        "text": "どっちも「現在のブランチを取得する」関数持ってるので明確にバグですね・・・。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1589360964.155200",
+        "text": "あとで適当にプルリク投げようと思います。お騒がせしました。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1589375299.159000",
+        "text": " この件ですが、 そもそも `.git/HEAD` が `ref: branch\\n` であるところを `drop 5` してブランチファイルを `branch\\n` として検索した結果「ブランチファイルが存在してない扱いになる」ことが判明しました。面白かったのでお知らせします。",
+        "user": "UL1HFJATE",
+        "type": "message"
     }
 ]
