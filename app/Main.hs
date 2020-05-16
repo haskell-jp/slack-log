@@ -23,17 +23,13 @@ limitations under the License.
 import           Control.Applicative      ((<|>))
 import           Control.Arrow            as Arrow
 import           Control.Exception        (bracket)
-import           Control.Monad            (filterM, unless, when)
+import           Control.Monad            (unless, when)
 import           Control.Monad.IO.Class   (liftIO)
 import           Control.Monad.Reader     (runReaderT)
 import qualified Data.Aeson.Encode.Pretty as Json
 import qualified Data.ByteString.Lazy     as BL
-import           Data.Char                (isAlphaNum)
-import           Data.Foldable            (for_)
 import qualified Data.HashMap.Strict      as HM
-import           Data.List                (groupBy, isPrefixOf, sortBy)
 import           Data.Maybe               (fromMaybe, maybeToList)
-import           Data.Ord                 (comparing)
 import qualified Data.Text                as T
 import qualified Data.Text.IO             as T
 import           Data.Time.Calendar       (fromGregorian)
@@ -43,6 +39,7 @@ import           Data.Yaml                as Yaml
 import           Safe                     (headMay)
 import qualified System.Directory         as Dir
 import           System.Envy              (FromEnv, decodeEnv, env, fromEnv)
+import           System.Exit              (die)
 import           System.FilePath          ((</>))
 import           System.IO                (BufferMode (NoBuffering), hGetEcho,
                                            hPrint, hPutStrLn, hSetBuffering,
@@ -145,18 +142,12 @@ generateHtmlCmd onlyIndex = do
 
 
 paginateJsonCmd :: IO ()
-paginateJsonCmd = do
-  Dir.setCurrentDirectory "docs/json"
-  channelLogPaths <- filterM isMessageLogJson =<< Dir.listDirectory "."
-  let logPathsByChannel =
-        groupBy (\x -> (== EQ) . comparing extractChannelName x)
-          $ sortBy existingMessageLogsOrder channelLogPaths
-  for_ logPathsByChannel $ \sameChannelPaths -> do
-    let channelName = extractChannelName $ head sameChannelPaths
-
-    paginateFiles defaultPageSize 1 channelName sameChannelPaths
-    -- putStrLn channelName
-    -- mapM_ (putStrLn . ("  " ++)) sameChannelPaths
+paginateJsonCmd =
+  die $ unlines
+    [ "Sorry, this feature is currently disabled!"
+    , "Related issue: https://github.com/haskell-jp/slack-log/issues/40."
+    , "If you're interested in the original source code, see https://github.com/haskell-jp/slack-log/blob/1c155c0ca0860c6a0e8394b8e1a29de6cc00b245/app/paginate-old-jsons.hs"
+    ]
 
 
 saveUsersList :: Slack.SlackConfig -> IO ()
@@ -238,17 +229,3 @@ addMessagesToChannelDirectory chanId msgs =
     --           messages are fetched.
     paginateFiles defaultPageSize basePageNum channelNameS (maybeToList mLatestPageFileName ++ [tmpFileName])
     Dir.removeFile tmpFileName
-
-
-extractChannelName :: FilePath -> String
-extractChannelName = takeWhile isAlphaNum
-
-
-isMessageLogJson :: FilePath -> IO Bool
-isMessageLogJson path = -- isPrefixOf "C4LFB6DE0"
-  (&&) (not $ isPrefixOf "." path) <$> (not <$> Dir.doesDirectoryExist path)
-
-
-existingMessageLogsOrder :: FilePath -> FilePath -> Ordering
-existingMessageLogsOrder a b =
-  comparing extractChannelName a b <> comparing length a b <> compare a b
