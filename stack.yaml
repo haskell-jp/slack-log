@@ -160,24 +160,30 @@ extra-deps:
 - tf-random-0.5@sha256:14012837d0f0e18fdbbe3d56e67da8622ee5e20b180abce952dd50bd9f36b326,3983
 - colour-2.3.5@sha256:b27db0a3ad40d70bdbd8510a104269f8707592e80757a1abc66a22ba25e5a42f,1801
 - mintty-0.1.2@sha256:76e5d929619e2fe419dc2292856c5c86fd8f52cb13531b169b1316fc604157c8,2894
+- butcher-1.3.3.1@sha256:0059dddba6818f00db146388a82e8c186638a67ed4d2d0cc28cdd417ef7aff37,3122
+- deque-0.4.3@sha256:b988c70a1599b10c7cb643e9c8b0ae4d0166bb2f39c1e13c06a0aeaff29bd9cb,1873
+- microlens-0.4.11.2@sha256:765ec5cdd12a459e65161f0e3cdbce84652bf634d62af3911ba24e4bf8d4d944,4455
+- microlens-th-0.4.3.5@sha256:dfa0c189c14241efcb9da101ff60544880304b8a80a565083c021ffccf5441a3,2310
+- multistate-0.8.0.2@sha256:fbb0d8ade9ef73c8ed92488f5804d0ebe75d3a9c24bf53452bc3a4f32b34cb2e,3713
+- unsafe-0.0@sha256:93e58ac9aa1f4f9c50e12662a211f6c0b6f28b65c570ff17359851451c9bcb3a,1851
+- strict-list-0.1.5@sha256:7a613f1217f9076f19e80b8b61aa071fea7e853de999d2fb72a7edae2033d85e,1653
 
 # NOTE: Fix the following packages later to build them without --allow-newer
 #WARNING: Ignoring transformers-compat's bounds on transformers (>=0.3 && ==0.2.*); using transformers-0.5.6.2.
-#Reason: allow-newer enabled.
-#WARNING: Ignoring slack-web's bounds on base (>=4.11 && <4.13); using base-4.14.0.0.
-#Reason: allow-newer enabled.
+#WARNING: Ignoring butcher's bounds on base (>=4.9 && <4.14); using base-4.14.0.0.
+
+# Done by https://github.com/lspitzner/multistate/pull/5
+#WARNING: Ignoring multistate's bounds on base (>=4.9 && <4.14); using base-4.14.0.0.
+
+# Done by https://github.com/haskell-servant/servant/pull/1297
 #WARNING: Ignoring servant's bounds on QuickCheck (>=2.12.6.1 && <2.14); using QuickCheck-2.14.
-#Reason: allow-newer enabled.
 #WARNING: Ignoring servant's bounds on base (>=4.9 && <4.14); using base-4.14.0.0.
-#Reason: allow-newer enabled.
 #WARNING: Ignoring servant-client's bounds on base (>=4.9 && <4.14); using base-4.14.0.0.
-#Reason: allow-newer enabled.
 #WARNING: Ignoring servant-client-core's bounds on base (>=4.9 && <4.14); using base-4.14.0.0.
-#Reason: allow-newer enabled.
 #WARNING: Ignoring servant-client-core's bounds on template-haskell (>=2.11.1.0 && <2.16); using template-haskell-2.16.0.0.
-#Reason: allow-newer enabled.
-#WARNING: Ignoring tz's bounds on template-haskell (>=2.6 && <2.16); using template-haskell-2.16.0.0.
-#Reason: allow-newer enabled.
+#
+#DONE WARNING: Ignoring slack-web's bounds on base (>=4.11 && <4.13); using base-4.14.0.0.
+#DONE WARNING: Ignoring tz's bounds on template-haskell (>=2.6 && <2.16); using template-haskell-2.16.0.0.
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
