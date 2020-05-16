@@ -1,0 +1,302 @@
+[
+    {
+        "ts": "1589607183.067300",
+        "text": "とりあえず issue 投げた <https://github.com/bos/math-functions/issues/62>",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1589607215.067500",
+        "text": "なるほど、一旦IDEの方だけ入れれば大丈夫そうかな\n&gt;  PureScript IDE は PureScript Language Support に依存しているので、 PureScript IDE だけを気にすれば良さそうだ。\n<https://qiita.com/bouzuya/items/868eafc19b96619c025a>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589607265.067800",
+        "text": "PureScript IDE 入れたら PureScript Language Support も自動的に入った :joy:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589607408.068200",
+        "text": "PureScript IDE で何ができるのか見てる :eyes:\n<https://marketplace.visualstudio.com/items?itemName=nwolverson.ide-purescript>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589608570.068800",
+        "text": "pulp, bower の時代を経て spago があるのかー\n<https://qiita.com/amderbar/items/60f18250423499225b70>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589608697.069100",
+        "text": "リストの書き方がちょっと違う :eyes:\n```&gt; [0..10]\n[(0 : 1 : 2 : 3 : 4 : 5 : 6 : 7 : 8 : 9 : 10 : Nil)]\n\n&gt; 0..10\n(0 : 1 : 2 : 3 : 4 : 5 : 6 : 7 : 8 : 9 : 10 : Nil)```",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589608748.069300",
+        "text": "psciはshadowing許してくれないのね\n```&gt; ns = range 0 100\n&gt; ns = range 0 999\nError found:\nin module $PSCI\nat :1:1 - 1:17 (line 1, column 1 - line 1, column 17)\n\n  Multiple value declarations exist for ns.```",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589609738.069500",
+        "text": "サーバー、WebSocket ベースなんですね :eyes:",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1589609765.069700",
+        "text": "ですです！リアルタイムに反映させたかったので",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589609834.069900",
+        "text": "プル型のリクエストも websocket でやりとりしてます・・・？",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1589609870.070100",
+        "text": "してますねｗ\nたしかにこれはREST APIとかで叩けば良いのか :eyes: w",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589609928.070300",
+        "text": "PureScriptでHelloWorldできました :raised_hands:\n<https://gyazo.com/2d0e7be88233613d46a92d5c19ff121a>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589609963.070800",
+        "text": "Mainの型書くのにライブラリインポートしないといけないの!?w",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589610051.071600",
+        "text": "吐き出されたJSを見てたらファイルもコード量も多い。\nspago bundle-app を使えば未使用コードを削除した上で１ファイルにまとめてくれるみたい :eyes:\n<https://github.com/purescript/spago#bundle-a-project-into-a-single-js-file>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589610084.072400",
+        "text": "みなさん、stack使ってるからと言って最新のGHC使うのを諦めてませんか？筋力 :muscle: と少しの勇気（ --allow-newer ）で解決しましょう！\n<https://github.com/haskell-jp/slack-log/commit/1e51d3f482c14f9106538a1ce9d1ea03ee2eee27#diff-fafd0cdcd559a7b124cc61c29413fb54>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1589610127.072600",
+        "text": "とりあえずslack-log自身のテストは通っているので安心 :relieved:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1589610259.072800",
+        "text": "<@U4LNDESN8> 最初の接続時にルームの情報を全部プルで取ってくるところがあって、ここもWebSocketでリクエストを送ってサーバーから送ってもらう感じで実装してたんですが、おっしゃる通りどこか適当なURLを叩けば返してくれるようにすればWebSocketの複雑な実装を減らせそうですね :eyes: :arigatougozaimasu:\n<https://github.com/lotz84/remote-house/blob/master/src/RemoteHouse/Server/WebSockets/Types.hs#L21>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589610409.073100",
+        "text": "同じディレクトリでspago管理とstack管理って共存できるんだろうか :eyes: ファイルはかぶってないしできそうだけど",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589610464.073300",
+        "text": "どうなんだろ？経験上、フロントエンドのディレクトリは分けた方がよさそうですが・・・\n`package.json` , `packages.dhall` , `package.yaml` とか、入り乱れてきます",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1589610567.073600",
+        "text": "WebSocket でプル型な実装したことありますが、結構つらかったです。\nエラー処理とかリトライとか・・・",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1589610654.073800",
+        "text": "なるほど確かに :sweat_smile: 今は完全にそこらへん無視しちゃってますね…",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589612340.074400",
+        "text": "spago と stack 共存のプロジェクト設定できた :raised_hands:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589612361.074600",
+        "text": "まずは当たり障りのないJSをPSにうつしていくか〜\n<https://github.com/lotz84/remote-house/blob/master/static/main.js>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589612471.074900",
+        "text": "既存コードとの連携方法はここに書いてありそうなので読む :eyes:\n<https://book.purescript.org/chapter10.html>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589612524.075100",
+        "text": "そういえばここまで文法の勉強してないけどHaskellのノリでいけるやろーという軽い気持ちで突き進んでる :sweat_smile: 次壁にぶつかったら PureScript by Example を真面目に読む",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589613159.075400",
+        "text": "spago bundle-app で生成したJSをminifyする機能は spago にはついてないのかな",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589615006.075600",
+        "text": "素直に移植してたらすごい型が生成された :joy:\n<https://gyazo.com/3f4aa53720e79251b0aaab0a7c98d38d>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589615440.075900",
+        "text": "heroku デプロイできるように docker で ps をビルドする対応中",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589616345.078600",
+        "text": "今日はそろそろ離脱します。\nお疲れさまでした〜",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1589616383.079400",
+        "text": "<@U4LNDESN8> できれば何か成果を共有していただけるとありがたいです :pray:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1589616819.084900",
+        "text": "ところでもう一つ、今度は技術的なことじゃなくて恐縮ですが、Rustオンラインもくもく会 <https://rust-online.connpass.com/> などを見習って、このもくもく会を毎週やろう、といったら、協力してくれる方はいらっしゃいませんか？\nオンライン勉強会になったことを機に、今後私以外のメンバーでも運営できることを目指して、ちょっとやり方を変えようかと思っています。\n私自身毎週参加できるか不透明なので、協力していただける方で当番を決めて、担当した人がイベントページの作成や、 <https://twitter.com/haskell_jp> での宣伝、司会をやっていただきたいです。\nCOVID-19の流行が落ち着いてからは、慣れた人がリアル会場でも月一回程度開催するのもいいでしょう。\n（場所も朝日ネットはおろか、都心である必要もないと思います。みんなオンラインで繋がれますし！）\n\nどなたか、運営に興味のある方いらっしゃいませんか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1589617114.085100",
+        "text": "今日初参加であまり空気感の分かっていない私がいうのもなんですが,オンラインでやるのであれば,ZoomやHangoutなどをつないで画面共有が可能な人が(特に話さない)live codingなどを順番にするというのも面白いように思うのですがいかがでしょうか?",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1589617366.085300",
+        "text": "そういう新しい企画も期待したいですね。\n個人的には、基本的に各人が各人の作業に集中する、という方針なので、やりたい人が勝手にやるのは構いませんが、運営として、全員でやる企画にするつもりは現状ないですね...\nでも、誰かがそれをやれば質問しやすい空気が作れるかもなので、試しにやりたい気もします（曖昧な態度ですみません :sweat_drops:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1589617575.085500",
+        "text": "いえ,受験生などが良くやっている勉強配信的なものを想像していましたが,たしかに｢もくもく会｣ですからね.",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1589617603.085800",
+        "text": "毎週は無理かもしれませんが司会含め協力します :raising_hand:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589617655.086100",
+        "text": "はい、二週にいっぺんでも、都合のいいときに開催できれば！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1589617660.086400",
+        "text": "画面共有とかしたいの分かります。個人的にはもくもく会とDiscordの相性は良さそうと感じてます :eyes:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589617845.087000",
+        "text": "運営協力します！",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1589618227.087300",
+        "text": "<@U4KPPQW7K> <@U59TQ3MJ9> ありがとうございます！\n早速二人にconnpassの管理者権限とTwitterのアカウントの投稿権限を与えました。承認お願いします！\nTwitterアカウントの投稿権限を使えば、TweetDeckで <https://twitter.com/haskell_jp> として投稿ができるようになります。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1589618434.087500",
+        "text": ":arigatougozaimasu: ! connpass, Twitter 共に確認しました :ok_woman:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589618963.088000",
+        "text": "ありがとうございます！承認しましたー",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1589619446.090100",
+        "text": "（そろそろ１８時なので）\n今日の成果です〜！\nremote-house のフロントを PureScript で開発できるようにプロジェクトを設定し、一部のJSコードをPSで置き換えましたー :muscle:\nコミットは長いのでちょい分かりにくいですが一応貼っておきますｗ\n<https://github.com/lotz84/remote-house/commit/8a362d655849b6aad07f0c827dce2dd56f8c99ff>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1589619604.090800",
+        "text": "ああー、すみません、オンラインにしてからは成果の共有を18時にしてました :sweat_drops:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1589619643.091200",
+        "text": "<!here> と、いうわけで時間です！何か、やったことを軽くご共有いただけると幸いです hask(_ _)eller",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1589619859.094900",
+        "text": "私は当初の予定どおり <https://github.com/haskell-jp/slack-log/issues/23> に取り組むつもりだったのですが、不意に時代はGHC 8.10だよね、と思い立ち、slack-logをGHC 8.10でビルドして、--allow-newerしないと解決できない依存関係をひたすら直すという泥臭いことをしてました 。\n:point_down: 以下、送ったPR（と、コミット）です。ほとんどbaseパッケージのupper boundを上げただけです :cold_sweat:\n<https://github.com/lspitzner/butcher/pull/6>\n<https://github.com/nilcons/haskell-tz/pull/24>\n<https://github.com/jpvillaisaza/slack-web/pull/81>\n<https://github.com/haskell-hvr/regex-posix/pull/6>\n<https://github.com/haskell-hvr/regex-base/pull/5>\n<https://github.com/igrep/template-helper/commit/5255a3e305c6dfb6762e8a10367e8f528b4801fc> （もうメンテされてなさそうなパッケージなのでforkだけ作った）\n一通り終わったのでこれから本題に取り組みます :sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1589620081.098600",
+        "text": "お疲れさまでした.\n可視化の方はPrivateなので,あまり見せられるものがありませんが,とりあえずグラフの出力は普通にできるようになりました.\nただ,そもそも出てきた値がおかしかったので内部で動いている代数型会計処理のパッケージなどを色々と修正しておりました.\n\n<https://github.com/yakagika/ExchangeAlgebra>",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1589620298.102000",
+        "text": "まだ,会計の方はきちんとした会計計算には利用できるレベルではありませんが,こんな感じで振替処理なんかを定義できます.",
+        "user": "UEC0PN1PA",
+        "type": "message"
+    },
+    {
+        "ts": "1589620628.107200",
+        "text": "ghcのコード読んでたのは成果物なしです\n\nhaxlの解説(<https://simonmar.github.io/posts/2015-10-20-Fun-With-Haxl-1.html> )読んで、とりあえず雑に使ってみました\n<https://github.com/nakaji-dayo/learn-haxl>\nこの後は、Backend for frontendに使うサンプル実装的なの作ってみようと思ってます。",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1589621320.115500",
+        "text": "お疲れ様です。\nDomain Modeling Made Functionalの第5章を読みながらしこしこメモを取ってました。\n<https://gist.github.com/chupaaaaaaan/5fc190812b73f434f1a6c4827891292b>\n（人に見せられるものではないですが、成果ということで・・・）\nどっかで聞いたことある話ダナーと思いながら、もうちょっと読み進めて見ようかと思います。\n\nまた全然別の話で、Emacs + HIEを使っているときの不具合について何が起こっているかちょっと調べていました。\nEmacs + HIEを使っています。事象としては、以下のような感じです。\n• HIEのプロセスを開始したときのみ、コンパイルエラーなどが存在すれば通知される\n• それ以降、ソースコードを修正しても（別の箇所でコンパイルエラーが発生するようにしても）、その箇所についての通知はされない\n• HIEを再起動したら、当該箇所についての通知が発生する\nまだあまり原因もわかっていないのですが、同様の事象に遭遇したことがある人がいれば、お話を聞きたいです。",
+        "user": "U55V45LQ0",
+        "type": "message"
+    },
+    {
+        "ts": "1589621774.116800",
+        "text": "まだ成果を共有していない方もいらっしゃるようですがそろそろお開きと言うことで！お疲れ様でした！\n私はもうちょい続けて件のissueを解決します。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]
