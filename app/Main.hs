@@ -29,9 +29,7 @@ import           Control.Monad.Reader     (runReaderT)
 import qualified Data.Aeson.Encode.Pretty as Json
 import qualified Data.ByteString.Lazy     as BL
 import qualified Data.HashMap.Strict      as HM
-import           Data.List                (unzip)
 import           Data.Maybe               (fromMaybe, maybeToList)
-import           Data.Monoid              ((<>))
 import qualified Data.Text                as T
 import qualified Data.Text.IO             as T
 import           Data.Time.Calendar       (fromGregorian)

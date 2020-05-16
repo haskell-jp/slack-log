@@ -16,7 +16,7 @@ module SlackLog.Pagination
 where
 
 
-import           Control.Monad.Fail       (MonadFail, fail)
+import           Control.Monad.Fail       (fail)
 import           Data.Aeson               (FromJSON, ToJSON, eitherDecode)
 import           Data.Aeson.Encode.Pretty (encodePretty)
 import qualified Data.ByteString          as B

@@ -11,7 +11,6 @@ import qualified Data.Aeson                as Json
 import           Data.Maybe                (fromJust)
 import qualified Data.Text                 as T
 import           Data.Time.Clock.POSIX     (posixSecondsToUTCTime)
-import           Data.Word                 (Word)
 import qualified Test.QuickCheck           as Q
 import           Test.QuickCheck.Instances ()
 import qualified Web.Slack.Common          as Slack
