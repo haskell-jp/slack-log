@@ -23,13 +23,17 @@ limitations under the License.
 import           Control.Applicative      ((<|>))
 import           Control.Arrow            as Arrow
 import           Control.Exception        (bracket)
-import           Control.Monad            (when)
+import           Control.Monad            (filterM, unless, when)
 import           Control.Monad.IO.Class   (liftIO)
 import           Control.Monad.Reader     (runReaderT)
 import qualified Data.Aeson.Encode.Pretty as Json
 import qualified Data.ByteString.Lazy     as BL
+import           Data.Char                (isAlphaNum)
+import           Data.Foldable            (for_)
 import qualified Data.HashMap.Strict      as HM
+import           Data.List                (groupBy, isPrefixOf, sortBy)
 import           Data.Maybe               (fromMaybe, maybeToList)
+import           Data.Ord                 (comparing)
 import qualified Data.Text                as T
 import qualified Data.Text.IO             as T
 import           Data.Time.Calendar       (fromGregorian)
@@ -51,11 +55,14 @@ import qualified Web.Slack.User           as User
 import           SlackLog.Html
 import           SlackLog.Pagination      (chooseLatestPageOf, defaultPageSize,
                                            paginateFiles)
-import           SlackLog.Types           (ChannelId, TargetChannels,
-                                           TargetChannel(..),
+import           SlackLog.Types           (ChannelId, TargetChannel (..),
+                                           TargetChannels,
                                            Visibility (Private, Public),
                                            targetChannels)
 import           SlackLog.Util            (failWhenLeft, readJsonFile)
+import           UI.Butcher.Monadic       (addCmd, addCmdImpl, addHelpCommand,
+                                           addSimpleBoolFlag, flagHelpStr,
+                                           mainFromCmdParserWithHelpDesc)
 import           Web.Slack.Instances      ()
 
 
@@ -82,7 +89,17 @@ main = do
   hSetBuffering stdin  NoBuffering
   hSetBuffering stdout NoBuffering
   hSetBuffering stderr NoBuffering
+  mainFromCmdParserWithHelpDesc $ \helpDesc -> do
+    addHelpCommand helpDesc
+    addCmd "save" $ addCmdImpl saveCmd
+    addCmd "generate-html" $ do
+      onlyIndex <- addSimpleBoolFlag "i" ["only-index"] $ flagHelpStr "generates only index.html"
+      addCmdImpl $ generateHtmlCmd onlyIndex
+    addCmd "paginate-json" $ addCmdImpl paginateJsonCmd
 
+
+saveCmd :: IO ()
+saveCmd = do
   config <- Yaml.decodeFileThrow "slack-log.yaml"
   apiConfig <- Slack.mkSlackConfig =<< slackApiToken <$> (failWhenLeft =<< decodeEnv)
 
@@ -110,6 +127,36 @@ main = do
 
     when (oldTss /=  newTss) $
       generateIndexHtml ws newNames
+
+
+generateHtmlCmd :: Bool -> IO ()
+generateHtmlCmd onlyIndex = do
+  logConfig <- Yaml.decodeFileThrow "slack-log.yaml"
+  Dir.withCurrentDirectory "docs" $ do
+    ws <- loadWorkspaceInfo logConfig "json"
+
+    namesByChannel <- for (HM.keys $ targetChannels logConfig) $ \chanId -> do
+      jsonPaths <- collectTargetJsons chanId
+      unless onlyIndex $
+        convertJsonsInChannel ws chanId jsonPaths
+      return (chanId, jsonPaths)
+
+    generateIndexHtml ws namesByChannel
+
+
+paginateJsonCmd :: IO ()
+paginateJsonCmd = do
+  Dir.setCurrentDirectory "docs/json"
+  channelLogPaths <- filterM isMessageLogJson =<< Dir.listDirectory "."
+  let logPathsByChannel =
+        groupBy (\x -> (== EQ) . comparing extractChannelName x)
+          $ sortBy existingMessageLogsOrder channelLogPaths
+  for_ logPathsByChannel $ \sameChannelPaths -> do
+    let channelName = extractChannelName $ head sameChannelPaths
+
+    paginateFiles defaultPageSize 1 channelName sameChannelPaths
+    -- putStrLn channelName
+    -- mapM_ (putStrLn . ("  " ++)) sameChannelPaths
 
 
 saveUsersList :: Slack.SlackConfig -> IO ()
@@ -191,3 +238,17 @@ addMessagesToChannelDirectory chanId msgs =
     --           messages are fetched.
     paginateFiles defaultPageSize basePageNum channelNameS (maybeToList mLatestPageFileName ++ [tmpFileName])
     Dir.removeFile tmpFileName
+
+
+extractChannelName :: FilePath -> String
+extractChannelName = takeWhile isAlphaNum
+
+
+isMessageLogJson :: FilePath -> IO Bool
+isMessageLogJson path = -- isPrefixOf "C4LFB6DE0"
+  (&&) (not $ isPrefixOf "." path) <$> (not <$> Dir.doesDirectoryExist path)
+
+
+existingMessageLogsOrder :: FilePath -> FilePath -> Ordering
+existingMessageLogsOrder a b =
+  comparing extractChannelName a b <> comparing length a b <> compare a b
