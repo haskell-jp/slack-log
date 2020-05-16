@@ -2,7 +2,6 @@ import           Control.Monad (filterM)
 import           Data.Char           (isAlphaNum)
 import           Data.Foldable       (for_)
 import           Data.List           (groupBy, isPrefixOf, sortBy)
-import           Data.Monoid         ((<>))
 import           Data.Ord            (comparing)
 import qualified System.Directory    as Dir
 
