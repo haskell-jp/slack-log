@@ -23,6 +23,7 @@ dependencies:
 - aeson
 - aeson-pretty
 - bytestring
+- butcher
 - directory
 - envy
 - extra
@@ -47,16 +48,6 @@ library:
 executables:
   slack-log:
     main:                Main.hs
-    source-dirs:         app
-    dependencies:
-    - slack-log
-  paginate-old-jsons:
-    main:                paginate-old-jsons.hs
-    source-dirs:         app
-    dependencies:
-    - slack-log
-  convert-old-jsons-to-htmls:
-    main:                convert-old-jsons-to-htmls.hs
     source-dirs:         app
     dependencies:
     - slack-log
