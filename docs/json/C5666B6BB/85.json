@@ -118,5 +118,11 @@
         "text": "<@U013KEH28TG> has joined the channel",
         "user": "U013KEH28TG",
         "type": "message"
+    },
+    {
+        "ts": "1589722941.170400",
+        "text": "haskell-gi における、GObject Introspection の Haskellの命名規則に反する識別子名の取扱について他の方の意見が聞きたいので、質問します。\n現状では、小文字始まりの識別子は先頭大文字化、その他はそのまま（例：`ABC` → `ABC`、`channelName` → `ChannelName`）なのですが、\nこれでは数字始まりの識別子名が扱えない為に、<https://github.com/haskell-gi/haskell-gi/issues/292> にて、そのような定数名tk先頭が大文字ならそのまま、そうでなければ `Const'` を接頭（例：`ABC` → `ABC`、`channelName` → `Const'channelName`、`3270_Attn` → `Const'3270_Attn` ）しようという話になっています。\n恐らく GObject の識別子名には `'` は用いることができないものと思われる（C言語において識別子名に `'` は用いることができない故 <https://twitter.com/na4zagin3/status/1262012340339265536>）ので、この方針は機能するものと思います。\nしかしながら、小文字始まりの定数名にも `Const'` が着くのは若干気持ち悪さがあったりしますし、他の方法等思いつく方等いらっしゃいますか？",
+        "user": "U6JPU2DD2",
+        "type": "message"
     }
 ]
