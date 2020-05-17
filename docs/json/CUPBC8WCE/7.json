@@ -142,5 +142,17 @@
         "text": "そうそう、これまでイベント管理者は参加登録しませんでしたが、今後は来たり来なかったりになると思うので、来れる日は登録しておきましょう。",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1589684198.125700",
+        "text": "今更ながら共有します。\n\n背景\nrow polymorphic な操作をジェネリックに行うものを作っています。\n<https://github.com/kayhide/wakame>\n内部で自作 heterogeneous list を使っています。\n\n今回のもくろみ\nジェネリックプログラミング用のライブラリ sop が使えるかも？\n<https://hackage.haskell.org/package/generics-sop>\n\n成果\n以下のことがわかりました。\n• sop スタイルでは ghc とは別の `Generic` タイプクラスを使う\n• sop 版 `Rep` が SOP = sums of products になっている\n• データタイプ &lt;-&gt; `Rep` の変換と、SOP データタイブの定義、操作は別ライブラリ\nこれをもとにして、自作のリストを sop の heterogeneous list に置き換えてみました。\n<https://github.com/kayhide/wakame/commit/df910058e2d50aa29052da4a7ffafdf157ad2922>",
+        "user": "U4LNDESN8",
+        "type": "message"
+    },
+    {
+        "ts": "1589690328.126800",
+        "text": "直されてました。 <https://github.com/bos/math-functions/commit/546bb421b1fd875e4afd8635c908e3ec77a946bc>",
+        "user": "U61BA2X0U",
+        "type": "message"
     }
 ]
