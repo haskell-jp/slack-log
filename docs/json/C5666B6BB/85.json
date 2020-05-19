@@ -124,5 +124,23 @@
         "text": "haskell-gi における、GObject Introspection の Haskellの命名規則に反する識別子名の取扱について他の方の意見が聞きたいので、質問します。\n現状では、小文字始まりの識別子は先頭大文字化、その他はそのまま（例：`ABC` → `ABC`、`channelName` → `ChannelName`）なのですが、\nこれでは数字始まりの識別子名が扱えない為に、<https://github.com/haskell-gi/haskell-gi/issues/292> にて、そのような定数名tk先頭が大文字ならそのまま、そうでなければ `Const'` を接頭（例：`ABC` → `ABC`、`channelName` → `Const'channelName`、`3270_Attn` → `Const'3270_Attn` ）しようという話になっています。\n恐らく GObject の識別子名には `'` は用いることができないものと思われる（C言語において識別子名に `'` は用いることができない故 <https://twitter.com/na4zagin3/status/1262012340339265536>）ので、この方針は機能するものと思います。\nしかしながら、小文字始まりの定数名にも `Const'` が着くのは若干気持ち悪さがあったりしますし、他の方法等思いつく方等いらっしゃいますか？",
         "user": "U6JPU2DD2",
         "type": "message"
+    },
+    {
+        "ts": "1589761621.170800",
+        "text": "完全に決めの問題なんで好みが大きいとは思いますが、厳密に名前の衝突を避ける必要があるなら Const' はよい案ではないでしょうか。\n個人的にはさすがにそこまでしなくとも `C'` でよくない？という気はします。\nいずれにしても、慣習として関わる人が納得できるものであればなんでもよいかと",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1589770742.178400",
+        "text": "Template haskellの再コンパイル時のdirtiness checkについて質問があって、 `addDependentFile` でディレクトリでない存在するファイルの変更・削除の追跡ができるのはわかるのですが、ディレクトリに対するファイルの削除・追加とか、ファイルの新規作成の追跡ってできないものでしょうか・・・。この前お聞きした `githash` だの `gitrev` だのにpull requestを書きたいのですが、Gitブランチの参照先の変化がファイルの新規作成によって起こる可能性があって、困り果てています。 <https://haskell-jp.slack.com/archives/C5666B6BB/p1589353829140500|https://haskell-jp.slack.com/archives/C5666B6BB/p1589353829140500>",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1589804092.181600",
+        "text": "ありがとうございます！　私も `C'` で良いと思いますし、実質的に IBus バウンディングにしか影響が無いようなので、 `C'`にしてもらいました",
+        "user": "U6JPU2DD2",
+        "type": "message"
     }
 ]
