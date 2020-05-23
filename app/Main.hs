@@ -163,6 +163,7 @@ saveUsersList apiConfig =
 
 saveGroupsList :: Slack.SlackConfig -> TargetChannels -> IO ()
 saveGroupsList apiConfig targets =
+  -- TODO: https://github.com/haskell-jp/slack-log/issues/42
   Slack.groupsList
     `runReaderT` apiConfig >>= \case
       Right (Group.ListRsp chs) -> do
@@ -189,6 +190,7 @@ saveChannel cfg tss chanId vis = do
   new <- Slack.mkSlackTimestamp <$> getCurrentTime
   let old = fromMaybe (Slack.mkSlackTimestamp $ UTCTime (fromGregorian 2017 1 1) 0) (HM.lookup chanId tss)
   print old
+  -- TODO: https://github.com/haskell-jp/slack-log/issues/42
   let hist =
         case vis of
             Private -> Slack.groupsHistory
