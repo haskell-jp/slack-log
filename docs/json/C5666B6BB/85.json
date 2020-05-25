@@ -160,5 +160,17 @@
         "text": "<@U01448XBRMY> has joined the channel",
         "user": "U01448XBRMY",
         "type": "message"
+    },
+    {
+        "ts": "1590323492.191500",
+        "text": "すみません、ちょっと詰まってしまったので質問させてください。\nFreeBSD(12.1)上でncursesパッケージをビルドすると以下のようなエラーメッセージが出ます。\n<https://hackage.haskell.org/package/ncurses>\n(Ver 0.2.16)\n&gt; &gt;&gt; cabal build\n(略)\n[4 of 5] Compiling UI.NCurses       ( dist/build/UI/NCurses.hs, dist/build/UI/NCurses.o )\n&gt; lib/UI/NCurses.chs:442:27: error:\n&gt;     * Couldn't match type `CWchar' with `CInt'\n&gt;       Expected type: CWString -&gt; IO CInt\n&gt;         Actual type: Ptr CInt -&gt; IO CInt\n&gt;     * In the second argument of `withCWString', namely `(waddwstr win)'\n&gt;       In the expression: withCWString str (waddwstr win)\n&gt;       In the second argument of `($)', namely\n&gt;         `\\ win -&gt; withCWString str (waddwstr win)'\n&gt;     |\n&gt; 442 |         withCWString str ({# call waddwstr #} win)\n&gt;     |                           ^^^^^^^^^^^^\n&gt; \n&gt; lib/UI/NCurses.chs:447:38: error:\n&gt;     * Couldn't match type `CWchar' with `CInt'\n&gt;       Expected type: CWString -&gt; IO CInt\n&gt;         Actual type: Ptr CInt -&gt; IO CInt\n&gt;     * In the second argument of `withCWString', namely `(waddwstr win)'\n&gt;       In the expression: withCWString (T.unpack txt) (waddwstr win)\n&gt;       In the second argument of `($)', namely\n&gt;         `\\ win -&gt; withCWString (T.unpack txt) (waddwstr win)'\n&gt;     |\n&gt; 447 |         withCWString (T.unpack txt) ({# call waddwstr #} win)\n&gt;     |                                      ^^^^^^^^^^^^\n&gt; \n&gt; lib/UI/NCurses.chs:725:53: error:\n&gt;     * Couldn't match type `CWchar' with `CInt'\n&gt;       Expected type: Ptr CInt\n&gt;         Actual type: Ptr CWchar\n&gt;     * In the third argument of `hsncurses_init_cchar_t', namely\n&gt;         `cChars'\n&gt;       In a stmt of a 'do' block:\n&gt;         hsncurses_init_cchar_t\n&gt;           (CCharT pBuf) cAttrs cChars (fromIntegral cCharsLen)\n&gt;       In the expression:\n&gt;         do hsncurses_init_cchar_t\n&gt;              (CCharT pBuf) cAttrs cChars (fromIntegral cCharsLen)\n&gt;            io (CCharT pBuf)\n&gt;     |\n&gt; 725 |         {# call hsncurses_init_cchar_t #} (CCharT pBuf) cAttrs cChars (fromIntegral cCharsLen)\n&gt;     |\nエラーメッセージにあるとおり、引数の型が合わないことが原因のようです。\nFFIで呼び出すC言語の関数waddwstrはヘッダファイル(ncurses.h)では\nextern NCURSES_EXPORT(int) waddwstr(WINDOW *,const wchar_t *);のように宣言されています。\nしかし、c2hsでNCurses.chsがNCurses.hsファイルに展開されると\nforeign import ccall safe \"UI/NCurses.chs.h waddwstr\"\n  waddwstr :: ((Window) -&gt; ((C2HSImp.Ptr C2HSImp.CInt) -&gt; (IO C2HSImp.CInt)))\nとなってしまいます。\n\nどのあたりを確認すべきか、何かアドバイスがありましたら宜しくお願いします",
+        "user": "UU0KWNXRN",
+        "type": "message"
+    },
+    {
+        "ts": "1590364248.192900",
+        "text": "Haskell入門するためにhaskell-ide-engineをVSCodeでやろうと思って公式のインストールをやったのですが、正しくインストールできているかわかりません。確認する方法はありますか？",
+        "user": "ULGDZNXS7",
+        "type": "message"
     }
 ]
