@@ -172,5 +172,89 @@
         "text": "Haskell入門するためにhaskell-ide-engineをVSCodeでやろうと思って公式のインストールをやったのですが、正しくインストールできているかわかりません。確認する方法はありますか？",
         "user": "ULGDZNXS7",
         "type": "message"
+    },
+    {
+        "ts": "1590365177.193000",
+        "text": "試しに `stack new` なりを実行してプロジェクトを作って、そのプロジェクトを開いてエラーが起きないことを確認するのが一番でしょう。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1590366757.193200",
+        "text": "hie自体はhie-wrapper path/to/Module.hsして動作確認できます",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1590388382.193800",
+        "text": "手元のLinux (Debian 10)で同じパッケージをインストールしても問題が発生しなかったので、FreeBSD版のncursesがどういう仕様になっているか、ですかね...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1590389236.194100",
+        "text": "*hie-wrapper path/to/Module.hsをしたところ、*\n```Note: loading of 'Setup.hs' is not supported.```",
+        "user": "ULGDZNXS7",
+        "type": "message"
+    },
+    {
+        "ts": "1590389244.194300",
+        "text": "というメッセージが出ました。",
+        "user": "ULGDZNXS7",
+        "type": "message"
+    },
+    {
+        "ts": "1590389254.194500",
+        "text": "これは正常に動作しているということなのでしょうか？",
+        "user": "ULGDZNXS7",
+        "type": "message"
+    },
+    {
+        "ts": "1590389276.194700",
+        "text": "全文↓\n```2020-05-25 15:46:04.67934 [ThreadId 4] - run entered for hie-wrapper(hie-wrapper) Version 1.2, Git revision ee5b98c6bd3610ff90cb5373608a09c5813dcb69 (3829 commits) x86_64 ghc-8.8.2\n2020-05-25 15:46:04.680157 [ThreadId 4] - Current directory:/Users/kent\n2020-05-25 15:46:04.680199 [ThreadId 4] - Operating system:darwin\n2020-05-25 15:46:04.680228 [ThreadId 4] - args:[\"path/to/Module.hs\"]\n2020-05-25 15:46:04.682433 [ThreadId 4] - Could not find a Project for file: /Users/kent/File.hs\n2020-05-25 15:46:04.68252 [ThreadId 4] - Module \"/Users/kent/File.hs\" is loaded by Cradle: Cradle {cradleRootDir = \"/Users/kent\", cradleOptsProg = CradleAction: Direct}\n2020-05-25 15:46:04.682561 [ThreadId 4] - Cradle directory:/Users/kent\n2020-05-25 15:46:04.682781 [ThreadId 4] - Executing GHC on path with args: --numeric-version\n2020-05-25 15:46:04.779279 [ThreadId 4] - Project GHC version:8.8.3\n2020-05-25 15:46:04.779462 [ThreadId 4] - hie exe candidates :[\"hie-8.8.3\",\"hie-8.8\",\"hie\"]\n2020-05-25 15:46:04.779869 [ThreadId 4] - found hie exe at:/Users/kent/.local/bin/hie-8.8\n2020-05-25 15:46:04.779931 [ThreadId 4] - args:[\"path/to/Module.hs\"]\n2020-05-25 15:46:04.779992 [ThreadId 4] - launching ....\n\n\n\nRunning HIE(hie-8.8)\n  Version 1.2, Git revision ee5b98c6bd3610ff90cb5373608a09c5813dcb69 (3829 commits) x86_64 ghc-8.8.2\nTo run as a LSP server on stdio, provide the '--lsp' argument\nCurrent directory:/Users/kent\n\nargs:[\"path/to/Module.hs\"]\n\nLooking for project config cradle...\n\n2020-05-25 15:46:04.807328 [ThreadId 4] - Could not find a Project for file: /Users/kent/File.hs\n2020-05-25 15:46:04.807789 [ThreadId 4] - Module \"/Users/kent/File.hs\" is loaded by Cradle: Cradle {cradleRootDir = \"/Users/kent\", cradleOptsProg = CradleAction: Direct}\n2020-05-25 15:46:04.808 [ThreadId 4] - Executing GHC on path with args: --numeric-version\n2020-05-25 15:46:04.940545 [ThreadId 4] - Executing GHC on path with args: --print-libdir\n\n\n###################################################\n\nCradle: GHC session\nProject Ghc version: 8.8.3\nLibdir: Just \"/usr/local/Cellar/ghc/8.8.3/lib/ghc-8.8.3\"\nSearching for Haskell source files...\nFound 0 Haskell source files.\n\n###################################################\n\nFound the following files:\n\n\n\nLoad them all now. This may take a very long time.\n\n\n###################################################\n###################################################\n\nDumping diagnostics:\n\n\n\n\nNote: loading of 'Setup.hs' is not supported.\n2020-05-25 15:46:05.313744 [ThreadId 4] - done```",
+        "user": "ULGDZNXS7",
+        "type": "message"
+    },
+    {
+        "ts": "1590389403.194900",
+        "text": "詳細はわかりませんが、とりあえずインストールはうまくいっているとみていいと思います。\n（追記）あとは使って確かめた方がよいかと",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1590391993.195200",
+        "text": "これでビルドできるようになると思います。<https://github.com/freebsd/freebsd-ports/blob/master/games/hs-scroll/files/patch-lib_UI_NCurses.chs>",
+        "user": "UL3EYH36Z",
+        "type": "message"
+    },
+    {
+        "ts": "1590394933.195600",
+        "text": "そうですね。ありがとうございます！",
+        "user": "ULGDZNXS7",
+        "type": "message"
+    },
+    {
+        "ts": "1590413376.199100",
+        "text": "path/to/Module.hsはお手元のプロジェクトに合わせて適宜差し替えてください。プロジェクトによってはそのままではうまく動かないので <https://github.com/Avi-D-coder/implicit-hie|https://github.com/Avi-D-coder/implicit-hie> を使ってhie.yamlを生成した方が良い場合もあります。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1590417187.199400",
+        "text": "ご回答ありがとうございます。\n私もLinux(Ubuntu20.04)の環境で試したらビルドが通りました。動作も問題ないようです。",
+        "user": "UU0KWNXRN",
+        "type": "message"
+    },
+    {
+        "ts": "1590417273.199900",
+        "text": "FreeBSD用?のパッチありがとうございました。早速あてて確認してみたいと思います。\n結果は改めて報告致します。",
+        "user": "UU0KWNXRN",
+        "type": "message"
+    },
+    {
+        "ts": "1590421890.200100",
+        "text": "頂いたパッチでビルドが通るようになりました。明日動作確認してみます。\nありがとうございまいました。",
+        "user": "UU0KWNXRN",
+        "type": "message"
     }
 ]
