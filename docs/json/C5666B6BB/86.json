@@ -16,5 +16,47 @@
         "text": "<@U01528668KE> has joined the channel",
         "user": "U01528668KE",
         "type": "message"
+    },
+    {
+        "ts": "1591463645.019400",
+        "text": "<https://wiki.haskell.org/GHC/Type_families>\nの記事を読んでいて見慣れない記号が出てきました。\n\n\n```sumCollects :: (Collects c1, Collects c2, Elem c1 ~ Elem c2) =&gt; c1 -&gt; c2 -&gt; c2\nsumCollects c1 c2 = foldr insert c2 (toList c1)```\n上記の「Elem c1」と「Elem c2」の間の「〜」は何を意味しているのでしょうか。\nちなみに、上記のElemはtype familyにより、以下のように宣言されています。\n\n```class Collects ce where\n  type Elem ce\n  empty  :: ce\n  insert :: Elem ce -&gt; ce -&gt; ce\n  member :: Elem ce -&gt; ce -&gt; Bool\n  toList :: ce -&gt; [Elem ce]```\n通常の型制約とは異なることを示す記号だとは推測しますが、ググってもパッとは出てこず。。",
+        "user": "U012A4ALLSC",
+        "type": "message"
+    },
+    {
+        "ts": "1591463915.019500",
+        "text": "等しいことを表してたはずです(あまり自信がない)",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1591464803.019700",
+        "text": "<@U57CUMWQ6>\n回答ありがとうございます！\nなるほど！確かに\n\n```sumCollects c1 c2 = foldr insert c2 (toList c1)```\nで、c1の要素をc2にinsertしているので、辻褄が合いそうです。",
+        "user": "U012A4ALLSC",
+        "type": "message"
+    },
+    {
+        "ts": "1591464956.019900",
+        "text": "個人的な実用では\n```PersistEntityBackend val ~ SqlBackend```\nとかでPersistentのバックエンドがSQLであるとかの確認でよく見ますね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1591465582.020200",
+        "text": "Equality Constraintsというんですね:smile:\n<https://downloads.haskell.org/~ghc/8.0.2/docs/html/users_guide/glasgow_exts.html#equality-constraints>\n\n<@U57CUMWQ6> さんのおかげで検索できました！",
+        "user": "U012A4ALLSC",
+        "type": "message"
+    },
+    {
+        "ts": "1591476138.020700",
+        "text": "Haskell (GHC) で記号を調べるときは Haskell Symbol Search Cheatsheet が便利です\n<https://github.com/takenobu-hs/haskell-symbol-search-cheatsheet|https://github.com/takenobu-hs/haskell-symbol-search-cheatsheet>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1591483065.021600",
+        "text": "<@U4L0B71L1> \nありがとうございます！",
+        "user": "U012A4ALLSC",
+        "type": "message"
     }
 ]
