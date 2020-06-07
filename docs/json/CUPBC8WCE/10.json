@@ -1,0 +1,242 @@
+[
+    {
+        "ts": "1591504341.257900",
+        "text": "<https://haskell.e-bigmoon.com/posts/2020/01-18-cabal-build-tool-depends.html>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1591505433.258400",
+        "text": "それやってもダメっぽいんですよね\n<https://twitter.com/kakkun61/status/1269238710559576064>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1591505562.258700",
+        "text": "何かごみが影響してる可能性があるけど、ログ見ようと `--ghc-options=-v` 付けたら通った…… あれ？ちゃんと見る",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1591506101.258900",
+        "text": "`hspec-discover` で見つけたコードがコンパイルエラーだと `hspec-discover` 自体が失敗ということになる？（根拠なし）",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1591508042.259300",
+        "text": "cabal 3.0 のサポートしてない GHC 8.10 だからダメだったのか\nGHC 8.8 ならうまくいった",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1591508089.259500",
+        "text": "HDBC-postgresql がカスタムセットアップで Cabal &lt; 3.1 なのよね",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1591508889.259700",
+        "text": "HDBC-postgesql の制約を緩和して cabal 3.2 GHC 8.10 にしたけど同じだった",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1591509071.259900",
+        "text": "あきらめたw",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1591509370.260100",
+        "text": "今日は疎",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1591510003.260300",
+        "text": "やっぱり stack やで",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1591514198.261800",
+        "text": "どうやら手元環境をstackからcabal new-buildに移行してこっち、一度もテストを走らせていなかったらしく、\n• <https://haskell.e-bigmoon.com/posts/2020/01-18-cabal-build-tool-depends.html>\n• <https://github.com/hasktorch/ffi-experimental/pull/62>\nでハマりました",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1591514830.262200",
+        "text": "<https://haskell-jp.slack.com/archives/CUPBC8WCE/p1591504088256800> と話題がちょっと被ってますね :sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1591515130.262500",
+        "text": "なんたる偶然ｗ",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1591520456.262900",
+        "text": "Generalized folds for nested datatypes を途中まで。\nReferences を漁っていてさらに積まれた気がするが気にしない。",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1591520544.263300",
+        "text": "<!here> 成果報告の時間です！何か、やったことを軽くご共有いただけると幸いです hask(_ _)eller",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1591520699.265400",
+        "text": "私は、先ほど来た <https://ja.stackoverflow.com/questions/67387/haskellghc%E3%81%8B%E3%82%89user32-dll%E3%81%AE%E9%96%A2%E6%95%B0%E3%82%92%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%9D%E3%81%86%E3%81%A8%E3%81%97%E3%81%9F%E9%9A%9B%E3%81%AB%E6%9C%AA%E8%A7%A3%E6%B1%BA%E5%8F%82%E7%85%A7%E3%81%A8%E3%81%AA%E3%82%8B> の質問が気になってしょうがなかったので当初の予定そっちのけで試行錯誤してました... 結局うまく行かず... :sob:\nあと、 <https://github.com/haskell-jp/blog/pull/168> に早速フィードバックをいただけたので少し対応してました（いつもありがとう）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1591520914.267900",
+        "text": "すっごく簡単にですが、WebUI ができました！",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1591521025.269700",
+        "text": "• postgresql-pure を cabal v2 管理にして 8.10 でテストしたい\n    • hpsec-discover が Windows でうまく動かず挫折\n    • network が configure で sh に依存してるので MinGW からは脱却できず\n    • resolver のアップデート\n• ghcups に来てるコメント対応\n    • ドイツ語環境でエラー\n    • PowerShell モジュールのマニフェストファイルは *BOM 付き* UTF-8 じゃないとダメっぽい\n• HDBC 経由せず postgresql-pure と HRR を使いたい\n    • _haskell-relational-record/relational-query-HDBC/src/Database/Schema/HDBC/PostgreSQL.hs_ を読み始めた",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1591521230.271500",
+        "text": "途中送信したのでアップデート",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1591521303.272600",
+        "text": "なんとか心理的ながっかり状態を乗り越えて、居残りでslack-logを少しでも進めます...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1591521597.275100",
+        "text": "CI 見たら Windows 上で base-compat のビルドが access violation で終わっててツラい……（access violation は Linux の segmentation fault 相当\n<https://kakkun61.visualstudio.com/postgresql-pure/_build/results?buildId=32&amp;view=logs&amp;j=4a4cbd20-e8e0-5624-f281-626714767dab&amp;t=ab8e7b53-bc05-5000-a34e-cb41f71df9ee>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1591521635.275400",
+        "text": "できた！\n<https://matsubara0507.github.io/my-deps-sensor>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1591521781.278000",
+        "text": "machinecellの高速化のため、Church encoded free monad(<http://hackage.haskell.org/package/free-5.1.3/docs/Control-Monad-Trans-Free-Church.html>)のFTで遊ぶ奴やってます。mのところに入れる奴を工夫すると、少しおもしろい事ができる気がしたんですがまだ具体的成果が得られていません。\nとりあえずstack無しでテストが動くようにはなりました <https://github.com/as-capabl/machinecell/commit/f9b19e536d091973332fd7506aa1984203dd8fc1>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1591521907.279200",
+        "text": "<@U4L0B71L1> <@U56L7EVNY> ところでどちらさんか来週分の運営を頼みたいんですがいかがでしょう？ :pray:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1591521933.279600",
+        "text": "日曜日なら :ok:",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1591521934.279800",
+        "text": "5/13・5/14どちらでも :ok:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1591522167.280000",
+        "text": "たとえばMingwでCからDLLを呼び出す時って、DLLそのものではなくて、DLLからインポートライブラリを作ってそれをリンカに教える感じになりますが、そういう奴ではないですかね <https://arakik10.hatenadiary.org/entry/20100504/p1>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1591522281.280400",
+        "text": "すいません、そのときにならないと参加できるかわからないので、できないっす :bow:\n(ツレが休日出勤する日だけ参加してるんですよ。。。今のところ。。)",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1591522487.280800",
+        "text": "5月ちゃうw 6/13・6/14だ...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1591522509.281000",
+        "text": "<@U4L0B71L1> では 6/14でお願いします！\n今イベントページ作りますね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1591522774.281300",
+        "text": "<@U4L0B71L1> 管理者に追加しておきました。見えるかな？\n<https://connpass.com/event/179011/edit/>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1591523121.281600",
+        "text": "<@U4LGTMTMK> 見れましたー",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1591523251.281900",
+        "text": "<@U4LGTMTMK> 運営やることシートどこでしたっけ？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1591523300.282100",
+        "text": "<@U4L0B71L1> ありがとう、それでは当日は\n<https://wiki.haskell.jp/Workshop/hasmoku/OrganizerGuide>\nに従ってお願いします！\n私も次回は参加できますが、昼間に予定があるので途中からになってしまう可能性が高いのでよろしくお願いします！\nあと、 :point_up: にも書きましたが参加登録も忘れずに。\n<https://haskell-jp.connpass.com/event/179011/>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1591523365.282500",
+        "text": "まだ成果を共有していない方もいらっしゃるようですがそろそろお開きと言うことで！お疲れ様でした！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1591523783.282800",
+        "text": "user32.dllだったらmingw/libに既にdll.aが存在するはずなので、リンク指定は通っているかもしれません。\n\nSetProcessDpiAwarenessContext関数は新しい関数なので、mingwに添付されているインポートライブラリに入っていない可能性も考慮する必要があるかも",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1591524673.283100",
+        "text": "GitHub Action を利用してページを自動更新できるようにした\n<https://github.com/matsubara0507/my-deps-sensor/runs/746882622>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1591524787.283400",
+        "text": "お二人とも概ね同じ意見にたどり着いたようで <https://haskell-jp.slack.com/archives/C707P67R7/p1591524151006500?thread_ts=1591512866.004800&amp;cid=C707P67R7>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1591525181.283800",
+        "text": "簡単に回答してみました <https://ja.stackoverflow.com/a/67388/37927>",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1591525216.284200",
+        "text": "手元でやってもうまく行きました :relieved:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]
