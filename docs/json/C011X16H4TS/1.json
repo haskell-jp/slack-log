@@ -292,5 +292,11 @@
         "text": "次回 6/14 です。\n今回の（6章の）メモは<https://scrapbox.io/maton/Haskell_による並列・並行プログラミング_%237|こちらに>貼ってます（随時更新）",
         "user": "U59GW4U4T",
         "type": "message"
+    },
+    {
+        "ts": "1591601296.005900",
+        "text": "5章 p.94 の `fwdense1` の結果を確認していたんですが、テキスト通りに高速化できた方います？\n\n手元の環境だとこんな感じです。\n```          app           |         Total time\n------------------------|----------------------------\nfwdense  -O2            | 3.440s  ( 3.471s elapsed)\nfwdense  -O2 -fllvm     | 1.968s  ( 1.984s elapsed)\nfwdense1 -O2            | 4.003s  ( 4.020s elapsed)\nfwdense1 -O2 -N4        | 8.131s  ( 3.781s elapsed)\nfwdense1 -O2 -fllvm     | 2.370s  ( 2.421s elapsed)\nfwdense1 -O2 -fllvm -N4 | 5.522s  ( 2.621s elapsed)```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
     }
 ]
