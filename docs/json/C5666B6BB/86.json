@@ -178,5 +178,29 @@
         "text": "&gt; 従ってmajor GCを2回走らせてみてオブジェクトが解放されるか確認してみるといいかもしれません。\nよく読むとmajor/minor関係なくdoIdleGCWorkは呼ばれますね。minor GCだけでも良さそうです。ただ元のissueではcopying GCでは問題が起きていないように読めるのですが、doIdleGCWorkはcopying/non-moving関係なく呼ばれているので別の問題かもしれません。",
         "user": "U4M9NJ7QE",
         "type": "message"
+    },
+    {
+        "ts": "1591868603.042300",
+        "text": "<https://gitlab.haskell.org/ghc/ghc/-/merge_requests/3389|https://gitlab.haskell.org/ghc/ghc/-/merge_requests/3389>\nこっちがあるからクローズですかね",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1591869765.045200",
+        "text": "元のissueがmasterで直ってから閉じた方がいいと思います。特にGHC開発者は人手が少なくて忙しそうなので、closeされると問題が見落とされてしまいそう。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1591871690.047500",
+        "text": "リンクありがとうございます\ncopying gcだと問題おきなかったのですが\n簡単なケースだと問題が再現できなかったのでどう攻めたものかと悩んでます",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1591905426.047700",
+        "text": "<https://github.com/junjihashimoto/gc-test/blob/master/Main.hs#L34>\nここで一回よぶか二回よぶかで結果が変わってきますね。",
+        "user": "U74KTAG0N",
+        "type": "message"
     }
 ]
