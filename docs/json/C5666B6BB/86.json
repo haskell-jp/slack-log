@@ -58,5 +58,125 @@
         "text": "<@U4L0B71L1> \nありがとうございます！",
         "user": "U012A4ALLSC",
         "type": "message"
+    },
+    {
+        "ts": "1591689971.025300",
+        "text": "マトモな性能の疑似乱数ライブラリって現状だとmwc-randomしか選択肢ないんでしょうか？",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1591692885.027200",
+        "text": "```$ ghci\nGHCi, version 8.6.5: <http://www.haskell.org/ghc/>  :? for help\nPrelude&gt; let x = 123\nPrelude&gt; return (x :: Int, x :: Float)\n(123,123.0)```\nという風にghciだと `x :: Num a =&gt; a` なのから (x, x) で `Int` と `Float` のタプルにできるんですが、\n```$ cat test.hs\ntest = do\n  let x = 123\n  return (x :: Int, x :: Float)\n$ ghci\nPrelude&gt; :load \"test.hs\"\n[1 of 1] Compiling Main             ( test.hs, interpreted )\n\ntest.hs:3:21: error:\n    • Couldn't match expected type 'Float' with actual type 'Int'\n    • In the expression: x :: Float\n      In the first argument of 'return', namely '(x :: Int, x :: Float)'\n      In a stmt of a 'do' block: return (x :: Int, x :: Float)\n  |\n3 |   return (x :: Int, x :: Float)\n  |                     ^\nFailed, no modules loaded.\nPrelude&gt; :set\noptions currently set: none.\nbase language is: Haskell2010\nwith the following modifiers:\n  -XNoDatatypeContexts\n  -XNondecreasingIndentation\nGHCi-specific dynamic flag settings:\nother dynamic, non-language, flag settings:\n  -fexternal-dynamic-refs\n  -fignore-optim-changes\n  -fignore-hpc-changes\n  -fimplicit-import-qualified\nwarning settings:\nPrelude&gt;```\nってなるのなんででしょう?",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1591693393.027500",
+        "text": "```test :: IO (Int,Double)\ntest = do\n  let { x :: Num a =&gt; a ; x = 1 }\n  let y = (x,x) :: (Int,Double)\n  return y```\nならいけましたよ",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1591694989.027700",
+        "text": "私が知る限りでは、mwc-randomだけだったと思いますね...\nもっと詳しい人が答えるべき泣きもしますが、以前（多分一年ぐらい前）探したときはそんな感じでした。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1591695353.028000",
+        "text": "これも直接の回答になってなくて恐縮ですが、案の定 `NoMonomorphismRestriction` を有効にしたらどの場合でもエラーになりませんでしたね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1591695425.029300",
+        "text": "おー、ありがとうございます &gt; <@U61BA2X0U> <@U4LGTMTMK> ",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1591695616.032200",
+        "text": "単相性制限に引っかかるからなのか。構文についてもいつのまにか勘違いしてそう…",
+        "user": "U4MMHDSNT",
+        "type": "message"
+    },
+    {
+        "ts": "1591695755.032400",
+        "text": "<https://wiki.haskell.org/Monomorphism_restriction>\nあー、やっぱり、\n&gt; The restriction is turned on by default in compiled modules, and turned off by default at the GHCi prompt (since GHC 7.8.1).\nとありますね！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1591700377.033300",
+        "text": "<https://alexey.kuleshevi.ch/blog/2019/12/21/random-benchmarks/|https://alexey.kuleshevi.ch/blog/2019/12/21/random-benchmarks/> がよくまとまっています",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1591700915.036900",
+        "text": "もう解決済みでしょうか？\n\n&gt; ghcのperformGCはGCの完了まで待たずに、実行をブロックしないものと思っていますが\n\nこれはnon-moving GCの話でしょうか？あとで時間があるときにコードを見てみようと思うのですが、デフォルトのGCはSTWなのでブロックすると思います。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1591726146.037300",
+        "text": "ありがとうございます。\nまだ解決してなかったです。\nちょっとわかったのはFFIの場合はcのfinalizerはGC中に、haskellのfinalizerだとGCとは別のスレッドで実行されるのですね。\n<http://blog.ezyang.com/2014/05/the-cost-of-weak-pointers-and-finalizers-in-ghc/>\nそれなのでブロックしてないように見えていたというのはありました。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1591727698.037500",
+        "text": "performGC-&gt;scheduleDoGC-&gt;GarbageCollect\ndoIdleGCWork-&gt;runSomeFinalizers-&gt;runCFinalizers\nと呼ばれていますが、cのファイナライザを呼んでいるのはscheduleDoGCのdoIdleGCWorkですかね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1591727837.037700",
+        "text": "GarbageCollectの前後で呼んでいますね。\nperformGCを一回呼ぶだけだとすぐにcのファイナライザは呼ばれなかったりしますか？\n<https://gitlab.haskell.org/ghc/ghc/-/blob/master/rts/Schedule.c#L1844-1862>",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1591747827.038400",
+        "text": "ありがとうございます。mersenne-random-pure64 を使ったら異常に遅くてなんなんだこれ、と思っていたんですが、紹介していただいた記事( <https://alexey.kuleshevi.ch/blog/2019/12/21/random-benchmarks/> )を読んだ限りだと、\n&gt; As it turns out, `randomR` and consequently `random` are oblivious to the concrete type that they are generating and all of the integral numbers go through the arbitrary precision `Integer` in order to produce the value in a desired range.\n`System.Random` の `randomR` を使うと乱数生成器のアルゴリズムに関係なくパフォーマンスが激しく落ちるということなんですかね。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1591776344.039500",
+        "text": "random は次バージョンで改善されるそうです\n<https://github.com/haskell/random/pull/61#issuecomment-633002711>",
+        "user": "U6JPU2DD2",
+        "type": "message"
+    },
+    {
+        "ts": "1591796979.040000",
+        "text": "Cファイナライザはmajor GCとidle GCのタイミングで実行されます。\n\n<https://gitlab.haskell.org/ghc/ghc/-/blob/87102928cce33d9029ca4cc449dde6efc802b8ec/rts/Weak.c#L183-212>\nここら辺の解説を読むとCファイナライザを呼ぶときに停止時間を短くするため、あらかじめ決められた数のファイナライザ（100個 <https://gitlab.haskell.org/ghc/ghc/-/blob/87102928cce33d9029ca4cc449dde6efc802b8ec/rts/Weak.c#L218>）を実行した時点で残りのファイナライザは次回のidle GCが呼ばれるまで遅延するようです。\n\nrunSomeFinalizersの引数allがtrueの場合はすべてのファイナライザを実行しますが、これはmajor GCが呼ばれるかRTSがexitするタイミングで呼ばれます。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1591796981.040300",
+        "text": "<https://gitlab.haskell.org/ghc/ghc/-/blob/87102928cce33d9029ca4cc449dde6efc802b8ec/rts/Schedule.c#L1846>",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1591797032.040600",
+        "text": "従ってmajor GCを2回走らせてみてオブジェクトが解放されるか確認してみるといいかもしれません。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1591797321.040900",
+        "text": "<https://gitlab.haskell.org/ghc/ghc/issues/18239> ちなみに元のissueがcloseされているのは何故でしょうか？",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1591797674.041200",
+        "text": "&gt; 従ってmajor GCを2回走らせてみてオブジェクトが解放されるか確認してみるといいかもしれません。\nよく読むとmajor/minor関係なくdoIdleGCWorkは呼ばれますね。minor GCだけでも良さそうです。ただ元のissueではcopying GCでは問題が起きていないように読めるのですが、doIdleGCWorkはcopying/non-moving関係なく呼ばれているので別の問題かもしれません。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
     }
 ]
