@@ -4,5 +4,53 @@
         "text": "もう一度最初から作り直したら良い感じに結果でました。",
         "user": "U5B3EGEFQ",
         "type": "message"
+    },
+    {
+        "ts": "1591919711.006200",
+        "text": "私の方でも試してみました。概ね想定通り？\n```          app           |         Total time\n------------------------|----------------------------\nfwdense  -O2            | 1.967s  (  1.980s elapsed)\nfwdense  -O2 -fllvm     | 1.024s  (  1.030s elapsed)\nfwdense1 -O2            | 2.068s  (  2.090s elapsed)\nfwdense1 -O2 -N4        | 2.376s  (  0.710s elapsed)\nfwdense1 -O2 -fllvm     | 1.184s  (  1.210s elapsed)\nfwdense1 -O2 -fllvm -N4 | 1.371s  (  0.400s elapsed)```",
+        "user": "U59GW4U4T",
+        "type": "message"
+    },
+    {
+        "ts": "1591943542.006500",
+        "text": "```          app           |         Total time\n------------------------|----------------------------\nfwdense  -O2            | 2.678s (  2.687s )\nfwdense  -O2 -fllvm     | 1.456s (  1.477s )\nfwdense1 -O2            | 3.069s (  3.080s )\nfwdense1 -O2 -N4        | 3.224s (  0.930s )\nfwdense1 -O2 -fllvm     | 1.721s (  1.740s )\nfwdense1 -O2 -fllvm -N4 | 1.967s (  0.631s )```\nありがとうございます。こっちも同じ感じになりました！",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1591944959.007400",
+        "text": "ghc-8.8 でマンデルブロ集合の画像を生成しようとしたんですが accelerate-io で詰んだので諦めました・・・。\n<https://github.com/AccelerateHS/accelerate-io>",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1591966200.009500",
+        "text": "私の方はghc-8.6.5でfwaccel-gpuを動かそうとしていますが、accelerate-cudaはdeprecatedになっており、うまくビルドできなかったので、公式から勧められているaccelerate-llvm-ptxでちゃんと動くか試行中です。",
+        "user": "U59GW4U4T",
+        "type": "message"
+    },
+    {
+        "ts": "1591966810.009900",
+        "text": "僕の環境だとこのぐらい追加して ghc-8.8 で動作確認できました。\n\n```source-repository-package\n  type: git\n  location: <https://github.com/AccelerateHS/accelerate>\n  tag: 170a2474705544bc4037f0ac2814a44edeb0790e\n\nsource-repository-package\n  type: git\n  location: <https://github.com/AccelerateHS/accelerate-llvm>\n  tag: 55ca08348002d69e54a146657cb15867582d0133\n  subdir: accelerate-llvm accelerate-llvm-ptx\n\nsource-repository-package\n  type: git\n  location: <https://github.com/tmcdonell/cuda>\n  tag: bf6efc8f9118caac91bde8c9535970f7ab645ead\n\nsource-repository-package\n  type: git\n  location: <https://github.com/tmcdonell/nvvm>\n  tag: 219637eab3aab7275ce0a0c9b0e1855be912fe8a\n\npackage cuda\n  extra-lib-dirs: /usr/local/cuda-10.1/lib64\n  extra-include-dirs: /usr/local/cuda-10.1/include```",
+        "user": "U5B3EGEFQ",
+        "type": "message"
+    },
+    {
+        "ts": "1591967619.010200",
+        "text": "ありがとうございます！ちょっと試してみますね",
+        "user": "U59GW4U4T",
+        "type": "message"
+    },
+    {
+        "ts": "1591978063.010400",
+        "text": "あれこれあって stack で build する感じになりました（そしてmandelがビルドできずにハマる）\n<https://github.com/AccelerateHS/accelerate-examples/blob/master/stack-8.6.yaml|accelerate-examples> のstack.yamlを真似っ子して動かしてます。",
+        "user": "U59GW4U4T",
+        "type": "message"
+    },
+    {
+        "ts": "1591979015.010800",
+        "text": "僕も画像生成したいので mandel だけ 8.6 で試してみます。",
+        "user": "U5B3EGEFQ",
+        "type": "message"
     }
 ]

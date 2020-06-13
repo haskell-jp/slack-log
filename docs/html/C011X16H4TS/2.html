@@ -1,1 +1,38 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / jclub-heyhey #2</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / jclub-heyhey #2</h1><div class="pager ui pagination menu"><a href="../../html/C011X16H4TS/1.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div><div class="message_list ui feed"><div class="message event" id="message-1591818261.006000"><div class="content"><div class="summary"><div class="message__header user">wado</div><div class="message__timestamp date"><a class="date" href="#message-1591818261.006000">2020-06-11&nbsp;04:44:21 +0900</a></div></div><div class="message__body description">もう一度最初から作り直したら良い感じに結果でました。</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C011X16H4TS/1.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div></div></body></html>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / jclub-heyhey #2</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / jclub-heyhey #2</h1><div class="pager ui pagination menu"><a href="../../html/C011X16H4TS/1.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div><div class="message_list ui feed"><div class="message event" id="message-1591818261.006000"><div class="content"><div class="summary"><div class="message__header user">wado</div><div class="message__timestamp date"><a class="date" href="#message-1591818261.006000">2020-06-11&nbsp;04:44:21 +0900</a></div></div><div class="message__body description">もう一度最初から作り直したら良い感じに結果でました。</div></div></div><div class="message event" id="message-1591919711.006200"><div class="content"><div class="summary"><div class="message__header user">matonix</div><div class="message__timestamp date"><a class="date" href="#message-1591919711.006200">2020-06-12&nbsp;08:55:11 +0900</a></div></div><div class="message__body description">私の方でも試してみました。概ね想定通り？<br/><pre>          app           |         Total time
+------------------------|----------------------------
+fwdense  -O2            | 1.967s  (  1.980s elapsed)
+fwdense  -O2 -fllvm     | 1.024s  (  1.030s elapsed)
+fwdense1 -O2            | 2.068s  (  2.090s elapsed)
+fwdense1 -O2 -N4        | 2.376s  (  0.710s elapsed)
+fwdense1 -O2 -fllvm     | 1.184s  (  1.210s elapsed)
+fwdense1 -O2 -fllvm -N4 | 1.371s  (  0.400s elapsed)</pre></div></div></div><div class="message event" id="message-1591943542.006500"><div class="content"><div class="summary"><div class="message__header user">wado</div><div class="message__timestamp date"><a class="date" href="#message-1591943542.006500">2020-06-12&nbsp;15:32:22 +0900</a></div></div><div class="message__body description"><pre>          app           |         Total time
+------------------------|----------------------------
+fwdense  -O2            | 2.678s (  2.687s )
+fwdense  -O2 -fllvm     | 1.456s (  1.477s )
+fwdense1 -O2            | 3.069s (  3.080s )
+fwdense1 -O2 -N4        | 3.224s (  0.930s )
+fwdense1 -O2 -fllvm     | 1.721s (  1.740s )
+fwdense1 -O2 -fllvm -N4 | 1.967s (  0.631s )</pre><br/>ありがとうございます。こっちも同じ感じになりました！</div></div></div><div class="message event" id="message-1591944959.007400"><div class="content"><div class="summary"><div class="message__header user">wado</div><div class="message__timestamp date"><a class="date" href="#message-1591944959.007400">2020-06-12&nbsp;15:55:59 +0900</a></div></div><div class="message__body description">ghc-8.8 でマンデルブロ集合の画像を生成しようとしたんですが accelerate-io で詰んだので諦めました・・・。<br/><a href='https://github.com/AccelerateHS/accelerate-io'>https://github.com/AccelerateHS/accelerate-io</a></div></div></div><div class="message event" id="message-1591966200.009500"><div class="content"><div class="summary"><div class="message__header user">matonix</div><div class="message__timestamp date"><a class="date" href="#message-1591966200.009500">2020-06-12&nbsp;21:50:00 +0900</a></div></div><div class="message__body description">私の方はghc-8.6.5でfwaccel-gpuを動かそうとしていますが、accelerate-cudaはdeprecatedになっており、うまくビルドできなかったので、公式から勧められているaccelerate-llvm-ptxでちゃんと動くか試行中です。</div></div></div><div class="message event" id="message-1591966810.009900"><div class="content"><div class="summary"><div class="message__header user">wado</div><div class="message__timestamp date"><a class="date" href="#message-1591966810.009900">2020-06-12&nbsp;22:00:10 +0900</a></div></div><div class="message__body description">僕の環境だとこのぐらい追加して ghc-8.8 で動作確認できました。<br/><br/><pre>source-repository-package
+  type: git
+  location: <https://github.com/AccelerateHS/accelerate>
+  tag: 170a2474705544bc4037f0ac2814a44edeb0790e
+
+source-repository-package
+  type: git
+  location: <https://github.com/AccelerateHS/accelerate-llvm>
+  tag: 55ca08348002d69e54a146657cb15867582d0133
+  subdir: accelerate-llvm accelerate-llvm-ptx
+
+source-repository-package
+  type: git
+  location: <https://github.com/tmcdonell/cuda>
+  tag: bf6efc8f9118caac91bde8c9535970f7ab645ead
+
+source-repository-package
+  type: git
+  location: <https://github.com/tmcdonell/nvvm>
+  tag: 219637eab3aab7275ce0a0c9b0e1855be912fe8a
+
+package cuda
+  extra-lib-dirs: /usr/local/cuda-10.1/lib64
+  extra-include-dirs: /usr/local/cuda-10.1/include</pre></div></div></div><div class="message event" id="message-1591967619.010200"><div class="content"><div class="summary"><div class="message__header user">matonix</div><div class="message__timestamp date"><a class="date" href="#message-1591967619.010200">2020-06-12&nbsp;22:13:39 +0900</a></div></div><div class="message__body description">ありがとうございます！ちょっと試してみますね</div></div></div><div class="message event" id="message-1591978063.010400"><div class="content"><div class="summary"><div class="message__header user">matonix</div><div class="message__timestamp date"><a class="date" href="#message-1591978063.010400">2020-06-13&nbsp;01:07:43 +0900</a></div></div><div class="message__body description">あれこれあって stack で build する感じになりました（そしてmandelがビルドできずにハマる）<br/><a href='https://github.com/AccelerateHS/accelerate-examples/blob/master/stack-8.6.yaml'>accelerate-examples</a> のstack.yamlを真似っ子して動かしてます。</div></div></div><div class="message event" id="message-1591979015.010800"><div class="content"><div class="summary"><div class="message__header user">wado</div><div class="message__timestamp date"><a class="date" href="#message-1591979015.010800">2020-06-13&nbsp;01:23:35 +0900</a></div></div><div class="message__body description">僕も画像生成したいので mandel だけ 8.6 で試してみます。</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C011X16H4TS/1.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div></div></body></html>
