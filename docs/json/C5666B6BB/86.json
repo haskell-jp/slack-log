@@ -226,5 +226,71 @@
         "text": "funccountでperformGCいれてもでてこないですね。たぶん使い方が間違っているのだと思いますが。",
         "user": "U74KTAG0N",
         "type": "message"
+    },
+    {
+        "ts": "1592553779.055700",
+        "text": "relational record でプレースホールダーが `?` じゃなくて `$1`, `$2` になるオプションってありましたっけ？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1592553812.055800",
+        "text": "少なくとも私がいじってた頃はなかったですね...\nSQL標準じゃないから、でしたっけ？ <@U4KNU6N48>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1592556928.058800",
+        "text": "`?` が SQL 標準かどうかは把握していないんですが、\nおおくの RDBMs ドライバがこの機能をサポートしているのでそうしています。\n\nPostgreSQL や MySQL だと、どちらも使えたりするんだろうか。",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1592557764.060300",
+        "text": "Lensについて質問です\n`over` の第二引数には `a -&gt; b` な関数をとると思うのですが、ここで `a -&gt; m b` (具体的には `a -&gt; IO b` )をとる関数というのは存在するのでしょうか\nHoogleでもうまく検索できず…\n```over myLens &lt;$&gt; (ioAction) &lt;*&gt; data```\nという形でできないかなぁと思ったのですが、 `ioAction` はこの段階で評価されないのでできないよな…というところまで行きついて詰まりました",
+        "user": "ULTBB86UC",
+        "type": "message"
+    },
+    {
+        "ts": "1592558842.060500",
+        "text": "実はLensそのものがそうなってるんですよ（実は全く同じ質問を随分前にここでして教わりました :sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1592558914.060700",
+        "text": "`over` だと `Asetter` を使っていて `Identify` に包まれている、ってとこをみたのですがそれと同じですか…?",
+        "user": "ULTBB86UC",
+        "type": "message"
+    },
+    {
+        "ts": "1592559212.060900",
+        "text": ":point_down: の定義のとおり、\nその`Identity` を `Functor f =&gt; f`に一般化したのが `Lens` そのものなので、\n`myLens ioAction data` でコンパイル通りませんか？\n```type Lens s t a b = forall f. Functor f =&gt; (a -&gt; f b) -&gt; s -&gt; f t ```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1592559519.061100",
+        "text": "標準の状態だと PostgreSQL の拡張問合せプロトコルだと `$n` だけみたいですね（設定で変えられるのかな\n\n&gt; use $1, $2, etc.\n&gt; <https://www.postgresql.org/docs/12/sql-prepare.html>\n“etc.” とは",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1592559545.061300",
+        "text": "あ、なるほど！！\n試してみます！",
+        "user": "ULTBB86UC",
+        "type": "message"
+    },
+    {
+        "ts": "1592559668.061600",
+        "text": "過去自分で質問した時の記録を探していて気づいたのですが、 <https://haskell.jp/slack-log/html/C5666B6BB/72.html#message-1570939612.018800> といいよく私と同じ問題にハマりますね... :sweat_smile:\nこの、containersパッケージの `State` の定義がおかしい問題も以前私も <#C4M4TT8JJ|random> で話題にしたことがありまして...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1592559879.062000",
+        "text": "$3, $4, $5, ... のことを指しているのでは &gt; .etc",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
