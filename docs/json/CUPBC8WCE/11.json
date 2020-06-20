@@ -142,5 +142,149 @@
         "text": "こんばんは\n次回のもくもく会に参加申込しました石本幸士です\nすごいHaskellを読んで衝撃を受け、haskellとpurescriptを勉強しています\n周りにHaskellについて話せる相手が居ないので、こういうオンラインもくもく会があるの本当にありがたいです\nhaskellに慣れるためにhackerrankの問題をhaskellで解いているので、当日はこの続きをやろうと思っています。\n<https://github.com/dowdiness/hackerrank/tree/master/src|https://github.com/dowdiness/hackerrank/tree/master/src>",
         "user": "U01528668KE",
         "type": "message"
+    },
+    {
+        "ts": "1592625637.316900",
+        "text": "*<!here>* 第37回Haskell-jpもくもく会の時間です！好きなタイミングでいいので、自己紹介と今日やりたいことを書き込んでいただけると！ hask(_ _)eller\n\nspatial chatもあります。相談・雑談等にお使いください。\n<https://spatial.chat/s/Haskell-jp>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1592625918.317800",
+        "text": "僕は引き続きremote-houseのフロントエンドをPureScriptに置き換えていこうと思ってます\n今日で全部置き換わるといいなぁ…\n<https://github.com/lotz84/remote-house>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1592626991.319300",
+        "text": "kojiです\n今日はmdaの記事を参考にPureScriptでWeb audioさわってみます\n<https://github.com/dowdiness/purescript-audio-experiment>\n<https://developer.mozilla.org/ja/docs/Web/API/Web_Audio_API/Using_Web_Audio_API>",
+        "user": "U01528668KE",
+        "type": "message"
+    },
+    {
+        "ts": "1592627588.320400",
+        "text": "山本悠滋です。15分くらい\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell|https://github.com/haskell-jp/makeMistakesToLearnHaskell> の続きを書いてます",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1592630805.322800",
+        "text": "外出中なのでエア参加で……\n疑似乱数生成器のMRG32k3aをhaskellで実装中です <https://github.com/naohaq/mrg-random|https://github.com/naohaq/mrg-random>",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1592639917.324200",
+        "text": "まだ早いですがこのあと用事なので今週の成果を。一句詠みました。\n<https://twitter.com/igrep/status/1274217845426016257?s=20|https://twitter.com/igrep/status/1274217845426016257?s=20>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1592640694.324700",
+        "text": "遅くなりましたが、もくもくします。",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1592642194.324900",
+        "text": "もちろん、commitもpushもしてませんがちゃんと進めてますよ！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1592643604.325300",
+        "text": "*<!here>* 成果報告の時間です！何か、やったことを軽くご共有いただけると!",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1592643671.326000",
+        "text": "まだ音鳴らないですがhalogenでステレオ作ってました\n<https://github.com/dowdiness/purescript-audio-experiment/tree/wip>\n<https://audio-experiment.netlify.app/>",
+        "user": "U01528668KE",
+        "type": "message"
+    },
+    {
+        "ts": "1592643959.328500",
+        "text": "成果になってないですが、昔書いたfcmのクライアントのコード見直してました。\n認証がgogolに雑に乗っていて、なんとか依存外すか、小さく分けるか、したいなと検討中",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1592644559.330100",
+        "text": "すいません、どうしてもhalogenで分からない部分があって質問してもいいでしょうか\n\nおそらくモナド変換子の使い方が分かっていれば解ける問題？だと思うんですが\n\nこのコードの\n<https://github.com/dowdiness/purescript-audio-experiment/blob/wip/src/Main.purs>\n117行目で\ntrack &lt;- createMediaElementSource ctx el\nの型が合わなくて直し方が分からず悩んでます。\n\ntrack &lt;- H.liftEffect $ createMediaElementSource ctx el\n\nに変更しても同じエラーが出て、\n\nH.liftEffect $ createMediaElementSource ctx el\n\nなら動くんですが今度はtrackを取れなくなります。\n\nエラーメッセージ↓\n*Could not match type*\n*Effect*\n*with type*\n*HalogenM t0 t1 t2 t3 t4*\n\nwebaudioライブラリ↓\n<https://github.com/waterson/purescript-webaudio/blob/master/src/Audio/WebAudio/AudioContext.purs>",
+        "user": "U01528668KE",
+        "type": "message"
+    },
+    {
+        "ts": "1592646297.330500",
+        "text": "僕もPureScript初心者なんですが、\nliftEffect を使うためにHalogenM … が MonadEffect のインスタンスになる条件って\n```(MonadEffect m) =&gt; MonadEffect (HalogenM state action slots output m)```\nみたいですが、\n108行目の型を見ると m は MonadAff のインスタンスとしか指定されていないようなので、ここら辺でエラーが出てるのでは？と邪推しました :eyes:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1592646329.331000",
+        "text": "皆様お疲れさまでした！",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1592646481.331100",
+        "text": "<@U4LGTMTMK> <@U59TQ3MJ9> <@U4L0B71L1>\n来週は土日、担当どうしましょう？",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1592646694.331300",
+        "text": "順番的に(?)、よければ私やりましょうか\nその場合、土日はどちらでも可能ですが、なんとなく土曜日にしようかなと思ってます",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1592646857.332000",
+        "text": "ではお願いします！\nイベントページ作りますねー",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1592646971.332200",
+        "text": "<@U59TQ3MJ9> 来週土曜で作成しました :pray:\n日付時間問題ないか確認いただければ公開しますー\n<https://haskell-jp.connpass.com/event/180321/preview/>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1592647108.332500",
+        "text": "<@U4KPPQW7K> ありがとうございます！日時問題ございません。",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1592647319.332800",
+        "text": "確認ありがとうございます!!",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1592647500.333000",
+        "text": "公開しました〜!\n<https://haskell-jp.connpass.com/event/180321/>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1592647813.333300",
+        "text": "お疲れ様でした！",
+        "user": "U01528668KE",
+        "type": "message"
+    },
+    {
+        "ts": "1592648330.333700",
+        "text": "質問した直後ですが自己解決しました\nEffectで返ってくる関数全てにliftEffectを使えば動きました\n\n```Initialize -&gt; do\n    H.getHTMLElementRef (H.RefLabel \"audio\") &gt;&gt;= traverse_ \\element -&gt; do\n      ctx &lt;- H.liftEffect $ newAudioContext\n      track &lt;- H.liftEffect $ createMediaElementSource ctx element\n      g &lt;- H.liftEffect $ createGain ctx\n      H.liftEffect $ setGain 1.0 g\n      H.liftEffect $ connect track g\n      H.liftEffect $ connect g =&lt;&lt; destination ctx\n      H.liftEffect $ suspend ctx\n      H.modify_ (_ { audio = Just ctx })```\nちなみにMonadAffを指定すればMonadEffectも一緒に使えるようになるらしいです\n<https://github.com/purescript-halogen/purescript-halogen/blob/master/docs/guide/03-Performing-Effects.md>",
+        "user": "U01528668KE",
+        "type": "message"
+    },
+    {
+        "ts": "1592648363.334200",
+        "text": "お疲れ様でした。\n来週は最悪当日誰もいなくても進められるよう、予約投稿中心のフローを整えようと思います。\nあとオフライン開催もそろそろ検討かな",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
