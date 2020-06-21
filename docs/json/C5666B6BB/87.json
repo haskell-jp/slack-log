@@ -4,5 +4,53 @@
         "text": "返信遅くなりましたがうまく行きました！！！\nありがとうございます！！\nLensはoverやsetやviewと使うものだという固定概念がありました…今度からもっと型を注意してみるようにしてみます\n\n```Prelude Control.Lens&gt; _2 (\\a -&gt; print (\"PRINTED: \" ++ show a) &gt;&gt; return (Just \"a\")) ((\"hoge\",6), 1.20)\n\"PRINTED: 1.2\"\n((\"hoge\",6),Just \"a\")\nPrelude Control.Lens&gt; (_1 . _2) (\\a -&gt; print (\"PRINTED: \" ++ show a) &gt;&gt; return (Just \"a\")) ((\"hoge\",6), 1.20)\n\"PRINTED: 6\"\n((\"hoge\",Just \"a\"),1.2)```\nそうなんですねwすごい偶然",
         "user": "ULTBB86UC",
         "type": "message"
+    },
+    {
+        "ts": "1592726883.064100",
+        "text": "初歩的な質問ですが、お尋ねさせてください。\n仮定として、Main.hsに以下のような相対パス指定のファイル読み込みのコードが書かれているとします。\n\n```readFile \"../hoge.txt\" --1つ上の階層のパスからファイルを読み込み```\nこの時、current working directoryに依存せずに、「Main.hsファイルを起点とした相対パス指定」でファイルを読み込みたいです。\n（「stack exec XXX-exe」でプロセスを起動すると、current working directory起点とした相対パス指定になるため、場合によりうまく動かないです。）\n\n上記のやりたいことを実現するための、お決まりのパターンとかってありますか？\ngetCurrentDirectoryだと、簡単には行かなそうです。",
+        "user": "U012A4ALLSC",
+        "type": "message"
+    },
+    {
+        "ts": "1592729423.064300",
+        "text": "私が同じような問題に当たっときは「コンパイル時に相対パス指定したファイルを埋め込む」という方法を取りました。\n以下のパッケージがそのような手段を提供しています。\n<https://hackage.haskell.org/package/file-embed-0.0.12.0>\n他の方法をご存じの方がいらっしゃいましたらよろしくお願いします（私も気になってます…）",
+        "user": "U59GW4U4T",
+        "type": "message"
+    },
+    {
+        "ts": "1592730211.064700",
+        "text": "<@U59GW4U4T>\n回答ありがとうございます。上記の方法はなかなかテクニカルですね。。\n意外と手軽にできる方法はなかったりするのですかね:cry:",
+        "user": "U012A4ALLSC",
+        "type": "message"
+    },
+    {
+        "ts": "1592730946.064900",
+        "text": "コンパイル時のことって基本的に忘れられてしまうので難しいですね。\nイマイチ目的が想像できませんが、プロジェクトルートからの相対パスか、 <https://www.haskell.org/cabal/users-guide/developing-packages.html?highlight=paths_#accessing-data-files-from-package-code> などに書かれている `Paths_pkgname` を使った方が賢明かと思います。\nそれでもコンパイルされる `Main.hs` の場所が欲しい、ということであれば、Template Haskellの `location` が使えるかな、と思ったけどこれはフルパスはとれないっぽいな\n<http://hackage.haskell.org/package/template-haskell-2.16.0.0/docs/Language-Haskell-TH-Syntax.html#v:location>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1592732425.067800",
+        "text": "自分も `Paths_pkgname` が正攻法に思います",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1592732460.068500",
+        "text": "コンパイル時に指定したパスが実行時にも存在することが保証されている前提ならCPPを有効にして `__FILE__` マクロを使う手もあります。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1592733614.068800",
+        "text": "<@U4LGTMTMK> <@U4L0B71L1> <@U4M9NJ7QE>\nなるほど、ありがとうございます！\n確かに\n\n&gt; コンパイル時のことって基本的に忘れられてしまうので難しいですね。\nこれが真理な気がしてきました。。",
+        "user": "U012A4ALLSC",
+        "type": "message"
+    },
+    {
+        "ts": "1592734058.069000",
+        "text": "基本的にstackを利用してprojectを作成する際は、実行体である.exeファイルはstackのサンドボックス内に作られるので、プロセスの起動もサンドボックス内の特定のディレクトリで行う、という形をとるのが素直な気がしてきました:bow:",
+        "user": "U012A4ALLSC",
+        "type": "message"
     }
 ]
