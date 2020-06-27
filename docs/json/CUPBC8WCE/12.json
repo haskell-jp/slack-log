@@ -4,5 +4,227 @@
         "text": "お昼食べてから、引き続き、fcmのクライアント作ったり、具体的な通知管理のBE作ったりします。\nもしくは途中から読書します。",
         "user": "U59TQ3MJ9",
         "type": "message"
+    },
+    {
+        "ts": "1593234327.339100",
+        "text": "山本悠滋です。掃除をしていて遅くなりました。ご飯食べてから <https://wiki.haskell.jp/Workshop/hasmoku/OrganizerGuide> の改良を行います。最悪管理者がいなくても始めと終わりの合図を自動投稿で出せるように。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593234351.339400",
+        "text": "ってか人少なっ！ :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593237925.340000",
+        "text": "引き続き疑似乱数関連をもにょもにょします。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1593238028.341200",
+        "text": "<#C4M4TT8JJ|random> にも書きましたが、 とりあえず pure haskell な MT19937 の実装を `random-1.2` に対応させました <https://github.com/naohaq/mtrand-hs/>",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1593238132.341900",
+        "text": ":game_die: は物理乱数だよ!",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1593241368.342300",
+        "text": "<@U561MADLH> has joined the channel",
+        "user": "U561MADLH",
+        "type": "message"
+    },
+    {
+        "ts": "1593241454.343300",
+        "text": "codewarsの問題をやります。",
+        "user": "U561MADLH",
+        "type": "message"
+    },
+    {
+        "ts": "1593242098.344000",
+        "text": "途中から参加した人へ: <https://spatial.chat/s/Haskell-jp> も盛り上がっています",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593242201.344900",
+        "text": "<@U4KPPQW7K> <@U4L0B71L1> <@U59TQ3MJ9> 運営ガイドを更新して、なるべく自動投稿で済ませられるようにしました。\n<https://wiki.haskell.jp/Workshop/hasmoku/OrganizerGuide>\nDiffはこちら: <https://github.com/haskell-jp/haskell-jp-wiki/commit/6e300927692d4cb9a6d229fbeebcc1c7e274fbd3>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593243619.345100",
+        "text": "遅くなりました。\n\n引きつづき、\nGeneralized folds for nested datatypes\nを読んでます。",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1593245945.345800",
+        "text": "PureScriptのタプル、Haskellのそれに負けじと力業だ :sweat_smile: <https://github.com/purescript/purescript-tuples/blob/master/src/Data/Tuple/Nested.purs>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593247256.346200",
+        "text": "型の構造としては cons セルみたいな感じなのかー",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1593248554.346600",
+        "text": "今日は Generalized folds for nested datatypes の higher-order fixed points の途中まで。",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1593248605.346800",
+        "text": "<!here> 成果報告の時間です！何か、やったことを軽くご共有いただけると幸いです hask(_ _)eller",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1593248707.347800",
+        "text": "<https://haskell-jp.slack.com/archives/CUPBC8WCE/p1593242201344900> のとおり運営ガイドを更新しました。\n運営協力者募集中です！ :pray:\n1～2月に一度参加できれば :ok:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593248816.348700",
+        "text": "あと、slack-webの修正中ですが、なぜか <https://github.com/haskell-jp/slack-web/tree/conversation> のブランチで、CPPがエラーを起こしてしまって困ってます。 :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593248866.349400",
+        "text": "```src\\Web\\Slack\\Common.hs:57:0: error:\n     error: missing binary operator before token \"(\"\n     #if !MIN_VERSION_servant(0,16,0)\n\n   |\n57 | #if !MIN_VERSION_servant(0,16,0)\n   | ^```\nというエラー。直接いじった覚えはない箇所なのに... :confused:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593249279.349900",
+        "text": "自動化したフローを試したいので次回の運営は私がやります。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593249434.351400",
+        "text": "`System.Random` が充実したので、 `mwc-random` から流用したboilerplate的なコードがほとんど要らなくなりました(とりあえずコメントアウトした) <https://github.com/naohaq/mtrand-hs/blob/master/src/System/Random/MT64.hs>",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1593249477.352000",
+        "text": "`TypeFamilies` 拡張は必要なくなったかも。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1593249905.353900",
+        "text": "作ってるプロジェクトのpostgresqlのdriverをpostgresql-pureに切り替えようとしていて、postgresql-pure上のIsLabelのインスタンス定義を外そうとしています\n後細かいライブラリのlts上げた <https://github.com/nakaji-dayo/servant-swagger-tags>",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1593250386.354200",
+        "text": "原因わかった。\nslack-webパッケージのcabalファイルが妙な書かれ方をしているせいだ。\n`hs-source-dirs` にsrc, testsを含めているせいで、slack-web自身の依存関係を `test-suite` に書かなければならない状態になっていて、\nservantを依存関係に含めてないから `stack test` だけうまくいかない。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593250419.354400",
+        "text": "servantを依存関係に含めてないからCPPのマクロも見つからなくて展開されないってわけだ。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593250960.355100",
+        "text": "あ、それ外さないとなーと思ってた！",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1593250966.355300",
+        "text": "codewarsの一番簡単な8kyuの問題をいくつか解きました。エアプからの脱却を目指すために、まず簡単なプログラムをサクサクかけるようになりたいですｗ",
+        "user": "U561MADLH",
+        "type": "message"
+    },
+    {
+        "ts": "1593251289.355700",
+        "text": "higher-kind なオブジェクトをファンクターで写すような状況でもうまく成立するのが面白いと思いました。 (Example 3.1)",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1593251365.356100",
+        "text": "これか！ <http://www.cs.ox.ac.uk/people/richard.bird/online/BirdPaterson99Generalised.pdf>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593251460.356600",
+        "text": "はい。それです。",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1593251463.356700",
+        "text": "解決してテストの続きも書いてましたが、疲れたのでこの辺で止めておきます。もうちょっとボイラープレートなコードが必要みたいじゃ",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593251477.357000",
+        "text": "中国からなのでvpnが切れる度に落ちてましてすみません・・・",
+        "user": "U561MADLH",
+        "type": "message"
+    },
+    {
+        "ts": "1593252222.357800",
+        "text": "運営ガイドをさらに更新して、次回のイベントページは、次回の担当者が作成することにしました。\nイベントの告知から投稿の予約まですべて一人でまとめて行えた方が良いかと思いまして。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593252528.358200",
+        "text": "せっかくなので、論文から写経したコードを gist にも貼ってみました。\n\n<https://gist.github.com/khibino/8ee196512870ca104de96aedde1ae04c>\n\nhigher-kind なものを移している例は 32list.hs ( <https://gist.github.com/khibino/8ee196512870ca104de96aedde1ae04c#file-32list-hs> ) とか。",
+        "user": "U4KNU6N48",
+        "type": "message"
+    },
+    {
+        "ts": "1593252609.358600",
+        "text": " set up a reminder “@here 第39回Haskell-jpもくもく会の時間です！好きなタイミングでいいので、自己紹介と今日やりたいことを書き込んでいただけると！ hask(_ _)eller” in this channel at 1PM Saturday, July 4th, Japan Standard Time.",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593252784.358800",
+        "text": " set up a reminder “@here 成果報告の時間です！何か、やったことを軽くご共有いただけると幸いです hask(_ _)eller” in this channel at 6PM Saturday, July 4th, Japan Standard Time.",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593252900.359600",
+        "text": "遅くなりましたが、そろそろお開きと言うことで！今週もお疲れ様でした！",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1593252919.360000",
+        "text": "それ今自分で言いかけてたw",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593252964.360300",
+        "text": "お疲れ様でした",
+        "user": "U4KNU6N48",
+        "type": "message"
     }
 ]
