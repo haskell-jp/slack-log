@@ -76,5 +76,17 @@
         "text": "<@U015X47HJHM> has joined the channel",
         "user": "U015X47HJHM",
         "type": "message"
+    },
+    {
+        "ts": "1593672664.071100",
+        "text": "<@U016D5S559B> has joined the channel",
+        "user": "U016D5S559B",
+        "type": "message"
+    },
+    {
+        "ts": "1593710468.075000",
+        "text": "「プログラミングHaskell 第2版」１３章の「モナドパーサー」を読んでいますが、\n以下の式がどう簡約されていき、最終的に[(\"1\", \"a\")]と評価されているのか分からず、苦戦中。。\n\nこれ、どのような順序で式が評価されていってるのでしょう。。\n```&gt;parse (some digit) \"1a\"\n[(\"1\",\"a\")]```\n以下の簡約の仕方だと、永遠に評価が終わらない。\n\n```-- many x = some x &lt;|&gt; pure []\n-- some x = pure (:) &lt;*&gt; x &lt;*&gt; many x\n\nparse (some digit) \"1a\"\nparse (pure (:) &lt;*&gt; digit &lt;*&gt; many digit) \"1a\"\nparse (pure (:) &lt;*&gt; digit &lt;*&gt; (some digit &lt;|&gt; pure [])) \"1a\"\nparse (pure (:) &lt;*&gt; digit &lt;*&gt; ((pure (:) &lt;*&gt; digit &lt;*&gt; many digit) &lt;|&gt; pure [])) \"1a\"\n…（以下略）```\n\nちなみに、以下のコードを叩いてみたら、次の結果となったので、末尾の相互再帰(many/some)の部分は遅延評価されているように思えますが、具体的にどう簡約されていくのかが分からないです。。\n\n```&gt;parse (some digit) (repeat 'a')\n[] --これは直ちに結果（empty)を返す```\n```&gt;parse (some digit) (repeat '1')\n*** Exception: stack overflow --スタックオーバーフローが発生```\n\n＜補足＞\n上記の元となる実装は以下です。\n\n```newtype Parser a = Parser (String -&gt; [(a, String)])                                                                                                                                                                                           \n\nparse :: Parser a -&gt; String -&gt; [(a, String)]\nparse (Parser p) inp = p inp \n\ninstance Alternative Parser where\n  empty  = Parser (\\inp -&gt; []) \n  p &lt;|&gt; q = Parser (\\inp -&gt; case parse p inp of\n                              [] -&gt; parse q inp \n                              [(a, out)] -&gt; [(a, out)])\n  many x = some x &lt;|&gt; pure []\n  some x = pure (:) &lt;*&gt; x &lt;*&gt; many x\n\n\ninstance Functor Parser where\n  fmap f p = Parser (\\inp -&gt; case parse p inp of\n                               [] -&gt; []\n                               [(a, out)] -&gt; [(f a, out)])\n\ninstance Applicative Parser where\n  pure v = Parser (\\inp -&gt; [(v, inp)])\n  pf &lt;*&gt; pa = Parser (\\inp -&gt; case parse pf inp of\n                                [] -&gt; []\n                                [(f, out)] -&gt; parse (fmap f pa) out)\n\ninstance Monad Parser where\n  return = pure\n  p &gt;&gt;= f = Parser (\\inp -&gt; case parse p inp of\n                         [] -&gt; []\n                         [(v, out)] -&gt; parse (f v) out)\n\nitem :: Parser Char\nitem = Parser (\\inp -&gt; case inp of\n                          [] -&gt; []\n                          (x:xs) -&gt; [(x, xs)])\n\nsat :: (Char -&gt; Bool) -&gt; Parser Char\nsat p = do\n  x &lt;- item\n  if p x then return x else empty\n\ndigit :: Parser Char\ndigit = sat isDigit```\n",
+        "user": "U012A4ALLSC",
+        "type": "message"
     }
 ]
