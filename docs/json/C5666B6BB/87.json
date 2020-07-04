@@ -88,5 +88,143 @@
         "text": "「プログラミングHaskell 第2版」１３章の「モナドパーサー」を読んでいますが、\n以下の式がどう簡約されていき、最終的に[(\"1\", \"a\")]と評価されているのか分からず、苦戦中。。\n\nこれ、どのような順序で式が評価されていってるのでしょう。。\n```&gt;parse (some digit) \"1a\"\n[(\"1\",\"a\")]```\n以下の簡約の仕方だと、永遠に評価が終わらない。\n\n```-- many x = some x &lt;|&gt; pure []\n-- some x = pure (:) &lt;*&gt; x &lt;*&gt; many x\n\nparse (some digit) \"1a\"\nparse (pure (:) &lt;*&gt; digit &lt;*&gt; many digit) \"1a\"\nparse (pure (:) &lt;*&gt; digit &lt;*&gt; (some digit &lt;|&gt; pure [])) \"1a\"\nparse (pure (:) &lt;*&gt; digit &lt;*&gt; ((pure (:) &lt;*&gt; digit &lt;*&gt; many digit) &lt;|&gt; pure [])) \"1a\"\n…（以下略）```\n\nちなみに、以下のコードを叩いてみたら、次の結果となったので、末尾の相互再帰(many/some)の部分は遅延評価されているように思えますが、具体的にどう簡約されていくのかが分からないです。。\n\n```&gt;parse (some digit) (repeat 'a')\n[] --これは直ちに結果（empty)を返す```\n```&gt;parse (some digit) (repeat '1')\n*** Exception: stack overflow --スタックオーバーフローが発生```\n\n＜補足＞\n上記の元となる実装は以下です。\n\n```newtype Parser a = Parser (String -&gt; [(a, String)])                                                                                                                                                                                           \n\nparse :: Parser a -&gt; String -&gt; [(a, String)]\nparse (Parser p) inp = p inp \n\ninstance Alternative Parser where\n  empty  = Parser (\\inp -&gt; []) \n  p &lt;|&gt; q = Parser (\\inp -&gt; case parse p inp of\n                              [] -&gt; parse q inp \n                              [(a, out)] -&gt; [(a, out)])\n  many x = some x &lt;|&gt; pure []\n  some x = pure (:) &lt;*&gt; x &lt;*&gt; many x\n\n\ninstance Functor Parser where\n  fmap f p = Parser (\\inp -&gt; case parse p inp of\n                               [] -&gt; []\n                               [(a, out)] -&gt; [(f a, out)])\n\ninstance Applicative Parser where\n  pure v = Parser (\\inp -&gt; [(v, inp)])\n  pf &lt;*&gt; pa = Parser (\\inp -&gt; case parse pf inp of\n                                [] -&gt; []\n                                [(f, out)] -&gt; parse (fmap f pa) out)\n\ninstance Monad Parser where\n  return = pure\n  p &gt;&gt;= f = Parser (\\inp -&gt; case parse p inp of\n                         [] -&gt; []\n                         [(v, out)] -&gt; parse (f v) out)\n\nitem :: Parser Char\nitem = Parser (\\inp -&gt; case inp of\n                          [] -&gt; []\n                          (x:xs) -&gt; [(x, xs)])\n\nsat :: (Char -&gt; Bool) -&gt; Parser Char\nsat p = do\n  x &lt;- item\n  if p x then return x else empty\n\ndigit :: Parser Char\ndigit = sat isDigit```\n",
         "user": "U012A4ALLSC",
         "type": "message"
+    },
+    {
+        "ts": "1593734605.075100",
+        "text": "ちょっと今試す余裕がないので取り急ぎの回答を。\n引数の文字列を消費していないからあたかも無限に続くように見えるのです。先に `parse` を展開してみてください。\nただ、手で簡約するのはしんどいと思うので、`parse` や `many` , `some` の引数と戻り値を評価するタイミングで `trace` (`many` や `some` ではそのままでは `traceShowId` が使えないので注意) してみたり、その上でGHCi の `:sprint` で戻り値がどう評価されるか見たり、 あるいはもしかしたら <http://felsin9.de/nnis/ghc-vis/> が役に立つかも知れません。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593734714.075300",
+        "text": "もう一点訂正させてください。\n&gt; 末尾の相互再帰(many/some)の部分\n`many` と `some` における再帰は末尾再帰ではないです。（末尾再帰ちゃんとできてるならスタックオーバーフローもしないはずですし\n\n末尾再帰の正確な定義については検索してください :pray:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1593736937.075700",
+        "text": "基本的には、遅延評価と覚えるのではなく、いちばん外側の式から簡約されていくと思えばいいです\n\n`parse (some digit) \"1a\"` は `(parse (some digit)) \"1a\"` の略記なので、いちばん最初は `e1 e2` (`e1 = parse (some digit)`、`e2 = \"1a\"`) の形の簡約から始まります。\n\n`e1 e2` の形の簡約方法は、`e1` を `(\\x -&gt; ...)` の形かコンストラクタへの部分適用まで評価した後、`e2` を適用するというものです。今回は、まず `parse (some digit)` をその形まで簡約します。\n\n`parse (some digit)` もやっぱり、`e1 e2` の形なので、さらに `parse` の簡約を行います。`parse` はその定義から `\\(Parse p) inp -&gt; p inp` の形に簡約されます。",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593737455.076000",
+        "text": "次に、`(\\(Parse p) inp -&gt; p inp) (some digit)` の適用が始まります。\n\n`(\\(Parse p) inp -&gt; p inp)` は `\\x inp -&gt; case x of { Parse p -&gt; p inp }` の略記なので、まず適用結果は `\\inp -&gt; case (some digit) of { Parse p -&gt; p inp }` になります。",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593738026.076200",
+        "text": "で、一番最初の `parse (some digit) \"1a\"` が `(\\inp -&gt; case (some digit) of { Parse p -&gt; p inp }) \"1a\"` になり、適用操作が始まります。その結果 `case (some digit) of { Parse p -&gt; p \"1a\" }` になります。\n\nここからがちょっと特殊で、`Parse` 型が `data` か `newtype` かで簡約方法が異なります。今回は `newtype` なので、その場合の簡約方法を見ていきます。\n\nまず、今の一番外側の式の形は `case e1 of { ... }` になるので、この形の簡約方法が適用されます。`case` の形は結構複雑で、その全容は <https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-580003.17> に書かれています。\n\n今回の `case e1 of { Parse p -&gt; p \"1a\" }` でのパターン `Parse p` の場合、`newtype` によるコンストラクタ `Parse` はないものとして扱われ、`e1` は `p` に直接紐づかされます。これは、Haskell の式では表現できないですが、気分的には `cast&lt;String -&gt; ...&gt;(some digit) \"1a\"` みたいな感じで `e1` は `Parse` 型ではなく `String -&gt; ...` 型の値として扱われるようになります。\n\nで、また `e1 e2` の形の簡約が適用されます。この場合 `cast&lt;...&gt;( )` はないものと思ってもらってよくて、`some digit` をまず簡約するという流れになります",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593739585.076600",
+        "text": "`some digit` はやっぱり `e1 e2` の形をしているので、今までの流れと同じく `some` の定義から `(\\x -&gt; pure (:) &lt;*&gt; x &lt;*&gt; many x) digit` になった後、`x` に `digit` が紐づき `pure (:) &lt;*&gt; digit &lt;*&gt; many digit`  のように簡約されます\n\n(実際には変数 `x` の領域が作られ、そこに `digit` と紐づいてることが記憶され、簡約結果は変数 `x` を残しそこの簡約が走ると記憶領域が参照されその時初めて `digit` に置き換わりますが、今回は省略します)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593739797.076800",
+        "text": "`pure (:) &lt;*&gt; digit &lt;*&gt; many digit` は `&lt;*&gt;` が左結合なので、`(&lt;*&gt;) ((&lt;*&gt;) (pure (:)) digit) (many digit)` の略記になります。なので、`e1 = (&lt;*&gt;) ((&lt;*&gt;) (pure (:)) digit)`、`e2 = many digit` においていちばん外側の式の形が `e1 e2` になる式です。",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593740157.077200",
+        "text": "よって、今までの流れ通り `(&lt;*&gt;) ((&lt;*&gt;) (pure (:)) digit)` の簡約が実行されます。これは `(&lt;*&gt;)` の定義が `(\\pf pa -&gt; Parser (\\inp -&gt; case parse pf of ...))` なのでそれに展開され、その後 `pf` に `(&lt;*&gt;) (pure (:)) digit` が紐づいて `\\pa -&gt; Parser (\\inp -&gt; case parse ((&lt;*&gt;) (pure (:)) digit) inp of ...)` になります。\n\nで、最初に戻って今度は `pa` に `many digit` が紐づいて `Parser (\\inp -&gt; case parse ((&lt;*&gt;) (pure (:)) digit) inp of ...)` になります。\n\n`newtype` の `Parser` コンストラクタは無視してよいので `cast&lt;...&gt;(some digit)` は `\\inp -&gt; case parse ((&lt;*&gt;) (pure (:)) digit) inp of ...` にようやく簡約されることになります",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593740255.077500",
+        "text": "で、`inp` に `\"1a\"` が紐づき `case parse ((&lt;*&gt;) (pure (:)) digit) \"1a\" of ...` の簡約が始まります",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593740818.077700",
+        "text": "`case e1 of ...` は基本的にはマッチするパターンを最初から探していき、その過程で `e1` が簡約されていきます。今回は、\n```case parse ((&lt;*&gt;) (pure (:)) digit) \"1a\" of\n  [] -&gt; []\n  [(f, out)] -&gt; parse (fmap f (many digit)) out```\nが省略なしで書いた現在の簡約結果なので、最初のパターンは `[]` になります。この場合、`[]` は `data` による型なので `parse ((&lt;*&gt;) (pure (:)) digit) \"1a\"` を `\\x -&gt; ...` かコンストラクタへの部分適用の形になるまで評価します。\n\nその過程で `((&lt;*&gt;) (pure (:)) digit)` の部分が簡約されますが、これは今までの流れと大体同様なので、その過程は省略します。",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593741163.077900",
+        "text": "最終的に、`parse ((&lt;*&gt;) (pure (:)) digit) \"1a\"` は\n```case parse (pure (:)) \"1a\" of\n  [] -&gt; []\n  [(f, out)] -&gt; parse (fmap f digit) out```\nになります。\n\nで、また `parse (pure (:)) \"1a\"` の簡約が実行されることになります。これは、進めると `[((:), \"1a\")]` になります。\n\nよって、\n```case [((:), \"1a\")] of\n  [] -&gt; []\n  [(f, out)] -&gt; parse (fmap f digit) out```\nに簡約が進むことになります",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593741323.078500",
+        "text": "これは `[]` のパターンマッチに失敗し、今度は `[(f, out)]` のパターンが参照されます。こちらには成功するので、`f` に `(:)` が、`out` に `\"1a\"` が紐づき `parse (fmap (:) digit) \"1a\"` に簡約が進みます",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593744349.078700",
+        "text": "ここからは省略気味で進めます。`parse (fmap (:) digit) \"1a\"` は、\n```case parse digit \"1a\" of\n  [] -&gt; []\n  [(a, out)] -&gt; [((:) a, out)]```\nに簡約が進み、`parse digit \"1a\"` の簡約が始まります。\n\n`parse digit \"1a\"` の簡約において、`digit` の簡約が始まります。`digit` はその定義から、`sat isDigit` に展開され、`sat` の定義から\n```do\n  x &lt;- item\n  if isDigit x then return x else empty```\nに簡約されます。ところで、この式は、以下の略記になります\n```item &gt;&gt;= \\x -&gt; if isDigit x then return x else empty```",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593744647.078900",
+        "text": "で、この式はさらに `(&gt;&gt;=) item (\\x -&gt; if isDigit x then return x else empty` の略記なので、`(&gt;&gt;=)` の定義から\n```\\inp -&gt; case parse item inp of\n  [] -&gt; []\n  [(v, out)] -&gt; parse ((\\x -&gt; if isDigit x then return x else empty) v) out```\nに展開されることになります。後は `inp` に `\"1a\"` が紐づいて\n```case parse item \"1a\" of\n  [] -&gt; []\n  [(v, out)] -&gt; parse ((\\x -&gt; if isDigit x then return x else empty) v) out```\nの簡約が始まることになります",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593744767.079100",
+        "text": "これまでと同様 `[]` パターンから `parse item \"1a\"` の簡約が始まり、\n```case \"1a\" of\n  [] -&gt; []\n  (x:xs) -&gt; [(x, xs)]```\nへと簡約が行われ、`\"1a\"` は `['1', 'a']` の略記で、これは `'1':('a':[])` の略記なので、`(x:xs)` のパターンマッチに成功し `[('1', \"a\")]` が出てくることになります",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593745248.079300",
+        "text": "その手順を続けていくと、`parse (fmap (:) digit) \"1a\"` は\n```[((:) '1', \"a\")]```\nになることになります。後は、そのまま簡約を上記の手順で進めていくと、`parse (some digit) \"1a\"` が最終的に `[(\"1\", \"a\")]` になる過程が分かると思います",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593748902.082800",
+        "text": "<@U57D08Z9U> \n詳細な解説ありがとうございます！:sob:\n後でじっくり読ませていただきます！:man-bowing:\n\n<@U4LGTMTMK> \nデバッグ手順のご教示ありがとうございます！勉強になります:smile:\nあ、末尾再帰ではないですね:sweat_drops:日本語の表現がおかしくてすみません:man-bowing:\n:sprintは後で試してみます！",
+        "user": "U012A4ALLSC",
+        "type": "message"
+    },
+    {
+        "ts": "1593751113.083300",
+        "text": "ついでに、`parse (some digit) (repeat '1')` が stack overflow するやつは、ぱっと見\n```many x = some x &lt;|&gt; pure []```\nこの定義が問題ですね (詳しく見てないので、間違ってたらすいません)\n\nずっとマッチし続ける場合 `some x` のパースがどんどん進行していきその過程で `many x` がどんどん再帰的に展開されます。で、`many x` が展開された際、使用されない `pure []` が遅延されたまま残り続けることになります。\n\nなので、`many x` が展開された分だけ、遅延された `pure []` に相当するオブジェクトが増え続けます。\n\n通常この遅延されたオブジェクトはヒープ領域に格納されていくので、通常はヒープオーバフローになるんですが、実は Haskell の GHCi は通常のコンパイル結果と異なる簡易的なスタックマシンでコードを実行するので、GHCi 上ではスタックにこの遅延されたオブジェクトが積まれていき、スタックオーバフローになるんだと思いますね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593751502.083700",
+        "text": "Haskell の実行マシンはちょっと特殊で、全ての関数呼び出しは単なるジャンプ (末尾呼び出し相当) なので、末尾再帰でないからスタックオーバーフローが起きるというわけではありません。\n\nただ、通常の言語と傾向としては似ていて、many / some の相互再帰で、many が some を実行した結果を見て `pure []` を計算するか判断しなければいけなくて、そのためには many が展開された時のフレームを何らかの方法で退避しておかなければいけないのは共通です。\n\nそれが通常の言語ではスタック退避なのが、Haskell ではフレームの代わりに遅延オブジェクトをヒープに退避させる (GHCi ならスタックに退避させる) ことになる傾向はあります\n\n(ただ、これは一概に完全に対応するわけではなく、たまたま Haskell だとうまくオブジェクトが消費されたり、逆に普通の言語だと退避が起きない状況で退避が起きたりということはありますね)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593757926.084100",
+        "text": "<@U016P3BHTNG> has joined the channel",
+        "user": "U016P3BHTNG",
+        "type": "message"
+    },
+    {
+        "ts": "1593761609.084400",
+        "text": "",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1593761714.084800",
+        "text": "途中で寝てしまってる間に他の方の回答が付いた＆途中で力付きたのですが手動簡約の供養として貼りました（どこかミスしてる自身がある）",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1593765706.086500",
+        "text": "<@U4L0B71L1> \nありがとうございます！:sob:\n勉強になります:man-bowing:",
+        "user": "U012A4ALLSC",
+        "type": "message"
     }
 ]
