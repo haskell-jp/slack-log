@@ -244,5 +244,29 @@
         "text": "その方法で，うまくいきそうです．ありがとうございます",
         "user": "U57D08Z9U",
         "type": "message"
+    },
+    {
+        "ts": "1593969526.094700",
+        "text": "GHCiによるデバッグ時に、出力される内容に分からないことがありましたので質問させてください。\n(GHCiデバッグに限らない内容ですが、ポチポチしているときに改めて気になりました。。）\n\nGHCiにて、「:break 2」コマンドを打つと、現在ロードされているモジュールの2行目にブレークポイントが貼られ、\n以下のような内容が出力されます。\n```*Main&gt; :break 2\nBreakpoint 0 activated at qsort.hs:2:15-46```\n上記の、\n```qsort.hs:2:15-46```\nの末尾の「15-46」という数字は何を指しているのでしょうか？\nこの数字が、デバッグ時に役立つ情報なのかどうかが分からず。\n\nちなみに、上記のqsort.hsファイルは次のような内容で、全体で5行しかないため、\nファイルの行数とは無関係とは思われますが。。\n\n```qsort [] = []\nqsort (a:as) = qsort left ++ [a] ++ qsort right\n where (left,right) = (filter (&lt;=a) as, filter (&gt;a) as)\n\nmain = print (qsort [8, 4, 0, 3, 1, 23, 11, 18])```\n※qsort.hsの内容や、操作したコマンドは以下のURLと同じです。\nポチポチしていた時に気になったため質問させていただきました。\n\n<https://downloads.haskell.org/~ghc/7.6.3/docs/html/users_guide/ghci-debugger.html>",
+        "user": "U012A4ALLSC",
+        "type": "message"
+    },
+    {
+        "ts": "1593970829.094800",
+        "text": "`2:15-46` で2行目の15文字目から46文字目という範囲、すなわち `qsort left ++ [a] ++ qsort right` を表しています。\nどこかにはっきり説明があるというわけでもない (たぶん) ので、ハマりますよね…",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1593971185.096000",
+        "text": "<@U578W9676> \nありがとうございます！\nそういうことだったんですね！モヤモヤが晴れました:smile:",
+        "user": "U012A4ALLSC",
+        "type": "message"
+    },
+    {
+        "ts": "1593974679.096500",
+        "text": "<@U016HRXCR8V> has joined the channel",
+        "user": "U016HRXCR8V",
+        "type": "message"
     }
 ]
