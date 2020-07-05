@@ -226,5 +226,23 @@
         "text": "<@U4L0B71L1> \nありがとうございます！:sob:\n勉強になります:man-bowing:",
         "user": "U012A4ALLSC",
         "type": "message"
+    },
+    {
+        "ts": "1593912783.090100",
+        "text": "TemplateHaskell の Type データを，(型クラス自分で定義する以外で) 型から作る方法ってありますか？イメージとしては，\n```import qualified <http://Language.Haskell.TH|Language.Haskell.TH> as TH\n\n_ :: (...) =&gt; Proxy a -&gt; TH.Type```\nみたいな型の関数が書けることを想定してます．",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1593915847.090200",
+        "text": "パッと思いついたのは、TypeableのsplitTyConAppで型情報を分解して、各TyConをNameに変換するというやり方です。自分ではまだ試していませんが",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1593927098.090600",
+        "text": "その方法で，うまくいきそうです．ありがとうございます",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
