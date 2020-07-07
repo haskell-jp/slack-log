@@ -280,5 +280,23 @@
         "text": "<@U4LGTMTMK>  \nなるほど！\nそういう時に役立ちますね！",
         "user": "U012A4ALLSC",
         "type": "message"
+    },
+    {
+        "ts": "1594109672.099500",
+        "text": "attoparsec、あるいはApplicativeやAlternativeの基本についてご質問です\n\n\nやろうとしているのは\n`Dest=Comp;Jump` ないし `Dest=Comp` という形式のテキストのパースです\n\n\nスレッド欄にて\n* こんな風に書きたいが、正しくないコード（Ideal）\n* 正しいが、汚いと思うコード（Reality）\nをご覧ください\n\n\n目的はIdealの簡潔さをなるべく保ちながらRealityの正しさを実現することです\n\n\n`Ideal.test` を実行すると、入力 `MD=...`  については\n`aDest` が `M` しか消費しないので、残る `D=...` が `=` にマッチせず失敗しています\n\n\n`Reality.test` を実行すると、結果は all isRight で正しくパースされているのですが\n* `aDest` の `&lt;* char '='`\n* `aComp` の `A   &lt;$ \"A\"`\nが冗長と感じます、もっとスッキリ書けないでしょうか？\n\n\n`aDest` の定義で `&lt;|&gt;` でつないだ並びは実際には数が多くコピペで済ませたいので\nこれを正しくソートするという方法は避けたいです",
+        "user": "ULTN48U8Y",
+        "type": "message"
+    },
+    {
+        "ts": "1594109719.099600",
+        "text": "こんな風に書きたいが、正しくないコード（Ideal）",
+        "user": "ULTN48U8Y",
+        "type": "message"
+    },
+    {
+        "ts": "1594109740.100000",
+        "text": "正しいが、汚いと思うコード（Reality）",
+        "user": "ULTN48U8Y",
+        "type": "message"
     }
 ]
