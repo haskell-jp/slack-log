@@ -5,4 +5,61 @@
             [ M   &lt;$ "M"
             , D   &lt;$ "D"
             , MD  &lt;$ "MD"
-            ]</pre><br/>と書けました</div></div></div><div class="message event" id="message-1594164690.114500"><div class="content"><div class="summary"><div class="message__header user">shunkichi.sato</div><div class="message__timestamp date"><a class="date" href="#message-1594164690.114500">2020-07-08&nbsp;08:31:30 +0900</a></div></div><div class="message__body description">さらにヘルパー演算子を入れて、だいぶスッキリしました<br/>ありがとうございました</div></div></div><div class="message event" id="message-1594182324.115400"><div class="content"><div class="summary"><div class="message__header user">U016QCYJ9SN</div><div class="message__timestamp date"><a class="date" href="#message-1594182324.115400">2020-07-08&nbsp;13:25:24 +0900</a></div></div><div class="message__body description">@U016QCYJ9SN has joined the channel</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/87.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div></div></body></html>
+            ]</pre><br/>と書けました</div></div></div><div class="message event" id="message-1594164690.114500"><div class="content"><div class="summary"><div class="message__header user">shunkichi.sato</div><div class="message__timestamp date"><a class="date" href="#message-1594164690.114500">2020-07-08&nbsp;08:31:30 +0900</a></div></div><div class="message__body description">さらにヘルパー演算子を入れて、だいぶスッキリしました<br/>ありがとうございました</div></div></div><div class="message event" id="message-1594182324.115400"><div class="content"><div class="summary"><div class="message__header user">sesame.parrot</div><div class="message__timestamp date"><a class="date" href="#message-1594182324.115400">2020-07-08&nbsp;13:25:24 +0900</a></div></div><div class="message__body description">@sesame.parrot has joined the channel</div></div></div><div class="message event" id="message-1594261873.131500"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1594261873.131500">2020-07-09&nbsp;11:31:13 +0900</a></div></div><div class="message__body description">import をインライン化したいのですが、何か既存のツールとか、使えそうなライブラリをご存知の方いらっしゃいますか？ 例えば<br/><br/><pre>​-- AtCoderPrelude.hs
+​module AtCoderPrelude (readUVecLn, parseInt, otherfct) where
+​​import Control.Monad.State.Strict (StateT, runStateT)
+​​import qualified Data.ByteString as BS
+​import qualified Data.ByteString.Char8 as BSC
+​​import qualified Data.Vector.Unboxed as VU
+​​import qualified Some.Random.Module as M
+​​
+​​-- | Given a parser, parse a whole input line and give a vector.
+​​readUVecLn
+​​  :: (VU.Unbox a)
+​​  =&gt; Int                          -- ^ Expected maximum length 
+​​  -&gt; StateT BS.ByteString Maybe a -- ^ Parser
+​​  -&gt; IO (VU.Vector a)
+​​readUVecLn len parser
+​​  = VU.unfoldrN len (runStateT parser) &lt;$&gt; BS.getLine
+​
+​-- | Skip spaces and control chars, and parse an Int.
+​parseInt :: StateT BS.ByteString Maybe Int
+parse​Int = StateT
+​  $ BSC.readInt . BS.dropWhile (&lt; fromIntegral (fromEnum '!'))
+​
+​otherfct :: A -&gt; Very -&gt; Useful -&gt; Function
+​​otherfct = M.usefulFunction "SomeGoodString"
+</pre><br/>と<br/><br/><pre>​-- Main.hs
+​import AtCoderPrelude
+​
+​main :: IO ()	
+​main = do
+​  n &lt;- readLn
+​  vec &lt;- readUVecLn n parseInt
+​  print vec
+</pre><br/>から<br/><br/><pre>​-- Merged.hs
+​import qualified Control.Monad.State.Strict (StateT, runStateT) as M3a6f5d
+​​import qualified Data.ByteString as M65a7e5
+​import qualified Data.ByteString.Char8 as M47ef44
+​​import qualified Data.Vector.Unboxed as M3266e4
+​​
+​​readUVecLn_M2346ed
+​​  :: (M3266e4.Unbox a)
+​​  =&gt; Int
+​​  -&gt; M3a6f5d.StateT M65a7e5.ByteString Maybe a
+​​  -&gt; IO (M3266e4.Vector a)
+​​readUVecLn_M2346ed len parser
+​​  = M3266e4.unfoldrN len (M3a6f5d.runStateT parser) &lt;$&gt; M65a7e5.getLine
+​
+​parseInt_M2346ed :: M3a6f5d.StateT M65a7e5.ByteString Maybe Int
+parse​Int_M2346ed = M3a6f5d.StateT
+​  $ M47ef44.readInt . M65a7e5.dropWhile (&lt; fromIntegral (fromEnum '!')
+​
+​main :: IO ()
+​main = do
+​  n &lt;- readLn
+​  vec &lt;- readUVecLn_M2346ed n parseInt_M2346ed
+​  print vec
+</pre><br/>に類するもの(16進ハッシュは適当です)を作れると嬉しい、ということなのですが。<br/></div></div></div><div class="message event" id="message-1594263578.131600"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1594263578.131600">2020-07-09&nbsp;11:59:38 +0900</a></div></div><div class="message__body description">ハッシュ無くても良くて単に1つのソースコードにまとめたいと言うだけなら<br/>AtCoderPreludeからmodule宣言を無くして,<br/><pre>{-# LANGUAGE CPP #-}
+
+#include "AtCoderPrelude.hs"</pre><br/>として<br/><code>cpphs --noline Main.hs</code><br/>とすれば1つにまとめられそうです.<br/><br/>Main.hsで新しくimport出来無くなったりする問題はありますが…<br/><br/>ハッシュ付けるならTemplate Haskellで頑張るしか私には思いつきませんね</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/87.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div></div></body></html>

@@ -10,5 +10,23 @@
         "text": "<@U016QCYJ9SN> has joined the channel",
         "user": "U016QCYJ9SN",
         "type": "message"
+    },
+    {
+        "ts": "1594265082.120700",
+        "text": "stackの使い方について質問させていただきたいです．\nyamlファイルやcabalファイルについてまだ使い方がちゃんとわかっていないところがあると思うのですが，回答いただければ幸いです．\n\n環境はWindows10でstack2.3.1を使っています．\n\nHaskellでsqliteを扱いたく， `sqlite-simple` というライブラリを使おうと，`stack.yaml` の `extra-devs` と プロジェクトのcabalファイルに以下のように追加しました．\n```# stack.yaml\n# コメント行は省略します\n\nresolver: lts-16.2\n\npackages:\n- .\n\nextra-deps:\n- sqlite-simple-0.4.16.0@sha256:aeb9502c0004054846829766a08d856122a7e7386077b95048e60edaf9f46b88,2947```\n```# cabalファイル(一部)\nlibrary\n  hs-source-dirs:      src\n  exposed-modules:     Lexer, Writer\n  build-depends:       base &gt;= 4.7 &amp;&amp; &lt; 5\n                     , text\n                     , sqlite-simple       # この行を追加しました\n  default-language:    Haskell2010```\n\nするとビルド時に以下のようなエラーが出ました．\n```Error: While constructing the build plan, the following exceptions were encountered:\n\nIn the dependencies for sqlite-simple-0.4.16.0:\n    base-4.13.0.0 from stack configuration does not match &lt;4.13  (latest matching version\n                  is 4.12.0.0)\n    direct-sqlite must match &gt;=2.3.13 &amp;&amp; &lt;2.4, but the stack configuration has no specified\n                  version  (latest matching version is 2.3.26)\n    semigroups-0.19.1 from stack configuration does not match ==0.18.*  (latest matching version\n                      is 0.18.5)\nneeded due to AIQRating-0.1.0.0 -&gt; sqlite-simple-0.4.16.0\n\nSome different approaches to resolving this:\n\n  * Build requires unattainable version of base. Since base is a part of GHC, you most likely\n    need to use a different GHC version with the matching base.\n\nPlan construction failed.```\n`dependencies` 等々書いてあったため，baseのバージョンが新しすぎて対応していないのかな？などと思い，cabalファイルの `build-depends` をいじったりしていたのですが，エラーが全く解決できず困っています．\n初歩的な質問かもしれないのですが，原因と対処法を教えていただければ幸いです．",
+        "user": "USFQ6M2PR",
+        "type": "message"
+    },
+    {
+        "ts": "1594265641.122900",
+        "text": "そのエラーは「sqlite-simpleのバージョンを0.4.16を指定してるけど、stackage の LTS-16.2 の base バージョン 4.13 では使えないよ（&lt;4.13 という条件がある）」って感じ",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1594265791.123500",
+        "text": "エラーの解決方法は次のどちらか\n1. 古い base のバージョンを使う（stack.yaml の `resolver` を lts-15 系を使う）\n2. 新しい sqlite-simple を使う（stack.yaml の `extra-deps` の `sqlite-simple-0.4.16.0@...` を `sqlite-simple-0.4.18.0` とかにする）",
+        "user": "U56L7EVNY",
+        "type": "message"
     }
 ]

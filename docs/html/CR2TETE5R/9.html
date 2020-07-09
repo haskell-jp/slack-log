@@ -1,1 +1,33 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / beginners #9</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / beginners #9</h1><div class="pager ui pagination menu"><a href="../../html/CR2TETE5R/8.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div><div class="message_list ui feed"><div class="message event" id="message-1594177785.113400"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1594177785.113400">2020-07-08&nbsp;12:09:45 +0900</a></div></div><div class="message__body description">あ、なるほど。</div></div></div><div class="message event" id="message-1594182324.113700"><div class="content"><div class="summary"><div class="message__header user">U016QCYJ9SN</div><div class="message__timestamp date"><a class="date" href="#message-1594182324.113700">2020-07-08&nbsp;13:25:24 +0900</a></div></div><div class="message__body description">@U016QCYJ9SN has joined the channel</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/CR2TETE5R/8.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div></div></body></html>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / beginners #9</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / beginners #9</h1><div class="pager ui pagination menu"><a href="../../html/CR2TETE5R/8.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div><div class="message_list ui feed"><div class="message event" id="message-1594177785.113400"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1594177785.113400">2020-07-08&nbsp;12:09:45 +0900</a></div></div><div class="message__body description">あ、なるほど。</div></div></div><div class="message event" id="message-1594182324.113700"><div class="content"><div class="summary"><div class="message__header user">sesame.parrot</div><div class="message__timestamp date"><a class="date" href="#message-1594182324.113700">2020-07-08&nbsp;13:25:24 +0900</a></div></div><div class="message__body description">@sesame.parrot has joined the channel</div></div></div><div class="message event" id="message-1594265082.120700"><div class="content"><div class="summary"><div class="message__header user">k.f.shogi</div><div class="message__timestamp date"><a class="date" href="#message-1594265082.120700">2020-07-09&nbsp;12:24:42 +0900</a></div></div><div class="message__body description">stackの使い方について質問させていただきたいです．<br/>yamlファイルやcabalファイルについてまだ使い方がちゃんとわかっていないところがあると思うのですが，回答いただければ幸いです．<br/><br/>環境はWindows10でstack2.3.1を使っています．<br/><br/>Haskellでsqliteを扱いたく， <code>sqlite-simple</code> というライブラリを使おうと，`stack.yaml` の <code>extra-devs</code> と プロジェクトのcabalファイルに以下のように追加しました．<br/><pre># stack.yaml
+# コメント行は省略します
+
+resolver: lts-16.2
+
+packages:
+- .
+
+extra-deps:
+- sqlite-simple-0.4.16.0@sha256:aeb9502c0004054846829766a08d856122a7e7386077b95048e60edaf9f46b88,2947</pre><br/><pre># cabalファイル(一部)
+library
+  hs-source-dirs:      src
+  exposed-modules:     Lexer, Writer
+  build-depends:       base &gt;= 4.7 &amp;&amp; &lt; 5
+                     , text
+                     , sqlite-simple       # この行を追加しました
+  default-language:    Haskell2010</pre><br/><br/>するとビルド時に以下のようなエラーが出ました．<br/><pre>Error: While constructing the build plan, the following exceptions were encountered:
+
+In the dependencies for sqlite-simple-0.4.16.0:
+    base-4.13.0.0 from stack configuration does not match &lt;4.13  (latest matching version
+                  is 4.12.0.0)
+    direct-sqlite must match &gt;=2.3.13 &amp;&amp; &lt;2.4, but the stack configuration has no specified
+                  version  (latest matching version is 2.3.26)
+    semigroups-0.19.1 from stack configuration does not match ==0.18.*  (latest matching version
+                      is 0.18.5)
+needed due to AIQRating-0.1.0.0 -&gt; sqlite-simple-0.4.16.0
+
+Some different approaches to resolving this:
+
+  * Build requires unattainable version of base. Since base is a part of GHC, you most likely
+    need to use a different GHC version with the matching base.
+
+Plan construction failed.</pre><br/><code>dependencies</code> 等々書いてあったため，baseのバージョンが新しすぎて対応していないのかな？などと思い，cabalファイルの <code>build-depends</code> をいじったりしていたのですが，エラーが全く解決できず困っています．<br/>初歩的な質問かもしれないのですが，原因と対処法を教えていただければ幸いです．</div></div></div><div class="message event" id="message-1594265641.122900"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1594265641.122900">2020-07-09&nbsp;12:34:01 +0900</a></div></div><div class="message__body description">そのエラーは「sqlite-simpleのバージョンを0.4.16を指定してるけど、stackage の LTS-16.2 の base バージョン 4.13 では使えないよ（&lt;4.13 という条件がある）」って感じ</div></div></div><div class="message event" id="message-1594265791.123500"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1594265791.123500">2020-07-09&nbsp;12:36:31 +0900</a></div></div><div class="message__body description">エラーの解決方法は次のどちらか<br/>1. 古い base のバージョンを使う（stack.yaml の <code>resolver</code> を lts-15 系を使う）<br/>2. 新しい sqlite-simple を使う（stack.yaml の <code>extra-deps</code> の <code>sqlite-simple-0.4.16.0@...</code> を <code>sqlite-simple-0.4.18.0</code> とかにする）</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/CR2TETE5R/8.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div></div></body></html>

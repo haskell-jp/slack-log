@@ -76,5 +76,17 @@
         "text": "<@U016QCYJ9SN> has joined the channel",
         "user": "U016QCYJ9SN",
         "type": "message"
+    },
+    {
+        "ts": "1594261873.131500",
+        "text": "import をインライン化したいのですが、何か既存のツールとか、使えそうなライブラリをご存知の方いらっしゃいますか？ 例えば\n\n```​-- AtCoderPrelude.hs\n​module AtCoderPrelude (readUVecLn, parseInt, otherfct) where\n​​import Control.Monad.State.Strict (StateT, runStateT)\n​​import qualified Data.ByteString as BS\n​import qualified Data.ByteString.Char8 as BSC\n​​import qualified Data.Vector.Unboxed as VU\n​​import qualified Some.Random.Module as M\n​​\n​​-- | Given a parser, parse a whole input line and give a vector.\n​​readUVecLn\n​​  :: (VU.Unbox a)\n​​  =&gt; Int                          -- ^ Expected maximum length \n​​  -&gt; StateT BS.ByteString Maybe a -- ^ Parser\n​​  -&gt; IO (VU.Vector a)\n​​readUVecLn len parser\n​​  = VU.unfoldrN len (runStateT parser) &lt;$&gt; BS.getLine\n​\n​-- | Skip spaces and control chars, and parse an Int.\n​parseInt :: StateT BS.ByteString Maybe Int\nparse​Int = StateT\n​  $ BSC.readInt . BS.dropWhile (&lt; fromIntegral (fromEnum '!'))\n​\n​otherfct :: A -&gt; Very -&gt; Useful -&gt; Function\n​​otherfct = M.usefulFunction \"SomeGoodString\"\n```\nと\n\n```​-- Main.hs\n​import AtCoderPrelude\n​\n​main :: IO ()\t\n​main = do\n​  n &lt;- readLn\n​  vec &lt;- readUVecLn n parseInt\n​  print vec\n```\nから\n\n```​-- Merged.hs\n​import qualified Control.Monad.State.Strict (StateT, runStateT) as M3a6f5d\n​​import qualified Data.ByteString as M65a7e5\n​import qualified Data.ByteString.Char8 as M47ef44\n​​import qualified Data.Vector.Unboxed as M3266e4\n​​\n​​readUVecLn_M2346ed\n​​  :: (M3266e4.Unbox a)\n​​  =&gt; Int\n​​  -&gt; M3a6f5d.StateT M65a7e5.ByteString Maybe a\n​​  -&gt; IO (M3266e4.Vector a)\n​​readUVecLn_M2346ed len parser\n​​  = M3266e4.unfoldrN len (M3a6f5d.runStateT parser) &lt;$&gt; M65a7e5.getLine\n​\n​parseInt_M2346ed :: M3a6f5d.StateT M65a7e5.ByteString Maybe Int\nparse​Int_M2346ed = M3a6f5d.StateT\n​  $ M47ef44.readInt . M65a7e5.dropWhile (&lt; fromIntegral (fromEnum '!')\n​\n​main :: IO ()\n​main = do\n​  n &lt;- readLn\n​  vec &lt;- readUVecLn_M2346ed n parseInt_M2346ed\n​  print vec\n```\nに類するもの(16進ハッシュは適当です)を作れると嬉しい、ということなのですが。\n",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1594263578.131600",
+        "text": "ハッシュ無くても良くて単に1つのソースコードにまとめたいと言うだけなら\nAtCoderPreludeからmodule宣言を無くして,\n```{-# LANGUAGE CPP #-}\n\n#include \"AtCoderPrelude.hs\"```\nとして\n`cpphs --noline Main.hs`\nとすれば1つにまとめられそうです.\n\nMain.hsで新しくimport出来無くなったりする問題はありますが…\n\nハッシュ付けるならTemplate Haskellで頑張るしか私には思いつきませんね",
+        "user": "U57CUMWQ6",
+        "type": "message"
     }
 ]
