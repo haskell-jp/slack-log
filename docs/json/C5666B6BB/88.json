@@ -88,5 +88,11 @@
         "text": "ハッシュ無くても良くて単に1つのソースコードにまとめたいと言うだけなら\nAtCoderPreludeからmodule宣言を無くして,\n```{-# LANGUAGE CPP #-}\n\n#include \"AtCoderPrelude.hs\"```\nとして\n`cpphs --noline Main.hs`\nとすれば1つにまとめられそうです.\n\nMain.hsで新しくimport出来無くなったりする問題はありますが…\n\nハッシュ付けるならTemplate Haskellで頑張るしか私には思いつきませんね",
         "user": "U57CUMWQ6",
         "type": "message"
+    },
+    {
+        "ts": "1594267562.131900",
+        "text": "makeMistakesToLearnHaskellでも :point_down: みたいな感じでその方法を採用しています。そのせいなのかカバレッジがうまくとれなかったりいろいろ難点はありますが、まぁまぁ便利です。\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell/blob/master/src/imports/external.hs>\n\n早く <https://github.com/ghc-proposals/ghc-proposals/pull/283> か <https://github.com/ghc-proposals/ghc-proposals/pull/295> がacceptされるといいんですが... :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
