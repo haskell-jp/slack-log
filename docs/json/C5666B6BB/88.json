@@ -100,5 +100,47 @@
         "text": "<@U017KL7CN72> has joined the channel",
         "user": "U017KL7CN72",
         "type": "message"
+    },
+    {
+        "ts": "1594459062.132500",
+        "text": "<@U016XNH11MY> has joined the channel",
+        "user": "U016XNH11MY",
+        "type": "message"
+    },
+    {
+        "ts": "1594465617.140000",
+        "text": "んー…なるほど。AtCoderで何百行あるテンプレートコードを使っていて、手元環境で全体のコードが長いとHIEが走るのが遅くなるんですよね。\n• 手元環境では、自作ライブラリ部分については先に別ファイルでコンパイルした状態で走ってもらう\n• AtCoder自動提出スクリプトを呼んだときに(ライブラリコードのほうはある程度のpreprocessをコンテスト開始前にやっておく前提でもいいから)オートでそれがインライン化される\nなんてことがあると嬉しい、というつもりだったのですが…難しそうですかね。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1594465709.140500",
+        "text": "回答ありがとうございます。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1594467547.142800",
+        "text": "使用したいモジュールも複数あるんですよね、これが…",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1594467677.143100",
+        "text": "<@U016Y0XPWD9> has joined the channel",
+        "user": "U016Y0XPWD9",
+        "type": "message"
+    },
+    {
+        "ts": "1594471467.143400",
+        "text": "うーん、なるほど、コンパイル済みであって欲しいと。となると力業でreexportなり衝突するところはrenameするパッケージを書いておいて（で、 `stack.yaml` とかにextra-depsとしてリポジトリーやtarballのURLを書いておき）、\n提出する手前で該当のパッケージのimportを適当なスクリプトでインライン化する、とかですかね...\nと、言う理解であってるかな？ :thinking_face:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1594476959.143700",
+        "text": "importの最後に自作ライブラリのimportを書いて\n提出前にsedとかでimportを置き換えるのが一番現実的…?",
+        "user": "U57CUMWQ6",
+        "type": "message"
     }
 ]
