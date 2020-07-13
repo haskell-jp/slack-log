@@ -1,0 +1,38 @@
+[
+    {
+        "ts": "1594567863.471900",
+        "text": "cabalで、わりとクリティカルなのに謎のTest failureでマージされず、投げた本人も放置したまま一年が経過したPRがあるんですが、たとえばこれを私が引き継ぐといったような事は可能なんでしょうかね <https://github.com/haskell/cabal/pull/6103>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1594568282.476500",
+        "text": "「クリティカル」というのは私の主観なのですが、\ncabalはバージョン3系列でv2-***のコマンドがデフォルトになった訳で、\nだとするとこの件のように「v1では出来たけどv2では出来ない」みたいなものがあると、\nそれはregressionという扱いになってマズいんじゃねーの、と個人的には思っていて、\nなのに特に界隈で問題になっている様子もないので何だかなーと思っている所です",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1594569901.477600",
+        "text": "引き継いで別途 PR 作るのは構わない気がします\nPR 作ったものの拒否されるのが嫌ならば事前にネゴっておく必要があると思いますが",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1594570119.480400",
+        "text": "別話題ですが、型別名っていつでも相互に入れ替えができると思っていたんですがそういうわけじゃないんですね（type synonym instances の前提）\n型クラスの解決に影響を与えるみたい\n```instance C String -- NG\n-- instance C [Char] -- OK\ninstance {- OVERLAPPABLE -} C [a]```",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1594595452.481800",
+        "text": "めっちゃ便利そう。Haskellのソースコード一括置換ツール。書き換えの規則を等式で表現できる（ `RULES` プラグマみたいに）\n<https://engineering.fb.com/open-source/retrie/>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1594595888.482000",
+        "text": "TypeSynonymInstancesを有効にしていようといまいと\n```instance C [Char]```\nにはFlexibleInstancesが必要なのでは。\nそしてもちろんFlexibleInstancesを有効にしてれば[Char]でもStringでも問題ない",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]

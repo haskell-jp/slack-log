@@ -1,0 +1,212 @@
+[
+    {
+        "ts": "1594534612.405000",
+        "text": "作業中のファイルをgithubにあげました\n<https://github.com/wvogel00/gvscoder>",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1594534697.406200",
+        "text": "ずっとCSRF mismatchエラーが返ってくるのでリクエストの作り方がまずいんだと思いますが，どなたか分かりますか...?",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1594535065.406300",
+        "text": "CSRFトークンが正しく抽出できているのは確認済みで，requestHeaderに記述するのが誤っているように思うので一からhttp勉強中...",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1594535157.406500",
+        "text": "実際に動かしてないのでぱっと見でですが、 CSRF token がちゃんとパースできてないのではないでしょうか？\n\nちゃんとパースできてる上でエラーが返ってくるかを確認した方がいい気がします。\n\nCSRF token は記号として + も含まれてるみたいですね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1594535270.406700",
+        "text": "Debug.Trace モジュールを import して、`case csrfToken of` のところに `case traceShowId csrfToken of` みたいに trace を挟んでやってみるといい気がしますね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1594535374.406900",
+        "text": "あー後、Cookie を設定しなきゃいけないと思いますね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1594535483.407200",
+        "text": "あ、`csrfToken` は表示するようにしてあるんですね。それでダメな場合は、Cookie がちゃんと設定されてないのが問題ですね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1594535749.407600",
+        "text": "cookie完全に頭から抜けてました...何度かGETリクエストしてみたら，そのたびにCSRFトークンが変わってました...ありがとうございます，調べてみます！",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1594536005.408100",
+        "text": "<@U016WTKJ2UV> has joined the channel",
+        "user": "U016WTKJ2UV",
+        "type": "message"
+    },
+    {
+        "ts": "1594536155.408300",
+        "text": "<https://yigarashi.hatenablog.com/entry/2014/12/08/000104>　これを読んでいきます",
+        "user": "U016WTKJ2UV",
+        "type": "message"
+    },
+    {
+        "ts": "1594541455.409200",
+        "text": "きっとservantあるある <https://twitter.com/igrep/status/1282223955223252992/photo/1>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1594544640.410300",
+        "text": "slack-logのissue <https://github.com/haskell-jp/slack-log/issues/42> の解決に向けて、slack-webパッケージにconversations API（の一部）を実装してました。多分できたはず。疲れたしPull request送るのは来週かなー",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1594544771.410600",
+        "text": "18時すぎてた",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1594544873.411100",
+        "text": "<!here> 成果報告の時間です\n今日やったことを報告しましょう",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1594544882.411300",
+        "text": "シリアル通信部の実装は終わりました．ログイン処理はあいかわらずREVEL_CSRF mismatchですが，insertCookiesIntoRequestを使うとcsrfまで自動で取ってきてくれるんですね．（パーサ書いた意味..）後半はずっとCookieに関する資料読んでました．\n1. CSRFを通す\n2. AC,WAなどの数を取得\nが課題です．",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1594544953.412800",
+        "text": "<@U4L0B71L1> Twitterの予約投稿も忘れてませんか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1594544983.413500",
+        "text": "<https://github.com/mizunashi-mana/tlex> の DFA minimization を書いてました。書けたは書けたんですが、バグっててそのデバッグ作業に難航中です",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1594545046.415400",
+        "text": "postgresql-pure の改修の方向性はよさそうだけど、`Data.ByteString.Builder.Prim` の使い方を忘れててつまづいてました",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1594545067.416100",
+        "text": "あ予約投稿使ってなかった",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1594545180.418700",
+        "text": "Haskellで3DモデルをいじるためにBlenderの新しい版が使いたくなり、更新が停滞していたgentooをアップデートする必要に迫られ、トラブった時のためにUbuntuのブートDVDを焼く作業をしようにも、gentooで久しくDVDを焼いていなかったので、手順を思い出すために一日が終わりました。ブートDVDは焼けました。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1594545232.419300",
+        "text": "再帰の考え方に慣れず長い時間を使いましたが6章の練習問題が終わりました。\n次章の高階関数ではfoldrですでに難しいですが頑張ります。",
+        "user": "U016XNH11MY",
+        "type": "message"
+    },
+    {
+        "ts": "1594545268.420100",
+        "text": "Yak shavingだ... :sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1594545357.420800",
+        "text": "descriptionが少し書き進められました…… <https://github.com/naohaq/mrg-random>",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1594545420.421400",
+        "text": "来週の運営を募集中です！",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1594545446.421700",
+        "text": "来週は参加できます！",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1594545458.421900",
+        "text": "私で良ければ",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1594545490.422500",
+        "text": "お",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1594545546.423200",
+        "text": "<@U8JGMG1QT> ありがとうございます！お願いします！ :bow:\n諸々の権限を与えるので、connpass、Twitter、Googleのアカウントを教えてください。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1594545568.423600",
+        "text": "DMで送りますね！",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1594545687.424900",
+        "text": "<!here> 運営のもろもろはこれからやるとして今日のもくもく会はおしまいということで\nお疲れさまでした",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1594545885.428200",
+        "text": "<@U8JGMG1QT> もくもく会オンラインの運営手順書はこちらです\n<https://wiki.haskell.jp/Workshop/hasmoku/OrganizerGuide>\n事前にやらないといけないのは *Connpass のイベントページ作成* で、あとは告知や当日のアナウンスなどですがこれらは最悪忘れてても何とかなるので気負わなくても大丈夫です\n分からないところがあれば <@U4L0B71L1> や <@U4LGTMTMK> などにいつでも聞いてもらえれば",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1594546061.431100",
+        "text": "Twitterの方は予約投稿しておいた方が楽です。\nSlackも本来は /remind でなんとかなるはずなんですが、先週試した感じなぜかうまく行きませんでした :disappointed: （でも、当日コピペするだけで投稿できるので一応 /remind をセットしておくと少しだけ楽です）\n一応活動自体のアピールにもなるので、Twitterもたのんます！ :pray:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1594546128.431600",
+        "text": "色々ありがとうございます，twitterは自分のアカウントで構わないんですよね？",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1594546180.432400",
+        "text": "ああー、そこの説明が足りてなかったか。 <https://tweetdeck.twitter.com/> にアクセスしてみてください。 権限を加えたので、 <https://twitter.com/haskell_jp> として投稿できるようになっているはずです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1594546208.433000",
+        "text": "おー、あとで入れるか試してみます！",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    }
+]
