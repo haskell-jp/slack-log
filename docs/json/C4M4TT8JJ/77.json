@@ -34,5 +34,59 @@
         "text": "TypeSynonymInstancesを有効にしていようといまいと\n```instance C [Char]```\nにはFlexibleInstancesが必要なのでは。\nそしてもちろんFlexibleInstancesを有効にしてれば[Char]でもStringでも問題ない",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1594613717.482300",
+        "text": "flexible instances も有効でした\n`String` だと ↓ のエラーが出るんですが `[Char]` だと出なかったんですよね\n```    . Overlapping instances for FromRecord String\n        arising from a use of `runQuery''\n      Matching instances:\n        instance FromRecord String\n          -- Defined in `postgresql-pure-0.1.3.0:Database.PostgreSQL.Pure.Internal.Parser'\n        instance postgresql-pure-0.1.3.0:Database.PostgreSQL.Pure.Internal.Data.FromField\n                   a =&gt;\n                 FromRecord [a]\n          -- Defined in `postgresql-pure-0.1.3.0:Database.PostgreSQL.Pure.Internal.Parser'```",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1594613914.482600",
+        "text": "うーん、普通に単純な例を手元で試した限り問題なかったので、バグか、 `Overlappable` の仕様じゃないっすかね... :confused:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1594614466.482900",
+        "text": "あ、使用するコードも書いてみました？定義する分には問題がなく解決時に問題になるので",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1594614787.483200",
+        "text": "とりあえず `OVERLAPPABBLE` する限り問題なさそう\n```{-# LANGUAGE FlexibleInstances #-}\n\nclass Hoge a where\n  hoge :: a -&gt; a\n\ninstance Hoge String where\n  hoge = id\n\ninstance {-# OVERLAPPABLE #-} Hoge [a] where\n  hoge = id\n\nmain :: IO ()\nmain = print $ hoge \"a\"```\n書いてて気づいたんですけど、 `{-# OVERLAPPABLE #-}` ではなく`{- OVERLAPPABLE -}` となっているのは問題のコードでも、ですか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1594615094.483400",
+        "text": "ギクッと思ったがちゃんと `{-# #-}` でした…… GHC バージョンとか依存かな",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1594616043.483600",
+        "text": "なんか再現しなくなった:fearful: あれぇ？確かに昨日はウンウン悩んでたんだけどなぁ",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1594631947.484700",
+        "text": "同じ現象かかりませんが、自分も overlapping instances ではまったことがあります。\n上記と見かけ上同じようなことが以下の手順で再現できます。\n\nLib.hs\n```\n{-# LANGUAGE FlexibleInstances #-}\n\nclass C a where\n  testInst :: a -&gt; Int\n\ninstance C [a] where\n-- instance {-# OVERLAPPABLE #-} C [a] where -- (あとでこちらに変える; 手順(2)参照)\n  testInst = const 1\n```\n\nMain.hs\n```\n{-# LANGUAGE FlexibleInstances #-}\nmodule Main where\nimport Lib\n\ninstance C [Char] where\n  testInst = const 2\n-- instance C String where -- (あとでこちらに変える; 手順(3)参照)\n--   testInst = const 3\n\nmain :: IO ()\nmain = putStrLn $ show $ testInst \"a\"\n```\n\n\n(0) cabal clean\n\n(1) ↑の状態で cabal run\n→ Overlapping instances for C [Char]\n\n(2) Lib のみ修正し {-# OVERLAPPABLE #} を追加し、cabal run\n→ OK\n→ 2\n\n(3) Main のみ修正して C String に変えて、cabal run\n→ Overlapping instances for C [Char]\n\n\nどうも、手順(2) で Lib.o のみ更新され Lib.hi ファイルが更新されないのと関係があるようです。\n((2)の OVERLAPPABLE の効果が(3)で効かない)\n手順(3) のあと Lib.hi を消してcabal runするとビルドが通り3が表示されます。\n手元にある発見時の.cabalではbaseが4.11となっているので、だいぶ前からの挙動のようです。\n(何度もごちゃごちゃしてすみません。)",
+        "user": "U6BUS25MX",
+        "type": "message"
+    },
+    {
+        "ts": "1594632942.485000",
+        "text": "おあー、動的ビルド絡みですか。なるほど～。",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1594646475.485800",
+        "text": "GitHubのissue上で状況を聞いてみると良いかと思います。 issueが多くて埋もれてるのかもしれませんね。\n`Cc: @phadej` を入れておくと、cabal主要開発者のOlegさんに伝わると思います。",
+        "user": "U55V441FS",
+        "type": "message"
     }
 ]
