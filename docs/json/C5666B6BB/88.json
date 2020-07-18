@@ -160,5 +160,17 @@
         "text": "まあ、プラグマ、`import`、宣言群という3グループごと流し込む位置を別々にしておけばいいだけのことなので、手作りすればいいだけのことなのですが、 `import ... as` に対応するのが面倒、とか、色々面倒だなあ、と思ったんですよね・・・。",
         "user": "UL1HFJATE",
         "type": "message"
+    },
+    {
+        "ts": "1594991326.162500",
+        "text": "ある処理の実行時間を測りたい時、Haskellでよく使われるような書き方とかってありますか？\n\n以下のコードはググって書いたコードで、私の実行環境だと、\"2000\"（プラス数ミリ秒）が出力されますが、この書き方はHaskellで一般的な書き方でしょうか。\n\n```millisSinceEpoch :: UTCTime -&gt; Int \nmillisSinceEpoch =\n    floor . (1e3 *) . nominalDiffTimeToSeconds . utcTimeToPOSIXSeconds\n\nmain :: IO ()                                                                                                                                                                                                                                 \nmain = do\n  start &lt;- millisSinceEpoch &lt;$&gt; getCurrentTime\n  threadDelay $ 2 * 10 ^ 6 \n  end &lt;- millisSinceEpoch &lt;$&gt; getCurrentTime\n  print . show $ (end - start)```\n定番の書き方などがあれば、それに倣った方がよい気がするので、お伺いしたいです。",
+        "user": "U012A4ALLSC",
+        "type": "message"
+    },
+    {
+        "ts": "1594998464.162600",
+        "text": "実行時間を計る場合はNTPなどの影響を減らすためにもgetCurrentTimeよりmonotonicな時計を使うことをおすすめします。clockパッケージのgetTime MonotonicやGHC依存でよいならGHC.Clock.getMonotonicTimeNSecなどがあります。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
     }
 ]
