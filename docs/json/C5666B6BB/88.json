@@ -184,5 +184,47 @@
         "text": "<@U4M9NJ7QE> さん\nありがとうございます！勉強になります！\ngetCurrenttimeはNTPの影響を受けるんですね。\n\n\n<@U4LGTMTMK> さん\n貴重な情報ありがとうございます！\nまだリンク先は読みきれてないのですが、後ほど拝見しますm(__)m",
         "user": "U012A4ALLSC",
         "type": "message"
+    },
+    {
+        "ts": "1595074987.174900",
+        "text": "計測対象が綺麗に切り出せるなら igrep さんの言うように <https://hackage.haskell.org/package/criterion|https://hackage.haskell.org/package/criterion> や <https://hackage.haskell.org/package/gauge|https://hackage.haskell.org/package/gauge> を使って計測するのがいいと思います。個人的にはcriterionと <https://hackage.haskell.org/package/criterion-compare|https://hackage.haskell.org/package/criterion-compare> で変更前後の結果を比較するのによく使っています。guauge にも似たような機能があるかも知れません。\n\n実際のワークロードの一部を計測したいならmonotonicな時計を使って自分で差分を計算するのが良いと思います。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1595086204.176500",
+        "text": "こんな感じのコードがコンパイルエラーになったんだけど、どうしてなんでしょうか？（ DerivingVia 初心者）\n```  newtype Difference = Difference { unDifference :: Int }\n    deriving stock (Eq, Ord, Bounded)\n    deriving newtype (Enum, Show, Read, Num, Real, Integral)\n    deriving (Semigroup, Monoid) via Sum Int```",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1595086280.177000",
+        "text": "エラーメッセージはこんな感じです。\n```src\\Numeric\\YHSeq\\V0201.hs:32:15: error:\n    • Couldn't match representation of type 'Int'\n                               with that of 'Sum Int'\n        arising from the coercion of the method '&lt;&gt;'\n          from type 'Sum Int -&gt; Sum Int -&gt; Sum Int'\n            to type 'Difference -&gt; Difference -&gt; Difference'\n      The data constructor 'base-4.12.0.0:Data.Semigroup.Internal.Sum'\n        of newtype 'Sum' is not in scope\n    • When deriving the instance for (Semigroup Difference)\n   |\n32 |     deriving (Semigroup, Monoid) via Sum Int\n   |```",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1595088755.177200",
+        "text": "データコンストラクターの import で結果が変わりました。\n\n```{-# LANGUAGE DerivingVia                #-}\n{-# LANGUAGE GeneralizedNewtypeDeriving #-}\nmodule A where\n\n-- import           Data.Monoid (Sum) -- 同様のコンパイルエラー\nimport           Data.Monoid (Sum (Sum)) -- コンパイルできる\n\nnewtype Difference = Difference { unDifference :: Int }\n  deriving stock (Eq, Ord, Bounded)\n  deriving newtype (Enum, Show, Read, Num, Real, Integral)\n  deriving (Semigroup, Monoid) via Sum Int```\n試してから気付きましたが、よく見るとエラーメッセージに\n\n&gt; The data constructor ‘base-4.12.0.0:Data.Semigroup.Internal.Sum’\n&gt;        of newtype ‘Sum’ is not in scope\nって書いてある通りですね。",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1595089202.177500",
+        "text": "データコンストラクターがないと `Sum Int` の中身が `Int` だと知ることができない、って感じだと思われます。",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1595090315.178000",
+        "text": "<@U4M9NJ7QE> \nありがとうございます！",
+        "user": "U012A4ALLSC",
+        "type": "message"
+    },
+    {
+        "ts": "1595094389.182800",
+        "text": "ここに質問を書こうと GitHub 上のソースコードへのリンクを調べてたらバグが分かった\nありがとうございます",
+        "user": "U4L0B71L1",
+        "type": "message"
     }
 ]
