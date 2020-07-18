@@ -172,5 +172,17 @@
         "text": "実行時間を計る場合はNTPなどの影響を減らすためにもgetCurrentTimeよりmonotonicな時計を使うことをおすすめします。clockパッケージのgetTime MonotonicやGHC依存でよいならGHC.Clock.getMonotonicTimeNSecなどがあります。",
         "user": "U4M9NJ7QE",
         "type": "message"
+    },
+    {
+        "ts": "1595036094.163300",
+        "text": "念のため。遅延IOによって思わぬコードが計測するコードの外側で実行される可能性があります。\n必要に応じてdeepseqの `rnf` と `evaluate` を組み合わせて使いましょう。\n<http://hackage.haskell.org/package/deepseq-1.4.4.0/docs/Control-DeepSeq.html>\n今回そこまで求めているかわかりませんが、GHCのプロファイリング機能やベンチマーク用のパッケージ（criterionなど）も調べてみるといいかもしれません。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1595051150.167500",
+        "text": "<@U4M9NJ7QE> さん\nありがとうございます！勉強になります！\ngetCurrenttimeはNTPの影響を受けるんですね。\n\n\n<@U4LGTMTMK> さん\n貴重な情報ありがとうございます！\nまだリンク先は読みきれてないのですが、後ほど拝見しますm(__)m",
+        "user": "U012A4ALLSC",
+        "type": "message"
     }
 ]
