@@ -214,5 +214,89 @@
         "text": "<@U74KTAG0N> has joined the channel",
         "user": "U74KTAG0N",
         "type": "message"
+    },
+    {
+        "ts": "1595131232.433900",
+        "text": "第41回もくもく会のお時間です\n簡単でいいので，自己紹介と今日やりたいことを共有しましょう！\n\n私はwebsocketを色々いじって遊んでいきます",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1595131276.434900",
+        "text": "森田です。\n相変わらず疑似乱数周りをごにょごにょ。とりあえずさっきHackageのアカウント作りました",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1595131337.435800",
+        "text": "山本悠滋です。今日も <https://github.com/haskell-jp/slack-log/issues/42> の続きです！\n今日はそろそろslack-webパッケージにPull requestを送りたい！\n14時20分頃から1時間ぐらいまた婚活のため抜けます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1595131357.436400",
+        "text": "あ、でもまだお昼ご飯です。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1595131489.437800",
+        "text": "Fttです\n先週に引き続きプログラミングHaskell第2版を読みながら演習を解いていきます\n平日に7章を終わらせるつもりでしたが終わらなかったので\n7章高階関数の続きから",
+        "user": "U016XNH11MY",
+        "type": "message"
+    },
+    {
+        "ts": "1595132216.442900",
+        "text": "うーん、 Mersenne Twister ベースの疑似乱数生成器のライブラリが既に2つ( `mersenne-random` , `mersenne-random-pure64` )Hackageに登録されていて、どちらも何年も前に更新が止まっている状況があり。\n上記2つはどちらもFFIで mt19937 のCコードを呼び出しているし、新しい `random` の枠組みにも対応していない。\nので、 System.Random.Stateful で定義されているインターフェースから使えて、pure haskell で実装したものを手元で作ってしまったんだけど、これどうしましょう、っていう^^;;;",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1595132292.443500",
+        "text": ".oO(「pure64」はなにがpureなんすか... :confused: )",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1595132314.443900",
+        "text": "ああそうかpure functionか...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1595132325.444200",
+        "text": "pure64 はインターフェースがmonadicじゃないやつです。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1595132332.444600",
+        "text": "mersenne-random-pure-haskellで！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1595132654.446400",
+        "text": "ただし、2.4KiBあるMT19937の状態ベクトルが `newPinnedByteArray` で生成されまくるので、メモリ馬鹿食いします-_-;;;;;; &lt; `mersenne-random-pure64`",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1595135141.447900",
+        "text": "\"Haskell for Imperative Programmers\" by Philip Hagenlocher (YouTube)",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1595136307.449500",
+        "text": "yet another な implementation として新規に登録するか、既存のパッケージを更新する形でいくか、迷っています(新規なパッケージにしたほうが当然自分の手間は小さいわけですが)",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1595140258.450300",
+        "text": "SpatialChat、用事が済んだので間もなく私は入室します。\n雑談・相談したくなったらどうぞ <https://spatial.chat/s/Haskell-jp>",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
