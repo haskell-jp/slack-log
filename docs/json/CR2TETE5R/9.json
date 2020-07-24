@@ -100,5 +100,71 @@
         "text": "今使ってるMacBook Proを修理に出そうと思っていて、\n代わりにWindowsにstack.exeをDLしてstackからhlintとhoogleをインストールしようとしたところエラーが出たのですが\nこの記事\n<https://haskell.jp/blog/posts/2017/windows-gotchas.html>\nのおかげで助かりました。\n```chcp 65001```\nこれ知らないと詰まりますね…",
         "user": "U0121PJA7BN",
         "type": "message"
+    },
+    {
+        "ts": "1595471988.134400",
+        "text": "<@ULJNCPK5W> has joined the channel",
+        "user": "ULJNCPK5W",
+        "type": "message"
+    },
+    {
+        "ts": "1595478634.140100",
+        "text": "質問です．\nglossとgloss-juicyを入れたいのですが，Bitmap型コンストラクタの引数がgloss-1.11.1.1とgloss&gt;=1.13で変わっているため\n\ndependencies:\n- base &gt;= 4.7 &amp;&amp; &lt; 5\n- gloss == 1.11.1.1\n- gloss-juicy == 0.2.2\nの構成でstack buildしようとすると\n&gt; In the dependencies for hima-0.1.0.0:\n&gt;   gloss-1.13.1.2 from stack configuration does not match ==1.11.1.1 \n&gt;           (latest matching version is 1.11.1.1)\n&gt; needed since hima is a build target.\n&gt; \n&gt; Some different approaches to resolving this:\n&gt; \n&gt;  * Set 'allow-newer: true'\n&gt;   in /Users/vogel/.stack/config.yaml to ignore all version constraints and build anyway.\n&gt; \n&gt;  * *Recommended action:* try adding the following to your extra-deps\n&gt;   in /Users/vogel/Documents/Haskell/hima/stack.yaml:\n&gt; \n&gt; - gloss-1.11.1.1@sha256:6b5f8428b204b2c8fecba0b3dc5f49278d5c57a0003e59c46b16b356a770adaf,3840\nと返ってきます．\n・一番下のextra-deps追加　→　baseやcontainersでさらにエラーが返ってくる\nのですが，\n・config.yamlのallow-newerはtrueにしても問題ないのでしょうか(他のプロジェクトへの影響など)\n・他に解決方法はないでしょうか",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1595479130.140300",
+        "text": "&gt; 他のプロジェクトへの影響など\n`allow-newer` を `true` にしてもとくに他のプロジェクトへの影響はありません。\n自力で直す気もより古いバージョン（古いGHCと合わせて）を使う気もないなら `allow-newer` する以外の方法はないでしょう。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1595479192.140500",
+        "text": "補足: baseやcontainerはGHCに付属しているパッケージなので、それらが合わない、といわれたらGHCのバージョンを下げる（古いLTS Haskellに変える）しかないです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1595479256.140700",
+        "text": "ありがとうございます，あんまり大元のファイルをいじりたくないのでバージョン下げる方法でtryしてみます",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1595479353.140900",
+        "text": "~gloss-juicyの作者に変更点を送ることも考えます~\nあれ，最新のgithubみると修正されていますね，私の設定が悪い気がしてきました，見直してみます",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1595479556.141200",
+        "text": "単純にリリースを後回しにしている可能性もあります（作者に連絡してリリースをせかすのもいいでしょう）。\nGitHubに上がっているバージョンを直接使う場合は <https://haskell.e-bigmoon.com/stack/intro/extra-deps.html> に書かれている方法を参考にしてください。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1595480920.141600",
+        "text": "ありがとうございます，無事環境設定できました！",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1595483275.141800",
+        "text": "趣味や民間(?)のパッケージが多いプロジェクトは、stackよりもcabal-installのほうが詰まりにくいかもしれません。StackageのLTSは新しいライブラリや処理系が出回るまでどうしてもタイムラグがあるので、cabalで最新版を使ってもらったほうがライブラリ開発者としてもありがたいです",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1595484333.142000",
+        "text": "なるほど，これまでもstackで使えずに車輪の再発明したものもあるので，そろそろ真面目にcabalやり直した方がいいかもしれません．\n皆様色々とありがとうございます",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1595514860.142900",
+        "text": "<@U017LTZ4XBL> has joined the channel",
+        "user": "U017LTZ4XBL",
+        "type": "message"
     }
 ]
