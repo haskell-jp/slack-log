@@ -226,5 +226,59 @@
         "text": "こちらでも共有。\nVS Codeでの、Haskell Language Serverの静的バイナリの、自動インストールのデモ画面です。（私は未使用です）\n使用しているGHCのバージョンに合わせたバイナリが、自動でダウンロード＆インストールされます。 すごい、着々とここまで来ましたね。\n<https://twitter.com/meeple_/status/1286046745076670465>",
         "user": "U55V441FS",
         "type": "message"
+    },
+    {
+        "ts": "1595719220.011100",
+        "text": "小粒なパッケージをリリースした。\n`instance MonadFail (Either String)` にしたかったけど孤児インスタンスはライブラリー外に影響が出るので newtype でラップしただけ。\nそれにいくつか関数をセットにしたもの。\naeson の `Result` と実質同じ。\n<https://hackage.haskell.org/package/either-result-0.1.0.0|https://hackage.haskell.org/package/either-result-0.1.0.0>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1595751541.011700",
+        "text": "このリプ書いて気づいたんですがMonad Transformer版がちょっと欲しい...（とりあえずリプのとおり `CatchT` で代替するけど\n<https://twitter.com/igrep/status/1287299746059579392>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1595753284.012000",
+        "text": "それはちょっと思ってました（当面自分的需要がなかったので見なかったことにしていた",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1595754822.012300",
+        "text": "コンストラクタが隠蔽されているのは意図的なものでしょうか？コンストラクタがないとcoercionが通らない(DerivingViaなども使えなくなる)などの難点が生じます",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1595755348.012600",
+        "text": "<@U4KUNQF9N>お、その辺り無知です。簡単な解説か解説へのリンクなどがあれば教えてほしいです。",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1595755432.012800",
+        "text": "あと `Control.Monad.Catch.Pure.Catch` で事足りるのでは？感もしてきました（ｳｯ\n<https://twitter.com/kakkun61/status/1287317088592330752>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1595756159.013200",
+        "text": "",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1595765912.013600",
+        "text": "たった今めっちゃ欲しい案件が出てきたw\n<https://twitter.com/igrep/status/1287361576790396929>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1595772783.014000",
+        "text": "メモリ2GByteのUbuntu18.04 PCに vscodeとHLSを入れてみました。軽快に動きました。\n普段はVimを使っていて、IDEにどういうものが求められているのかを理解していないのですが、補完とか型の表示とかHaddockとのリンクとか良い感じです。\nHLSのダウンロードは全自動ですし、思った以上に動作が軽くて驚きました。\nバージョンが進んでいけば、良い感じになりそうですね:haskell:",
+        "user": "U55V441FS",
+        "type": "message"
     }
 ]
