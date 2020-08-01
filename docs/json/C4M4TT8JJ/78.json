@@ -142,5 +142,23 @@
         "text": "たしかに、Comic Sans以外のフォントはほぼ見たことがないですね :slightly_smiling_face:",
         "user": "UMTRA1VHU",
         "type": "message"
+    },
+    {
+        "ts": "1596286161.035400",
+        "text": "Hackage の haskeline-0.8.0.0 と GHC 8.10.1 付属の haskeline-0.8.0.0 が `MonadFail` に関して異なるせいでハマった……\nThanks to <@UGM9F7XQS>\n<https://hackage.haskell.org/package/haskeline-0.8.0.0/docs/System-Console-Haskeline.html#t:InputT>\n<https://downloads.haskell.org/~ghc/8.10.1/docs/html/libraries/haskeline-0.8.0.0/System-Console-Haskeline.html#t:InputT>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1596286272.035600",
+        "text": "なんでわざわざ\n``` MonadFail m =&gt; MonadFail (InputT m)```\nを消してしまったんでしょうね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1596286347.035800",
+        "text": "0.8.0.0 で入った（はず）のインスタンスなんですよね",
+        "user": "U4L0B71L1",
+        "type": "message"
     }
 ]
