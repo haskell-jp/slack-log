@@ -262,5 +262,41 @@
         "text": "stack 2.3.3がリリースされました。バグ修正が主な変更のようです。\n<@ULW04DUEA> Contributor入りおめでとう！ :tada:\n<https://github.com/commercialhaskell/stack/releases/tag/v2.3.3>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1596773516.056800",
+        "text": "GHC 9からの多倍長整数( `Integer` 型)のサポートについて。\nghc-bignumというパッケージで内部表現を統一した結果、新しい実装が劇的に作りやすくなったそうです（GHCの作者とかがうれしい）。\nPure Haskellな多倍長整数であるinteger-simpleもそれに合わせて書き換えられ（パッケージの名前も変わる？）、大幅に高速化できた、とのこと。\n<https://iohk.io/en/blog/posts/2020/07/28/improving-haskells-big-numbers-support/>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1596780114.062800",
+        "text": "integer-simpleは内部表現が `[Word]` 風のデータ構造だったのが新しいpure Haskellによる実装では（これまでのinteger-gmpと同様） `ByteArray#` ベースになってますし、integer-simpleは書き換えられたというよりは廃止されて置き換えられたと言った方が適切かと思います。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1596780312.066200",
+        "text": "私が絶賛作成中の浮動小数点数パッケージでも `Integer` の内部表現や内部的な関数に触れられると嬉しいので、ghc-bignum対応を行っています。テストするには自分でGHCをビルドするところから始めないといけないのが辛いところです。 <https://github.com/minoki/haskell-floating-point/blob/%E4%B8%BB/fp-ieee/src/Numeric/Floating/IEEE/Internal/IntegerInternals.hs|https://github.com/minoki/haskell-floating-point/blob/主/fp-ieee/src/Numeric/Floating/IEEE/Internal/IntegerInternals.hs>",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1596785018.067200",
+        "text": "bytestring-0.10.12.0がリリースされました。罠として悪名高いIsString ByteStringインスタンスに注意書きが入っていますね　<http://hackage.haskell.org/package/bytestring-0.10.12.0/docs/Data-ByteString.html#t:ByteString>",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1596794402.068900",
+        "text": "いっそのこと `IsString ByteString` は削除してしまっても良いのではないかというのは日本人的感覚なのでしょうかね\nRustだとバイトリテラルは別で `b\"hoge\"` みたいに書きますね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1596797274.069200",
+        "text": "「主」",
+        "user": "U4L0B71L1",
+        "type": "message"
     }
 ]
