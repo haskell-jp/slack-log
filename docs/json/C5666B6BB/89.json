@@ -4,5 +4,41 @@
         "text": "Haskell の `head` / `tail` は単連結リストの言葉ですね。Haskell のリストはそのまま単連結リストなので、単連結リストの先頭を示す `head` とそれ以降を示す `tail` という言葉を関数名にそのまま流用したものです。\n\n確かにコマンドの `head` / `tail` を想定すると、ギョッとする命名かもしれませんね",
         "user": "U57D08Z9U",
         "type": "message"
+    },
+    {
+        "ts": "1596848095.201100",
+        "text": "ちなみに、 `head :: [a] -&gt; Int -&gt; [a]` に相当するものとして `take` があります（引数の順番は逆なので注意）。\nそれを使って `first` みたいなものを作れば良かったんじゃない、という意図なのかも知れませんが。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1596863604.208500",
+        "text": "`head` はなくてはならないものかというと必ずしもそういうことはなくて、 `xs :: [a]` について、 `let (hd:tl) = xs in (hd,tlを使った式)` とすれば先頭の要素とそれ以外を取り出せます。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1596871961.208700",
+        "text": "ご回答ありがとうございます。\n\n<@U57D08Z9U>\n単連結リストは日本語でいうところの単方向リスト(Singly linked list)でしょうか？\n\n<@U4LGTMTMK>\n少し話が逸れますが、 `take` がその順番になってる理由は、取る数よりリストの方が適用する種類が多いからそうなってるんでしょうか？",
+        "user": "U7YMV774J",
+        "type": "message"
+    },
+    {
+        "ts": "1596873824.208900",
+        "text": "はい、そうだと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1596892952.216500",
+        "text": "LensのPrismの使い方について質問です\nPrismを `set`や `over`で `ASetter` として使えることは分かったのですが、Prismの中身に `Lens`を使用してアクセスしたいと思った時にやり方がわかりません。(例を下に載せます)\n現在は↓の `makeBelongTo` のようにしているものの、Characterの値コンストラクタが変わったら変更しなくてはいけなくなり、じゃあPrismにしたメリットないのでは、と悩んでいます。\n```data Character = Animal {\n                    _name  :: String\n                  , _age  :: Int\n                  , _memberOf :: Maybe String\n                  }\n               | Object {\n                    _name :: String\n                  , _memberOf :: Maybe String\n                  }\n              deriving (Show)\n\nmakePrisms ''Character\nmakeLenses ''Character\n\n-- この関数を\nmakeBelengTo :: String -&gt; Character -&gt; Character\nmakeBelengTo belongTo c@(Animal n a _) = Animal n a (Just belongTo)\nmakeBelengTo belongTo c@(Object n _)   = Object n (Just belongTo)\n\n-- こんな感じにしたい(これだと動かない)\nmakeBelongToWithLens :: String -&gt; Character -&gt; Character\nmakeBelongToWithLens belongTo = set (_Animal.memberOf) (Just belongTo)\n                              . set (_Object.memberOf) (Just belongTo)```\nまた、\n```set (_Animal._3) (Just belongTo)```\nのような解法は見つけたのですが、結局タプルの位置を指定しているためこれならPrismのメリットがないな…と思っています。",
+        "user": "ULTBB86UC",
+        "type": "message"
+    },
+    {
+        "ts": "1596920248.216800",
+        "text": "外泊中なので試せないのですが、普通に `set memberOf (Just belongTo)` か `c{_memberOf=Just belongTo}`で行けないでしょうか。",
+        "user": "U570660KX",
+        "type": "message"
     }
 ]
