@@ -70,5 +70,59 @@
         "text": "どっちにしろこれを使って Haskell のオフサイドルールをパースするのは難しいかなぁ。言語レポートに掲載されてるアルゴリズムと等価なパーサーになってるかの保証が難しそう。",
         "user": "U4L0B71L1",
         "type": "message"
+    },
+    {
+        "ts": "1597215041.239900",
+        "text": "`Data.Yaml` のパーサーコンビネーターの作り方について質問です\n`decodeFileEither`などで読み込んだYamlの中にあるパスをさらに読み込んでパースがしたいのですが、一度他の型を経由させる方法しか思いつかなくて迷っています。\nパーサー(`Parser a` )内部でIOを使うことは可能でしょうか(パース結果をFilePathとして、そのファイルも読みにいくことは可能でしょうか)\n`runParser` 内部にある `f` がどうにかできないのかなと思っているのですがよくわからず…\n何かいい方法があれば知りたいです…\n\n例としては:\n```data:\n  - path: foo.yaml\n    offset: (0, 1)\n  ...```\nというファイルを `decodeFileEither` で読んだ時、`foo.yaml` も読み込んで結果に含めたいです。\n\n現在は一度しか入れ子にならないため、一つ中間用の型を用意してその型に(パスはStringとして保存して)変換した後、その中にしまったパスをさらに `decodeFileEither` で読んでいます。\n\n\n```data ActualData = ActuallData ...\n\ndata IntermediateData = IntermidiateData { path :: FilePath, ... }\n\nload :: FilePath -&gt; IO (Either ParseException ActualData)\nload fp = do\n  intermediate &lt;- decodeFileEither fp\n  includedData &lt;- decodeFileEither $ path intermediate\n  return -- intermediate と includedData を使用して、ActualData を生成する```\n実際に使っている例だとこれになります。( `Face` をデコードするために、一度 `FaceFile` としてデコードした後に読み直している)\n<https://github.com/Cj-bc/faclig/blob/master/src/Graphics/Asciiart/Faclig/Types.hs#L36-L57>\n\nしかし、\n\n• 途中に他の型をできれば挟みたくない\n• 入れ子を何重にもしたいので、一度で解決できるようにしたい\nという理由があり、なんとかできないのかなと悩んでいます。",
+        "user": "ULTBB86UC",
+        "type": "message"
+    },
+    {
+        "ts": "1597215389.240100",
+        "text": "&gt; パーサー(`Parser a` )内部でIOを使うことは可能でしょうか\n少なくとも、これはできないと思います。\nここでの `Parser a` は <https://hackage.haskell.org/package/aeson-1.4.6.0/docs/Data-Aeson-Types.html#t:Parser> で、 IO を含まないので。",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1597215514.240400",
+        "text": "HKDにしてYAMLをパースした結果\nとして `Record IO` を返すようにするか、そこまでしなくとも `IO` 型の値をフィールドに含めるのはいかがでしょうか？\nHKDについては <https://qiita.com/thimura/items/85bdeeca6ced74c89478> とか  <http://fumieval.hatenablog.com/entry/2019/12/25/224329> を。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1597215807.240700",
+        "text": "同じ議論が <https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1554720210064400> でもありましたね...\n確かにこのスレッドへの返信の通りreflectionパッケージを使うという手もありますね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1597216076.241100",
+        "text": "`Record`については全く知らなかったので調べてみます！\nフィールドにIO型を含めた場合、最終的にはIOを取り外す処理は一括でできるのでしょうか…?(各フィールドの値をそれぞれ取り出す必要があるように思えているのですがそうでもない？)\nとりあえず、いただいたリンクとrefrectionを調べてみます！",
+        "user": "ULTBB86UC",
+        "type": "message"
+    },
+    {
+        "ts": "1597216223.241300",
+        "text": "最終的に `IO (Parser a)` みたいにできるんじゃないかな、HKD なら",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1597216235.241500",
+        "text": "&gt; 最終的にはIOを取り外す処理は一括でできるのでしょうか\nえぇ、その部分はbarbiesに任せられるはず。そこを一括でできるのがbarbiesの強みなので",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1597216358.241700",
+        "text": "`Parser (IO a)` （もっと正確には、 `Compose Parser IO a` ）から `IO a` に変換して最終的に `Identity a` として取り出せるようになるかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1597216534.241900",
+        "text": "色々教えてくださりありがとうございます！\nゆっくり噛み砕いてみます",
+        "user": "ULTBB86UC",
+        "type": "message"
     }
 ]
