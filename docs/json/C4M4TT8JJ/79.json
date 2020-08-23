@@ -238,5 +238,23 @@
         "text": "<@U019BASD7D0> has joined the channel",
         "user": "U019BASD7D0",
         "type": "message"
+    },
+    {
+        "ts": "1598189391.009600",
+        "text": "前から\n```main = do\n  putStrLn \"a\"\n  main```\nみたいな `do` の中での再帰ってどう扱われるんだろうと気になって調べたらとても分かりやすい解説でした。\n要するに当該の `Monad` において `(&gt;&gt;)` が第二引数を非正格に評価する場合（ 少なくとも `IO` は該当するはず！）はサンクが再帰の数だけ積まれるようなことはない、と。\n<https://stackoverflow.com/questions/13379060/under-what-circumstances-are-monadic-computations-tail-recursive>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1598189584.009800",
+        "text": "Lazy/StrictなStateも試してみましたが想像以上に難しいですね。どちらも第二引数は正格に評価するっぽい",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1598189810.010100",
+        "text": "<@U01A1C1LQSU> has joined the channel",
+        "user": "U01A1C1LQSU",
+        "type": "message"
     }
 ]
