@@ -70,5 +70,41 @@
         "text": "<@U01A20R5Z0Q> has joined the channel",
         "user": "U01A20R5Z0Q",
         "type": "message"
+    },
+    {
+        "ts": "1598780594.000800",
+        "text": "func :: a -&gt; ( a-&gt;b, a-&gt;c, ... , a-&gt;x ) -&gt; ( b, c, ... , x ) のような関数はどのように実装すればよいのでしょうか",
+        "user": "U015L5JEP8D",
+        "type": "message"
+    },
+    {
+        "ts": "1598781067.000900",
+        "text": "これはいろんな長さのタプルに対して使用できる func :: a -&gt; ( a-&gt;b, a-&gt;c, ... , a-&gt;x ) -&gt; ( b, c, ... , x ) がほしい、ということですよね？\n原則としてタプルはサイズが決まっていて、サイズが決まっているからこそ何番目にどの型が入るか決められる、という仕様なので、基本的には無理です。\n\nが、Template Haskellというコンパイル時にコードを生成する機能を使えば、擬似的にそうした関数を書くことはできます。\nコンパイル時に、受け取ったタプルの長さに応じて生成する関数を変えるわけです。\n<http://hshstter.hatenablog.com/entry/2012/04/15/121001> などが参考になるかと。\nあと、Template Haskellを使わずともGenericsというこれまたGHCの高度な機能を使えばできるかも知れませんが、これに関しては詳しいやり方についてちょっと自信がないので割愛します。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1598782622.001500",
+        "text": "ありがとうございます",
+        "user": "U015L5JEP8D",
+        "type": "message"
+    },
+    {
+        "ts": "1598783367.001800",
+        "text": "一応、念の為ですが、もしも、b, c, ... x の型がいずれも同じ型で、かつ、タプルではなくてリストの形でも良いのであれば、mapで簡易に記述できます。\n\nつまり例えば、型が、以下でよければ、\n```func :: a -&gt; [a -&gt; b] -&gt; [b]```\n以下のように、 `map`  と、関数適用 `$` を使って関数を書けます。\n```func :: a -&gt; [a -&gt; b] -&gt; [b]\nfunc a fs = map ($ a) fs```\nそして、以下のように、使えます。\n```ghci&gt; func 1 [(+1), (+2), (*10), abs, (\\x -&gt; x * 100)]\n[2,3,10,1,100]```\nそういう質問では無いですね？:slightly_smiling_face:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1598783766.002400",
+        "text": "確認ありがとうございます、そうだったら楽だったのですがやっぱり質問文の通りです…",
+        "user": "U015L5JEP8D",
+        "type": "message"
+    },
+    {
+        "ts": "1598786193.004200",
+        "text": "ご質問の背景がわからないので、見当違いの回答かもしれませんが、タプルの代わりにHeterogenous Listを使用することで、問題が解決できないか気になりました。（私もHeterogenous Listに詳しいわけではないのですが。。）\n\n<https://wiki.haskell.org/Heterogenous_collections>",
+        "user": "U012A4ALLSC",
+        "type": "message"
     }
 ]
