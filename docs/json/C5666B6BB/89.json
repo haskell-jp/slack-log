@@ -172,5 +172,47 @@
         "text": "<@U01A4JVLVNV> has joined the channel",
         "user": "U01A4JVLVNV",
         "type": "message"
+    },
+    {
+        "ts": "1599094688.000300",
+        "text": "class method を inline するにはどうすればいいでしょうか？\n調べた限り、instance 宣言の際に INLINE プラグマを書けばよさそうです。\nしかし、プロファイルを取ると、その method がボトルネックとして現れるので、inline できてないようです。\n\n具体的には、以下の read8 を、具体的な型 ReadBuffer に対して呼び出しています。\n\n<https://hackage.haskell.org/package/network-byte-order-0.1.5/docs/src/Network.ByteOrder.html#read8>\n\n関数定義をトップレベルに移してみたり、関係ないとは思いますが SPECIALIZE を書いたりしてみましたが、やはりうまく行きませんでした。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1599099489.000500",
+        "text": "`read8` を使用している箇所が多相になっているためにコンパイル時に型が特定できてない、というケースだと思うので、`read8` を 実際に呼んでいる箇所を一つずつ検証することになりますね... 呼んでいる関数をインライン化するとか。\n（関連: <https://blog.miz-ar.info/2016/06/writing-efficient-program-with-haskell/#2.specialization> すでに読んでいる記事でしたらすみません）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1599099630.000800",
+        "text": "「具体的な型」と書いたように、多相にはなっていません。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1599103396.001200",
+        "text": "INLINEプラグマを指定していれば、意図的に最適化を切ったりしないかぎりインライン化されるはずです。もしかしたらプロファイリングが影響しているかもしれません（トップレベルに絞ってみてはいかが）。また、無関係ですがread16などはインライン化がなく辞書渡しになるので、かなりパフォーマンスが落ちます",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1599103587.001400",
+        "text": "read16 に SPECIALIZE を書いた方がいいってことですね？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1599104176.001800",
+        "text": "ユーザーがReadableのインスタンスを追加できるので私ならINLINEをつけますが、それが想定した使い方でなければSPECIALISEでもいいと思います",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1599105752.002300",
+        "text": "ありがとうございます。INLINE を付けておきます。",
+        "user": "U56MBRKR9",
+        "type": "message"
     }
 ]
