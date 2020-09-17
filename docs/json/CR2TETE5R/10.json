@@ -190,5 +190,29 @@
         "text": "初めまして。\n純粋関数言語という言葉に惹かれて、Haskellについて勉強しています。\nlanguage serverについて質問しても大丈夫でしょうか。vscodeにhaskellの拡張機能を入れたのですが、project requires ghc but it isn't installedとエラーになります。\n原因が分かりますでしょうか?\n環境は以下になります。\nOS :ubuntu 20.04\ntool : stack\nresolver:lts-16.12\n\nターミナルからはstackが使用可能です。\n.bashrcには\neval \"$(stack --bash-completion-script stack)\"\nexport PATH=~/local/bin:$PATH\nを記入しています\n\nよろしくお願いします。",
         "user": "U01APTJNKAN",
         "type": "message"
+    },
+    {
+        "ts": "1600212948.009400",
+        "text": "該当の問題が発生しているディレクトリーで、 `stack setup` を実行してみてください。\nどこのディレクトリーかわからなければどこでも大丈夫です。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1600245714.014200",
+        "text": "情報ありがとうございます。\n頂いた情報を試してみたのですが、望んだ結果が得られませんでした。\nしかし、少し前進したので質問を以下に変更します。\n・グローバルプロジェクトでもhlsを起動させることは可能でしょうか?\n頂いた情報でディレクトリごとに設定するということが分かったのでそれをstack  newで作成したディレクトリでのhlsの起動に成功しました。\nしかし、そうではないのディレクトリでは相変わらずghcが見つからないようです。\n一応、 .stackのglobal-projectのstack.yamlに\nghc-options:\n    \"$everything\": -haddock\nは記入しています\n",
+        "user": "U01APTJNKAN",
+        "type": "message"
+    },
+    {
+        "ts": "1600247542.014400",
+        "text": "&gt;  ・グローバルプロジェクトでもhlsを起動させることは可能でしょうか?\nうーん、できると思っていたんですが、やっぱりPATHにないと検出してくれないってことなんですかね...\nぱっと思いつく回避策は二つあります。\n\n1. プロジェクト外でHaskellのコードをいじりたくなったとき、 `stack exec code` でVSCodeを起動する: これによってstackが環境変数を設定した状態でVSCodeを起動できるようになるので、stackがインストールしたghcも参照できるはずです。ただ、この状態からstackで管理しているプロジェクトを開いた場合に正しく起動できるかちょっと自信がないです。\n2. `stack path --compiler-exe` コマンドを実行して表示された、ghcが入っているディレクトリー（もちろんghcそのものではなくて）を、`PATH`に追加する: この方法は比較的確実ですが、global-projectのGHCを更新したときに再度`PATH` を更新する必要があるので、やや煩雑です。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1600277903.014800",
+        "text": "<@U01AQTN7VGD> has joined the channel",
+        "user": "U01AQTN7VGD",
+        "type": "message"
     }
 ]
