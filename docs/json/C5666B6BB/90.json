@@ -100,5 +100,29 @@
         "text": "<@U01B4SYCQMR> has joined the channel",
         "user": "U01B4SYCQMR",
         "type": "message"
+    },
+    {
+        "ts": "1600821584.000400",
+        "text": "ByteString 0.11 では、内部のコンストラクタが PS から BS になり、offset フィールドがなくなります。これに伴い、foreign pointer は、必ずそのByteStringのバッファの先頭を指します。drop なんかで、バッファを共有する場合、foreign pointer がいろんなところを指すようになりますが、この方法でバッファはうまく GC できるんでしょうか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1600826197.000500",
+        "text": "```data ForeignPtr a = ForeignPtr Addr# ForeignPtrContents```\nの定義を見れば分かる通り、ForeignPtrには既にアドレスと実体を表す値(MutableByteArray#など)の二つが入っています。故にplusForeignPtrなどは安全に定義できます",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1600829656.000700",
+        "text": "なるほど！ ありがとうございました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1600845249.001000",
+        "text": "<@U01B4CEG34M> has joined the channel",
+        "user": "U01B4CEG34M",
+        "type": "message"
     }
 ]
