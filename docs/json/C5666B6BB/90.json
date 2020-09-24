@@ -124,5 +124,29 @@
         "text": "<@U01B4CEG34M> has joined the channel",
         "user": "U01B4CEG34M",
         "type": "message"
+    },
+    {
+        "ts": "1600944992.004400",
+        "text": "これに関連してずっと気になっていたのですが，\n<https://haskell-jp.slack.com/archives/C5666B6BB/p1600826197000500?thread_ts=1600821584.000400&amp;cid=C5666B6BB>\n```data Finalizers\n  = NoFinalizers\n  | CFinalizers (Weak# ())\n  | HaskellFinalizers [IO ()]\n\ndata ForeignPtrContents\n  = PlainForeignPtr !(IORef Finalizers)\n  | MallocPtr      (MutableByteArray# RealWorld) !(IORef Finalizers)\n  | PlainPtr       (MutableByteArray# RealWorld)\n\ndata ForeignPtr a = ForeignPtr Addr# ForeignPtrContents```\nこの定義で，`ForeignPtr` が `IORef Finalizers` への参照を保持している理由，というか，この `Finalizer` という名前の由来がよくわからないんですよね………．GCされるときにただ捨てられるものを指して `Finalizer` とはどういうことなのか．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1600945536.004600",
+        "text": "ただ捨てられる，ってのも変だな．“garbage collector (or compilers) should treat `ForeignPtrContents` specially” とか書いているのを見たことないので，ふっつーに扱われるんだろうな，と思っている，と言うのが正しい．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1600953249.007000",
+        "text": "最近追加されたコメントによると、ファイナライザの登録時に `mkWeak#` を使っているのがポイントのようですね <https://gitlab.haskell.org/ghc/ghc/-/blob/a1f34d37b47826e86343e368a5c00f1a4b1f2bce/libraries/base/GHC/ForeignPtr.hs#L586|https://gitlab.haskell.org/ghc/ghc/-/blob/a1f34d37b47826e86343e368a5c00f1a4b1f2bce/libraries/base/GHC/ForeignPtr.hs#L586>",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1600956771.007400",
+        "text": "mkWeak#でweak pointerを作ってcapabilityごとに保持しているweak pointerのリストに追加します。GCは参照されていないweak pointerをリストアップしてscheduleFinalizersを呼び出し、リスト中のweak pointerのfinalizerを順次呼ぶという流れだと思います。Cのfinalizerはidle GCでも呼ばれていたような記憶があります。\nmkWeak#はrts/PrimOps.cmmのstg_mkWeakzhを、scheduleFinalizersはrts/Weak.cを見ると見つかります。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
     }
 ]
