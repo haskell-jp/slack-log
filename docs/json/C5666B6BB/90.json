@@ -148,5 +148,17 @@
         "text": "mkWeak#でweak pointerを作ってcapabilityごとに保持しているweak pointerのリストに追加します。GCは参照されていないweak pointerをリストアップしてscheduleFinalizersを呼び出し、リスト中のweak pointerのfinalizerを順次呼ぶという流れだと思います。Cのfinalizerはidle GCでも呼ばれていたような記憶があります。\nmkWeak#はrts/PrimOps.cmmのstg_mkWeakzhを、scheduleFinalizersはrts/Weak.cを見ると見つかります。",
         "user": "U4M9NJ7QE",
         "type": "message"
+    },
+    {
+        "ts": "1600998780.007600",
+        "text": "Finalizer とは、対象オブジェクトを捨てるために呼び出すコードのことですね。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1601021437.007800",
+        "text": "対象オブジェクトが何らかの(メモリ以外の)資源、例えばファイルハンドルを扱うものだった場合、GC でそのオブジェクトが捨てられるときにはファイルを閉じる必要があります。そのような処理をするのが finalizer です。",
+        "user": "U61BA2X0U",
+        "type": "message"
     }
 ]
