@@ -166,5 +166,17 @@
         "text": "そのようなものがFinalizerだと思っていたので，たかが `IORef` に入っている `IO ()` くらいのものをfinalizerと呼ぶのか，とずっと疑問だったのですが，あれユーザランドで勝手に弄る前提のものではなかったのですね！　まずそこにびっくりしていました．exportされてるから，てっきり `atomicModifyIORef` あたりでユーザが勝手に弄って良いものかと・・・．",
         "user": "UL1HFJATE",
         "type": "message"
+    },
+    {
+        "ts": "1601302226.014500",
+        "text": "`mkWeak` あたりやっと読んできました。 `Weak` ってFinalizerをつけて作れるんですね。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1601302327.016300",
+        "text": "（というか型の機能が型自体になくて作成時にimplicitに付けるっていうのが面白い発想だなと思いました）",
+        "user": "UL1HFJATE",
+        "type": "message"
     }
 ]

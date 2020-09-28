@@ -1,1 +1,23 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / beginners #11</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / beginners #11</h1><div class="pager ui pagination menu"><a href="../../html/CR2TETE5R/10.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div><div class="message_list ui feed"><div class="message event" id="message-1601102669.002200"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1601102669.002200">2020-09-26&nbsp;15:44:29 +0900</a></div></div><div class="message__body description">なんか最近そのへんが少し変わる(変わった？)という噂も <a href='https://github.com/haskell/cabal/issues/6481'>https://github.com/haskell/cabal/issues/6481</a></div></div></div></div><div class="pager ui pagination menu"><a href="../../html/CR2TETE5R/10.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div></div></body></html>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / beginners #11</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / beginners #11</h1><div class="pager ui pagination menu"><a href="../../html/CR2TETE5R/10.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div><div class="message_list ui feed"><div class="message event" id="message-1601102669.002200"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1601102669.002200">2020-09-26&nbsp;15:44:29 +0900</a></div></div><div class="message__body description">なんか最近そのへんが少し変わる(変わった？)という噂も <a href='https://github.com/haskell/cabal/issues/6481'>https://github.com/haskell/cabal/issues/6481</a></div></div></div><div class="message event" id="message-1601275043.009700"><div class="content"><div class="summary"><div class="message__header user">benzene.chlorobenzene</div><div class="message__timestamp date"><a class="date" href="#message-1601275043.009700">2020-09-28&nbsp;15:37:23 +0900</a></div></div><div class="message__body description">windows上のstackでhmatrixを使おうとしています。`stack install --flag hmatrix:openblas`でインストールしpackage.yamlのdependenciesにhmatrixを追加したら、`stack build`は通るのに`stack ghci`すると途中で落ちてしまいます。<br/>OS：windows10<br/>stackのresolver：lts-16.15<br/><br/>↓`stack ghci --ghci-options -v`の出力末尾↓<br/><pre>（前略）
+Loading package primitive-0.7.0.1 ... linking ... done.
+Loading package vector-0.12.1.2 ... linking ... done.
+Loading package hmatrix-0.20.0.0 ...
+PS （ディレクトリ名）&gt;</pre><br/>↓package.yamlの一部↓<br/><pre>extra-include-dirs:
+- C:\OpenBLAS\include
+
+extra-lib-dirs:
+- C:\OpenBLAS\bin
+- C:\OpenBLAS\lib
+- （略）\stack\x86_64-windows\msys2-20180531\usr\lib\gcc\x86_64-pc-msys\9.3.0
+- （略）\stack\x86_64-windows\msys2-20180531\mingw64\bin</pre><br/></div></div></div><div class="message event" id="message-1601315324.010000"><div class="content"><div class="summary"><div class="message__header user">benzene.chlorobenzene</div><div class="message__timestamp date"><a class="date" href="#message-1601315324.010000">2020-09-29&nbsp;02:48:44 +0900</a></div></div><div class="message__body description">ぐちゃぐちゃやっている間に原因もわからず自決してしまいました（正しい方法もわからないままなので申し訳ないです）。具体的には package.yamlの該当部分を<br/><pre>flags:
+  hmatrix:
+    openblas: true
+
+extra-include-dirs: []
+
+extra-lib-dirs:
+- C:\libs</pre><br/>のように書き換えて、C:\libs 内にanacondaでインストールしてコピーした以下のファイル<br/><pre>libgcc_s_seh-1.dll
+libgfortran.dll
+libgfortran-3.dll
+libopenblas.dll
+libquadmath-0.dll</pre><br/>を配置したらghciも動作しました</div></div></div><div class="message event" id="message-1601334814.010300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1601334814.010300">2020-09-29&nbsp;08:13:34 +0900</a></div></div><div class="message__body description">よかった :relieved:<br/>ところでpackage.yamlといっているのはstack.yamlのことですよね...？</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/CR2TETE5R/10.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div></div></body></html>

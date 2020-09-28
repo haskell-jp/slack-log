@@ -4,5 +4,23 @@
         "text": "なんか最近そのへんが少し変わる(変わった？)という噂も <https://github.com/haskell/cabal/issues/6481|https://github.com/haskell/cabal/issues/6481>",
         "user": "U570660KX",
         "type": "message"
+    },
+    {
+        "ts": "1601275043.009700",
+        "text": "windows上のstackでhmatrixを使おうとしています。`stack install --flag hmatrix:openblas`でインストールしpackage.yamlのdependenciesにhmatrixを追加したら、`stack build`は通るのに`stack ghci`すると途中で落ちてしまいます。\nOS：windows10\nstackのresolver：lts-16.15\n\n↓`stack ghci --ghci-options -v`の出力末尾↓\n```（前略）\nLoading package primitive-0.7.0.1 ... linking ... done.\nLoading package vector-0.12.1.2 ... linking ... done.\nLoading package hmatrix-0.20.0.0 ...\nPS （ディレクトリ名）&gt;```\n↓package.yamlの一部↓\n```extra-include-dirs:\n- C:\\OpenBLAS\\include\n\nextra-lib-dirs:\n- C:\\OpenBLAS\\bin\n- C:\\OpenBLAS\\lib\n- （略）\\stack\\x86_64-windows\\msys2-20180531\\usr\\lib\\gcc\\x86_64-pc-msys\\9.3.0\n- （略）\\stack\\x86_64-windows\\msys2-20180531\\mingw64\\bin```\n",
+        "user": "U015L5JEP8D",
+        "type": "message"
+    },
+    {
+        "ts": "1601315324.010000",
+        "text": "ぐちゃぐちゃやっている間に原因もわからず自決してしまいました（正しい方法もわからないままなので申し訳ないです）。具体的には package.yamlの該当部分を\n```flags:\n  hmatrix:\n    openblas: true\n\nextra-include-dirs: []\n\nextra-lib-dirs:\n- C:\\libs```\nのように書き換えて、C:\\libs 内にanacondaでインストールしてコピーした以下のファイル\n```libgcc_s_seh-1.dll\nlibgfortran.dll\nlibgfortran-3.dll\nlibopenblas.dll\nlibquadmath-0.dll```\nを配置したらghciも動作しました",
+        "user": "U015L5JEP8D",
+        "type": "message"
+    },
+    {
+        "ts": "1601334814.010300",
+        "text": "よかった :relieved:\nところでpackage.yamlといっているのはstack.yamlのことですよね...？",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
