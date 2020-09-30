@@ -100,5 +100,59 @@
         "text": "GHC 9.0のalpha版が！ :tada:\n<https://downloads.haskell.org/ghc/9.0.1-alpha1/>\nアナウンスメール: <https://mail.haskell.org/pipermail/ghc-devs/2020-September/019286.html>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1601365678.012300",
+        "text": "線形型で遊んでみるか",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1601374609.013500",
+        "text": "9.0.1-alpha1 Windows 版、8.8.4 みたいにまた絶対パスが入っている？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1601379175.014100",
+        "text": "是非、バグ報告を:pray:\n<https://gitlab.haskell.org/ghc/ghc/-/issues>\n\n今回は本リリースが10月中旬のようで、テスト可能期間が特に短いので:+1:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1601380256.014700",
+        "text": "GitHub Actions だと通った あれー <https://github.com/kakkun61/linear-type-playground/runs/1181818130>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1601382111.015000",
+        "text": "たぶん、Windows配布版のバイナリに問題があるのかと思います。\nエラーをreproduceできるコードの現物を、issueに貼り付けてもらえれば:+1:\nちなみにエラーは、ghcやrunhaskellでも起きますか？\ncabal buildの場合のみ？ その辺りの情報も混みで提示できると、より助かると思います:sparkles:",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1601388098.016500",
+        "text": "GHC 9.0のLinearTypes。 <https://www.reddit.com/r/haskell/comments/j1jkjq/announce_glasgow_haskell_compiler_901alpha1/|Redditのコメント>がGHCのバグを意味してるのかと思ったら、LinearTypesで\n多重使用を正しく検出できたということですね。\n\n```{-# LANGUAGE LinearTypes #-}\n\nfoo :: Int #-&gt; (Int,Int)\nfoo i = (i,i)```\niが２回使われてるので、以下のエラー検出できて、めでたし、ということですね。  結構、記述が軽い。 `#-&gt;`だけ。\n\n```$ ghc test.hs\ntest.hs:5:5: error:\n    • Couldn't match type ''Many' with ''One'\n        arising from multiplicity of 'i'\n    • In an equation for 'foo': foo i = (i, i)\n  |\n5 | foo i = (i,i)\n  |     ^```\n",
+        "user": "U55V441FS",
+        "type": "message"
+    },
+    {
+        "ts": "1601397520.017300",
+        "text": "Docker コンテナー内でもうまく行きますねえ <https://gist.github.com/kakkun61/8703f6319359e1ab17dc8768bb604bb4>\nローカルでは再現するんだけどなあ",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1601397652.017500",
+        "text": "寝ても思いつかなければ Reddit にコメント書いてみます",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1601420733.017700",
+        "text": "重複がないかだけ確認してさっさと報告した方がいいと思います。特に急いでいるでしょうし。安定版ならともかく、GHCのalpha版のことなんで開発者の方が特に詳しいでしょうしね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
