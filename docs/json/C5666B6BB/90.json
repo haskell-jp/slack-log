@@ -202,5 +202,53 @@
         "text": "<@U01BWG4572N> has joined the channel",
         "user": "U01BWG4572N",
         "type": "message"
+    },
+    {
+        "ts": "1601795529.020200",
+        "text": "たすけてください༼;´༎ຶ ༎ຶ༽\n\n```class MonadIO m =&gt; MyClass m a | a -&gt; m where\n  foo :: a -&gt; String\n  bar :: a -&gt; m ()\n```\nというクラスを作ったとき\n\n```instance HasLogFunc e =&gt; MyClass (RIO e) MyData\n```\nとかすると関数従属あるのにeが定まらなくてエラーになってしまいます。\nHasパターンを維持したままこのようなことするにはどうしたらいいですか？",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1601797091.020300",
+        "text": "何がしたいのかよく分かってないので、想定解ではないかもしれませんが、単純には `MyClass` の関数従属消せばいいのではないでしょうか？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1601802070.020500",
+        "text": "外してしまうと `foo` に `m` が現れないので一意に定まらなくなってしまうような",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1601802578.020700",
+        "text": "どちらにしてももう少し詳しいモチベーションが知りたいですね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1601804159.020900",
+        "text": "関数従属性が逆になっているのでは？MonadState s m | m -&gt; sのように、普通はモナドからパラメータを決めるのが典型的な方法です",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1601806455.021300",
+        "text": "なるほど、foo の定義が問題なんですね。気づきませんでした。従属逆にしても、foo の定義で引っかかる気がするので、何れにしろこういうインスタンスを作るなら `MyClass` の従属性と foo の定義がおかしいので見直しが必要な気がしますね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1601815660.032700",
+        "text": "\nモチベーションは今botを作っていてさまざまなbotの機能を`Bot`クラスのインスタンスで実装しようとしてます。\n\n```lass MonadIO io =&gt; Bot io b | b -&gt; io where\n  name :: b -&gt; String\n  reply :: b -&gt; String -&gt; io (Maybe String)\n\ninstance HasLogFunc env =&gt; Bot (RIO env) MarkovChain\n\ninstance HasLogFunc env =&gt; Bot (RIO env) Shiritori\n```\nこんな雰囲気のかんじです。\n\nなのでモナドが定まってもbが定まってほしくないので関数従属の向きはこのままがいいです༼;´༎ຶ ༎ຶ༽",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1601818402.033600",
+        "text": "どうやらデータによってenvに必要な制約が変わりうるというのが要点のようですね。だとすれば、型族を使ってこんな感じに表現できます\n```{-# LANGUAGE TypeFamilies #-}\n\nimport RIO\nimport Data.Kind\nclass Bot b where\n  type Dep b env :: Constraint\n  name :: b -&gt; String\n  reply :: Dep b env =&gt; b -&gt; String -&gt; RIO env (Maybe String)\n\ndata MarkovChain\n\ninstance Bot MarkovChain where\n  type Dep MarkovChain a = HasLogFunc a\n\ndata Shiritori\n\ninstance Bot Shiritori where\n  type Dep Shiritori a = HasLogFunc a```",
+        "user": "U4KUNQF9N",
+        "type": "message"
     }
 ]
