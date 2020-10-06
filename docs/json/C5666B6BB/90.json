@@ -250,5 +250,53 @@
         "text": "どうやらデータによってenvに必要な制約が変わりうるというのが要点のようですね。だとすれば、型族を使ってこんな感じに表現できます\n```{-# LANGUAGE TypeFamilies #-}\n\nimport RIO\nimport Data.Kind\nclass Bot b where\n  type Dep b env :: Constraint\n  name :: b -&gt; String\n  reply :: Dep b env =&gt; b -&gt; String -&gt; RIO env (Maybe String)\n\ndata MarkovChain\n\ninstance Bot MarkovChain where\n  type Dep MarkovChain a = HasLogFunc a\n\ndata Shiritori\n\ninstance Bot Shiritori where\n  type Dep Shiritori a = HasLogFunc a```",
         "user": "U4KUNQF9N",
         "type": "message"
+    },
+    {
+        "ts": "1601877734.036400",
+        "text": "わあーなるほど\nありがとございます:person_in_lotus_position:\nRIOではなくてIOを使う場合のインスタンスも書きたいのですがどうすればいいんですか？༼;´༎ຶ ༎ຶ༽",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1601886012.036600",
+        "text": "型族type Run b :: Type → Typeをさらに追加し、type Run Shiritori = IOのようにすることも可能ですが、インスタンスによってメソッドの型が変わると型クラスの旨味がなくなるので、type Dep Foo a = ()のようにしてRIOに統一するのをおすすめします",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1601915624.043200",
+        "text": "MonadFailが付いた型を付いてない型に変換する方法はありますか?\n何故やりたいのかと言うと、\n[Network.AWS.S3.StreamingUpload](<https://hackage.haskell.org/package/amazonka-s3-streaming-1.1.0.0/docs/Network-AWS-S3-StreamingUpload.html>)\nの `streamUpload` を使いたいのですが、\n\n```-- | 自前のYesod環境下を前提としてAwsオペレーションを実行する\nrunYesodAws :: Yesod App =&gt; AWS.AWS a -&gt; HandlerFor App a\nrunYesodAws x = do\n  site@App{appLogger, appAwsEnv} &lt;- getYesod\n  -- ログ定義にAppの定義が必要なためApp自身に予め入れることは出来ない\n  let awsLogger :: AWS.Logger\n      awsLogger level builder\n        = messageLoggerSource site appLogger defaultLoc \"amazonka\" (toYesodLogLevel level) (toLogStr builder)\n  runResourceT $ AWS.runAWS (appAwsEnv &amp; AWS.envLogger .~ awsLogger) $ x\n\n-- | amazonkaのログレベルをYesodのログレベルに変換する\ntoYesodLogLevel :: AWS.LogLevel -&gt; LogLevel\ntoYesodLogLevel <http://AWS.Info|AWS.Info>  = LevelInfo\ntoYesodLogLevel AWS.Error = LevelError\ntoYesodLogLevel AWS.Debug = LevelDebug\ntoYesodLogLevel AWS.Trace = LevelOther \"Trace\"```\nで変換する先の、\n[Yesod.Core.Handler](<https://www.stackage.org/haddock/lts-16.17/yesod-core-1.6.18.4/Yesod-Core-Handler.html#t:HandlerFor>)\nが `MonadFail` のインスタンスを定義していないので動かせなくて困っています。\nこの関数はそれぞれのハンドラーで動いて例外が発生してもYesodのランタイムによってただのサーバー内部エラーとなるため、\n単に `fail = error` となるだけで良いのですが、\n変換する方法が全く分からなくて困っています。\n\n`liftIO` してIOで実行してHandlerForに移せば良いのではないか?なども考えてみたのですが、\n型自体は変わらないので無理でした。\n\n```import           Control.Monad.Fail\nimport           Control.Monad.Trans.AWS        (AWST')\n\ninstance MonadFail (AWST' AWS.Env (ResourceT IO)) where\n  fail = error```\nしてやればとりあえず動くようなのですが、\n孤立インスタンスはなるべく定義したくありません。\n汎用的に使われているMonadFailを剥がせないなんて言うことはないと思うので、\n私の調べ方が悪いのだと思うのですが、\n方法がわかりませんでした…",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1601919690.043400",
+        "text": "冷静に考えてみると `MonadFail` のインスタンスが無くて困ってるのは\n`AWST' Env (ResourceT IO)` の方でしたね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1601921785.043600",
+        "text": "amazonka-s3-streamingの実行ファイル最新のGHCだと動かないんですね…",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1601924692.043800",
+        "text": "よく考えてみると剥がせないのが当然な気もしてきた",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1601935017.044500",
+        "text": "その場での解決方法はまだ思いつきませんが諸悪の根源は `streamUpload` が `Either` を返すにもかかわらず `MonadFail`を要求している点であると思うので、そこはissueとして報告したいですね.... `Left` に `SomeExcpetion` があるんだから、そいつが担うこともできるでしょうに。 :cold_sweat:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1601935072.044700",
+        "text": "作者も痛みとして思っているようですね…\nとりあえずは孤立インスタンスとして凌ぐことにしようと思います",
+        "user": "U57CUMWQ6",
+        "type": "message"
     }
 ]

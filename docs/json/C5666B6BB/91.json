@@ -1,0 +1,68 @@
+[
+    {
+        "ts": "1601935082.044900",
+        "text": "あるいは、\n```instance MonadFail m =&gt; AWST' env m where\n  fail = ...```\nというインスタンスなら汎用性があるのでそれをPRしてあげるか。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1601935219.045100",
+        "text": "amazonka的にはMonadCatch系を使いたいようなので本流には入らなさそうな気がしますね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1601935364.045300",
+        "text": "なるほど `streaming` の方はサードパーティーか... じゃあおかしいのは\namazonka-s3-streaming のほうですね... ざっとソース読んだ感じ別に `fail` が絶対に必要な展開ではないんだよなぁ... <https://hackage.haskell.org/package/amazonka-s3-streaming-1.1.0.0/docs/src/Network.AWS.S3.StreamingUpload.html#concurrentUpload>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1601935414.045500",
+        "text": "作者も修正したさそうなので修正投げようかと思ったのですが型が大きく変動しそうなのでちょっと気後れしちゃいますね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1601935898.045800",
+        "text": "`MonadFail` を `MonadThrow` に変えるか、 `SomeException` で `fail` で投げるはずの例外を包んであげればいいかな、と思いましたが、そもそも、すでに `m` は `MonadUnliftIO m` （ `MonadIO` のサブクラス）が実装済みなワケですから `liftIO fail` にすればそこで賄えるかと（多分作者の気持ちはそっちの方が近いし）\n\nそれに、仮に変わるとしてもそういうときのためのHPVPなんですから、何も恐れる必要はないと思いますよ！はっきりいって使い物にならないような設計にしてしまっているので恐れず変えちゃいましょう。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1601936028.046000",
+        "text": "なるほどfailをliftIOする方法がありましたか\n考えてみます",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1601936343.046300",
+        "text": "ちなみに、 `MonadThrow` に変える方法に抵抗がある理由が「例外作らなきゃいけない」でしたら `throwString` の使用をご検討ください。\n<https://www.stackage.org/haddock/lts-16.17/unliftio-0.2.13/UnliftIO-Exception.html#v:throwString>\nunliftioに入っているので新たに依存関係を足す必要もありません。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1601936564.046600",
+        "text": "続けて済みません「作者が痛みとして思っている」という情報はどこらですか？ <https://github.com/axman6/amazonka-s3-streaming/issues> をざっと見ましたがそれらしいものはないみたいで。どういう論点で `MonadFail` のままにしているのか気になります。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1601936666.046900",
+        "text": "パフォーマンス改善のpull requestsへのコメントで\n作者「MonadFail辛いしやめたい」\nPR作成者「それこのPRで扱うことではないのでは」\nみたいなやり取りがありました",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1601942234.047100",
+        "text": "MonadFailじゃなくてMonadAWSの話みたいですよ！\n<https://github.com/axman6/amazonka-s3-streaming/pull/20|https://github.com/axman6/amazonka-s3-streaming/pull/20>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1601942323.047400",
+        "text": "該当するスレッドはこっちか\n<https://github.com/axman6/amazonka-s3-streaming/pull/22#discussion_r397516136|https://github.com/axman6/amazonka-s3-streaming/pull/22#discussion_r397516136>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]
