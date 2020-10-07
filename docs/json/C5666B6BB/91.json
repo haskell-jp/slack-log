@@ -70,5 +70,65 @@
         "text": "<@U01CF0YMQTT> has joined the channel",
         "user": "U01CF0YMQTT",
         "type": "message"
+    },
+    {
+        "ts": "1602030660.047900",
+        "text": "<@U01CTA51H5W> has joined the channel",
+        "user": "U01CTA51H5W",
+        "type": "message"
+    },
+    {
+        "ts": "1602036752.049600",
+        "text": "リストをなんらかの区切りでリストのリストに分けたいとします。\nただし、区切りは捨てたいです。\nどのように実現するのが簡単でしょうか？\nたとえば、-1 が区切りだとして、groupBy を使うと、-1 が残ってしまいますね。\n\n```&gt; groupBy (\\_ x -&gt; x /= -1) [1,2,-1,3,4,-1,5,6]\n[[1,2],[-1,3,4],[-1,5,6]]```\n",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1602036821.049700",
+        "text": "実際には Conduit を使ってやります。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1602036891.049900",
+        "text": "splitパッケージを見るといいと思います。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1602039014.050300",
+        "text": "つまり自作しろと。。。うう。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1602039564.050500",
+        "text": "使ったことないですが <https://hackage.haskell.org/package/conduit-1.3.2.1/docs/Data-Conduit-Combinators.html#v:splitOnUnboundedE> でしょうか",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1602039625.050700",
+        "text": "すでに試しているのですが、それではない気がします。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1602040828.050900",
+        "text": "`Element ByteString = Word8` なので、空行 (`\"\\n\\n\"`)とか指定できないですね。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1602042192.051100",
+        "text": "```group :: Monad m =&gt; (a -&gt; Bool) -&gt; ConduitT a [a] m ()\ngroup f = loop id\n  where\n    loop rest = do\n        mx &lt;- await\n        case mx of\n          Nothing -&gt; case rest [] of\n            [] -&gt; return ()\n            l  -&gt; yield l\n          Just x\n            | f x       -&gt; yield (rest []) &gt;&gt; loop id\n            | otherwise -&gt; loop (rest . (x:))```\n",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1602042215.051300",
+        "text": "結局自作しましたが、何が正しいのか Michael に聞いてみます。",
+        "user": "U56MBRKR9",
+        "type": "message"
     }
 ]
