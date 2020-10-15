@@ -208,5 +208,11 @@
         "text": "なるほど〜どうもありがとうございます:owl:\n自分でもじっくり色々考えてみたけどRIOを使うところは固定しちゃうのが良さそうというのがわかってきました",
         "user": "U8G16FA59",
         "type": "message"
+    },
+    {
+        "ts": "1602769716.061500",
+        "text": "その方針で実装しようとしたらもう一つ問題が出てきちゃいました:sob:\n```data AnyBot = forall b. Bot b =&gt; AnyBot b\n\ninstance Bot AnyBot where\n  type Dep AnyBot a = ()\n  name (AnyBot b) = name b\n  reply (AnyBot b) msg = reply b msg```\nこのような存在型を追加したら\n```Could not deduce: Dep b env arising from a use of 'reply'```\nというエラーが出てしまってどうしたらいいのかわからなくなっちゃいました\nどうかお助けください:sob::sorena::oden::exploding_head:",
+        "user": "U8G16FA59",
+        "type": "message"
     }
 ]

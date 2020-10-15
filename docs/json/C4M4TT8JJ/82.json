@@ -106,5 +106,29 @@
         "text": "はい、`stack ls snapshots remote -l`でlts resolverを表示出来ると思います。",
         "user": "U01CFSSPZHB",
         "type": "message"
+    },
+    {
+        "ts": "1602728393.053200",
+        "text": "<@UASNL3EUU> 場合によっては大丈夫だと思うので是非ご応募ください。",
+        "user": "U4M5LDXK9",
+        "type": "message"
+    },
+    {
+        "ts": "1602736396.053400",
+        "text": "ほほう、と思って試してみたのですが、ヘルプには下記というように出るのに\n```&gt; stack ls snapshots --help\nUsage: stack.exe ls snapshots [COMMAND] [-l|--lts] [-n|--nightly]\n  View local snapshot (default option)\n\nAvailable options:\n  -l,--lts                 Only show lts snapshots\n  -n,--nightly             Only show nightly snapshots\n  -h,--help                Show this help text\n\nAvailable commands:\n  remote                   View remote snapshot\n  local                    View local snapshot```\n```&gt; stack ls snapshots remote -l\nInvalid option `-l'\n\nUsage: stack.exe ls snapshots remote\n  View remote snapshot\n&gt; stack ls snapshots remote --lts\nInvalid option `--lts'\n\nUsage: stack.exe ls snapshots remote\n  View remote snapshot```\nぐぬぬ",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1602736423.053600",
+        "text": "```&gt; stack --version\nVersion 2.3.3, Git revision cb44d51bed48b723a5deb08c3348c0b3ccfc437e x86_64 hpack-0.33.0```",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1602765554.054300",
+        "text": "```$ stack ls snapshots --lts remote```\nでいけた",
+        "user": "U56L7EVNY",
+        "type": "message"
     }
 ]
