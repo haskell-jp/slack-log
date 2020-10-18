@@ -214,5 +214,17 @@
         "text": "その方針で実装しようとしたらもう一つ問題が出てきちゃいました:sob:\n```data AnyBot = forall b. Bot b =&gt; AnyBot b\n\ninstance Bot AnyBot where\n  type Dep AnyBot a = ()\n  name (AnyBot b) = name b\n  reply (AnyBot b) msg = reply b msg```\nこのような存在型を追加したら\n```Could not deduce: Dep b env arising from a use of 'reply'```\nというエラーが出てしまってどうしたらいいのかわからなくなっちゃいました\nどうかお助けください:sob::sorena::oden::exploding_head:",
         "user": "U8G16FA59",
         "type": "message"
+    },
+    {
+        "ts": "1602810703.063300",
+        "text": "AnyBotの中身が何かに依存しているにも関わらず、`type Dep AnyBot a = ()` とすることはできないのでそのままでは定義できません。AnyBotに型パラメータを追加して、`type Dep (AnyBot env) a = (a ~ env)` としてみては？",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1602829496.063600",
+        "text": "<@U01CJ1CHKP0> has joined the channel",
+        "user": "U01CJ1CHKP0",
+        "type": "message"
     }
 ]
