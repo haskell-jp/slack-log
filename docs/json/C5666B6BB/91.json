@@ -250,5 +250,29 @@
         "text": "<@U01DASL8F33> has joined the channel",
         "user": "U01DASL8F33",
         "type": "message"
+    },
+    {
+        "ts": "1603353899.069900",
+        "text": "初歩的な質問です。\n\n0からIntegerの `n` までの総和を求める関数を作りたいです。\n`f n = sum [0..n]` と書けばしまいですが、こうすると `n`が大きく(9桁とか)なったときにかなり時間がかかってしまいます。(回避策はあるのでしょうか)\n\nそこで、`f n = n*(n+1)/2` として求めたいのですが、こうすると、返り値の型をFractionalなものにしないといけなくなってしまいます。こういう場合はどう書くのが良いのでしょうか？`f :: Integer -&gt; Integer`としたいです。\n\nIntegerを代入した場合、返り値がIntegerで表現できることは明確保証されているはずですが、`fromDouble` 的な関数を使って型変換をする必要があるのでしょうか？\n\nどなたかご存じの方がいらっしゃったらお願いします。",
+        "user": "UCM4G8PGW",
+        "type": "message"
+    },
+    {
+        "ts": "1603354179.070000",
+        "text": "`div` 関数があるので、余りが出ないことを確信しているなら使えます\n[Prelude](<https://www.stackage.org/haddock/lts-16.19/base-4.13.0.0/Prelude.html#v:div>)",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1603354278.070200",
+        "text": "あーーー、なるほどです！！解決しました。ありがとうございます。",
+        "user": "UCM4G8PGW",
+        "type": "message"
+    },
+    {
+        "ts": "1603406030.070900",
+        "text": "<@U01DVKMPLBA> has joined the channel",
+        "user": "U01DVKMPLBA",
+        "type": "message"
     }
 ]
