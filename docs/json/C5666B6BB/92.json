@@ -1,0 +1,38 @@
+[
+    {
+        "ts": "1603582003.075300",
+        "text": "そのやり方をしたら今度は `reply b msg`  の部分で型推論できなくてエラーになっちゃいましたorz\nどうすれば・・・",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1603596663.075500",
+        "text": "```data AnyBot env = forall b. (Bot b, Dep b env) =&gt; AnyBot b\ninstance Bot (AnyBot env) where\n  type Dep (AnyBot env) a = (a ~ env)\n  name (AnyBot b) = name b\n  reply (AnyBot b) msg = reply b msg```\nこれで通りますがもしかしてDep b envが足りなかったのでしょうか？",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1603600377.078900",
+        "text": "わあ！まさにその通りでした！ありがとございます！！\n\nさっぱりどうしていいかわからなかったのですが、どのように思考したらそうなるんですか！？\nたけのこは型推論の流れみたいなものを学べばこれを理解できるようになるんでしょうか？༼;´༎ຶ ༎ຶ༽",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1603603642.079100",
+        "text": "AnyBotにパターンマッチしたとき使えるのは、AnyBotの宣言で量化している制約のみで、一方replyが要求する制約はDep b envを含んでいるので、そこに食い違いがあることがわかります。一般論として、何が要求されていて、それを満たすためにはどこを変えればよいかをエラーメッセージなどなら見極めることが大切だと思います",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1603606670.081500",
+        "text": "ライブラリーを作るときに、ライブラリーで提供する型は、特に理由がなければ `Generic` や `NFData` （あと、多分テストで使う都合で `Eq` や `Show` も）のインスタンスにしておいた方がいいでしょうか？\n他にもこれはインスタンスにしておくと助かるなぁ、という型クラスがあれば教えてください！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1603607652.081600",
+        "text": "コンストラクタを隠したいなどそうしない明確な理由がなければそうすべき、という立場です。<http://hackage.haskell.org/package/base-4.14.0.0/docs/Data-Proxy.html> Proxy や、　<http://hackage.haskell.org/package/aeson-1.5.4.1/docs/Data-Aeson.html#t:Value> aesonのValue型あたりが参考になると思います",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    }
+]
