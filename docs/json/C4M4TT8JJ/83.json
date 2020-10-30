@@ -10,5 +10,149 @@
         "text": "また物騒なタイトルだけどいい記事が出ましたね\n<https://www.snoyman.com/blog/2020/10/haskell-bad-parts-1>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1603932309.097300",
+        "text": "`Data.Monoid.First` が deprecated になるよとドキュメントに書いてあったので代替方法などについて書きました\n<https://kakkun61.hatenablog.com/entry/2020/10/28/Data.Monoid.First_%E3%81%A8_Data.Semigroup.First_%E3%81%82%E3%82%8B%E3%81%84%E3%81%AF_Last>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1603932515.097500",
+        "text": "このdeprecationは撤回されたような記憶があります。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1603932631.097800",
+        "text": "<https://gitlab.haskell.org/ghc/ghc/-/merge_requests/3154>",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1603932644.098100",
+        "text": "<https://mail.haskell.org/pipermail/libraries/2020-April/030357.html>",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1603933077.098300",
+        "text": "(あまりよく知らない状態ですが)Firstでくるんだだけだと単位元が存在しないのでMonoid(単位元のあるSemigroup)にはなれない、ということですかね。",
+        "user": "U61BA2X0U",
+        "type": "message"
+    },
+    {
+        "ts": "1603933392.098800",
+        "text": "sumは何が悪くて、代わりに何を使うべきなのか、よく読み取れないんですが、分かりますか？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1603934350.099200",
+        "text": "大抵の `Num` 型クラスのインスタンスは `+` の両辺を正格に評価すべきであるにも関わらず、`sum` などは事実上 `foldr (+)` 相当なので、最適化で特殊化されない限りサンクが増えてしまうよ、という主張だという認識です。\n代わりは `foldl' (+)` ではないかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1603934450.099500",
+        "text": "あー、そうですね。sum' = fold' (+) が必要なのかも。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1603964587.099900",
+        "text": "First/Lastモノイドについては「Haskellerのためのモノイド完全ガイド」でも触れました（宣伝） <https://blog.miz-ar.info/2019/02/monoid-for-haskellers/|https://blog.miz-ar.info/2019/02/monoid-for-haskellers/>",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1603964960.100100",
+        "text": "mod_poppo さんのに書いてたっけなーと書く前に見直しました",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1603965171.100300",
+        "text": "<@U61BA2X0U> `Data.Semigroup.First` は Monoid になれないと思います。\n`Data.Monoid.First` は `Maybe` の性質を持ってて `Nothing` が単位元になってますね。",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1603965891.100500",
+        "text": "Merge Request が Merge Bot にクローズされてるのはどういうステータスなんでしょうか？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1603966425.100700",
+        "text": "botのコメントの通り、マージされたのでは",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1603968114.100900",
+        "text": "元投稿の主題から離れてきましたが、自分が GHC の MR や Git の運用が理解できていないみたいです",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1603982326.102400",
+        "text": "Haskellと圏論の関わりがいつからなのか気になって歴史を調べてみたら、各標準へのリンクをまとめているとてもステキなページを見つけました。\n<https://typeclasses.com/timeline> :sugoi:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1603982384.102500",
+        "text": "別のところで聞いてたんですけど、本当にHaskell 1.0ってIOが（どうやらMonadも）なかったんですねー！ :open_mouth:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1603982672.102700",
+        "text": "これ超大作ですね :open_mouth:\nGHC 3.02 の位置が気になる…ｗ",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1603982721.103000",
+        "text": "Haskell Reportにばっかり気をとられて気づかなかった！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1603983986.108700",
+        "text": "やっぱりざっと調べた限り、圏論っぽい名前のFunctorやMonadなどが標準に入ったのはHaskell 1.3からみたいですね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1603984621.111300",
+        "text": "興が乗ったので作った <https://twitter.com/igrep/status/1321833162217975808>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1603984863.112100",
+        "text": "高パフォーマンスかつwell-typedなシリアライズライブラリ、<http://hackage.haskell.org/package/winery|winery >の1.3.2を公開しました。<https://scrapbox.io/haskell-shoen/HKD|HKD>からExtractorを生成するbuildRecordExtractorが目玉で、たとえ大きなレコードであっても最小限のコードでカスタマイズできます。\n```extractor = fmap bstrip $ buildRecordExtractor bextractors\n    { hoge = extractField \"hoge\" &lt;|&gt; extractField \"oldHoge\" }```\nまた、直前の1.3.1では、《貧者のDerivingVia》と名付けた技法を用いたbundleViaという関数が追加され、DerivingViaのような使い心地でありながら必要に応じてメソッドを上書きすることもできます。\n```instance Serialise Foo where\n  bundleSerialise = bundleVia WineryRecord\n  extractor = buildExtractor ...```\nwineryはaesonよりも時間・空間効率に優れ、cerealと違って変更に強いので、Haskellのデータの永続化にきっと役に立つと思います",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1603986187.112400",
+        "text": "リンク見れないです:eyes:\n<https://gyazo.com/2643fd689c7f665b5b52d783fbb2f760>",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1603986319.112800",
+        "text": "ご指摘あざっす！修正しました！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1604017934.114600",
+        "text": "&gt; やっぱりざっと調べた限り、圏論っぽい名前のFunctorやMonadなどが標準に入ったのはHaskell 1.3からみたいですね。\n\nHaskell 1.2 までは、確かそもそも higher kind type に対するクラスが作れなくて、それが Monadic notions of computations が大きな動機となって 1.3 で緩和されたという話だった気がしますね。1.2 まではそもそもユーザ定義の Functor クラスも書けなかったはずです",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
