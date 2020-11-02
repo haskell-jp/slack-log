@@ -184,5 +184,47 @@
         "text": "私もほとんど（それもrioだけしか）採用したことがないんですけど、 <http://hackage.haskell.org/package/rio> は結構よくできてますし、人気もありますね。",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1604321411.109300",
+        "text": "だずげでぐだざい゛:sob::sob:\n\n```allBots :: HasLogFunc e =&gt; [AnyBot e]\nallBots = [AnyBot MarkovChain, AnyBot Shiritori]\n\nallBotNames :: forall e. HasLogFunc e =&gt; [String]\nallBotNames = map name (allBots :: [AnyBot e]) ```\nという定義をしたんですけれども、\n`allBotNames` を呼び出す方法がわからないです:sob:\n\nどうやって呼び出せばいいんでしょうか?\nそれとももしかして根本的に設計がおかしかったりするんでしょうか?",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1604321773.109500",
+        "text": "恐らく欲しいのはこの機能でしょう。\n<https://ja.wikibooks.org/wiki/Haskell/%E5%AD%98%E5%9C%A8%E9%87%8F%E5%8C%96%E3%81%95%E3%82%8C%E3%81%9F%E5%9E%8B>\n\n<https://kazu-yamamoto.hatenablog.jp/entry/20081024/1224819961> の3つめの「部分型多相(inclusion,subtyping)」が割と簡潔に使い方を紹介しています。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1604323102.109800",
+        "text": "ただ、正直なところ型クラスを使わずにrecord of functionにしてしまった方がシンプルで柔軟になる気がします。\nここまでうっすらそう思っておきながら黙ってしまっていて恐縮ですが...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1604323125.110100",
+        "text": "~これって、`HasLogFunc` の制約は必要ですか？ ちょっと今までの話を追えてないですが、~\n```allBots :: [AnyBot e]\nallBots = [AnyBot MarkovChain, AnyBot Shiritori]\n\nallBotNames :: [String]\nallBotNames = map name (allBots :: [AnyBot ()])```\n~とかで良かったりしないですかね？ (今までの話をなんとなく見てると、`reply` で初めて `Dep (AnyBot env) env` が成立することが必要な気がしますが)~",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1604323398.110300",
+        "text": "後、`AnyBot` でやりたいことって、実は `Bot` のインスタンスにすることではなく、全てのボットを同じ型で管理して、名前が取れることだけだったりしないですかね？その場合、\n```instance Bot (AnyBot env)```\nは多分いらなくて、\n```allBots :: [AnyBot e]\nallBots = [AnyBot MarkovChain, AnyBot Shiritori]\n\nallBotNames :: [String]\nallBotNames = map (\\(AnyBot b) -&gt; name b) (allBots :: [AnyBot ()])```\nという風に定義するだけでよいと思いますが (AnyBot 自体を bot にしたい感じなんですかね？)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1604323632.110500",
+        "text": "ああ、`HasLogFunc` が必要になってるのは、`forall b. (Bot b, Dep b env) =&gt; AnyBot b` で存在型の pack 時に `Dep b env` を要求してるからか...",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1604324228.111100",
+        "text": "後は、\n```instance HasLogFunc Logger```\nみたいなインスタンスを持つ型 `Logger` があるなら、一応は\n```allBotNames :: [String]\nallBotNames = map name (allBots :: [AnyBot Logger])```\nとかでもいける気がしますね",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
