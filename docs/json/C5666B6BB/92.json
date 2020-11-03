@@ -256,5 +256,47 @@
         "text": "同じリストに入れたいのであれば、 `e` も存在型で包んでしまう、ですかねぇ（本当にそれで問題ないのか、他に問題が発生しないか自信がないです",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1604380516.118700",
+        "text": "すべてのインスタンスを使ってallBotsを定義するのであれば、当然あらゆるインスタンスに対応したenvが必要になり、それを回避することに大きなメリットはないと思います。一応元の質問についてですが、forall a. Tのような型を持つ値は、TypeApplications拡張を使えば呼び出せます",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1604389707.118900",
+        "text": "多分，元々は `name` を呼び出すのに `env` に関する制約が必要なかったのに，`AnyBot` に関しては必要になるところが問題なんですかね？元々のやり方を踏襲するなら，基本的には\n```data AnyBot env = forall b. (Bot b, Dep b env) =&gt; AnyBot b\ninstance Bot (AnyBot env) where\n  type Dep (AnyBot env) a = (a ~ env)\n  name (AnyBot b) = name b\n  reply (AnyBot b) msg = reply b msg```\nの `AnyBot` の定義とインスタンス定義が問題なんだと思いますね．`Bot` クラスの `Dep` は本来，`reply` に必要な `env` の制約を表してたんだと思いますが，それが `AnyBot` の pack 時に押し付けられて，`AnyBot` に対する `Dep` は型合わせのための制約しか入ってないのが問題なんだと思います",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1604390017.119200",
+        "text": "そもそもですが，おそらく `MarkovChain` / `Shiritori` などはユーザが定義するものですが，`AnyBot` はその定義されたボットを使う側，つまりボットサーバの実装側が定義するものだと思うので，別に `env` が多相的になっていなくても問題ないと思いますね．なので，実装側で使う `AppEnv` のような型に対して，\n```data AppBot = forall b. (Bot b, Dep b AppEnv) =&gt; AppBot b\n\ninstance Bot AppBot where\n  type Dep AppBot env = env ~ AppEnv\n  name (AppBot b) = name b\n  reply (AppBot b) msg = reply b msg```\nみたいなのが本来欲しいものだったりしないですかね？",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1604390185.119400",
+        "text": "それはともかくとして，元々のものを無理やり実現したいなら，`QuantifiedConstraints` を使えばできることはできると思いますね（変なボイラープレートが増えますが)",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1604410067.132000",
+        "text": "わぁーありがとございます:heart_eyes_cat:",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1604410116.133100",
+        "text": "`e` も存在型にってどうするんでしょう\n考えてたら頭爆発しました:exploding_head::skull_and_crossbones:",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1604410201.133700",
+        "text": "たしかに！\n`allBots`を定義するときには `[AnyBot MarkovChain, AnyBot Shiritori]` などと列挙するので、それらが必要としてる`env`の制約を書くのを回避する必要はあまりなさそうですね:owl:\n\n`TypeApplications` ならできるんですね！\nなんかでもその関数を呼び出してるとろでも明示的に型適用して、それを呼び出してるところでも明示的に型適用して、…ってなって大変そうな気が:jack_o_lantern:\nそういうものなのでしょうか…？",
+        "user": "U8G16FA59",
+        "type": "message"
     }
 ]
