@@ -226,5 +226,35 @@
         "text": "後は、\n```instance HasLogFunc Logger```\nみたいなインスタンスを持つ型 `Logger` があるなら、一応は\n```allBotNames :: [String]\nallBotNames = map name (allBots :: [AnyBot Logger])```\nとかでもいける気がしますね",
         "user": "U57D08Z9U",
         "type": "message"
+    },
+    {
+        "ts": "1604325351.111300",
+        "text": "まあ、igrep さんの言う通り、最終的にしたいことは普通のデータ型でも実現できそうな気がしますね。多分拡張性を考えて、型クラスを使いたいという動機はあると思いますが、ひとまず bot を幾つか作ってみてそれに見合うような抽象化を考えて、置き換えていった方がスムーズに進むと思いますね。今回のケースだと、\n```data Bot = Bot\n  { name :: String\n  , reply :: HasLogFunc e =&gt; String -&gt; RIO env (Maybe String)\n  }\n\nmarkovChain :: Bot\nmarkovChain = Bot { ... }\n\nshiritori :: Bot\nshiritori = Bot { ... }\n\nanyBots :: [Bot]\nanyBots = [markovChain, shiritori]\n\nallBotNames :: [String]\nallBotNames = map name allBots```\nみたいな感じですかね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1604327241.115400",
+        "text": "実は一番初めはそうやってレコード型に関数を持たせて実装してました:woman-girl-girl:\nだけどそれだとexpression problemがあって嫌だし、それにいつもそういう方針の実装ばっかなので、あえて今回は型クラスを使った方針にしました༼;´༎ຶ ༎ຶ༽\nなのでレコード型に関数持たせる方針じゃなくて型クラス使いたいです༼;´༎ຶ ༎ຶ༽",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1604328985.116800",
+        "text": "おっしゃるとおり、\n```instance HasLogFunc LogFunc```\nというのが定義されていました!\nなので\n```allBotNames :: [String]\nallBotNames = map name (allBots :: [AnyBot LogFunc])```\nとできました!:star2:\n\nできたはいいけど、全然使っていない謎の具体的な型 `LogFunc` が出てくるのはなんかすごく変な感じします:sob:\nやはり設計がおかしいんでしょうか・・・",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1604332724.118000",
+        "text": "```allBots :: [AnyBot e]\nallBots = [AnyBot MarkovChain, AnyBot Shiritori]```\nって方法だと `AnyBot MarkovChain`  のところで必要な `HasLogFunc`  がなくてエラーになっちゃいます:sob:\nどうすれば:sob:",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1604360839.118400",
+        "text": "同じリストに入れたいのであれば、 `e` も存在型で包んでしまう、ですかねぇ（本当にそれで問題ないのか、他に問題が発生しないか自信がないです",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
