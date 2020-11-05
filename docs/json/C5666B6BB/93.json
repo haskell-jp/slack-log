@@ -16,5 +16,35 @@
         "text": "`QuantifiedConstraints`なんて拡張があるんですね！\nなんかへんなとこに`forall`ついてる:exploding_head:\n調べながら読んでたんですけど今のところわけわかめです༼;´༎ຶ ༎ຶ༽×999",
         "user": "U8G16FA59",
         "type": "message"
+    },
+    {
+        "ts": "1604569571.148000",
+        "text": "何がどうなってるのかさっぱりわからないです:shocked_face_with_exploding_head: :joy:\n```AnyBot :: forall b. (Bot b, forall env. Dep AnyBot env =&gt; BotDep b env) =&gt; b -&gt; AnyBot```\nこれって一体何を意味してるんですか?:exploding_head::x::one::zero::zero::zero:",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1604585342.148200",
+        "text": "&gt; (ちなみにpackってなんですか？:exploding_head:)\nAnyBot のような、ある型の値を existential type の値に変換する操作のことですね。AnyBot の適用と読み替えてもらって構わないです\n\n&gt; これって一体何を意味してるんですか?\nGADTSyntax 使わず existential type で書き直すなら、\n```data AnyBot = forall b. (Bot b, forall env. Dep AnyBot env =&gt; BotDep b env) =&gt; AnyBot b```\nと同じですね。`(Bot b, forall env. Dep AnyBot env =&gt; BotDep b env)` の部分は、\n* `Bot b` の制約が成り立つ\n* 任意の `env` 型について、`Dep AnyBot env` 制約が成り立つならば `BotDep b env` 制約が成り立つ\nの両方が成り立つみたいな意味ですね。`forall env. Dep AnyBot env =&gt; BotDep b env` の部分が `QuantifiedConstraints` 拡張により表現可能になる制約です",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1604603465.149000",
+        "text": "ウ～ン(+_+)\n\n1. `AnyBot` の型パラメタに `env`  をもたせると、`env` を必要としない `name` メソッドの呼び出しがえらいことになるから、`AnyBot` に `env`  をもたせない。\n2. すると `reply` メソッドの呼び出しに必要な `Dep b env` が足りなくなっちゃうから、`AnyBot`  にパターンマッチしたときに使える制約に `forall env. Dep b env`  的なものを入れたい。\n3. `QuantifiedConstraints`  拡張では `Dep b env`  みたいな型族をかけないから、仕方なく `BotDep`  型クラスを追加して、`instance Dep AnyBot env =&gt; BotDep AnyBot env` とかやって `BotDep`  から `Dep`  が得られるようにしてる。\nって感じのアイディアで大体あってますか?\nむずすぎてむりちゃづけです༼;´༎ຶ ༎ຶ༽",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1604618745.150100",
+        "text": "`forall env. Dep AnyBot env =&gt; BotDep b env` というのは、気持ち的には `forall env. Dep AnyBot env =&gt; Dep b env` と同じですね。これは、\n\n`Dep AnyBot env` 制約が成り立つ場合に、`Dep b env` 制約が成り立つ\n\nつまり、`AnyBot` コンストラクタで pack できる型は、\n\n* `Bot` 制約を満たし\n* `AnyBot` の `Dep` 制約 (今回は `HasLogFunc`) だけから、`Dep` に必要な制約を導ける (今回は例えば `Dep MarkovChain env` は `HasLogFunc env` と同じなので、`Dep MarkovChain env` は `HasLogFunc env`、つまり `Dep AnyBot env` の制約から導けます。もし `Dep MarkovChain env` が `(HasLogFunc env, HasWriteRef Task env)` みたいな制約を必要としていた場合、これは `HasLogFunc env` 制約からは導けないので AnyBot コンストラクタでの pack は失敗します)\n\nみたいな条件のものだけということになります。この条件を守っているなら、各ボットの `reply :: Dep b env =&gt; ...` は `reply :: Dep AnyBot env =&gt; ...` と書いても実装ができるはずなので、`AnyBot` の `Bot` インスタンスが実装できます。そして、上の `AnyBot` コンストラクタで pack される時の条件は `Dep` が成り立つ必要は特に要求していなくて、*もし `Dep AnyBot env` が成り立つならば* `Dep b env` が成り立つことを要求しているだけなので、`Dep` は成り立たなくても pack はでき、`name` も特に `Dep` 制約を必要としないので呼び出せるということになりますね",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1604619115.150400",
+        "text": "ああ、それと `BotDep` 型クラスについてですが、これは本質的なものではなくて `QuantifiedConstraints` の制約でこういうのを作らないといけないというだけですね。<https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/quantified_constraints.html#termination> に制約の内容がありますが、`QuantifiedConstraints` の実装上の制約で `forall env. Dep AnyBot env =&gt; ...` の `...` の部分には type family は書けません。なので、`forall env. Dep AnyBot env =&gt; Dep b env` とは書けないので、代わりに `Dep b env` に相当する型クラス `BotDep b env` を作ってそれを指定しています。",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
