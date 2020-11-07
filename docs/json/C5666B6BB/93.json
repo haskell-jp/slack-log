@@ -52,5 +52,23 @@
         "text": "わあ!そういうことか!完全に理解しました!:serval:\n`forall env. Dep AnyBot env =&gt; BotDep b env` ってのは、左辺の `Dep AnyBot env` の制約が右辺の `BotDep b env` より厳しい、即ち、`type Dep AnyBot env = ...` で羅列されてる制約の中に、packされようとしている `Bot` インスタンスの `Dep`  の制約が含まれてることを要求してるんですね!\n\n`BotDep` 型クラスのあたりもいまいちどういう発想て゛そんなこと考えついたのかわかりません:sob:\n`go :: Bot b =&gt; BotDep b env =&gt; b -&gt; String -&gt; RIO env (Maybe String)` の部分の `=&gt;` が重なっているのはなぜなのでしょうか?",
         "user": "U8G16FA59",
         "type": "message"
+    },
+    {
+        "ts": "1604720450.152200",
+        "text": "<@U01EEFP2KT6> has joined the channel",
+        "user": "U01EEFP2KT6",
+        "type": "message"
+    },
+    {
+        "ts": "1604722111.152300",
+        "text": "&gt; go :: Bot b =&gt; BotDep b env =&gt; b -&gt; String -&gt; RIO env (Maybe String) の部分の =&gt; が重なっているのはなぜなのでしょう\nああ、すいません。癖で書いちゃいましたが、`Bot b =&gt; BotDep b env =&gt;` は `(Bot b, BotDep b env) =&gt;` と同じです",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1604731271.152600",
+        "text": "<@U01E1MFRX8E> has joined the channel",
+        "user": "U01E1MFRX8E",
+        "type": "message"
     }
 ]
