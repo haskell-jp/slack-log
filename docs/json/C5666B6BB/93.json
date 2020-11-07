@@ -46,5 +46,11 @@
         "text": "ああ、それと `BotDep` 型クラスについてですが、これは本質的なものではなくて `QuantifiedConstraints` の制約でこういうのを作らないといけないというだけですね。<https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/quantified_constraints.html#termination> に制約の内容がありますが、`QuantifiedConstraints` の実装上の制約で `forall env. Dep AnyBot env =&gt; ...` の `...` の部分には type family は書けません。なので、`forall env. Dep AnyBot env =&gt; Dep b env` とは書けないので、代わりに `Dep b env` に相当する型クラス `BotDep b env` を作ってそれを指定しています。",
         "user": "U57D08Z9U",
         "type": "message"
+    },
+    {
+        "ts": "1604696865.151400",
+        "text": "わあ!そういうことか!完全に理解しました!:serval:\n`forall env. Dep AnyBot env =&gt; BotDep b env` ってのは、左辺の `Dep AnyBot env` の制約が右辺の `BotDep b env` より厳しい、即ち、`type Dep AnyBot env = ...` で羅列されてる制約の中に、packされようとしている `Bot` インスタンスの `Dep`  の制約が含まれてることを要求してるんですね!\n\n`BotDep` 型クラスのあたりもいまいちどういう発想て゛そんなこと考えついたのかわかりません:sob:\n`go :: Bot b =&gt; BotDep b env =&gt; b -&gt; String -&gt; RIO env (Maybe String)` の部分の `=&gt;` が重なっているのはなぜなのでしょうか?",
+        "user": "U8G16FA59",
+        "type": "message"
     }
 ]
