@@ -14,11 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -}
 
-{-|
-  Export and upload messages from haskell-jp.slack.com
--}
+-- | Export and upload messages from haskell-jp.slack.com
+
 {-# LANGUAGE LambdaCase        #-}
 {-# LANGUAGE OverloadedStrings #-}
+
+module Main where
 
 import           Control.Applicative      ((<|>))
 import           Control.Arrow            as Arrow
@@ -98,7 +99,7 @@ main = do
 saveCmd :: IO ()
 saveCmd = do
   config <- Yaml.decodeFileThrow "slack-log.yaml"
-  apiConfig <- Slack.mkSlackConfig =<< slackApiToken <$> (failWhenLeft =<< decodeEnv)
+  apiConfig <- Slack.mkSlackConfig . slackApiToken =<< failWhenLeft =<< decodeEnv
 
   Dir.withCurrentDirectory "docs" $ do
     ws <- loadWorkspaceInfo config "json"

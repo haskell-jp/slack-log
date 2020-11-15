@@ -1,7 +1,6 @@
-{-# LANGUAGE DeriveAnyClass    #-}
-{-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE StrictData        #-}
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric  #-}
+{-# LANGUAGE StrictData     #-}
 
 module SlackLog.Types where
 
@@ -24,7 +23,7 @@ data Config = Config
 
 data TargetChannel = TargetChannel
   { visibility :: Visibility
-  , label :: T.Text
+  , label      :: T.Text
   } deriving (Show, Eq, Generic)
 instance Json.FromJSON TargetChannel
 

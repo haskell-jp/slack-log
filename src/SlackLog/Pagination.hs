@@ -98,7 +98,7 @@ repaginateJsons n basePageNum baseName =
     . mapM (\f -> NamedPage (filePath f) <$> toJson f)
  where
   toJson :: FileObj m -> m [a]
-  toJson f = either fail return =<< eitherDecode <$> readFileObj f
+  toJson f = either fail return . eitherDecode =<< readFileObj f
 
 
 writeNamedPages :: ToJSON a => [NamedPage a] -> IO ()
