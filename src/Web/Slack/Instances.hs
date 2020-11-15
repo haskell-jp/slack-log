@@ -1,7 +1,5 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE OverloadedStrings          #-}
 {-# LANGUAGE StandaloneDeriving         #-}
-{-# LANGUAGE TemplateHaskell            #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
 module Web.Slack.Instances where

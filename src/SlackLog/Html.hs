@@ -125,10 +125,9 @@ renderSlackMessages wsi@WorkspaceInfo {..} PageInfo {..} =
     )
 
   title =
-    (  workspaceInfoName
+    workspaceInfoName
     <> T.pack " / " <> getChannelScreenName wsi channelId
     <> T.pack " #" <> T.pack (show (parsePageNumber currentPagePath))
-    )
 
   pager = H.div_A (A.class_ "pager ui pagination menu")
     ( ((\pp -> H.a_A (A.href_ ("../../" ++ pp) # prevClass) prevLabel) . ensurePathIn "html" channelId <$> previousPagePath)
