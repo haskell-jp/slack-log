@@ -106,5 +106,29 @@
         "text": "GHC 9.0.0-alpha1 は bytestring-0.10 を使っているようですが、最新の 0.11 が含まれるのは alpha2 からでしょうか？",
         "user": "U56MBRKR9",
         "type": "message"
+    },
+    {
+        "ts": "1605683225.163600",
+        "text": "新しくBotを追加するたびに`allBots`だけでなく`AnyBot`のインスタンス定義まで書き換えなきゃいけないのが少しイヤだったので、自分なりに作ってみたら難しくなっちゃいました:sob:\n\nもっと上手に書くやり方ありませんか?\nあと変数名や関数名などももっと良いのありますか?:exploding_head:",
+        "user": "U8G16FA59",
+        "type": "message"
+    },
+    {
+        "ts": "1605700699.164100",
+        "text": "<@U01F0HBGLHZ> has joined the channel",
+        "user": "U01F0HBGLHZ",
+        "type": "message"
+    },
+    {
+        "ts": "1605703967.164200",
+        "text": "",
+        "user": "U57D08Z9U",
+        "type": "message"
+    },
+    {
+        "ts": "1605704015.164600",
+        "text": "なるほど， `AnyBot` を constraint 持てるようにしておくと，後から変えられて確かに便利ですね．HList のところは，単に一々 `SomeBot` を `allBots` の全てのボットで書くのが面倒という理由で使ってるなら，ビルダをそもそも定義すればいいだけだと思いますね．その例が上に post したやつです",
+        "user": "U57D08Z9U",
+        "type": "message"
     }
 ]
