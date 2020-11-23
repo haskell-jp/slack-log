@@ -40,5 +40,263 @@
         "text": "実行したときに何が出力されたか、貼り付けていただきたいです。\nあまりに長いという場合でもSlackが適当にファイルアップロードに切り替えてくれるはずです。",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1606025738.052800",
+        "text": "Error: Error encountered while configuring GHC with\n         /Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2.temp/ghc-8.8.2/configure --prefix=/Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2/\n         run in /Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2.temp/ghc-8.8.2/\n       \n       The following directories may now contain files, but won't be used by stack:\n         - /Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2.temp/\n         - /Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2/\n       \n       For more information consider rerunning with --verbose flag",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606032446.053000",
+        "text": "<https://github.com/commercialhaskell/stack/issues/3741> と少し似てますね。うまく行くか分かりませんが、とりあえず `stack setup --reinstall` してみましょうか。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606033113.053300",
+        "text": "これもエラーメッセージは似て非なるようですが、libgmpが入ってないからってのはあり得ますね。\nMac使わないので分かりませんが... <https://matsubara0507.github.io/posts/2018-10-28-ghc-8-6-error-no-gmp.html>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606054509.053500",
+        "text": "MacBook-Air:~ sirkerf$ stack setup --reinstall\nPreparing to install GHC to an isolated location.\nThis will not interfere with any system-level installation.\nAlready downloaded.         \nxcode-select: error: tool ‘xcodebuild’ requires Xcode, but active developer directory ‘/Library/Developer/CommandLineTools’ is a command line tools instance\nconfigure: error: in `/Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2.temp/ghc-8.8.2':\nconfigure: error: C compiler cannot create executables\nSee `config.log’ for more details\nReceived ExitFailure 77 when running\nRaw command: /Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2.temp/ghc-8.8.2/configure --prefix=/Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2/\nRun from: /Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2.temp/ghc-8.8.2/\n\n          \nError: Error encountered while configuring GHC with\n     /Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2.temp/ghc-8.8.2/configure --prefix=/Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2/\n     run in */Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2.temp/ghc-8.8.2/*\n    \n    The following directories may now contain files, but won’t be used by stack:\n     - */Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2.temp/*\n     - */Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2/*\n    \n    For more information consider rerunning with --verbose flag\n    \nConfiguring GHC ...\nMacBook-Air:~ sirkerf$",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606054541.053700",
+        "text": "やはり以上のようになって解決しませんでした……。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606054613.053900",
+        "text": "```xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance```\nこれが見える範囲内での根本原因っぽいですねぇ。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606054768.054100",
+        "text": "直し方はこれ <https://qiita.com/eytyet/items/59c5bad1c167d5addc68> の「直し方」のセクションかな？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606054856.054400",
+        "text": "問題のメッセージでググったら他にも直し方を解説した記事が出てきたので参考にするといいと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606055502.054600",
+        "text": "MacBook-Air:~ sirkerf$ stack setup --reinstall\nPreparing to install GHC to an isolated location.\nThis will not interfere with any system-level installation.\nAlready downloaded.         \nconfigure: error: in `/Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2.temp/ghc-8.8.2':\nconfigure: error: C compiler cannot create executables\nSee `config.log’ for more details\nReceived ExitFailure 77 when running\nRaw command: /Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2.temp/ghc-8.8.2/configure --prefix=/Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2/\nRun from: /Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2.temp/ghc-8.8.2/\n\n          \nError: Error encountered while configuring GHC with\n     /Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2.temp/ghc-8.8.2/configure --prefix=/Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2/\n     run in */Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2.temp/ghc-8.8.2/*\n    \n    The following directories may now contain files, but won’t be used by stack:\n     - */Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2.temp/*\n     - */Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2/*\n    \n    For more information consider rerunning with --verbose flag\n    \nConfiguring GHC ...\nMacBook-Air:~ sirkerf$",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606055568.054800",
+        "text": "全く進展しません……。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606055732.055000",
+        "text": "あれ？\n「runghc hoge.hs」は問題なく動きます……が、「ghc hoge.hs」と打つと\n\nMacBook-Air:haskell_sutdy sirkerf$ ghc fizzbuzz.hs\nLinking fizzbuzz ...\nIn file included from /Users/sirkerf/.ghcup/ghc/8.6.5/lib/ghc-8.6.5/include/Stg.h:77,\n         from /Users/sirkerf/.ghcup/ghc/8.6.5/lib/ghc-8.6.5/include/Rts.h:29,\n\n         *from /var/folders/dq/jgt54zr53k55xdqgb045n2t40000gn/T/ghc14855_0/ghc_1.c*:one:*0: error:*\n*   *\n\n*/usr/local/Cellar/gcc/9.3.0/lib/gcc/9/gcc/x86_64-apple-darwin19/9.3.0/include-fixed/math.h:45:10: error:*\n   *fatal error: sys/cdefs.h: No such file or directory*\n    *45 | #include &lt;sys/cdefs.h&gt;*\n     *|     ^~~~~~~~~~~~~*\n  *|*\n*45 |* #include *&lt;*sys/cdefs.h&gt;\n  *|     ^*\ncompilation terminated.\n`gcc’ failed in phase `C Compiler’. (Exit code: 1)\n\nと出てきます。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606055808.055200",
+        "text": "「GHCなのにC言語のコンパイラが関係する」なんてことあるんでしょうか……。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606055908.055400",
+        "text": "詳しくは割愛しますが（私もよく考えたらそんなに詳しくないし）、めっちゃあります。xcode周りでバグっているのもそういう事情です。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606055987.055600",
+        "text": "となるとこの問題はカテゴリ違い(HaskellじゃなくてC)になるんでしょうか、ありがとうございました。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606056052.055800",
+        "text": "ああー、別にここで聞く分には全く問題ないです。Macだとよくありそうですし",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606056086.056000",
+        "text": "失礼しました、では引き続きお世話になります。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606056189.056200",
+        "text": "stackがインストールしているGHCとghcupでインストールされたGHC（今runghcやghcコマンドを打って呼び出されている方）は別のGHCなんで、とりあえずstackの方に集中しましょう（根っこの問題は同じなんじゃないかな）。\nもう一度 `stack setup --reinstall` すると多分今度は最初と違うエラーに変わってるんじゃないかと思いますのでそれを見てみましょう",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606057050.056600",
+        "text": "すれ違ってしまって申し訳ないのですが、\n「brew install gmp」をした後、\n「もうあるよ」と言われたので、\n「brew upgrade gmp」をしました。\n\nその通りにした後に\n「stack setup --reinstall」をしました。\nそうしたら今度はエラーが出ませんでした。\n以下個人的に気になったログです。\n\nInstalled GHC.   \nTrouble loading CompilerPaths cache: Control.Exception.Safe.throwString called with:\n\nCompiler file metadata mismatch, ignoring cache\nCalled from:\n throwString (src/Stack/Storage/User.hs:275:8 in stack-2.5.1-6DM1RsturFMC73zSqWnQ8j:Stack.Storage.User)\n\nstack will use a sandboxed GHC it installed\nFor more information on paths, see ‘stack path’ and ‘stack exec env’\nTo use this GHC and packages outside of a project, consider using:\nstack ghc, stack ghci, stack runghc, or stack exec",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606057351.056800",
+        "text": "「ghc hoge.hs」コマンドがエラーなく動作しました。\n「stack runghc hoge.hs」コマンドもエラーなく動作しました。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606057406.057100",
+        "text": "よかった！ghcupでインストールした方の問題はちょっとググっても見つからなかったしわからないので、とりあえずstackでインストールしたものを使ってみてはいかがでしょうか！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606057582.057300",
+        "text": "そのようにしたいと思います。＞stackでインストールしたものを使う。\n\nあしかけ24時間もの間お付き合いいただき本当にありがとうございました。本当に助かりました。もしかしたらまた質問しに伺うかも知れません。その時もどうかよろしくお願いしたします。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606057868.057600",
+        "text": "ちなみにこれは蛇足ですが、当初の目的だった「stack hoogle --setup」も特殊な問題が発生しない限りはうまくいきそうです。\n……ものすごく時間がかかっていますけれども……。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606061969.059700",
+        "text": "またまたすみません、直毛です。\n別の問題が発生しました。\n「stack hoogle --setup」\nは時間をかけて完了しましたが\n「stack exec — hoogle generate」\nがうまくいかないようです。\nエラーメッセージは以下になります。\n\nExecutable named hoogle not found on path: [“/Users/sirkerf/.stack/global-project/.stack-work/install/x86_64-osx/9818903ee3c668083647fa205fd07e4ca74d4ea5b763e164981b890d5d4430f7/8.8.2/bin”,“/Users/sirkerf/.stack/snapshots/x86_64-osx/9818903ee3c668083647fa205fd07e4ca74d4ea5b763e164981b890d5d4430f7/8.8.2/bin”,“/Users/sirkerf/.stack/compiler-tools/x86_64-osx/ghc-8.8.2/bin”,“/Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.8.2/bin”,“/Users/sirkerf/.cabal/bin”,“/Users/sirkerf/.ghcup/bin”,“/Users/sirkerf/.cabal/bin”,“/Users/sirkerf/.ghcup/bin”,“/Users/sirkerf/.rbenv/shims”,“~/.rbenv/shims”,“/usr/local/bin”,“/usr/local/bin”,“/usr/bin”,“/bin”,“/usr/sbin”,“/sbin”,“/Library/TeX/texbin”]\nMacBook-Air:~ sirkerf$",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606062046.059800",
+        "text": "<https://github.com/commercialhaskell/stack/issues/5005>\n同じメッセージの表示された方がいらっしゃるようですが、状況は異なるように見受けられます。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606063077.060100",
+        "text": "必要かも知れないので環境の情報も提出しておきます\n使用環境\nmacOS Big Sur\nversion 11.0.1\nMacBook Air (13-inch, Early 2014)\nプロセッサ 1.4 GHz デュアルコアIntel Core i5\nメモリ 8GB 1600 MHz DDR3\nグラフィックス Intel HD Graphics 5000 1536 MB\nシリアル番号 伏せます",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606064300.060300",
+        "text": "再度「stack hoogle --setup」を試みました\nエラーメッセージが異なるようです。\n\nNo hoogle version was found, trying to install the latest version\nMinimum version is hoogle-5.0. Found acceptable hoogle-5.0.17.15 in your index, requiring its installation.\nhoogle: The Hoogle file /Users/sirkerf/.stack/global-project/.stack-work/hoogle/x86_64-osx/a4f4c41115e9878e03bbb7d67e126c6f8eb36e4637d9cc5f7bd65f984990b349/8.8.2/database.hoo is corrupt, only 25 bytes.\nCallStack (from HasCallStack):\n errorIO, called at src/General/Store.hs:173:9 in hoogle-5.0.17.15-167DuRZRx9WKaAmip51pIT:General.Store\nCallStack (from HasCallStack):\n errorIO, called at src/General/Util.hs:270:66 in hoogle-5.0.17.15-167DuRZRx9WKaAmip51pIT:General.Util\nReceived ExitFailure 1 when running\nRaw command: /Users/sirkerf/.stack/snapshots/x86_64-osx/2266d4dec467e88058dea8d746dcca61bab2a982e1ab1285e2f68fb879d6e56e/8.8.2/bin/hoogle --database=/Users/sirkerf/.stack/global-project/.stack-work/hoogle/x86_64-osx/a4f4c41115e9878e03bbb7d67e126c6f8eb36e4637d9cc5f7bd65f984990b349/8.8.2/database.hoo\n\nMacBook-Air:~ sirkerf$",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606065134.060500",
+        "text": "Warning: Installation path */Users/sirkerf/.local/bin*\n     not found on the PATH environment variable\nと表示されたので「~」ディレクトリにある「.bash_profile」に以上のパスを通してみました。\n結果\n「stack exec — hoogle generate」がうまくいきそうです。\nありがとうございました。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606065289.060700",
+        "text": "ありがとうございませんでした(？)\nまだ問題があるようです。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606065486.060900",
+        "text": "「stack exec — hoogle generate」\nはうまくいったようです。\nその後の\n「stack hoogle」\nがうまくいきません。エラーメッセージを貼ります。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606065644.061100",
+        "text": "MacBook-Air:~ sirkerf$ stack hoogle\nNo hoogle version was found, trying to install the latest version\nMinimum version is hoogle-5.0. Found acceptable hoogle-5.0.17.15 in your index, requiring its installation.\nhoogle: The Hoogle file /Users/sirkerf/.stack/global-project/.stack-work/hoogle/x86_64-osx/a4f4c41115e9878e03bbb7d67e126c6f8eb36e4637d9cc5f7bd65f984990b349/8.8.2/database.hoo is corrupt, only 25 bytes.\nCallStack (from HasCallStack):\n errorIO, called at src/General/Store.hs:173:9 in hoogle-5.0.17.15-167DuRZRx9WKaAmip51pIT:General.Store\nCallStack (from HasCallStack):\n errorIO, called at src/General/Util.hs:270:66 in hoogle-5.0.17.15-167DuRZRx9WKaAmip51pIT:General.Util\nReceived ExitFailure 1 when running\nRaw command: /Users/sirkerf/.local/bin/hoogle --database=/Users/sirkerf/.stack/global-project/.stack-work/hoogle/x86_64-osx/a4f4c41115e9878e03bbb7d67e126c6f8eb36e4637d9cc5f7bd65f984990b349/8.8.2/database.hoo\n\nMacBook-Air:~ sirkerf$",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606065833.061300",
+        "text": "<https://github.com/commercialhaskell/stack/issues/4905>",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606065882.061600",
+        "text": "やはり同じ状況の人もいるようですが似たような状況ではなさそうです。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606065902.061800",
+        "text": "手詰まりになりました、もしよければ助けてくださると嬉しいです。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606085870.062300",
+        "text": "根本的な原因は\n```hoogle: The Hoogle file /Users/sirkerf/.stack/global-project/.stack-work/hoogle/x86_64-osx/a4f4c41115e9878e03bbb7d67e126c6f8eb36e4637d9cc5f7bd65f984990b349/8.8.2/database.hoo is corrupt, only 25 bytes.```\nのようです。ただ、 `database.hoo is corrupt` でググっても <https://github.com/ndmitchell/hoogle/issues> を検索しても\n<https://github.com/commercialhaskell/stack/issues> を検索してもかすりもしないので、かなり厄介そうです。\n\n... と思ったところでそもそも stack hoogleってstack exec hoogleとどう違うの？と思いながら手元のプロジェクトで試したところよく似たエラーに出くわしました。\n\n`database.hoo is corrupt` なるメッセージから予想はしてたんですけど、やっぱりその前の `stack hoogle` からなんかおかしかったみたいですね。\nこんなメッセージが出ました:\n```（前略）\nPackages missing documentation:                 array                 base                 （中略）    Win32                 xhtml            rts\nNo packages were found, aborting (use no arguments to index all of Stackage)\nReceived ExitFailure 1 when running\nRaw command: \"C:\\\\Users\\\\igrep\\\\AppData\\\\Roaming\\\\local\\\\bin\\\\hoogle.exe\" generate --local \"--database=S:\\\\prj\\\\readme-test\\\\.stack-work\\\\hoogle\\\\9b06ae13\\\\database.hoo\"```\n一度その「corrupt」してるという `/Users/sirkerf/.stack/global-project/.stack-work/hoogle/x86_64-osx/a4f4c41115e9878e03bbb7d67e126c6f8eb36e4637d9cc5f7bd65f984990b349/8.8.2/database.hoo` を削除してからもう一度 `stack hoogle` すると、よく似たエラーが出るはずです。\n\nで、さらに検索してみたところ <https://github.com/commercialhaskell/stack/issues/5228> と同じ現象ではないかと推測されます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606086232.062700",
+        "text": "ちなみに、こういうときはMac自体の情報もヒントにならなくはないですが、どちらかというと stack などのバージョンがあった方が助かります。\n私の場合、途中で stack upgrade したのでややこしいですが現在stack 2.5.1で、最初に `stack hoogle` したときは stack 2.3.3でした（はず）:\n```&gt; stack --version\nVersion 2.5.1, Git revision d6ab861544918185236cf826cb2028abb266d6d5 x86_64 hpack-0.33.0```\nOSはWindows 10 Pro 20H2。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606087330.062900",
+        "text": "で、私も試したところうまく行ったので報告。\n<https://github.com/commercialhaskell/stack/issues/5228#issuecomment-636451325> がワークアラウンドみたいです。\n最後の行は `stack exec hoogle` に変えましたが。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606124885.063200",
+        "text": "まず指定されていた「database.hoo」を削除してから「stack hoogle」を実行してみたところ、以下のようなメッセージに変化したようです。\n\nMacBook-Air:~ sirkerf$ stack hoogle\nNo hoogle version was found, trying to install the latest version\nMinimum version is hoogle-5.0. Found acceptable hoogle-5.0.17.15 in your index, requiring its installation.\nhoogle: The Hoogle file /Users/sirkerf/.stack/global-project/.stack-work/hoogle/x86_64-osx/a4f4c41115e9878e03bbb7d67e126c6f8eb36e4637d9cc5f7bd65f984990b349/8.8.2/database.hoo is corrupt, only 25 bytes.\nCallStack (from HasCallStack):\n errorIO, called at src/General/Store.hs:173:9 in hoogle-5.0.17.15-167DuRZRx9WKaAmip51pIT:General.Store\nCallStack (from HasCallStack):\n errorIO, called at src/General/Util.hs:270:66 in hoogle-5.0.17.15-167DuRZRx9WKaAmip51pIT:General.Util\nReceived ExitFailure 1 when running\nRaw command: /Users/sirkerf/.local/bin/hoogle --database=/Users/sirkerf/.stack/global-project/.stack-work/hoogle/x86_64-osx/a4f4c41115e9878e03bbb7d67e126c6f8eb36e4637d9cc5f7bd65f984990b349/8.8.2/database.hoo\n\nMacBook-Air:~ sirkerf$",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606125008.063400",
+        "text": "stack versionは以下の通りです。\n\nMacBook-Air:~ sirkerf$ stack --version\nVersion 2.5.1, Git revision d6ab861544918185236cf826cb2028abb266d6d5 x86_64 hpack-0.33.0\nMacBook-Air:~ sirkerf$",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606125285.063600",
+        "text": "そして削除したはずの「database.hoo」ですが復活しましたね。\n中身は\n\nHOOGLE-5.0.17\n\nのみでした。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606125402.063800",
+        "text": "最後の答えは、その表示されているスクリプトを書いてどこかに保存するのでしょうけれど、その名前と保存先はどのようにすれば良いでしょうか？",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606126002.064000",
+        "text": "なんでもいいと思いますよ。実行しやすい名前で、実行しやすいところに。当然 `PATH` に入っている方が常用はしやすいでしょうけど。別に手で打ってシェルの履歴に覚えさせておく程度でもいいでしょうし。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606126536.064200",
+        "text": "参考にさせていただきたいのですが、igrepさんはどんな名前で保存してどこの場所に保存しましたか？",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606127657.064400",
+        "text": "「実行しやすい名前」「実行しやすいところ」がピンと来なかったもので……。",
+        "user": "UFMV026NR",
+        "type": "message"
     }
 ]

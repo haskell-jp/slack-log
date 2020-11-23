@@ -154,5 +154,47 @@
         "text": "<@U01FZAHP480> has joined the channel",
         "user": "U01FZAHP480",
         "type": "message"
+    },
+    {
+        "ts": "1606031546.172600",
+        "text": "ghcupを使ってみています．ghcupをインストールしたのち，これに付随するcabalコマンド(`~/.ghcup/bin/cabal`)で\n```cabal new-install pandoc```\nのようにすると，`~/.cabal` 以下にパッケージやコマンドがインストールされますが，これらを\n```cabal list --installed```\nとしても確認できません．上記コマンドでは`~/.ghcup/ghc/8.8.4/lib/ghc-8.8.4` 以下のパッケージがリストアップされます．~/.cabal 以下に入っているパッケージを確認するにはどうするとよいか，どなたかおわかりでしょうか．使用しているコマンドのバージョンは以下の通りで，OSはmacOS 10.15.7 です．\nHaskell関連のファイル（`~/.cabal`, `~/.ghc`, `~/.stack`等）や，Homebrew等で入れたHaskell関連のパッケージはいったん全部削除してから作業しています．\n```$ ghcup --version\nThe GHCup Haskell installer, version v0.1.12\n$ cabal --version\ncabal-install version 3.2.0.0\ncompiled using version 3.2.0.0 of the Cabal library ```",
+        "user": "U56LT20RJ",
+        "type": "message"
+    },
+    {
+        "ts": "1606034106.173100",
+        "text": "多分 `cabal list --installed` が正しくnix-style local build（いわゆる `new-install` インストールしたりするやつですね）でインストールしたパッケージを正しく認識していないのが原因なんだと思われます。\nただ、いずれにしてもこれで確認できなくとも `pandoc` コマンドは多分に問題なく使えるでしょうし、 `pandoc` に依存したプロジェクトを作る場合でもcabalファイルに `pandoc` を書けば問題なく使えるはずです（必要なバージョンがインストールされてない場合はビルド時に再度インストールされるだけ）。\nなので、あまり確認する必要性が感じられていないから `cabal list --installed` が修正されていないのではないかと推測しています。\n（でも紛らわしいので何らかの対応は欲しいですね... :cold_sweat: ）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606034426.173300",
+        "text": "あるいは、 `cabal new-install --lib pandoc`  であればもしかしたら結果が変わるかも知れません。どちらにしても問題なく使えるとはは思いますが",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606055778.173600",
+        "text": "ありがとうございます．たしかに `~/.cabal` 以下にインストールされたものはちゃんと使えるのですが，何となく変な感じですよね．",
+        "user": "U56LT20RJ",
+        "type": "message"
+    },
+    {
+        "ts": "1606057267.174000",
+        "text": "代替案として `cabal new-exec` （もしかしたら最近のcabalだともう `new-` は要らないかも）を使って、  `cabal new-exec ghc-pkg list` はいかがでしょうか？自分がインストール済みのパッケージの一覧をとるときは大抵 `ghc-pkg list` を使いますね。（ぶっちゃけ `cabal list` コマンド自体初めて見たかもしれない... :sweat_smile: ）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606058056.176300",
+        "text": "<https://haskell-jp.slack.com/archives/CR2TETE5R/p1605992173052400>\nこの一連のスレッドに回答していて気になったんですけど、ghcって、アセンブリーを生成してからランタイムなどをリンクさせるためにgcc（と、gccがラップしているリンカーやアセンブラー）を呼んでオブジェクトコードを生成しているんですかね？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606098012.176600",
+        "text": "GHCでのコンパイル時には、ターゲットCPUがx86であれば、まず、GHCが直接にx86ネイティブのアセンブリコードを生成します。 （ターゲットCPUがArmなどの場合であれば、ネイティブアセンブリでなくLLVMコードを生成します。）\nアセンブリコードをアセンブルしてオブジェクトコードを生成するには、OSプラットフォームのアセンブラを使用します。（通常そのアセンブラは、GCCやClangなどのコンパイラ経由で呼び出されます。）\nオブジェクトコード間の最終リンクについては、OSプラットフォームごとのリンカ（goldやlld）が呼ばれます。\nGHCがどういう外部ツールを使用するかは、`ghc --info` コマンドで見えます。\nあと参考に、その辺の処理を担当しているのは、GHCの `compiler/GHC/Driver/Pipeline.hs` 付近のコードになります。",
+        "user": "U55V441FS",
+        "type": "message"
     }
 ]
