@@ -16,5 +16,83 @@
         "text": "お気になさらず！私含めみんな気が向いたときに回答しているので！",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1606135205.066500",
+        "text": "「stack haddock」\nと実行した時に以下のエラーメッセージが出ます\n\nMacBook-Air:~ sirkerf$ stack haddock\nError parsing targets: The specified targets matched no packages.\nPerhaps you need to run ‘stack init’?",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606135520.066700",
+        "text": "あれ、global projectでは `stack haddock` は使えなかったっけか...\nええっと、そのエラーメッセージは、「 `stack haddock` はプロジェクトのディレクトリー（ `stack.yaml` が入っているディレクトリー）でないと使えません」という旨のメッセージです。\nプロジェクトを作ってから使う... でもいいんですが、本当に必要かどうかちょっと自分も確信が持てなくなってきたのですっ飛ばして `stack exec -- hoogle generate ...` で始まる方を実行してみてください",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1606136529.066900",
+        "text": "「stack exec — hoogle generate …」\nで始まる方を実行した後に二個目実行してみました。\nその後に\n「stack hoogle “min”」で実行してみました。\n\nMacBook-Air:~ sirkerf$ stack hoogle “min”\nNo hoogle version was found, trying to install the latest version\nMinimum version is hoogle-5.0. Found acceptable hoogle-5.0.17.15 in your index, requiring its installation.\nDistribution.Compat.Prelude.Internal min :: Ord a =&gt; a -&gt; a -&gt; a\nPrelude min :: Ord a =&gt; a -&gt; a -&gt; a\nData.Ord min :: Ord a =&gt; a -&gt; a -&gt; a\nGHC.Classes min :: Ord a =&gt; a -&gt; a -&gt; a\nData.Semigroup newtype Min a\nData.Semigroup Min :: a -&gt; Min a\nBasicTypes minPrecedence :: Int\nCmmExpr minusRegSet :: Ord r =&gt; RegSet r -&gt; RegSet r -&gt; RegSet r\nCmmProcPoint minimalProcPointSet :: Platform -&gt; ProcPointSet -&gt; CmmGraph -&gt; UniqSM ProcPointSet\nDynFlags mIN_CHARLIKE :: DynFlags -&gt; Int\n-- plus more results not shown, pass --count=20 to see more",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606136556.067100",
+        "text": "必ず初めに\nNo hoogle version was found, trying to install the latest version\nMinimum version is hoogle-5.0. Found acceptable hoogle-5.0.17.15 in your index, requiring its installation.\nが表示されるようです。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606136743.067300",
+        "text": "ともあれ、hoogleの機能は利用できるようになったのでありがとうございます。\n残った問題についてもできれば解決したいですが、また機会がありましたらお願いします。ありがとうございました。\n連日ありがとうございます、また機会がありましたらお願いします。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606145054.071100",
+        "text": "Haskellのコーディングでの質問です。\n\nmultiply :: Int -&gt; Int -&gt; Int\nmultiply a b = a * b\n\nmain = do\n     return $ multiply a b\n\nをしようとしたのですがうまくいきません。\nエラーコードは\n\nMacBook-Air:haskell_sutdy sirkerf$ runghc multiple.hs \n\n*multiple.hs*:eight:*23: error: Variable not in scope: a :: Int*\n *|*\n*8 |*   return $ multiply *a* b\n *|            ^*\n\n*multiple.hs*:eight:*25: error: Variable not in scope: b :: Int*\n *|*\n*8 |*   return $ multiply a *b*\n *|             ^*\n\nとなります。\nVariable not in scopeのエラーを調べてみても「型が合ってない」としか言われないのですが、そもそもaとbはIntのはずですからこのエラーはおかしいように感じるのです。\nどなたか、このコードが通るように改変していただけませんでしょうか？",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606145174.072000",
+        "text": "ちなみに最後を「return $ multiply 2 3」と具体的なIntのものにすると通ります。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606145491.072200",
+        "text": "推測するにaとbが具体的な型を持っていないと見られているのが問題だと思っています。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606146527.072400",
+        "text": "aとbが定義されていないというエラーです。\na :: Int\na = 2\nb :: Int\nb = 3",
+        "user": "U01A20R5Z0Q",
+        "type": "message"
+    },
+    {
+        "ts": "1606146559.072700",
+        "text": "などと定義を追加すれば動きます",
+        "user": "U01A20R5Z0Q",
+        "type": "message"
+    },
+    {
+        "ts": "1606147157.072900",
+        "text": "動きました。ありがとうございます。\nところが件のコードは\n「module Multiply.Bug.Fix where\n\nmultiply :: Int -&gt; Int -&gt; Int\nmultiply a b = do\n  return $ a * b」\n\nこの誤りを正せ\nと言う問題だったのでさっきのコードになったのですが、具体的な値を入れると怒られてしまいました。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606150110.073100",
+        "text": "「module Multiply.Bug.Fix where\nmultiply :: Int -&gt; Int -&gt; Int\nmultiply a b = a * b」\n\nで通りました。ありがとうございました。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606174310.073600",
+        "text": "&gt; No hoogle version was found, trying to install the latest version\n&gt; Minimum version is hoogle-5.0. Found acceptable hoogle-5.0.17.15 in your index, requiring its installation.\nについてはよくわかりません。インストール自体は済んでいるでしょうし、stackのバグではないでしょうか。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
