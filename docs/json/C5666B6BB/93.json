@@ -232,5 +232,17 @@
         "text": "わああたしかに良さそうですね!:owl:\n\nHList にしてるのは\n```allBots = MarkovChain :+: Shiritori :+: HNil```\nとかから型推論させてみたいからです〜\nまあでもこれだと型推論はできても\n```allBots :: HList HasLogFunc```\nとか書いたときにエラーになっちゃうんですよね〜\n```type family (:&amp;&amp;:) c1 c2 :: Type -&gt; Constraint where\n  (:&amp;&amp;:) c1 CEmpty = c1\n  (:&amp;&amp;:) CEmpty c2 = c2\n  (:&amp;&amp;:) c c = c\n  (:&amp;&amp;:) c1 c2 = c1 :&amp;: c2\n\ndata HList :: (Type -&gt; Constraint) -&gt; Type where\n  HNil :: HList CEmpty\n  (:+:) :: (Bot b) =&gt; b -&gt; HList c -&gt; HList (Dep b :&amp;&amp;: c)```\nとかにすればある程度 (`HList (HasLogFunc :&amp;: (HasLogFunc :&amp;: CEmpty))`とか) はエラーじゃなくなるんですけど、もっとちゃんとやるには型レベルのnub関数みたいなの作らなきゃいけなくなってしんどいです・・・\nmanaさんの書いてくれたコードの感じぐらいに落ち着かせるのがいいんですかね〜:eyes:",
         "user": "U8G16FA59",
         "type": "message"
+    },
+    {
+        "ts": "1606572499.186000",
+        "text": "<@U01FQCD9X0A> has joined the channel",
+        "user": "U01FQCD9X0A",
+        "type": "message"
+    },
+    {
+        "ts": "1606576089.186200",
+        "text": "<@U01FWJ90CKE> has joined the channel",
+        "user": "U01FWJ90CKE",
+        "type": "message"
     }
 ]

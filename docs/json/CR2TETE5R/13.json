@@ -106,5 +106,47 @@
         "text": "<@U01F7AKBH0F> has joined the channel",
         "user": "U01F7AKBH0F",
         "type": "message"
+    },
+    {
+        "ts": "1606561219.075400",
+        "text": "はじめまして、どうぞよろしくお願いいたします。\n\nある型について、とりうる値をすべてリストで列挙する方法はありますか？\n\n```data DrinkMenu = Oolong | OrangeJuice | Cocktail deriving Show```\nのようなデータ型があるとして、\n構文としては正しくないのですが、理想としては下記のようなことができればいいなと思っています\n```&gt; show $ enumrate DrinkMenu \n[Oolong, OrangeJuice, Cocktail]```\n似たようなことができる方法をご存じでしたら、教えていただきたいです",
+        "user": "UKAS45C80",
+        "type": "message"
+    },
+    {
+        "ts": "1606561551.075500",
+        "text": "deriving Enum で自動的にEnumクラスのメソッドが得られます <http://walk.northcol.org/haskell/type-classes/|http://walk.northcol.org/haskell/type-classes/>",
+        "user": "U01A20R5Z0Q",
+        "type": "message"
+    },
+    {
+        "ts": "1606561700.075700",
+        "text": "&gt; data Day = Sun | Mon | Tue | Wed | Thu | Fri | Sat\n&gt;            deriving (Enum, Show)\n&gt; main = print [Mon .. Fri]  -- 出力: [Mon, Tue, Wed, Thu, Fri]",
+        "user": "U01A20R5Z0Q",
+        "type": "message"
+    },
+    {
+        "ts": "1606562178.075900",
+        "text": "また、deriving Boundedにすると最初と最後が得られます\n\n&gt; data Day = Sun | Mon | Tue | Wed | Thu | Fri | Sat\n&gt;            deriving (Enum, Bounded, Show)\n&gt; main = do print $ (minBound :: Day)  -- 出力: Sun\n&gt;           print $ (maxBound :: Day)  -- 出力: Sat",
+        "user": "U01A20R5Z0Q",
+        "type": "message"
+    },
+    {
+        "ts": "1606563533.076100",
+        "text": "ありがとうございます！やりたいことができました。\n（なんとか型を値として渡す方法を考えなければ..と思っていたので、目からウロコでした）",
+        "user": "UKAS45C80",
+        "type": "message"
+    },
+    {
+        "ts": "1606572499.077000",
+        "text": "<@U01FQCD9X0A> has joined the channel",
+        "user": "U01FQCD9X0A",
+        "type": "message"
+    },
+    {
+        "ts": "1606576089.077500",
+        "text": "<@U01FWJ90CKE> has joined the channel",
+        "user": "U01FWJ90CKE",
+        "type": "message"
     }
 ]
