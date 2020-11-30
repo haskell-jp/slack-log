@@ -148,5 +148,35 @@
         "text": "<@U01FWJ90CKE> has joined the channel",
         "user": "U01FWJ90CKE",
         "type": "message"
+    },
+    {
+        "ts": "1606709812.083200",
+        "text": "かなり基本的な質問なのですが答えてくださる方を募集します。\n数学では「随伴関手の合成はモナドを成す」という事実があるのですが、これはHaskellでも同様でしょうか？\nつまりFunctorからMonadを作ることって出来るのでしょうか？\nFunctorはFunctor則を\nMonadはMonad則をそれぞれ満たさなければならないので、Haskellでだとなんだか整合性が取れないのではないかと推測しています。\nそれから追加質問で恐縮なのですが、\n「Haskellにおける随伴関手の例」って何かありますでしょうか？",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606709922.084800",
+        "text": "更に追加で質問しますが、数学では「モナドTからT代数を構成できる」という事実がありますが、これはHaskellでも同様ですか？",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606726064.090900",
+        "text": "Haskell の Functor と Monad は、圏論の関手とモナドを使いやすいように特別な場合に限定したものであり、また Haskell が厳密には純粋ではないこともあり、同じ概念として捉えることは出来ません。\n随伴関手としての条件を満たす二つの Functor があれば、そこから Monad を作ることが出来ます。そのようなペアとしては (-&gt;) r と (,) r があり、そこから State Monad を作ることが出来ます。",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1606732982.094000",
+        "text": "ありがとうございます。同じ概念として捉えることはできないんですね。\nMonadを作ることができるFunctorの具体例まで教えていただきありがとうございます。\n\n\nところでですが、HaskellのFunctorやMonadは数学で定式化するとしたらどのような概念になるのでしょうか？追加の質問で申し訳ないです。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1606734271.101800",
+        "text": "次のように作られる圏を Hask 圏と呼びます。\n\n• 対象: Haskell の型 (Int, Maybe Bool, [String], ...)\n• A から B への射: \nA -&gt; B という型を持つ関数\n\nFunctor は Hask 圏から Hask 圏への関手です。 Monad は Hask 圏の上のモナドです。\nただし、この Hask 圏は、現実の Haskell では圏にならないので、理想化した Haskell の中で考える必要があります。そのあたりの事情を無視しても Functor と Monad が便利なのには変わらないので、問題とされることは少ないようです。",
+        "user": "U5LEE6C1J",
+        "type": "message"
     }
 ]
