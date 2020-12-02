@@ -250,5 +250,47 @@
         "text": "ふと思ったんですけど、麻那さんのプログラムの\n```go :: Bot b =&gt; BotDep b env =&gt; b -&gt; String -&gt; RIO env (Maybe String)```\nってとこ、どうして普通の `Dep b env` じゃ動かないんでしょうか?",
         "user": "U8G16FA59",
         "type": "message"
+    },
+    {
+        "ts": "1606792564.186600",
+        "text": "github actions で CI を回している人はいますか？\nHaskell CIを実行すると `MIN_VERSION_conduit` でひっかかるのですが、理由が分かる人はいませんか？\n\n<https://github.com/kazu-yamamoto/wai-app-file-cgi/runs/1477613399>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1606798639.187100",
+        "text": "手元では落ちないんですよね？となると、cabal のバージョンが古いor新しいとか？？\n<https://github.com/actions/setup-haskell>\ncabal-version で手元と同じバージョンにすれば動作しないですかね。。。？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1606799080.187400",
+        "text": "cabal は 3.2 で、手元も github actions も同じです。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1606804278.187700",
+        "text": "これは、単に cabal v2-test で doctest がうまく動かない問題でした。CI で doctest を実行するのを止めて解決しました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1606806793.188000",
+        "text": "<https://github.com/notogawa/haiji/blob/df7fe2135adec2518f6797c7c4911d70f2fe5ad0/test/doctests.hs> こんな感じので動かないですか？",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1606806823.188300",
+        "text": "ちょっと雑なのでパスちゃんと取れる手段があるならそのほうがいいけど",
+        "user": "U5G2BCVBN",
+        "type": "message"
+    },
+    {
+        "ts": "1606831152.189700",
+        "text": "build-type: Customを許容できるのであれば <https://hackage.haskell.org/package/cabal-doctest|https://hackage.haskell.org/package/cabal-doctest> がおすすめです",
+        "user": "U4M9NJ7QE",
+        "type": "message"
     }
 ]
