@@ -292,5 +292,11 @@
         "text": "build-type: Customを許容できるのであれば <https://hackage.haskell.org/package/cabal-doctest|https://hackage.haskell.org/package/cabal-doctest> がおすすめです",
         "user": "U4M9NJ7QE",
         "type": "message"
+    },
+    {
+        "ts": "1606960187.195300",
+        "text": "自分で定義した型の値を他の直積型のフィールドにする際にUNPACKプラグマをつけるかどうかで違いは出てきますか？\n例えば以下のような状況です\n```data Foo = Foo {-# UNPACK #-} !Int {-# UNPACK #-} !Int\ndata Bar = Bar {-# UNPACK #-} !Int !Foo```\n```data Foo = Foo {-# UNPACK #-} !Int {-# UNPACK #-} !Int\ndata Bar = Bar {-# UNPACK #-} !Int {-# UNPACK #-} !Foo```\nFooがどう定義されているかによっても変わってくるのでしょうか?",
+        "user": "UP6J2B1LL",
+        "type": "message"
     }
 ]
