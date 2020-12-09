@@ -22,5 +22,65 @@
         "text": "<@U01G6E7DR54> has joined the channel",
         "user": "U01G6E7DR54",
         "type": "message"
+    },
+    {
+        "ts": "1607494891.205200",
+        "text": "質問させてください :raising_hand:\n<https://hackage.haskell.org/package/vector-sized-1.4.3/docs/Data-Vector-Sized.html|vector-sizedの型レベルで長さを持つVector>の以下のような型クラスのインスタンスを定義したいのですがやり方が分からず困ってます :cry:\nうまいやり方を知っている or 一緒に悩んでくれる人がいたらコメントしていただけると嬉しいです :pray:\n（動かないですが書きたいコード）\n```import qualified Data.Vector.Sized as V\n\nclass Raccum a where\n  raccum :: a -&gt; a\n\ninstance Num a =&gt; Raccum (Vector 1 a) where\n  raccum = id\n\ninstance Num a =&gt; Raccum (Vector m a) where\n  raccum v = V.cons (V.sum v) (raccum $ V.tail v)```\n一応以下のように試行錯誤したのですが成功せず、、\nVector n a の関数実装に Vector (n-1) a の関数を使っているところの型推論がうまく行かないので\n• ↑を解決するためにUndecidableInstancesを使って（あまり使いたくない…）型クラス制約を `(Num a, m ~ (1+n), Raccum (Vector n a)) =&gt;` のように変更するとコンパイルは通るが実行時に `Overlapping instances` で怒られる\n• ↑仕方ないので以下のように一つの実装にまとめると `Couldn't match type '1' with '0' arising from a use of 'raccum'` と怒られる\n```instance (KnownNat m, KnownNat n, Num a, m ~ (1+n), Raccum (Vector n a)) =&gt; Raccum (Vector m a) where\n  raccum v\n    | m == 1    = v\n    | otherwise = V.cons (V.sum v) (raccum $ V.tail v)\n    where m = natVal (Proxy @m)```",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1607495010.205300",
+        "text": "※`raccum` を実装したいわけではなくこの例のようにGHCの型レベル自然数に対して帰納的に型クラスのインスタンスを実装する方法を知りたいと思っています",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1607496050.205500",
+        "text": ":memo: こう書けても良さそうなんですがこれは `Illegal type synonym family application 'n + 1' in instance` と怒られるんですよね、、\n```instance (Raccum (Vector n a), Num a) =&gt; Raccum (Vector (n+1) a) where\n  raccum v = V.cons (V.sum v) (raccum $ V.tail v)```",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1607497039.205700",
+        "text": "<https://qiita.com/mod_poppo/items/3a37424d299a9f71b757> に書いたように、GHCのNatは帰納的な定義ではないので、真っ当な方法でそういう関数を定義することはできません。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1607497151.206000",
+        "text": "unsafeな手段を厭わないのであれば、\n```\ndata NatCons (n :: Nat) where\n  Zero :: NatCons 0\n  Succ :: (KnownNat n, m ~ (1 + n)) =&gt; Proxy n -&gt; NatCons m\n\n{-# NOINLINE natCons #-}\nnatCons :: KnownNat n =&gt; Proxy n -&gt; NatCons n\nnatCons proxy = case sameNat proxy (Proxy :: Proxy 0) of\n                  Just Refl -&gt; Zero\n                  Nothing -&gt; case someNatVal (natVal proxy - 1) of\n                               SomeNat proxy' -&gt; unsafeCoerce (Succ proxy')```\nという補助関数を用意してやれば自然数が0か後続者かで場合分けできるようになります。（完全なコードは <https://gist.github.com/minoki/08b5825e249ae5642a6236a5f5adf702>）",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1607497223.206200",
+        "text": "試してませんが、自分でunsafeなコードを書きたくないのであれば、singletonsとcompiler pluginの組み合わせでどうにかできるかもしれません。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1607497435.206400",
+        "text": "Nat自体が帰納的に定義されてないことに起因してますよね、、\n調べてる時にこちらの記事も読ませていただきました! :pray:\n\n実装教えていただきありがとうございます!! unsafeな方法でも動かす方法が全く思いつかなかったのでめちゃくちゃありがたいです :innocent:\n\nsingletons + pluginですか :memo:\nsingletons 使ったことがないので考える良い機会になりそうです :arigatougozaimasu: :pray:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1607503731.206600",
+        "text": "singletons + compiler plugin を使った版も書いてみましたが、結局痒いところに手が届かなくてunsafeCoerceを使ってしまう羽目になりました <https://gist.github.com/minoki/08b5825e249ae5642a6236a5f5adf702#file-sing-hs>\n（更新：ghc-typelits-knownnatを入れた意義が微妙なことになっていたので直しました）",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1607503967.206800",
+        "text": "すごい！めちゃくちゃ勉強になります :pray: :arigatougozaimasu:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1607505408.207200",
+        "text": "本来書きたかったコードも頂いたコードを参考に無事実装できました :pray: :pray: :pray:",
+        "user": "U4KPPQW7K",
+        "type": "message"
     }
 ]
