@@ -280,5 +280,17 @@
         "text": "<@U01HAQDQUHW> has joined the channel",
         "user": "U01HAQDQUHW",
         "type": "message"
+    },
+    {
+        "ts": "1607669895.196700",
+        "text": "timeout って、catch が使われていると、挙動が変わるかもと思ってやったら、本当に変わってました。こわ。\n\n```haskell\n&gt; timeout 1000000 (takeMVar mvar)\nNothing\n&gt; timeout 1000000 (takeMVar mvar `catch` \\(SomeException _) -&gt; return ())\nJust ()\n&gt; timeout 5000000 (takeMVar mvar `catch` \\(SomeException e) -&gt; throwIO e)\nNothing\n&gt; timeout 5000000 (takeMVar mvar `catch` \\(SomeException e) -&gt; throwIO (userError \"\"))```\n",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1607672678.196800",
+        "text": "そういうの避けるための <https://hackage.haskell.org/package/safe-exceptions> じゃないっすかね。safe-exceptionsなら `timeout` とかがだす非同期例外を `catch` しなくなるはずです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
