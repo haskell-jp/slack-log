@@ -220,5 +220,47 @@
         "text": "<@U01HAQDQUHW> has joined the channel",
         "user": "U01HAQDQUHW",
         "type": "message"
+    },
+    {
+        "ts": "1607931542.106800",
+        "text": "久しぶりにhaskell触ってみようとしてつい~/.stackを消してインストールし直したらstack setupでコケてしまいました",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1607933569.108100",
+        "text": "意味のなさそうなところが長すぎて見づらいので最後の方だけ。あと~/.stackをゴミ箱から回復してもダメでした",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1607934818.108500",
+        "text": "ぱっと検索して見つかった、怪しいのはこれですかねぇ <https://github.com/commercialhaskell/stack/issues/4884>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1607934949.108800",
+        "text": "ウチのarchlinux `/home` がntfsだしそれっぽさはありますね",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1607935132.109100",
+        "text": "`make install` のほうで出るエラーは `stack setup` のときは出ないエラー(`make install` を直接走らせると`/usr/local` にファイルを作ろうとして権限がないと怒られるが`stack setup`だと`~/.stack`内にファイルをおくので大丈夫)",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1607947168.109500",
+        "text": "```2020-12-14 16:34:52.615504: [error] '/builds/ghc/ghc/inplace/bin/ghc-stage1' does not refer to an executable and\n2020-12-14 16:34:52.615564: [error] the program is not on the system path.```\nは普通に未解決です",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1607957326.109800",
+        "text": "ext4にフォーマットしたスパースファイルを `~/.stack` にマウントするという若干の力技で解決しました",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
     }
 ]
