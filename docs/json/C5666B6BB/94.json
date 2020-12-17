@@ -100,5 +100,35 @@
         "text": "本当にsnapshot取りたかったのは取りたかったのはタイトルの部分ですよね? タイトルだけsnapshot取って解決",
         "user": "UMKGDJ2RZ",
         "type": "message"
+    },
+    {
+        "ts": "1608163096.210800",
+        "text": "Monad TransformerをBinaryのインスタンスにしてシリアライズするのは原理的に難しそうなので、やるとしたら一旦生の文字列（TextでもByteStringでも）に変えるしかなかったのではないかと",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1608179841.211700",
+        "text": "リストを codensity 変換したものって `forall r. m r -&gt; (a -&gt; r -&gt; m r) -&gt; m r` でいいんですよね。これってモナドにするときに `Monad m` が必要ということで合ってますよね？",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1608180457.211800",
+        "text": "<https://stackoverflow.com/questions/45334985/when-to-use-cps-vs-codensity-vs-reflection-without-remorse-in-haskell> によると、これは「 codensity 変換」ではなく「 CPS 変換」なようです。",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1608184533.212100",
+        "text": "mはなくてもよく、foldrにリストを部分適用した型になります。もしLogicTのようにモナドを埋め込むなら、`(a → m r → m r) → m r → m r`ですね",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1608184883.212900",
+        "text": "ありがとうございます！",
+        "user": "U5LEE6C1J",
+        "type": "message"
     }
 ]
