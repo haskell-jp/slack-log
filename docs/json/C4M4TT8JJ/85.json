@@ -118,5 +118,11 @@
         "text": "GHC9.0は、#17760でブロックされて未だ苦労している模様です。 なかなか重そうです。\n<https://mail.haskell.org/pipermail/ghc-devs/2020-November/019376.html>\n<https://gitlab.haskell.org/ghc/ghc/-/issues/17760>",
         "user": "U55V441FS",
         "type": "message"
+    },
+    {
+        "ts": "1608631111.237200",
+        "text": "Haskell Symposium 2020の動画をちょっとずつ見直していたら見つけた面白い動画一つ共有します\n<https://www.youtube.com/watch?v=v4KvbHwEynU>\nMatrixを\n```data Matrix e c r where\n  One  :: e -&gt; Matrix e () ()\n  Join :: Matrix e a r -&gt; Matrix e b r -&gt; Matrix e (Either a b) r\n  Fork :: Matrix e c a -&gt; Matrix e c b -&gt; Matrix e c (Either a b)```\nという型で再帰的に表現したら、難しい型レベル整数などを使わなくても安全に使えるMatrixができる、という話っぽいです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
