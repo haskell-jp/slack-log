@@ -142,5 +142,59 @@
         "text": "<@U01HPB51LLE> has joined the channel",
         "user": "U01HPB51LLE",
         "type": "message"
+    },
+    {
+        "ts": "1609654731.221800",
+        "text": "amazonkaでS3へファイルアップロードする処理について質問です。\n<https://github.com/brendanhay/amazonka/blob/develop/examples/src/Example/S3.hs>\nこちらのexampleを参考に、下のようなコードで手元でアップロードできることを確認しました。\n```createSourceFile :: IO ()\ncreateSourceFile = do\n    writeFile \"input.txt\" \"This is a test.\"\n\ns3Upload :: IO ()\ns3Upload = do\n    createSourceFile\n    logger &lt;- newLogger Debug stdout\n    env &lt;- newEnv Discover &lt;&amp;&gt; set envLogger logger . set envRegion Tokyo\n    runResourceT . runAWST env $ do\n        body &lt;- chunkedFile defaultChunkSize \"./input.txt\"\n        void . send $ putObject (BucketName \"test-bucket\") (ObjectKey \"output.txt\") body```\n `chunkedFile` という関数を噛ませていることから、Streamに読み込みながらアップロードしているという認識で合っているでしょうか？\n`amazonka-s3-streaming` というパッケージもありますが、Streamにアップロードする上で特にこれは不要でしょうか？\n<https://github.com/axman6/amazonka-s3-streaming/issues?q=is%3Aissue+is%3Aclosed>\n\n教えて頂ければ幸いです。",
+        "user": "UGRUDUG3X",
+        "type": "message"
+    },
+    {
+        "ts": "1609654843.222100",
+        "text": "stack.ymlです。\n```resolver: lts-13.18\n\npackages:\n- .\n\nextra-deps:\n- conduit-1.3.4\n- amazonka-1.6.1\n- amazonka-s3-1.6.1\n- amazonka-s3-streaming-1.0.0.1\n- http-client-0.5.14\n- text-1.2.3.1\n- lens-4.17```",
+        "user": "UGRUDUG3X",
+        "type": "message"
+    },
+    {
+        "ts": "1609666569.222900",
+        "text": "&gt; `chunkedFile` という関数を噛ませていることから、Streamに読み込みながらアップロードしているという認識で合っているでしょうか？\n気になって実装読んでましたがその通りStreamに読み込みながらアップロードしてそうです:eyes:\n書いてある通り、\n\nchunkedFile でchunk毎に分割したStream (Chunked ChunkedBody) にして\n<https://github.com/brendanhay/amazonka/blob/020bc7bde47bb235e448c76088dc44d6cec13e9b/amazonka/src/Network/AWS/Internal/Body.hs#L76-L88>\n\nsend から最終的には http-conduit の http 関数を利用して送信しています\n<https://github.com/brendanhay/amazonka/blob/020bc7bde47bb235e448c76088dc44d6cec13e9b/amazonka/src/Network/AWS/Internal/HTTP.hs#L147>\n\namazonka の RqBody の Chunked は http-conduit の RequestBodyStreamChunked に変換されるので\n<https://github.com/brendanhay/amazonka/blob/020bc7bde47bb235e448c76088dc44d6cec13e9b/core/src/Network/AWS/Data/Body.hs#L168>\n\n無事 Stream で送信されてると思います。\nStreamでアップロードしたいだけなら `amazonka-s3-streaming` は不要に見えますね:eyes:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1609667103.223200",
+        "text": "正確に確かめられてはいませんが、どうやらamazonka-s3-streamingが使っているのは、マルチパートアップロード <https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/dev/mpuoverview.html> という機能のようで、挙げられたサンプルが使用している `putObject` が呼ぶAPIとはまた別物みたいです。\nどうやら使用している `Network.AWS.S3` 以下のモジュールは、S3のREST APIに対する各APIと一対一に対応しているようでして、`putObject` の定義元である `Network.AWS.S3.PutObject` は、名前のとおりPutObjectという命令 <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html> を呼んでいるものと推測されます。\n一方、`Network.AWS.S3.StreamingUpload` が使用しているのは `CreateMultipartUpload` や `CompleteMultipartUpload` といった、マルチパートアップロードで使用するAPIだからです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1609667213.223500",
+        "text": "一番確実に確かめるなら、Fiddlerなどのプロキシを使って実際にリクエストを読み、以下の各APIのドキュメントと照合してみることでしょう\n• PutObject <https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html>\n• CreateMultipartUpload <https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html>\n• CompleteMultipartUpload <https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1609667366.224000",
+        "text": "あ、長くなりましたがいずれにしてもlotzさんの回答のとおり、`putObject` でもストリーミングアップロード、つまり *一つの* リクエストでちょっとずつファイルの中身をアップロードすることはできていると思います。\nマルチパートアップロード機能は、とても大きなファイルを *複数の* リクエストでアップロードするためのものなので。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1609668105.224300",
+        "text": "なるほど、理解できました！\nまだ学び始めで見様見真似といった感じですが、実装も読めるようになっていきたいです。\n皆さんありがとうございます。",
+        "user": "UGRUDUG3X",
+        "type": "message"
+    },
+    {
+        "ts": "1609668215.224700",
+        "text": "&gt; send から最終的には http-conduit の http 関数を利用して送信しています\nなるほど、amazonkaは内部でconduit(ストリーミングライブラリですよね)を使っていたんですね。",
+        "user": "UGRUDUG3X",
+        "type": "message"
+    },
+    {
+        "ts": "1609711445.225500",
+        "text": "<@U01J9M7LZB3> has joined the channel",
+        "user": "U01J9M7LZB3",
+        "type": "message"
     }
 ]
