@@ -1,0 +1,86 @@
+[
+    {
+        "ts": "1610358296.238400",
+        "text": "取り急ぎ。package.yamlは使わなくともstackは使えます。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1610358351.238600",
+        "text": "stackとcabalの全般的な話ですが、 <https://the.igreque.info/slides/2019-11-29-stack-cabal.html#(1)> から大きく状況は変わっていないと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1610358442.238800",
+        "text": "&gt; 取り急ぎ。package.yamlは使わなくともstackは使えます。\nあーそういう意味ですか、僕の解釈ミスっぽい・・・？",
+        "user": "UGRUDUG3X",
+        "type": "message"
+    },
+    {
+        "ts": "1610358611.239100",
+        "text": "はい、cabalファイルは独自形式な上構文エラーがむちゃくちゃ分かりづらいので使う意義はそれなりにあるとは思いますが、確かに機能的な差はあまりなくなりました。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1610358678.239400",
+        "text": "ありがとうございます！\n最初「package.yamlは要らないと思う。Stack(そのもの)が非推奨だから。cabalで良い」というニュアンスで読んでいましたが「Stackを使うにあたりpackage.yamlは不要」と読むのが正しいということですね。",
+        "user": "UGRUDUG3X",
+        "type": "message"
+    },
+    {
+        "ts": "1610358813.239700",
+        "text": "スライドも目を通させて頂きました、ありがとうございます。",
+        "user": "UGRUDUG3X",
+        "type": "message"
+    },
+    {
+        "ts": "1610358930.240100",
+        "text": "• 一昔前はCabal Hellとか言われててまあStack使った方が良いよねという雰囲気だった\n• 最近はCabalも改善・進化した\n• Haskell開発に慣れてる人はCabalだけでも特に困らない\nという肌感なのかなと思いました。",
+        "user": "UGRUDUG3X",
+        "type": "message"
+    },
+    {
+        "ts": "1610366235.240500",
+        "text": "この件と関係するかは分かりませんが、1年ほど前に package.yaml から生成された .cabal ファイルをバージョン管理下に置くことが推奨されるようになっています。 <https://github.com/commercialhaskell/stack/issues/5210>\nですが、自分の肌感覚としては自動生成されるファイルをVCS管理下に置くのは「面倒」なので、 package.yaml を捨てて .cabal を直接書くのは十分検討に値する選択肢だと思います（自分は .cabal の最近の書き方をちゃんと把握していないのでまだ移行できてませんが）。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1610367348.242300",
+        "text": "Stackがpackage.yamlの使用を非推奨にしたと言っています。真偽の程は分かりませんが。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1610367448.244100",
+        "text": "Issuesをざっと検索してみましたが非推奨になった話は見つかりませんでした。どこかで議論があったのかなあ",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1610367546.245700",
+        "text": "他の方がコメント書いてましたね。手元のslackアプリがちゃんとロードできてなくて気が付きませんでした。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1610367687.248600",
+        "text": "hpackとcabalファイルの違いはだいぶ減りましたがモジュール一覧の生成に音楽性の違いみたいなものがあって、cabalでは全部列挙する必要があります。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1610370712.248900",
+        "text": "ありがとうございます！",
+        "user": "UGRUDUG3X",
+        "type": "message"
+    },
+    {
+        "ts": "1610374850.249200",
+        "text": "cabal ファイルと package.yaml (hpack) に関して、確か Cabal コマンドは cabal ファイルがないとビルドできないので、Cabal で hackage に無い野良 Haskell ライブラリ（GitHub にだけあるとか）を使う場合は cabal ファイルもあげてもらわないと困るはず？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    }
+]
