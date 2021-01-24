@@ -2,7 +2,17 @@
 {-# LANGUAGE DeriveGeneric  #-}
 {-# LANGUAGE StrictData     #-}
 
-module SlackLog.Types where
+module SlackLog.Types
+  ( module SlackLog.Duration
+  , Config (..)
+  , TargetChannel (..)
+  , TargetChannels
+  , Visibility (..)
+  , UserName
+  , UserId
+  , ChannelName
+  , ChannelId
+  ) where
 
 import qualified Data.Aeson          as Json
 import qualified Data.HashMap.Strict as HM
