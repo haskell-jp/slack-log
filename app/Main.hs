@@ -1,5 +1,5 @@
 {-
-Copyright 2018 Japan Haskell User Group
+Copyright 2021 Japan Haskell User Group
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ limitations under the License.
 -- | Export and upload messages from haskell-jp.slack.com
 
 {-# LANGUAGE LambdaCase        #-}
+{-# LANGUAGE NamedFieldPuns    #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module Main where
@@ -25,18 +26,21 @@ import           Control.Applicative      ((<|>))
 import           Control.Arrow            as Arrow
 import           Control.Exception        (bracket)
 import           Control.Monad            (unless, when)
+import           Control.Monad.Catch      (throwM)
 import           Control.Monad.IO.Class   (liftIO)
 import           Control.Monad.Reader     (runReaderT)
 import qualified Data.Aeson.Encode.Pretty as Json
 import qualified Data.ByteString.Lazy     as BL
+import           Data.Foldable            (for_)
 import qualified Data.HashMap.Strict      as HM
 import           Data.Maybe               (fromMaybe, maybeToList)
 import qualified Data.Text                as T
 import qualified Data.Text.IO             as T
 import           Data.Time.Calendar       (fromGregorian)
-import           Data.Time.Clock          (UTCTime (UTCTime), getCurrentTime)
+import           Data.Time.Clock          (UTCTime (UTCTime), addUTCTime,
+                                           getCurrentTime)
 import           Data.Traversable         (for)
-import           Data.Yaml                as Yaml
+import qualified Data.Yaml                as Yaml
 import           Safe                     (headMay)
 import qualified System.Directory         as Dir
 import           System.Envy              (FromEnv, decodeEnv, env, fromEnv)
@@ -47,13 +51,18 @@ import           System.IO                (BufferMode (NoBuffering), hGetEcho,
                                            hSetEcho, stderr, stdin, stdout)
 import qualified Web.Slack                as Slack
 import qualified Web.Slack.Common         as Slack
+import           Web.Slack.Conversation   (ConversationId (ConversationId))
+import qualified Web.Slack.Conversation   as Conversation
 import qualified Web.Slack.Group          as Group
+import qualified Web.Slack.Pager          as Slack
 import qualified Web.Slack.User           as User
 
 import           SlackLog.Html
 import           SlackLog.Pagination      (chooseLatestPageOf, defaultPageSize,
                                            paginateFiles)
-import           SlackLog.Types           (ChannelId, TargetChannel (..),
+import           SlackLog.Replies
+import           SlackLog.Types           (ChannelId, Config (..),
+                                           Duration (..), TargetChannel (..),
                                            TargetChannels,
                                            Visibility (Private, Public),
                                            targetChannels)
@@ -111,8 +120,11 @@ saveCmd = do
     saveUsersList apiConfig
     saveGroupsList apiConfig targets
 
-    saveResult <- for (HM.toList targets) $ \(chanId, TargetChannel{visibility=vis}) -> do
-      newTs <- saveChannel apiConfig oldTss chanId vis
+    saveResult <- for (HM.toList targets) $ \(chanId, TargetChannel { visibility }) -> do
+      now <- getCurrentTime
+      newTs <- saveChannel apiConfig oldTss now chanId visibility
+
+      saveReplies apiConfig config now $ ConversationId chanId
 
       jsonPaths <- collectTargetJsons chanId
       convertJsonsInChannel ws chanId jsonPaths
@@ -127,6 +139,30 @@ saveCmd = do
       generateIndexHtml ws newNames
 
 
+-- TODO: threadファイルがあろうとなかろうと「最後のメッセージのタイムスタンプがN日前以内のメッセージ」を取り出す
+-- タイムスタンプがsaveSince以降のものか、スレッドの最後のメッセージのタイムスタンプがN日以前のメッセージの、リプライを追記
+--   threadファイルを作るのは、replyが見つかったmessageのものだけ。
+-- ディレクトリーの構成 @docs/json/CHANNEL_ID/PAGE_NUM/MESSAGE_TIMESTAMP.json@.
+-- | Assumes the current directory is `docs/`
+saveReplies :: Slack.SlackConfig -> Config -> UTCTime -> ConversationId -> IO ()
+saveReplies apiConfig Config { saveRepliesBefore = Duration before } now convId =
+  Dir.withCurrentDirectory "json" $ do
+    let saveSince = addUTCTime (negate before) now
+    threads <- searchThreadsAppendedSince saveSince convId
+    for_ threads $ \Thread { tFirstMessage, tLatestTs, tMessages, tPath } -> do
+      toAppend <- (`runReaderT` apiConfig) $ do
+        let threadId = Slack.messageTs tFirstMessage
+            repliesReq = (Conversation.mkRepliesReq convId threadId)
+              { Conversation.repliesReqInclusive = False
+              , Conversation.repliesReqOldest = Just tLatestTs
+              }
+        loadPage <- Slack.repliesFetchAll repliesReq
+        Slack.loadingPage loadPage $
+          either throwM (return . dropThreadMessage threadId)
+      appendToThreadFile tPath tFirstMessage tMessages toAppend
+
+
+-- | Assumes the current directory is the project root
 generateHtmlCmd :: Bool -> IO ()
 generateHtmlCmd onlyIndex = do
   logConfig <- Yaml.decodeFileThrow "slack-log.yaml"
@@ -151,6 +187,7 @@ paginateJsonCmd =
     ]
 
 
+-- | Assumes the current directory is `docs/`
 saveUsersList :: Slack.SlackConfig -> IO ()
 saveUsersList apiConfig =
   Slack.usersList
@@ -162,6 +199,7 @@ saveUsersList apiConfig =
         hPutStrLn stderr "WARNING: Error when fetching the list of users:"
         hPrint stderr err
 
+-- | Assumes the current directory is `docs/`
 saveGroupsList :: Slack.SlackConfig -> TargetChannels -> IO ()
 saveGroupsList apiConfig targets =
   Slack.groupsList
@@ -180,14 +218,16 @@ saveGroupsList apiConfig targets =
         hPrint stderr err
 
 
+-- | Assumes the current directory is `docs/`
 saveChannel
   :: Slack.SlackConfig
   -> TimestampsByChannel
+  -> UTCTime
   -> ChannelId
   -> Visibility
   -> IO Slack.SlackTimestamp
-saveChannel cfg tss chanId vis = do
-  new <- Slack.mkSlackTimestamp <$> getCurrentTime
+saveChannel cfg tss now chanId vis = do
+  let new = Slack.mkSlackTimestamp now
   let old = fromMaybe (Slack.mkSlackTimestamp $ UTCTime (fromGregorian 2017 1 1) 0) (HM.lookup chanId tss)
   print old
   let hist =
@@ -212,6 +252,7 @@ saveChannel cfg tss chanId vis = do
         return old
 
 
+-- | Assumes the current directory is `docs/`
 addMessagesToChannelDirectory :: ChannelId -> [Slack.Message] -> IO ()
 addMessagesToChannelDirectory chanId msgs =
   Dir.withCurrentDirectory "json" $ do
