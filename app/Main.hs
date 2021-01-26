@@ -139,11 +139,9 @@ saveCmd = do
       generateIndexHtml ws newNames
 
 
--- TODO: threadファイルがあろうとなかろうと「最後のメッセージのタイムスタンプがN日前以内のメッセージ」を取り出す
--- タイムスタンプがsaveSince以降のものか、スレッドの最後のメッセージのタイムスタンプがN日以前のメッセージの、リプライを追記
---   threadファイルを作るのは、replyが見つかったmessageのものだけ。
--- ディレクトリーの構成 @docs/json/CHANNEL_ID/PAGE_NUM/MESSAGE_TIMESTAMP.json@.
--- | Assumes the current directory is `docs/`
+-- |
+-- The directory structure of replies: @docs/json/<CHANNEL_ID>/<PAGE_NUM>/<MESSAGE_TIMESTAMP>.json@.
+-- Assumes the current directory is `docs/`
 saveReplies :: Slack.SlackConfig -> Config -> UTCTime -> ConversationId -> IO ()
 saveReplies apiConfig Config { saveRepliesBefore = Duration before } now convId =
   Dir.withCurrentDirectory "json" $ do
