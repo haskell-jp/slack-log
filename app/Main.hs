@@ -33,6 +33,8 @@ import qualified Data.Aeson.Encode.Pretty as Json
 import qualified Data.ByteString.Lazy     as BL
 import           Data.Foldable            (for_)
 import qualified Data.HashMap.Strict      as HM
+import qualified Data.IORef               as IOR
+import           Data.List                (sortOn)
 import           Data.Maybe               (fromMaybe, maybeToList)
 import qualified Data.Text                as T
 import qualified Data.Text.IO             as T
@@ -41,7 +43,7 @@ import           Data.Time.Clock          (UTCTime (UTCTime), addUTCTime,
                                            getCurrentTime)
 import           Data.Traversable         (for)
 import qualified Data.Yaml                as Yaml
-import           Safe                     (headMay)
+import           Safe                     (maximumDef)
 import qualified System.Directory         as Dir
 import           System.Envy              (FromEnv, decodeEnv, env, fromEnv)
 import           System.Exit              (die)
@@ -53,7 +55,6 @@ import qualified Web.Slack                as Slack
 import qualified Web.Slack.Common         as Slack
 import           Web.Slack.Conversation   (ConversationId (ConversationId))
 import qualified Web.Slack.Conversation   as Conversation
-import qualified Web.Slack.Group          as Group
 import qualified Web.Slack.Pager          as Slack
 import qualified Web.Slack.User           as User
 
@@ -62,10 +63,7 @@ import           SlackLog.Pagination      (chooseLatestPageOf, defaultPageSize,
                                            paginateFiles)
 import           SlackLog.Replies
 import           SlackLog.Types           (ChannelId, Config (..),
-                                           Duration (..), TargetChannel (..),
-                                           TargetChannels,
-                                           Visibility (Private, Public),
-                                           targetChannels)
+                                           Duration (..), targetChannels)
 import           SlackLog.Util            (failWhenLeft, readJsonFile)
 import           UI.Butcher.Monadic       (addCmd, addCmdImpl, addHelpCommand,
                                            addSimpleBoolFlag, flagHelpStr,
@@ -116,14 +114,13 @@ saveCmd = do
     let targets = targetChannels config
 
     -- These actions have to be performed before generating HTMLs.
-    -- Because generating HTMLs requires channelsByName, usersByName, groupsByName
+    -- Because generating HTMLs requires channelsByName, usersByName
     saveUsersList apiConfig
-    saveGroupsList apiConfig targets
 
-    saveResult <- for (HM.toList targets) $ \(chanId, TargetChannel { visibility }) -> do
+    saveResult <- for (HM.keys targets) $ \chanId -> do
+      newTs <- saveChannel apiConfig oldTss chanId
+
       now <- getCurrentTime
-      newTs <- saveChannel apiConfig oldTss now chanId visibility
-
       saveReplies apiConfig config now $ ConversationId chanId
 
       jsonPaths <- collectTargetJsons chanId
@@ -197,57 +194,41 @@ saveUsersList apiConfig =
         hPutStrLn stderr "WARNING: Error when fetching the list of users:"
         hPrint stderr err
 
--- | Assumes the current directory is `docs/`
-saveGroupsList :: Slack.SlackConfig -> TargetChannels -> IO ()
-saveGroupsList apiConfig targets =
-  Slack.groupsList
-    `runReaderT` apiConfig >>= \case
-      Right (Group.ListRsp chs) -> do
-        -- Groups (private channels) should be saved only
-        -- if specified in 'targetChannels' to hide their group names.
-        let groupsByName =
-              HM.fromList
-                . filter ((`HM.member` targets) . fst)
-                $ map ((,) <$> Group.groupId <*> Group.groupName) chs
-        -- Save groups separately from channels to avoid to save empty hash when error.
-        BL.writeFile "json/.groups.json" $ Json.encodePretty groupsByName
-      Left err -> do
-        hPutStrLn stderr "WARNING: Error when fetching the list of channels:"
-        hPrint stderr err
-
 
 -- | Assumes the current directory is `docs/`
 saveChannel
   :: Slack.SlackConfig
   -> TimestampsByChannel
-  -> UTCTime
   -> ChannelId
-  -> Visibility
   -> IO Slack.SlackTimestamp
-saveChannel cfg tss now chanId vis = do
-  let new = Slack.mkSlackTimestamp now
+saveChannel cfg tss chanId = do
   let old = fromMaybe (Slack.mkSlackTimestamp $ UTCTime (fromGregorian 2017 1 1) 0) (HM.lookup chanId tss)
-  print old
-  let hist =
-        case vis of
-            Private -> Slack.groupsHistory
-            Public  -> Slack.channelsHistory
-  res <- runReaderT (Slack.historyFetchAll hist chanId 100 old new) cfg
-  case res of
-      Right body -> do
-        let msgs = Slack.historyRspMessages body
-            mbLatestTs = Slack.messageTs <$> headMay msgs
-        case mbLatestTs of
-            Just latestTs -> do
-              addMessagesToChannelDirectory chanId msgs
-              return latestTs
-            Nothing -> do
-              hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show chanId ++ ": " ++ "Can't get latest timestamp!"
-              return old
-      Left err -> do
-        hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show chanId ++ ":"
-        hPrint stderr err
-        return old
+  putStrLn $ "Channel " ++ T.unpack chanId ++ "'s last timestamp: " ++ show old ++ "."
+  let histReq = (Conversation.mkHistoryReq (ConversationId chanId))
+        { Conversation.historyReqInclusive = False
+        , Conversation.historyReqOldest = Just old
+        }
+  (`runReaderT` cfg) $ do
+    latestTsRef <- liftIO $ IOR.newIORef old
+    loadPage <- Slack.conversationsHistoryAll histReq
+    Slack.loadingPage loadPage $ \epage -> liftIO $
+      case epage of
+          Right msgs ->
+            if null msgs
+              then
+                putStrLn $ "Channel " ++ T.unpack chanId ++ ": Empty page returned by LoadPage. Finishing to save."
+              else do
+                lastTs <- IOR.readIORef latestTsRef
+                putStrLn $ "Channel " ++ T.unpack chanId ++ ": Saving page since " ++ show lastTs ++ "."
+
+                let latestTs = maximumDef lastTs $ map Slack.messageTs msgs
+                IOR.writeIORef latestTsRef latestTs
+
+                addMessagesToChannelDirectory chanId $ sortOn Slack.messageTs msgs
+          Left err -> do
+            hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show chanId ++ ":"
+            hPrint stderr err
+    liftIO $ IOR.readIORef latestTsRef
 
 
 -- | Assumes the current directory is `docs/`
@@ -256,7 +237,7 @@ addMessagesToChannelDirectory chanId msgs =
   Dir.withCurrentDirectory "json" $ do
     let channelNameS = T.unpack chanId
         tmpFileName = channelNameS <> "-tmp.json"
-    BL.writeFile tmpFileName $ Json.encodePretty (reverse msgs)
+    BL.writeFile tmpFileName $ Json.encodePretty msgs
     Dir.createDirectoryIfMissing False channelNameS
 
     channelDirItems <- Dir.listDirectory channelNameS
