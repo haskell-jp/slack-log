@@ -5,9 +5,7 @@
 module SlackLog.Types
   ( module SlackLog.Duration
   , Config (..)
-  , TargetChannel (..)
   , TargetChannels
-  , Visibility (..)
   , UserName
   , UserId
   , ChannelName
@@ -44,21 +42,12 @@ data Config = Config
   --   from Slack: not only when converting JSON files into HTML.
   } deriving (Eq, Show, Generic, Json.FromJSON)
 
-data TargetChannel = TargetChannel
-  { visibility :: Visibility
-  , label      :: T.Text
-  } deriving (Show, Eq, Generic)
-instance Json.FromJSON TargetChannel
-
-data Visibility = Private | Public deriving (Eq, Show, Generic)
-instance Json.FromJSON Visibility
-
-type TargetChannels = HM.HashMap ChannelId TargetChannel
+type TargetChannels = HM.HashMap ChannelId ChannelName
 
 type UserName = T.Text
 
 type UserId = T.Text
 
-type ChannelName = T.Text
-
 type ChannelId = T.Text
+
+type ChannelName = T.Text

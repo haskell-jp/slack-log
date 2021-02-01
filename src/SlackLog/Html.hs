@@ -18,7 +18,6 @@ module SlackLog.Html
   ) where
 
 
-import           Control.Applicative     ((<|>))
 import           Control.Monad           ((<=<))
 import qualified Data.Aeson              as Json
 import qualified Data.ByteString.Lazy    as BL
@@ -42,7 +41,7 @@ import qualified Web.Slack.Common        as Slack
 import qualified Web.Slack.MessageParser as Slack
 
 import           SlackLog.Types          (ChannelId, ChannelName, Config (..),
-                                          TargetChannel (..), UserId, UserName)
+                                          UserId, UserName)
 import           SlackLog.Util           (failWhenLeft, readJsonFile)
 
 
@@ -56,7 +55,6 @@ data PageInfo = PageInfo
 data WorkspaceInfo = WorkspaceInfo
   { userNameById      :: HM.HashMap UserId UserName
   , channelNameById   :: HM.HashMap ChannelId ChannelName
-  , groupNameById     :: HM.HashMap ChannelId ChannelName
   , workspaceInfoName :: T.Text
   , getTimeDiff       :: TC.UTCTime -> LT.TimeZone
   }
@@ -169,10 +167,8 @@ renderSlackMessages wsi@WorkspaceInfo {..} PageInfo {..} =
 loadWorkspaceInfo :: Config -> FilePath -> IO WorkspaceInfo
 loadWorkspaceInfo cfg dir = do
   userNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".users.json")
-  let channelNameById = label <$> targetChannels cfg
-  groupNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".groups.json")
-
-  let workspaceInfoName = workspaceName cfg
+  let channelNameById = targetChannels cfg
+      workspaceInfoName = workspaceName cfg
   getTimeDiff <- fmap TZ.timeZoneForUTCTime . TZ.loadTZFromDB $ timeZone cfg
 
   return WorkspaceInfo {..}
@@ -282,7 +278,7 @@ ensurePathIn typ cid name = typ ++ "/" ++ T.unpack cid ++ "/" ++ takeBaseName na
 
 getChannelScreenName :: WorkspaceInfo -> ChannelId -> ChannelName
 getChannelScreenName WorkspaceInfo {..} cid  =
-  fromMaybe cid (HM.lookup cid channelNameById <|> HM.lookup cid groupNameById)
+  fromMaybe cid $ HM.lookup cid channelNameById
 
 
 getUserName :: WorkspaceInfo -> Slack.UserId -> UserName
