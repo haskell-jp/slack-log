@@ -268,5 +268,29 @@
         "text": "ちなみに binary-tree パッケージの二分木がコモナドにならなくて困った\n```data Tree a = Leaf | Node a (Tree a) (Tree a)\n```\nという定義なので\n```extract :: Tree a -&gt; a\nextract Leaf = ???\n```\nが実装できず……",
         "user": "U4L0B71L1",
         "type": "message"
+    },
+    {
+        "ts": "1612788890.040000",
+        "text": "`a` を `Monoid` にするとか、 `(a, Tree a)` で `NonEmpty` っぽくするとコモナドになったりするでしょうか。できたとして、これで嬉しいかはわかりませんが…",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1612808115.041200",
+        "text": "`instance Comonad Tree` なので `a` に関する性質は実装に使えないのですよね（実装途中にやろうとして気付いた",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1612808665.042400",
+        "text": "*ghcups* の名前が正直 ghcup とまぎらわしいので名前の案を募集中です <https://github.com/kakkun61/ghcups/discussions/16>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1612828906.043400",
+        "text": "telegramのHaskell中文交流グループでも紹介されておりました！",
+        "user": "U561MADLH",
+        "type": "message"
     }
 ]
