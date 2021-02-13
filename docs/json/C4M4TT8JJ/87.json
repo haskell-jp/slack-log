@@ -10,5 +10,23 @@
         "text": "<https://github.com/rampaging-fridge/yojijukugo/blob/f0939d02a5b173074e52a5a70d62d9887faa2721/src/Logic.hs#L83> Traversalが与えられたとき、その影響範囲をシャッフルする(要するにどんな構造でもシャッフルできる)関数を作りました。ネストしたデータ構造に触れられるところが便利でした",
         "user": "U4KUNQF9N",
         "type": "message"
+    },
+    {
+        "ts": "1613187519.058400",
+        "text": "Haskellで型クラス実装されてなくても動くような、いわゆるSoft Constraintsの言語拡張って難しいんでしょうか？\n```(!) :: (Show? key, Ord key) =&gt; Map key value -&gt; key -&gt; value\n(!) m key = case lookup key m of\n  Just value -&gt; value\n  Nothing -&gt; case show? of\n    Nothing -&gt; error $ \"no value for key\"\n    Just fshow -&gt; error $ \"no value for key: \"++ fshow key\n\n&gt;&gt;&gt; empty ! \"hoge\"\nError: no value for key: \"hoge\"\n&gt;&gt;&gt; newtype T = T Int deriving(Eq,Ord)\n&gt;&gt;&gt; empty ! (T 10)\nError: no value for key```",
+        "user": "UDUBKLQMD",
+        "type": "message"
+    },
+    {
+        "ts": "1613187902.059600",
+        "text": "あったら便利そうですね。力技ですが <https://github.com/mikeizbicki/ifcxt|https://github.com/mikeizbicki/ifcxt> こういうのはあります",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1613189217.061700",
+        "text": "ifcxt面白いですね。IfCxtのインスタンスをGHCが自動生成するようにするのが筋が良さそうな気がしますね。",
+        "user": "UDUBKLQMD",
+        "type": "message"
     }
 ]
