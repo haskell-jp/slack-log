@@ -172,5 +172,35 @@
         "text": "<@U01N0DE52HX> has joined the channel",
         "user": "U01N0DE52HX",
         "type": "message"
+    },
+    {
+        "ts": "1613272635.018000",
+        "text": "@channel\nすごいH本 第1版 p104で、\nstring2digits::String-&gt;[Int]\nstring2digits = map digitToInt .filter isDigit　…(1)\nとあり、\n\n*Main Data.Char&gt; filter isDigit \"4545-45345\"\n\"454545345\"\n\n*Main Data.Char&gt; map digitToInt \"454545454343\"\n[4,5,4,5,4,5,4,5,4,3,4,3]\n\nとなるまでは分かるのですが、なぜ(1)のように書けるか\n分からず、解説をお願いしたいです。\n(関数合成(.)を使うと、\"digitToInt .filter isDigit\"がひとまとめになって、mapした各要素に適用されるイメージのため)",
+        "user": "U0137RHDV7S",
+        "type": "message"
+    },
+    {
+        "ts": "1613274366.019500",
+        "text": "関数適用の優先度が最も高いので、\n```map digitToInt . filter isDigit```\nは分かりやすいように括弧を付けると\n```(map digitToInt) . (filter isDigit)```\nと評価されるからです!\n\n逆に\n&gt; “digitToInt .filter isDigit”がひとまとめになって、\nを実現したい時は\n```map (digitToInt . filter isDigit)```\nと明示的に書く必要があります:eyes:",
+        "user": "U4KPPQW7K",
+        "type": "message"
+    },
+    {
+        "ts": "1613274402.019800",
+        "text": "`map digitToInt . filter isDigit` は `(map digitToInt) . (filter isDigit)` と同じです。関数合成 `f . g` は加算 `m + n` と同じ二項演算子なので、そうなります。",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1613281731.020200",
+        "text": "<@U01NRPX8ABA> has joined the channel",
+        "user": "U01NRPX8ABA",
+        "type": "message"
+    },
+    {
+        "ts": "1613284312.020500",
+        "text": "<@U4KPPQW7K> / <@U5LEE6C1J>\n ありがとうございます",
+        "user": "U0137RHDV7S",
+        "type": "message"
     }
 ]
