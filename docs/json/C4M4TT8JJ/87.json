@@ -46,5 +46,71 @@
         "text": "<@U01NRPX8ABA> has joined the channel",
         "user": "U01NRPX8ABA",
         "type": "message"
+    },
+    {
+        "ts": "1613292258.064700",
+        "text": "HLS って、GHCのバージョン毎に別のバイナリが必要なのか\nうーん、めんどいな\nっと思ったけどこれマージされてるな <https://github.com/haskell/vscode-haskell/pull/236>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1613292314.065000",
+        "text": "あ、これ VSCode か",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1613292867.065400",
+        "text": "wrapperを入れたら自動で必要に応じて本体を入れてくれればいいのにね。 :disappointed_relieved:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1613293417.065600",
+        "text": "超:wakaru:",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1613293431.065800",
+        "text": "まぁそのうち実装されるんじゃないですかね",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1613296212.069000",
+        "text": "標準でhaskell-language-server-wrapperというプログラムがあって各バージョンごとのバイナリを適宜呼び出してくれます。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1613296369.069200",
+        "text": "えぇ、GHCのバージョン毎に呼び分けしてくれるところまではいいのですが、対象のGHCがインストールされてなかったときにインストールするところまではしてくれないので...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1613297738.072200",
+        "text": "なるほど。確かに今はghcupからhlsとghcをインストールするようになってて、hlsから自動的にghcをインストールするようにはなってませんね。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1613298369.072500",
+        "text": "ああー、すみません、言い間違えました。「対象のGHC向けのhls」です。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1613301498.072700",
+        "text": "hlsでしたら `ghcup install hls` でバイナリが提供されているバージョンの詰め合わせがダウンロードされると思います。Windowsでは試したことがないのでもしかしたらLinux/macOSだけかもしれませんが。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1613301731.072900",
+        "text": "<https://gitlab.haskell.org/haskell/ghcup-hs/-/blob/e5a60d1b9a4f0dbffa7d7c56ad65eaa4f7cf8a74/ghcup-0.0.4.yaml#L1577-1594> ここを見る限りwindowsは対応してないのかもしれません",
+        "user": "U4M9NJ7QE",
+        "type": "message"
     }
 ]
