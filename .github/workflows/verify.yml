@@ -14,23 +14,29 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-18.04, windows-2019]
+        ghc: ["8.10.3"] # stack.yamlのresolverに合わせて更新してください
 
     steps:
     - uses: actions/checkout@v2
 
     - name: Cache .stack
       id: cache-stack
-      uses: actions/cache@v1.1.2
+      uses: actions/cache@v2.1.4
       with:
         path: ~/.stack
         key: ${{ runner.os }}-stack-${{ hashFiles('**/package.yaml') }}-${{ hashFiles('**/stack.yaml.lock') }}
         restore-keys: |
           ${{ runner.os }}-stack-
 
-    - uses: mstksg/setup-stack@v2
+    - uses: haskell/actions/setup@v1.1.7
+      name: Setup Haskell
+      with:
+        ghc-version: ${{ matrix.ghc }}
+        enable-stack: true
+        stack-version: 'latest'
 
     - name: Install dependencies
-      run: stack test --only-dependencies
+      run: stack --system-ghc test --only-dependencies
 
     - name: Run test
-      run: stack test --pedantic
+      run: stack --system-ghc test --pedantic
