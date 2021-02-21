@@ -19,12 +19,20 @@ import qualified Web.Slack.Common         as Slack
 import           Web.Slack.Conversation   (ConversationId (unConversationId))
 
 
-appendToThreadFile :: FilePath -> Slack.Message -> [Slack.Message] -> [Slack.Message] -> IO ()
-appendToThreadFile threadFilePath firstMessage existingMessages fetchedMessages =
-  BL.writeFile threadFilePath $ Json.encodePretty messages
+-- | Assumes the current directory is @docs/json/@
+appendToThreadFile :: ConversationId -> FilePath -> Slack.Message -> [Slack.Message] -> [Slack.Message] -> IO ()
+appendToThreadFile _convId _threadFilePath _firstMessage [] [] =
+  return ()
+appendToThreadFile convId threadFilePath firstMessage existingMessages fetchedMessages = do
+  let destPath = chanDir </> threadFilePath
+      destDir = FP.takeDirectory destPath
+  putStrLn $ "appendToThreadFile: Writing messages in " ++ destPath
+  Dir.createDirectoryIfMissing False destDir
+  BL.writeFile destPath $ Json.encodePretty messages
  where
   messages =
     firstMessage : existingMessages ++ sortOn Slack.messageTs fetchedMessages
+  chanDir = T.unpack $ unConversationId convId
 {-# INLINE appendToThreadFile #-}
 
 
@@ -41,7 +49,7 @@ data Thread = Thread
   } deriving (Eq, Show)
 
 
--- | Assumes the current directory is `docs/json/`
+-- | Assumes the current directory is @docs/json/@
 searchThreadsAppendedSince :: UTCTime -> ConversationId -> IO [Thread]
 searchThreadsAppendedSince saveSince convId = do
   messagesJsons <- Dir.listDirectory chanDir
