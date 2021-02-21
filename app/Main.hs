@@ -53,7 +53,7 @@ import           System.IO                (BufferMode (NoBuffering), hGetEcho,
                                            hSetEcho, stderr, stdin, stdout)
 import qualified Web.Slack                as Slack
 import qualified Web.Slack.Common         as Slack
-import           Web.Slack.Conversation   (ConversationId (ConversationId))
+import           Web.Slack.Conversation   (ConversationId (ConversationId, unConversationId))
 import qualified Web.Slack.Conversation   as Conversation
 import qualified Web.Slack.Pager          as Slack
 import qualified Web.Slack.User           as User
@@ -138,13 +138,23 @@ saveCmd = do
 
 -- |
 -- The directory structure of replies: @docs/json/<CHANNEL_ID>/<PAGE_NUM>/<MESSAGE_TIMESTAMP>.json@.
--- Assumes the current directory is `docs/`
+-- Assumes the current directory is @docs/@
 saveReplies :: Slack.SlackConfig -> Config -> UTCTime -> ConversationId -> IO ()
 saveReplies apiConfig Config { saveRepliesBefore = Duration before } now convId =
   Dir.withCurrentDirectory "json" $ do
     let saveSince = addUTCTime (negate before) now
+    putStrLn
+      $ "Channel "
+      ++ T.unpack (unConversationId convId)
+      ++ ": Started `saveReplies` of messages with replies since "
+      ++ show saveSince
     threads <- searchThreadsAppendedSince saveSince convId
     for_ threads $ \Thread { tFirstMessage, tLatestTs, tMessages, tPath } -> do
+      putStrLn
+        $ "Channel "
+        ++ T.unpack (unConversationId convId)
+        ++ ": Saving a thread "
+        ++ tPath
       toAppend <- (`runReaderT` apiConfig) $ do
         let threadId = Slack.messageTs tFirstMessage
             repliesReq = (Conversation.mkRepliesReq convId threadId)
@@ -154,7 +164,7 @@ saveReplies apiConfig Config { saveRepliesBefore = Duration before } now convId 
         loadPage <- Slack.repliesFetchAll repliesReq
         Slack.loadingPage loadPage $
           either throwM (return . dropThreadMessage threadId)
-      appendToThreadFile tPath tFirstMessage tMessages toAppend
+      appendToThreadFile convId tPath tFirstMessage tMessages toAppend
 
 
 -- | Assumes the current directory is the project root
@@ -182,7 +192,7 @@ paginateJsonCmd =
     ]
 
 
--- | Assumes the current directory is `docs/`
+-- | Assumes the current directory is @docs/@
 saveUsersList :: Slack.SlackConfig -> IO ()
 saveUsersList apiConfig =
   Slack.usersList
@@ -195,7 +205,7 @@ saveUsersList apiConfig =
         hPrint stderr err
 
 
--- | Assumes the current directory is `docs/`
+-- | Assumes the current directory is @docs/@
 saveChannel
   :: Slack.SlackConfig
   -> TimestampsByChannel
@@ -203,7 +213,7 @@ saveChannel
   -> IO Slack.SlackTimestamp
 saveChannel cfg tss chanId = do
   let old = fromMaybe (Slack.mkSlackTimestamp $ UTCTime (fromGregorian 2017 1 1) 0) (HM.lookup chanId tss)
-  putStrLn $ "Channel " ++ T.unpack chanId ++ "'s last timestamp: " ++ show old ++ "."
+  putStrLn $ "Channel " ++ T.unpack chanId ++ "'s last timestamp: " ++ show (Slack.slackTimestampTime old) ++ "."
   let histReq = (Conversation.mkHistoryReq (ConversationId chanId))
         { Conversation.historyReqInclusive = False
         , Conversation.historyReqOldest = Just old
@@ -219,7 +229,7 @@ saveChannel cfg tss chanId = do
                 putStrLn $ "Channel " ++ T.unpack chanId ++ ": Empty page returned by LoadPage. Finishing to save."
               else do
                 lastTs <- IOR.readIORef latestTsRef
-                putStrLn $ "Channel " ++ T.unpack chanId ++ ": Saving page since " ++ show lastTs ++ "."
+                putStrLn $ "Channel " ++ T.unpack chanId ++ ": Saving page since " ++ show (Slack.slackTimestampTime lastTs) ++ "."
 
                 let latestTs = maximumDef lastTs $ map Slack.messageTs msgs
                 IOR.writeIORef latestTsRef latestTs
@@ -228,10 +238,11 @@ saveChannel cfg tss chanId = do
           Left err -> do
             hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show chanId ++ ":"
             hPrint stderr err
+    liftIO . putStrLn $ "Channel " ++ T.unpack chanId ++ ": Finishing saving the channel history."
     liftIO $ IOR.readIORef latestTsRef
 
 
--- | Assumes the current directory is `docs/`
+-- | Assumes the current directory is @docs/@
 addMessagesToChannelDirectory :: ChannelId -> [Slack.Message] -> IO ()
 addMessagesToChannelDirectory chanId msgs =
   Dir.withCurrentDirectory "json" $ do
