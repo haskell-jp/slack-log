@@ -274,5 +274,11 @@
         "text": "<@UEU4W901W> has joined the channel",
         "user": "UEU4W901W",
         "type": "message"
+    },
+    {
+        "ts": "1613882449.004500",
+        "text": "DB用のdockerコンテナを立ち上げた状態で，Servant用dockerイメージを作成するべく\ndocker build -t servant-app . コマンドでdefineTableFromDB'を呼ぶとDBコンテナが見つからずにSQL error でコンパイルに失敗します．\nローカルで同一のServant appをbuildするとlocalhost:5432でDBコンテナにアクセス成功するのですが，どのように設定すれば良いかご存知の方いらっしゃいますか？\nなお，servant側でのdb設定用のyamlは以下です\n```port    : _env:DBPORT:\"5432\"\nhost    : _env:DBHOST:\"localhost\"\nuser    : _env:DBUSER:\"postgres\"\ndbname  : _env:DBNAME:\"postgres\"\npass    : _env:DBPASS:\"mypassword\"\nsslmode : _env:DBSSLMODE:\"disable\"```",
+        "user": "U8JGMG1QT",
+        "type": "message"
     }
 ]

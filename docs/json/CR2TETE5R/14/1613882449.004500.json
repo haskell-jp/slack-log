@@ -1,0 +1,62 @@
+[
+    {
+        "ts": "1613882449.004500",
+        "text": "DB用のdockerコンテナを立ち上げた状態で，Servant用dockerイメージを作成するべく\ndocker build -t servant-app . コマンドでdefineTableFromDB'を呼ぶとDBコンテナが見つからずにSQL error でコンパイルに失敗します．\nローカルで同一のServant appをbuildするとlocalhost:5432でDBコンテナにアクセス成功するのですが，どのように設定すれば良いかご存知の方いらっしゃいますか？\nなお，servant側でのdb設定用のyamlは以下です\n```port    : _env:DBPORT:\"5432\"\nhost    : _env:DBHOST:\"localhost\"\nuser    : _env:DBUSER:\"postgres\"\ndbname  : _env:DBNAME:\"postgres\"\npass    : _env:DBPASS:\"mypassword\"\nsslmode : _env:DBSSLMODE:\"disable\"```",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1613889740.004700",
+        "text": "dockerのポート転送機能で、コンテナ内のポートをホストのポートに紐付ける必要があります。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1613890373.004900",
+        "text": "`docker run -p ホストのポート:コンテナのポート イメージ名`  と実行してください。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1613902291.005100",
+        "text": "ありがとうございます，このコマンドを叩くとpostgresql側と干渉しているよーと教えられたので，もう少しポート設定とコンテナ管理をいじってみます．docker初心者には壁が高い..\nなんだかhaskellと関係ない質問になってしまって恐縮です:droplet:",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1613903959.005300",
+        "text": "「Docker container内で、(defineTableFromDB'を使った)Haskellのコードをコンパイルしようとしている」という認識であってますか？",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1613904084.005600",
+        "text": "はい、仰る通りです。ローカルではビルドが通るので別コンテナにあるpsqlとの通信で躓いていている現状です。コンテナ内外でポート設定があることをついさっき知ったので調査中です",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1613904533.005800",
+        "text": "それでしたら、ビルド環境コンテナとDBランタイムコンテナが通信できるように設定する必要があるので、\n• docker networkを設定する\n• --linkを使う(レガシー)\nが関係しそうですね。\n\nまたは別の手法として、\n「ghcなどビルドツール」と「postgresql server」両方を含んだ大きな「ビルド用Image」を作り、その中で「db 起動 -&gt; db schema migration -&gt; servant-appのビルド」を行うという手法もあります。\ndocker multi stageビルドを使うと、「ビルド用Image」から成果物を取り出し、小さめな「ランタイム用Image」を作ることがシンプルにできます。",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1613904861.006200",
+        "text": "ありがとうございます．\n• docker networkを設定する\n• --linkを使う(レガシー)\n1つ目は今docker-compose.ymlに記述して回しているところで，2つ目はこれから調べてみます\n\ndocker multi stage buildは便利そうですね，イメージサイズが矢鱈と大きいのでビルドに成功してから取り組もうと考えていました．\n<https://matsuand.github.io/docs.docker.jp.onthefly/develop/develop-images/multistage-build/>\nこの辺りから勉強し始めてみます:muscle:",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    },
+    {
+        "ts": "1613905441.006700",
+        "text": "ああー、すみません、ちゃんと読めてませんでした... :cold_sweat:\nソースコードはホスト側にあると思ってました...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1613905545.006900",
+        "text": "いえいえ！定型的な記述法がわからず回りくどい書き方をしてしまったと思いますので！",
+        "user": "U8JGMG1QT",
+        "type": "message"
+    }
+]

@@ -1,0 +1,20 @@
+[
+    {
+        "ts": "1613481197.020800",
+        "text": "Haskellでヒアドキュメントを実現する一番良い方法は何でしょうか\nたとえば、\n1から100までの連番それぞれに対して、\nその番号を含んだ文書を、計100通り出力したいです。\nシェルスクリプトやPerlでもよくある処理なので難しいことではないと思っていたのですが、\nHaskellでしようとすると詰まってしまいました。\n\n *試したこと*\n\n• *String Gapを使う方法*\n⇒正しくできることもありましたが、下記のエラーがでて動かないこともありました。\n`lexical error in string/character literal at character '\\n'`\n\n改行の位置やインデントの問題なのかもしれませんが、どこを見れば正しいやり方が把握できるのかがわからなかったです。\n\n• *ライブラリを使う方法*\n⇒stackageでヒットしたheredocというライブラリ　heredoc\n<https://www.stackage.org/package/heredoc>\nでは、変数を埋め込むことが出来なさそうな感じでした。\nまた、変数を埋め込むことのできるライブラリ  heredocs\n<https://github.com/cutsea110/heredoc>\nはstackに載っておらず、stackで作成したプロジェクトへの導入の仕方がわからず敬遠している状況です。\n\nいいやり方をご存じの方、教えていただきたいです。",
+        "user": "UKAS45C80",
+        "type": "message"
+    },
+    {
+        "ts": "1613484744.021000",
+        "text": "僕はよく <https://hackage.haskell.org/package/here> を使います",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1613520834.021300",
+        "text": "&gt;  ⇒正しくできることもありましたが、下記のエラーがでて動かないこともありました。\nこれは具体的にどういうコードを書いたのか気になりますね。\n\n&gt; stackで作成したプロジェクトへの導入の仕方がわからず\nstack.yaml に extra-depsという項目があるのでそこに追記してください。\n書き方は `stack init` や `stack new` などで生成したstack.yamlにコメントアウトされています。\nあと、それでなくともとりあえず cabal ファイル（あるいは package.yaml があるなら package.yaml）に追加すれば `stack build` の際「こうやって追記してね！」って教えてくれるはずです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]

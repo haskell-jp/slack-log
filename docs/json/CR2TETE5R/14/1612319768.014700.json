@@ -1,0 +1,38 @@
+[
+    {
+        "ts": "1612319768.014700",
+        "text": "入力処理で、1回の入力単位が1行であれば、hGetLine hdl でよいのですが、\n1回の入力単位が複数の改行を含み特定の文字列（たとえば\"\\n&gt;&gt;&gt; \"）が出現するまで、\nという場合どう書けばいいでしょうか。",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1612357996.015600",
+        "text": "こういうことですか\n\n```import           <http://System.IO|System.IO>\n\nhGetLineUntil :: Handle -&gt; String -&gt; IO String\nhGetLineUntil hdl marker = go \"\"\n where\n  go accum = do\n    line &lt;- hGetLine hdl\n    if line == marker\n      then return accum\n      else go $ accum ++ line ++ \"\\n\"\n\n\nmain :: IO ()\nmain =\n  print =&lt;&lt; hGetLineUntil stdin \"&gt;&gt;&gt;\"```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1612364055.015800",
+        "text": "ああ、説明不足でした、特定の文字列というのは或る種のプロンプトであることを想定していまして、\nプロンプトの後は一文字も来ていない時点で取得したいのです。\nプロンプトは来ていても、改行文字は来ないので、hGetLineではプロンプトが得られない状況です。",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1612365284.016200",
+        "text": "とりあえず、書いてみたのですが、入出力が不得意すぎて、なんだかなコードのような気がしています。\n```hGetUntil :: Handle -&gt; String -&gt; IO String\nhGetUntil h str = do\n    { eof &lt;- hIsEOF h\n    ; if eof then return \"\"\n      else do\n          { c &lt;- hGetChar h\n          ; if c == head str then (c :) &lt;$&gt; getStr (tail str)\n            else (c :) &lt;$&gt; hGetUntil h str\n          }\n    }\n    where\n        getStr []     = return \"\"\n        getStr (c:cs) = do\n            { eof &lt;- hIsEOF h\n            ; if eof then return \"\"\n              else do\n                  { c' &lt;- hGetChar h\n                  ; if c == c' then (c' :) &lt;$&gt; getStr cs\n                    else (c' :) &lt;$&gt; hGetUntil h str\n                  }\n            }```\n",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1612383980.016400",
+        "text": "やりたいことはこういうことだったりしますか？\n```{-# LANGUAGE OverloadedStrings #-}\n\nmodule Main where\n\nimport qualified <http://System.IO|System.IO>             as S\nimport qualified Data.ByteString.Char8 as BS\nimport           Data.IORef            (IORef, newIORef, readIORef, writeIORef)\nimport           System.IO.Unsafe      (unsafePerformIO)\n\nmkBuffer :: IO (IORef BS.ByteString)\nmkBuffer = newIORef \"\"\n\nhGetUntil :: S.Handle -&gt; IORef BS.ByteString -&gt; BS.ByteString -&gt; IO BS.ByteString\nhGetUntil h ref marker = do\n  prevRemain &lt;- readIORef ref\n  (item, remain) &lt;- go prevRemain\n  writeIORef ref remain\n  return item\n where\n  go prevRemain =\n    if BS.null bs2\n      then do\n        mBs &lt;- getBs prevRemain\n        case mBs of\n          Nothing     -&gt; return (prevRemain, \"\")\n          Just remain -&gt; go remain\n      else return (bs1, bs3)\n   where\n    (bs1, bs2) = BS.breakSubstring marker prevRemain\n    bs3        = BS.drop (BS.length marker) bs2\n  getBs :: BS.ByteString -&gt; IO (Maybe BS.ByteString)\n  getBs prev = do\n    isEOF &lt;- S.hIsEOF h\n    if isEOF\n      then return Nothing\n      else do\n        True &lt;- S.hWaitForInput h (-1)\n        Just . BS.append prev &lt;$&gt; BS.hGetNonBlocking h 1024\n\nmain :: IO ()\nmain = do\n  buf &lt;- mkBuffer\n  print =&lt;&lt; hGetUntil S.stdin buf \"\\n&gt;&gt;&gt;\"```\n（IORefは必須ではないですが、どこかに情報をためて受け渡したりする必要があります）",
+        "user": "U4M5UPE4F",
+        "type": "message"
+    },
+    {
+        "ts": "1612395874.016700",
+        "text": "REPLのラッパーを書こうとしいます。*ユーザーの入力(改行終端)ごと*にREPLからの出力(プロンプト文字列終端)を表示するものです。\n模式的には、以下の(1)〜(3)の要素を繋げてループにする(あるいはそれぞれをループにしてから繋げる)イメージです。\n\n```(1)  (stdin &amp; hgetLine        ) &gt;&gt;= (INPUT-FILTER  &gt;&gt;&gt; hPutStrLn oh1   )\n(2)  (ih1   &amp; hGetLine        ) &gt;&gt;= (REPL          &gt;&gt;&gt; hPutStr   oh2   )\n(3)  (ih2   &amp; hGetUntil prompt) &gt;&gt;= (OUTPUT-FILTER &gt;&gt;&gt; hPutStr   stdout)```",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    }
+]

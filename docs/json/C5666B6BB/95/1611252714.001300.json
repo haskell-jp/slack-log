@@ -1,0 +1,68 @@
+[
+    {
+        "ts": "1611252714.001300",
+        "text": "`dist-newstyle\\build\\x86_64-windows\\ghc-8.10.3\\foo-0.1.0.0` みたいなパスを cabal-install で取得する方法をどなたかご存じですか？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1611301450.001600",
+        "text": "背景を書くと、\n• DLL を生成したい\n• DLL に C で実装した関数も含めたい\n• cabal build では ghc に -c オプションを渡して .o ファイルを生成している\n• C コードも別途 ghc -c で .o ファイルを生成している\n• DLL 生成は ghc -shared で、このとき事前に生成した .o の場所を知りたい",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1611301473.001900",
+        "text": "そもそも cabal で DLL 生成までできるのかな",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1611304835.002200",
+        "text": "`--enable-shared` ふむ <https://cabal.readthedocs.io/en/3.4/cabal-project.html#dynamic-linking-options>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1611308057.002400",
+        "text": "`--enable-shared` 試したけどどこに生成されるんだ？",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1611308115.002600",
+        "text": "&gt; • cabal build では ghc に -c オプションを渡して .o ファイルを生成している\nここの -c は要らないな",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1611309552.002800",
+        "text": "&gt; • C コードも別途 ghc -c で .o ファイルを生成している\nここもオプション要らないな",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1611321635.003100",
+        "text": "<https://github.com/as-capabl/clay-dhall/blob/master/aux-list-path/src/aux-list-path.hs> cabal-planを使うと良さそうでしょうか",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1611321745.003500",
+        "text": "新しいcabal-planだとplan.jsonの場所を取得する機能もあるみたいです",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1611401842.003800",
+        "text": "教えてもらった cabal-plan でビルドツール書いてたんですけど、cabal ファイルに `foreign-library` というのがあるのを発見した\n<https://cabal.readthedocs.io/en/3.4/cabal-package.html#foreign-libraries>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1611402955.004000",
+        "text": "`foreign-library` でイッパツだった:hugging_face:",
+        "user": "U4L0B71L1",
+        "type": "message"
+    }
+]
