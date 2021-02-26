@@ -238,5 +238,65 @@
         "text": "あとLinuxで公式バイナリを使っていてTHを使ったプロジェクトをビルドすると <https://github.com/haskell/haskell-language-server/issues/429> に遭遇したりすることがあります。glibcを静的リンクしていることが問題のようなので、HLSを自分でビルドすると直ります。",
         "user": "U4M9NJ7QE",
         "type": "message"
+    },
+    {
+        "ts": "1614208221.019900",
+        "text": "HLSって、(stackじゃなく)cabalで管理されているプロジェクトでもうまく動きますか？ (stack はまったくインストールしてない環境)",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1614208256.020100",
+        "text": "大丈夫だと思いますよ。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1614208339.020700",
+        "text": "動きますが、環境によっては <https://github.com/mpickering/hie-bios/issues/194> のような問題があります。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1614208393.021300",
+        "text": "<https://github.com/haskell/cabal/pull/6241> がmergeされるといいのですが",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1614208641.024000",
+        "text": "ghcupを使っていれば `ghcup set ghc $VERSION` で常にプロジェクトが期待するGHCをactiveにしておけば問題なく動くと思います。別バージョンを使う複数のプロジェクトを同時に扱う場合は面倒になってしまいます。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1614213001.024400",
+        "text": "<@U4M9NJ7QE> ありがとうございます！",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1614234953.025500",
+        "text": "HLS 1.0.0 が正式リリースされました。Windows 上での 8.8 向けのバイナリの準備が不安定でその分だけ欠けていますが、他の環境 or  GHC Version 向けであればもう使える筈です。\n<https://github.com/haskell/haskell-language-server/releases/tag/1.0.0>",
+        "user": "UK0MXUCAV",
+        "type": "message"
+    },
+    {
+        "ts": "1614235302.029100",
+        "text": "今回の目玉は、\n\n• maoe さんも言及している find reference (グローバルな関数・型以外にもローカル変数の呼び出しとかも一覧出来てすごく便利です) \n• より校則なロード時間（この二つは hiedb の機能によるものです）\n• 8.10.4 バイナリの配付\n• 強化された Tactics Plugin（lambda 式や case だけでなく関数定義の split もできるように／η reduction なども可能）\n• ambiguous import や shadowing の解決機能\n• Eval Plugin のコメントパーザがまともになった\n• Eval Plugin の `:set` で 言語拡張以外にも GHC flags が指定可能に\n• HLint の quick fix がビルド済バイナリでも動くように\nあたりでしょうか",
+        "user": "UK0MXUCAV",
+        "type": "message"
+    },
+    {
+        "ts": "1614235422.030000",
+        "text": "あ、あと hiedb のおかげでビルドシステムに stack を使っていてもローカルパッケージ間のジャンプが出来るようになりました",
+        "user": "UK0MXUCAV",
+        "type": "message"
+    },
+    {
+        "ts": "1614265067.032900",
+        "text": "<https://ja.wikipedia.org/wiki/ノート:関数型言語#改善に向けて> で Wikipedia の記事を改善しようとしているので、「関数型プログラミング」についての  Wikipedia における「信頼できる情報源」であるようなものを元とした情報が欲しいです……",
+        "user": "U5LEE6C1J",
+        "type": "message"
     }
 ]
