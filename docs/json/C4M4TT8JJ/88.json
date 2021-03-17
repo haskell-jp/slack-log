@@ -226,5 +226,53 @@
         "text": "ついこないだに、これからは cryptonite を使いましょうっていうのを聞いたような気がする",
         "user": "U5LEE6C1J",
         "type": "message"
+    },
+    {
+        "ts": "1615854073.021600",
+        "text": "バラバラだった暗号ライブラリ群が、cryptonite にまとめられ、徐々にハードウェアサポートも入っていい感じだったんです。止めるのはいいのですが、引き継ぎがないので困っています。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1615854287.023500",
+        "text": "僕が今実装している quic なんですが、cryptonite を使っていると他の実装に比べてまったくスループットが出ません。kazuhoさんがCで実装したfusion暗号に乗り換えたら、スループットが3.4倍速くなりました。cryptoniteもまだまだ速くできる余地があります。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1615854376.024400",
+        "text": "ちなみに kazuho さんは、分岐予測を予測しながらCでコーディングするので、速度を競わせたら誰も彼には敵いません。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1615854749.027500",
+        "text": "数年前にHsOpenSSLに比べてtlsがかなり遅かったので少しコードを見てみたら、cryptoniteかmemoryかbasementか忘れましたがあまり速度を気にせず書かれている感じでした。あれからあまり変わっていないのであれば、速度を気にするところで使うならパフォーマンスチューニングが必要かもしれません。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1615854930.030200",
+        "text": "cryptoniteは、暗号化の際に必ず新しいメモリ領域を割り当てる Haskell らしいライブラリです。送信バッファを持っているシステムから使うには、暗号化の領域を Ptr Word8 で指定できる API が欲しいです。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1615855067.032100",
+        "text": "OpenSSLとかは、AESGCM を計算するときに、AESのHWとGCMのHWをうまく並列化しています。cryponiteには、こういう工夫がたぶん入ってないです。GCMのHW活用は、デフォルトでoffだし。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1615862877.010600",
+        "text": "<@U01QX9TFNFR> has joined the channel",
+        "user": "U01QX9TFNFR",
+        "type": "message"
+    },
+    {
+        "ts": "1615863824.012500",
+        "text": "doctest用のコメントから取り出したコードをGHCiに入力するのではなく、コンパイルできるモジュールとして出力する方式のdoctest。より依存関係を解決しやすくテストも速いらしい\n<https://hackage.haskell.org/package/doctest-extract>",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
