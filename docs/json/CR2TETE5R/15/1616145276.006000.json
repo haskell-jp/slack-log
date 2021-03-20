@@ -10,5 +10,17 @@
         "text": "もう少し詳細な情報はありますか？（システムにインストールしたghcでコンパイルした、cabal buildした、stack buildした、など）\n例えば、stackの場合はpackage.yamlのdependenciesにvectorを追加すると、Data.Vector.Unboxedなどのvectorパッケージが提供するモジュールを使えるようになります",
         "user": "U7907NMGF",
         "type": "message"
+    },
+    {
+        "ts": "1616238366.019400",
+        "text": "stackでbuildしました。\npackage.yamlのdependenciesにvectorを追加するのは、どうすればいいでしょうか？",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1616246419.020100",
+        "text": "```dependencies:\n  - base\n  - vector # この行を追加```\nのように、そのままvectorをdependenciesに追加すればOKです。package.yamlの詳細な書き方が知りたいときは stackのUser guide（<https://docs.haskellstack.org/en/stable/GUIDE/#user-guide>）やhpackのREADMEを読むと良いです。",
+        "user": "U7907NMGF",
+        "type": "message"
     }
 ]
