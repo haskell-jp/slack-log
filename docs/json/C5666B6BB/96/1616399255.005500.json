@@ -1,0 +1,56 @@
+[
+    {
+        "ts": "1616399255.005500",
+        "text": "CloudWatch logのJSON形式で良い感じにログを出力させるOSSって既にありますか?\n[amazonka-cloudwatch-logs: Amazon CloudWatch Logs SDK.](<https://hackage.haskell.org/package/amazonka-cloudwatch-logs>)\nは出力するのではなく逆に出力を解析する方みたいで不適に見えます\nちゃんとフォーマットするかはともかく作ること自体は簡単そうですが、車輪の再発明はしたくないなと思ったのです\n無いなら作ります",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1616399997.006100",
+        "text": "雑にググった感じ、CloudWatch を前提にしたロガー的なのはなさそうですね\n<https://github.com/search?l=Haskell&amp;q=cloudwatch&amp;type=Repositories>",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1616401857.006300",
+        "text": "<https://docs.aws.amazon.com/ja_jp/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html>\n<https://hackage.haskell.org/package/amazonka-cloudwatch-logs-1.6.1/docs/Network-AWS-CloudWatchLogs-GetLogEvents.html#t:GetLogEvents>\nGetLogEventsはjson形式でデータがとれますがこういうのと違いますか？",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1616401963.006600",
+        "text": "<@U74KTAG0N> 言葉が足りませんでした。取得する方をどうにかするのではなくて、Yesodアプリケーションでログを出力する際にCloudWatchで見やすくJSONでログを出力したかったのですよね。\nありがとうございます、無さそうでしたら作ることにします。\nCloudWatchのJSONのスキーマがよく分からないけど…",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1616402115.006800",
+        "text": "了解です。\n<https://hackage.haskell.org/package/amazonka-cloudwatch-logs-1.6.1/docs/Network-AWS-CloudWatchLogs-PutLogEvents.html>\n逆側ならPutLogEventsですかね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1616402264.007000",
+        "text": "これ見た感じタイムスタンプとメッセージしかなさそうなのでエラーであるとか送れなさそうなんですよね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1616411326.007400",
+        "text": "そのメッセージにJSONをかくのが一般的なような気がします。\nそうすればcloudwatch logs insightsとかでログが検索できるようです。\n<https://dev.classmethod.jp/articles/how-to-cloudwatch-logs-insights/>",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1616414055.007800",
+        "text": "なんかいい感じに出来た気がするのでブログ記事にまとめて投下します",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1616417150.008400",
+        "text": "とりあえず私の解決策です\n[Yesodのログを改善して解析しやすくする - ncaq](<https://www.ncaq.net/2021/03/22/20/48/47/>)",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    }
+]
