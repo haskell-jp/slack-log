@@ -1,0 +1,32 @@
+[
+    {
+        "ts": "1616685563.010700",
+        "text": "`fused-effects`を用いて`callCC`をサポートするEffectを作ろうとしているのですが\n実装がうまく行きません. どうすれば実装できるか知りたいです. 質問の詳細はスレッドに\n続きます.",
+        "user": "UP6J2B1LL",
+        "type": "message"
+    },
+    {
+        "ts": "1616685888.010800",
+        "text": "現状の実装が見当違いなのかもしれませんが, 一応それがどのようになっていて, どこで詰まっているかを書きます.\n\n1. まずEffectとして次の型を定義\n```data Cont m k where\n  CallCC :: ((a -&gt; m b) -&gt; m a) -&gt; Cont m a\n\ncallCC :: Has Cont sig m =&gt; ((a -&gt; m b) -&gt; m a) -&gt; m a\ncallCC f = send (CallCC f)```\n2. Carrierとして次の型を定義\n```newtype ContC m a = ContC\n  { runContC :: forall r. (a -&gt; m r) -&gt; m r\n  }\n\n{- ContC の Functor, Applicative, Monad のインスタンスの実装も行った -}```\n3. `Algebra`のインスタンスの定義で詰まる\n以下のコードの`_hole`と書いてある部分が実装できない\n```instance Algebra sig m =&gt; Algebra (Cont :+: sig) (ContC m) where\n  alg ::\n    Functor ctx =&gt;\n    Handler ctx n (ContC m) -&gt;\n    (Cont :+: sig) n a -&gt;\n    ctx () -&gt;\n    ContC m (ctx a)\n  alg hdl sig ctx = case sig of\n    L (CallCC f) -&gt;\n      -- hole :: n b\n      ContC \\k -&gt; runContC (hdl . (&lt;$ ctx) $ f (\\x -&gt; _hole)) k\n\n    R other -&gt;\n      ContC (alg (flip runContC pure . hdl) other ctx &gt;&gt;=)```\nなぜ詰まっているかというと`_hole`は`n b`という型にならなければならないのですが,その型の値を作り出せる手段がない(と思っている)からです. 気持ちとしては`_hole`の部分で`ContC \\_ -&gt; k (x &lt;$ ctx)`のようにやりたいのですが`ContC m`を`n`に持ち上げられなくない?となりました",
+        "user": "UP6J2B1LL",
+        "type": "message"
+    },
+    {
+        "ts": "1616685962.011000",
+        "text": "コード全文はこちらになります",
+        "user": "UP6J2B1LL",
+        "type": "message"
+    },
+    {
+        "ts": "1616713778.011600",
+        "text": "取り急ぎ。ぱっと参考文献が挙げられないので自信がないのですが、確かこの手のeffectはExtensible Effectだと実現不可能だったような気がします。ReaderのlocalやExceptのcatchと同じ理由で。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1616715429.015800",
+        "text": "fused-effectsはHigher-order effects(?)も提供しているから、localやcatchも実装できると<https://github.com/fused-effects/fused-effects#higher-order-effects|README.md> にありました. そして実際に定義されてるReader EffectsにはLocalコンストラクタがあるみたいです... <https://hackage.haskell.org/package/fused-effects-1.1.1.0/docs/Control-Effect-Reader.html|https://hackage.haskell.org/package/fused-effects-1.1.1.0/docs/Control-Effect-Reader.html>",
+        "user": "UP6J2B1LL",
+        "type": "message"
+    }
+]

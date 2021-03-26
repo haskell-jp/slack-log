@@ -28,5 +28,11 @@
         "text": "package.yamlが見つかりませんね……。\nどこを探すとあるのでしょうか？",
         "user": "UFMV026NR",
         "type": "message"
+    },
+    {
+        "ts": "1616657513.020900",
+        "text": "普通にstack newしたなら、src/ディレクトリがあるディレクトリにあるはずです。\n\nですが、package.yamlが見つからないということは、stack ghcなどでファイルを直接コンパイルしているのだと思います（違ったらこの段落は読み飛ばしてください）。その場合は、stackに`--package vector`オプションを渡します。例えば`stack ghc Main.hs --package vector`。\nこの下りはドキュメントを読んだだけなのであまり自信がないです。もしかしたら、コンパイルする前に`stack install vector`を実行するだけでいいかも。\n\nもう一つありえるのは、hpackを使わず.cabalファイルを直接使っている可能性です。その場合は、&lt;プロジェクト名&gt;.cabalのbuild-dependsにvectorを追加します。`build-depends: base, vector`のように`,`区切りで書きます。",
+        "user": "U7907NMGF",
+        "type": "message"
     }
 ]
