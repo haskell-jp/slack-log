@@ -34,5 +34,11 @@
         "text": "まだちゃんと読んでないのですが今週のHaskell Weekly, `ReaderT` より `ImplicitParams` 使えよって記事と `ImplicitParams` 使うと危ないって記事が両方載ってるっぽくて興味深いですね :smirk:\n<https://haskellweekly.news/issue/256.html>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1616739694.019600",
+        "text": "読めました。こちらがその「 `ImplicitParams` 使うと危ないぞ」という記事 <https://chrisdone.com/posts/whats-wrong-with-implicitparams/>\nどうも問題は、単に\n```?param```\nと書いたときに `ReaderT` でいうところの `param &lt;- ask` をさしているのかそれともよそで `ask` した結果の `param` を参照しているのか、型推論した結果からしか分からないところにあるみたいですね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
