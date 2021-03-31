@@ -8,6 +8,7 @@ module SlackLog.Replies
 import qualified Data.Aeson.Encode.Pretty as Json
 import qualified Data.ByteString.Lazy     as BL
 import           Data.List                (isSuffixOf, sortOn)
+import           Data.Ord (Down (Down))
 import qualified Data.Text                as T
 import           Data.Time.Clock          (UTCTime)
 import qualified Data.Yaml                as Yaml
@@ -52,7 +53,10 @@ data Thread = Thread
 -- | Assumes the current directory is @docs/json/@
 searchThreadsAppendedSince :: UTCTime -> ConversationId -> IO [Thread]
 searchThreadsAppendedSince saveSince convId = do
-  messagesJsons <- Dir.listDirectory chanDir
+  -- I'm not sure if the order of the result here is really important or not.
+  -- But I want to keep the same behavior to pass the test because I had been
+  -- using this app many times before the test failed for the first time.
+  messagesJsons <- sortOn Down <$> Dir.listDirectory chanDir
   Dir.withCurrentDirectory chanDir .
     concatMapM f $ filter (isSuffixOf ".json") messagesJsons
  where
