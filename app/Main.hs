@@ -34,7 +34,7 @@ import qualified Data.ByteString.Lazy     as BL
 import           Data.Foldable            (for_)
 import qualified Data.HashMap.Strict      as HM
 import qualified Data.IORef               as IOR
-import           Data.List                (sortOn)
+import           Data.List                (sortOn, isSuffixOf)
 import           Data.Maybe               (fromMaybe, maybeToList)
 import qualified Data.Text                as T
 import qualified Data.Text.IO             as T
@@ -251,11 +251,12 @@ addMessagesToChannelDirectory chanId msgs =
     BL.writeFile tmpFileName $ Json.encodePretty msgs
     Dir.createDirectoryIfMissing False channelNameS
 
-    channelDirItems <- Dir.listDirectory channelNameS
+    channelDirItems <- filter (isSuffixOf ".json") <$> Dir.listDirectory channelNameS
     (mLatestPageFileName, basePageNum) <-
       if null channelDirItems
         then return (Nothing, 1)
         else Arrow.first (Just . (channelNameS </>)) <$> chooseLatestPageOf channelDirItems
+    putStrLn $ "Paginating files from " ++ show mLatestPageFileName
     -- OPTIMIZE: Return updated/created JSON files so that `convertJsonsInChannel` can convert only them.
     --           Current implementation of `convertJsonsInChannel` converts *all* JSON files anytime when
     --           messages are fetched.
