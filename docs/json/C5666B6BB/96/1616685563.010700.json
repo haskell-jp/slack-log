@@ -28,5 +28,65 @@
         "text": "fused-effectsはHigher-order effects(?)も提供しているから、localやcatchも実装できると<https://github.com/fused-effects/fused-effects#higher-order-effects|README.md> にありました. そして実際に定義されてるReader EffectsにはLocalコンストラクタがあるみたいです... <https://hackage.haskell.org/package/fused-effects-1.1.1.0/docs/Control-Effect-Reader.html|https://hackage.haskell.org/package/fused-effects-1.1.1.0/docs/Control-Effect-Reader.html>",
         "user": "UP6J2B1LL",
         "type": "message"
+    },
+    {
+        "ts": "1617250703.019100",
+        "text": "`mtl` の `Cont`は、戻り値型rを加えた `Cont r` がモナドになりますが、今回の実装だとrが明示されていないですよね。\n恐らく、rを明示しないとHaskellでは実装できないんじゃないかな…",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1617251539.019300",
+        "text": "Contのrを全称量化(？)するとCodensityになるんですね。どういう違いが出るのか興味深い <https://hackage.haskell.org/package/kan-extensions-5.2.2/docs/Control-Monad-Codensity.html|https://hackage.haskell.org/package/kan-extensions-5.2.2/docs/Control-Monad-Codensity.html>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1617264015.020000",
+        "text": "確かに `r` がないと実装できなさそうですね(CodensityでcallCCのようなものを実装できなかった)...\n`ContC` に `r` を加えたものについても検討してみたのですが, それはそれで別の問題が出てしまいました..",
+        "user": "UP6J2B1LL",
+        "type": "message"
+    },
+    {
+        "ts": "1617264643.020200",
+        "text": "```instance Algebra sig m =&gt; Algebra (Cont :+: sig) (ContC r m) where\n    alg hdl sig ctx = case sig of\n        R other -&gt;\n            -- _hole :: forall x. Cont r m (ctx x) -&gt; m (ctx x)\n            ContC (alg (_hole . hdl) other ctx &gt;&gt;=)```\n上記のコードは `r` を型引数に加えた場合のインスタンスの実装です.\n `_hole`の部分で `runContC`を使って `ContC` をはがしたいのですが, 返り値の型が `r` に固定されてしまって `x` にできなくなってしまいます...",
+        "user": "UP6J2B1LL",
+        "type": "message"
+    },
+    {
+        "ts": "1617264842.020600",
+        "text": "もうちょっと考えて難しそうだったら諦めます\n質問に答えてくださってありがとうございました!",
+        "user": "UP6J2B1LL",
+        "type": "message"
+    },
+    {
+        "ts": "1617266924.021000",
+        "text": "あと良くあるパターンとしては、 ~`f :: forall r. (a -&gt; n r) -&gt; n r`~ (ContとContCを見間違えましたやっぱなし)のrは好きな型を代入できるポイントなので、ここに入れる型を工夫して全体の型を合わせる奴かなとも思いますが、ちょっと時間ができたら自分の方でもやってみます",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1617268585.021700",
+        "text": "ありがとうございます！",
+        "user": "UP6J2B1LL",
+        "type": "message"
+    },
+    {
+        "ts": "1617467624.022200",
+        "text": "```{-# LANGUAGE ScopedTypeVariables #-}\n\n...\n\ninstance Algebra sig m =&gt; Algebra (Cont :+: sig) (ContC r m) where\n  alg ::\n    forall ctx n a.\n    Functor ctx =&gt;\n    Handler ctx n (ContC r m) -&gt;\n    (Cont :+: sig) n a -&gt;\n    ctx () -&gt;\n    ContC r m (ctx a)\n  alg hdl sig ctx = case sig of\n    L (CallCC f) -&gt;\n      ContC \\k -&gt; undefined -- runContC (hdl . (&lt;$ ctx) $ f (\\x -&gt; _hole)) k\n    R other -&gt;\n      ContC \\rest -&gt; thread (hdlCont ~&lt;~ hdl) other (pure ctx) &gt;&gt;= \\(ContC x) -&gt; x rest\n    where\n      hdlCont :: forall x. ContC r m (ContC r m x) -&gt; m (ContC r m x) -- Handler (ContC r m) (ContC r m) m\n      hdlCont = pure . join```\n途中ですがこんな感じで……\n`thread` がキーっぽいですね",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1617467679.022400",
+        "text": "見づらいのでエディタ等に貼って頂ければ",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1617533044.026600",
+        "text": "なるほど、これは思いつかなかった…\n`thread`を使うことで`runContC`を`forall x.`じゃないところに持って行けたんですね…",
+        "user": "UP6J2B1LL",
+        "type": "message"
     }
 ]

@@ -1,0 +1,14 @@
+[
+    {
+        "ts": "1617327295.025100",
+        "text": "GHC2021とレコード周りの修正がめっちゃありがたいですねー。プロファイリングやデバッグ周りもよさげな新機能が :eyes:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1617359032.025800",
+        "text": "GHC 9.2.1-alpha1では、RecordDot構文が使えるようになっています。 こんな感じ。\n```ghci&gt; :set -XOverloadedRecordDot \nghci&gt; data Val = Val {field1::Bool, field2::Int} deriving Show\nghci&gt; x = Val True 100\nghci&gt; x.field1\nTrue\nghci&gt; x.field2\n100```\nあと、`GHC2021`言語拡張はデフォルトで有効になっています。\nこれで有効になる言語拡張の一覧はここ。\n<https://downloads.haskell.org/ghc/9.2.1-alpha1/docs/html/users_guide/exts/control.html#extension-GHC2021>\nコード冒頭のLanguageプラグマのリストが減ります:slightly_smiling_face:",
+        "user": "U55V441FS",
+        "type": "message"
+    }
+]
