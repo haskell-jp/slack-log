@@ -1,0 +1,20 @@
+[
+    {
+        "ts": "1617612652.028900",
+        "text": "VSCode の質問です。\nIDEのエラーか何かで\n`ghcide compiled against GHC 8.8.2 but currently using 8.6.5 This is unsupported, ghcide must be compiled with the same GHC ...`\nと出てきてしまい、何を打っても一番最初の行に赤線が引かれてしまいます。\n解決したいのですが、調べてもわからず、困ってしまいました。助けてくださると幸いです。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1617612967.029000",
+        "text": "思うにVSCodeが使っているコンパイラ？がstackのそれと一致していないみたいな霊感を感じますが多分違いますかね……。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1617613706.029200",
+        "text": "VS Codeが使っているコンパイラー、ではなくghcideという補完や型チェックを行うアプリケーションのバージョンが、プロジェクトで使用するGHCのバージョン（stackの場合stack.yamlに書いたresolverに対応するもの）と合っていないことによるエラーです。\n\nしかし、本来であればVS Codeが自動で足りないghcideをインストールしてくれるはずなので、ちょっと奇妙ですね... :confused:\nあと、今はghcideではなくhaskell-language-serverに移行することが推奨されているので、それも気になります。\n\n利用しているVS Codeの拡張が何か気になります。私は普段VS Codeを使わないので、今どれを利用するべきなのか正直わかりませんが、古いものを使っていないでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]
