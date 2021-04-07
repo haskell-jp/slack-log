@@ -16,5 +16,17 @@
         "text": "VS Codeが使っているコンパイラー、ではなくghcideという補完や型チェックを行うアプリケーションのバージョンが、プロジェクトで使用するGHCのバージョン（stackの場合stack.yamlに書いたresolverに対応するもの）と合っていないことによるエラーです。\n\nしかし、本来であればVS Codeが自動で足りないghcideをインストールしてくれるはずなので、ちょっと奇妙ですね... :confused:\nあと、今はghcideではなくhaskell-language-serverに移行することが推奨されているので、それも気になります。\n\n利用しているVS Codeの拡張が何か気になります。私は普段VS Codeを使わないので、今どれを利用するべきなのか正直わかりませんが、古いものを使っていないでしょうか？",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1617680651.029400",
+        "text": "`Haskell` と`Haskell(legacy)`が入ってました。レガシーの方は無効にしてみましたが状況は変わりませんね……。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1617688997.029600",
+        "text": "うーん、VS Code側の問題に見えますが、私にはこれ以上分からないので、エラーメッセージに従って、プロジェクトの `stack.yaml` を編集してGHC 8.8.2 （あるいはそれ以降）を使うよう変えてみるのが確実かなぁと思います。\nGHC 8.6じゃないとビルド出来ないプロジェクトだったりすると面倒ですが...\n`stack.yaml` の `resolver` というキーを編集して、該当するGHCを使うLTS Haskellにしてください。\n「該当するGHC」については <https://www.stackage.org/> の「Latest releases per GHC version」に書かれています。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
