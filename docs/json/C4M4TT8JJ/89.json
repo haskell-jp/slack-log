@@ -148,5 +148,131 @@
         "text": "<@U01TU7EMWT0> has joined the channel",
         "user": "U01TU7EMWT0",
         "type": "message"
+    },
+    {
+        "ts": "1618282578.036000",
+        "text": "<@U01UT3LUW80> has joined the channel",
+        "user": "U01UT3LUW80",
+        "type": "message"
+    },
+    {
+        "ts": "1618283774.037300",
+        "text": "こちらの質問 <https://teratail.com/questions/332942?rss> に回答してたら `let ... in` って面倒くさいなぁという気持ちになり、これまでの鬱憤もあってこんな乱暴なことをいってしまった :cold_sweat: んですが、 <https://twitter.com/igrep/status/1381803450321661953>\n皆さんどんな場面で `let ... in` を使いますか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1618284017.037900",
+        "text": "個人的には関数は where で、簡単な定数は let で定義しますね",
+        "user": "UK0MXUCAV",
+        "type": "message"
+    },
+    {
+        "ts": "1618284121.039500",
+        "text": "let は上から下に読めば定義がわかるので、本体が大きくなりすぎない場合は let に纏める傾向がありますね。あと、where だと節ごとに共通する変数しか使えないので、局所的な条件に依存するような定義は let を使うことがおおいですね",
+        "user": "UK0MXUCAV",
+        "type": "message"
+    },
+    {
+        "ts": "1618284170.040500",
+        "text": "case の中の個別の変数は let in を使うかな。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1618284205.041400",
+        "text": "それもこれも `do` の `let` で実は実現できるけど、やっぱり違和感ありますかね... :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1618284250.042400",
+        "text": "do を Monad や Applicative 以外の用途に使うのは可読性を損うのであんまり好きじゃないですね",
+        "user": "UK0MXUCAV",
+        "type": "message"
+    },
+    {
+        "ts": "1618284314.044000",
+        "text": "第一引数に部分適用しておくと早くなる関数があった場合、where とか使うと、どこまでちゃんと評価されるか分からない場合があって、その場合は let in で書きます。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1618284341.044400",
+        "text": "```aes128gcmEncrypt :: Key -&gt; (Nonce -&gt; PlainText -&gt; AddDat -&gt; [CipherText])\naes128gcmEncrypt (Key key) =\n    let aes = throwCryptoError (cipherInit key) :: AES128\n    in \\(Nonce nonce) plaintext (AddDat ad) -&gt;\n      let aead = throwCryptoError $ aeadInit AEAD_GCM aes nonce\n          (AuthTag tag0, ciphertext) = aeadSimpleEncrypt aead ad plaintext 16\n          tag = Byte.convert tag0\n      in [ciphertext,tag]```\n",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1618284394.045400",
+        "text": "以前、この関数を where で書いてたんだけど、プロファイルを取ったら意図通りに動いていなくて、let in で書き直しました。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1618284558.046900",
+        "text": "あと、厳密な話をするのならば、doの中の let  statement は構文糖衣であって、最終的には let expression に脱糖されるので「do の letでいいじゃん」はいささか循環論法ではないかなと思います（cf. <https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-470003.14>",
+        "user": "UK0MXUCAV",
+        "type": "message"
+    },
+    {
+        "ts": "1618284981.050600",
+        "text": "ところでkazuさんの :point_up: のサンプルを見ていて気づいたんですけど、わたしこれまで、 `let` と `in` の行頭をそろえちゃいけないと思っていたんですが（本件の元となった質問 <https://teratail.com/questions/332942?rss> でも質問者が間違えてそろえてしまってハマっています）、そろえていい場合もあるんですね... :cold_sweat: （むしろそろえるのが普通なのか）\n`do` の中で `let .. in` を使うのが鬼門なのか...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1618285000.050800",
+        "text": "仕様上 case alternative にも where は書けるんですが、あんまり知られておらず読みづらいので、僕も case の中の個別定義は let を使いますね",
+        "user": "UK0MXUCAV",
+        "type": "message"
+    },
+    {
+        "ts": "1618285067.052600",
+        "text": "case の中の where は、どうやって書くのか、未だに分からないです。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1618285114.053300",
+        "text": "オフサイドルールが直観に反する局面なのでぼくもわからないですね……",
+        "user": "UK0MXUCAV",
+        "type": "message"
+    },
+    {
+        "ts": "1618285132.053700",
+        "text": "あと do 式の中という話に限定するのなら基本的に let ... in は使わないで let statement だけ使います。一般的な文脈で do let を使うべきという話ではなく、do 式の中では let 文を使うべきという話ならその通りだと思います",
+        "user": "UK0MXUCAV",
+        "type": "message"
+    },
+    {
+        "ts": "1618285215.054500",
+        "text": "pure な関数だと let と in は連続行だとみなされれば、どのように書いてもいいのでは？",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1618285302.056100",
+        "text": "fourmolu とかだと\n\n```let foo = bar\n in ...```\nみたいに式／定義のはじまる位置が揃うようにフォーマットされますしね。do のようにオフサイドルールが重要になってくる場面以外はどう書いてもよい（何なら\n\n```let foo = bar in\nfoo + 1```\nみたいに書いてもいいですし）",
+        "user": "UK0MXUCAV",
+        "type": "message"
+    },
+    {
+        "ts": "1618365052.057300",
+        "text": "`try` が非同期例外を捕捉しなくて悩んでいたんだけど、非同期例外が連続して2回飛んでた。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1618365126.058400",
+        "text": "QUICサーバのソケットがリークするので、IO manager のバグを疑っていたんだけど、ソケットはちゃんと閉じられており、直後に同じアドレス/ポートのソケットができていた。。。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1618365135.058600",
+        "text": "最近、こんなのばっかり。",
+        "user": "U56MBRKR9",
+        "type": "message"
     }
 ]
