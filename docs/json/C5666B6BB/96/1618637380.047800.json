@@ -34,5 +34,41 @@
         "text": ":point_up: の自分の発言で思いついたんですが、Template Haskellでパースしてからpretty printしちゃうというのはいかがでしょうか？ドキュメントのとおり、そもそもTempate Haskellレベルの構文木ではレイアウトルールは一切考慮されないみたいですし\n<http://hackage.haskell.org/package/template-haskell-2.17.0.0/docs/Language-Haskell-TH.html#t:Exp>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1618700099.052200",
+        "text": "あっ、もちろん適当なフォーマッターを使うのもアリだと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1618740568.055200",
+        "text": "<@UDUBKLQMD> いいですね！",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1618744900.058800",
+        "text": "<@U4LGTMTMK> 元々fully qualificationをどうやったらいいかわからなくて、template haskellに頼るつもりだったので、割とありな気はしますね。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1618746972.060000",
+        "text": "<@U4LGTMTMK> ただ，\n```runST $ do VU.unsafeWrite ufpar root2 root1\n           VU.unsafeModify ufrank (+1) root1```\nを\n```Control.Monad.ST.runST $ do Data.Vector.Unboxed.Mutable.unsafeWrite ufpar root2 root1\n           Data.Vector.Unboxed.Mutable.unsafeModify ufrank (+1) root1```\nにしちゃった，みたいなのって，フォーマッターでなんとかなるんでしょうか…？",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1618747155.060400",
+        "text": "なるんだったらそれでなんとかしたい",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1618747174.060600",
+        "text": "なるほど... 確かにそうなってしまうとパースが失敗するでしょうからきついでしょうね... :disappointed:",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
