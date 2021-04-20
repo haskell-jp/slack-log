@@ -1,0 +1,44 @@
+[
+    {
+        "ts": "1618840415.042600",
+        "text": "こんばんは。Haskellで以下の振る舞いをするコードを書こうとしています。\n```ghci&gt; Val 1   \n1\nghci&gt; Var 2 3 \nx 23\nghci&gt; Plus [Val 1, Var 2 3]\n(+ 1 x23)```\nそこで以下のようなコードを書いてみました。\n```data Exp = Var Int Int | Val Int | Plus [Exp]\ninstance Show Exp where\n    show (Var i j) = \"x\" ++ show i ++ show j\n    show (Val n) = show n\n    show (Plus (exp1:exp2:exp)) = \"(+\" ++ \" \" ++ show exp1 ++ \" \" ++ show exp2 ++ \")\"```\nこれでも(おそらく)正しく動いているのですが、VSCode上で以下のように注意されます。\n```Pattern match(es) are non-exhaustive\nIn an equation for 'show':\n    Patterns not matched:\n        Plus [(Var _ _)]\n        Plus [(Val _)]\n        Plus [(Plus _)]\n        Plus []```\nパターンマッチが網羅的では無いのですが、具体的にどう書けば良いか分かりませんでした。\nどう書けば網羅的になるのか、ご教示いただけると嬉しいです。よろしくお願いいたします。",
+        "user": "U01UG7SDAPJ",
+        "type": "message"
+    },
+    {
+        "ts": "1618842856.042700",
+        "text": "`Plus []` , `Plus [Var 1 2]`, `Plus [Var 1 1, Var 1 2, Var 1 3]`, などの可能性はあるものとしたいですか？ ないものとしたいですか？",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1618843064.042900",
+        "text": "出てきているのがLisp式なので，\n```Plus [] -&gt; \"(+)\"\nPlus [Var 1 2] -&gt; \"(+ x12)\"\nPlus [Var 1 1, Var 1 2, Var 1 3] -&gt; \"(+ x11 x12 x13)\"```\nとする，としても不自然ではないようにおもいますが…．",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1618849367.043600",
+        "text": "ご返信ありがとうございます。\n&gt; 可能性はあるものとしたいですか？ ないものとしたいですか？\nないものとしたいです。",
+        "user": "U01UG7SDAPJ",
+        "type": "message"
+    },
+    {
+        "ts": "1618849847.043900",
+        "text": "もしかして\n```data Exp = Var Int Int | Val Int | Plus Exp Exp\ninstance Show Exp where\n  show (Var i j) = \"x\" ++ show i ++ show j\n  show (Val n) = show n\n  show (Plus e1 e2) = \"(+\" ++ \" \" ++ show e1 ++ \" \" ++ show e2 ++ \")\"```\nこれで表現できるのでしょうか…？",
+        "user": "U01UG7SDAPJ",
+        "type": "message"
+    },
+    {
+        "ts": "1618849873.044100",
+        "text": "はい，それで表現できています！",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1618850040.044300",
+        "text": "なるほど、納得しました！お騒がせして申し訳ございません。\nありがとうございました！",
+        "user": "U01UG7SDAPJ",
+        "type": "message"
+    }
+]
