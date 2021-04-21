@@ -1,0 +1,26 @@
+[
+    {
+        "ts": "1618901141.068300",
+        "text": "こんにちは。GHC である計算 `act :: IO ()` を走らせたときに、それによってヒープ上に確保されたバイト数の総量（の近似）を知る方法をご存知の方がいたら教えてください。最初 `GHC.Stats` の `allocated_bytes` がそれかなと思っていたのですが、`act` を実行している間に勝手に GC が走らないように `+RTS -T -I0 -A8G -G1 -m1` を渡してみたところ、最初から 8GB の領域が確保された状態になり（従って `allocated_bytes` は 8 * 1024^3 になる？）、その中でどれだけのメモリが実際に使われているかが分かりません。 <https://hackage.haskell.org/package/base-4.15.0.0/docs/GHC-Stats.html>",
+        "user": "U58BK72FL",
+        "type": "message"
+    },
+    {
+        "ts": "1618901594.068400",
+        "text": "関数呼び出しに対してヒープアロケーション量をはかる場合だと、ぼくはよく weigh を使いますね\n<https://hackage.haskell.org/package/weigh>",
+        "user": "UK0MXUCAV",
+        "type": "message"
+    },
+    {
+        "ts": "1618901797.068800",
+        "text": "これはたしか GHC.Stats を内部的には使って適切な処理をしてくれるんだったはず",
+        "user": "UK0MXUCAV",
+        "type": "message"
+    },
+    {
+        "ts": "1618901975.069300",
+        "text": "ありがとう。試してみます。",
+        "user": "U58BK72FL",
+        "type": "message"
+    }
+]
