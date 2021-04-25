@@ -184,5 +184,11 @@
         "text": "こんばんは。Haskellで以下の振る舞いをするコードを書こうとしています。\n```ghci&gt; Val 1   \n1\nghci&gt; Var 2 3 \nx 23\nghci&gt; Plus [Val 1, Var 2 3]\n(+ 1 x23)```\nそこで以下のようなコードを書いてみました。\n```data Exp = Var Int Int | Val Int | Plus [Exp]\ninstance Show Exp where\n    show (Var i j) = \"x\" ++ show i ++ show j\n    show (Val n) = show n\n    show (Plus (exp1:exp2:exp)) = \"(+\" ++ \" \" ++ show exp1 ++ \" \" ++ show exp2 ++ \")\"```\nこれでも(おそらく)正しく動いているのですが、VSCode上で以下のように注意されます。\n```Pattern match(es) are non-exhaustive\nIn an equation for 'show':\n    Patterns not matched:\n        Plus [(Var _ _)]\n        Plus [(Val _)]\n        Plus [(Plus _)]\n        Plus []```\nパターンマッチが網羅的では無いのですが、具体的にどう書けば良いか分かりませんでした。\nどう書けば網羅的になるのか、ご教示いただけると嬉しいです。よろしくお願いいたします。",
         "user": "U01UG7SDAPJ",
         "type": "message"
+    },
+    {
+        "ts": "1619319644.044900",
+        "text": "<@U01UXJFJA95> has joined the channel",
+        "user": "U01UXJFJA95",
+        "type": "message"
     }
 ]
