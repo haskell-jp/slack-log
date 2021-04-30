@@ -22,5 +22,11 @@
         "text": "gdb の中で -DS で走らせてみました。\nspec: internal error: ASSERTION FAILED: file rts/sm/Sanity.c, line 740\nとか\nspec: internal error: ASSERTION FAILED: file rts/sm/Scav.c, line 1606\nとか言われます。\nやはり、buffer overrun を疑っています。",
         "user": "U56MBRKR9",
         "type": "message"
+    },
+    {
+        "ts": "1619748160.090000",
+        "text": "<@U55V441FS> `memset` が buffer overrun している箇所を発見し、めでたく修正できました。間違っていた箇所はテストコードで CI は確率的に失敗するが、フィールドテストしているサーバーでは問題が起きない点がやっかいでした。",
+        "user": "U56MBRKR9",
+        "type": "message"
     }
 ]
