@@ -28,5 +28,11 @@
         "text": "<@U021C4RT2G5> has joined the channel",
         "user": "U021C4RT2G5",
         "type": "message"
+    },
+    {
+        "ts": "1620880384.089100",
+        "text": "<https://www.stackage.org/haddock/lts-17.11/exceptions-0.10.4/Control-Monad-Catch.html|exceptions>パッケージで`MonadCatch`クラスに`ContT` インスタンスが提供されていないのは何か理由があるのでしょうか？\n具体的には実装として以下のものを考えられると思うのですがまずい部分があるのでしょうか？\n```instance MonadCatch m =&gt; MonadCatch (ContT r m) where\n  catch m f = ContT $ \\k -&gt; catch (runContT m k) (flip runContT k . f)```",
+        "user": "UP6J2B1LL",
+        "type": "message"
     }
 ]

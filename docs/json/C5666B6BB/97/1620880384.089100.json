@@ -1,0 +1,20 @@
+[
+    {
+        "ts": "1620880384.089100",
+        "text": "<https://www.stackage.org/haddock/lts-17.11/exceptions-0.10.4/Control-Monad-Catch.html|exceptions>パッケージで`MonadCatch`クラスに`ContT` インスタンスが提供されていないのは何か理由があるのでしょうか？\n具体的には実装として以下のものを考えられると思うのですがまずい部分があるのでしょうか？\n```instance MonadCatch m =&gt; MonadCatch (ContT r m) where\n  catch m f = ContT $ \\k -&gt; catch (runContT m k) (flip runContT k . f)```",
+        "user": "UP6J2B1LL",
+        "type": "message"
+    },
+    {
+        "ts": "1620885608.089800",
+        "text": "その実装だと、mの本質的な処理を終え、継続(k)の部分で例外が発生したときに、ハンドラで再びその継続が呼ばれることになります。第一引数で発生した例外を受け止めるというcatchの本来の振る舞いから乖離してしまうため、そのような実装は意図的に除外されているものと認識しています(cf. <https://github.com/ekmett/exceptions/blame/d0e7e68a465831887aacf656373cd795dddf7f0e/src/Control/Monad/Catch.hs#L719>)。",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1620887487.090600",
+        "text": "なるほど…たしかにそうですね…\nありがとうございます:man-bowing:",
+        "user": "UP6J2B1LL",
+        "type": "message"
+    }
+]
