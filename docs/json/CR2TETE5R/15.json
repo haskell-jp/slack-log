@@ -256,5 +256,35 @@
         "text": "<@U022QRU5FHP> has joined the channel",
         "user": "U022QRU5FHP",
         "type": "message"
+    },
+    {
+        "ts": "1621601740.001000",
+        "text": "",
+        "user": "U01TZ1XM7MG",
+        "type": "message"
+    },
+    {
+        "ts": "1621601781.001800",
+        "text": "すごいH本をやっているのですがflipの実装で上のようなコードが示されていました．これは関数に対してパターンマッチを行っているということでしょうか?",
+        "user": "U01TZ1XM7MG",
+        "type": "message"
+    },
+    {
+        "ts": "1621602798.004800",
+        "text": "<@U01TZ1XM7MG> 関数の `-&gt;` は右結合なので、 `(a-&gt;b-&gt;c) -&gt; (b-&gt;a-&gt;c)` は `(a-&gt;b-&gt;c) -&gt; (b -&gt; (a -&gt; c))` と、すなわち `(a-&gt;b-&gt;c) -&gt; b -&gt; a -&gt; c` と同じです。すなわち、この `f, x, y` はそれぞれ `a-&gt;b-&gt;c` 、 `b` 、 `a` に対応する引数を取っているということです。ただし、セマンティクスは2つの引数の順番を変えるということなので、あえて `flip'` の型アノテーションは `(a-&gt;b-&gt;c) -&gt; (b-&gt;a-&gt;c)` と書かれているのだと思います。",
+        "user": "U021XMH7NDT",
+        "type": "message"
+    },
+    {
+        "ts": "1621603872.005100",
+        "text": "<@U022FV4RUQ6> has joined the channel",
+        "user": "U022FV4RUQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1621610503.006400",
+        "text": "あーなるほど，型宣言をそのように捉えるのですね．\n迅速な回答ありがとうございます．",
+        "user": "U01TZ1XM7MG",
+        "type": "message"
     }
 ]
