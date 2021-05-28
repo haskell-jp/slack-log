@@ -1,0 +1,14 @@
+[
+    {
+        "ts": "1621822287.046300",
+        "text": "GUIをやろうと思いhaskell-giを試していますが、HelloWorld以上のことができません。具体的にはテキストボックスが使えていません。Gtk.EntryやGtk.TextViewでテキストボックスを設置することはできましたが、実際に入力された値を取り出すことができません。何か参考になるようなサイトをご存知でしたらご教示頂きたく。公式サイトを見ましたが構文だけで実際にどうコーディングすればいいのかわかりませんでした。公式サイトのexamplesも見てみましたが、参考になりそうなコードはありませんでした（見つけられませんでした）。teratailで質問しましたが、まだ出来るようになっていません。<https://teratail.com/questions/303653>",
+        "user": "UFPRHDT8X",
+        "type": "message"
+    },
+    {
+        "ts": "1622078998.049000",
+        "text": "Entryから値を取り出すことができました。\n```  button &lt;- new Gtk.Button [ #label := \"Run\" ]\n\n  on button #clicked (do\n                          buffer &lt;- Gtk.entryGetBuffer entry\n                          buffer2 &lt;- Gtk.entryBufferGetText buffer\n                          set msg [ #sensitive := False, #label := buffer2 ]\n                     )\n\n  #add box button```\n<https://github.com/ringo-apo/haskell-gi_entry>\nお騒がせしました。",
+        "user": "UFPRHDT8X",
+        "type": "message"
+    }
+]
