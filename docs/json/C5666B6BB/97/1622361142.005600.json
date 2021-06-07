@@ -1,0 +1,20 @@
+[
+    {
+        "ts": "1622361142.005600",
+        "text": "非標準ライブラリーを import すると VS Code がエラーと言う　例えば `Could not find module 'Data.Vector'\\nPerhaps you meant Data.Functor (from base-4.14.1.0)`  実際はビルドも実行も問題がないコードですが　VS Code の Extension に HSLに入れて以来この問題が発生しています　環境は　VS Code + WSL2: Ubuntu-20.0.4 Remote + Extension: Haskell 1.4.0 (Haskell Language Server), stack version 2.5.1,  ghc version 8.10.4　です　どなたか解決策をお持ちですか",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1623044752.018100",
+        "text": "だいぶ時間が経っていてoutdatedかもわかりませんが、 `vector` は `package.yaml` や `&lt;packagename&gt;.cabal` に書いて導入したか、 `stack install` や `cabal install` で導入したかのどちらでしょうか？",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1623044929.019300",
+        "text": "HLS って global 環境に `stack install` で導入したパッケージを見落とす印象があるので…",
+        "user": "UL1HFJATE",
+        "type": "message"
+    }
+]
