@@ -1,0 +1,26 @@
+[
+    {
+        "ts": "1623111994.019500",
+        "text": "servantについて質問です。\n\nTutorialのfirst exampleのstartAppを1つの関数にまとめたらどうなるのかやってみようとして失敗しました。\nTutorialのプログラムの `startApp` は `UserAPI1` 型に依存するはずですが、`myStartApp` にはこの型の変数を引数に取ることがないので、代わりに型変数 `apiType` を取るようにするためにforallを使ってみたのですが、\n`Illegal symbol forall in type`\nというエラーが出てうまくいきません。\nどのように記述すればいいでしょうか？",
+        "user": "U01R1UNMVT5",
+        "type": "message"
+    },
+    {
+        "ts": "1623125157.019600",
+        "text": "`ExplicitForAll` 言語拡張は有効にしていますか？\n<https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/explicit_forall.html|https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/explicit_forall.html>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1623133494.019800",
+        "text": "ありがとうございます。これを入れたらforallの部分は通りました。\n\nしかし、returnTypeの部分が通らないですね。\n`Server`の返り値のソースを調べてみると、実際には一般の型returnTypeではなく、apiTypeに依存する型でないといけないみたいで、`:&gt;`や `&lt;:&gt;` などの構成子の入れ子から型を取り出す必要があり、この作用を記述しないといけないみたいです。",
+        "user": "U01R1UNMVT5",
+        "type": "message"
+    },
+    {
+        "ts": "1623133630.020000",
+        "text": "ちゃんとソースが読めていないのですが、思っていたより、かなり難しそうですね...",
+        "user": "U01R1UNMVT5",
+        "type": "message"
+    }
+]
