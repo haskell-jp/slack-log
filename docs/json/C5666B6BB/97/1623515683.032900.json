@@ -1,0 +1,20 @@
+[
+    {
+        "ts": "1623515683.032900",
+        "text": "empty と non-emptyを型で分離した上で、という話じゃなくなってしまうのですが。\n\nGADT による制限で `Nil` は `Branch` にも `Tip` にも持たれないので、空の `Patricia` を表現するときだけに使われると思っていいですよね。もしそうなら、`Patricia` が必ず1つ以上の要素をもつ (`Semigroup` みたいに) としてしまえば `Nil` がなくなって `inhabited` を区別しなくてよくなり、existential type もいらなくなると思ったのですが、そういうのってありなんでしょうか。empty がなくなると不便ですかね。",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1623516355.035200",
+        "text": "`Data.Vector.Unboxed.Vector Word` を変換して使うんで、あった方がいいっちゃいいんですよね…。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1623516949.040400",
+        "text": "そうですよね…\nあとスレッドを使うルールを忘れていました :bow:",
+        "user": "U578W9676",
+        "type": "message"
+    }
+]

@@ -1,0 +1,44 @@
+[
+    {
+        "ts": "1623476833.027300",
+        "text": "<@U4LGTMTMK> すみません、ちょっと質問よろしいでしょうか\n```main = do\n  input &lt;- getContents\n  putStrLn input```\n上記のようなコードを実行すると、`input` を入力して出力するという動作が無限ループのように何度も何度も行われてしまうので、毎回`ctrl + c(z)` を押してプログラムを終了しなければいけません。これはHaskellの仕様ですか？一回だけ実行して終わってほしいのですが...",
+        "user": "U024U0DCJ3T",
+        "type": "message"
+    },
+    {
+        "ts": "1623477527.027400",
+        "text": "それは Haskell の仕様というより、getContents の仕組みだと思います。getContent は EOF もらうまで入力を受け付けるので、無限ループしてるみたいに感じるのだと。実際には、この2行をグルグルしてるのではなく、受け取った input を逐次 putStrLn で出力してるだけですかね。",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1623477578.027600",
+        "text": "Ctrl+CじゃなくてCtrl+Dを押せば普通に終了できます！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1623477653.027800",
+        "text": "一行ずつでいいなら getLine を使うか `<http://System.IO|System.IO>.Strict.getContents` を使えば、期待する振る舞いになるかと",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1623478062.028400",
+        "text": "詳しくは「遅延IO」で検索してみてください。結構取り扱いが難しいので、 `getContents` はあまり使わない方がいいでしょう。数GBもあるファイルを読むのでなければ、 仰るとおり `<http://System.IO|System.IO>.Strict.getContents` で十分でしょうし、本当に大容量のファイルを少しずつ読みたいのであればconduitなどのストリーミング用ライブラリーを使った方が確実ですし。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1623478853.028600",
+        "text": "ありがとうございます！`<http://System.IO|System.IO>.Strict.getContents` で期待通りになりました。遅延IOについてちょっと調べてみます！！",
+        "user": "U024U0DCJ3T",
+        "type": "message"
+    },
+    {
+        "ts": "1623489481.035700",
+        "text": "いまだに遅延 IO 分からない……（分からなくても困らない",
+        "user": "U4L0B71L1",
+        "type": "message"
+    }
+]

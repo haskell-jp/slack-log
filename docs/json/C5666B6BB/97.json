@@ -154,5 +154,17 @@
         "text": "<@U024U0DCJ3T> has joined the channel",
         "user": "U024U0DCJ3T",
         "type": "message"
+    },
+    {
+        "ts": "1623512883.032000",
+        "text": "`IntSet` みたいな~trie木~Patricia木を車輪の再開発しなければならなくなったのですが、型の御加護を受けつつ余計なreference indirectionを避けるために\n\n```\ndata Patricia (inhabited :: Bool) :: Type where\n  Branch :: {-# UNPACK #-} !Word -&gt; !(Patricia True) -&gt; !(Patricia True) -&gt; Patricia True\n  Tip :: {-# UNPACK #-} !Word -&gt; Patricia True\n  Nil :: Patricia False\n\nnewtype Patricia' = forall b. Patricia' (Patricia b)```\nみたいなことを考えたのですが、existential type って newtypeでは使えないようで、効率が悪そうというよりはただただ気持ち悪いです。empty と non-emptyを型で分離した上で、それらを統合するwrapperがheap中にもう一個できるのを回避するのは不可能でしょうか…。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1623515683.032900",
+        "text": "empty と non-emptyを型で分離した上で、という話じゃなくなってしまうのですが。\n\nGADT による制限で `Nil` は `Branch` にも `Tip` にも持たれないので、空の `Patricia` を表現するときだけに使われると思っていいですよね。もしそうなら、`Patricia` が必ず1つ以上の要素をもつ (`Semigroup` みたいに) としてしまえば `Nil` がなくなって `inhabited` を区別しなくてよくなり、existential type もいらなくなると思ったのですが、そういうのってありなんでしょうか。empty がなくなると不便ですかね。",
+        "user": "U578W9676",
+        "type": "message"
     }
 ]

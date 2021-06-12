@@ -1,0 +1,20 @@
+[
+    {
+        "ts": "1623512883.032000",
+        "text": "`IntSet` みたいな~trie木~Patricia木を車輪の再開発しなければならなくなったのですが、型の御加護を受けつつ余計なreference indirectionを避けるために\n\n```\ndata Patricia (inhabited :: Bool) :: Type where\n  Branch :: {-# UNPACK #-} !Word -&gt; !(Patricia True) -&gt; !(Patricia True) -&gt; Patricia True\n  Tip :: {-# UNPACK #-} !Word -&gt; Patricia True\n  Nil :: Patricia False\n\nnewtype Patricia' = forall b. Patricia' (Patricia b)```\nみたいなことを考えたのですが、existential type って newtypeでは使えないようで、効率が悪そうというよりはただただ気持ち悪いです。empty と non-emptyを型で分離した上で、それらを統合するwrapperがheap中にもう一個できるのを回避するのは不可能でしょうか…。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1623516829.040100",
+        "text": "何しろ、 これができないのなら\n\n```data InhabitedPatricia = Branch { label :: {-# UNPACK #-} !Word,\n                                  leftChild :: !InhabitedPatricia,\n                                  rightChild :: !InhabitedPatricia }\n                       | Tip { key :: {-# UNPACK #-} !Word }\n\ndata Patricia = Inhabited !InhabitedPatricia | Empty```\nでも構わないことになる（ほんとか…？）ので。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1623528033.046000",
+        "text": "今思いついたのが、\n\n```data Patricia (nullable :: Bool) :: Type where\n  Branch :: forall nullable. {-# UNPACK #-} !Word -&gt; !(Patricia False) -&gt; !(Patricia False) -&gt; Patricia nullable\n  Tip :: forall nullable. {-# UNPACK #-} !Word -&gt; Patricia nullable\n  Nil :: Patricia True\n\nnewtype InhabitedPatricia = IPatricia (forall nullable. Patricia nullable)\n\nnewtype PatriciaTree = PatriciaTree (Patricia True)```\nっていう。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    }
+]
