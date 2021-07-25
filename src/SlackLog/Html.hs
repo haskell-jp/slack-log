@@ -1,7 +1,8 @@
-{-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE NamedFieldPuns   #-}
-{-# LANGUAGE RecordWildCards  #-}
-{-# LANGUAGE StrictData       #-}
+{-# LANGUAGE FlexibleContexts  #-}
+{-# LANGUAGE NamedFieldPuns    #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards   #-}
+{-# LANGUAGE StrictData        #-}
 
 -- | Assumes functions in this module are executed in doc/ directory
 
@@ -20,28 +21,32 @@ module SlackLog.Html
 
 import           Control.Monad           ((<=<))
 import qualified Data.Aeson              as Json
-import qualified Data.ByteString.Lazy    as BL
+import qualified Data.ByteString         as B
 import           Data.Char               (isDigit)
 import           Data.Foldable           (for_)
 import qualified Data.HashMap.Strict     as HM
 import           Data.List               (sortOn)
 import           Data.Maybe              (fromMaybe)
 import qualified Data.Text               as T
+import qualified Data.Text.Encoding      as TE
 import qualified Data.Time.Clock         as TC
 import qualified Data.Time.Format        as TF
 import qualified Data.Time.LocalTime     as LT
 import qualified Data.Time.Zones         as TZ
-import           Html                    (( # ))
-import qualified Html                    as H
-import qualified Html.Attribute          as A
+import           Data.Traversable        (for)
 import           Safe                    (lastMay)
 import qualified System.Directory        as Dir
 import           System.FilePath         (takeBaseName, (<.>), (</>))
+import           System.IO               (hPrint, stderr)
+import qualified Text.Mustache           as TM
+import qualified Text.Mustache.Render    as TMR
+import           Text.Mustache.Types     ((~>))
 import qualified Web.Slack.Common        as Slack
 import qualified Web.Slack.MessageParser as Slack
+import           Witherable              (wither)
 
 import           SlackLog.Types          (ChannelId, ChannelName, Config (..),
-                                          UserId, UserName)
+                                          TemplatePaths (..), UserId, UserName)
 import           SlackLog.Util           (failWhenLeft, readJsonFile)
 
 
@@ -53,10 +58,12 @@ data PageInfo = PageInfo
   } deriving (Eq, Show)
 
 data WorkspaceInfo = WorkspaceInfo
-  { userNameById      :: HM.HashMap UserId UserName
-  , channelNameById   :: HM.HashMap ChannelId ChannelName
-  , workspaceInfoName :: T.Text
-  , getTimeDiff       :: TC.UTCTime -> LT.TimeZone
+  { userNameById         :: HM.HashMap UserId UserName
+  , channelNameById      :: HM.HashMap ChannelId ChannelName
+  , indexPageTemplate    :: TM.Template
+  , messagesPageTemplate :: TM.Template
+  , workspaceInfoName    :: T.Text
+  , getTimeDiff          :: TC.UTCTime -> LT.TimeZone
   }
 
 
@@ -83,7 +90,7 @@ convertJsonsInChannel ws chanId jsonPaths = do
 
 convertToHtmlFile :: WorkspaceInfo -> PageInfo -> IO ()
 convertToHtmlFile ws pg =
-  BL.writeFile htmlPath =<< renderSlackMessages ws pg
+  B.writeFile htmlPath . TE.encodeUtf8 =<< renderSlackMessages ws pg
  where
   cid = channelId pg
   currentPath = currentPagePath pg
@@ -91,91 +98,197 @@ convertToHtmlFile ws pg =
 
 
 generateIndexHtml :: WorkspaceInfo -> [(ChannelId, [FilePath])] -> IO ()
-generateIndexHtml ws = BL.writeFile "index.html" <=< renderIndexOfPages ws
+generateIndexHtml ws = B.writeFile "index.html" . TE.encodeUtf8 <=< renderIndexOfPages ws
 
 
-renderSlackMessages :: WorkspaceInfo -> PageInfo -> IO BL.ByteString
-renderSlackMessages wsi@WorkspaceInfo {..} PageInfo {..} =
-  fmap render . readJsonFile $ ensurePathIn "json" channelId currentPagePath
+data PageInfoForMustache = PageInfoForMustache
+  { wsimWorkspaceName     :: !T.Text
+  , wsimChannelId         :: !T.Text
+  , wsimChannelScreenName :: !T.Text
+  , wsimCurrentPageNumber :: !Integer
+  , wsimPreviousPagePath  :: !(Maybe FilePath)
+  , wsimNextPagePath      :: !(Maybe FilePath)
+  , wsimIndexPagePath     :: FilePath
+  , wsimMessages          :: ![MessageForMustache]
+  }
+
+instance TM.ToMustache PageInfoForMustache where
+  toMustache PageInfoForMustache {..} =
+    TM.object
+      [ "workspaceName" ~> wsimWorkspaceName
+      , "channelId" ~> wsimChannelId
+      , "channelScreenName" ~> wsimChannelScreenName
+      , "currentPageNumber" ~> wsimCurrentPageNumber
+      , "previousPagePath" ~> wsimPreviousPagePath
+      , "nextPagePath" ~> wsimNextPagePath
+      , "indexPagePath" ~> wsimIndexPagePath
+      , "messages" ~> wsimMessages
+      ]
+
+
+data MessageForMustache = MessageForMustache
+  { mfmUserScreenName  :: !T.Text
+  , mfmHtmlMessageBody :: !T.Text
+  , mfmTs              :: !T.Text
+  , mfmFormattedTs     :: !T.Text
+  }
+
+instance TM.ToMustache MessageForMustache where
+  toMustache MessageForMustache {..} =
+    TM.object
+      [ "userScreenName" ~> mfmUserScreenName
+      , "htmlMessageBody" ~> mfmHtmlMessageBody
+      , "ts" ~> mfmTs
+      , "formattedTs" ~> mfmFormattedTs
+      ]
+
+
+renderSlackMessages :: WorkspaceInfo -> PageInfo -> IO T.Text
+renderSlackMessages ws@WorkspaceInfo {..} p@PageInfo {..} =
+  printingWarning . render =<< readJsonFile (ensurePathIn "json" channelId currentPagePath)
  where
-  render msgs = H.renderByteString
-    ( H.doctype_
-    # H.html_
-      ( H.head_
-        ( H.meta_A (A.charset_ "utf-8")
-        # H.title_ title
-        # H.link_A
-          ( A.rel_ "stylesheet"
-          # A.href_ "../../main.css"
-          # A.type_ "text/css"
-          # A.media_ "screen"
-          )
-        )
-      # H.body_
-        ( H.div_A (A.class_ "ui container")
-          ( H.h1_ title
-          # pager
-          # H.div_A (A.class_ "message_list ui feed") (map messageDiv msgs)
-          # pager
-          )
-        )
-      )
-    )
+  render :: [Slack.Message] -> ([TMR.SubstitutionError], T.Text)
+  render =
+    TM.checkedSubstitute messagesPageTemplate . pageInfoForMustache ws p
 
-  title =
-    workspaceInfoName
-    <> T.pack " / " <> getChannelScreenName wsi channelId
-    <> T.pack " #" <> T.pack (show (parsePageNumber currentPagePath))
 
-  pager = H.div_A (A.class_ "pager ui pagination menu")
-    ( ((\pp -> H.a_A (A.href_ ("../../" ++ pp) # prevClass) prevLabel) . ensurePathIn "html" channelId <$> previousPagePath)
-    #          H.a_A (A.href_ "../../" # topClass ) topLabel
-    # ((\pp -> H.a_A (A.href_ ("../../" ++ pp) # nextClass) nextLabel) . ensurePathIn "html" channelId <$> nextPagePath)
-    )
-   where
-    topClass = A.class_ "pager__top item"
-    prevClass = A.class_ "pager__previous item"
-    nextClass = A.class_ "pager__next item"
+pageInfoForMustache :: WorkspaceInfo -> PageInfo -> [Slack.Message] -> PageInfoForMustache
+pageInfoForMustache ws@WorkspaceInfo {..} PageInfo {..} msgs = PageInfoForMustache
+  { wsimWorkspaceName     = workspaceInfoName
+  , wsimChannelId         = channelId
+  , wsimChannelScreenName = getChannelScreenName ws channelId
+  , wsimCurrentPageNumber = parsePageNumber currentPagePath
+  , wsimPreviousPagePath  = ("../../" ++) . ensurePathIn "html" channelId <$> previousPagePath
+  , wsimNextPagePath      = ("../../" ++) . ensurePathIn "html" channelId <$> nextPagePath
+  , wsimIndexPagePath = "../../"
+  , wsimMessages          = map (messageForMustache ws) msgs
+  }
 
-    topLabel = "Top"
-    prevLabel = "Previous"
-    nextLabel = "Next"
 
-  messageDiv Slack.Message { messageTs, messageUser, messageText } =
-    H.div_A (A.class_ "message event" # A.id_ messageId)
-      ( H.div_A (A.class_ "content")
-        ( H.div_A (A.class_ "summary")
-          ( H.div_A (A.class_ "message__header user")
-            userName
-          # H.div_A (A.class_ "message__timestamp date")
-            ( H.a_A (A.class_ "date" # A.href_ (T.pack "#" <> messageId))
-                (H.Raw . timestampBlock $ Slack.slackTimestampTime messageTs)
-            )
-          )
-        # H.div_A (A.class_ "message__body description")
-          (H.Raw $ mkMessageBody wsi messageText)
-        )
-      )
-   where
-    userName = getUserScreenName wsi messageUser
-    timestampBlock tm =
-      let lt = LT.utcToZonedTime (getTimeDiff tm) tm
-      in TF.formatTime TF.defaultTimeLocale "%Y-%m-%d&nbsp;%T %z" lt
-    messageId = T.pack "message-" <> Slack.slackTimestampTs messageTs
+messageForMustache :: WorkspaceInfo -> Slack.Message -> MessageForMustache
+messageForMustache ws Slack.Message {..} =
+  MessageForMustache
+    { mfmUserScreenName = getUserScreenName ws messageUser
+    , mfmHtmlMessageBody = mkMessageBody ws messageText
+    , mfmTs = Slack.slackTimestampTs messageTs
+    , mfmFormattedTs = T.pack . timestampBlock $ Slack.slackTimestampTime messageTs
+    }
+ where
+  timestampBlock tm =
+    let lt = LT.utcToZonedTime (getTimeDiff ws tm) tm
+    in TF.formatTime TF.defaultTimeLocale "%Y-%m-%d %T %z" lt
 
 
 loadWorkspaceInfo :: Config -> FilePath -> IO WorkspaceInfo
 loadWorkspaceInfo cfg dir = do
   userNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".users.json")
   let channelNameById = targetChannels cfg
+      TemplatePaths { indexPage, messagesPage } = templatePaths cfg
       workspaceInfoName = workspaceName cfg
   getTimeDiff <- fmap TZ.timeZoneForUTCTime . TZ.loadTZFromDB $ timeZone cfg
+
+  indexPageTemplate <-
+    either (fail . show) return =<< TM.localAutomaticCompile indexPage
+  messagesPageTemplate <-
+    either (fail . show) return =<< TM.localAutomaticCompile messagesPage
 
   return WorkspaceInfo {..}
 
 
-renderIndexOfPages :: WorkspaceInfo -> [(ChannelId, [FilePath])] -> IO BL.ByteString
-renderIndexOfPages wsi@WorkspaceInfo {..} =
+data IndexPageData = IndexPageData
+  { ipdWorkspaceName :: !T.Text
+  , ipdIndexEntries  :: ![IndexEntry]
+  }
+
+instance TM.ToMustache IndexPageData where
+  toMustache IndexPageData {..} =
+    TM.object
+      [ "workspaceName" ~> ipdWorkspaceName
+      , "indexEntries" ~> ipdIndexEntries
+      ]
+
+
+data IndexEntry = IndexEntry
+  { ieChannelId         :: !ChannelId
+  , ieChannelScreenName :: !T.Text
+  , ieLastMessageTs     :: !String
+  , ieLastJsonPath      :: !FilePath
+  , iePageSummaries     :: ![PageSummary]
+  }
+
+instance TM.ToMustache IndexEntry where
+  toMustache IndexEntry {..} =
+    TM.object
+      [ "channelId" ~> ieChannelId
+      , "channelScreenName" ~> ieChannelScreenName
+      , "lastMessageTs" ~> ieLastMessageTs
+      , "lastJsonPath" ~> ieLastJsonPath
+      , "pageSummaries" ~> iePageSummaries
+      ]
+
+data PageSummary = PageSummary
+  { psHtmlPath                   :: !FilePath
+  , psPageNumber                 :: !Integer
+  , psFirstMessageUserScreenName :: !T.Text
+  , psFirstMessageTextTruncated  :: !T.Text
+  , psFirstMessageTs             :: !String
+  }
+
+instance TM.ToMustache PageSummary where
+  toMustache PageSummary {..} =
+    TM.object
+      [ "htmlPath" ~> psHtmlPath
+      , "pageNumber" ~> psPageNumber
+      , "firstMessageUserScreenName" ~> psFirstMessageUserScreenName
+      , "firstMessageTextTruncated" ~> psFirstMessageTextTruncated
+      , "firstMessageTs" ~> psFirstMessageTs
+      ]
+
+
+renderIndexOfPages :: WorkspaceInfo -> [(ChannelId, [FilePath])] -> IO T.Text
+renderIndexOfPages ws@WorkspaceInfo {..} cidJsonPaths = do
+  ies <- (`wither` cidJsonPaths) $ \(cid, jsonPaths) -> do
+    let sortedJsonPaths = sortOn parsePageNumber jsonPaths
+    case lastMay sortedJsonPaths of
+        Just lastPath -> do
+          lastLastMessage <- readLastMessage $ ensurePathIn "json" cid lastPath
+          pss <- for sortedJsonPaths $ \path -> do
+            firstMessage <- readFirstMessage (ensurePathIn "json" cid path)
+            return $ PageSummary
+              { psHtmlPath = ensurePathIn "html" cid path
+              , psPageNumber = parsePageNumber path
+              , psFirstMessageUserScreenName =
+                  getUserScreenName ws $ Slack.messageUser firstMessage
+              , psFirstMessageTextTruncated =
+                  unescapeHtmlEntities . truncatedMessage $ Slack.messageText firstMessage
+              , psFirstMessageTs =
+                  timestampWords . Slack.slackTimestampTime $ Slack.messageTs firstMessage
+              }
+          return . Just $ IndexEntry
+            { ieChannelId = cid
+            , ieChannelScreenName = getChannelScreenName ws cid
+            , ieLastMessageTs =
+                timestampWords $ Slack.slackTimestampTime $ Slack.messageTs lastLastMessage
+            , ieLastJsonPath = ensurePathIn "html" cid lastPath
+            , iePageSummaries = pss
+            }
+        Nothing ->
+          return Nothing
+  printingWarning . render $ IndexPageData workspaceInfoName ies
+ where
+  render :: IndexPageData -> ([TMR.SubstitutionError], T.Text)
+  render = TM.checkedSubstitute indexPageTemplate
+  timestampWords tm =
+    let lt = LT.utcToZonedTime (getTimeDiff tm) tm
+    in TF.formatTime TF.defaultTimeLocale "%Y-%m-%d %T %z" lt
+
+  readFirstMessage :: FilePath -> IO Slack.Message
+  readFirstMessage = fmap head . readJsonFile
+
+  readLastMessage :: FilePath -> IO Slack.Message
+  readLastMessage = fmap last . readJsonFile
+
+{-
   fmap wrapBody
     . traverse (\(cid, jsonPaths) -> do
       let sortedJsonPaths = sortOn parsePageNumber jsonPaths
@@ -241,16 +354,7 @@ renderIndexOfPages wsi@WorkspaceInfo {..} =
           (unescapeHtmlEntities $ truncatedMessage messageText)
         )
       )
-
-  readFirstMessage :: FilePath -> IO Slack.Message
-  readFirstMessage = fmap head . readJsonFile
-
-  readLastMessage :: FilePath -> IO Slack.Message
-  readLastMessage = fmap last . readJsonFile
-
-  timestampWords tm =
-    let lt = LT.utcToZonedTime (getTimeDiff tm) tm
-    in TF.formatTime TF.defaultTimeLocale "%Y-%m-%d %T %z" lt
+-}
 
 mkMessageBody :: WorkspaceInfo -> Slack.SlackMessageText -> T.Text
 mkMessageBody =
@@ -307,3 +411,9 @@ putBetweenPreviousAndNext = go Nothing
     []
   go _ [] =
     error "putBetweenPreviousAndNext: Impossible!"
+
+
+printingWarning :: ([TMR.SubstitutionError], T.Text) -> IO T.Text
+printingWarning (ws, t) = do
+  for_ ws (hPrint stderr)
+  return t
