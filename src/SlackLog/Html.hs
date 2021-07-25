@@ -25,7 +25,7 @@ import qualified Data.ByteString         as B
 import           Data.Char               (isDigit)
 import           Data.Foldable           (for_)
 import qualified Data.HashMap.Strict     as HM
-import           Data.List               (sortOn)
+import           Data.List               (isSuffixOf, sortOn)
 import           Data.Maybe              (fromMaybe)
 import qualified Data.Text               as T
 import qualified Data.Text.Encoding      as TE
@@ -68,7 +68,8 @@ data WorkspaceInfo = WorkspaceInfo
 
 
 collectTargetJsons :: ChannelId -> IO [FilePath]
-collectTargetJsons = Dir.listDirectory . ("json" </>) . T.unpack
+collectTargetJsons =
+  fmap (filter (".json" `isSuffixOf`)) . Dir.listDirectory . ("json" </>) . T.unpack
 
 
 convertJsonsInChannel :: WorkspaceInfo -> ChannelId -> [FilePath] -> IO ()
