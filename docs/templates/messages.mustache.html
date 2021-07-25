@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{{workspaceName}} / {{channelScreenName}} #{{currentPageNumber}}</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>{{workspaceName}} / {{channelScreenName}} #{{currentPageNumber}}</h1>
+    <div class="pager ui pagination menu">
+      {{#previousPagePath}}
+      <a href="{{previousPagePath}}" class="pager__previous item">Previous</a>
+      {{/previousPagePath}}
+      <a href="{{indexPagePath}}" class="pager__top item">Top</a>
+      {{#nextPagePath}}
+      <a href="{{nextPagePath}}" class="pager__next item">Next</a>
+      {{/nextPagePath}}
+    </div>
+    <div class="message_list ui feed">
+      {{#messages}}
+      <div class="message event" id="message-{{ts}}">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">{{userScreenName}}</div>
+            <div class="message__timestamp date"><a class="date" href="#message-{{ts}}">{{formattedTs}}</a></div>
+          </div>
+          <div class="message__body description">{{{htmlMessageBody}}}</div>
+        </div>
+      </div>
+      {{/messages}}
+    </div>
+    <div class="pager ui pagination menu">
+      {{#previousPagePath}}
+      <a href="{{previousPagePath}}" class="pager__previous item">Previous</a>
+      {{/previousPagePath}}
+      <a href="{{indexPagePath}}" class="pager__top item">Top</a>
+      {{#nextPagePath}}
+      <a href="{{nextPagePath}}" class="pager__next item">Next</a>
+      {{/nextPagePath}}
+    </div>
+  </div>
+</body>
+</html>
