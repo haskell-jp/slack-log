@@ -23,7 +23,7 @@ spec = do
     loadWorkspaceInfo config "test/assets"
 
   let idOfRandom = "C4M4TT8JJ"
-  -- The random channel configured in .slack-log.yaml
+  -- The random channel configured in slack-log.yaml
 
   describe "renderSlackMessages" $
     it "converts messages in Slack into a byte string of HTML" $ do
