@@ -1,0 +1,38 @@
+[
+    {
+        "ts": "1624545509.073700",
+        "text": "初めまして\nダウンロードしたパッケージ(System.Random)をghciにインポートしたいのですが\nインポートするときに\nPrelude&gt; :l Main\n\nMain.hs:seven:8:\n  Could not find module ‘Control.Monad.State.Strict’\n  Perhaps you meant\n   Control.Monad.ST.Strict (from base-4.8.2.0)\n   Control.Monad.Trans.State.Strict (from transformers-0.4.2.0@trans_GZTjP9K5WFq01xC9BAGQpF)\n  Use -v to see a list of the files searched for.\n\nMain.hs:13:8:\n  Could not find module ‘Gauge.Main’\n  Use -v to see a list of the files searched for.\n\nMain.hs:15:8:\n  Could not find module ‘System.Random.SplitMix’\n  Use -v to see a list of the files searched for.\n\nMain.hs:17:8:\n  Could not find module ‘System.Random.Stateful’\n  Use -v to see a list of the files searched for.\nFailed, modules loaded: none.\nというエラーが出てしまいます\nこれはどのように解決したら良いでしょうか\nまた、やり方が間違っていたらやり方を教えていただけると幸いです",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    },
+    {
+        "ts": "1624581928.073800",
+        "text": "問題のパッケージはどのようにダウンロードしましたか？ `stack install random` ？\nあと、エラーメッセージを見る限り、System.Randomを含むrandomパッケージ以外にも Control.Monad.State.Strict を含むmtlパッケージや、Gauge.Mainを含むgaugeパッケージ、 <https://hackage.haskell.org/package/splitmix/docs/System-Random-SplitMix.html|System.Random.SplitMix> を含む splitmixパッケージなどがインストールできていないようです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1624584516.074000",
+        "text": "返信ありがとうございます\n<https://hackage.haskell.org/package/random> このページのDownloadsの欄からダウンロードしました\nまた、このエラーメッセージに書いてあるモジュールを含むパッケージを全部ダウンロードするということで了解しました\nそのあとについてなのですが、うつコマンドは:l Mainで正しいのでしょうか？\n正直どのファイル（フォルダ？）についてどのコマンドを打てば良いのかわからない状態なので教えていただけるととても嬉しいです",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    },
+    {
+        "ts": "1624585022.074300",
+        "text": "私のこの記事は役に立ちますか？\n<https://qiita.com/TTsurutani/items/b68956a555747fc3cb0e>",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1624585320.074700",
+        "text": "&gt; <https://hackage.haskell.org/package/random> このページのDownloadsの欄からダウンロードしました\nそれは通常行う方法ではないですね... ttsurutaniさんの記事の通りひとまず `stack install random` や `cabal install --lib random` などでのインストールを推奨します。\n\n`:l Main` について... ですが、（若干記憶が怪しいのでちょっと詳細確認しますが）何という名前のファイルになんというモジュールを書いたかによります。\n恐らく状況を察するに、 `module Main where`という行をファイルの*冒頭に書いてない*適当なファイル名（例えば `file.hs`  ）のファイルを読もうとしているのではないかと思います。その場合、 `:l file.hs` のように、ファイル名を直接指定して `:l` するのを推奨します。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1624587513.074900",
+        "text": "ありがとうございます\n記事を参考にしたら\nインストールとインポートができました\ncabalからダウンロードすると依存するモジュールまでインストールできるんですね\nお二人とも本当にありがとうございました",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    }
+]

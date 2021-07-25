@@ -1,0 +1,56 @@
+[
+    {
+        "ts": "1626591322.147600",
+        "text": "初歩的な質問ですが、\nあるHaskellファイルFoo.hsで、そこからの相対パスがMydir/Bar.hsのファイルをimportしたいのですが、\nBar.hsの内部のモジュール名をMydir.Barに書き換えずにBarのままImport方法はありますでしょうか？",
+        "user": "U01R1UNMVT5",
+        "type": "message"
+    },
+    {
+        "ts": "1626591943.148000",
+        "text": "~残念ながらできません。~",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1626592393.148500",
+        "text": "ありがとうございます。\n\n一応、なぜこのようなことをしたいかというと、\nMydir/Bar.hsは実は自動生成されたプログラムで、内部を書き換えたくないのです。かといって、手書きしたFoo.hsと同じディレクトリに置くのも紛らわしいので、Generatedディレクトリに置いておきたかったというのが本音でした。",
+        "user": "U01R1UNMVT5",
+        "type": "message"
+    },
+    {
+        "ts": "1626594079.148700",
+        "text": "自動生成する側でモジュール名を工夫することは出来ないのでしょうか。\nあとできないと言った後ですみません。少々面倒になるものの、パッケージを分けてcabal.projectなりstack.yamlなりで参照するという形なら一応可能です。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1626659526.149900",
+        "text": "遅くなってすみません。\nできなくはないと思いますが、ちょっと面倒なのと、\n単にHaskell側でパスを通すだけで参照できたりしないのかなと思っただけです。",
+        "user": "U01R1UNMVT5",
+        "type": "message"
+    },
+    {
+        "ts": "1626661764.150300",
+        "text": ".cabalの `hs-source-dirs` （package.yamlの場合は `source-dirs`）には複数のディレクトリを指定できます。そこで `hs-source-dirs: src src/Mydir` という風に指定すれば良いです。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1626662023.150600",
+        "text": "おっ、すみません、誤解しておりました！ :man-bowing: :man-bowing: :man-bowing:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1626668863.150900",
+        "text": ":man-bowing: すみません、 <https://haskell-jp.slack.com/archives/CR2TETE5R/p1626661764150300?thread_ts=1626591322.147600&amp;cid=CR2TETE5R> のとおり、スレッド冒頭の回答は間違いでした。\nよく考えたらGHCのコマンドラインオプションでも `-i` を使えば複数指定できますし、それをcabalから使えないのもおかしな話ですよね... :pray:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1626745133.158200",
+        "text": "遅くなりました。\nありがとうございます！\npackage.yamlを変更する方法で試してみたのですが、src/Mydirに置いてしまうと、cabalファイルのexposed-modules欄にBarとMydir.Barの両方が登録されてしまって、Mydir.Barの方でエラーが出てしまうので、srcの外に置くようにしたらコンパイルが通りました。",
+        "user": "U01R1UNMVT5",
+        "type": "message"
+    }
+]

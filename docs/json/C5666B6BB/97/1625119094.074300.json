@@ -1,0 +1,80 @@
+[
+    {
+        "ts": "1625119094.074300",
+        "text": "どなたかservant-elmを使っている方はいらっしゃいますでしょうか？\n\nservant-elmで生成したelmのエンコーダ、デコーダを使ってlocalhostでやりとりをしようとしていて困ったことがありました。\n\nまず、servantで書いたサーバ側のURLが<http://localhost:8080> でelmで書いたクライアント側が<http://localhost8000> なので、CORSが働いてうまく作用しないことがわかりました。(WebブラウザはSafariです)\nそこで、サーバ側のHaskellコードでwai-corsライブラリを使ってCORSの設定としてSimpleCorsResoucePolicyを設定したところ、\nGETメソッドは通るようになりましたが、なぜかPOSTメソッドが通らず、\nPreflight response is not successful\nXMLHttpRequest cannot load <http://localhost:8080/xxx> due to access control check\nとエラーメッセージが表示されてどう対処していいのか分からない状態です。\n\n一応、サーバにターミナルのcurlコマンドで直接アクセスするとPOSTメソッドもうまくいくので、サーバ内部で発生したエラーではなさそうです。\n原因はおそらくCORS回りだと思うのですが、SimpleCorsResoucePolicyは\"GET\", \"HEAD\", \"POST\"メソッドを許容するような設定のはずなので、GETだけうまくいってPOSTがうまくいかない理由が分からないです。\n\n何かアドバイスいただけないでしょうか？",
+        "user": "U01R1UNMVT5",
+        "type": "message"
+    },
+    {
+        "ts": "1625119935.074400",
+        "text": "僕はよく、Elm で生成した JS （と、その JS が操作するようの HTML）を Servant から返すようにしてます。なので、CORS の問題がないです。\n（直接の解決になってないと思いますが。。。）",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1625122297.074700",
+        "text": "返答ありがとうございます。\nなるほど、そういう回避手段もあるのですね。\n\nただ、せっかくここまで来たので、Elmで作成したサイトからアクセスできればなと考えています。",
+        "user": "U01R1UNMVT5",
+        "type": "message"
+    },
+    {
+        "ts": "1625123123.074900",
+        "text": "(servant-elm使っていません)\n推測ですみませんが、POSTのときはrequest header増えてたりしませんか？",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1625124930.075400",
+        "text": "↑すみません、ちょっと修正します",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1625126413.075700",
+        "text": "返信ありがとうございます。\nrequest headerをちゃんと理解していないのですが、自動生成されたエンコーダのheadersは空列になっているので、何も指定していないと思います。\nこれはGETも同様です。",
+        "user": "U01R1UNMVT5",
+        "type": "message"
+    },
+    {
+        "ts": "1625126839.075900",
+        "text": "Elmコードで申し訳ないですが、servant-elmによって自動生成されたものがこれです。\n(関数名も自動生成なのでちょっと変ですが、そこは多めにみてください)",
+        "user": "U01R1UNMVT5",
+        "type": "message"
+    },
+    {
+        "ts": "1625129651.076100",
+        "text": "このissueかな？ <https://github.com/elm/http/issues/69>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1625130110.076400",
+        "text": "curlはブラウザーじゃないので、クロスオリジンかどうかは気にせず普通に通信します。普通クロスオリジンかどうかの判定をしてはじくのは通例ブラウザー自身ではないかと思います。なので、クライアント側の問題である可能性も十分あるかと",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1625130713.076600",
+        "text": "あまり正確なことを言う自信はないのですが、後できることは、開発者ツールなりFiddlerなりで、どんなリクエストヘッダーとレスポンスヘッダーが出ているか見て、ちゃんと <https://developer.mozilla.org/ja/docs/Web/HTTP/CORS> のルールを満たしているかチェックする、といったところでしょうか。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1625132890.076900",
+        "text": "&gt;  headersは空列になっているので、何も指定していないと思います。\nigrepさんも仰ってますが、ブラウザの開発者ツールでrequest headerを確認して頂いたほうが良さそうです。\n推測ですが、content-typeとか飛んでいる気がします。",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1625133312.077200",
+        "text": "ここっぽいです\n<https://github.com/elm/http/blob/81b6fdc67d8e5fb25644fd79e6b0edbe2e14e474/src/Http.elm#L250>",
+        "user": "U59TQ3MJ9",
+        "type": "message"
+    },
+    {
+        "ts": "1625138717.077800",
+        "text": "ありがとうございます。\nheaderにcontent-typeを含んでいるものをCORSに許可したらPOSTでもちゃんと返してくれました。\nWebアプリ開発は初めてだったもので、色々と知らなかった点が多いですが、皆さまのおかげでとても助かりました。\nありがとうございました。",
+        "user": "U01R1UNMVT5",
+        "type": "message"
+    }
+]

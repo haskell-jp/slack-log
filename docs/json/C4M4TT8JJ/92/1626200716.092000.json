@@ -1,0 +1,14 @@
+[
+    {
+        "ts": "1626200716.092000",
+        "text": "higher kinded data の使いどころかと思ったけど微妙に babies とは違う型クラスができた……\n```-- barbies\nclass FunctorB (b :: (k -&gt; Type) -&gt; Type) where\n  bmap :: (forall a . f a -&gt; g a) -&gt; b f -&gt; b g\n\n-- 自作\nclass FunctorB b where\n  bmap :: (Functor f, Functor g) =&gt; (forall a. f a -&gt; g a) -&gt; b f -&gt; b g```\nこれ ↓ を\n```data Foo =\n  Foo [(Bar, Buzz)]```\nこう ↓ したかった\n```data Foo f =\n  Foo (f [f (f Bar, f Buzz)])```\nbarbies だとこう ↓ なる\n```data Foo f =\n  Foo (f [(bar, Buzz)])```",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1626367861.095500",
+        "text": "重ね着バービー人形 <https://hackage.haskell.org/package/barbies-layered>",
+        "user": "U4L0B71L1",
+        "type": "message"
+    }
+]

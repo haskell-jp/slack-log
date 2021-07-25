@@ -1,0 +1,80 @@
+[
+    {
+        "ts": "1626432250.123200",
+        "text": "メモリ増設を機にubuntu20.04を削除してインストールしなおしてからstackを入れてstack setupまで行うと画像のようなエラーが発生します。buildのほうも成功しません。検索しましたが、私見では有用な解決策が見当たりませんでした。どなたかお力添えいただけると助かります。Haskellを、書きたいです。\n```Preparing to install GHC (tinfo6) to an isolated location.\nThis will not interfere with any system-level installation.\nDownloaded ghc-tinfo6-8.10.4.\nghc-pkg: Couldn't open database /home/sa/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4/lib/ghc-8.10.4/package.conf.d for modification: {handle: /home/sa/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4/lib/ghc-8.10.4/package.conf.d/package.cache.lock}: hLock: invalid argument (Invalid argument)\nmake[1]: *** [<http://ghc.mk:973|ghc.mk:973>: install_packages] Error 1\nmake: *** [Makefile:51: install] Error 2\nReceived ExitFailure 2 when running\nRaw command: /usr/bin/make install\nRun from: /home/sa/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4.temp/ghc-8.10.4/\n\n\n\n\n\nError: Error encountered while installing GHC with\n         make install\n         run in /home/sa/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4.temp/ghc-8.10.4/\n\n       The following directories may now contain files, but won't be used by stack:\n         - /home/sa/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4.temp/\n         - /home/sa/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4/\n\n       For more information consider rerunning with --verbose flag\n\nInstalling GHC ...```\n",
+        "user": "U024U0DCJ3T",
+        "type": "message"
+    },
+    {
+        "ts": "1626432801.123800",
+        "text": "ネットワーク障害か何かかなと思ってDockerでUbuntu 20.04で試してみましたが再現しませんでした。\n~/.stack, .stack-workをどこか別の場所に移動しても同じ感じになりますか?",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1626433787.124200",
+        "text": "一度 `/home/sa/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4` 以下を削除してもう一度実行したらどうなりますかね",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1626435192.124900",
+        "text": "<@U4LGTMTMK>\n削除してsetupしたら復活してエラーが発生したんですけどsetupじゃなくてbuildのほうがいいですかね？それも上手くいかなかったらncaqさんのプランも実行してみようと思います",
+        "user": "U024U0DCJ3T",
+        "type": "message"
+    },
+    {
+        "ts": "1626436357.125300",
+        "text": "<@U57CUMWQ6>\n適当に作った別のフォルダに移動させてみましたが同様のエラーが出ましたね...辛いです",
+        "user": "U024U0DCJ3T",
+        "type": "message"
+    },
+    {
+        "ts": "1626436460.125500",
+        "text": "これ、ネイティブのLinuxで動かしてますか?それともWSLなどですか?",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1626436758.125700",
+        "text": "windowsのMicrosoft StroreでダウンロードしたUbuntuをターミナル(でいいのかな？)で動かしているのでWSLになると思います",
+        "user": "U024U0DCJ3T",
+        "type": "message"
+    },
+    {
+        "ts": "1626436827.126000",
+        "text": "`wsl --list --verbose` などで確認できるwslのバージョンはどうなってますか?",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1626437026.126200",
+        "text": "確認したところ1でした。これ、2じゃないと上手く動かないですかね？",
+        "user": "U024U0DCJ3T",
+        "type": "message"
+    },
+    {
+        "ts": "1626437099.126400",
+        "text": "WSLは今は私は使ってないのでなんとも言い難いのですが、この先WSL2がメインとなるでしょうし、WSL2にすることで解決するならばWSL2を使って解決したほうが良いと思います",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1626438121.126600",
+        "text": "WSL2にバージョンを変更したところうまくいきました！",
+        "user": "U024U0DCJ3T",
+        "type": "message"
+    },
+    {
+        "ts": "1626438208.126800",
+        "text": "ビルドも上手くいきましたね。よく分かりませんが、通ってくれたので嬉しいです",
+        "user": "U024U0DCJ3T",
+        "type": "message"
+    },
+    {
+        "ts": "1626440040.127500",
+        "text": "昨晩正に同じ症状でハマッていたのですが、その時に以下のリンクを発見しました。\n<https://gitlab.haskell.org/ghc/ghc/-/issues/17918>\n私もWSL2にして解決してしまったので原因を理解しているわけではないのですが、参考になれば。",
+        "user": "U01FQCD9X0A",
+        "type": "message"
+    }
+]

@@ -1,0 +1,80 @@
+[
+    {
+        "ts": "1626426545.120400",
+        "text": "```example15.hs:1:1: error:\n    Could not find module 'Monad'\n    Use -v (or `:set -v` in ghci) to see a list of the files searched for.\n  |\n1 | import Monad\n  | ^^^^^^^^^^^^\n\nexample15.hs:2:1: error:\n    Could not find module 'System'\n    Use -v (or `:set -v` in ghci) to see a list of the files searched for.\n  |\n2 | import System\n  | ^^^^^^^^^^^^^\n\nexample15.hs:3:1: error:\n    Could not find module 'IO'\n    Perhaps you meant Id (needs flag -package-key ghc-8.10.4)\n    Use -v (or `:set -v` in ghci) to see a list of the files searched for.\n  |\n3 | import IO\n  | ^^^^^^^^^\n\nexample15.hs:4:1: error:\n    Could not find module 'Random'\n    Use -v (or `:set -v` in ghci) to see a list of the files searched for.\n  |\n4 | import Random\n  | ^^^^^^^^^^^^^```\nこのようなエラーが出ます。\n何かがうまく行ってないのですが、cabalを編集しても全くうまくいきません。\n助けてください。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1626428079.120500",
+        "text": "なんかのコードを参考にしたんですかね？\n`Monad` ってモジュールはなく、 `Control.Monad` モジュールはありますけど。それとも自身で定義したモジュールですか？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1626429067.121800",
+        "text": "Haskell98 時代の標準モジュールですよね。私も長らく Haskell に触ってないのでそのころのソースコードを久々にいじったりするとハマるのですが、いまどきはもう import 文を書き直すしかないのでしょうかね？",
+        "user": "UF8SE896V",
+        "type": "message"
+    },
+    {
+        "ts": "1626430398.122400",
+        "text": "1. 端的に言うと参考にしている資料が古いです。MonadとかSystemとかIOなどはHaskell 98時代の古いモジュール名で、GHC 7.10（2015年リリース）以降では使えなくなっています。\n2. 対処方法としては、Monad→Control.Monad, System→System.Exit/System.Environment, IO→<http://System.IO|System.IO>, Random→（randomパッケージの）System.Randomという風に書き換えます。\n3. かつては（GHC 7.8までは）古いモジュール名を使えるようにするパッケージ \"haskell98\" がGHCに添付されていましたが、GHC 7.10以降はそれがなくなりました。Hackageに上がっているhaskell98パッケージもGHC 7.8までの対応のようです。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1626433252.124000",
+        "text": "```Example15.hs:4:1: error:\n    Could not find module 'System.Random'\n    Use -v (or `:set -v` in ghci) to see a list of the files searched for.\n  |\n4 | import System.Random\n  | ^^^^^^^^^^^^^^^^^^^^```\nSystem.Randomって非公式なんですか？\n何もわからなくてすみません。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1626433826.124400",
+        "text": "私のこの記事は参考になりますか？\n<https://qiita.com/TTsurutani/items/b68956a555747fc3cb0e>",
+        "user": "U55UN00G0",
+        "type": "message"
+    },
+    {
+        "ts": "1626434356.124700",
+        "text": "記事の通りに`stack install random`したのですが\n```sirkerf:yaminabe sirkerf$ stack install random\n/Users/sirkerf/Desktop/programming/Haskell/haskell_sutdy/yaminabe/yaminabe.cabal was modified manually. Ignoring /Users/sirkerf/Desktop/programming/Haskell/haskell_sutdy/yaminabe/package.yaml in favor of the cabal file.\nIf you want to use the package.yaml file instead of the cabal file,\nthen please delete the cabal file.\nUnable to parse cabal file from package /Users/sirkerf/Desktop/programming/Haskell/haskell_sutdy/yaminabe/yaminabe.cabal\n\n- 41:14: \nunexpected '.'\nexpecting \"-\", white space, \":\", opening paren, operator, comma or end of input```\nとなってうまくいきませんでした。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1626436041.125100",
+        "text": "`Could not find module 'System.Random'` などのエラーが出る時って、どうやってビルドしてますか？\n`stack build` です？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1626439827.127300",
+        "text": "`stack build`  です。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1626444875.128000",
+        "text": "`stack build` しているディレクトリに `package.yaml` か `.cabal` が拡張子のファイルはありますか？",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1626475712.128500",
+        "text": "`pakcage.yaml`  と `.yaml`  が拡張子のファイルがあります。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1626484821.131600",
+        "text": "であれば、`package.yaml` の `dependencies` というとこに `random` を追記するとビルドできるかと",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1626678970.151400",
+        "text": "うーむ、できないようです……。\n別件でXcodeが消えて再ダウンロード不可能というトラブルも発生してしまったので、一旦この問題は保留とさせてください。質問した上に回答までいただいたのに申し訳ありません。",
+        "user": "UFMV026NR",
+        "type": "message"
+    }
+]

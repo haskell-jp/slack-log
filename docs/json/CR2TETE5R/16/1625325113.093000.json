@@ -1,0 +1,20 @@
+[
+    {
+        "ts": "1625325113.093000",
+        "text": "すみません\narrowをproc?記法を使わないで書くとKleisli const が大量に出てきてしまうのですがこれは回避する方法があるのでしょうか？",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    },
+    {
+        "ts": "1625334888.093100",
+        "text": "アロー記法 (Arrow notation) ですね。アロー記法に詳しくないので先に確認したいのですが、アロー記法を使うと `Kleisli` `const` って減りますか?\n先の例を書き換えてみると\n\n```main = runKleisli (proc a -&gt; do\n  l &lt;- Kleisli (const getLine) -&lt; a \n  Kleisli print -&lt; l) ()```\nになって、`Kleisli` や `const` は減らせなかったので、やり方があれば教えていただきたいです。",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1625373685.093600",
+        "text": "確かにそうですね\nすみません\nproc記法はKleisliとかを減らせる記法なんだと勘違いしていました",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    }
+]

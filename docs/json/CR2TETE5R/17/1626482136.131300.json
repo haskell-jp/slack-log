@@ -1,0 +1,44 @@
+[
+    {
+        "ts": "1626482136.131300",
+        "text": "SemiGroup,Monoidが定義されている状態でGroupを自分で定義してMonoidのインスタンスにしたいのですが&lt;&gt;はSemigroup,memptyはMonoidで定義されている時にインスタンス宣言を一つで済ませる方法はないのでしょうか？",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    },
+    {
+        "ts": "1626508721.136800",
+        "text": "instance Group Bool where\n    unit = False\n    plus = (||)\n    inv = (const False)\n\ninstance Ring Bool where\n    product = (&amp;&amp;)\n    unitpro = True\n\ninstance Field Bool where\n    invpro = (const True)",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    },
+    {
+        "ts": "1626508899.137000",
+        "text": "口頭で伺ったところ、 `Group` 型クラスなどは自分で定義したものだそうなので、 `Group` 型クラスを :point_down: のように書き換えてみると、重複が少なくて済むのではないでしょうか:\n```class Monoid a =&gt; Group a where\n  inv :: a -&gt; a```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1626509557.137300",
+        "text": "画面共有で確認しました。仰っていることを実現したい場合、元の `Field` 型クラスのメソッドとして `unit`から `invpro` まですべて定義しないとできませんね... どうしても一箇所にまとめたいのであれば例えば定義用のmoduleを分けるとして、\n```module BoolMethods where\n\nunit :: Bool\nunit = False\n\nplus :: Bool -&gt; Bool -&gt; Bool\nplus = (||)\n\n...\n\ninvpro :: Bool -&gt; Bool\ninvpro = const True```\nみたいな `BoolMethods` というモジュールを定義してから、\n```module BoolInstances where\n\nimport qualified BoolMethods as B\n\ninstance Group Bool where\n  unit = B.unit\n  ...```\nという書き方をするしかないですね...\nあくまでもFieldのメソッドはFieldのメソッドであって、GroupやRingのメソッドではないので。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1626509610.137500",
+        "text": "ありがとうございます",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    },
+    {
+        "ts": "1626509734.137700",
+        "text": "たとえば派生クラスの定義があるなら基底クラスの定義は自然に導出できるよ、という場合、以下の `fmapDefault` や `foldMapDefault` ように普通の関数として提供しておいてインスタンス定義のときに使ってね、というパターンもあります\n<https://hackage.haskell.org/package/base-4.15.0.0/docs/Data-Traversable.html#v:foldMapDefault>",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1626510858.138200",
+        "text": "ありがとうございます",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    }
+]
