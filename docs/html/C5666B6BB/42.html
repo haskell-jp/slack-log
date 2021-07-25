@@ -1,4 +1,35 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #42</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #42</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/41.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/43.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1548925411.434600"><div class="content"><div class="summary"><div class="message__header user">koyama</div><div class="message__timestamp date"><a class="date" href="#message-1548925411.434600">2019-01-31&nbsp;18:03:31 +0900</a></div></div><div class="message__body description">ざっと見、ネストが深くなった最初の行の空白を二重にパースしようとしている感じがします（whenJust mNumofSpaces のところで一回、その行自体を含めて続きを many1 $ do でパースしつづけるので、その行は blockParser (Just $ numOfSpaces + s) でもう一回）。</div></div></div><div class="message event" id="message-1548926694.434900"><div class="content"><div class="summary"><div class="message__header user">hiroto.shioi</div><div class="message__timestamp date"><a class="date" href="#message-1548926694.434900">2019-01-31&nbsp;18:24:54 +0900</a></div></div><div class="message__body description">現状だとこれが返ってくるんです。<br/><pre>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #42</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #42</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/41.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/43.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1548925411.434600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">koyama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548925411.434600">2019-01-31 18:03:31 +0900</a></div>
+          </div>
+          <div class="message__body description">ざっと見、ネストが深くなった最初の行の空白を二重にパースしようとしている感じがします（whenJust mNumofSpaces のところで一回、その行自体を含めて続きを many1 $ do でパースしつづけるので、その行は blockParser (Just $ numOfSpaces + s) でもう一回）。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548926694.434900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroto.shioi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548926694.434900">2019-01-31 18:24:54 +0900</a></div>
+          </div>
+          <div class="message__body description">現状だとこれが返ってくるんです。<br/><pre>
 Right 
     [ List 
         [ ListItem "list1"
@@ -9,9 +40,452 @@ Right
         , ListItem "list3"
         ] 
     ]
-</pre></div></div></div><div class="message event" id="message-1548927030.435100"><div class="content"><div class="summary"><div class="message__header user">koyama</div><div class="message__timestamp date"><a class="date" href="#message-1548927030.435100">2019-01-31&nbsp;18:30:30 +0900</a></div></div><div class="message__body description">最初は Nothing から Just 1 のインデントになるところはたぶん問題なく動いちゃうと思うんですが、 Just 1 のインデントのつもりで "  item1" の行をパースすると、まず1個スペースを読み飛ばして、残り1個のスペースの個数を数えて、合計2になって、その Just 2 を持って " item1\n  item2\n  item3\n..." をパースする（最初の item1 の行にすでに残り一個しか空白がないことに注意）のでうまくいかないんじゃないかと</div></div></div><div class="message event" id="message-1548927387.435300"><div class="content"><div class="summary"><div class="message__header user">koyama</div><div class="message__timestamp date"><a class="date" href="#message-1548927387.435300">2019-01-31&nbsp;18:36:27 +0900</a></div></div><div class="message__body description">bulletpointParser として try しそこねたので itemParser でパースしちゃって ListItem " item1" が返る。そして次の行でまた Just 1 の bulletpointParser で同じことが起きる…の繰り返しになりそうです</div></div></div><div class="message event" id="message-1548928700.435500"><div class="content"><div class="summary"><div class="message__header user">hiroto.shioi</div><div class="message__timestamp date"><a class="date" href="#message-1548928700.435500">2019-01-31&nbsp;18:58:20 +0900</a></div></div><div class="message__body description">なんとなく原因はわかったけど、ではどうすればいいのかっていうところが疲れててわからない。</div></div></div><div class="message event" id="message-1548928966.435700"><div class="content"><div class="summary"><div class="message__header user">koyama</div><div class="message__timestamp date"><a class="date" href="#message-1548928966.435700">2019-01-31&nbsp;19:02:46 +0900</a></div></div><div class="message__body description">現状の延長で手っ取り早くやるなら一行目だけ特別扱いするのがいいんじゃないでしょうかねえ…空白を数えてしまった後はかならず itemParser できるはずなのでそこだけ自前でやって、残りを many1 じゃなくて many で処理してくっつける、みたいな感じで</div></div></div><div class="message event" id="message-1548930009.436100"><div class="content"><div class="summary"><div class="message__header user">aiya000</div><div class="message__timestamp date"><a class="date" href="#message-1548930009.436100">2019-01-31&nbsp;19:20:09 +0900</a></div></div><div class="message__body description">先頭の空白を <code>\s[^\s]</code> でパースすると<br/><code> bar</code> （空白1つ） にマッチして <code>  foo</code> （空白2つ）にマッチしないようになるので、まずはこれをitemParserみたいに名付けて、あとはそれ以前の空白の数でネストを数えると、字句解析がうまくいきそう :face_with_rolling_eyes:<br/>（貼っていただいたソース見てなくてすみません）<br/>（本文中の正規表現は適宜パーサーコンビネータの表現に置き換えて読んでください:eyeglasses:）</div></div></div><div class="message event" id="message-1548930216.436400"><div class="content"><div class="summary"><div class="message__header user">aiya000</div><div class="message__timestamp date"><a class="date" href="#message-1548930216.436400">2019-01-31&nbsp;19:23:36 +0900</a></div></div><div class="message__body description"><code> foo</code> （空白1つ）は <code>itemParser</code> で、<br/><code>  faa</code> （空白2つ）は <code>\s &gt;&gt; itemParser</code> で、<br/><code>   waa</code>  （空白3つ）は <code>\s &gt;&gt; \s &gt;&gt; itemParser</code> で<br/>……パースできるイメージ。</div></div></div><div class="message event" id="message-1548930291.436700"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1548930291.436700">2019-01-31&nbsp;19:24:51 +0900</a></div></div><div class="message__body description">修正案あげておきます<br/><a href='https://gist.github.com/mizunashi-mana/d4c03b236f7a22d8c1ce411924ba1fe8'>https://gist.github.com/mizunashi-mana/d4c03b236f7a22d8c1ce411924ba1fe8</a></div></div></div><div class="message event" id="message-1548930487.436900"><div class="content"><div class="summary"><div class="message__header user">hiroto.shioi</div><div class="message__timestamp date"><a class="date" href="#message-1548930487.436900">2019-01-31&nbsp;19:28:07 +0900</a></div></div><div class="message__body description">ありがとー。よく見ておきます。</div></div></div><div class="message event" id="message-1548930533.437100"><div class="content"><div class="summary"><div class="message__header user">hiroto.shioi</div><div class="message__timestamp date"><a class="date" href="#message-1548930533.437100">2019-01-31&nbsp;19:28:53 +0900</a></div></div><div class="message__body description">@aiya000<br/>ごめんなさい。正規表現は全くわからないです（だからParsecに逃げました</div></div></div><div class="message event" id="message-1548930576.437300"><div class="content"><div class="summary"><div class="message__header user">koyama</div><div class="message__timestamp date"><a class="date" href="#message-1548930576.437300">2019-01-31&nbsp;19:29:36 +0900</a></div></div><div class="message__body description">ああ、やっぱり Maybe Int の Nothing をやめて単に Int の 0 にしたくなりますよね^^; <blockquote>indentの数</blockquote></div></div></div><div class="message event" id="message-1548997053.437900"><div class="content"><div class="summary"><div class="message__header user">hiroto.shioi</div><div class="message__timestamp date"><a class="date" href="#message-1548997053.437900">2019-02-01&nbsp;13:57:33 +0900</a></div></div><div class="message__body description">@mizunashi-mana さんの修正案を元に実装してみたら上手くいきました。ありがとうございます。</div></div></div><div class="message event" id="message-1549002044.438500"><div class="content"><div class="summary"><div class="message__header user">pen_g_uin</div><div class="message__timestamp date"><a class="date" href="#message-1549002044.438500">2019-02-01&nbsp;15:20:44 +0900</a></div></div><div class="message__body description">@pen_g_uin has joined the channel</div></div></div><div class="message event" id="message-1549080665.440100"><div class="content"><div class="summary"><div class="message__header user">kayhide</div><div class="message__timestamp date"><a class="date" href="#message-1549080665.440100">2019-02-02&nbsp;13:11:05 +0900</a></div></div><div class="message__body description">どのパッケージがどれだけの数のパッケージから依存されているか、をリスト化しているサイトがあったと思うのですが、わかる方いますでしょうか？</div></div></div><div class="message event" id="message-1549080882.440200"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1549080882.440200">2019-02-02&nbsp;13:14:42 +0900</a></div></div><div class="message__body description">ここですかね？ <a href='https://packdeps.haskellers.com/reverse'>https://packdeps.haskellers.com/reverse</a></div></div></div><div class="message event" id="message-1549080905.440400"><div class="content"><div class="summary"><div class="message__header user">kayhide</div><div class="message__timestamp date"><a class="date" href="#message-1549080905.440400">2019-02-02&nbsp;13:15:05 +0900</a></div></div><div class="message__body description">おお、まさにそれです！ありがとうございます！</div></div></div><div class="message event" id="message-1549082867.440700"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1549082867.440700">2019-02-02&nbsp;13:47:47 +0900</a></div></div><div class="message__body description">stackage でもみれたきがする</div></div></div><div class="message event" id="message-1549082926.440900"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1549082926.440900">2019-02-02&nbsp;13:48:46 +0900</a></div></div><div class="message__body description"><a href='https://www.stackage.org/package/servant/revdeps'>https://www.stackage.org/package/servant/revdeps</a></div></div></div><div class="message event" id="message-1549083475.441100"><div class="content"><div class="summary"><div class="message__header user">kayhide</div><div class="message__timestamp date"><a class="date" href="#message-1549083475.441100">2019-02-02&nbsp;13:57:55 +0900</a></div></div><div class="message__body description">見たいのは、依存されている数でした。</div></div></div><div class="message event" id="message-1549083536.441300"><div class="content"><div class="summary"><div class="message__header user">kayhide</div><div class="message__timestamp date"><a class="date" href="#message-1549083536.441300">2019-02-02&nbsp;13:58:56 +0900</a></div></div><div class="message__body description">論文でいうと、どれだけ引用されているか、みたいな指標に近い感覚です。</div></div></div><div class="message event" id="message-1549084610.441500"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1549084610.441500">2019-02-02&nbsp;14:16:50 +0900</a></div></div><div class="message__body description">stackage のリンクは依存されてるパッケージのリストです（もちろん 依存してるパッケージも別のページでみれますが）</div></div></div><div class="message event" id="message-1549088391.441700"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1549088391.441700">2019-02-02&nbsp;15:19:51 +0900</a></div></div><div class="message__body description">Windowsでsupermonadパッケージを含むプロジェクトをビルドしようとすると、こんなエラーになります。解決方法が分かる方いたら教えて頂きたいです。他のパッケージはビルド出来ているので、supermonadがGHCプラグインを含んでいるせいで駄目なのかな？と予想しています</div></div></div><div class="message event" id="message-1549088535.442000"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1549088535.442000">2019-02-02&nbsp;15:22:15 +0900</a></div></div><div class="message__body description">stackとcabal new-buildで試して同じエラーになりました。添付テキストはnew-buildの方です</div></div></div><div class="message event" id="message-1549088644.442200"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1549088644.442200">2019-02-02&nbsp;15:24:04 +0900</a></div></div><div class="message__body description">あ、READMEに-dynamic付けてね、って書いてありましたね。stackやnew-buildではどう設定すればいいんでしょうか</div></div></div><div class="message event" id="message-1549090153.442700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1549090153.442700">2019-02-02&nbsp;15:49:13 +0900</a></div></div><div class="message__body description">--ghc-options=-dynamic<br/>かな。</div></div></div><div class="message event" id="message-1549090252.442900"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1549090252.442900">2019-02-02&nbsp;15:50:52 +0900</a></div></div><div class="message__body description">そういえばcabalファイルに書くのではダメでしたかね</div></div></div><div class="message event" id="message-1549090576.443100"><div class="content"><div class="summary"><div class="message__header user">kayhide</div><div class="message__timestamp date"><a class="date" href="#message-1549090576.443100">2019-02-02&nbsp;15:56:16 +0900</a></div></div><div class="message__body description">そうですね。このページをみれば <code>servant</code> が、どれだけの数のパッケージから依存されているかはわかります。</div></div></div><div class="message event" id="message-1549090755.443300"><div class="content"><div class="summary"><div class="message__header user">kayhide</div><div class="message__timestamp date"><a class="date" href="#message-1549090755.443300">2019-02-02&nbsp;15:59:15 +0900</a></div></div><div class="message__body description">知りたかったのは、 <code>servant</code> だけでなく、パッケージ <code>a</code>, <code>b</code>, <code>c</code>,... と候補が複数あったとき、どれがどれだけ非依存数をもっているか、のリストです。</div></div></div><div class="message event" id="message-1549157382.443800"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1549157382.443800">2019-02-03&nbsp;10:29:42 +0900</a></div></div><div class="message__body description">--ghc-options=dynamic にすると、他のパッケージでも同じエラーが出るように……baseをこのオプション付きでビルドした奴が必要、という状況のようです</div></div></div><div class="message event" id="message-1549157754.444000"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1549157754.444000">2019-02-03&nbsp;10:35:54 +0900</a></div></div><div class="message__body description">new-buildだと.projectファイルのオプションshared, executable-dynamicが関係ありそうだったんですが、有効にしても直らない模様</div></div></div><div class="message event" id="message-1549158128.444200"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1549158128.444200">2019-02-03&nbsp;10:42:08 +0900</a></div></div><div class="message__body description">stackが落としてきたghcに無理やりパス通して使っているのも関係してるかもしれません</div></div></div><div class="message event" id="message-1549180109.447500"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1549180109.447500">2019-02-03&nbsp;16:48:29 +0900</a></div></div><div class="message__body description"><a href='https://github.com/Hexirp/doctest-driver-gen/commit/610b470eaa22c6971693b08ebfe7f16bc6588fea'>https://github.com/Hexirp/doctest-driver-gen/commit/610b470eaa22c6971693b08ebfe7f16bc6588fea</a> のような変更をしたんですが <a href='https://travis-ci.org/Hexirp/doctest-driver-gen/builds/488028462#L479-L481'>https://travis-ci.org/Hexirp/doctest-driver-gen/builds/488028462#L479-L481</a> のように警告が出てしまいます。どういうことなんでしょうか？ Cabal のドキュメントの条件節のところ (<https://www.haskell.org/cabal/users-guide/developing-packages.html#conditional-blocks>) を見てもよくわかりません。</div></div></div><div class="message event" id="message-1549185382.447600"><div class="content"><div class="summary"><div class="message__header user">yharuhi39</div><div class="message__timestamp date"><a class="date" href="#message-1549185382.447600">2019-02-03&nbsp;18:16:22 +0900</a></div></div><div class="message__body description"><code>if</code> ってのがグローバルなスコープでは駄目だよって言ってますね。スコープって言っていいのか分りませんけど。。。 誤解されるような言い方をすれば、インデントしてないところじゃ使えんよ。 って事なんでしょ。(厳密には libraryか、executableの中だけ)</div></div></div><div class="message event" id="message-1549191353.447900"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1549191353.447900">2019-02-03&nbsp;19:55:53 +0900</a></div></div><div class="message__body description"><blockquote>Conditional blocks may appear anywhere inside a library or executable section</blockquote><br/>ということなんでそうなんでしょうね。。。<br/>GHC 8.2以降の時だけtest-suiteを走らせたい場合、恐らく、<br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548927030.435100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">koyama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548927030.435100">2019-01-31 18:30:30 +0900</a></div>
+          </div>
+          <div class="message__body description">最初は Nothing から Just 1 のインデントになるところはたぶん問題なく動いちゃうと思うんですが、 Just 1 のインデントのつもりで "  item1" の行をパースすると、まず1個スペースを読み飛ばして、残り1個のスペースの個数を数えて、合計2になって、その Just 2 を持って " item1\n  item2\n  item3\n..." をパースする（最初の item1 の行にすでに残り一個しか空白がないことに注意）のでうまくいかないんじゃないかと</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548927387.435300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">koyama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548927387.435300">2019-01-31 18:36:27 +0900</a></div>
+          </div>
+          <div class="message__body description">bulletpointParser として try しそこねたので itemParser でパースしちゃって ListItem " item1" が返る。そして次の行でまた Just 1 の bulletpointParser で同じことが起きる…の繰り返しになりそうです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548928700.435500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroto.shioi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548928700.435500">2019-01-31 18:58:20 +0900</a></div>
+          </div>
+          <div class="message__body description">なんとなく原因はわかったけど、ではどうすればいいのかっていうところが疲れててわからない。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548928966.435700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">koyama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548928966.435700">2019-01-31 19:02:46 +0900</a></div>
+          </div>
+          <div class="message__body description">現状の延長で手っ取り早くやるなら一行目だけ特別扱いするのがいいんじゃないでしょうかねえ…空白を数えてしまった後はかならず itemParser できるはずなのでそこだけ自前でやって、残りを many1 じゃなくて many で処理してくっつける、みたいな感じで</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548930009.436100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">aiya000</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548930009.436100">2019-01-31 19:20:09 +0900</a></div>
+          </div>
+          <div class="message__body description">先頭の空白を <code>\s[^\s]</code> でパースすると<br/><code> bar</code> （空白1つ） にマッチして <code>  foo</code> （空白2つ）にマッチしないようになるので、まずはこれをitemParserみたいに名付けて、あとはそれ以前の空白の数でネストを数えると、字句解析がうまくいきそう :face_with_rolling_eyes:<br/>（貼っていただいたソース見てなくてすみません）<br/>（本文中の正規表現は適宜パーサーコンビネータの表現に置き換えて読んでください:eyeglasses:）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548930216.436400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">aiya000</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548930216.436400">2019-01-31 19:23:36 +0900</a></div>
+          </div>
+          <div class="message__body description"><code> foo</code> （空白1つ）は <code>itemParser</code> で、<br/><code>  faa</code> （空白2つ）は <code>\s &gt;&gt; itemParser</code> で、<br/><code>   waa</code>  （空白3つ）は <code>\s &gt;&gt; \s &gt;&gt; itemParser</code> で<br/>……パースできるイメージ。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548930291.436700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548930291.436700">2019-01-31 19:24:51 +0900</a></div>
+          </div>
+          <div class="message__body description">修正案あげておきます<br/><a href='https://gist.github.com/mizunashi-mana/d4c03b236f7a22d8c1ce411924ba1fe8'>https://gist.github.com/mizunashi-mana/d4c03b236f7a22d8c1ce411924ba1fe8</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548930487.436900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroto.shioi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548930487.436900">2019-01-31 19:28:07 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとー。よく見ておきます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548930533.437100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroto.shioi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548930533.437100">2019-01-31 19:28:53 +0900</a></div>
+          </div>
+          <div class="message__body description">@aiya000<br/>ごめんなさい。正規表現は全くわからないです（だからParsecに逃げました</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548930576.437300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">koyama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548930576.437300">2019-01-31 19:29:36 +0900</a></div>
+          </div>
+          <div class="message__body description">ああ、やっぱり Maybe Int の Nothing をやめて単に Int の 0 にしたくなりますよね^^; <blockquote>indentの数</blockquote></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548997053.437900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroto.shioi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548997053.437900">2019-02-01 13:57:33 +0900</a></div>
+          </div>
+          <div class="message__body description">@mizunashi-mana さんの修正案を元に実装してみたら上手くいきました。ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549002044.438500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pen_g_uin</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549002044.438500">2019-02-01 15:20:44 +0900</a></div>
+          </div>
+          <div class="message__body description">@pen_g_uin has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549080665.440100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kayhide</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549080665.440100">2019-02-02 13:11:05 +0900</a></div>
+          </div>
+          <div class="message__body description">どのパッケージがどれだけの数のパッケージから依存されているか、をリスト化しているサイトがあったと思うのですが、わかる方いますでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549080882.440200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549080882.440200">2019-02-02 13:14:42 +0900</a></div>
+          </div>
+          <div class="message__body description">ここですかね？ <a href='https://packdeps.haskellers.com/reverse'>https://packdeps.haskellers.com/reverse</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549080905.440400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kayhide</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549080905.440400">2019-02-02 13:15:05 +0900</a></div>
+          </div>
+          <div class="message__body description">おお、まさにそれです！ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549082867.440700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549082867.440700">2019-02-02 13:47:47 +0900</a></div>
+          </div>
+          <div class="message__body description">stackage でもみれたきがする</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549082926.440900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549082926.440900">2019-02-02 13:48:46 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://www.stackage.org/package/servant/revdeps'>https://www.stackage.org/package/servant/revdeps</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549083475.441100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kayhide</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549083475.441100">2019-02-02 13:57:55 +0900</a></div>
+          </div>
+          <div class="message__body description">見たいのは、依存されている数でした。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549083536.441300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kayhide</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549083536.441300">2019-02-02 13:58:56 +0900</a></div>
+          </div>
+          <div class="message__body description">論文でいうと、どれだけ引用されているか、みたいな指標に近い感覚です。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549084610.441500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549084610.441500">2019-02-02 14:16:50 +0900</a></div>
+          </div>
+          <div class="message__body description">stackage のリンクは依存されてるパッケージのリストです（もちろん 依存してるパッケージも別のページでみれますが）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549088391.441700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549088391.441700">2019-02-02 15:19:51 +0900</a></div>
+          </div>
+          <div class="message__body description">Windowsでsupermonadパッケージを含むプロジェクトをビルドしようとすると、こんなエラーになります。解決方法が分かる方いたら教えて頂きたいです。他のパッケージはビルド出来ているので、supermonadがGHCプラグインを含んでいるせいで駄目なのかな？と予想しています</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549088535.442000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549088535.442000">2019-02-02 15:22:15 +0900</a></div>
+          </div>
+          <div class="message__body description">stackとcabal new-buildで試して同じエラーになりました。添付テキストはnew-buildの方です</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549088644.442200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549088644.442200">2019-02-02 15:24:04 +0900</a></div>
+          </div>
+          <div class="message__body description">あ、READMEに-dynamic付けてね、って書いてありましたね。stackやnew-buildではどう設定すればいいんでしょうか</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549090153.442700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549090153.442700">2019-02-02 15:49:13 +0900</a></div>
+          </div>
+          <div class="message__body description">--ghc-options=-dynamic<br/>かな。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549090252.442900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549090252.442900">2019-02-02 15:50:52 +0900</a></div>
+          </div>
+          <div class="message__body description">そういえばcabalファイルに書くのではダメでしたかね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549090576.443100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kayhide</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549090576.443100">2019-02-02 15:56:16 +0900</a></div>
+          </div>
+          <div class="message__body description">そうですね。このページをみれば <code>servant</code> が、どれだけの数のパッケージから依存されているかはわかります。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549090755.443300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kayhide</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549090755.443300">2019-02-02 15:59:15 +0900</a></div>
+          </div>
+          <div class="message__body description">知りたかったのは、 <code>servant</code> だけでなく、パッケージ <code>a</code>, <code>b</code>, <code>c</code>,... と候補が複数あったとき、どれがどれだけ非依存数をもっているか、のリストです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549157382.443800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549157382.443800">2019-02-03 10:29:42 +0900</a></div>
+          </div>
+          <div class="message__body description">--ghc-options=dynamic にすると、他のパッケージでも同じエラーが出るように……baseをこのオプション付きでビルドした奴が必要、という状況のようです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549157754.444000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549157754.444000">2019-02-03 10:35:54 +0900</a></div>
+          </div>
+          <div class="message__body description">new-buildだと.projectファイルのオプションshared, executable-dynamicが関係ありそうだったんですが、有効にしても直らない模様</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549158128.444200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549158128.444200">2019-02-03 10:42:08 +0900</a></div>
+          </div>
+          <div class="message__body description">stackが落としてきたghcに無理やりパス通して使っているのも関係してるかもしれません</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549180109.447500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549180109.447500">2019-02-03 16:48:29 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://github.com/Hexirp/doctest-driver-gen/commit/610b470eaa22c6971693b08ebfe7f16bc6588fea'>https://github.com/Hexirp/doctest-driver-gen/commit/610b470eaa22c6971693b08ebfe7f16bc6588fea</a> のような変更をしたんですが <a href='https://travis-ci.org/Hexirp/doctest-driver-gen/builds/488028462#L479-L481'>https://travis-ci.org/Hexirp/doctest-driver-gen/builds/488028462#L479-L481</a> のように警告が出てしまいます。どういうことなんでしょうか？ Cabal のドキュメントの条件節のところ (<https://www.haskell.org/cabal/users-guide/developing-packages.html#conditional-blocks>) を見てもよくわかりません。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549185382.447600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yharuhi39</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549185382.447600">2019-02-03 18:16:22 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>if</code> ってのがグローバルなスコープでは駄目だよって言ってますね。スコープって言っていいのか分りませんけど。。。 誤解されるような言い方をすれば、インデントしてないところじゃ使えんよ。 って事なんでしょ。(厳密には libraryか、executableの中だけ)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549191353.447900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549191353.447900">2019-02-03 19:55:53 +0900</a></div>
+          </div>
+          <div class="message__body description"><blockquote>Conditional blocks may appear anywhere inside a library or executable section</blockquote><br/>ということなんでそうなんでしょうね。。。<br/>GHC 8.2以降の時だけtest-suiteを走らせたい場合、恐らく、<br/><pre>
 if impl(ghc &lt; 8.2.0)
   buildable: False
-</pre><br/>と書くのが良いのではないかと。</div></div></div><div class="message event" id="message-1549259287.453800"><div class="content"><div class="summary"><div class="message__header user">yamanntyu22</div><div class="message__timestamp date"><a class="date" href="#message-1549259287.453800">2019-02-04&nbsp;14:48:07 +0900</a></div></div><div class="message__body description">Haskell-Yampaプログラムについてここにいる皆様のおかげでかなり形になりました！質問に対応してくださり本当にありがとうございます！<br/>教授にクイックチェックの動作を見てもらってもらった感想として「テストを行うという目的としてテスト試行回数を増やすということは抜けを見つける確率を上げる方法として正しいが、スクリプトを組んで探索範囲を複数に分けて複数のコアで回せばより早くなるしそうしたほうが工夫した点や今後の課題で書きやすいから考えてみて」と言われました。<br/>自分はスクリプトというものを今まで組んだことがないのですが、書き方等をご教授願えないでしょうか？</div></div></div><div class="message event" id="message-1549259326.453900"><div class="content"><div class="summary"><div class="message__header user">yamanntyu22</div><div class="message__timestamp date"><a class="date" href="#message-1549259326.453900">2019-02-04&nbsp;14:48:46 +0900</a></div></div><div class="message__body description"></div></div></div><div class="message event" id="message-1549259700.459200"><div class="content"><div class="summary"><div class="message__header user">yamanntyu22</div><div class="message__timestamp date"><a class="date" href="#message-1549259700.459200">2019-02-04&nbsp;14:55:00 +0900</a></div></div><div class="message__body description">今は上のプログラムに対して<br/>*Main Lib&gt; quickCheck $ forAll (choose(5,100)) $ test_bounce<br/>と入力して初期位置が5以上100以下のものからランダムに100パターン、1000000サイクル×0.01秒後の位置が-1未満(地面を貫通しているか)で判定しているのですが、<br/>教授の言うスクリプトというものは<br/>①二つに分ける場合、初期位置等を5-50と50-100に分けておこなう<br/>②それぞれ別のコアで行う<br/>を行えるようにすることだと思うのですが、具体的にスクリプトがどのように行うものかも含めて教えてくれるとありがたいです</div></div></div><div class="message event" id="message-1549260170.459500"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1549260170.459500">2019-02-04&nbsp;15:02:50 +0900</a></div></div><div class="message__body description">ここでいう「スクリプト」が本来プログラマが常用している「スクリプト」と同じものを指しているかわかりませんが、要するに先生が言っていることって「Yampa の QuickCheck を並列実行してみれば？」という話ですよね？</div></div></div><div class="message event" id="message-1549260374.459700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1549260374.459700">2019-02-04&nbsp;15:06:14 +0900</a></div></div><div class="message__body description"><blockquote>自分はスクリプトというものを今まで組んだことがないのですが、書き方等をご教授願えないでしょうか？</blockquote><br/>取り急ぎ。普通「スクリプト」という時は単に「小さなプログラム」ぐらいの意味しかないです。ので、そういうプログラムを書いてみて、という話ではないかと。</div></div></div><div class="message event" id="message-1549260558.459900"><div class="content"><div class="summary"><div class="message__header user">yamanntyu22</div><div class="message__timestamp date"><a class="date" href="#message-1549260558.459900">2019-02-04&nbsp;15:09:18 +0900</a></div></div><div class="message__body description">Yampa の QuickCheck を並列実行を行うことだと思います。<br/>QuickCheckを並列実行を一つの端末画面で行うためにスクリプトを組んでねという感じだと思います。</div></div></div><div class="message event" id="message-1549260683.460100"><div class="content"><div class="summary"><div class="message__header user">yamanntyu22</div><div class="message__timestamp date"><a class="date" href="#message-1549260683.460100">2019-02-04&nbsp;15:11:23 +0900</a></div></div><div class="message__body description">それで自分はそもそもQuickCheckの並列実行を一つの端末画面で行う方法がわからない＆スクリプトを何で書けばいいのか＆stack ghci上で行うのか等がわかっていない状況です</div></div></div><div class="message event" id="message-1549261710.460700"><div class="content"><div class="summary"><div class="message__header user">hiroto.shioi</div><div class="message__timestamp date"><a class="date" href="#message-1549261710.460700">2019-02-04&nbsp;15:28:30 +0900</a></div></div><div class="message__body description">「２つのテストケースを並列に実行する関数を書いてね」だったらhspec + quickcheckでなんとかなりそうだけど。<br/><a href='https://hspec.github.io/parallel-spec-execution.html'>https://hspec.github.io/parallel-spec-execution.html</a></div></div></div><div class="message event" id="message-1549262176.461000"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1549262176.461000">2019-02-04&nbsp;15:36:16 +0900</a></div></div><div class="message__body description">パラメーターの範囲ごとにテストケースを分ければそれでいけそうですね。<br/>あと、途中経過を表示させなくてもよければ、単純に<br/><br/><pre>
+</pre><br/>と書くのが良いのではないかと。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549259287.453800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yamanntyu22</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549259287.453800">2019-02-04 14:48:07 +0900</a></div>
+          </div>
+          <div class="message__body description">Haskell-Yampaプログラムについてここにいる皆様のおかげでかなり形になりました！質問に対応してくださり本当にありがとうございます！<br/>教授にクイックチェックの動作を見てもらってもらった感想として「テストを行うという目的としてテスト試行回数を増やすということは抜けを見つける確率を上げる方法として正しいが、スクリプトを組んで探索範囲を複数に分けて複数のコアで回せばより早くなるしそうしたほうが工夫した点や今後の課題で書きやすいから考えてみて」と言われました。<br/>自分はスクリプトというものを今まで組んだことがないのですが、書き方等をご教授願えないでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549259326.453900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yamanntyu22</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549259326.453900">2019-02-04 14:48:46 +0900</a></div>
+          </div>
+          <div class="message__body description"></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549259700.459200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yamanntyu22</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549259700.459200">2019-02-04 14:55:00 +0900</a></div>
+          </div>
+          <div class="message__body description">今は上のプログラムに対して<br/>*Main Lib&gt; quickCheck $ forAll (choose(5,100)) $ test_bounce<br/>と入力して初期位置が5以上100以下のものからランダムに100パターン、1000000サイクル×0.01秒後の位置が-1未満(地面を貫通しているか)で判定しているのですが、<br/>教授の言うスクリプトというものは<br/>①二つに分ける場合、初期位置等を5-50と50-100に分けておこなう<br/>②それぞれ別のコアで行う<br/>を行えるようにすることだと思うのですが、具体的にスクリプトがどのように行うものかも含めて教えてくれるとありがたいです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549260170.459500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549260170.459500">2019-02-04 15:02:50 +0900</a></div>
+          </div>
+          <div class="message__body description">ここでいう「スクリプト」が本来プログラマが常用している「スクリプト」と同じものを指しているかわかりませんが、要するに先生が言っていることって「Yampa の QuickCheck を並列実行してみれば？」という話ですよね？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549260374.459700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549260374.459700">2019-02-04 15:06:14 +0900</a></div>
+          </div>
+          <div class="message__body description"><blockquote>自分はスクリプトというものを今まで組んだことがないのですが、書き方等をご教授願えないでしょうか？</blockquote><br/>取り急ぎ。普通「スクリプト」という時は単に「小さなプログラム」ぐらいの意味しかないです。ので、そういうプログラムを書いてみて、という話ではないかと。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549260558.459900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yamanntyu22</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549260558.459900">2019-02-04 15:09:18 +0900</a></div>
+          </div>
+          <div class="message__body description">Yampa の QuickCheck を並列実行を行うことだと思います。<br/>QuickCheckを並列実行を一つの端末画面で行うためにスクリプトを組んでねという感じだと思います。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549260683.460100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yamanntyu22</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549260683.460100">2019-02-04 15:11:23 +0900</a></div>
+          </div>
+          <div class="message__body description">それで自分はそもそもQuickCheckの並列実行を一つの端末画面で行う方法がわからない＆スクリプトを何で書けばいいのか＆stack ghci上で行うのか等がわかっていない状況です</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549261710.460700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroto.shioi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549261710.460700">2019-02-04 15:28:30 +0900</a></div>
+          </div>
+          <div class="message__body description">「２つのテストケースを並列に実行する関数を書いてね」だったらhspec + quickcheckでなんとかなりそうだけど。<br/><a href='https://hspec.github.io/parallel-spec-execution.html'>https://hspec.github.io/parallel-spec-execution.html</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549262176.461000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549262176.461000">2019-02-04 15:36:16 +0900</a></div>
+          </div>
+          <div class="message__body description">パラメーターの範囲ごとにテストケースを分ければそれでいけそうですね。<br/>あと、途中経過を表示させなくてもよければ、単純に<br/><br/><pre>
 quickCheckWithResult stdArgs { chatty = False } prop
-</pre><br/><br/>という関数を <code>async</code> などを使って並列に実行するのでもよいかと思います。<br/>スレッドごとにパラメーターの範囲が変わるよう調整すれば、要件が満たせるでしょう。<br/><br/>あと、自分で結果を出力する必要がありますが...</div></div></div><div class="message event" id="message-1549264413.461200"><div class="content"><div class="summary"><div class="message__header user">yamanntyu22</div><div class="message__timestamp date"><a class="date" href="#message-1549264413.461200">2019-02-04&nbsp;16:13:33 +0900</a></div></div><div class="message__body description">ありがとうございます！Parallel spec executionで試してみます。</div></div></div><div class="message event" id="message-1549275570.462100"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1549275570.462100">2019-02-04&nbsp;19:19:30 +0900</a></div></div><div class="message__body description">お二人方とも回答ありがとうございました！ igrep さんの方法でやってみます！</div></div></div><div class="message event" id="message-1549333866.462500"><div class="content"><div class="summary"><div class="message__header user">32.allegro.con.brio.e</div><div class="message__timestamp date"><a class="date" href="#message-1549333866.462500">2019-02-05&nbsp;11:31:06 +0900</a></div></div><div class="message__body description">@32.allegro.con.brio.e has joined the channel</div></div></div><div class="message event" id="message-1549401729.463000"><div class="content"><div class="summary"><div class="message__header user">srtubaki</div><div class="message__timestamp date"><a class="date" href="#message-1549401729.463000">2019-02-06&nbsp;06:22:09 +0900</a></div></div><div class="message__body description">@srtubaki has joined the channel</div></div></div><div class="message event" id="message-1549421822.463300"><div class="content"><div class="summary"><div class="message__header user">chanceux555</div><div class="message__timestamp date"><a class="date" href="#message-1549421822.463300">2019-02-06&nbsp;11:57:02 +0900</a></div></div><div class="message__body description">@chanceux555 has joined the channel</div></div></div><div class="message event" id="message-1549447383.463700"><div class="content"><div class="summary"><div class="message__header user">contact</div><div class="message__timestamp date"><a class="date" href="#message-1549447383.463700">2019-02-06&nbsp;19:03:03 +0900</a></div></div><div class="message__body description">@contact has joined the channel</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/41.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/43.html" class="pager__next item">Next</a></div></div></body></html>
+</pre><br/><br/>という関数を <code>async</code> などを使って並列に実行するのでもよいかと思います。<br/>スレッドごとにパラメーターの範囲が変わるよう調整すれば、要件が満たせるでしょう。<br/><br/>あと、自分で結果を出力する必要がありますが...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549264413.461200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yamanntyu22</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549264413.461200">2019-02-04 16:13:33 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます！Parallel spec executionで試してみます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549275570.462100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549275570.462100">2019-02-04 19:19:30 +0900</a></div>
+          </div>
+          <div class="message__body description">お二人方とも回答ありがとうございました！ igrep さんの方法でやってみます！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549333866.462500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">32.allegro.con.brio.e</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549333866.462500">2019-02-05 11:31:06 +0900</a></div>
+          </div>
+          <div class="message__body description">@32.allegro.con.brio.e has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549401729.463000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">srtubaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549401729.463000">2019-02-06 06:22:09 +0900</a></div>
+          </div>
+          <div class="message__body description">@srtubaki has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549421822.463300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">chanceux555</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549421822.463300">2019-02-06 11:57:02 +0900</a></div>
+          </div>
+          <div class="message__body description">@chanceux555 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1549447383.463700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">contact</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1549447383.463700">2019-02-06 19:03:03 +0900</a></div>
+          </div>
+          <div class="message__body description">@contact has joined the channel</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/41.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/43.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

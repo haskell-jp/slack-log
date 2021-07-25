@@ -1,17 +1,228 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #70</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #70</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/69.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/71.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1567938986.050900"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1567938986.050900">2019-09-08&nbsp;19:36:26 +0900</a></div></div><div class="message__body description">確かに、言われてみればなんの区切りもなく匿名関数が始まっているようで、普通の式とどうやって見分けるんだろうという感じがしますね...</div></div></div><div class="message event" id="message-1567939338.051200"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1567939338.051200">2019-09-08&nbsp;19:42:18 +0900</a></div></div><div class="message__body description">たしかに。<br/>括弧にくるんでるからって安心してましたけどたしかにexprASTも括弧にくるまれてるから安心できなかった</div></div></div><div class="message event" id="message-1567943436.051800"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1567943436.051800">2019-09-08&nbsp;20:50:36 +0900</a></div></div><div class="message__body description">なるほど，不思議な動作ですね… 確かに Strict の時のみ stack overflow になりました… ちょっとそれは想定してませんでしたね…</div></div></div><div class="message event" id="message-1567945497.052100"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1567945497.052100">2019-09-08&nbsp;21:24:57 +0900</a></div></div><div class="message__body description">あ，いいのか．過去の自分に追いつけてなかった．<br/>まず， Strict をつけようがつけまいが，<br/><pre>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #70</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #70</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/69.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/71.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1567938986.050900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567938986.050900">2019-09-08 19:36:26 +0900</a></div>
+          </div>
+          <div class="message__body description">確かに、言われてみればなんの区切りもなく匿名関数が始まっているようで、普通の式とどうやって見分けるんだろうという感じがしますね...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567939338.051200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567939338.051200">2019-09-08 19:42:18 +0900</a></div>
+          </div>
+          <div class="message__body description">たしかに。<br/>括弧にくるんでるからって安心してましたけどたしかにexprASTも括弧にくるまれてるから安心できなかった</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567943436.051800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567943436.051800">2019-09-08 20:50:36 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど，不思議な動作ですね… 確かに Strict の時のみ stack overflow になりました… ちょっとそれは想定してませんでしたね…</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567945497.052100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567945497.052100">2019-09-08 21:24:57 +0900</a></div>
+          </div>
+          <div class="message__body description">あ，いいのか．過去の自分に追いつけてなかった．<br/>まず， Strict をつけようがつけまいが，<br/><pre>
 foldl (\ z x -&gt; x : z) [] [1..n]
 </pre><br/>は<br/><pre>
 let k = \ z x -&gt; x : z in (([] `k` 1) ... `k` n)
 </pre><br/>みたいなものを生成することになります．でそれぞれの括弧の中身はサンクのままヒープにのって評価されるのを待つことになります．<br/><br/><code>evaluate</code> でそれが WHNF まで評価されることになりますが，まず一番外側の評価<br/><pre>
 (… `k` n) =&gt; n : ...
-</pre><br/>が実行されることになります． Strict をつけない場合 <code>...</code> は評価されませんが， Strict をつける場合 <code>...</code> の部分が評価されることになり，さらにその評価のために <code>k (…) (n - 1)</code> の評価が走りという感じで，どんどんスタックに退避された値が積み上がっていきスタックオーバーフローになります．<br/><br/>なお，ちゃんと <code>foldl'</code> を使った場合，ヒープに積み上がるはずだったサンクが先に消化されながらループが回るため，どちらの場合もスタックオーバーフローは起きません</div></div></div><div class="message event" id="message-1567945696.052800"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1567945696.052800">2019-09-08&nbsp;21:28:16 +0900</a></div></div><div class="message__body description">あ，だから Strict 拡張のみで stack overflow する例なんですね．前のコメントは間違いですね．失礼しました</div></div></div><div class="message event" id="message-1567955856.055000"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1567955856.055000">2019-09-09&nbsp;00:17:36 +0900</a></div></div><div class="message__body description">初めて template Haskell を書いたのですがビルド時に 10GB 以上消費されるようになってしまいました…… :cry:<br/>コードレビューしてほしいです<br/><a href='https://github.com/kakkun61/tuple/pull/1'>https://github.com/kakkun61/tuple/pull/1</a></div></div></div><div class="message event" id="message-1567962365.055200"><div class="content"><div class="summary"><div class="message__header user">notogawa</div><div class="message__timestamp date"><a class="date" href="#message-1567962365.055200">2019-09-09&nbsp;02:06:05 +0900</a></div></div><div class="message__body description">Ty*等構文木のコンストラクタを直で使うとバージョンアップで壊れやすいものができあがるので，可能な限りQuasi-quotationを使って書いておいたほうが幸せになると思います．</div></div></div><div class="message event" id="message-1567963552.055400"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1567963552.055400">2019-09-09&nbsp;02:25:52 +0900</a></div></div><div class="message__body description">なるほど！</div></div></div><div class="message event" id="message-1567976577.055600"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1567976577.055600">2019-09-09&nbsp;06:02:57 +0900</a></div></div><div class="message__body description"><code>Q</code> モナドは， <code>runQ</code> を使えば <code>IO</code> の元で走らせることができるようになっているので，それでデバッグできます．大体のデータ型は <code>Show</code> が実装されているので，単純に表示してみると良いと思います．<br/><br/><pre>
+</pre><br/>が実行されることになります． Strict をつけない場合 <code>...</code> は評価されませんが， Strict をつける場合 <code>...</code> の部分が評価されることになり，さらにその評価のために <code>k (…) (n - 1)</code> の評価が走りという感じで，どんどんスタックに退避された値が積み上がっていきスタックオーバーフローになります．<br/><br/>なお，ちゃんと <code>foldl'</code> を使った場合，ヒープに積み上がるはずだったサンクが先に消化されながらループが回るため，どちらの場合もスタックオーバーフローは起きません</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567945696.052800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567945696.052800">2019-09-08 21:28:16 +0900</a></div>
+          </div>
+          <div class="message__body description">あ，だから Strict 拡張のみで stack overflow する例なんですね．前のコメントは間違いですね．失礼しました</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567955856.055000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567955856.055000">2019-09-09 00:17:36 +0900</a></div>
+          </div>
+          <div class="message__body description">初めて template Haskell を書いたのですがビルド時に 10GB 以上消費されるようになってしまいました…… :cry:<br/>コードレビューしてほしいです<br/><a href='https://github.com/kakkun61/tuple/pull/1'>https://github.com/kakkun61/tuple/pull/1</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567962365.055200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">notogawa</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567962365.055200">2019-09-09 02:06:05 +0900</a></div>
+          </div>
+          <div class="message__body description">Ty*等構文木のコンストラクタを直で使うとバージョンアップで壊れやすいものができあがるので，可能な限りQuasi-quotationを使って書いておいたほうが幸せになると思います．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567963552.055400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567963552.055400">2019-09-09 02:25:52 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567976577.055600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567976577.055600">2019-09-09 06:02:57 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>Q</code> モナドは， <code>runQ</code> を使えば <code>IO</code> の元で走らせることができるようになっているので，それでデバッグできます．大体のデータ型は <code>Show</code> が実装されているので，単純に表示してみると良いと思います．<br/><br/><pre>
 &gt;&gt;&gt; runQ (consType 1) :: IO [Dec]
 [TySynInstD Data.Tuple.List.Data.Cons (TySynEqn [VarT x_2,TupleT 0] (AppT (TupleT 1) (VarT x_2)))]
-</pre><br/><br/>みたいな感じでそれぞれの関数の <code>Dec</code> を表示する <code>Main</code> モジュールを書いて，プロファイルを取ってみるといいと思いますね．<br/><br/>ついでにですが，無限リストの利用は計画的に行った方が良いと思いますね</div></div></div><div class="message event" id="message-1567992697.056300"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1567992697.056300">2019-09-09&nbsp;10:31:37 +0900</a></div></div><div class="message__body description"><code>runQ</code> したのをわざわざコピーしてました……</div></div></div><div class="message event" id="message-1568007206.056600"><div class="content"><div class="summary"><div class="message__header user">hiroto.shioi</div><div class="message__timestamp date"><a class="date" href="#message-1568007206.056600">2019-09-09&nbsp;14:33:26 +0900</a></div></div><div class="message__body description">できないと思う。少なくとも僕が関わっているプロジェクトではstackでインストールしたパッケージをnixの環境では利用できなかった。<br/><br/><br/><blockquote>OSSでhydra使うにはどうしたらいいでしょうか。自分でたてるしかないですか？</blockquote>自分もよくわからないからきいてみます！</div></div></div><div class="message event" id="message-1568079332.061100"><div class="content"><div class="summary"><div class="message__header user">junji.hashimoto</div><div class="message__timestamp date"><a class="date" href="#message-1568079332.061100">2019-09-10&nbsp;10:35:32 +0900</a></div></div><div class="message__body description">お疲れ様です<br/>type levelの関数をpropertyテストするにはどうすればいいでしょうか？<br/>doctestでkinds!やtype-specで個別の値はテストできるのですが。<br/>あとはtemplate haskellつかうとか？</div></div></div><div class="message event" id="message-1568081220.062100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1568081220.062100">2019-09-10&nbsp;11:07:00 +0900</a></div></div><div class="message__body description"><a href='https://hackage.haskell.org/package/should-not-typecheck'>https://hackage.haskell.org/package/should-not-typecheck</a> をうまく使えば... と思ったけど型レベルで生成する必要があるわけですよね... :gununu:<br/><br/>確かにTemplate Haskellを使って頑張って書くしか思いつかないですね... （新しいパッケージを作るチャンス！</div></div></div><div class="message event" id="message-1568120533.062600"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1568120533.062600">2019-09-10&nbsp;22:02:13 +0900</a></div></div><div class="message__body description">改めて試して、<br/><pre>
+</pre><br/><br/>みたいな感じでそれぞれの関数の <code>Dec</code> を表示する <code>Main</code> モジュールを書いて，プロファイルを取ってみるといいと思いますね．<br/><br/>ついでにですが，無限リストの利用は計画的に行った方が良いと思いますね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567992697.056300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567992697.056300">2019-09-09 10:31:37 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>runQ</code> したのをわざわざコピーしてました……</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568007206.056600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroto.shioi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568007206.056600">2019-09-09 14:33:26 +0900</a></div>
+          </div>
+          <div class="message__body description">できないと思う。少なくとも僕が関わっているプロジェクトではstackでインストールしたパッケージをnixの環境では利用できなかった。<br/><br/><br/><blockquote>OSSでhydra使うにはどうしたらいいでしょうか。自分でたてるしかないですか？</blockquote>自分もよくわからないからきいてみます！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568079332.061100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">junji.hashimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568079332.061100">2019-09-10 10:35:32 +0900</a></div>
+          </div>
+          <div class="message__body description">お疲れ様です<br/>type levelの関数をpropertyテストするにはどうすればいいでしょうか？<br/>doctestでkinds!やtype-specで個別の値はテストできるのですが。<br/>あとはtemplate haskellつかうとか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568081220.062100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568081220.062100">2019-09-10 11:07:00 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://hackage.haskell.org/package/should-not-typecheck'>https://hackage.haskell.org/package/should-not-typecheck</a> をうまく使えば... と思ったけど型レベルで生成する必要があるわけですよね... :gununu:<br/><br/>確かにTemplate Haskellを使って頑張って書くしか思いつかないですね... （新しいパッケージを作るチャンス！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568120533.062600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568120533.062600">2019-09-10 22:02:13 +0900</a></div>
+          </div>
+          <div class="message__body description">改めて試して、<br/><pre>
 foldr (\x z -&gt; x : z) [] [1 .. size]
-</pre><br/>と、 <code>foldr</code> にした場合、<br/><code>Strict</code> をつけた場合最適化を有効にしてもスタックがあふれますね。大体理屈は <code>foldl</code> の場合と同じ、ですよね？<br/><code>foldr</code> に渡した関数 <code>(\x z -&gt; x : z)</code> は実質的に両辺をWHNFまで評価する <code>:</code> ということでしょうから。</div></div></div><div class="message event" id="message-1568135882.062900"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1568135882.062900">2019-09-11&nbsp;02:18:02 +0900</a></div></div><div class="message__body description"><code>foldr</code> の場合 <code>foldl</code> の時と事情が少々異なっていて，まず strict な <code>foldr</code> 相当のものは通常リストを reverse するなどしない限り，固定スタックの再帰にできません．それは，リストの後ろの要素から得られる値が分からないと前の要素に対しての計算ができないからです． <code>foldr</code> の場合，<br/><pre>
+</pre><br/>と、 <code>foldr</code> にした場合、<br/><code>Strict</code> をつけた場合最適化を有効にしてもスタックがあふれますね。大体理屈は <code>foldl</code> の場合と同じ、ですよね？<br/><code>foldr</code> に渡した関数 <code>(\x z -&gt; x : z)</code> は実質的に両辺をWHNFまで評価する <code>:</code> ということでしょうから。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568135882.062900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568135882.062900">2019-09-11 02:18:02 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>foldr</code> の場合 <code>foldl</code> の時と事情が少々異なっていて，まず strict な <code>foldr</code> 相当のものは通常リストを reverse するなどしない限り，固定スタックの再帰にできません．それは，リストの後ろの要素から得られる値が分からないと前の要素に対しての計算ができないからです． <code>foldr</code> の場合，<br/><pre>
 let k = \ x z -&gt; x : z in (1 `k` foldr k [] [2 .. n])
-</pre><br/>みたいなものが最初にヒープに乗ることになります．そして，このサンクを評価する時 <code>k</code> が strict なので， <code>foldr k [] [2 .. n]</code> 部分の評価が始まりこの時スタックに値が退避されます．同様の操作がされることによってスタックがどんどん積み上がっていくことになりますが，ヒープの消費量はサンクが nursery にいる間に処理されるため抑えられます．<br/><br/><code>foldr'</code> は <code>foldl</code> を使って実装されているため，スタックを消費しない代わりにヒープを消費する実装になっています (これは前回のやつの原理からですね．今回はリストを生成するため，そちらの方にもヒープが割かれて顕著な差がないですが， <code>\ x z -&gt; x</code> とかだと差が出ると思います) なので，基本的に Strict 拡張下では <code>foldr</code> 系統は使ってはいけません．代わりに <code>foldl'</code> を使ってなんとかするか， lazy にするか， mutable の使用を検討すべきです．<br/><br/> <code>foldl</code> の例は一見 strict にしたらいけそうに見えるけど，実は中身が正格消費になっていないので heap を辿りながらスタックオーバーフローしてしまう例になっていて， strict にするだけではダメで中身も正格消費なものを使わないといけないということになります．ここらへんは， (`foldl` は有名な例ですが) 遅延評価での罠を知っていないと判断できないですし，逆に strict 拡張はこういう遅延評価の罠から生まれたもので， BangPattern と strictness flag を書くのがめんどい人用の拡張なので，背景を抑えると strict 拡張がどういう動作をするのかは見えやすいのでは？ というのがあのコメントで言いたいことですね</div></div></div><div class="message event" id="message-1568137511.063100"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1568137511.063100">2019-09-11&nbsp;02:45:11 +0900</a></div></div><div class="message__body description">なので基本的には、<br/>* foldr 系統は strict 下では使ってはいけない<br/>* foldl 系統は (strict 下でなくても) 正格消費版を使うこと<br/>みたいな感じですね</div></div></div><div class="message event" id="message-1568157804.063500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1568157804.063500">2019-09-11&nbsp;08:23:24 +0900</a></div></div><div class="message__body description">詳しい解説ありがとうございます！</div></div></div><div class="message event" id="message-1568158296.063800"><div class="content"><div class="summary"><div class="message__header user">makoto.atarashi0607</div><div class="message__timestamp date"><a class="date" href="#message-1568158296.063800">2019-09-11&nbsp;08:31:36 +0900</a></div></div><div class="message__body description">@makoto.atarashi0607 has joined the channel</div></div></div><div class="message event" id="message-1568171614.064000"><div class="content"><div class="summary"><div class="message__header user">hiroto.shioi</div><div class="message__timestamp date"><a class="date" href="#message-1568171614.064000">2019-09-11&nbsp;12:13:34 +0900</a></div></div><div class="message__body description">こんにちは！OSSでHydraを使うならこれを参考にするといいよっていわれました。<br/><a href='https://nixos.org/hydra/manual/#chap-installation'>https://nixos.org/hydra/manual/#chap-installation</a></div></div></div><div class="message event" id="message-1568192880.065800"><div class="content"><div class="summary"><div class="message__header user">junji.hashimoto</div><div class="message__timestamp date"><a class="date" href="#message-1568192880.065800">2019-09-11&nbsp;18:08:00 +0900</a></div></div><div class="message__body description">ありがとうございます。</div></div></div><div class="message event" id="message-1568206505.066100"><div class="content"><div class="summary"><div class="message__header user">atsushi.sato.3r</div><div class="message__timestamp date"><a class="date" href="#message-1568206505.066100">2019-09-11&nbsp;21:55:05 +0900</a></div></div><div class="message__body description">@atsushi.sato.3r has joined the channel</div></div></div><div class="message event" id="message-1568250017.072200"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1568250017.072200">2019-09-12&nbsp;10:00:17 +0900</a></div></div><div class="message__body description"><pre>
+</pre><br/>みたいなものが最初にヒープに乗ることになります．そして，このサンクを評価する時 <code>k</code> が strict なので， <code>foldr k [] [2 .. n]</code> 部分の評価が始まりこの時スタックに値が退避されます．同様の操作がされることによってスタックがどんどん積み上がっていくことになりますが，ヒープの消費量はサンクが nursery にいる間に処理されるため抑えられます．<br/><br/><code>foldr'</code> は <code>foldl</code> を使って実装されているため，スタックを消費しない代わりにヒープを消費する実装になっています (これは前回のやつの原理からですね．今回はリストを生成するため，そちらの方にもヒープが割かれて顕著な差がないですが， <code>\ x z -&gt; x</code> とかだと差が出ると思います) なので，基本的に Strict 拡張下では <code>foldr</code> 系統は使ってはいけません．代わりに <code>foldl'</code> を使ってなんとかするか， lazy にするか， mutable の使用を検討すべきです．<br/><br/> <code>foldl</code> の例は一見 strict にしたらいけそうに見えるけど，実は中身が正格消費になっていないので heap を辿りながらスタックオーバーフローしてしまう例になっていて， strict にするだけではダメで中身も正格消費なものを使わないといけないということになります．ここらへんは， (`foldl` は有名な例ですが) 遅延評価での罠を知っていないと判断できないですし，逆に strict 拡張はこういう遅延評価の罠から生まれたもので， BangPattern と strictness flag を書くのがめんどい人用の拡張なので，背景を抑えると strict 拡張がどういう動作をするのかは見えやすいのでは？ というのがあのコメントで言いたいことですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568137511.063100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568137511.063100">2019-09-11 02:45:11 +0900</a></div>
+          </div>
+          <div class="message__body description">なので基本的には、<br/>* foldr 系統は strict 下では使ってはいけない<br/>* foldl 系統は (strict 下でなくても) 正格消費版を使うこと<br/>みたいな感じですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568157804.063500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568157804.063500">2019-09-11 08:23:24 +0900</a></div>
+          </div>
+          <div class="message__body description">詳しい解説ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568158296.063800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">makoto.atarashi0607</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568158296.063800">2019-09-11 08:31:36 +0900</a></div>
+          </div>
+          <div class="message__body description">@makoto.atarashi0607 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568171614.064000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroto.shioi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568171614.064000">2019-09-11 12:13:34 +0900</a></div>
+          </div>
+          <div class="message__body description">こんにちは！OSSでHydraを使うならこれを参考にするといいよっていわれました。<br/><a href='https://nixos.org/hydra/manual/#chap-installation'>https://nixos.org/hydra/manual/#chap-installation</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568192880.065800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">junji.hashimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568192880.065800">2019-09-11 18:08:00 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568206505.066100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">atsushi.sato.3r</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568206505.066100">2019-09-11 21:55:05 +0900</a></div>
+          </div>
+          <div class="message__body description">@atsushi.sato.3r has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568250017.072200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568250017.072200">2019-09-12 10:00:17 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>
 cutsea110@waikiki ~/.ghc/x86_64-linux-8.6.5/package.conf.d (master *)
 $ ghci -V
 The Glorious Glasgow Haskell Compilation System, version 8.6.5
@@ -51,7 +262,16 @@ ${HOME}/.cabal/store/ghc-8.6.5/criterion-1.5.6.0-ca84ad97c60c610760a3be5cf2c9aa3
 $ ls
 .   Criterion         Criterion.hi            Paths_criterion.hi                                                                                   libHScriterion-1.5.6.0-ca84ad97c60c610760a3be5cf2c9aa3cb940af0857a14e85a3e329ed3111cd2b.a
 ..  Criterion.dyn_hi  Paths_criterion.dyn_hi  libHScriterion-1.5.6.0-ca84ad97c60c610760a3be5cf2c9aa3cb940af0857a14e85a3e329ed3111cd2b-ghc8.6.5.so
-</pre><br/><br/>という具合でモジュールが入っている様子です.<br/>.cabal側のstoreってのがどうも良く分かってないのですが...<br/>これはどうやればCriterion.Mainモジュールを使えるようになるんでしょうか?</div></div></div><div class="message event" id="message-1568250446.072500"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1568250446.072500">2019-09-12&nbsp;10:07:26 +0900</a></div></div><div class="message__body description">あう.自己解決したぽい.<br/>cabal replから<br/><br/><pre>
+</pre><br/><br/>という具合でモジュールが入っている様子です.<br/>.cabal側のstoreってのがどうも良く分かってないのですが...<br/>これはどうやればCriterion.Mainモジュールを使えるようになるんでしょうか?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568250446.072500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568250446.072500">2019-09-12 10:07:26 +0900</a></div>
+          </div>
+          <div class="message__body description">あう.自己解決したぽい.<br/>cabal replから<br/><br/><pre>
 $ cabal repl
 Resolving dependencies...
 Build profile: -w ghc-8.6.5 -O1
@@ -66,18 +286,272 @@ ghci&gt; :m +Criterion.Main
 ghci&gt; :t defaultMain
 defaultMain :: [Benchmark] -&gt; IO ()
 ghci&gt;
-</pre><br/><br/>とすればうまくloadできました.</div></div></div><div class="message event" id="message-1568250532.072700"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1568250532.072700">2019-09-12&nbsp;10:08:52 +0900</a></div></div><div class="message__body description">build-dependsに入れてロードできなかったので調べはじめてたのに今はうまくロードできている.謎ですがひとまず解消しました.</div></div></div><div class="message event" id="message-1568250699.072900"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1568250699.072900">2019-09-12&nbsp;10:11:39 +0900</a></div></div><div class="message__body description">確かcabal 3.X ってnew-**がデフォルトになる(new-無しでもnew-**が呼ばれる)って話でしたよね。なので、適切な.cabalのあるディレクトリでcabal replやcabal buildをすれば、最悪インストールされていなくても宜しくやってくれるはず</div></div></div><div class="message event" id="message-1568250814.073100"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1568250814.073100">2019-09-12&nbsp;10:13:34 +0900</a></div></div><div class="message__body description">素のghc(i)からでもロードできるようにするには、ライブラリの <code>cabal  (new-)install</code> に  <code>--lib</code> オプションを付けるんだったと思います</div></div></div><div class="message event" id="message-1568270158.073800"><div class="content"><div class="summary"><div class="message__header user">pontyan12</div><div class="message__timestamp date"><a class="date" href="#message-1568270158.073800">2019-09-12&nbsp;15:35:58 +0900</a></div></div><div class="message__body description">@pontyan12 has joined the channel</div></div></div><div class="message event" id="message-1568271504.077200"><div class="content"><div class="summary"><div class="message__header user">pontyan12</div><div class="message__timestamp date"><a class="date" href="#message-1568271504.077200">2019-09-12&nbsp;15:58:24 +0900</a></div></div><div class="message__body description">質問するのが初めてでありますので必要な情報が足りなければすみません。こちらの情報としてGithubのURLを貼っておきますが、ピンポイントで欲しい情報があればそこだけピックアップして貼ります。<br/><br/>SlackBotを作ろうと思い、ネットの記事やSlackAPIのGitHubのページを参照してサンプルコードをとりあえず実行しようと思ったのですが、<br/><br/><pre>
+</pre><br/><br/>とすればうまくloadできました.</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568250532.072700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568250532.072700">2019-09-12 10:08:52 +0900</a></div>
+          </div>
+          <div class="message__body description">build-dependsに入れてロードできなかったので調べはじめてたのに今はうまくロードできている.謎ですがひとまず解消しました.</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568250699.072900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568250699.072900">2019-09-12 10:11:39 +0900</a></div>
+          </div>
+          <div class="message__body description">確かcabal 3.X ってnew-**がデフォルトになる(new-無しでもnew-**が呼ばれる)って話でしたよね。なので、適切な.cabalのあるディレクトリでcabal replやcabal buildをすれば、最悪インストールされていなくても宜しくやってくれるはず</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568250814.073100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568250814.073100">2019-09-12 10:13:34 +0900</a></div>
+          </div>
+          <div class="message__body description">素のghc(i)からでもロードできるようにするには、ライブラリの <code>cabal  (new-)install</code> に  <code>--lib</code> オプションを付けるんだったと思います</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568270158.073800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pontyan12</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568270158.073800">2019-09-12 15:35:58 +0900</a></div>
+          </div>
+          <div class="message__body description">@pontyan12 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568271504.077200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pontyan12</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568271504.077200">2019-09-12 15:58:24 +0900</a></div>
+          </div>
+          <div class="message__body description">質問するのが初めてでありますので必要な情報が足りなければすみません。こちらの情報としてGithubのURLを貼っておきますが、ピンポイントで欲しい情報があればそこだけピックアップして貼ります。<br/><br/>SlackBotを作ろうと思い、ネットの記事やSlackAPIのGitHubのページを参照してサンプルコードをとりあえず実行しようと思ったのですが、<br/><br/><pre>
     Not in scope: type constructor or class 'SlackHandle'
    |
 27 | echoBot :: SlackHandle -&gt; IO ()
    |            ^^^^^^^^^^^
 
-</pre><br/>ビルド時にこのようなエラーが出てきます。検索しても同じような状況で困っている人がいなそうなので、質問させていただきます。どうか知恵を貸していただけませんでしょうか。<br/><br/>↓GithubのURLです。<br/><a href='https://github.com/P0ngCh4ng/OkSlackBot'>https://github.com/P0ngCh4ng/OkSlackBot</a></div></div></div><div class="message event" id="message-1568271701.077400"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1568271701.077400">2019-09-12&nbsp;16:01:41 +0900</a></div></div><div class="message__body description">参考にしたページがあるとありがたいです</div></div></div><div class="message event" id="message-1568271871.077600"><div class="content"><div class="summary"><div class="message__header user">pontyan12</div><div class="message__timestamp date"><a class="date" href="#message-1568271871.077600">2019-09-12&nbsp;16:04:31 +0900</a></div></div><div class="message__body description"><a href='https://qiita.com/kentahama/items/261c9c86d02161680933'>https://qiita.com/kentahama/items/261c9c86d02161680933</a><br/><br/><a href='https://23prime.hatenablog.com/entry/2017/10/13/214619'>https://23prime.hatenablog.com/entry/2017/10/13/214619</a><br/><br/>こちらのページです〜〜</div></div></div><div class="message event" id="message-1568272101.078100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1568272101.078100">2019-09-12&nbsp;16:08:21 +0900</a></div></div><div class="message__body description">どちらの記事でも <code>SlackHandle</code> なる型は使ってないようですね...<br/>本当にこの記事なんでしょうか？ :thinking_face:<br/><br/>いずれにしても、そのエラーは 「 <code>SlackHandle</code> という型が存在していない」というエラーです。<br/>おそらく参考にした記事の内容が古く、APIが変ってしまっているのが原因と思われます。</div></div></div><div class="message event" id="message-1568272228.078300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1568272228.078300">2019-09-12&nbsp;16:10:28 +0900</a></div></div><div class="message__body description">あっ、元ネタがわかりました。<br/><a href='https://github.com/mpickering/slack-api'>https://github.com/mpickering/slack-api</a> のREADMEですか... :cold_sweat:<br/>確かに <code>SlackHandle</code> 使ってる...</div></div></div><div class="message event" id="message-1568272379.078600"><div class="content"><div class="summary"><div class="message__header user">pontyan12</div><div class="message__timestamp date"><a class="date" href="#message-1568272379.078600">2019-09-12&nbsp;16:12:59 +0900</a></div></div><div class="message__body description">実を言うと記事の方は依存関係を参考にしたんですが、記事のコードを丸パクしても全く違うエラーが出てくるのでそちらからのアプローチは諦めて、依存関係はそのままにAPIのGithubのExampleを参考にした形です。</div></div></div><div class="message event" id="message-1568272579.078800"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1568272579.078800">2019-09-12&nbsp;16:16:19 +0900</a></div></div><div class="message__body description">ぱっと見Qiitaの記事の方が最新版のAPI <a href='http://hackage.haskell.org/package/slack-api-0.12/docs/Web-Slack.html'>http://hackage.haskell.org/package/slack-api-0.12/docs/Web-Slack.html</a> に則っていて正しそうに見えるんですが、 <a href='https://qiita.com/kentahama/items/261c9c86d02161680933#comment-d9420910bf8304645efd'>https://qiita.com/kentahama/items/261c9c86d02161680933#comment-d9420910bf8304645efd</a> なんて指摘されてるな..</div></div></div><div class="message event" id="message-1568272631.079000"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1568272631.079000">2019-09-12&nbsp;16:17:11 +0900</a></div></div><div class="message__body description">GitHub の README は新しすぎるようですね． <code>SlackHandle</code> は現状の開発版で新しく入ったもののようです．参考にすべきは，こっちの方かもしれません:<br/><a href='https://github.com/mpickering/slack-api/tree/v0.12'>https://github.com/mpickering/slack-api/tree/v0.12</a></div></div></div><div class="message event" id="message-1568272910.079500"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1568272910.079500">2019-09-12&nbsp;16:21:50 +0900</a></div></div><div class="message__body description">なおリリースが 2017 年なので， Slack の現在の API に追いついてないかもしれませんね．最新のものがちゃんと動くかは分からないですが， master のを使ってみるといいかもしれません．少なくとも 0.12 では次のようなエラーが報告されてますね:<br/><a href='https://github.com/mpickering/slack-api/issues'>https://github.com/mpickering/slack-api/issues</a></div></div></div><div class="message event" id="message-1568273116.080000"><div class="content"><div class="summary"><div class="message__header user">pontyan12</div><div class="message__timestamp date"><a class="date" href="#message-1568273116.080000">2019-09-12&nbsp;16:25:16 +0900</a></div></div><div class="message__body description">そちらのバージョンで試してみます！</div></div></div><div class="message event" id="message-1568273221.080200"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1568273221.080200">2019-09-12&nbsp;16:27:01 +0900</a></div></div><div class="message__body description">ついでにこちらの方は一応メンテされてそうですね:<br/><a href='https://hackage.haskell.org/package/slack-web'>https://hackage.haskell.org/package/slack-web</a><br/><br/>example はなさそうですが…</div></div></div><div class="message event" id="message-1568273271.080500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1568273271.080500">2019-09-12&nbsp;16:27:51 +0900</a></div></div><div class="message__body description">使用する場合は <code>stack.yaml</code> に<br/><br/><pre>
+</pre><br/>ビルド時にこのようなエラーが出てきます。検索しても同じような状況で困っている人がいなそうなので、質問させていただきます。どうか知恵を貸していただけませんでしょうか。<br/><br/>↓GithubのURLです。<br/><a href='https://github.com/P0ngCh4ng/OkSlackBot'>https://github.com/P0ngCh4ng/OkSlackBot</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568271701.077400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568271701.077400">2019-09-12 16:01:41 +0900</a></div>
+          </div>
+          <div class="message__body description">参考にしたページがあるとありがたいです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568271871.077600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pontyan12</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568271871.077600">2019-09-12 16:04:31 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://qiita.com/kentahama/items/261c9c86d02161680933'>https://qiita.com/kentahama/items/261c9c86d02161680933</a><br/><br/><a href='https://23prime.hatenablog.com/entry/2017/10/13/214619'>https://23prime.hatenablog.com/entry/2017/10/13/214619</a><br/><br/>こちらのページです〜〜</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568272101.078100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568272101.078100">2019-09-12 16:08:21 +0900</a></div>
+          </div>
+          <div class="message__body description">どちらの記事でも <code>SlackHandle</code> なる型は使ってないようですね...<br/>本当にこの記事なんでしょうか？ :thinking_face:<br/><br/>いずれにしても、そのエラーは 「 <code>SlackHandle</code> という型が存在していない」というエラーです。<br/>おそらく参考にした記事の内容が古く、APIが変ってしまっているのが原因と思われます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568272228.078300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568272228.078300">2019-09-12 16:10:28 +0900</a></div>
+          </div>
+          <div class="message__body description">あっ、元ネタがわかりました。<br/><a href='https://github.com/mpickering/slack-api'>https://github.com/mpickering/slack-api</a> のREADMEですか... :cold_sweat:<br/>確かに <code>SlackHandle</code> 使ってる...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568272379.078600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pontyan12</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568272379.078600">2019-09-12 16:12:59 +0900</a></div>
+          </div>
+          <div class="message__body description">実を言うと記事の方は依存関係を参考にしたんですが、記事のコードを丸パクしても全く違うエラーが出てくるのでそちらからのアプローチは諦めて、依存関係はそのままにAPIのGithubのExampleを参考にした形です。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568272579.078800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568272579.078800">2019-09-12 16:16:19 +0900</a></div>
+          </div>
+          <div class="message__body description">ぱっと見Qiitaの記事の方が最新版のAPI <a href='http://hackage.haskell.org/package/slack-api-0.12/docs/Web-Slack.html'>http://hackage.haskell.org/package/slack-api-0.12/docs/Web-Slack.html</a> に則っていて正しそうに見えるんですが、 <a href='https://qiita.com/kentahama/items/261c9c86d02161680933#comment-d9420910bf8304645efd'>https://qiita.com/kentahama/items/261c9c86d02161680933#comment-d9420910bf8304645efd</a> なんて指摘されてるな..</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568272631.079000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568272631.079000">2019-09-12 16:17:11 +0900</a></div>
+          </div>
+          <div class="message__body description">GitHub の README は新しすぎるようですね． <code>SlackHandle</code> は現状の開発版で新しく入ったもののようです．参考にすべきは，こっちの方かもしれません:<br/><a href='https://github.com/mpickering/slack-api/tree/v0.12'>https://github.com/mpickering/slack-api/tree/v0.12</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568272910.079500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568272910.079500">2019-09-12 16:21:50 +0900</a></div>
+          </div>
+          <div class="message__body description">なおリリースが 2017 年なので， Slack の現在の API に追いついてないかもしれませんね．最新のものがちゃんと動くかは分からないですが， master のを使ってみるといいかもしれません．少なくとも 0.12 では次のようなエラーが報告されてますね:<br/><a href='https://github.com/mpickering/slack-api/issues'>https://github.com/mpickering/slack-api/issues</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568273116.080000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pontyan12</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568273116.080000">2019-09-12 16:25:16 +0900</a></div>
+          </div>
+          <div class="message__body description">そちらのバージョンで試してみます！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568273221.080200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568273221.080200">2019-09-12 16:27:01 +0900</a></div>
+          </div>
+          <div class="message__body description">ついでにこちらの方は一応メンテされてそうですね:<br/><a href='https://hackage.haskell.org/package/slack-web'>https://hackage.haskell.org/package/slack-web</a><br/><br/>example はなさそうですが…</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568273271.080500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568273271.080500">2019-09-12 16:27:51 +0900</a></div>
+          </div>
+          <div class="message__body description">使用する場合は <code>stack.yaml</code> に<br/><br/><pre>
 extra-deps:
 - git: <https://github.com/mpickering/slack-api.git>
   commit: &lt;使用したいコミットのSHA&gt;
-</pre><br/><br/>と書き加えてください。<br/>参考: <a href='https://docs.haskellstack.org/en/stable/yaml_configuration/#extra-deps'>https://docs.haskellstack.org/en/stable/yaml_configuration/#extra-deps</a></div></div></div><div class="message event" id="message-1568273313.080700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1568273313.080700">2019-09-12&nbsp;16:28:33 +0900</a></div></div><div class="message__body description">slack-webの方はSlack Web API向けのライブラリーです。bot作りには向いてません（我らが <a href='https://github.com/haskell-jp/slack-log'>https://github.com/haskell-jp/slack-log</a> を作るのにはぴったりでしたが）</div></div></div><div class="message event" id="message-1568273597.081200"><div class="content"><div class="summary"><div class="message__header user">pontyan12</div><div class="message__timestamp date"><a class="date" href="#message-1568273597.081200">2019-09-12&nbsp;16:33:17 +0900</a></div></div><div class="message__body description">0.12の一番新しいコミットSHAを登録して今ビルドし直しています。<br/>コードは0.12のexampleを使いました。</div></div></div><div class="message event" id="message-1568273671.081600"><div class="content"><div class="summary"><div class="message__header user">pontyan12</div><div class="message__timestamp date"><a class="date" href="#message-1568273671.081600">2019-09-12&nbsp;16:34:31 +0900</a></div></div><div class="message__body description"><pre>
+</pre><br/><br/>と書き加えてください。<br/>参考: <a href='https://docs.haskellstack.org/en/stable/yaml_configuration/#extra-deps'>https://docs.haskellstack.org/en/stable/yaml_configuration/#extra-deps</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568273313.080700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568273313.080700">2019-09-12 16:28:33 +0900</a></div>
+          </div>
+          <div class="message__body description">slack-webの方はSlack Web API向けのライブラリーです。bot作りには向いてません（我らが <a href='https://github.com/haskell-jp/slack-log'>https://github.com/haskell-jp/slack-log</a> を作るのにはぴったりでしたが）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568273597.081200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pontyan12</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568273597.081200">2019-09-12 16:33:17 +0900</a></div>
+          </div>
+          <div class="message__body description">0.12の一番新しいコミットSHAを登録して今ビルドし直しています。<br/>コードは0.12のexampleを使いました。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568273671.081600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pontyan12</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568273671.081600">2019-09-12 16:34:31 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>
 user error (When parsing the record Preferences of type Web.Slack.Types.Preferences.Preferences the key email_misc was not present.)
-</pre><br/>このエラーが出てきました；；<br/>記事を丸パクしたやつと同じエラーでした。正直これはslackAPI側の権限とかそっち周りな気がするんですが見たことある方いらっしゃいますか？</div></div></div><div class="message event" id="message-1568273903.081800"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1568273903.081800">2019-09-12&nbsp;16:38:23 +0900</a></div></div><div class="message__body description"><a href='https://github.com/mpickering/slack-api/commit/5fbc7732272289d5bdde9227b68c9ec362115f27'>https://github.com/mpickering/slack-api/commit/5fbc7732272289d5bdde9227b68c9ec362115f27</a><br/>このコミットで修正されている問題だと思われます。<br/>masterの最新版を使わないとダメなのかも知れません... :fearful:</div></div></div><div class="message event" id="message-1568273906.082000"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1568273906.082000">2019-09-12&nbsp;16:38:26 +0900</a></div></div><div class="message__body description">多分これですね．現状の master では治ってるようですが，リリースはないと思うので master のコミットを使うしかないような気がします<br/><a href='https://github.com/mpickering/slack-api/pull/99'>https://github.com/mpickering/slack-api/pull/99</a></div></div></div><div class="message event" id="message-1568274030.082400"><div class="content"><div class="summary"><div class="message__header user">pontyan12</div><div class="message__timestamp date"><a class="date" href="#message-1568274030.082400">2019-09-12&nbsp;16:40:30 +0900</a></div></div><div class="message__body description">こっちでビルドし直してみます！</div></div></div><div class="message event" id="message-1568274214.082700"><div class="content"><div class="summary"><div class="message__header user">pontyan12</div><div class="message__timestamp date"><a class="date" href="#message-1568274214.082700">2019-09-12&nbsp;16:43:34 +0900</a></div></div><div class="message__body description"><pre>
+</pre><br/>このエラーが出てきました；；<br/>記事を丸パクしたやつと同じエラーでした。正直これはslackAPI側の権限とかそっち周りな気がするんですが見たことある方いらっしゃいますか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568273903.081800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568273903.081800">2019-09-12 16:38:23 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://github.com/mpickering/slack-api/commit/5fbc7732272289d5bdde9227b68c9ec362115f27'>https://github.com/mpickering/slack-api/commit/5fbc7732272289d5bdde9227b68c9ec362115f27</a><br/>このコミットで修正されている問題だと思われます。<br/>masterの最新版を使わないとダメなのかも知れません... :fearful:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568273906.082000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568273906.082000">2019-09-12 16:38:26 +0900</a></div>
+          </div>
+          <div class="message__body description">多分これですね．現状の master では治ってるようですが，リリースはないと思うので master のコミットを使うしかないような気がします<br/><a href='https://github.com/mpickering/slack-api/pull/99'>https://github.com/mpickering/slack-api/pull/99</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568274030.082400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pontyan12</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568274030.082400">2019-09-12 16:40:30 +0900</a></div>
+          </div>
+          <div class="message__body description">こっちでビルドし直してみます！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568274214.082700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pontyan12</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568274214.082700">2019-09-12 16:43:34 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>
 user error (When parsing the record Preferences of type Web.Slack.Types.Preferences.Preferences the key full_text_extracts was not present.)
-</pre><br/>こ、今度は違うkeyのエラーが、、<br/>最新版でこれだと直近のバージョンだとslackbotは作れないのでしょうか,,,</div></div></div><div class="message event" id="message-1568274288.082900"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1568274288.082900">2019-09-12&nbsp;16:44:48 +0900</a></div></div><div class="message__body description">要するに最近のSlackの仕様変更に追いついてない、ということなので<br/><a href='https://github.com/mpickering/slack-api/pull/99'>https://github.com/mpickering/slack-api/pull/99</a> みたいに直すPull requestを送るしかなさそうですね... :disappointed_relieved:</div></div></div><div class="message event" id="message-1568274298.083200"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1568274298.083200">2019-09-12&nbsp;16:44:58 +0900</a></div></div><div class="message__body description">それも修正が入ってるようです<br/><a href='https://github.com/mpickering/slack-api/pull/100'>https://github.com/mpickering/slack-api/pull/100</a></div></div></div><div class="message event" id="message-1568274335.083500"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1568274335.083500">2019-09-12&nbsp;16:45:35 +0900</a></div></div><div class="message__body description">多分使うコミットは <a href='https://github.com/mpickering/slack-api/commit/d084fdbf1ab1a9e705dbd1f43645175fab0d5940'>https://github.com/mpickering/slack-api/commit/d084fdbf1ab1a9e705dbd1f43645175fab0d5940</a> がいいのではないでしょうか？</div></div></div><div class="message event" id="message-1568274630.083800"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1568274630.083800">2019-09-12&nbsp;16:50:30 +0900</a></div></div><div class="message__body description">ずっとghciで確認してて、ロードできなくて、cabal replしてみたらうまくいったので、そのあとでemacsからC-cC-lしたら通ったんだけど、もしかしてcabal replしたことで活が入った??</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/69.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/71.html" class="pager__next item">Next</a></div></div></body></html>
+</pre><br/>こ、今度は違うkeyのエラーが、、<br/>最新版でこれだと直近のバージョンだとslackbotは作れないのでしょうか,,,</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568274288.082900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568274288.082900">2019-09-12 16:44:48 +0900</a></div>
+          </div>
+          <div class="message__body description">要するに最近のSlackの仕様変更に追いついてない、ということなので<br/><a href='https://github.com/mpickering/slack-api/pull/99'>https://github.com/mpickering/slack-api/pull/99</a> みたいに直すPull requestを送るしかなさそうですね... :disappointed_relieved:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568274298.083200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568274298.083200">2019-09-12 16:44:58 +0900</a></div>
+          </div>
+          <div class="message__body description">それも修正が入ってるようです<br/><a href='https://github.com/mpickering/slack-api/pull/100'>https://github.com/mpickering/slack-api/pull/100</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568274335.083500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568274335.083500">2019-09-12 16:45:35 +0900</a></div>
+          </div>
+          <div class="message__body description">多分使うコミットは <a href='https://github.com/mpickering/slack-api/commit/d084fdbf1ab1a9e705dbd1f43645175fab0d5940'>https://github.com/mpickering/slack-api/commit/d084fdbf1ab1a9e705dbd1f43645175fab0d5940</a> がいいのではないでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568274630.083800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568274630.083800">2019-09-12 16:50:30 +0900</a></div>
+          </div>
+          <div class="message__body description">ずっとghciで確認してて、ロードできなくて、cabal replしてみたらうまくいったので、そのあとでemacsからC-cC-lしたら通ったんだけど、もしかしてcabal replしたことで活が入った??</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/69.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/71.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

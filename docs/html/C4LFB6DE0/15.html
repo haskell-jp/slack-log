@@ -1,4 +1,80 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / general #15</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / general #15</h1><div class="pager ui pagination menu"><a href="../../html/C4LFB6DE0/14.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C4LFB6DE0/16.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1550645614.006400"><div class="content"><div class="summary"><div class="message__header user">akagi15</div><div class="message__timestamp date"><a class="date" href="#message-1550645614.006400">2019-02-20&nbsp;15:53:34 +0900</a></div></div><div class="message__body description">他の箇所や,他のMarkupでは日本語は正常に表示されています.</div></div></div><div class="message event" id="message-1550645801.006800"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1550645801.006800">2019-02-20&nbsp;15:56:41 +0900</a></div></div><div class="message__body description">取り急ぎ、haddockのissueは <a href='https://github.com/haskell/haddock/issues'>https://github.com/haskell/haddock/issues</a> とだけ案内しますね。<br/>英語などいろいろ敷居が高いようであれば、時間のあるときに出来る人が報告します。</div></div></div><div class="message event" id="message-1550645951.007100"><div class="content"><div class="summary"><div class="message__header user">akagi15</div><div class="message__timestamp date"><a class="date" href="#message-1550645951.007100">2019-02-20&nbsp;15:59:11 +0900</a></div></div><div class="message__body description">英語よりもHaskellや一般的なプログラムの用語や慣習に疎いのですが,そういった人間が報告してもいいものでしょうか?</div></div></div><div class="message event" id="message-1550646231.007300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1550646231.007300">2019-02-20&nbsp;16:03:51 +0900</a></div></div><div class="message__body description">特に問題はないと思います。<br/>こうした問題を報告するときの慣習に関して言えば、今回は<br/>- haddockのバージョン<br/>- 使用しているOS<br/>- 現象が再現するソースコード（なるべく小さいものがいいです）<br/>- 現象を再現させる手順（コマンド）<br/>- 現象が再現した際のスクリーンショット（今上げていただいたようなもので十分です）<br/>まで出せば、十分伝わるでしょう。</div></div></div><div class="message event" id="message-1550646297.007500"><div class="content"><div class="summary"><div class="message__header user">akagi15</div><div class="message__timestamp date"><a class="date" href="#message-1550646297.007500">2019-02-20&nbsp;16:04:57 +0900</a></div></div><div class="message__body description">丁寧にありがとうございます.<br/>参考にさせて頂き,時間を作って報告させていただきます.</div></div></div><div class="message event" id="message-1550658446.008100"><div class="content"><div class="summary"><div class="message__header user">koyama</div><div class="message__timestamp date"><a class="date" href="#message-1550658446.008100">2019-02-20&nbsp;19:27:26 +0900</a></div></div><div class="message__body description">試してみたところ、おそらくですが、「日本語の文字も1桁分」だと思っているような気がします。なので、上下の - の個数を日本語だろうがなんだろうが1文字は1個にして合わせると、表がちゃんと出る気がします。</div></div></div><div class="message event" id="message-1550658779.008700"><div class="content"><div class="summary"><div class="message__header user">koyama</div><div class="message__timestamp date"><a class="date" href="#message-1550658779.008700">2019-02-20&nbsp;19:32:59 +0900</a></div></div><div class="message__body description">stack new hoge で作ったスタブの Lib.hs を<br/><pre>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / general #15</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / general #15</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C4LFB6DE0/14.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C4LFB6DE0/16.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1550645614.006400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">akagi15</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550645614.006400">2019-02-20 15:53:34 +0900</a></div>
+          </div>
+          <div class="message__body description">他の箇所や,他のMarkupでは日本語は正常に表示されています.</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550645801.006800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550645801.006800">2019-02-20 15:56:41 +0900</a></div>
+          </div>
+          <div class="message__body description">取り急ぎ、haddockのissueは <a href='https://github.com/haskell/haddock/issues'>https://github.com/haskell/haddock/issues</a> とだけ案内しますね。<br/>英語などいろいろ敷居が高いようであれば、時間のあるときに出来る人が報告します。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550645951.007100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">akagi15</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550645951.007100">2019-02-20 15:59:11 +0900</a></div>
+          </div>
+          <div class="message__body description">英語よりもHaskellや一般的なプログラムの用語や慣習に疎いのですが,そういった人間が報告してもいいものでしょうか?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550646231.007300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550646231.007300">2019-02-20 16:03:51 +0900</a></div>
+          </div>
+          <div class="message__body description">特に問題はないと思います。<br/>こうした問題を報告するときの慣習に関して言えば、今回は<br/>- haddockのバージョン<br/>- 使用しているOS<br/>- 現象が再現するソースコード（なるべく小さいものがいいです）<br/>- 現象を再現させる手順（コマンド）<br/>- 現象が再現した際のスクリーンショット（今上げていただいたようなもので十分です）<br/>まで出せば、十分伝わるでしょう。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550646297.007500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">akagi15</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550646297.007500">2019-02-20 16:04:57 +0900</a></div>
+          </div>
+          <div class="message__body description">丁寧にありがとうございます.<br/>参考にさせて頂き,時間を作って報告させていただきます.</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550658446.008100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">koyama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550658446.008100">2019-02-20 19:27:26 +0900</a></div>
+          </div>
+          <div class="message__body description">試してみたところ、おそらくですが、「日本語の文字も1桁分」だと思っているような気がします。なので、上下の - の個数を日本語だろうがなんだろうが1文字は1個にして合わせると、表がちゃんと出る気がします。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550658779.008700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">koyama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550658779.008700">2019-02-20 19:32:59 +0900</a></div>
+          </div>
+          <div class="message__body description">stack new hoge で作ったスタブの Lib.hs を<br/><pre>
 module Lib
     ( someFunc
     ) where
@@ -15,7 +91,405 @@ module Lib
 
 someFunc :: IO ()
 someFunc = putStrLn "Hello world"
-</pre><br/>こんな風にしたらちゃんと HTML で表組がでました</div></div></div><div class="message event" id="message-1550658835.008900"><div class="content"><div class="summary"><div class="message__header user">koyama</div><div class="message__timestamp date"><a class="date" href="#message-1550658835.008900">2019-02-20&nbsp;19:33:55 +0900</a></div></div><div class="message__body description">あ、もちろん文字コードは UTF-8 で、かつ環境変数 LANG に ja_JP.utf8 を入れておく必要はありそうです</div></div></div><div class="message event" id="message-1550659313.009100"><div class="content"><div class="summary"><div class="message__header user">koyama</div><div class="message__timestamp date"><a class="date" href="#message-1550659313.009100">2019-02-20&nbsp;19:41:53 +0900</a></div></div><div class="message__body description">この問題、 Haskell のオフサイドルールとも同根な気がします。たとえば<br/><pre>
+</pre><br/>こんな風にしたらちゃんと HTML で表組がでました</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550658835.008900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">koyama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550658835.008900">2019-02-20 19:33:55 +0900</a></div>
+          </div>
+          <div class="message__body description">あ、もちろん文字コードは UTF-8 で、かつ環境変数 LANG に ja_JP.utf8 を入れておく必要はありそうです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550659313.009100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">koyama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550659313.009100">2019-02-20 19:41:53 +0900</a></div>
+          </div>
+          <div class="message__body description">この問題、 Haskell のオフサイドルールとも同根な気がします。たとえば<br/><pre>
 fほげ x = y where y = z
                 z = x
-</pre><br/>のようにしないと y= と z= のカラムが揃ったことにならないのです</div></div></div><div class="message event" id="message-1550659434.009300"><div class="content"><div class="summary"><div class="message__header user">koyama</div><div class="message__timestamp date"><a class="date" href="#message-1550659434.009300">2019-02-20&nbsp;19:43:54 +0900</a></div></div><div class="message__body description">たぶん Unicode の east asian width <a href='https://ja.wikipedia.org/wiki/%E6%9D%B1%E3%82%A2%E3%82%B8%E3%82%A2%E3%81%AE%E6%96%87%E5%AD%97%E5%B9%85'>https://ja.wikipedia.org/wiki/%E6%9D%B1%E3%82%A2%E3%82%B8%E3%82%A2%E3%81%AE%E6%96%87%E5%AD%97%E5%B9%85</a> の問題なんですけど、下手にそこ変えると「今までは上記のようにして動いていたコード（がもしあれば）」が動かなくなる、という問題がありそうで、厄介そうですね</div></div></div><div class="message event" id="message-1550659580.009600"><div class="content"><div class="summary"><div class="message__header user">koyama</div><div class="message__timestamp date"><a class="date" href="#message-1550659580.009600">2019-02-20&nbsp;19:46:20 +0900</a></div></div><div class="message__body description">現状、一文字はとにかく一桁分ということであれば、それはそれでスジは通っている（？）気はするので、下手に「気持ち悪いから直せ」と主張しないほうがいいのかもしれないなあ、と思います</div></div></div><div class="message event" id="message-1550661609.010000"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1550661609.010000">2019-02-20&nbsp;20:20:09 +0900</a></div></div><div class="message__body description">なるほど。。。すみません、私の読みが甘かったですね。。。 :cold_sweat:</div></div></div><div class="message event" id="message-1550661921.010300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1550661921.010300">2019-02-20&nbsp;20:25:21 +0900</a></div></div><div class="message__body description">そもそも文字数に合わせて表を書かないと行けないという仕様がいまいちなんで改善してくれよ、Issueがあるのでそこに一言添えるのはアリかも知れませんね  :thinking_face: <a href='https://github.com/haskell/haddock/issues/756'>https://github.com/haskell/haddock/issues/756</a></div></div></div><div class="message event" id="message-1550673010.000200"><div class="content"><div class="summary"><div class="message__header user">yasuhide.takase</div><div class="message__timestamp date"><a class="date" href="#message-1550673010.000200">2019-02-20&nbsp;23:30:10 +0900</a></div></div><div class="message__body description">@yasuhide.takase has joined the channel</div></div></div><div class="message event" id="message-1550677025.000500"><div class="content"><div class="summary"><div class="message__header user">ponta027</div><div class="message__timestamp date"><a class="date" href="#message-1550677025.000500">2019-02-21&nbsp;00:37:05 +0900</a></div></div><div class="message__body description">@ponta027 has joined the channel</div></div></div><div class="message event" id="message-1550711991.000800"><div class="content"><div class="summary"><div class="message__header user">masterq</div><div class="message__timestamp date"><a class="date" href="#message-1550711991.000800">2019-02-21&nbsp;10:19:51 +0900</a></div></div><div class="message__body description"></div></div></div><div class="message event" id="message-1550723964.001300"><div class="content"><div class="summary"><div class="message__header user">akagi15</div><div class="message__timestamp date"><a class="date" href="#message-1550723964.001300">2019-02-21&nbsp;13:39:24 +0900</a></div></div><div class="message__body description">@koyama 様<br/>ありがとうございます.<br/>確かに幅でなく文字数で合わせると解決しました.</div></div></div><div class="message event" id="message-1550724882.001600"><div class="content"><div class="summary"><div class="message__header user">akagi15</div><div class="message__timestamp date"><a class="date" href="#message-1550724882.001600">2019-02-21&nbsp;13:54:42 +0900</a></div></div><div class="message__body description">しかし,これ数を数えて調整しながらかくと,人間が行う作業ではなくなりますね.</div></div></div><div class="message event" id="message-1550766660.002200"><div class="content"><div class="summary"><div class="message__header user">kafu.h1998</div><div class="message__timestamp date"><a class="date" href="#message-1550766660.002200">2019-02-22&nbsp;01:31:00 +0900</a></div></div><div class="message__body description">@kafu.h1998 has joined the channel</div></div></div><div class="message event" id="message-1551056430.002600"><div class="content"><div class="summary"><div class="message__header user">slackbot</div><div class="message__timestamp date"><a class="date" href="#message-1551056430.002600">2019-02-25&nbsp;10:00:30 +0900</a></div></div><div class="message__body description">Reminder: <a href='https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233'>https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233</a></div></div></div><div class="message event" id="message-1551077805.002900"><div class="content"><div class="summary"><div class="message__header user">thibodeau9</div><div class="message__timestamp date"><a class="date" href="#message-1551077805.002900">2019-02-25&nbsp;15:56:45 +0900</a></div></div><div class="message__body description">@thibodeau9 has joined the channel</div></div></div><div class="message event" id="message-1551104395.003300"><div class="content"><div class="summary"><div class="message__header user">98p43aecscew</div><div class="message__timestamp date"><a class="date" href="#message-1551104395.003300">2019-02-25&nbsp;23:19:55 +0900</a></div></div><div class="message__body description">@98p43aecscew has joined the channel</div></div></div><div class="message event" id="message-1551110263.003600"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1551110263.003600">2019-02-26&nbsp;00:57:43 +0900</a></div></div><div class="message__body description">@e145702 has joined the channel</div></div></div><div class="message event" id="message-1551158489.003900"><div class="content"><div class="summary"><div class="message__header user">hirata.kei</div><div class="message__timestamp date"><a class="date" href="#message-1551158489.003900">2019-02-26&nbsp;14:21:29 +0900</a></div></div><div class="message__body description">@hirata.kei has joined the channel</div></div></div><div class="message event" id="message-1551223425.004300"><div class="content"><div class="summary"><div class="message__header user">ryouheing</div><div class="message__timestamp date"><a class="date" href="#message-1551223425.004300">2019-02-27&nbsp;08:23:45 +0900</a></div></div><div class="message__body description">@ryouheing has joined the channel</div></div></div><div class="message event" id="message-1551494788.000200"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1551494788.000200">2019-03-02&nbsp;11:46:28 +0900</a></div></div><div class="message__body description">@minorinoki_haskjp has joined the channel</div></div></div><div class="message event" id="message-1551520784.000500"><div class="content"><div class="summary"><div class="message__header user">hinoshita1992</div><div class="message__timestamp date"><a class="date" href="#message-1551520784.000500">2019-03-02&nbsp;18:59:44 +0900</a></div></div><div class="message__body description">@hinoshita1992 has joined the channel</div></div></div><div class="message event" id="message-1551661220.000700"><div class="content"><div class="summary"><div class="message__header user">slackbot</div><div class="message__timestamp date"><a class="date" href="#message-1551661220.000700">2019-03-04&nbsp;10:00:20 +0900</a></div></div><div class="message__body description">Reminder: <a href='https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233'>https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233</a></div></div></div><div class="message event" id="message-1551865289.001100"><div class="content"><div class="summary"><div class="message__header user">buddha0818</div><div class="message__timestamp date"><a class="date" href="#message-1551865289.001100">2019-03-06&nbsp;18:41:29 +0900</a></div></div><div class="message__body description">@buddha0818 has joined the channel</div></div></div><div class="message event" id="message-1551875626.001400"><div class="content"><div class="summary"><div class="message__header user">takashi.mtsd</div><div class="message__timestamp date"><a class="date" href="#message-1551875626.001400">2019-03-06&nbsp;21:33:46 +0900</a></div></div><div class="message__body description">@takashi.mtsd has joined the channel</div></div></div><div class="message event" id="message-1551949470.001700"><div class="content"><div class="summary"><div class="message__header user">dyoshikawa1993</div><div class="message__timestamp date"><a class="date" href="#message-1551949470.001700">2019-03-07&nbsp;18:04:30 +0900</a></div></div><div class="message__body description">@dyoshikawa1993 has joined the channel</div></div></div><div class="message event" id="message-1552103956.003600"><div class="content"><div class="summary"><div class="message__header user">kayhide</div><div class="message__timestamp date"><a class="date" href="#message-1552103956.003600">2019-03-09&nbsp;12:59:16 +0900</a></div></div><div class="message__body description">イベントチャンネルでもアナウンスされたとおり、本日 Hatchobori Haskell のミートアップを開催します。<br/>関連する情報をアップするためのチャンネルを作らせていただきましたので、質問、コメント、詳細、情報共有などはこちらでやりましょう。<br/><a href='#CGT2Q4KHP'>hatchobori-haskell</a></div></div></div><div class="message event" id="message-1552105140.003800"><div class="content"><div class="summary"><div class="message__header user">trueshot86</div><div class="message__timestamp date"><a class="date" href="#message-1552105140.003800">2019-03-09&nbsp;13:19:00 +0900</a></div></div><div class="message__body description">@trueshot86 has joined the channel</div></div></div><div class="message event" id="message-1552105322.004100"><div class="content"><div class="summary"><div class="message__header user">elkel53930</div><div class="message__timestamp date"><a class="date" href="#message-1552105322.004100">2019-03-09&nbsp;13:22:02 +0900</a></div></div><div class="message__body description">@elkel53930 has joined the channel</div></div></div><div class="message event" id="message-1552105357.004400"><div class="content"><div class="summary"><div class="message__header user">shinji.hatayama709</div><div class="message__timestamp date"><a class="date" href="#message-1552105357.004400">2019-03-09&nbsp;13:22:37 +0900</a></div></div><div class="message__body description">@shinji.hatayama709 has joined the channel</div></div></div><div class="message event" id="message-1552105774.004700"><div class="content"><div class="summary"><div class="message__header user">fuuzetsu</div><div class="message__timestamp date"><a class="date" href="#message-1552105774.004700">2019-03-09&nbsp;13:29:34 +0900</a></div></div><div class="message__body description">@fuuzetsu has joined the channel</div></div></div><div class="message event" id="message-1552106757.005000"><div class="content"><div class="summary"><div class="message__header user">oswald_boc</div><div class="message__timestamp date"><a class="date" href="#message-1552106757.005000">2019-03-09&nbsp;13:45:57 +0900</a></div></div><div class="message__body description">@oswald_boc has joined the channel</div></div></div><div class="message event" id="message-1552113528.005400"><div class="content"><div class="summary"><div class="message__header user">viktor.kronvall</div><div class="message__timestamp date"><a class="date" href="#message-1552113528.005400">2019-03-09&nbsp;15:38:48 +0900</a></div></div><div class="message__body description">@viktor.kronvall has joined the channel</div></div></div><div class="message event" id="message-1552113596.005800"><div class="content"><div class="summary"><div class="message__header user">onwarmermusic</div><div class="message__timestamp date"><a class="date" href="#message-1552113596.005800">2019-03-09&nbsp;15:39:56 +0900</a></div></div><div class="message__body description">@onwarmermusic has joined the channel</div></div></div><div class="message event" id="message-1552121881.006400"><div class="content"><div class="summary"><div class="message__header user">ramin.honary</div><div class="message__timestamp date"><a class="date" href="#message-1552121881.006400">2019-03-09&nbsp;17:58:01 +0900</a></div></div><div class="message__body description">@ramin.honary has joined the channel</div></div></div><div class="message event" id="message-1552177134.007100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1552177134.007100">2019-03-10&nbsp;09:18:54 +0900</a></div></div><div class="message__body description">割と重要なのでこういう連絡もhaskell_jpのtwitterアカウントでやってみました。ついでに再共有します。<br/><a href='https://twitter.com/haskell_jp/status/1104536735709425664'>https://twitter.com/haskell_jp/status/1104536735709425664</a></div></div></div><div class="message event" id="message-1552179557.007400"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1552179557.007400">2019-03-10&nbsp;09:59:17 +0900</a></div></div><div class="message__body description">ソース <a href='https://mail.haskell.org/pipermail/ghc-devs/2019-March/017229.html'>https://mail.haskell.org/pipermail/ghc-devs/2019-March/017229.html</a></div></div></div><div class="message event" id="message-1552200201.007900"><div class="content"><div class="summary"><div class="message__header user">okimoto</div><div class="message__timestamp date"><a class="date" href="#message-1552200201.007900">2019-03-10&nbsp;15:43:21 +0900</a></div></div><div class="message__body description">@okimoto has joined the channel</div></div></div><div class="message event" id="message-1552204525.008200"><div class="content"><div class="summary"><div class="message__header user">jesper</div><div class="message__timestamp date"><a class="date" href="#message-1552204525.008200">2019-03-10&nbsp;16:55:25 +0900</a></div></div><div class="message__body description">@jesper has joined the channel</div></div></div><div class="message event" id="message-1552204613.009000"><div class="content"><div class="summary"><div class="message__header user">jesper</div><div class="message__timestamp date"><a class="date" href="#message-1552204613.009000">2019-03-10&nbsp;16:56:53 +0900</a></div></div><div class="message__body description">Anyone here who's at the hatchobori meetup?</div></div></div><div class="message event" id="message-1552212245.009100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1552212245.009100">2019-03-10&nbsp;19:04:05 +0900</a></div></div><div class="message__body description">Folks at the hatchobori meetup get togerther at <a href='#CGT2Q4KHP'>hatchobori-haskell</a></div></div></div><div class="message event" id="message-1552266019.009300"><div class="content"><div class="summary"><div class="message__header user">slackbot</div><div class="message__timestamp date"><a class="date" href="#message-1552266019.009300">2019-03-11&nbsp;10:00:19 +0900</a></div></div><div class="message__body description">Reminder: <a href='https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233'>https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233</a></div></div></div><div class="message event" id="message-1552390790.009600"><div class="content"><div class="summary"><div class="message__header user">vqgofndplhjr</div><div class="message__timestamp date"><a class="date" href="#message-1552390790.009600">2019-03-12&nbsp;20:39:50 +0900</a></div></div><div class="message__body description">@vqgofndplhjr has joined the channel</div></div></div><div class="message event" id="message-1552430708.010200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1552430708.010200">2019-03-13&nbsp;07:45:08 +0900</a></div></div><div class="message__body description">再びメンテ情報。今度はstackageです。 <a href='https://twitter.com/haskell_jp/status/1105600472805564416'>https://twitter.com/haskell_jp/status/1105600472805564416</a></div></div></div><div class="message event" id="message-1552477977.010500"><div class="content"><div class="summary"><div class="message__header user">chinsan514</div><div class="message__timestamp date"><a class="date" href="#message-1552477977.010500">2019-03-13&nbsp;20:52:57 +0900</a></div></div><div class="message__body description">@chinsan514 has joined the channel</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C4LFB6DE0/14.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C4LFB6DE0/16.html" class="pager__next item">Next</a></div></div></body></html>
+</pre><br/>のようにしないと y= と z= のカラムが揃ったことにならないのです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550659434.009300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">koyama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550659434.009300">2019-02-20 19:43:54 +0900</a></div>
+          </div>
+          <div class="message__body description">たぶん Unicode の east asian width <a href='https://ja.wikipedia.org/wiki/%E6%9D%B1%E3%82%A2%E3%82%B8%E3%82%A2%E3%81%AE%E6%96%87%E5%AD%97%E5%B9%85'>https://ja.wikipedia.org/wiki/%E6%9D%B1%E3%82%A2%E3%82%B8%E3%82%A2%E3%81%AE%E6%96%87%E5%AD%97%E5%B9%85</a> の問題なんですけど、下手にそこ変えると「今までは上記のようにして動いていたコード（がもしあれば）」が動かなくなる、という問題がありそうで、厄介そうですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550659580.009600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">koyama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550659580.009600">2019-02-20 19:46:20 +0900</a></div>
+          </div>
+          <div class="message__body description">現状、一文字はとにかく一桁分ということであれば、それはそれでスジは通っている（？）気はするので、下手に「気持ち悪いから直せ」と主張しないほうがいいのかもしれないなあ、と思います</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550661609.010000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550661609.010000">2019-02-20 20:20:09 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど。。。すみません、私の読みが甘かったですね。。。 :cold_sweat:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550661921.010300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550661921.010300">2019-02-20 20:25:21 +0900</a></div>
+          </div>
+          <div class="message__body description">そもそも文字数に合わせて表を書かないと行けないという仕様がいまいちなんで改善してくれよ、Issueがあるのでそこに一言添えるのはアリかも知れませんね  :thinking_face: <a href='https://github.com/haskell/haddock/issues/756'>https://github.com/haskell/haddock/issues/756</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550673010.000200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yasuhide.takase</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550673010.000200">2019-02-20 23:30:10 +0900</a></div>
+          </div>
+          <div class="message__body description">@yasuhide.takase has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550677025.000500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ponta027</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550677025.000500">2019-02-21 00:37:05 +0900</a></div>
+          </div>
+          <div class="message__body description">@ponta027 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550711991.000800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">masterq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550711991.000800">2019-02-21 10:19:51 +0900</a></div>
+          </div>
+          <div class="message__body description"></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550723964.001300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">akagi15</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550723964.001300">2019-02-21 13:39:24 +0900</a></div>
+          </div>
+          <div class="message__body description">@koyama 様<br/>ありがとうございます.<br/>確かに幅でなく文字数で合わせると解決しました.</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550724882.001600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">akagi15</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550724882.001600">2019-02-21 13:54:42 +0900</a></div>
+          </div>
+          <div class="message__body description">しかし,これ数を数えて調整しながらかくと,人間が行う作業ではなくなりますね.</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1550766660.002200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kafu.h1998</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1550766660.002200">2019-02-22 01:31:00 +0900</a></div>
+          </div>
+          <div class="message__body description">@kafu.h1998 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551056430.002600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">slackbot</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551056430.002600">2019-02-25 10:00:30 +0900</a></div>
+          </div>
+          <div class="message__body description">Reminder: <a href='https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233'>https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551077805.002900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">thibodeau9</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551077805.002900">2019-02-25 15:56:45 +0900</a></div>
+          </div>
+          <div class="message__body description">@thibodeau9 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551104395.003300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">98p43aecscew</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551104395.003300">2019-02-25 23:19:55 +0900</a></div>
+          </div>
+          <div class="message__body description">@98p43aecscew has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551110263.003600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551110263.003600">2019-02-26 00:57:43 +0900</a></div>
+          </div>
+          <div class="message__body description">@e145702 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551158489.003900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hirata.kei</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551158489.003900">2019-02-26 14:21:29 +0900</a></div>
+          </div>
+          <div class="message__body description">@hirata.kei has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551223425.004300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ryouheing</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551223425.004300">2019-02-27 08:23:45 +0900</a></div>
+          </div>
+          <div class="message__body description">@ryouheing has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551494788.000200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551494788.000200">2019-03-02 11:46:28 +0900</a></div>
+          </div>
+          <div class="message__body description">@minorinoki_haskjp has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551520784.000500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hinoshita1992</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551520784.000500">2019-03-02 18:59:44 +0900</a></div>
+          </div>
+          <div class="message__body description">@hinoshita1992 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551661220.000700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">slackbot</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551661220.000700">2019-03-04 10:00:20 +0900</a></div>
+          </div>
+          <div class="message__body description">Reminder: <a href='https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233'>https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551865289.001100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">buddha0818</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551865289.001100">2019-03-06 18:41:29 +0900</a></div>
+          </div>
+          <div class="message__body description">@buddha0818 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551875626.001400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">takashi.mtsd</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551875626.001400">2019-03-06 21:33:46 +0900</a></div>
+          </div>
+          <div class="message__body description">@takashi.mtsd has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551949470.001700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">dyoshikawa1993</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551949470.001700">2019-03-07 18:04:30 +0900</a></div>
+          </div>
+          <div class="message__body description">@dyoshikawa1993 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552103956.003600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kayhide</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552103956.003600">2019-03-09 12:59:16 +0900</a></div>
+          </div>
+          <div class="message__body description">イベントチャンネルでもアナウンスされたとおり、本日 Hatchobori Haskell のミートアップを開催します。<br/>関連する情報をアップするためのチャンネルを作らせていただきましたので、質問、コメント、詳細、情報共有などはこちらでやりましょう。<br/><a href='#CGT2Q4KHP'>hatchobori-haskell</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552105140.003800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">trueshot86</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552105140.003800">2019-03-09 13:19:00 +0900</a></div>
+          </div>
+          <div class="message__body description">@trueshot86 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552105322.004100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">elkel53930</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552105322.004100">2019-03-09 13:22:02 +0900</a></div>
+          </div>
+          <div class="message__body description">@elkel53930 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552105357.004400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shinji.hatayama709</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552105357.004400">2019-03-09 13:22:37 +0900</a></div>
+          </div>
+          <div class="message__body description">@shinji.hatayama709 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552105774.004700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fuuzetsu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552105774.004700">2019-03-09 13:29:34 +0900</a></div>
+          </div>
+          <div class="message__body description">@fuuzetsu has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552106757.005000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">oswald_boc</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552106757.005000">2019-03-09 13:45:57 +0900</a></div>
+          </div>
+          <div class="message__body description">@oswald_boc has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552113528.005400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">viktor.kronvall</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552113528.005400">2019-03-09 15:38:48 +0900</a></div>
+          </div>
+          <div class="message__body description">@viktor.kronvall has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552113596.005800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">onwarmermusic</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552113596.005800">2019-03-09 15:39:56 +0900</a></div>
+          </div>
+          <div class="message__body description">@onwarmermusic has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552121881.006400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ramin.honary</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552121881.006400">2019-03-09 17:58:01 +0900</a></div>
+          </div>
+          <div class="message__body description">@ramin.honary has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552177134.007100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552177134.007100">2019-03-10 09:18:54 +0900</a></div>
+          </div>
+          <div class="message__body description">割と重要なのでこういう連絡もhaskell_jpのtwitterアカウントでやってみました。ついでに再共有します。<br/><a href='https://twitter.com/haskell_jp/status/1104536735709425664'>https://twitter.com/haskell_jp/status/1104536735709425664</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552179557.007400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552179557.007400">2019-03-10 09:59:17 +0900</a></div>
+          </div>
+          <div class="message__body description">ソース <a href='https://mail.haskell.org/pipermail/ghc-devs/2019-March/017229.html'>https://mail.haskell.org/pipermail/ghc-devs/2019-March/017229.html</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552200201.007900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">okimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552200201.007900">2019-03-10 15:43:21 +0900</a></div>
+          </div>
+          <div class="message__body description">@okimoto has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552204525.008200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">jesper</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552204525.008200">2019-03-10 16:55:25 +0900</a></div>
+          </div>
+          <div class="message__body description">@jesper has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552204613.009000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">jesper</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552204613.009000">2019-03-10 16:56:53 +0900</a></div>
+          </div>
+          <div class="message__body description">Anyone here who's at the hatchobori meetup?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552212245.009100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552212245.009100">2019-03-10 19:04:05 +0900</a></div>
+          </div>
+          <div class="message__body description">Folks at the hatchobori meetup get togerther at <a href='#CGT2Q4KHP'>hatchobori-haskell</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552266019.009300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">slackbot</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552266019.009300">2019-03-11 10:00:19 +0900</a></div>
+          </div>
+          <div class="message__body description">Reminder: <a href='https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233'>https://haskell-jp.slack.com/archives/C4LFB6DE0/p1517792426000233</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552390790.009600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">vqgofndplhjr</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552390790.009600">2019-03-12 20:39:50 +0900</a></div>
+          </div>
+          <div class="message__body description">@vqgofndplhjr has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552430708.010200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552430708.010200">2019-03-13 07:45:08 +0900</a></div>
+          </div>
+          <div class="message__body description">再びメンテ情報。今度はstackageです。 <a href='https://twitter.com/haskell_jp/status/1105600472805564416'>https://twitter.com/haskell_jp/status/1105600472805564416</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552477977.010500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">chinsan514</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552477977.010500">2019-03-13 20:52:57 +0900</a></div>
+          </div>
+          <div class="message__body description">@chinsan514 has joined the channel</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C4LFB6DE0/14.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C4LFB6DE0/16.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

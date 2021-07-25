@@ -1,3 +1,196 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / mokumoku-online #36</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / mokumoku-online #36</h1><div class="pager ui pagination menu"><a href="../../html/CUPBC8WCE/36.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div><div class="message_list ui feed"><div class="message event" id="message-1623470777.018400"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1623470777.018400">2021-06-12&nbsp;13:06:17 +0900</a></div></div><div class="message__body description">松原です。<br/>Haskellと直接は関係ないですが、GitHub の Personal Access Token でフォーマット変わったから再生成しろって警告出てるので、PAT の棚卸しします。<br/>まぁ大抵は自作 Haskell アプリケーション関連なので、Haskell アプリの整理も兼ねて。</div></div></div><div class="message event" id="message-1623471620.020000"><div class="content"><div class="summary"><div class="message__header user">takumi.shiratori</div><div class="message__timestamp date"><a class="date" href="#message-1623471620.020000">2021-06-12&nbsp;13:20:20 +0900</a></div></div><div class="message__body description">白鳥と申します。「Haskellによる関数プログラミングの思考法」の運算器の章の演習問題を解いていこうと思います。</div></div></div><div class="message event" id="message-1623475453.020600"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1623475453.020600">2021-06-12&nbsp;14:24:13 +0900</a></div></div><div class="message__body description">ひっさしぶりに <code>stack build --docker</code> したらめっちゃ時間かかるw</div></div></div><div class="message event" id="message-1623476833.027300"><div class="content"><div class="summary"><div class="message__header user">naosak1006</div><div class="message__timestamp date"><a class="date" href="#message-1623476833.027300">2021-06-12&nbsp;14:47:13 +0900</a></div></div><div class="message__body description">@igrep すみません、ちょっと質問よろしいでしょうか<br/><pre>main = do
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / mokumoku-online #36</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / mokumoku-online #36</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/CUPBC8WCE/35.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1623470777.018400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623470777.018400">2021-06-12 13:06:17 +0900</a></div>
+          </div>
+          <div class="message__body description">松原です。<br/>Haskellと直接は関係ないですが、GitHub の Personal Access Token でフォーマット変わったから再生成しろって警告出てるので、PAT の棚卸しします。<br/>まぁ大抵は自作 Haskell アプリケーション関連なので、Haskell アプリの整理も兼ねて。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623471620.020000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">takumi.shiratori</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623471620.020000">2021-06-12 13:20:20 +0900</a></div>
+          </div>
+          <div class="message__body description">白鳥と申します。「Haskellによる関数プログラミングの思考法」の運算器の章の演習問題を解いていこうと思います。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623475453.020600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623475453.020600">2021-06-12 14:24:13 +0900</a></div>
+          </div>
+          <div class="message__body description">ひっさしぶりに <code>stack build --docker</code> したらめっちゃ時間かかるw</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623476833.027300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">naosak1006</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623476833.027300">2021-06-12 14:47:13 +0900</a></div>
+          </div>
+          <div class="message__body description">@igrep すみません、ちょっと質問よろしいでしょうか<br/><pre>main = do
   input &lt;- getContents
-  putStrLn input</pre><br/>上記のようなコードを実行すると、`input` を入力して出力するという動作が無限ループのように何度も何度も行われてしまうので、毎回`ctrl + c(z)` を押してプログラムを終了しなければいけません。これはHaskellの仕様ですか？一回だけ実行して終わってほしいのですが...</div></div></div><div class="message event" id="message-1623488523.029000"><div class="content"><div class="summary"><div class="message__header user">&lt;non-user&gt;</div><div class="message__timestamp date"><a class="date" href="#message-1623488523.029000">2021-06-12&nbsp;18:02:03 +0900</a></div></div><div class="message__body description"></div></div></div><div class="message event" id="message-1623488657.030000"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1623488657.030000">2021-06-12&nbsp;18:04:17 +0900</a></div></div><div class="message__body description">今週のmakeMistakesToLearnHaskellの修正は <a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/eaa072095ed694db838250b6112fad80b1a106bd'>https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/eaa072095ed694db838250b6112fad80b1a106bd</a> です。<br/>タイプセーフプリキュアの修正はもうちょっとでできそうです。</div></div></div><div class="message event" id="message-1623488690.030100"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1623488690.030100">2021-06-12&nbsp;18:04:50 +0900</a></div></div><div class="message__body description">自分のPCでちょくちょく使ってるものだけ再生成して、他の PAT は削除しました（そのために GitHub Actions の整理などもした）。</div></div></div><div class="message event" id="message-1623488808.031300"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1623488808.031300">2021-06-12&nbsp;18:06:48 +0900</a></div></div><div class="message__body description">できれば手元の PAT も適宜ローテーションしたい。けど Web View で毎回生成 + 削除するのめんどい。からなんかそういう感じの CLI ツール作れないかなーって妄想し始めました（そういう使い方していいかは怪しいけども。。。）</div></div></div><div class="message event" id="message-1623488917.033800"><div class="content"><div class="summary"><div class="message__header user">naosak1006</div><div class="message__timestamp date"><a class="date" href="#message-1623488917.033800">2021-06-12&nbsp;18:08:37 +0900</a></div></div><div class="message__body description">「失敗しながら学ぶHaskell入門」を6章まで終わらせた後にHaskellのIOについて色々調べたりしました。文法を覚えるだけでもなかなか苦労しそうですが細く長く続けていけたらと思います。お疲れさまでした</div></div></div><div class="message event" id="message-1623489036.034900"><div class="content"><div class="summary"><div class="message__header user">takumi.shiratori</div><div class="message__timestamp date"><a class="date" href="#message-1623489036.034900">2021-06-12&nbsp;18:10:36 +0900</a></div></div><div class="message__body description">運算器の章の演習問題を進めました。もう少しで最後まで終わりそうです</div></div></div><div class="message event" id="message-1623507627.037000"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1623507627.037000">2021-06-12&nbsp;23:20:27 +0900</a></div></div><div class="message__body description">ちょっと遅刻をしましたが、今日の進捗です <a href='https://gitlab.com/Hexirp/analysis-tree/-/merge_requests/15'>https://gitlab.com/Hexirp/analysis-tree/-/merge_requests/15</a></div></div></div><div class="message event" id="message-1623508130.038100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1623508130.038100">2021-06-12&nbsp;23:28:50 +0900</a></div></div><div class="message__body description">遅くなりましたがやっとタイプセーフプリキュアの新しいバージョンがリリースできました！かなり大きな修正になったので時間かかりました... :weary:<br/><a href='https://twitter.com/igrep/status/1403715560588791812'>https://twitter.com/igrep/status/1403715560588791812</a></div></div></div><div class="message event" id="message-1624161651.038600"><div class="content"><div class="summary"><div class="message__header user">&lt;non-user&gt;</div><div class="message__timestamp date"><a class="date" href="#message-1624161651.038600">2021-06-20&nbsp;13:00:51 +0900</a></div></div><div class="message__body description"></div></div></div><div class="message event" id="message-1624161743.039500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1624161743.039500">2021-06-20&nbsp;13:02:23 +0900</a></div></div><div class="message__body description">山本悠滋です。最近は趣味も仕事もTypeScriptです。今日もmakeMistakeToLearnHaskellの続きと、Haskell-jp Adminsのことをやります。</div></div></div><div class="message event" id="message-1624161882.040900"><div class="content"><div class="summary"><div class="message__header user">naosak1006</div><div class="message__timestamp date"><a class="date" href="#message-1624161882.040900">2021-06-20&nbsp;13:04:42 +0900</a></div></div><div class="message__body description">Sakaiと申します。<br/>今日はすごいH本の7章から型クラスについて学習を進めます。よろしくお願いします</div></div></div><div class="message event" id="message-1624167340.042100"><div class="content"><div class="summary"><div class="message__header user">karoyakani</div><div class="message__timestamp date"><a class="date" href="#message-1624167340.042100">2021-06-20&nbsp;14:35:40 +0900</a></div></div><div class="message__body description">AtCoder Educational DP Contest - W Intervals に挑戦するつもりです</div></div></div><div class="message event" id="message-1624179722.043300"><div class="content"><div class="summary"><div class="message__header user">&lt;non-user&gt;</div><div class="message__timestamp date"><a class="date" href="#message-1624179722.043300">2021-06-20&nbsp;18:02:02 +0900</a></div></div><div class="message__body description"></div></div></div><div class="message event" id="message-1624179791.044300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1624179791.044300">2021-06-20&nbsp;18:03:11 +0900</a></div></div><div class="message__body description">makeMistakesToLearnHaskellの進捗はこちら: <a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/099ba30799a11584c0dea50800ab7d89cb47a09b'>https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/099ba30799a11584c0dea50800ab7d89cb47a09b</a><br/>あと、Haskell-jp Adminsに関連して、Freeeのアカウントを作って試しにいくつか支出を登録してみたり、cabal replでstack replの振る舞いを再現するにはどうすれば良いか調べ始めたりしてました。</div></div></div><div class="message event" id="message-1624180302.047200"><div class="content"><div class="summary"><div class="message__header user">naosak1006</div><div class="message__timestamp date"><a class="date" href="#message-1624180302.047200">2021-06-20&nbsp;18:11:42 +0900</a></div></div><div class="message__body description">ざっとすごいH本の7章で型クラスについて学習しました。OOPみたいな用語(インスタンスなど)が出てきてこんがらがりそうなので理解を深める必要性を感じました。流し読み感はありましたが、なかなか興味深かったです</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/CUPBC8WCE/36.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div></div></body></html>
+  putStrLn input</pre><br/>上記のようなコードを実行すると、`input` を入力して出力するという動作が無限ループのように何度も何度も行われてしまうので、毎回`ctrl + c(z)` を押してプログラムを終了しなければいけません。これはHaskellの仕様ですか？一回だけ実行して終わってほしいのですが...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623488523.029000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">&lt;non-user&gt;</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623488523.029000">2021-06-12 18:02:03 +0900</a></div>
+          </div>
+          <div class="message__body description"></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623488657.030000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623488657.030000">2021-06-12 18:04:17 +0900</a></div>
+          </div>
+          <div class="message__body description">今週のmakeMistakesToLearnHaskellの修正は <a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/eaa072095ed694db838250b6112fad80b1a106bd'>https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/eaa072095ed694db838250b6112fad80b1a106bd</a> です。<br/>タイプセーフプリキュアの修正はもうちょっとでできそうです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623488690.030100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623488690.030100">2021-06-12 18:04:50 +0900</a></div>
+          </div>
+          <div class="message__body description">自分のPCでちょくちょく使ってるものだけ再生成して、他の PAT は削除しました（そのために GitHub Actions の整理などもした）。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623488808.031300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623488808.031300">2021-06-12 18:06:48 +0900</a></div>
+          </div>
+          <div class="message__body description">できれば手元の PAT も適宜ローテーションしたい。けど Web View で毎回生成 + 削除するのめんどい。からなんかそういう感じの CLI ツール作れないかなーって妄想し始めました（そういう使い方していいかは怪しいけども。。。）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623488917.033800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">naosak1006</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623488917.033800">2021-06-12 18:08:37 +0900</a></div>
+          </div>
+          <div class="message__body description">「失敗しながら学ぶHaskell入門」を6章まで終わらせた後にHaskellのIOについて色々調べたりしました。文法を覚えるだけでもなかなか苦労しそうですが細く長く続けていけたらと思います。お疲れさまでした</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623489036.034900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">takumi.shiratori</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623489036.034900">2021-06-12 18:10:36 +0900</a></div>
+          </div>
+          <div class="message__body description">運算器の章の演習問題を進めました。もう少しで最後まで終わりそうです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623507627.037000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623507627.037000">2021-06-12 23:20:27 +0900</a></div>
+          </div>
+          <div class="message__body description">ちょっと遅刻をしましたが、今日の進捗です <a href='https://gitlab.com/Hexirp/analysis-tree/-/merge_requests/15'>https://gitlab.com/Hexirp/analysis-tree/-/merge_requests/15</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623508130.038100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623508130.038100">2021-06-12 23:28:50 +0900</a></div>
+          </div>
+          <div class="message__body description">遅くなりましたがやっとタイプセーフプリキュアの新しいバージョンがリリースできました！かなり大きな修正になったので時間かかりました... :weary:<br/><a href='https://twitter.com/igrep/status/1403715560588791812'>https://twitter.com/igrep/status/1403715560588791812</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1624161651.038600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">&lt;non-user&gt;</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1624161651.038600">2021-06-20 13:00:51 +0900</a></div>
+          </div>
+          <div class="message__body description"></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1624161743.039500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1624161743.039500">2021-06-20 13:02:23 +0900</a></div>
+          </div>
+          <div class="message__body description">山本悠滋です。最近は趣味も仕事もTypeScriptです。今日もmakeMistakeToLearnHaskellの続きと、Haskell-jp Adminsのことをやります。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1624161882.040900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">naosak1006</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1624161882.040900">2021-06-20 13:04:42 +0900</a></div>
+          </div>
+          <div class="message__body description">Sakaiと申します。<br/>今日はすごいH本の7章から型クラスについて学習を進めます。よろしくお願いします</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1624167340.042100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">karoyakani</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1624167340.042100">2021-06-20 14:35:40 +0900</a></div>
+          </div>
+          <div class="message__body description">AtCoder Educational DP Contest - W Intervals に挑戦するつもりです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1624179722.043300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">&lt;non-user&gt;</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1624179722.043300">2021-06-20 18:02:02 +0900</a></div>
+          </div>
+          <div class="message__body description"></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1624179791.044300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1624179791.044300">2021-06-20 18:03:11 +0900</a></div>
+          </div>
+          <div class="message__body description">makeMistakesToLearnHaskellの進捗はこちら: <a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/099ba30799a11584c0dea50800ab7d89cb47a09b'>https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/099ba30799a11584c0dea50800ab7d89cb47a09b</a><br/>あと、Haskell-jp Adminsに関連して、Freeeのアカウントを作って試しにいくつか支出を登録してみたり、cabal replでstack replの振る舞いを再現するにはどうすれば良いか調べ始めたりしてました。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1624180302.047200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">naosak1006</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1624180302.047200">2021-06-20 18:11:42 +0900</a></div>
+          </div>
+          <div class="message__body description">ざっとすごいH本の7章で型クラスについて学習しました。OOPみたいな用語(インスタンスなど)が出てきてこんがらがりそうなので理解を深める必要性を感じました。流し読み感はありましたが、なかなか興味深かったです</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/CUPBC8WCE/35.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+    </div>
+  </div>
+</body>
+</html>

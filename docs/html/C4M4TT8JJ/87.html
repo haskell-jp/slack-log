@@ -1,4 +1,44 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / random #87</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / random #87</h1><div class="pager ui pagination menu"><a href="../../html/C4M4TT8JJ/87.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C4M4TT8JJ/88.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1612958227.047600"><div class="content"><div class="summary"><div class="message__header user">kshiva1126</div><div class="message__timestamp date"><a class="date" href="#message-1612958227.047600">2021-02-10&nbsp;20:57:07 +0900</a></div></div><div class="message__body description">@kshiva1126 has joined the channel</div></div></div><div class="message event" id="message-1612972293.049900"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1612972293.049900">2021-02-11&nbsp;00:51:33 +0900</a></div></div><div class="message__body description"><a href='https://github.com/rampaging-fridge/yojijukugo/blob/f0939d02a5b173074e52a5a70d62d9887faa2721/src/Logic.hs#L83'>https://github.com/rampaging-fridge/yojijukugo/blob/f0939d02a5b173074e52a5a70d62d9887faa2721/src/Logic.hs#L83</a> Traversalが与えられたとき、その影響範囲をシャッフルする(要するにどんな構造でもシャッフルできる)関数を作りました。ネストしたデータ構造に触れられるところが便利でした</div></div></div><div class="message event" id="message-1613187519.058400"><div class="content"><div class="summary"><div class="message__header user">autotaker</div><div class="message__timestamp date"><a class="date" href="#message-1613187519.058400">2021-02-13&nbsp;12:38:39 +0900</a></div></div><div class="message__body description">Haskellで型クラス実装されてなくても動くような、いわゆるSoft Constraintsの言語拡張って難しいんでしょうか？<br/><pre>(!) :: (Show? key, Ord key) =&gt; Map key value -&gt; key -&gt; value
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #87</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #87</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C4M4TT8JJ/86.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C4M4TT8JJ/88.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1612958227.047600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kshiva1126</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1612958227.047600">2021-02-10 20:57:07 +0900</a></div>
+          </div>
+          <div class="message__body description">@kshiva1126 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1612972293.049900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1612972293.049900">2021-02-11 00:51:33 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://github.com/rampaging-fridge/yojijukugo/blob/f0939d02a5b173074e52a5a70d62d9887faa2721/src/Logic.hs#L83'>https://github.com/rampaging-fridge/yojijukugo/blob/f0939d02a5b173074e52a5a70d62d9887faa2721/src/Logic.hs#L83</a> Traversalが与えられたとき、その影響範囲をシャッフルする(要するにどんな構造でもシャッフルできる)関数を作りました。ネストしたデータ構造に触れられるところが便利でした</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613187519.058400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">autotaker</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613187519.058400">2021-02-13 12:38:39 +0900</a></div>
+          </div>
+          <div class="message__body description">Haskellで型クラス実装されてなくても動くような、いわゆるSoft Constraintsの言語拡張って難しいんでしょうか？<br/><pre>(!) :: (Show? key, Ord key) =&gt; Map key value -&gt; key -&gt; value
 (!) m key = case lookup key m of
   Just value -&gt; value
   Nothing -&gt; case show? of
@@ -9,4 +49,438 @@
 Error: no value for key: "hoge"
 &gt;&gt;&gt; newtype T = T Int deriving(Eq,Ord)
 &gt;&gt;&gt; empty ! (T 10)
-Error: no value for key</pre></div></div></div><div class="message event" id="message-1613187902.059600"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1613187902.059600">2021-02-13&nbsp;12:45:02 +0900</a></div></div><div class="message__body description">あったら便利そうですね。力技ですが <a href='https://github.com/mikeizbicki/ifcxt'>https://github.com/mikeizbicki/ifcxt</a> こういうのはあります</div></div></div><div class="message event" id="message-1613189217.061700"><div class="content"><div class="summary"><div class="message__header user">autotaker</div><div class="message__timestamp date"><a class="date" href="#message-1613189217.061700">2021-02-13&nbsp;13:06:57 +0900</a></div></div><div class="message__body description">ifcxt面白いですね。IfCxtのインスタンスをGHCが自動生成するようにするのが筋が良さそうな気がしますね。</div></div></div><div class="message event" id="message-1613207902.062500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1613207902.062500">2021-02-13&nbsp;18:18:22 +0900</a></div></div><div class="message__body description">短くまとまってる <a href='https://yoshitsugu.net/posts/2021-02-13-linear-haskell.html'>https://yoshitsugu.net/posts/2021-02-13-linear-haskell.html</a></div></div></div><div class="message event" id="message-1613213514.063500"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1613213514.063500">2021-02-13&nbsp;19:51:54 +0900</a></div></div><div class="message__body description">こういうのちょくちょく欲しくなりますね</div></div></div><div class="message event" id="message-1613281732.063900"><div class="content"><div class="summary"><div class="message__header user">stat.yukiyama</div><div class="message__timestamp date"><a class="date" href="#message-1613281732.063900">2021-02-14&nbsp;14:48:52 +0900</a></div></div><div class="message__body description">@stat.yukiyama has joined the channel</div></div></div><div class="message event" id="message-1613292258.064700"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1613292258.064700">2021-02-14&nbsp;17:44:18 +0900</a></div></div><div class="message__body description">HLS って、GHCのバージョン毎に別のバイナリが必要なのか<br/>うーん、めんどいな<br/>っと思ったけどこれマージされてるな <a href='https://github.com/haskell/vscode-haskell/pull/236'>https://github.com/haskell/vscode-haskell/pull/236</a></div></div></div><div class="message event" id="message-1613292314.065000"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1613292314.065000">2021-02-14&nbsp;17:45:14 +0900</a></div></div><div class="message__body description">あ、これ VSCode か</div></div></div><div class="message event" id="message-1613292867.065400"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1613292867.065400">2021-02-14&nbsp;17:54:27 +0900</a></div></div><div class="message__body description">wrapperを入れたら自動で必要に応じて本体を入れてくれればいいのにね。 :disappointed_relieved:</div></div></div><div class="message event" id="message-1613293417.065600"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1613293417.065600">2021-02-14&nbsp;18:03:37 +0900</a></div></div><div class="message__body description">超:wakaru:</div></div></div><div class="message event" id="message-1613293431.065800"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1613293431.065800">2021-02-14&nbsp;18:03:51 +0900</a></div></div><div class="message__body description">まぁそのうち実装されるんじゃないですかね</div></div></div><div class="message event" id="message-1613296212.069000"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1613296212.069000">2021-02-14&nbsp;18:50:12 +0900</a></div></div><div class="message__body description">標準でhaskell-language-server-wrapperというプログラムがあって各バージョンごとのバイナリを適宜呼び出してくれます。</div></div></div><div class="message event" id="message-1613296369.069200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1613296369.069200">2021-02-14&nbsp;18:52:49 +0900</a></div></div><div class="message__body description">えぇ、GHCのバージョン毎に呼び分けしてくれるところまではいいのですが、対象のGHCがインストールされてなかったときにインストールするところまではしてくれないので...</div></div></div><div class="message event" id="message-1613297738.072200"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1613297738.072200">2021-02-14&nbsp;19:15:38 +0900</a></div></div><div class="message__body description">なるほど。確かに今はghcupからhlsとghcをインストールするようになってて、hlsから自動的にghcをインストールするようにはなってませんね。</div></div></div><div class="message event" id="message-1613298369.072500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1613298369.072500">2021-02-14&nbsp;19:26:09 +0900</a></div></div><div class="message__body description">ああー、すみません、言い間違えました。「対象のGHC向けのhls」です。</div></div></div><div class="message event" id="message-1613301498.072700"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1613301498.072700">2021-02-14&nbsp;20:18:18 +0900</a></div></div><div class="message__body description">hlsでしたら <code>ghcup install hls</code> でバイナリが提供されているバージョンの詰め合わせがダウンロードされると思います。Windowsでは試したことがないのでもしかしたらLinux/macOSだけかもしれませんが。</div></div></div><div class="message event" id="message-1613301731.072900"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1613301731.072900">2021-02-14&nbsp;20:22:11 +0900</a></div></div><div class="message__body description"><a href='https://gitlab.haskell.org/haskell/ghcup-hs/-/blob/e5a60d1b9a4f0dbffa7d7c56ad65eaa4f7cf8a74/ghcup-0.0.4.yaml#L1577-1594'>https://gitlab.haskell.org/haskell/ghcup-hs/-/blob/e5a60d1b9a4f0dbffa7d7c56ad65eaa4f7cf8a74/ghcup-0.0.4.yaml#L1577-1594</a> ここを見る限りwindowsは対応してないのかもしれません</div></div></div><div class="message event" id="message-1613469458.074600"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1613469458.074600">2021-02-16&nbsp;18:57:38 +0900</a></div></div><div class="message__body description">ekmettさんのアカウントが乗っ取られてvzlishというIDに変えられたらしい<br/>（直接Haskellと関係なくてすみません）  <a href='https://twitter.com/kmett/status/1361607573237944321?s=20'>https://twitter.com/kmett/status/1361607573237944321?s=20</a></div></div></div><div class="message event" id="message-1613500279.077000"><div class="content"><div class="summary"><div class="message__header user">siosio</div><div class="message__timestamp date"><a class="date" href="#message-1613500279.077000">2021-02-17&nbsp;03:31:19 +0900</a></div></div><div class="message__body description">Haskellのお部屋のようです<br/><a href='https://twitter.com/jfischoff/status/1360389924852125699'>https://twitter.com/jfischoff/status/1360389924852125699</a></div></div></div><div class="message event" id="message-1613537752.077600"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1613537752.077600">2021-02-17&nbsp;13:55:52 +0900</a></div></div><div class="message__body description"><a href='https://gitlab.haskell.org/ghc/ghc/-/merge_requests/4743'>https://gitlab.haskell.org/ghc/ghc/-/merge_requests/4743</a> NoFieldSelectorsの実装がマージされました！</div></div></div><div class="message event" id="message-1613550824.079600"><div class="content"><div class="summary"><div class="message__header user">hiro.1nakanishi</div><div class="message__timestamp date"><a class="date" href="#message-1613550824.079600">2021-02-17&nbsp;17:33:44 +0900</a></div></div><div class="message__body description">@hiro.1nakanishi has joined the channel</div></div></div><div class="message event" id="message-1613555559.080000"><div class="content"><div class="summary"><div class="message__header user">harupiyo</div><div class="message__timestamp date"><a class="date" href="#message-1613555559.080000">2021-02-17&nbsp;18:52:39 +0900</a></div></div><div class="message__body description">@harupiyo has joined the channel</div></div></div><div class="message event" id="message-1613610103.081000"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1613610103.081000">2021-02-18&nbsp;10:01:43 +0900</a></div></div><div class="message__body description">ふと ghci bot があると楽しそうと思った</div></div></div><div class="message event" id="message-1613611773.081300"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1613611773.081300">2021-02-18&nbsp;10:29:33 +0900</a></div></div><div class="message__body description">例年開催している Haskell Day ですが、開催できなかった去年の分をオンラインで開催しようと計画しています。<br/>初のオンラインイベントですので、いろいろと決めることがあり、まずは「何を決めないといけないか」の洗い出しをしています。<br/>よろしければレビューをお願いします。</div></div></div><div class="message event" id="message-1613620456.083800"><div class="content"><div class="summary"><div class="message__header user">claude0803sz</div><div class="message__timestamp date"><a class="date" href="#message-1613620456.083800">2021-02-18&nbsp;12:54:16 +0900</a></div></div><div class="message__body description">すごいH本を前に途中まで読んだだけで、最近あまりHaskell出来ていないのですが気になります:eyes:<br/>PyCon JP関連で昨年からスタッフ活動をしているので、イベント系に興味ありです</div></div></div><div class="message event" id="message-1613620684.085500"><div class="content"><div class="summary"><div class="message__header user">claude0803sz</div><div class="message__timestamp date"><a class="date" href="#message-1613620684.085500">2021-02-18&nbsp;12:58:04 +0900</a></div></div><div class="message__body description">PyCon JPは2011年初回カンファレンス、2013年にAPAC開催&amp;一般社団法人立ち上げというのをやっています。中の人と繋がりあるので知見の共有とかできるかも....</div></div></div><div class="message event" id="message-1613620727.086100"><div class="content"><div class="summary"><div class="message__header user">claude0803sz</div><div class="message__timestamp date"><a class="date" href="#message-1613620727.086100">2021-02-18&nbsp;12:58:47 +0900</a></div></div><div class="message__body description">see also: <a href='https://www.pycon.jp/committee/index.html'>https://www.pycon.jp/committee/index.html</a></div></div></div><div class="message event" id="message-1613624671.086700"><div class="content"><div class="summary"><div class="message__header user">gloel.loe2</div><div class="message__timestamp date"><a class="date" href="#message-1613624671.086700">2021-02-18&nbsp;14:04:31 +0900</a></div></div><div class="message__body description">@gloel.loe2 has joined the channel</div></div></div><div class="message event" id="message-1613846879.002100"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1613846879.002100">2021-02-21&nbsp;03:47:59 +0900</a></div></div><div class="message__body description">GHC の User Guide、9.0.1 から結構ページが変わってる<br/><a href='https://downloads.haskell.org/ghc/8.10.4/docs/html/users_guide'>https://downloads.haskell.org/ghc/8.10.4/docs/html/users_guide</a><br/><a href='https://downloads.haskell.org/ghc/9.0.1/docs/html/users_guide'>https://downloads.haskell.org/ghc/9.0.1/docs/html/users_guide</a><br/>latest ってなってたリンクが軒並み死んだ（ちゃんとバージョンを指定しておこうな）</div></div></div><div class="message event" id="message-1613847134.002200"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1613847134.002200">2021-02-21&nbsp;03:52:14 +0900</a></div></div><div class="message__body description">軒並みは言いすぎた、言語拡張のリンクだけ？変わってしまったみたいだ</div></div></div><div class="message event" id="message-1613858762.003500"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1613858762.003500">2021-02-21&nbsp;07:06:02 +0900</a></div></div><div class="message__body description">このissueの件ですかね <a href='https://gitlab.haskell.org/ghc/ghc/-/issues/14023'>https://gitlab.haskell.org/ghc/ghc/-/issues/14023</a></div></div></div><div class="message event" id="message-1613989603.007700"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1613989603.007700">2021-02-22&nbsp;19:26:43 +0900</a></div></div><div class="message__body description">英語だけど、どこまで評価されてどこまでサンクなのかが可視化されて、おもしろい<br/><a href='https://youtu.be/UPy7TXgrK1A'>https://youtu.be/UPy7TXgrK1A</a></div></div></div><div class="message event" id="message-1614091597.010600"><div class="content"><div class="summary"><div class="message__header user">nakaji-dayo</div><div class="message__timestamp date"><a class="date" href="#message-1614091597.010600">2021-02-23&nbsp;23:46:37 +0900</a></div></div><div class="message__body description">Swiss Tableを実装してみました<br/><a href='https://hackage.haskell.org/package/swisstable'>https://hackage.haskell.org/package/swisstable</a><br/>(Swiss Table: <a href='https://abseil.io/about/design/swisstables'>https://abseil.io/about/design/swisstables</a> )</div></div></div><div class="message event" id="message-1614121298.012100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1614121298.012100">2021-02-24&nbsp;08:01:38 +0900</a></div></div><div class="message__body description"><a href='http://haskell.org'>haskell.org</a> から見られるドキュメントに不足している内容を募集、ってことかな？<br/><a href='https://discourse.haskell.org/t/rfc-documentation-overhaul-on-haskell-org/1942'>https://discourse.haskell.org/t/rfc-documentation-overhaul-on-haskell-org/1942</a></div></div></div><div class="message event" id="message-1614164236.013100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1614164236.013100">2021-02-24&nbsp;19:57:16 +0900</a></div></div><div class="message__body description">うぉー、今日会社PCのhaskell-language-serverを0.9.0に更新したばっかりだったのに1.0.0が出てたのか！<br/><a href='https://github.com/haskell/haskell-language-server/releases/tag/1.0.0'>https://github.com/haskell/haskell-language-server/releases/tag/1.0.0</a></div></div></div><div class="message event" id="message-1614164969.014200"><div class="content"><div class="summary"><div class="message__header user">konn.jinro</div><div class="message__timestamp date"><a class="date" href="#message-1614164969.014200">2021-02-24&nbsp;20:09:29 +0900</a></div></div><div class="message__body description">まだ Pre-release の段階で、バイナリはこれから 8.8.4 の Windows バイナリが用意できてからリリースになります</div></div></div><div class="message event" id="message-1614206768.016300"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1614206768.016300">2021-02-25&nbsp;07:46:08 +0900</a></div></div><div class="message__body description">待望のfind referencesが実装されて最高です。これでrust-analyzerみたいに依存・標準ライブラリも含めてfind definitionが動くようになれば言うことないのですが、HLS側だけでなんとかなる問題ではないと思うので難しそう。</div></div></div><div class="message event" id="message-1614207036.018800"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1614207036.018800">2021-02-25&nbsp;07:50:36 +0900</a></div></div><div class="message__body description">あとLinuxで公式バイナリを使っていてTHを使ったプロジェクトをビルドすると <a href='https://github.com/haskell/haskell-language-server/issues/429'>https://github.com/haskell/haskell-language-server/issues/429</a> に遭遇したりすることがあります。glibcを静的リンクしていることが問題のようなので、HLSを自分でビルドすると直ります。</div></div></div><div class="message event" id="message-1614208221.019900"><div class="content"><div class="summary"><div class="message__header user">kazu</div><div class="message__timestamp date"><a class="date" href="#message-1614208221.019900">2021-02-25&nbsp;08:10:21 +0900</a></div></div><div class="message__body description">HLSって、(stackじゃなく)cabalで管理されているプロジェクトでもうまく動きますか？ (stack はまったくインストールしてない環境)</div></div></div><div class="message event" id="message-1614208256.020100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1614208256.020100">2021-02-25&nbsp;08:10:56 +0900</a></div></div><div class="message__body description">大丈夫だと思いますよ。</div></div></div><div class="message event" id="message-1614208339.020700"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1614208339.020700">2021-02-25&nbsp;08:12:19 +0900</a></div></div><div class="message__body description">動きますが、環境によっては <a href='https://github.com/mpickering/hie-bios/issues/194'>https://github.com/mpickering/hie-bios/issues/194</a> のような問題があります。</div></div></div><div class="message event" id="message-1614208393.021300"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1614208393.021300">2021-02-25&nbsp;08:13:13 +0900</a></div></div><div class="message__body description"><a href='https://github.com/haskell/cabal/pull/6241'>https://github.com/haskell/cabal/pull/6241</a> がmergeされるといいのですが</div></div></div><div class="message event" id="message-1614208641.024000"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1614208641.024000">2021-02-25&nbsp;08:17:21 +0900</a></div></div><div class="message__body description">ghcupを使っていれば <code>ghcup set ghc $VERSION</code> で常にプロジェクトが期待するGHCをactiveにしておけば問題なく動くと思います。別バージョンを使う複数のプロジェクトを同時に扱う場合は面倒になってしまいます。</div></div></div><div class="message event" id="message-1614213001.024400"><div class="content"><div class="summary"><div class="message__header user">kazu</div><div class="message__timestamp date"><a class="date" href="#message-1614213001.024400">2021-02-25&nbsp;09:30:01 +0900</a></div></div><div class="message__body description">@maoe ありがとうございます！</div></div></div><div class="message event" id="message-1614234953.025500"><div class="content"><div class="summary"><div class="message__header user">konn.jinro</div><div class="message__timestamp date"><a class="date" href="#message-1614234953.025500">2021-02-25&nbsp;15:35:53 +0900</a></div></div><div class="message__body description">HLS 1.0.0 が正式リリースされました。Windows 上での 8.8 向けのバイナリの準備が不安定でその分だけ欠けていますが、他の環境 or  GHC Version 向けであればもう使える筈です。<br/><a href='https://github.com/haskell/haskell-language-server/releases/tag/1.0.0'>https://github.com/haskell/haskell-language-server/releases/tag/1.0.0</a></div></div></div><div class="message event" id="message-1614235302.029100"><div class="content"><div class="summary"><div class="message__header user">konn.jinro</div><div class="message__timestamp date"><a class="date" href="#message-1614235302.029100">2021-02-25&nbsp;15:41:42 +0900</a></div></div><div class="message__body description">今回の目玉は、<br/><br/>• maoe さんも言及している find reference (グローバルな関数・型以外にもローカル変数の呼び出しとかも一覧出来てすごく便利です) <br/>• より校則なロード時間（この二つは hiedb の機能によるものです）<br/>• 8.10.4 バイナリの配付<br/>• 強化された Tactics Plugin（lambda 式や case だけでなく関数定義の split もできるように／η reduction なども可能）<br/>• ambiguous import や shadowing の解決機能<br/>• Eval Plugin のコメントパーザがまともになった<br/>• Eval Plugin の <code>:set</code> で 言語拡張以外にも GHC flags が指定可能に<br/>• HLint の quick fix がビルド済バイナリでも動くように<br/>あたりでしょうか</div></div></div><div class="message event" id="message-1614235422.030000"><div class="content"><div class="summary"><div class="message__header user">konn.jinro</div><div class="message__timestamp date"><a class="date" href="#message-1614235422.030000">2021-02-25&nbsp;15:43:42 +0900</a></div></div><div class="message__body description">あ、あと hiedb のおかげでビルドシステムに stack を使っていてもローカルパッケージ間のジャンプが出来るようになりました</div></div></div><div class="message event" id="message-1614265067.032900"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1614265067.032900">2021-02-25&nbsp;23:57:47 +0900</a></div></div><div class="message__body description"><a href='https://ja.wikipedia.org/wiki/ノート:関数型言語#改善に向けて'>https://ja.wikipedia.org/wiki/ノート:関数型言語#改善に向けて</a> で Wikipedia の記事を改善しようとしているので、「関数型プログラミング」についての  Wikipedia における「信頼できる情報源」であるようなものを元とした情報が欲しいです……</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C4M4TT8JJ/87.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C4M4TT8JJ/88.html" class="pager__next item">Next</a></div></div></body></html>
+Error: no value for key</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613187902.059600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613187902.059600">2021-02-13 12:45:02 +0900</a></div>
+          </div>
+          <div class="message__body description">あったら便利そうですね。力技ですが <a href='https://github.com/mikeizbicki/ifcxt'>https://github.com/mikeizbicki/ifcxt</a> こういうのはあります</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613189217.061700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">autotaker</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613189217.061700">2021-02-13 13:06:57 +0900</a></div>
+          </div>
+          <div class="message__body description">ifcxt面白いですね。IfCxtのインスタンスをGHCが自動生成するようにするのが筋が良さそうな気がしますね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613207902.062500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613207902.062500">2021-02-13 18:18:22 +0900</a></div>
+          </div>
+          <div class="message__body description">短くまとまってる <a href='https://yoshitsugu.net/posts/2021-02-13-linear-haskell.html'>https://yoshitsugu.net/posts/2021-02-13-linear-haskell.html</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613213514.063500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613213514.063500">2021-02-13 19:51:54 +0900</a></div>
+          </div>
+          <div class="message__body description">こういうのちょくちょく欲しくなりますね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613281732.063900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">stat.yukiyama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613281732.063900">2021-02-14 14:48:52 +0900</a></div>
+          </div>
+          <div class="message__body description">@stat.yukiyama has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613292258.064700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613292258.064700">2021-02-14 17:44:18 +0900</a></div>
+          </div>
+          <div class="message__body description">HLS って、GHCのバージョン毎に別のバイナリが必要なのか<br/>うーん、めんどいな<br/>っと思ったけどこれマージされてるな <a href='https://github.com/haskell/vscode-haskell/pull/236'>https://github.com/haskell/vscode-haskell/pull/236</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613292314.065000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613292314.065000">2021-02-14 17:45:14 +0900</a></div>
+          </div>
+          <div class="message__body description">あ、これ VSCode か</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613292867.065400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613292867.065400">2021-02-14 17:54:27 +0900</a></div>
+          </div>
+          <div class="message__body description">wrapperを入れたら自動で必要に応じて本体を入れてくれればいいのにね。 :disappointed_relieved:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613293417.065600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613293417.065600">2021-02-14 18:03:37 +0900</a></div>
+          </div>
+          <div class="message__body description">超:wakaru:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613293431.065800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613293431.065800">2021-02-14 18:03:51 +0900</a></div>
+          </div>
+          <div class="message__body description">まぁそのうち実装されるんじゃないですかね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613296212.069000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613296212.069000">2021-02-14 18:50:12 +0900</a></div>
+          </div>
+          <div class="message__body description">標準でhaskell-language-server-wrapperというプログラムがあって各バージョンごとのバイナリを適宜呼び出してくれます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613296369.069200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613296369.069200">2021-02-14 18:52:49 +0900</a></div>
+          </div>
+          <div class="message__body description">えぇ、GHCのバージョン毎に呼び分けしてくれるところまではいいのですが、対象のGHCがインストールされてなかったときにインストールするところまではしてくれないので...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613297738.072200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613297738.072200">2021-02-14 19:15:38 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど。確かに今はghcupからhlsとghcをインストールするようになってて、hlsから自動的にghcをインストールするようにはなってませんね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613298369.072500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613298369.072500">2021-02-14 19:26:09 +0900</a></div>
+          </div>
+          <div class="message__body description">ああー、すみません、言い間違えました。「対象のGHC向けのhls」です。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613301498.072700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613301498.072700">2021-02-14 20:18:18 +0900</a></div>
+          </div>
+          <div class="message__body description">hlsでしたら <code>ghcup install hls</code> でバイナリが提供されているバージョンの詰め合わせがダウンロードされると思います。Windowsでは試したことがないのでもしかしたらLinux/macOSだけかもしれませんが。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613301731.072900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613301731.072900">2021-02-14 20:22:11 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://gitlab.haskell.org/haskell/ghcup-hs/-/blob/e5a60d1b9a4f0dbffa7d7c56ad65eaa4f7cf8a74/ghcup-0.0.4.yaml#L1577-1594'>https://gitlab.haskell.org/haskell/ghcup-hs/-/blob/e5a60d1b9a4f0dbffa7d7c56ad65eaa4f7cf8a74/ghcup-0.0.4.yaml#L1577-1594</a> ここを見る限りwindowsは対応してないのかもしれません</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613469458.074600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613469458.074600">2021-02-16 18:57:38 +0900</a></div>
+          </div>
+          <div class="message__body description">ekmettさんのアカウントが乗っ取られてvzlishというIDに変えられたらしい<br/>（直接Haskellと関係なくてすみません）  <a href='https://twitter.com/kmett/status/1361607573237944321?s=20'>https://twitter.com/kmett/status/1361607573237944321?s=20</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613500279.077000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">siosio</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613500279.077000">2021-02-17 03:31:19 +0900</a></div>
+          </div>
+          <div class="message__body description">Haskellのお部屋のようです<br/><a href='https://twitter.com/jfischoff/status/1360389924852125699'>https://twitter.com/jfischoff/status/1360389924852125699</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613537752.077600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613537752.077600">2021-02-17 13:55:52 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://gitlab.haskell.org/ghc/ghc/-/merge_requests/4743'>https://gitlab.haskell.org/ghc/ghc/-/merge_requests/4743</a> NoFieldSelectorsの実装がマージされました！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613550824.079600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiro.1nakanishi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613550824.079600">2021-02-17 17:33:44 +0900</a></div>
+          </div>
+          <div class="message__body description">@hiro.1nakanishi has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613555559.080000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">harupiyo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613555559.080000">2021-02-17 18:52:39 +0900</a></div>
+          </div>
+          <div class="message__body description">@harupiyo has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613610103.081000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613610103.081000">2021-02-18 10:01:43 +0900</a></div>
+          </div>
+          <div class="message__body description">ふと ghci bot があると楽しそうと思った</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613611773.081300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613611773.081300">2021-02-18 10:29:33 +0900</a></div>
+          </div>
+          <div class="message__body description">例年開催している Haskell Day ですが、開催できなかった去年の分をオンラインで開催しようと計画しています。<br/>初のオンラインイベントですので、いろいろと決めることがあり、まずは「何を決めないといけないか」の洗い出しをしています。<br/>よろしければレビューをお願いします。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613620456.083800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">claude0803sz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613620456.083800">2021-02-18 12:54:16 +0900</a></div>
+          </div>
+          <div class="message__body description">すごいH本を前に途中まで読んだだけで、最近あまりHaskell出来ていないのですが気になります:eyes:<br/>PyCon JP関連で昨年からスタッフ活動をしているので、イベント系に興味ありです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613620684.085500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">claude0803sz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613620684.085500">2021-02-18 12:58:04 +0900</a></div>
+          </div>
+          <div class="message__body description">PyCon JPは2011年初回カンファレンス、2013年にAPAC開催&amp;一般社団法人立ち上げというのをやっています。中の人と繋がりあるので知見の共有とかできるかも....</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613620727.086100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">claude0803sz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613620727.086100">2021-02-18 12:58:47 +0900</a></div>
+          </div>
+          <div class="message__body description">see also: <a href='https://www.pycon.jp/committee/index.html'>https://www.pycon.jp/committee/index.html</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613624671.086700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gloel.loe2</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613624671.086700">2021-02-18 14:04:31 +0900</a></div>
+          </div>
+          <div class="message__body description">@gloel.loe2 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613846879.002100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613846879.002100">2021-02-21 03:47:59 +0900</a></div>
+          </div>
+          <div class="message__body description">GHC の User Guide、9.0.1 から結構ページが変わってる<br/><a href='https://downloads.haskell.org/ghc/8.10.4/docs/html/users_guide'>https://downloads.haskell.org/ghc/8.10.4/docs/html/users_guide</a><br/><a href='https://downloads.haskell.org/ghc/9.0.1/docs/html/users_guide'>https://downloads.haskell.org/ghc/9.0.1/docs/html/users_guide</a><br/>latest ってなってたリンクが軒並み死んだ（ちゃんとバージョンを指定しておこうな）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613847134.002200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613847134.002200">2021-02-21 03:52:14 +0900</a></div>
+          </div>
+          <div class="message__body description">軒並みは言いすぎた、言語拡張のリンクだけ？変わってしまったみたいだ</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613858762.003500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613858762.003500">2021-02-21 07:06:02 +0900</a></div>
+          </div>
+          <div class="message__body description">このissueの件ですかね <a href='https://gitlab.haskell.org/ghc/ghc/-/issues/14023'>https://gitlab.haskell.org/ghc/ghc/-/issues/14023</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1613989603.007700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1613989603.007700">2021-02-22 19:26:43 +0900</a></div>
+          </div>
+          <div class="message__body description">英語だけど、どこまで評価されてどこまでサンクなのかが可視化されて、おもしろい<br/><a href='https://youtu.be/UPy7TXgrK1A'>https://youtu.be/UPy7TXgrK1A</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1614091597.010600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nakaji-dayo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1614091597.010600">2021-02-23 23:46:37 +0900</a></div>
+          </div>
+          <div class="message__body description">Swiss Tableを実装してみました<br/><a href='https://hackage.haskell.org/package/swisstable'>https://hackage.haskell.org/package/swisstable</a><br/>(Swiss Table: <a href='https://abseil.io/about/design/swisstables'>https://abseil.io/about/design/swisstables</a> )</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1614121298.012100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1614121298.012100">2021-02-24 08:01:38 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='http://haskell.org'>haskell.org</a> から見られるドキュメントに不足している内容を募集、ってことかな？<br/><a href='https://discourse.haskell.org/t/rfc-documentation-overhaul-on-haskell-org/1942'>https://discourse.haskell.org/t/rfc-documentation-overhaul-on-haskell-org/1942</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1614164236.013100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1614164236.013100">2021-02-24 19:57:16 +0900</a></div>
+          </div>
+          <div class="message__body description">うぉー、今日会社PCのhaskell-language-serverを0.9.0に更新したばっかりだったのに1.0.0が出てたのか！<br/><a href='https://github.com/haskell/haskell-language-server/releases/tag/1.0.0'>https://github.com/haskell/haskell-language-server/releases/tag/1.0.0</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1614164969.014200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">konn.jinro</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1614164969.014200">2021-02-24 20:09:29 +0900</a></div>
+          </div>
+          <div class="message__body description">まだ Pre-release の段階で、バイナリはこれから 8.8.4 の Windows バイナリが用意できてからリリースになります</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1614206768.016300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1614206768.016300">2021-02-25 07:46:08 +0900</a></div>
+          </div>
+          <div class="message__body description">待望のfind referencesが実装されて最高です。これでrust-analyzerみたいに依存・標準ライブラリも含めてfind definitionが動くようになれば言うことないのですが、HLS側だけでなんとかなる問題ではないと思うので難しそう。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1614207036.018800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1614207036.018800">2021-02-25 07:50:36 +0900</a></div>
+          </div>
+          <div class="message__body description">あとLinuxで公式バイナリを使っていてTHを使ったプロジェクトをビルドすると <a href='https://github.com/haskell/haskell-language-server/issues/429'>https://github.com/haskell/haskell-language-server/issues/429</a> に遭遇したりすることがあります。glibcを静的リンクしていることが問題のようなので、HLSを自分でビルドすると直ります。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1614208221.019900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kazu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1614208221.019900">2021-02-25 08:10:21 +0900</a></div>
+          </div>
+          <div class="message__body description">HLSって、(stackじゃなく)cabalで管理されているプロジェクトでもうまく動きますか？ (stack はまったくインストールしてない環境)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1614208256.020100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1614208256.020100">2021-02-25 08:10:56 +0900</a></div>
+          </div>
+          <div class="message__body description">大丈夫だと思いますよ。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1614208339.020700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1614208339.020700">2021-02-25 08:12:19 +0900</a></div>
+          </div>
+          <div class="message__body description">動きますが、環境によっては <a href='https://github.com/mpickering/hie-bios/issues/194'>https://github.com/mpickering/hie-bios/issues/194</a> のような問題があります。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1614208393.021300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1614208393.021300">2021-02-25 08:13:13 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://github.com/haskell/cabal/pull/6241'>https://github.com/haskell/cabal/pull/6241</a> がmergeされるといいのですが</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1614208641.024000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1614208641.024000">2021-02-25 08:17:21 +0900</a></div>
+          </div>
+          <div class="message__body description">ghcupを使っていれば <code>ghcup set ghc $VERSION</code> で常にプロジェクトが期待するGHCをactiveにしておけば問題なく動くと思います。別バージョンを使う複数のプロジェクトを同時に扱う場合は面倒になってしまいます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1614213001.024400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kazu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1614213001.024400">2021-02-25 09:30:01 +0900</a></div>
+          </div>
+          <div class="message__body description">@maoe ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1614234953.025500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">konn.jinro</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1614234953.025500">2021-02-25 15:35:53 +0900</a></div>
+          </div>
+          <div class="message__body description">HLS 1.0.0 が正式リリースされました。Windows 上での 8.8 向けのバイナリの準備が不安定でその分だけ欠けていますが、他の環境 or  GHC Version 向けであればもう使える筈です。<br/><a href='https://github.com/haskell/haskell-language-server/releases/tag/1.0.0'>https://github.com/haskell/haskell-language-server/releases/tag/1.0.0</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1614235302.029100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">konn.jinro</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1614235302.029100">2021-02-25 15:41:42 +0900</a></div>
+          </div>
+          <div class="message__body description">今回の目玉は、<br/><br/>• maoe さんも言及している find reference (グローバルな関数・型以外にもローカル変数の呼び出しとかも一覧出来てすごく便利です) <br/>• より校則なロード時間（この二つは hiedb の機能によるものです）<br/>• 8.10.4 バイナリの配付<br/>• 強化された Tactics Plugin（lambda 式や case だけでなく関数定義の split もできるように／η reduction なども可能）<br/>• ambiguous import や shadowing の解決機能<br/>• Eval Plugin のコメントパーザがまともになった<br/>• Eval Plugin の <code>:set</code> で 言語拡張以外にも GHC flags が指定可能に<br/>• HLint の quick fix がビルド済バイナリでも動くように<br/>あたりでしょうか</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1614235422.030000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">konn.jinro</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1614235422.030000">2021-02-25 15:43:42 +0900</a></div>
+          </div>
+          <div class="message__body description">あ、あと hiedb のおかげでビルドシステムに stack を使っていてもローカルパッケージ間のジャンプが出来るようになりました</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1614265067.032900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1614265067.032900">2021-02-25 23:57:47 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://ja.wikipedia.org/wiki/ノート:関数型言語#改善に向けて'>https://ja.wikipedia.org/wiki/ノート:関数型言語#改善に向けて</a> で Wikipedia の記事を改善しようとしているので、「関数型プログラミング」についての  Wikipedia における「信頼できる情報源」であるようなものを元とした情報が欲しいです……</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C4M4TT8JJ/86.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C4M4TT8JJ/88.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

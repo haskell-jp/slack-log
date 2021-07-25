@@ -1,1 +1,475 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / mokumoku-online #10</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / mokumoku-online #10</h1><div class="pager ui pagination menu"><a href="../../html/CUPBC8WCE/9.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/CUPBC8WCE/11.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1591504341.257900"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1591504341.257900">2020-06-07&nbsp;13:32:21 +0900</a></div></div><div class="message__body description"><a href='https://haskell.e-bigmoon.com/posts/2020/01-18-cabal-build-tool-depends.html'>https://haskell.e-bigmoon.com/posts/2020/01-18-cabal-build-tool-depends.html</a></div></div></div><div class="message event" id="message-1591505433.258400"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1591505433.258400">2020-06-07&nbsp;13:50:33 +0900</a></div></div><div class="message__body description">それやってもダメっぽいんですよね<br/><a href='https://twitter.com/kakkun61/status/1269238710559576064'>https://twitter.com/kakkun61/status/1269238710559576064</a></div></div></div><div class="message event" id="message-1591505562.258700"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1591505562.258700">2020-06-07&nbsp;13:52:42 +0900</a></div></div><div class="message__body description">何かごみが影響してる可能性があるけど、ログ見ようと <code>--ghc-options=-v</code> 付けたら通った…… あれ？ちゃんと見る</div></div></div><div class="message event" id="message-1591506101.258900"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1591506101.258900">2020-06-07&nbsp;14:01:41 +0900</a></div></div><div class="message__body description"><code>hspec-discover</code> で見つけたコードがコンパイルエラーだと <code>hspec-discover</code> 自体が失敗ということになる？（根拠なし）</div></div></div><div class="message event" id="message-1591508042.259300"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1591508042.259300">2020-06-07&nbsp;14:34:02 +0900</a></div></div><div class="message__body description">cabal 3.0 のサポートしてない GHC 8.10 だからダメだったのか<br/>GHC 8.8 ならうまくいった</div></div></div><div class="message event" id="message-1591508089.259500"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1591508089.259500">2020-06-07&nbsp;14:34:49 +0900</a></div></div><div class="message__body description">HDBC-postgresql がカスタムセットアップで Cabal &lt; 3.1 なのよね</div></div></div><div class="message event" id="message-1591508889.259700"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1591508889.259700">2020-06-07&nbsp;14:48:09 +0900</a></div></div><div class="message__body description">HDBC-postgesql の制約を緩和して cabal 3.2 GHC 8.10 にしたけど同じだった</div></div></div><div class="message event" id="message-1591509071.259900"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1591509071.259900">2020-06-07&nbsp;14:51:11 +0900</a></div></div><div class="message__body description">あきらめたw</div></div></div><div class="message event" id="message-1591509370.260100"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1591509370.260100">2020-06-07&nbsp;14:56:10 +0900</a></div></div><div class="message__body description">今日は疎</div></div></div><div class="message event" id="message-1591510003.260300"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1591510003.260300">2020-06-07&nbsp;15:06:43 +0900</a></div></div><div class="message__body description">やっぱり stack やで</div></div></div><div class="message event" id="message-1591514198.261800"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1591514198.261800">2020-06-07&nbsp;16:16:38 +0900</a></div></div><div class="message__body description">どうやら手元環境をstackからcabal new-buildに移行してこっち、一度もテストを走らせていなかったらしく、<br/>• <a href='https://haskell.e-bigmoon.com/posts/2020/01-18-cabal-build-tool-depends.html'>https://haskell.e-bigmoon.com/posts/2020/01-18-cabal-build-tool-depends.html</a><br/>• <a href='https://github.com/hasktorch/ffi-experimental/pull/62'>https://github.com/hasktorch/ffi-experimental/pull/62</a><br/>でハマりました</div></div></div><div class="message event" id="message-1591514830.262200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1591514830.262200">2020-06-07&nbsp;16:27:10 +0900</a></div></div><div class="message__body description"><a href='https://haskell-jp.slack.com/archives/CUPBC8WCE/p1591504088256800'>https://haskell-jp.slack.com/archives/CUPBC8WCE/p1591504088256800</a> と話題がちょっと被ってますね :sweat_smile:</div></div></div><div class="message event" id="message-1591515130.262500"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1591515130.262500">2020-06-07&nbsp;16:32:10 +0900</a></div></div><div class="message__body description">なんたる偶然ｗ</div></div></div><div class="message event" id="message-1591520456.262900"><div class="content"><div class="summary"><div class="message__header user">khibino</div><div class="message__timestamp date"><a class="date" href="#message-1591520456.262900">2020-06-07&nbsp;18:00:56 +0900</a></div></div><div class="message__body description">Generalized folds for nested datatypes を途中まで。<br/>References を漁っていてさらに積まれた気がするが気にしない。</div></div></div><div class="message event" id="message-1591520544.263300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1591520544.263300">2020-06-07&nbsp;18:02:24 +0900</a></div></div><div class="message__body description"><!here> 成果報告の時間です！何か、やったことを軽くご共有いただけると幸いです hask(_ _)eller</div></div></div><div class="message event" id="message-1591520699.265400"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1591520699.265400">2020-06-07&nbsp;18:04:59 +0900</a></div></div><div class="message__body description">私は、先ほど来た <a href='https://ja.stackoverflow.com/questions/67387/haskellghc%E3%81%8B%E3%82%89user32-dll%E3%81%AE%E9%96%A2%E6%95%B0%E3%82%92%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%9D%E3%81%86%E3%81%A8%E3%81%97%E3%81%9F%E9%9A%9B%E3%81%AB%E6%9C%AA%E8%A7%A3%E6%B1%BA%E5%8F%82%E7%85%A7%E3%81%A8%E3%81%AA%E3%82%8B'>https://ja.stackoverflow.com/questions/67387/haskellghc%E3%81%8B%E3%82%89user32-dll%E3%81%AE%E9%96%A2%E6%95%B0%E3%82%92%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%9D%E3%81%86%E3%81%A8%E3%81%97%E3%81%9F%E9%9A%9B%E3%81%AB%E6%9C%AA%E8%A7%A3%E6%B1%BA%E5%8F%82%E7%85%A7%E3%81%A8%E3%81%AA%E3%82%8B</a> の質問が気になってしょうがなかったので当初の予定そっちのけで試行錯誤してました... 結局うまく行かず... :sob:<br/>あと、 <a href='https://github.com/haskell-jp/blog/pull/168'>https://github.com/haskell-jp/blog/pull/168</a> に早速フィードバックをいただけたので少し対応してました（いつもありがとう）</div></div></div><div class="message event" id="message-1591520914.267900"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1591520914.267900">2020-06-07&nbsp;18:08:34 +0900</a></div></div><div class="message__body description">すっごく簡単にですが、WebUI ができました！</div></div></div><div class="message event" id="message-1591521025.269700"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1591521025.269700">2020-06-07&nbsp;18:10:25 +0900</a></div></div><div class="message__body description">• postgresql-pure を cabal v2 管理にして 8.10 でテストしたい<br/>    • hpsec-discover が Windows でうまく動かず挫折<br/>    • network が configure で sh に依存してるので MinGW からは脱却できず<br/>    • resolver のアップデート<br/>• ghcups に来てるコメント対応<br/>    • ドイツ語環境でエラー<br/>    • PowerShell モジュールのマニフェストファイルは <b>BOM 付き</b> UTF-8 じゃないとダメっぽい<br/>• HDBC 経由せず postgresql-pure と HRR を使いたい<br/>    • <i>haskell-relational-record/relational-query-HDBC/src/Database/Schema/HDBC/PostgreSQL.hs</i> を読み始めた</div></div></div><div class="message event" id="message-1591521230.271500"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1591521230.271500">2020-06-07&nbsp;18:13:50 +0900</a></div></div><div class="message__body description">途中送信したのでアップデート</div></div></div><div class="message event" id="message-1591521303.272600"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1591521303.272600">2020-06-07&nbsp;18:15:03 +0900</a></div></div><div class="message__body description">なんとか心理的ながっかり状態を乗り越えて、居残りでslack-logを少しでも進めます...</div></div></div><div class="message event" id="message-1591521597.275100"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1591521597.275100">2020-06-07&nbsp;18:19:57 +0900</a></div></div><div class="message__body description">CI 見たら Windows 上で base-compat のビルドが access violation で終わっててツラい……（access violation は Linux の segmentation fault 相当<br/><a href='https://kakkun61.visualstudio.com/postgresql-pure/_build/results?buildId=32&amp;view=logs&amp;j=4a4cbd20-e8e0-5624-f281-626714767dab&amp;t=ab8e7b53-bc05-5000-a34e-cb41f71df9ee'>https://kakkun61.visualstudio.com/postgresql-pure/_build/results?buildId=32&amp;view=logs&amp;j=4a4cbd20-e8e0-5624-f281-626714767dab&amp;t=ab8e7b53-bc05-5000-a34e-cb41f71df9ee</a></div></div></div><div class="message event" id="message-1591521635.275400"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1591521635.275400">2020-06-07&nbsp;18:20:35 +0900</a></div></div><div class="message__body description">できた！<br/><a href='https://matsubara0507.github.io/my-deps-sensor'>https://matsubara0507.github.io/my-deps-sensor</a></div></div></div><div class="message event" id="message-1591521781.278000"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1591521781.278000">2020-06-07&nbsp;18:23:01 +0900</a></div></div><div class="message__body description">machinecellの高速化のため、Church encoded free monad(<http://hackage.haskell.org/package/free-5.1.3/docs/Control-Monad-Trans-Free-Church.html>)のFTで遊ぶ奴やってます。mのところに入れる奴を工夫すると、少しおもしろい事ができる気がしたんですがまだ具体的成果が得られていません。<br/>とりあえずstack無しでテストが動くようにはなりました <a href='https://github.com/as-capabl/machinecell/commit/f9b19e536d091973332fd7506aa1984203dd8fc1'>https://github.com/as-capabl/machinecell/commit/f9b19e536d091973332fd7506aa1984203dd8fc1</a></div></div></div><div class="message event" id="message-1591521907.279200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1591521907.279200">2020-06-07&nbsp;18:25:07 +0900</a></div></div><div class="message__body description">@kakkun61 @matsubara0507 ところでどちらさんか来週分の運営を頼みたいんですがいかがでしょう？ :pray:</div></div></div><div class="message event" id="message-1591521933.279600"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1591521933.279600">2020-06-07&nbsp;18:25:33 +0900</a></div></div><div class="message__body description">日曜日なら :ok:</div></div></div><div class="message event" id="message-1591521934.279800"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1591521934.279800">2020-06-07&nbsp;18:25:34 +0900</a></div></div><div class="message__body description">5/13・5/14どちらでも :ok:</div></div></div><div class="message event" id="message-1591522167.280000"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1591522167.280000">2020-06-07&nbsp;18:29:27 +0900</a></div></div><div class="message__body description">たとえばMingwでCからDLLを呼び出す時って、DLLそのものではなくて、DLLからインポートライブラリを作ってそれをリンカに教える感じになりますが、そういう奴ではないですかね <a href='https://arakik10.hatenadiary.org/entry/20100504/p1'>https://arakik10.hatenadiary.org/entry/20100504/p1</a></div></div></div><div class="message event" id="message-1591522281.280400"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1591522281.280400">2020-06-07&nbsp;18:31:21 +0900</a></div></div><div class="message__body description">すいません、そのときにならないと参加できるかわからないので、できないっす :bow:<br/>(ツレが休日出勤する日だけ参加してるんですよ。。。今のところ。。)</div></div></div><div class="message event" id="message-1591522487.280800"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1591522487.280800">2020-06-07&nbsp;18:34:47 +0900</a></div></div><div class="message__body description">5月ちゃうw 6/13・6/14だ...</div></div></div><div class="message event" id="message-1591522509.281000"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1591522509.281000">2020-06-07&nbsp;18:35:09 +0900</a></div></div><div class="message__body description">@kakkun61 では 6/14でお願いします！<br/>今イベントページ作りますね。</div></div></div><div class="message event" id="message-1591522774.281300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1591522774.281300">2020-06-07&nbsp;18:39:34 +0900</a></div></div><div class="message__body description">@kakkun61 管理者に追加しておきました。見えるかな？<br/><a href='https://connpass.com/event/179011/edit/'>https://connpass.com/event/179011/edit/</a></div></div></div><div class="message event" id="message-1591523121.281600"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1591523121.281600">2020-06-07&nbsp;18:45:21 +0900</a></div></div><div class="message__body description">@igrep 見れましたー</div></div></div><div class="message event" id="message-1591523251.281900"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1591523251.281900">2020-06-07&nbsp;18:47:31 +0900</a></div></div><div class="message__body description">@igrep 運営やることシートどこでしたっけ？</div></div></div><div class="message event" id="message-1591523300.282100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1591523300.282100">2020-06-07&nbsp;18:48:20 +0900</a></div></div><div class="message__body description">@kakkun61 ありがとう、それでは当日は<br/><a href='https://wiki.haskell.jp/Workshop/hasmoku/OrganizerGuide'>https://wiki.haskell.jp/Workshop/hasmoku/OrganizerGuide</a><br/>に従ってお願いします！<br/>私も次回は参加できますが、昼間に予定があるので途中からになってしまう可能性が高いのでよろしくお願いします！<br/>あと、 :point_up: にも書きましたが参加登録も忘れずに。<br/><a href='https://haskell-jp.connpass.com/event/179011/'>https://haskell-jp.connpass.com/event/179011/</a></div></div></div><div class="message event" id="message-1591523365.282500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1591523365.282500">2020-06-07&nbsp;18:49:25 +0900</a></div></div><div class="message__body description">まだ成果を共有していない方もいらっしゃるようですがそろそろお開きと言うことで！お疲れ様でした！</div></div></div><div class="message event" id="message-1591523783.282800"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1591523783.282800">2020-06-07&nbsp;18:56:23 +0900</a></div></div><div class="message__body description">user32.dllだったらmingw/libに既にdll.aが存在するはずなので、リンク指定は通っているかもしれません。<br/><br/>SetProcessDpiAwarenessContext関数は新しい関数なので、mingwに添付されているインポートライブラリに入っていない可能性も考慮する必要があるかも</div></div></div><div class="message event" id="message-1591524673.283100"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1591524673.283100">2020-06-07&nbsp;19:11:13 +0900</a></div></div><div class="message__body description">GitHub Action を利用してページを自動更新できるようにした<br/><a href='https://github.com/matsubara0507/my-deps-sensor/runs/746882622'>https://github.com/matsubara0507/my-deps-sensor/runs/746882622</a></div></div></div><div class="message event" id="message-1591524787.283400"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1591524787.283400">2020-06-07&nbsp;19:13:07 +0900</a></div></div><div class="message__body description">お二人とも概ね同じ意見にたどり着いたようで <a href='https://haskell-jp.slack.com/archives/C707P67R7/p1591524151006500?thread_ts=1591512866.004800&amp;cid=C707P67R7'>https://haskell-jp.slack.com/archives/C707P67R7/p1591524151006500?thread_ts=1591512866.004800&amp;cid=C707P67R7</a></div></div></div><div class="message event" id="message-1591525181.283800"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1591525181.283800">2020-06-07&nbsp;19:19:41 +0900</a></div></div><div class="message__body description">簡単に回答してみました <a href='https://ja.stackoverflow.com/a/67388/37927'>https://ja.stackoverflow.com/a/67388/37927</a></div></div></div><div class="message event" id="message-1591525216.284200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1591525216.284200">2020-06-07&nbsp;19:20:16 +0900</a></div></div><div class="message__body description">手元でやってもうまく行きました :relieved:</div></div></div><div class="message event" id="message-1591612854.284600"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1591612854.284600">2020-06-08&nbsp;19:40:54 +0900</a></div></div><div class="message__body description">@gettaplacetogo has joined the channel</div></div></div><div class="message event" id="message-1592107309.284800"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1592107309.284800">2020-06-14&nbsp;13:01:49 +0900</a></div></div><div class="message__body description">もくもく</div></div></div><div class="message event" id="message-1592107445.286100"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1592107445.286100">2020-06-14&nbsp;13:04:05 +0900</a></div></div><div class="message__body description"><a href='!here'>!here</a> 第36回 Haskell-jp もくもく会のお時間です<br/>自己紹介と今日やることの予定の共有をお願いします<br/>もくもく</div></div></div><div class="message event" id="message-1592107880.286600"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1592107880.286600">2020-06-14&nbsp;13:11:20 +0900</a></div></div><div class="message__body description">ビデオチャットはこちら <a href='https://spatial.chat/s/Haskell-jp'>https://spatial.chat/s/Haskell-jp</a><br/>参加してる人は :raising_hand:</div></div></div><div class="message event" id="message-1592108211.288300"><div class="content"><div class="summary"><div class="message__header user">kkawaharasshoutarou</div><div class="message__timestamp date"><a class="date" href="#message-1592108211.288300">2020-06-14&nbsp;13:16:51 +0900</a></div></div><div class="message__body description">川原です<br/>thinking with typesを読む予定です。<br/>よろしくお願いします</div></div></div><div class="message event" id="message-1592108261.289400"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1592108261.289400">2020-06-14&nbsp;13:17:41 +0900</a></div></div><div class="message__body description">山本悠滋です。今日も参加予定ですが、まだ出先で、帰ってご飯を食べてからなんで参加はもう少し後！<br/>今日もslack-logの改善をします！</div></div></div><div class="message event" id="message-1592108423.291000"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1592108423.291000">2020-06-14&nbsp;13:20:23 +0900</a></div></div><div class="message__body description">かっくんです<br/>HDBC を経由せずに relational record から postgresql-pure に繋ごうとしてます<br/>目下の問題はこれ ↓ <a href='https://twitter.com/kakkun61/status/1271685730293526528'>https://twitter.com/kakkun61/status/1271685730293526528</a></div></div></div><div class="message event" id="message-1592120718.291800"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1592120718.291800">2020-06-14&nbsp;16:45:18 +0900</a></div></div><div class="message__body description">遅くなりましたがやっと始めます</div></div></div><div class="message event" id="message-1592120889.292300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1592120889.292300">2020-06-14&nbsp;16:48:09 +0900</a></div></div><div class="message__body description">誰もいないのででっかく作業風景を配信しておきます <a href='https://spatial.chat/s/Haskell-jp'>https://spatial.chat/s/Haskell-jp</a></div></div></div><div class="message event" id="message-1592124963.293200"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1592124963.293200">2020-06-14&nbsp;17:56:03 +0900</a></div></div><div class="message__body description"><code>GHC.TypeLits.Nat</code> はそうか自然数か（負の数にしたかった</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/CUPBC8WCE/9.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/CUPBC8WCE/11.html" class="pager__next item">Next</a></div></div></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / mokumoku-online #10</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / mokumoku-online #10</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/CUPBC8WCE/9.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/CUPBC8WCE/11.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1591504341.257900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591504341.257900">2020-06-07 13:32:21 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://haskell.e-bigmoon.com/posts/2020/01-18-cabal-build-tool-depends.html'>https://haskell.e-bigmoon.com/posts/2020/01-18-cabal-build-tool-depends.html</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591505433.258400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591505433.258400">2020-06-07 13:50:33 +0900</a></div>
+          </div>
+          <div class="message__body description">それやってもダメっぽいんですよね<br/><a href='https://twitter.com/kakkun61/status/1269238710559576064'>https://twitter.com/kakkun61/status/1269238710559576064</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591505562.258700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591505562.258700">2020-06-07 13:52:42 +0900</a></div>
+          </div>
+          <div class="message__body description">何かごみが影響してる可能性があるけど、ログ見ようと <code>--ghc-options=-v</code> 付けたら通った…… あれ？ちゃんと見る</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591506101.258900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591506101.258900">2020-06-07 14:01:41 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>hspec-discover</code> で見つけたコードがコンパイルエラーだと <code>hspec-discover</code> 自体が失敗ということになる？（根拠なし）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591508042.259300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591508042.259300">2020-06-07 14:34:02 +0900</a></div>
+          </div>
+          <div class="message__body description">cabal 3.0 のサポートしてない GHC 8.10 だからダメだったのか<br/>GHC 8.8 ならうまくいった</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591508089.259500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591508089.259500">2020-06-07 14:34:49 +0900</a></div>
+          </div>
+          <div class="message__body description">HDBC-postgresql がカスタムセットアップで Cabal &lt; 3.1 なのよね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591508889.259700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591508889.259700">2020-06-07 14:48:09 +0900</a></div>
+          </div>
+          <div class="message__body description">HDBC-postgesql の制約を緩和して cabal 3.2 GHC 8.10 にしたけど同じだった</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591509071.259900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591509071.259900">2020-06-07 14:51:11 +0900</a></div>
+          </div>
+          <div class="message__body description">あきらめたw</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591509370.260100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591509370.260100">2020-06-07 14:56:10 +0900</a></div>
+          </div>
+          <div class="message__body description">今日は疎</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591510003.260300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591510003.260300">2020-06-07 15:06:43 +0900</a></div>
+          </div>
+          <div class="message__body description">やっぱり stack やで</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591514198.261800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591514198.261800">2020-06-07 16:16:38 +0900</a></div>
+          </div>
+          <div class="message__body description">どうやら手元環境をstackからcabal new-buildに移行してこっち、一度もテストを走らせていなかったらしく、<br/>• <a href='https://haskell.e-bigmoon.com/posts/2020/01-18-cabal-build-tool-depends.html'>https://haskell.e-bigmoon.com/posts/2020/01-18-cabal-build-tool-depends.html</a><br/>• <a href='https://github.com/hasktorch/ffi-experimental/pull/62'>https://github.com/hasktorch/ffi-experimental/pull/62</a><br/>でハマりました</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591514830.262200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591514830.262200">2020-06-07 16:27:10 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://haskell-jp.slack.com/archives/CUPBC8WCE/p1591504088256800'>https://haskell-jp.slack.com/archives/CUPBC8WCE/p1591504088256800</a> と話題がちょっと被ってますね :sweat_smile:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591515130.262500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591515130.262500">2020-06-07 16:32:10 +0900</a></div>
+          </div>
+          <div class="message__body description">なんたる偶然ｗ</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591520456.262900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">khibino</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591520456.262900">2020-06-07 18:00:56 +0900</a></div>
+          </div>
+          <div class="message__body description">Generalized folds for nested datatypes を途中まで。<br/>References を漁っていてさらに積まれた気がするが気にしない。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591520544.263300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591520544.263300">2020-06-07 18:02:24 +0900</a></div>
+          </div>
+          <div class="message__body description"><!here> 成果報告の時間です！何か、やったことを軽くご共有いただけると幸いです hask(_ _)eller</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591520699.265400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591520699.265400">2020-06-07 18:04:59 +0900</a></div>
+          </div>
+          <div class="message__body description">私は、先ほど来た <a href='https://ja.stackoverflow.com/questions/67387/haskellghc%E3%81%8B%E3%82%89user32-dll%E3%81%AE%E9%96%A2%E6%95%B0%E3%82%92%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%9D%E3%81%86%E3%81%A8%E3%81%97%E3%81%9F%E9%9A%9B%E3%81%AB%E6%9C%AA%E8%A7%A3%E6%B1%BA%E5%8F%82%E7%85%A7%E3%81%A8%E3%81%AA%E3%82%8B'>https://ja.stackoverflow.com/questions/67387/haskellghc%E3%81%8B%E3%82%89user32-dll%E3%81%AE%E9%96%A2%E6%95%B0%E3%82%92%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%9D%E3%81%86%E3%81%A8%E3%81%97%E3%81%9F%E9%9A%9B%E3%81%AB%E6%9C%AA%E8%A7%A3%E6%B1%BA%E5%8F%82%E7%85%A7%E3%81%A8%E3%81%AA%E3%82%8B</a> の質問が気になってしょうがなかったので当初の予定そっちのけで試行錯誤してました... 結局うまく行かず... :sob:<br/>あと、 <a href='https://github.com/haskell-jp/blog/pull/168'>https://github.com/haskell-jp/blog/pull/168</a> に早速フィードバックをいただけたので少し対応してました（いつもありがとう）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591520914.267900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591520914.267900">2020-06-07 18:08:34 +0900</a></div>
+          </div>
+          <div class="message__body description">すっごく簡単にですが、WebUI ができました！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591521025.269700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591521025.269700">2020-06-07 18:10:25 +0900</a></div>
+          </div>
+          <div class="message__body description">• postgresql-pure を cabal v2 管理にして 8.10 でテストしたい<br/>    • hpsec-discover が Windows でうまく動かず挫折<br/>    • network が configure で sh に依存してるので MinGW からは脱却できず<br/>    • resolver のアップデート<br/>• ghcups に来てるコメント対応<br/>    • ドイツ語環境でエラー<br/>    • PowerShell モジュールのマニフェストファイルは <b>BOM 付き</b> UTF-8 じゃないとダメっぽい<br/>• HDBC 経由せず postgresql-pure と HRR を使いたい<br/>    • <i>haskell-relational-record/relational-query-HDBC/src/Database/Schema/HDBC/PostgreSQL.hs</i> を読み始めた</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591521230.271500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591521230.271500">2020-06-07 18:13:50 +0900</a></div>
+          </div>
+          <div class="message__body description">途中送信したのでアップデート</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591521303.272600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591521303.272600">2020-06-07 18:15:03 +0900</a></div>
+          </div>
+          <div class="message__body description">なんとか心理的ながっかり状態を乗り越えて、居残りでslack-logを少しでも進めます...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591521597.275100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591521597.275100">2020-06-07 18:19:57 +0900</a></div>
+          </div>
+          <div class="message__body description">CI 見たら Windows 上で base-compat のビルドが access violation で終わっててツラい……（access violation は Linux の segmentation fault 相当<br/><a href='https://kakkun61.visualstudio.com/postgresql-pure/_build/results?buildId=32&amp;view=logs&amp;j=4a4cbd20-e8e0-5624-f281-626714767dab&amp;t=ab8e7b53-bc05-5000-a34e-cb41f71df9ee'>https://kakkun61.visualstudio.com/postgresql-pure/_build/results?buildId=32&amp;view=logs&amp;j=4a4cbd20-e8e0-5624-f281-626714767dab&amp;t=ab8e7b53-bc05-5000-a34e-cb41f71df9ee</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591521635.275400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591521635.275400">2020-06-07 18:20:35 +0900</a></div>
+          </div>
+          <div class="message__body description">できた！<br/><a href='https://matsubara0507.github.io/my-deps-sensor'>https://matsubara0507.github.io/my-deps-sensor</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591521781.278000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591521781.278000">2020-06-07 18:23:01 +0900</a></div>
+          </div>
+          <div class="message__body description">machinecellの高速化のため、Church encoded free monad(<http://hackage.haskell.org/package/free-5.1.3/docs/Control-Monad-Trans-Free-Church.html>)のFTで遊ぶ奴やってます。mのところに入れる奴を工夫すると、少しおもしろい事ができる気がしたんですがまだ具体的成果が得られていません。<br/>とりあえずstack無しでテストが動くようにはなりました <a href='https://github.com/as-capabl/machinecell/commit/f9b19e536d091973332fd7506aa1984203dd8fc1'>https://github.com/as-capabl/machinecell/commit/f9b19e536d091973332fd7506aa1984203dd8fc1</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591521907.279200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591521907.279200">2020-06-07 18:25:07 +0900</a></div>
+          </div>
+          <div class="message__body description">@kakkun61 @matsubara0507 ところでどちらさんか来週分の運営を頼みたいんですがいかがでしょう？ :pray:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591521933.279600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591521933.279600">2020-06-07 18:25:33 +0900</a></div>
+          </div>
+          <div class="message__body description">日曜日なら :ok:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591521934.279800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591521934.279800">2020-06-07 18:25:34 +0900</a></div>
+          </div>
+          <div class="message__body description">5/13・5/14どちらでも :ok:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591522167.280000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591522167.280000">2020-06-07 18:29:27 +0900</a></div>
+          </div>
+          <div class="message__body description">たとえばMingwでCからDLLを呼び出す時って、DLLそのものではなくて、DLLからインポートライブラリを作ってそれをリンカに教える感じになりますが、そういう奴ではないですかね <a href='https://arakik10.hatenadiary.org/entry/20100504/p1'>https://arakik10.hatenadiary.org/entry/20100504/p1</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591522281.280400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591522281.280400">2020-06-07 18:31:21 +0900</a></div>
+          </div>
+          <div class="message__body description">すいません、そのときにならないと参加できるかわからないので、できないっす :bow:<br/>(ツレが休日出勤する日だけ参加してるんですよ。。。今のところ。。)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591522487.280800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591522487.280800">2020-06-07 18:34:47 +0900</a></div>
+          </div>
+          <div class="message__body description">5月ちゃうw 6/13・6/14だ...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591522509.281000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591522509.281000">2020-06-07 18:35:09 +0900</a></div>
+          </div>
+          <div class="message__body description">@kakkun61 では 6/14でお願いします！<br/>今イベントページ作りますね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591522774.281300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591522774.281300">2020-06-07 18:39:34 +0900</a></div>
+          </div>
+          <div class="message__body description">@kakkun61 管理者に追加しておきました。見えるかな？<br/><a href='https://connpass.com/event/179011/edit/'>https://connpass.com/event/179011/edit/</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591523121.281600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591523121.281600">2020-06-07 18:45:21 +0900</a></div>
+          </div>
+          <div class="message__body description">@igrep 見れましたー</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591523251.281900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591523251.281900">2020-06-07 18:47:31 +0900</a></div>
+          </div>
+          <div class="message__body description">@igrep 運営やることシートどこでしたっけ？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591523300.282100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591523300.282100">2020-06-07 18:48:20 +0900</a></div>
+          </div>
+          <div class="message__body description">@kakkun61 ありがとう、それでは当日は<br/><a href='https://wiki.haskell.jp/Workshop/hasmoku/OrganizerGuide'>https://wiki.haskell.jp/Workshop/hasmoku/OrganizerGuide</a><br/>に従ってお願いします！<br/>私も次回は参加できますが、昼間に予定があるので途中からになってしまう可能性が高いのでよろしくお願いします！<br/>あと、 :point_up: にも書きましたが参加登録も忘れずに。<br/><a href='https://haskell-jp.connpass.com/event/179011/'>https://haskell-jp.connpass.com/event/179011/</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591523365.282500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591523365.282500">2020-06-07 18:49:25 +0900</a></div>
+          </div>
+          <div class="message__body description">まだ成果を共有していない方もいらっしゃるようですがそろそろお開きと言うことで！お疲れ様でした！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591523783.282800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591523783.282800">2020-06-07 18:56:23 +0900</a></div>
+          </div>
+          <div class="message__body description">user32.dllだったらmingw/libに既にdll.aが存在するはずなので、リンク指定は通っているかもしれません。<br/><br/>SetProcessDpiAwarenessContext関数は新しい関数なので、mingwに添付されているインポートライブラリに入っていない可能性も考慮する必要があるかも</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591524673.283100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591524673.283100">2020-06-07 19:11:13 +0900</a></div>
+          </div>
+          <div class="message__body description">GitHub Action を利用してページを自動更新できるようにした<br/><a href='https://github.com/matsubara0507/my-deps-sensor/runs/746882622'>https://github.com/matsubara0507/my-deps-sensor/runs/746882622</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591524787.283400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591524787.283400">2020-06-07 19:13:07 +0900</a></div>
+          </div>
+          <div class="message__body description">お二人とも概ね同じ意見にたどり着いたようで <a href='https://haskell-jp.slack.com/archives/C707P67R7/p1591524151006500?thread_ts=1591512866.004800&amp;cid=C707P67R7'>https://haskell-jp.slack.com/archives/C707P67R7/p1591524151006500?thread_ts=1591512866.004800&amp;cid=C707P67R7</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591525181.283800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591525181.283800">2020-06-07 19:19:41 +0900</a></div>
+          </div>
+          <div class="message__body description">簡単に回答してみました <a href='https://ja.stackoverflow.com/a/67388/37927'>https://ja.stackoverflow.com/a/67388/37927</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591525216.284200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591525216.284200">2020-06-07 19:20:16 +0900</a></div>
+          </div>
+          <div class="message__body description">手元でやってもうまく行きました :relieved:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1591612854.284600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1591612854.284600">2020-06-08 19:40:54 +0900</a></div>
+          </div>
+          <div class="message__body description">@gettaplacetogo has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1592107309.284800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1592107309.284800">2020-06-14 13:01:49 +0900</a></div>
+          </div>
+          <div class="message__body description">もくもく</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1592107445.286100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1592107445.286100">2020-06-14 13:04:05 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='!here'>!here</a> 第36回 Haskell-jp もくもく会のお時間です<br/>自己紹介と今日やることの予定の共有をお願いします<br/>もくもく</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1592107880.286600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1592107880.286600">2020-06-14 13:11:20 +0900</a></div>
+          </div>
+          <div class="message__body description">ビデオチャットはこちら <a href='https://spatial.chat/s/Haskell-jp'>https://spatial.chat/s/Haskell-jp</a><br/>参加してる人は :raising_hand:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1592108211.288300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kkawaharasshoutarou</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1592108211.288300">2020-06-14 13:16:51 +0900</a></div>
+          </div>
+          <div class="message__body description">川原です<br/>thinking with typesを読む予定です。<br/>よろしくお願いします</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1592108261.289400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1592108261.289400">2020-06-14 13:17:41 +0900</a></div>
+          </div>
+          <div class="message__body description">山本悠滋です。今日も参加予定ですが、まだ出先で、帰ってご飯を食べてからなんで参加はもう少し後！<br/>今日もslack-logの改善をします！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1592108423.291000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1592108423.291000">2020-06-14 13:20:23 +0900</a></div>
+          </div>
+          <div class="message__body description">かっくんです<br/>HDBC を経由せずに relational record から postgresql-pure に繋ごうとしてます<br/>目下の問題はこれ ↓ <a href='https://twitter.com/kakkun61/status/1271685730293526528'>https://twitter.com/kakkun61/status/1271685730293526528</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1592120718.291800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1592120718.291800">2020-06-14 16:45:18 +0900</a></div>
+          </div>
+          <div class="message__body description">遅くなりましたがやっと始めます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1592120889.292300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1592120889.292300">2020-06-14 16:48:09 +0900</a></div>
+          </div>
+          <div class="message__body description">誰もいないのででっかく作業風景を配信しておきます <a href='https://spatial.chat/s/Haskell-jp'>https://spatial.chat/s/Haskell-jp</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1592124963.293200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1592124963.293200">2020-06-14 17:56:03 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>GHC.TypeLits.Nat</code> はそうか自然数か（負の数にしたかった</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/CUPBC8WCE/9.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/CUPBC8WCE/11.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

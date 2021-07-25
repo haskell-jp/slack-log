@@ -1,6 +1,118 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #59</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #59</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/58.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/60.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1557755756.036600"><div class="content"><div class="summary"><div class="message__header user">myuon_myon</div><div class="message__timestamp date"><a class="date" href="#message-1557755756.036600">2019-05-13&nbsp;22:55:56 +0900</a></div></div><div class="message__body description">alexで文字列リテラルを正規表現で定義する方法を知ってる方いたら教えてください。<br/><pre>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #59</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #59</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/58.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/60.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1557755756.036600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">myuon_myon</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557755756.036600">2019-05-13 22:55:56 +0900</a></div>
+          </div>
+          <div class="message__body description">alexで文字列リテラルを正規表現で定義する方法を知ってる方いたら教えてください。<br/><pre>
 $strlit = "\""([^\n\"\\]*(\\[.\n])*)*"\""
-</pre><br/>みたいに書くとparse errorと言われます(この正規表現自体はググって出てきたやつなので実際は何でも構わないです)(ダブルクォートが悪い？みたいなのですがエスケープしてもだめでした)</div></div></div><div class="message event" id="message-1557755822.036700"><div class="content"><div class="summary"><div class="message__header user">myuon_myon</div><div class="message__timestamp date"><a class="date" href="#message-1557755822.036700">2019-05-13&nbsp;22:57:02 +0900</a></div></div><div class="message__body description">ちなみに文字リテラルでも同様のことがおきます<br/>(`$charlit = \'([^\\']|\\.)\'`でparse error)</div></div></div><div class="message event" id="message-1557756592.036900"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1557756592.036900">2019-05-13&nbsp;23:09:52 +0900</a></div></div><div class="message__body description"><code>$</code> で始まるやつは文字集合を表します。正規表現を表すのは <code>@</code> から始まるやつです。</div></div></div><div class="message event" id="message-1557756798.037100"><div class="content"><div class="summary"><div class="message__header user">myuon_myon</div><div class="message__timestamp date"><a class="date" href="#message-1557756798.037100">2019-05-13&nbsp;23:13:18 +0900</a></div></div><div class="message__body description">理解しました、ありがとうございます。</div></div></div><div class="message event" id="message-1557756848.037300"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1557756848.037300">2019-05-13&nbsp;23:14:08 +0900</a></div></div><div class="message__body description">それから、ダブルクォートで囲む「文字列リテラルっぽいやつ」の中ではバックスラッシュでダブルクォートをエスケープすることはできなかったはずで、文字列リテラルにマッチする正規表現は <code>\" (ほにゃらら)* \"</code> という感じに書けば良かったと思います。</div></div></div><div class="message event" id="message-1557756898.037500"><div class="content"><div class="summary"><div class="message__header user">myuon_myon</div><div class="message__timestamp date"><a class="date" href="#message-1557756898.037500">2019-05-13&nbsp;23:14:58 +0900</a></div></div><div class="message__body description">全然気が付かなかったがよく見たら書いてあったっていうやつ<br/><a href='https://www.haskell.org/alex/doc/html/syntax.html#lexical'>https://www.haskell.org/alex/doc/html/syntax.html#lexical</a></div></div></div><div class="message event" id="message-1557763007.037900"><div class="content"><div class="summary"><div class="message__header user">me.nobv.io_slack</div><div class="message__timestamp date"><a class="date" href="#message-1557763007.037900">2019-05-14&nbsp;00:56:47 +0900</a></div></div><div class="message__body description">@me.nobv.io_slack has joined the channel</div></div></div><div class="message event" id="message-1557835670.039500"><div class="content"><div class="summary"><div class="message__header user">igarashi.kouki</div><div class="message__timestamp date"><a class="date" href="#message-1557835670.039500">2019-05-14&nbsp;21:07:50 +0900</a></div></div><div class="message__body description">@igarashi.kouki has joined the channel</div></div></div><div class="message event" id="message-1557844555.044200"><div class="content"><div class="summary"><div class="message__header user">t-uchida</div><div class="message__timestamp date"><a class="date" href="#message-1557844555.044200">2019-05-14&nbsp;23:35:55 +0900</a></div></div><div class="message__body description">Emacs + lsp-mode + HIEを使っている方に質問です。<br/>補完のバックエンドとして <code>company-lsp</code> を使用しているのですが、こちらで予約語の補完は効いていますか？<br/>現在、モジュールや関数の補完は効いているのですが、 <code>import</code> など予約語の補完が効かず、スニペットにがんばってもらっている状態です。</div></div></div><div class="message event" id="message-1557844632.044700"><div class="content"><div class="summary"><div class="message__header user">t-uchida</div><div class="message__timestamp date"><a class="date" href="#message-1557844632.044700">2019-05-14&nbsp;23:37:12 +0900</a></div></div><div class="message__body description">他のエディタ + HIEを使用している方も、ちゃんと予約語まで補完されているでしょうか？</div></div></div><div class="message event" id="message-1557846956.054800"><div class="content"><div class="summary"><div class="message__header user">y_taka_23</div><div class="message__timestamp date"><a class="date" href="#message-1557846956.054800">2019-05-15&nbsp;00:15:56 +0900</a></div></div><div class="message__body description">こんばんは、ご無沙汰です。最近 GHCJS をビルドするために Nix を使い始めたのですが、もし詳しい方がいたらお力添えください。<br/><br/>Miso によるアプリを Nix でビルドしようとしていて、リンク先の README.md (<ttps://github.com/dmjio/miso>) にあるサンプル (`miso-0.12.0.0`) はビルドできるのですが、バージョンを最新の <code>0.21.2.0</code> まで上げようとしたところエラーになりました。cabal から見えていないようです。<br/><br/><pre>
+</pre><br/>みたいに書くとparse errorと言われます(この正規表現自体はググって出てきたやつなので実際は何でも構わないです)(ダブルクォートが悪い？みたいなのですがエスケープしてもだめでした)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557755822.036700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">myuon_myon</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557755822.036700">2019-05-13 22:57:02 +0900</a></div>
+          </div>
+          <div class="message__body description">ちなみに文字リテラルでも同様のことがおきます<br/>(`$charlit = \'([^\\']|\\.)\'`でparse error)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557756592.036900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557756592.036900">2019-05-13 23:09:52 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>$</code> で始まるやつは文字集合を表します。正規表現を表すのは <code>@</code> から始まるやつです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557756798.037100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">myuon_myon</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557756798.037100">2019-05-13 23:13:18 +0900</a></div>
+          </div>
+          <div class="message__body description">理解しました、ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557756848.037300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557756848.037300">2019-05-13 23:14:08 +0900</a></div>
+          </div>
+          <div class="message__body description">それから、ダブルクォートで囲む「文字列リテラルっぽいやつ」の中ではバックスラッシュでダブルクォートをエスケープすることはできなかったはずで、文字列リテラルにマッチする正規表現は <code>\" (ほにゃらら)* \"</code> という感じに書けば良かったと思います。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557756898.037500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">myuon_myon</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557756898.037500">2019-05-13 23:14:58 +0900</a></div>
+          </div>
+          <div class="message__body description">全然気が付かなかったがよく見たら書いてあったっていうやつ<br/><a href='https://www.haskell.org/alex/doc/html/syntax.html#lexical'>https://www.haskell.org/alex/doc/html/syntax.html#lexical</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557763007.037900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">me.nobv.io_slack</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557763007.037900">2019-05-14 00:56:47 +0900</a></div>
+          </div>
+          <div class="message__body description">@me.nobv.io_slack has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557835670.039500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igarashi.kouki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557835670.039500">2019-05-14 21:07:50 +0900</a></div>
+          </div>
+          <div class="message__body description">@igarashi.kouki has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557844555.044200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">t-uchida</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557844555.044200">2019-05-14 23:35:55 +0900</a></div>
+          </div>
+          <div class="message__body description">Emacs + lsp-mode + HIEを使っている方に質問です。<br/>補完のバックエンドとして <code>company-lsp</code> を使用しているのですが、こちらで予約語の補完は効いていますか？<br/>現在、モジュールや関数の補完は効いているのですが、 <code>import</code> など予約語の補完が効かず、スニペットにがんばってもらっている状態です。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557844632.044700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">t-uchida</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557844632.044700">2019-05-14 23:37:12 +0900</a></div>
+          </div>
+          <div class="message__body description">他のエディタ + HIEを使用している方も、ちゃんと予約語まで補完されているでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557846956.054800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">y_taka_23</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557846956.054800">2019-05-15 00:15:56 +0900</a></div>
+          </div>
+          <div class="message__body description">こんばんは、ご無沙汰です。最近 GHCJS をビルドするために Nix を使い始めたのですが、もし詳しい方がいたらお力添えください。<br/><br/>Miso によるアプリを Nix でビルドしようとしていて、リンク先の README.md (<ttps://github.com/dmjio/miso>) にあるサンプル (`miso-0.12.0.0`) はビルドできるのですが、バージョンを最新の <code>0.21.2.0</code> まで上げようとしたところエラーになりました。cabal から見えていないようです。<br/><br/><pre>
 Configuring app-0.2.0.0...
 Setup: At least the following dependencies are missing:
 miso -any
@@ -38,23 +150,385 @@ mkDerivation {
   description = "First miso app";
   license = stdenv.lib.licenses.bsd3;
 }
-</pre></div></div></div><div class="message event" id="message-1557874442.054900"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1557874442.054900">2019-05-15&nbsp;07:54:02 +0900</a></div></div><div class="message__body description">Neovim + LanguageClientでHIEを使っていますが、予約語は補完されなかったと思います。</div></div></div><div class="message event" id="message-1557878213.055100"><div class="content"><div class="summary"><div class="message__header user">matonix</div><div class="message__timestamp date"><a class="date" href="#message-1557878213.055100">2019-05-15&nbsp;08:56:53 +0900</a></div></div><div class="message__body description">vscode + vscode-hie-server ですが同じく補完されていません．（プラグマの括弧{-# #-}とか補完効いてくれるとうれしいですね（中身は補完されますが））</div></div></div><div class="message event" id="message-1557892529.058000"><div class="content"><div class="summary"><div class="message__header user">t-uchida</div><div class="message__timestamp date"><a class="date" href="#message-1557892529.058000">2019-05-15&nbsp;12:55:29 +0900</a></div></div><div class="message__body description">やはりそうなんですね...<br/>最初エディタ側の問題かと思っていましたが、HIE側で機能追加されるといいですね</div></div></div><div class="message event" id="message-1557907031.062200"><div class="content"><div class="summary"><div class="message__header user">tkskzyk0925</div><div class="message__timestamp date"><a class="date" href="#message-1557907031.062200">2019-05-15&nbsp;16:57:11 +0900</a></div></div><div class="message__body description">命令型プログラミング (Python) と関数型プログラミング (Haskell) の比較を行える、実践的なサンプルコード (50行程度) を考えているのですが、何か良い題材など皆さま思いつきますでしょうか？？ :thinking_face:<br/><br/><code>map</code> , <code>filter</code> , <code>foldr</code> , <code>Maybe</code> , <code>Either</code> などに言及するものは多いですが、もう少し行数を稼いだものを提示したいなと</div></div></div><div class="message event" id="message-1557912860.062400"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1557912860.062400">2019-05-15&nbsp;18:34:20 +0900</a></div></div><div class="message__body description">すでに書かれている例はぱっと思いつきませんが、例えば <a href='https://qiita.com/drken/items/23a4f604fa3f505dd5ad'>https://qiita.com/drken/items/23a4f604fa3f505dd5ad</a> とか <a href='https://qiita.com/kazukazukazukazu/items/e5db00a3aefb1f5ed72f'>https://qiita.com/kazukazukazukazu/items/e5db00a3aefb1f5ed72f</a> に書いてある例をHasekllで書き換えてみるとか面白いかも知れませんね。</div></div></div><div class="message event" id="message-1557916691.063100"><div class="content"><div class="summary"><div class="message__header user">tak.uchida.dev.jp.041</div><div class="message__timestamp date"><a class="date" href="#message-1557916691.063100">2019-05-15&nbsp;19:38:11 +0900</a></div></div><div class="message__body description">@tak.uchida.dev.jp.041 has joined the channel</div></div></div><div class="message event" id="message-1557924574.063300"><div class="content"><div class="summary"><div class="message__header user">tkskzyk0925</div><div class="message__timestamp date"><a class="date" href="#message-1557924574.063300">2019-05-15&nbsp;21:49:34 +0900</a></div></div><div class="message__body description">再帰を活用する例は、たしかにらしくていいかも知れないですね、ありがとうございます :slightly_smiling_face:</div></div></div><div class="message event" id="message-1557993815.063500"><div class="content"><div class="summary"><div class="message__header user">shunsuke.masuda</div><div class="message__timestamp date"><a class="date" href="#message-1557993815.063500">2019-05-16&nbsp;17:03:35 +0900</a></div></div><div class="message__body description">比較の目的というのはどのへんにありますか？</div></div></div><div class="message event" id="message-1557994667.063700"><div class="content"><div class="summary"><div class="message__header user">shunsuke.masuda</div><div class="message__timestamp date"><a class="date" href="#message-1557994667.063700">2019-05-16&nbsp;17:17:47 +0900</a></div></div><div class="message__body description">もし比較の目的が、PythonからHaskell への橋渡しであるなら、この本はいかがでしょうか。後ろのほうに丁度５０行ほどのサンプルがあります。手続き型の流れの中で、自然な形で再帰やパターンマッチも導入されています。<br/><br/><a href='https://doujin.kakkun61.com/procedural-haskell'>https://doujin.kakkun61.com/procedural-haskell</a></div></div></div><div class="message event" id="message-1557994863.064100"><div class="content"><div class="summary"><div class="message__header user">y_taka_23</div><div class="message__timestamp date"><a class="date" href="#message-1557994863.064100">2019-05-16&nbsp;17:21:03 +0900</a></div></div><div class="message__body description">色々試した結果、ビルド出来ました。<https://github.com/dmjio/miso/pull/485></div></div></div><div class="message event" id="message-1558065222.064600"><div class="content"><div class="summary"><div class="message__header user">tkskzyk0925</div><div class="message__timestamp date"><a class="date" href="#message-1558065222.064600">2019-05-17&nbsp;12:53:42 +0900</a></div></div><div class="message__body description">おっしゃる通り、橋渡しが目的です :slightly_smiling_face:<br/><br/>こちらの同人誌、非常に参考になりそうで良いですね、ありがとうございます！</div></div></div><div class="message event" id="message-1558118977.065100"><div class="content"><div class="summary"><div class="message__header user">satio2000</div><div class="message__timestamp date"><a class="date" href="#message-1558118977.065100">2019-05-18&nbsp;03:49:37 +0900</a></div></div><div class="message__body description">@satio2000 has joined the channel</div></div></div><div class="message event" id="message-1558157976.065400"><div class="content"><div class="summary"><div class="message__header user">haxyoy9990mk3</div><div class="message__timestamp date"><a class="date" href="#message-1558157976.065400">2019-05-18&nbsp;14:39:36 +0900</a></div></div><div class="message__body description">@haxyoy9990mk3 has joined the channel</div></div></div><div class="message event" id="message-1558240411.068200"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1558240411.068200">2019-05-19&nbsp;13:33:31 +0900</a></div></div><div class="message__body description">wai+warpでWebアプリケーションを作っていて <code>Application</code> 型に <code>Reader</code> モナドで設定をもたせたいのですが <code>ReaderT</code> での変換の仕方がイマイチつかめません。どんなふうにすればよいでしょうか</div></div></div><div class="message event" id="message-1558241558.068300"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1558241558.068300">2019-05-19&nbsp;13:52:38 +0900</a></div></div><div class="message__body description">Scottyのソース見ててなんとなくわかってきたんですが、自前のモナドを定義してそれを <code>Application</code> に変換する関数あればよさそう？</div></div></div><div class="message event" id="message-1558343939.072900"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1558343939.072900">2019-05-20&nbsp;18:18:59 +0900</a></div></div><div class="message__body description">とある型クラスのメソッドを呼んだとき、どのインスタンスに解決されたかを可視化するにはどうするのが一番お手軽でしょうか？<br/>具体的には、現在、 <code>Foldable</code> の <code>null</code> メソッドを意図しない型に対して適用してしまったことによるバグに遭遇したため、同じミスをやらかしている箇所がないか探したい、というのが主な目的です。</div></div></div><div class="message event" id="message-1558344447.073100"><div class="content"><div class="summary"><div class="message__header user">lotz</div><div class="message__timestamp date"><a class="date" href="#message-1558344447.073100">2019-05-20&nbsp;18:27:27 +0900</a></div></div><div class="message__body description">なんだろう、Type Hole でしょうか？ :thinking_face:<br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557874442.054900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557874442.054900">2019-05-15 07:54:02 +0900</a></div>
+          </div>
+          <div class="message__body description">Neovim + LanguageClientでHIEを使っていますが、予約語は補完されなかったと思います。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557878213.055100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matonix</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557878213.055100">2019-05-15 08:56:53 +0900</a></div>
+          </div>
+          <div class="message__body description">vscode + vscode-hie-server ですが同じく補完されていません．（プラグマの括弧{-# #-}とか補完効いてくれるとうれしいですね（中身は補完されますが））</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557892529.058000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">t-uchida</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557892529.058000">2019-05-15 12:55:29 +0900</a></div>
+          </div>
+          <div class="message__body description">やはりそうなんですね...<br/>最初エディタ側の問題かと思っていましたが、HIE側で機能追加されるといいですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557907031.062200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tkskzyk0925</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557907031.062200">2019-05-15 16:57:11 +0900</a></div>
+          </div>
+          <div class="message__body description">命令型プログラミング (Python) と関数型プログラミング (Haskell) の比較を行える、実践的なサンプルコード (50行程度) を考えているのですが、何か良い題材など皆さま思いつきますでしょうか？？ :thinking_face:<br/><br/><code>map</code> , <code>filter</code> , <code>foldr</code> , <code>Maybe</code> , <code>Either</code> などに言及するものは多いですが、もう少し行数を稼いだものを提示したいなと</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557912860.062400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557912860.062400">2019-05-15 18:34:20 +0900</a></div>
+          </div>
+          <div class="message__body description">すでに書かれている例はぱっと思いつきませんが、例えば <a href='https://qiita.com/drken/items/23a4f604fa3f505dd5ad'>https://qiita.com/drken/items/23a4f604fa3f505dd5ad</a> とか <a href='https://qiita.com/kazukazukazukazu/items/e5db00a3aefb1f5ed72f'>https://qiita.com/kazukazukazukazu/items/e5db00a3aefb1f5ed72f</a> に書いてある例をHasekllで書き換えてみるとか面白いかも知れませんね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557916691.063100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tak.uchida.dev.jp.041</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557916691.063100">2019-05-15 19:38:11 +0900</a></div>
+          </div>
+          <div class="message__body description">@tak.uchida.dev.jp.041 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557924574.063300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tkskzyk0925</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557924574.063300">2019-05-15 21:49:34 +0900</a></div>
+          </div>
+          <div class="message__body description">再帰を活用する例は、たしかにらしくていいかも知れないですね、ありがとうございます :slightly_smiling_face:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557993815.063500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shunsuke.masuda</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557993815.063500">2019-05-16 17:03:35 +0900</a></div>
+          </div>
+          <div class="message__body description">比較の目的というのはどのへんにありますか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557994667.063700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shunsuke.masuda</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557994667.063700">2019-05-16 17:17:47 +0900</a></div>
+          </div>
+          <div class="message__body description">もし比較の目的が、PythonからHaskell への橋渡しであるなら、この本はいかがでしょうか。後ろのほうに丁度５０行ほどのサンプルがあります。手続き型の流れの中で、自然な形で再帰やパターンマッチも導入されています。<br/><br/><a href='https://doujin.kakkun61.com/procedural-haskell'>https://doujin.kakkun61.com/procedural-haskell</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1557994863.064100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">y_taka_23</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1557994863.064100">2019-05-16 17:21:03 +0900</a></div>
+          </div>
+          <div class="message__body description">色々試した結果、ビルド出来ました。<https://github.com/dmjio/miso/pull/485></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558065222.064600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tkskzyk0925</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558065222.064600">2019-05-17 12:53:42 +0900</a></div>
+          </div>
+          <div class="message__body description">おっしゃる通り、橋渡しが目的です :slightly_smiling_face:<br/><br/>こちらの同人誌、非常に参考になりそうで良いですね、ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558118977.065100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">satio2000</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558118977.065100">2019-05-18 03:49:37 +0900</a></div>
+          </div>
+          <div class="message__body description">@satio2000 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558157976.065400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">haxyoy9990mk3</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558157976.065400">2019-05-18 14:39:36 +0900</a></div>
+          </div>
+          <div class="message__body description">@haxyoy9990mk3 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558240411.068200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558240411.068200">2019-05-19 13:33:31 +0900</a></div>
+          </div>
+          <div class="message__body description">wai+warpでWebアプリケーションを作っていて <code>Application</code> 型に <code>Reader</code> モナドで設定をもたせたいのですが <code>ReaderT</code> での変換の仕方がイマイチつかめません。どんなふうにすればよいでしょうか</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558241558.068300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558241558.068300">2019-05-19 13:52:38 +0900</a></div>
+          </div>
+          <div class="message__body description">Scottyのソース見ててなんとなくわかってきたんですが、自前のモナドを定義してそれを <code>Application</code> に変換する関数あればよさそう？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558343939.072900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558343939.072900">2019-05-20 18:18:59 +0900</a></div>
+          </div>
+          <div class="message__body description">とある型クラスのメソッドを呼んだとき、どのインスタンスに解決されたかを可視化するにはどうするのが一番お手軽でしょうか？<br/>具体的には、現在、 <code>Foldable</code> の <code>null</code> メソッドを意図しない型に対して適用してしまったことによるバグに遭遇したため、同じミスをやらかしている箇所がないか探したい、というのが主な目的です。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558344447.073100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">lotz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558344447.073100">2019-05-20 18:27:27 +0900</a></div>
+          </div>
+          <div class="message__body description">なんだろう、Type Hole でしょうか？ :thinking_face:<br/><pre>
 &gt; ((&lt;&gt;) :: _) "a" "b"
 
 &lt;interactive&gt;:7:10: error:
     • Found type wildcard ‘_’ standing for ‘[Char] -&gt; [Char] -&gt; [Char]’
       To use the inferred type, enable PartialTypeSignatures
-</pre></div></div></div><div class="message event" id="message-1558344582.073300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1558344582.073300">2019-05-20&nbsp;18:29:42 +0900</a></div></div><div class="message__body description">ああー、いや、プロジェクト内のソースコード全体から探したいんですよねぇ。</div></div></div><div class="message event" id="message-1558344689.073500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1558344689.073500">2019-05-20&nbsp;18:31:29 +0900</a></div></div><div class="message__body description">今の私のプロジェクトの話を単純化すると、<br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558344582.073300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558344582.073300">2019-05-20 18:29:42 +0900</a></div>
+          </div>
+          <div class="message__body description">ああー、いや、プロジェクト内のソースコード全体から探したいんですよねぇ。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558344689.073500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558344689.073500">2019-05-20 18:31:29 +0900</a></div>
+          </div>
+          <div class="message__body description">今の私のプロジェクトの話を単純化すると、<br/><pre>
 type Foo = [Int]
 </pre><br/>を、<br/><pre>
 type Foo = ([Int], Bool)
-</pre><br/>みたいな型に変えた結果、 <code>Foo</code> に対して意図せず <code>null</code> を適用していてもわからない（コンパイルエラーにならない）、という状況なので...</div></div></div><div class="message event" id="message-1558344799.074400"><div class="content"><div class="summary"><div class="message__header user">lotz</div><div class="message__timestamp date"><a class="date" href="#message-1558344799.074400">2019-05-20&nbsp;18:33:19 +0900</a></div></div><div class="message__body description">ああー理解しました…<br/>Coreをダンプしてテキスト検索…？</div></div></div><div class="message event" id="message-1558344818.074600"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1558344818.074600">2019-05-20&nbsp;18:33:38 +0900</a></div></div><div class="message__body description">やっぱそれっすかねー :muscle: :sweat_smile:</div></div></div><div class="message event" id="message-1558346179.074800"><div class="content"><div class="summary"><div class="message__header user">matonix</div><div class="message__timestamp date"><a class="date" href="#message-1558346179.074800">2019-05-20&nbsp;18:56:19 +0900</a></div></div><div class="message__body description">期待する型をTypeApplicationsで書いてしまうとか…？（使い方間違ってたらすみません）</div></div></div><div class="message event" id="message-1558346297.075000"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1558346297.075000">2019-05-20&nbsp;18:58:17 +0900</a></div></div><div class="message__body description">残念ながら、問題の「間違って <code>null</code> などを意図しない型に適用してしまっている」箇所がそもそもどこかわからない（それを知りたい）という状況なのでその方法は使えません... :disappointed:</div></div></div><div class="message event" id="message-1558346434.075300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1558346434.075300">2019-05-20&nbsp;19:00:34 +0900</a></div></div><div class="message__body description">ただ、それを聞いて気づいたんですが、 <a href='https://haskell.e-bigmoon.com/posts/2018/05-23-extended-prelude.html'>https://haskell.e-bigmoon.com/posts/2018/05-23-extended-prelude.html</a> のテクニックでカスタムPreludeを作り、 <code>null</code> や <code>length</code> の定義を書き換えるというのは有効ですね :bulb:<br/><code>Prelude</code> にある型クラスじゃないと使いにくいテクニックではありますが。</div></div></div><div class="message event" id="message-1558346743.075600"><div class="content"><div class="summary"><div class="message__header user">matonix</div><div class="message__timestamp date"><a class="date" href="#message-1558346743.075600">2019-05-20&nbsp;19:05:43 +0900</a></div></div><div class="message__body description">nullをFoldableからリストに限定するという感じですかね？</div></div></div><div class="message event" id="message-1558346852.075800"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1558346852.075800">2019-05-20&nbsp;19:07:32 +0900</a></div></div><div class="message__body description">そう、リストに限定したバージョンを作ってそれをカスタムPreludeからexportする、という感じで。Prelude以外のモジュールでも、cabalファイルで工夫すれば出来そうな気がします。</div></div></div><div class="message event" id="message-1558347114.076100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1558347114.076100">2019-05-20&nbsp;19:11:54 +0900</a></div></div><div class="message__body description">Coreのダンプと果たしてどっちが楽かな...</div></div></div><div class="message event" id="message-1558400616.076400"><div class="content"><div class="summary"><div class="message__header user">maguhiro</div><div class="message__timestamp date"><a class="date" href="#message-1558400616.076400">2019-05-21&nbsp;10:03:36 +0900</a></div></div><div class="message__body description">@maguhiro has joined the channel</div></div></div><div class="message event" id="message-1558438449.076700"><div class="content"><div class="summary"><div class="message__header user">edo1km</div><div class="message__timestamp date"><a class="date" href="#message-1558438449.076700">2019-05-21&nbsp;20:34:09 +0900</a></div></div><div class="message__body description">@edo1km has joined the channel</div></div></div><div class="message event" id="message-1558450052.078500"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1558450052.078500">2019-05-21&nbsp;23:47:32 +0900</a></div></div><div class="message__body description">yesod-form-bootstrap4というOSSを書いているのですが,bootstrap 4ではradioとcheckboxのformは別形式なので<br/><pre>
+</pre><br/>みたいな型に変えた結果、 <code>Foo</code> に対して意図せず <code>null</code> を適用していてもわからない（コンパイルエラーにならない）、という状況なので...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558344799.074400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">lotz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558344799.074400">2019-05-20 18:33:19 +0900</a></div>
+          </div>
+          <div class="message__body description">ああー理解しました…<br/>Coreをダンプしてテキスト検索…？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558344818.074600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558344818.074600">2019-05-20 18:33:38 +0900</a></div>
+          </div>
+          <div class="message__body description">やっぱそれっすかねー :muscle: :sweat_smile:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558346179.074800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matonix</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558346179.074800">2019-05-20 18:56:19 +0900</a></div>
+          </div>
+          <div class="message__body description">期待する型をTypeApplicationsで書いてしまうとか…？（使い方間違ってたらすみません）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558346297.075000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558346297.075000">2019-05-20 18:58:17 +0900</a></div>
+          </div>
+          <div class="message__body description">残念ながら、問題の「間違って <code>null</code> などを意図しない型に適用してしまっている」箇所がそもそもどこかわからない（それを知りたい）という状況なのでその方法は使えません... :disappointed:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558346434.075300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558346434.075300">2019-05-20 19:00:34 +0900</a></div>
+          </div>
+          <div class="message__body description">ただ、それを聞いて気づいたんですが、 <a href='https://haskell.e-bigmoon.com/posts/2018/05-23-extended-prelude.html'>https://haskell.e-bigmoon.com/posts/2018/05-23-extended-prelude.html</a> のテクニックでカスタムPreludeを作り、 <code>null</code> や <code>length</code> の定義を書き換えるというのは有効ですね :bulb:<br/><code>Prelude</code> にある型クラスじゃないと使いにくいテクニックではありますが。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558346743.075600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matonix</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558346743.075600">2019-05-20 19:05:43 +0900</a></div>
+          </div>
+          <div class="message__body description">nullをFoldableからリストに限定するという感じですかね？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558346852.075800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558346852.075800">2019-05-20 19:07:32 +0900</a></div>
+          </div>
+          <div class="message__body description">そう、リストに限定したバージョンを作ってそれをカスタムPreludeからexportする、という感じで。Prelude以外のモジュールでも、cabalファイルで工夫すれば出来そうな気がします。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558347114.076100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558347114.076100">2019-05-20 19:11:54 +0900</a></div>
+          </div>
+          <div class="message__body description">Coreのダンプと果たしてどっちが楽かな...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558400616.076400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maguhiro</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558400616.076400">2019-05-21 10:03:36 +0900</a></div>
+          </div>
+          <div class="message__body description">@maguhiro has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558438449.076700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">edo1km</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558438449.076700">2019-05-21 20:34:09 +0900</a></div>
+          </div>
+          <div class="message__body description">@edo1km has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558450052.078500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558450052.078500">2019-05-21 23:47:32 +0900</a></div>
+          </div>
+          <div class="message__body description">yesod-form-bootstrap4というOSSを書いているのですが,bootstrap 4ではradioとcheckboxのformは別形式なので<br/><pre>
 -- | 入力されたフィールドがcheck形式である必要があるか判定する
 inputTypeBoolOrCheckBox :: Monad m =&gt; FieldView site -&gt; m Bool
-</pre><br/>という関数を書こうとして1日が過ぎました.<br/>Htmlを展開して内容を見てやろうとするとどうしてもMonadHandlerになってしまう…しかし展開しないと判別がつかない…tooltipに文字列入れて運用でカバーするしか無いのかなあ…</div></div></div><div class="message event" id="message-1558451134.078600"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1558451134.078600">2019-05-22&nbsp;00:05:34 +0900</a></div></div><div class="message__body description">ついでにform-check-inputをつける方法もわからないしなんかもう絶望的ですね</div></div></div><div class="message event" id="message-1558485801.084500"><div class="content"><div class="summary"><div class="message__header user">shunsuke.masuda</div><div class="message__timestamp date"><a class="date" href="#message-1558485801.084500">2019-05-22&nbsp;09:43:21 +0900</a></div></div><div class="message__body description">こんにちは。いつも初歩的な質問ばかりで恐縮ですが、`Traversable`のインスタンスに対して、 <code>Data.List</code>の`take`, <code>drop</code> に相当する関数をご存知でしょうか？<br/><code>Data.Csv.Stream</code>パッケージを使い、数百MBのCSVを読んで、１００件毎にデータベースに書き込む、といった処理を作っています。<br/>リストであれば、↓のようにできるのではないかと思い、これを`Traversable`で置き換えようとしております。<br/><pre>
+</pre><br/>という関数を書こうとして1日が過ぎました.<br/>Htmlを展開して内容を見てやろうとするとどうしてもMonadHandlerになってしまう…しかし展開しないと判別がつかない…tooltipに文字列入れて運用でカバーするしか無いのかなあ…</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558451134.078600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558451134.078600">2019-05-22 00:05:34 +0900</a></div>
+          </div>
+          <div class="message__body description">ついでにform-check-inputをつける方法もわからないしなんかもう絶望的ですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558485801.084500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shunsuke.masuda</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558485801.084500">2019-05-22 09:43:21 +0900</a></div>
+          </div>
+          <div class="message__body description">こんにちは。いつも初歩的な質問ばかりで恐縮ですが、`Traversable`のインスタンスに対して、 <code>Data.List</code>の`take`, <code>drop</code> に相当する関数をご存知でしょうか？<br/><code>Data.Csv.Stream</code>パッケージを使い、数百MBのCSVを読んで、１００件毎にデータベースに書き込む、といった処理を作っています。<br/>リストであれば、↓のようにできるのではないかと思い、これを`Traversable`で置き換えようとしております。<br/><pre>
 do 
   xs &lt;- parseCsv
   saveLines xs
 where
   saveLines xs = saveToDb (take 100 xs) &gt;&gt; saveLines (drop 100 xs)
-</pre></div></div></div><div class="message event" id="message-1558486727.084600"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1558486727.084600">2019-05-22&nbsp;09:58:47 +0900</a></div></div><div class="message__body description">「 <code>Data.List</code> の <code>take</code>, <code>drop</code> に相当する関数」はないはずです。<br/><code>Traversable</code> はあくまでも全体をなめることができるだけなので。<br/>mono-traversableパッケージの  <code>IsSequence</code> 型クラスのインスタンスであればできるみたいですが... <a href='http://hackage.haskell.org/package/mono-traversable-1.0.11.0/docs/Data-Sequences.html#t:IsSequence'>http://hackage.haskell.org/package/mono-traversable-1.0.11.0/docs/Data-Sequences.html#t:IsSequence</a></div></div></div><div class="message event" id="message-1558486869.084900"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1558486869.084900">2019-05-22&nbsp;10:01:09 +0900</a></div></div><div class="message__body description"><code>take</code> したいのは <a href='https://www.stackage.org/haddock/lts-13.22/cassava-0.5.1.0/Data-Csv-Streaming.html#t:Records'>https://www.stackage.org/haddock/lts-13.22/cassava-0.5.1.0/Data-Csv-Streaming.html#t:Records</a> のことですか？</div></div></div><div class="message event" id="message-1558486989.085200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1558486989.085200">2019-05-22&nbsp;10:03:09 +0900</a></div></div><div class="message__body description">であれば、自前で作るか、いったん（遅延IOの力を信じて）リストに変換しちゃうか、ですね。。。</div></div></div><div class="message event" id="message-1558488869.085400"><div class="content"><div class="summary"><div class="message__header user">shunsuke.masuda</div><div class="message__timestamp date"><a class="date" href="#message-1558488869.085400">2019-05-22&nbsp;10:34:29 +0900</a></div></div><div class="message__body description">take したいのはそのとおりです。</div></div></div><div class="message event" id="message-1558499661.085600"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1558499661.085600">2019-05-22&nbsp;13:34:21 +0900</a></div></div><div class="message__body description">あるいは、 <a href='http://hackage.haskell.org/package/cassava-conduit'>http://hackage.haskell.org/package/cassava-conduit</a> を経由すればConduitのtakeやdropが使えるのではないかと</div></div></div><div class="message event" id="message-1558499764.085900"><div class="content"><div class="summary"><div class="message__header user">shunsuke.masuda</div><div class="message__timestamp date"><a class="date" href="#message-1558499764.085900">2019-05-22&nbsp;13:36:04 +0900</a></div></div><div class="message__body description">情報ありがとうございます。このパッケージだとヘッダ付きのCSVは扱えないようなので残念！<br/><br/><blockquote>Streaming to CSV is not 100% complete at this stage, and doesn’t support encoding to CSV with a header yet</blockquote></div></div></div><div class="message event" id="message-1558573316.086100"><div class="content"><div class="summary"><div class="message__header user">shunsuke.masuda</div><div class="message__timestamp date"><a class="date" href="#message-1558573316.086100">2019-05-23&nbsp;10:01:56 +0900</a></div></div><div class="message__body description"><blockquote>いったん（遅延IOの力を信じて）リストに変換しちゃう</blockquote><br/>これが正解でした。ありがとうございました！<br/><br/> <code>toList</code> しただけですが、意図どおり、メモリ消費を抑えつつ巨大CSVファイルの読み込み＆パース＆DB書き込みができました。</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/58.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/60.html" class="pager__next item">Next</a></div></div></body></html>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558486727.084600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558486727.084600">2019-05-22 09:58:47 +0900</a></div>
+          </div>
+          <div class="message__body description">「 <code>Data.List</code> の <code>take</code>, <code>drop</code> に相当する関数」はないはずです。<br/><code>Traversable</code> はあくまでも全体をなめることができるだけなので。<br/>mono-traversableパッケージの  <code>IsSequence</code> 型クラスのインスタンスであればできるみたいですが... <a href='http://hackage.haskell.org/package/mono-traversable-1.0.11.0/docs/Data-Sequences.html#t:IsSequence'>http://hackage.haskell.org/package/mono-traversable-1.0.11.0/docs/Data-Sequences.html#t:IsSequence</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558486869.084900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558486869.084900">2019-05-22 10:01:09 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>take</code> したいのは <a href='https://www.stackage.org/haddock/lts-13.22/cassava-0.5.1.0/Data-Csv-Streaming.html#t:Records'>https://www.stackage.org/haddock/lts-13.22/cassava-0.5.1.0/Data-Csv-Streaming.html#t:Records</a> のことですか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558486989.085200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558486989.085200">2019-05-22 10:03:09 +0900</a></div>
+          </div>
+          <div class="message__body description">であれば、自前で作るか、いったん（遅延IOの力を信じて）リストに変換しちゃうか、ですね。。。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558488869.085400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shunsuke.masuda</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558488869.085400">2019-05-22 10:34:29 +0900</a></div>
+          </div>
+          <div class="message__body description">take したいのはそのとおりです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558499661.085600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558499661.085600">2019-05-22 13:34:21 +0900</a></div>
+          </div>
+          <div class="message__body description">あるいは、 <a href='http://hackage.haskell.org/package/cassava-conduit'>http://hackage.haskell.org/package/cassava-conduit</a> を経由すればConduitのtakeやdropが使えるのではないかと</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558499764.085900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shunsuke.masuda</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558499764.085900">2019-05-22 13:36:04 +0900</a></div>
+          </div>
+          <div class="message__body description">情報ありがとうございます。このパッケージだとヘッダ付きのCSVは扱えないようなので残念！<br/><br/><blockquote>Streaming to CSV is not 100% complete at this stage, and doesn’t support encoding to CSV with a header yet</blockquote></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1558573316.086100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shunsuke.masuda</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1558573316.086100">2019-05-23 10:01:56 +0900</a></div>
+          </div>
+          <div class="message__body description"><blockquote>いったん（遅延IOの力を信じて）リストに変換しちゃう</blockquote><br/>これが正解でした。ありがとうございました！<br/><br/> <code>toList</code> しただけですが、意図どおり、メモリ消費を抑えつつ巨大CSVファイルの読み込み＆パース＆DB書き込みができました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/58.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/60.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

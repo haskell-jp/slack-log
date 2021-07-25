@@ -1,4 +1,53 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #47</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #47</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/46.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/48.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1551681051.021900"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1551681051.021900">2019-03-04&nbsp;15:30:51 +0900</a></div></div><div class="message__body description">デフォルトなのは外部のCライブラリに依存しないでビルドできるからだと思います。<br/>僕もtls回りが遅くて以前見てみたことがあります。詳細は忘れましたが依存ライブラリ（Haskellコード）を少し弄ったら速度が結構改善しました。全体的にあまり速度を気にして書いているコードではない印象でした。</div></div></div><div class="message event" id="message-1551681815.022300"><div class="content"><div class="summary"><div class="message__header user">junji.hashimoto</div><div class="message__timestamp date"><a class="date" href="#message-1551681815.022300">2019-03-04&nbsp;15:43:35 +0900</a></div></div><div class="message__body description">tlsを改善するコードをつくっていくしかなさそうですかね。</div></div></div><div class="message event" id="message-1551697808.025800"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1551697808.025800">2019-03-04&nbsp;20:10:08 +0900</a></div></div><div class="message__body description">Windows 10 (ghc: 一定, ghci: 一定)<br/>Mac/Linux (ghc: 不定, ghci: 一定)<br/><br/>こういうことで、その値は本来なら範囲外であるデータに由来していることですね。</div></div></div><div class="message event" id="message-1551697898.026000"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1551697898.026000">2019-03-04&nbsp;20:11:38 +0900</a></div></div><div class="message__body description">mizunashi-mana さんのソースコードを実行してみた所、以下のような結果になりました (ghc, ghci どちらでも同じ)<br/><br/><pre>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #47</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #47</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/46.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/48.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1551681051.021900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551681051.021900">2019-03-04 15:30:51 +0900</a></div>
+          </div>
+          <div class="message__body description">デフォルトなのは外部のCライブラリに依存しないでビルドできるからだと思います。<br/>僕もtls回りが遅くて以前見てみたことがあります。詳細は忘れましたが依存ライブラリ（Haskellコード）を少し弄ったら速度が結構改善しました。全体的にあまり速度を気にして書いているコードではない印象でした。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551681815.022300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">junji.hashimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551681815.022300">2019-03-04 15:43:35 +0900</a></div>
+          </div>
+          <div class="message__body description">tlsを改善するコードをつくっていくしかなさそうですかね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551697808.025800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551697808.025800">2019-03-04 20:10:08 +0900</a></div>
+          </div>
+          <div class="message__body description">Windows 10 (ghc: 一定, ghci: 一定)<br/>Mac/Linux (ghc: 不定, ghci: 一定)<br/><br/>こういうことで、その値は本来なら範囲外であるデータに由来していることですね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551697898.026000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551697898.026000">2019-03-04 20:11:38 +0900</a></div>
+          </div>
+          <div class="message__body description">mizunashi-mana さんのソースコードを実行してみた所、以下のような結果になりました (ghc, ghci どちらでも同じ)<br/><br/><pre>
 0
 MyI# 0#
 IBI# 0#
@@ -9,7 +58,25 @@ CB
 CB
 CA
 CC
-</pre></div></div></div><div class="message event" id="message-1551701736.026300"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1551701736.026300">2019-03-04&nbsp;21:15:36 +0900</a></div></div><div class="message__body description">うちのmacだと， GHCi を再度立ち上げながら実行した場合も同様に実行度に値が変わりました．再起動しないままだと常に同じ値ですね．<br/>しかし， <code>unsafeCoerce LD :: CompactD</code> が <code>CA</code> にならないのは驚きですね． tagging による分岐が Windows だと違ったりするんですかね？</div></div></div><div class="message event" id="message-1551703452.026500"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1551703452.026500">2019-03-04&nbsp;21:44:12 +0900</a></div></div><div class="message__body description">あ，そういえば上のソースコードは，一度ビルドしたものを実行しています． <code>runghc</code> / <code>ghci</code> だと <code>unsafeCoerce LD :: CompactD</code> は <code>CC</code> になりました．ビルドする場合は <code>-O0</code> でも <code>CA</code> になりましたね． <code>ghci</code> だと pointer tagging は機能してなかったりするんですかね？ <code>runghc</code> / <code>ghci</code> の結果は以下のようになりました(と言っても数字の部分は実行度に異なりますが):<br/><br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551701736.026300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551701736.026300">2019-03-04 21:15:36 +0900</a></div>
+          </div>
+          <div class="message__body description">うちのmacだと， GHCi を再度立ち上げながら実行した場合も同様に実行度に値が変わりました．再起動しないままだと常に同じ値ですね．<br/>しかし， <code>unsafeCoerce LD :: CompactD</code> が <code>CA</code> にならないのは驚きですね． tagging による分岐が Windows だと違ったりするんですかね？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551703452.026500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551703452.026500">2019-03-04 21:44:12 +0900</a></div>
+          </div>
+          <div class="message__body description">あ，そういえば上のソースコードは，一度ビルドしたものを実行しています． <code>runghc</code> / <code>ghci</code> だと <code>unsafeCoerce LD :: CompactD</code> は <code>CC</code> になりました．ビルドする場合は <code>-O0</code> でも <code>CA</code> になりましたね． <code>ghci</code> だと pointer tagging は機能してなかったりするんですかね？ <code>runghc</code> / <code>ghci</code> の結果は以下のようになりました(と言っても数字の部分は実行度に異なりますが):<br/><br/><pre>
 4539535848
 MyI# 4539535848#
 IBI# 4539535848#
@@ -20,4 +87,411 @@ CB
 CB
 CA
 CC
-</pre></div></div></div><div class="message event" id="message-1551706567.026700"><div class="content"><div class="summary"><div class="message__header user">takenobu.hs</div><div class="message__timestamp date"><a class="date" href="#message-1551706567.026700">2019-03-04&nbsp;22:36:07 +0900</a></div></div><div class="message__body description">せっかくなので、元々のコードの方について、メモリ表現を覗けるようにしてみました。<br/>以下のgistに貼り付けてあります。<br/><a href='https://gist.github.com/takenobu-hs/751aed055481d3594cf439a40790119b'>https://gist.github.com/takenobu-hs/751aed055481d3594cf439a40790119b</a><br/><br/>Coerce2.hsを手元のUbuntuでコンパイルして実行すると、16進数で「0x4000_0000_0000_4645」を出力します。<br/><br/>Execution.txt の方には、ghcコマンドオプションでのstg, cmm, アセンブリのダンプ結果と、最終バイナリの逆アセンブル結果を付けています。<br/><br/>「0x4000_0000_0000_4645」の値は、objdump -D での逆アセンブルの箇所で、Main_boolzuvar1_closure から、+9 byte目からの8byteに一致しています。<br/>（4a4309 番地から、4a4310番地までの値。）<br/><br/>ということで、まさに、True_closure + 9 からの8byteを拾っている挙動ですね。<br/><br/>いずれにしても、GHCi含めて、その時々の後続のメモリを素直に拾っているというとこですね。<br/>そもそもunsafeの非保証動作の場合ですね:slightly_smiling_face:</div></div></div><div class="message event" id="message-1551739039.027200"><div class="content"><div class="summary"><div class="message__header user">koyama</div><div class="message__timestamp date"><a class="date" href="#message-1551739039.027200">2019-03-05&nbsp;07:37:19 +0900</a></div></div><div class="message__body description">+9 （アラインメントしていない場所）からの8バイト、というのがすごく気持ち悪いです… intel だから読めるけどそれ以外のアーキテクチャだったらアラインメントエラーになるのでは、という感が</div></div></div><div class="message event" id="message-1551739309.027400"><div class="content"><div class="summary"><div class="message__header user">kazu</div><div class="message__timestamp date"><a class="date" href="#message-1551739309.027400">2019-03-05&nbsp;07:41:49 +0900</a></div></div><div class="message__body description">TLSライブラリのメンテナの山本です。<br/>性能は上げたいのですが、個人的にはTLS 1.3とQUICの実装で忙しいので、手が回っていません。<br/>性能を上げるPRは大歓迎で、最優先でマージしますので、ぜひ送ってください。<br/>ただ、もうすぐQUICのために大改造が入るので、桜の咲く頃まで待っていただけると助かります。</div></div></div><div class="message event" id="message-1551739364.027600"><div class="content"><div class="summary"><div class="message__header user">kazu</div><div class="message__timestamp date"><a class="date" href="#message-1551739364.027600">2019-03-05&nbsp;07:42:44 +0900</a></div></div><div class="message__body description">とりあえず、hs-tlsのissueに登録していただけると助かります。</div></div></div><div class="message event" id="message-1551761909.028400"><div class="content"><div class="summary"><div class="message__header user">selty524</div><div class="message__timestamp date"><a class="date" href="#message-1551761909.028400">2019-03-05&nbsp;13:58:29 +0900</a></div></div><div class="message__body description">@selty524 has joined the channel</div></div></div><div class="message event" id="message-1551762061.028700"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551762061.028700">2019-03-05&nbsp;14:01:01 +0900</a></div></div><div class="message__body description">@cutsea110 has joined the channel</div></div></div><div class="message event" id="message-1551762073.029000"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551762073.029000">2019-03-05&nbsp;14:01:13 +0900</a></div></div><div class="message__body description">おしえてー</div></div></div><div class="message event" id="message-1551762079.029200"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551762079.029200">2019-03-05&nbsp;14:01:19 +0900</a></div></div><div class="message__body description">くだされ</div></div></div><div class="message event" id="message-1551762100.029700"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551762100.029700">2019-03-05&nbsp;14:01:40 +0900</a></div></div><div class="message__body description">ゼロから作るDeep LearningをRepaでなぞってるんだけど</div></div></div><div class="message event" id="message-1551762149.030700"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551762149.030700">2019-03-05&nbsp;14:02:29 +0900</a></div></div><div class="message__body description">Performanceが悪いのでどうやるのが良いのか</div></div></div><div class="message event" id="message-1551762174.031200"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551762174.031200">2019-03-05&nbsp;14:02:54 +0900</a></div></div><div class="message__body description">現在4章の2層ネットでバッチ処理をしたいというところ.</div></div></div><div class="message event" id="message-1551762226.032200"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551762226.032200">2019-03-05&nbsp;14:03:46 +0900</a></div></div><div class="message__body description">誤差逆伝搬の前で数値微分によるミニバッチ学習をやろうとしている.</div></div></div><div class="message event" id="message-1551762292.033500"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551762292.033500">2019-03-05&nbsp;14:04:52 +0900</a></div></div><div class="message__body description">パフォーマンスについては書籍の公開しているpythonコードをダウンロードしてきて走らせて比較してみた結果,今の実装が遅すぎると判明.</div></div></div><div class="message event" id="message-1551762325.034600"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1551762325.034600">2019-03-05&nbsp;14:05:25 +0900</a></div></div><div class="message__body description">Shift + Enterで<br/>改行できるので<br/>まとめると良いですよ</div></div></div><div class="message event" id="message-1551762400.035700"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551762400.035700">2019-03-05&nbsp;14:06:40 +0900</a></div></div><div class="message__body description">pyhonのはどうやら誤差逆伝搬のアルゴリズムの方をenableにしてたからひとまず数値微分の方を有効にしてみたら,確かに遅めだけど待ってられない程じゃない.<br/>それに比べたら今の私の実装は終わるまで待ってられないレベル.</div></div></div><div class="message event" id="message-1551762582.038600"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551762582.038600">2019-03-05&nbsp;14:09:42 +0900</a></div></div><div class="message__body description">Pythonの実装だとネットワークを1枚用意しておいて代入操作で各ノードを書き換えつつ計算しているのだけど,RepaだとArray DのままだとmmultできずどうもそこでUnboxedな配列として実体化されてしまうのが問題なのかなーというところです.</div></div></div><div class="message event" id="message-1551764162.054100"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551764162.054100">2019-03-05&nbsp;14:36:02 +0900</a></div></div><div class="message__body description">100*784の2次元配列(Double)に対して順に100*784回もUnboxedな配列が実体化されるはずで,これ回避できないか?(小さい層もあるのでもう少し回数増える)<br/>あるいはRepaでそういことやるときのノウハウとかありましたら是非お願いします.</div></div></div><div class="message event" id="message-1551764277.055200"><div class="content"><div class="summary"><div class="message__header user">notogawa</div><div class="message__timestamp date"><a class="date" href="#message-1551764277.055200">2019-03-05&nbsp;14:37:57 +0900</a></div></div><div class="message__body description">たぶん，どういうコードを書いてるのかわからないので何も言いようがない雰囲気</div></div></div><div class="message event" id="message-1551764315.055500"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551764315.055500">2019-03-05&nbsp;14:38:35 +0900</a></div></div><div class="message__body description"><a href='https://github.com/cutsea110/deep-learning-from-scratch'>https://github.com/cutsea110/deep-learning-from-scratch</a></div></div></div><div class="message event" id="message-1551764660.059800"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551764660.059800">2019-03-05&nbsp;14:44:20 +0900</a></div></div><div class="message__body description">今一歩一歩試しつつやってたのでmainの中がごちゃごちゃしているけど,TwoLayerNet.hsの99行目の処理がミニバッチサイズ100に対して1回numerical gradientを走らせただけの処理です.<br/>ここを改善したいのです.</div></div></div><div class="message event" id="message-1551767870.060500"><div class="content"><div class="summary"><div class="message__header user">junji.hashimoto</div><div class="message__timestamp date"><a class="date" href="#message-1551767870.060500">2019-03-05&nbsp;15:37:50 +0900</a></div></div><div class="message__body description"><a href='https://github.com/vincenthz/hs-tls/issues/357'>https://github.com/vincenthz/hs-tls/issues/357</a><br/>こんな感じです。<br/>よろしくお願いします。</div></div></div><div class="message event" id="message-1551767896.060900"><div class="content"><div class="summary"><div class="message__header user">msakai</div><div class="message__timestamp date"><a class="date" href="#message-1551767896.060900">2019-03-05&nbsp;15:38:16 +0900</a></div></div><div class="message__body description">おおー</div></div></div><div class="message event" id="message-1551772620.061300"><div class="content"><div class="summary"><div class="message__header user">autotaker</div><div class="message__timestamp date"><a class="date" href="#message-1551772620.061300">2019-03-05&nbsp;16:57:00 +0900</a></div></div><div class="message__body description">@autotaker has joined the channel</div></div></div><div class="message event" id="message-1551774203.061500"><div class="content"><div class="summary"><div class="message__header user">autotaker</div><div class="message__timestamp date"><a class="date" href="#message-1551774203.061500">2019-03-05&nbsp;17:23:23 +0900</a></div></div><div class="message__body description">とりあえずSystem.Randomは非常に遅いので`mwc-random`等速い乱数生成ライブラリを使ったほうが良いです。</div></div></div><div class="message event" id="message-1551774912.061700"><div class="content"><div class="summary"><div class="message__header user">autotaker</div><div class="message__timestamp date"><a class="date" href="#message-1551774912.061700">2019-03-05&nbsp;17:35:12 +0900</a></div></div><div class="message__body description">あとUtil.hs内の型クラス制約をもつ関数にINLINABLEプラグマをつけると改善するかもしれません。</div></div></div><div class="message event" id="message-1551777090.061900"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1551777090.061900">2019-03-05&nbsp;18:11:30 +0900</a></div></div><div class="message__body description">この分野には詳しくないんですけど、 <code>fromFunction</code> で作った行列はインデックスアクセスする度に関数を計算するんですね。だとすると、実体化した方が速くなるポイントとかありそう。メモ化的な。</div></div></div><div class="message event" id="message-1551777194.062100"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1551777194.062100">2019-03-05&nbsp;18:13:14 +0900</a></div></div><div class="message__body description">ミュータブルな代入を使ったアルゴリズムがあるならHaskellでもそれ使った方がいい気がするんですが、repaでミュータブルアルゴリズムの併用ってどうやるんだろう</div></div></div><div class="message event" id="message-1551779126.066400"><div class="content"><div class="summary"><div class="message__header user">type.in.type</div><div class="message__timestamp date"><a class="date" href="#message-1551779126.066400">2019-03-05&nbsp;18:45:26 +0900</a></div></div><div class="message__body description">@type.in.type has joined the channel</div></div></div><div class="message event" id="message-1551779307.070700"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551779307.070700">2019-03-05&nbsp;18:48:27 +0900</a></div></div><div class="message__body description">アドバイスありがとうございます。<br/>INLINABLEプラグマも試してみます。がRepaでもINLINE段数まで指定してるっぽいんでなかなか厳しそう。<br/><br/>実体化した方が速いと思ってたんですが回数が多いのと、ほとんどは同じエリアの値にアクセスするので流石に作りすぎだと思うんですよね。<br/>今はmmultSとかがArray Uを要求するから実体化してるという認識です。<br/>常に100*784のうちの1箇所だけ値を変えて計算するんだけどそれっきりなんで、使い捨てる感じなんです。<br/>そうすると実体化するより計算で使い捨ての方が速いと読んでるんだけどその方法がよく分からない。</div></div></div><div class="message event" id="message-1551780302.072300"><div class="content"><div class="summary"><div class="message__header user">autotaker</div><div class="message__timestamp date"><a class="date" href="#message-1551780302.072300">2019-03-05&nbsp;19:05:02 +0900</a></div></div><div class="message__body description">ほとんどmmultSに時間かかってるみたいですけどこれ計算量どのくらいなんですか？</div></div></div><div class="message event" id="message-1551780693.080300"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551780693.080300">2019-03-05&nbsp;19:11:33 +0900</a></div></div><div class="message__body description">mmultSは行列の積を求めてるけどそれ自体はそんなに時間食ってないと思ってたんですが。<br/>基本的には転置してからzipWithなんで転置はやはりfromFunctionでアクセスを変換するだけだからそれ自体はO(1)かな。zipWithするけどl*mとm*nであればO(l*n)にはなりそうかなぁ。</div></div></div><div class="message event" id="message-1551780855.082400"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551780855.082400">2019-03-05&nbsp;19:14:15 +0900</a></div></div><div class="message__body description">それと同程度のオーダーでNNも作り直し(実体化)てるはずなんですよね。</div></div></div><div class="message event" id="message-1551790873.082900"><div class="content"><div class="summary"><div class="message__header user">autotaker</div><div class="message__timestamp date"><a class="date" href="#message-1551790873.082900">2019-03-05&nbsp;22:01:13 +0900</a></div></div><div class="message__body description">各重み(784 * 100 + 100 * 10 変数)の微小変化に対して(100,784) * (784, 100)の行列乗算(naiveには100*100*784回の演算が必要）を行なっているので計算量的に絶望的だと思います。Pythonの実装の方は何か工夫がされているのではないでしょうか？</div></div></div><div class="message event" id="message-1551791904.093100"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551791904.093100">2019-03-05&nbsp;22:18:24 +0900</a></div></div><div class="message__body description">行列の積自体はNumPyの中なので多分FFI通してC/C++なのかな。<br/>でもnumerical gradientは代入操作でスキャンしてるけど都度lossを計算つまり初期値を投入して計算してるので全体の計算量自体は同じなんじゃないかなぁ。<br/>これが遅いからbackpropergationするぞーという流れのようです。</div></div></div><div class="message event" id="message-1551794059.096200"><div class="content"><div class="summary"><div class="message__header user">autotaker</div><div class="message__timestamp date"><a class="date" href="#message-1551794059.096200">2019-03-05&nbsp;22:54:19 +0900</a></div></div><div class="message__body description">Python実装って<https://github.com/oreilly-japan/deep-learning-from-scratch/blob/master/ch04/train_neuralnet.py><br/>ですか？これ <code>network.numerical_gradient</code>の呼び出しがコメントアウトされてて代わりに　　 <code>network.gradient</code> を呼び出しているんですが、コメントアウトを逆にして実行すると全く進まないので`numerical_gradient`が遅いのは仕様なのではないでしょうか？</div></div></div><div class="message event" id="message-1551794838.096500"><div class="content"><div class="summary"><div class="message__header user">autotaker</div><div class="message__timestamp date"><a class="date" href="#message-1551794838.096500">2019-03-05&nbsp;23:07:18 +0900</a></div></div><div class="message__body description"><blockquote>pyhonのはどうやら誤差逆伝搬のアルゴリズムの方をenableにしてたからひとまず数値微分の方を有効にしてみたら,確かに遅めだけど待ってられない程じゃない.</blockquote>これはそのことでしたか。失礼しました。</div></div></div><div class="message event" id="message-1551803276.096700"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551803276.096700">2019-03-06&nbsp;01:27:56 +0900</a></div></div><div class="message__body description">全く進まないですかね.<br/>私の手元のnoteだと1min20sec~1min30sec程度で1回のnumerical_gradientは返るんですよ.<br/>私のコードだとその1回すら40分待っても返ってこないのでさすがにこれは無いだろうと思っているんだけど.</div></div></div><div class="message event" id="message-1551804570.096900"><div class="content"><div class="summary"><div class="message__header user">autotaker</div><div class="message__timestamp date"><a class="date" href="#message-1551804570.096900">2019-03-06&nbsp;01:49:30 +0900</a></div></div><div class="message__body description">私の手元でも確かに数分に一回くらいは返ってきましたね。numpyの行列乗算が速すぎるのでpureなHaskellで匹敵するのは難しいと思います。<br/>手元で高速化して見たコードをプルリクで送りましたのでよろしければ参考にしてください。多分１０分以内には一回のnumerical_gradientが終わると思います。<br/><a href='https://github.com/cutsea110/deep-learning-from-scratch/pull/1'>https://github.com/cutsea110/deep-learning-from-scratch/pull/1</a></div></div></div><div class="message event" id="message-1551804677.097600"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551804677.097600">2019-03-06&nbsp;01:51:17 +0900</a></div></div><div class="message__body description">おお、ありがとうございます</div></div></div><div class="message event" id="message-1551824063.098800"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1551824063.098800">2019-03-06&nbsp;07:14:23 +0900</a></div></div><div class="message__body description">おお、これで解決できそうです！ あとで Windows でも試します</div></div></div><div class="message event" id="message-1551824576.099000"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1551824576.099000">2019-03-06&nbsp;07:22:56 +0900</a></div></div><div class="message__body description">丁寧にコメントを付けてくれているので順に辿ってみたいのですが,プロファイルを取るのはSCC付与して-profでみるって感じですか?</div></div></div><div class="message event" id="message-1551829594.099300"><div class="content"><div class="summary"><div class="message__header user">tkskzyk0925</div><div class="message__timestamp date"><a class="date" href="#message-1551829594.099300">2019-03-06&nbsp;08:46:34 +0900</a></div></div><div class="message__body description">@tkskzyk0925 has joined the channel</div></div></div><div class="message event" id="message-1551830369.099500"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1551830369.099500">2019-03-06&nbsp;08:59:29 +0900</a></div></div><div class="message__body description">コンパイルオプションについては、Repaのドキュメントに推奨設定の記述がありますね。ちょっと昔のGHCっぽい感じもしますが。今だと指定しなくてもあまり変わらないかもしれません <a href='http://hackage.haskell.org/package/repa-3.4.1.4/docs/Data-Array-Repa.html'>http://hackage.haskell.org/package/repa-3.4.1.4/docs/Data-Array-Repa.html</a></div></div></div><div class="message event" id="message-1551834511.099700"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1551834511.099700">2019-03-06&nbsp;10:08:31 +0900</a></div></div><div class="message__body description">コードを見てないので高速化についてはコメントできませんが、repaがボトルネックであればmassivを使ってみると良いかもしれません。ここに比較があります<br/><a href='https://github.com/lehins/massiv/blob/master/README.md#other-libraries'>https://github.com/lehins/massiv/blob/master/README.md#other-libraries</a></div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/46.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/48.html" class="pager__next item">Next</a></div></div></body></html>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551706567.026700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">takenobu.hs</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551706567.026700">2019-03-04 22:36:07 +0900</a></div>
+          </div>
+          <div class="message__body description">せっかくなので、元々のコードの方について、メモリ表現を覗けるようにしてみました。<br/>以下のgistに貼り付けてあります。<br/><a href='https://gist.github.com/takenobu-hs/751aed055481d3594cf439a40790119b'>https://gist.github.com/takenobu-hs/751aed055481d3594cf439a40790119b</a><br/><br/>Coerce2.hsを手元のUbuntuでコンパイルして実行すると、16進数で「0x4000_0000_0000_4645」を出力します。<br/><br/>Execution.txt の方には、ghcコマンドオプションでのstg, cmm, アセンブリのダンプ結果と、最終バイナリの逆アセンブル結果を付けています。<br/><br/>「0x4000_0000_0000_4645」の値は、objdump -D での逆アセンブルの箇所で、Main_boolzuvar1_closure から、+9 byte目からの8byteに一致しています。<br/>（4a4309 番地から、4a4310番地までの値。）<br/><br/>ということで、まさに、True_closure + 9 からの8byteを拾っている挙動ですね。<br/><br/>いずれにしても、GHCi含めて、その時々の後続のメモリを素直に拾っているというとこですね。<br/>そもそもunsafeの非保証動作の場合ですね:slightly_smiling_face:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551739039.027200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">koyama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551739039.027200">2019-03-05 07:37:19 +0900</a></div>
+          </div>
+          <div class="message__body description">+9 （アラインメントしていない場所）からの8バイト、というのがすごく気持ち悪いです… intel だから読めるけどそれ以外のアーキテクチャだったらアラインメントエラーになるのでは、という感が</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551739309.027400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kazu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551739309.027400">2019-03-05 07:41:49 +0900</a></div>
+          </div>
+          <div class="message__body description">TLSライブラリのメンテナの山本です。<br/>性能は上げたいのですが、個人的にはTLS 1.3とQUICの実装で忙しいので、手が回っていません。<br/>性能を上げるPRは大歓迎で、最優先でマージしますので、ぜひ送ってください。<br/>ただ、もうすぐQUICのために大改造が入るので、桜の咲く頃まで待っていただけると助かります。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551739364.027600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kazu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551739364.027600">2019-03-05 07:42:44 +0900</a></div>
+          </div>
+          <div class="message__body description">とりあえず、hs-tlsのissueに登録していただけると助かります。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551761909.028400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">selty524</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551761909.028400">2019-03-05 13:58:29 +0900</a></div>
+          </div>
+          <div class="message__body description">@selty524 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551762061.028700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551762061.028700">2019-03-05 14:01:01 +0900</a></div>
+          </div>
+          <div class="message__body description">@cutsea110 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551762073.029000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551762073.029000">2019-03-05 14:01:13 +0900</a></div>
+          </div>
+          <div class="message__body description">おしえてー</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551762079.029200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551762079.029200">2019-03-05 14:01:19 +0900</a></div>
+          </div>
+          <div class="message__body description">くだされ</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551762100.029700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551762100.029700">2019-03-05 14:01:40 +0900</a></div>
+          </div>
+          <div class="message__body description">ゼロから作るDeep LearningをRepaでなぞってるんだけど</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551762149.030700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551762149.030700">2019-03-05 14:02:29 +0900</a></div>
+          </div>
+          <div class="message__body description">Performanceが悪いのでどうやるのが良いのか</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551762174.031200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551762174.031200">2019-03-05 14:02:54 +0900</a></div>
+          </div>
+          <div class="message__body description">現在4章の2層ネットでバッチ処理をしたいというところ.</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551762226.032200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551762226.032200">2019-03-05 14:03:46 +0900</a></div>
+          </div>
+          <div class="message__body description">誤差逆伝搬の前で数値微分によるミニバッチ学習をやろうとしている.</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551762292.033500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551762292.033500">2019-03-05 14:04:52 +0900</a></div>
+          </div>
+          <div class="message__body description">パフォーマンスについては書籍の公開しているpythonコードをダウンロードしてきて走らせて比較してみた結果,今の実装が遅すぎると判明.</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551762325.034600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551762325.034600">2019-03-05 14:05:25 +0900</a></div>
+          </div>
+          <div class="message__body description">Shift + Enterで<br/>改行できるので<br/>まとめると良いですよ</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551762400.035700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551762400.035700">2019-03-05 14:06:40 +0900</a></div>
+          </div>
+          <div class="message__body description">pyhonのはどうやら誤差逆伝搬のアルゴリズムの方をenableにしてたからひとまず数値微分の方を有効にしてみたら,確かに遅めだけど待ってられない程じゃない.<br/>それに比べたら今の私の実装は終わるまで待ってられないレベル.</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551762582.038600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551762582.038600">2019-03-05 14:09:42 +0900</a></div>
+          </div>
+          <div class="message__body description">Pythonの実装だとネットワークを1枚用意しておいて代入操作で各ノードを書き換えつつ計算しているのだけど,RepaだとArray DのままだとmmultできずどうもそこでUnboxedな配列として実体化されてしまうのが問題なのかなーというところです.</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551764162.054100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551764162.054100">2019-03-05 14:36:02 +0900</a></div>
+          </div>
+          <div class="message__body description">100*784の2次元配列(Double)に対して順に100*784回もUnboxedな配列が実体化されるはずで,これ回避できないか?(小さい層もあるのでもう少し回数増える)<br/>あるいはRepaでそういことやるときのノウハウとかありましたら是非お願いします.</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551764277.055200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">notogawa</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551764277.055200">2019-03-05 14:37:57 +0900</a></div>
+          </div>
+          <div class="message__body description">たぶん，どういうコードを書いてるのかわからないので何も言いようがない雰囲気</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551764315.055500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551764315.055500">2019-03-05 14:38:35 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://github.com/cutsea110/deep-learning-from-scratch'>https://github.com/cutsea110/deep-learning-from-scratch</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551764660.059800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551764660.059800">2019-03-05 14:44:20 +0900</a></div>
+          </div>
+          <div class="message__body description">今一歩一歩試しつつやってたのでmainの中がごちゃごちゃしているけど,TwoLayerNet.hsの99行目の処理がミニバッチサイズ100に対して1回numerical gradientを走らせただけの処理です.<br/>ここを改善したいのです.</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551767870.060500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">junji.hashimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551767870.060500">2019-03-05 15:37:50 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://github.com/vincenthz/hs-tls/issues/357'>https://github.com/vincenthz/hs-tls/issues/357</a><br/>こんな感じです。<br/>よろしくお願いします。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551767896.060900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">msakai</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551767896.060900">2019-03-05 15:38:16 +0900</a></div>
+          </div>
+          <div class="message__body description">おおー</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551772620.061300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">autotaker</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551772620.061300">2019-03-05 16:57:00 +0900</a></div>
+          </div>
+          <div class="message__body description">@autotaker has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551774203.061500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">autotaker</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551774203.061500">2019-03-05 17:23:23 +0900</a></div>
+          </div>
+          <div class="message__body description">とりあえずSystem.Randomは非常に遅いので`mwc-random`等速い乱数生成ライブラリを使ったほうが良いです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551774912.061700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">autotaker</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551774912.061700">2019-03-05 17:35:12 +0900</a></div>
+          </div>
+          <div class="message__body description">あとUtil.hs内の型クラス制約をもつ関数にINLINABLEプラグマをつけると改善するかもしれません。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551777090.061900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551777090.061900">2019-03-05 18:11:30 +0900</a></div>
+          </div>
+          <div class="message__body description">この分野には詳しくないんですけど、 <code>fromFunction</code> で作った行列はインデックスアクセスする度に関数を計算するんですね。だとすると、実体化した方が速くなるポイントとかありそう。メモ化的な。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551777194.062100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551777194.062100">2019-03-05 18:13:14 +0900</a></div>
+          </div>
+          <div class="message__body description">ミュータブルな代入を使ったアルゴリズムがあるならHaskellでもそれ使った方がいい気がするんですが、repaでミュータブルアルゴリズムの併用ってどうやるんだろう</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551779126.066400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">type.in.type</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551779126.066400">2019-03-05 18:45:26 +0900</a></div>
+          </div>
+          <div class="message__body description">@type.in.type has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551779307.070700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551779307.070700">2019-03-05 18:48:27 +0900</a></div>
+          </div>
+          <div class="message__body description">アドバイスありがとうございます。<br/>INLINABLEプラグマも試してみます。がRepaでもINLINE段数まで指定してるっぽいんでなかなか厳しそう。<br/><br/>実体化した方が速いと思ってたんですが回数が多いのと、ほとんどは同じエリアの値にアクセスするので流石に作りすぎだと思うんですよね。<br/>今はmmultSとかがArray Uを要求するから実体化してるという認識です。<br/>常に100*784のうちの1箇所だけ値を変えて計算するんだけどそれっきりなんで、使い捨てる感じなんです。<br/>そうすると実体化するより計算で使い捨ての方が速いと読んでるんだけどその方法がよく分からない。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551780302.072300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">autotaker</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551780302.072300">2019-03-05 19:05:02 +0900</a></div>
+          </div>
+          <div class="message__body description">ほとんどmmultSに時間かかってるみたいですけどこれ計算量どのくらいなんですか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551780693.080300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551780693.080300">2019-03-05 19:11:33 +0900</a></div>
+          </div>
+          <div class="message__body description">mmultSは行列の積を求めてるけどそれ自体はそんなに時間食ってないと思ってたんですが。<br/>基本的には転置してからzipWithなんで転置はやはりfromFunctionでアクセスを変換するだけだからそれ自体はO(1)かな。zipWithするけどl*mとm*nであればO(l*n)にはなりそうかなぁ。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551780855.082400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551780855.082400">2019-03-05 19:14:15 +0900</a></div>
+          </div>
+          <div class="message__body description">それと同程度のオーダーでNNも作り直し(実体化)てるはずなんですよね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551790873.082900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">autotaker</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551790873.082900">2019-03-05 22:01:13 +0900</a></div>
+          </div>
+          <div class="message__body description">各重み(784 * 100 + 100 * 10 変数)の微小変化に対して(100,784) * (784, 100)の行列乗算(naiveには100*100*784回の演算が必要）を行なっているので計算量的に絶望的だと思います。Pythonの実装の方は何か工夫がされているのではないでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551791904.093100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551791904.093100">2019-03-05 22:18:24 +0900</a></div>
+          </div>
+          <div class="message__body description">行列の積自体はNumPyの中なので多分FFI通してC/C++なのかな。<br/>でもnumerical gradientは代入操作でスキャンしてるけど都度lossを計算つまり初期値を投入して計算してるので全体の計算量自体は同じなんじゃないかなぁ。<br/>これが遅いからbackpropergationするぞーという流れのようです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551794059.096200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">autotaker</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551794059.096200">2019-03-05 22:54:19 +0900</a></div>
+          </div>
+          <div class="message__body description">Python実装って<https://github.com/oreilly-japan/deep-learning-from-scratch/blob/master/ch04/train_neuralnet.py><br/>ですか？これ <code>network.numerical_gradient</code>の呼び出しがコメントアウトされてて代わりに　　 <code>network.gradient</code> を呼び出しているんですが、コメントアウトを逆にして実行すると全く進まないので`numerical_gradient`が遅いのは仕様なのではないでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551794838.096500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">autotaker</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551794838.096500">2019-03-05 23:07:18 +0900</a></div>
+          </div>
+          <div class="message__body description"><blockquote>pyhonのはどうやら誤差逆伝搬のアルゴリズムの方をenableにしてたからひとまず数値微分の方を有効にしてみたら,確かに遅めだけど待ってられない程じゃない.</blockquote>これはそのことでしたか。失礼しました。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551803276.096700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551803276.096700">2019-03-06 01:27:56 +0900</a></div>
+          </div>
+          <div class="message__body description">全く進まないですかね.<br/>私の手元のnoteだと1min20sec~1min30sec程度で1回のnumerical_gradientは返るんですよ.<br/>私のコードだとその1回すら40分待っても返ってこないのでさすがにこれは無いだろうと思っているんだけど.</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551804570.096900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">autotaker</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551804570.096900">2019-03-06 01:49:30 +0900</a></div>
+          </div>
+          <div class="message__body description">私の手元でも確かに数分に一回くらいは返ってきましたね。numpyの行列乗算が速すぎるのでpureなHaskellで匹敵するのは難しいと思います。<br/>手元で高速化して見たコードをプルリクで送りましたのでよろしければ参考にしてください。多分１０分以内には一回のnumerical_gradientが終わると思います。<br/><a href='https://github.com/cutsea110/deep-learning-from-scratch/pull/1'>https://github.com/cutsea110/deep-learning-from-scratch/pull/1</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551804677.097600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551804677.097600">2019-03-06 01:51:17 +0900</a></div>
+          </div>
+          <div class="message__body description">おお、ありがとうございます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551824063.098800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551824063.098800">2019-03-06 07:14:23 +0900</a></div>
+          </div>
+          <div class="message__body description">おお、これで解決できそうです！ あとで Windows でも試します</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551824576.099000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551824576.099000">2019-03-06 07:22:56 +0900</a></div>
+          </div>
+          <div class="message__body description">丁寧にコメントを付けてくれているので順に辿ってみたいのですが,プロファイルを取るのはSCC付与して-profでみるって感じですか?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551829594.099300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tkskzyk0925</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551829594.099300">2019-03-06 08:46:34 +0900</a></div>
+          </div>
+          <div class="message__body description">@tkskzyk0925 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551830369.099500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551830369.099500">2019-03-06 08:59:29 +0900</a></div>
+          </div>
+          <div class="message__body description">コンパイルオプションについては、Repaのドキュメントに推奨設定の記述がありますね。ちょっと昔のGHCっぽい感じもしますが。今だと指定しなくてもあまり変わらないかもしれません <a href='http://hackage.haskell.org/package/repa-3.4.1.4/docs/Data-Array-Repa.html'>http://hackage.haskell.org/package/repa-3.4.1.4/docs/Data-Array-Repa.html</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1551834511.099700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1551834511.099700">2019-03-06 10:08:31 +0900</a></div>
+          </div>
+          <div class="message__body description">コードを見てないので高速化についてはコメントできませんが、repaがボトルネックであればmassivを使ってみると良いかもしれません。ここに比較があります<br/><a href='https://github.com/lehins/massiv/blob/master/README.md#other-libraries'>https://github.com/lehins/massiv/blob/master/README.md#other-libraries</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/46.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/48.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

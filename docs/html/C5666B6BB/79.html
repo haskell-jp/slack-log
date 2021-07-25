@@ -1,9 +1,337 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #79</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #79</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/78.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/80.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1581045679.081100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1581045679.081100">2020-02-07&nbsp;12:21:19 +0900</a></div></div><div class="message__body description">そうですね。正確には、 <code>[e| |]</code> のなかで束縛されてない変数が自動で <code>unboundVarE $ mkName "e"</code> されるところが、です。</div></div></div><div class="message event" id="message-1581047019.081300"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1581047019.081300">2020-02-07&nbsp;12:43:39 +0900</a></div></div><div class="message__body description">うーんと，検討外れの答えをしていたらすいません．QuasiQuote の中の式は，<br/>1. パース時そのまま一緒に Haskell の式として解析され Ast になります．<br/>2. で，そのままリネームされます．<br/>3. その時に，値の変数は，スコープ内にない変数は unboundVarE 相当に，スコープ内に変数がある場合はそのままその変数に解決され varE 相当で解決されます．<br/>QuasiQuote はあまりドキュメントがないですが，基本的に変数の解決の挙動は， <strike><code>Language.Haskell.TH.lookupValueName</code> に合わせてありますね</strike> 通常のHaskell 式としてのスコープ解決に合わせてあるが正解ですね．なので， <code>lookupValueName</code> とは異なる挙動になるのですね</div></div></div><div class="message event" id="message-1581048785.082000"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1581048785.082000">2020-02-07&nbsp;13:13:05 +0900</a></div></div><div class="message__body description">訂正はどっちかというと lookupValueName の挙動を僕が誤解してたからなんですが、 QuasiQuote の挙動の方は個人的には割と自然な挙動だと思っていて、quote を書いたところで解決できる変数が解決されず、splice 時まで遅延されるのはむしろ特殊な挙動な気がします</div></div></div><div class="message event" id="message-1581048950.082200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1581048950.082200">2020-02-07&nbsp;13:15:50 +0900</a></div></div><div class="message__body description"><blockquote> quote を書いたところで解決できる変数が解決されず、splice 時まで遅延されるのはむしろ特殊な挙動</blockquote>ん？それって <code>[e| |]</code> の挙動では？</div></div></div><div class="message event" id="message-1581049440.082400"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1581049440.082400">2020-02-07&nbsp;13:24:00 +0900</a></div></div><div class="message__body description"><strike>話をドキュメントの話に戻しますが、これが件の挙動についての記述かなぁ。</strike><br/><strike><a href='https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-TemplateHaskellQuotes'>https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-TemplateHaskellQuotes</a></strike><br/><blockquote><strike>Local names, which are not in scope at splice locations, are actually evaluated when the quotation is processed.</strike></blockquote><strike>なんか "splice" と "quotation" という用語の使い方が違う気がしますが...</strike><br/>すみません、やっぱ違うっぽいですね...</div></div></div><div class="message event" id="message-1581049685.082800"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1581049685.082800">2020-02-07&nbsp;13:28:05 +0900</a></div></div><div class="message__body description">splice と言うのは TH 式を実際に Haskell の式に展開するフェーズのことで、quote を TH 式に展開するフェーズとは異なることに注意です</div></div></div><div class="message event" id="message-1581049840.083000"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1581049840.083000">2020-02-07&nbsp;13:30:40 +0900</a></div></div><div class="message__body description">thE = [e|v|]<br/>f v = $(thE)<br/>において、thE の値を計算するのが quotation processing / f の式を計算するのが splice です</div></div></div><div class="message event" id="message-1581049921.083200"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1581049921.083200">2020-02-07&nbsp;13:32:01 +0900</a></div></div><div class="message__body description">lookupValueName は splice 時に与えられた名前を解決し、quote 中の変数は quote processing 時に名前を解決します</div></div></div><div class="message event" id="message-1581050004.083400"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1581050004.083400">2020-02-07&nbsp;13:33:24 +0900</a></div></div><div class="message__body description">あっ、もしかしてquoteの中の束縛されてない変数の話じゃなくてquoteの中で見える変数の話、ということですか？<br/>それなら納得です。</div></div></div><div class="message event" id="message-1581051934.083700"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1581051934.083700">2020-02-07&nbsp;14:05:34 +0900</a></div></div><div class="message__body description">ここまでの話は，`v` が見えない状況で <code>[e|v|]</code> が <code>unboundVarE $ mkName "v"</code> 相当になるのは何故かという説明のつもりでしたが，元の質問は<br/><pre>&gt;&gt;&gt; :set -XTemplateHaskell
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #79</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #79</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/78.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/80.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1581045679.081100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581045679.081100">2020-02-07 12:21:19 +0900</a></div>
+          </div>
+          <div class="message__body description">そうですね。正確には、 <code>[e| |]</code> のなかで束縛されてない変数が自動で <code>unboundVarE $ mkName "e"</code> されるところが、です。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581047019.081300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581047019.081300">2020-02-07 12:43:39 +0900</a></div>
+          </div>
+          <div class="message__body description">うーんと，検討外れの答えをしていたらすいません．QuasiQuote の中の式は，<br/>1. パース時そのまま一緒に Haskell の式として解析され Ast になります．<br/>2. で，そのままリネームされます．<br/>3. その時に，値の変数は，スコープ内にない変数は unboundVarE 相当に，スコープ内に変数がある場合はそのままその変数に解決され varE 相当で解決されます．<br/>QuasiQuote はあまりドキュメントがないですが，基本的に変数の解決の挙動は， <strike><code>Language.Haskell.TH.lookupValueName</code> に合わせてありますね</strike> 通常のHaskell 式としてのスコープ解決に合わせてあるが正解ですね．なので， <code>lookupValueName</code> とは異なる挙動になるのですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581048785.082000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581048785.082000">2020-02-07 13:13:05 +0900</a></div>
+          </div>
+          <div class="message__body description">訂正はどっちかというと lookupValueName の挙動を僕が誤解してたからなんですが、 QuasiQuote の挙動の方は個人的には割と自然な挙動だと思っていて、quote を書いたところで解決できる変数が解決されず、splice 時まで遅延されるのはむしろ特殊な挙動な気がします</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581048950.082200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581048950.082200">2020-02-07 13:15:50 +0900</a></div>
+          </div>
+          <div class="message__body description"><blockquote> quote を書いたところで解決できる変数が解決されず、splice 時まで遅延されるのはむしろ特殊な挙動</blockquote>ん？それって <code>[e| |]</code> の挙動では？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581049440.082400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581049440.082400">2020-02-07 13:24:00 +0900</a></div>
+          </div>
+          <div class="message__body description"><strike>話をドキュメントの話に戻しますが、これが件の挙動についての記述かなぁ。</strike><br/><strike><a href='https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-TemplateHaskellQuotes'>https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-TemplateHaskellQuotes</a></strike><br/><blockquote><strike>Local names, which are not in scope at splice locations, are actually evaluated when the quotation is processed.</strike></blockquote><strike>なんか "splice" と "quotation" という用語の使い方が違う気がしますが...</strike><br/>すみません、やっぱ違うっぽいですね...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581049685.082800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581049685.082800">2020-02-07 13:28:05 +0900</a></div>
+          </div>
+          <div class="message__body description">splice と言うのは TH 式を実際に Haskell の式に展開するフェーズのことで、quote を TH 式に展開するフェーズとは異なることに注意です</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581049840.083000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581049840.083000">2020-02-07 13:30:40 +0900</a></div>
+          </div>
+          <div class="message__body description">thE = [e|v|]<br/>f v = $(thE)<br/>において、thE の値を計算するのが quotation processing / f の式を計算するのが splice です</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581049921.083200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581049921.083200">2020-02-07 13:32:01 +0900</a></div>
+          </div>
+          <div class="message__body description">lookupValueName は splice 時に与えられた名前を解決し、quote 中の変数は quote processing 時に名前を解決します</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581050004.083400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581050004.083400">2020-02-07 13:33:24 +0900</a></div>
+          </div>
+          <div class="message__body description">あっ、もしかしてquoteの中の束縛されてない変数の話じゃなくてquoteの中で見える変数の話、ということですか？<br/>それなら納得です。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581051934.083700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581051934.083700">2020-02-07 14:05:34 +0900</a></div>
+          </div>
+          <div class="message__body description">ここまでの話は，`v` が見えない状況で <code>[e|v|]</code> が <code>unboundVarE $ mkName "v"</code> 相当になるのは何故かという説明のつもりでしたが，元の質問は<br/><pre>&gt;&gt;&gt; :set -XTemplateHaskell
 &gt;&gt;&gt; import <http://Language.Haskell.TH|Language.Haskell.TH>
 &gt;&gt;&gt; let e = () in $(unboundVarE $ mkName "e")
-()</pre><br/>の挙動がなぜこうなってるのか単純に分からないということですか？<br/><blockquote>正確には、 [e| |] のなかで束縛されてない変数が自動で unboundVarE $ mkName “e” されるところが、です。</blockquote>の文面がどういうことを言いたいのかいまいち分かってないです</div></div></div><div class="message event" id="message-1581053139.083900"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1581053139.083900">2020-02-07&nbsp;14:25:39 +0900</a></div></div><div class="message__body description">ここまでの話は、splice においてTH 式の内容を Haskell の式に設置させる時にどう名前解決されるかの話はしていなくて、lookupValueName の話も含め TH 式の Name がどう解決されるかの話をしています</div></div></div><div class="message event" id="message-1581054673.084100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1581054673.084100">2020-02-07&nbsp;14:51:13 +0900</a></div></div><div class="message__body description"><blockquote>ここまでの話は，`v` が見えない状況で <code>[e|v|]</code> が <code>unboundVarE $ mkName "v"</code> 相当になるのは何故かという説明のつもりでしたが</blockquote>はい、その認識で合っています。<br/><br/>そしてようやく気づきましたが<br/><blockquote>lookupValueName は splice 時に与えられた名前を解決し、quote 中の変数は quote processing 時に名前を解決します</blockquote>どうやらここがわかっていないようです。<br/>念のため確認ですがここでいう「quote 中の変数」とは`[e|v|]` における <code>v</code> ですよね？<br/>quote processingが（`v`が <code>[e|v|]</code> の外には定義されてない状態で） <code>[e|v|]</code> を`unboundVarE $ mkName "v"` に変換するという意味ならば、`v`は定義されてないのですし、「quote processing 時に名前を解決」できず、結局spliceするときに解決することになるのでは？</div></div></div><div class="message event" id="message-1581058743.084300"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1581058743.084300">2020-02-07&nbsp;15:59:03 +0900</a></div></div><div class="message__body description">quote processing での名前解決と言ってるのは，正確には変数が quote processing 時に解決できるならその名前 n で varE n に，それ以外の時は unboundVarE n にするということを言っています．で， unboundVarE n の splice 時の解決方法に，quote で書かれた変数かということは関係ありません．<br/>unboundVarE n は，unresolved identifier を表すということになっていますが，正確には identifier expected to be resolved というニュアンスが正しく， splice 時のリネーム時に通常のリネームと同じように (元々の Haskell プログラムも最初変数部分は全て unboundVarE で構成され，リネーム時に varE に解決されます) 解決されるため，<br/><pre>&gt;&gt;&gt; let e = () in $(unboundVarE $ mkName "e")
-()</pre><br/>という挙動になります</div></div></div><div class="message event" id="message-1581141363.084800"><div class="content"><div class="summary"><div class="message__header user">smalltalker74</div><div class="message__timestamp date"><a class="date" href="#message-1581141363.084800">2020-02-08&nbsp;14:56:03 +0900</a></div></div><div class="message__body description">@smalltalker74 has joined the channel</div></div></div><div class="message event" id="message-1581399821.085100"><div class="content"><div class="summary"><div class="message__header user">omura.cre</div><div class="message__timestamp date"><a class="date" href="#message-1581399821.085100">2020-02-11&nbsp;14:43:41 +0900</a></div></div><div class="message__body description">@omura.cre has joined the channel</div></div></div><div class="message event" id="message-1581659634.085400"><div class="content"><div class="summary"><div class="message__header user">t.takeuchi.a</div><div class="message__timestamp date"><a class="date" href="#message-1581659634.085400">2020-02-14&nbsp;14:53:54 +0900</a></div></div><div class="message__body description">@t.takeuchi.a has joined the channel</div></div></div><div class="message event" id="message-1581685762.085700"><div class="content"><div class="summary"><div class="message__header user">t-mishima</div><div class="message__timestamp date"><a class="date" href="#message-1581685762.085700">2020-02-14&nbsp;22:09:22 +0900</a></div></div><div class="message__body description">@t-mishima has joined the channel</div></div></div><div class="message event" id="message-1581742658.086000"><div class="content"><div class="summary"><div class="message__header user">uhryks</div><div class="message__timestamp date"><a class="date" href="#message-1581742658.086000">2020-02-15&nbsp;13:57:38 +0900</a></div></div><div class="message__body description">@uhryks has joined the channel</div></div></div><div class="message event" id="message-1581838903.086300"><div class="content"><div class="summary"><div class="message__header user">taku2011katagiri</div><div class="message__timestamp date"><a class="date" href="#message-1581838903.086300">2020-02-16&nbsp;16:41:43 +0900</a></div></div><div class="message__body description">@taku2011katagiri has joined the channel</div></div></div><div class="message event" id="message-1582017946.086900"><div class="content"><div class="summary"><div class="message__header user">ozaki.ryushi</div><div class="message__timestamp date"><a class="date" href="#message-1582017946.086900">2020-02-18&nbsp;18:25:46 +0900</a></div></div><div class="message__body description">@ozaki.ryushi has joined the channel</div></div></div><div class="message event" id="message-1582249919.087200"><div class="content"><div class="summary"><div class="message__header user">yohta.kimura</div><div class="message__timestamp date"><a class="date" href="#message-1582249919.087200">2020-02-21&nbsp;10:51:59 +0900</a></div></div><div class="message__body description">@yohta.kimura has joined the channel</div></div></div><div class="message event" id="message-1582386783.000200"><div class="content"><div class="summary"><div class="message__header user">p.y.on1.3</div><div class="message__timestamp date"><a class="date" href="#message-1582386783.000200">2020-02-23&nbsp;00:53:03 +0900</a></div></div><div class="message__body description">@p.y.on1.3 has joined the channel</div></div></div><div class="message event" id="message-1582418554.000400"><div class="content"><div class="summary"><div class="message__header user">cj.bc-sd</div><div class="message__timestamp date"><a class="date" href="#message-1582418554.000400">2020-02-23&nbsp;09:42:34 +0900</a></div></div><div class="message__body description">モジュール名の決定についての質問です<br/>ライブラリ内のモジュール名を決めるとき、特に一番上のモジュール(`Data`とか`Control`とか)を決めるときに則った方が良いルールなどあるのでしょうか<br/>具体的には、今分散型SNSであるMisskeyのAPI用ライブラリを書いているのですが、これは`Network`以下か`Web`以下かどちらが適切なのでしょうか…<br/>（とりあえず`Network.Misskey`にしているのですが、Hastodonが`Web.Hastodon`であることに気づいて気になった次第です）<br/>どちらでも良いのなら今のままにしようと思っています</div></div></div><div class="message event" id="message-1582420309.000500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1582420309.000500">2020-02-23&nbsp;10:11:49 +0900</a></div></div><div class="message__body description">私が知る限り、決まりなくみんなめいめいにやってる感じですね。。。<br/>ただ今回に限っていえば、いわゆるWeb APIのクライアントは <code>Web</code> を使う傾向があるようなので私は <code>Web</code> の方がいいと思います。<br/>例:<br/>• <a href='http://hackage.haskell.org/package/slack-web'>http://hackage.haskell.org/package/slack-web</a> <br/>• <a href='http://hackage.haskell.org/package/twitter-types'>http://hackage.haskell.org/package/twitter-types</a></div></div></div><div class="message event" id="message-1582420389.000800"><div class="content"><div class="summary"><div class="message__header user">cj.bc-sd</div><div class="message__timestamp date"><a class="date" href="#message-1582420389.000800">2020-02-23&nbsp;10:13:09 +0900</a></div></div><div class="message__body description">成程ありがとうございます！<br/><code>Web</code>に変えておきます</div></div></div><div class="message event" id="message-1582424231.001100"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1582424231.001100">2020-02-23&nbsp;11:17:11 +0900</a></div></div><div class="message__body description">Haskell での mealy machine (`newtype Mealy a b = Mealy { runMealy :: a -&gt; (b, Mealy a b) }`) ですが、これをモナドにする方法って何かあるでしょうか？<br/>• <code>ArrowMonad</code> を使えるが、その場合では a が () になってしまうので問題がある<br/>• Free Monad 系もあるが、それ以外で何かがないか</div></div></div><div class="message event" id="message-1582425455.001300"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1582425455.001300">2020-02-23&nbsp;11:37:35 +0900</a></div></div><div class="message__body description">無限ストリーム的な構造をモナドにする方法として対角化が考えられます。例えば[1,2,3..]を出力する機械にkをバインドすると、k 0の0番目、k 1の1番目、k 2の2番目の要素を採取していくような操作です。ムーアマシンでは実装できることが知られていますが(cf. <a href='http://hackage.haskell.org/package/machines-0.7/docs/src/Data.Machine.Moore.html#line-100'>http://hackage.haskell.org/package/machines-0.7/docs/src/Data.Machine.Moore.html#line-100</a>)、ミーリマシンについてはわかりません</div></div></div><div class="message event" id="message-1582427204.001500"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1582427204.001500">2020-02-23&nbsp;12:06:44 +0900</a></div></div><div class="message__body description">んー、なるほど、そのまま扱わず streaming 系に変換するのが現実的ですかね</div></div></div><div class="message event" id="message-1582462646.001800"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1582462646.001800">2020-02-23&nbsp;21:57:26 +0900</a></div></div><div class="message__body description">a ~ () で定義できるならReaderTと合成すれば一般に行けそうな感じがします</div></div></div><div class="message event" id="message-1582463179.002000"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1582463179.002000">2020-02-23&nbsp;22:06:19 +0900</a></div></div><div class="message__body description"><pre>pure x = Mealy $ \_ -&gt; (x, pure x)
-Mealy p &gt;&gt;= fq = Mealy $ \x -&gt; let {(y, p') = p x; (z, q') = runMealy (fq y) x} in (z, p' &gt;&gt;= q')</pre><br/></div></div></div><div class="message event" id="message-1582463186.002200"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1582463186.002200">2020-02-23&nbsp;22:06:26 +0900</a></div></div><div class="message__body description">だとどうだろう</div></div></div><div class="message event" id="message-1582463616.002400"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1582463616.002400">2020-02-23&nbsp;22:13:36 +0900</a></div></div><div class="message__body description">あと、YampaのSFがMealy machineで、`switch` <a href='https://hackage.haskell.org/package/Yampa-0.13.1/docs/FRP-Yampa-Switches.html#v:switch'>https://hackage.haskell.org/package/Yampa-0.13.1/docs/FRP-Yampa-Switches.html#v:switch</a> を継続モナド <code>Cont</code>  で書くとモナドチェインが出来て嬉しい、という話もあります</div></div></div><div class="message event" id="message-1582464302.002700"><div class="content"><div class="summary"><div class="message__header user">s.okuda.0728</div><div class="message__timestamp date"><a class="date" href="#message-1582464302.002700">2020-02-23&nbsp;22:25:02 +0900</a></div></div><div class="message__body description">@s.okuda.0728 has joined the channel</div></div></div><div class="message event" id="message-1582534910.002900"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1582534910.002900">2020-02-24&nbsp;18:01:50 +0900</a></div></div><div class="message__body description">Yampa のやつの話はモナドとして <code>Cont (Mealy a b)</code>  を使った方がいいみたいな感じですかね。 <code>a -&gt; Mealy a b</code>  の newtype ならモナドになれるかですが、モナド則を満たせずになれなさそうな気がします。</div></div></div><div class="message event" id="message-1582539541.011500"><div class="content"><div class="summary"><div class="message__header user">nobsun</div><div class="message__timestamp date"><a class="date" href="#message-1582539541.011500">2020-02-24&nbsp;19:19:01 +0900</a></div></div><div class="message__body description">プロファイリングをしようとして，<br/><pre>ghc-options:
+()</pre><br/>の挙動がなぜこうなってるのか単純に分からないということですか？<br/><blockquote>正確には、 [e| |] のなかで束縛されてない変数が自動で unboundVarE $ mkName “e” されるところが、です。</blockquote>の文面がどういうことを言いたいのかいまいち分かってないです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581053139.083900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581053139.083900">2020-02-07 14:25:39 +0900</a></div>
+          </div>
+          <div class="message__body description">ここまでの話は、splice においてTH 式の内容を Haskell の式に設置させる時にどう名前解決されるかの話はしていなくて、lookupValueName の話も含め TH 式の Name がどう解決されるかの話をしています</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581054673.084100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581054673.084100">2020-02-07 14:51:13 +0900</a></div>
+          </div>
+          <div class="message__body description"><blockquote>ここまでの話は，`v` が見えない状況で <code>[e|v|]</code> が <code>unboundVarE $ mkName "v"</code> 相当になるのは何故かという説明のつもりでしたが</blockquote>はい、その認識で合っています。<br/><br/>そしてようやく気づきましたが<br/><blockquote>lookupValueName は splice 時に与えられた名前を解決し、quote 中の変数は quote processing 時に名前を解決します</blockquote>どうやらここがわかっていないようです。<br/>念のため確認ですがここでいう「quote 中の変数」とは`[e|v|]` における <code>v</code> ですよね？<br/>quote processingが（`v`が <code>[e|v|]</code> の外には定義されてない状態で） <code>[e|v|]</code> を`unboundVarE $ mkName "v"` に変換するという意味ならば、`v`は定義されてないのですし、「quote processing 時に名前を解決」できず、結局spliceするときに解決することになるのでは？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581058743.084300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581058743.084300">2020-02-07 15:59:03 +0900</a></div>
+          </div>
+          <div class="message__body description">quote processing での名前解決と言ってるのは，正確には変数が quote processing 時に解決できるならその名前 n で varE n に，それ以外の時は unboundVarE n にするということを言っています．で， unboundVarE n の splice 時の解決方法に，quote で書かれた変数かということは関係ありません．<br/>unboundVarE n は，unresolved identifier を表すということになっていますが，正確には identifier expected to be resolved というニュアンスが正しく， splice 時のリネーム時に通常のリネームと同じように (元々の Haskell プログラムも最初変数部分は全て unboundVarE で構成され，リネーム時に varE に解決されます) 解決されるため，<br/><pre>&gt;&gt;&gt; let e = () in $(unboundVarE $ mkName "e")
+()</pre><br/>という挙動になります</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581141363.084800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">smalltalker74</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581141363.084800">2020-02-08 14:56:03 +0900</a></div>
+          </div>
+          <div class="message__body description">@smalltalker74 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581399821.085100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">omura.cre</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581399821.085100">2020-02-11 14:43:41 +0900</a></div>
+          </div>
+          <div class="message__body description">@omura.cre has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581659634.085400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">t.takeuchi.a</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581659634.085400">2020-02-14 14:53:54 +0900</a></div>
+          </div>
+          <div class="message__body description">@t.takeuchi.a has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581685762.085700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">t-mishima</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581685762.085700">2020-02-14 22:09:22 +0900</a></div>
+          </div>
+          <div class="message__body description">@t-mishima has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581742658.086000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">uhryks</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581742658.086000">2020-02-15 13:57:38 +0900</a></div>
+          </div>
+          <div class="message__body description">@uhryks has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1581838903.086300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">taku2011katagiri</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1581838903.086300">2020-02-16 16:41:43 +0900</a></div>
+          </div>
+          <div class="message__body description">@taku2011katagiri has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582017946.086900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ozaki.ryushi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582017946.086900">2020-02-18 18:25:46 +0900</a></div>
+          </div>
+          <div class="message__body description">@ozaki.ryushi has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582249919.087200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yohta.kimura</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582249919.087200">2020-02-21 10:51:59 +0900</a></div>
+          </div>
+          <div class="message__body description">@yohta.kimura has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582386783.000200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">p.y.on1.3</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582386783.000200">2020-02-23 00:53:03 +0900</a></div>
+          </div>
+          <div class="message__body description">@p.y.on1.3 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582418554.000400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cj.bc-sd</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582418554.000400">2020-02-23 09:42:34 +0900</a></div>
+          </div>
+          <div class="message__body description">モジュール名の決定についての質問です<br/>ライブラリ内のモジュール名を決めるとき、特に一番上のモジュール(`Data`とか`Control`とか)を決めるときに則った方が良いルールなどあるのでしょうか<br/>具体的には、今分散型SNSであるMisskeyのAPI用ライブラリを書いているのですが、これは`Network`以下か`Web`以下かどちらが適切なのでしょうか…<br/>（とりあえず`Network.Misskey`にしているのですが、Hastodonが`Web.Hastodon`であることに気づいて気になった次第です）<br/>どちらでも良いのなら今のままにしようと思っています</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582420309.000500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582420309.000500">2020-02-23 10:11:49 +0900</a></div>
+          </div>
+          <div class="message__body description">私が知る限り、決まりなくみんなめいめいにやってる感じですね。。。<br/>ただ今回に限っていえば、いわゆるWeb APIのクライアントは <code>Web</code> を使う傾向があるようなので私は <code>Web</code> の方がいいと思います。<br/>例:<br/>• <a href='http://hackage.haskell.org/package/slack-web'>http://hackage.haskell.org/package/slack-web</a> <br/>• <a href='http://hackage.haskell.org/package/twitter-types'>http://hackage.haskell.org/package/twitter-types</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582420389.000800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cj.bc-sd</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582420389.000800">2020-02-23 10:13:09 +0900</a></div>
+          </div>
+          <div class="message__body description">成程ありがとうございます！<br/><code>Web</code>に変えておきます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582424231.001100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582424231.001100">2020-02-23 11:17:11 +0900</a></div>
+          </div>
+          <div class="message__body description">Haskell での mealy machine (`newtype Mealy a b = Mealy { runMealy :: a -&gt; (b, Mealy a b) }`) ですが、これをモナドにする方法って何かあるでしょうか？<br/>• <code>ArrowMonad</code> を使えるが、その場合では a が () になってしまうので問題がある<br/>• Free Monad 系もあるが、それ以外で何かがないか</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582425455.001300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582425455.001300">2020-02-23 11:37:35 +0900</a></div>
+          </div>
+          <div class="message__body description">無限ストリーム的な構造をモナドにする方法として対角化が考えられます。例えば[1,2,3..]を出力する機械にkをバインドすると、k 0の0番目、k 1の1番目、k 2の2番目の要素を採取していくような操作です。ムーアマシンでは実装できることが知られていますが(cf. <a href='http://hackage.haskell.org/package/machines-0.7/docs/src/Data.Machine.Moore.html#line-100'>http://hackage.haskell.org/package/machines-0.7/docs/src/Data.Machine.Moore.html#line-100</a>)、ミーリマシンについてはわかりません</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582427204.001500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582427204.001500">2020-02-23 12:06:44 +0900</a></div>
+          </div>
+          <div class="message__body description">んー、なるほど、そのまま扱わず streaming 系に変換するのが現実的ですかね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582462646.001800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582462646.001800">2020-02-23 21:57:26 +0900</a></div>
+          </div>
+          <div class="message__body description">a ~ () で定義できるならReaderTと合成すれば一般に行けそうな感じがします</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582463179.002000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582463179.002000">2020-02-23 22:06:19 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>pure x = Mealy $ \_ -&gt; (x, pure x)
+Mealy p &gt;&gt;= fq = Mealy $ \x -&gt; let {(y, p') = p x; (z, q') = runMealy (fq y) x} in (z, p' &gt;&gt;= q')</pre><br/></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582463186.002200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582463186.002200">2020-02-23 22:06:26 +0900</a></div>
+          </div>
+          <div class="message__body description">だとどうだろう</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582463616.002400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582463616.002400">2020-02-23 22:13:36 +0900</a></div>
+          </div>
+          <div class="message__body description">あと、YampaのSFがMealy machineで、`switch` <a href='https://hackage.haskell.org/package/Yampa-0.13.1/docs/FRP-Yampa-Switches.html#v:switch'>https://hackage.haskell.org/package/Yampa-0.13.1/docs/FRP-Yampa-Switches.html#v:switch</a> を継続モナド <code>Cont</code>  で書くとモナドチェインが出来て嬉しい、という話もあります</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582464302.002700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">s.okuda.0728</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582464302.002700">2020-02-23 22:25:02 +0900</a></div>
+          </div>
+          <div class="message__body description">@s.okuda.0728 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582534910.002900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582534910.002900">2020-02-24 18:01:50 +0900</a></div>
+          </div>
+          <div class="message__body description">Yampa のやつの話はモナドとして <code>Cont (Mealy a b)</code>  を使った方がいいみたいな感じですかね。 <code>a -&gt; Mealy a b</code>  の newtype ならモナドになれるかですが、モナド則を満たせずになれなさそうな気がします。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582539541.011500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nobsun</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582539541.011500">2020-02-24 19:19:01 +0900</a></div>
+          </div>
+          <div class="message__body description">プロファイリングをしようとして，<br/><pre>ghc-options:
 - -rtsopts
 - -prof
 - -fprof-auto</pre><br/>を指定したら，<br/><pre>ghc: panic! (the 'impossible' happened)
@@ -17,4 +345,150 @@ Mealy p &gt;&gt;= fq = Mealy $ \x -&gt; let {(y, p') = p x; (z, q') = runMealy (
         callStackDoc, called at compiler/utils/Outputable.hs:1160:37 in ghc:Outputable
         pprPanic, called at compiler/typecheck/TcEnv.hs:132:32 in ghc:TcEnv
 
-Please report this as a GHC bug:  <http://www.haskell.org/ghc/reportabug></pre><br/>最小の再現状況を作ろうと思うのですが，この場合どこから手をつけるのがいいでしょうか．</div></div></div><div class="message event" id="message-1582540538.014800"><div class="content"><div class="summary"><div class="message__header user">stegeman</div><div class="message__timestamp date"><a class="date" href="#message-1582540538.014800">2020-02-24&nbsp;19:35:38 +0900</a></div></div><div class="message__body description">are you using cabal? then you shouldn't pass <code>-prof</code> directly in the <code>ghc-options</code> but use <code>--enable-profiling</code></div></div></div><div class="message event" id="message-1582540765.015300"><div class="content"><div class="summary"><div class="message__header user">notogawa</div><div class="message__timestamp date"><a class="date" href="#message-1582540765.015300">2020-02-24&nbsp;19:39:25 +0900</a></div></div><div class="message__body description"><a href='https://github.com/haskell/cabal/issues/2827'>https://github.com/haskell/cabal/issues/2827</a></div></div></div><div class="message event" id="message-1582541001.015600"><div class="content"><div class="summary"><div class="message__header user">nobsun</div><div class="message__timestamp date"><a class="date" href="#message-1582541001.015600">2020-02-24&nbsp;19:43:21 +0900</a></div></div><div class="message__body description">I'm using stack. how can i use 'stack build' ?</div></div></div><div class="message event" id="message-1582541121.015800"><div class="content"><div class="summary"><div class="message__header user">notogawa</div><div class="message__timestamp date"><a class="date" href="#message-1582541121.015800">2020-02-24&nbsp;19:45:21 +0900</a></div></div><div class="message__body description"><code>stack build --profile</code></div></div></div><div class="message event" id="message-1582541653.016000"><div class="content"><div class="summary"><div class="message__header user">nobsun</div><div class="message__timestamp date"><a class="date" href="#message-1582541653.016000">2020-02-24&nbsp;19:54:13 +0900</a></div></div><div class="message__body description">ありがとうございます．Thank you.<br/>うまくビルドできました．</div></div></div><div class="message event" id="message-1582594723.017200"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1582594723.017200">2020-02-25&nbsp;10:38:43 +0900</a></div></div><div class="message__body description">失礼、上の奴はだいぶボケてました。<br/><br/><code>ArrowMonad Mealy</code> のMonadインスタンスは、 <code>Mealy</code> の <code>ArrowApply</code> インスタンスから導出されるので、<br/>問題はMealyがArrowApplyになるかどうかです。<br/><br/>とりあえず型合わせで <code>app</code> を定義してみます。<br/><br/><pre>app = Mealy $ \(f, x) -&gt; let (y, g) = f x in (y, ???)</pre><br/>???に合う型の変数にはfまたはgがあるのですが、<br/><br/>• fを選ぶと、内部状態が毎回リセットされてしまう。<br/>• gを選ぶと、2回目以降の入力値fが捨てられてしまうため、fが変化しても追従しない<br/>と、いずれも問題があります。</div></div></div><div class="message event" id="message-1582594794.017400"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1582594794.017400">2020-02-25&nbsp;10:39:54 +0900</a></div></div><div class="message__body description">これは単に直観的な問題だけではなく、実際にArrowApplyのlawどれかを満たさないはずです <a href='https://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Arrow.html#t:ArrowApply'>https://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Arrow.html#t:ArrowApply</a></div></div></div><div class="message event" id="message-1582594870.017600"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1582594870.017600">2020-02-25&nbsp;10:41:10 +0900</a></div></div><div class="message__body description">Yampaのやつは、Contはあまり本質じゃなくて<br/><br/><pre>newtype Switch a b c = Switch (Mealy a (b, Maybe c))</pre></div></div></div><div class="message event" id="message-1582595007.017800"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1582595007.017800">2020-02-25&nbsp;10:43:27 +0900</a></div></div><div class="message__body description">と置いてやると、「cがJustの時だけ内部状態をリセットしてやる事で、必要に応じた動作ができる」というのがやりたい事でした</div></div></div><div class="message event" id="message-1582614270.024100"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1582614270.024100">2020-02-25&nbsp;16:04:30 +0900</a></div></div><div class="message__body description">haskellとかの関数型言語の計算量ってどうやって求めればいいんでしょうか?</div></div></div><div class="message event" id="message-1582616668.024400"><div class="content"><div class="summary"><div class="message__header user">t.mitsuchi3</div><div class="message__timestamp date"><a class="date" href="#message-1582616668.024400">2020-02-25&nbsp;16:44:28 +0900</a></div></div><div class="message__body description">手元の「関数プログラミング入門」という本では、漸化式を立ててそれを解いているようです。検索してみたところ似たような内容の記事がありました。<https://gautshen.wordpress.com/2011/10/23/reversing-a-list-in-haskell/></div></div></div><div class="message event" id="message-1582616733.024800"><div class="content"><div class="summary"><div class="message__header user">t.mitsuchi3</div><div class="message__timestamp date"><a class="date" href="#message-1582616733.024800">2020-02-25&nbsp;16:45:33 +0900</a></div></div><div class="message__body description">ただしそれは先行評価での場合で、「遅延評価の下では簡約ステップ数を数えるのが難しく、いまだ研究対象だ」とあります。</div></div></div><div class="message event" id="message-1582616827.025000"><div class="content"><div class="summary"><div class="message__header user">t.mitsuchi3</div><div class="message__timestamp date"><a class="date" href="#message-1582616827.025000">2020-02-25&nbsp;16:47:07 +0900</a></div></div><div class="message__body description"><a href='https://www.cs.cmu.edu/~rwh/theses/okasaki.pdf'>https://www.cs.cmu.edu/~rwh/theses/okasaki.pdf</a><br/>とかにそこらへんが書いてありそう…。（↑の本に参考文献の1つとして書いてありました）</div></div></div><div class="message event" id="message-1582618355.025400"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1582618355.025400">2020-02-25&nbsp;17:12:35 +0900</a></div></div><div class="message__body description">余談ですけど、関数プログラミング入門の改訂版が「Haskellによる関数プログラミングの思考法」 です、確か。<br/><a href='https://asciidwango.jp/post/157185312025/haskellによる関数プログラミングの思考法'>https://asciidwango.jp/post/157185312025/haskellによる関数プログラミングの思考法</a><br/><br/>で、Haskell じゃなくて遅延評価の言語ではって言う話であれば「珠玉のアルゴリズムデザイン」とか「純粋関数型データ構造」って書籍に結構書いてあるはず（全部訳書）</div></div></div><div class="message event" id="message-1582713585.026600"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1582713585.026600">2020-02-26&nbsp;19:39:45 +0900</a></div></div><div class="message__body description">なるほど、 Yampa のやつは引数の方が大事だったわけですか。まだよくわかってませんが……<br/><a href='https://www.stackage.org/haddock/lts-15.1/machines-0.7/Data-Machine-Mealy.html'>https://www.stackage.org/haddock/lts-15.1/machines-0.7/Data-Machine-Mealy.html</a> のように Mealy は ArrowApply のインスタンスになっています。</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/78.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/80.html" class="pager__next item">Next</a></div></div></body></html>
+Please report this as a GHC bug:  <http://www.haskell.org/ghc/reportabug></pre><br/>最小の再現状況を作ろうと思うのですが，この場合どこから手をつけるのがいいでしょうか．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582540538.014800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">stegeman</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582540538.014800">2020-02-24 19:35:38 +0900</a></div>
+          </div>
+          <div class="message__body description">are you using cabal? then you shouldn't pass <code>-prof</code> directly in the <code>ghc-options</code> but use <code>--enable-profiling</code></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582540765.015300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">notogawa</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582540765.015300">2020-02-24 19:39:25 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://github.com/haskell/cabal/issues/2827'>https://github.com/haskell/cabal/issues/2827</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582541001.015600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nobsun</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582541001.015600">2020-02-24 19:43:21 +0900</a></div>
+          </div>
+          <div class="message__body description">I'm using stack. how can i use 'stack build' ?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582541121.015800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">notogawa</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582541121.015800">2020-02-24 19:45:21 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>stack build --profile</code></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582541653.016000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nobsun</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582541653.016000">2020-02-24 19:54:13 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます．Thank you.<br/>うまくビルドできました．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582594723.017200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582594723.017200">2020-02-25 10:38:43 +0900</a></div>
+          </div>
+          <div class="message__body description">失礼、上の奴はだいぶボケてました。<br/><br/><code>ArrowMonad Mealy</code> のMonadインスタンスは、 <code>Mealy</code> の <code>ArrowApply</code> インスタンスから導出されるので、<br/>問題はMealyがArrowApplyになるかどうかです。<br/><br/>とりあえず型合わせで <code>app</code> を定義してみます。<br/><br/><pre>app = Mealy $ \(f, x) -&gt; let (y, g) = f x in (y, ???)</pre><br/>???に合う型の変数にはfまたはgがあるのですが、<br/><br/>• fを選ぶと、内部状態が毎回リセットされてしまう。<br/>• gを選ぶと、2回目以降の入力値fが捨てられてしまうため、fが変化しても追従しない<br/>と、いずれも問題があります。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582594794.017400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582594794.017400">2020-02-25 10:39:54 +0900</a></div>
+          </div>
+          <div class="message__body description">これは単に直観的な問題だけではなく、実際にArrowApplyのlawどれかを満たさないはずです <a href='https://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Arrow.html#t:ArrowApply'>https://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Arrow.html#t:ArrowApply</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582594870.017600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582594870.017600">2020-02-25 10:41:10 +0900</a></div>
+          </div>
+          <div class="message__body description">Yampaのやつは、Contはあまり本質じゃなくて<br/><br/><pre>newtype Switch a b c = Switch (Mealy a (b, Maybe c))</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582595007.017800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582595007.017800">2020-02-25 10:43:27 +0900</a></div>
+          </div>
+          <div class="message__body description">と置いてやると、「cがJustの時だけ内部状態をリセットしてやる事で、必要に応じた動作ができる」というのがやりたい事でした</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582614270.024100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582614270.024100">2020-02-25 16:04:30 +0900</a></div>
+          </div>
+          <div class="message__body description">haskellとかの関数型言語の計算量ってどうやって求めればいいんでしょうか?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582616668.024400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">t.mitsuchi3</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582616668.024400">2020-02-25 16:44:28 +0900</a></div>
+          </div>
+          <div class="message__body description">手元の「関数プログラミング入門」という本では、漸化式を立ててそれを解いているようです。検索してみたところ似たような内容の記事がありました。<https://gautshen.wordpress.com/2011/10/23/reversing-a-list-in-haskell/></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582616733.024800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">t.mitsuchi3</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582616733.024800">2020-02-25 16:45:33 +0900</a></div>
+          </div>
+          <div class="message__body description">ただしそれは先行評価での場合で、「遅延評価の下では簡約ステップ数を数えるのが難しく、いまだ研究対象だ」とあります。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582616827.025000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">t.mitsuchi3</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582616827.025000">2020-02-25 16:47:07 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://www.cs.cmu.edu/~rwh/theses/okasaki.pdf'>https://www.cs.cmu.edu/~rwh/theses/okasaki.pdf</a><br/>とかにそこらへんが書いてありそう…。（↑の本に参考文献の1つとして書いてありました）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582618355.025400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582618355.025400">2020-02-25 17:12:35 +0900</a></div>
+          </div>
+          <div class="message__body description">余談ですけど、関数プログラミング入門の改訂版が「Haskellによる関数プログラミングの思考法」 です、確か。<br/><a href='https://asciidwango.jp/post/157185312025/haskellによる関数プログラミングの思考法'>https://asciidwango.jp/post/157185312025/haskellによる関数プログラミングの思考法</a><br/><br/>で、Haskell じゃなくて遅延評価の言語ではって言う話であれば「珠玉のアルゴリズムデザイン」とか「純粋関数型データ構造」って書籍に結構書いてあるはず（全部訳書）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1582713585.026600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1582713585.026600">2020-02-26 19:39:45 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど、 Yampa のやつは引数の方が大事だったわけですか。まだよくわかってませんが……<br/><a href='https://www.stackage.org/haddock/lts-15.1/machines-0.7/Data-Machine-Mealy.html'>https://www.stackage.org/haddock/lts-15.1/machines-0.7/Data-Machine-Mealy.html</a> のように Mealy は ArrowApply のインスタンスになっています。</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/78.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/80.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

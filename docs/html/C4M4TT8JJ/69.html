@@ -1,4 +1,478 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / random #69</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / random #69</h1><div class="pager ui pagination menu"><a href="../../html/C4M4TT8JJ/68.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C4M4TT8JJ/70.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1584938001.102800"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1584938001.102800">2020-03-23&nbsp;13:33:21 +0900</a></div></div><div class="message__body description">後で時間があったら思いつく例を何個か作って上げようと思ってるんですが、<br/>* パーサのデバッグ<br/>* グラフ構造の探索など、コントロールフローが複雑な関数群のデバッグ<br/>* notogawa さんがおっしゃってるようなパフォーマンスの改善時のデバッグ<br/>で printf デバッグをする際、trace が出ない原因の切り分けが、遅延評価だからなのかコードのバグなのか分からないのは、だいぶ辛いというのが経験則としてあります</div></div></div><div class="message event" id="message-1584961157.106100"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1584961157.106100">2020-03-23&nbsp;19:59:17 +0900</a></div></div><div class="message__body description">パーサのデバッグのイケてる方法、存在するならぜひ誰かにレクチャーして欲しい……</div></div></div><div class="message event" id="message-1584961316.107100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1584961316.107100">2020-03-23&nbsp;20:01:56 +0900</a></div></div><div class="message__body description">個人的には、attoparsecでやっている限りは <code>traceM</code> を <code>putStrLn</code> の代わりに使えば割とどうにかなってますね。 :thinking_face:<br/>あとは必ずパースした結果をトレースするよう <code>traceShowId &lt;$&gt;</code> と書いたり。</div></div></div><div class="message event" id="message-1584961569.109000"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1584961569.109000">2020-03-23&nbsp;20:06:09 +0900</a></div></div><div class="message__body description">(そういえば補足ですが、パーサのデバッグというのは、パーサコンビネータでのパーサのデバッグですね)</div></div></div><div class="message event" id="message-1584976096.109700"><div class="content"><div class="summary"><div class="message__header user">terutomo.takahashi</div><div class="message__timestamp date"><a class="date" href="#message-1584976096.109700">2020-03-24&nbsp;00:08:16 +0900</a></div></div><div class="message__body description">@terutomo.takahashi has joined the channel</div></div></div><div class="message event" id="message-1585020943.110000"><div class="content"><div class="summary"><div class="message__header user">jamesbrock</div><div class="message__timestamp date"><a class="date" href="#message-1585020943.110000">2020-03-24&nbsp;12:35:43 +0900</a></div></div><div class="message__body description">@jamesbrock has joined the channel</div></div></div><div class="message event" id="message-1585038988.110200"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585038988.110200">2020-03-24&nbsp;17:36:28 +0900</a></div></div><div class="message__body description">@shin1hi has joined the channel</div></div></div><div class="message event" id="message-1585090514.111300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1585090514.111300">2020-03-25&nbsp;07:55:14 +0900</a></div></div><div class="message__body description">:tada:<https://discourse.haskell.org/t/ghc-8-10-1-available/1152| GHC 8.10.1 available >:tada: <a href='https://discourse.haskell.org/t/ghc-8-10-1-available/1152'>https://discourse.haskell.org/t/ghc-8-10-1-available/1152</a></div></div></div><div class="message event" id="message-1585093147.111500"><div class="content"><div class="summary"><div class="message__header user">nobsun</div><div class="message__timestamp date"><a class="date" href="#message-1585093147.111500">2020-03-25&nbsp;08:39:07 +0900</a></div></div><div class="message__body description">遅延評価云々にかかわらず、プログラミングにおける典型的なミスや勘違いによるエンバグ例とデバッグ例をストックしておくと役にたちそう。とおもって、はや幾星霜:sweat_smile:</div></div></div><div class="message event" id="message-1585125723.002300"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1585125723.002300">2020-03-25&nbsp;17:42:03 +0900</a></div></div><div class="message__body description">3つの型の直和型が欲しくなったとき、新たに型を定義します？それともEither (Either a b) c ないし Either a (Either b c)なりします?</div></div></div><div class="message event" id="message-1585125768.003000"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1585125768.003000">2020-03-25&nbsp;17:42:48 +0900</a></div></div><div class="message__body description">新しく型を定義しますね</div></div></div><div class="message event" id="message-1585125942.003600"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1585125942.003600">2020-03-25&nbsp;17:45:42 +0900</a></div></div><div class="message__body description">新しく定義する場合、dataで作っちゃいますか? それとも type synonym を使いますか?</div></div></div><div class="message event" id="message-1585125991.004000"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1585125991.004000">2020-03-25&nbsp;17:46:31 +0900</a></div></div><div class="message__body description">data で作ります</div></div></div><div class="message event" id="message-1585126063.005100"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1585126063.005100">2020-03-25&nbsp;17:47:43 +0900</a></div></div><div class="message__body description">なるほど、個人的にはそれぞれありえるかなーとは思ってて、煮え切らないけどケースバイケースな気がしていたのですが、 @hexirp さんが data 一択(?)なのはどういった理由からでしょう</div></div></div><div class="message event" id="message-1585126100.005600"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1585126100.005600">2020-03-25&nbsp;17:48:20 +0900</a></div></div><div class="message__body description">混乱する可能性があるので、分かりやすさのためですね</div></div></div><div class="message event" id="message-1585126129.005900"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1585126129.005900">2020-03-25&nbsp;17:48:49 +0900</a></div></div><div class="message__body description">なるほど、そこになりますかね。</div></div></div><div class="message event" id="message-1585126410.009000"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1585126410.009000">2020-03-25&nbsp;17:53:30 +0900</a></div></div><div class="message__body description">dataについて分かりやすいというのは私もそこだなと思います。一方で、Either や Maybe、タプルは多くのライブラリでも視野に入ってて結構使えるライブラリが存在するのでそこはメリットかなと思っています。</div></div></div><div class="message event" id="message-1585126428.009400"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1585126428.009400">2020-03-25&nbsp;17:53:48 +0900</a></div></div><div class="message__body description">で、今ちょっと微妙な気になっているのが type synonym です。</div></div></div><div class="message event" id="message-1585126494.010800"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585126494.010800">2020-03-25&nbsp;17:54:54 +0900</a></div></div><div class="message__body description">重要な抽象化であれば、type class を用いればいいのでは。</div></div></div><div class="message event" id="message-1585126566.012100"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1585126566.012100">2020-03-25&nbsp;17:56:06 +0900</a></div></div><div class="message__body description">重要な抽象化だとアドホック多相になりますか？</div></div></div><div class="message event" id="message-1585126628.012800"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585126628.012800">2020-03-25&nbsp;17:57:08 +0900</a></div></div><div class="message__body description">object oriented 型の polymorphism かと問われると:question:となります。</div></div></div><div class="message event" id="message-1585126660.013100"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1585126660.013100">2020-03-25&nbsp;17:57:40 +0900</a></div></div><div class="message__body description">どういう意味でしょう？</div></div></div><div class="message event" id="message-1585126700.014200"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585126700.014200">2020-03-25&nbsp;17:58:20 +0900</a></div></div><div class="message__body description">アドホック多相とはそういう意味（Java にみられるような、overload の形の多相(polymorphism) ）ではないのでしょうか。</div></div></div><div class="message event" id="message-1585127399.022700"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1585127399.022700">2020-03-25&nbsp;18:09:59 +0900</a></div></div><div class="message__body description">話を戻すと type synonym は割と軽いのでよく使ってたのですが、型構成子がオリジナルのものが使える(RWH流)といいつつ、逆に言えば上のようなEitherの場合Left/Rightが入れ子になるので読みづらくない？という話がありまして。<br/>これはまぁ専用のコンストラクタを用意してもいいのですが、今度はパターンマッチでバラす方でやっぱりLeft/Rightが入れ子になるので抽象の壁破れてるじゃんみたいな気になってしまいまして。</div></div></div><div class="message event" id="message-1585127488.024000"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1585127488.024000">2020-03-25&nbsp;18:11:28 +0900</a></div></div><div class="message__body description">これ型シノニムって微妙なのか?と思って質問投げてみた次第。</div></div></div><div class="message event" id="message-1585127571.024900"><div class="content"><div class="summary"><div class="message__header user">lotz</div><div class="message__timestamp date"><a class="date" href="#message-1585127571.024900">2020-03-25&nbsp;18:12:51 +0900</a></div></div><div class="message__body description">type synonym って<br/><pre>type Hoge a b c = Either (Either a b) c</pre><br/>みたいなイメージですか？</div></div></div><div class="message event" id="message-1585127642.027000"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585127642.027000">2020-03-25&nbsp;18:14:02 +0900</a></div></div><div class="message__body description">そっか、型クラスはアドホックか。型によって関数の定義が異なるか。</div></div></div><div class="message event" id="message-1585127658.027400"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1585127658.027400">2020-03-25&nbsp;18:14:18 +0900</a></div></div><div class="message__body description">はい、そうです。そのHogeなる幻想を与えようということなんですが、パターンマッチのところで結局<br/><pre>Left (Right x) -&gt; ...</pre><br/>みたいに書かないといけないので破れとるなぁと。</div></div></div><div class="message event" id="message-1585127718.028800"><div class="content"><div class="summary"><div class="message__header user">lotz</div><div class="message__timestamp date"><a class="date" href="#message-1585127718.028800">2020-03-25&nbsp;18:15:18 +0900</a></div></div><div class="message__body description">確かに :sweat_smile: あと使う側もLeftとRightで剥がす順番を覚えておかないといけないのでtype synonym で別名を付けてる意味…ってなりそうですね…<br/>やはり data か</div></div></div><div class="message event" id="message-1585127931.032300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1585127931.032300">2020-03-25&nbsp;18:18:51 +0900</a></div></div><div class="message__body description">多分今回はそういうケースではないんだろうとは思いますが、<br/>値コンストラクターのうち2つが明確に「エラーの場合の値」（あるいはその逆）を表しているといえるなら<br/><pre>data Val = E1 | E2 | R</pre><br/>を、<br/><pre>data Err = E1 | E2
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #69</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #69</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C4M4TT8JJ/68.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C4M4TT8JJ/70.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1584938001.102800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1584938001.102800">2020-03-23 13:33:21 +0900</a></div>
+          </div>
+          <div class="message__body description">後で時間があったら思いつく例を何個か作って上げようと思ってるんですが、<br/>* パーサのデバッグ<br/>* グラフ構造の探索など、コントロールフローが複雑な関数群のデバッグ<br/>* notogawa さんがおっしゃってるようなパフォーマンスの改善時のデバッグ<br/>で printf デバッグをする際、trace が出ない原因の切り分けが、遅延評価だからなのかコードのバグなのか分からないのは、だいぶ辛いというのが経験則としてあります</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1584961157.106100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1584961157.106100">2020-03-23 19:59:17 +0900</a></div>
+          </div>
+          <div class="message__body description">パーサのデバッグのイケてる方法、存在するならぜひ誰かにレクチャーして欲しい……</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1584961316.107100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1584961316.107100">2020-03-23 20:01:56 +0900</a></div>
+          </div>
+          <div class="message__body description">個人的には、attoparsecでやっている限りは <code>traceM</code> を <code>putStrLn</code> の代わりに使えば割とどうにかなってますね。 :thinking_face:<br/>あとは必ずパースした結果をトレースするよう <code>traceShowId &lt;$&gt;</code> と書いたり。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1584961569.109000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1584961569.109000">2020-03-23 20:06:09 +0900</a></div>
+          </div>
+          <div class="message__body description">(そういえば補足ですが、パーサのデバッグというのは、パーサコンビネータでのパーサのデバッグですね)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1584976096.109700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">terutomo.takahashi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1584976096.109700">2020-03-24 00:08:16 +0900</a></div>
+          </div>
+          <div class="message__body description">@terutomo.takahashi has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585020943.110000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">jamesbrock</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585020943.110000">2020-03-24 12:35:43 +0900</a></div>
+          </div>
+          <div class="message__body description">@jamesbrock has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585038988.110200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585038988.110200">2020-03-24 17:36:28 +0900</a></div>
+          </div>
+          <div class="message__body description">@shin1hi has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585090514.111300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585090514.111300">2020-03-25 07:55:14 +0900</a></div>
+          </div>
+          <div class="message__body description">:tada:<https://discourse.haskell.org/t/ghc-8-10-1-available/1152| GHC 8.10.1 available >:tada: <a href='https://discourse.haskell.org/t/ghc-8-10-1-available/1152'>https://discourse.haskell.org/t/ghc-8-10-1-available/1152</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585093147.111500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nobsun</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585093147.111500">2020-03-25 08:39:07 +0900</a></div>
+          </div>
+          <div class="message__body description">遅延評価云々にかかわらず、プログラミングにおける典型的なミスや勘違いによるエンバグ例とデバッグ例をストックしておくと役にたちそう。とおもって、はや幾星霜:sweat_smile:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585125723.002300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585125723.002300">2020-03-25 17:42:03 +0900</a></div>
+          </div>
+          <div class="message__body description">3つの型の直和型が欲しくなったとき、新たに型を定義します？それともEither (Either a b) c ないし Either a (Either b c)なりします?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585125768.003000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585125768.003000">2020-03-25 17:42:48 +0900</a></div>
+          </div>
+          <div class="message__body description">新しく型を定義しますね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585125942.003600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585125942.003600">2020-03-25 17:45:42 +0900</a></div>
+          </div>
+          <div class="message__body description">新しく定義する場合、dataで作っちゃいますか? それとも type synonym を使いますか?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585125991.004000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585125991.004000">2020-03-25 17:46:31 +0900</a></div>
+          </div>
+          <div class="message__body description">data で作ります</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585126063.005100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585126063.005100">2020-03-25 17:47:43 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど、個人的にはそれぞれありえるかなーとは思ってて、煮え切らないけどケースバイケースな気がしていたのですが、 @hexirp さんが data 一択(?)なのはどういった理由からでしょう</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585126100.005600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585126100.005600">2020-03-25 17:48:20 +0900</a></div>
+          </div>
+          <div class="message__body description">混乱する可能性があるので、分かりやすさのためですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585126129.005900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585126129.005900">2020-03-25 17:48:49 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど、そこになりますかね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585126410.009000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585126410.009000">2020-03-25 17:53:30 +0900</a></div>
+          </div>
+          <div class="message__body description">dataについて分かりやすいというのは私もそこだなと思います。一方で、Either や Maybe、タプルは多くのライブラリでも視野に入ってて結構使えるライブラリが存在するのでそこはメリットかなと思っています。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585126428.009400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585126428.009400">2020-03-25 17:53:48 +0900</a></div>
+          </div>
+          <div class="message__body description">で、今ちょっと微妙な気になっているのが type synonym です。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585126494.010800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585126494.010800">2020-03-25 17:54:54 +0900</a></div>
+          </div>
+          <div class="message__body description">重要な抽象化であれば、type class を用いればいいのでは。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585126566.012100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585126566.012100">2020-03-25 17:56:06 +0900</a></div>
+          </div>
+          <div class="message__body description">重要な抽象化だとアドホック多相になりますか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585126628.012800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585126628.012800">2020-03-25 17:57:08 +0900</a></div>
+          </div>
+          <div class="message__body description">object oriented 型の polymorphism かと問われると:question:となります。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585126660.013100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585126660.013100">2020-03-25 17:57:40 +0900</a></div>
+          </div>
+          <div class="message__body description">どういう意味でしょう？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585126700.014200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585126700.014200">2020-03-25 17:58:20 +0900</a></div>
+          </div>
+          <div class="message__body description">アドホック多相とはそういう意味（Java にみられるような、overload の形の多相(polymorphism) ）ではないのでしょうか。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585127399.022700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585127399.022700">2020-03-25 18:09:59 +0900</a></div>
+          </div>
+          <div class="message__body description">話を戻すと type synonym は割と軽いのでよく使ってたのですが、型構成子がオリジナルのものが使える(RWH流)といいつつ、逆に言えば上のようなEitherの場合Left/Rightが入れ子になるので読みづらくない？という話がありまして。<br/>これはまぁ専用のコンストラクタを用意してもいいのですが、今度はパターンマッチでバラす方でやっぱりLeft/Rightが入れ子になるので抽象の壁破れてるじゃんみたいな気になってしまいまして。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585127488.024000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585127488.024000">2020-03-25 18:11:28 +0900</a></div>
+          </div>
+          <div class="message__body description">これ型シノニムって微妙なのか?と思って質問投げてみた次第。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585127571.024900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">lotz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585127571.024900">2020-03-25 18:12:51 +0900</a></div>
+          </div>
+          <div class="message__body description">type synonym って<br/><pre>type Hoge a b c = Either (Either a b) c</pre><br/>みたいなイメージですか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585127642.027000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585127642.027000">2020-03-25 18:14:02 +0900</a></div>
+          </div>
+          <div class="message__body description">そっか、型クラスはアドホックか。型によって関数の定義が異なるか。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585127658.027400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585127658.027400">2020-03-25 18:14:18 +0900</a></div>
+          </div>
+          <div class="message__body description">はい、そうです。そのHogeなる幻想を与えようということなんですが、パターンマッチのところで結局<br/><pre>Left (Right x) -&gt; ...</pre><br/>みたいに書かないといけないので破れとるなぁと。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585127718.028800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">lotz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585127718.028800">2020-03-25 18:15:18 +0900</a></div>
+          </div>
+          <div class="message__body description">確かに :sweat_smile: あと使う側もLeftとRightで剥がす順番を覚えておかないといけないのでtype synonym で別名を付けてる意味…ってなりそうですね…<br/>やはり data か</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585127931.032300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585127931.032300">2020-03-25 18:18:51 +0900</a></div>
+          </div>
+          <div class="message__body description">多分今回はそういうケースではないんだろうとは思いますが、<br/>値コンストラクターのうち2つが明確に「エラーの場合の値」（あるいはその逆）を表しているといえるなら<br/><pre>data Val = E1 | E2 | R</pre><br/>を、<br/><pre>data Err = E1 | E2
 data R = R
-type Val = Either Err R</pre><br/>と書き換えるのはいいと思いますけどね</div></div></div><div class="message event" id="message-1585128000.033500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1585128000.033500">2020-03-25&nbsp;18:20:00 +0900</a></div></div><div class="message__body description">「エラーの場合の値」といえなくとも、3つの値コンストラクターがきれいに2つのグループに大別できる、ならいいか</div></div></div><div class="message event" id="message-1585128036.034000"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1585128036.034000">2020-03-25&nbsp;18:20:36 +0900</a></div></div><div class="message__body description">実はいい線いってますそれ。</div></div></div><div class="message event" id="message-1585128105.034700"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1585128105.034700">2020-03-25&nbsp;18:21:45 +0900</a></div></div><div class="message__body description">なるほど、下だけdataもありえるか。。。</div></div></div><div class="message event" id="message-1585128319.037000"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585128319.037000">2020-03-25&nbsp;18:25:19 +0900</a></div></div><div class="message__body description">Haskell で、associativity をもつ型クラスみたいなのってないのだろうか。</div></div></div><div class="message event" id="message-1585128364.038000"><div class="content"><div class="summary"><div class="message__header user">cutsea110</div><div class="message__timestamp date"><a class="date" href="#message-1585128364.038000">2020-03-25&nbsp;18:26:04 +0900</a></div></div><div class="message__body description">Semigroup?</div></div></div><div class="message event" id="message-1585128397.039000"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585128397.039000">2020-03-25&nbsp;18:26:37 +0900</a></div></div><div class="message__body description">おおお、そうか semigroup だといけるのか。</div></div></div><div class="message event" id="message-1585128481.040500"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585128481.040500">2020-03-25&nbsp;18:28:01 +0900</a></div></div><div class="message__body description">ありがとうございます。</div></div></div><div class="message event" id="message-1585129070.045700"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585129070.045700">2020-03-25&nbsp;18:37:50 +0900</a></div></div><div class="message__body description">いちいち積をあたえなくても、<br/>Assoc type があるみたいですね。</div></div></div><div class="message event" id="message-1585129095.045900"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585129095.045900">2020-03-25&nbsp;18:38:15 +0900</a></div></div><div class="message__body description"><a href='http://hackage.haskell.org/package/chr-data-0.1.0.1/docs/CHR-Data-AssocL.html'>http://hackage.haskell.org/package/chr-data-0.1.0.1/docs/CHR-Data-AssocL.html</a></div></div></div><div class="message event" id="message-1585129324.049200"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585129324.049200">2020-03-25&nbsp;18:42:04 +0900</a></div></div><div class="message__body description">semigroup はassociativity が制約として課されている訳であって、ものは、積によって演算されてしまうので、つぶれているので、<br/>この場合は、そのように考えるならば、<br/><br/>例えば、いっそ identity を付加して、monoid にするとどのような弊害があるのだろうか。<br/><br/><pre>{E1} * {R} = {E1}
-{E1} * {E2} = {E1, E2}</pre><br/>などと定義するとして。</div></div></div><div class="message event" id="message-1585129884.051200"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585129884.051200">2020-03-25&nbsp;18:51:24 +0900</a></div></div><div class="message__body description">Either : Types -&gt; Types -&gt; Types が積とすればいいのか。<br/>これって Haskell で書けるのか？</div></div></div><div class="message event" id="message-1585129970.052600"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585129970.052600">2020-03-25&nbsp;18:52:50 +0900</a></div></div><div class="message__body description"><pre>e a b = Either a b </pre><br/>でいけるか</div></div></div><div class="message event" id="message-1585130008.052800"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1585130008.052800">2020-03-25&nbsp;18:53:28 +0900</a></div></div><div class="message__body description"><code>read</code> が失敗した時謎の場所で実行時エラーになってreadが原因だとしばらく気が付かなかったことはありますね<br/><code>readMaybe</code> 使えば良いんですけど</div></div></div><div class="message event" id="message-1585130044.053300"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585130044.053300">2020-03-25&nbsp;18:54:04 +0900</a></div></div><div class="message__body description">？</div></div></div><div class="message event" id="message-1585130109.054200"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585130109.054200">2020-03-25&nbsp;18:55:09 +0900</a></div></div><div class="message__body description">型変数を自由に扱えるほど、Haskell は自由ではないか。<br/>なんかしらの拡張機能がいるのかな。</div></div></div><div class="message event" id="message-1585130150.054600"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585130150.054600">2020-03-25&nbsp;18:55:50 +0900</a></div></div><div class="message__body description">無理ゲーかもしれない</div></div></div><div class="message event" id="message-1585130255.055100"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1585130255.055100">2020-03-25&nbsp;18:57:35 +0900</a></div></div><div class="message__body description">とりあえずそれだとEitherのLeftとRightが同じ型じゃないといけなくなりそうですね</div></div></div><div class="message event" id="message-1585130287.055700"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1585130287.055700">2020-03-25&nbsp;18:58:07 +0900</a></div></div><div class="message__body description">マグマの時点で同じ型じゃないと演算ダメですし</div></div></div><div class="message event" id="message-1585130311.056300"><div class="content"><div class="summary"><div class="message__header user">wataru007jp</div><div class="message__timestamp date"><a class="date" href="#message-1585130311.056300">2020-03-25&nbsp;18:58:31 +0900</a></div></div><div class="message__body description">@wataru007jp has joined the channel</div></div></div><div class="message event" id="message-1585130341.057200"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585130341.057200">2020-03-25&nbsp;18:59:01 +0900</a></div></div><div class="message__body description">なるほど、たしかに、そうですね。<br/><pre>e a b = either a b //either の頭文字が小文字</pre><br/>だといけるのか</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C4M4TT8JJ/68.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C4M4TT8JJ/70.html" class="pager__next item">Next</a></div></div></body></html>
+type Val = Either Err R</pre><br/>と書き換えるのはいいと思いますけどね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585128000.033500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585128000.033500">2020-03-25 18:20:00 +0900</a></div>
+          </div>
+          <div class="message__body description">「エラーの場合の値」といえなくとも、3つの値コンストラクターがきれいに2つのグループに大別できる、ならいいか</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585128036.034000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585128036.034000">2020-03-25 18:20:36 +0900</a></div>
+          </div>
+          <div class="message__body description">実はいい線いってますそれ。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585128105.034700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585128105.034700">2020-03-25 18:21:45 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど、下だけdataもありえるか。。。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585128319.037000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585128319.037000">2020-03-25 18:25:19 +0900</a></div>
+          </div>
+          <div class="message__body description">Haskell で、associativity をもつ型クラスみたいなのってないのだろうか。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585128364.038000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cutsea110</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585128364.038000">2020-03-25 18:26:04 +0900</a></div>
+          </div>
+          <div class="message__body description">Semigroup?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585128397.039000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585128397.039000">2020-03-25 18:26:37 +0900</a></div>
+          </div>
+          <div class="message__body description">おおお、そうか semigroup だといけるのか。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585128481.040500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585128481.040500">2020-03-25 18:28:01 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585129070.045700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585129070.045700">2020-03-25 18:37:50 +0900</a></div>
+          </div>
+          <div class="message__body description">いちいち積をあたえなくても、<br/>Assoc type があるみたいですね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585129095.045900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585129095.045900">2020-03-25 18:38:15 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='http://hackage.haskell.org/package/chr-data-0.1.0.1/docs/CHR-Data-AssocL.html'>http://hackage.haskell.org/package/chr-data-0.1.0.1/docs/CHR-Data-AssocL.html</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585129324.049200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585129324.049200">2020-03-25 18:42:04 +0900</a></div>
+          </div>
+          <div class="message__body description">semigroup はassociativity が制約として課されている訳であって、ものは、積によって演算されてしまうので、つぶれているので、<br/>この場合は、そのように考えるならば、<br/><br/>例えば、いっそ identity を付加して、monoid にするとどのような弊害があるのだろうか。<br/><br/><pre>{E1} * {R} = {E1}
+{E1} * {E2} = {E1, E2}</pre><br/>などと定義するとして。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585129884.051200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585129884.051200">2020-03-25 18:51:24 +0900</a></div>
+          </div>
+          <div class="message__body description">Either : Types -&gt; Types -&gt; Types が積とすればいいのか。<br/>これって Haskell で書けるのか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585129970.052600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585129970.052600">2020-03-25 18:52:50 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>e a b = Either a b </pre><br/>でいけるか</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585130008.052800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585130008.052800">2020-03-25 18:53:28 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>read</code> が失敗した時謎の場所で実行時エラーになってreadが原因だとしばらく気が付かなかったことはありますね<br/><code>readMaybe</code> 使えば良いんですけど</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585130044.053300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585130044.053300">2020-03-25 18:54:04 +0900</a></div>
+          </div>
+          <div class="message__body description">？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585130109.054200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585130109.054200">2020-03-25 18:55:09 +0900</a></div>
+          </div>
+          <div class="message__body description">型変数を自由に扱えるほど、Haskell は自由ではないか。<br/>なんかしらの拡張機能がいるのかな。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585130150.054600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585130150.054600">2020-03-25 18:55:50 +0900</a></div>
+          </div>
+          <div class="message__body description">無理ゲーかもしれない</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585130255.055100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585130255.055100">2020-03-25 18:57:35 +0900</a></div>
+          </div>
+          <div class="message__body description">とりあえずそれだとEitherのLeftとRightが同じ型じゃないといけなくなりそうですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585130287.055700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585130287.055700">2020-03-25 18:58:07 +0900</a></div>
+          </div>
+          <div class="message__body description">マグマの時点で同じ型じゃないと演算ダメですし</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585130311.056300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">wataru007jp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585130311.056300">2020-03-25 18:58:31 +0900</a></div>
+          </div>
+          <div class="message__body description">@wataru007jp has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585130341.057200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585130341.057200">2020-03-25 18:59:01 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど、たしかに、そうですね。<br/><pre>e a b = either a b //either の頭文字が小文字</pre><br/>だといけるのか</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C4M4TT8JJ/68.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C4M4TT8JJ/70.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

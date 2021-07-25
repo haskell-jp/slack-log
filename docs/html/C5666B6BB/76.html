@@ -1,4 +1,98 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #76</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #76</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/75.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/77.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1577346007.004500"><div class="content"><div class="summary"><div class="message__header user">ringo1625</div><div class="message__timestamp date"><a class="date" href="#message-1577346007.004500">2019-12-26&nbsp;16:40:07 +0900</a></div></div><div class="message__body description">ありがとうございます。みてみます。</div></div></div><div class="message event" id="message-1577352370.004800"><div class="content"><div class="summary"><div class="message__header user">ringo1625</div><div class="message__timestamp date"><a class="date" href="#message-1577352370.004800">2019-12-26&nbsp;18:26:10 +0900</a></div></div><div class="message__body description">ご教示のとおりmysqlのプログラムのままで動きました。ありがとうございます。<br/><a href='https://github.com/ringo-apo/hs_mariadb'>https://github.com/ringo-apo/hs_mariadb</a></div></div></div><div class="message event" id="message-1577343100.003700"><div class="content"><div class="summary"><div class="message__header user">ringo1625</div><div class="message__timestamp date"><a class="date" href="#message-1577343100.003700">2019-12-26&nbsp;15:51:40 +0900</a></div></div><div class="message__body description">こんにちは。<br/>HaskellからMariaDBを操作するにはどうしたらよいでしょうか。<br/>ググって見たのですが、MySQLの情報はあっても<br/>MariaDBの情報は見つけられませんでした。<br/>参考になるサイトなどお分かりでしたらご教示頂きたく。</div></div></div><div class="message event" id="message-1577344765.003900"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1577344765.003900">2019-12-26&nbsp;16:19:25 +0900</a></div></div><div class="message__body description"><a href='https://github.com/yesodweb/persistent'>https://github.com/yesodweb/persistent</a><br/>はドライバはMySQLという名前ですがMariaDBで使っている人が結構居るみたいですね<br/>私はPostgreSQL派なので使ったことは無いのですが,<br/>そのまま互換性のあるMariaDBでも動くのではないでしょうか</div></div></div><div class="message event" id="message-1577344916.004200"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1577344916.004200">2019-12-26&nbsp;16:21:56 +0900</a></div></div><div class="message__body description">最悪<br/><a href='https://github.com/gbwey/persistent-odbc'>https://github.com/gbwey/persistent-odbc</a><br/>で動きそうな気がします</div></div></div><div class="message event" id="message-1577346007.004500"><div class="content"><div class="summary"><div class="message__header user">ringo1625</div><div class="message__timestamp date"><a class="date" href="#message-1577346007.004500">2019-12-26&nbsp;16:40:07 +0900</a></div></div><div class="message__body description">ありがとうございます。みてみます。</div></div></div><div class="message event" id="message-1577352370.004800"><div class="content"><div class="summary"><div class="message__header user">ringo1625</div><div class="message__timestamp date"><a class="date" href="#message-1577352370.004800">2019-12-26&nbsp;18:26:10 +0900</a></div></div><div class="message__body description">ご教示のとおりmysqlのプログラムのままで動きました。ありがとうございます。<br/><a href='https://github.com/ringo-apo/hs_mariadb'>https://github.com/ringo-apo/hs_mariadb</a></div></div></div><div class="message event" id="message-1577372741.009400"><div class="content"><div class="summary"><div class="message__header user">takato.h0rikosh1</div><div class="message__timestamp date"><a class="date" href="#message-1577372741.009400">2019-12-27&nbsp;00:05:41 +0900</a></div></div><div class="message__body description">vscode で Haskell Language Server のプラグインを使っての開発環境を作っているのですが、コードを編集する度に  `"print-build-platform" (exit 1): failed` というエラーが出てうっとおしく思っているのですが黙らせるにはどうしたら良いのでしょうか。<br/><br/>ネットに転がっている記事を読んみたところ `export PATH=$(stack path --compiler-bin):$PATH` を ~/.bash_profile に書き込むと解決するらしかったので試してみたのですがダメでした…。</div></div></div><div class="message event" id="message-1577373044.009500"><div class="content"><div class="summary"><div class="message__header user">takato.h0rikosh1</div><div class="message__timestamp date"><a class="date" href="#message-1577373044.009500">2019-12-27&nbsp;00:10:44 +0900</a></div></div><div class="message__body description">役に立つかわかりませんが参考になりそうなコマンドのログ貼っておきます:sweat:<br/><pre>$ ghc --version
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #76</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #76</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/75.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/77.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1577346007.004500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ringo1625</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577346007.004500">2019-12-26 16:40:07 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます。みてみます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577352370.004800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ringo1625</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577352370.004800">2019-12-26 18:26:10 +0900</a></div>
+          </div>
+          <div class="message__body description">ご教示のとおりmysqlのプログラムのままで動きました。ありがとうございます。<br/><a href='https://github.com/ringo-apo/hs_mariadb'>https://github.com/ringo-apo/hs_mariadb</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577343100.003700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ringo1625</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577343100.003700">2019-12-26 15:51:40 +0900</a></div>
+          </div>
+          <div class="message__body description">こんにちは。<br/>HaskellからMariaDBを操作するにはどうしたらよいでしょうか。<br/>ググって見たのですが、MySQLの情報はあっても<br/>MariaDBの情報は見つけられませんでした。<br/>参考になるサイトなどお分かりでしたらご教示頂きたく。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577344765.003900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577344765.003900">2019-12-26 16:19:25 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://github.com/yesodweb/persistent'>https://github.com/yesodweb/persistent</a><br/>はドライバはMySQLという名前ですがMariaDBで使っている人が結構居るみたいですね<br/>私はPostgreSQL派なので使ったことは無いのですが,<br/>そのまま互換性のあるMariaDBでも動くのではないでしょうか</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577344916.004200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577344916.004200">2019-12-26 16:21:56 +0900</a></div>
+          </div>
+          <div class="message__body description">最悪<br/><a href='https://github.com/gbwey/persistent-odbc'>https://github.com/gbwey/persistent-odbc</a><br/>で動きそうな気がします</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577346007.004500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ringo1625</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577346007.004500">2019-12-26 16:40:07 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます。みてみます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577352370.004800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ringo1625</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577352370.004800">2019-12-26 18:26:10 +0900</a></div>
+          </div>
+          <div class="message__body description">ご教示のとおりmysqlのプログラムのままで動きました。ありがとうございます。<br/><a href='https://github.com/ringo-apo/hs_mariadb'>https://github.com/ringo-apo/hs_mariadb</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577372741.009400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">takato.h0rikosh1</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577372741.009400">2019-12-27 00:05:41 +0900</a></div>
+          </div>
+          <div class="message__body description">vscode で Haskell Language Server のプラグインを使っての開発環境を作っているのですが、コードを編集する度に  `"print-build-platform" (exit 1): failed` というエラーが出てうっとおしく思っているのですが黙らせるにはどうしたら良いのでしょうか。<br/><br/>ネットに転がっている記事を読んみたところ `export PATH=$(stack path --compiler-bin):$PATH` を ~/.bash_profile に書き込むと解決するらしかったので試してみたのですがダメでした…。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577373044.009500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">takato.h0rikosh1</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577373044.009500">2019-12-27 00:10:44 +0900</a></div>
+          </div>
+          <div class="message__body description">役に立つかわかりませんが参考になりそうなコマンドのログ貼っておきます:sweat:<br/><pre>$ ghc --version
 The Glorious Glasgow Haskell Compilation System, version 8.6.5
 
 $ stack path --compiler-bin
@@ -8,8 +102,35 @@ $ which hie
 ~/.local/bin/hie
 
 $ ~/haskell-ide-engine/.stack-work/install/x86_64-osx/hogehogehoge/8.6.5/bin/cabal-helper-wrapper "print-build-platform"
-x86_64-osx</pre></div></div></div><div class="message event" id="message-1577374012.009700"><div class="content"><div class="summary"><div class="message__header user">takato.h0rikosh1</div><div class="message__timestamp date"><a class="date" href="#message-1577374012.009700">2019-12-27&nbsp;00:26:52 +0900</a></div></div><div class="message__body description">あ、すみません、何故かはわからないのですが以下のオペレーションやったら何故か解決しました:thinking_face:<br/><pre>1. ブラウザからDLした古い verison の vscode を rm コマンドで削除
-2. brew cask install visual-studio-code</pre></div></div></div><div class="message event" id="message-1577421842.010400"><div class="content"><div class="summary"><div class="message__header user">junji.hashimoto</div><div class="message__timestamp date"><a class="date" href="#message-1577421842.010400">2019-12-27&nbsp;13:44:02 +0900</a></div></div><div class="message__body description"><a href='https://github.com/input-output-hk/plutus/blob/master/example/shell.nix'>https://github.com/input-output-hk/plutus/blob/master/example/shell.nix</a><br/>nix-shellするだけで<br/>vscodeとhieとghcのセットアップが完了したりしないですかね。（まだ試してないです。）</div></div></div><div class="message event" id="message-1577440745.018900"><div class="content"><div class="summary"><div class="message__header user">cj.bc-sd</div><div class="message__timestamp date"><a class="date" href="#message-1577440745.018900">2019-12-27&nbsp;18:59:05 +0900</a></div></div><div class="message__body description"><code>http-client</code>の`Network.Http.Simple.httpJSON` について質問です<br/><br/>ステータスコードによって異なる内容のJSONを返すAPIを叩こうとしています。(<https://misskey.io/api-doc#operation/users/show>)<br/>ステータスコードが200なら <code>Right</code>、それ以外なら <code>Left</code>に包んで返したいです。<br/>しかし <code>response</code> に <code>getResponseBody</code>を使うと、強制的に成功時の型として扱われてパースできずにエラーになってしまい、困っています。<br/>自分で思いついた解法は、「 <code>httpJSON</code>の代わりに <code>httpLbs</code>を使い、最後値を返すときにJSONとしてパースする」くらいなのですが他に方法はあるのでしょうか<br/>以下のコードです:<br/><pre>usersShow :: APIRequest -&gt; ReaderT MisskeyEnv IO (Either APIError User)
+x86_64-osx</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577374012.009700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">takato.h0rikosh1</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577374012.009700">2019-12-27 00:26:52 +0900</a></div>
+          </div>
+          <div class="message__body description">あ、すみません、何故かはわからないのですが以下のオペレーションやったら何故か解決しました:thinking_face:<br/><pre>1. ブラウザからDLした古い verison の vscode を rm コマンドで削除
+2. brew cask install visual-studio-code</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577421842.010400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">junji.hashimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577421842.010400">2019-12-27 13:44:02 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://github.com/input-output-hk/plutus/blob/master/example/shell.nix'>https://github.com/input-output-hk/plutus/blob/master/example/shell.nix</a><br/>nix-shellするだけで<br/>vscodeとhieとghcのセットアップが完了したりしないですかね。（まだ試してないです。）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577440745.018900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cj.bc-sd</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577440745.018900">2019-12-27 18:59:05 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>http-client</code>の`Network.Http.Simple.httpJSON` について質問です<br/><br/>ステータスコードによって異なる内容のJSONを返すAPIを叩こうとしています。(<https://misskey.io/api-doc#operation/users/show>)<br/>ステータスコードが200なら <code>Right</code>、それ以外なら <code>Left</code>に包んで返したいです。<br/>しかし <code>response</code> に <code>getResponseBody</code>を使うと、強制的に成功時の型として扱われてパースできずにエラーになってしまい、困っています。<br/>自分で思いついた解法は、「 <code>httpJSON</code>の代わりに <code>httpLbs</code>を使い、最後値を返すときにJSONとしてパースする」くらいなのですが他に方法はあるのでしょうか<br/>以下のコードです:<br/><pre>usersShow :: APIRequest -&gt; ReaderT MisskeyEnv IO (Either APIError User)
 usersShow req = do
     env &lt;- ask
     initReq &lt;- parseRequest $ (env^.url) ++ "/api/users/show"
@@ -27,9 +148,362 @@ usersShow req = do
     response &lt;- httpJSON request
     case getResponseStatusCode response of
         200 -&gt; return $ Right $ getResponseBody response
-        400 -&gt; return $ Left  $ getResponseBody response -- APIError型になって欲しいけどならない</pre></div></div></div><div class="message event" id="message-1577442022.019000"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1577442022.019000">2019-12-27&nbsp;19:20:22 +0900</a></div></div><div class="message__body description">ちょっとすぐに調べられる状態ではないので推測ですが、4XXや5XXだと例外が投げられるのでcatchせよ、という仕様じゃないかと思います。</div></div></div><div class="message event" id="message-1577442090.019300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1577442090.019300">2019-12-27&nbsp;19:21:30 +0900</a></div></div><div class="message__body description">この場合tryの方がいいですね。理由は忘れちゃいましたが一般にcatchよりも推奨されてたはず</div></div></div><div class="message event" id="message-1577442188.019600"><div class="content"><div class="summary"><div class="message__header user">lostcav1140</div><div class="message__timestamp date"><a class="date" href="#message-1577442188.019600">2019-12-27&nbsp;19:23:08 +0900</a></div></div><div class="message__body description">@lostcav1140 has joined the channel</div></div></div><div class="message event" id="message-1577443131.019900"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1577443131.019900">2019-12-27&nbsp;19:38:51 +0900</a></div></div><div class="message__body description">parseRequestを使っているのでステータスによる例外は発生しないはずです。まず`Value` 型として取得し、`fromJSON` でさらに変換するのはいかがでしょうか</div></div></div><div class="message event" id="message-1577453003.020300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1577453003.020300">2019-12-27&nbsp;22:23:23 +0900</a></div></div><div class="message__body description">なるほどすみません、問題を誤解してました:sweat_drops:<br/>実質fumiさんの方法と同じですがFromJSONのインスタンスを:point_down:️のように定義すればいいかもしれませんね。<br/><br/><pre>
+        400 -&gt; return $ Left  $ getResponseBody response -- APIError型になって欲しいけどならない</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577442022.019000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577442022.019000">2019-12-27 19:20:22 +0900</a></div>
+          </div>
+          <div class="message__body description">ちょっとすぐに調べられる状態ではないので推測ですが、4XXや5XXだと例外が投げられるのでcatchせよ、という仕様じゃないかと思います。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577442090.019300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577442090.019300">2019-12-27 19:21:30 +0900</a></div>
+          </div>
+          <div class="message__body description">この場合tryの方がいいですね。理由は忘れちゃいましたが一般にcatchよりも推奨されてたはず</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577442188.019600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">lostcav1140</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577442188.019600">2019-12-27 19:23:08 +0900</a></div>
+          </div>
+          <div class="message__body description">@lostcav1140 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577443131.019900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577443131.019900">2019-12-27 19:38:51 +0900</a></div>
+          </div>
+          <div class="message__body description">parseRequestを使っているのでステータスによる例外は発生しないはずです。まず`Value` 型として取得し、`fromJSON` でさらに変換するのはいかがでしょうか</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577453003.020300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577453003.020300">2019-12-27 22:23:23 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほどすみません、問題を誤解してました:sweat_drops:<br/>実質fumiさんの方法と同じですがFromJSONのインスタンスを:point_down:️のように定義すればいいかもしれませんね。<br/><br/><pre>
 newtype EitherJson a b = EitherJson (Either a b)
 
 instance (FromJSON a, FromJSON b) =&gt; FromJSON (EitherJson a b) where
   parseJSON v = EitherJson &lt;$&gt; (Right &lt;$&gt; parseJSON v) &lt;|&gt; (Left &lt;$&gt; parseJSON v)
-</pre></div></div></div><div class="message event" id="message-1577453121.020500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1577453121.020500">2019-12-27&nbsp;22:25:21 +0900</a></div></div><div class="message__body description">:thinking_face:.oO(そう言えばこれの値コンストラクターが3つ以上のバージョンを会社の同僚が欲しがってたな。割と需要あるだろうからパッケージにしてもいいかも)</div></div></div><div class="message event" id="message-1577508723.020700"><div class="content"><div class="summary"><div class="message__header user">cj.bc-sd</div><div class="message__timestamp date"><a class="date" href="#message-1577508723.020700">2019-12-28&nbsp;13:52:03 +0900</a></div></div><div class="message__body description">なるほど、ありがとうございます！<br/>とりあえず試してみます(コードは書き直したものの、他の場所がエラー出てて試せていない)</div></div></div><div class="message event" id="message-1577541186.020900"><div class="content"><div class="summary"><div class="message__header user">takato.h0rikosh1</div><div class="message__timestamp date"><a class="date" href="#message-1577541186.020900">2019-12-28&nbsp;22:53:06 +0900</a></div></div><div class="message__body description">これは初めて知りました:sweat:</div></div></div><div class="message event" id="message-1577547656.021300"><div class="content"><div class="summary"><div class="message__header user">umtk.ngx</div><div class="message__timestamp date"><a class="date" href="#message-1577547656.021300">2019-12-29&nbsp;00:40:56 +0900</a></div></div><div class="message__body description">@umtk.ngx has joined the channel</div></div></div><div class="message event" id="message-1577702977.021600"><div class="content"><div class="summary"><div class="message__header user">ktsubota</div><div class="message__timestamp date"><a class="date" href="#message-1577702977.021600">2019-12-30&nbsp;19:49:37 +0900</a></div></div><div class="message__body description">@ktsubota has joined the channel</div></div></div><div class="message event" id="message-1578104663.022800"><div class="content"><div class="summary"><div class="message__header user">cj.bc-sd</div><div class="message__timestamp date"><a class="date" href="#message-1578104663.022800">2020-01-04&nbsp;11:24:23 +0900</a></div></div><div class="message__body description">遅くなりましたが、<br/>fumievalさんの方法でやってみて上手く動きました〜！<br/>igrepさんのは理解するのに時間がかかってしまった…<br/>お二人ともありがとうございました！</div></div></div><div class="message event" id="message-1578123119.024800"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1578123119.024800">2020-01-04&nbsp;16:31:59 +0900</a></div></div><div class="message__body description">Haskell で簡易的なスケジューラーを作りたいんですけど、オススメ、あるいはデファクトスタンダードなパッケージとかってありますか？<br/>（ここでのスケジューラーってのはプログラムを起動しておくと定期的に任意の関数なんかを実行してくれるプログラムのことをイメージしてます）</div></div></div><div class="message event" id="message-1578123851.025000"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1578123851.025000">2020-01-04&nbsp;16:44:11 +0900</a></div></div><div class="message__body description">こういうのを見つけた<br/><a href='https://www.reddit.com/r/haskell/comments/b63idy/a_new_scheduler_library/'>https://www.reddit.com/r/haskell/comments/b63idy/a_new_scheduler_library/</a></div></div></div><div class="message event" id="message-1578136041.027600"><div class="content"><div class="summary"><div class="message__header user">takato.h0rikosh1</div><div class="message__timestamp date"><a class="date" href="#message-1578136041.027600">2020-01-04&nbsp;20:07:21 +0900</a></div></div><div class="message__body description">もう間もなく、すごいH本の写経が終わるのですが、次に読む書籍のオススメなどあれば教えていただけますでしょうか？個人的にはより実践的な内容だと嬉しいなーなんて思っております:sweat:</div></div></div><div class="message event" id="message-1578137683.027700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1578137683.027700">2020-01-04&nbsp;20:34:43 +0900</a></div></div><div class="message__body description"><a href='https://gihyo.jp/book/2017/978-4-7741-9237-6'>https://gihyo.jp/book/2017/978-4-7741-9237-6</a> がオススメです。<br/>入門と言いつつ入門詐欺と言われるくらい入門者には難しいし、アプリケーションの例が豊富なので。</div></div></div><div class="message event" id="message-1578140671.028100"><div class="content"><div class="summary"><div class="message__header user">takato.h0rikosh1</div><div class="message__timestamp date"><a class="date" href="#message-1578140671.028100">2020-01-04&nbsp;21:24:31 +0900</a></div></div><div class="message__body description">ぬおー、なるほど！<br/>ちょっと怖いですが読んでみようかなと思います！</div></div></div><div class="message event" id="message-1578143396.028500"><div class="content"><div class="summary"><div class="message__header user">junji.hashimoto</div><div class="message__timestamp date"><a class="date" href="#message-1578143396.028500">2020-01-04&nbsp;22:09:56 +0900</a></div></div><div class="message__body description">cron?</div></div></div><div class="message event" id="message-1578143708.028700"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1578143708.028700">2020-01-04&nbsp;22:15:08 +0900</a></div></div><div class="message__body description">あ、はい、もちろん cron を使えば実現できるんですけど、Haskell プログラムだけでできないかなって</div></div></div><div class="message event" id="message-1578144784.028900"><div class="content"><div class="summary"><div class="message__header user">junji.hashimoto</div><div class="message__timestamp date"><a class="date" href="#message-1578144784.028900">2020-01-04&nbsp;22:33:04 +0900</a></div></div><div class="message__body description"><a href='https://github.com/MichaelXavier/cron'>https://github.com/MichaelXavier/cron</a></div></div></div><div class="message event" id="message-1578144801.029200"><div class="content"><div class="summary"><div class="message__header user">junji.hashimoto</div><div class="message__timestamp date"><a class="date" href="#message-1578144801.029200">2020-01-04&nbsp;22:33:21 +0900</a></div></div><div class="message__body description">これはいかがでしょうか。</div></div></div><div class="message event" id="message-1578156753.029500"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1578156753.029500">2020-01-05&nbsp;01:52:33 +0900</a></div></div><div class="message__body description">おぉ、cron というパッケージでしたか、失礼しました :bow: <br/>ありがとうございます。試してみます :+1:</div></div></div><div class="message event" id="message-1578193202.029800"><div class="content"><div class="summary"><div class="message__header user">kuwanakb</div><div class="message__timestamp date"><a class="date" href="#message-1578193202.029800">2020-01-05&nbsp;12:00:02 +0900</a></div></div><div class="message__body description">@kuwanakb has joined the channel</div></div></div><div class="message event" id="message-1578235426.030500"><div class="content"><div class="summary"><div class="message__header user">mathre314</div><div class="message__timestamp date"><a class="date" href="#message-1578235426.030500">2020-01-05&nbsp;23:43:46 +0900</a></div></div><div class="message__body description">@mathre314 has joined the channel</div></div></div><div class="message event" id="message-1578283027.030800"><div class="content"><div class="summary"><div class="message__header user">takatheshi</div><div class="message__timestamp date"><a class="date" href="#message-1578283027.030800">2020-01-06&nbsp;12:57:07 +0900</a></div></div><div class="message__body description">@takatheshi has joined the channel</div></div></div><div class="message event" id="message-1578454514.032800"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1578454514.032800">2020-01-08&nbsp;12:35:14 +0900</a></div></div><div class="message__body description"><a href='https://qiita.com/Dooteeen/items/fbfaf4fd513066ecc554#comment-e0c17b34a7f1453f0d5e'>https://qiita.com/Dooteeen/items/fbfaf4fd513066ecc554#comment-e0c17b34a7f1453f0d5e</a> のコメントを書いていて気になったんですが、リストの <code>foldr'</code> が <code>Data.List</code> にない（`Data.Foldable` から <code>import</code> すれば使えますが、普通使うことはないはず） のってなんででしたっけ？<br/>多分こうだろうというイメージはあるのですが、自信を持って説明できません...</div></div></div><div class="message event" id="message-1578455934.033300"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1578455934.033300">2020-01-08&nbsp;12:58:54 +0900</a></div></div><div class="message__body description">Data.Foldable.foldr'の定義はトリッキーでややわかりにくいですが、foldr' (+) 0 [1,2,3]は、 <code>+!</code>を右から評価するものとして表すと`1 +! 2 +! (3 +! 0)` のような形になります。結局、この式を評価するには最後まで辿ってスタックを消費せねばならず、メリットがないからだと言えます</div></div></div><div class="message event" id="message-1578464733.033600"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1578464733.033600">2020-01-08&nbsp;15:25:33 +0900</a></div></div><div class="message__body description">リストに対してパターンマッチする度に <code>x : xs</code> における <code>x</code> と <code>xs</code> の分だけスタックを消費してる、というイメージで合ってますかね？<br/><code>+!</code> がeagerにパターンマッチするからリストの長さだけスタックを消費してる、と。</div></div></div><div class="message event" id="message-1578469052.033800"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1578469052.033800">2020-01-08&nbsp;16:37:32 +0900</a></div></div><div class="message__body description">それは事実ですが、パターンマッチ関係なしに、1 +! rを評価する際、1を残したままrを先に評価するので1がスタックに残ります(再帰的にも同様)</div></div></div><div class="message event" id="message-1578469262.034100"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1578469262.034100">2020-01-08&nbsp;16:41:02 +0900</a></div></div><div class="message__body description"><a href='https://github.com/haskell-jp/playground/blob/master/Strictness/Fold.hs'>https://github.com/haskell-jp/playground/blob/master/Strictness/Fold.hs</a> playgroundにpushしてみました。やはりfoldr'が一番イヤな感じにコンパイルされている…</div></div></div><div class="message event" id="message-1578469959.034500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1578469959.034500">2020-01-08&nbsp;16:52:39 +0900</a></div></div><div class="message__body description"><pre>exL = exL'</pre><br/>ってことは <code>foldl' (+) 0 [1..1000]</code> と <code>foldl (+) 0　[1..1000]</code> は同じ式として最適化されたってことですか... 正格性解析の結果でしょうか... すごい。</div></div></div><div class="message event" id="message-1578480980.035000"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1578480980.035000">2020-01-08&nbsp;19:56:20 +0900</a></div></div><div class="message__body description">cf. <a href='https://qiita.com/autotaker1984/items/09c5ceaa13e9077f5359'>https://qiita.com/autotaker1984/items/09c5ceaa13e9077f5359</a><br/>部分適用したりしない限りは、どちらでも良さそうですね</div></div></div><div class="message event" id="message-1578482783.035400"><div class="content"><div class="summary"><div class="message__header user">junji.hashimoto</div><div class="message__timestamp date"><a class="date" href="#message-1578482783.035400">2020-01-08&nbsp;20:26:23 +0900</a></div></div><div class="message__body description"><a href='https://www.reddit.com/r/haskell/comments/elcyb8/yet_another_haskell_development_environment_using/'>https://www.reddit.com/r/haskell/comments/elcyb8/yet_another_haskell_development_environment_using/</a><br/><br/><a href='https://github.com/GuillaumeDesforges/haskell-nix-dev-template'>https://github.com/GuillaumeDesforges/haskell-nix-dev-template</a></div></div></div><div class="message event" id="message-1578493467.036000"><div class="content"><div class="summary"><div class="message__header user">k.f.shogi</div><div class="message__timestamp date"><a class="date" href="#message-1578493467.036000">2020-01-08&nbsp;23:24:27 +0900</a></div></div><div class="message__body description">@k.f.shogi has joined the channel</div></div></div><div class="message event" id="message-1578557611.036300"><div class="content"><div class="summary"><div class="message__header user">jdx01431</div><div class="message__timestamp date"><a class="date" href="#message-1578557611.036300">2020-01-09&nbsp;17:13:31 +0900</a></div></div><div class="message__body description">@jdx01431 has joined the channel</div></div></div><div class="message event" id="message-1578655052.000200"><div class="content"><div class="summary"><div class="message__header user">matsuzon</div><div class="message__timestamp date"><a class="date" href="#message-1578655052.000200">2020-01-10&nbsp;20:17:32 +0900</a></div></div><div class="message__body description">@matsuzon has joined the channel</div></div></div><div class="message event" id="message-1578665663.000500"><div class="content"><div class="summary"><div class="message__header user">u.taylor.314</div><div class="message__timestamp date"><a class="date" href="#message-1578665663.000500">2020-01-10&nbsp;23:14:23 +0900</a></div></div><div class="message__body description">@u.taylor.314 has joined the channel</div></div></div><div class="message event" id="message-1578707397.000800"><div class="content"><div class="summary"><div class="message__header user">tanaq</div><div class="message__timestamp date"><a class="date" href="#message-1578707397.000800">2020-01-11&nbsp;10:49:57 +0900</a></div></div><div class="message__body description">@tanaq has joined the channel</div></div></div><div class="message event" id="message-1578842126.001100"><div class="content"><div class="summary"><div class="message__header user">yaza_ta</div><div class="message__timestamp date"><a class="date" href="#message-1578842126.001100">2020-01-13&nbsp;00:15:26 +0900</a></div></div><div class="message__body description">@yaza_ta has joined the channel</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/75.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/77.html" class="pager__next item">Next</a></div></div></body></html>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577453121.020500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577453121.020500">2019-12-27 22:25:21 +0900</a></div>
+          </div>
+          <div class="message__body description">:thinking_face:.oO(そう言えばこれの値コンストラクターが3つ以上のバージョンを会社の同僚が欲しがってたな。割と需要あるだろうからパッケージにしてもいいかも)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577508723.020700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cj.bc-sd</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577508723.020700">2019-12-28 13:52:03 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど、ありがとうございます！<br/>とりあえず試してみます(コードは書き直したものの、他の場所がエラー出てて試せていない)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577541186.020900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">takato.h0rikosh1</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577541186.020900">2019-12-28 22:53:06 +0900</a></div>
+          </div>
+          <div class="message__body description">これは初めて知りました:sweat:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577547656.021300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">umtk.ngx</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577547656.021300">2019-12-29 00:40:56 +0900</a></div>
+          </div>
+          <div class="message__body description">@umtk.ngx has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1577702977.021600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ktsubota</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1577702977.021600">2019-12-30 19:49:37 +0900</a></div>
+          </div>
+          <div class="message__body description">@ktsubota has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578104663.022800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cj.bc-sd</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578104663.022800">2020-01-04 11:24:23 +0900</a></div>
+          </div>
+          <div class="message__body description">遅くなりましたが、<br/>fumievalさんの方法でやってみて上手く動きました〜！<br/>igrepさんのは理解するのに時間がかかってしまった…<br/>お二人ともありがとうございました！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578123119.024800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578123119.024800">2020-01-04 16:31:59 +0900</a></div>
+          </div>
+          <div class="message__body description">Haskell で簡易的なスケジューラーを作りたいんですけど、オススメ、あるいはデファクトスタンダードなパッケージとかってありますか？<br/>（ここでのスケジューラーってのはプログラムを起動しておくと定期的に任意の関数なんかを実行してくれるプログラムのことをイメージしてます）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578123851.025000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578123851.025000">2020-01-04 16:44:11 +0900</a></div>
+          </div>
+          <div class="message__body description">こういうのを見つけた<br/><a href='https://www.reddit.com/r/haskell/comments/b63idy/a_new_scheduler_library/'>https://www.reddit.com/r/haskell/comments/b63idy/a_new_scheduler_library/</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578136041.027600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">takato.h0rikosh1</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578136041.027600">2020-01-04 20:07:21 +0900</a></div>
+          </div>
+          <div class="message__body description">もう間もなく、すごいH本の写経が終わるのですが、次に読む書籍のオススメなどあれば教えていただけますでしょうか？個人的にはより実践的な内容だと嬉しいなーなんて思っております:sweat:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578137683.027700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578137683.027700">2020-01-04 20:34:43 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://gihyo.jp/book/2017/978-4-7741-9237-6'>https://gihyo.jp/book/2017/978-4-7741-9237-6</a> がオススメです。<br/>入門と言いつつ入門詐欺と言われるくらい入門者には難しいし、アプリケーションの例が豊富なので。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578140671.028100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">takato.h0rikosh1</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578140671.028100">2020-01-04 21:24:31 +0900</a></div>
+          </div>
+          <div class="message__body description">ぬおー、なるほど！<br/>ちょっと怖いですが読んでみようかなと思います！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578143396.028500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">junji.hashimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578143396.028500">2020-01-04 22:09:56 +0900</a></div>
+          </div>
+          <div class="message__body description">cron?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578143708.028700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578143708.028700">2020-01-04 22:15:08 +0900</a></div>
+          </div>
+          <div class="message__body description">あ、はい、もちろん cron を使えば実現できるんですけど、Haskell プログラムだけでできないかなって</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578144784.028900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">junji.hashimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578144784.028900">2020-01-04 22:33:04 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://github.com/MichaelXavier/cron'>https://github.com/MichaelXavier/cron</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578144801.029200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">junji.hashimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578144801.029200">2020-01-04 22:33:21 +0900</a></div>
+          </div>
+          <div class="message__body description">これはいかがでしょうか。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578156753.029500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578156753.029500">2020-01-05 01:52:33 +0900</a></div>
+          </div>
+          <div class="message__body description">おぉ、cron というパッケージでしたか、失礼しました :bow: <br/>ありがとうございます。試してみます :+1:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578193202.029800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kuwanakb</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578193202.029800">2020-01-05 12:00:02 +0900</a></div>
+          </div>
+          <div class="message__body description">@kuwanakb has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578235426.030500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mathre314</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578235426.030500">2020-01-05 23:43:46 +0900</a></div>
+          </div>
+          <div class="message__body description">@mathre314 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578283027.030800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">takatheshi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578283027.030800">2020-01-06 12:57:07 +0900</a></div>
+          </div>
+          <div class="message__body description">@takatheshi has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578454514.032800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578454514.032800">2020-01-08 12:35:14 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://qiita.com/Dooteeen/items/fbfaf4fd513066ecc554#comment-e0c17b34a7f1453f0d5e'>https://qiita.com/Dooteeen/items/fbfaf4fd513066ecc554#comment-e0c17b34a7f1453f0d5e</a> のコメントを書いていて気になったんですが、リストの <code>foldr'</code> が <code>Data.List</code> にない（`Data.Foldable` から <code>import</code> すれば使えますが、普通使うことはないはず） のってなんででしたっけ？<br/>多分こうだろうというイメージはあるのですが、自信を持って説明できません...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578455934.033300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578455934.033300">2020-01-08 12:58:54 +0900</a></div>
+          </div>
+          <div class="message__body description">Data.Foldable.foldr'の定義はトリッキーでややわかりにくいですが、foldr' (+) 0 [1,2,3]は、 <code>+!</code>を右から評価するものとして表すと`1 +! 2 +! (3 +! 0)` のような形になります。結局、この式を評価するには最後まで辿ってスタックを消費せねばならず、メリットがないからだと言えます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578464733.033600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578464733.033600">2020-01-08 15:25:33 +0900</a></div>
+          </div>
+          <div class="message__body description">リストに対してパターンマッチする度に <code>x : xs</code> における <code>x</code> と <code>xs</code> の分だけスタックを消費してる、というイメージで合ってますかね？<br/><code>+!</code> がeagerにパターンマッチするからリストの長さだけスタックを消費してる、と。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578469052.033800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578469052.033800">2020-01-08 16:37:32 +0900</a></div>
+          </div>
+          <div class="message__body description">それは事実ですが、パターンマッチ関係なしに、1 +! rを評価する際、1を残したままrを先に評価するので1がスタックに残ります(再帰的にも同様)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578469262.034100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578469262.034100">2020-01-08 16:41:02 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://github.com/haskell-jp/playground/blob/master/Strictness/Fold.hs'>https://github.com/haskell-jp/playground/blob/master/Strictness/Fold.hs</a> playgroundにpushしてみました。やはりfoldr'が一番イヤな感じにコンパイルされている…</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578469959.034500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578469959.034500">2020-01-08 16:52:39 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>exL = exL'</pre><br/>ってことは <code>foldl' (+) 0 [1..1000]</code> と <code>foldl (+) 0　[1..1000]</code> は同じ式として最適化されたってことですか... 正格性解析の結果でしょうか... すごい。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578480980.035000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578480980.035000">2020-01-08 19:56:20 +0900</a></div>
+          </div>
+          <div class="message__body description">cf. <a href='https://qiita.com/autotaker1984/items/09c5ceaa13e9077f5359'>https://qiita.com/autotaker1984/items/09c5ceaa13e9077f5359</a><br/>部分適用したりしない限りは、どちらでも良さそうですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578482783.035400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">junji.hashimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578482783.035400">2020-01-08 20:26:23 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://www.reddit.com/r/haskell/comments/elcyb8/yet_another_haskell_development_environment_using/'>https://www.reddit.com/r/haskell/comments/elcyb8/yet_another_haskell_development_environment_using/</a><br/><br/><a href='https://github.com/GuillaumeDesforges/haskell-nix-dev-template'>https://github.com/GuillaumeDesforges/haskell-nix-dev-template</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578493467.036000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">k.f.shogi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578493467.036000">2020-01-08 23:24:27 +0900</a></div>
+          </div>
+          <div class="message__body description">@k.f.shogi has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578557611.036300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">jdx01431</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578557611.036300">2020-01-09 17:13:31 +0900</a></div>
+          </div>
+          <div class="message__body description">@jdx01431 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578655052.000200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsuzon</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578655052.000200">2020-01-10 20:17:32 +0900</a></div>
+          </div>
+          <div class="message__body description">@matsuzon has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578665663.000500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">u.taylor.314</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578665663.000500">2020-01-10 23:14:23 +0900</a></div>
+          </div>
+          <div class="message__body description">@u.taylor.314 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578707397.000800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tanaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578707397.000800">2020-01-11 10:49:57 +0900</a></div>
+          </div>
+          <div class="message__body description">@tanaq has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1578842126.001100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yaza_ta</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1578842126.001100">2020-01-13 00:15:26 +0900</a></div>
+          </div>
+          <div class="message__body description">@yaza_ta has joined the channel</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/75.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/77.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

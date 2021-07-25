@@ -1,4 +1,422 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #69</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #69</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/68.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/70.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1567591381.026700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1567591381.026700">2019-09-04&nbsp;19:03:01 +0900</a></div></div><div class="message__body description">あともう一つのアプローチとして、Alexが返す例外をパーサーコンビネーターなどでパースしてしまう、というやや遠回しな手もあるかと思います :sweat:</div></div></div><div class="message event" id="message-1567596587.028700"><div class="content"><div class="summary"><div class="message__header user">junji.hashimoto</div><div class="message__timestamp date"><a class="date" href="#message-1567596587.028700">2019-09-04&nbsp;20:29:47 +0900</a></div></div><div class="message__body description">お疲れ様です<br/>nixを使ったhaskell のベストな開発フローが知りたいです<br/>cabal v1 or v2<br/>どちらがお勧めでしょうか<br/>エディタはホストのものをつかうのがいいですか<br/>それともnixのなかに入れ込むのがいいのでしょうか</div></div></div><div class="message event" id="message-1567596669.030200"><div class="content"><div class="summary"><div class="message__header user">junji.hashimoto</div><div class="message__timestamp date"><a class="date" href="#message-1567596669.030200">2019-09-04&nbsp;20:31:09 +0900</a></div></div><div class="message__body description">あとnixによるいいci環境があれば合わせてお願いします</div></div></div><div class="message event" id="message-1567600888.031300"><div class="content"><div class="summary"><div class="message__header user">addokoda</div><div class="message__timestamp date"><a class="date" href="#message-1567600888.031300">2019-09-04&nbsp;21:41:28 +0900</a></div></div><div class="message__body description">これの招待リンクってどこかにありますか？</div></div></div><div class="message event" id="message-1567601053.031500"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1567601053.031500">2019-09-04&nbsp;21:44:13 +0900</a></div></div><div class="message__body description">最初のメッセージのリンクが招待リンクのはずですが...</div></div></div><div class="message event" id="message-1567610941.031800"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1567610941.031800">2019-09-05&nbsp;00:29:01 +0900</a></div></div><div class="message__body description">GHCでも使われてるし字句解析と構文解析が別れるからわかりやすいのかなーと思った次第です。エラーメッセージのパースは考えましたが本末転倒すぎるので見なかったことにします……</div></div></div><div class="message event" id="message-1567641138.032300"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1567641138.032300">2019-09-05&nbsp;08:52:18 +0900</a></div></div><div class="message__body description">パーサのエラー出力って割とホットな問題なんですよね。GHCですらパースエラーについては、最初の一個をぶん投げて終わり、にしてる奴なので。</div></div></div><div class="message event" id="message-1567641171.032500"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1567641171.032500">2019-09-05&nbsp;08:52:51 +0900</a></div></div><div class="message__body description">なので妥協するか、または良いアプローチを自力で探ってみるかの2択かと思います</div></div></div><div class="message event" id="message-1567641979.032700"><div class="content"><div class="summary"><div class="message__header user">mihchang</div><div class="message__timestamp date"><a class="date" href="#message-1567641979.032700">2019-09-05&nbsp;09:06:19 +0900</a></div></div><div class="message__body description">招待リンクは<br/><a href='http://bit.ly/2GwPFrs'>bit.ly/2GwPFrs</a><br/>でした</div></div></div><div class="message event" id="message-1567643653.033000"><div class="content"><div class="summary"><div class="message__header user">kazu</div><div class="message__timestamp date"><a class="date" href="#message-1567643653.033000">2019-09-05&nbsp;09:34:13 +0900</a></div></div><div class="message__body description">Safe/Trustworthy プラグマに関する質問です。<br/>ある時点で、importしているモジュールがTrustworthyであったために、そのモジュールも Trustworthy にしていたとします。<br/>importしているモジュールがパージョンアップして、Safe に変わりました。<br/>すると、<br/>'XXX' is marked as Trustworthy but has been inferred as safe!<br/>みたいな警告が出るようになります。<br/>この警告を消すスマートな方法はありますか？<br/>プラグマ部分に #ifdef って有効なんですかね？</div></div></div><div class="message event" id="message-1567643980.033100"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1567643980.033100">2019-09-05&nbsp;09:39:40 +0900</a></div></div><div class="message__body description">なるほど……ありがとうございます。とりあえずMegaparsecあたりを触ってみて、それでもしっくりこないようなら言語仕様に沿ったパーサを自前で書く、といった方向で試してみます</div></div></div><div class="message event" id="message-1567648189.033500"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1567648189.033500">2019-09-05&nbsp;10:49:49 +0900</a></div></div><div class="message__body description"><a href='https://github.com/ekmett/lens/blob/60b89993903af95f138411a0721e952e84047a6c/src/Control/Lens/Internal/Setter.hs#L4'>https://github.com/ekmett/lens/blob/60b89993903af95f138411a0721e952e84047a6c/src/Control/Lens/Internal/Setter.hs#L4</a> のように、Trustworthyを切り替えるのはしばしば見られます。あるいは-Wno-trustworthy-safeで無視するのもありだと思います</div></div></div><div class="message event" id="message-1567653675.034000"><div class="content"><div class="summary"><div class="message__header user">hiroto.shioi</div><div class="message__timestamp date"><a class="date" href="#message-1567653675.034000">2019-09-05&nbsp;12:21:15 +0900</a></div></div><div class="message__body description">ベストプラクティスかはわからないけど、自分が関わっているプロジェクトの開発環境はこうなっているという回答でもいいかな。。？</div></div></div><div class="message event" id="message-1567661704.034300"><div class="content"><div class="summary"><div class="message__header user">t.mitsuchi3</div><div class="message__timestamp date"><a class="date" href="#message-1567661704.034300">2019-09-05&nbsp;14:35:04 +0900</a></div></div><div class="message__body description">megaparsec で簡単な言語をパースする例としては、ぼくにはこれがわかりやすかったです <a href='https://markkarpov.com/megaparsec/parsing-simple-imperative-language.html'>https://markkarpov.com/megaparsec/parsing-simple-imperative-language.html</a></div></div></div><div class="message event" id="message-1567661844.034500"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1567661844.034500">2019-09-05&nbsp;14:37:24 +0900</a></div></div><div class="message__body description">ありがとうございます！読んでみます</div></div></div><div class="message event" id="message-1567661973.034800"><div class="content"><div class="summary"><div class="message__header user">t.mitsuchi3</div><div class="message__timestamp date"><a class="date" href="#message-1567661973.034800">2019-09-05&nbsp;14:39:33 +0900</a></div></div><div class="message__body description">う・・でも改めて見たら冒頭に「The text here may be obsolete. See this tutorial instead.」とありました。</div></div></div><div class="message event" id="message-1567661978.035000"><div class="content"><div class="summary"><div class="message__header user">t.mitsuchi3</div><div class="message__timestamp date"><a class="date" href="#message-1567661978.035000">2019-09-05&nbsp;14:39:38 +0900</a></div></div><div class="message__body description"><a href='https://haskell.e-bigmoon.com/posts/2019/07-14-megaparsec-tutorial.html'>https://haskell.e-bigmoon.com/posts/2019/07-14-megaparsec-tutorial.html</a></div></div></div><div class="message event" id="message-1567662047.035500"><div class="content"><div class="summary"><div class="message__header user">t.mitsuchi3</div><div class="message__timestamp date"><a class="date" href="#message-1567662047.035500">2019-09-05&nbsp;14:40:47 +0900</a></div></div><div class="message__body description">さっきのはバージョンやらスタイルやらが古いかもしれません。こちらのほうが網羅的でよいようです。長いですが…。</div></div></div><div class="message event" id="message-1567665842.036300"><div class="content"><div class="summary"><div class="message__header user">junji.hashimoto</div><div class="message__timestamp date"><a class="date" href="#message-1567665842.036300">2019-09-05&nbsp;15:44:02 +0900</a></div></div><div class="message__body description">大丈夫です<br/>お願いします</div></div></div><div class="message event" id="message-1567669632.037400"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1567669632.037400">2019-09-05&nbsp;16:47:12 +0900</a></div></div><div class="message__body description">megaparsecで書いたパーサーがeofで止まらず無をパースしようとして死ぬんですが、助けてください<br/><a href='https://github.com/1inguini/mud/blob/detailedAST/src/Parse.hs'>https://github.com/1inguini/mud/blob/detailedAST/src/Parse.hs</a></div></div></div><div class="message event" id="message-1567669834.037600"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1567669834.037600">2019-09-05&nbsp;16:50:34 +0900</a></div></div><div class="message__body description">詳細ぱっとわかりませんが、 <code>many</code> には本当に慎重になった方がいいです。</div></div></div><div class="message event" id="message-1567670823.037800"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1567670823.037800">2019-09-05&nbsp;17:07:03 +0900</a></div></div><div class="message__body description">思い出した。普通のパーサコンビネータだと左再帰がうまく書けそうにないような気がしたのでAlex+Happyで自動生成にしたんでした。やりたいことは <code>x y z</code> を右結合の指定なしに <code>Apply (Apply x y) z</code> という構文木にしたいのです。そのへんHappyがうまくやってくれます</div></div></div><div class="message event" id="message-1567671043.038400"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1567671043.038400">2019-09-05&nbsp;17:10:43 +0900</a></div></div><div class="message__body description">Elmが（Idrisもらしい）Happy使わずパーサコンビネータだけであの文法をパースしてるのを見るとできないこともなさそうなんですが……</div></div></div><div class="message event" id="message-1567671076.038600"><div class="content"><div class="summary"><div class="message__header user">t.mitsuchi3</div><div class="message__timestamp date"><a class="date" href="#message-1567671076.038600">2019-09-05&nbsp;17:11:16 +0900</a></div></div><div class="message__body description">たしかに many のどれかを some にしたら急に動いたりするかもしれないですね。</div></div></div><div class="message event" id="message-1567671103.038800"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1567671103.038800">2019-09-05&nbsp;17:11:43 +0900</a></div></div><div class="message__body description">左再帰とかもろもろの演算子のあれこれを、演算子の結合と優先順位を指定するだけでどうにかしてくれる <code>makeExprParser</code> という関数がparser-combinatorsというパッケージにありまして :smirk:<br/><a href='http://hackage.haskell.org/package/parser-combinators-1.2.0/docs/Control-Monad-Combinators-Expr.html#v:makeExprParser'>http://hackage.haskell.org/package/parser-combinators-1.2.0/docs/Control-Monad-Combinators-Expr.html#v:makeExprParser</a></div></div></div><div class="message event" id="message-1567671142.039000"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1567671142.039000">2019-09-05&nbsp;17:12:22 +0900</a></div></div><div class="message__body description">『右結合の指定なしに』</div></div></div><div class="message event" id="message-1567672523.039300"><div class="content"><div class="summary"><div class="message__header user">kazu</div><div class="message__timestamp date"><a class="date" href="#message-1567672523.039300">2019-09-05&nbsp;17:35:23 +0900</a></div></div><div class="message__body description">お、ifdef が効くのですね。ありがとうございます！</div></div></div><div class="message event" id="message-1567672619.039500"><div class="content"><div class="summary"><div class="message__header user">kazu</div><div class="message__timestamp date"><a class="date" href="#message-1567672619.039500">2019-09-05&nbsp;17:36:59 +0900</a></div></div><div class="message__body description">ご存知かもしれませんが。<br/><a href='https://kazu-yamamoto.hatenablog.jp/entry/20110127/1296098875'>https://kazu-yamamoto.hatenablog.jp/entry/20110127/1296098875</a></div></div></div><div class="message event" id="message-1567672822.040000"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1567672822.040000">2019-09-05&nbsp;17:40:22 +0900</a></div></div><div class="message__body description">ちょうどそこに行き着いたところでした！</div></div></div><div class="message event" id="message-1567672832.040300"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1567672832.040300">2019-09-05&nbsp;17:40:32 +0900</a></div></div><div class="message__body description">(一旦諦めました)</div></div></div><div class="message event" id="message-1567680958.040600"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1567680958.040600">2019-09-05&nbsp;19:55:58 +0900</a></div></div><div class="message__body description">(全然関係ないけど、GitHub 上のコードを貼るときはコミットハッシュ込みの方がいいよ（あとでみた時に変わってしまう）)</div></div></div><div class="message event" id="message-1567681456.040800"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1567681456.040800">2019-09-05&nbsp;20:04:16 +0900</a></div></div><div class="message__body description">あと、出だしがよくわからないや<br/>例えば、ghci でこういう風に実行したら止まらない（理想はこう）とかを書いてくれると実装を追いやすいです。</div></div></div><div class="message event" id="message-1567749043.041400"><div class="content"><div class="summary"><div class="message__header user">hiroto.shioi</div><div class="message__timestamp date"><a class="date" href="#message-1567749043.041400">2019-09-06&nbsp;14:50:43 +0900</a></div></div><div class="message__body description">nixを使ったhaskell のベストな開発フローが知りたいです<br/>&gt; cabal v1 or v2どちらがお勧めでしょうか<br/>ｖ２ってnew-* がついてるコマンド郡のことですよね。。？その場合であればv2を使用しています<br/><br/><br/>&gt; エディタはホストのものをつかうのがいいですか、それともnixのなかに入れ込むのがいいのでしょうか (edited)<br/>ホストのものを使ってます。nix-buildを使ってnix環境に入り込みつつ、既存のエディタにもアクセスできるようにしてます。<br/><br/><br/>&gt; あとnixによるいいci環境があれば合わせてお願いします<br/><https://hydra.iohk.io/><br/>弊社ではhydraを使ってます</div></div></div><div class="message event" id="message-1567749156.041600"><div class="content"><div class="summary"><div class="message__header user">hiroto.shioi</div><div class="message__timestamp date"><a class="date" href="#message-1567749156.041600">2019-09-06&nbsp;14:52:36 +0900</a></div></div><div class="message__body description">BuildKiteも使ってるけど、これはArtifactの生成だけに使ってるっぽくて、ビルドができるかどうかしかチェックしてないです。</div></div></div><div class="message event" id="message-1567762723.041800"><div class="content"><div class="summary"><div class="message__header user">junji.hashimoto</div><div class="message__timestamp date"><a class="date" href="#message-1567762723.041800">2019-09-06&nbsp;18:38:43 +0900</a></div></div><div class="message__body description">ありがとうございます。<br/><br/>技術的なところがよくわかってなくてすみません。<br/>cabal v1 or v2のところでnixでhaskellのパッケージをインストールした場合でもv2でインストールしたパッケージを<br/>利用できますか？<br/><br/>OSSでhydra使うにはどうしたらいいでしょうか。自分でたてるしかないですか？</div></div></div><div class="message event" id="message-1567767987.042000"><div class="content"><div class="summary"><div class="message__header user">junji.hashimoto</div><div class="message__timestamp date"><a class="date" href="#message-1567767987.042000">2019-09-06&nbsp;20:06:27 +0900</a></div></div><div class="message__body description"><a href='https://www.haskell.org/cabal/users-guide/nix-integration.html'>https://www.haskell.org/cabal/users-guide/nix-integration.html</a></div></div></div><div class="message event" id="message-1567903688.042300"><div class="content"><div class="summary"><div class="message__header user">yuichi</div><div class="message__timestamp date"><a class="date" href="#message-1567903688.042300">2019-09-08&nbsp;09:48:08 +0900</a></div></div><div class="message__body description">esqueletoでwhere句を作れずに困っています。makeWhereでwhere句を返したいのですが、個々の検索条件式は良いのですが、E.&amp;&amp;.でまとめて返したいのですがどのように記述すれば良いか困っています。よろしくお願いします。</div></div></div><div class="message event" id="message-1567904091.043100"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1567904091.043100">2019-09-08&nbsp;09:54:51 +0900</a></div></div><div class="message__body description">まだ公開の準備が整ってないコードなので断片的ですし的外れかもしれませんが私はこのように`fordr`で検索条件をくっつけていました</div></div></div><div class="message event" id="message-1567904177.043500"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1567904177.043500">2019-09-08&nbsp;09:56:17 +0900</a></div></div><div class="message__body description">Nothingの場合適当にTrueでも埋め込んでおけば良いかと</div></div></div><div class="message event" id="message-1567904841.043700"><div class="content"><div class="summary"><div class="message__header user">yuichi</div><div class="message__timestamp date"><a class="date" href="#message-1567904841.043700">2019-09-08&nbsp;10:07:21 +0900</a></div></div><div class="message__body description">ありがとうございます。 Nothing側にE.val Trueを入れてやってみたら、今回の主旨とは違うコンパイルエラーが出たのでちょっとそちら側を処理してからまた報告します。<br/><br/>    • Couldn't match type ‘Text’ with ‘Maybe Text’<br/>        arising from a use of ‘ClientCompany’</div></div></div><div class="message event" id="message-1567906584.043900"><div class="content"><div class="summary"><div class="message__header user">yuichi</div><div class="message__timestamp date"><a class="date" href="#message-1567906584.043900">2019-09-08&nbsp;10:36:24 +0900</a></div></div><div class="message__body description">ありがとうございます。where句きちんと作成できました！<br/>コンパイルエラーで多少型合わせの調整しましたが、なんとかなりました。</div></div></div><div class="message event" id="message-1567909674.046900"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1567909674.046900">2019-09-08&nbsp;11:27:54 +0900</a></div></div><div class="message__body description"><a href='https://github.com/haskell-jp/blog/issues/167'>https://github.com/haskell-jp/blog/issues/167</a><br/>こちらの件で、「Strictを指定していようといまいとStackOverflowを起こす」という実験のために、GHCのRTSのスタックサイズを減らすよう <code>-K1k</code> と指定してみたのですが、うまくStackOverflowを起こすことができません。<br/>どこで間違ったのか、教えてください！<br/><br/>ソースコード: <a href='https://github.com/haskell-jp/blog/blob/8c1db1af41df8eca8753bb9bcee38691ad13988c/examples/strict-gotchas/stackoverflow.hs'>https://github.com/haskell-jp/blog/blob/8c1db1af41df8eca8753bb9bcee38691ad13988c/examples/strict-gotchas/stackoverflow.hs</a><br/>コンパイル時のコマンド:<br/><code>stack exec ghc -- -O0 -rtsopts -with-rtsopts=-K1k          .\stackoverflow.hs</code></div></div></div><div class="message event" id="message-1567910287.047300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1567910287.047300">2019-09-08&nbsp;11:38:07 +0900</a></div></div><div class="message__body description"><code>-XStrict</code> をつけたら溢れた。 :thinking_face:</div></div></div><div class="message event" id="message-1567910903.047500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1567910903.047500">2019-09-08&nbsp;11:48:23 +0900</a></div></div><div class="message__body description">なお、GHCのバージョンは8.6.5です。<br/>コマンドにバックスラッシュが混ざっていることから察せられるとおり、Windows版を使っています。</div></div></div><div class="message event" id="message-1567935315.048400"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1567935315.048400">2019-09-08&nbsp;18:35:15 +0900</a></div></div><div class="message__body description">単項マイナスを括弧で囲むとパースできなくなってしまいます(囲まなければちゃんとパースできる)<br/><a href='https://github.com/1inguini/mud/commit/3bce80c19ea34ce74fec88eac34c765f1def1d70'>https://github.com/1inguini/mud/commit/3bce80c19ea34ce74fec88eac34c765f1def1d70</a><br/><pre>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #69</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #69</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/68.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/70.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1567591381.026700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567591381.026700">2019-09-04 19:03:01 +0900</a></div>
+          </div>
+          <div class="message__body description">あともう一つのアプローチとして、Alexが返す例外をパーサーコンビネーターなどでパースしてしまう、というやや遠回しな手もあるかと思います :sweat:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567596587.028700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">junji.hashimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567596587.028700">2019-09-04 20:29:47 +0900</a></div>
+          </div>
+          <div class="message__body description">お疲れ様です<br/>nixを使ったhaskell のベストな開発フローが知りたいです<br/>cabal v1 or v2<br/>どちらがお勧めでしょうか<br/>エディタはホストのものをつかうのがいいですか<br/>それともnixのなかに入れ込むのがいいのでしょうか</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567596669.030200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">junji.hashimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567596669.030200">2019-09-04 20:31:09 +0900</a></div>
+          </div>
+          <div class="message__body description">あとnixによるいいci環境があれば合わせてお願いします</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567600888.031300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">addokoda</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567600888.031300">2019-09-04 21:41:28 +0900</a></div>
+          </div>
+          <div class="message__body description">これの招待リンクってどこかにありますか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567601053.031500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567601053.031500">2019-09-04 21:44:13 +0900</a></div>
+          </div>
+          <div class="message__body description">最初のメッセージのリンクが招待リンクのはずですが...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567610941.031800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567610941.031800">2019-09-05 00:29:01 +0900</a></div>
+          </div>
+          <div class="message__body description">GHCでも使われてるし字句解析と構文解析が別れるからわかりやすいのかなーと思った次第です。エラーメッセージのパースは考えましたが本末転倒すぎるので見なかったことにします……</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567641138.032300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567641138.032300">2019-09-05 08:52:18 +0900</a></div>
+          </div>
+          <div class="message__body description">パーサのエラー出力って割とホットな問題なんですよね。GHCですらパースエラーについては、最初の一個をぶん投げて終わり、にしてる奴なので。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567641171.032500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567641171.032500">2019-09-05 08:52:51 +0900</a></div>
+          </div>
+          <div class="message__body description">なので妥協するか、または良いアプローチを自力で探ってみるかの2択かと思います</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567641979.032700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mihchang</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567641979.032700">2019-09-05 09:06:19 +0900</a></div>
+          </div>
+          <div class="message__body description">招待リンクは<br/><a href='http://bit.ly/2GwPFrs'>bit.ly/2GwPFrs</a><br/>でした</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567643653.033000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kazu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567643653.033000">2019-09-05 09:34:13 +0900</a></div>
+          </div>
+          <div class="message__body description">Safe/Trustworthy プラグマに関する質問です。<br/>ある時点で、importしているモジュールがTrustworthyであったために、そのモジュールも Trustworthy にしていたとします。<br/>importしているモジュールがパージョンアップして、Safe に変わりました。<br/>すると、<br/>'XXX' is marked as Trustworthy but has been inferred as safe!<br/>みたいな警告が出るようになります。<br/>この警告を消すスマートな方法はありますか？<br/>プラグマ部分に #ifdef って有効なんですかね？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567643980.033100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567643980.033100">2019-09-05 09:39:40 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど……ありがとうございます。とりあえずMegaparsecあたりを触ってみて、それでもしっくりこないようなら言語仕様に沿ったパーサを自前で書く、といった方向で試してみます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567648189.033500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567648189.033500">2019-09-05 10:49:49 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://github.com/ekmett/lens/blob/60b89993903af95f138411a0721e952e84047a6c/src/Control/Lens/Internal/Setter.hs#L4'>https://github.com/ekmett/lens/blob/60b89993903af95f138411a0721e952e84047a6c/src/Control/Lens/Internal/Setter.hs#L4</a> のように、Trustworthyを切り替えるのはしばしば見られます。あるいは-Wno-trustworthy-safeで無視するのもありだと思います</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567653675.034000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroto.shioi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567653675.034000">2019-09-05 12:21:15 +0900</a></div>
+          </div>
+          <div class="message__body description">ベストプラクティスかはわからないけど、自分が関わっているプロジェクトの開発環境はこうなっているという回答でもいいかな。。？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567661704.034300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">t.mitsuchi3</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567661704.034300">2019-09-05 14:35:04 +0900</a></div>
+          </div>
+          <div class="message__body description">megaparsec で簡単な言語をパースする例としては、ぼくにはこれがわかりやすかったです <a href='https://markkarpov.com/megaparsec/parsing-simple-imperative-language.html'>https://markkarpov.com/megaparsec/parsing-simple-imperative-language.html</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567661844.034500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567661844.034500">2019-09-05 14:37:24 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます！読んでみます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567661973.034800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">t.mitsuchi3</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567661973.034800">2019-09-05 14:39:33 +0900</a></div>
+          </div>
+          <div class="message__body description">う・・でも改めて見たら冒頭に「The text here may be obsolete. See this tutorial instead.」とありました。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567661978.035000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">t.mitsuchi3</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567661978.035000">2019-09-05 14:39:38 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://haskell.e-bigmoon.com/posts/2019/07-14-megaparsec-tutorial.html'>https://haskell.e-bigmoon.com/posts/2019/07-14-megaparsec-tutorial.html</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567662047.035500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">t.mitsuchi3</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567662047.035500">2019-09-05 14:40:47 +0900</a></div>
+          </div>
+          <div class="message__body description">さっきのはバージョンやらスタイルやらが古いかもしれません。こちらのほうが網羅的でよいようです。長いですが…。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567665842.036300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">junji.hashimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567665842.036300">2019-09-05 15:44:02 +0900</a></div>
+          </div>
+          <div class="message__body description">大丈夫です<br/>お願いします</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567669632.037400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567669632.037400">2019-09-05 16:47:12 +0900</a></div>
+          </div>
+          <div class="message__body description">megaparsecで書いたパーサーがeofで止まらず無をパースしようとして死ぬんですが、助けてください<br/><a href='https://github.com/1inguini/mud/blob/detailedAST/src/Parse.hs'>https://github.com/1inguini/mud/blob/detailedAST/src/Parse.hs</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567669834.037600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567669834.037600">2019-09-05 16:50:34 +0900</a></div>
+          </div>
+          <div class="message__body description">詳細ぱっとわかりませんが、 <code>many</code> には本当に慎重になった方がいいです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567670823.037800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567670823.037800">2019-09-05 17:07:03 +0900</a></div>
+          </div>
+          <div class="message__body description">思い出した。普通のパーサコンビネータだと左再帰がうまく書けそうにないような気がしたのでAlex+Happyで自動生成にしたんでした。やりたいことは <code>x y z</code> を右結合の指定なしに <code>Apply (Apply x y) z</code> という構文木にしたいのです。そのへんHappyがうまくやってくれます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567671043.038400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567671043.038400">2019-09-05 17:10:43 +0900</a></div>
+          </div>
+          <div class="message__body description">Elmが（Idrisもらしい）Happy使わずパーサコンビネータだけであの文法をパースしてるのを見るとできないこともなさそうなんですが……</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567671076.038600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">t.mitsuchi3</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567671076.038600">2019-09-05 17:11:16 +0900</a></div>
+          </div>
+          <div class="message__body description">たしかに many のどれかを some にしたら急に動いたりするかもしれないですね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567671103.038800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567671103.038800">2019-09-05 17:11:43 +0900</a></div>
+          </div>
+          <div class="message__body description">左再帰とかもろもろの演算子のあれこれを、演算子の結合と優先順位を指定するだけでどうにかしてくれる <code>makeExprParser</code> という関数がparser-combinatorsというパッケージにありまして :smirk:<br/><a href='http://hackage.haskell.org/package/parser-combinators-1.2.0/docs/Control-Monad-Combinators-Expr.html#v:makeExprParser'>http://hackage.haskell.org/package/parser-combinators-1.2.0/docs/Control-Monad-Combinators-Expr.html#v:makeExprParser</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567671142.039000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567671142.039000">2019-09-05 17:12:22 +0900</a></div>
+          </div>
+          <div class="message__body description">『右結合の指定なしに』</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567672523.039300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kazu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567672523.039300">2019-09-05 17:35:23 +0900</a></div>
+          </div>
+          <div class="message__body description">お、ifdef が効くのですね。ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567672619.039500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kazu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567672619.039500">2019-09-05 17:36:59 +0900</a></div>
+          </div>
+          <div class="message__body description">ご存知かもしれませんが。<br/><a href='https://kazu-yamamoto.hatenablog.jp/entry/20110127/1296098875'>https://kazu-yamamoto.hatenablog.jp/entry/20110127/1296098875</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567672822.040000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567672822.040000">2019-09-05 17:40:22 +0900</a></div>
+          </div>
+          <div class="message__body description">ちょうどそこに行き着いたところでした！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567672832.040300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567672832.040300">2019-09-05 17:40:32 +0900</a></div>
+          </div>
+          <div class="message__body description">(一旦諦めました)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567680958.040600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567680958.040600">2019-09-05 19:55:58 +0900</a></div>
+          </div>
+          <div class="message__body description">(全然関係ないけど、GitHub 上のコードを貼るときはコミットハッシュ込みの方がいいよ（あとでみた時に変わってしまう）)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567681456.040800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567681456.040800">2019-09-05 20:04:16 +0900</a></div>
+          </div>
+          <div class="message__body description">あと、出だしがよくわからないや<br/>例えば、ghci でこういう風に実行したら止まらない（理想はこう）とかを書いてくれると実装を追いやすいです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567749043.041400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroto.shioi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567749043.041400">2019-09-06 14:50:43 +0900</a></div>
+          </div>
+          <div class="message__body description">nixを使ったhaskell のベストな開発フローが知りたいです<br/>&gt; cabal v1 or v2どちらがお勧めでしょうか<br/>ｖ２ってnew-* がついてるコマンド郡のことですよね。。？その場合であればv2を使用しています<br/><br/><br/>&gt; エディタはホストのものをつかうのがいいですか、それともnixのなかに入れ込むのがいいのでしょうか (edited)<br/>ホストのものを使ってます。nix-buildを使ってnix環境に入り込みつつ、既存のエディタにもアクセスできるようにしてます。<br/><br/><br/>&gt; あとnixによるいいci環境があれば合わせてお願いします<br/><https://hydra.iohk.io/><br/>弊社ではhydraを使ってます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567749156.041600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroto.shioi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567749156.041600">2019-09-06 14:52:36 +0900</a></div>
+          </div>
+          <div class="message__body description">BuildKiteも使ってるけど、これはArtifactの生成だけに使ってるっぽくて、ビルドができるかどうかしかチェックしてないです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567762723.041800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">junji.hashimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567762723.041800">2019-09-06 18:38:43 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます。<br/><br/>技術的なところがよくわかってなくてすみません。<br/>cabal v1 or v2のところでnixでhaskellのパッケージをインストールした場合でもv2でインストールしたパッケージを<br/>利用できますか？<br/><br/>OSSでhydra使うにはどうしたらいいでしょうか。自分でたてるしかないですか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567767987.042000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">junji.hashimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567767987.042000">2019-09-06 20:06:27 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://www.haskell.org/cabal/users-guide/nix-integration.html'>https://www.haskell.org/cabal/users-guide/nix-integration.html</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567903688.042300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yuichi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567903688.042300">2019-09-08 09:48:08 +0900</a></div>
+          </div>
+          <div class="message__body description">esqueletoでwhere句を作れずに困っています。makeWhereでwhere句を返したいのですが、個々の検索条件式は良いのですが、E.&amp;&amp;.でまとめて返したいのですがどのように記述すれば良いか困っています。よろしくお願いします。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567904091.043100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567904091.043100">2019-09-08 09:54:51 +0900</a></div>
+          </div>
+          <div class="message__body description">まだ公開の準備が整ってないコードなので断片的ですし的外れかもしれませんが私はこのように`fordr`で検索条件をくっつけていました</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567904177.043500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567904177.043500">2019-09-08 09:56:17 +0900</a></div>
+          </div>
+          <div class="message__body description">Nothingの場合適当にTrueでも埋め込んでおけば良いかと</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567904841.043700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yuichi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567904841.043700">2019-09-08 10:07:21 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます。 Nothing側にE.val Trueを入れてやってみたら、今回の主旨とは違うコンパイルエラーが出たのでちょっとそちら側を処理してからまた報告します。<br/><br/>    • Couldn't match type ‘Text’ with ‘Maybe Text’<br/>        arising from a use of ‘ClientCompany’</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567906584.043900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yuichi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567906584.043900">2019-09-08 10:36:24 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます。where句きちんと作成できました！<br/>コンパイルエラーで多少型合わせの調整しましたが、なんとかなりました。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567909674.046900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567909674.046900">2019-09-08 11:27:54 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://github.com/haskell-jp/blog/issues/167'>https://github.com/haskell-jp/blog/issues/167</a><br/>こちらの件で、「Strictを指定していようといまいとStackOverflowを起こす」という実験のために、GHCのRTSのスタックサイズを減らすよう <code>-K1k</code> と指定してみたのですが、うまくStackOverflowを起こすことができません。<br/>どこで間違ったのか、教えてください！<br/><br/>ソースコード: <a href='https://github.com/haskell-jp/blog/blob/8c1db1af41df8eca8753bb9bcee38691ad13988c/examples/strict-gotchas/stackoverflow.hs'>https://github.com/haskell-jp/blog/blob/8c1db1af41df8eca8753bb9bcee38691ad13988c/examples/strict-gotchas/stackoverflow.hs</a><br/>コンパイル時のコマンド:<br/><code>stack exec ghc -- -O0 -rtsopts -with-rtsopts=-K1k          .\stackoverflow.hs</code></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567910287.047300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567910287.047300">2019-09-08 11:38:07 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>-XStrict</code> をつけたら溢れた。 :thinking_face:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567910903.047500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567910903.047500">2019-09-08 11:48:23 +0900</a></div>
+          </div>
+          <div class="message__body description">なお、GHCのバージョンは8.6.5です。<br/>コマンドにバックスラッシュが混ざっていることから察せられるとおり、Windows版を使っています。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567935315.048400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567935315.048400">2019-09-08 18:35:15 +0900</a></div>
+          </div>
+          <div class="message__body description">単項マイナスを括弧で囲むとパースできなくなってしまいます(囲まなければちゃんとパースできる)<br/><a href='https://github.com/1inguini/mud/commit/3bce80c19ea34ce74fec88eac34c765f1def1d70'>https://github.com/1inguini/mud/commit/3bce80c19ea34ce74fec88eac34c765f1def1d70</a><br/><pre>
 ❯❯❯ stack run parse '(-12)'
 
 &lt;stdin&gt;:2:2:
@@ -7,4 +425,60 @@
   |  ^
 unexpected '-'
 expecting '"', ''', '(', ')', ':', '[', digit, or integer
-</pre></div></div></div><div class="message event" id="message-1567936839.049300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1567936839.049300">2019-09-08&nbsp;19:00:39 +0900</a></div></div><div class="message__body description">(1) そのコミット以前はできていたんですか？それともこのコミットは関係がない？<br/>(2) 念のため確認ですがパーサーの全体像は <a href='https://github.com/1inguini/mud/blob/3bce80c19ea34ce74fec88eac34c765f1def1d70/src/Parse.hs'>https://github.com/1inguini/mud/blob/3bce80c19ea34ce74fec88eac34c765f1def1d70/src/Parse.hs</a> ということですよね？</div></div></div><div class="message event" id="message-1567937088.049600"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1567937088.049600">2019-09-08&nbsp;19:04:48 +0900</a></div></div><div class="message__body description">(1)git checkoutして試したらできました<br/>(2)言ってることがよくわかりませんが、そのリポジトリかと言われればそうですが、ブランチはparser_from_scratchです</div></div></div><div class="message event" id="message-1567937133.049800"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1567937133.049800">2019-09-08&nbsp;19:05:33 +0900</a></div></div><div class="message__body description">あとeofで死ぬ問題は解決しました</div></div></div><div class="message event" id="message-1567937207.050000"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1567937207.050000">2019-09-08&nbsp;19:06:47 +0900</a></div></div><div class="message__body description">パーサを書き直してsepByをsepEndByにしたらなんか動きました(もとのパーサのsepByを置き換えても別に直りませんでしたが)</div></div></div><div class="message event" id="message-1567938336.050500"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1567938336.050500">2019-09-08&nbsp;19:25:36 +0900</a></div></div><div class="message__body description">anonFunsが悪さしていました</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/68.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/70.html" class="pager__next item">Next</a></div></div></body></html>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567936839.049300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567936839.049300">2019-09-08 19:00:39 +0900</a></div>
+          </div>
+          <div class="message__body description">(1) そのコミット以前はできていたんですか？それともこのコミットは関係がない？<br/>(2) 念のため確認ですがパーサーの全体像は <a href='https://github.com/1inguini/mud/blob/3bce80c19ea34ce74fec88eac34c765f1def1d70/src/Parse.hs'>https://github.com/1inguini/mud/blob/3bce80c19ea34ce74fec88eac34c765f1def1d70/src/Parse.hs</a> ということですよね？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567937088.049600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567937088.049600">2019-09-08 19:04:48 +0900</a></div>
+          </div>
+          <div class="message__body description">(1)git checkoutして試したらできました<br/>(2)言ってることがよくわかりませんが、そのリポジトリかと言われればそうですが、ブランチはparser_from_scratchです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567937133.049800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567937133.049800">2019-09-08 19:05:33 +0900</a></div>
+          </div>
+          <div class="message__body description">あとeofで死ぬ問題は解決しました</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567937207.050000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567937207.050000">2019-09-08 19:06:47 +0900</a></div>
+          </div>
+          <div class="message__body description">パーサを書き直してsepByをsepEndByにしたらなんか動きました(もとのパーサのsepByを置き換えても別に直りませんでしたが)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1567938336.050500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1567938336.050500">2019-09-08 19:25:36 +0900</a></div>
+          </div>
+          <div class="message__body description">anonFunsが悪さしていました</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/68.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/70.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

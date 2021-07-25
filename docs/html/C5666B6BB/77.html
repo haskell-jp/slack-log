@@ -1,8 +1,309 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #77</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #77</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/76.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/78.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1579005025.001400"><div class="content"><div class="summary"><div class="message__header user">neguse</div><div class="message__timestamp date"><a class="date" href="#message-1579005025.001400">2020-01-14&nbsp;21:30:25 +0900</a></div></div><div class="message__body description">@neguse has joined the channel</div></div></div><div class="message event" id="message-1579057338.001700"><div class="content"><div class="summary"><div class="message__header user">stegeman</div><div class="message__timestamp date"><a class="date" href="#message-1579057338.001700">2020-01-15&nbsp;12:02:18 +0900</a></div></div><div class="message__body description">@stegeman has joined the channel</div></div></div><div class="message event" id="message-1579171203.002000"><div class="content"><div class="summary"><div class="message__header user">stefan_pavikevik</div><div class="message__timestamp date"><a class="date" href="#message-1579171203.002000">2020-01-16&nbsp;19:40:03 +0900</a></div></div><div class="message__body description">@stefan_pavikevik has joined the channel</div></div></div><div class="message event" id="message-1579249884.000200"><div class="content"><div class="summary"><div class="message__header user">unno.hideyuki</div><div class="message__timestamp date"><a class="date" href="#message-1579249884.000200">2020-01-17&nbsp;17:31:24 +0900</a></div></div><div class="message__body description">@unno.hideyuki has joined the channel</div></div></div><div class="message event" id="message-1579251070.005600"><div class="content"><div class="summary"><div class="message__header user">unno.hideyuki</div><div class="message__timestamp date"><a class="date" href="#message-1579251070.005600">2020-01-17&nbsp;17:51:10 +0900</a></div></div><div class="message__body description">来ていきなり質問で申し訳ないのですが…、トップレベルの関数に型注釈を書くのと書かないのとで、まるで実行性能が変わってしまうということは、ありますか？<br/><br/>最近、Haskell で AtCoder の問題に挑戦していて、そのように見える場面に遭遇したのですが、どうにもわからなくて。<br/><br/>たとえば、このコードは、2秒以上かかるケースがあって TLE (時間制限超過）：<br/><a href='https://atcoder.jp/contests/abc040/submissions/9522041'>https://atcoder.jp/contests/abc040/submissions/9522041</a><br/><br/>なんですが、このコードの65行目ｰ66行目の二行をコメントアウトすると、速くなってしまいます： <a href='https://atcoder.jp/contests/abc040/submissions/9545116'>https://atcoder.jp/contests/abc040/submissions/9545116</a><br/><br/>なぜなんでしょうか？？<br/><br/>※ Vector むけのソートが欲しくて、山本さんのコード (<https://gist.github.com/kazu-yamamoto/3051375>) を利用させていただきました。</div></div></div><div class="message event" id="message-1579251155.005800"><div class="content"><div class="summary"><div class="message__header user">unno.hideyuki</div><div class="message__timestamp date"><a class="date" href="#message-1579251155.005800">2020-01-17&nbsp;17:52:35 +0900</a></div></div><div class="message__body description">型注釈がまちがっていて（例えば、保守的すぎて？）、型推論まかせの場合と、注釈を書いた場合とで違う型になっている、とかかなぁ、など思い悩むものの、自分ではわかりそうな気がせず…。</div></div></div><div class="message event" id="message-1579251623.006200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1579251623.006200">2020-01-17&nbsp;18:00:23 +0900</a></div></div><div class="message__body description">あまりこの手の経験がないので自信がないのですが、<br/>インライン化できなさそうな関数ですし、 <a href='https://blog.miz-ar.info/2016/06/writing-efficient-program-with-haskell/#2.specialization'>https://blog.miz-ar.info/2016/06/writing-efficient-program-with-haskell/#2.specialization</a> じゃないっすかね。<br/>型注釈がなかったときは <code>MonomorphismRestriction</code> が働いて、 <code>Int</code> か何かに特殊化された <code>quickSortVec</code> が作られたのではないかと。</div></div></div><div class="message event" id="message-1579252370.006600"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1579252370.006600">2020-01-17&nbsp;18:12:50 +0900</a></div></div><div class="message__body description"><pre>quickSortVec :: _</pre><br/>のように <code>_</code> を書くと推論した結果を表示してくれるのですが<br/><pre>Int -&gt; Int -&gt; VM.MVector (PrimState m0) a0 -&gt; m0 ()</pre><br/>と推論したみたいです</div></div></div><div class="message event" id="message-1579252572.006800"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1579252572.006800">2020-01-17&nbsp;18:16:12 +0900</a></div></div><div class="message__body description">別途制約が必要だよというエラーが出ている</div></div></div><div class="message event" id="message-1579252855.007000"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1579252855.007000">2020-01-17&nbsp;18:20:55 +0900</a></div></div><div class="message__body description">競プロでこういうハマり方するのヤダなぁ（競プロじゃなくても</div></div></div><div class="message event" id="message-1579253002.007300"><div class="content"><div class="summary"><div class="message__header user">unno.hideyuki</div><div class="message__timestamp date"><a class="date" href="#message-1579253002.007300">2020-01-17&nbsp;18:23:22 +0900</a></div></div><div class="message__body description">igrep さんのに「なるほど」と思い、SPECIALIZE pragma 書いてみようかとしたのですが、なんと書けばいいのかわからなかったりして…<br/><br/>わたしが書いた型注釈は、ghci 上で :t  して聞いたものです。<br/><pre> quickSortVec :: (PrimMonad m, VM.Unbox a, Ord a) =&gt;
-                Int -&gt; Int -&gt; VM.MVector (PrimState m) a -&gt; m ()</pre></div></div></div><div class="message event" id="message-1579253264.007500"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1579253264.007500">2020-01-17&nbsp;18:27:44 +0900</a></div></div><div class="message__body description">速いケースは特殊化の最適化がかかってタプルになったのかな<br/>（タプルでもビルドできた<br/><pre>quickSortList :: [(Int, (Int, Int))] -&gt; [(Int, (Int, Int))]
-quickSortList :: (Ord a, VM.Unbox a) =&gt; [a] -&gt; [a]</pre></div></div></div><div class="message event" id="message-1579253519.008800"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1579253519.008800">2020-01-17&nbsp;18:31:59 +0900</a></div></div><div class="message__body description">最適化のトリガーが何かは識者の意見を待ちたい……<br/>（`quickSortVec` が再帰してるので抽象的な型の注釈をしたときに特殊化されないのかな</div></div></div><div class="message event" id="message-1579253524.009000"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1579253524.009000">2020-01-17&nbsp;18:32:04 +0900</a></div></div><div class="message__body description">いや、specializeを書くんじゃなくて、GHCが最適化してるときに気づいた具体的な型を書くのが正解かと思います。<br/>GHCiの <code>:t</code> がその結果を出したのは、`quickSortList` も多相化されているからではないかと思います。<br/> <code>quickSortList</code> の型を書いていても <code>quickSortVec</code> に型を書かなければ <code>Int</code> に特殊化できていたのは、おそらく <code>quickSortList</code> がインライン化されたからではないかと思います。（GHCが最適化注に気づいて）インライン化した時点で <code>quickSortList</code> は <code>Int</code> に特殊化された、と。<br/><br/>なので、 <code>quickSortList</code> に対する型注釈を消した上で <code>:t</code> してみると、kakkun61が今上げたような結果になり、無事最適化がかかると思います。</div></div></div><div class="message event" id="message-1579253532.009200"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1579253532.009200">2020-01-17&nbsp;18:32:12 +0900</a></div></div><div class="message__body description">quickSortVecは引数を取る関数なのでmonomorphism restrictionは関係ないはずです。</div></div></div><div class="message event" id="message-1579253752.011100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1579253752.011100">2020-01-17&nbsp;18:35:52 +0900</a></div></div><div class="message__body description">すみません、確かにそうでした。</div></div></div><div class="message event" id="message-1579253850.012700"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1579253850.012700">2020-01-17&nbsp;18:37:30 +0900</a></div></div><div class="message__body description">今回のケースはどうして違いが出るのか私にもよくわかりませんし、GHCのバージョン次第で違う結果になる案件な気もします。</div></div></div><div class="message event" id="message-1579253900.013900"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1579253900.013900">2020-01-17&nbsp;18:38:20 +0900</a></div></div><div class="message__body description">いろいろ書きましたが、結論というか教訓としては「型はなるべく具体的になるように注釈しましょう」ですかね（mod_poppo さんのブログの「特殊化する」と同じことだけど</div></div></div><div class="message event" id="message-1579253990.016300"><div class="content"><div class="summary"><div class="message__header user">unno.hideyuki</div><div class="message__timestamp date"><a class="date" href="#message-1579253990.016300">2020-01-17&nbsp;18:39:50 +0900</a></div></div><div class="message__body description">えー、でも、ライブラリは多相にしたい！</div></div></div><div class="message event" id="message-1579254019.017000"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1579254019.017000">2020-01-17&nbsp;18:40:19 +0900</a></div></div><div class="message__body description">ユーザーとしてできることは、<br/>・具体的な型で型注釈をつける（特にPrimMonadやUnbox制約のついた型変数を具体的にする）（SPECIALIZEプラグマでも良い）<br/>・INLINEプラグマをつける（具体的な型注釈をつけるのと同じような効果が見込める）<br/>あたりでしょうか</div></div></div><div class="message event" id="message-1579254030.017200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1579254030.017200">2020-01-17&nbsp;18:40:30 +0900</a></div></div><div class="message__body description">C++ 使えばいいんじゃないっすか :upside_down_face:</div></div></div><div class="message event" id="message-1579254124.019700"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1579254124.019700">2020-01-17&nbsp;18:42:04 +0900</a></div></div><div class="message__body description">多相で使えるライブラリにしたいのであれば、IOやST, Intなどのよく使う型に対してSPECIALIZEを書きまくるか、INLINEをつけるか、ですね</div></div></div><div class="message event" id="message-1579254155.019900"><div class="content"><div class="summary"><div class="message__header user">unno.hideyuki</div><div class="message__timestamp date"><a class="date" href="#message-1579254155.019900">2020-01-17&nbsp;18:42:35 +0900</a></div></div><div class="message__body description">競プロに限れば「型注釈を書かない」でいいような気がしました。<br/>多相の注釈が最適化（特殊化）を阻害しうるとわかったので（わかったのかな？）、個人的には、ちょっとすっきりしました。<br/>ありがとうございます！</div></div></div><div class="message event" id="message-1579254373.021500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1579254373.021500">2020-01-17&nbsp;18:46:13 +0900</a></div></div><div class="message__body description">今回のように再帰関数が絡む場合はこういう泥臭いテクニックがあるらしいです。 :serval:<br/><a href='https://mkotha.hatenadiary.org/entry/20131206/1386330227'>https://mkotha.hatenadiary.org/entry/20131206/1386330227</a></div></div></div><div class="message event" id="message-1579254535.021900"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1579254535.021900">2020-01-17&nbsp;18:48:55 +0900</a></div></div><div class="message__body description">型注釈を書かなくても型推論で同じ型が推論されるのなら同じコードが生成されてもいいような気がするんですがね……。GHCだとそうでもないのかな……。</div></div></div><div class="message event" id="message-1579254755.022100"><div class="content"><div class="summary"><div class="message__header user">unno.hideyuki</div><div class="message__timestamp date"><a class="date" href="#message-1579254755.022100">2020-01-17&nbsp;18:52:35 +0900</a></div></div><div class="message__body description">そうなんですよね、コンパイラが推論するのと同じ型注釈を書いたからといって、コンパイラの挙動がかわるのは、自明でも自然でもないように思います。<br/>べつに、書いている側としては「特殊化しないでください」というメッセージではないのだけど…</div></div></div><div class="message event" id="message-1579255699.022400"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1579255699.022400">2020-01-17&nbsp;19:08:19 +0900</a></div></div><div class="message__body description">GHC 8.6でコンパイルしてみたところ、型注釈ありの場合となしの場合でほぼ同様の（特殊化された）コードが生成されるようです。</div></div></div><div class="message event" id="message-1579255700.022600"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1579255700.022600">2020-01-17&nbsp;19:08:20 +0900</a></div></div><div class="message__body description"><code>PrimMonad m =&gt;</code>が付く関数定義は全てインライン化するのが定石です。これを忘れると、その中のすべての(&gt;&gt;=)が辞書渡しになるので、非常に遅くなるのは必至です(会社のコードにもそのような部分を見つけたばかりです…)</div></div></div><div class="message event" id="message-1579261156.023300"><div class="content"><div class="summary"><div class="message__header user">unno.hideyuki</div><div class="message__timestamp date"><a class="date" href="#message-1579261156.023300">2020-01-17&nbsp;20:39:16 +0900</a></div></div><div class="message__body description">わかんない＆気持ち悪くて、悩んでいたのですが、ここで尋ねてみてよかったです。みなさん、ありがとうございました！</div></div></div><div class="message event" id="message-1579282454.023900"><div class="content"><div class="summary"><div class="message__header user">baldurpet</div><div class="message__timestamp date"><a class="date" href="#message-1579282454.023900">2020-01-18&nbsp;02:34:14 +0900</a></div></div><div class="message__body description">@baldurpet has joined the channel</div></div></div><div class="message event" id="message-1579335310.024200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1579335310.024200">2020-01-18&nbsp;17:15:10 +0900</a></div></div><div class="message__body description">この件、型注釈を書かないにしても<br/><pre>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #77</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #77</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/76.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/78.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1579005025.001400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">neguse</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579005025.001400">2020-01-14 21:30:25 +0900</a></div>
+          </div>
+          <div class="message__body description">@neguse has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579057338.001700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">stegeman</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579057338.001700">2020-01-15 12:02:18 +0900</a></div>
+          </div>
+          <div class="message__body description">@stegeman has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579171203.002000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">stefan_pavikevik</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579171203.002000">2020-01-16 19:40:03 +0900</a></div>
+          </div>
+          <div class="message__body description">@stefan_pavikevik has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579249884.000200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">unno.hideyuki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579249884.000200">2020-01-17 17:31:24 +0900</a></div>
+          </div>
+          <div class="message__body description">@unno.hideyuki has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579251070.005600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">unno.hideyuki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579251070.005600">2020-01-17 17:51:10 +0900</a></div>
+          </div>
+          <div class="message__body description">来ていきなり質問で申し訳ないのですが…、トップレベルの関数に型注釈を書くのと書かないのとで、まるで実行性能が変わってしまうということは、ありますか？<br/><br/>最近、Haskell で AtCoder の問題に挑戦していて、そのように見える場面に遭遇したのですが、どうにもわからなくて。<br/><br/>たとえば、このコードは、2秒以上かかるケースがあって TLE (時間制限超過）：<br/><a href='https://atcoder.jp/contests/abc040/submissions/9522041'>https://atcoder.jp/contests/abc040/submissions/9522041</a><br/><br/>なんですが、このコードの65行目ｰ66行目の二行をコメントアウトすると、速くなってしまいます： <a href='https://atcoder.jp/contests/abc040/submissions/9545116'>https://atcoder.jp/contests/abc040/submissions/9545116</a><br/><br/>なぜなんでしょうか？？<br/><br/>※ Vector むけのソートが欲しくて、山本さんのコード (<https://gist.github.com/kazu-yamamoto/3051375>) を利用させていただきました。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579251155.005800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">unno.hideyuki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579251155.005800">2020-01-17 17:52:35 +0900</a></div>
+          </div>
+          <div class="message__body description">型注釈がまちがっていて（例えば、保守的すぎて？）、型推論まかせの場合と、注釈を書いた場合とで違う型になっている、とかかなぁ、など思い悩むものの、自分ではわかりそうな気がせず…。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579251623.006200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579251623.006200">2020-01-17 18:00:23 +0900</a></div>
+          </div>
+          <div class="message__body description">あまりこの手の経験がないので自信がないのですが、<br/>インライン化できなさそうな関数ですし、 <a href='https://blog.miz-ar.info/2016/06/writing-efficient-program-with-haskell/#2.specialization'>https://blog.miz-ar.info/2016/06/writing-efficient-program-with-haskell/#2.specialization</a> じゃないっすかね。<br/>型注釈がなかったときは <code>MonomorphismRestriction</code> が働いて、 <code>Int</code> か何かに特殊化された <code>quickSortVec</code> が作られたのではないかと。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579252370.006600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579252370.006600">2020-01-17 18:12:50 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>quickSortVec :: _</pre><br/>のように <code>_</code> を書くと推論した結果を表示してくれるのですが<br/><pre>Int -&gt; Int -&gt; VM.MVector (PrimState m0) a0 -&gt; m0 ()</pre><br/>と推論したみたいです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579252572.006800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579252572.006800">2020-01-17 18:16:12 +0900</a></div>
+          </div>
+          <div class="message__body description">別途制約が必要だよというエラーが出ている</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579252855.007000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579252855.007000">2020-01-17 18:20:55 +0900</a></div>
+          </div>
+          <div class="message__body description">競プロでこういうハマり方するのヤダなぁ（競プロじゃなくても</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579253002.007300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">unno.hideyuki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579253002.007300">2020-01-17 18:23:22 +0900</a></div>
+          </div>
+          <div class="message__body description">igrep さんのに「なるほど」と思い、SPECIALIZE pragma 書いてみようかとしたのですが、なんと書けばいいのかわからなかったりして…<br/><br/>わたしが書いた型注釈は、ghci 上で :t  して聞いたものです。<br/><pre> quickSortVec :: (PrimMonad m, VM.Unbox a, Ord a) =&gt;
+                Int -&gt; Int -&gt; VM.MVector (PrimState m) a -&gt; m ()</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579253264.007500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579253264.007500">2020-01-17 18:27:44 +0900</a></div>
+          </div>
+          <div class="message__body description">速いケースは特殊化の最適化がかかってタプルになったのかな<br/>（タプルでもビルドできた<br/><pre>quickSortList :: [(Int, (Int, Int))] -&gt; [(Int, (Int, Int))]
+quickSortList :: (Ord a, VM.Unbox a) =&gt; [a] -&gt; [a]</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579253519.008800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579253519.008800">2020-01-17 18:31:59 +0900</a></div>
+          </div>
+          <div class="message__body description">最適化のトリガーが何かは識者の意見を待ちたい……<br/>（`quickSortVec` が再帰してるので抽象的な型の注釈をしたときに特殊化されないのかな</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579253524.009000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579253524.009000">2020-01-17 18:32:04 +0900</a></div>
+          </div>
+          <div class="message__body description">いや、specializeを書くんじゃなくて、GHCが最適化してるときに気づいた具体的な型を書くのが正解かと思います。<br/>GHCiの <code>:t</code> がその結果を出したのは、`quickSortList` も多相化されているからではないかと思います。<br/> <code>quickSortList</code> の型を書いていても <code>quickSortVec</code> に型を書かなければ <code>Int</code> に特殊化できていたのは、おそらく <code>quickSortList</code> がインライン化されたからではないかと思います。（GHCが最適化注に気づいて）インライン化した時点で <code>quickSortList</code> は <code>Int</code> に特殊化された、と。<br/><br/>なので、 <code>quickSortList</code> に対する型注釈を消した上で <code>:t</code> してみると、kakkun61が今上げたような結果になり、無事最適化がかかると思います。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579253532.009200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579253532.009200">2020-01-17 18:32:12 +0900</a></div>
+          </div>
+          <div class="message__body description">quickSortVecは引数を取る関数なのでmonomorphism restrictionは関係ないはずです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579253752.011100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579253752.011100">2020-01-17 18:35:52 +0900</a></div>
+          </div>
+          <div class="message__body description">すみません、確かにそうでした。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579253850.012700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579253850.012700">2020-01-17 18:37:30 +0900</a></div>
+          </div>
+          <div class="message__body description">今回のケースはどうして違いが出るのか私にもよくわかりませんし、GHCのバージョン次第で違う結果になる案件な気もします。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579253900.013900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579253900.013900">2020-01-17 18:38:20 +0900</a></div>
+          </div>
+          <div class="message__body description">いろいろ書きましたが、結論というか教訓としては「型はなるべく具体的になるように注釈しましょう」ですかね（mod_poppo さんのブログの「特殊化する」と同じことだけど</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579253990.016300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">unno.hideyuki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579253990.016300">2020-01-17 18:39:50 +0900</a></div>
+          </div>
+          <div class="message__body description">えー、でも、ライブラリは多相にしたい！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579254019.017000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579254019.017000">2020-01-17 18:40:19 +0900</a></div>
+          </div>
+          <div class="message__body description">ユーザーとしてできることは、<br/>・具体的な型で型注釈をつける（特にPrimMonadやUnbox制約のついた型変数を具体的にする）（SPECIALIZEプラグマでも良い）<br/>・INLINEプラグマをつける（具体的な型注釈をつけるのと同じような効果が見込める）<br/>あたりでしょうか</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579254030.017200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579254030.017200">2020-01-17 18:40:30 +0900</a></div>
+          </div>
+          <div class="message__body description">C++ 使えばいいんじゃないっすか :upside_down_face:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579254124.019700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579254124.019700">2020-01-17 18:42:04 +0900</a></div>
+          </div>
+          <div class="message__body description">多相で使えるライブラリにしたいのであれば、IOやST, Intなどのよく使う型に対してSPECIALIZEを書きまくるか、INLINEをつけるか、ですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579254155.019900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">unno.hideyuki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579254155.019900">2020-01-17 18:42:35 +0900</a></div>
+          </div>
+          <div class="message__body description">競プロに限れば「型注釈を書かない」でいいような気がしました。<br/>多相の注釈が最適化（特殊化）を阻害しうるとわかったので（わかったのかな？）、個人的には、ちょっとすっきりしました。<br/>ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579254373.021500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579254373.021500">2020-01-17 18:46:13 +0900</a></div>
+          </div>
+          <div class="message__body description">今回のように再帰関数が絡む場合はこういう泥臭いテクニックがあるらしいです。 :serval:<br/><a href='https://mkotha.hatenadiary.org/entry/20131206/1386330227'>https://mkotha.hatenadiary.org/entry/20131206/1386330227</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579254535.021900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579254535.021900">2020-01-17 18:48:55 +0900</a></div>
+          </div>
+          <div class="message__body description">型注釈を書かなくても型推論で同じ型が推論されるのなら同じコードが生成されてもいいような気がするんですがね……。GHCだとそうでもないのかな……。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579254755.022100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">unno.hideyuki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579254755.022100">2020-01-17 18:52:35 +0900</a></div>
+          </div>
+          <div class="message__body description">そうなんですよね、コンパイラが推論するのと同じ型注釈を書いたからといって、コンパイラの挙動がかわるのは、自明でも自然でもないように思います。<br/>べつに、書いている側としては「特殊化しないでください」というメッセージではないのだけど…</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579255699.022400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579255699.022400">2020-01-17 19:08:19 +0900</a></div>
+          </div>
+          <div class="message__body description">GHC 8.6でコンパイルしてみたところ、型注釈ありの場合となしの場合でほぼ同様の（特殊化された）コードが生成されるようです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579255700.022600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579255700.022600">2020-01-17 19:08:20 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>PrimMonad m =&gt;</code>が付く関数定義は全てインライン化するのが定石です。これを忘れると、その中のすべての(&gt;&gt;=)が辞書渡しになるので、非常に遅くなるのは必至です(会社のコードにもそのような部分を見つけたばかりです…)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579261156.023300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">unno.hideyuki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579261156.023300">2020-01-17 20:39:16 +0900</a></div>
+          </div>
+          <div class="message__body description">わかんない＆気持ち悪くて、悩んでいたのですが、ここで尋ねてみてよかったです。みなさん、ありがとうございました！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579282454.023900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">baldurpet</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579282454.023900">2020-01-18 02:34:14 +0900</a></div>
+          </div>
+          <div class="message__body description">@baldurpet has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579335310.024200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579335310.024200">2020-01-18 17:15:10 +0900</a></div>
+          </div>
+          <div class="message__body description">この件、型注釈を書かないにしても<br/><pre>
 default (Int, Double)
-</pre><br/>くらいは書いておいた方がいいかもしれないことに気づきました。<br/>あまり型を省略して整数がIntegerになってしまうと競プロでは困るでしょうし。</div></div></div><div class="message event" id="message-1579430165.026500"><div class="content"><div class="summary"><div class="message__header user">pontyan12</div><div class="message__timestamp date"><a class="date" href="#message-1579430165.026500">2020-01-19&nbsp;19:36:05 +0900</a></div></div><div class="message__body description"><pre>stack install gtk</pre><br/>をしようとしたところ、<br/><br/>stack.yamlに<br/><pre>extra-deps:
+</pre><br/>くらいは書いておいた方がいいかもしれないことに気づきました。<br/>あまり型を省略して整数がIntegerになってしまうと競プロでは困るでしょうし。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579430165.026500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pontyan12</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579430165.026500">2020-01-19 19:36:05 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>stack install gtk</pre><br/>をしようとしたところ、<br/><br/>stack.yamlに<br/><pre>extra-deps:
     - gi-pangocairo-1.0.23@sha256:04dacf055fef4e19dd0276a8c2b5df08332877600b0014beecd2eaa764495ec6,3158
     - cairo-0.13.8.0@sha256:9b64a376ebaa4f153bba5866a32291fd4bed48147009cce9158ce6533928eba8,4075
     - gtk2hs-buildtools-0.13.8.0@sha256:132f38155fc677430a47ea750918973161c876fb6f281d342ac2f07eb99229ce,5238
@@ -16,7 +317,61 @@ glib &gt; setup: Error in C header file.
 glib &gt;            
 glib &gt; /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/time.h:153: (column 17) [FATAL] 
 glib &gt;   &gt;&gt;&gt; Syntax error!
-glib &gt;   The symbol `__attribute__' does not fit here.</pre><br/>このようなエラーが出てしまいビルドできません。どなたかお助けいただけませんでしょうか？</div></div></div><div class="message event" id="message-1579433779.026600"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1579433779.026600">2020-01-19&nbsp;20:36:19 +0900</a></div></div><div class="message__body description">こちらに似たエラーとその対応が記載されていました<br/><a href='https://github.com/gtk2hs/gtk2hs/issues/276'>https://github.com/gtk2hs/gtk2hs/issues/276</a><br/>（GCC 関連の話なので詳細まで理解せずに書いていますが</div></div></div><div class="message event" id="message-1579434860.028200"><div class="content"><div class="summary"><div class="message__header user">cohei</div><div class="message__timestamp date"><a class="date" href="#message-1579434860.028200">2020-01-19&nbsp;20:54:20 +0900</a></div></div><div class="message__body description">- <a href='https://scrapbox.io/LugendrePublic/Haskell書いてるときになんとなく気をつけていること'>https://scrapbox.io/LugendrePublic/Haskell書いてるときになんとなく気をつけていること</a><br/>- <a href='https://haskell.e-bigmoon.com/stack/test/tasty.html'>https://haskell.e-bigmoon.com/stack/test/tasty.html</a><br/><br/>↑のあたりを見て、自分のコードで hspec を tasty で置き換えてみようかなと思い、 hspec-discover のかわりに tasty-discover を見つけました。しかし tasty-discover のリポジトリ (<https://git.coop/decentral1se/tasty-discover>) はアーカイブされています。開発が止まっているなら tasty-discover を使うのはちょっと躊躇してしまいます。<br/><br/>tasty-discover を使っている人 (もしいれば)、便利なので気にせず使っていますか?</div></div></div><div class="message event" id="message-1579438448.028500"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1579438448.028500">2020-01-19&nbsp;21:54:08 +0900</a></div></div><div class="message__body description">おぉ、知らなかった、アーカイブされてるの。<br/>最近はもう手書きするようにしてました（tasty-discover をインストールするのがめんどくさくて）</div></div></div><div class="message event" id="message-1579476802.028700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1579476802.028700">2020-01-20&nbsp;08:33:22 +0900</a></div></div><div class="message__body description">毎度もにょるんですが、Hspecとtastyはそもそも守備範囲が違うので、単純比較できないかと。<br/>私自身tastyを全然使ったことがないので恐縮ですが、ドキュメントを読む限りあくまでもtastyはいろんな種類のテストを一つのテストスイートで記述するためのものであって、少なくともhspecで小さなテストを書いているだけの状態から置き換えても特にメリットがあるとは思えません。</div></div></div><div class="message event" id="message-1579489726.030500"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1579489726.030500">2020-01-20&nbsp;12:08:46 +0900</a></div></div><div class="message__body description">最新のglibはmacOSでビルドできません。手元の環境では <a href='https://github.com/gtk2hs/gtk2hs/issues/291#issuecomment-570829903'>https://github.com/gtk2hs/gtk2hs/issues/291#issuecomment-570829903</a> で通るようになりました。</div></div></div><div class="message event" id="message-1579510929.031000"><div class="content"><div class="summary"><div class="message__header user">pontyan12</div><div class="message__timestamp date"><a class="date" href="#message-1579510929.031000">2020-01-20&nbsp;18:02:09 +0900</a></div></div><div class="message__body description">kakkun61さんにいただいたページはどうやらLinux環境のものっぽい(使っているdpkgと言うコマンドがLinuxのものっぽかったので、、）のでちょっと試せなそうです。<br/><br/>maoeさんにいただいたページのコマンドを試したところ、<br/><pre>cabal: Encountered missing dependencies:
+glib &gt;   The symbol `__attribute__' does not fit here.</pre><br/>このようなエラーが出てしまいビルドできません。どなたかお助けいただけませんでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579433779.026600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579433779.026600">2020-01-19 20:36:19 +0900</a></div>
+          </div>
+          <div class="message__body description">こちらに似たエラーとその対応が記載されていました<br/><a href='https://github.com/gtk2hs/gtk2hs/issues/276'>https://github.com/gtk2hs/gtk2hs/issues/276</a><br/>（GCC 関連の話なので詳細まで理解せずに書いていますが</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579434860.028200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cohei</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579434860.028200">2020-01-19 20:54:20 +0900</a></div>
+          </div>
+          <div class="message__body description">- <a href='https://scrapbox.io/LugendrePublic/Haskell書いてるときになんとなく気をつけていること'>https://scrapbox.io/LugendrePublic/Haskell書いてるときになんとなく気をつけていること</a><br/>- <a href='https://haskell.e-bigmoon.com/stack/test/tasty.html'>https://haskell.e-bigmoon.com/stack/test/tasty.html</a><br/><br/>↑のあたりを見て、自分のコードで hspec を tasty で置き換えてみようかなと思い、 hspec-discover のかわりに tasty-discover を見つけました。しかし tasty-discover のリポジトリ (<https://git.coop/decentral1se/tasty-discover>) はアーカイブされています。開発が止まっているなら tasty-discover を使うのはちょっと躊躇してしまいます。<br/><br/>tasty-discover を使っている人 (もしいれば)、便利なので気にせず使っていますか?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579438448.028500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579438448.028500">2020-01-19 21:54:08 +0900</a></div>
+          </div>
+          <div class="message__body description">おぉ、知らなかった、アーカイブされてるの。<br/>最近はもう手書きするようにしてました（tasty-discover をインストールするのがめんどくさくて）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579476802.028700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579476802.028700">2020-01-20 08:33:22 +0900</a></div>
+          </div>
+          <div class="message__body description">毎度もにょるんですが、Hspecとtastyはそもそも守備範囲が違うので、単純比較できないかと。<br/>私自身tastyを全然使ったことがないので恐縮ですが、ドキュメントを読む限りあくまでもtastyはいろんな種類のテストを一つのテストスイートで記述するためのものであって、少なくともhspecで小さなテストを書いているだけの状態から置き換えても特にメリットがあるとは思えません。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579489726.030500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579489726.030500">2020-01-20 12:08:46 +0900</a></div>
+          </div>
+          <div class="message__body description">最新のglibはmacOSでビルドできません。手元の環境では <a href='https://github.com/gtk2hs/gtk2hs/issues/291#issuecomment-570829903'>https://github.com/gtk2hs/gtk2hs/issues/291#issuecomment-570829903</a> で通るようになりました。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579510929.031000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pontyan12</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579510929.031000">2020-01-20 18:02:09 +0900</a></div>
+          </div>
+          <div class="message__body description">kakkun61さんにいただいたページはどうやらLinux環境のものっぽい(使っているdpkgと言うコマンドがLinuxのものっぽかったので、、）のでちょっと試せなそうです。<br/><br/>maoeさんにいただいたページのコマンドを試したところ、<br/><pre>cabal: Encountered missing dependencies:
 gi-cairo -any,
 gi-gdk -any,
 gi-glib -any,
@@ -72,8 +427,53 @@ cabal: Leaving directory '/var/folders/hd/fpfqf1rs28g30x7rcffkyrnh0000gp/T/cabal
 cabal: Error: some packages failed to install:
 gtk-0.15.4-8aDu81HrSCJZyllLlxBkN failed during the building phase. The
 exception was:
-ExitFailure 1</pre><br/>gtkのインストールは他のコマンドを用いるのでしょうか？</div></div></div><div class="message event" id="message-1579512969.031200"><div class="content"><div class="summary"><div class="message__header user">cohei</div><div class="message__timestamp date"><a class="date" href="#message-1579512969.031200">2020-01-20&nbsp;18:36:09 +0900</a></div></div><div class="message__body description">その辺は認識してはいるのですが、 tasty 推しの 2記事 (上のリンク) を見たので、試してみようとしたところなのです。<br/><br/>テスト結果の出力の見やすさが一番気になります。 hspec は cabal 経由だと環境変数でオプションを渡さないと色がつかないし……<br/><br/>そうですね、tasty にするとして、tasty-discover なしで手で書いても、そんな大規模でもなければいけますね。</div></div></div><div class="message event" id="message-1579513039.031400"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1579513039.031400">2020-01-20&nbsp;18:37:19 +0900</a></div></div><div class="message__body description"><pre>$ brew install gcc
-$ cabal build --with-gcc=gcc-9</pre><br/>が意図するところは、macOS のデフォルトである clang を呼ぶ gcc コマンドではなく（でしたよね？）本物の gcc を使うようにするということだと思います。なので gcc コマンドで本物の gcc を呼ぶようにシンボリックリンクを張るなりした後に元々の<br/><pre>$ stack install gtk</pre><br/>を実行するとどうでしょうか？</div></div></div><div class="message event" id="message-1579514612.034100"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1579514612.034100">2020-01-20&nbsp;19:03:32 +0900</a></div></div><div class="message__body description">今手元にラップトップがないのですが、gtk のビルドオプションに have-quartz みたいな名前のフラグを有効にする必要があります</div></div></div><div class="message event" id="message-1579602485.038100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1579602485.038100">2020-01-21&nbsp;19:28:05 +0900</a></div></div><div class="message__body description">extensibleのレコード型 <a href='https://hackage.haskell.org/package/extensible-0.6/docs/Data-Extensible-Field.html#t:RecordOf'>https://hackage.haskell.org/package/extensible-0.6/docs/Data-Extensible-Field.html#t:RecordOf</a> から、envyパッケージのParser <a href='https://hackage.haskell.org/package/envy-2.0.0.0/docs/System-Envy.html#t:Parser'>https://hackage.haskell.org/package/envy-2.0.0.0/docs/System-Envy.html#t:Parser</a> を作る関数を書いてみたのですが、型エラーを解決できません...<br/>（ソースコードとエラーメッセージはスレッドに続けて張ります）</div></div></div><div class="message event" id="message-1579602585.038500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1579602585.038500">2020-01-21&nbsp;19:29:45 +0900</a></div></div><div class="message__body description">ソースコード:<br/><pre>{-# LANGUAGE DataKinds           #-}
+ExitFailure 1</pre><br/>gtkのインストールは他のコマンドを用いるのでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579512969.031200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cohei</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579512969.031200">2020-01-20 18:36:09 +0900</a></div>
+          </div>
+          <div class="message__body description">その辺は認識してはいるのですが、 tasty 推しの 2記事 (上のリンク) を見たので、試してみようとしたところなのです。<br/><br/>テスト結果の出力の見やすさが一番気になります。 hspec は cabal 経由だと環境変数でオプションを渡さないと色がつかないし……<br/><br/>そうですね、tasty にするとして、tasty-discover なしで手で書いても、そんな大規模でもなければいけますね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579513039.031400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579513039.031400">2020-01-20 18:37:19 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>$ brew install gcc
+$ cabal build --with-gcc=gcc-9</pre><br/>が意図するところは、macOS のデフォルトである clang を呼ぶ gcc コマンドではなく（でしたよね？）本物の gcc を使うようにするということだと思います。なので gcc コマンドで本物の gcc を呼ぶようにシンボリックリンクを張るなりした後に元々の<br/><pre>$ stack install gtk</pre><br/>を実行するとどうでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579514612.034100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579514612.034100">2020-01-20 19:03:32 +0900</a></div>
+          </div>
+          <div class="message__body description">今手元にラップトップがないのですが、gtk のビルドオプションに have-quartz みたいな名前のフラグを有効にする必要があります</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579602485.038100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579602485.038100">2020-01-21 19:28:05 +0900</a></div>
+          </div>
+          <div class="message__body description">extensibleのレコード型 <a href='https://hackage.haskell.org/package/extensible-0.6/docs/Data-Extensible-Field.html#t:RecordOf'>https://hackage.haskell.org/package/extensible-0.6/docs/Data-Extensible-Field.html#t:RecordOf</a> から、envyパッケージのParser <a href='https://hackage.haskell.org/package/envy-2.0.0.0/docs/System-Envy.html#t:Parser'>https://hackage.haskell.org/package/envy-2.0.0.0/docs/System-Envy.html#t:Parser</a> を作る関数を書いてみたのですが、型エラーを解決できません...<br/>（ソースコードとエラーメッセージはスレッドに続けて張ります）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579602585.038500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579602585.038500">2020-01-21 19:29:45 +0900</a></div>
+          </div>
+          <div class="message__body description">ソースコード:<br/><pre>{-# LANGUAGE DataKinds           #-}
 {-# LANGUAGE FlexibleContexts    #-}
 {-# LANGUAGE KindSignatures      #-}
 {-# LANGUAGE ScopedTypeVariables #-}
@@ -99,7 +499,16 @@ recordFromEnv
 recordFromEnv =
   Ex.hgenerateFor (Proxy :: Proxy (Ex.KeyTargetAre KnownSymbol (Instance1 Env.Var h))) f
  where
-  f membership = Ex.Field &lt;$&gt; Env.env (Ex.stringKeyOf membership)</pre></div></div></div><div class="message event" id="message-1579602627.038700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1579602627.038700">2020-01-21&nbsp;19:30:27 +0900</a></div></div><div class="message__body description">エラーメッセージ:<br/><pre>src\Data\Extensible\Envy.hs:25:88: error:
+  f membership = Ex.Field &lt;$&gt; Env.env (Ex.stringKeyOf membership)</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579602627.038700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579602627.038700">2020-01-21 19:30:27 +0900</a></div>
+          </div>
+          <div class="message__body description">エラーメッセージ:<br/><pre>src\Data\Extensible\Envy.hs:25:88: error:
     • Couldn't match kind 'Symbol' with '*'
       When matching types
         kv1 :: Ex.Assoc * *
@@ -122,4 +531,69 @@ recordFromEnv =
                 f membership = Ex.Field &lt;$&gt; Env.env (Ex.stringKeyOf membership)
    |
 25 |   Ex.hgenerateFor (Proxy :: Proxy (Ex.KeyTargetAre KnownSymbol (Instance1 Env.Var h))) f
-   |                                                                                        ^</pre></div></div></div><div class="message event" id="message-1579603832.039000"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1579603832.039000">2020-01-21&nbsp;19:50:32 +0900</a></div></div><div class="message__body description">PolyKinds ？</div></div></div><div class="message event" id="message-1579604059.039200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1579604059.039200">2020-01-21&nbsp;19:54:19 +0900</a></div></div><div class="message__body description">ホントだ... ありがとう...! :joy:<br/><a href='https://qiita.com/A_kirisaki/items/a72cb21be08c6dd7cf92'>https://qiita.com/A_kirisaki/items/a72cb21be08c6dd7cf92</a> とかでも言及がない（別の拡張がimplyしてる？）からまさかと思ってたけど <code>PolyKinds</code> か...!</div></div></div><div class="message event" id="message-1579604196.039500"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1579604196.039500">2020-01-21&nbsp;19:56:36 +0900</a></div></div><div class="message__body description">僕は書いたことあるなぁと思って <code>site:<http://matsubara0507.github.io|matsubara0507.github.io> PolyKinds</code> って検索したらこんなの出てきた笑<br/><a href='https://matsubara0507.github.io/test-extensible/memo/00.html'>https://matsubara0507.github.io/test-extensible/memo/00.html</a><br/><blockquote>カインドでエラーが出るときは、だいたい `PolyKinds` 拡張が足りない</blockquote></div></div></div><div class="message event" id="message-1579604294.039900"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1579604294.039900">2020-01-21&nbsp;19:58:14 +0900</a></div></div><div class="message__body description">PolyKinds、安易に有効にしたら余計に多相に推論されて却って面倒なことになった苦い思い出があるのであんまり使いたくないんだよなぁ...<br/>でも今回のエラーは確かにPolyKindsですね... <code>*</code> と <code>Symbol</code> が合わないっていってるわけだし...</div></div></div><div class="message event" id="message-1579614328.040300"><div class="content"><div class="summary"><div class="message__header user">motohiro686</div><div class="message__timestamp date"><a class="date" href="#message-1579614328.040300">2020-01-21&nbsp;22:45:28 +0900</a></div></div><div class="message__body description">@motohiro686 has joined the channel</div></div></div><div class="message event" id="message-1579670068.040600"><div class="content"><div class="summary"><div class="message__header user">shiketai.35</div><div class="message__timestamp date"><a class="date" href="#message-1579670068.040600">2020-01-22&nbsp;14:14:28 +0900</a></div></div><div class="message__body description">@shiketai.35 has joined the channel</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/76.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/78.html" class="pager__next item">Next</a></div></div></body></html>
+   |                                                                                        ^</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579603832.039000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579603832.039000">2020-01-21 19:50:32 +0900</a></div>
+          </div>
+          <div class="message__body description">PolyKinds ？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579604059.039200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579604059.039200">2020-01-21 19:54:19 +0900</a></div>
+          </div>
+          <div class="message__body description">ホントだ... ありがとう...! :joy:<br/><a href='https://qiita.com/A_kirisaki/items/a72cb21be08c6dd7cf92'>https://qiita.com/A_kirisaki/items/a72cb21be08c6dd7cf92</a> とかでも言及がない（別の拡張がimplyしてる？）からまさかと思ってたけど <code>PolyKinds</code> か...!</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579604196.039500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579604196.039500">2020-01-21 19:56:36 +0900</a></div>
+          </div>
+          <div class="message__body description">僕は書いたことあるなぁと思って <code>site:<http://matsubara0507.github.io|matsubara0507.github.io> PolyKinds</code> って検索したらこんなの出てきた笑<br/><a href='https://matsubara0507.github.io/test-extensible/memo/00.html'>https://matsubara0507.github.io/test-extensible/memo/00.html</a><br/><blockquote>カインドでエラーが出るときは、だいたい `PolyKinds` 拡張が足りない</blockquote></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579604294.039900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579604294.039900">2020-01-21 19:58:14 +0900</a></div>
+          </div>
+          <div class="message__body description">PolyKinds、安易に有効にしたら余計に多相に推論されて却って面倒なことになった苦い思い出があるのであんまり使いたくないんだよなぁ...<br/>でも今回のエラーは確かにPolyKindsですね... <code>*</code> と <code>Symbol</code> が合わないっていってるわけだし...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579614328.040300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">motohiro686</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579614328.040300">2020-01-21 22:45:28 +0900</a></div>
+          </div>
+          <div class="message__body description">@motohiro686 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1579670068.040600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shiketai.35</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1579670068.040600">2020-01-22 14:14:28 +0900</a></div>
+          </div>
+          <div class="message__body description">@shiketai.35 has joined the channel</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/76.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/78.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>
