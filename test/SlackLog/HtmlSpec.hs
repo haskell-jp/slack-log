@@ -5,12 +5,11 @@ module SlackLog.HtmlSpec
   ) where
 
 
-import qualified Data.Yaml               as Yaml
-import qualified Data.ByteString.Lazy    as BL
-import qualified Data.Text.Lazy          as TL
-import qualified Data.Text.Lazy.Encoding as TLE
-import qualified Data.Text.Lazy.IO       as TLI
-import qualified System.Directory        as Dir
+import qualified Data.ByteString    as B
+import qualified Data.Text          as T
+import qualified Data.Text.Encoding as TE
+import qualified Data.Yaml          as Yaml
+import qualified System.Directory   as Dir
 import           Test.Hspec
 
 import           SlackLog.Html
@@ -23,7 +22,7 @@ spec = do
     loadWorkspaceInfo config "test/assets"
 
   let idOfRandom = "C4M4TT8JJ"
-  -- ^ The random channel configured in .slack-log.yaml
+  -- The random channel configured in .slack-log.yaml
 
   describe "renderSlackMessages" $
     it "converts messages in Slack into a byte string of HTML" $ do
@@ -47,6 +46,5 @@ spec = do
         renderIndexOfPages w channelAndPaths `shouldReturn` expected
 
 
-readAsExpectedHtml :: FilePath -> IO BL.ByteString
-readAsExpectedHtml =
-  fmap (TLE.encodeUtf8 . TL.concat . map TL.strip . TL.lines) . TLI.readFile
+readAsExpectedHtml :: FilePath -> IO T.Text
+readAsExpectedHtml = fmap TE.decodeUtf8 . B.readFile

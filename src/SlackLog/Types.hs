@@ -5,6 +5,7 @@
 module SlackLog.Types
   ( module SlackLog.Duration
   , Config (..)
+  , TemplatePaths (..)
   , TargetChannels
   , UserName
   , UserId
@@ -40,6 +41,15 @@ data Config = Config
   -- ^ Target channels whose messages are collected by slack-logger.
   --   This is the only configuration item used when collecting JSON files
   --   from Slack: not only when converting JSON files into HTML.
+  , templatePaths     :: TemplatePaths
+  -- ^ Path to the mustache template file used to convert the JSON files
+  --   into HTML. The template engine is <https://hackage.haskell.org/package/mustache mustache>.
+  } deriving (Eq, Show, Generic, Json.FromJSON)
+
+
+data TemplatePaths = TemplatePaths
+  { indexPage    :: FilePath
+  , messagesPage :: FilePath
   } deriving (Eq, Show, Generic, Json.FromJSON)
 
 type TargetChannels = HM.HashMap ChannelId ChannelName
