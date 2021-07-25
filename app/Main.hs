@@ -34,7 +34,7 @@ import qualified Data.ByteString.Lazy     as BL
 import           Data.Foldable            (for_)
 import qualified Data.HashMap.Strict      as HM
 import qualified Data.IORef               as IOR
-import           Data.List                (sortOn, isSuffixOf)
+import           Data.List                (isSuffixOf, sortOn)
 import           Data.Maybe               (fromMaybe, maybeToList)
 import qualified Data.Text                as T
 import qualified Data.Text.IO             as T
@@ -251,6 +251,7 @@ addMessagesToChannelDirectory chanId msgs =
     BL.writeFile tmpFileName $ Json.encodePretty msgs
     Dir.createDirectoryIfMissing False channelNameS
 
+    -- NOTE: Duplicate logic with `collectTargetJsons`. But I'm not sure how to refactor.
     channelDirItems <- filter (isSuffixOf ".json") <$> Dir.listDirectory channelNameS
     (mLatestPageFileName, basePageNum) <-
       if null channelDirItems

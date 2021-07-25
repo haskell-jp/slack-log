@@ -6,6 +6,7 @@ module SlackLog.HtmlSpec
 
 
 import qualified Data.ByteString    as B
+import           Data.List          (isSuffixOf)
 import qualified Data.Text          as T
 import qualified Data.Text.Encoding as TE
 import qualified Data.Yaml          as Yaml
@@ -44,6 +45,12 @@ spec = do
 
       Dir.withCurrentDirectory "test/assets" $
         renderIndexOfPages w channelAndPaths `shouldReturn` expected
+
+  describe "collectTargetJsons" $
+    it "Returns JSON files for files under the docs/json directory" $
+      Dir.withCurrentDirectory "docs" $ do
+        result <- collectTargetJsons idOfRandom
+        result `shouldSatisfy` all (".json" `isSuffixOf`)
 
 
 readAsExpectedHtml :: FilePath -> IO T.Text
