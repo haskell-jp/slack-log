@@ -1,4 +1,71 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #22</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #22</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/21.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/23.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1528066615.000083"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1528066615.000083">2018-06-04&nbsp;07:56:55 +0900</a></div></div><div class="message__body description">ghc-paths-0.1.0.9: using precompiled package<br/>ghc-pkg.EXE: cannot find package ghc-paths-0.1.0.9</div></div></div><div class="message event" id="message-1528066631.000114"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1528066631.000114">2018-06-04&nbsp;07:57:11 +0900</a></div></div><div class="message__body description">このようなエラーメッセージが出てきまして、他のプロジェクトでも同様の状況でした。</div></div></div><div class="message event" id="message-1528066660.000092"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1528066660.000092">2018-06-04&nbsp;07:57:40 +0900</a></div></div><div class="message__body description">TravisCI上でも再現しました <a href='https://travis-ci.org/Hexirp/hasga/jobs/387543428#L449'>https://travis-ci.org/Hexirp/hasga/jobs/387543428#L449</a></div></div></div><div class="message event" id="message-1528068062.000020"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1528068062.000020">2018-06-04&nbsp;08:21:02 +0900</a></div></div><div class="message__body description">とりあえず .stack-work を消したり<br/>~/.stack/ を消してみる、ですかね。。。</div></div></div><div class="message event" id="message-1528084166.000064"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1528084166.000064">2018-06-04&nbsp;12:49:26 +0900</a></div></div><div class="message__body description">アドバイスありがとうございます。色々試してみたところ <a href='https://haskell.e-bigmoon.com/stack/tips/full-rebuild.html'>https://haskell.e-bigmoon.com/stack/tips/full-rebuild.html</a> の一番下で直りました</div></div></div><div class="message event" id="message-1528162418.000100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1528162418.000100">2018-06-05&nbsp;10:33:38 +0900</a></div></div><div class="message__body description">extensibleについて再び質問です。<br/><code>Associate k v xs =&gt; FieldName k -&gt; Record xs -&gt; v</code><br/>という型の関数を書くにはどうすればよいでしょうか？<br/><code>FieldName k</code> はざっくりいうと <code>Optic</code> の 型シノニムなので普通のlensや <code>mkField</code> で作られたフィールドらしく<br/><code>record ^. field</code> みたいな式で取り出せるかな、と思ったのですが、<br/><pre>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #22</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #22</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/21.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/23.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1528066615.000083">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528066615.000083">2018-06-04 07:56:55 +0900</a></div>
+          </div>
+          <div class="message__body description">ghc-paths-0.1.0.9: using precompiled package<br/>ghc-pkg.EXE: cannot find package ghc-paths-0.1.0.9</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528066631.000114">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528066631.000114">2018-06-04 07:57:11 +0900</a></div>
+          </div>
+          <div class="message__body description">このようなエラーメッセージが出てきまして、他のプロジェクトでも同様の状況でした。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528066660.000092">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528066660.000092">2018-06-04 07:57:40 +0900</a></div>
+          </div>
+          <div class="message__body description">TravisCI上でも再現しました <a href='https://travis-ci.org/Hexirp/hasga/jobs/387543428#L449'>https://travis-ci.org/Hexirp/hasga/jobs/387543428#L449</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528068062.000020">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528068062.000020">2018-06-04 08:21:02 +0900</a></div>
+          </div>
+          <div class="message__body description">とりあえず .stack-work を消したり<br/>~/.stack/ を消してみる、ですかね。。。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528084166.000064">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528084166.000064">2018-06-04 12:49:26 +0900</a></div>
+          </div>
+          <div class="message__body description">アドバイスありがとうございます。色々試してみたところ <a href='https://haskell.e-bigmoon.com/stack/tips/full-rebuild.html'>https://haskell.e-bigmoon.com/stack/tips/full-rebuild.html</a> の一番下で直りました</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528162418.000100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528162418.000100">2018-06-05 10:33:38 +0900</a></div>
+          </div>
+          <div class="message__body description">extensibleについて再び質問です。<br/><code>Associate k v xs =&gt; FieldName k -&gt; Record xs -&gt; v</code><br/>という型の関数を書くにはどうすればよいでしょうか？<br/><code>FieldName k</code> はざっくりいうと <code>Optic</code> の 型シノニムなので普通のlensや <code>mkField</code> で作られたフィールドらしく<br/><code>record ^. field</code> みたいな式で取り出せるかな、と思ったのですが、<br/><pre>
 app\record-placeholder.hs:53:23: error:
     • Couldn't match type ‘LabelPhantom
                              k1
@@ -7,14 +74,194 @@ app\record-placeholder.hs:53:23: error:
                      with ‘Record xs -&gt; Const a0 (Record xs)’
       Expected type: Control.Lens.Getter.Getting a0 (Record xs) a0
         Actual type: FieldName k1
-</pre><br/>という内容のコンパイルエラーで怒られてしまいました :disappointed:</div></div></div><div class="message event" id="message-1528162496.000252"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1528162496.000252">2018-06-05&nbsp;10:34:56 +0900</a></div></div><div class="message__body description">OverloadedLabels を使わずに？</div></div></div><div class="message event" id="message-1528162929.000044"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1528162929.000044">2018-06-05&nbsp;10:42:09 +0900</a></div></div><div class="message__body description">使っています。<br/>で、 <code>FieldName</code> は <code>#field</code> のように <code>OverloadedLables</code> で多相化された状態ではなく、 <code>field :: FieldName k</code> という型の変数として渡されます。<br/>そこを <code>FieldName k</code> 以外の型にした方がいいんだろうか...</div></div></div><div class="message event" id="message-1528163053.000057"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1528163053.000057">2018-06-05&nbsp;10:44:13 +0900</a></div></div><div class="message__body description">FieldNameは`FieldOptic`の特殊な場合で、Proxyと基本的に同じ役割を持ちます。`FieldOptic`の方はLensの機能を持っています</div></div></div><div class="message event" id="message-1528163331.000138"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1528163331.000138">2018-06-05&nbsp;10:48:51 +0900</a></div></div><div class="message__body description">もしかして謎の <code>訊</code> <a href='https://hackage.haskell.org/package/extensible-0.4.9/docs/Data-Extensible-Label.html#v:-35338-'>https://hackage.haskell.org/package/extensible-0.4.9/docs/Data-Extensible-Label.html#v:-35338-</a> <br/>で変換するのが正解なんでしょうか？</div></div></div><div class="message event" id="message-1528171038.000017"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1528171038.000017">2018-06-05&nbsp;12:57:18 +0900</a></div></div><div class="message__body description">引数がFieldNameでないといけないなら、itemAssoc(訊)で変換する必要がありますが、そうでない場合型をFieldOpticにすれば大丈夫だと思います</div></div></div><div class="message event" id="message-1528285816.000488"><div class="content"><div class="summary"><div class="message__header user">iokasimov.m</div><div class="message__timestamp date"><a class="date" href="#message-1528285816.000488">2018-06-06&nbsp;20:50:16 +0900</a></div></div><div class="message__body description">@iokasimov.m has joined the channel</div></div></div><div class="message event" id="message-1528355863.000138"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1528355863.000138">2018-06-07&nbsp;16:17:43 +0900</a></div></div><div class="message__body description">言い忘れていましたが 、オプティックを多相なまま引数に取るのはアンチパターンと考えられているようです(ALensなどがあるのはそのため)。そこを考慮すると、 <code>FieldName k</code> を引数に取って、 <code>hlookup (associate :: Membership xs (k ':&gt; v)</code> と書くのがよさそうです</div></div></div><div class="message event" id="message-1528356351.000309"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1528356351.000309">2018-06-07&nbsp;16:25:51 +0900</a></div></div><div class="message__body description">ありがとうございます。<br/>報告が遅くなりましたが、私の用途で <code>FieldOptic k</code> を引数にすると <code>v</code> の型がうまく定まらないのかコンパイルエラーになってしまったので、<br/><code>rec ^. itemAssoc (Proxy :: Proxy k)</code> と書いて解決しました。<br/>（ <code>Associate k v xs =&gt;</code> というコンテキストだったので）</div></div></div><div class="message event" id="message-1528552108.000042"><div class="content"><div class="summary"><div class="message__header user">j0td5ta0d1mt</div><div class="message__timestamp date"><a class="date" href="#message-1528552108.000042">2018-06-09&nbsp;22:48:28 +0900</a></div></div><div class="message__body description">@j0td5ta0d1mt has joined the channel</div></div></div><div class="message event" id="message-1528683298.000064"><div class="content"><div class="summary"><div class="message__header user">cosmiafu</div><div class="message__timestamp date"><a class="date" href="#message-1528683298.000064">2018-06-11&nbsp;11:14:58 +0900</a></div></div><div class="message__body description">Is there a way to inspect the definition of derived instances?<br/>Say:<br/><pre>data Free f a = Pure a | Free (f (Free f a)) deriving Functor</pre></div></div></div><div class="message event" id="message-1528683717.000158"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1528683717.000158">2018-06-11&nbsp;11:21:57 +0900</a></div></div><div class="message__body description">you can use the -ddump-deriv option: <a href='https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/debugging.html?highlight=#ghc-flag--ddump-deriv'>https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/debugging.html?highlight=#ghc-flag--ddump-deriv</a></div></div></div><div class="message event" id="message-1528683781.000054"><div class="content"><div class="summary"><div class="message__header user">cosmiafu</div><div class="message__timestamp date"><a class="date" href="#message-1528683781.000054">2018-06-11&nbsp;11:23:01 +0900</a></div></div><div class="message__body description">Thanks!</div></div></div><div class="message event" id="message-1529254455.000129"><div class="content"><div class="summary"><div class="message__header user">eliza0x</div><div class="message__timestamp date"><a class="date" href="#message-1529254455.000129">2018-06-18&nbsp;01:54:15 +0900</a></div></div><div class="message__body description"><pre>
+</pre><br/>という内容のコンパイルエラーで怒られてしまいました :disappointed:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528162496.000252">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528162496.000252">2018-06-05 10:34:56 +0900</a></div>
+          </div>
+          <div class="message__body description">OverloadedLabels を使わずに？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528162929.000044">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528162929.000044">2018-06-05 10:42:09 +0900</a></div>
+          </div>
+          <div class="message__body description">使っています。<br/>で、 <code>FieldName</code> は <code>#field</code> のように <code>OverloadedLables</code> で多相化された状態ではなく、 <code>field :: FieldName k</code> という型の変数として渡されます。<br/>そこを <code>FieldName k</code> 以外の型にした方がいいんだろうか...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528163053.000057">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528163053.000057">2018-06-05 10:44:13 +0900</a></div>
+          </div>
+          <div class="message__body description">FieldNameは`FieldOptic`の特殊な場合で、Proxyと基本的に同じ役割を持ちます。`FieldOptic`の方はLensの機能を持っています</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528163331.000138">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528163331.000138">2018-06-05 10:48:51 +0900</a></div>
+          </div>
+          <div class="message__body description">もしかして謎の <code>訊</code> <a href='https://hackage.haskell.org/package/extensible-0.4.9/docs/Data-Extensible-Label.html#v:-35338-'>https://hackage.haskell.org/package/extensible-0.4.9/docs/Data-Extensible-Label.html#v:-35338-</a> <br/>で変換するのが正解なんでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528171038.000017">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528171038.000017">2018-06-05 12:57:18 +0900</a></div>
+          </div>
+          <div class="message__body description">引数がFieldNameでないといけないなら、itemAssoc(訊)で変換する必要がありますが、そうでない場合型をFieldOpticにすれば大丈夫だと思います</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528285816.000488">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">iokasimov.m</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528285816.000488">2018-06-06 20:50:16 +0900</a></div>
+          </div>
+          <div class="message__body description">@iokasimov.m has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528355863.000138">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528355863.000138">2018-06-07 16:17:43 +0900</a></div>
+          </div>
+          <div class="message__body description">言い忘れていましたが 、オプティックを多相なまま引数に取るのはアンチパターンと考えられているようです(ALensなどがあるのはそのため)。そこを考慮すると、 <code>FieldName k</code> を引数に取って、 <code>hlookup (associate :: Membership xs (k ':&gt; v)</code> と書くのがよさそうです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528356351.000309">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528356351.000309">2018-06-07 16:25:51 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます。<br/>報告が遅くなりましたが、私の用途で <code>FieldOptic k</code> を引数にすると <code>v</code> の型がうまく定まらないのかコンパイルエラーになってしまったので、<br/><code>rec ^. itemAssoc (Proxy :: Proxy k)</code> と書いて解決しました。<br/>（ <code>Associate k v xs =&gt;</code> というコンテキストだったので）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528552108.000042">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">j0td5ta0d1mt</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528552108.000042">2018-06-09 22:48:28 +0900</a></div>
+          </div>
+          <div class="message__body description">@j0td5ta0d1mt has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528683298.000064">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cosmiafu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528683298.000064">2018-06-11 11:14:58 +0900</a></div>
+          </div>
+          <div class="message__body description">Is there a way to inspect the definition of derived instances?<br/>Say:<br/><pre>data Free f a = Pure a | Free (f (Free f a)) deriving Functor</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528683717.000158">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528683717.000158">2018-06-11 11:21:57 +0900</a></div>
+          </div>
+          <div class="message__body description">you can use the -ddump-deriv option: <a href='https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/debugging.html?highlight=#ghc-flag--ddump-deriv'>https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/debugging.html?highlight=#ghc-flag--ddump-deriv</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1528683781.000054">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cosmiafu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1528683781.000054">2018-06-11 11:23:01 +0900</a></div>
+          </div>
+          <div class="message__body description">Thanks!</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1529254455.000129">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">eliza0x</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1529254455.000129">2018-06-18 01:54:15 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>
 data Tree a = Node a Tree Tree | Leaf a
-</pre><br/>のような循環した構造をextensibleで宣言するにはどうすればいいでしょうか？typeで愚直に宣言すると循環していると言ってエラーが出てしまったのですが……</div></div></div><div class="message event" id="message-1529283483.000115"><div class="content"><div class="summary"><div class="message__header user">cosmiafu</div><div class="message__timestamp date"><a class="date" href="#message-1529283483.000115">2018-06-18&nbsp;09:58:03 +0900</a></div></div><div class="message__body description"><pre>data T a = N a (T a) (T a) | L a</pre><br/>多分こういう意味では？</div></div></div><div class="message event" id="message-1529283573.000201"><div class="content"><div class="summary"><div class="message__header user">cosmiafu</div><div class="message__timestamp date"><a class="date" href="#message-1529283573.000201">2018-06-18&nbsp;09:59:33 +0900</a></div></div><div class="message__body description">data constructor fields の kind は <code>*</code> が必要</div></div></div><div class="message event" id="message-1529292139.000068"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1529292139.000068">2018-06-18&nbsp;12:22:19 +0900</a></div></div><div class="message__body description">newtypeするのが無難です。data familyを活用して、再帰する為のラッパーを作るという力技もできなくはないです</div></div></div><div class="message event" id="message-1529304365.000096"><div class="content"><div class="summary"><div class="message__header user">eliza0x</div><div class="message__timestamp date"><a class="date" href="#message-1529304365.000096">2018-06-18&nbsp;15:46:05 +0900</a></div></div><div class="message__body description">ありがとうございます！</div></div></div><div class="message event" id="message-1529466454.000056"><div class="content"><div class="summary"><div class="message__header user">hiroto.shioi</div><div class="message__timestamp date"><a class="date" href="#message-1529466454.000056">2018-06-20&nbsp;12:47:34 +0900</a></div></div><div class="message__body description">Equality constraintsに関する質問です。型変数aはFoo型もしくはBar型であるって制約を課すことは可能なのでしょうか。。`someFun :: (a ~ (Foo || Bar), Monad m) =&gt; m a` みたいな</div></div></div><div class="message event" id="message-1529476423.000236"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1529476423.000236">2018-06-20&nbsp;15:33:43 +0900</a></div></div><div class="message__body description">実行環境ないので試してないのですが<br/><pre>
+</pre><br/>のような循環した構造をextensibleで宣言するにはどうすればいいでしょうか？typeで愚直に宣言すると循環していると言ってエラーが出てしまったのですが……</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1529283483.000115">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cosmiafu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1529283483.000115">2018-06-18 09:58:03 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>data T a = N a (T a) (T a) | L a</pre><br/>多分こういう意味では？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1529283573.000201">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cosmiafu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1529283573.000201">2018-06-18 09:59:33 +0900</a></div>
+          </div>
+          <div class="message__body description">data constructor fields の kind は <code>*</code> が必要</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1529292139.000068">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1529292139.000068">2018-06-18 12:22:19 +0900</a></div>
+          </div>
+          <div class="message__body description">newtypeするのが無難です。data familyを活用して、再帰する為のラッパーを作るという力技もできなくはないです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1529304365.000096">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">eliza0x</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1529304365.000096">2018-06-18 15:46:05 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1529466454.000056">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroto.shioi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1529466454.000056">2018-06-20 12:47:34 +0900</a></div>
+          </div>
+          <div class="message__body description">Equality constraintsに関する質問です。型変数aはFoo型もしくはBar型であるって制約を課すことは可能なのでしょうか。。`someFun :: (a ~ (Foo || Bar), Monad m) =&gt; m a` みたいな</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1529476423.000236">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1529476423.000236">2018-06-20 15:33:43 +0900</a></div>
+          </div>
+          <div class="message__body description">実行環境ないので試してないのですが<br/><pre>
 import Data.Type.Bool
 import Data.Type.Equality
 
 someFun :: (a == Foo || a == Bar) ~ True =&gt; ...
-</pre><br/>とかはどうでしょう？</div></div></div><div class="message event" id="message-1529479081.000043"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1529479081.000043">2018-06-20&nbsp;16:18:01 +0900</a></div></div><div class="message__body description">閉じた型族を使えば実現できます。<br/><pre>
+</pre><br/>とかはどうでしょう？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1529479081.000043">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1529479081.000043">2018-06-20 16:18:01 +0900</a></div>
+          </div>
+          <div class="message__body description">閉じた型族を使えば実現できます。<br/><pre>
 {-# LANGUAGE ConstraintKinds, TypeFamilies #-}
 import Data.Constraint
 data Foo
@@ -27,7 +274,70 @@ type family IsFooOrBar x :: Constraint where
 
 someFun :: (IsFooOrBar a, Monad m) =&gt; m a
 someFun = undefined
-</pre></div></div></div><div class="message event" id="message-1529479221.000099"><div class="content"><div class="summary"><div class="message__header user">hiroto.shioi</div><div class="message__timestamp date"><a class="date" href="#message-1529479221.000099">2018-06-20&nbsp;16:20:21 +0900</a></div></div><div class="message__body description">わーありがとう。やってみます！</div></div></div><div class="message event" id="message-1529629607.000072"><div class="content"><div class="summary"><div class="message__header user">cosmiafu</div><div class="message__timestamp date"><a class="date" href="#message-1529629607.000072">2018-06-22&nbsp;10:06:47 +0900</a></div></div><div class="message__body description">でも、その制約をしたら、後からどうやってFooとBarの型に取れるの？</div></div></div><div class="message event" id="message-1529660416.000597"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1529660416.000597">2018-06-22&nbsp;18:40:16 +0900</a></div></div><div class="message__body description">open-unionを使うのが実用的で手っ取り早い解?<br/>しかしこれもliftUnionを通すので引数そのまま渡すわけではないですね…<br/>Haskellのジェネリクスは異種変換ではないですし,Rustのトレイトオブジェクトみたいなのを導入してしまったら結局は動的ディスパッチになる<br/>パターンマッチとかで型によって静的分岐出来たらそれは実質的な関数オーバーロードですね<br/>Haskellに関数オーバーロード入れてしまって良いんだっけ…?</div></div></div><div class="message event" id="message-1529661544.000209"><div class="content"><div class="summary"><div class="message__header user">kanjiro_f</div><div class="message__timestamp date"><a class="date" href="#message-1529661544.000209">2018-06-22&nbsp;18:59:04 +0900</a></div></div><div class="message__body description">@kanjiro_f has joined the channel</div></div></div><div class="message event" id="message-1529698010.000096"><div class="content"><div class="summary"><div class="message__header user">notogawa</div><div class="message__timestamp date"><a class="date" href="#message-1529698010.000096">2018-06-23&nbsp;05:06:50 +0900</a></div></div><div class="message__body description"><a href='https://gist.github.com/notogawa/2fbf7b24cd4697d70dc70dc46c91bd04'>https://gist.github.com/notogawa/2fbf7b24cd4697d70dc70dc46c91bd04</a></div></div></div><div class="message event" id="message-1529737751.000045"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1529737751.000045">2018-06-23&nbsp;16:09:11 +0900</a></div></div><div class="message__body description">ansi-wl-pprint -&gt; prettyprinter + prettyprinter-ansi-terminalの話が出てますが，ansi-wl-pprintのDocをprettyprinter + prettyprinter-ansi-terminalのDoc AnsiStyleに変換する関数って誰か作ってたりしますかね？(諸事情で変換したくて自分では書きたくないのですが)<br/><a href='https://github.com/ekmett/ansi-wl-pprint/issues/18'>https://github.com/ekmett/ansi-wl-pprint/issues/18</a></div></div></div><div class="message event" id="message-1529743351.000032"><div class="content"><div class="summary"><div class="message__header user">hiroto.shioi</div><div class="message__timestamp date"><a class="date" href="#message-1529743351.000032">2018-06-23&nbsp;17:42:31 +0900</a></div></div><div class="message__body description">ありがとうございます、解決しました！<br/>ざっくり説明しますと、<br/>- サポートデスクからユーザー及び送られてきたチケットを解析するアプリを開発している。<br/>- サポートデスクのAPIでチケットをフェッチすると以下のデータが得られる。<br/>チケット<br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1529479221.000099">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroto.shioi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1529479221.000099">2018-06-20 16:20:21 +0900</a></div>
+          </div>
+          <div class="message__body description">わーありがとう。やってみます！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1529629607.000072">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cosmiafu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1529629607.000072">2018-06-22 10:06:47 +0900</a></div>
+          </div>
+          <div class="message__body description">でも、その制約をしたら、後からどうやってFooとBarの型に取れるの？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1529660416.000597">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1529660416.000597">2018-06-22 18:40:16 +0900</a></div>
+          </div>
+          <div class="message__body description">open-unionを使うのが実用的で手っ取り早い解?<br/>しかしこれもliftUnionを通すので引数そのまま渡すわけではないですね…<br/>Haskellのジェネリクスは異種変換ではないですし,Rustのトレイトオブジェクトみたいなのを導入してしまったら結局は動的ディスパッチになる<br/>パターンマッチとかで型によって静的分岐出来たらそれは実質的な関数オーバーロードですね<br/>Haskellに関数オーバーロード入れてしまって良いんだっけ…?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1529661544.000209">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kanjiro_f</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1529661544.000209">2018-06-22 18:59:04 +0900</a></div>
+          </div>
+          <div class="message__body description">@kanjiro_f has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1529698010.000096">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">notogawa</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1529698010.000096">2018-06-23 05:06:50 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://gist.github.com/notogawa/2fbf7b24cd4697d70dc70dc46c91bd04'>https://gist.github.com/notogawa/2fbf7b24cd4697d70dc70dc46c91bd04</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1529737751.000045">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1529737751.000045">2018-06-23 16:09:11 +0900</a></div>
+          </div>
+          <div class="message__body description">ansi-wl-pprint -&gt; prettyprinter + prettyprinter-ansi-terminalの話が出てますが，ansi-wl-pprintのDocをprettyprinter + prettyprinter-ansi-terminalのDoc AnsiStyleに変換する関数って誰か作ってたりしますかね？(諸事情で変換したくて自分では書きたくないのですが)<br/><a href='https://github.com/ekmett/ansi-wl-pprint/issues/18'>https://github.com/ekmett/ansi-wl-pprint/issues/18</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1529743351.000032">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroto.shioi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1529743351.000032">2018-06-23 17:42:31 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます、解決しました！<br/>ざっくり説明しますと、<br/>- サポートデスクからユーザー及び送られてきたチケットを解析するアプリを開発している。<br/>- サポートデスクのAPIでチケットをフェッチすると以下のデータが得られる。<br/>チケット<br/><pre>
 { "tickets":[],
   "next_page": some_url
 }
@@ -35,7 +345,25 @@ someFun = undefined
 { "users":[],
   "next_page": some_url
 }
-</pre><br/>最初別々の関数で取得してたけど、一般化させようって話になった。<br/>これがその結果です。発送はnotogawaさんが教えてくれたものと似ていると思います。<br/>(`iteratePages`が取得関数です。)<br/><a href='https://github.com/input-output-hk/log-classifier/pull/19/commits/ef7b8e54df080e476053df1fdb3c9909bfd8f340'>https://github.com/input-output-hk/log-classifier/pull/19/commits/ef7b8e54df080e476053df1fdb3c9909bfd8f340</a></div></div></div><div class="message event" id="message-1529860312.000060"><div class="content"><div class="summary"><div class="message__header user">sean.westfall</div><div class="message__timestamp date"><a class="date" href="#message-1529860312.000060">2018-06-25&nbsp;02:11:52 +0900</a></div></div><div class="message__body description">@sean.westfall has joined the channel</div></div></div><div class="message event" id="message-1530072171.000072"><div class="content"><div class="summary"><div class="message__header user">cosmiafu</div><div class="message__timestamp date"><a class="date" href="#message-1530072171.000072">2018-06-27&nbsp;13:02:51 +0900</a></div></div><div class="message__body description">TemplateHaskellって、生成したコードは <code>.hs</code> で出力できるの？例えば<br/><pre>{-# LANGUAGE TemplateHaskell #-}
+</pre><br/>最初別々の関数で取得してたけど、一般化させようって話になった。<br/>これがその結果です。発送はnotogawaさんが教えてくれたものと似ていると思います。<br/>(`iteratePages`が取得関数です。)<br/><a href='https://github.com/input-output-hk/log-classifier/pull/19/commits/ef7b8e54df080e476053df1fdb3c9909bfd8f340'>https://github.com/input-output-hk/log-classifier/pull/19/commits/ef7b8e54df080e476053df1fdb3c9909bfd8f340</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1529860312.000060">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">sean.westfall</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1529860312.000060">2018-06-25 02:11:52 +0900</a></div>
+          </div>
+          <div class="message__body description">@sean.westfall has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1530072171.000072">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cosmiafu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1530072171.000072">2018-06-27 13:02:51 +0900</a></div>
+          </div>
+          <div class="message__body description">TemplateHaskellって、生成したコードは <code>.hs</code> で出力できるの？例えば<br/><pre>{-# LANGUAGE TemplateHaskell #-}
 module Foo where
 
 import Language.Haskell.TH.Syntax
@@ -48,10 +376,145 @@ module Foo where
 import Language.Haskell.TH.Syntax
 
 foo = "foobar"
-</pre><br/>みたいな</div></div></div><div class="message event" id="message-1530073276.000232"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1530073276.000232">2018-06-27&nbsp;13:21:16 +0900</a></div></div><div class="message__body description">ghc に <code>-ddump-splices</code> というオプションで、生成したソースを書き出すことはできますが、 <code>.hs</code> として直接コンパイルできるものではありません。</div></div></div><div class="message event" id="message-1530073420.000182"><div class="content"><div class="summary"><div class="message__header user">cosmiafu</div><div class="message__timestamp date"><a class="date" href="#message-1530073420.000182">2018-06-27&nbsp;13:23:40 +0900</a></div></div><div class="message__body description">それは知ってるけど。。。直接repoにcommitできるようにしたいなあ。。。</div></div></div><div class="message event" id="message-1530073536.000155"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1530073536.000155">2018-06-27&nbsp;13:25:36 +0900</a></div></div><div class="message__body description">変換してコピペしよう。</div></div></div><div class="message event" id="message-1530073580.000101"><div class="content"><div class="summary"><div class="message__header user">cosmiafu</div><div class="message__timestamp date"><a class="date" href="#message-1530073580.000101">2018-06-27&nbsp;13:26:20 +0900</a></div></div><div class="message__body description">そして、自分で探して、コピペするには、多くなるとやばいなあ。<br/>THの生成はローカル環境に関連あるから、THのコードを直接使えなくて。。。</div></div></div><div class="message event" id="message-1530073689.000130"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1530073689.000130">2018-06-27&nbsp;13:28:09 +0900</a></div></div><div class="message__body description">そういうスクリプトを書くしかないでしょう。<br/>要は直接依存してないパッケージ名の解決とimportする部分さえ吐き出せればいいんでそんなに難しくはないはず...</div></div></div><div class="message event" id="message-1530073828.000240"><div class="content"><div class="summary"><div class="message__header user">cosmiafu</div><div class="message__timestamp date"><a class="date" href="#message-1530073828.000240">2018-06-27&nbsp;13:30:28 +0900</a></div></div><div class="message__body description">hmmm</div></div></div><div class="message event" id="message-1530493493.000174"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1530493493.000174">2018-07-02&nbsp;10:04:53 +0900</a></div></div><div class="message__body description">tagの生成って皆さん何を使ってます？ :point_down: とかいろいろありますけど。<br/><a href='http://hackage.haskell.org/package/hothasktags'>http://hackage.haskell.org/package/hothasktags</a><br/><a href='http://hackage.haskell.org/package/haskdogs'>http://hackage.haskell.org/package/haskdogs</a><br/><a href='http://hackage.haskell.org/package/hasktags'>http://hackage.haskell.org/package/hasktags</a><br/><a href='http://hackage.haskell.org/package/fast-tags'>http://hackage.haskell.org/package/fast-tags</a></div></div></div><div class="message event" id="message-1530506037.000129"><div class="content"><div class="summary"><div class="message__header user">aiya000</div><div class="message__timestamp date"><a class="date" href="#message-1530506037.000129">2018-07-02&nbsp;13:33:57 +0900</a></div></div><div class="message__body description">僕はhaskdogsを使ってます！<br/>むしろこんなに色々あったのかー</div></div></div><div class="message event" id="message-1530508221.000093"><div class="content"><div class="summary"><div class="message__header user">y_taka_23</div><div class="message__timestamp date"><a class="date" href="#message-1530508221.000093">2018-07-02&nbsp;14:10:21 +0900</a></div></div><div class="message__body description">特に考えもなく最初に見つけた <code>hasktags</code> を使ってました。色々あるのね。</div></div></div><div class="message event" id="message-1530510682.000192"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1530510682.000192">2018-07-02&nbsp;14:51:22 +0900</a></div></div><div class="message__body description">:point_up: の4つ全部試したわけでもないし確かほかにもあったかと思いますが、とりあえず hasktags に戻ってます。 hothasktags はのLTSでビルドできなかったし...<br/>あとちなみに、haskdogsは実際にはhasktagsのラッパーです。</div></div></div><div class="message event" id="message-1530585055.000160"><div class="content"><div class="summary"><div class="message__header user">kayhide</div><div class="message__timestamp date"><a class="date" href="#message-1530585055.000160">2018-07-03&nbsp;11:30:55 +0900</a></div></div><div class="message__body description">無限リストを NonEmpty みたいに表現する常套手段って何かありますか？<br/><br/>ふつうにこのようにやると、<br/><pre>
+</pre><br/>みたいな</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1530073276.000232">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1530073276.000232">2018-06-27 13:21:16 +0900</a></div>
+          </div>
+          <div class="message__body description">ghc に <code>-ddump-splices</code> というオプションで、生成したソースを書き出すことはできますが、 <code>.hs</code> として直接コンパイルできるものではありません。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1530073420.000182">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cosmiafu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1530073420.000182">2018-06-27 13:23:40 +0900</a></div>
+          </div>
+          <div class="message__body description">それは知ってるけど。。。直接repoにcommitできるようにしたいなあ。。。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1530073536.000155">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1530073536.000155">2018-06-27 13:25:36 +0900</a></div>
+          </div>
+          <div class="message__body description">変換してコピペしよう。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1530073580.000101">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cosmiafu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1530073580.000101">2018-06-27 13:26:20 +0900</a></div>
+          </div>
+          <div class="message__body description">そして、自分で探して、コピペするには、多くなるとやばいなあ。<br/>THの生成はローカル環境に関連あるから、THのコードを直接使えなくて。。。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1530073689.000130">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1530073689.000130">2018-06-27 13:28:09 +0900</a></div>
+          </div>
+          <div class="message__body description">そういうスクリプトを書くしかないでしょう。<br/>要は直接依存してないパッケージ名の解決とimportする部分さえ吐き出せればいいんでそんなに難しくはないはず...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1530073828.000240">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cosmiafu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1530073828.000240">2018-06-27 13:30:28 +0900</a></div>
+          </div>
+          <div class="message__body description">hmmm</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1530493493.000174">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1530493493.000174">2018-07-02 10:04:53 +0900</a></div>
+          </div>
+          <div class="message__body description">tagの生成って皆さん何を使ってます？ :point_down: とかいろいろありますけど。<br/><a href='http://hackage.haskell.org/package/hothasktags'>http://hackage.haskell.org/package/hothasktags</a><br/><a href='http://hackage.haskell.org/package/haskdogs'>http://hackage.haskell.org/package/haskdogs</a><br/><a href='http://hackage.haskell.org/package/hasktags'>http://hackage.haskell.org/package/hasktags</a><br/><a href='http://hackage.haskell.org/package/fast-tags'>http://hackage.haskell.org/package/fast-tags</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1530506037.000129">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">aiya000</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1530506037.000129">2018-07-02 13:33:57 +0900</a></div>
+          </div>
+          <div class="message__body description">僕はhaskdogsを使ってます！<br/>むしろこんなに色々あったのかー</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1530508221.000093">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">y_taka_23</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1530508221.000093">2018-07-02 14:10:21 +0900</a></div>
+          </div>
+          <div class="message__body description">特に考えもなく最初に見つけた <code>hasktags</code> を使ってました。色々あるのね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1530510682.000192">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1530510682.000192">2018-07-02 14:51:22 +0900</a></div>
+          </div>
+          <div class="message__body description">:point_up: の4つ全部試したわけでもないし確かほかにもあったかと思いますが、とりあえず hasktags に戻ってます。 hothasktags はのLTSでビルドできなかったし...<br/>あとちなみに、haskdogsは実際にはhasktagsのラッパーです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1530585055.000160">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kayhide</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1530585055.000160">2018-07-03 11:30:55 +0900</a></div>
+          </div>
+          <div class="message__body description">無限リストを NonEmpty みたいに表現する常套手段って何かありますか？<br/><br/>ふつうにこのようにやると、<br/><pre>
 xs = [1..] :: [Int]
 let (x: _) = head $ drop 10 xs
-</pre><br/>パーシャルだぜ、って警告されてしまいます。これを（できれば型で）なんとかしたいです。</div></div></div><div class="message event" id="message-1530585366.000173"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1530585366.000173">2018-07-03&nbsp;11:36:06 +0900</a></div></div><div class="message__body description"><a href='http://hackage.haskell.org/package/streams'>http://hackage.haskell.org/package/streams</a> が使えます</div></div></div><div class="message event" id="message-1530589396.000037"><div class="content"><div class="summary"><div class="message__header user">kayhide</div><div class="message__timestamp date"><a class="date" href="#message-1530589396.000037">2018-07-03&nbsp;12:43:16 +0900</a></div></div><div class="message__body description">ありがとうございます！みてみます！</div></div></div><div class="message event" id="message-1530601571.000033"><div class="content"><div class="summary"><div class="message__header user">shnarazk</div><div class="message__timestamp date"><a class="date" href="#message-1530601571.000033">2018-07-03&nbsp;16:06:11 +0900</a></div></div><div class="message__body description">お手軽な  <code>ghci :etags</code>  を使ってます。なんにも依存しない:sweat_smile:</div></div></div><div class="message event" id="message-1530624550.000194"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1530624550.000194">2018-07-03&nbsp;22:29:10 +0900</a></div></div><div class="message__body description"><pre>
+</pre><br/>パーシャルだぜ、って警告されてしまいます。これを（できれば型で）なんとかしたいです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1530585366.000173">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1530585366.000173">2018-07-03 11:36:06 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='http://hackage.haskell.org/package/streams'>http://hackage.haskell.org/package/streams</a> が使えます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1530589396.000037">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kayhide</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1530589396.000037">2018-07-03 12:43:16 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます！みてみます！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1530601571.000033">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shnarazk</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1530601571.000033">2018-07-03 16:06:11 +0900</a></div>
+          </div>
+          <div class="message__body description">お手軽な  <code>ghci :etags</code>  を使ってます。なんにも依存しない:sweat_smile:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1530624550.000194">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1530624550.000194">2018-07-03 22:29:10 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>
 type family Fst (t :: (a, b)) :: a where
   Fst '(a, b) = a
 
@@ -59,4 +522,15 @@ type family Snd (t :: (a, b)) :: b where
   Snd '(a, b) = b
 
 extractedTuple :: '(Fst a, Snd a) :~: a
-</pre><br/>みたいなので， <code>extractedTuple</code> を <code>unsafeCoerce</code> 無しに実装する方法ってありますでしょうか？もしくは，Fst/Sndの代用となるtype utilityってなんかあったりするのでしょうか？</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/21.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/23.html" class="pager__next item">Next</a></div></div></body></html>
+</pre><br/>みたいなので， <code>extractedTuple</code> を <code>unsafeCoerce</code> 無しに実装する方法ってありますでしょうか？もしくは，Fst/Sndの代用となるtype utilityってなんかあったりするのでしょうか？</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/21.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/23.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

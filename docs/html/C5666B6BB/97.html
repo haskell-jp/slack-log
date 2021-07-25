@@ -1,8 +1,327 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #97</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #97</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/97.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div><div class="message_list ui feed"><div class="message event" id="message-1620365648.083900"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1620365648.083900">2021-05-07&nbsp;14:34:08 +0900</a></div></div><div class="message__body description">前に質問させて頂いたように、このようなデータ構造を定義してしているのですが、<br/>流石にフィールド名が長い(MWBTreeぐらいには省略しても良いかもしれない)ので、<br/>makeFieldsでlensを適用したいのですが、<br/>lensを使わなくても素直にアクセス出来るようにしたいので、<br/>フィールド名をアンダースコアで始めたくありません。<br/>古典的なプレフィクス付きのフィールド名を維持しながらlensのコードを生成する素直な方法はありますか?</div></div></div><div class="message event" id="message-1620107152.083800"><div class="content"><div class="summary"><div class="message__header user">pachiras.yokohama</div><div class="message__timestamp date"><a class="date" href="#message-1620107152.083800">2021-05-04&nbsp;14:45:52 +0900</a></div></div><div class="message__body description">@pachiras.yokohama has joined the channel</div></div></div><div class="message event" id="message-1620365648.083900"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1620365648.083900">2021-05-07&nbsp;14:34:08 +0900</a></div></div><div class="message__body description">前に質問させて頂いたように、このようなデータ構造を定義してしているのですが、<br/>流石にフィールド名が長い(MWBTreeぐらいには省略しても良いかもしれない)ので、<br/>makeFieldsでlensを適用したいのですが、<br/>lensを使わなくても素直にアクセス出来るようにしたいので、<br/>フィールド名をアンダースコアで始めたくありません。<br/>古典的なプレフィクス付きのフィールド名を維持しながらlensのコードを生成する素直な方法はありますか?</div></div></div><div class="message event" id="message-1620523899.085100"><div class="content"><div class="summary"><div class="message__header user">koki.sato.18</div><div class="message__timestamp date"><a class="date" href="#message-1620523899.085100">2021-05-09&nbsp;10:31:39 +0900</a></div></div><div class="message__body description">@koki.sato.18 has joined the channel</div></div></div><div class="message event" id="message-1620667561.085300"><div class="content"><div class="summary"><div class="message__header user">tkmz0216</div><div class="message__timestamp date"><a class="date" href="#message-1620667561.085300">2021-05-11&nbsp;02:26:01 +0900</a></div></div><div class="message__body description">@tkmz0216 has joined the channel</div></div></div><div class="message event" id="message-1620880384.089100"><div class="content"><div class="summary"><div class="message__header user">wasabi.nvim.st</div><div class="message__timestamp date"><a class="date" href="#message-1620880384.089100">2021-05-13&nbsp;13:33:04 +0900</a></div></div><div class="message__body description"><a href='https://www.stackage.org/haddock/lts-17.11/exceptions-0.10.4/Control-Monad-Catch.html'>exceptions</a>パッケージで`MonadCatch`クラスに`ContT` インスタンスが提供されていないのは何か理由があるのでしょうか？<br/>具体的には実装として以下のものを考えられると思うのですがまずい部分があるのでしょうか？<br/><pre>instance MonadCatch m =&gt; MonadCatch (ContT r m) where
-  catch m f = ContT $ \k -&gt; catch (runContT m k) (flip runContT k . f)</pre></div></div></div><div class="message event" id="message-1621091479.091000"><div class="content"><div class="summary"><div class="message__header user">seasellsheshell_com.s</div><div class="message__timestamp date"><a class="date" href="#message-1621091479.091000">2021-05-16&nbsp;00:11:19 +0900</a></div></div><div class="message__body description">@seasellsheshell_com.s has joined the channel</div></div></div><div class="message event" id="message-1621162561.092000"><div class="content"><div class="summary"><div class="message__header user">seasellsheshell_com.s</div><div class="message__timestamp date"><a class="date" href="#message-1621162561.092000">2021-05-16&nbsp;19:56:01 +0900</a></div></div><div class="message__body description">はじめまして。<br/><a href='https://www.haskell.org/onlinereport/haskell2010/'>Haskell 2010 Language Report</a> および <a href='https://github.com/haskell/haskell-report'>そのリポジトリ</a> を読んでいるのですが、文書の内容に（些細な）問題を見つけたり、ビルドスクリプトに問題が見つかった場合は、どこに提案すればよいのでしょうか？</div></div></div><div class="message event" id="message-1621326587.003000"><div class="content"><div class="summary"><div class="message__header user">junji.hashimoto</div><div class="message__timestamp date"><a class="date" href="#message-1621326587.003000">2021-05-18&nbsp;17:29:47 +0900</a></div></div><div class="message__body description">お疲れ様です。<br/>lensのライブラリがいくつかあります。（generic-lensはいいなと思いつつ）<br/>どれも同じ定義をつかっているようですが、<br/>パワフルな機能は必要なくてLens, Prism, Traversal, Isoとか基本的なものが含まれていればよいケースでは<br/>どれを使うのがおすすめでしょうか。<br/>そろそろbaseのライブラリに入ってほしいですね。<br/>逆につかわないほうがいいものはありますか？<br/>とりあえず、これを使うべきですかね。<br/><a href='https://hackage.haskell.org/package/lens'>https://hackage.haskell.org/package/lens</a></div></div></div><div class="message event" id="message-1621346667.004200"><div class="content"><div class="summary"><div class="message__header user">crtmike</div><div class="message__timestamp date"><a class="date" href="#message-1621346667.004200">2021-05-18&nbsp;23:04:27 +0900</a></div></div><div class="message__body description">@crtmike has joined the channel</div></div></div><div class="message event" id="message-1621412510.004400"><div class="content"><div class="summary"><div class="message__header user">xosdy.t</div><div class="message__timestamp date"><a class="date" href="#message-1621412510.004400">2021-05-19&nbsp;17:21:50 +0900</a></div></div><div class="message__body description">@xosdy.t has joined the channel</div></div></div><div class="message event" id="message-1621603872.004600"><div class="content"><div class="summary"><div class="message__header user">s_onodera</div><div class="message__timestamp date"><a class="date" href="#message-1621603872.004600">2021-05-21&nbsp;22:31:12 +0900</a></div></div><div class="message__body description">@s_onodera has joined the channel</div></div></div><div class="message event" id="message-1621723678.004800"><div class="content"><div class="summary"><div class="message__header user">sak13134</div><div class="message__timestamp date"><a class="date" href="#message-1621723678.004800">2021-05-23&nbsp;07:47:58 +0900</a></div></div><div class="message__body description">@sak13134 has joined the channel</div></div></div><div class="message event" id="message-1621946967.005000"><div class="content"><div class="summary"><div class="message__header user">monoma632</div><div class="message__timestamp date"><a class="date" href="#message-1621946967.005000">2021-05-25&nbsp;21:49:27 +0900</a></div></div><div class="message__body description">@monoma632 has joined the channel</div></div></div><div class="message event" id="message-1622027544.005200"><div class="content"><div class="summary"><div class="message__header user">czheo1987</div><div class="message__timestamp date"><a class="date" href="#message-1622027544.005200">2021-05-26&nbsp;20:12:24 +0900</a></div></div><div class="message__body description">@czheo1987 has joined the channel</div></div></div><div class="message event" id="message-1622093256.005400"><div class="content"><div class="summary"><div class="message__header user">kyoheiu</div><div class="message__timestamp date"><a class="date" href="#message-1622093256.005400">2021-05-27&nbsp;14:27:36 +0900</a></div></div><div class="message__body description">@kyoheiu has joined the channel</div></div></div><div class="message event" id="message-1622361142.005600"><div class="content"><div class="summary"><div class="message__header user">karoyakani</div><div class="message__timestamp date"><a class="date" href="#message-1622361142.005600">2021-05-30&nbsp;16:52:22 +0900</a></div></div><div class="message__body description">非標準ライブラリーを import すると VS Code がエラーと言う　例えば `Could not find module 'Data.Vector'\nPerhaps you meant Data.Functor (from base-4.14.1.0)`  実際はビルドも実行も問題がないコードですが　VS Code の Extension に HSLに入れて以来この問題が発生しています　環境は　VS Code + WSL2: Ubuntu-20.0.4 Remote + Extension: Haskell 1.4.0 (Haskell Language Server), stack version 2.5.1,  ghc version 8.10.4　です　どなたか解決策をお持ちですか</div></div></div><div class="message event" id="message-1622521093.005900"><div class="content"><div class="summary"><div class="message__header user">developer.n.seki</div><div class="message__timestamp date"><a class="date" href="#message-1622521093.005900">2021-06-01&nbsp;13:18:13 +0900</a></div></div><div class="message__body description">@developer.n.seki has joined the channel</div></div></div><div class="message event" id="message-1622534738.009000"><div class="content"><div class="summary"><div class="message__header user">nobsun</div><div class="message__timestamp date"><a class="date" href="#message-1622534738.009000">2021-06-01&nbsp;17:05:38 +0900</a></div></div><div class="message__body description">Windows 10 に stack をインストールして Haskellプログラミングの環境を作成しようとしたら、%USERPROFILE% にnon-ASCII文字があるとNG という地雷を踏んでしまいました。<br/>ユーザー名に日本語が含まれていたためです。ユーザー名にnonASCII文字を含まないローカルアカウントを作成し、そちらのアカウントでやれば回避できるのですが、<br/>日本語を含むユーザー名のままで、この問題を回避する方法はありますでしょうか。特殊な事情があり、WSLは使えません。</div></div></div><div class="message event" id="message-1622560579.012400"><div class="content"><div class="summary"><div class="message__header user">takohati0821</div><div class="message__timestamp date"><a class="date" href="#message-1622560579.012400">2021-06-02&nbsp;00:16:19 +0900</a></div></div><div class="message__body description"><a href='#C4M4TT8JJ'>random</a> な気もしますが、とりあえずこちらで。<br/><br/>GHCのgitlabのページ（<https://gitlab.haskell.org/ghc/ghc>）で、CodeやWikiに対するsearchが動いてないようです。元からこうでしたっけ？ちょっと前まではきちんと動いていたような記憶があります。そもそも手元の問題かも、と思ってiPhoneで試してみましたが、やはりsearchできないようです。</div></div></div><div class="message event" id="message-1622601548.013200"><div class="content"><div class="summary"><div class="message__header user">machtskampf</div><div class="message__timestamp date"><a class="date" href="#message-1622601548.013200">2021-06-02&nbsp;11:39:08 +0900</a></div></div><div class="message__body description">@machtskampf has joined the channel</div></div></div><div class="message event" id="message-1622702815.013800"><div class="content"><div class="summary"><div class="message__header user">hakamatao_haskell-jp</div><div class="message__timestamp date"><a class="date" href="#message-1622702815.013800">2021-06-03&nbsp;15:46:55 +0900</a></div></div><div class="message__body description">@hakamatao_haskell-jp has joined the channel</div></div></div><div class="message event" id="message-1622881060.014000"><div class="content"><div class="summary"><div class="message__header user">fff.claypool</div><div class="message__timestamp date"><a class="date" href="#message-1622881060.014000">2021-06-05&nbsp;17:17:40 +0900</a></div></div><div class="message__body description">@fff.claypool has joined the channel</div></div></div><div class="message event" id="message-1623111994.019500"><div class="content"><div class="summary"><div class="message__header user">nekonistyle</div><div class="message__timestamp date"><a class="date" href="#message-1623111994.019500">2021-06-08&nbsp;09:26:34 +0900</a></div></div><div class="message__body description">servantについて質問です。<br/><br/>Tutorialのfirst exampleのstartAppを1つの関数にまとめたらどうなるのかやってみようとして失敗しました。<br/>Tutorialのプログラムの <code>startApp</code> は <code>UserAPI1</code> 型に依存するはずですが、`myStartApp` にはこの型の変数を引数に取ることがないので、代わりに型変数 <code>apiType</code> を取るようにするためにforallを使ってみたのですが、<br/><code>Illegal symbol forall in type</code><br/>というエラーが出てうまくいきません。<br/>どのように記述すればいいでしょうか？</div></div></div><div class="message event" id="message-1623144623.020400"><div class="content"><div class="summary"><div class="message__header user">kentachoko345</div><div class="message__timestamp date"><a class="date" href="#message-1623144623.020400">2021-06-08&nbsp;18:30:23 +0900</a></div></div><div class="message__body description">@kentachoko345 has joined the channel</div></div></div><div class="message event" id="message-1623205147.020600"><div class="content"><div class="summary"><div class="message__header user">naosak1006</div><div class="message__timestamp date"><a class="date" href="#message-1623205147.020600">2021-06-09&nbsp;11:19:07 +0900</a></div></div><div class="message__body description">@naosak1006 has joined the channel</div></div></div><div class="message event" id="message-1623512883.032000"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1623512883.032000">2021-06-13&nbsp;00:48:03 +0900</a></div></div><div class="message__body description"><code>IntSet</code> みたいな~trie木~Patricia木を車輪の再開発しなければならなくなったのですが、型の御加護を受けつつ余計なreference indirectionを避けるために<br/><br/><pre>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #97</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #97</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/96.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1620365648.083900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1620365648.083900">2021-05-07 14:34:08 +0900</a></div>
+          </div>
+          <div class="message__body description">前に質問させて頂いたように、このようなデータ構造を定義してしているのですが、<br/>流石にフィールド名が長い(MWBTreeぐらいには省略しても良いかもしれない)ので、<br/>makeFieldsでlensを適用したいのですが、<br/>lensを使わなくても素直にアクセス出来るようにしたいので、<br/>フィールド名をアンダースコアで始めたくありません。<br/>古典的なプレフィクス付きのフィールド名を維持しながらlensのコードを生成する素直な方法はありますか?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1620107152.083800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pachiras.yokohama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1620107152.083800">2021-05-04 14:45:52 +0900</a></div>
+          </div>
+          <div class="message__body description">@pachiras.yokohama has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1620365648.083900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1620365648.083900">2021-05-07 14:34:08 +0900</a></div>
+          </div>
+          <div class="message__body description">前に質問させて頂いたように、このようなデータ構造を定義してしているのですが、<br/>流石にフィールド名が長い(MWBTreeぐらいには省略しても良いかもしれない)ので、<br/>makeFieldsでlensを適用したいのですが、<br/>lensを使わなくても素直にアクセス出来るようにしたいので、<br/>フィールド名をアンダースコアで始めたくありません。<br/>古典的なプレフィクス付きのフィールド名を維持しながらlensのコードを生成する素直な方法はありますか?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1620523899.085100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">koki.sato.18</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1620523899.085100">2021-05-09 10:31:39 +0900</a></div>
+          </div>
+          <div class="message__body description">@koki.sato.18 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1620667561.085300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tkmz0216</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1620667561.085300">2021-05-11 02:26:01 +0900</a></div>
+          </div>
+          <div class="message__body description">@tkmz0216 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1620880384.089100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">wasabi.nvim.st</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1620880384.089100">2021-05-13 13:33:04 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://www.stackage.org/haddock/lts-17.11/exceptions-0.10.4/Control-Monad-Catch.html'>exceptions</a>パッケージで`MonadCatch`クラスに`ContT` インスタンスが提供されていないのは何か理由があるのでしょうか？<br/>具体的には実装として以下のものを考えられると思うのですがまずい部分があるのでしょうか？<br/><pre>instance MonadCatch m =&gt; MonadCatch (ContT r m) where
+  catch m f = ContT $ \k -&gt; catch (runContT m k) (flip runContT k . f)</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1621091479.091000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">seasellsheshell_com.s</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1621091479.091000">2021-05-16 00:11:19 +0900</a></div>
+          </div>
+          <div class="message__body description">@seasellsheshell_com.s has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1621162561.092000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">seasellsheshell_com.s</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1621162561.092000">2021-05-16 19:56:01 +0900</a></div>
+          </div>
+          <div class="message__body description">はじめまして。<br/><a href='https://www.haskell.org/onlinereport/haskell2010/'>Haskell 2010 Language Report</a> および <a href='https://github.com/haskell/haskell-report'>そのリポジトリ</a> を読んでいるのですが、文書の内容に（些細な）問題を見つけたり、ビルドスクリプトに問題が見つかった場合は、どこに提案すればよいのでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1621326587.003000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">junji.hashimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1621326587.003000">2021-05-18 17:29:47 +0900</a></div>
+          </div>
+          <div class="message__body description">お疲れ様です。<br/>lensのライブラリがいくつかあります。（generic-lensはいいなと思いつつ）<br/>どれも同じ定義をつかっているようですが、<br/>パワフルな機能は必要なくてLens, Prism, Traversal, Isoとか基本的なものが含まれていればよいケースでは<br/>どれを使うのがおすすめでしょうか。<br/>そろそろbaseのライブラリに入ってほしいですね。<br/>逆につかわないほうがいいものはありますか？<br/>とりあえず、これを使うべきですかね。<br/><a href='https://hackage.haskell.org/package/lens'>https://hackage.haskell.org/package/lens</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1621346667.004200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">crtmike</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1621346667.004200">2021-05-18 23:04:27 +0900</a></div>
+          </div>
+          <div class="message__body description">@crtmike has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1621412510.004400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">xosdy.t</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1621412510.004400">2021-05-19 17:21:50 +0900</a></div>
+          </div>
+          <div class="message__body description">@xosdy.t has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1621603872.004600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">s_onodera</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1621603872.004600">2021-05-21 22:31:12 +0900</a></div>
+          </div>
+          <div class="message__body description">@s_onodera has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1621723678.004800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">sak13134</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1621723678.004800">2021-05-23 07:47:58 +0900</a></div>
+          </div>
+          <div class="message__body description">@sak13134 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1621946967.005000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">monoma632</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1621946967.005000">2021-05-25 21:49:27 +0900</a></div>
+          </div>
+          <div class="message__body description">@monoma632 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1622027544.005200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">czheo1987</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1622027544.005200">2021-05-26 20:12:24 +0900</a></div>
+          </div>
+          <div class="message__body description">@czheo1987 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1622093256.005400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kyoheiu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1622093256.005400">2021-05-27 14:27:36 +0900</a></div>
+          </div>
+          <div class="message__body description">@kyoheiu has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1622361142.005600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">karoyakani</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1622361142.005600">2021-05-30 16:52:22 +0900</a></div>
+          </div>
+          <div class="message__body description">非標準ライブラリーを import すると VS Code がエラーと言う　例えば `Could not find module 'Data.Vector'\nPerhaps you meant Data.Functor (from base-4.14.1.0)`  実際はビルドも実行も問題がないコードですが　VS Code の Extension に HSLに入れて以来この問題が発生しています　環境は　VS Code + WSL2: Ubuntu-20.0.4 Remote + Extension: Haskell 1.4.0 (Haskell Language Server), stack version 2.5.1,  ghc version 8.10.4　です　どなたか解決策をお持ちですか</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1622521093.005900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">developer.n.seki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1622521093.005900">2021-06-01 13:18:13 +0900</a></div>
+          </div>
+          <div class="message__body description">@developer.n.seki has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1622534738.009000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nobsun</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1622534738.009000">2021-06-01 17:05:38 +0900</a></div>
+          </div>
+          <div class="message__body description">Windows 10 に stack をインストールして Haskellプログラミングの環境を作成しようとしたら、%USERPROFILE% にnon-ASCII文字があるとNG という地雷を踏んでしまいました。<br/>ユーザー名に日本語が含まれていたためです。ユーザー名にnonASCII文字を含まないローカルアカウントを作成し、そちらのアカウントでやれば回避できるのですが、<br/>日本語を含むユーザー名のままで、この問題を回避する方法はありますでしょうか。特殊な事情があり、WSLは使えません。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1622560579.012400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">takohati0821</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1622560579.012400">2021-06-02 00:16:19 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='#C4M4TT8JJ'>random</a> な気もしますが、とりあえずこちらで。<br/><br/>GHCのgitlabのページ（<https://gitlab.haskell.org/ghc/ghc>）で、CodeやWikiに対するsearchが動いてないようです。元からこうでしたっけ？ちょっと前まではきちんと動いていたような記憶があります。そもそも手元の問題かも、と思ってiPhoneで試してみましたが、やはりsearchできないようです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1622601548.013200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">machtskampf</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1622601548.013200">2021-06-02 11:39:08 +0900</a></div>
+          </div>
+          <div class="message__body description">@machtskampf has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1622702815.013800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hakamatao_haskell-jp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1622702815.013800">2021-06-03 15:46:55 +0900</a></div>
+          </div>
+          <div class="message__body description">@hakamatao_haskell-jp has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1622881060.014000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fff.claypool</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1622881060.014000">2021-06-05 17:17:40 +0900</a></div>
+          </div>
+          <div class="message__body description">@fff.claypool has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623111994.019500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nekonistyle</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623111994.019500">2021-06-08 09:26:34 +0900</a></div>
+          </div>
+          <div class="message__body description">servantについて質問です。<br/><br/>Tutorialのfirst exampleのstartAppを1つの関数にまとめたらどうなるのかやってみようとして失敗しました。<br/>Tutorialのプログラムの <code>startApp</code> は <code>UserAPI1</code> 型に依存するはずですが、`myStartApp` にはこの型の変数を引数に取ることがないので、代わりに型変数 <code>apiType</code> を取るようにするためにforallを使ってみたのですが、<br/><code>Illegal symbol forall in type</code><br/>というエラーが出てうまくいきません。<br/>どのように記述すればいいでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623144623.020400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kentachoko345</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623144623.020400">2021-06-08 18:30:23 +0900</a></div>
+          </div>
+          <div class="message__body description">@kentachoko345 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623205147.020600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">naosak1006</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623205147.020600">2021-06-09 11:19:07 +0900</a></div>
+          </div>
+          <div class="message__body description">@naosak1006 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623512883.032000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623512883.032000">2021-06-13 00:48:03 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>IntSet</code> みたいな~trie木~Patricia木を車輪の再開発しなければならなくなったのですが、型の御加護を受けつつ余計なreference indirectionを避けるために<br/><br/><pre>
 data Patricia (inhabited :: Bool) :: Type where
   Branch :: {-# UNPACK #-} !Word -&gt; !(Patricia True) -&gt; !(Patricia True) -&gt; Patricia True
   Tip :: {-# UNPACK #-} !Word -&gt; Patricia True
   Nil :: Patricia False
 
-newtype Patricia' = forall b. Patricia' (Patricia b)</pre><br/>みたいなことを考えたのですが、existential type って newtypeでは使えないようで、効率が悪そうというよりはただただ気持ち悪いです。empty と non-emptyを型で分離した上で、それらを統合するwrapperがheap中にもう一個できるのを回避するのは不可能でしょうか…。</div></div></div><div class="message event" id="message-1623515683.032900"><div class="content"><div class="summary"><div class="message__header user">cohei</div><div class="message__timestamp date"><a class="date" href="#message-1623515683.032900">2021-06-13&nbsp;01:34:43 +0900</a></div></div><div class="message__body description">empty と non-emptyを型で分離した上で、という話じゃなくなってしまうのですが。<br/><br/>GADT による制限で <code>Nil</code> は <code>Branch</code> にも <code>Tip</code> にも持たれないので、空の <code>Patricia</code> を表現するときだけに使われると思っていいですよね。もしそうなら、`Patricia` が必ず1つ以上の要素をもつ (`Semigroup` みたいに) としてしまえば <code>Nil</code> がなくなって <code>inhabited</code> を区別しなくてよくなり、existential type もいらなくなると思ったのですが、そういうのってありなんでしょうか。empty がなくなると不便ですかね。</div></div></div><div class="message event" id="message-1623664209.046500"><div class="content"><div class="summary"><div class="message__header user">heguisonggang</div><div class="message__timestamp date"><a class="date" href="#message-1623664209.046500">2021-06-14&nbsp;18:50:09 +0900</a></div></div><div class="message__body description">@heguisonggang has joined the channel</div></div></div><div class="message event" id="message-1623738094.046700"><div class="content"><div class="summary"><div class="message__header user">0yc32615213056x</div><div class="message__timestamp date"><a class="date" href="#message-1623738094.046700">2021-06-15&nbsp;15:21:34 +0900</a></div></div><div class="message__body description">@0yc32615213056x has joined the channel</div></div></div><div class="message event" id="message-1623853793.049300"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1623853793.049300">2021-06-16&nbsp;23:29:53 +0900</a></div></div><div class="message__body description">MacOS Big Sur on Intel Mac, GHCup v0.1.15.2 から `ghcup install hls latest` (1.2.0)が<br/><br/>```Digest error: expected "9863f00928f72cf0a16bd3f3578ac55704c721bc77148273d909fd895d05c783", but got "a310d8a3e9c5c4218210f750682c74a0f82ad0f59995adde0dbe775115b1e357"```<br/>で~失敗する~ (Hiromi ISHII さんの ご回答通り、今はちゃんと通ります [update: 2021/06/17 02:13])のですが、似たような状態の方いらっしゃいます？</div></div></div><div class="message event" id="message-1623854017.052200"><div class="content"><div class="summary"><div class="message__header user">konn.jinro</div><div class="message__timestamp date"><a class="date" href="#message-1623854017.052200">2021-06-16&nbsp;23:33:37 +0900</a></div></div><div class="message__body description">ちょうど今、8.10.5　対応のバイナリを追加した版をGitHubにアップロードした所でして、ファイルのダイジェストがghcupの想定するものと変わっています。ghcupへの反映も近いうちに起きて正常にダウンロードできるようになる予定ですので、今しばらくお待ちいただければと　:pray: </div></div></div><div class="message event" id="message-1624112683.057700"><div class="content"><div class="summary"><div class="message__header user">yusuke.en30</div><div class="message__timestamp date"><a class="date" href="#message-1624112683.057700">2021-06-19&nbsp;23:24:43 +0900</a></div></div><div class="message__body description">@yusuke.en30 has joined the channel</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/97.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a></div></div></body></html>
+newtype Patricia' = forall b. Patricia' (Patricia b)</pre><br/>みたいなことを考えたのですが、existential type って newtypeでは使えないようで、効率が悪そうというよりはただただ気持ち悪いです。empty と non-emptyを型で分離した上で、それらを統合するwrapperがheap中にもう一個できるのを回避するのは不可能でしょうか…。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623515683.032900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cohei</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623515683.032900">2021-06-13 01:34:43 +0900</a></div>
+          </div>
+          <div class="message__body description">empty と non-emptyを型で分離した上で、という話じゃなくなってしまうのですが。<br/><br/>GADT による制限で <code>Nil</code> は <code>Branch</code> にも <code>Tip</code> にも持たれないので、空の <code>Patricia</code> を表現するときだけに使われると思っていいですよね。もしそうなら、`Patricia` が必ず1つ以上の要素をもつ (`Semigroup` みたいに) としてしまえば <code>Nil</code> がなくなって <code>inhabited</code> を区別しなくてよくなり、existential type もいらなくなると思ったのですが、そういうのってありなんでしょうか。empty がなくなると不便ですかね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623664209.046500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">heguisonggang</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623664209.046500">2021-06-14 18:50:09 +0900</a></div>
+          </div>
+          <div class="message__body description">@heguisonggang has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623738094.046700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">0yc32615213056x</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623738094.046700">2021-06-15 15:21:34 +0900</a></div>
+          </div>
+          <div class="message__body description">@0yc32615213056x has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623853793.049300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623853793.049300">2021-06-16 23:29:53 +0900</a></div>
+          </div>
+          <div class="message__body description">MacOS Big Sur on Intel Mac, GHCup v0.1.15.2 から `ghcup install hls latest` (1.2.0)が<br/><br/>```Digest error: expected "9863f00928f72cf0a16bd3f3578ac55704c721bc77148273d909fd895d05c783", but got "a310d8a3e9c5c4218210f750682c74a0f82ad0f59995adde0dbe775115b1e357"```<br/>で~失敗する~ (Hiromi ISHII さんの ご回答通り、今はちゃんと通ります [update: 2021/06/17 02:13])のですが、似たような状態の方いらっしゃいます？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1623854017.052200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">konn.jinro</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1623854017.052200">2021-06-16 23:33:37 +0900</a></div>
+          </div>
+          <div class="message__body description">ちょうど今、8.10.5　対応のバイナリを追加した版をGitHubにアップロードした所でして、ファイルのダイジェストがghcupの想定するものと変わっています。ghcupへの反映も近いうちに起きて正常にダウンロードできるようになる予定ですので、今しばらくお待ちいただければと　:pray: </div>
+        </div>
+      </div>
+      <div class="message event" id="message-1624112683.057700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yusuke.en30</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1624112683.057700">2021-06-19 23:24:43 +0900</a></div>
+          </div>
+          <div class="message__body description">@yusuke.en30 has joined the channel</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/96.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+    </div>
+  </div>
+</body>
+</html>

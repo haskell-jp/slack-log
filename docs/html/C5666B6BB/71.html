@@ -1,4 +1,143 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #71</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #71</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/70.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/72.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1568284394.084300"><div class="content"><div class="summary"><div class="message__header user">pontyan12</div><div class="message__timestamp date"><a class="date" href="#message-1568284394.084300">2019-09-12&nbsp;19:33:14 +0900</a></div></div><div class="message__body description">出先でしたのでご返信遅れてしまいすいません。<br/><br/>動作確認できました！<br/>お手伝いいただいたみなさまありがとうございました！！<br/><br/>これからの拡張はどこを参考にしたらよいでしょうか…?</div></div></div><div class="message event" id="message-1568287291.084700"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1568287291.084700">2019-09-12&nbsp;20:21:31 +0900</a></div></div><div class="message__body description">一応 <a href='https://github.com/mpickering/slack-api/tree/master/example'>https://github.com/mpickering/slack-api/tree/master/example</a> にいくつかサンプルが載ってるみたいですね</div></div></div><div class="message event" id="message-1568289137.085100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1568289137.085100">2019-09-12&nbsp;20:52:17 +0900</a></div></div><div class="message__body description">あとはどこまで書かれているか分かりませんのでexampleの方が確実そうですが、exampleでわからなければslack-apiのドキュメントを読め、ってところですね…。<br/>残念ながらhackageにまだ公開されていないバージョンなので、slack-apiのリポジトリーをgit cloneしてcdして、<br/>stack haddock --open<br/>と実行すれば、ビルド実行後にドキュメントが開かれます</div></div></div><div class="message event" id="message-1568289841.085400"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1568289841.085400">2019-09-12&nbsp;21:04:01 +0900</a></div></div><div class="message__body description">（ <code>--open</code> 知らなかった</div></div></div><div class="message event" id="message-1568333124.085800"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1568333124.085800">2019-09-13&nbsp;09:05:24 +0900</a></div></div><div class="message__body description">3.0のリリースノートによるとデフォルトはnew-**に変更済みとの事なので、上記発言の文言を断定形に直しました</div></div></div><div class="message event" id="message-1568333241.086000"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1568333241.086000">2019-09-13&nbsp;09:07:21 +0900</a></div></div><div class="message__body description">cabal replをしてもグローバルstoreには入らないはずなので、多分C-cC-lでcabalのstoreを参照するか、cabal replするようになってるんじゃないですかね</div></div></div><div class="message event" id="message-1568347090.089800"><div class="content"><div class="summary"><div class="message__header user">hiroto.shioi</div><div class="message__timestamp date"><a class="date" href="#message-1568347090.089800">2019-09-13&nbsp;12:58:10 +0900</a></div></div><div class="message__body description">Hackageにあるライブラリのコードを一部借用するときに、そのライブラリがBSD-3ライセンスの場合にはライセンス表記はどうすればいいのでしょうか。<br/><br/><br/><a href='http://hackage.haskell.org/package/template-0.2.0.10'>http://hackage.haskell.org/package/template-0.2.0.10</a><br/>チーム内の話し合いでData.Text.Templateを使おうって話があったんですが、一部のコードが自分たちのニーズに合わないのでその部分だけ改変して使用しようと決めました。この場合PRを送るのが一番なのでしょうが、残念ながらこのライブラリは９年前のもので、作者も消息不明だそうです（同僚の知り合いらしい）。<br/>よって、利用するコードがごく一部（200行ほど）なので、そこだけを借用しようという話になりました。<br/>問題はそのライブラリがBSD-3ライセンスなので、その表記をどうすればいいのかよくわからないという点です。個人的には借用したプロジェクト内にライセンス表記を記載したMarkdownファイルを添加？しておくのがいいのかなーと考えていますがいかがでしょうか。<br/><a href='http://hackage.haskell.org/package/template-0.2.0.10/src/LICENSE'>http://hackage.haskell.org/package/template-0.2.0.10/src/LICENSE</a></div></div></div><div class="message event" id="message-1568350340.090400"><div class="content"><div class="summary"><div class="message__header user">masahiro.kasahara</div><div class="message__timestamp date"><a class="date" href="#message-1568350340.090400">2019-09-13&nbsp;13:52:20 +0900</a></div></div><div class="message__body description">@masahiro.kasahara has joined the channel</div></div></div><div class="message event" id="message-1568360620.090900"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1568360620.090900">2019-09-13&nbsp;16:43:40 +0900</a></div></div><div class="message__body description">常識的に読めるように元のライセンス原文をパッケージに含めておけばいい気がします<br/>（個人の意見で責任は云々</div></div></div><div class="message event" id="message-1568361469.091100"><div class="content"><div class="summary"><div class="message__header user">hiroto.shioi</div><div class="message__timestamp date"><a class="date" href="#message-1568361469.091100">2019-09-13&nbsp;16:57:49 +0900</a></div></div><div class="message__body description">なるほど！ありがとうございます。</div></div></div><div class="message event" id="message-1568392617.091300"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1568392617.091300">2019-09-14&nbsp;01:36:57 +0900</a></div></div><div class="message__body description">僕もあまりライセンス系統は自信ないですが，<br/><br/>• ソースコードの再配布やコンパイルしたバイナリの配布などをしないなら特に記載なくて問題ないはずです．例えば Web サイトのバックエンドに使うなどはライセンス表記はなくて問題なくて，ゲームアプリなどユーザにインストールしてもらうもので使う場合，ライセンス表記を含める必要があります． (ただし， AGPL などはその限りではないです)<br/>• オープンソースの場合，使ったライブラリが cabal ファイルなどから辿れるのでライセンスが分かるとして，特別な表記をしなくて問題ないという暗黙的な合意があります (ちゃんとライセンスをまとめたものを用意しておくのが親切ですが)<br/><br/>今回の場合どういう配布形態になるのか分からないですが，バイナリ形式 (アプリ配布など) での配布を検討されているなら， BSD3 の条文にあるように，そのアプリのドキュメントまたは何かライセンス表記用の特別なファイルにこのライセンス全文を表示するスペースを用意しておけば問題ないはずです (どこの部分にそれを使ったかを明記しておくとより親切ですが)</div></div></div><div class="message event" id="message-1568472454.000200"><div class="content"><div class="summary"><div class="message__header user">hiroyuki.m.nishiyama</div><div class="message__timestamp date"><a class="date" href="#message-1568472454.000200">2019-09-14&nbsp;23:47:34 +0900</a></div></div><div class="message__body description">@hiroyuki.m.nishiyama has joined the channel</div></div></div><div class="message event" id="message-1568519981.000400"><div class="content"><div class="summary"><div class="message__header user">yuichi</div><div class="message__timestamp date"><a class="date" href="#message-1568519981.000400">2019-09-15&nbsp;12:59:41 +0900</a></div></div><div class="message__body description">ページネーションを実装するためにEsqueletoでテーブルの検索結果件数を所得しようとしていますが、countRowsの値が所得できません。<br/><br/>このページを参考にしながら作っています。<br/><a href='https://ersocon.net/blog/2016/10/10/pagination-in-yesod-from-naive-to-monads'>https://ersocon.net/blog/2016/10/10/pagination-in-yesod-from-naive-to-monads</a><br/><br/>StackOverflowからselectCount関数を取ってきたと言っているので調べて以下の記事を見つけました。<br/><a href='https://codeday.me/jp/qa/20190405/557765.html'>https://codeday.me/jp/qa/20190405/557765.html</a><br/><br/>ここで手に負えないエラーが出てきたので助けて頂きたいです。<br/>どのように修正したらcountRowsの値を所得できますか？</div></div></div><div class="message event" id="message-1568526656.000700"><div class="content"><div class="summary"><div class="message__header user">wado</div><div class="message__timestamp date"><a class="date" href="#message-1568526656.000700">2019-09-15&nbsp;14:50:56 +0900</a></div></div><div class="message__body description"><pre>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #71</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #71</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/70.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/72.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1568284394.084300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pontyan12</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568284394.084300">2019-09-12 19:33:14 +0900</a></div>
+          </div>
+          <div class="message__body description">出先でしたのでご返信遅れてしまいすいません。<br/><br/>動作確認できました！<br/>お手伝いいただいたみなさまありがとうございました！！<br/><br/>これからの拡張はどこを参考にしたらよいでしょうか…?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568287291.084700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568287291.084700">2019-09-12 20:21:31 +0900</a></div>
+          </div>
+          <div class="message__body description">一応 <a href='https://github.com/mpickering/slack-api/tree/master/example'>https://github.com/mpickering/slack-api/tree/master/example</a> にいくつかサンプルが載ってるみたいですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568289137.085100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568289137.085100">2019-09-12 20:52:17 +0900</a></div>
+          </div>
+          <div class="message__body description">あとはどこまで書かれているか分かりませんのでexampleの方が確実そうですが、exampleでわからなければslack-apiのドキュメントを読め、ってところですね…。<br/>残念ながらhackageにまだ公開されていないバージョンなので、slack-apiのリポジトリーをgit cloneしてcdして、<br/>stack haddock --open<br/>と実行すれば、ビルド実行後にドキュメントが開かれます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568289841.085400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568289841.085400">2019-09-12 21:04:01 +0900</a></div>
+          </div>
+          <div class="message__body description">（ <code>--open</code> 知らなかった</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568333124.085800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568333124.085800">2019-09-13 09:05:24 +0900</a></div>
+          </div>
+          <div class="message__body description">3.0のリリースノートによるとデフォルトはnew-**に変更済みとの事なので、上記発言の文言を断定形に直しました</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568333241.086000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568333241.086000">2019-09-13 09:07:21 +0900</a></div>
+          </div>
+          <div class="message__body description">cabal replをしてもグローバルstoreには入らないはずなので、多分C-cC-lでcabalのstoreを参照するか、cabal replするようになってるんじゃないですかね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568347090.089800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroto.shioi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568347090.089800">2019-09-13 12:58:10 +0900</a></div>
+          </div>
+          <div class="message__body description">Hackageにあるライブラリのコードを一部借用するときに、そのライブラリがBSD-3ライセンスの場合にはライセンス表記はどうすればいいのでしょうか。<br/><br/><br/><a href='http://hackage.haskell.org/package/template-0.2.0.10'>http://hackage.haskell.org/package/template-0.2.0.10</a><br/>チーム内の話し合いでData.Text.Templateを使おうって話があったんですが、一部のコードが自分たちのニーズに合わないのでその部分だけ改変して使用しようと決めました。この場合PRを送るのが一番なのでしょうが、残念ながらこのライブラリは９年前のもので、作者も消息不明だそうです（同僚の知り合いらしい）。<br/>よって、利用するコードがごく一部（200行ほど）なので、そこだけを借用しようという話になりました。<br/>問題はそのライブラリがBSD-3ライセンスなので、その表記をどうすればいいのかよくわからないという点です。個人的には借用したプロジェクト内にライセンス表記を記載したMarkdownファイルを添加？しておくのがいいのかなーと考えていますがいかがでしょうか。<br/><a href='http://hackage.haskell.org/package/template-0.2.0.10/src/LICENSE'>http://hackage.haskell.org/package/template-0.2.0.10/src/LICENSE</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568350340.090400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">masahiro.kasahara</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568350340.090400">2019-09-13 13:52:20 +0900</a></div>
+          </div>
+          <div class="message__body description">@masahiro.kasahara has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568360620.090900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568360620.090900">2019-09-13 16:43:40 +0900</a></div>
+          </div>
+          <div class="message__body description">常識的に読めるように元のライセンス原文をパッケージに含めておけばいい気がします<br/>（個人の意見で責任は云々</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568361469.091100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroto.shioi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568361469.091100">2019-09-13 16:57:49 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど！ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568392617.091300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568392617.091300">2019-09-14 01:36:57 +0900</a></div>
+          </div>
+          <div class="message__body description">僕もあまりライセンス系統は自信ないですが，<br/><br/>• ソースコードの再配布やコンパイルしたバイナリの配布などをしないなら特に記載なくて問題ないはずです．例えば Web サイトのバックエンドに使うなどはライセンス表記はなくて問題なくて，ゲームアプリなどユーザにインストールしてもらうもので使う場合，ライセンス表記を含める必要があります． (ただし， AGPL などはその限りではないです)<br/>• オープンソースの場合，使ったライブラリが cabal ファイルなどから辿れるのでライセンスが分かるとして，特別な表記をしなくて問題ないという暗黙的な合意があります (ちゃんとライセンスをまとめたものを用意しておくのが親切ですが)<br/><br/>今回の場合どういう配布形態になるのか分からないですが，バイナリ形式 (アプリ配布など) での配布を検討されているなら， BSD3 の条文にあるように，そのアプリのドキュメントまたは何かライセンス表記用の特別なファイルにこのライセンス全文を表示するスペースを用意しておけば問題ないはずです (どこの部分にそれを使ったかを明記しておくとより親切ですが)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568472454.000200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroyuki.m.nishiyama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568472454.000200">2019-09-14 23:47:34 +0900</a></div>
+          </div>
+          <div class="message__body description">@hiroyuki.m.nishiyama has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568519981.000400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yuichi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568519981.000400">2019-09-15 12:59:41 +0900</a></div>
+          </div>
+          <div class="message__body description">ページネーションを実装するためにEsqueletoでテーブルの検索結果件数を所得しようとしていますが、countRowsの値が所得できません。<br/><br/>このページを参考にしながら作っています。<br/><a href='https://ersocon.net/blog/2016/10/10/pagination-in-yesod-from-naive-to-monads'>https://ersocon.net/blog/2016/10/10/pagination-in-yesod-from-naive-to-monads</a><br/><br/>StackOverflowからselectCount関数を取ってきたと言っているので調べて以下の記事を見つけました。<br/><a href='https://codeday.me/jp/qa/20190405/557765.html'>https://codeday.me/jp/qa/20190405/557765.html</a><br/><br/>ここで手に負えないエラーが出てきたので助けて頂きたいです。<br/>どのように修正したらcountRowsの値を所得できますか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568526656.000700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">wado</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568526656.000700">2019-09-15 14:50:56 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GADTs #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
@@ -55,7 +194,16 @@ selectCount' q = do
 Migrating: CREATE TABLE "person"("id" INTEGER PRIMARY KEY,"name" VARCHAR NOT NULL,"age" INTEGER NULL)
 [Value {unValue = 4}]
 [Value {unValue = 1}]
-</pre><br/><br/><code>esqueleto</code> のことはあまり知らないのでアドバイスしづらいですが、 <code>E.countRows</code> の型を明示的に書いてあげると動きました。</div></div></div><div class="message event" id="message-1568537609.001800"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1568537609.001800">2019-09-15&nbsp;17:53:29 +0900</a></div></div><div class="message__body description"><pre>
+</pre><br/><br/><code>esqueleto</code> のことはあまり知らないのでアドバイスしづらいですが、 <code>E.countRows</code> の型を明示的に書いてあげると動きました。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568537609.001800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568537609.001800">2019-09-15 17:53:29 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>
 parseTest    
 ((between (optional $ single ' ') (optional $ single ' ')
    (single 'a' `sepBy` single ' ')) &lt;* eof :: Parsec Void Text [Char]) $ pack "a a "
@@ -66,13 +214,339 @@ parseTest
   |      ^
 unexpected end of input
 expecting 'a'
-</pre><br/>と失敗するのは何故ですか?</div></div></div><div class="message event" id="message-1568540265.003000"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1568540265.003000">2019-09-15&nbsp;18:37:45 +0900</a></div></div><div class="message__body description"><code>sepBy (single ' ')</code> が空白を先に受理して、空白のあとは <code>'a'</code> が来ないと行けないからじゃない？</div></div></div><div class="message event" id="message-1568540379.003400"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1568540379.003400">2019-09-15&nbsp;18:39:39 +0900</a></div></div><div class="message__body description">どうすれば解決できますか?`sepEndBy`を使う?</div></div></div><div class="message event" id="message-1568541612.003700"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1568541612.003700">2019-09-15&nbsp;19:00:12 +0900</a></div></div><div class="message__body description">少なくとも <code>sepEndBy</code> でパースはできそう（それが意図してる動作なのかは怪しいけど）</div></div></div><div class="message event" id="message-1568601114.004100"><div class="content"><div class="summary"><div class="message__header user">kkbt2003</div><div class="message__timestamp date"><a class="date" href="#message-1568601114.004100">2019-09-16&nbsp;11:31:54 +0900</a></div></div><div class="message__body description">@kkbt2003 has joined the channel</div></div></div><div class="message event" id="message-1568615364.004400"><div class="content"><div class="summary"><div class="message__header user">wataash0607</div><div class="message__timestamp date"><a class="date" href="#message-1568615364.004400">2019-09-16&nbsp;15:29:24 +0900</a></div></div><div class="message__body description">@wataash0607 has joined the channel</div></div></div><div class="message event" id="message-1568620724.004600"><div class="content"><div class="summary"><div class="message__header user">yuichi</div><div class="message__timestamp date"><a class="date" href="#message-1568620724.004600">2019-09-16&nbsp;16:58:44 +0900</a></div></div><div class="message__body description">ありがとうございます。以下のようにしたら無事コンパイルが通るコードになりました。<br/><pre>
+</pre><br/>と失敗するのは何故ですか?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568540265.003000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568540265.003000">2019-09-15 18:37:45 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>sepBy (single ' ')</code> が空白を先に受理して、空白のあとは <code>'a'</code> が来ないと行けないからじゃない？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568540379.003400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568540379.003400">2019-09-15 18:39:39 +0900</a></div>
+          </div>
+          <div class="message__body description">どうすれば解決できますか?`sepEndBy`を使う?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568541612.003700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568541612.003700">2019-09-15 19:00:12 +0900</a></div>
+          </div>
+          <div class="message__body description">少なくとも <code>sepEndBy</code> でパースはできそう（それが意図してる動作なのかは怪しいけど）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568601114.004100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kkbt2003</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568601114.004100">2019-09-16 11:31:54 +0900</a></div>
+          </div>
+          <div class="message__body description">@kkbt2003 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568615364.004400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">wataash0607</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568615364.004400">2019-09-16 15:29:24 +0900</a></div>
+          </div>
+          <div class="message__body description">@wataash0607 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568620724.004600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yuichi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568620724.004600">2019-09-16 16:58:44 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます。以下のようにしたら無事コンパイルが通るコードになりました。<br/><pre>
 selectCount :: (MonadIO m, E.From a) =&gt; (a -&gt; E.SqlQuery b) -&gt; SqlPersistT m [E.Value Int]
 selectCount q = E.select $ E.from $ (\x -&gt; q x &gt;&gt; return (E.countRows :: E.SqlExpr (E.Value Int))) 
-</pre></div></div></div><div class="message event" id="message-1568821984.005100"><div class="content"><div class="summary"><div class="message__header user">jink.code</div><div class="message__timestamp date"><a class="date" href="#message-1568821984.005100">2019-09-19&nbsp;00:53:04 +0900</a></div></div><div class="message__body description">@jink.code has joined the channel</div></div></div><div class="message event" id="message-1569037365.005400"><div class="content"><div class="summary"><div class="message__header user">soysoysoup</div><div class="message__timestamp date"><a class="date" href="#message-1569037365.005400">2019-09-21&nbsp;12:42:45 +0900</a></div></div><div class="message__body description">@soysoysoup has joined the channel</div></div></div><div class="message event" id="message-1569212016.007500"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1569212016.007500">2019-09-23&nbsp;13:13:36 +0900</a></div></div><div class="message__body description">magaparsecでパーサの中でparseを使うのはおそらく邪道なんだと思うんですが、どうやって同じ効果を得るパーサを書けば良いんですか?(betweenパーサがうまく動かないので先に挟まれた文字列を取ってきてから内側のパーサを走らせようとしている)</div></div></div><div class="message event" id="message-1569212221.007700"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1569212221.007700">2019-09-23&nbsp;13:17:01 +0900</a></div></div><div class="message__body description">今はこんな感じ(これはfailureのとこで型が合わないので駄目)</div></div></div><div class="message event" id="message-1569215585.008200"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1569215585.008200">2019-09-23&nbsp;14:13:05 +0900</a></div></div><div class="message__body description">いやこれ要る?</div></div></div><div class="message event" id="message-1569216661.008400"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1569216661.008400">2019-09-23&nbsp;14:31:01 +0900</a></div></div><div class="message__body description">ああ、 ｀between parser0 parser1 $ takeWhileP Nothing (const True)｀みたいなものでも動いてほしかったのか?</div></div></div><div class="message event" id="message-1569246360.008900"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1569246360.008900">2019-09-23&nbsp;22:46:00 +0900</a></div></div><div class="message__body description">何がしたいのかはよく分かってないですが，エラーメッセージがちょっとおかしくなるかもしれないのを許容すれば，早期消費型の between はこんな感じでできそうです</div></div></div><div class="message event" id="message-1569247253.009400"><div class="content"><div class="summary"><div class="message__header user">tangible.bits</div><div class="message__timestamp date"><a class="date" href="#message-1569247253.009400">2019-09-23&nbsp;23:00:53 +0900</a></div></div><div class="message__body description">@tangible.bits has joined the channel</div></div></div><div class="message event" id="message-1569278178.009700"><div class="content"><div class="summary"><div class="message__header user">longisland.1016</div><div class="message__timestamp date"><a class="date" href="#message-1569278178.009700">2019-09-24&nbsp;07:36:18 +0900</a></div></div><div class="message__body description">@longisland.1016 has joined the channel</div></div></div><div class="message event" id="message-1569312320.010900"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1569312320.010900">2019-09-24&nbsp;17:05:20 +0900</a></div></div><div class="message__body description">hackageに間違えてビルドが通らないパッケージを上げてしまった場合に、該当のバージョンを削除するなど、何かとれる対応はありますか？（やってしまった :cold_sweat:</div></div></div><div class="message event" id="message-1569313239.011100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1569313239.011100">2019-09-24&nbsp;17:20:39 +0900</a></div></div><div class="message__body description">:thinking_face: ... と、思いきや直ちに修正して新しいバージョンをアップロードしたせいか、ビルドできないバージョンはアップロードされなかった？</div></div></div><div class="message event" id="message-1569315890.011600"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1569315890.011600">2019-09-24&nbsp;18:04:50 +0900</a></div></div><div class="message__body description">もしアップロードしてしまっても、`<http://hackage.haskell.org/package/foo/maintain`からPreferred> versionを設定すればcabalから選ばれなくなるはずです</div></div></div><div class="message event" id="message-1569317737.012000"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1569317737.012000">2019-09-24&nbsp;18:35:37 +0900</a></div></div><div class="message__body description">ありがとうございます！やっぱりビルドできないバージョンをアップロードしていたのでdeprecateしておきました！</div></div></div><div class="message event" id="message-1569564961.014300"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1569564961.014300">2019-09-27&nbsp;15:16:01 +0900</a></div></div><div class="message__body description">すごいHaskellあたりを読み終えたあと次に読みながら手を動かすのによい本を聞かれたんですが、何かあるでしょうか？<br/>とりあえず古いところに注意しながらRealworld Haskellあたりがいいんじゃないと言いましたが……</div></div></div><div class="message event" id="message-1569565027.014900"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1569565027.014900">2019-09-27&nbsp;15:17:07 +0900</a></div></div><div class="message__body description">『Haskell 入門』の後半いいと思います</div></div></div><div class="message event" id="message-1569565127.015500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1569565127.015500">2019-09-27&nbsp;15:18:47 +0900</a></div></div><div class="message__body description">意見が被りますが<br/>全然入門者向けじゃないと一部で評判の「Haskell入門」<br/><a href='https://www.amazon.co.jp/dp/4774192376'>https://www.amazon.co.jp/dp/4774192376</a><br/>か、ちょっと難しいけど独特な知識が得られる並行並列本で！<br/><a href='https://www.oreilly.co.jp/books/9784873116891/'>https://www.oreilly.co.jp/books/9784873116891/</a></div></div></div><div class="message event" id="message-1569565133.015900"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1569565133.015900">2019-09-27&nbsp;15:18:53 +0900</a></div></div><div class="message__body description">なるほど、自分でも買ってちょっと読んでみます</div></div></div><div class="message event" id="message-1569565156.016400"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1569565156.016400">2019-09-27&nbsp;15:19:16 +0900</a></div></div><div class="message__body description">（スレッドにし忘れたな</div></div></div><div class="message event" id="message-1569565222.016700"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1569565222.016700">2019-09-27&nbsp;15:20:22 +0900</a></div></div><div class="message__body description">並列並行はよい本ですが流石に次に勧めるのはためらわれますね……</div></div></div><div class="message event" id="message-1569566040.017000"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1569566040.017000">2019-09-27&nbsp;15:34:00 +0900</a></div></div><div class="message__body description">いろいろ雑多ですが <a href='https://wiki.haskell.jp/Links'>https://wiki.haskell.jp/Links</a> に書いてある個別の記事をちょっとずつ覗いてみるのもいいかもしれません。<br/><br/>あと、毎度手前味噌ですがHaskell入門書を終えた人向け全般のコンテンツとして <a href='https://wiki.haskell.jp/Hikers%20Guide%20to%20Haskell'>https://wiki.haskell.jp/Hikers%20Guide%20to%20Haskell</a> を勧めておきます。</div></div></div><div class="message event" id="message-1569568098.017500"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1569568098.017500">2019-09-27&nbsp;16:08:18 +0900</a></div></div><div class="message__body description">Fun of Programming とか（あがってないやつだと）</div></div></div><div class="message event" id="message-1569568243.017800"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1569568243.017800">2019-09-27&nbsp;16:10:43 +0900</a></div></div><div class="message__body description"><a href='https://shop.ohmsha.co.jp/smartphone/detail.html?id=000000001859'>https://shop.ohmsha.co.jp/smartphone/detail.html?id=000000001859</a></div></div></div><div class="message event" id="message-1569660343.024000"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1569660343.024000">2019-09-28&nbsp;17:45:43 +0900</a></div></div><div class="message__body description"><a href='https://twitter.com/coord_e/status/1177861179965767680'>https://twitter.com/coord_e/status/1177861179965767680</a> こちらのスレッドでしゃべっていて気になったんですが、<br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1568821984.005100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">jink.code</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1568821984.005100">2019-09-19 00:53:04 +0900</a></div>
+          </div>
+          <div class="message__body description">@jink.code has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569037365.005400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">soysoysoup</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569037365.005400">2019-09-21 12:42:45 +0900</a></div>
+          </div>
+          <div class="message__body description">@soysoysoup has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569212016.007500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569212016.007500">2019-09-23 13:13:36 +0900</a></div>
+          </div>
+          <div class="message__body description">magaparsecでパーサの中でparseを使うのはおそらく邪道なんだと思うんですが、どうやって同じ効果を得るパーサを書けば良いんですか?(betweenパーサがうまく動かないので先に挟まれた文字列を取ってきてから内側のパーサを走らせようとしている)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569212221.007700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569212221.007700">2019-09-23 13:17:01 +0900</a></div>
+          </div>
+          <div class="message__body description">今はこんな感じ(これはfailureのとこで型が合わないので駄目)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569215585.008200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569215585.008200">2019-09-23 14:13:05 +0900</a></div>
+          </div>
+          <div class="message__body description">いやこれ要る?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569216661.008400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569216661.008400">2019-09-23 14:31:01 +0900</a></div>
+          </div>
+          <div class="message__body description">ああ、 ｀between parser0 parser1 $ takeWhileP Nothing (const True)｀みたいなものでも動いてほしかったのか?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569246360.008900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569246360.008900">2019-09-23 22:46:00 +0900</a></div>
+          </div>
+          <div class="message__body description">何がしたいのかはよく分かってないですが，エラーメッセージがちょっとおかしくなるかもしれないのを許容すれば，早期消費型の between はこんな感じでできそうです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569247253.009400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tangible.bits</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569247253.009400">2019-09-23 23:00:53 +0900</a></div>
+          </div>
+          <div class="message__body description">@tangible.bits has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569278178.009700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">longisland.1016</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569278178.009700">2019-09-24 07:36:18 +0900</a></div>
+          </div>
+          <div class="message__body description">@longisland.1016 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569312320.010900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569312320.010900">2019-09-24 17:05:20 +0900</a></div>
+          </div>
+          <div class="message__body description">hackageに間違えてビルドが通らないパッケージを上げてしまった場合に、該当のバージョンを削除するなど、何かとれる対応はありますか？（やってしまった :cold_sweat:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569313239.011100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569313239.011100">2019-09-24 17:20:39 +0900</a></div>
+          </div>
+          <div class="message__body description">:thinking_face: ... と、思いきや直ちに修正して新しいバージョンをアップロードしたせいか、ビルドできないバージョンはアップロードされなかった？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569315890.011600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569315890.011600">2019-09-24 18:04:50 +0900</a></div>
+          </div>
+          <div class="message__body description">もしアップロードしてしまっても、`<http://hackage.haskell.org/package/foo/maintain`からPreferred> versionを設定すればcabalから選ばれなくなるはずです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569317737.012000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569317737.012000">2019-09-24 18:35:37 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます！やっぱりビルドできないバージョンをアップロードしていたのでdeprecateしておきました！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569564961.014300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569564961.014300">2019-09-27 15:16:01 +0900</a></div>
+          </div>
+          <div class="message__body description">すごいHaskellあたりを読み終えたあと次に読みながら手を動かすのによい本を聞かれたんですが、何かあるでしょうか？<br/>とりあえず古いところに注意しながらRealworld Haskellあたりがいいんじゃないと言いましたが……</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569565027.014900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569565027.014900">2019-09-27 15:17:07 +0900</a></div>
+          </div>
+          <div class="message__body description">『Haskell 入門』の後半いいと思います</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569565127.015500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569565127.015500">2019-09-27 15:18:47 +0900</a></div>
+          </div>
+          <div class="message__body description">意見が被りますが<br/>全然入門者向けじゃないと一部で評判の「Haskell入門」<br/><a href='https://www.amazon.co.jp/dp/4774192376'>https://www.amazon.co.jp/dp/4774192376</a><br/>か、ちょっと難しいけど独特な知識が得られる並行並列本で！<br/><a href='https://www.oreilly.co.jp/books/9784873116891/'>https://www.oreilly.co.jp/books/9784873116891/</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569565133.015900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569565133.015900">2019-09-27 15:18:53 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど、自分でも買ってちょっと読んでみます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569565156.016400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569565156.016400">2019-09-27 15:19:16 +0900</a></div>
+          </div>
+          <div class="message__body description">（スレッドにし忘れたな</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569565222.016700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569565222.016700">2019-09-27 15:20:22 +0900</a></div>
+          </div>
+          <div class="message__body description">並列並行はよい本ですが流石に次に勧めるのはためらわれますね……</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569566040.017000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569566040.017000">2019-09-27 15:34:00 +0900</a></div>
+          </div>
+          <div class="message__body description">いろいろ雑多ですが <a href='https://wiki.haskell.jp/Links'>https://wiki.haskell.jp/Links</a> に書いてある個別の記事をちょっとずつ覗いてみるのもいいかもしれません。<br/><br/>あと、毎度手前味噌ですがHaskell入門書を終えた人向け全般のコンテンツとして <a href='https://wiki.haskell.jp/Hikers%20Guide%20to%20Haskell'>https://wiki.haskell.jp/Hikers%20Guide%20to%20Haskell</a> を勧めておきます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569568098.017500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569568098.017500">2019-09-27 16:08:18 +0900</a></div>
+          </div>
+          <div class="message__body description">Fun of Programming とか（あがってないやつだと）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569568243.017800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569568243.017800">2019-09-27 16:10:43 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://shop.ohmsha.co.jp/smartphone/detail.html?id=000000001859'>https://shop.ohmsha.co.jp/smartphone/detail.html?id=000000001859</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569660343.024000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569660343.024000">2019-09-28 17:45:43 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://twitter.com/coord_e/status/1177861179965767680'>https://twitter.com/coord_e/status/1177861179965767680</a> こちらのスレッドでしゃべっていて気になったんですが、<br/><pre>
 class MyEq a where
   eq :: a -&gt; a -&gt; Bool
 
 instance MyEq Integer where
   eq = (==)
-</pre><br/>というEq型クラスと等価な型クラスとそのインスタンスがあったとして、<br/><code>main = print $ eq 1 2</code> は <code>Ambiguous type variable</code> になるのに<br/><code>main = print $ 1 == 2</code> は <code>Ambiguous type variable</code> にならないのはなぜでしょうか。<br/><code>Num</code> 型クラスのデフォルトである <code>Integer</code> が選ばれた、まではわかるのですが、なぜ <code>Eq</code> 型クラスの場合のみデフォルトが採用されたのでしょうか？</div></div></div><div class="message event" id="message-1569662314.024300"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1569662314.024300">2019-09-28&nbsp;18:18:34 +0900</a></div></div><div class="message__body description">Haskell の仕様として、 context に現れるのが全て標準の型クラスでないと defaulting は適用されないという制約があるからですね<br/><a href='https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-790004.3.4'>https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-790004.3.4</a></div></div></div><div class="message event" id="message-1569663610.024500"><div class="content"><div class="summary"><div class="message__header user">nobsun</div><div class="message__timestamp date"><a class="date" href="#message-1569663610.024500">2019-09-28&nbsp;18:40:10 +0900</a></div></div><div class="message__body description">ghci の中では eq 1 2 は False になりますね．</div></div></div><div class="message event" id="message-1569663708.024700"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1569663708.024700">2019-09-28&nbsp;18:41:48 +0900</a></div></div><div class="message__body description">GHCi 上では ExtendedDefaultRules が有効になるので、その場合標準のではない場合にも defaulting が行われます</div></div></div><div class="message event" id="message-1569663800.025000"><div class="content"><div class="summary"><div class="message__header user">nobsun</div><div class="message__timestamp date"><a class="date" href="#message-1569663800.025000">2019-09-28&nbsp;18:43:20 +0900</a></div></div><div class="message__body description">ですね．</div></div></div><div class="message event" id="message-1569677019.025600"><div class="content"><div class="summary"><div class="message__header user">maekaku.public</div><div class="message__timestamp date"><a class="date" href="#message-1569677019.025600">2019-09-28&nbsp;22:23:39 +0900</a></div></div><div class="message__body description">@maekaku.public has joined the channel</div></div></div><div class="message event" id="message-1569682234.026000"><div class="content"><div class="summary"><div class="message__header user">ohtomi.kenichi</div><div class="message__timestamp date"><a class="date" href="#message-1569682234.026000">2019-09-28&nbsp;23:50:34 +0900</a></div></div><div class="message__body description">@ohtomi.kenichi has joined the channel</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/70.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/72.html" class="pager__next item">Next</a></div></div></body></html>
+</pre><br/>というEq型クラスと等価な型クラスとそのインスタンスがあったとして、<br/><code>main = print $ eq 1 2</code> は <code>Ambiguous type variable</code> になるのに<br/><code>main = print $ 1 == 2</code> は <code>Ambiguous type variable</code> にならないのはなぜでしょうか。<br/><code>Num</code> 型クラスのデフォルトである <code>Integer</code> が選ばれた、まではわかるのですが、なぜ <code>Eq</code> 型クラスの場合のみデフォルトが採用されたのでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569662314.024300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569662314.024300">2019-09-28 18:18:34 +0900</a></div>
+          </div>
+          <div class="message__body description">Haskell の仕様として、 context に現れるのが全て標準の型クラスでないと defaulting は適用されないという制約があるからですね<br/><a href='https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-790004.3.4'>https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#x10-790004.3.4</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569663610.024500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nobsun</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569663610.024500">2019-09-28 18:40:10 +0900</a></div>
+          </div>
+          <div class="message__body description">ghci の中では eq 1 2 は False になりますね．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569663708.024700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569663708.024700">2019-09-28 18:41:48 +0900</a></div>
+          </div>
+          <div class="message__body description">GHCi 上では ExtendedDefaultRules が有効になるので、その場合標準のではない場合にも defaulting が行われます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569663800.025000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nobsun</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569663800.025000">2019-09-28 18:43:20 +0900</a></div>
+          </div>
+          <div class="message__body description">ですね．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569677019.025600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maekaku.public</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569677019.025600">2019-09-28 22:23:39 +0900</a></div>
+          </div>
+          <div class="message__body description">@maekaku.public has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1569682234.026000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ohtomi.kenichi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1569682234.026000">2019-09-28 23:50:34 +0900</a></div>
+          </div>
+          <div class="message__body description">@ohtomi.kenichi has joined the channel</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/70.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/72.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

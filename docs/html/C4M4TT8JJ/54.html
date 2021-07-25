@@ -1,1 +1,475 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / random #54</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / random #54</h1><div class="pager ui pagination menu"><a href="../../html/C4M4TT8JJ/53.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C4M4TT8JJ/55.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1563335176.118500"><div class="content"><div class="summary"><div class="message__header user">takeru.t</div><div class="message__timestamp date"><a class="date" href="#message-1563335176.118500">2019-07-17&nbsp;12:46:16 +0900</a></div></div><div class="message__body description">@takeru.t has joined the channel</div></div></div><div class="message event" id="message-1563335355.118800"><div class="content"><div class="summary"><div class="message__header user">notogawa</div><div class="message__timestamp date"><a class="date" href="#message-1563335355.118800">2019-07-17&nbsp;12:49:15 +0900</a></div></div><div class="message__body description">Internal(s)っぽいモジュールはそれが何のためにexposeされるかはパッケージ毎に提供者の意図によって異なるからです．<br/>たとえば「テスト等の事情でexposeされているだけ」なのと「(速度のためなどで)内部構造にアクセスしたい人がいるかもでexposeしてる」では，<br/>パッケージ提供者だけが使うのかパッケージ利用者も使うのかが違ってきます．<br/>ここが違うと検索にひっかかって欲しいかどうかも異なってくるのではないでしょうか．</div></div></div><div class="message event" id="message-1563335719.119000"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1563335719.119000">2019-07-17&nbsp;12:55:19 +0900</a></div></div><div class="message__body description">パッケージ利用者が検索するにしても、Hoogleで検索しますかね？わざわざInternalを使おうとするユーザーは直接パッケージのドキュメントを読みませんか？<br/>そしていずれにしてもあくまで「デフォルトでは」という話ですし、わかりやすいところにチェックボックスを一つ置くなりして誘導すればいいでしょうし。</div></div></div><div class="message event" id="message-1563336036.119200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1563336036.119200">2019-07-17&nbsp;13:00:36 +0900</a></div></div><div class="message__body description">まさに同じ話をしているissueがあった <a href='https://github.com/ndmitchell/hoogle/issues/246'>https://github.com/ndmitchell/hoogle/issues/246</a><br/>隠すのではなく検索結果での表示順を下げる、と</div></div></div><div class="message event" id="message-1563336112.119500"><div class="content"><div class="summary"><div class="message__header user">notogawa</div><div class="message__timestamp date"><a class="date" href="#message-1563336112.119500">2019-07-17&nbsp;13:01:52 +0900</a></div></div><div class="message__body description">どうやって対応するんですかね．「それがInternal(s)相当である」ことをHoogle側が判断するのは不可能ですよね．<br/>ネーミングは慣習でしかないし，Internal/Internalsで既にユレがあります．<br/>やるなら「このモジュールはそういうモジュールである」ことを示す何かが入ってないと禍根を残すと思いますが．</div></div></div><div class="message event" id="message-1563336408.119700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1563336408.119700">2019-07-17&nbsp;13:06:48 +0900</a></div></div><div class="message__body description">「Internal(s)という名前を付ける」という慣習は十分に普及しているので、名前で特別扱いするので十分かと思います。<br/>もちろん厳密な解ではありませんが、（実際私自身 <code>PublicForTesting</code> なんて名前を付けたことがありますし）厳密でなければならないという話ではないと思います。<br/>慣習が広まっている以上、わざわざ公開しているmoduleにInternalなんて名前を含めるのは希でしょうし。</div></div></div><div class="message event" id="message-1563340112.119900"><div class="content"><div class="summary"><div class="message__header user">matonix</div><div class="message__timestamp date"><a class="date" href="#message-1563340112.119900">2019-07-17&nbsp;14:08:32 +0900</a></div></div><div class="message__body description">Testing時だけ全部Exposeされたものとして扱えるような言語機能があると嬉しそうですが…</div></div></div><div class="message event" id="message-1563340210.120100"><div class="content"><div class="summary"><div class="message__header user">notogawa</div><div class="message__timestamp date"><a class="date" href="#message-1563340210.120100">2019-07-17&nbsp;14:10:10 +0900</a></div></div><div class="message__body description">それはそれで欲しいですね．</div></div></div><div class="message event" id="message-1563345370.120500"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1563345370.120500">2019-07-17&nbsp;15:36:10 +0900</a></div></div><div class="message__body description">Internalなモジュールの関数を｢とりあえず今は呼ばないとやりたいこと実現できねえ!次のバージョンアップの前にpull request出せば良い!｣って呼び出すこと結構あるので検索に出ないのはちょっと困りますね</div></div></div><div class="message event" id="message-1563345429.120700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1563345429.120700">2019-07-17&nbsp;15:37:09 +0900</a></div></div><div class="message__body description">検索結果の順位を下げるのはどうでしょう？</div></div></div><div class="message event" id="message-1563345523.121000"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1563345523.121000">2019-07-17&nbsp;15:38:43 +0900</a></div></div><div class="message__body description">まあそれなら別に問題はだいたいなさそうですね</div></div></div><div class="message event" id="message-1563353291.121400"><div class="content"><div class="summary"><div class="message__header user">yharuhi39</div><div class="message__timestamp date"><a class="date" href="#message-1563353291.121400">2019-07-17&nbsp;17:48:11 +0900</a></div></div><div class="message__body description">それこそ、なんちゃらっていう正規表現（？）にマッチした・しないモジュールは除外みたいなオプションがあればいいってことなんですかね？ そういう機能要望とかはありそうですけどどうなんですかね。</div></div></div><div class="message event" id="message-1563353730.121600"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1563353730.121600">2019-07-17&nbsp;17:55:30 +0900</a></div></div><div class="message__body description">順位を下げる方法だとサーバサイドの修正が必要ですけどInternalもう一切見たくないって人向けには検索画面にフロントエンドでオプションとして追加できそうですね</div></div></div><div class="message event" id="message-1563384302.122400"><div class="content"><div class="summary"><div class="message__header user">hongminhee</div><div class="message__timestamp date"><a class="date" href="#message-1563384302.122400">2019-07-18&nbsp;02:25:02 +0900</a></div></div><div class="message__body description">@hongminhee has joined the channel</div></div></div><div class="message event" id="message-1563461782.123300"><div class="content"><div class="summary"><div class="message__header user">takatoshi.ichikawa</div><div class="message__timestamp date"><a class="date" href="#message-1563461782.123300">2019-07-18&nbsp;23:56:22 +0900</a></div></div><div class="message__body description">@takatoshi.ichikawa has joined the channel</div></div></div><div class="message event" id="message-1563538267.123800"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1563538267.123800">2019-07-19&nbsp;21:11:07 +0900</a></div></div><div class="message__body description">興味深い <a href='http://h2.jaguarpaw.co.uk/posts/simplifying-typeclasses/'>http://h2.jaguarpaw.co.uk/posts/simplifying-typeclasses/</a></div></div></div><div class="message event" id="message-1563589485.002400"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1563589485.002400">2019-07-20&nbsp;11:24:45 +0900</a></div></div><div class="message__body description">Haskellで書かれたFRPライブラリー、Yampa製らしい。<br/><a href='https://linearity.itch.io/peoplemon'>https://linearity.itch.io/peoplemon</a></div></div></div><div class="message event" id="message-1563589502.002600"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1563589502.002600">2019-07-20&nbsp;11:25:02 +0900</a></div></div><div class="message__body description">名指しは控えますがこういうのもっとこっちにも共有して頂けるとありがたい。<br/>こっち中心に見てる人もいるようなので！</div></div></div><div class="message event" id="message-1563640098.003200"><div class="content"><div class="summary"><div class="message__header user">hiroshimashu</div><div class="message__timestamp date"><a class="date" href="#message-1563640098.003200">2019-07-21&nbsp;01:28:18 +0900</a></div></div><div class="message__body description">@hiroshimashu has joined the channel</div></div></div><div class="message event" id="message-1563704803.003700"><div class="content"><div class="summary"><div class="message__header user">scala1117</div><div class="message__timestamp date"><a class="date" href="#message-1563704803.003700">2019-07-21&nbsp;19:26:43 +0900</a></div></div><div class="message__body description">@scala1117 has joined the channel</div></div></div><div class="message event" id="message-1563705165.004700"><div class="content"><div class="summary"><div class="message__header user">remotenonsense</div><div class="message__timestamp date"><a class="date" href="#message-1563705165.004700">2019-07-21&nbsp;19:32:45 +0900</a></div></div><div class="message__body description">Hi, didn't find a #jobs channel, so posting here. I'm looking to hire a PureScript/Haskell intern or part-time developer, details at <a href='https://gist.github.com/rnons/c04acc1f4db94ffee890f425acfb3dc4'>https://gist.github.com/rnons/c04acc1f4db94ffee890f425acfb3dc4</a>, thanks</div></div></div><div class="message event" id="message-1563767757.005900"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1563767757.005900">2019-07-22&nbsp;12:55:57 +0900</a></div></div><div class="message__body description">こっそりextensible-0.6をリリースしました。barbiesと互換になったので活用の機会も増えるはず <a href='http://hackage.haskell.org/package/extensible-0.6'>http://hackage.haskell.org/package/extensible-0.6</a></div></div></div><div class="message event" id="message-1563768171.006800"><div class="content"><div class="summary"><div class="message__header user">lotz</div><div class="message__timestamp date"><a class="date" href="#message-1563768171.006800">2019-07-22&nbsp;13:02:51 +0900</a></div></div><div class="message__body description">HKDが着せ替え人形のイメージでbarbieって名前なんですね :eyes:</div></div></div><div class="message event" id="message-1563768311.007100"><div class="content"><div class="summary"><div class="message__header user">gkusumoto</div><div class="message__timestamp date"><a class="date" href="#message-1563768311.007100">2019-07-22&nbsp;13:05:11 +0900</a></div></div><div class="message__body description">@gkusumoto has joined the channel</div></div></div><div class="message event" id="message-1563768380.007700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1563768380.007700">2019-07-22&nbsp;13:06:20 +0900</a></div></div><div class="message__body description">お気づきですか :smirk:</div></div></div><div class="message event" id="message-1563770422.008500"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1563770422.008500">2019-07-22&nbsp;13:40:22 +0900</a></div></div><div class="message__body description">対応しなきゃ、extensible-0.6</div></div></div><div class="message event" id="message-1563777680.009100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1563777680.009100">2019-07-22&nbsp;15:41:20 +0900</a></div></div><div class="message__body description">extensible-0.6, 早速今日用事が出てきたので使います :muscle:</div></div></div><div class="message event" id="message-1563847346.010100"><div class="content"><div class="summary"><div class="message__header user">kitatori</div><div class="message__timestamp date"><a class="date" href="#message-1563847346.010100">2019-07-23&nbsp;11:02:26 +0900</a></div></div><div class="message__body description">@kitatori has joined the channel</div></div></div><div class="message event" id="message-1563847641.010700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1563847641.010700">2019-07-23&nbsp;11:07:21 +0900</a></div></div><div class="message__body description">ようやくGHC 8.8.1-rc1が出ました！ :tada:<br/><a href='https://www.reddit.com/r/haskell_jp/comments/cgmhaw/announce_ghc_881_release_candidate_1_released/'>https://www.reddit.com/r/haskell_jp/comments/cgmhaw/announce_ghc_881_release_candidate_1_released/</a></div></div></div><div class="message event" id="message-1563865653.011800"><div class="content"><div class="summary"><div class="message__header user">tikuwakunn</div><div class="message__timestamp date"><a class="date" href="#message-1563865653.011800">2019-07-23&nbsp;16:07:33 +0900</a></div></div><div class="message__body description">@tikuwakunn has joined the channel</div></div></div><div class="message event" id="message-1563890950.013600"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1563890950.013600">2019-07-23&nbsp;23:09:10 +0900</a></div></div><div class="message__body description"><a href='http://hackage.haskell.org/package/winery-1.1.2'>http://hackage.haskell.org/package/winery-1.1.2</a> シリアライゼーションライブラリwinery-1.1.2をリリースしました。readFileSerialiseとencodeTermを追加しただけのささやかなアップデートです（もちろんGHC 8.8は対応済み）</div></div></div><div class="message event" id="message-1563926075.014700"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1563926075.014700">2019-07-24&nbsp;08:54:35 +0900</a></div></div><div class="message__body description">チラ裏ですけど、最近はやりのHKDを使って、Redux的な事ができるんじゃないかなあと考えたりした。<br/>UIの状態をJSONで持っているために、更新フック等のコードをある程度自動生成できる事が、Reduxのコア技術の一つだと思っています。<br/>似たような事をHaskellでやろうとするとHKDになるのかなと<br/>もしかすると既にやってる人いるかも</div></div></div><div class="message event" id="message-1563929455.015500"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1563929455.015500">2019-07-24&nbsp;09:50:55 +0900</a></div></div><div class="message__body description">2年前実験的なGUIライブラリを作っていたのを思い出しました。UIを表すDSLから型族で状態を導出するという仕組みで、その一部で拡張可能レコードのHKD能力を利用していましたが、全部HKDに統一するというアプローチもできるかもしれません　<https://github.com/fumieval/glassy/blob/master/app/Todo.hs></div></div></div><div class="message event" id="message-1563939817.016800"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1563939817.016800">2019-07-24&nbsp;12:43:37 +0900</a></div></div><div class="message__body description">なるほど、かなりイメージに近い感じがします。</div></div></div><div class="message event" id="message-1563960514.017500"><div class="content"><div class="summary"><div class="message__header user">sumito</div><div class="message__timestamp date"><a class="date" href="#message-1563960514.017500">2019-07-24&nbsp;18:28:34 +0900</a></div></div><div class="message__body description">@sumito has joined the channel</div></div></div><div class="message event" id="message-1564183015.018900"><div class="content"><div class="summary"><div class="message__header user">shunkichi.sato</div><div class="message__timestamp date"><a class="date" href="#message-1564183015.018900">2019-07-27&nbsp;08:16:55 +0900</a></div></div><div class="message__body description">@shunkichi.sato has joined the channel</div></div></div><div class="message event" id="message-1564196017.019200"><div class="content"><div class="summary"><div class="message__header user">woodsondelhia88</div><div class="message__timestamp date"><a class="date" href="#message-1564196017.019200">2019-07-27&nbsp;11:53:37 +0900</a></div></div><div class="message__body description">@woodsondelhia88 has joined the channel</div></div></div><div class="message event" id="message-1564202852.019500"><div class="content"><div class="summary"><div class="message__header user">ogahiro0720</div><div class="message__timestamp date"><a class="date" href="#message-1564202852.019500">2019-07-27&nbsp;13:47:32 +0900</a></div></div><div class="message__body description">@ogahiro0720 has joined the channel</div></div></div><div class="message event" id="message-1564202948.019800"><div class="content"><div class="summary"><div class="message__header user">yama_aoi</div><div class="message__timestamp date"><a class="date" href="#message-1564202948.019800">2019-07-27&nbsp;13:49:08 +0900</a></div></div><div class="message__body description">@yama_aoi has joined the channel</div></div></div><div class="message event" id="message-1564202962.020100"><div class="content"><div class="summary"><div class="message__header user">cj.bc-sd</div><div class="message__timestamp date"><a class="date" href="#message-1564202962.020100">2019-07-27&nbsp;13:49:22 +0900</a></div></div><div class="message__body description">@cj.bc-sd has joined the channel</div></div></div><div class="message event" id="message-1564203079.020400"><div class="content"><div class="summary"><div class="message__header user">wuthering1118</div><div class="message__timestamp date"><a class="date" href="#message-1564203079.020400">2019-07-27&nbsp;13:51:19 +0900</a></div></div><div class="message__body description">@wuthering1118 has joined the channel</div></div></div><div class="message event" id="message-1564207277.020700"><div class="content"><div class="summary"><div class="message__header user">k.kent8192</div><div class="message__timestamp date"><a class="date" href="#message-1564207277.020700">2019-07-27&nbsp;15:01:17 +0900</a></div></div><div class="message__body description">@k.kent8192 has joined the channel</div></div></div><div class="message event" id="message-1564208415.021000"><div class="content"><div class="summary"><div class="message__header user">drmaruyama</div><div class="message__timestamp date"><a class="date" href="#message-1564208415.021000">2019-07-27&nbsp;15:20:15 +0900</a></div></div><div class="message__body description">@drmaruyama has joined the channel</div></div></div><div class="message event" id="message-1564218173.021300"><div class="content"><div class="summary"><div class="message__header user">gan13027830</div><div class="message__timestamp date"><a class="date" href="#message-1564218173.021300">2019-07-27&nbsp;18:02:53 +0900</a></div></div><div class="message__body description">@gan13027830 has joined the channel</div></div></div><div class="message event" id="message-1564274912.021700"><div class="content"><div class="summary"><div class="message__header user">nnhixi</div><div class="message__timestamp date"><a class="date" href="#message-1564274912.021700">2019-07-28&nbsp;09:48:32 +0900</a></div></div><div class="message__body description">@nnhixi has joined the channel</div></div></div><div class="message event" id="message-1564303895.022000"><div class="content"><div class="summary"><div class="message__header user">alliswellthatendswell</div><div class="message__timestamp date"><a class="date" href="#message-1564303895.022000">2019-07-28&nbsp;17:51:35 +0900</a></div></div><div class="message__body description">@alliswellthatendswell has joined the channel</div></div></div><div class="message event" id="message-1564380382.022300"><div class="content"><div class="summary"><div class="message__header user">dusty.trombone</div><div class="message__timestamp date"><a class="date" href="#message-1564380382.022300">2019-07-29&nbsp;15:06:22 +0900</a></div></div><div class="message__body description">@dusty.trombone has joined the channel</div></div></div><div class="message event" id="message-1564387841.023200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1564387841.023200">2019-07-29&nbsp;17:10:41 +0900</a></div></div><div class="message__body description">マルチスレッド向けのRTS（ <code>-threaded</code> で有効になるやつ）がデフォルトで有効になる提案がacceptされました。<br/><a href='https://github.com/ghc-proposals/ghc-proposals/pull/240'>https://github.com/ghc-proposals/ghc-proposals/pull/240</a></div></div></div><div class="message event" id="message-1564388000.023400"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1564388000.023400">2019-07-29&nbsp;17:13:20 +0900</a></div></div><div class="message__body description">「実は <code>-threaded</code> が必要なライブラリーを使っていたけど有効にするのを忘れてたので全然うまく動かない」みたいなケースを未然に防げそうです（経験者談）。</div></div></div><div class="message event" id="message-1564457967.025100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1564457967.025100">2019-07-30&nbsp;12:39:27 +0900</a></div></div><div class="message__body description">型レベルプログラミングを型レベルでテストする。should-not-typecheckパッケージとはまた違った使い心地で面白そう。<br/><a href='https://github.com/sheyll/type-spec'>https://github.com/sheyll/type-spec</a></div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C4M4TT8JJ/53.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C4M4TT8JJ/55.html" class="pager__next item">Next</a></div></div></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #54</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #54</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C4M4TT8JJ/53.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C4M4TT8JJ/55.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1563335176.118500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">takeru.t</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563335176.118500">2019-07-17 12:46:16 +0900</a></div>
+          </div>
+          <div class="message__body description">@takeru.t has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563335355.118800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">notogawa</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563335355.118800">2019-07-17 12:49:15 +0900</a></div>
+          </div>
+          <div class="message__body description">Internal(s)っぽいモジュールはそれが何のためにexposeされるかはパッケージ毎に提供者の意図によって異なるからです．<br/>たとえば「テスト等の事情でexposeされているだけ」なのと「(速度のためなどで)内部構造にアクセスしたい人がいるかもでexposeしてる」では，<br/>パッケージ提供者だけが使うのかパッケージ利用者も使うのかが違ってきます．<br/>ここが違うと検索にひっかかって欲しいかどうかも異なってくるのではないでしょうか．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563335719.119000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563335719.119000">2019-07-17 12:55:19 +0900</a></div>
+          </div>
+          <div class="message__body description">パッケージ利用者が検索するにしても、Hoogleで検索しますかね？わざわざInternalを使おうとするユーザーは直接パッケージのドキュメントを読みませんか？<br/>そしていずれにしてもあくまで「デフォルトでは」という話ですし、わかりやすいところにチェックボックスを一つ置くなりして誘導すればいいでしょうし。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563336036.119200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563336036.119200">2019-07-17 13:00:36 +0900</a></div>
+          </div>
+          <div class="message__body description">まさに同じ話をしているissueがあった <a href='https://github.com/ndmitchell/hoogle/issues/246'>https://github.com/ndmitchell/hoogle/issues/246</a><br/>隠すのではなく検索結果での表示順を下げる、と</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563336112.119500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">notogawa</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563336112.119500">2019-07-17 13:01:52 +0900</a></div>
+          </div>
+          <div class="message__body description">どうやって対応するんですかね．「それがInternal(s)相当である」ことをHoogle側が判断するのは不可能ですよね．<br/>ネーミングは慣習でしかないし，Internal/Internalsで既にユレがあります．<br/>やるなら「このモジュールはそういうモジュールである」ことを示す何かが入ってないと禍根を残すと思いますが．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563336408.119700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563336408.119700">2019-07-17 13:06:48 +0900</a></div>
+          </div>
+          <div class="message__body description">「Internal(s)という名前を付ける」という慣習は十分に普及しているので、名前で特別扱いするので十分かと思います。<br/>もちろん厳密な解ではありませんが、（実際私自身 <code>PublicForTesting</code> なんて名前を付けたことがありますし）厳密でなければならないという話ではないと思います。<br/>慣習が広まっている以上、わざわざ公開しているmoduleにInternalなんて名前を含めるのは希でしょうし。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563340112.119900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matonix</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563340112.119900">2019-07-17 14:08:32 +0900</a></div>
+          </div>
+          <div class="message__body description">Testing時だけ全部Exposeされたものとして扱えるような言語機能があると嬉しそうですが…</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563340210.120100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">notogawa</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563340210.120100">2019-07-17 14:10:10 +0900</a></div>
+          </div>
+          <div class="message__body description">それはそれで欲しいですね．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563345370.120500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563345370.120500">2019-07-17 15:36:10 +0900</a></div>
+          </div>
+          <div class="message__body description">Internalなモジュールの関数を｢とりあえず今は呼ばないとやりたいこと実現できねえ!次のバージョンアップの前にpull request出せば良い!｣って呼び出すこと結構あるので検索に出ないのはちょっと困りますね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563345429.120700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563345429.120700">2019-07-17 15:37:09 +0900</a></div>
+          </div>
+          <div class="message__body description">検索結果の順位を下げるのはどうでしょう？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563345523.121000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563345523.121000">2019-07-17 15:38:43 +0900</a></div>
+          </div>
+          <div class="message__body description">まあそれなら別に問題はだいたいなさそうですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563353291.121400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yharuhi39</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563353291.121400">2019-07-17 17:48:11 +0900</a></div>
+          </div>
+          <div class="message__body description">それこそ、なんちゃらっていう正規表現（？）にマッチした・しないモジュールは除外みたいなオプションがあればいいってことなんですかね？ そういう機能要望とかはありそうですけどどうなんですかね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563353730.121600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563353730.121600">2019-07-17 17:55:30 +0900</a></div>
+          </div>
+          <div class="message__body description">順位を下げる方法だとサーバサイドの修正が必要ですけどInternalもう一切見たくないって人向けには検索画面にフロントエンドでオプションとして追加できそうですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563384302.122400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hongminhee</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563384302.122400">2019-07-18 02:25:02 +0900</a></div>
+          </div>
+          <div class="message__body description">@hongminhee has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563461782.123300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">takatoshi.ichikawa</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563461782.123300">2019-07-18 23:56:22 +0900</a></div>
+          </div>
+          <div class="message__body description">@takatoshi.ichikawa has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563538267.123800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563538267.123800">2019-07-19 21:11:07 +0900</a></div>
+          </div>
+          <div class="message__body description">興味深い <a href='http://h2.jaguarpaw.co.uk/posts/simplifying-typeclasses/'>http://h2.jaguarpaw.co.uk/posts/simplifying-typeclasses/</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563589485.002400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563589485.002400">2019-07-20 11:24:45 +0900</a></div>
+          </div>
+          <div class="message__body description">Haskellで書かれたFRPライブラリー、Yampa製らしい。<br/><a href='https://linearity.itch.io/peoplemon'>https://linearity.itch.io/peoplemon</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563589502.002600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563589502.002600">2019-07-20 11:25:02 +0900</a></div>
+          </div>
+          <div class="message__body description">名指しは控えますがこういうのもっとこっちにも共有して頂けるとありがたい。<br/>こっち中心に見てる人もいるようなので！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563640098.003200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroshimashu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563640098.003200">2019-07-21 01:28:18 +0900</a></div>
+          </div>
+          <div class="message__body description">@hiroshimashu has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563704803.003700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">scala1117</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563704803.003700">2019-07-21 19:26:43 +0900</a></div>
+          </div>
+          <div class="message__body description">@scala1117 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563705165.004700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">remotenonsense</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563705165.004700">2019-07-21 19:32:45 +0900</a></div>
+          </div>
+          <div class="message__body description">Hi, didn't find a #jobs channel, so posting here. I'm looking to hire a PureScript/Haskell intern or part-time developer, details at <a href='https://gist.github.com/rnons/c04acc1f4db94ffee890f425acfb3dc4'>https://gist.github.com/rnons/c04acc1f4db94ffee890f425acfb3dc4</a>, thanks</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563767757.005900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563767757.005900">2019-07-22 12:55:57 +0900</a></div>
+          </div>
+          <div class="message__body description">こっそりextensible-0.6をリリースしました。barbiesと互換になったので活用の機会も増えるはず <a href='http://hackage.haskell.org/package/extensible-0.6'>http://hackage.haskell.org/package/extensible-0.6</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563768171.006800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">lotz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563768171.006800">2019-07-22 13:02:51 +0900</a></div>
+          </div>
+          <div class="message__body description">HKDが着せ替え人形のイメージでbarbieって名前なんですね :eyes:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563768311.007100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gkusumoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563768311.007100">2019-07-22 13:05:11 +0900</a></div>
+          </div>
+          <div class="message__body description">@gkusumoto has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563768380.007700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563768380.007700">2019-07-22 13:06:20 +0900</a></div>
+          </div>
+          <div class="message__body description">お気づきですか :smirk:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563770422.008500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563770422.008500">2019-07-22 13:40:22 +0900</a></div>
+          </div>
+          <div class="message__body description">対応しなきゃ、extensible-0.6</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563777680.009100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563777680.009100">2019-07-22 15:41:20 +0900</a></div>
+          </div>
+          <div class="message__body description">extensible-0.6, 早速今日用事が出てきたので使います :muscle:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563847346.010100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kitatori</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563847346.010100">2019-07-23 11:02:26 +0900</a></div>
+          </div>
+          <div class="message__body description">@kitatori has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563847641.010700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563847641.010700">2019-07-23 11:07:21 +0900</a></div>
+          </div>
+          <div class="message__body description">ようやくGHC 8.8.1-rc1が出ました！ :tada:<br/><a href='https://www.reddit.com/r/haskell_jp/comments/cgmhaw/announce_ghc_881_release_candidate_1_released/'>https://www.reddit.com/r/haskell_jp/comments/cgmhaw/announce_ghc_881_release_candidate_1_released/</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563865653.011800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tikuwakunn</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563865653.011800">2019-07-23 16:07:33 +0900</a></div>
+          </div>
+          <div class="message__body description">@tikuwakunn has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563890950.013600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563890950.013600">2019-07-23 23:09:10 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='http://hackage.haskell.org/package/winery-1.1.2'>http://hackage.haskell.org/package/winery-1.1.2</a> シリアライゼーションライブラリwinery-1.1.2をリリースしました。readFileSerialiseとencodeTermを追加しただけのささやかなアップデートです（もちろんGHC 8.8は対応済み）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563926075.014700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563926075.014700">2019-07-24 08:54:35 +0900</a></div>
+          </div>
+          <div class="message__body description">チラ裏ですけど、最近はやりのHKDを使って、Redux的な事ができるんじゃないかなあと考えたりした。<br/>UIの状態をJSONで持っているために、更新フック等のコードをある程度自動生成できる事が、Reduxのコア技術の一つだと思っています。<br/>似たような事をHaskellでやろうとするとHKDになるのかなと<br/>もしかすると既にやってる人いるかも</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563929455.015500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563929455.015500">2019-07-24 09:50:55 +0900</a></div>
+          </div>
+          <div class="message__body description">2年前実験的なGUIライブラリを作っていたのを思い出しました。UIを表すDSLから型族で状態を導出するという仕組みで、その一部で拡張可能レコードのHKD能力を利用していましたが、全部HKDに統一するというアプローチもできるかもしれません　<https://github.com/fumieval/glassy/blob/master/app/Todo.hs></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563939817.016800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563939817.016800">2019-07-24 12:43:37 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど、かなりイメージに近い感じがします。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1563960514.017500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">sumito</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1563960514.017500">2019-07-24 18:28:34 +0900</a></div>
+          </div>
+          <div class="message__body description">@sumito has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1564183015.018900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shunkichi.sato</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1564183015.018900">2019-07-27 08:16:55 +0900</a></div>
+          </div>
+          <div class="message__body description">@shunkichi.sato has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1564196017.019200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">woodsondelhia88</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1564196017.019200">2019-07-27 11:53:37 +0900</a></div>
+          </div>
+          <div class="message__body description">@woodsondelhia88 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1564202852.019500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ogahiro0720</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1564202852.019500">2019-07-27 13:47:32 +0900</a></div>
+          </div>
+          <div class="message__body description">@ogahiro0720 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1564202948.019800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yama_aoi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1564202948.019800">2019-07-27 13:49:08 +0900</a></div>
+          </div>
+          <div class="message__body description">@yama_aoi has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1564202962.020100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cj.bc-sd</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1564202962.020100">2019-07-27 13:49:22 +0900</a></div>
+          </div>
+          <div class="message__body description">@cj.bc-sd has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1564203079.020400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">wuthering1118</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1564203079.020400">2019-07-27 13:51:19 +0900</a></div>
+          </div>
+          <div class="message__body description">@wuthering1118 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1564207277.020700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">k.kent8192</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1564207277.020700">2019-07-27 15:01:17 +0900</a></div>
+          </div>
+          <div class="message__body description">@k.kent8192 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1564208415.021000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">drmaruyama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1564208415.021000">2019-07-27 15:20:15 +0900</a></div>
+          </div>
+          <div class="message__body description">@drmaruyama has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1564218173.021300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gan13027830</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1564218173.021300">2019-07-27 18:02:53 +0900</a></div>
+          </div>
+          <div class="message__body description">@gan13027830 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1564274912.021700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nnhixi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1564274912.021700">2019-07-28 09:48:32 +0900</a></div>
+          </div>
+          <div class="message__body description">@nnhixi has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1564303895.022000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">alliswellthatendswell</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1564303895.022000">2019-07-28 17:51:35 +0900</a></div>
+          </div>
+          <div class="message__body description">@alliswellthatendswell has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1564380382.022300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">dusty.trombone</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1564380382.022300">2019-07-29 15:06:22 +0900</a></div>
+          </div>
+          <div class="message__body description">@dusty.trombone has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1564387841.023200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1564387841.023200">2019-07-29 17:10:41 +0900</a></div>
+          </div>
+          <div class="message__body description">マルチスレッド向けのRTS（ <code>-threaded</code> で有効になるやつ）がデフォルトで有効になる提案がacceptされました。<br/><a href='https://github.com/ghc-proposals/ghc-proposals/pull/240'>https://github.com/ghc-proposals/ghc-proposals/pull/240</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1564388000.023400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1564388000.023400">2019-07-29 17:13:20 +0900</a></div>
+          </div>
+          <div class="message__body description">「実は <code>-threaded</code> が必要なライブラリーを使っていたけど有効にするのを忘れてたので全然うまく動かない」みたいなケースを未然に防げそうです（経験者談）。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1564457967.025100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1564457967.025100">2019-07-30 12:39:27 +0900</a></div>
+          </div>
+          <div class="message__body description">型レベルプログラミングを型レベルでテストする。should-not-typecheckパッケージとはまた違った使い心地で面白そう。<br/><a href='https://github.com/sheyll/type-spec'>https://github.com/sheyll/type-spec</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C4M4TT8JJ/53.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C4M4TT8JJ/55.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

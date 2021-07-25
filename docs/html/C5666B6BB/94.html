@@ -1,4 +1,62 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #94</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #94</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/93.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/95.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1606974568.195400"><div class="content"><div class="summary"><div class="message__header user">kazu</div><div class="message__timestamp date"><a class="date" href="#message-1606974568.195400">2020-12-03&nbsp;14:49:28 +0900</a></div></div><div class="message__body description">昔の GHC だと、UNPACK で  Strict な小さな値は、ポインターではなく即値が格納されるようになります。<br/>しかし、現在の GHC は UNPACK は必要なく、Strict で小さければ、既値が格納されます。</div></div></div><div class="message event" id="message-1606981265.196400"><div class="content"><div class="summary"><div class="message__header user">wasabi.nvim.st</div><div class="message__timestamp date"><a class="date" href="#message-1606981265.196400">2020-12-03&nbsp;16:41:05 +0900</a></div></div><div class="message__body description">unpackされるかどうか自動的に判断されるということですね、ありがとうございます！</div></div></div><div class="message event" id="message-1607305195.196800"><div class="content"><div class="summary"><div class="message__header user">hatsugai</div><div class="message__timestamp date"><a class="date" href="#message-1607305195.196800">2020-12-07&nbsp;10:39:55 +0900</a></div></div><div class="message__body description">@hatsugai has joined the channel</div></div></div><div class="message event" id="message-1607407240.197100"><div class="content"><div class="summary"><div class="message__header user">yusuke.nakayama1218</div><div class="message__timestamp date"><a class="date" href="#message-1607407240.197100">2020-12-08&nbsp;15:00:40 +0900</a></div></div><div class="message__body description">@yusuke.nakayama1218 has joined the channel</div></div></div><div class="message event" id="message-1607494891.205200"><div class="content"><div class="summary"><div class="message__header user">lotz</div><div class="message__timestamp date"><a class="date" href="#message-1607494891.205200">2020-12-09&nbsp;15:21:31 +0900</a></div></div><div class="message__body description">質問させてください :raising_hand:<br/><a href='https://hackage.haskell.org/package/vector-sized-1.4.3/docs/Data-Vector-Sized.html'>vector-sizedの型レベルで長さを持つVector</a>の以下のような型クラスのインスタンスを定義したいのですがやり方が分からず困ってます :cry:<br/>うまいやり方を知っている or 一緒に悩んでくれる人がいたらコメントしていただけると嬉しいです :pray:<br/>（動かないですが書きたいコード）<br/><pre>import qualified Data.Vector.Sized as V
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #94</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #94</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/93.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/95.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1606974568.195400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kazu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1606974568.195400">2020-12-03 14:49:28 +0900</a></div>
+          </div>
+          <div class="message__body description">昔の GHC だと、UNPACK で  Strict な小さな値は、ポインターではなく即値が格納されるようになります。<br/>しかし、現在の GHC は UNPACK は必要なく、Strict で小さければ、既値が格納されます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1606981265.196400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">wasabi.nvim.st</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1606981265.196400">2020-12-03 16:41:05 +0900</a></div>
+          </div>
+          <div class="message__body description">unpackされるかどうか自動的に判断されるということですね、ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1607305195.196800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hatsugai</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1607305195.196800">2020-12-07 10:39:55 +0900</a></div>
+          </div>
+          <div class="message__body description">@hatsugai has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1607407240.197100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yusuke.nakayama1218</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1607407240.197100">2020-12-08 15:00:40 +0900</a></div>
+          </div>
+          <div class="message__body description">@yusuke.nakayama1218 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1607494891.205200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">lotz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1607494891.205200">2020-12-09 15:21:31 +0900</a></div>
+          </div>
+          <div class="message__body description">質問させてください :raising_hand:<br/><a href='https://hackage.haskell.org/package/vector-sized-1.4.3/docs/Data-Vector-Sized.html'>vector-sizedの型レベルで長さを持つVector</a>の以下のような型クラスのインスタンスを定義したいのですがやり方が分からず困ってます :cry:<br/>うまいやり方を知っている or 一緒に悩んでくれる人がいたらコメントしていただけると嬉しいです :pray:<br/>（動かないですが書きたいコード）<br/><pre>import qualified Data.Vector.Sized as V
 
 class Raccum a where
   raccum :: a -&gt; a
@@ -11,8 +69,44 @@ instance Num a =&gt; Raccum (Vector m a) where
   raccum v
     | m == 1    = v
     | otherwise = V.cons (V.sum v) (raccum $ V.tail v)
-    where m = natVal (Proxy @m)</pre></div></div></div><div class="message event" id="message-1607495010.205300"><div class="content"><div class="summary"><div class="message__header user">lotz</div><div class="message__timestamp date"><a class="date" href="#message-1607495010.205300">2020-12-09&nbsp;15:23:30 +0900</a></div></div><div class="message__body description">※`raccum` を実装したいわけではなくこの例のようにGHCの型レベル自然数に対して帰納的に型クラスのインスタンスを実装する方法を知りたいと思っています</div></div></div><div class="message event" id="message-1607496050.205500"><div class="content"><div class="summary"><div class="message__header user">lotz</div><div class="message__timestamp date"><a class="date" href="#message-1607496050.205500">2020-12-09&nbsp;15:40:50 +0900</a></div></div><div class="message__body description">:memo: こう書けても良さそうなんですがこれは <code>Illegal type synonym family application 'n + 1' in instance</code> と怒られるんですよね、、<br/><pre>instance (Raccum (Vector n a), Num a) =&gt; Raccum (Vector (n+1) a) where
-  raccum v = V.cons (V.sum v) (raccum $ V.tail v)</pre></div></div></div><div class="message event" id="message-1607497039.205700"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1607497039.205700">2020-12-09&nbsp;15:57:19 +0900</a></div></div><div class="message__body description"><a href='https://qiita.com/mod_poppo/items/3a37424d299a9f71b757'>https://qiita.com/mod_poppo/items/3a37424d299a9f71b757</a> に書いたように、GHCのNatは帰納的な定義ではないので、真っ当な方法でそういう関数を定義することはできません。</div></div></div><div class="message event" id="message-1607497151.206000"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1607497151.206000">2020-12-09&nbsp;15:59:11 +0900</a></div></div><div class="message__body description">unsafeな手段を厭わないのであれば、<br/><pre>
+    where m = natVal (Proxy @m)</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1607495010.205300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">lotz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1607495010.205300">2020-12-09 15:23:30 +0900</a></div>
+          </div>
+          <div class="message__body description">※`raccum` を実装したいわけではなくこの例のようにGHCの型レベル自然数に対して帰納的に型クラスのインスタンスを実装する方法を知りたいと思っています</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1607496050.205500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">lotz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1607496050.205500">2020-12-09 15:40:50 +0900</a></div>
+          </div>
+          <div class="message__body description">:memo: こう書けても良さそうなんですがこれは <code>Illegal type synonym family application 'n + 1' in instance</code> と怒られるんですよね、、<br/><pre>instance (Raccum (Vector n a), Num a) =&gt; Raccum (Vector (n+1) a) where
+  raccum v = V.cons (V.sum v) (raccum $ V.tail v)</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1607497039.205700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1607497039.205700">2020-12-09 15:57:19 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://qiita.com/mod_poppo/items/3a37424d299a9f71b757'>https://qiita.com/mod_poppo/items/3a37424d299a9f71b757</a> に書いたように、GHCのNatは帰納的な定義ではないので、真っ当な方法でそういう関数を定義することはできません。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1607497151.206000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1607497151.206000">2020-12-09 15:59:11 +0900</a></div>
+          </div>
+          <div class="message__body description">unsafeな手段を厭わないのであれば、<br/><pre>
 data NatCons (n :: Nat) where
   Zero :: NatCons 0
   Succ :: (KnownNat n, m ~ (1 + n)) =&gt; Proxy n -&gt; NatCons m
@@ -22,7 +116,151 @@ natCons :: KnownNat n =&gt; Proxy n -&gt; NatCons n
 natCons proxy = case sameNat proxy (Proxy :: Proxy 0) of
                   Just Refl -&gt; Zero
                   Nothing -&gt; case someNatVal (natVal proxy - 1) of
-                               SomeNat proxy' -&gt; unsafeCoerce (Succ proxy')</pre><br/>という補助関数を用意してやれば自然数が0か後続者かで場合分けできるようになります。（完全なコードは <a href='https://gist.github.com/minoki/08b5825e249ae5642a6236a5f5adf702'>https://gist.github.com/minoki/08b5825e249ae5642a6236a5f5adf702</a>）</div></div></div><div class="message event" id="message-1607497223.206200"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1607497223.206200">2020-12-09&nbsp;16:00:23 +0900</a></div></div><div class="message__body description">試してませんが、自分でunsafeなコードを書きたくないのであれば、singletonsとcompiler pluginの組み合わせでどうにかできるかもしれません。</div></div></div><div class="message event" id="message-1607497435.206400"><div class="content"><div class="summary"><div class="message__header user">lotz</div><div class="message__timestamp date"><a class="date" href="#message-1607497435.206400">2020-12-09&nbsp;16:03:55 +0900</a></div></div><div class="message__body description">Nat自体が帰納的に定義されてないことに起因してますよね、、<br/>調べてる時にこちらの記事も読ませていただきました! :pray:<br/><br/>実装教えていただきありがとうございます!! unsafeな方法でも動かす方法が全く思いつかなかったのでめちゃくちゃありがたいです :innocent:<br/><br/>singletons + pluginですか :memo:<br/>singletons 使ったことがないので考える良い機会になりそうです :arigatougozaimasu: :pray:</div></div></div><div class="message event" id="message-1607503731.206600"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1607503731.206600">2020-12-09&nbsp;17:48:51 +0900</a></div></div><div class="message__body description">singletons + compiler plugin を使った版も書いてみましたが、結局痒いところに手が届かなくてunsafeCoerceを使ってしまう羽目になりました <a href='https://gist.github.com/minoki/08b5825e249ae5642a6236a5f5adf702#file-sing-hs'>https://gist.github.com/minoki/08b5825e249ae5642a6236a5f5adf702#file-sing-hs</a><br/>（更新：ghc-typelits-knownnatを入れた意義が微妙なことになっていたので直しました）</div></div></div><div class="message event" id="message-1607503967.206800"><div class="content"><div class="summary"><div class="message__header user">lotz</div><div class="message__timestamp date"><a class="date" href="#message-1607503967.206800">2020-12-09&nbsp;17:52:47 +0900</a></div></div><div class="message__body description">すごい！めちゃくちゃ勉強になります :pray: :arigatougozaimasu:</div></div></div><div class="message event" id="message-1607505408.207200"><div class="content"><div class="summary"><div class="message__header user">lotz</div><div class="message__timestamp date"><a class="date" href="#message-1607505408.207200">2020-12-09&nbsp;18:16:48 +0900</a></div></div><div class="message__body description">本来書きたかったコードも頂いたコードを参考に無事実装できました :pray: :pray: :pray:</div></div></div><div class="message event" id="message-1607610810.207800"><div class="content"><div class="summary"><div class="message__header user">kzk0693</div><div class="message__timestamp date"><a class="date" href="#message-1607610810.207800">2020-12-10&nbsp;23:33:30 +0900</a></div></div><div class="message__body description">@kzk0693 has joined the channel</div></div></div><div class="message event" id="message-1608140827.210300"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1608140827.210300">2020-12-17&nbsp;02:47:07 +0900</a></div></div><div class="message__body description">HakyllでBinaryのインスタンスじゃないもののsnapshot的なものは取れないんでしょうか。LucidのHtmlTのコンストラクタがエクスポートされてなくてStandaloneDerivingでもBinary(Generic)のインスタンスにできず...</div></div></div><div class="message event" id="message-1608141270.210500"><div class="content"><div class="summary"><div class="message__header user">9647142</div><div class="message__timestamp date"><a class="date" href="#message-1608141270.210500">2020-12-17&nbsp;02:54:30 +0900</a></div></div><div class="message__body description">本当にsnapshot取りたかったのは取りたかったのはタイトルの部分ですよね? タイトルだけsnapshot取って解決</div></div></div><div class="message event" id="message-1608163096.210800"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1608163096.210800">2020-12-17&nbsp;08:58:16 +0900</a></div></div><div class="message__body description">Monad TransformerをBinaryのインスタンスにしてシリアライズするのは原理的に難しそうなので、やるとしたら一旦生の文字列（TextでもByteStringでも）に変えるしかなかったのではないかと</div></div></div><div class="message event" id="message-1608179841.211700"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1608179841.211700">2020-12-17&nbsp;13:37:21 +0900</a></div></div><div class="message__body description">リストを codensity 変換したものって <code>forall r. m r -&gt; (a -&gt; r -&gt; m r) -&gt; m r</code> でいいんですよね。これってモナドにするときに <code>Monad m</code> が必要ということで合ってますよね？</div></div></div><div class="message event" id="message-1608180457.211800"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1608180457.211800">2020-12-17&nbsp;13:47:37 +0900</a></div></div><div class="message__body description"><a href='https://stackoverflow.com/questions/45334985/when-to-use-cps-vs-codensity-vs-reflection-without-remorse-in-haskell'>https://stackoverflow.com/questions/45334985/when-to-use-cps-vs-codensity-vs-reflection-without-remorse-in-haskell</a> によると、これは「 codensity 変換」ではなく「 CPS 変換」なようです。</div></div></div><div class="message event" id="message-1608184533.212100"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1608184533.212100">2020-12-17&nbsp;14:55:33 +0900</a></div></div><div class="message__body description">mはなくてもよく、foldrにリストを部分適用した型になります。もしLogicTのようにモナドを埋め込むなら、`(a → m r → m r) → m r → m r`ですね</div></div></div><div class="message event" id="message-1608184883.212900"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1608184883.212900">2020-12-17&nbsp;15:01:23 +0900</a></div></div><div class="message__body description">ありがとうございます！</div></div></div><div class="message event" id="message-1609219658.215400"><div class="content"><div class="summary"><div class="message__header user">michaeleverydaysunday</div><div class="message__timestamp date"><a class="date" href="#message-1609219658.215400">2020-12-29&nbsp;14:27:38 +0900</a></div></div><div class="message__body description">@michaeleverydaysunday has joined the channel</div></div></div><div class="message event" id="message-1609596543.217100"><div class="content"><div class="summary"><div class="message__header user">nearestministop</div><div class="message__timestamp date"><a class="date" href="#message-1609596543.217100">2021-01-02&nbsp;23:09:03 +0900</a></div></div><div class="message__body description">@nearestministop has joined the channel</div></div></div><div class="message event" id="message-1609654731.221800"><div class="content"><div class="summary"><div class="message__header user">dyoshikawa1993</div><div class="message__timestamp date"><a class="date" href="#message-1609654731.221800">2021-01-03&nbsp;15:18:51 +0900</a></div></div><div class="message__body description">amazonkaでS3へファイルアップロードする処理について質問です。<br/><a href='https://github.com/brendanhay/amazonka/blob/develop/examples/src/Example/S3.hs'>https://github.com/brendanhay/amazonka/blob/develop/examples/src/Example/S3.hs</a><br/>こちらのexampleを参考に、下のようなコードで手元でアップロードできることを確認しました。<br/><pre>createSourceFile :: IO ()
+                               SomeNat proxy' -&gt; unsafeCoerce (Succ proxy')</pre><br/>という補助関数を用意してやれば自然数が0か後続者かで場合分けできるようになります。（完全なコードは <a href='https://gist.github.com/minoki/08b5825e249ae5642a6236a5f5adf702'>https://gist.github.com/minoki/08b5825e249ae5642a6236a5f5adf702</a>）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1607497223.206200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1607497223.206200">2020-12-09 16:00:23 +0900</a></div>
+          </div>
+          <div class="message__body description">試してませんが、自分でunsafeなコードを書きたくないのであれば、singletonsとcompiler pluginの組み合わせでどうにかできるかもしれません。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1607497435.206400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">lotz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1607497435.206400">2020-12-09 16:03:55 +0900</a></div>
+          </div>
+          <div class="message__body description">Nat自体が帰納的に定義されてないことに起因してますよね、、<br/>調べてる時にこちらの記事も読ませていただきました! :pray:<br/><br/>実装教えていただきありがとうございます!! unsafeな方法でも動かす方法が全く思いつかなかったのでめちゃくちゃありがたいです :innocent:<br/><br/>singletons + pluginですか :memo:<br/>singletons 使ったことがないので考える良い機会になりそうです :arigatougozaimasu: :pray:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1607503731.206600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1607503731.206600">2020-12-09 17:48:51 +0900</a></div>
+          </div>
+          <div class="message__body description">singletons + compiler plugin を使った版も書いてみましたが、結局痒いところに手が届かなくてunsafeCoerceを使ってしまう羽目になりました <a href='https://gist.github.com/minoki/08b5825e249ae5642a6236a5f5adf702#file-sing-hs'>https://gist.github.com/minoki/08b5825e249ae5642a6236a5f5adf702#file-sing-hs</a><br/>（更新：ghc-typelits-knownnatを入れた意義が微妙なことになっていたので直しました）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1607503967.206800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">lotz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1607503967.206800">2020-12-09 17:52:47 +0900</a></div>
+          </div>
+          <div class="message__body description">すごい！めちゃくちゃ勉強になります :pray: :arigatougozaimasu:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1607505408.207200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">lotz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1607505408.207200">2020-12-09 18:16:48 +0900</a></div>
+          </div>
+          <div class="message__body description">本来書きたかったコードも頂いたコードを参考に無事実装できました :pray: :pray: :pray:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1607610810.207800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kzk0693</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1607610810.207800">2020-12-10 23:33:30 +0900</a></div>
+          </div>
+          <div class="message__body description">@kzk0693 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1608140827.210300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1608140827.210300">2020-12-17 02:47:07 +0900</a></div>
+          </div>
+          <div class="message__body description">HakyllでBinaryのインスタンスじゃないもののsnapshot的なものは取れないんでしょうか。LucidのHtmlTのコンストラクタがエクスポートされてなくてStandaloneDerivingでもBinary(Generic)のインスタンスにできず...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1608141270.210500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">9647142</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1608141270.210500">2020-12-17 02:54:30 +0900</a></div>
+          </div>
+          <div class="message__body description">本当にsnapshot取りたかったのは取りたかったのはタイトルの部分ですよね? タイトルだけsnapshot取って解決</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1608163096.210800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1608163096.210800">2020-12-17 08:58:16 +0900</a></div>
+          </div>
+          <div class="message__body description">Monad TransformerをBinaryのインスタンスにしてシリアライズするのは原理的に難しそうなので、やるとしたら一旦生の文字列（TextでもByteStringでも）に変えるしかなかったのではないかと</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1608179841.211700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1608179841.211700">2020-12-17 13:37:21 +0900</a></div>
+          </div>
+          <div class="message__body description">リストを codensity 変換したものって <code>forall r. m r -&gt; (a -&gt; r -&gt; m r) -&gt; m r</code> でいいんですよね。これってモナドにするときに <code>Monad m</code> が必要ということで合ってますよね？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1608180457.211800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1608180457.211800">2020-12-17 13:47:37 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://stackoverflow.com/questions/45334985/when-to-use-cps-vs-codensity-vs-reflection-without-remorse-in-haskell'>https://stackoverflow.com/questions/45334985/when-to-use-cps-vs-codensity-vs-reflection-without-remorse-in-haskell</a> によると、これは「 codensity 変換」ではなく「 CPS 変換」なようです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1608184533.212100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1608184533.212100">2020-12-17 14:55:33 +0900</a></div>
+          </div>
+          <div class="message__body description">mはなくてもよく、foldrにリストを部分適用した型になります。もしLogicTのようにモナドを埋め込むなら、`(a → m r → m r) → m r → m r`ですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1608184883.212900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1608184883.212900">2020-12-17 15:01:23 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609219658.215400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">michaeleverydaysunday</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609219658.215400">2020-12-29 14:27:38 +0900</a></div>
+          </div>
+          <div class="message__body description">@michaeleverydaysunday has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609596543.217100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nearestministop</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609596543.217100">2021-01-02 23:09:03 +0900</a></div>
+          </div>
+          <div class="message__body description">@nearestministop has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609654731.221800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">dyoshikawa1993</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609654731.221800">2021-01-03 15:18:51 +0900</a></div>
+          </div>
+          <div class="message__body description">amazonkaでS3へファイルアップロードする処理について質問です。<br/><a href='https://github.com/brendanhay/amazonka/blob/develop/examples/src/Example/S3.hs'>https://github.com/brendanhay/amazonka/blob/develop/examples/src/Example/S3.hs</a><br/>こちらのexampleを参考に、下のようなコードで手元でアップロードできることを確認しました。<br/><pre>createSourceFile :: IO ()
 createSourceFile = do
     writeFile "input.txt" "This is a test."
 
@@ -33,7 +271,16 @@ s3Upload = do
     env &lt;- newEnv Discover &lt;&amp;&gt; set envLogger logger . set envRegion Tokyo
     runResourceT . runAWST env $ do
         body &lt;- chunkedFile defaultChunkSize "./input.txt"
-        void . send $ putObject (BucketName "test-bucket") (ObjectKey "output.txt") body</pre><br/> <code>chunkedFile</code> という関数を噛ませていることから、Streamに読み込みながらアップロードしているという認識で合っているでしょうか？<br/><code>amazonka-s3-streaming</code> というパッケージもありますが、Streamにアップロードする上で特にこれは不要でしょうか？<br/><a href='https://github.com/axman6/amazonka-s3-streaming/issues?q=is%3Aissue+is%3Aclosed'>https://github.com/axman6/amazonka-s3-streaming/issues?q=is%3Aissue+is%3Aclosed</a><br/><br/>教えて頂ければ幸いです。</div></div></div><div class="message event" id="message-1609654843.222100"><div class="content"><div class="summary"><div class="message__header user">dyoshikawa1993</div><div class="message__timestamp date"><a class="date" href="#message-1609654843.222100">2021-01-03&nbsp;15:20:43 +0900</a></div></div><div class="message__body description">stack.ymlです。<br/><pre>resolver: lts-13.18
+        void . send $ putObject (BucketName "test-bucket") (ObjectKey "output.txt") body</pre><br/> <code>chunkedFile</code> という関数を噛ませていることから、Streamに読み込みながらアップロードしているという認識で合っているでしょうか？<br/><code>amazonka-s3-streaming</code> というパッケージもありますが、Streamにアップロードする上で特にこれは不要でしょうか？<br/><a href='https://github.com/axman6/amazonka-s3-streaming/issues?q=is%3Aissue+is%3Aclosed'>https://github.com/axman6/amazonka-s3-streaming/issues?q=is%3Aissue+is%3Aclosed</a><br/><br/>教えて頂ければ幸いです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609654843.222100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">dyoshikawa1993</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609654843.222100">2021-01-03 15:20:43 +0900</a></div>
+          </div>
+          <div class="message__body description">stack.ymlです。<br/><pre>resolver: lts-13.18
 
 packages:
 - .
@@ -45,4 +292,231 @@ extra-deps:
 - amazonka-s3-streaming-1.0.0.1
 - http-client-0.5.14
 - text-1.2.3.1
-- lens-4.17</pre></div></div></div><div class="message event" id="message-1609666569.222900"><div class="content"><div class="summary"><div class="message__header user">lotz</div><div class="message__timestamp date"><a class="date" href="#message-1609666569.222900">2021-01-03&nbsp;18:36:09 +0900</a></div></div><div class="message__body description"><blockquote><code>chunkedFile</code> という関数を噛ませていることから、Streamに読み込みながらアップロードしているという認識で合っているでしょうか？</blockquote>気になって実装読んでましたがその通りStreamに読み込みながらアップロードしてそうです:eyes:<br/>書いてある通り、<br/><br/>chunkedFile でchunk毎に分割したStream (Chunked ChunkedBody) にして<br/><a href='https://github.com/brendanhay/amazonka/blob/020bc7bde47bb235e448c76088dc44d6cec13e9b/amazonka/src/Network/AWS/Internal/Body.hs#L76-L88'>https://github.com/brendanhay/amazonka/blob/020bc7bde47bb235e448c76088dc44d6cec13e9b/amazonka/src/Network/AWS/Internal/Body.hs#L76-L88</a><br/><br/>send から最終的には http-conduit の http 関数を利用して送信しています<br/><a href='https://github.com/brendanhay/amazonka/blob/020bc7bde47bb235e448c76088dc44d6cec13e9b/amazonka/src/Network/AWS/Internal/HTTP.hs#L147'>https://github.com/brendanhay/amazonka/blob/020bc7bde47bb235e448c76088dc44d6cec13e9b/amazonka/src/Network/AWS/Internal/HTTP.hs#L147</a><br/><br/>amazonka の RqBody の Chunked は http-conduit の RequestBodyStreamChunked に変換されるので<br/><a href='https://github.com/brendanhay/amazonka/blob/020bc7bde47bb235e448c76088dc44d6cec13e9b/core/src/Network/AWS/Data/Body.hs#L168'>https://github.com/brendanhay/amazonka/blob/020bc7bde47bb235e448c76088dc44d6cec13e9b/core/src/Network/AWS/Data/Body.hs#L168</a><br/><br/>無事 Stream で送信されてると思います。<br/>Streamでアップロードしたいだけなら <code>amazonka-s3-streaming</code> は不要に見えますね:eyes:</div></div></div><div class="message event" id="message-1609667103.223200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1609667103.223200">2021-01-03&nbsp;18:45:03 +0900</a></div></div><div class="message__body description">正確に確かめられてはいませんが、どうやらamazonka-s3-streamingが使っているのは、マルチパートアップロード <a href='https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/dev/mpuoverview.html'>https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/dev/mpuoverview.html</a> という機能のようで、挙げられたサンプルが使用している <code>putObject</code> が呼ぶAPIとはまた別物みたいです。<br/>どうやら使用している <code>Network.AWS.S3</code> 以下のモジュールは、S3のREST APIに対する各APIと一対一に対応しているようでして、`putObject` の定義元である <code>Network.AWS.S3.PutObject</code> は、名前のとおりPutObjectという命令 <a href='https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html'>https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html</a> を呼んでいるものと推測されます。<br/>一方、`Network.AWS.S3.StreamingUpload` が使用しているのは <code>CreateMultipartUpload</code> や <code>CompleteMultipartUpload</code> といった、マルチパートアップロードで使用するAPIだからです。</div></div></div><div class="message event" id="message-1609667213.223500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1609667213.223500">2021-01-03&nbsp;18:46:53 +0900</a></div></div><div class="message__body description">一番確実に確かめるなら、Fiddlerなどのプロキシを使って実際にリクエストを読み、以下の各APIのドキュメントと照合してみることでしょう<br/>• PutObject <a href='https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html'>https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html</a><br/>• CreateMultipartUpload <a href='https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html'>https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html</a><br/>• CompleteMultipartUpload <a href='https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html'>https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html</a></div></div></div><div class="message event" id="message-1609667366.224000"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1609667366.224000">2021-01-03&nbsp;18:49:26 +0900</a></div></div><div class="message__body description">あ、長くなりましたがいずれにしてもlotzさんの回答のとおり、`putObject` でもストリーミングアップロード、つまり <b>一つの</b> リクエストでちょっとずつファイルの中身をアップロードすることはできていると思います。<br/>マルチパートアップロード機能は、とても大きなファイルを <b>複数の</b> リクエストでアップロードするためのものなので。</div></div></div><div class="message event" id="message-1609668105.224300"><div class="content"><div class="summary"><div class="message__header user">dyoshikawa1993</div><div class="message__timestamp date"><a class="date" href="#message-1609668105.224300">2021-01-03&nbsp;19:01:45 +0900</a></div></div><div class="message__body description">なるほど、理解できました！<br/>まだ学び始めで見様見真似といった感じですが、実装も読めるようになっていきたいです。<br/>皆さんありがとうございます。</div></div></div><div class="message event" id="message-1609668215.224700"><div class="content"><div class="summary"><div class="message__header user">dyoshikawa1993</div><div class="message__timestamp date"><a class="date" href="#message-1609668215.224700">2021-01-03&nbsp;19:03:35 +0900</a></div></div><div class="message__body description"><blockquote>send から最終的には http-conduit の http 関数を利用して送信しています</blockquote>なるほど、amazonkaは内部でconduit(ストリーミングライブラリですよね)を使っていたんですね。</div></div></div><div class="message event" id="message-1609711445.225500"><div class="content"><div class="summary"><div class="message__header user">y101172y101172</div><div class="message__timestamp date"><a class="date" href="#message-1609711445.225500">2021-01-04&nbsp;07:04:05 +0900</a></div></div><div class="message__body description">@y101172y101172 has joined the channel</div></div></div><div class="message event" id="message-1609740118.225600"><div class="content"><div class="summary"><div class="message__header user">nakaji-dayo</div><div class="message__timestamp date"><a class="date" href="#message-1609740118.225600">2021-01-04&nbsp;15:01:58 +0900</a></div></div><div class="message__body description">質問と直接関係なく恐縮なのですが、ChunkedFileと見て思い出したので共有させていただきます。<br/>現在リリースされているamazonkaのバージョンで、ChunkedFileを使って1mb以上のファイルを扱う際に、次のバグを踏みそうに見えます。ご注意下さい。<br/><a href='https://github.com/brendanhay/amazonka/issues/546'>https://github.com/brendanhay/amazonka/issues/546</a></div></div></div><div class="message event" id="message-1609755160.226100"><div class="content"><div class="summary"><div class="message__header user">dyoshikawa1993</div><div class="message__timestamp date"><a class="date" href="#message-1609755160.226100">2021-01-04&nbsp;19:12:40 +0900</a></div></div><div class="message__body description">ありがとうございました。<br/>S3へのputアップロードとマルチパートアップロードどちらも手元で動作できましたので、会社ブログにまとめました。<br/>確認なのですが、謝辞としてhaskell-jpに相談させて頂きましたと一言追記することは良いでしょうか？<br/><a href='https://dev.classmethod.jp/articles/haskell-s3-upload/'>https://dev.classmethod.jp/articles/haskell-s3-upload/</a><br/><blockquote>ChunkedFileを使って1mb以上のファイルを扱う際に、次のバグを踏みそうに見えます。</blockquote>ありがとうございます、このバグしっかり踏みましたｗ<br/>developに修正はマージされているようですが、リリースはいつになるのか・・・:thinking_face:<br/>後で追記しようと思っています。</div></div></div><div class="message event" id="message-1609757002.226700"><div class="content"><div class="summary"><div class="message__header user">lotz</div><div class="message__timestamp date"><a class="date" href="#message-1609757002.226700">2021-01-04&nbsp;19:43:22 +0900</a></div></div><div class="message__body description"><blockquote>確認なのですが、謝辞としてhaskell-jpに相談させて頂きましたと一言追記することは良いでしょうか？</blockquote>問題ないと思います :ok_woman:<br/>僕もよく記事にHaskell-jpに質問した旨の謝辞を書いてますー</div></div></div><div class="message event" id="message-1609760362.227100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1609760362.227100">2021-01-04&nbsp;20:39:22 +0900</a></div></div><div class="message__body description">あまり見やすくはないのですが、slack-logの発言のリンクまで張っていただけると特に助かります。<br/>この辺: <a href='https://haskell.jp/slack-log/html/C5666B6BB/94.html#message-1609654731.221800'>https://haskell.jp/slack-log/html/C5666B6BB/94.html#message-1609654731.221800</a></div></div></div><div class="message event" id="message-1609761241.227300"><div class="content"><div class="summary"><div class="message__header user">dyoshikawa1993</div><div class="message__timestamp date"><a class="date" href="#message-1609761241.227300">2021-01-04&nbsp;20:54:01 +0900</a></div></div><div class="message__body description">こういうのあるんですね！<br/>ご丁寧に教えて頂きありがとうございます。</div></div></div><div class="message event" id="message-1609765582.227900"><div class="content"><div class="summary"><div class="message__header user">dyoshikawa1993</div><div class="message__timestamp date"><a class="date" href="#message-1609765582.227900">2021-01-04&nbsp;22:06:22 +0900</a></div></div><div class="message__body description"><code>おわりに</code> の中に追記させて頂きました！</div></div></div><div class="message event" id="message-1609766193.228300"><div class="content"><div class="summary"><div class="message__header user">h.grasshopper2</div><div class="message__timestamp date"><a class="date" href="#message-1609766193.228300">2021-01-04&nbsp;22:16:33 +0900</a></div></div><div class="message__body description">@h.grasshopper2 has joined the channel</div></div></div><div class="message event" id="message-1609833310.232100"><div class="content"><div class="summary"><div class="message__header user">nobsun</div><div class="message__timestamp date"><a class="date" href="#message-1609833310.232100">2021-01-05&nbsp;16:55:10 +0900</a></div></div><div class="message__body description">cabal init したときに、作成されるsrc/MyLib.hs などの雛形ファイルをカスタマイズするにはどうすればいいのでしょうか。stack を使う場合は、~/.stack/config.yaml でtemplateファイルを指定して、そのtemplateファイルを編集すればよかったのですが。</div></div></div><div class="message event" id="message-1609836185.232300"><div class="content"><div class="summary"><div class="message__header user">nobsun</div><div class="message__timestamp date"><a class="date" href="#message-1609836185.232300">2021-01-05&nbsp;17:43:05 +0900</a></div></div><div class="message__body description">Distribution/Client/Init.hs にハードコーディングされてるのかな。。。</div></div></div><div class="message event" id="message-1609836334.232700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1609836334.232700">2021-01-05&nbsp;17:45:34 +0900</a></div></div><div class="message__body description">全然回答になってませんが、今時はGitHubのテンプレートリポジトリーを使った方がいいのかも知れませんね。</div></div></div><div class="message event" id="message-1609836513.232900"><div class="content"><div class="summary"><div class="message__header user">nobsun</div><div class="message__timestamp date"><a class="date" href="#message-1609836513.232900">2021-01-05&nbsp;17:48:33 +0900</a></div></div><div class="message__body description">ああ、それがよさそう。ありがとうございます。</div></div></div><div class="message event" id="message-1609897821.233500"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1609897821.233500">2021-01-06&nbsp;10:50:21 +0900</a></div></div><div class="message__body description"><a href='https://github.com/kowainik/summoner'>https://github.com/kowainik/summoner</a> summonerというツールが行儀のいい設定を用意してくれるのでおすすめです</div></div></div><div class="message event" id="message-1609898008.234100"><div class="content"><div class="summary"><div class="message__header user">nobsun</div><div class="message__timestamp date"><a class="date" href="#message-1609898008.234100">2021-01-06&nbsp;10:53:28 +0900</a></div></div><div class="message__body description">ありがとうございます。みてみます。</div></div></div><div class="message event" id="message-1609975932.234500"><div class="content"><div class="summary"><div class="message__header user">yuuki.i.cosmos</div><div class="message__timestamp date"><a class="date" href="#message-1609975932.234500">2021-01-07&nbsp;08:32:12 +0900</a></div></div><div class="message__body description">@yuuki.i.cosmos has joined the channel</div></div></div><div class="message event" id="message-1610182880.235300"><div class="content"><div class="summary"><div class="message__header user">ssktisi78</div><div class="message__timestamp date"><a class="date" href="#message-1610182880.235300">2021-01-09&nbsp;18:01:20 +0900</a></div></div><div class="message__body description">@ssktisi78 has joined the channel</div></div></div><div class="message event" id="message-1610248749.235500"><div class="content"><div class="summary"><div class="message__header user">erniogi.0</div><div class="message__timestamp date"><a class="date" href="#message-1610248749.235500">2021-01-10&nbsp;12:19:09 +0900</a></div></div><div class="message__body description">@erniogi.0 has joined the channel</div></div></div><div class="message event" id="message-1610357403.238100"><div class="content"><div class="summary"><div class="message__header user">dyoshikawa1993</div><div class="message__timestamp date"><a class="date" href="#message-1610357403.238100">2021-01-11&nbsp;18:30:03 +0900</a></div></div><div class="message__body description"><a href='https://github.com/theam/aws-lambda-haskell-runtime'>https://github.com/theam/aws-lambda-haskell-runtime</a><br/>こちらのリポジトリを眺めていて<br/><blockquote>I believe that we should stop using `package.yaml` given that now Stack is deprecating it and Cabal supports common stanzas</blockquote>というやり取りを見てちょっとびっくりしたのですが、今のHaskell開発はStackを使わない流れになっているのでしょうか？<br/>Stackのリポジトリを見ると開発は普通に継続してるように見えますが、Haskellerの肌感を聞きたいです。<br/><a href='https://github.com/theam/aws-lambda-haskell-runtime/pull/97#discussion_r549287520'>https://github.com/theam/aws-lambda-haskell-runtime/pull/97#discussion_r549287520</a></div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/93.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/95.html" class="pager__next item">Next</a></div></div></body></html>
+- lens-4.17</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609666569.222900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">lotz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609666569.222900">2021-01-03 18:36:09 +0900</a></div>
+          </div>
+          <div class="message__body description"><blockquote><code>chunkedFile</code> という関数を噛ませていることから、Streamに読み込みながらアップロードしているという認識で合っているでしょうか？</blockquote>気になって実装読んでましたがその通りStreamに読み込みながらアップロードしてそうです:eyes:<br/>書いてある通り、<br/><br/>chunkedFile でchunk毎に分割したStream (Chunked ChunkedBody) にして<br/><a href='https://github.com/brendanhay/amazonka/blob/020bc7bde47bb235e448c76088dc44d6cec13e9b/amazonka/src/Network/AWS/Internal/Body.hs#L76-L88'>https://github.com/brendanhay/amazonka/blob/020bc7bde47bb235e448c76088dc44d6cec13e9b/amazonka/src/Network/AWS/Internal/Body.hs#L76-L88</a><br/><br/>send から最終的には http-conduit の http 関数を利用して送信しています<br/><a href='https://github.com/brendanhay/amazonka/blob/020bc7bde47bb235e448c76088dc44d6cec13e9b/amazonka/src/Network/AWS/Internal/HTTP.hs#L147'>https://github.com/brendanhay/amazonka/blob/020bc7bde47bb235e448c76088dc44d6cec13e9b/amazonka/src/Network/AWS/Internal/HTTP.hs#L147</a><br/><br/>amazonka の RqBody の Chunked は http-conduit の RequestBodyStreamChunked に変換されるので<br/><a href='https://github.com/brendanhay/amazonka/blob/020bc7bde47bb235e448c76088dc44d6cec13e9b/core/src/Network/AWS/Data/Body.hs#L168'>https://github.com/brendanhay/amazonka/blob/020bc7bde47bb235e448c76088dc44d6cec13e9b/core/src/Network/AWS/Data/Body.hs#L168</a><br/><br/>無事 Stream で送信されてると思います。<br/>Streamでアップロードしたいだけなら <code>amazonka-s3-streaming</code> は不要に見えますね:eyes:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609667103.223200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609667103.223200">2021-01-03 18:45:03 +0900</a></div>
+          </div>
+          <div class="message__body description">正確に確かめられてはいませんが、どうやらamazonka-s3-streamingが使っているのは、マルチパートアップロード <a href='https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/dev/mpuoverview.html'>https://docs.aws.amazon.com/ja_jp/AmazonS3/latest/dev/mpuoverview.html</a> という機能のようで、挙げられたサンプルが使用している <code>putObject</code> が呼ぶAPIとはまた別物みたいです。<br/>どうやら使用している <code>Network.AWS.S3</code> 以下のモジュールは、S3のREST APIに対する各APIと一対一に対応しているようでして、`putObject` の定義元である <code>Network.AWS.S3.PutObject</code> は、名前のとおりPutObjectという命令 <a href='https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html'>https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html</a> を呼んでいるものと推測されます。<br/>一方、`Network.AWS.S3.StreamingUpload` が使用しているのは <code>CreateMultipartUpload</code> や <code>CompleteMultipartUpload</code> といった、マルチパートアップロードで使用するAPIだからです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609667213.223500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609667213.223500">2021-01-03 18:46:53 +0900</a></div>
+          </div>
+          <div class="message__body description">一番確実に確かめるなら、Fiddlerなどのプロキシを使って実際にリクエストを読み、以下の各APIのドキュメントと照合してみることでしょう<br/>• PutObject <a href='https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html'>https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html</a><br/>• CreateMultipartUpload <a href='https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html'>https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html</a><br/>• CompleteMultipartUpload <a href='https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html'>https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609667366.224000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609667366.224000">2021-01-03 18:49:26 +0900</a></div>
+          </div>
+          <div class="message__body description">あ、長くなりましたがいずれにしてもlotzさんの回答のとおり、`putObject` でもストリーミングアップロード、つまり <b>一つの</b> リクエストでちょっとずつファイルの中身をアップロードすることはできていると思います。<br/>マルチパートアップロード機能は、とても大きなファイルを <b>複数の</b> リクエストでアップロードするためのものなので。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609668105.224300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">dyoshikawa1993</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609668105.224300">2021-01-03 19:01:45 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど、理解できました！<br/>まだ学び始めで見様見真似といった感じですが、実装も読めるようになっていきたいです。<br/>皆さんありがとうございます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609668215.224700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">dyoshikawa1993</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609668215.224700">2021-01-03 19:03:35 +0900</a></div>
+          </div>
+          <div class="message__body description"><blockquote>send から最終的には http-conduit の http 関数を利用して送信しています</blockquote>なるほど、amazonkaは内部でconduit(ストリーミングライブラリですよね)を使っていたんですね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609711445.225500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">y101172y101172</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609711445.225500">2021-01-04 07:04:05 +0900</a></div>
+          </div>
+          <div class="message__body description">@y101172y101172 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609740118.225600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nakaji-dayo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609740118.225600">2021-01-04 15:01:58 +0900</a></div>
+          </div>
+          <div class="message__body description">質問と直接関係なく恐縮なのですが、ChunkedFileと見て思い出したので共有させていただきます。<br/>現在リリースされているamazonkaのバージョンで、ChunkedFileを使って1mb以上のファイルを扱う際に、次のバグを踏みそうに見えます。ご注意下さい。<br/><a href='https://github.com/brendanhay/amazonka/issues/546'>https://github.com/brendanhay/amazonka/issues/546</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609755160.226100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">dyoshikawa1993</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609755160.226100">2021-01-04 19:12:40 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございました。<br/>S3へのputアップロードとマルチパートアップロードどちらも手元で動作できましたので、会社ブログにまとめました。<br/>確認なのですが、謝辞としてhaskell-jpに相談させて頂きましたと一言追記することは良いでしょうか？<br/><a href='https://dev.classmethod.jp/articles/haskell-s3-upload/'>https://dev.classmethod.jp/articles/haskell-s3-upload/</a><br/><blockquote>ChunkedFileを使って1mb以上のファイルを扱う際に、次のバグを踏みそうに見えます。</blockquote>ありがとうございます、このバグしっかり踏みましたｗ<br/>developに修正はマージされているようですが、リリースはいつになるのか・・・:thinking_face:<br/>後で追記しようと思っています。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609757002.226700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">lotz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609757002.226700">2021-01-04 19:43:22 +0900</a></div>
+          </div>
+          <div class="message__body description"><blockquote>確認なのですが、謝辞としてhaskell-jpに相談させて頂きましたと一言追記することは良いでしょうか？</blockquote>問題ないと思います :ok_woman:<br/>僕もよく記事にHaskell-jpに質問した旨の謝辞を書いてますー</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609760362.227100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609760362.227100">2021-01-04 20:39:22 +0900</a></div>
+          </div>
+          <div class="message__body description">あまり見やすくはないのですが、slack-logの発言のリンクまで張っていただけると特に助かります。<br/>この辺: <a href='https://haskell.jp/slack-log/html/C5666B6BB/94.html#message-1609654731.221800'>https://haskell.jp/slack-log/html/C5666B6BB/94.html#message-1609654731.221800</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609761241.227300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">dyoshikawa1993</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609761241.227300">2021-01-04 20:54:01 +0900</a></div>
+          </div>
+          <div class="message__body description">こういうのあるんですね！<br/>ご丁寧に教えて頂きありがとうございます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609765582.227900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">dyoshikawa1993</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609765582.227900">2021-01-04 22:06:22 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>おわりに</code> の中に追記させて頂きました！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609766193.228300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">h.grasshopper2</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609766193.228300">2021-01-04 22:16:33 +0900</a></div>
+          </div>
+          <div class="message__body description">@h.grasshopper2 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609833310.232100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nobsun</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609833310.232100">2021-01-05 16:55:10 +0900</a></div>
+          </div>
+          <div class="message__body description">cabal init したときに、作成されるsrc/MyLib.hs などの雛形ファイルをカスタマイズするにはどうすればいいのでしょうか。stack を使う場合は、~/.stack/config.yaml でtemplateファイルを指定して、そのtemplateファイルを編集すればよかったのですが。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609836185.232300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nobsun</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609836185.232300">2021-01-05 17:43:05 +0900</a></div>
+          </div>
+          <div class="message__body description">Distribution/Client/Init.hs にハードコーディングされてるのかな。。。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609836334.232700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609836334.232700">2021-01-05 17:45:34 +0900</a></div>
+          </div>
+          <div class="message__body description">全然回答になってませんが、今時はGitHubのテンプレートリポジトリーを使った方がいいのかも知れませんね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609836513.232900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nobsun</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609836513.232900">2021-01-05 17:48:33 +0900</a></div>
+          </div>
+          <div class="message__body description">ああ、それがよさそう。ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609897821.233500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609897821.233500">2021-01-06 10:50:21 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://github.com/kowainik/summoner'>https://github.com/kowainik/summoner</a> summonerというツールが行儀のいい設定を用意してくれるのでおすすめです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609898008.234100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nobsun</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609898008.234100">2021-01-06 10:53:28 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます。みてみます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1609975932.234500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yuuki.i.cosmos</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1609975932.234500">2021-01-07 08:32:12 +0900</a></div>
+          </div>
+          <div class="message__body description">@yuuki.i.cosmos has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1610182880.235300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ssktisi78</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1610182880.235300">2021-01-09 18:01:20 +0900</a></div>
+          </div>
+          <div class="message__body description">@ssktisi78 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1610248749.235500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">erniogi.0</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1610248749.235500">2021-01-10 12:19:09 +0900</a></div>
+          </div>
+          <div class="message__body description">@erniogi.0 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1610357403.238100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">dyoshikawa1993</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1610357403.238100">2021-01-11 18:30:03 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://github.com/theam/aws-lambda-haskell-runtime'>https://github.com/theam/aws-lambda-haskell-runtime</a><br/>こちらのリポジトリを眺めていて<br/><blockquote>I believe that we should stop using `package.yaml` given that now Stack is deprecating it and Cabal supports common stanzas</blockquote>というやり取りを見てちょっとびっくりしたのですが、今のHaskell開発はStackを使わない流れになっているのでしょうか？<br/>Stackのリポジトリを見ると開発は普通に継続してるように見えますが、Haskellerの肌感を聞きたいです。<br/><a href='https://github.com/theam/aws-lambda-haskell-runtime/pull/97#discussion_r549287520'>https://github.com/theam/aws-lambda-haskell-runtime/pull/97#discussion_r549287520</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/93.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/95.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

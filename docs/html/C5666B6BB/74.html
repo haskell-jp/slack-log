@@ -1,4 +1,80 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #74</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #74</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/73.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/75.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1572323419.058600"><div class="content"><div class="summary"><div class="message__header user">matonix</div><div class="message__timestamp date"><a class="date" href="#message-1572323419.058600">2019-10-29&nbsp;13:30:19 +0900</a></div></div><div class="message__body description">学習用途でしたら，ぜひ再帰版もがんばってみてください．（私なら，リストのリストを処理する再帰関数Aから，リストを処理する再帰関数Bを呼ぶ，みたいな方針にすると思います）</div></div></div><div class="message event" id="message-1572323602.058800"><div class="content"><div class="summary"><div class="message__header user">pontyan12</div><div class="message__timestamp date"><a class="date" href="#message-1572323602.058800">2019-10-29&nbsp;13:33:22 +0900</a></div></div><div class="message__body description">もう一点よろしいでしょうか？<br/>haskellではリストを処理する関数とリストのリストを処理する関数は型を分けて考える必要があるのでしょうか？</div></div></div><div class="message event" id="message-1572325608.059000"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1572325608.059000">2019-10-29&nbsp;14:06:48 +0900</a></div></div><div class="message__body description">たぶん、分けて考える必要はないですよ（意図してる範囲がわからないけど）</div></div></div><div class="message event" id="message-1572325876.059300"><div class="content"><div class="summary"><div class="message__header user">pontyan12</div><div class="message__timestamp date"><a class="date" href="#message-1572325876.059300">2019-10-29&nbsp;14:11:16 +0900</a></div></div><div class="message__body description">例えば、intのリストとリストのリストは同じように扱うことができるのでしょうか？</div></div></div><div class="message event" id="message-1572325971.059500"><div class="content"><div class="summary"><div class="message__header user">matonix</div><div class="message__timestamp date"><a class="date" href="#message-1572325971.059500">2019-10-29&nbsp;14:12:51 +0900</a></div></div><div class="message__body description">リストの中身がIntかリストかに関わらず，引数で受け取った関数に受け渡すなら（つまり要素に直接触れないなら），同じように扱えると思います．</div></div></div><div class="message event" id="message-1572326406.059700"><div class="content"><div class="summary"><div class="message__header user">pontyan12</div><div class="message__timestamp date"><a class="date" href="#message-1572326406.059700">2019-10-29&nbsp;14:20:06 +0900</a></div></div><div class="message__body description">なるほど、、ありがとうございます！！</div></div></div><div class="message event" id="message-1572398226.060300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1572398226.060300">2019-10-30&nbsp;10:17:06 +0900</a></div></div><div class="message__body description">思い出せました。うまくいかないのは extensibleパッケージのレコードをRecord of Functionsとして扱った場合でした。<br/><br/><pre>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #74</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #74</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/73.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/75.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1572323419.058600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matonix</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1572323419.058600">2019-10-29 13:30:19 +0900</a></div>
+          </div>
+          <div class="message__body description">学習用途でしたら，ぜひ再帰版もがんばってみてください．（私なら，リストのリストを処理する再帰関数Aから，リストを処理する再帰関数Bを呼ぶ，みたいな方針にすると思います）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1572323602.058800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pontyan12</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1572323602.058800">2019-10-29 13:33:22 +0900</a></div>
+          </div>
+          <div class="message__body description">もう一点よろしいでしょうか？<br/>haskellではリストを処理する関数とリストのリストを処理する関数は型を分けて考える必要があるのでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1572325608.059000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1572325608.059000">2019-10-29 14:06:48 +0900</a></div>
+          </div>
+          <div class="message__body description">たぶん、分けて考える必要はないですよ（意図してる範囲がわからないけど）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1572325876.059300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pontyan12</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1572325876.059300">2019-10-29 14:11:16 +0900</a></div>
+          </div>
+          <div class="message__body description">例えば、intのリストとリストのリストは同じように扱うことができるのでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1572325971.059500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matonix</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1572325971.059500">2019-10-29 14:12:51 +0900</a></div>
+          </div>
+          <div class="message__body description">リストの中身がIntかリストかに関わらず，引数で受け取った関数に受け渡すなら（つまり要素に直接触れないなら），同じように扱えると思います．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1572326406.059700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">pontyan12</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1572326406.059700">2019-10-29 14:20:06 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど、、ありがとうございます！！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1572398226.060300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1572398226.060300">2019-10-30 10:17:06 +0900</a></div>
+          </div>
+          <div class="message__body description">思い出せました。うまくいかないのは extensibleパッケージのレコードをRecord of Functionsとして扱った場合でした。<br/><br/><pre>
 {-# LANGUAGE DataKinds           #-}
 {-# LANGUAGE ExplicitNamespaces  #-}
 {-# LANGUAGE LiberalTypeSynonyms #-}
@@ -14,13 +90,31 @@ type DebugEnvFields m =
     ]
 
 type DebugEnv m = E.Record (DebugEnvFields m)
-</pre></div></div></div><div class="message event" id="message-1572398454.060700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1572398454.060700">2019-10-30&nbsp;10:20:54 +0900</a></div></div><div class="message__body description">そして、いただいた回答から気づいたんですが、そうした場合でも <code>print</code> 関数相当のものを一旦 <code>newtype</code> でラップしてあげればいけるんですね。<br/>この程度のボイラープレートなら許容できそう。<br/><br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1572398454.060700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1572398454.060700">2019-10-30 10:20:54 +0900</a></div>
+          </div>
+          <div class="message__body description">そして、いただいた回答から気づいたんですが、そうした場合でも <code>print</code> 関数相当のものを一旦 <code>newtype</code> でラップしてあげればいけるんですね。<br/>この程度のボイラープレートなら許容できそう。<br/><br/><pre>
 type DebugEnvFields m =
    '[ "print" &gt;: Printer m
     ]
 
 newtype Printer m = Printer (forall a. Show a =&gt; a -&gt; m ())
-</pre></div></div></div><div class="message event" id="message-1572398929.061200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1572398929.061200">2019-10-30&nbsp;10:28:49 +0900</a></div></div><div class="message__body description">誰も指摘してなかったので補足すると、 <code>-Wall</code> で警告を有効にしていれば、どのパターンを網羅していないのか教えてくれるので、参考にするとよいでしょう。<br/>今回の場合 :point_down: のように教えてくれます。<br/><br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1572398929.061200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1572398929.061200">2019-10-30 10:28:49 +0900</a></div>
+          </div>
+          <div class="message__body description">誰も指摘してなかったので補足すると、 <code>-Wall</code> で警告を有効にしていれば、どのパターンを網羅していないのか教えてくれるので、参考にするとよいでしょう。<br/>今回の場合 :point_down: のように教えてくれます。<br/><br/><pre>
 listed.hs:10:1: warning: [-Wincomplete-patterns]
     Pattern match(es) are non-exhaustive
     In an equation for ‘secmap’:
@@ -30,18 +124,306 @@ listed.hs:10:1: warning: [-Wincomplete-patterns]
    |
 10 | secmap f [[]]           = [[]]
    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...
-</pre></div></div></div><div class="message event" id="message-1572638717.061900"><div class="content"><div class="summary"><div class="message__header user">koto.chiba.none</div><div class="message__timestamp date"><a class="date" href="#message-1572638717.061900">2019-11-02&nbsp;05:05:17 +0900</a></div></div><div class="message__body description">@koto.chiba.none has joined the channel</div></div></div><div class="message event" id="message-1572756429.063000"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1572756429.063000">2019-11-03&nbsp;13:47:09 +0900</a></div></div><div class="message__body description">Haskell 入門 第 9 章 にて HUnit が使われているのですが、これって hspec とどう違うんですか？ Hackage を流し読みしたけどわかりませんでした。</div></div></div><div class="message event" id="message-1572775405.063100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1572775405.063100">2019-11-03&nbsp;19:03:25 +0900</a></div></div><div class="message__body description">HspecはHUnitのラッパーです。<br/>HUnitのAPIを <code>do</code> で書けるようにした、というのがHspecなのです。</div></div></div><div class="message event" id="message-1572782430.063300"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1572782430.063300">2019-11-03&nbsp;21:00:30 +0900</a></div></div><div class="message__body description">なるほど。ありがとうございました！</div></div></div><div class="message event" id="message-1572925274.063900"><div class="content"><div class="summary"><div class="message__header user">furatsuki_fiskm</div><div class="message__timestamp date"><a class="date" href="#message-1572925274.063900">2019-11-05&nbsp;12:41:14 +0900</a></div></div><div class="message__body description">@furatsuki_fiskm has joined the channel</div></div></div><div class="message event" id="message-1572953940.064200"><div class="content"><div class="summary"><div class="message__header user">hideaki.nishioka</div><div class="message__timestamp date"><a class="date" href="#message-1572953940.064200">2019-11-05&nbsp;20:39:00 +0900</a></div></div><div class="message__body description">@hideaki.nishioka has joined the channel</div></div></div><div class="message event" id="message-1573132394.064500"><div class="content"><div class="summary"><div class="message__header user">ysk.m24t</div><div class="message__timestamp date"><a class="date" href="#message-1573132394.064500">2019-11-07&nbsp;22:13:14 +0900</a></div></div><div class="message__body description">@ysk.m24t has joined the channel</div></div></div><div class="message event" id="message-1573200837.064800"><div class="content"><div class="summary"><div class="message__header user">8128jp</div><div class="message__timestamp date"><a class="date" href="#message-1573200837.064800">2019-11-08&nbsp;17:13:57 +0900</a></div></div><div class="message__body description">@8128jp has joined the channel</div></div></div><div class="message event" id="message-1573263381.065100"><div class="content"><div class="summary"><div class="message__header user">inamiy</div><div class="message__timestamp date"><a class="date" href="#message-1573263381.065100">2019-11-09&nbsp;10:36:21 +0900</a></div></div><div class="message__body description">@inamiy has joined the channel</div></div></div><div class="message event" id="message-1573281768.065400"><div class="content"><div class="summary"><div class="message__header user">nakayoshix</div><div class="message__timestamp date"><a class="date" href="#message-1573281768.065400">2019-11-09&nbsp;15:42:48 +0900</a></div></div><div class="message__body description">@nakayoshix has joined the channel</div></div></div><div class="message event" id="message-1573282064.065700"><div class="content"><div class="summary"><div class="message__header user">user.ryo</div><div class="message__timestamp date"><a class="date" href="#message-1573282064.065700">2019-11-09&nbsp;15:47:44 +0900</a></div></div><div class="message__body description">@user.ryo has joined the channel</div></div></div><div class="message event" id="message-1573282091.066000"><div class="content"><div class="summary"><div class="message__header user">tyahhahha</div><div class="message__timestamp date"><a class="date" href="#message-1573282091.066000">2019-11-09&nbsp;15:48:11 +0900</a></div></div><div class="message__body description">@tyahhahha has joined the channel</div></div></div><div class="message event" id="message-1573282095.066300"><div class="content"><div class="summary"><div class="message__header user">takato.h0rikosh1</div><div class="message__timestamp date"><a class="date" href="#message-1573282095.066300">2019-11-09&nbsp;15:48:15 +0900</a></div></div><div class="message__body description">@takato.h0rikosh1 has joined the channel</div></div></div><div class="message event" id="message-1573283418.066600"><div class="content"><div class="summary"><div class="message__header user">yuki08281993</div><div class="message__timestamp date"><a class="date" href="#message-1573283418.066600">2019-11-09&nbsp;16:10:18 +0900</a></div></div><div class="message__body description">@yuki08281993 has joined the channel</div></div></div><div class="message event" id="message-1573387007.066900"><div class="content"><div class="summary"><div class="message__header user">taka23131</div><div class="message__timestamp date"><a class="date" href="#message-1573387007.066900">2019-11-10&nbsp;20:56:47 +0900</a></div></div><div class="message__body description">@taka23131 has joined the channel</div></div></div><div class="message event" id="message-1573423506.073400"><div class="content"><div class="summary"><div class="message__header user">bonotake</div><div class="message__timestamp date"><a class="date" href="#message-1573423506.073400">2019-11-11&nbsp;07:05:06 +0900</a></div></div><div class="message__body description">初心者質問で恐縮なのですが、 日本語（UTF8）を含んだ <code>Vector (String, Int)</code> みたいなデータをちゃんと日本語入りで出力するのはどうしたらいいんでしょうか。<br/>タプルの第一要素だけ取り出して出力するのはできるんですが、全体を出力しようとして間に <code>show</code> を挟んだりすると文字列が数値表記になってしまいます。</div></div></div><div class="message event" id="message-1573428419.073500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1573428419.073500">2019-11-11&nbsp;08:26:59 +0900</a></div></div><div class="message__body description">あんまり速度が速くないのでアレですが <a href='https://github.com/haskell-jp/unicode-show'>https://github.com/haskell-jp/unicode-show</a> を使うとかですね。あと、機能的に過剰でなければ <a href='http://hackage.haskell.org/package/pretty-simple'>http://hackage.haskell.org/package/pretty-simple</a> も同じように日本語を正しく出力してくれます。</div></div></div><div class="message event" id="message-1573433970.073900"><div class="content"><div class="summary"><div class="message__header user">bonotake</div><div class="message__timestamp date"><a class="date" href="#message-1573433970.073900">2019-11-11&nbsp;09:59:30 +0900</a></div></div><div class="message__body description">ありがとうございます。試してみます</div></div></div><div class="message event" id="message-1573453991.091900"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1573453991.091900">2019-11-11&nbsp;15:33:11 +0900</a></div></div><div class="message__body description"><code>Addr#</code> -valued literal って各文字が <code>&lt;=0xFF</code> である文字列リテラルに <code>#</code> を後置すれば良いんですよね？ 特に、値としては改行コードを含めたくないがソースの読みやすさ上改行したいときには、 <code>\</code> の 直後に改行をして、適切な数の空白文字のあと <code>\</code> 、そしてその後に続きを書けばいいんですよね？<br/>なんかそのつもりでコードを書いていたら <code>Addr#</code> 中に大量の <code>\x20</code> が出現してひっどいバグが出てきたので…。<br/>厄介なのは、同一のリテラルなのにそのリテラルが現れる状況によって挙動が異なったりしているように見えることです。AtCoder用のsnippetなので、必要になるたびプログラムに埋め込んで用いているのですが、snippet ファイルをそのままコンパイルしても <code>\x20</code> は現れないのに、 埋め込んだファイルの方を解析すると <code>\x20</code> がバグをひき起こしているように見えるんですよね…。</div></div></div><div class="message event" id="message-1573454469.092400"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1573454469.092400">2019-11-11&nbsp;15:41:09 +0900</a></div></div><div class="message__body description">考えているのはこんなのです：</div></div></div><div class="message event" id="message-1573457526.092900"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1573457526.092900">2019-11-11&nbsp;16:32:06 +0900</a></div></div><div class="message__body description">CPPが有効だと複数行文字列リテラルの挙動が変わるはずです。</div></div></div><div class="message event" id="message-1573457841.093400"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1573457841.093400">2019-11-11&nbsp;16:37:21 +0900</a></div></div><div class="message__body description">それだ！</div></div></div><div class="message event" id="message-1573475997.093800"><div class="content"><div class="summary"><div class="message__header user">baavv914</div><div class="message__timestamp date"><a class="date" href="#message-1573475997.093800">2019-11-11&nbsp;21:39:57 +0900</a></div></div><div class="message__body description">@baavv914 has joined the channel</div></div></div><div class="message event" id="message-1573481574.108300"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1573481574.108300">2019-11-11&nbsp;23:12:54 +0900</a></div></div><div class="message__body description">surveyの結果、次の事実を確認しました。<br/>• CPPが有効だと、行末の <code>\</code> は改行文字と一緒に削除される(複数行 <code>#define</code> を可能にするための処理)。Haskellの複数行文字列はこのC preprocessのあと <code>\</code> と改行文字があるのを見て字句解析されるため、次の行の開始から <code>\</code> までが文字列に含まれてしまう。<br/>• Haskellの複数行文字列は <code>\ &lt;newline&gt; &lt;whitespace&gt;* \</code> ではなく <code>\ &lt;whitespace&gt;+ \</code> なので、 <code>\</code> の後に空白文字を挟めば大丈夫、と書いてるのをどこかで見ましたが手元環境では見事死亡。GCCなら大丈夫、と書いてあったから、手元環境がclang (MacOS Catalina)であるせいかもしれない。</div></div></div><div class="message event" id="message-1573493848.108700"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1573493848.108700">2019-11-12&nbsp;02:37:28 +0900</a></div></div><div class="message__body description">行末のバックスラッシュを二重にしてはどうですか<br/><br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1572638717.061900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">koto.chiba.none</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1572638717.061900">2019-11-02 05:05:17 +0900</a></div>
+          </div>
+          <div class="message__body description">@koto.chiba.none has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1572756429.063000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1572756429.063000">2019-11-03 13:47:09 +0900</a></div>
+          </div>
+          <div class="message__body description">Haskell 入門 第 9 章 にて HUnit が使われているのですが、これって hspec とどう違うんですか？ Hackage を流し読みしたけどわかりませんでした。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1572775405.063100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1572775405.063100">2019-11-03 19:03:25 +0900</a></div>
+          </div>
+          <div class="message__body description">HspecはHUnitのラッパーです。<br/>HUnitのAPIを <code>do</code> で書けるようにした、というのがHspecなのです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1572782430.063300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1572782430.063300">2019-11-03 21:00:30 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど。ありがとうございました！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1572925274.063900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">furatsuki_fiskm</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1572925274.063900">2019-11-05 12:41:14 +0900</a></div>
+          </div>
+          <div class="message__body description">@furatsuki_fiskm has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1572953940.064200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hideaki.nishioka</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1572953940.064200">2019-11-05 20:39:00 +0900</a></div>
+          </div>
+          <div class="message__body description">@hideaki.nishioka has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573132394.064500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ysk.m24t</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573132394.064500">2019-11-07 22:13:14 +0900</a></div>
+          </div>
+          <div class="message__body description">@ysk.m24t has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573200837.064800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">8128jp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573200837.064800">2019-11-08 17:13:57 +0900</a></div>
+          </div>
+          <div class="message__body description">@8128jp has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573263381.065100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">inamiy</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573263381.065100">2019-11-09 10:36:21 +0900</a></div>
+          </div>
+          <div class="message__body description">@inamiy has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573281768.065400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nakayoshix</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573281768.065400">2019-11-09 15:42:48 +0900</a></div>
+          </div>
+          <div class="message__body description">@nakayoshix has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573282064.065700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">user.ryo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573282064.065700">2019-11-09 15:47:44 +0900</a></div>
+          </div>
+          <div class="message__body description">@user.ryo has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573282091.066000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tyahhahha</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573282091.066000">2019-11-09 15:48:11 +0900</a></div>
+          </div>
+          <div class="message__body description">@tyahhahha has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573282095.066300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">takato.h0rikosh1</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573282095.066300">2019-11-09 15:48:15 +0900</a></div>
+          </div>
+          <div class="message__body description">@takato.h0rikosh1 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573283418.066600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yuki08281993</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573283418.066600">2019-11-09 16:10:18 +0900</a></div>
+          </div>
+          <div class="message__body description">@yuki08281993 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573387007.066900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">taka23131</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573387007.066900">2019-11-10 20:56:47 +0900</a></div>
+          </div>
+          <div class="message__body description">@taka23131 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573423506.073400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">bonotake</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573423506.073400">2019-11-11 07:05:06 +0900</a></div>
+          </div>
+          <div class="message__body description">初心者質問で恐縮なのですが、 日本語（UTF8）を含んだ <code>Vector (String, Int)</code> みたいなデータをちゃんと日本語入りで出力するのはどうしたらいいんでしょうか。<br/>タプルの第一要素だけ取り出して出力するのはできるんですが、全体を出力しようとして間に <code>show</code> を挟んだりすると文字列が数値表記になってしまいます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573428419.073500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573428419.073500">2019-11-11 08:26:59 +0900</a></div>
+          </div>
+          <div class="message__body description">あんまり速度が速くないのでアレですが <a href='https://github.com/haskell-jp/unicode-show'>https://github.com/haskell-jp/unicode-show</a> を使うとかですね。あと、機能的に過剰でなければ <a href='http://hackage.haskell.org/package/pretty-simple'>http://hackage.haskell.org/package/pretty-simple</a> も同じように日本語を正しく出力してくれます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573433970.073900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">bonotake</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573433970.073900">2019-11-11 09:59:30 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます。試してみます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573453991.091900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573453991.091900">2019-11-11 15:33:11 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>Addr#</code> -valued literal って各文字が <code>&lt;=0xFF</code> である文字列リテラルに <code>#</code> を後置すれば良いんですよね？ 特に、値としては改行コードを含めたくないがソースの読みやすさ上改行したいときには、 <code>\</code> の 直後に改行をして、適切な数の空白文字のあと <code>\</code> 、そしてその後に続きを書けばいいんですよね？<br/>なんかそのつもりでコードを書いていたら <code>Addr#</code> 中に大量の <code>\x20</code> が出現してひっどいバグが出てきたので…。<br/>厄介なのは、同一のリテラルなのにそのリテラルが現れる状況によって挙動が異なったりしているように見えることです。AtCoder用のsnippetなので、必要になるたびプログラムに埋め込んで用いているのですが、snippet ファイルをそのままコンパイルしても <code>\x20</code> は現れないのに、 埋め込んだファイルの方を解析すると <code>\x20</code> がバグをひき起こしているように見えるんですよね…。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573454469.092400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573454469.092400">2019-11-11 15:41:09 +0900</a></div>
+          </div>
+          <div class="message__body description">考えているのはこんなのです：</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573457526.092900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573457526.092900">2019-11-11 16:32:06 +0900</a></div>
+          </div>
+          <div class="message__body description">CPPが有効だと複数行文字列リテラルの挙動が変わるはずです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573457841.093400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573457841.093400">2019-11-11 16:37:21 +0900</a></div>
+          </div>
+          <div class="message__body description">それだ！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573475997.093800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">baavv914</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573475997.093800">2019-11-11 21:39:57 +0900</a></div>
+          </div>
+          <div class="message__body description">@baavv914 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573481574.108300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573481574.108300">2019-11-11 23:12:54 +0900</a></div>
+          </div>
+          <div class="message__body description">surveyの結果、次の事実を確認しました。<br/>• CPPが有効だと、行末の <code>\</code> は改行文字と一緒に削除される(複数行 <code>#define</code> を可能にするための処理)。Haskellの複数行文字列はこのC preprocessのあと <code>\</code> と改行文字があるのを見て字句解析されるため、次の行の開始から <code>\</code> までが文字列に含まれてしまう。<br/>• Haskellの複数行文字列は <code>\ &lt;newline&gt; &lt;whitespace&gt;* \</code> ではなく <code>\ &lt;whitespace&gt;+ \</code> なので、 <code>\</code> の後に空白文字を挟めば大丈夫、と書いてるのをどこかで見ましたが手元環境では見事死亡。GCCなら大丈夫、と書いてあったから、手元環境がclang (MacOS Catalina)であるせいかもしれない。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573493848.108700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573493848.108700">2019-11-12 02:37:28 +0900</a></div>
+          </div>
+          <div class="message__body description">行末のバックスラッシュを二重にしてはどうですか<br/><br/><pre>
 {-# LANGUAGE CPP #-}
 str = "foo \\
   \bar baz"
 main = print str
-</pre></div></div></div><div class="message event" id="message-1573493911.109000"><div class="content"><div class="summary"><div class="message__header user">minorinoki_haskjp</div><div class="message__timestamp date"><a class="date" href="#message-1573493911.109000">2019-11-12&nbsp;02:38:31 +0900</a></div></div><div class="message__body description">「行末にスペースを入れるといいよ」と書いてあるのは <a href='https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/phases.html#cpp-and-string-gaps'>https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/phases.html#cpp-and-string-gaps</a> ですね。情報が古いのか……</div></div></div><div class="message event" id="message-1573520197.109300"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1573520197.109300">2019-11-12&nbsp;09:56:37 +0900</a></div></div><div class="message__body description">やって見ました．確かにうまくいきますね．GCCだと<br/>• <code>\ &lt;newline&gt;</code> → empty<br/>Clangだと<br/>• <code>\ &lt;non-newline-whitespace&gt;* &lt;newline&gt;</code> → empty<br/>で処理されてるんでしょうか．どっちにしてもHaskell multiline stringはその処理が終わったあと<br/>• <code>\ &lt;whitespace&gt;+ \</code> → empty<br/>(newlineはいらない)で処理されるから，次行のインデントが0でもない限りはうまくいくと．なんだこのdirty hackは…</div></div></div><div class="message event" id="message-1573520354.109500"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1573520354.109500">2019-11-12&nbsp;09:59:14 +0900</a></div></div><div class="message__body description">Emacsのsyntax highlighterがバグりそうで嫌だなあ……．</div></div></div><div class="message event" id="message-1573520835.110000"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1573520835.110000">2019-11-12&nbsp;10:07:15 +0900</a></div></div><div class="message__body description">予測通り，<br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573493911.109000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">minorinoki_haskjp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573493911.109000">2019-11-12 02:38:31 +0900</a></div>
+          </div>
+          <div class="message__body description">「行末にスペースを入れるといいよ」と書いてあるのは <a href='https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/phases.html#cpp-and-string-gaps'>https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/phases.html#cpp-and-string-gaps</a> ですね。情報が古いのか……</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573520197.109300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573520197.109300">2019-11-12 09:56:37 +0900</a></div>
+          </div>
+          <div class="message__body description">やって見ました．確かにうまくいきますね．GCCだと<br/>• <code>\ &lt;newline&gt;</code> → empty<br/>Clangだと<br/>• <code>\ &lt;non-newline-whitespace&gt;* &lt;newline&gt;</code> → empty<br/>で処理されてるんでしょうか．どっちにしてもHaskell multiline stringはその処理が終わったあと<br/>• <code>\ &lt;whitespace&gt;+ \</code> → empty<br/>(newlineはいらない)で処理されるから，次行のインデントが0でもない限りはうまくいくと．なんだこのdirty hackは…</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573520354.109500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573520354.109500">2019-11-12 09:59:14 +0900</a></div>
+          </div>
+          <div class="message__body description">Emacsのsyntax highlighterがバグりそうで嫌だなあ……．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573520835.110000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573520835.110000">2019-11-12 10:07:15 +0900</a></div>
+          </div>
+          <div class="message__body description">予測通り，<br/><pre>
 {-# LANGUAGE CPP #-}
 str0 = "J'ai mal \\
 \a tete"
 str1 = "J'ai mal \\a tete"
 main = print $ str0 == str1
-</pre><br/>→ True でした．ah…</div></div></div><div class="message event" id="message-1573546292.110400"><div class="content"><div class="summary"><div class="message__header user">rebornwwp</div><div class="message__timestamp date"><a class="date" href="#message-1573546292.110400">2019-11-12&nbsp;17:11:32 +0900</a></div></div><div class="message__body description">@rebornwwp has joined the channel</div></div></div><div class="message event" id="message-1573736547.110700"><div class="content"><div class="summary"><div class="message__header user">ogahiro0720</div><div class="message__timestamp date"><a class="date" href="#message-1573736547.110700">2019-11-14&nbsp;22:02:27 +0900</a></div></div><div class="message__body description">こんにちは。代数的データ型のデータコンストラクタから何か別の値への写像を作ろうとして、以下のような方法を取りました。しかし`-- ****`で囲った部分がどうもボイラープレート感がします(?)、何か簡潔な方法はありますか？<br/><https://wandbox.org/permlink/uzGh67fybpF9M6Sq><br/>(加えて、代数的データ型のデータコンストラクタの種類(コード中の`FruitKind`に当たる型)を指してどう呼べばいいのかいまいちわからず検索に苦戦しています。何かいい呼び名があったら教えてください。variantとかでしょうか)</div></div></div><div class="message event" id="message-1573746722.110900"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1573746722.110900">2019-11-15&nbsp;00:52:02 +0900</a></div></div><div class="message__body description">単純にデータコンストラクタを表すデータ型を作りたいということではないでしょうか？幾つか方法はあります．<br/><br/>まず型安全でない方法として， Data インスタンスを使うという方法があります．<br/><br/><pre>
+</pre><br/>→ True でした．ah…</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573546292.110400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">rebornwwp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573546292.110400">2019-11-12 17:11:32 +0900</a></div>
+          </div>
+          <div class="message__body description">@rebornwwp has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573736547.110700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ogahiro0720</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573736547.110700">2019-11-14 22:02:27 +0900</a></div>
+          </div>
+          <div class="message__body description">こんにちは。代数的データ型のデータコンストラクタから何か別の値への写像を作ろうとして、以下のような方法を取りました。しかし`-- ****`で囲った部分がどうもボイラープレート感がします(?)、何か簡潔な方法はありますか？<br/><https://wandbox.org/permlink/uzGh67fybpF9M6Sq><br/>(加えて、代数的データ型のデータコンストラクタの種類(コード中の`FruitKind`に当たる型)を指してどう呼べばいいのかいまいちわからず検索に苦戦しています。何かいい呼び名があったら教えてください。variantとかでしょうか)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573746722.110900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573746722.110900">2019-11-15 00:52:02 +0900</a></div>
+          </div>
+          <div class="message__body description">単純にデータコンストラクタを表すデータ型を作りたいということではないでしょうか？幾つか方法はあります．<br/><br/>まず型安全でない方法として， Data インスタンスを使うという方法があります．<br/><br/><pre>
 import Data.Data
 
 data ConstrK a where
@@ -53,7 +435,16 @@ instance Ord (ConstrK a) where
 
 toConstrK :: Data a =&gt; a -&gt; ConstrK a
 toConstrK x = ConstrK $ toConstr x
-</pre><br/>みたいな感じのデータ型を使うと，同じようなことができると思います．なお，コンストラクタの一覧は <code>dataTypeConstrs $ dataTypeOf (undefined :: a)</code> とかで取れます．</div></div></div><div class="message event" id="message-1573747146.111300"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1573747146.111300">2019-11-15&nbsp;00:59:06 +0900</a></div></div><div class="message__body description">もう一つは，作るデータ型を工夫するという手があって，今流行の HKD を使うことで次のように定義できると思います:<br/><br/><pre>
+</pre><br/>みたいな感じのデータ型を使うと，同じようなことができると思います．なお，コンストラクタの一覧は <code>dataTypeConstrs $ dataTypeOf (undefined :: a)</code> とかで取れます．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573747146.111300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573747146.111300">2019-11-15 00:59:06 +0900</a></div>
+          </div>
+          <div class="message__body description">もう一つは，作るデータ型を工夫するという手があって，今流行の HKD を使うことで次のように定義できると思います:<br/><br/><pre>
 import Data.Barbie
 
 data FruitSkel f
@@ -71,4 +462,87 @@ type FruitK = FruitSkel (Const ())
 
 toKind :: Fruit -&gt; FruitK
 toKind = bmap $ const $ Const ()
-</pre></div></div></div><div class="message event" id="message-1573747513.111800"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1573747513.111800">2019-11-15&nbsp;01:05:13 +0900</a></div></div><div class="message__body description">他にも Generic のインスタンスであれば data constructor の情報が載ってるのでそこから情報を抜き出して data family を作るような型クラスを定義する方法や， Template Haskell でデータ型を作る方法などはありますが，多分手軽なのは上の二つだと思いますね</div></div></div><div class="message event" id="message-1573751260.112100"><div class="content"><div class="summary"><div class="message__header user">ogahiro0720</div><div class="message__timestamp date"><a class="date" href="#message-1573751260.112100">2019-11-15&nbsp;02:07:40 +0900</a></div></div><div class="message__body description">ありがとうございます。HKDでやってみます</div></div></div><div class="message event" id="message-1573977570.113400"><div class="content"><div class="summary"><div class="message__header user">nmjr31</div><div class="message__timestamp date"><a class="date" href="#message-1573977570.113400">2019-11-17&nbsp;16:59:30 +0900</a></div></div><div class="message__body description">@nmjr31 has joined the channel</div></div></div><div class="message event" id="message-1574035950.113900"><div class="content"><div class="summary"><div class="message__header user">egisatoshi</div><div class="message__timestamp date"><a class="date" href="#message-1574035950.113900">2019-11-18&nbsp;09:12:30 +0900</a></div></div><div class="message__body description">@egisatoshi has joined the channel</div></div></div><div class="message event" id="message-1574073410.114200"><div class="content"><div class="summary"><div class="message__header user">las</div><div class="message__timestamp date"><a class="date" href="#message-1574073410.114200">2019-11-18&nbsp;19:36:50 +0900</a></div></div><div class="message__body description">@las has joined the channel</div></div></div><div class="message event" id="message-1574173418.116300"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1574173418.116300">2019-11-19&nbsp;23:23:38 +0900</a></div></div><div class="message__body description">cabal で <code>Cabal file warning ***.cabal@0:0: version with tags</code> という警告が表示されるのですが、これってどういうことなんでしょうか？　もしかして 0.1.0.0 とかではなく 0.1 とバージョンを設定しろってことですかね？</div></div></div><div class="message event" id="message-1574220533.116700"><div class="content"><div class="summary"><div class="message__header user">amderbar</div><div class="message__timestamp date"><a class="date" href="#message-1574220533.116700">2019-11-20&nbsp;12:28:53 +0900</a></div></div><div class="message__body description">@amderbar has joined the channel</div></div></div><div class="message event" id="message-1574234023.116900"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1574234023.116900">2019-11-20&nbsp;16:13:43 +0900</a></div></div><div class="message__body description">気になったのでやってみたのですが、手元では再現しませんでした。<br/>どんなcabalファイルでどのバージョンのcabal-installを使ったら発生したんですか？</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/73.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/75.html" class="pager__next item">Next</a></div></div></body></html>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573747513.111800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573747513.111800">2019-11-15 01:05:13 +0900</a></div>
+          </div>
+          <div class="message__body description">他にも Generic のインスタンスであれば data constructor の情報が載ってるのでそこから情報を抜き出して data family を作るような型クラスを定義する方法や， Template Haskell でデータ型を作る方法などはありますが，多分手軽なのは上の二つだと思いますね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573751260.112100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ogahiro0720</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573751260.112100">2019-11-15 02:07:40 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます。HKDでやってみます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1573977570.113400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nmjr31</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1573977570.113400">2019-11-17 16:59:30 +0900</a></div>
+          </div>
+          <div class="message__body description">@nmjr31 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1574035950.113900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">egisatoshi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1574035950.113900">2019-11-18 09:12:30 +0900</a></div>
+          </div>
+          <div class="message__body description">@egisatoshi has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1574073410.114200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">las</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1574073410.114200">2019-11-18 19:36:50 +0900</a></div>
+          </div>
+          <div class="message__body description">@las has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1574173418.116300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1574173418.116300">2019-11-19 23:23:38 +0900</a></div>
+          </div>
+          <div class="message__body description">cabal で <code>Cabal file warning ***.cabal@0:0: version with tags</code> という警告が表示されるのですが、これってどういうことなんでしょうか？　もしかして 0.1.0.0 とかではなく 0.1 とバージョンを設定しろってことですかね？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1574220533.116700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">amderbar</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1574220533.116700">2019-11-20 12:28:53 +0900</a></div>
+          </div>
+          <div class="message__body description">@amderbar has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1574234023.116900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1574234023.116900">2019-11-20 16:13:43 +0900</a></div>
+          </div>
+          <div class="message__body description">気になったのでやってみたのですが、手元では再現しませんでした。<br/>どんなcabalファイルでどのバージョンのcabal-installを使ったら発生したんですか？</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/73.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/75.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

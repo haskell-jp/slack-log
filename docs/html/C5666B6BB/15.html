@@ -1,4 +1,179 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #15</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #15</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/14.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/16.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1519704472.000230"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1519704472.000230">2018-02-27&nbsp;13:07:52 +0900</a></div></div><div class="message__body description">何故正規表現を使いたく無いかよく分かって無いですが，ワイドルカードや許容文字が複数ある場合などは， <code>regex-applicative-text</code> や <code>regex-tdfa</code> などをよく使います</div></div></div><div class="message event" id="message-1519707158.000035"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1519707158.000035">2018-02-27&nbsp;13:52:38 +0900</a></div></div><div class="message__body description">そういえば，ややこしそうなのであまり追ってなかったんですが，現状 <code>Typeable</code> のインスタンス解決が破綻してる件ってどうなってるんでしょうか？ <code>DeriveDataTypeable</code> はお亡くなりになる感じなのか，それともderiving自体は現状でも書いておくべきなんでしょうか？</div></div></div><div class="message event" id="message-1519708242.000016"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1519708242.000016">2018-02-27&nbsp;14:10:42 +0900</a></div></div><div class="message__body description">GHC Wiki(<https://ghc.haskell.org/trac/ghc/wiki/Typeable#Long-termsolution>)によれば，まだ結局Long-term solutionが見つかってなくて， everything is <code>Typeable</code> でderivingされたものは無視するという方針でいく感じですかね？ そうなると現状， <code>AutoDeriveTypeable</code> が有効になってる前提で書くのがいいのか， <code>DeriveDataTypeable</code> でいちよderivingを書いていくのがいいのかどっちなんですかね？</div></div></div><div class="message event" id="message-1519720508.000136"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1519720508.000136">2018-02-27&nbsp;17:35:08 +0900</a></div></div><div class="message__body description">System.Process.procにShift_JISで引数を渡す方法はありますか?<br/>とあるELFバイナリがShfit_JISで文字列引数を受け取るのでShfit_JISで文字列引数を渡して起動する必要があります<br/>IConv.convert "UTF-8" "SHIFT-JIS"でStringをShift_JISのByteString文字列にすることは出来たのですが<br/>procが受け取るのはUCS-4の集まりであるStringなので詰みました<br/>とりあえずData.ByteString.Lazy.Char8.unpackでStringにしてみたのですが普通に文字化けしました<br/>setForeignEncodingしてみれば良いのではという助言を貰って<br/><a href='https://twitter.com/mod_poppo/status/968397772301873152'>https://twitter.com/mod_poppo/status/968397772301873152</a><br/>latin1やchar8を設定してみたのですが文字化けするのは変わりません<br/>procにはShift_JISの文字列引数を渡すことは出来ないのでしょうか?</div></div></div><div class="message event" id="message-1519721210.000125"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1519721210.000125">2018-02-27&nbsp;17:46:50 +0900</a></div></div><div class="message__body description">Shift_JISを使うにはSystem.Posix.Process.ByteStringを使うしか無かったりするんでしょうか</div></div></div><div class="message event" id="message-1519748214.000344"><div class="content"><div class="summary"><div class="message__header user">wat-aro</div><div class="message__timestamp date"><a class="date" href="#message-1519748214.000344">2018-02-28&nbsp;01:16:54 +0900</a></div></div><div class="message__body description">sortがうまくいかず困っています。<br/><a href='https://github.com/wat-aro/hs-issues/issues/2'>https://github.com/wat-aro/hs-issues/issues/2</a><br/><br/>プログラミングElixirにあったGitHubからIssueを取ってきてテーブル表示するコマンドラインツールをHaskellで作ろうとしているんですが、取得したデータのリストをソートしようとして、なぜか一番上に来るはずの要素が一番下に来てしまいます。そのデータ以外は期待した並び順になっていてよくわかりません。<br/>これなにがおかしくてこうなってしまうのでしょうか？<br/><a href='https://github.com/wat-aro/hs-issues/blob/master/app/Main.hs'>https://github.com/wat-aro/hs-issues/blob/master/app/Main.hs</a></div></div></div><div class="message event" id="message-1519749181.000687"><div class="content"><div class="summary"><div class="message__header user">wat-aro</div><div class="message__timestamp date"><a class="date" href="#message-1519749181.000687">2018-02-28&nbsp;01:33:01 +0900</a></div></div><div class="message__body description">自己解決しました。foldrで出力するときに先頭の要素を最後に持ってきていた。</div></div></div><div class="message event" id="message-1519783069.000052"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1519783069.000052">2018-02-28&nbsp;10:57:49 +0900</a></div></div><div class="message__body description">多分そうだと思います。<br/>:confused: .oO(typed-processを勧めようかと思ったけど、結局同じ問題があるな… 提案してみようかしら…)</div></div></div><div class="message event" id="message-1519819462.000492"><div class="content"><div class="summary"><div class="message__header user">falsandtru</div><div class="message__timestamp date"><a class="date" href="#message-1519819462.000492">2018-02-28&nbsp;21:04:22 +0900</a></div></div><div class="message__body description">ググったらRustをFFIするサンプルコードが結構でてきてホクホクしてきた<br/>これ使おう</div></div></div><div class="message event" id="message-1519819797.000178"><div class="content"><div class="summary"><div class="message__header user">falsandtru</div><div class="message__timestamp date"><a class="date" href="#message-1519819797.000178">2018-02-28&nbsp;21:09:57 +0900</a></div></div><div class="message__body description">よく考えたらコネクション保持しないといけないからそのままじゃだめだった</div></div></div><div class="message event" id="message-1519957857.000079"><div class="content"><div class="summary"><div class="message__header user">voqn.tyrant</div><div class="message__timestamp date"><a class="date" href="#message-1519957857.000079">2018-03-02&nbsp;11:30:57 +0900</a></div></div><div class="message__body description">@voqn.tyrant has joined the channel</div></div></div><div class="message event" id="message-1519972493.000138"><div class="content"><div class="summary"><div class="message__header user">tosainu.maple</div><div class="message__timestamp date"><a class="date" href="#message-1519972493.000138">2018-03-02&nbsp;15:34:53 +0900</a></div></div><div class="message__body description">@tosainu.maple has joined the channel</div></div></div><div class="message event" id="message-1519986091.000188"><div class="content"><div class="summary"><div class="message__header user">junji.hashimoto</div><div class="message__timestamp date"><a class="date" href="#message-1519986091.000188">2018-03-02&nbsp;19:21:31 +0900</a></div></div><div class="message__body description">@junji.hashimoto has joined the channel</div></div></div><div class="message event" id="message-1520006388.000108"><div class="content"><div class="summary"><div class="message__header user">falsandtru</div><div class="message__timestamp date"><a class="date" href="#message-1520006388.000108">2018-03-03&nbsp;00:59:48 +0900</a></div></div><div class="message__body description">@falsandtru has left the channel</div></div></div><div class="message event" id="message-1520042790.000038"><div class="content"><div class="summary"><div class="message__header user">voqn.tyrant</div><div class="message__timestamp date"><a class="date" href="#message-1520042790.000038">2018-03-03&nbsp;11:06:30 +0900</a></div></div><div class="message__body description">QuickCheckを使ってライブラリのテストを書く時、 <code>instance Arbitrary</code> ってライブラリ側に書くのとテスト側に orphan instance として書くの、どちらがいいんでしょう。</div></div></div><div class="message event" id="message-1520043481.000036"><div class="content"><div class="summary"><div class="message__header user">kazu</div><div class="message__timestamp date"><a class="date" href="#message-1520043481.000036">2018-03-03&nbsp;11:18:01 +0900</a></div></div><div class="message__body description">公開して有用ならライブラリ側に書き、公開するつもりがないならテスト側に書けばいいでしょう。</div></div></div><div class="message event" id="message-1520043499.000141"><div class="content"><div class="summary"><div class="message__header user">kazu</div><div class="message__timestamp date"><a class="date" href="#message-1520043499.000141">2018-03-03&nbsp;11:18:19 +0900</a></div></div><div class="message__body description">テスト側に書いたら <code>{-# OPTIONS_GHC -fno-warn-orphans #-}</code> を書いておきます。</div></div></div><div class="message event" id="message-1520223577.000029"><div class="content"><div class="summary"><div class="message__header user">wado</div><div class="message__timestamp date"><a class="date" href="#message-1520223577.000029">2018-03-05&nbsp;13:19:37 +0900</a></div></div><div class="message__body description"><code>imperative-edsl</code> の <code>System.IO.Fake</code> モジュールで定義されている <code>fakeIO</code> 関数を使ってこんな感じのテストを書いてみたんですが、他の方法って何かあります？<br/><br/><pre>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #15</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #15</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/14.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/16.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1519704472.000230">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1519704472.000230">2018-02-27 13:07:52 +0900</a></div>
+          </div>
+          <div class="message__body description">何故正規表現を使いたく無いかよく分かって無いですが，ワイドルカードや許容文字が複数ある場合などは， <code>regex-applicative-text</code> や <code>regex-tdfa</code> などをよく使います</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1519707158.000035">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1519707158.000035">2018-02-27 13:52:38 +0900</a></div>
+          </div>
+          <div class="message__body description">そういえば，ややこしそうなのであまり追ってなかったんですが，現状 <code>Typeable</code> のインスタンス解決が破綻してる件ってどうなってるんでしょうか？ <code>DeriveDataTypeable</code> はお亡くなりになる感じなのか，それともderiving自体は現状でも書いておくべきなんでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1519708242.000016">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1519708242.000016">2018-02-27 14:10:42 +0900</a></div>
+          </div>
+          <div class="message__body description">GHC Wiki(<https://ghc.haskell.org/trac/ghc/wiki/Typeable#Long-termsolution>)によれば，まだ結局Long-term solutionが見つかってなくて， everything is <code>Typeable</code> でderivingされたものは無視するという方針でいく感じですかね？ そうなると現状， <code>AutoDeriveTypeable</code> が有効になってる前提で書くのがいいのか， <code>DeriveDataTypeable</code> でいちよderivingを書いていくのがいいのかどっちなんですかね？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1519720508.000136">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1519720508.000136">2018-02-27 17:35:08 +0900</a></div>
+          </div>
+          <div class="message__body description">System.Process.procにShift_JISで引数を渡す方法はありますか?<br/>とあるELFバイナリがShfit_JISで文字列引数を受け取るのでShfit_JISで文字列引数を渡して起動する必要があります<br/>IConv.convert "UTF-8" "SHIFT-JIS"でStringをShift_JISのByteString文字列にすることは出来たのですが<br/>procが受け取るのはUCS-4の集まりであるStringなので詰みました<br/>とりあえずData.ByteString.Lazy.Char8.unpackでStringにしてみたのですが普通に文字化けしました<br/>setForeignEncodingしてみれば良いのではという助言を貰って<br/><a href='https://twitter.com/mod_poppo/status/968397772301873152'>https://twitter.com/mod_poppo/status/968397772301873152</a><br/>latin1やchar8を設定してみたのですが文字化けするのは変わりません<br/>procにはShift_JISの文字列引数を渡すことは出来ないのでしょうか?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1519721210.000125">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1519721210.000125">2018-02-27 17:46:50 +0900</a></div>
+          </div>
+          <div class="message__body description">Shift_JISを使うにはSystem.Posix.Process.ByteStringを使うしか無かったりするんでしょうか</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1519748214.000344">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">wat-aro</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1519748214.000344">2018-02-28 01:16:54 +0900</a></div>
+          </div>
+          <div class="message__body description">sortがうまくいかず困っています。<br/><a href='https://github.com/wat-aro/hs-issues/issues/2'>https://github.com/wat-aro/hs-issues/issues/2</a><br/><br/>プログラミングElixirにあったGitHubからIssueを取ってきてテーブル表示するコマンドラインツールをHaskellで作ろうとしているんですが、取得したデータのリストをソートしようとして、なぜか一番上に来るはずの要素が一番下に来てしまいます。そのデータ以外は期待した並び順になっていてよくわかりません。<br/>これなにがおかしくてこうなってしまうのでしょうか？<br/><a href='https://github.com/wat-aro/hs-issues/blob/master/app/Main.hs'>https://github.com/wat-aro/hs-issues/blob/master/app/Main.hs</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1519749181.000687">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">wat-aro</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1519749181.000687">2018-02-28 01:33:01 +0900</a></div>
+          </div>
+          <div class="message__body description">自己解決しました。foldrで出力するときに先頭の要素を最後に持ってきていた。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1519783069.000052">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1519783069.000052">2018-02-28 10:57:49 +0900</a></div>
+          </div>
+          <div class="message__body description">多分そうだと思います。<br/>:confused: .oO(typed-processを勧めようかと思ったけど、結局同じ問題があるな… 提案してみようかしら…)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1519819462.000492">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">falsandtru</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1519819462.000492">2018-02-28 21:04:22 +0900</a></div>
+          </div>
+          <div class="message__body description">ググったらRustをFFIするサンプルコードが結構でてきてホクホクしてきた<br/>これ使おう</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1519819797.000178">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">falsandtru</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1519819797.000178">2018-02-28 21:09:57 +0900</a></div>
+          </div>
+          <div class="message__body description">よく考えたらコネクション保持しないといけないからそのままじゃだめだった</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1519957857.000079">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">voqn.tyrant</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1519957857.000079">2018-03-02 11:30:57 +0900</a></div>
+          </div>
+          <div class="message__body description">@voqn.tyrant has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1519972493.000138">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tosainu.maple</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1519972493.000138">2018-03-02 15:34:53 +0900</a></div>
+          </div>
+          <div class="message__body description">@tosainu.maple has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1519986091.000188">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">junji.hashimoto</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1519986091.000188">2018-03-02 19:21:31 +0900</a></div>
+          </div>
+          <div class="message__body description">@junji.hashimoto has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520006388.000108">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">falsandtru</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520006388.000108">2018-03-03 00:59:48 +0900</a></div>
+          </div>
+          <div class="message__body description">@falsandtru has left the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520042790.000038">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">voqn.tyrant</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520042790.000038">2018-03-03 11:06:30 +0900</a></div>
+          </div>
+          <div class="message__body description">QuickCheckを使ってライブラリのテストを書く時、 <code>instance Arbitrary</code> ってライブラリ側に書くのとテスト側に orphan instance として書くの、どちらがいいんでしょう。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520043481.000036">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kazu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520043481.000036">2018-03-03 11:18:01 +0900</a></div>
+          </div>
+          <div class="message__body description">公開して有用ならライブラリ側に書き、公開するつもりがないならテスト側に書けばいいでしょう。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520043499.000141">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kazu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520043499.000141">2018-03-03 11:18:19 +0900</a></div>
+          </div>
+          <div class="message__body description">テスト側に書いたら <code>{-# OPTIONS_GHC -fno-warn-orphans #-}</code> を書いておきます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520223577.000029">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">wado</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520223577.000029">2018-03-05 13:19:37 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>imperative-edsl</code> の <code>System.IO.Fake</code> モジュールで定義されている <code>fakeIO</code> 関数を使ってこんな感じのテストを書いてみたんですが、他の方法って何かあります？<br/><br/><pre>
 module Main where
 
 import System.IO.Fake (fakeIO)
@@ -23,14 +198,59 @@ Failures:
   1) Prelude.head returns the first element of a list
        expected: "('H','a')\n"
         but got: "('H','s')\n"
-</pre><br/><br/><a href='https://github.com/emilaxelsson/imperative-edsl/blob/master/src/System/IO/Fake.hs'>https://github.com/emilaxelsson/imperative-edsl/blob/master/src/System/IO/Fake.hs</a></div></div></div><div class="message event" id="message-1520242771.000492"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1520242771.000492">2018-03-05&nbsp;18:39:31 +0900</a></div></div><div class="message__body description">それは IO をテストする他の方法という意味ですか？それともfakeIOの他の使い方という意味でしょうか？</div></div></div><div class="message event" id="message-1520243251.000439"><div class="content"><div class="summary"><div class="message__header user">wado</div><div class="message__timestamp date"><a class="date" href="#message-1520243251.000439">2018-03-05&nbsp;18:47:31 +0900</a></div></div><div class="message__body description"><code>IO ()</code> をテストする他の方法という意味ですー。</div></div></div><div class="message event" id="message-1520289597.000085"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1520289597.000085">2018-03-06&nbsp;07:39:57 +0900</a></div></div><div class="message__body description">fakeIO がどういう仕組みでやっているのかは存じませんが（もしかしたら実質同じパターンかも）、 <code>IO</code> している関数に手を入れることができるなら、 :point_down: こういうちょっとした依存性注入パターンを使いますね。<br/><br/><pre>
+</pre><br/><br/><a href='https://github.com/emilaxelsson/imperative-edsl/blob/master/src/System/IO/Fake.hs'>https://github.com/emilaxelsson/imperative-edsl/blob/master/src/System/IO/Fake.hs</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520242771.000492">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520242771.000492">2018-03-05 18:39:31 +0900</a></div>
+          </div>
+          <div class="message__body description">それは IO をテストする他の方法という意味ですか？それともfakeIOの他の使い方という意味でしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520243251.000439">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">wado</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520243251.000439">2018-03-05 18:47:31 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>IO ()</code> をテストする他の方法という意味ですー。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520289597.000085">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520289597.000085">2018-03-06 07:39:57 +0900</a></div>
+          </div>
+          <div class="message__body description">fakeIO がどういう仕組みでやっているのかは存じませんが（もしかしたら実質同じパターンかも）、 <code>IO</code> している関数に手を入れることができるなら、 :point_down: こういうちょっとした依存性注入パターンを使いますね。<br/><br/><pre>
 data Env m =
   Env { print :: String -&gt; m (), read :: m String }
 useIo :: Monad m =&gt; Env m -&gt; m ()
 useIo e = do
   s &lt;- read e
   print s
-</pre><br/><br/>こうすることで、実際に <code>IO</code> するかどうかを <code>Env</code> の中身に委ねつつ、 <code>useIo</code> を実質純粋な関数として維持できます。<br/>あとは <code>Env</code> を <code>ReaderT</code> を経由して渡すようにすれば、見かけとしてもバッチリになるでしょう。<br/>合わせて読みたい: <a href='https://www.fpcomplete.com/blog/2017/07/the-rio-monad'>https://www.fpcomplete.com/blog/2017/07/the-rio-monad</a><br/><br/>あと、標準出力にしか対応していなくて悩ましいですが、全く違うアプローチとして、<br/><br/><a href='http://syocy.hatenablog.com/entry/haskell-library-2016#%E3%83%86%E3%82%B9%E3%83%88'>http://syocy.hatenablog.com/entry/haskell-library-2016#%E3%83%86%E3%82%B9%E3%83%88</a><br/><br/>で触れている、 <code>silently</code> パッケージというのもあります。<br/>こちらは <code>stdout</code> を再オープンして書き換える、という大胆不敵なやり方をとっています。</div></div></div><div class="message event" id="message-1520333709.000043"><div class="content"><div class="summary"><div class="message__header user">msakai</div><div class="message__timestamp date"><a class="date" href="#message-1520333709.000043">2018-03-06&nbsp;19:55:09 +0900</a></div></div><div class="message__body description">C++で書かれたライブラリのバインディングを作る際のオススメの方法ってありますか？<br/>今 <a href='https://github.com/wavewave/fficxx'>https://github.com/wavewave/fficxx</a> が少し気になっているのですが、使ったことある人がいたら、感想を知りたいです。</div></div></div><div class="message event" id="message-1520337228.000012"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1520337228.000012">2018-03-06&nbsp;20:53:48 +0900</a></div></div><div class="message__body description">「テスト可能な形で入出力を切り離す」という目的ならば、Conduitを使うのもありかな、と思います<br/><br/><pre>
+</pre><br/><br/>こうすることで、実際に <code>IO</code> するかどうかを <code>Env</code> の中身に委ねつつ、 <code>useIo</code> を実質純粋な関数として維持できます。<br/>あとは <code>Env</code> を <code>ReaderT</code> を経由して渡すようにすれば、見かけとしてもバッチリになるでしょう。<br/>合わせて読みたい: <a href='https://www.fpcomplete.com/blog/2017/07/the-rio-monad'>https://www.fpcomplete.com/blog/2017/07/the-rio-monad</a><br/><br/>あと、標準出力にしか対応していなくて悩ましいですが、全く違うアプローチとして、<br/><br/><a href='http://syocy.hatenablog.com/entry/haskell-library-2016#%E3%83%86%E3%82%B9%E3%83%88'>http://syocy.hatenablog.com/entry/haskell-library-2016#%E3%83%86%E3%82%B9%E3%83%88</a><br/><br/>で触れている、 <code>silently</code> パッケージというのもあります。<br/>こちらは <code>stdout</code> を再オープンして書き換える、という大胆不敵なやり方をとっています。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520333709.000043">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">msakai</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520333709.000043">2018-03-06 19:55:09 +0900</a></div>
+          </div>
+          <div class="message__body description">C++で書かれたライブラリのバインディングを作る際のオススメの方法ってありますか？<br/>今 <a href='https://github.com/wavewave/fficxx'>https://github.com/wavewave/fficxx</a> が少し気になっているのですが、使ったことある人がいたら、感想を知りたいです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520337228.000012">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520337228.000012">2018-03-06 20:53:48 +0900</a></div>
+          </div>
+          <div class="message__body description">「テスト可能な形で入出力を切り離す」という目的ならば、Conduitを使うのもありかな、と思います<br/><br/><pre>
 module Main where
 
 import Data.Conduit (ConduitM, await, yield, runConduit, runConduitPure, (.|))
@@ -59,7 +279,88 @@ actIO = runConduit $
   act .|
   CL.map (pack . show) .|
   stdoutC
-</pre></div></div></div><div class="message event" id="message-1520338644.000084"><div class="content"><div class="summary"><div class="message__header user">ywataywatay</div><div class="message__timestamp date"><a class="date" href="#message-1520338644.000084">2018-03-06&nbsp;21:17:24 +0900</a></div></div><div class="message__body description">@ywataywatay has joined the channel</div></div></div><div class="message event" id="message-1520389859.000178"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1520389859.000178">2018-03-07&nbsp;11:30:59 +0900</a></div></div><div class="message__body description">CPP GHC拡張の <code>MIN_VERSION_*</code> で4桁を指定する方法ってないですよね？<br/>具体的には <code>hoge-1.2.3.4</code> と <code>hoge-1.2.3.5</code> で振る舞いを分ける方法って無いですよね？</div></div></div><div class="message event" id="message-1520390185.000200"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1520390185.000200">2018-03-07&nbsp;11:36:25 +0900</a></div></div><div class="message__body description">そのマクロは3桁までしか扱わないので、できないと思います。PVP compliantならば最後の桁の違いによってユーザから見えるAPIの違いはないはずという考えだと思います。</div></div></div><div class="message event" id="message-1520390618.000239"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1520390618.000239">2018-03-07&nbsp;11:43:38 +0900</a></div></div><div class="message__body description">やっぱそうですよね....</div></div></div><div class="message event" id="message-1520397995.000020"><div class="content"><div class="summary"><div class="message__header user">wado</div><div class="message__timestamp date"><a class="date" href="#message-1520397995.000020">2018-03-07&nbsp;13:46:35 +0900</a></div></div><div class="message__body description">@igrep ありがとうございます。<br/><code>fakeIO</code> の実装は <code>silently</code> にインスパイアされたものなので、仕組み自体は <code>silently</code> に近いです。<br/><br/><code>Env</code> を使った依存性注入パターンでは、例えば通常 <code>putStrLn</code> を使って出力している箇所を <code>Env</code> の <code>print</code> に差し替える必要がありそうですね。<br/><br/>このやり方に近い感じですか？<br/><a href='https://lexi-lambda.github.io/blog/2017/06/29/unit-testing-effectful-haskell-with-monad-mock/'>https://lexi-lambda.github.io/blog/2017/06/29/unit-testing-effectful-haskell-with-monad-mock/</a><br/><br/>標準入出力だけしか考えてなかったので、参考になりました。ありがとうございます。</div></div></div><div class="message event" id="message-1520398337.000012"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1520398337.000012">2018-03-07&nbsp;13:52:17 +0900</a></div></div><div class="message__body description"><blockquote>このやり方に近い感じですか？<br/><a href='https://lexi-lambda.github.io/blog/2017/06/29/unit-testing-effectful-haskell-with-monad-mock/'>https://lexi-lambda.github.io/blog/2017/06/29/unit-testing-effectful-haskell-with-monad-mock/</a></blockquote><br/>型クラスはimplicit parameterなわけですから、 <code>Env</code> を implicit に渡していると考えれば近いかと思います。<br/>個人的には <code>Env</code> は直接渡した方が、型クラスより柔軟でお勧めです。</div></div></div><div class="message event" id="message-1520398525.000053"><div class="content"><div class="summary"><div class="message__header user">wado</div><div class="message__timestamp date"><a class="date" href="#message-1520398525.000053">2018-03-07&nbsp;13:55:25 +0900</a></div></div><div class="message__body description">@as_capabl 今回の目的は <code>テスト可能な形で入出力を切り離す</code> というよりは、既存のコードをできるだけ変更せずにテストするためにはどうしたら良いのかな？という感じでした。 (ちゃんと明示してなくてすみません。)<br/><br/><code>Conduit</code> あまり詳しく無いのですが、こういうこともできるんですね。勉強になりました。ありがとうございます。</div></div></div><div class="message event" id="message-1520399627.000215"><div class="content"><div class="summary"><div class="message__header user">msakai</div><div class="message__timestamp date"><a class="date" href="#message-1520399627.000215">2018-03-07&nbsp;14:13:47 +0900</a></div></div><div class="message__body description">一応、.cabalで <code>hoge &lt;=1.2.3.4</code> に依存するか <code>hoge &gt;=1.2.3.5</code> に依存するかのフラグを定義して、それに応じて <code>CPP-Options:</code> を設定する、という手はありますが。</div></div></div><div class="message event" id="message-1520399686.000153"><div class="content"><div class="summary"><div class="message__header user">thimura</div><div class="message__timestamp date"><a class="date" href="#message-1520399686.000153">2018-03-07&nbsp;14:14:46 +0900</a></div></div><div class="message__body description">ちょうど同じようなこと書こうとしてましたw <br/>参考までに。<br/><br/>patchlevel より下の桁で試してないので勘で物を言っていますが、cabal の flags ソルバで cpp-options を切り替える方法はどうでしょうか？<br/>build-depends の条件が満たされない場合は、cabal のソルバが manual ではない flag の値を反転して条件が満たされるまで試すので、cpp-options で適当なマクロを define しておけば CPP マクロで参照できる気がします。<br/><br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520338644.000084">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ywataywatay</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520338644.000084">2018-03-06 21:17:24 +0900</a></div>
+          </div>
+          <div class="message__body description">@ywataywatay has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520389859.000178">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520389859.000178">2018-03-07 11:30:59 +0900</a></div>
+          </div>
+          <div class="message__body description">CPP GHC拡張の <code>MIN_VERSION_*</code> で4桁を指定する方法ってないですよね？<br/>具体的には <code>hoge-1.2.3.4</code> と <code>hoge-1.2.3.5</code> で振る舞いを分ける方法って無いですよね？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520390185.000200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520390185.000200">2018-03-07 11:36:25 +0900</a></div>
+          </div>
+          <div class="message__body description">そのマクロは3桁までしか扱わないので、できないと思います。PVP compliantならば最後の桁の違いによってユーザから見えるAPIの違いはないはずという考えだと思います。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520390618.000239">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520390618.000239">2018-03-07 11:43:38 +0900</a></div>
+          </div>
+          <div class="message__body description">やっぱそうですよね....</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520397995.000020">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">wado</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520397995.000020">2018-03-07 13:46:35 +0900</a></div>
+          </div>
+          <div class="message__body description">@igrep ありがとうございます。<br/><code>fakeIO</code> の実装は <code>silently</code> にインスパイアされたものなので、仕組み自体は <code>silently</code> に近いです。<br/><br/><code>Env</code> を使った依存性注入パターンでは、例えば通常 <code>putStrLn</code> を使って出力している箇所を <code>Env</code> の <code>print</code> に差し替える必要がありそうですね。<br/><br/>このやり方に近い感じですか？<br/><a href='https://lexi-lambda.github.io/blog/2017/06/29/unit-testing-effectful-haskell-with-monad-mock/'>https://lexi-lambda.github.io/blog/2017/06/29/unit-testing-effectful-haskell-with-monad-mock/</a><br/><br/>標準入出力だけしか考えてなかったので、参考になりました。ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520398337.000012">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520398337.000012">2018-03-07 13:52:17 +0900</a></div>
+          </div>
+          <div class="message__body description"><blockquote>このやり方に近い感じですか？<br/><a href='https://lexi-lambda.github.io/blog/2017/06/29/unit-testing-effectful-haskell-with-monad-mock/'>https://lexi-lambda.github.io/blog/2017/06/29/unit-testing-effectful-haskell-with-monad-mock/</a></blockquote><br/>型クラスはimplicit parameterなわけですから、 <code>Env</code> を implicit に渡していると考えれば近いかと思います。<br/>個人的には <code>Env</code> は直接渡した方が、型クラスより柔軟でお勧めです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520398525.000053">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">wado</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520398525.000053">2018-03-07 13:55:25 +0900</a></div>
+          </div>
+          <div class="message__body description">@as_capabl 今回の目的は <code>テスト可能な形で入出力を切り離す</code> というよりは、既存のコードをできるだけ変更せずにテストするためにはどうしたら良いのかな？という感じでした。 (ちゃんと明示してなくてすみません。)<br/><br/><code>Conduit</code> あまり詳しく無いのですが、こういうこともできるんですね。勉強になりました。ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520399627.000215">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">msakai</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520399627.000215">2018-03-07 14:13:47 +0900</a></div>
+          </div>
+          <div class="message__body description">一応、.cabalで <code>hoge &lt;=1.2.3.4</code> に依存するか <code>hoge &gt;=1.2.3.5</code> に依存するかのフラグを定義して、それに応じて <code>CPP-Options:</code> を設定する、という手はありますが。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520399686.000153">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">thimura</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520399686.000153">2018-03-07 14:14:46 +0900</a></div>
+          </div>
+          <div class="message__body description">ちょうど同じようなこと書こうとしてましたw <br/>参考までに。<br/><br/>patchlevel より下の桁で試してないので勘で物を言っていますが、cabal の flags ソルバで cpp-options を切り替える方法はどうでしょうか？<br/>build-depends の条件が満たされない場合は、cabal のソルバが manual ではない flag の値を反転して条件が満たされるまで試すので、cpp-options で適当なマクロを define しておけば CPP マクロで参照できる気がします。<br/><br/><pre>
 flag hogefuga-new-version
   default: True
   manual: False
@@ -74,7 +375,70 @@ library
   else
     build-depends:
       hogefuga &gt;= 1 &amp;&amp; &lt; 1.2.3.5
-</pre></div></div></div><div class="message event" id="message-1520399722.000196"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1520399722.000196">2018-03-07&nbsp;14:15:22 +0900</a></div></div><div class="message__body description">いいアイデアですね</div></div></div><div class="message event" id="message-1520400347.000076"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1520400347.000076">2018-03-07&nbsp;14:25:47 +0900</a></div></div><div class="message__body description">この方法って、  <code>hogefuga-new-version</code> フラグを cabal build のときに渡して切り替える感じですか？</div></div></div><div class="message event" id="message-1520400391.000071"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1520400391.000071">2018-03-07&nbsp;14:26:31 +0900</a></div></div><div class="message__body description">manual: Falseだとcabalが勝手にon/offを切り替えてくれます</div></div></div><div class="message event" id="message-1520400609.000129"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1520400609.000129">2018-03-07&nbsp;14:30:09 +0900</a></div></div><div class="message__body description">おぉ、ダメだったら勝手に切り替えてくれるんですね。<br/>ありがとうございます、試してみます。<br/><a href='https://www.haskell.org/cabal/users-guide/developing-packages.html#pkg-field-flag-manual'>https://www.haskell.org/cabal/users-guide/developing-packages.html#pkg-field-flag-manual</a></div></div></div><div class="message event" id="message-1520402940.000119"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1520402940.000119">2018-03-07&nbsp;15:09:00 +0900</a></div></div><div class="message__body description">どうやら、stack ではこの方法が出来無いようです(できなかった...)<br/><a href='https://github.com/commercialhaskell/stack/issues/2197'>https://github.com/commercialhaskell/stack/issues/2197</a></div></div></div><div class="message event" id="message-1520405585.000021"><div class="content"><div class="summary"><div class="message__header user">thimura</div><div class="message__timestamp date"><a class="date" href="#message-1520405585.000021">2018-03-07&nbsp;15:53:05 +0900</a></div></div><div class="message__body description">stack 使うのであれば、stack.yaml の resolver と extra-deps から hoge のバージョンが一意に定まるはずなので、stack.yaml の flags にどちらかを明示しておけば良い気がします。</div></div></div><div class="message event" id="message-1520594742.000168"><div class="content"><div class="summary"><div class="message__header user">tomo426.sakura1281m</div><div class="message__timestamp date"><a class="date" href="#message-1520594742.000168">2018-03-09&nbsp;20:25:42 +0900</a></div></div><div class="message__body description"><code>replicate 100 False</code> で作成したリストに対して、<br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520399722.000196">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520399722.000196">2018-03-07 14:15:22 +0900</a></div>
+          </div>
+          <div class="message__body description">いいアイデアですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520400347.000076">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520400347.000076">2018-03-07 14:25:47 +0900</a></div>
+          </div>
+          <div class="message__body description">この方法って、  <code>hogefuga-new-version</code> フラグを cabal build のときに渡して切り替える感じですか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520400391.000071">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520400391.000071">2018-03-07 14:26:31 +0900</a></div>
+          </div>
+          <div class="message__body description">manual: Falseだとcabalが勝手にon/offを切り替えてくれます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520400609.000129">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520400609.000129">2018-03-07 14:30:09 +0900</a></div>
+          </div>
+          <div class="message__body description">おぉ、ダメだったら勝手に切り替えてくれるんですね。<br/>ありがとうございます、試してみます。<br/><a href='https://www.haskell.org/cabal/users-guide/developing-packages.html#pkg-field-flag-manual'>https://www.haskell.org/cabal/users-guide/developing-packages.html#pkg-field-flag-manual</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520402940.000119">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520402940.000119">2018-03-07 15:09:00 +0900</a></div>
+          </div>
+          <div class="message__body description">どうやら、stack ではこの方法が出来無いようです(できなかった...)<br/><a href='https://github.com/commercialhaskell/stack/issues/2197'>https://github.com/commercialhaskell/stack/issues/2197</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520405585.000021">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">thimura</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520405585.000021">2018-03-07 15:53:05 +0900</a></div>
+          </div>
+          <div class="message__body description">stack 使うのであれば、stack.yaml の resolver と extra-deps から hoge のバージョンが一意に定まるはずなので、stack.yaml の flags にどちらかを明示しておけば良い気がします。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520594742.000168">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tomo426.sakura1281m</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520594742.000168">2018-03-09 20:25:42 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>replicate 100 False</code> で作成したリストに対して、<br/><pre>
 mkcs :: Int -&gt; [Bool] 
 mkcs n = [if (x`mod`n==0)then True else False|x&lt;-[1..100]]
 </pre><br/>を`n&lt;-[1.100]`でandを取りたいときのコードを以下のように書いてみたのですが、これよりスッキリとした書き方はないでしょうか？<br/><pre>
@@ -89,10 +453,91 @@ turn (cs.n)
 main = do
     let c = replicate 100 False
     print turn (c, 2) 
-</pre></div></div></div><div class="message event" id="message-1520595984.000097"><div class="content"><div class="summary"><div class="message__header user">voqn.tyrant</div><div class="message__timestamp date"><a class="date" href="#message-1520595984.000097">2018-03-09&nbsp;20:46:24 +0900</a></div></div><div class="message__body description"><code>mkcs</code> の定義自体は <code>mkcs n = [x </code>mod` n == 0 | x &lt;- [1..100]]` でも良いですよね</div></div></div><div class="message event" id="message-1520597258.000295"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1520597258.000295">2018-03-09&nbsp;21:07:38 +0900</a></div></div><div class="message__body description"><code>ands</code> じゃなくて <code>turn</code> ??</div></div></div><div class="message event" id="message-1520597532.000398"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1520597532.000398">2018-03-09&nbsp;21:12:12 +0900</a></div></div><div class="message__body description"><code>nxt = zipWith and cs (mkcs n)</code> も <code> nxt = zipWith (&amp;&amp;) cs (mkcs n)</code> かな？</div></div></div><div class="message event" id="message-1520598003.000214"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1520598003.000214">2018-03-09&nbsp;21:20:03 +0900</a></div></div><div class="message__body description">スタート <code>False</code> だと何べん <code>(&amp;&amp;)</code> しても <code>False</code> だからなにしたいコードかよくわからないですね...</div></div></div><div class="message event" id="message-1520600268.000038"><div class="content"><div class="summary"><div class="message__header user">tomo426.sakura1281m</div><div class="message__timestamp date"><a class="date" href="#message-1520600268.000038">2018-03-09&nbsp;21:57:48 +0900</a></div></div><div class="message__body description">説明を簡略化しようとして，いろいろミスっていました<br/>ands -&gt; turn <br/>and -&gt; xor とします．</div></div></div><div class="message event" id="message-1520600472.000027"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1520600472.000027">2018-03-09&nbsp;22:01:12 +0900</a></div></div><div class="message__body description">あー xor か</div></div></div><div class="message event" id="message-1520600587.000367"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1520600587.000367">2018-03-09&nbsp;22:03:07 +0900</a></div></div><div class="message__body description">ちなみに、Haskell に xor あるよ<br/><a href='http://hackage.haskell.org/package/base-4.10.1.0/docs/Data-Bits.html#v:xor'>http://hackage.haskell.org/package/base-4.10.1.0/docs/Data-Bits.html#v:xor</a></div></div></div><div class="message event" id="message-1520601088.000382"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1520601088.000382">2018-03-09&nbsp;22:11:28 +0900</a></div></div><div class="message__body description">うーん、すっきりかどうかは分からないけど<br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520595984.000097">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">voqn.tyrant</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520595984.000097">2018-03-09 20:46:24 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>mkcs</code> の定義自体は <code>mkcs n = [x </code>mod` n == 0 | x &lt;- [1..100]]` でも良いですよね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520597258.000295">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520597258.000295">2018-03-09 21:07:38 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>ands</code> じゃなくて <code>turn</code> ??</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520597532.000398">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520597532.000398">2018-03-09 21:12:12 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>nxt = zipWith and cs (mkcs n)</code> も <code> nxt = zipWith (&amp;&amp;) cs (mkcs n)</code> かな？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520598003.000214">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520598003.000214">2018-03-09 21:20:03 +0900</a></div>
+          </div>
+          <div class="message__body description">スタート <code>False</code> だと何べん <code>(&amp;&amp;)</code> しても <code>False</code> だからなにしたいコードかよくわからないですね...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520600268.000038">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tomo426.sakura1281m</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520600268.000038">2018-03-09 21:57:48 +0900</a></div>
+          </div>
+          <div class="message__body description">説明を簡略化しようとして，いろいろミスっていました<br/>ands -&gt; turn <br/>and -&gt; xor とします．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520600472.000027">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520600472.000027">2018-03-09 22:01:12 +0900</a></div>
+          </div>
+          <div class="message__body description">あー xor か</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520600587.000367">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520600587.000367">2018-03-09 22:03:07 +0900</a></div>
+          </div>
+          <div class="message__body description">ちなみに、Haskell に xor あるよ<br/><a href='http://hackage.haskell.org/package/base-4.10.1.0/docs/Data-Bits.html#v:xor'>http://hackage.haskell.org/package/base-4.10.1.0/docs/Data-Bits.html#v:xor</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520601088.000382">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520601088.000382">2018-03-09 22:11:28 +0900</a></div>
+          </div>
+          <div class="message__body description">うーん、すっきりかどうかは分からないけど<br/><pre>
 turn :: ([Bool], Int) -&gt; ([Bool], Int)
 turn = until ((&gt; 100) . snd) (\(cs, n) -&gt; (zipWith xor cs (mkcs n), n + 1))
-</pre></div></div></div><div class="message event" id="message-1520601395.000278"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1520601395.000278">2018-03-09&nbsp;22:16:35 +0900</a></div></div><div class="message__body description">欲しいのは <code>[Bool]</code> だけだったら普通に畳み込みでいいのか<br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520601395.000278">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520601395.000278">2018-03-09 22:16:35 +0900</a></div>
+          </div>
+          <div class="message__body description">欲しいのは <code>[Bool]</code> だけだったら普通に畳み込みでいいのか<br/><pre>
 import Data.Bits
 
 main = print $ turn [2..100] (replicate 100 False)
@@ -102,7 +547,25 @@ turn ns cs = foldl (\cs' n -&gt; zipWith xor cs' (mkcs n)) cs ns
 
 mkcs :: Int -&gt; [Bool] 
 mkcs n = [x `mod` n == 0 | x &lt;- [1..100]]
-</pre></div></div></div><div class="message event" id="message-1520604135.000611"><div class="content"><div class="summary"><div class="message__header user">tomo426.sakura1281m</div><div class="message__timestamp date"><a class="date" href="#message-1520604135.000611">2018-03-09&nbsp;23:02:15 +0900</a></div></div><div class="message__body description">助言ありがとうございます<br/>畳み込みがまだ慣れてないのが，ネックになってそうなので，勉強がんばります</div></div></div><div class="message event" id="message-1520700707.000019"><div class="content"><div class="summary"><div class="message__header user">nobsun</div><div class="message__timestamp date"><a class="date" href="#message-1520700707.000019">2018-03-11&nbsp;01:51:47 +0900</a></div></div><div class="message__body description">もともとの問題を解くだけなら、100 という1つの整数からリストの構成を1回だけにするようなコードも書けるには書けますね。<br/><br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520604135.000611">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tomo426.sakura1281m</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520604135.000611">2018-03-09 23:02:15 +0900</a></div>
+          </div>
+          <div class="message__body description">助言ありがとうございます<br/>畳み込みがまだ慣れてないのが，ネックになってそうなので，勉強がんばります</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1520700707.000019">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nobsun</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1520700707.000019">2018-03-11 01:51:47 +0900</a></div>
+          </div>
+          <div class="message__body description">もともとの問題を解くだけなら、100 という1つの整数からリストの構成を1回だけにするようなコードも書けるには書けますね。<br/><br/><pre>
 module Main where
 
 import Control.Arrow ((***))
@@ -128,4 +591,15 @@ hylo f e phi x = maybe e (uncurry ($) . (f *** hylo f e phi)) (phi x)
 
 xor :: Bool -&gt; Bool -&gt; Bool
 xor p q = bool p (not p) q
-</pre></div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/14.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/16.html" class="pager__next item">Next</a></div></div></body></html>
+</pre></div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/14.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/16.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

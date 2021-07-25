@@ -1,9 +1,483 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / random #35</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / random #35</h1><div class="pager ui pagination menu"><a href="../../html/C4M4TT8JJ/34.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C4M4TT8JJ/36.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1546927393.069700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1546927393.069700">2019-01-08&nbsp;15:03:13 +0900</a></div></div><div class="message__body description">あ、あと、stack build --ghc-options=-jとすればモジュール単位の並列化までできますが、そういう話ではない？</div></div></div><div class="message event" id="message-1546927779.069800"><div class="content"><div class="summary"><div class="message__header user">yharuhi39</div><div class="message__timestamp date"><a class="date" href="#message-1546927779.069800">2019-01-08&nbsp;15:09:39 +0900</a></div></div><div class="message__body description">日本語は悪。はっきりわかんだね。</div></div></div><div class="message event" id="message-1546927994.070800"><div class="content"><div class="summary"><div class="message__header user">aiya000</div><div class="message__timestamp date"><a class="date" href="#message-1546927994.070800">2019-01-08&nbsp;15:13:14 +0900</a></div></div><div class="message__body description">-j、あったのか！！</div></div></div><div class="message event" id="message-1546928685.070900"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1546928685.070900">2019-01-08&nbsp;15:24:45 +0900</a></div></div><div class="message__body description">プロジェクトのビルド早くしたくて前にそれ追いかけてたんですが現状だとそれやると何故かシングルスレッドより遅くなるみたいなベンチマークが出てきてましたね</div></div></div><div class="message event" id="message-1546929259.071300"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1546929259.071300">2019-01-08&nbsp;15:34:19 +0900</a></div></div><div class="message__body description"><a href='https://ghc.haskell.org/trac/ghc/ticket/9221'>https://ghc.haskell.org/trac/ghc/ticket/9221</a><br/>これですね<br/>8.6で解決されたとか書いてますし試してみるかー(私の本番プロダクションはesqueletoのせいでまだlts 10なんですが)</div></div></div><div class="message event" id="message-1546936497.071900"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1546936497.071900">2019-01-08&nbsp;17:34:57 +0900</a></div></div><div class="message__body description">stackを新しくしてからglobal installしたモジュールがglobal importで読み込めなくなってるな<br/>と思ってghciを素で起動したら読み込まれる<br/>interoがglobal moduleを認識しなくなっている?</div></div></div><div class="message event" id="message-1546936729.072100"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1546936729.072100">2019-01-08&nbsp;17:38:49 +0900</a></div></div><div class="message__body description">あれ起動し直したら認識するようになった<br/>intero-restartでも認識しなかったのに…</div></div></div><div class="message event" id="message-1546939370.072500"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1546939370.072500">2019-01-08&nbsp;18:22:50 +0900</a></div></div><div class="message__body description">esqueleto, countとかsumとか使いたくなった時にクソナガ型注釈が必要になるのやめてほしい</div></div></div><div class="message event" id="message-1546939462.072900"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1546939462.072900">2019-01-08&nbsp;18:24:22 +0900</a></div></div><div class="message__body description"><pre>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #35</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #35</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C4M4TT8JJ/34.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C4M4TT8JJ/36.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1546927393.069700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1546927393.069700">2019-01-08 15:03:13 +0900</a></div>
+          </div>
+          <div class="message__body description">あ、あと、stack build --ghc-options=-jとすればモジュール単位の並列化までできますが、そういう話ではない？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1546927779.069800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yharuhi39</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1546927779.069800">2019-01-08 15:09:39 +0900</a></div>
+          </div>
+          <div class="message__body description">日本語は悪。はっきりわかんだね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1546927994.070800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">aiya000</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1546927994.070800">2019-01-08 15:13:14 +0900</a></div>
+          </div>
+          <div class="message__body description">-j、あったのか！！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1546928685.070900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1546928685.070900">2019-01-08 15:24:45 +0900</a></div>
+          </div>
+          <div class="message__body description">プロジェクトのビルド早くしたくて前にそれ追いかけてたんですが現状だとそれやると何故かシングルスレッドより遅くなるみたいなベンチマークが出てきてましたね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1546929259.071300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1546929259.071300">2019-01-08 15:34:19 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://ghc.haskell.org/trac/ghc/ticket/9221'>https://ghc.haskell.org/trac/ghc/ticket/9221</a><br/>これですね<br/>8.6で解決されたとか書いてますし試してみるかー(私の本番プロダクションはesqueletoのせいでまだlts 10なんですが)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1546936497.071900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1546936497.071900">2019-01-08 17:34:57 +0900</a></div>
+          </div>
+          <div class="message__body description">stackを新しくしてからglobal installしたモジュールがglobal importで読み込めなくなってるな<br/>と思ってghciを素で起動したら読み込まれる<br/>interoがglobal moduleを認識しなくなっている?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1546936729.072100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1546936729.072100">2019-01-08 17:38:49 +0900</a></div>
+          </div>
+          <div class="message__body description">あれ起動し直したら認識するようになった<br/>intero-restartでも認識しなかったのに…</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1546939370.072500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1546939370.072500">2019-01-08 18:22:50 +0900</a></div>
+          </div>
+          <div class="message__body description">esqueleto, countとかsumとか使いたくなった時にクソナガ型注釈が必要になるのやめてほしい</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1546939462.072900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1546939462.072900">2019-01-08 18:24:22 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>
 E.orderBy [ E.desc $
             -- 何故かsumには長大な型注釈が必要
             (E.sum_ :: E.Esqueleto query expr backend =&gt; expr (E.Value Rational) -&gt; expr (E.Value (Maybe Rational))) $
             foo E.^. Bar
           ]
-</pre><br/>何故この型注釈が必要になるのか全くわかっていない</div></div></div><div class="message event" id="message-1546942393.073200"><div class="content"><div class="summary"><div class="message__header user">skazufumi.a02525</div><div class="message__timestamp date"><a class="date" href="#message-1546942393.073200">2019-01-08&nbsp;19:13:13 +0900</a></div></div><div class="message__body description">@skazufumi.a02525 has joined the channel</div></div></div><div class="message event" id="message-1546992643.073700"><div class="content"><div class="summary"><div class="message__header user">koyama</div><div class="message__timestamp date"><a class="date" href="#message-1546992643.073700">2019-01-09&nbsp;09:10:43 +0900</a></div></div><div class="message__body description">@koyama has joined the channel</div></div></div><div class="message event" id="message-1547013174.074000"><div class="content"><div class="summary"><div class="message__header user">zokutyou2</div><div class="message__timestamp date"><a class="date" href="#message-1547013174.074000">2019-01-09&nbsp;14:52:54 +0900</a></div></div><div class="message__body description">@zokutyou2 has joined the channel</div></div></div><div class="message event" id="message-1547024257.076300"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1547024257.076300">2019-01-09&nbsp;17:57:37 +0900</a></div></div><div class="message__body description">そーいやHaskellに限らないんですけどマルチスレッドでロギングする（特に一つのファイルに書き込む）ときってどうしてんでしょ。ロギング用のスレッド立ててキューを介してログ出力がベストプラクティス？</div></div></div><div class="message event" id="message-1547025042.076400"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1547025042.076400">2019-01-09&nbsp;18:10:42 +0900</a></div></div><div class="message__body description">ロギングくらいなら完全排他ロックでも良いのでは感</div></div></div><div class="message event" id="message-1547025130.077500"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1547025130.077500">2019-01-09&nbsp;18:12:10 +0900</a></div></div><div class="message__body description">あとは、sqlite使っているプロジェクトなら、ログもsqliteに吐くのもありかなと(ちょうどHaskellにはHRRがあるし)</div></div></div><div class="message event" id="message-1547025137.077800"><div class="content"><div class="summary"><div class="message__header user">yharuhi39</div><div class="message__timestamp date"><a class="date" href="#message-1547025137.077800">2019-01-09&nbsp;18:12:17 +0900</a></div></div><div class="message__body description">スレ数によりますけど、一スレ一ファイルみたいなのもありかな？ 少量ならばね</div></div></div><div class="message event" id="message-1547025367.078800"><div class="content"><div class="summary"><div class="message__header user">yharuhi39</div><div class="message__timestamp date"><a class="date" href="#message-1547025367.078800">2019-01-09&nbsp;18:16:07 +0900</a></div></div><div class="message__body description">あ、一つのファイル前提か、ならロック安定かなー</div></div></div><div class="message event" id="message-1547025498.079000"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1547025498.079000">2019-01-09&nbsp;18:18:18 +0900</a></div></div><div class="message__body description">Haskellならスレッドが軽いので、ログ出力メソッドを呼ぶ度にforkIOでも行けそう。立てたスレッドはファイルロックが取れるまで固まるけど、fork元はそのまま走れる</div></div></div><div class="message event" id="message-1547025718.079400"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1547025718.079400">2019-01-09&nbsp;18:21:58 +0900</a></div></div><div class="message__body description">規模によりけりっぽいですね。大規模なサーバならともかく小さめのやつなんで色々試してメンテなビリティ良さそうなのを考えてみます</div></div></div><div class="message event" id="message-1547026297.080000"><div class="content"><div class="summary"><div class="message__header user">kazu</div><div class="message__timestamp date"><a class="date" href="#message-1547026297.080000">2019-01-09&nbsp;18:31:37 +0900</a></div></div><div class="message__body description"><a href='https://www.yesodweb.com/blog/2014/01/new-fast-logger'>https://www.yesodweb.com/blog/2014/01/new-fast-logger</a></div></div></div><div class="message event" id="message-1547026592.080500"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1547026592.080500">2019-01-09&nbsp;18:36:32 +0900</a></div></div><div class="message__body description">ロック機構ついてたんですね。ソースコード斜め読みでついてないと思ってました……</div></div></div><div class="message event" id="message-1547026655.081500"><div class="content"><div class="summary"><div class="message__header user">yharuhi39</div><div class="message__timestamp date"><a class="date" href="#message-1547026655.081500">2019-01-09&nbsp;18:37:35 +0900</a></div></div><div class="message__body description">ロック安全かどうかも型で分かったらいいこと、、、あるのかなぁ？</div></div></div><div class="message event" id="message-1547036049.081700"><div class="content"><div class="summary"><div class="message__header user">aiya000</div><div class="message__timestamp date"><a class="date" href="#message-1547036049.081700">2019-01-09&nbsp;21:14:09 +0900</a></div></div><div class="message__body description">esqueleto全然わからんけど（:mask:）<br/>TypeApplicationsできないかな:thinking_face:</div></div></div><div class="message event" id="message-1547087383.082200"><div class="content"><div class="summary"><div class="message__header user">tatsuhiro.9699</div><div class="message__timestamp date"><a class="date" href="#message-1547087383.082200">2019-01-10&nbsp;11:29:43 +0900</a></div></div><div class="message__body description">@tatsuhiro.9699 has joined the channel</div></div></div><div class="message event" id="message-1547091298.082500"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1547091298.082500">2019-01-10&nbsp;12:34:58 +0900</a></div></div><div class="message__body description">MVar Handleとして持って、使うときだけmodifyMVarで取り出すというトリックを私はよく使います</div></div></div><div class="message event" id="message-1547111165.083100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1547111165.083100">2019-01-10&nbsp;18:06:05 +0900</a></div></div><div class="message__body description">知らなかった。こんな本の執筆が始まってたんですね。<br/><a href='https://www.manning.com/books/haskell-in-depth'>https://www.manning.com/books/haskell-in-depth</a></div></div></div><div class="message event" id="message-1547114701.083900"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1547114701.083900">2019-01-10&nbsp;19:05:01 +0900</a></div></div><div class="message__body description">執筆中の部分読めるんだ（？）</div></div></div><div class="message event" id="message-1547114815.084300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1547114815.084300">2019-01-10&nbsp;19:06:55 +0900</a></div></div><div class="message__body description">実に今時らしいやり方だと思います！ :sunglasses:</div></div></div><div class="message event" id="message-1547119093.084600"><div class="content"><div class="summary"><div class="message__header user">kazy.crazycloud</div><div class="message__timestamp date"><a class="date" href="#message-1547119093.084600">2019-01-10&nbsp;20:18:13 +0900</a></div></div><div class="message__body description">@kazy.crazycloud has joined the channel</div></div></div><div class="message event" id="message-1547120708.085900"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1547120708.085900">2019-01-10&nbsp;20:45:08 +0900</a></div></div><div class="message__body description">天文学関係の記事を見てたら、予想外のところで Haskell が出てきて不意打ちされた <a href='https://ja.m.wikipedia.org/wiki/%E3%82%A2%E3%83%88%E3%83%91%E3%83%BC%E3%82%BB%E3%82%AF'>https://ja.m.wikipedia.org/wiki/%E3%82%A2%E3%83%88%E3%83%91%E3%83%BC%E3%82%BB%E3%82%AF</a></div></div></div><div class="message event" id="message-1547122214.086100"><div class="content"><div class="summary"><div class="message__header user">syocy</div><div class="message__timestamp date"><a class="date" href="#message-1547122214.086100">2019-01-10&nbsp;21:10:14 +0900</a></div></div><div class="message__body description">parsec, megaparsec もそうですよね。</div></div></div><div class="message event" id="message-1547124474.087500"><div class="content"><div class="summary"><div class="message__header user">yharuhi39</div><div class="message__timestamp date"><a class="date" href="#message-1547124474.087500">2019-01-10&nbsp;21:47:54 +0900</a></div></div><div class="message__body description">吹き出すような名前の候補を出すGitHubが悪いとおもいまぁす いや、センスは好きだけどね</div></div></div><div class="message event" id="message-1547177283.089400"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1547177283.089400">2019-01-11&nbsp;12:28:03 +0900</a></div></div><div class="message__body description">そうだったのか <blockquote>parsec系</blockquote></div></div></div><div class="message event" id="message-1547288645.089700"><div class="content"><div class="summary"><div class="message__header user">aiya000</div><div class="message__timestamp date"><a class="date" href="#message-1547288645.089700">2019-01-12&nbsp;19:24:05 +0900</a></div></div><div class="message__body description">こんなのあったのか！<br/>注意しとかなきゃ<br/><br/><a href='https://haskell.e-bigmoon.com/posts/2018/08-31-stack-extradep-legacy-syntax.html'>https://haskell.e-bigmoon.com/posts/2018/08-31-stack-extradep-legacy-syntax.html</a></div></div></div><div class="message event" id="message-1547288884.090700"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1547288884.090700">2019-01-12&nbsp;19:28:04 +0900</a></div></div><div class="message__body description">結構昔のシンタックスじゃないっけ <blockquote>location</blockquote></div></div></div><div class="message event" id="message-1547294914.091800"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1547294914.091800">2019-01-12&nbsp;21:08:34 +0900</a></div></div><div class="message__body description">GHC 8.4 で問題ないのに 8.2 で型エラーになるコードができた……（厳密には resolver が違う</div></div></div><div class="message event" id="message-1547525697.092600"><div class="content"><div class="summary"><div class="message__header user">kenta.teruteru</div><div class="message__timestamp date"><a class="date" href="#message-1547525697.092600">2019-01-15&nbsp;13:14:57 +0900</a></div></div><div class="message__body description">@kenta.teruteru has joined the channel</div></div></div><div class="message event" id="message-1547535496.092900"><div class="content"><div class="summary"><div class="message__header user">keikagawadesu.7k</div><div class="message__timestamp date"><a class="date" href="#message-1547535496.092900">2019-01-15&nbsp;15:58:16 +0900</a></div></div><div class="message__body description">@keikagawadesu.7k has joined the channel</div></div></div><div class="message event" id="message-1547542152.093000"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1547542152.093000">2019-01-15&nbsp;17:49:12 +0900</a></div></div><div class="message__body description">会社 PC で試したら Windows MAX_PATH の問題だったっぽい<br/>帰ったら家のエラーもう一度見てみよう</div></div></div><div class="message event" id="message-1547554851.094600"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1547554851.094600">2019-01-15&nbsp;21:20:51 +0900</a></div></div><div class="message__body description"><a href='https://ja.m.wikipedia.org/wiki/ホモロジカルミラー対称性予想'>https://ja.m.wikipedia.org/wiki/ホモロジカルミラー対称性予想</a> 物理関係で圏論の最先端なので興味を持ったやつ</div></div></div><div class="message event" id="message-1547554937.096700"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1547554937.096700">2019-01-15&nbsp;21:22:17 +0900</a></div></div><div class="message__body description">少し前のもくもく会で「ケーラー多様体」という言葉がちょっと聞こえてきたような気がするんですが、気のせいだったかも知れません</div></div></div><div class="message event" id="message-1547569545.097300"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1547569545.097300">2019-01-16&nbsp;01:25:45 +0900</a></div></div><div class="message__body description">なんかちゃんとコンパイルできたぞ</div></div></div><div class="message event" id="message-1547610002.103900"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1547610002.103900">2019-01-16&nbsp;12:40:02 +0900</a></div></div><div class="message__body description"><a href='https://www.reddit.com/r/haskell/comments/ae1i6z/reminder_please_submit_gsoc_ideas/'>https://www.reddit.com/r/haskell/comments/ae1i6z/reminder_please_submit_gsoc_ideas/</a><br/>今年の夏に学生が取り組むGoogle Summer of Codeのプロジェクトアイデアを募集しています。現在のアイデアリストは <a href='https://summer.haskell.org/ideas.html'>https://summer.haskell.org/ideas.html</a> で見られます。また、リストに無いアイデアを持っている方は <a href='https://github.com/haskell-org/summer-of-haskell'>https://github.com/haskell-org/summer-of-haskell</a> にPRを送って新しいアイデアを提案できます。<br/><br/>学生の方は取り組みたいプロジェクトがあるかあらかじめ目を通しておくと良いと思います。また、参加者を募集する段階で参加者自身がアイデアを提案することも出来ますが、なるべく早めに自分のアイデアを上記リポジトリで提案したり、mentor or maintainerと相談しておくと採用される可能性が上がると思います。</div></div></div><div class="message event" id="message-1547610151.104400"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1547610151.104400">2019-01-16&nbsp;12:42:31 +0900</a></div></div><div class="message__body description">GSoC関連で何か質問があれば僕が受け付けますのでお知らせください。</div></div></div><div class="message event" id="message-1547631819.105000"><div class="content"><div class="summary"><div class="message__header user">ktchg752</div><div class="message__timestamp date"><a class="date" href="#message-1547631819.105000">2019-01-16&nbsp;18:43:39 +0900</a></div></div><div class="message__body description">@ktchg752 has joined the channel</div></div></div><div class="message event" id="message-1547641258.106200"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1547641258.106200">2019-01-16&nbsp;21:20:58 +0900</a></div></div><div class="message__body description"><code>trace</code> を入れれば終了するけど、それがないと待てども終わらないコードができたような……<br/>きっと疲れてるんだ</div></div></div><div class="message event" id="message-1547644276.106600"><div class="content"><div class="summary"><div class="message__header user">kilo7998</div><div class="message__timestamp date"><a class="date" href="#message-1547644276.106600">2019-01-16&nbsp;22:11:16 +0900</a></div></div><div class="message__body description">@kilo7998 has joined the channel</div></div></div><div class="message event" id="message-1547651264.107700"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1547651264.107700">2019-01-17&nbsp;00:07:44 +0900</a></div></div><div class="message__body description">まだ途中ですけど、少し前から作っていたDhallのCバインディングをgithubに上げてみる <a href='https://github.com/as-capabl/clay-dhall'>https://github.com/as-capabl/clay-dhall</a></div></div></div><div class="message event" id="message-1547651347.107900"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1547651347.107900">2019-01-17&nbsp;00:09:07 +0900</a></div></div><div class="message__body description">こんな感じでDhallの解釈結果をCに取り込めます <a href='https://github.com/as-capabl/clay-dhall/blob/master/ctest/type.c'>https://github.com/as-capabl/clay-dhall/blob/master/ctest/type.c</a></div></div></div><div class="message event" id="message-1547693188.111300"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1547693188.111300">2019-01-17&nbsp;11:46:28 +0900</a></div></div><div class="message__body description">base パッケージのドキュメント部分にこまかいまちがい見つけたんですが、ghc の trac に issue として上げればいいんですかね？<br/>直接パッチ投げるなりしていい？流れが分かってない。<br/><br/>Haddock のエスケープをしてないので <code>\</code> が消えてる。（ <code>\\</code> にしないといけないはず。）<br/><pre>
+</pre><br/>何故この型注釈が必要になるのか全くわかっていない</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1546942393.073200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">skazufumi.a02525</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1546942393.073200">2019-01-08 19:13:13 +0900</a></div>
+          </div>
+          <div class="message__body description">@skazufumi.a02525 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1546992643.073700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">koyama</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1546992643.073700">2019-01-09 09:10:43 +0900</a></div>
+          </div>
+          <div class="message__body description">@koyama has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547013174.074000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">zokutyou2</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547013174.074000">2019-01-09 14:52:54 +0900</a></div>
+          </div>
+          <div class="message__body description">@zokutyou2 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547024257.076300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547024257.076300">2019-01-09 17:57:37 +0900</a></div>
+          </div>
+          <div class="message__body description">そーいやHaskellに限らないんですけどマルチスレッドでロギングする（特に一つのファイルに書き込む）ときってどうしてんでしょ。ロギング用のスレッド立ててキューを介してログ出力がベストプラクティス？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547025042.076400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547025042.076400">2019-01-09 18:10:42 +0900</a></div>
+          </div>
+          <div class="message__body description">ロギングくらいなら完全排他ロックでも良いのでは感</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547025130.077500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547025130.077500">2019-01-09 18:12:10 +0900</a></div>
+          </div>
+          <div class="message__body description">あとは、sqlite使っているプロジェクトなら、ログもsqliteに吐くのもありかなと(ちょうどHaskellにはHRRがあるし)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547025137.077800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yharuhi39</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547025137.077800">2019-01-09 18:12:17 +0900</a></div>
+          </div>
+          <div class="message__body description">スレ数によりますけど、一スレ一ファイルみたいなのもありかな？ 少量ならばね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547025367.078800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yharuhi39</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547025367.078800">2019-01-09 18:16:07 +0900</a></div>
+          </div>
+          <div class="message__body description">あ、一つのファイル前提か、ならロック安定かなー</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547025498.079000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547025498.079000">2019-01-09 18:18:18 +0900</a></div>
+          </div>
+          <div class="message__body description">Haskellならスレッドが軽いので、ログ出力メソッドを呼ぶ度にforkIOでも行けそう。立てたスレッドはファイルロックが取れるまで固まるけど、fork元はそのまま走れる</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547025718.079400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547025718.079400">2019-01-09 18:21:58 +0900</a></div>
+          </div>
+          <div class="message__body description">規模によりけりっぽいですね。大規模なサーバならともかく小さめのやつなんで色々試してメンテなビリティ良さそうなのを考えてみます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547026297.080000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kazu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547026297.080000">2019-01-09 18:31:37 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://www.yesodweb.com/blog/2014/01/new-fast-logger'>https://www.yesodweb.com/blog/2014/01/new-fast-logger</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547026592.080500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547026592.080500">2019-01-09 18:36:32 +0900</a></div>
+          </div>
+          <div class="message__body description">ロック機構ついてたんですね。ソースコード斜め読みでついてないと思ってました……</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547026655.081500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yharuhi39</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547026655.081500">2019-01-09 18:37:35 +0900</a></div>
+          </div>
+          <div class="message__body description">ロック安全かどうかも型で分かったらいいこと、、、あるのかなぁ？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547036049.081700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">aiya000</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547036049.081700">2019-01-09 21:14:09 +0900</a></div>
+          </div>
+          <div class="message__body description">esqueleto全然わからんけど（:mask:）<br/>TypeApplicationsできないかな:thinking_face:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547087383.082200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tatsuhiro.9699</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547087383.082200">2019-01-10 11:29:43 +0900</a></div>
+          </div>
+          <div class="message__body description">@tatsuhiro.9699 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547091298.082500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547091298.082500">2019-01-10 12:34:58 +0900</a></div>
+          </div>
+          <div class="message__body description">MVar Handleとして持って、使うときだけmodifyMVarで取り出すというトリックを私はよく使います</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547111165.083100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547111165.083100">2019-01-10 18:06:05 +0900</a></div>
+          </div>
+          <div class="message__body description">知らなかった。こんな本の執筆が始まってたんですね。<br/><a href='https://www.manning.com/books/haskell-in-depth'>https://www.manning.com/books/haskell-in-depth</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547114701.083900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547114701.083900">2019-01-10 19:05:01 +0900</a></div>
+          </div>
+          <div class="message__body description">執筆中の部分読めるんだ（？）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547114815.084300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547114815.084300">2019-01-10 19:06:55 +0900</a></div>
+          </div>
+          <div class="message__body description">実に今時らしいやり方だと思います！ :sunglasses:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547119093.084600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kazy.crazycloud</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547119093.084600">2019-01-10 20:18:13 +0900</a></div>
+          </div>
+          <div class="message__body description">@kazy.crazycloud has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547120708.085900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547120708.085900">2019-01-10 20:45:08 +0900</a></div>
+          </div>
+          <div class="message__body description">天文学関係の記事を見てたら、予想外のところで Haskell が出てきて不意打ちされた <a href='https://ja.m.wikipedia.org/wiki/%E3%82%A2%E3%83%88%E3%83%91%E3%83%BC%E3%82%BB%E3%82%AF'>https://ja.m.wikipedia.org/wiki/%E3%82%A2%E3%83%88%E3%83%91%E3%83%BC%E3%82%BB%E3%82%AF</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547122214.086100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">syocy</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547122214.086100">2019-01-10 21:10:14 +0900</a></div>
+          </div>
+          <div class="message__body description">parsec, megaparsec もそうですよね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547124474.087500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yharuhi39</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547124474.087500">2019-01-10 21:47:54 +0900</a></div>
+          </div>
+          <div class="message__body description">吹き出すような名前の候補を出すGitHubが悪いとおもいまぁす いや、センスは好きだけどね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547177283.089400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547177283.089400">2019-01-11 12:28:03 +0900</a></div>
+          </div>
+          <div class="message__body description">そうだったのか <blockquote>parsec系</blockquote></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547288645.089700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">aiya000</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547288645.089700">2019-01-12 19:24:05 +0900</a></div>
+          </div>
+          <div class="message__body description">こんなのあったのか！<br/>注意しとかなきゃ<br/><br/><a href='https://haskell.e-bigmoon.com/posts/2018/08-31-stack-extradep-legacy-syntax.html'>https://haskell.e-bigmoon.com/posts/2018/08-31-stack-extradep-legacy-syntax.html</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547288884.090700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547288884.090700">2019-01-12 19:28:04 +0900</a></div>
+          </div>
+          <div class="message__body description">結構昔のシンタックスじゃないっけ <blockquote>location</blockquote></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547294914.091800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547294914.091800">2019-01-12 21:08:34 +0900</a></div>
+          </div>
+          <div class="message__body description">GHC 8.4 で問題ないのに 8.2 で型エラーになるコードができた……（厳密には resolver が違う</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547525697.092600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kenta.teruteru</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547525697.092600">2019-01-15 13:14:57 +0900</a></div>
+          </div>
+          <div class="message__body description">@kenta.teruteru has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547535496.092900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">keikagawadesu.7k</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547535496.092900">2019-01-15 15:58:16 +0900</a></div>
+          </div>
+          <div class="message__body description">@keikagawadesu.7k has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547542152.093000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547542152.093000">2019-01-15 17:49:12 +0900</a></div>
+          </div>
+          <div class="message__body description">会社 PC で試したら Windows MAX_PATH の問題だったっぽい<br/>帰ったら家のエラーもう一度見てみよう</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547554851.094600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547554851.094600">2019-01-15 21:20:51 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://ja.m.wikipedia.org/wiki/ホモロジカルミラー対称性予想'>https://ja.m.wikipedia.org/wiki/ホモロジカルミラー対称性予想</a> 物理関係で圏論の最先端なので興味を持ったやつ</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547554937.096700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547554937.096700">2019-01-15 21:22:17 +0900</a></div>
+          </div>
+          <div class="message__body description">少し前のもくもく会で「ケーラー多様体」という言葉がちょっと聞こえてきたような気がするんですが、気のせいだったかも知れません</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547569545.097300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547569545.097300">2019-01-16 01:25:45 +0900</a></div>
+          </div>
+          <div class="message__body description">なんかちゃんとコンパイルできたぞ</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547610002.103900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547610002.103900">2019-01-16 12:40:02 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://www.reddit.com/r/haskell/comments/ae1i6z/reminder_please_submit_gsoc_ideas/'>https://www.reddit.com/r/haskell/comments/ae1i6z/reminder_please_submit_gsoc_ideas/</a><br/>今年の夏に学生が取り組むGoogle Summer of Codeのプロジェクトアイデアを募集しています。現在のアイデアリストは <a href='https://summer.haskell.org/ideas.html'>https://summer.haskell.org/ideas.html</a> で見られます。また、リストに無いアイデアを持っている方は <a href='https://github.com/haskell-org/summer-of-haskell'>https://github.com/haskell-org/summer-of-haskell</a> にPRを送って新しいアイデアを提案できます。<br/><br/>学生の方は取り組みたいプロジェクトがあるかあらかじめ目を通しておくと良いと思います。また、参加者を募集する段階で参加者自身がアイデアを提案することも出来ますが、なるべく早めに自分のアイデアを上記リポジトリで提案したり、mentor or maintainerと相談しておくと採用される可能性が上がると思います。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547610151.104400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547610151.104400">2019-01-16 12:42:31 +0900</a></div>
+          </div>
+          <div class="message__body description">GSoC関連で何か質問があれば僕が受け付けますのでお知らせください。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547631819.105000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ktchg752</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547631819.105000">2019-01-16 18:43:39 +0900</a></div>
+          </div>
+          <div class="message__body description">@ktchg752 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547641258.106200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547641258.106200">2019-01-16 21:20:58 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>trace</code> を入れれば終了するけど、それがないと待てども終わらないコードができたような……<br/>きっと疲れてるんだ</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547644276.106600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kilo7998</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547644276.106600">2019-01-16 22:11:16 +0900</a></div>
+          </div>
+          <div class="message__body description">@kilo7998 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547651264.107700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547651264.107700">2019-01-17 00:07:44 +0900</a></div>
+          </div>
+          <div class="message__body description">まだ途中ですけど、少し前から作っていたDhallのCバインディングをgithubに上げてみる <a href='https://github.com/as-capabl/clay-dhall'>https://github.com/as-capabl/clay-dhall</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547651347.107900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547651347.107900">2019-01-17 00:09:07 +0900</a></div>
+          </div>
+          <div class="message__body description">こんな感じでDhallの解釈結果をCに取り込めます <a href='https://github.com/as-capabl/clay-dhall/blob/master/ctest/type.c'>https://github.com/as-capabl/clay-dhall/blob/master/ctest/type.c</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1547693188.111300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1547693188.111300">2019-01-17 11:46:28 +0900</a></div>
+          </div>
+          <div class="message__body description">base パッケージのドキュメント部分にこまかいまちがい見つけたんですが、ghc の trac に issue として上げればいいんですかね？<br/>直接パッチ投げるなりしていい？流れが分かってない。<br/><br/>Haddock のエスケープをしてないので <code>\</code> が消えてる。（ <code>\\</code> にしないといけないはず。）<br/><pre>
        mapM_ (sem -&gt; putMVar sem ()) sems
-</pre><br/><a href='http://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Concurrent-MVar.html'>http://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Concurrent-MVar.html</a></div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C4M4TT8JJ/34.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C4M4TT8JJ/36.html" class="pager__next item">Next</a></div></div></body></html>
+</pre><br/><a href='http://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Concurrent-MVar.html'>http://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Concurrent-MVar.html</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C4M4TT8JJ/34.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C4M4TT8JJ/36.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

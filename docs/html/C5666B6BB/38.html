@@ -1,4 +1,478 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #38</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #38</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/37.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/39.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1548286097.224000"><div class="content"><div class="summary"><div class="message__header user">sugano</div><div class="message__timestamp date"><a class="date" href="#message-1548286097.224000">2019-01-24&nbsp;08:28:17 +0900</a></div></div><div class="message__body description">モジュールは定義してないので読まれないのはいいんですけど、まあたぶんdoubleMeも読まれてませんよね？、ここで<https://haskell-jp.slack.com/archives/C5666B6BB/p1548172078203000?thread_ts=1548136855.190500&amp;channel=C5666B6BB&amp;message_ts=1548172078.203000> <br/>するとどうなりますか？あと念のためprojectのディレクトリ構成とghciを立ち上げている位置でのpwdを見せてください</div></div></div><div class="message event" id="message-1548286484.228400"><div class="content"><div class="summary"><div class="message__header user">sugano</div><div class="message__timestamp date"><a class="date" href="#message-1548286484.228400">2019-01-24&nbsp;08:34:44 +0900</a></div></div><div class="message__body description">あと、いつも使ってるIDEのhaskell plug-inとか、emacsのinteroとか使った方が楽かもしれません。</div></div></div><div class="message event" id="message-1548286647.228600"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1548286647.228600">2019-01-24&nbsp;08:37:27 +0900</a></div></div><div class="message__body description"><blockquote>あと、いつも使ってるIDEのhaskell plug-inとか、emacsのinteroとか使った方が楽かもしれません。</blockquote><br/>それは今は後回しにして良いんじゃないかと。。。多分すごいH本を読んでGHCiで試そうとしているだけですからおそらくまだそれらをインストールしてませんし、端末の操作に不慣れだと、それらのインストールもまた大変です。</div></div></div><div class="message event" id="message-1548286794.228900"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1548286794.228900">2019-01-24&nbsp;08:39:54 +0900</a></div></div><div class="message__body description">そして今更気づいたんですが、画面をスマホでとるよりはスクリーンショットという機能を使った方が見やすくて良いです。<br/><a href='https://support.apple.com/ja-jp/HT201361'>https://support.apple.com/ja-jp/HT201361</a> を参考に、スクリーンショットで直接画面を画像として保存してみせてください。<br/>（macOS Mojaveでない場合はすみません...）<br/><br/>あるいは、ターミナルの画面は、基本的にすべてそのままコピーできるようになっているので、 @keikagawadesu.7k さんの入力と、それに対する結果がわかるよう選択してコピーしてこちらに貼り付けてみてください。<br/>大抵はそれで十分です。</div></div></div><div class="message event" id="message-1548287117.233600"><div class="content"><div class="summary"><div class="message__header user">sugano</div><div class="message__timestamp date"><a class="date" href="#message-1548287117.233600">2019-01-24&nbsp;08:45:17 +0900</a></div></div><div class="message__body description"><a href='https://haskell-jp.slack.com/archives/C5666B6BB/p1548286647228600?thread_ts=1548136855.190500&amp;channel=C5666B6BB&amp;message_ts=1'>https://haskell-jp.slack.com/archives/C5666B6BB/p1548286647228600?thread_ts=1548136855.190500&amp;channel=C5666B6BB&amp;message_ts=1</a><br/><br/>そうですね、失礼しました。<br/>では<@UFDKZJBLK> さんは、端末操作に慣れてきたらもっと楽にhaskellプログラミングができる楽しいソフトがある程度に思っていただければ、<br/><br/>（ご回答の邪魔になるのでinteroなどの話は私からは以上にいたします。）</div></div></div><div class="message event" id="message-1548297376.237600"><div class="content"><div class="summary"><div class="message__header user">keikagawadesu.7k</div><div class="message__timestamp date"><a class="date" href="#message-1548297376.237600">2019-01-24&nbsp;11:36:16 +0900</a></div></div><div class="message__body description">すみません。本当に初めてやるのがhaskellでなにもかも分かってない状態で初めてました。ターミナルも全くの初見です笑笑。:cd /path/to/directory baby.hs  でやってみれば確認できるでしょうか？</div></div></div><div class="message event" id="message-1548297516.237800"><div class="content"><div class="summary"><div class="message__header user">yharuhi39</div><div class="message__timestamp date"><a class="date" href="#message-1548297516.237800">2019-01-24&nbsp;11:38:36 +0900</a></div></div><div class="message__body description"><code>:cd /path/to/directory</code><br/><code>:load baby.hs</code> です　違うコマンドですよ</div></div></div><div class="message event" id="message-1548297665.239000"><div class="content"><div class="summary"><div class="message__header user">keikagawadesu.7k</div><div class="message__timestamp date"><a class="date" href="#message-1548297665.239000">2019-01-24&nbsp;11:41:05 +0900</a></div></div><div class="message__body description">@sugano さんが言ってたソフトもいずれは必要になるかもしれませんので、入れて色々と遊んでみますね！！</div></div></div><div class="message event" id="message-1548297849.240000"><div class="content"><div class="summary"><div class="message__header user">keikagawadesu.7k</div><div class="message__timestamp date"><a class="date" href="#message-1548297849.240000">2019-01-24&nbsp;11:44:09 +0900</a></div></div><div class="message__body description">@yharuhi39 さんありがとうございます:blush:まだまだ修行が足りないですね笑笑頑張ります！！</div></div></div><div class="message event" id="message-1548300806.240400"><div class="content"><div class="summary"><div class="message__header user">matsubara0507</div><div class="message__timestamp date"><a class="date" href="#message-1548300806.240400">2019-01-24&nbsp;12:33:26 +0900</a></div></div><div class="message__body description">Haskell が初なの珍しい、ぜひ感想とか聞きたいですね :star:</div></div></div><div class="message event" id="message-1548301224.243900"><div class="content"><div class="summary"><div class="message__header user">keikagawadesu.7k</div><div class="message__timestamp date"><a class="date" href="#message-1548301224.243900">2019-01-24&nbsp;12:40:24 +0900</a></div></div><div class="message__body description">こう言ったら失礼かもしれませんが、自分の親の友人のプログラマーが安全なhaskellが良いよと言われたのもありますしhaskellはjava程人気ではないというところがあって他と違うことがやりたいなって感じがしたというのもありやりたいなと思いました笑笑将来起業もしたいので、</div></div></div><div class="message event" id="message-1548310870.244500"><div class="content"><div class="summary"><div class="message__header user">tcokygets</div><div class="message__timestamp date"><a class="date" href="#message-1548310870.244500">2019-01-24&nbsp;15:21:10 +0900</a></div></div><div class="message__body description">@tcokygets has joined the channel</div></div></div><div class="message event" id="message-1548344480.250400"><div class="content"><div class="summary"><div class="message__header user">yamanntyu22</div><div class="message__timestamp date"><a class="date" href="#message-1548344480.250400">2019-01-25&nbsp;00:41:20 +0900</a></div></div><div class="message__body description">QuickCheckに関しての質問なのですが、以下のYampaプログラムをテストしたいです。<br/>そのために必要なこととして、<br/>１．初期座標、初期速度を変数にする(コマンドラインで指定できるようにする)<br/>２．Yampaプログラムから直接テストを行うことは難しいので1000ループで区切りその座標速度ベクトルを配列に入れる<br/>３．上でもとめた配列が条件に合うかどうか検証する(今回の場合は座標が-100以上)<br/>だと思うのですが、具体的にどうプログラムを加えていけばいいでしょうか？</div></div></div><div class="message event" id="message-1548344498.250500"><div class="content"><div class="summary"><div class="message__header user">yamanntyu22</div><div class="message__timestamp date"><a class="date" href="#message-1548344498.250500">2019-01-25&nbsp;00:41:38 +0900</a></div></div><div class="message__body description"></div></div></div><div class="message event" id="message-1548344688.252100"><div class="content"><div class="summary"><div class="message__header user">yamanntyu22</div><div class="message__timestamp date"><a class="date" href="#message-1548344688.252100">2019-01-25&nbsp;00:44:48 +0900</a></div></div><div class="message__body description"></div></div></div><div class="message event" id="message-1548344781.253900"><div class="content"><div class="summary"><div class="message__header user">yamanntyu22</div><div class="message__timestamp date"><a class="date" href="#message-1548344781.253900">2019-01-25&nbsp;00:46:21 +0900</a></div></div><div class="message__body description">上の動画の通り、あえて地面の接触判定が雑なプログラムで地面に整地せず、想定とは違う動きになるというのをQuickCheckでさまざまな初期位置初期速度を入力したときに座標が負になることでbool型で返していくイメージです。</div></div></div><div class="message event" id="message-1548371654.254600"><div class="content"><div class="summary"><div class="message__header user">satoshi.murakumo</div><div class="message__timestamp date"><a class="date" href="#message-1548371654.254600">2019-01-25&nbsp;08:14:14 +0900</a></div></div><div class="message__body description">@satoshi.murakumo has joined the channel</div></div></div><div class="message event" id="message-1548375188.254800"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1548375188.254800">2019-01-25&nbsp;09:13:08 +0900</a></div></div><div class="message__body description"><a href='http://hackage.haskell.org/package/Yampa-0.13/docs/FRP-Yampa.html#v:embed'>http://hackage.haskell.org/package/Yampa-0.13/docs/FRP-Yampa.html#v:embed</a>　embed関数を使うと、SFの出力をリストとして取り出すことができます。`embed (bouncingBall p0 v0) ((), repeat (0.1, Just ()))`の結果を検査すれば良いのではないでしょうか</div></div></div><div class="message event" id="message-1548383488.255100"><div class="content"><div class="summary"><div class="message__header user">ringo1625</div><div class="message__timestamp date"><a class="date" href="#message-1548383488.255100">2019-01-25&nbsp;11:31:28 +0900</a></div></div><div class="message__body description">@ringo1625 has joined the channel</div></div></div><div class="message event" id="message-1548389362.255400"><div class="content"><div class="summary"><div class="message__header user">yamanntyu22</div><div class="message__timestamp date"><a class="date" href="#message-1548389362.255400">2019-01-25&nbsp;13:09:22 +0900</a></div></div><div class="message__body description">ありがとうございます。<br/>embed関数を用いてためしてみます</div></div></div><div class="message event" id="message-1548390980.255600"><div class="content"><div class="summary"><div class="message__header user">yamanntyu22</div><div class="message__timestamp date"><a class="date" href="#message-1548390980.255600">2019-01-25&nbsp;13:36:20 +0900</a></div></div><div class="message__body description">再度質問すみません<br/>stack ghci上で上に似たようなコマンドを入力してリストが出たのを確認したのですがこれをどうやってQuickCheckの判定を含めて導入すればよいのでしょうか？<br/>そもそもstack ghci上で上のコマンドを打つのが間違いなのでしょうか？</div></div></div><div class="message event" id="message-1548391055.255800"><div class="content"><div class="summary"><div class="message__header user">yamanntyu22</div><div class="message__timestamp date"><a class="date" href="#message-1548391055.255800">2019-01-25&nbsp;13:37:35 +0900</a></div></div><div class="message__body description"></div></div></div><div class="message event" id="message-1548393069.261100"><div class="content"><div class="summary"><div class="message__header user">keikagawadesu.7k</div><div class="message__timestamp date"><a class="date" href="#message-1548393069.261100">2019-01-25&nbsp;14:11:09 +0900</a></div></div><div class="message__body description">これは(show a)と記載されてると言うことはaを返すのではないのですか？自分としてはたしかにaに入ってるものはstring値ですが、なぜ最後はaではないのですか？</div></div></div><div class="message event" id="message-1548393158.261500"><div class="content"><div class="summary"><div class="message__header user">aruneko</div><div class="message__timestamp date"><a class="date" href="#message-1548393158.261500">2019-01-25&nbsp;14:12:38 +0900</a></div></div><div class="message__body description">これは「aがShowである」という制約を示しているだけで、返り値を示しているわけではないですね。</div></div></div><div class="message event" id="message-1548393473.262900"><div class="content"><div class="summary"><div class="message__header user">keikagawadesu.7k</div><div class="message__timestamp date"><a class="date" href="#message-1548393473.262900">2019-01-25&nbsp;14:17:53 +0900</a></div></div><div class="message__body description">あーそういうことか笑笑自分制約あまり分からないものでもう少し勉強してきます笑笑</div></div></div><div class="message event" id="message-1548395609.263100"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1548395609.263100">2019-01-25&nbsp;14:53:29 +0900</a></div></div><div class="message__body description">ちなみに <code>Show a</code> の S は大文字ですね</div></div></div><div class="message event" id="message-1548396056.263400"><div class="content"><div class="summary"><div class="message__header user">aruneko</div><div class="message__timestamp date"><a class="date" href="#message-1548396056.263400">2019-01-25&nbsp;15:00:56 +0900</a></div></div><div class="message__body description">型は大文字から、関数は小文字から始まるのがHaskellの文法ですからね！</div></div></div><div class="message event" id="message-1548402024.268800"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1548402024.268800">2019-01-25&nbsp;16:40:24 +0900</a></div></div><div class="message__body description">ラムダ式とクロージャって何が違うんですかね？ Haskell 関係でクロージャという言葉を聞いたことがないんですが、Haskell にクロージャはあります？</div></div></div><div class="message event" id="message-1548402758.269000"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1548402758.269000">2019-01-25&nbsp;16:52:38 +0900</a></div></div><div class="message__body description">「自由変数が含まれる関数」を返す関数によって返された関数、ぐらいの認識でした。<br/>参照している自由変数はその「自由変数が含まれる関数」にしかアクセスできないのでprivateなフィールドをシミュレートする、みたいな例をあちこちの言語で見かけましたね。<br/>典型的には <a href='https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%B8%E3%83%A3'>https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%B8%E3%83%A3</a> の最初に出てくるSchemeの例です。<br/>同じ要領でHaskellでもできると思います。</div></div></div><div class="message event" id="message-1548403063.270700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1548403063.270700">2019-01-25&nbsp;16:57:43 +0900</a></div></div><div class="message__body description">Haskellだと <a href='https://en.wikipedia.org/wiki/Closure_(computer_programming)'>https://en.wikipedia.org/wiki/Closure_(computer_programming)</a> に載っているようなPythonの例<br/><pre>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #38</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #38</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/37.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/39.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1548286097.224000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">sugano</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548286097.224000">2019-01-24 08:28:17 +0900</a></div>
+          </div>
+          <div class="message__body description">モジュールは定義してないので読まれないのはいいんですけど、まあたぶんdoubleMeも読まれてませんよね？、ここで<https://haskell-jp.slack.com/archives/C5666B6BB/p1548172078203000?thread_ts=1548136855.190500&amp;channel=C5666B6BB&amp;message_ts=1548172078.203000> <br/>するとどうなりますか？あと念のためprojectのディレクトリ構成とghciを立ち上げている位置でのpwdを見せてください</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548286484.228400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">sugano</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548286484.228400">2019-01-24 08:34:44 +0900</a></div>
+          </div>
+          <div class="message__body description">あと、いつも使ってるIDEのhaskell plug-inとか、emacsのinteroとか使った方が楽かもしれません。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548286647.228600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548286647.228600">2019-01-24 08:37:27 +0900</a></div>
+          </div>
+          <div class="message__body description"><blockquote>あと、いつも使ってるIDEのhaskell plug-inとか、emacsのinteroとか使った方が楽かもしれません。</blockquote><br/>それは今は後回しにして良いんじゃないかと。。。多分すごいH本を読んでGHCiで試そうとしているだけですからおそらくまだそれらをインストールしてませんし、端末の操作に不慣れだと、それらのインストールもまた大変です。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548286794.228900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548286794.228900">2019-01-24 08:39:54 +0900</a></div>
+          </div>
+          <div class="message__body description">そして今更気づいたんですが、画面をスマホでとるよりはスクリーンショットという機能を使った方が見やすくて良いです。<br/><a href='https://support.apple.com/ja-jp/HT201361'>https://support.apple.com/ja-jp/HT201361</a> を参考に、スクリーンショットで直接画面を画像として保存してみせてください。<br/>（macOS Mojaveでない場合はすみません...）<br/><br/>あるいは、ターミナルの画面は、基本的にすべてそのままコピーできるようになっているので、 @keikagawadesu.7k さんの入力と、それに対する結果がわかるよう選択してコピーしてこちらに貼り付けてみてください。<br/>大抵はそれで十分です。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548287117.233600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">sugano</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548287117.233600">2019-01-24 08:45:17 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://haskell-jp.slack.com/archives/C5666B6BB/p1548286647228600?thread_ts=1548136855.190500&amp;channel=C5666B6BB&amp;message_ts=1'>https://haskell-jp.slack.com/archives/C5666B6BB/p1548286647228600?thread_ts=1548136855.190500&amp;channel=C5666B6BB&amp;message_ts=1</a><br/><br/>そうですね、失礼しました。<br/>では<@UFDKZJBLK> さんは、端末操作に慣れてきたらもっと楽にhaskellプログラミングができる楽しいソフトがある程度に思っていただければ、<br/><br/>（ご回答の邪魔になるのでinteroなどの話は私からは以上にいたします。）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548297376.237600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">keikagawadesu.7k</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548297376.237600">2019-01-24 11:36:16 +0900</a></div>
+          </div>
+          <div class="message__body description">すみません。本当に初めてやるのがhaskellでなにもかも分かってない状態で初めてました。ターミナルも全くの初見です笑笑。:cd /path/to/directory baby.hs  でやってみれば確認できるでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548297516.237800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yharuhi39</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548297516.237800">2019-01-24 11:38:36 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>:cd /path/to/directory</code><br/><code>:load baby.hs</code> です　違うコマンドですよ</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548297665.239000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">keikagawadesu.7k</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548297665.239000">2019-01-24 11:41:05 +0900</a></div>
+          </div>
+          <div class="message__body description">@sugano さんが言ってたソフトもいずれは必要になるかもしれませんので、入れて色々と遊んでみますね！！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548297849.240000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">keikagawadesu.7k</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548297849.240000">2019-01-24 11:44:09 +0900</a></div>
+          </div>
+          <div class="message__body description">@yharuhi39 さんありがとうございます:blush:まだまだ修行が足りないですね笑笑頑張ります！！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548300806.240400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">matsubara0507</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548300806.240400">2019-01-24 12:33:26 +0900</a></div>
+          </div>
+          <div class="message__body description">Haskell が初なの珍しい、ぜひ感想とか聞きたいですね :star:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548301224.243900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">keikagawadesu.7k</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548301224.243900">2019-01-24 12:40:24 +0900</a></div>
+          </div>
+          <div class="message__body description">こう言ったら失礼かもしれませんが、自分の親の友人のプログラマーが安全なhaskellが良いよと言われたのもありますしhaskellはjava程人気ではないというところがあって他と違うことがやりたいなって感じがしたというのもありやりたいなと思いました笑笑将来起業もしたいので、</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548310870.244500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tcokygets</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548310870.244500">2019-01-24 15:21:10 +0900</a></div>
+          </div>
+          <div class="message__body description">@tcokygets has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548344480.250400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yamanntyu22</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548344480.250400">2019-01-25 00:41:20 +0900</a></div>
+          </div>
+          <div class="message__body description">QuickCheckに関しての質問なのですが、以下のYampaプログラムをテストしたいです。<br/>そのために必要なこととして、<br/>１．初期座標、初期速度を変数にする(コマンドラインで指定できるようにする)<br/>２．Yampaプログラムから直接テストを行うことは難しいので1000ループで区切りその座標速度ベクトルを配列に入れる<br/>３．上でもとめた配列が条件に合うかどうか検証する(今回の場合は座標が-100以上)<br/>だと思うのですが、具体的にどうプログラムを加えていけばいいでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548344498.250500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yamanntyu22</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548344498.250500">2019-01-25 00:41:38 +0900</a></div>
+          </div>
+          <div class="message__body description"></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548344688.252100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yamanntyu22</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548344688.252100">2019-01-25 00:44:48 +0900</a></div>
+          </div>
+          <div class="message__body description"></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548344781.253900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yamanntyu22</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548344781.253900">2019-01-25 00:46:21 +0900</a></div>
+          </div>
+          <div class="message__body description">上の動画の通り、あえて地面の接触判定が雑なプログラムで地面に整地せず、想定とは違う動きになるというのをQuickCheckでさまざまな初期位置初期速度を入力したときに座標が負になることでbool型で返していくイメージです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548371654.254600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">satoshi.murakumo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548371654.254600">2019-01-25 08:14:14 +0900</a></div>
+          </div>
+          <div class="message__body description">@satoshi.murakumo has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548375188.254800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548375188.254800">2019-01-25 09:13:08 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='http://hackage.haskell.org/package/Yampa-0.13/docs/FRP-Yampa.html#v:embed'>http://hackage.haskell.org/package/Yampa-0.13/docs/FRP-Yampa.html#v:embed</a>　embed関数を使うと、SFの出力をリストとして取り出すことができます。`embed (bouncingBall p0 v0) ((), repeat (0.1, Just ()))`の結果を検査すれば良いのではないでしょうか</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548383488.255100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ringo1625</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548383488.255100">2019-01-25 11:31:28 +0900</a></div>
+          </div>
+          <div class="message__body description">@ringo1625 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548389362.255400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yamanntyu22</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548389362.255400">2019-01-25 13:09:22 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます。<br/>embed関数を用いてためしてみます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548390980.255600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yamanntyu22</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548390980.255600">2019-01-25 13:36:20 +0900</a></div>
+          </div>
+          <div class="message__body description">再度質問すみません<br/>stack ghci上で上に似たようなコマンドを入力してリストが出たのを確認したのですがこれをどうやってQuickCheckの判定を含めて導入すればよいのでしょうか？<br/>そもそもstack ghci上で上のコマンドを打つのが間違いなのでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548391055.255800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yamanntyu22</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548391055.255800">2019-01-25 13:37:35 +0900</a></div>
+          </div>
+          <div class="message__body description"></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548393069.261100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">keikagawadesu.7k</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548393069.261100">2019-01-25 14:11:09 +0900</a></div>
+          </div>
+          <div class="message__body description">これは(show a)と記載されてると言うことはaを返すのではないのですか？自分としてはたしかにaに入ってるものはstring値ですが、なぜ最後はaではないのですか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548393158.261500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">aruneko</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548393158.261500">2019-01-25 14:12:38 +0900</a></div>
+          </div>
+          <div class="message__body description">これは「aがShowである」という制約を示しているだけで、返り値を示しているわけではないですね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548393473.262900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">keikagawadesu.7k</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548393473.262900">2019-01-25 14:17:53 +0900</a></div>
+          </div>
+          <div class="message__body description">あーそういうことか笑笑自分制約あまり分からないものでもう少し勉強してきます笑笑</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548395609.263100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548395609.263100">2019-01-25 14:53:29 +0900</a></div>
+          </div>
+          <div class="message__body description">ちなみに <code>Show a</code> の S は大文字ですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548396056.263400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">aruneko</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548396056.263400">2019-01-25 15:00:56 +0900</a></div>
+          </div>
+          <div class="message__body description">型は大文字から、関数は小文字から始まるのがHaskellの文法ですからね！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548402024.268800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548402024.268800">2019-01-25 16:40:24 +0900</a></div>
+          </div>
+          <div class="message__body description">ラムダ式とクロージャって何が違うんですかね？ Haskell 関係でクロージャという言葉を聞いたことがないんですが、Haskell にクロージャはあります？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548402758.269000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548402758.269000">2019-01-25 16:52:38 +0900</a></div>
+          </div>
+          <div class="message__body description">「自由変数が含まれる関数」を返す関数によって返された関数、ぐらいの認識でした。<br/>参照している自由変数はその「自由変数が含まれる関数」にしかアクセスできないのでprivateなフィールドをシミュレートする、みたいな例をあちこちの言語で見かけましたね。<br/>典型的には <a href='https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%B8%E3%83%A3'>https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AD%E3%83%BC%E3%82%B8%E3%83%A3</a> の最初に出てくるSchemeの例です。<br/>同じ要領でHaskellでもできると思います。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548403063.270700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548403063.270700">2019-01-25 16:57:43 +0900</a></div>
+          </div>
+          <div class="message__body description">Haskellだと <a href='https://en.wikipedia.org/wiki/Closure_(computer_programming)'>https://en.wikipedia.org/wiki/Closure_(computer_programming)</a> に載っているようなPythonの例<br/><pre>
 def h(x):
     return lambda y: x + y  # Return a closure.
-</pre><br/>をそのまま再現しても単に2引数の関数を定義するのと変わらないので、意識されにくいというのはあるでしょうね。。。</div></div></div><div class="message event" id="message-1548403562.271200"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1548403562.271200">2019-01-25&nbsp;17:06:02 +0900</a></div></div><div class="message__body description">ラムダ式は構文で、クロージャはオブジェクト(値など)の一種であると言えば違いは明らかになると思います。<https://ghc.haskell.org/trac/ghc/wiki/Commentary/Rts/Storage/HeapObjects> でGHCのクロージャが説明されています</div></div></div><div class="message event" id="message-1548403648.271500"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1548403648.271500">2019-01-25&nbsp;17:07:28 +0900</a></div></div><div class="message__body description">何かを習得するとき一般に言えることですが、複雑なことを成し遂げたいときはまず個々の動きから始めましょう。この場合の考え方は<br/>• QuickCheckは純粋な関数をテストする仕組みである<br/>• 簡単なもの(足し算の交換則など)をQuickCheckしてみて、基本的な使い方を知る<br/>• SFを純粋に検査できるようにする(embed)<br/>• 両者を組み合わせ、目標を達成する</div></div></div><div class="message event" id="message-1548403810.272600"><div class="content"><div class="summary"><div class="message__header user">keikagawadesu.7k</div><div class="message__timestamp date"><a class="date" href="#message-1548403810.272600">2019-01-25&nbsp;17:10:10 +0900</a></div></div><div class="message__body description">そういう細かいとこも注意して頑張ってみます！！</div></div></div><div class="message event" id="message-1548406986.273300"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1548406986.273300">2019-01-25&nbsp;18:03:06 +0900</a></div></div><div class="message__body description">回答ありがとうございます！ どちらも言われてみればそうですね！ クロージャ内では破壊的な代入が可能な必要があるという変な勘違いをしていました。そして、GHC のクロージャについての説明をつまみ読みしたんですが、Heap に保存される一つ一つのオブジェクトは全てクロージャ (GHC の呼び方に従えば) という理解で合ってます？ まるで空気のようですね……</div></div></div><div class="message event" id="message-1548408012.275300"><div class="content"><div class="summary"><div class="message__header user">syocy</div><div class="message__timestamp date"><a class="date" href="#message-1548408012.275300">2019-01-25&nbsp;18:20:12 +0900</a></div></div><div class="message__body description">pure Haskell と言うとき、FFIやCとかがない Haskell コードを指すのか、IOなどの副作用がない Haskell コードを指すのか、どちらでしょうか。</div></div></div><div class="message event" id="message-1548408814.275500"><div class="content"><div class="summary"><div class="message__header user">kakkun61</div><div class="message__timestamp date"><a class="date" href="#message-1548408814.275500">2019-01-25&nbsp;18:33:34 +0900</a></div></div><div class="message__body description">前者かなという気持ち</div></div></div><div class="message event" id="message-1548408817.275700"><div class="content"><div class="summary"><div class="message__header user">hexirp</div><div class="message__timestamp date"><a class="date" href="#message-1548408817.275700">2019-01-25&nbsp;18:33:37 +0900</a></div></div><div class="message__body description">私は no IO の方を連想したんですが、検索してみると no FFI という意味が多い感じでした <a href='https://www.google.com/search?q=%22pure+haskell%22'>https://www.google.com/search?q=%22pure+haskell%22</a></div></div></div><div class="message event" id="message-1548408918.275900"><div class="content"><div class="summary"><div class="message__header user">yamanntyu22</div><div class="message__timestamp date"><a class="date" href="#message-1548408918.275900">2019-01-25&nbsp;18:35:18 +0900</a></div></div><div class="message__body description">もう少しQuickCheckについて勉強していこうと思います<br/>ありがとうございました！</div></div></div><div class="message event" id="message-1548410232.276400"><div class="content"><div class="summary"><div class="message__header user">aiya000</div><div class="message__timestamp date"><a class="date" href="#message-1548410232.276400">2019-01-25&nbsp;18:57:12 +0900</a></div></div><div class="message__body description">完全に感覚の話なのですが、僕も前者だと感じました:wink:</div></div></div><div class="message event" id="message-1548410574.279500"><div class="content"><div class="summary"><div class="message__header user">yharuhi39</div><div class="message__timestamp date"><a class="date" href="#message-1548410574.279500">2019-01-25&nbsp;19:02:54 +0900</a></div></div><div class="message__body description">この場合のpureが前者だと感じるのは他言語からのアナロジーである可能性が多いと思います。無論私も前者と感じました pure JavaScriptだなどと言った場合に純JS製である事を意図していることから</div></div></div><div class="message event" id="message-1548410669.279700"><div class="content"><div class="summary"><div class="message__header user">fumieval</div><div class="message__timestamp date"><a class="date" href="#message-1548410669.279700">2019-01-25&nbsp;19:04:29 +0900</a></div></div><div class="message__body description">GHC拡張などを使わないHaskell…というのはさておき私も前者派です</div></div></div><div class="message event" id="message-1548412963.279900"><div class="content"><div class="summary"><div class="message__header user">kazu</div><div class="message__timestamp date"><a class="date" href="#message-1548412963.279900">2019-01-25&nbsp;19:42:43 +0900</a></div></div><div class="message__body description">Haskell の関数は、デフォルトでカリー化されているので、クロージャが陽には見えません。部分適応すれば、他言語でいうクロージャが返されますが、それをクロージャだと意識することはないです。</div></div></div><div class="message event" id="message-1548413021.280100"><div class="content"><div class="summary"><div class="message__header user">kazu</div><div class="message__timestamp date"><a class="date" href="#message-1548413021.280100">2019-01-25&nbsp;19:43:41 +0900</a></div></div><div class="message__body description">ただ、Haskell の部分適応では、複数の関数で共有しているが、他からアクセスできないような変数は作れませんね。</div></div></div><div class="message event" id="message-1548413114.280300"><div class="content"><div class="summary"><div class="message__header user">kazu</div><div class="message__timestamp date"><a class="date" href="#message-1548413114.280300">2019-01-25&nbsp;19:45:14 +0900</a></div></div><div class="message__body description">Haskell は pure であるというときと、pure Haskell で作るというときとでは、意味が変わると思います。</div></div></div><div class="message event" id="message-1548416637.280600"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1548416637.280600">2019-01-25&nbsp;20:43:57 +0900</a></div></div><div class="message__body description">タプルとか、何かしら複数の値を入れられるものに入れて返さない限りは無理でしょうから、確かに部分適用ではできませんね…</div></div></div><div class="message event" id="message-1548421860.281100"><div class="content"><div class="summary"><div class="message__header user">syocy</div><div class="message__timestamp date"><a class="date" href="#message-1548421860.281100">2019-01-25&nbsp;22:11:00 +0900</a></div></div><div class="message__body description">みなさんありがとうございます。pure Haskell というのを only Haskell のこととしてみる方が多いようですね。pure Haskell implementation という表現をしているライブラリがあって気になっていました。</div></div></div><div class="message event" id="message-1548433844.281400"><div class="content"><div class="summary"><div class="message__header user">shiropenko</div><div class="message__timestamp date"><a class="date" href="#message-1548433844.281400">2019-01-26&nbsp;01:30:44 +0900</a></div></div><div class="message__body description">@shiropenko has joined the channel</div></div></div><div class="message event" id="message-1548477695.284200"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1548477695.284200">2019-01-26&nbsp;13:41:35 +0900</a></div></div><div class="message__body description">D言語だとfunctionと外の値を持つdelegateが明確に別れていて面白いですね<br/><a href='https://tour.dlang.org/tour/en/basics/delegates'>https://tour.dlang.org/tour/en/basics/delegates</a></div></div></div><div class="message event" id="message-1548478679.284500"><div class="content"><div class="summary"><div class="message__header user">ayanamizuta</div><div class="message__timestamp date"><a class="date" href="#message-1548478679.284500">2019-01-26&nbsp;13:57:59 +0900</a></div></div><div class="message__body description">@ayanamizuta has joined the channel</div></div></div><div class="message event" id="message-1548479046.284900"><div class="content"><div class="summary"><div class="message__header user">kawasakitk</div><div class="message__timestamp date"><a class="date" href="#message-1548479046.284900">2019-01-26&nbsp;14:04:06 +0900</a></div></div><div class="message__body description">@kawasakitk has joined the channel</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/37.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/39.html" class="pager__next item">Next</a></div></div></body></html>
+</pre><br/>をそのまま再現しても単に2引数の関数を定義するのと変わらないので、意識されにくいというのはあるでしょうね。。。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548403562.271200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548403562.271200">2019-01-25 17:06:02 +0900</a></div>
+          </div>
+          <div class="message__body description">ラムダ式は構文で、クロージャはオブジェクト(値など)の一種であると言えば違いは明らかになると思います。<https://ghc.haskell.org/trac/ghc/wiki/Commentary/Rts/Storage/HeapObjects> でGHCのクロージャが説明されています</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548403648.271500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548403648.271500">2019-01-25 17:07:28 +0900</a></div>
+          </div>
+          <div class="message__body description">何かを習得するとき一般に言えることですが、複雑なことを成し遂げたいときはまず個々の動きから始めましょう。この場合の考え方は<br/>• QuickCheckは純粋な関数をテストする仕組みである<br/>• 簡単なもの(足し算の交換則など)をQuickCheckしてみて、基本的な使い方を知る<br/>• SFを純粋に検査できるようにする(embed)<br/>• 両者を組み合わせ、目標を達成する</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548403810.272600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">keikagawadesu.7k</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548403810.272600">2019-01-25 17:10:10 +0900</a></div>
+          </div>
+          <div class="message__body description">そういう細かいとこも注意して頑張ってみます！！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548406986.273300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548406986.273300">2019-01-25 18:03:06 +0900</a></div>
+          </div>
+          <div class="message__body description">回答ありがとうございます！ どちらも言われてみればそうですね！ クロージャ内では破壊的な代入が可能な必要があるという変な勘違いをしていました。そして、GHC のクロージャについての説明をつまみ読みしたんですが、Heap に保存される一つ一つのオブジェクトは全てクロージャ (GHC の呼び方に従えば) という理解で合ってます？ まるで空気のようですね……</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548408012.275300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">syocy</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548408012.275300">2019-01-25 18:20:12 +0900</a></div>
+          </div>
+          <div class="message__body description">pure Haskell と言うとき、FFIやCとかがない Haskell コードを指すのか、IOなどの副作用がない Haskell コードを指すのか、どちらでしょうか。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548408814.275500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548408814.275500">2019-01-25 18:33:34 +0900</a></div>
+          </div>
+          <div class="message__body description">前者かなという気持ち</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548408817.275700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hexirp</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548408817.275700">2019-01-25 18:33:37 +0900</a></div>
+          </div>
+          <div class="message__body description">私は no IO の方を連想したんですが、検索してみると no FFI という意味が多い感じでした <a href='https://www.google.com/search?q=%22pure+haskell%22'>https://www.google.com/search?q=%22pure+haskell%22</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548408918.275900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yamanntyu22</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548408918.275900">2019-01-25 18:35:18 +0900</a></div>
+          </div>
+          <div class="message__body description">もう少しQuickCheckについて勉強していこうと思います<br/>ありがとうございました！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548410232.276400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">aiya000</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548410232.276400">2019-01-25 18:57:12 +0900</a></div>
+          </div>
+          <div class="message__body description">完全に感覚の話なのですが、僕も前者だと感じました:wink:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548410574.279500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yharuhi39</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548410574.279500">2019-01-25 19:02:54 +0900</a></div>
+          </div>
+          <div class="message__body description">この場合のpureが前者だと感じるのは他言語からのアナロジーである可能性が多いと思います。無論私も前者と感じました pure JavaScriptだなどと言った場合に純JS製である事を意図していることから</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548410669.279700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">fumieval</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548410669.279700">2019-01-25 19:04:29 +0900</a></div>
+          </div>
+          <div class="message__body description">GHC拡張などを使わないHaskell…というのはさておき私も前者派です</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548412963.279900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kazu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548412963.279900">2019-01-25 19:42:43 +0900</a></div>
+          </div>
+          <div class="message__body description">Haskell の関数は、デフォルトでカリー化されているので、クロージャが陽には見えません。部分適応すれば、他言語でいうクロージャが返されますが、それをクロージャだと意識することはないです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548413021.280100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kazu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548413021.280100">2019-01-25 19:43:41 +0900</a></div>
+          </div>
+          <div class="message__body description">ただ、Haskell の部分適応では、複数の関数で共有しているが、他からアクセスできないような変数は作れませんね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548413114.280300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kazu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548413114.280300">2019-01-25 19:45:14 +0900</a></div>
+          </div>
+          <div class="message__body description">Haskell は pure であるというときと、pure Haskell で作るというときとでは、意味が変わると思います。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548416637.280600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548416637.280600">2019-01-25 20:43:57 +0900</a></div>
+          </div>
+          <div class="message__body description">タプルとか、何かしら複数の値を入れられるものに入れて返さない限りは無理でしょうから、確かに部分適用ではできませんね…</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548421860.281100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">syocy</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548421860.281100">2019-01-25 22:11:00 +0900</a></div>
+          </div>
+          <div class="message__body description">みなさんありがとうございます。pure Haskell というのを only Haskell のこととしてみる方が多いようですね。pure Haskell implementation という表現をしているライブラリがあって気になっていました。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548433844.281400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shiropenko</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548433844.281400">2019-01-26 01:30:44 +0900</a></div>
+          </div>
+          <div class="message__body description">@shiropenko has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548477695.284200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548477695.284200">2019-01-26 13:41:35 +0900</a></div>
+          </div>
+          <div class="message__body description">D言語だとfunctionと外の値を持つdelegateが明確に別れていて面白いですね<br/><a href='https://tour.dlang.org/tour/en/basics/delegates'>https://tour.dlang.org/tour/en/basics/delegates</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548478679.284500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ayanamizuta</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548478679.284500">2019-01-26 13:57:59 +0900</a></div>
+          </div>
+          <div class="message__body description">@ayanamizuta has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1548479046.284900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kawasakitk</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1548479046.284900">2019-01-26 14:04:06 +0900</a></div>
+          </div>
+          <div class="message__body description">@kawasakitk has joined the channel</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/37.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/39.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

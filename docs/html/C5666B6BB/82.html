@@ -1,4 +1,35 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #82</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #82</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/81.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/83.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1585548122.008700"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1585548122.008700">2020-03-30&nbsp;15:02:02 +0900</a></div></div><div class="message__body description">あ、なるほど、representational 以外の role 持つやつだと表示されるんですね。ありがとうございます、解決しました</div></div></div><div class="message event" id="message-1585548203.008900"><div class="content"><div class="summary"><div class="message__header user">highmt</div><div class="message__timestamp date"><a class="date" href="#message-1585548203.008900">2020-03-30&nbsp;15:03:23 +0900</a></div></div><div class="message__body description">解決したみたいでよかったです。<br/>いちおう、8.8.3で<br/><pre>GHCi, version 8.8.3: <https://www.haskell.org/ghc/>  :? for help
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #82</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #82</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/81.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/83.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1585548122.008700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585548122.008700">2020-03-30 15:02:02 +0900</a></div>
+          </div>
+          <div class="message__body description">あ、なるほど、representational 以外の role 持つやつだと表示されるんですね。ありがとうございます、解決しました</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585548203.008900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">highmt</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585548203.008900">2020-03-30 15:03:23 +0900</a></div>
+          </div>
+          <div class="message__body description">解決したみたいでよかったです。<br/>いちおう、8.8.3で<br/><pre>GHCi, version 8.8.3: <https://www.haskell.org/ghc/>  :? for help
 ghci&gt; :set -XTypeFamilies
 ghci&gt; :set -XGADTs
 ghci&gt; type family F a
@@ -6,14 +37,457 @@ ghci&gt; data T a b c = MkT b (F c)
 ghci&gt; :i T
 type role T phantom representational nominal
 data T a b c = MkT b (F c)
-        -- Defined at &lt;interactive&gt;:4:1</pre><br/>でした。</div></div></div><div class="message event" id="message-1585553848.009400"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1585553848.009400">2020-03-30&nbsp;16:37:28 +0900</a></div></div><div class="message__body description">@igrep set the channel topic: お悩み相談専用チャンネル。回答は原則スレッド機能でやりましょう。複数の質問を同時に投稿しやすくするための配慮です。</div></div></div><div class="message event" id="message-1585559354.009800"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585559354.009800">2020-03-30&nbsp;18:09:14 +0900</a></div></div><div class="message__body description">popl 2011 年からの概念なんですね。勉強せねば。<br/>ありがとうございます。</div></div></div><div class="message event" id="message-1585560874.010200"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585560874.010200">2020-03-30&nbsp;18:34:34 +0900</a></div></div><div class="message__body description">equivalent な型を同じ role をもつというのですね。</div></div></div><div class="message event" id="message-1585562533.010500"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1585562533.010500">2020-03-30&nbsp;19:02:13 +0900</a></div></div><div class="message__body description">どういう equivalent を持ってくるかが重要で、ここでは representational equivalent という概念を持ってきます。なお、やってる事は基本的に structural equivalent とあまり変わりませんが、role system によって各データ型の equivalent のレベルを調整できる点が異なります。その調整を行うために指定するのが(パラメータの) role です</div></div></div><div class="message event" id="message-1585562644.010700"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1585562644.010700">2020-03-30&nbsp;19:04:04 +0900</a></div></div><div class="message__body description">representational equivalent とは直感的には、実行時に同じ表現を持つということを表します</div></div></div><div class="message event" id="message-1585566505.011300"><div class="content"><div class="summary"><div class="message__header user">shin1hi</div><div class="message__timestamp date"><a class="date" href="#message-1585566505.011300">2020-03-30&nbsp;20:08:25 +0900</a></div></div><div class="message__body description">ありがとうございます。</div></div></div><div class="message event" id="message-1585619243.011700"><div class="content"><div class="summary"><div class="message__header user">hiroyuki.nagata</div><div class="message__timestamp date"><a class="date" href="#message-1585619243.011700">2020-03-31&nbsp;10:47:23 +0900</a></div></div><div class="message__body description">@hiroyuki.nagata has joined the channel</div></div></div><div class="message event" id="message-1585710648.014800"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1585710648.014800">2020-04-01&nbsp;12:10:48 +0900</a></div></div><div class="message__body description">hourglassパッケージにおける <code>WeekDay</code> <a href='https://hackage.haskell.org/package/hourglass-0.2.12/docs/Time-Types.html#t:WeekDay'>https://hackage.haskell.org/package/hourglass-0.2.12/docs/Time-Types.html#t:WeekDay</a> と <code>Date</code> を受け取って、「指定した日付から次のhoge曜日まで何日かかるかを返す」関数 <code>daysUntilNext</code> という関数を定義してみました。もっとクールな計算方法があれば教えていただきたいです。<br/>なんかうまいことやれば  <code>if</code> とかで分岐しなくて済みそうなんですが、ぱっと思いつきませんでした。<br/><pre>daysUntilNext :: WeekDay -&gt; Date -&gt; Int
+        -- Defined at &lt;interactive&gt;:4:1</pre><br/>でした。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585553848.009400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585553848.009400">2020-03-30 16:37:28 +0900</a></div>
+          </div>
+          <div class="message__body description">@igrep set the channel topic: お悩み相談専用チャンネル。回答は原則スレッド機能でやりましょう。複数の質問を同時に投稿しやすくするための配慮です。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585559354.009800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585559354.009800">2020-03-30 18:09:14 +0900</a></div>
+          </div>
+          <div class="message__body description">popl 2011 年からの概念なんですね。勉強せねば。<br/>ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585560874.010200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585560874.010200">2020-03-30 18:34:34 +0900</a></div>
+          </div>
+          <div class="message__body description">equivalent な型を同じ role をもつというのですね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585562533.010500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585562533.010500">2020-03-30 19:02:13 +0900</a></div>
+          </div>
+          <div class="message__body description">どういう equivalent を持ってくるかが重要で、ここでは representational equivalent という概念を持ってきます。なお、やってる事は基本的に structural equivalent とあまり変わりませんが、role system によって各データ型の equivalent のレベルを調整できる点が異なります。その調整を行うために指定するのが(パラメータの) role です</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585562644.010700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585562644.010700">2020-03-30 19:04:04 +0900</a></div>
+          </div>
+          <div class="message__body description">representational equivalent とは直感的には、実行時に同じ表現を持つということを表します</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585566505.011300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">shin1hi</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585566505.011300">2020-03-30 20:08:25 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585619243.011700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">hiroyuki.nagata</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585619243.011700">2020-03-31 10:47:23 +0900</a></div>
+          </div>
+          <div class="message__body description">@hiroyuki.nagata has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585710648.014800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585710648.014800">2020-04-01 12:10:48 +0900</a></div>
+          </div>
+          <div class="message__body description">hourglassパッケージにおける <code>WeekDay</code> <a href='https://hackage.haskell.org/package/hourglass-0.2.12/docs/Time-Types.html#t:WeekDay'>https://hackage.haskell.org/package/hourglass-0.2.12/docs/Time-Types.html#t:WeekDay</a> と <code>Date</code> を受け取って、「指定した日付から次のhoge曜日まで何日かかるかを返す」関数 <code>daysUntilNext</code> という関数を定義してみました。もっとクールな計算方法があれば教えていただきたいです。<br/>なんかうまいことやれば  <code>if</code> とかで分岐しなくて済みそうなんですが、ぱっと思いつきませんでした。<br/><pre>daysUntilNext :: WeekDay -&gt; Date -&gt; Int
 daysUntilNext nextWeekDay baseDate =
     if nextWeekDay &gt; baseWeekDay
       then fromEnum nextWeekDay - fromEnum baseWeekDay
       else fromEnum nextWeekDay - fromEnum baseWeekDay + 7
     where
-      baseWeekDay = getWeekDay baseDate</pre></div></div></div><div class="message event" id="message-1585710885.014900"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1585710885.014900">2020-04-01&nbsp;12:14:45 +0900</a></div></div><div class="message__body description">例えば、以下のように計算します:<br/>• 今日（2020年4月1日(水)）から次の月曜日（2020年4月6日）であれば <code>5</code><br/>• 今週日曜日（2020年4月5日）から次の月曜日であれば <code>1</code><br/>• 今週月曜日（2020年3月30日）から次の月曜日であれば <code>7</code></div></div></div><div class="message event" id="message-1585713632.015100"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1585713632.015100">2020-04-01&nbsp;13:00:32 +0900</a></div></div><div class="message__body description"><pre>(fromEnum nextWeekDay - fromEnum baseWeekDay) `mod` 7</pre><br/> すればいいかと思いましたが、月→月が0になってしまうので良くないですね</div></div></div><div class="message event" id="message-1585713767.015400"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1585713767.015400">2020-04-01&nbsp;13:02:47 +0900</a></div></div><div class="message__body description">負の数の剰余は、ちょっと前にTwitterでバズってたツイートがあった気がする</div></div></div><div class="message event" id="message-1585713924.015700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1585713924.015700">2020-04-01&nbsp;13:05:24 +0900</a></div></div><div class="message__body description">どちらにしても、完全に分岐をなくすのはやっぱ難しそうですね...</div></div></div><div class="message event" id="message-1585714709.016000"><div class="content"><div class="summary"><div class="message__header user">tikuwakunn</div><div class="message__timestamp date"><a class="date" href="#message-1585714709.016000">2020-04-01&nbsp;13:18:29 +0900</a></div></div><div class="message__body description">少し汚いですが、こんな感じでどうでしょうか？</div></div></div><div class="message event" id="message-1585719148.016600"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1585719148.016600">2020-04-01&nbsp;14:32:28 +0900</a></div></div><div class="message__body description">今試してみたらテスト通りました。ありがとうございます！</div></div></div><div class="message event" id="message-1585800084.017700"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1585800084.017700">2020-04-02&nbsp;13:01:24 +0900</a></div></div><div class="message__body description">いつの間にか <code>cabal</code> から <code>sandbox</code> が消えているんですけど、global environmentを全くいじることなくあるパッケージをghci上で遊んで、遊び終わったら(nix-styleだし別にstore上から消えてろとは言いませんが)environmentから完全に消え去る、ってどうやったらいいんですかね？ (てかこれ <code>beginner</code> レベルか？)</div></div></div><div class="message event" id="message-1585802764.018100"><div class="content"><div class="summary"><div class="message__header user">ncaq</div><div class="message__timestamp date"><a class="date" href="#message-1585802764.018100">2020-04-02&nbsp;13:46:04 +0900</a></div></div><div class="message__body description">beginnerチャンネルがあることを今知った</div></div></div><div class="message event" id="message-1585803050.019000"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1585803050.019000">2020-04-02&nbsp;13:50:50 +0900</a></div></div><div class="message__body description"><code>cabal repl --build-depends=&lt;package&gt;</code> で良いですね</div></div></div><div class="message event" id="message-1585803765.020200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1585803765.020200">2020-04-02&nbsp;14:02:45 +0900</a></div></div><div class="message__body description">:information_desk_person: <a href='#CR2TETE5R'>beginners</a> か <a href='#C5666B6BB'>questions</a> かの区別は特に明確に設けていないので、迷ったら <a href='#C5666B6BB'>questions</a> でよいです。</div></div></div><div class="message event" id="message-1585803940.021700"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1585803940.021700">2020-04-02&nbsp;14:05:40 +0900</a></div></div><div class="message__body description">:information_desk_person: もう一つ補足: 2019年12月8日に作成して以降、このSlack Workspaceに登録した人は必ずjoinするチャンネルとなってますので、それ以前からいらっしゃる方はjoinするのを推奨します :bow:</div></div></div><div class="message event" id="message-1585804356.021800"><div class="content"><div class="summary"><div class="message__header user">lotz</div><div class="message__timestamp date"><a class="date" href="#message-1585804356.021800">2020-04-02&nbsp;14:12:36 +0900</a></div></div><div class="message__body description">あ、 <a href='#CR2TETE5R'>beginners</a> って必ずjoinするチャンネルになってたんですね!</div></div></div><div class="message event" id="message-1585810012.022200"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1585810012.022200">2020-04-02&nbsp;15:46:52 +0900</a></div></div><div class="message__body description">上で言及した、負の数の剰余に関するツイートはこれでした。<https://twitter.com/hisagrmf/status/1244566234202427392><br/><a href='https://twitter.com/hisagrmf/status/1244587942502252545'>https://twitter.com/hisagrmf/status/1244587942502252545</a></div></div></div><div class="message event" id="message-1585810094.022500"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1585810094.022500">2020-04-02&nbsp;15:48:14 +0900</a></div></div><div class="message__body description">HaskellのmodはRubyやPythonタイプで、かならず0～n-1になると考えていい奴ですね</div></div></div><div class="message event" id="message-1585865674.023000"><div class="content"><div class="summary"><div class="message__header user">mtkaaai</div><div class="message__timestamp date"><a class="date" href="#message-1585865674.023000">2020-04-03&nbsp;07:14:34 +0900</a></div></div><div class="message__body description">@mtkaaai has joined the channel</div></div></div><div class="message event" id="message-1585959584.027700"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1585959584.027700">2020-04-04&nbsp;09:19:44 +0900</a></div></div><div class="message__body description">UbuntuイメージのDockerウェブアプリケーションを開発中なんですが、動作確認を手元のUbuntuでビルド→バイナリをDockerイメージにコピーという方法で動作確認していました。これをWindowsでもやろうと思ったのですがもちろんOSが違います。ビルドツールにCabal、GHC-8.8.2を使用していますがWindows上からサクッとクロスコンパイルでUbuntuの実行バイナリ作れたりするでしょうか（ちらっと調べた限りそんな雰囲気はなかった）。それとも動作確認と割り切ってWindowsようのDockerイメージ作るのが早いでしょうか</div></div></div><div class="message event" id="message-1585960361.030200"><div class="content"><div class="summary"><div class="message__header user">notogawa</div><div class="message__timestamp date"><a class="date" href="#message-1585960361.030200">2020-04-04&nbsp;09:32:41 +0900</a></div></div><div class="message__body description">Docker for Windows で Ubuntuコンテナ内でビルドするのがてっとり早いんじゃないかと思います．</div></div></div><div class="message event" id="message-1585960582.030400"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1585960582.030400">2020-04-04&nbsp;09:36:22 +0900</a></div></div><div class="message__body description">ですよねー。そう甘くはなかった</div></div></div><div class="message event" id="message-1585970548.030700"><div class="content"><div class="summary"><div class="message__header user">tikuwakunn</div><div class="message__timestamp date"><a class="date" href="#message-1585970548.030700">2020-04-04&nbsp;12:22:28 +0900</a></div></div><div class="message__body description">当方Windows環境がないので確認できませんが、WSLじゃビルドできないんですかね？</div></div></div><div class="message event" id="message-1585970921.030900"><div class="content"><div class="summary"><div class="message__header user">a_kirisaki</div><div class="message__timestamp date"><a class="date" href="#message-1585970921.030900">2020-04-04&nbsp;12:28:41 +0900</a></div></div><div class="message__body description">ウェブアプリケーションなのでそこまでクロスコンパイル欲求はなく、Windowsのイメージ使って動作確認して済ませてしまいました 。手元で <code>cabal install --install-method=copy --installdir=..</code> してからコピってます。 <a href='https://github.com/kirisaki/prototip-2.kirisaki.dev/blob/master/Dockerfile.win'>https://github.com/kirisaki/prototip-2.kirisaki.dev/blob/master/Dockerfile.win</a></div></div></div><div class="message event" id="message-1586151956.031400"><div class="content"><div class="summary"><div class="message__header user">tn78adsl</div><div class="message__timestamp date"><a class="date" href="#message-1586151956.031400">2020-04-06&nbsp;14:45:56 +0900</a></div></div><div class="message__body description">@tn78adsl has joined the channel</div></div></div><div class="message event" id="message-1586414468.032300"><div class="content"><div class="summary"><div class="message__header user">snisimu</div><div class="message__timestamp date"><a class="date" href="#message-1586414468.032300">2020-04-09&nbsp;15:41:08 +0900</a></div></div><div class="message__body description">@snisimu has joined the channel</div></div></div><div class="message event" id="message-1586497930.037100"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1586497930.037100">2020-04-10&nbsp;14:52:10 +0900</a></div></div><div class="message__body description"><code>Enum</code> って、特に要素のenumeration typeについてderived instance以外を用いるのって許容されてるんでしょうか？ されてるとして、番号が飛び飛びになってるのとか、って許容されてるんでしょうか・・・。</div></div></div><div class="message event" id="message-1586499578.037300"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1586499578.037300">2020-04-10&nbsp;15:19:38 +0900</a></div></div><div class="message__body description">試しにそういうインスタンスを作ってみて、  <code>enumFromThen</code> などのメソッドがちゃんと動くか気になりますね。</div></div></div><div class="message event" id="message-1586499938.037500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1586499938.037500">2020-04-10&nbsp;15:25:38 +0900</a></div></div><div class="message__body description">まぁ、いずれにしても、すべてのメソッドを則を満たすように実装すれば、飛び飛びになっていても特に問題はないかと思います。</div></div></div><div class="message event" id="message-1586500101.038900"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1586500101.038900">2020-04-10&nbsp;15:28:21 +0900</a></div></div><div class="message__body description">そもそも、 <code>Enum</code> に則があるのかわかんないんですよね…</div></div></div><div class="message event" id="message-1586500177.040900"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1586500177.040900">2020-04-10&nbsp;15:29:37 +0900</a></div></div><div class="message__body description"><code>succ . fromEnum = fromEnum . succ</code> が則なのかとか。これが課されると飛び飛びはあり得なくなりますし。</div></div></div><div class="message event" id="message-1586500239.041200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1586500239.041200">2020-04-10&nbsp;15:30:39 +0900</a></div></div><div class="message__body description">ドキュメントにはそんな則書いてませんよ<br/><a href='https://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#t:Enum'>https://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#t:Enum</a></div></div></div><div class="message event" id="message-1586500636.045700"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1586500636.045700">2020-04-10&nbsp;15:37:16 +0900</a></div></div><div class="message__body description">…_sequentially_ ってどうなんでしょう。或いは、The nullary constructors are assumed to be numbered left-to-right by fromEnum from 0 through n-1.に暗黙についているのが、In the derived instance, なのか In this case , which is of that `Enum` is derivable, なのか… ついてる動詞が_assigned_とかじゃなくて_assumed_なので・・・。</div></div></div><div class="message event" id="message-1586500854.046200"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1586500854.046200">2020-04-10&nbsp;15:40:54 +0900</a></div></div><div class="message__body description">sequentially orderedなのは変換される前の値についての性質であって、`Int`に変換してどう対応させるか、については何も言ってないと思います。<br/>「The nullary constructors are assumed to be numbered left-to-right by fromEnum from 0 through n-1.」はあくまでもderived instanceについての話であって、独自に作る分には関係がないのではないでしょうか。</div></div></div><div class="message event" id="message-1586501176.046800"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1586501176.046800">2020-04-10&nbsp;15:46:16 +0900</a></div></div><div class="message__body description">「あくまでもderived instanceについての話であって」に補足しますと、<br/>「Instances of <code>Enum</code> may be derived for any enumeration type」で始まる段落にあったためです。<br/>同じ文がHaskell 2010 Reportにもあり、そちらでも「Derived instances of Enum」についての話として書かれています。なので、あくまでもderived instanceの文脈だと思っています。<br/><a href='https://www.haskell.org/onlinereport/haskell2010/haskellch11.html#x18-18400011.2'>https://www.haskell.org/onlinereport/haskell2010/haskellch11.html#x18-18400011.2</a></div></div></div><div class="message event" id="message-1586501231.048000"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1586501231.048000">2020-04-10&nbsp;15:47:11 +0900</a></div></div><div class="message__body description">なるほど。となると、基本的に <code>Enum</code> には則はない、ということでいいのかな。</div></div></div><div class="message event" id="message-1586501255.048900"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1586501255.048900">2020-04-10&nbsp;15:47:35 +0900</a></div></div><div class="message__body description"><code>fromEnum (succ x) &gt; fromEnum x</code> とか。</div></div></div><div class="message event" id="message-1586501304.049100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1586501304.049100">2020-04-10&nbsp;15:48:24 +0900</a></div></div><div class="message__body description">強いて挙げるなら <code>succ maxBound</code> がボトムであることとか、<br/><pre>   enumFrom     x   = enumFromTo     x maxBound
+      baseWeekDay = getWeekDay baseDate</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585710885.014900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585710885.014900">2020-04-01 12:14:45 +0900</a></div>
+          </div>
+          <div class="message__body description">例えば、以下のように計算します:<br/>• 今日（2020年4月1日(水)）から次の月曜日（2020年4月6日）であれば <code>5</code><br/>• 今週日曜日（2020年4月5日）から次の月曜日であれば <code>1</code><br/>• 今週月曜日（2020年3月30日）から次の月曜日であれば <code>7</code></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585713632.015100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585713632.015100">2020-04-01 13:00:32 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>(fromEnum nextWeekDay - fromEnum baseWeekDay) `mod` 7</pre><br/> すればいいかと思いましたが、月→月が0になってしまうので良くないですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585713767.015400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585713767.015400">2020-04-01 13:02:47 +0900</a></div>
+          </div>
+          <div class="message__body description">負の数の剰余は、ちょっと前にTwitterでバズってたツイートがあった気がする</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585713924.015700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585713924.015700">2020-04-01 13:05:24 +0900</a></div>
+          </div>
+          <div class="message__body description">どちらにしても、完全に分岐をなくすのはやっぱ難しそうですね...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585714709.016000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tikuwakunn</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585714709.016000">2020-04-01 13:18:29 +0900</a></div>
+          </div>
+          <div class="message__body description">少し汚いですが、こんな感じでどうでしょうか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585719148.016600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585719148.016600">2020-04-01 14:32:28 +0900</a></div>
+          </div>
+          <div class="message__body description">今試してみたらテスト通りました。ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585800084.017700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585800084.017700">2020-04-02 13:01:24 +0900</a></div>
+          </div>
+          <div class="message__body description">いつの間にか <code>cabal</code> から <code>sandbox</code> が消えているんですけど、global environmentを全くいじることなくあるパッケージをghci上で遊んで、遊び終わったら(nix-styleだし別にstore上から消えてろとは言いませんが)environmentから完全に消え去る、ってどうやったらいいんですかね？ (てかこれ <code>beginner</code> レベルか？)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585802764.018100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ncaq</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585802764.018100">2020-04-02 13:46:04 +0900</a></div>
+          </div>
+          <div class="message__body description">beginnerチャンネルがあることを今知った</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585803050.019000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585803050.019000">2020-04-02 13:50:50 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>cabal repl --build-depends=&lt;package&gt;</code> で良いですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585803765.020200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585803765.020200">2020-04-02 14:02:45 +0900</a></div>
+          </div>
+          <div class="message__body description">:information_desk_person: <a href='#CR2TETE5R'>beginners</a> か <a href='#C5666B6BB'>questions</a> かの区別は特に明確に設けていないので、迷ったら <a href='#C5666B6BB'>questions</a> でよいです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585803940.021700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585803940.021700">2020-04-02 14:05:40 +0900</a></div>
+          </div>
+          <div class="message__body description">:information_desk_person: もう一つ補足: 2019年12月8日に作成して以降、このSlack Workspaceに登録した人は必ずjoinするチャンネルとなってますので、それ以前からいらっしゃる方はjoinするのを推奨します :bow:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585804356.021800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">lotz</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585804356.021800">2020-04-02 14:12:36 +0900</a></div>
+          </div>
+          <div class="message__body description">あ、 <a href='#CR2TETE5R'>beginners</a> って必ずjoinするチャンネルになってたんですね!</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585810012.022200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585810012.022200">2020-04-02 15:46:52 +0900</a></div>
+          </div>
+          <div class="message__body description">上で言及した、負の数の剰余に関するツイートはこれでした。<https://twitter.com/hisagrmf/status/1244566234202427392><br/><a href='https://twitter.com/hisagrmf/status/1244587942502252545'>https://twitter.com/hisagrmf/status/1244587942502252545</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585810094.022500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585810094.022500">2020-04-02 15:48:14 +0900</a></div>
+          </div>
+          <div class="message__body description">HaskellのmodはRubyやPythonタイプで、かならず0～n-1になると考えていい奴ですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585865674.023000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mtkaaai</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585865674.023000">2020-04-03 07:14:34 +0900</a></div>
+          </div>
+          <div class="message__body description">@mtkaaai has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585959584.027700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585959584.027700">2020-04-04 09:19:44 +0900</a></div>
+          </div>
+          <div class="message__body description">UbuntuイメージのDockerウェブアプリケーションを開発中なんですが、動作確認を手元のUbuntuでビルド→バイナリをDockerイメージにコピーという方法で動作確認していました。これをWindowsでもやろうと思ったのですがもちろんOSが違います。ビルドツールにCabal、GHC-8.8.2を使用していますがWindows上からサクッとクロスコンパイルでUbuntuの実行バイナリ作れたりするでしょうか（ちらっと調べた限りそんな雰囲気はなかった）。それとも動作確認と割り切ってWindowsようのDockerイメージ作るのが早いでしょうか</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585960361.030200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">notogawa</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585960361.030200">2020-04-04 09:32:41 +0900</a></div>
+          </div>
+          <div class="message__body description">Docker for Windows で Ubuntuコンテナ内でビルドするのがてっとり早いんじゃないかと思います．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585960582.030400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585960582.030400">2020-04-04 09:36:22 +0900</a></div>
+          </div>
+          <div class="message__body description">ですよねー。そう甘くはなかった</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585970548.030700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tikuwakunn</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585970548.030700">2020-04-04 12:22:28 +0900</a></div>
+          </div>
+          <div class="message__body description">当方Windows環境がないので確認できませんが、WSLじゃビルドできないんですかね？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1585970921.030900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">a_kirisaki</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1585970921.030900">2020-04-04 12:28:41 +0900</a></div>
+          </div>
+          <div class="message__body description">ウェブアプリケーションなのでそこまでクロスコンパイル欲求はなく、Windowsのイメージ使って動作確認して済ませてしまいました 。手元で <code>cabal install --install-method=copy --installdir=..</code> してからコピってます。 <a href='https://github.com/kirisaki/prototip-2.kirisaki.dev/blob/master/Dockerfile.win'>https://github.com/kirisaki/prototip-2.kirisaki.dev/blob/master/Dockerfile.win</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586151956.031400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tn78adsl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586151956.031400">2020-04-06 14:45:56 +0900</a></div>
+          </div>
+          <div class="message__body description">@tn78adsl has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586414468.032300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">snisimu</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586414468.032300">2020-04-09 15:41:08 +0900</a></div>
+          </div>
+          <div class="message__body description">@snisimu has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586497930.037100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586497930.037100">2020-04-10 14:52:10 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>Enum</code> って、特に要素のenumeration typeについてderived instance以外を用いるのって許容されてるんでしょうか？ されてるとして、番号が飛び飛びになってるのとか、って許容されてるんでしょうか・・・。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586499578.037300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586499578.037300">2020-04-10 15:19:38 +0900</a></div>
+          </div>
+          <div class="message__body description">試しにそういうインスタンスを作ってみて、  <code>enumFromThen</code> などのメソッドがちゃんと動くか気になりますね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586499938.037500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586499938.037500">2020-04-10 15:25:38 +0900</a></div>
+          </div>
+          <div class="message__body description">まぁ、いずれにしても、すべてのメソッドを則を満たすように実装すれば、飛び飛びになっていても特に問題はないかと思います。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586500101.038900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586500101.038900">2020-04-10 15:28:21 +0900</a></div>
+          </div>
+          <div class="message__body description">そもそも、 <code>Enum</code> に則があるのかわかんないんですよね…</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586500177.040900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586500177.040900">2020-04-10 15:29:37 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>succ . fromEnum = fromEnum . succ</code> が則なのかとか。これが課されると飛び飛びはあり得なくなりますし。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586500239.041200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586500239.041200">2020-04-10 15:30:39 +0900</a></div>
+          </div>
+          <div class="message__body description">ドキュメントにはそんな則書いてませんよ<br/><a href='https://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#t:Enum'>https://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#t:Enum</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586500636.045700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586500636.045700">2020-04-10 15:37:16 +0900</a></div>
+          </div>
+          <div class="message__body description">…_sequentially_ ってどうなんでしょう。或いは、The nullary constructors are assumed to be numbered left-to-right by fromEnum from 0 through n-1.に暗黙についているのが、In the derived instance, なのか In this case , which is of that `Enum` is derivable, なのか… ついてる動詞が_assigned_とかじゃなくて_assumed_なので・・・。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586500854.046200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586500854.046200">2020-04-10 15:40:54 +0900</a></div>
+          </div>
+          <div class="message__body description">sequentially orderedなのは変換される前の値についての性質であって、`Int`に変換してどう対応させるか、については何も言ってないと思います。<br/>「The nullary constructors are assumed to be numbered left-to-right by fromEnum from 0 through n-1.」はあくまでもderived instanceについての話であって、独自に作る分には関係がないのではないでしょうか。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586501176.046800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586501176.046800">2020-04-10 15:46:16 +0900</a></div>
+          </div>
+          <div class="message__body description">「あくまでもderived instanceについての話であって」に補足しますと、<br/>「Instances of <code>Enum</code> may be derived for any enumeration type」で始まる段落にあったためです。<br/>同じ文がHaskell 2010 Reportにもあり、そちらでも「Derived instances of Enum」についての話として書かれています。なので、あくまでもderived instanceの文脈だと思っています。<br/><a href='https://www.haskell.org/onlinereport/haskell2010/haskellch11.html#x18-18400011.2'>https://www.haskell.org/onlinereport/haskell2010/haskellch11.html#x18-18400011.2</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586501231.048000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586501231.048000">2020-04-10 15:47:11 +0900</a></div>
+          </div>
+          <div class="message__body description">なるほど。となると、基本的に <code>Enum</code> には則はない、ということでいいのかな。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586501255.048900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586501255.048900">2020-04-10 15:47:35 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>fromEnum (succ x) &gt; fromEnum x</code> とか。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586501304.049100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586501304.049100">2020-04-10 15:48:24 +0900</a></div>
+          </div>
+          <div class="message__body description">強いて挙げるなら <code>succ maxBound</code> がボトムであることとか、<br/><pre>   enumFrom     x   = enumFromTo     x maxBound
    enumFromThen x y = enumFromThenTo x y bound
      where
        bound | fromEnum y &gt;= fromEnum x = maxBound
-             | otherwise                = minBound</pre><br/>でしょうね。</div></div></div><div class="message event" id="message-1586501360.049500"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1586501360.049500">2020-04-10&nbsp;15:49:20 +0900</a></div></div><div class="message__body description">確かに <code>fromEnum (succ x) &gt; succ x</code> も明確に言及されてないですがそうあってほしいですね... :thinking_face:</div></div></div><div class="message event" id="message-1586501598.052900"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1586501598.052900">2020-04-10&nbsp;15:53:18 +0900</a></div></div><div class="message__body description"><code>enumFrom x = x : enumFrom (succ x)</code> where <code>succ x</code> is non-bottomとか課されてないって考えるとちょっと背筋が寒くなるというか……これは sequentially orderedで課されてるって認識でいいんでしょうか。</div></div></div><div class="message event" id="message-1586501945.056100"><div class="content"><div class="summary"><div class="message__header user">igrep</div><div class="message__timestamp date"><a class="date" href="#message-1586501945.056100">2020-04-10&nbsp;15:59:05 +0900</a></div></div><div class="message__body description">それはちょっとわからないんですが、一つ重要な見落としがありました。<br/>デフォルトの実装は明らかに飛び飛びになっていることを想定してなさそうなので、もし飛び飛びにしない場合はすべてのメソッドを実装しなきゃですね...<br/><a href='https://hackage.haskell.org/package/base-4.12.0.0/docs/src/GHC.Enum.html#succ'>https://hackage.haskell.org/package/base-4.12.0.0/docs/src/GHC.Enum.html#succ</a></div></div></div><div class="message event" id="message-1586501946.056300"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1586501946.056300">2020-04-10&nbsp;15:59:06 +0900</a></div></div><div class="message__body description">もちろんわかるはずがない、これ、よくないなあ（というか <code>Double</code> のインスタンスが満たしてないだろうから、課すわけにもいかなかったのかな）</div></div></div><div class="message event" id="message-1586501974.056900"><div class="content"><div class="summary"><div class="message__header user">gettaplacetogo</div><div class="message__timestamp date"><a class="date" href="#message-1586501974.056900">2020-04-10&nbsp;15:59:34 +0900</a></div></div><div class="message__body description">あ、それはそうです。</div></div></div><div class="message event" id="message-1586696402.057200"><div class="content"><div class="summary"><div class="message__header user">nobsun</div><div class="message__timestamp date"><a class="date" href="#message-1586696402.057200">2020-04-12&nbsp;22:00:02 +0900</a></div></div><div class="message__body description">Float とか Double が Enum のインスタンスになっているところが落とし穴になっていますね．[2.3 .. 10]を評価すると穴の深さがわかります．:sweat_smile:</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/81.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/83.html" class="pager__next item">Next</a></div></div></body></html>
+             | otherwise                = minBound</pre><br/>でしょうね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586501360.049500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586501360.049500">2020-04-10 15:49:20 +0900</a></div>
+          </div>
+          <div class="message__body description">確かに <code>fromEnum (succ x) &gt; succ x</code> も明確に言及されてないですがそうあってほしいですね... :thinking_face:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586501598.052900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586501598.052900">2020-04-10 15:53:18 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>enumFrom x = x : enumFrom (succ x)</code> where <code>succ x</code> is non-bottomとか課されてないって考えるとちょっと背筋が寒くなるというか……これは sequentially orderedで課されてるって認識でいいんでしょうか。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586501945.056100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586501945.056100">2020-04-10 15:59:05 +0900</a></div>
+          </div>
+          <div class="message__body description">それはちょっとわからないんですが、一つ重要な見落としがありました。<br/>デフォルトの実装は明らかに飛び飛びになっていることを想定してなさそうなので、もし飛び飛びにしない場合はすべてのメソッドを実装しなきゃですね...<br/><a href='https://hackage.haskell.org/package/base-4.12.0.0/docs/src/GHC.Enum.html#succ'>https://hackage.haskell.org/package/base-4.12.0.0/docs/src/GHC.Enum.html#succ</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586501946.056300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586501946.056300">2020-04-10 15:59:06 +0900</a></div>
+          </div>
+          <div class="message__body description">もちろんわかるはずがない、これ、よくないなあ（というか <code>Double</code> のインスタンスが満たしてないだろうから、課すわけにもいかなかったのかな）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586501974.056900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">gettaplacetogo</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586501974.056900">2020-04-10 15:59:34 +0900</a></div>
+          </div>
+          <div class="message__body description">あ、それはそうです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1586696402.057200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nobsun</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1586696402.057200">2020-04-12 22:00:02 +0900</a></div>
+          </div>
+          <div class="message__body description">Float とか Double が Enum のインスタンスになっているところが落とし穴になっていますね．[2.3 .. 10]を評価すると穴の深さがわかります．:sweat_smile:</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/81.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/83.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>

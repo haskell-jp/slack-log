@@ -1,6 +1,118 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>haskell-jp / questions #53</title><link rel="stylesheet" href="../../main.css" type="text/css" media="screen"></head><body><div class="ui container"><h1>haskell-jp / questions #53</h1><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/52.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/54.html" class="pager__next item">Next</a></div><div class="message_list ui feed"><div class="message event" id="message-1552480507.253700"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1552480507.253700">2019-03-13&nbsp;21:35:07 +0900</a></div></div><div class="message__body description"><pre>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #53</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #53</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/52.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/54.html" class="pager__next item">Next</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1552480507.253700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552480507.253700">2019-03-13 21:35:07 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>
 Map.insert k v &lt;$&gt; buildMap (ks, vs)
-</pre><br/><br/>これはbuildMapが全部返ってきてからMaybeでパターンマッチする形になるから、確かにスタック積み上がりそう。こういう所はHaskellでも末尾再帰気にしないといけないんですね</div></div></div><div class="message event" id="message-1552480780.253900"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1552480780.253900">2019-03-13&nbsp;21:39:40 +0900</a></div></div><div class="message__body description">ここのfromListはなんかinsertじゃない処理やっているような……？<br/><a href='http://hackage.haskell.org/package/containers-0.6.0.1/docs/src/Data.Map.Internal.html#fromList'>http://hackage.haskell.org/package/containers-0.6.0.1/docs/src/Data.Map.Internal.html#fromList</a></div></div></div><div class="message event" id="message-1552481752.254200"><div class="content"><div class="summary"><div class="message__header user">nobsun</div><div class="message__timestamp date"><a class="date" href="#message-1552481752.254200">2019-03-13&nbsp;21:55:52 +0900</a></div></div><div class="message__body description">foldr なのは，キーリストとかバリューリストにNothingがあったときのショートカット用です．</div></div></div><div class="message event" id="message-1552484005.256600"><div class="content"><div class="summary"><div class="message__header user">autotaker</div><div class="message__timestamp date"><a class="date" href="#message-1552484005.256600">2019-03-13&nbsp;22:33:25 +0900</a></div></div><div class="message__body description">あ、自分の見てたcontainersのバージョンが古かったようです。<br/>でもソートされていないリストに対しては<br/>やっぱりinsertで実装されてますね</div></div></div><div class="message event" id="message-1552485522.258300"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1552485522.258300">2019-03-13&nbsp;22:58:42 +0900</a></div></div><div class="message__body description">確かに、たまたま先頭が昇順になってた場合だけ違う処理してるのか</div></div></div><div class="message event" id="message-1552491276.260900"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1552491276.260900">2019-03-14&nbsp;00:34:36 +0900</a></div></div><div class="message__body description">末尾再帰については、集積引数を増やして積んでも結局変わらないですね…速度的にも、二回に分けるのが実は正解なのではと思い始める</div></div></div><div class="message event" id="message-1552524686.261100"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1552524686.261100">2019-03-14&nbsp;09:51:26 +0900</a></div></div><div class="message__body description">いや、速度測ってないけど、変わらなくはない（リスト末尾にpushするつもりでO(N^2)と見積もってたけど、insertで直接マップ作るならO(N log N)だ）</div></div></div><div class="message event" id="message-1552553989.261400"><div class="content"><div class="summary"><div class="message__header user">99fabianb</div><div class="message__timestamp date"><a class="date" href="#message-1552553989.261400">2019-03-14&nbsp;17:59:49 +0900</a></div></div><div class="message__body description">@99fabianb has joined the channel</div></div></div><div class="message event" id="message-1552657517.262200"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1552657517.262200">2019-03-15&nbsp;22:45:17 +0900</a></div></div><div class="message__body description">等式論証って何ですか？ググってもわからず。</div></div></div><div class="message event" id="message-1552658857.262400"><div class="content"><div class="summary"><div class="message__header user">ryenana</div><div class="message__timestamp date"><a class="date" href="#message-1552658857.262400">2019-03-15&nbsp;23:07:37 +0900</a></div></div><div class="message__body description">@ryenana has joined the channel</div></div></div><div class="message event" id="message-1552669928.265400"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1552669928.265400">2019-03-16&nbsp;02:12:08 +0900</a></div></div><div class="message__body description"><pre>
+</pre><br/><br/>これはbuildMapが全部返ってきてからMaybeでパターンマッチする形になるから、確かにスタック積み上がりそう。こういう所はHaskellでも末尾再帰気にしないといけないんですね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552480780.253900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552480780.253900">2019-03-13 21:39:40 +0900</a></div>
+          </div>
+          <div class="message__body description">ここのfromListはなんかinsertじゃない処理やっているような……？<br/><a href='http://hackage.haskell.org/package/containers-0.6.0.1/docs/src/Data.Map.Internal.html#fromList'>http://hackage.haskell.org/package/containers-0.6.0.1/docs/src/Data.Map.Internal.html#fromList</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552481752.254200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nobsun</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552481752.254200">2019-03-13 21:55:52 +0900</a></div>
+          </div>
+          <div class="message__body description">foldr なのは，キーリストとかバリューリストにNothingがあったときのショートカット用です．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552484005.256600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">autotaker</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552484005.256600">2019-03-13 22:33:25 +0900</a></div>
+          </div>
+          <div class="message__body description">あ、自分の見てたcontainersのバージョンが古かったようです。<br/>でもソートされていないリストに対しては<br/>やっぱりinsertで実装されてますね</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552485522.258300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552485522.258300">2019-03-13 22:58:42 +0900</a></div>
+          </div>
+          <div class="message__body description">確かに、たまたま先頭が昇順になってた場合だけ違う処理してるのか</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552491276.260900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552491276.260900">2019-03-14 00:34:36 +0900</a></div>
+          </div>
+          <div class="message__body description">末尾再帰については、集積引数を増やして積んでも結局変わらないですね…速度的にも、二回に分けるのが実は正解なのではと思い始める</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552524686.261100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552524686.261100">2019-03-14 09:51:26 +0900</a></div>
+          </div>
+          <div class="message__body description">いや、速度測ってないけど、変わらなくはない（リスト末尾にpushするつもりでO(N^2)と見積もってたけど、insertで直接マップ作るならO(N log N)だ）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552553989.261400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">99fabianb</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552553989.261400">2019-03-14 17:59:49 +0900</a></div>
+          </div>
+          <div class="message__body description">@99fabianb has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552657517.262200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552657517.262200">2019-03-15 22:45:17 +0900</a></div>
+          </div>
+          <div class="message__body description">等式論証って何ですか？ググってもわからず。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552658857.262400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">ryenana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552658857.262400">2019-03-15 23:07:37 +0900</a></div>
+          </div>
+          <div class="message__body description">@ryenana has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552669928.265400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552669928.265400">2019-03-16 02:12:08 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>
 data Hoge = II
 huga x = x
 
@@ -28,16 +140,88 @@ main = do
     i &lt;- return II
     putStrLn "hello, world"
 
-</pre><br/>として、iはmonado typeを受けていますが。これは、type ‘IO a0’じゃないですが、なぜいいんでしょう？<br/>あと、type ‘IO a0’とはなんでしょう？<br/>IOなのはわかっているんですが。</div></div></div><div class="message event" id="message-1552670414.266600"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1552670414.266600">2019-03-16&nbsp;02:20:14 +0900</a></div></div><div class="message__body description"><pre>
+</pre><br/>として、iはmonado typeを受けていますが。これは、type ‘IO a0’じゃないですが、なぜいいんでしょう？<br/>あと、type ‘IO a0’とはなんでしょう？<br/>IOなのはわかっているんですが。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552670414.266600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552670414.266600">2019-03-16 02:20:14 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>
 data Hoge = II
 huga x = x
 
 main = do
     i &lt;- return II
     putStrLn "hello, world"
-</pre><br/>type Hogeはmonadのインスタンスではないのに、returnできるのはなぜでしょう？</div></div></div><div class="message event" id="message-1552672316.268600"><div class="content"><div class="summary"><div class="message__header user">sugano</div><div class="message__timestamp date"><a class="date" href="#message-1552672316.268600">2019-03-16&nbsp;02:51:56 +0900</a></div></div><div class="message__body description">ただの値だからでは...？</div></div></div><div class="message event" id="message-1552672569.271000"><div class="content"><div class="summary"><div class="message__header user">sugano</div><div class="message__timestamp date"><a class="date" href="#message-1552672569.271000">2019-03-16&nbsp;02:56:09 +0900</a></div></div><div class="message__body description">まずiに期待されている型はIO a0じゃないですね...それはi &lt;-の右側の式に期待されている型です<br/><br/>質問を理解するために質問したいのですが，”モナド型”を受けるとはなんでしょうか...</div></div></div><div class="message event" id="message-1552673313.275600"><div class="content"><div class="summary"><div class="message__header user">sugano</div><div class="message__timestamp date"><a class="date" href="#message-1552673313.275600">2019-03-16&nbsp;03:08:33 +0900</a></div></div><div class="message__body description">あとhugaは純粋な関数なのでそこに書く必要はなさそうです．純粋な式はletで束縛するとよいと思います．</div></div></div><div class="message event" id="message-1552673508.278100"><div class="content"><div class="summary"><div class="message__header user">sugano</div><div class="message__timestamp date"><a class="date" href="#message-1552673508.278100">2019-03-16&nbsp;03:11:48 +0900</a></div></div><div class="message__body description">そして後者の型はIO ?? の形になってます．return で包んでいるので．</div></div></div><div class="message event" id="message-1552674893.278400"><div class="content"><div class="summary"><div class="message__header user">cohei</div><div class="message__timestamp date"><a class="date" href="#message-1552674893.278400">2019-03-16&nbsp;03:34:53 +0900</a></div></div><div class="message__body description"><code>return</code> の型は <code>Monad m =&gt; a -&gt; m a</code> であり、引数の型 (ここでは <code>a</code> という型変数で表されています) が Monad のインスタンスかどうかを気にしないからです…というのではどうでしょう?</div></div></div><div class="message event" id="message-1552692812.279000"><div class="content"><div class="summary"><div class="message__header user">autotaker</div><div class="message__timestamp date"><a class="date" href="#message-1552692812.279000">2019-03-16&nbsp;08:33:32 +0900</a></div></div><div class="message__body description">一つ前の質問とまとめて回答します。<br/><br/>まず、IOモナドの <code>do</code>記法で<br/><pre>
+</pre><br/>type Hogeはmonadのインスタンスではないのに、returnできるのはなぜでしょう？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552672316.268600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">sugano</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552672316.268600">2019-03-16 02:51:56 +0900</a></div>
+          </div>
+          <div class="message__body description">ただの値だからでは...？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552672569.271000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">sugano</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552672569.271000">2019-03-16 02:56:09 +0900</a></div>
+          </div>
+          <div class="message__body description">まずiに期待されている型はIO a0じゃないですね...それはi &lt;-の右側の式に期待されている型です<br/><br/>質問を理解するために質問したいのですが，”モナド型”を受けるとはなんでしょうか...</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552673313.275600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">sugano</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552673313.275600">2019-03-16 03:08:33 +0900</a></div>
+          </div>
+          <div class="message__body description">あとhugaは純粋な関数なのでそこに書く必要はなさそうです．純粋な式はletで束縛するとよいと思います．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552673508.278100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">sugano</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552673508.278100">2019-03-16 03:11:48 +0900</a></div>
+          </div>
+          <div class="message__body description">そして後者の型はIO ?? の形になってます．return で包んでいるので．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552674893.278400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cohei</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552674893.278400">2019-03-16 03:34:53 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>return</code> の型は <code>Monad m =&gt; a -&gt; m a</code> であり、引数の型 (ここでは <code>a</code> という型変数で表されています) が Monad のインスタンスかどうかを気にしないからです…というのではどうでしょう?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552692812.279000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">autotaker</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552692812.279000">2019-03-16 08:33:32 +0900</a></div>
+          </div>
+          <div class="message__body description">一つ前の質問とまとめて回答します。<br/><br/>まず、IOモナドの <code>do</code>記法で<br/><pre>
 i &lt;- e
-</pre><br/>( <code>e</code>はなんらかの式）と書くと、 <code>e</code>は <code>IO a</code>型、 <code>i</code>は <code>a</code>型に推論されます。一つ目のプログラムでは<br/><code>huga II</code>は <code>Hoge</code>型であり、`IO a`型とマッチできないので型エラーが発生しています。<br/>一方、二つ目のプログラムでは<br/><code>return II</code>は <code>Monad m =&gt; m Hoge</code>という型に推論されます。これを <code>IO a</code>型とマッチさせると、 <code>m = IO, a = Hoge</code>という解が見つかるのでエラーは発生しません。</div></div></div><div class="message event" id="message-1552693621.283400"><div class="content"><div class="summary"><div class="message__header user">autotaker</div><div class="message__timestamp date"><a class="date" href="#message-1552693621.283400">2019-03-16&nbsp;08:47:01 +0900</a></div></div><div class="message__body description"><pre>
+</pre><br/>( <code>e</code>はなんらかの式）と書くと、 <code>e</code>は <code>IO a</code>型、 <code>i</code>は <code>a</code>型に推論されます。一つ目のプログラムでは<br/><code>huga II</code>は <code>Hoge</code>型であり、`IO a`型とマッチできないので型エラーが発生しています。<br/>一方、二つ目のプログラムでは<br/><code>return II</code>は <code>Monad m =&gt; m Hoge</code>という型に推論されます。これを <code>IO a</code>型とマッチさせると、 <code>m = IO, a = Hoge</code>という解が見つかるのでエラーは発生しません。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552693621.283400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">autotaker</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552693621.283400">2019-03-16 08:47:01 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>
 data Fool where
   Fool :: ('True ~ 'False) =&gt; Fool
 theFool  :: Fool
@@ -45,21 +229,165 @@ theFool = ???
 main :: IO ()
 main = case theFool of
   Fool -&gt; pure () 
-</pre><br/>としてunsafeな関数を使っても良いので`Fool`型の値を得ることってできますか？(mainを実行時エラー起こさずに実行したい）</div></div></div><div class="message event" id="message-1552696235.283600"><div class="content"><div class="summary"><div class="message__header user">notogawa</div><div class="message__timestamp date"><a class="date" href="#message-1552696235.283600">2019-03-16&nbsp;09:30:35 +0900</a></div></div><div class="message__body description"><code>Fool</code> 型の値は得られない(Emptyである)ことが証明できるので，得られません．<br/><pre>
+</pre><br/>としてunsafeな関数を使っても良いので`Fool`型の値を得ることってできますか？(mainを実行時エラー起こさずに実行したい）</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552696235.283600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">notogawa</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552696235.283600">2019-03-16 09:30:35 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>Fool</code> 型の値は得られない(Emptyである)ことが証明できるので，得られません．<br/><pre>
 theFool :: Fool
 theFool = case refl of {} where
   refl :: (a ~ b) =&gt; a :~: b
   refl = Refl
-</pre></div></div></div><div class="message event" id="message-1552696479.283800"><div class="content"><div class="summary"><div class="message__header user">notogawa</div><div class="message__timestamp date"><a class="date" href="#message-1552696479.283800">2019-03-16&nbsp;09:34:39 +0900</a></div></div><div class="message__body description">これが得られるようになるレベルのunsafeとは「任意の型の値が作成できる」という度合いのunsafeさであり，型による安全性を投げ捨てることになります．</div></div></div><div class="message event" id="message-1552697099.284000"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1552697099.284000">2019-03-16&nbsp;09:44:59 +0900</a></div></div><div class="message__body description">実行時エラーを起こさないというのを文字通りに取れば <code>theFool = theFool</code> も要件を満たしますがそういうことではないですよね。<br/> <code>theFool = unsafeCoerce $ \_ -&gt; ()</code> とか。</div></div></div><div class="message event" id="message-1552697161.284200"><div class="content"><div class="summary"><div class="message__header user">maoe</div><div class="message__timestamp date"><a class="date" href="#message-1552697161.284200">2019-03-16&nbsp;09:46:01 +0900</a></div></div><div class="message__body description">引数は使われないので <code>unsafeCoerce ()</code> でも動くと思いますが <code>Fool</code> のarityは1になると思うので <code>const ()</code> の方が良いかもしれません。</div></div></div><div class="message event" id="message-1552703454.284500"><div class="content"><div class="summary"><div class="message__header user">autotaker</div><div class="message__timestamp date"><a class="date" href="#message-1552703454.284500">2019-03-16&nbsp;11:30:54 +0900</a></div></div><div class="message__body description"><blockquote>｀Fool｀ 型の値は得られない(Emptyである)ことが証明できるので，得られません．</blockquote><br/>実際にやりたいのは <code>True ~ False</code>ほど邪悪なのではなくて、 <code>SomeConstraint :: * -&gt; Constraint</code> をtype familyとして、<br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552696479.283800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">notogawa</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552696479.283800">2019-03-16 09:34:39 +0900</a></div>
+          </div>
+          <div class="message__body description">これが得られるようになるレベルのunsafeとは「任意の型の値が作成できる」という度合いのunsafeさであり，型による安全性を投げ捨てることになります．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552697099.284000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552697099.284000">2019-03-16 09:44:59 +0900</a></div>
+          </div>
+          <div class="message__body description">実行時エラーを起こさないというのを文字通りに取れば <code>theFool = theFool</code> も要件を満たしますがそういうことではないですよね。<br/> <code>theFool = unsafeCoerce $ \_ -&gt; ()</code> とか。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552697161.284200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">maoe</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552697161.284200">2019-03-16 09:46:01 +0900</a></div>
+          </div>
+          <div class="message__body description">引数は使われないので <code>unsafeCoerce ()</code> でも動くと思いますが <code>Fool</code> のarityは1になると思うので <code>const ()</code> の方が良いかもしれません。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552703454.284500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">autotaker</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552703454.284500">2019-03-16 11:30:54 +0900</a></div>
+          </div>
+          <div class="message__body description"><blockquote>｀Fool｀ 型の値は得られない(Emptyである)ことが証明できるので，得られません．</blockquote><br/>実際にやりたいのは <code>True ~ False</code>ほど邪悪なのではなくて、 <code>SomeConstraint :: * -&gt; Constraint</code> をtype familyとして、<br/><pre>
 data Cert a where
   Cert :: SomeConstraint a =&gt; Cert a
-</pre><br/>みたいなことです。 <code>a</code>がコンパイル時に分かっている場合には <code>SomeConstraint a</code>が簡約できてうまくいくんですが、 <code>a</code>が実行時にしかわからないケースもサポートしたくて、動的に <code>SomeConstraint</code>相当のチェックをしてから <code>Cert</code>の値を作りたいという状況です。<br/><br/><blockquote>引数は使われないので ｀unsafeCoerce ()｀ でも動くと思いますが ｀Fool｀ のarityは1になると思うので ｀const ()｀ の方が良いかもしれません。</blockquote>やはり <code>unsafeCoerce</code>を使うのが無難そうですね。</div></div></div><div class="message event" id="message-1552712738.287300"><div class="content"><div class="summary"><div class="message__header user">momiimt</div><div class="message__timestamp date"><a class="date" href="#message-1552712738.287300">2019-03-16&nbsp;14:05:38 +0900</a></div></div><div class="message__body description">@momiimt has joined the channel</div></div></div><div class="message event" id="message-1552713620.287900"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1552713620.287900">2019-03-16&nbsp;14:20:20 +0900</a></div></div><div class="message__body description">これのGADTの節みたいな感じでしょうか <a href='https://propella.hatenablog.com/entry/20101218/p1'>https://propella.hatenablog.com/entry/20101218/p1</a></div></div></div><div class="message event" id="message-1552713874.288200"><div class="content"><div class="summary"><div class="message__header user">as_capabl</div><div class="message__timestamp date"><a class="date" href="#message-1552713874.288200">2019-03-16&nbsp;14:24:34 +0900</a></div></div><div class="message__body description"><code>data Cert a where ...</code> ではなく <code>data Cert where</code> にして、あとはtheFoolにあたる関数theCertの型を <code>theCert :: SomeConstraint a =&gt;  a -&gt; Cert</code> とするイメージかなと思います</div></div></div><div class="message event" id="message-1552726047.288500"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1552726047.288500">2019-03-16&nbsp;17:47:27 +0900</a></div></div><div class="message__body description">@autotaker さんの回答よくわかりました。</div></div></div><div class="message event" id="message-1552726074.288700"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1552726074.288700">2019-03-16&nbsp;17:47:54 +0900</a></div></div><div class="message__body description">returnの型はわかるんですが、本体はどこにあるのでしょう？</div></div></div><div class="message event" id="message-1552728599.288900"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1552728599.288900">2019-03-16&nbsp;18:29:59 +0900</a></div></div><div class="message__body description"><a href='http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#v:return'>http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#v:return</a><br/>ですね。もう少し細かいことを言うと、GHCが提供する標準ライブラリの中にあり、管理の都合上 GHC.Base モジュールで定義されていて、それをHaskellを書く際暗黙で import される Prelude モジュールが含んでいる形になります</div></div></div><div class="message event" id="message-1552729243.289100"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1552729243.289100">2019-03-16&nbsp;18:40:43 +0900</a></div></div><div class="message__body description">@autotaker なぜm = IOになるのでしょう。これは、monado IOのreturnを使っているからだと思うのですが、なぜmonad IOなのでしょう？(これは、型推論….?</div></div></div><div class="message event" id="message-1552729534.289500"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1552729534.289500">2019-03-16&nbsp;18:45:34 +0900</a></div></div><div class="message__body description">あと、IO a0のa0って何ですか？</div></div></div><div class="message event" id="message-1552730552.289900"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1552730552.289900">2019-03-16&nbsp;19:02:32 +0900</a></div></div><div class="message__body description">なぜ、 <code>i &lt;- e</code> とかくとeはIO aに推論されるのでしょう？mainがIOのため？</div></div></div><div class="message event" id="message-1552731059.290100"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1552731059.290100">2019-03-16&nbsp;19:10:59 +0900</a></div></div><div class="message__body description">そうです，型推論により <code>m = IO</code> となります．Haskell では，<br/><pre>
+</pre><br/>みたいなことです。 <code>a</code>がコンパイル時に分かっている場合には <code>SomeConstraint a</code>が簡約できてうまくいくんですが、 <code>a</code>が実行時にしかわからないケースもサポートしたくて、動的に <code>SomeConstraint</code>相当のチェックをしてから <code>Cert</code>の値を作りたいという状況です。<br/><br/><blockquote>引数は使われないので ｀unsafeCoerce ()｀ でも動くと思いますが ｀Fool｀ のarityは1になると思うので ｀const ()｀ の方が良いかもしれません。</blockquote>やはり <code>unsafeCoerce</code>を使うのが無難そうですね。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552712738.287300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">momiimt</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552712738.287300">2019-03-16 14:05:38 +0900</a></div>
+          </div>
+          <div class="message__body description">@momiimt has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552713620.287900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552713620.287900">2019-03-16 14:20:20 +0900</a></div>
+          </div>
+          <div class="message__body description">これのGADTの節みたいな感じでしょうか <a href='https://propella.hatenablog.com/entry/20101218/p1'>https://propella.hatenablog.com/entry/20101218/p1</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552713874.288200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">as_capabl</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552713874.288200">2019-03-16 14:24:34 +0900</a></div>
+          </div>
+          <div class="message__body description"><code>data Cert a where ...</code> ではなく <code>data Cert where</code> にして、あとはtheFoolにあたる関数theCertの型を <code>theCert :: SomeConstraint a =&gt;  a -&gt; Cert</code> とするイメージかなと思います</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552726047.288500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552726047.288500">2019-03-16 17:47:27 +0900</a></div>
+          </div>
+          <div class="message__body description">@autotaker さんの回答よくわかりました。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552726074.288700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552726074.288700">2019-03-16 17:47:54 +0900</a></div>
+          </div>
+          <div class="message__body description">returnの型はわかるんですが、本体はどこにあるのでしょう？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552728599.288900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552728599.288900">2019-03-16 18:29:59 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#v:return'>http://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#v:return</a><br/>ですね。もう少し細かいことを言うと、GHCが提供する標準ライブラリの中にあり、管理の都合上 GHC.Base モジュールで定義されていて、それをHaskellを書く際暗黙で import される Prelude モジュールが含んでいる形になります</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552729243.289100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552729243.289100">2019-03-16 18:40:43 +0900</a></div>
+          </div>
+          <div class="message__body description">@autotaker なぜm = IOになるのでしょう。これは、monado IOのreturnを使っているからだと思うのですが、なぜmonad IOなのでしょう？(これは、型推論….?</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552729534.289500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552729534.289500">2019-03-16 18:45:34 +0900</a></div>
+          </div>
+          <div class="message__body description">あと、IO a0のa0って何ですか？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552730552.289900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552730552.289900">2019-03-16 19:02:32 +0900</a></div>
+          </div>
+          <div class="message__body description">なぜ、 <code>i &lt;- e</code> とかくとeはIO aに推論されるのでしょう？mainがIOのため？</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552731059.290100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552731059.290100">2019-03-16 19:10:59 +0900</a></div>
+          </div>
+          <div class="message__body description">そうです，型推論により <code>m = IO</code> となります．Haskell では，<br/><pre>
 do
   i &lt;- e
   …
 </pre><br/>は，<br/><pre>
 e &gt;&gt;= \i -&gt; ...
-</pre><br/>の略記法になります．ここで， <code>&gt;&gt;=</code> は <a href='https://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#v:-62--62--61-'>https://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#v:-62--62--61-</a> の型を持つ型クラスのメソッドになります．今回は <code>putStrLn "Hello World!" :: IO ()</code> が続くのでここから<br/>1. <code>(&gt;&gt;=) :: m a -&gt; (a -&gt; m b) -&gt; m b</code> の <code>m b</code> の部分が <code>IO ()</code> と一致すると判定され <code>m = IO</code> / <code>b = ()</code> となります<br/>2. <code>m = IO</code> から <code>return II :: m Hoge</code> の部分の <code>m</code>  も <code>m = IO</code> と推論されます</div></div></div><div class="message event" id="message-1552731319.290300"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1552731319.290300">2019-03-16&nbsp;19:15:19 +0900</a></div></div><div class="message__body description">型エラーにおいて表示されている <code>IO a0</code> の <code>a0</code> は例えば<br/><pre>
+</pre><br/>の略記法になります．ここで， <code>&gt;&gt;=</code> は <a href='https://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#v:-62--62--61-'>https://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#v:-62--62--61-</a> の型を持つ型クラスのメソッドになります．今回は <code>putStrLn "Hello World!" :: IO ()</code> が続くのでここから<br/>1. <code>(&gt;&gt;=) :: m a -&gt; (a -&gt; m b) -&gt; m b</code> の <code>m b</code> の部分が <code>IO ()</code> と一致すると判定され <code>m = IO</code> / <code>b = ()</code> となります<br/>2. <code>m = IO</code> から <code>return II :: m Hoge</code> の部分の <code>m</code>  も <code>m = IO</code> と推論されます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552731319.290300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552731319.290300">2019-03-16 19:15:19 +0900</a></div>
+          </div>
+          <div class="message__body description">型エラーにおいて表示されている <code>IO a0</code> の <code>a0</code> は例えば<br/><pre>
 f :: Maybe a -&gt; ()
 f _ = ()
 
@@ -67,7 +395,79 @@ g :: Maybe a -&gt; ()
 g _ = ()
 
 h = f (g ())
-</pre><br/>というようなプログラムにおいて， <code>f</code> の引数における型変数 <code>a</code> のことなのか， <code>g</code> の引数における型変数 <code>a</code> のことなのか分からなくなることを避けるため，番号を暗黙に振り分けるということが内部で行われている結果です．確かに，少し分かりにくいですね．</div></div></div><div class="message event" id="message-1552732529.290600"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1552732529.290600">2019-03-16&nbsp;19:35:29 +0900</a></div></div><div class="message__body description">@mizunashi-mana なるほど。わかりやすい説明ありがとうございます。</div></div></div><div class="message event" id="message-1552732742.290900"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1552732742.290900">2019-03-16&nbsp;19:39:02 +0900</a></div></div><div class="message__body description">あと、質問なのですが、 <code>(&gt;&gt;=) :: m a -&gt; (a -&gt; m b) -&gt; m b</code>は <code>ma</code> と <code>(a -&gt; mb)</code>の二つ引数をとるのに、`e <blockquote><blockquote>= \i -&gt; ...`  だと <code>e</code> 一つしか引数に取らないように見えますがどうなんでしょう？</blockquote></blockquote></div></div></div><div class="message event" id="message-1552733207.291700"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1552733207.291700">2019-03-16&nbsp;19:46:47 +0900</a></div></div><div class="message__body description">あ、もしかして、&gt;&gt;=の右側が第二引数…</div></div></div><div class="message event" id="message-1552733302.291900"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1552733302.291900">2019-03-16&nbsp;19:48:22 +0900</a></div></div><div class="message__body description">はい． Haskell では記号の関数か文字の関数かで演算子かどうかが分かれていて，記号の関数はデフォルトで二項演算子になります</div></div></div><div class="message event" id="message-1552733326.292100"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1552733326.292100">2019-03-16&nbsp;19:48:46 +0900</a></div></div><div class="message__body description">了解です。あざす</div></div></div><div class="message event" id="message-1552733367.292400"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1552733367.292400">2019-03-16&nbsp;19:49:27 +0900</a></div></div><div class="message__body description">別スレッドで、解決しました。返答していただき、ありがとうございました。</div></div></div><div class="message event" id="message-1552747810.292700"><div class="content"><div class="summary"><div class="message__header user">yki0311hiro</div><div class="message__timestamp date"><a class="date" href="#message-1552747810.292700">2019-03-16&nbsp;23:50:10 +0900</a></div></div><div class="message__body description">@yki0311hiro has joined the channel</div></div></div><div class="message event" id="message-1552749095.294500"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1552749095.294500">2019-03-17&nbsp;00:11:35 +0900</a></div></div><div class="message__body description">doは&gt;&gt;=のシンタックスシュガーのため、do構文で書いたものは、それなしに書きかえれますよね？<br/>以下のは書きかえれますかね？<br/><pre>
+</pre><br/>というようなプログラムにおいて， <code>f</code> の引数における型変数 <code>a</code> のことなのか， <code>g</code> の引数における型変数 <code>a</code> のことなのか分からなくなることを避けるため，番号を暗黙に振り分けるということが内部で行われている結果です．確かに，少し分かりにくいですね．</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552732529.290600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552732529.290600">2019-03-16 19:35:29 +0900</a></div>
+          </div>
+          <div class="message__body description">@mizunashi-mana なるほど。わかりやすい説明ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552732742.290900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552732742.290900">2019-03-16 19:39:02 +0900</a></div>
+          </div>
+          <div class="message__body description">あと、質問なのですが、 <code>(&gt;&gt;=) :: m a -&gt; (a -&gt; m b) -&gt; m b</code>は <code>ma</code> と <code>(a -&gt; mb)</code>の二つ引数をとるのに、`e <blockquote><blockquote>= \i -&gt; ...`  だと <code>e</code> 一つしか引数に取らないように見えますがどうなんでしょう？</blockquote></blockquote></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552733207.291700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552733207.291700">2019-03-16 19:46:47 +0900</a></div>
+          </div>
+          <div class="message__body description">あ、もしかして、&gt;&gt;=の右側が第二引数…</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552733302.291900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552733302.291900">2019-03-16 19:48:22 +0900</a></div>
+          </div>
+          <div class="message__body description">はい． Haskell では記号の関数か文字の関数かで演算子かどうかが分かれていて，記号の関数はデフォルトで二項演算子になります</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552733326.292100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552733326.292100">2019-03-16 19:48:46 +0900</a></div>
+          </div>
+          <div class="message__body description">了解です。あざす</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552733367.292400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552733367.292400">2019-03-16 19:49:27 +0900</a></div>
+          </div>
+          <div class="message__body description">別スレッドで、解決しました。返答していただき、ありがとうございました。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552747810.292700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">yki0311hiro</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552747810.292700">2019-03-16 23:50:10 +0900</a></div>
+          </div>
+          <div class="message__body description">@yki0311hiro has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552749095.294500">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552749095.294500">2019-03-17 00:11:35 +0900</a></div>
+          </div>
+          <div class="message__body description">doは&gt;&gt;=のシンタックスシュガーのため、do構文で書いたものは、それなしに書きかえれますよね？<br/>以下のは書きかえれますかね？<br/><pre>
 data Hoge = II deriving (Show)
 huga x = x
 
@@ -75,13 +475,40 @@ main = do
     i &lt;- return 3
     let x = huga i
     print $ 1
-</pre></div></div></div><div class="message event" id="message-1552749838.294600"><div class="content"><div class="summary"><div class="message__header user">cohei</div><div class="message__timestamp date"><a class="date" href="#message-1552749838.294600">2019-03-17&nbsp;00:23:58 +0900</a></div></div><div class="message__body description">できます。<br/><a href='https://en.wikibooks.org/wiki/Haskell/do_notation'>https://en.wikibooks.org/wiki/Haskell/do_notation</a> が参考になるかと思います。 <code>&lt;-</code> を <code>&gt;&gt;=</code> とラムダ式に、 <code>let</code> は <code>let ... in ...</code> に、逐次処理は <code>&gt;&gt;</code> でつなげばよい感じです。</div></div></div><div class="message event" id="message-1552751592.294800"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1552751592.294800">2019-03-17&nbsp;00:53:12 +0900</a></div></div><div class="message__body description">できたけど、in …が余分…<br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552749838.294600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">cohei</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552749838.294600">2019-03-17 00:23:58 +0900</a></div>
+          </div>
+          <div class="message__body description">できます。<br/><a href='https://en.wikibooks.org/wiki/Haskell/do_notation'>https://en.wikibooks.org/wiki/Haskell/do_notation</a> が参考になるかと思います。 <code>&lt;-</code> を <code>&gt;&gt;=</code> とラムダ式に、 <code>let</code> は <code>let ... in ...</code> に、逐次処理は <code>&gt;&gt;</code> でつなげばよい感じです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552751592.294800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552751592.294800">2019-03-17 00:53:12 +0900</a></div>
+          </div>
+          <div class="message__body description">できたけど、in …が余分…<br/><pre>
 data Hoge = II deriving (Show)
 huga x = x
 
 main =
     return 3 &gt;&gt;= (\i -&gt; let x = huga in return 1 ) &gt;&gt; print $ 1
-</pre></div></div></div><div class="message event" id="message-1552751640.295100"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1552751640.295100">2019-03-17&nbsp;00:54:00 +0900</a></div></div><div class="message__body description">do 構文の変換の覚え方でオススメは<br/><br/><pre>
+</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552751640.295100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552751640.295100">2019-03-17 00:54:00 +0900</a></div>
+          </div>
+          <div class="message__body description">do 構文の変換の覚え方でオススメは<br/><br/><pre>
 do
   v &lt;- e1
   e2
@@ -143,6 +570,53 @@ return 3 &gt;&gt;= \i -&gt; do
 return 3 &gt;&gt;= \i -&gt;
   let x = huga i
   in print $ 1
-</pre><br/>みたいな感じです</div></div></div><div class="message event" id="message-1552751815.295400"><div class="content"><div class="summary"><div class="message__header user">e145702</div><div class="message__timestamp date"><a class="date" href="#message-1552751815.295400">2019-03-17&nbsp;00:56:55 +0900</a></div></div><div class="message__body description">ありがとうございます</div></div></div><div class="message event" id="message-1552752248.295800"><div class="content"><div class="summary"><div class="message__header user">mizunashi-mana</div><div class="message__timestamp date"><a class="date" href="#message-1552752248.295800">2019-03-17&nbsp;01:04:08 +0900</a></div></div><div class="message__body description">(ちょっと変換の仕方を修正しました．基本的には3行以上のものは do をネストさせて2行に書き直せて，2行の do は <code>&gt;&gt;=</code> で書き直せる感じですね)</div></div></div><div class="message event" id="message-1552785173.296200"><div class="content"><div class="summary"><div class="message__header user">nobsun</div><div class="message__timestamp date"><a class="date" href="#message-1552785173.296200">2019-03-17&nbsp;10:12:53 +0900</a></div></div><div class="message__body description"><pre>
+</pre><br/>みたいな感じです</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552751815.295400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">e145702</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552751815.295400">2019-03-17 00:56:55 +0900</a></div>
+          </div>
+          <div class="message__body description">ありがとうございます</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552752248.295800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">mizunashi-mana</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552752248.295800">2019-03-17 01:04:08 +0900</a></div>
+          </div>
+          <div class="message__body description">(ちょっと変換の仕方を修正しました．基本的には3行以上のものは do をネストさせて2行に書き直せて，2行の do は <code>&gt;&gt;=</code> で書き直せる感じですね)</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552785173.296200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">nobsun</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552785173.296200">2019-03-17 10:12:53 +0900</a></div>
+          </div>
+          <div class="message__body description"><pre>
 main = print 1
-</pre><br/>でよいのでは:neutral_face:</div></div></div><div class="message event" id="message-1552800384.296600"><div class="content"><div class="summary"><div class="message__header user">tom.lpsd</div><div class="message__timestamp date"><a class="date" href="#message-1552800384.296600">2019-03-17&nbsp;14:26:24 +0900</a></div></div><div class="message__body description">@tom.lpsd has joined the channel</div></div></div></div><div class="pager ui pagination menu"><a href="../../html/C5666B6BB/52.html" class="pager__previous item">Previous</a><a href="../../" class="pager__top item">Top</a><a href="../../html/C5666B6BB/54.html" class="pager__next item">Next</a></div></div></body></html>
+</pre><br/>でよいのでは:neutral_face:</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1552800384.296600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">tom.lpsd</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1552800384.296600">2019-03-17 14:26:24 +0900</a></div>
+          </div>
+          <div class="message__body description">@tom.lpsd has joined the channel</div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C5666B6BB/52.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+      <a href="../../html/C5666B6BB/54.html" class="pager__next item">Next</a>
+    </div>
+  </div>
+</body>
+</html>
