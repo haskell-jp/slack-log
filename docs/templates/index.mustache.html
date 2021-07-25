@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Slack log of {{workspaceName}}</title>
+<link rel="stylesheet" href="main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>Slack log of {{workspaceName}}</h1>
+    <div class="channels_list ui relaxed divided list">
+      {{#indexEntries}}
+      <div class="item">
+        <div class="content">
+          <details class="channel">
+            <summary class="channel__name">
+              <a href="{{lastJsonPath}}">{{channelScreenName}}</a> <span>(Last updated at {{lastMessageTs}})</span>
+            </summary>
+            <div class="pages_list ui items">
+            {{#pageSummaries}}
+              <div class="page item">
+                <div class="content">
+                  <a class="header" href="{{htmlPath}}">#{{pageNumber}}</a>
+                  <div class="meta">
+                    <span class="page__first_message__header">{{firstMessageUserScreenName}}</span>
+                    <span class="page__first_message__timestamp">{{firstMessageTs}}</span>
+                  </div>
+                  <div class="page__first_message__body description">{{firstMessageTextTruncated}}</div>
+                </div>
+              </div>
+            {{/pageSummaries}}
+            </div>
+          </details>
+        </div>
+      </div>
+      {{/indexEntries}}
+    </div>
+  </div>
+</body>
+</html>
