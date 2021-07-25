@@ -1,0 +1,32 @@
+[
+    {
+        "ts": "1625740361.095600",
+        "text": "1年前ぐらいから、lens恐怖症を克服してlensを使うようになりました。\n`makeFields` でプレフィクス無しで参照できるのを便利に使っています。\nしかし、取得時が楽になった分、これまで我慢していた構築時のプレフィクスも消せないかなと思えてしまいます。\n添付したスニペットみたいに、構築時にもプレフィクスを取り除きたいです。\n\n最近大量のデータ型をサンプル生成しなければいけなくて、強くそう思うようになりました。\nとりあえずは雑なデータを入れて、変更したい場所だけをlensのSetterで変更するようにしていますが、雑に入れるわけにもいかないデータを構築するときや、そもそも構築の原点ではやはりプレフィクスを一々入れる必要があるので面倒です。\nStackageに載ってないGHCは流石に実運用するのがライブラリの構築など面倒なので、`NoFieldSelectors` を使ってプレフィクス自体を消すわけにもいきません。\nlensなどを使ってプレフィクス無しで構築する方法は存在しますか?",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1625976780.100100",
+        "text": "すでにライブラリーがあるかは知りませんが、こういう :point_down: 使い方のものは作れるだろうな、と踏んでいます:\n```mkRecord @Color (field @\"r\" 0 :&amp;: field @\"g\" 1 :&amp;: field @\"b\" 2)```\n※各関数の名前は適当です",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1625977474.100400",
+        "text": "実装方法は、恐らくこんな :point_down: 感じ\n```data Field (s :: Symbol) (a :: Type) = Field a\n-- ^ フィールドの名前と値のペア\n\nclass PrefixedRecord r where\n  type NonPrefixedFields :: '[Field Symbol *]\n  -- ^ この辺kindが合っているか自信がないですが、要するにプレフィックスを除いたフィールドと、値のペアを表すhetero list\n  mkRecord :: [Field s a] -&gt; r\n\n-- 実装例\ninstance PrefixedRecord Color where\n  type NonPrefixedFields = '[Field \"r\" Int, Field \"g\" Int, Field \"b\" Int]\n  mkRecord = ...```\n恐らくコードは間違っているので雰囲気だけつかんでいただきたいのですが（singletonを作らないといけないはず）、要するに、プレフィックスを取り除いたフィールドを `Field` みたいな型で表現して、それのHListから構築できることを表す型クラスを作って、あとはそのインスタンスをTemplate HaskellなりGenericsなりで生成すればいけるのではないかと思います。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1626179257.101700",
+        "text": "頑張って実装するのも手かなあと悩みましたが…\n`NoFieldSelectors` が出るまでのつなぎでしか無いことを考えると実装を躊躇いますね…",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1626184219.102100",
+        "text": ":sorena: 結局、他のextensible recordと同じで、随分不格好な構文になってしまいますしね... :disappointed_relieved:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]

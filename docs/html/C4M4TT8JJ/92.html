@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #92</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #92</h1>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C4M4TT8JJ/91.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+    </div>
+    <div class="message_list ui feed">
+      <div class="message event" id="message-1626087126.087700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">U027XU7Q7FW</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1626087126.087700">2021-07-12 19:52:06 +0900</a></div>
+          </div>
+          <div class="message__body description">@U027XU7Q7FW has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1626200716.092000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1626200716.092000">2021-07-14 03:25:16 +0900</a></div>
+          </div>
+          <div class="message__body description">higher kinded data の使いどころかと思ったけど微妙に babies とは違う型クラスができた……<br/><pre>-- barbies
+class FunctorB (b :: (k -&gt; Type) -&gt; Type) where
+  bmap :: (forall a . f a -&gt; g a) -&gt; b f -&gt; b g
+
+-- 自作
+class FunctorB b where
+  bmap :: (Functor f, Functor g) =&gt; (forall a. f a -&gt; g a) -&gt; b f -&gt; b g</pre><br/>これ ↓ を<br/><pre>data Foo =
+  Foo [(Bar, Buzz)]</pre><br/>こう ↓ したかった<br/><pre>data Foo f =
+  Foo (f [f (f Bar, f Buzz)])</pre><br/>barbies だとこう ↓ なる<br/><pre>data Foo f =
+  Foo (f [(bar, Buzz)])</pre></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1626223618.092200">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1626223618.092200">2021-07-14 09:46:58 +0900</a></div>
+          </div>
+          <div class="message__body description">線形型も WebAssembly も票の多いのは Tweag IO による実装だな</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1626224692.092400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">U028P8GL2FJ</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1626224692.092400">2021-07-14 10:04:52 +0900</a></div>
+          </div>
+          <div class="message__body description">@U028P8GL2FJ has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1626305087.094700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1626305087.094700">2021-07-15 08:24:47 +0900</a></div>
+          </div>
+          <div class="message__body description">Haskell製のライブラリーではなくアプリケーション（ミドルウェアといった方がより適切そう）についてのビデオなのでHaskellそのものの話は出てこなさそうですが。<br/>既存のサーバー群の間に立ってGraphQLでアクセスできるようにしてくれるサーバー、Hasuraについて。<br/><a href='https://www.packtpub.com/product/build-performant-graphql-backends-in-days-using-hasura-video/9781801078252?utm_source=all%2Bupdates&amp;utm_medium=email&amp;utm_campaign=new_title&amp;utm_source=all+updates&amp;utm_campaign=5cb1d064bd-new_build_performant_graphql_14_07_2021&amp;utm_medium=email&amp;utm_term=0_c970747b22-5cb1d064bd-166153209&amp;mc_cid=5cb1d064bd&amp;mc_eid=15cbe2a503'>https://www.packtpub.com/product/build-performant-graphql-backends-in-days-using-hasu[…]b22-5cb1d064bd-166153209&amp;mc_cid=5cb1d064bd&amp;mc_eid=15cbe2a503</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1626346627.095100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">U0285SCKHPD</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1626346627.095100">2021-07-15 19:57:07 +0900</a></div>
+          </div>
+          <div class="message__body description">@U0285SCKHPD has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1626363074.095400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">U028032S4GN</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1626363074.095400">2021-07-16 00:31:14 +0900</a></div>
+          </div>
+          <div class="message__body description">@U028032S4GN has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1626482919.096000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">takenobu.hs</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1626482919.096000">2021-07-17 09:48:39 +0900</a></div>
+          </div>
+          <div class="message__body description">ICFP 2021の参加登録が始まってます。<br/><a href='https://icfp21.sigplan.org/'>https://icfp21.sigplan.org/</a><br/>今年もオンライン開催ですが、韓国開催なので時差はほぼ無いはずです、おそらく。<br/>発表テーマなどのプログラムはまだ公開されてないです。<br/>参加料は8月7日までであれば非ACM会員の場合、100ドルです（1週間の通し券で）。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1626678846.097700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1626678846.097700">2021-07-19 16:14:06 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='!here'>!here</a> リマインドです<br/><a href='https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1625974549079200'>https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1625974549079200</a><br/><a href='https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1625974684079800'>https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1625974684079800</a><br/><a href='https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1625974728080400'>https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1625974728080400</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1626744914.098600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">U028RHBT7TN</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1626744914.098600">2021-07-20 10:35:14 +0900</a></div>
+          </div>
+          <div class="message__body description">@U028RHBT7TN has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1626795790.099100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1626795790.099100">2021-07-21 00:43:10 +0900</a></div>
+          </div>
+          <div class="message__body description">便利なハックだ <a href='https://twitter.com/mrsekut/status/1417480179568553989'>https://twitter.com/mrsekut/status/1417480179568553989</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1627014192.100100">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">1to100pen</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1627014192.100100">2021-07-23 13:23:12 +0900</a></div>
+          </div>
+          <div class="message__body description">【宣伝】『Implementing functional languages: a tutorial』の勉強会が始まります。<br/>一回目の勉強会は7/24（土）13:00 ~ 18:00 です。 <https://sampou.connpass.com/event/217679/><br/>『Implementing functional languages: a tutorial』に関する話をするためのチャネル <#C028VRTRBRT|sg-ifl-tut> も作りました。 <br/>勉強会に参加していない人も気軽に使ってください。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1627089593.101400">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">igrep</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1627089593.101400">2021-07-24 10:19:53 +0900</a></div>
+          </div>
+          <div class="message__body description">ほぉ、これはこれは！<br/><blockquote>Designing production applications in statically typed functional languages such as Haskell</blockquote><a href='https://www.manning.com/books/functional-design-and-architecture?utm_source=facebook&amp;utm_medium=organic&amp;utm_campaign=book_granin_functional_7_22_21'>https://www.manning.com/books/functional-design-and-architecture?utm_source=facebook&amp;utm_medium=organic&amp;utm_campaign=book_granin_functional_7_22_21</a></div>
+        </div>
+      </div>
+      <div class="message event" id="message-1627123362.102300">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">U029FC0MNSD</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1627123362.102300">2021-07-24 19:42:42 +0900</a></div>
+          </div>
+          <div class="message__body description">@U029FC0MNSD has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1627184564.102700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kakkun61</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1627184564.102700">2021-07-25 12:42:44 +0900</a></div>
+          </div>
+          <div class="message__body description"><a href='https://twitter.com/haskell_jp/status/1419140812076584963'>https://twitter.com/haskell_jp/status/1419140812076584963</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="pager ui pagination menu">
+      <a href="../../html/C4M4TT8JJ/91.html" class="pager__previous item">Previous</a>
+      <a href="../../" class="pager__top item">Top</a>
+    </div>
+  </div>
+</body>
+</html>

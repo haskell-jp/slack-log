@@ -202,5 +202,101 @@
         "text": "<@U025S3NTUTW> has joined the channel",
         "user": "U025S3NTUTW",
         "type": "message"
+    },
+    {
+        "ts": "1624288839.070000",
+        "text": "<@U025VRNCXAQ> has joined the channel",
+        "user": "U025VRNCXAQ",
+        "type": "message"
+    },
+    {
+        "ts": "1624327536.070300",
+        "text": "<@U025XT9BL76> has joined the channel",
+        "user": "U025XT9BL76",
+        "type": "message"
+    },
+    {
+        "ts": "1624529952.070600",
+        "text": "<@U026S0BCF3J> has joined the channel",
+        "user": "U026S0BCF3J",
+        "type": "message"
+    },
+    {
+        "ts": "1624545509.073700",
+        "text": "初めまして\nダウンロードしたパッケージ(System.Random)をghciにインポートしたいのですが\nインポートするときに\nPrelude&gt; :l Main\n\nMain.hs:seven:8:\n  Could not find module ‘Control.Monad.State.Strict’\n  Perhaps you meant\n   Control.Monad.ST.Strict (from base-4.8.2.0)\n   Control.Monad.Trans.State.Strict (from transformers-0.4.2.0@trans_GZTjP9K5WFq01xC9BAGQpF)\n  Use -v to see a list of the files searched for.\n\nMain.hs:13:8:\n  Could not find module ‘Gauge.Main’\n  Use -v to see a list of the files searched for.\n\nMain.hs:15:8:\n  Could not find module ‘System.Random.SplitMix’\n  Use -v to see a list of the files searched for.\n\nMain.hs:17:8:\n  Could not find module ‘System.Random.Stateful’\n  Use -v to see a list of the files searched for.\nFailed, modules loaded: none.\nというエラーが出てしまいます\nこれはどのように解決したら良いでしょうか\nまた、やり方が間違っていたらやり方を教えていただけると幸いです",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    },
+    {
+        "ts": "1624630379.076400",
+        "text": "<@U0264GCUGMB> has joined the channel",
+        "user": "U0264GCUGMB",
+        "type": "message"
+    },
+    {
+        "ts": "1624705846.077200",
+        "text": "質問です。\nHaskellのフレームワークって何種類かあるようですが、最初に触れるなら今どきどれがオススメでしょうか？なんとなくYesodがいいのかなと思ってますが……",
+        "user": "U024U0DCJ3T",
+        "type": "message"
+    },
+    {
+        "ts": "1624897583.079700",
+        "text": "はじめまして。関連して質問です。\n最近フルスタックwebフレームワークとしてIHPというものも出てきているみたいですが、もし触ったことがある方がいれば、普段Haskellを書いている方からした印象はどうなのか伺いたいです。",
+        "user": "U025S3NTUTW",
+        "type": "message"
+    },
+    {
+        "ts": "1624925756.083300",
+        "text": "すみません　解決しました",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    },
+    {
+        "ts": "1624977884.083800",
+        "text": "<@U026BJL1GMU> has joined the channel",
+        "user": "U026BJL1GMU",
+        "type": "message"
+    },
+    {
+        "ts": "1624992751.084500",
+        "text": "<@U026RNQE7UL> has joined the channel",
+        "user": "U026RNQE7UL",
+        "type": "message"
+    },
+    {
+        "ts": "1625121147.086400",
+        "text": "arrowの書き方で main = getLine &gt;&gt;= print と同じ関数を書くにはどうしたらいいでしょうか？",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    },
+    {
+        "ts": "1625325113.093000",
+        "text": "すみません\narrowをproc?記法を使わないで書くとKleisli const が大量に出てきてしまうのですがこれは回避する方法があるのでしょうか？",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    },
+    {
+        "ts": "1625668869.094100",
+        "text": "<@U027BSBUHMH> has joined the channel",
+        "user": "U027BSBUHMH",
+        "type": "message"
+    },
+    {
+        "ts": "1625704875.094700",
+        "text": "Windows10, GHC8.10.4を使っています。\nhSetBuffering stdin NoBufferingをしてgetCharでキーの入力を即座に読もうとしたのですが、エンターキーを押すまで入力が読み取られません\n解決法はありますでしょうか",
+        "user": "U015L5JEP8D",
+        "type": "message"
+    },
+    {
+        "ts": "1625740361.095600",
+        "text": "1年前ぐらいから、lens恐怖症を克服してlensを使うようになりました。\n`makeFields` でプレフィクス無しで参照できるのを便利に使っています。\nしかし、取得時が楽になった分、これまで我慢していた構築時のプレフィクスも消せないかなと思えてしまいます。\n添付したスニペットみたいに、構築時にもプレフィクスを取り除きたいです。\n\n最近大量のデータ型をサンプル生成しなければいけなくて、強くそう思うようになりました。\nとりあえずは雑なデータを入れて、変更したい場所だけをlensのSetterで変更するようにしていますが、雑に入れるわけにもいかないデータを構築するときや、そもそも構築の原点ではやはりプレフィクスを一々入れる必要があるので面倒です。\nStackageに載ってないGHCは流石に実運用するのがライブラリの構築など面倒なので、`NoFieldSelectors` を使ってプレフィクス自体を消すわけにもいきません。\nlensなどを使ってプレフィクス無しで構築する方法は存在しますか?",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1625874754.096700",
+        "text": "モナド変換子について質問です。\nモナド変換子は圏論的にはどのように理解すればよいでしょうか？",
+        "user": "UFMV026NR",
+        "type": "message"
     }
 ]

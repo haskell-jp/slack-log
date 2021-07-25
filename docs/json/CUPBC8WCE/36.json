@@ -112,5 +112,191 @@
         "text": "ざっとすごいH本の7章で型クラスについて学習しました。OOPみたいな用語(インスタンスなど)が出てきてこんがらがりそうなので理解を深める必要性を感じました。流し読み感はありましたが、なかなか興味深かったです",
         "user": "U024U0DCJ3T",
         "type": "message"
+    },
+    {
+        "ts": "1624680028.047700",
+        "text": "",
+        "user": null,
+        "type": "message"
+    },
+    {
+        "ts": "1624680219.048500",
+        "text": "山本悠滋です。今日はmakeMistakesToLearnHaskellの続きを少し書いた後、slack-logの <https://github.com/haskell-jp/slack-log/issues/20> に取り組みます",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1624680779.049900",
+        "text": "Sakai です\n今日はHaskellを使ってaizu online judgeの問題をひたすら解いてみたいと思います。",
+        "user": "U024U0DCJ3T",
+        "type": "message"
+    },
+    {
+        "ts": "1624698122.050100",
+        "text": "",
+        "user": null,
+        "type": "message"
+    },
+    {
+        "ts": "1624698224.051200",
+        "text": "今日のmakeMistakesToLearnHaskellの進捗はこちら:  <https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/03e6462ef008b67003067ef4e52c9fa14b6d455d>\n<https://github.com/haskell-jp/slack-log/issues/20> にも取り組み始めましたが、案の定というか何というか大分難しそうですね... :disappointed_relieved:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1625371242.051500",
+        "text": "",
+        "user": null,
+        "type": "message"
+    },
+    {
+        "ts": "1625371290.052100",
+        "text": "今日は、slack-logのissueの解決に集中します。私用のため途中抜けます.",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1625371515.052700",
+        "text": "今日は Asterius をちょっと触ってみようと思います。",
+        "user": "U4M4XHKB8",
+        "type": "message"
+    },
+    {
+        "ts": "1625371848.052900",
+        "text": "白鳥と申します。「Haskellによる関数プログラミングの思考法」の運算器の章の演習問題を解いていこうと思います。",
+        "user": "UJBCU6PCH",
+        "type": "message"
+    },
+    {
+        "ts": "1625389323.054000",
+        "text": "",
+        "user": null,
+        "type": "message"
+    },
+    {
+        "ts": "1625389737.054600",
+        "text": "slack-logの件、割と進められました :muscle:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1625395210.055600",
+        "text": "Asterius、TH もコンパイルできるようになっているらしい。",
+        "user": "U4M4XHKB8",
+        "type": "message"
+    },
+    {
+        "ts": "1625395581.057000",
+        "text": "作者がクロスコンパイラーでTHを実現するのがいかに難しいか解説してる記事を見たのが懐かしい。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1625976010.057600",
+        "text": "",
+        "user": null,
+        "type": "message"
+    },
+    {
+        "ts": "1625976156.058800",
+        "text": "• Haskell-jp Adminsのfreeeアカウントに、Excelインポート機能を使って帳簿を付ける機能を試す\n• slack-logのissue <https://github.com/haskell-jp/slack-log/issues/20> の続き\n• 余力があったら #<#CR2TETE5R|beginners> や<#C707P67R7|questions-feed-jp> に貯まっている質問に回答しようかな、と\n• 用事があるので14時～15時頃抜けます",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1625976406.059400",
+        "text": "いつものを進めます。 <https://gitlab.com/Hexirp/analysis-tree>",
+        "user": "U5LEE6C1J",
+        "type": "message"
+    },
+    {
+        "ts": "1625976713.060700",
+        "text": "LCA (lowest common ancestor) algorithm の実装",
+        "user": "U584T7GAH",
+        "type": "message"
+    },
+    {
+        "ts": "1625981242.061100",
+        "text": "時間できたので、Hazell に setup_deps を生成する機能を追加します",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1625994124.061400",
+        "text": "",
+        "user": null,
+        "type": "message"
+    },
+    {
+        "ts": "1625994395.062700",
+        "text": "• freeeのインポート機能について調べつつ、freeeの運用方法を考えました <https://github.com/haskell-jp/community/issues/42>\n• slack-logの件も進めましたが、昼からどうもお腹が痛くてあまり捗らず :weary: ",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1625994592.063700",
+        "text": "とりあえず、依存パッケージの setup-depends を引っ張ってくることができるようになりました\n```&gt;&gt; concatMap toSetupDeps &lt;$&gt; readAllCabalFiles \"../mdium\"\n[\"base\",\"Cabal\",\"cabal-doctest\",\"base\",\"Cabal\",\"cabal-doctest\",\"Cabal\",\"base\",\"cabal-doctest\",\"filepath\",\"Cabal\",\"base\",\"filepath\",\"directory\",\"process\"]```",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1626470008.064200",
+        "text": "<@U018KEA7Y83> has joined the channel",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    },
+    {
+        "ts": "1626494428.064300",
+        "text": "",
+        "user": null,
+        "type": "message"
+    },
+    {
+        "ts": "1626494628.065700",
+        "text": "今日は、今は出先なので帰ってからslack-logの続きをやります。それまで暇ならmmlhをスマホで書こうかな",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1626494731.066800",
+        "text": "Yampaの信号関数を理解するのと\nそれを使った振る舞いの切り替えをOpenGLで描画します",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    },
+    {
+        "ts": "1626496473.068500",
+        "text": "久々ですが参加しようと思います。最近Haskellにさわっていなかったので、Haskell day関係の情報に追いつくのと、次に作るものの調査をやろうと思います。",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1626507939.069600",
+        "text": "ボイスチャンネルにいます。気合い入れるために誰かと喋りながらやりたい！ <https://discord.gg/wk42SxSvq2>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1626512522.069800",
+        "text": "",
+        "user": null,
+        "type": "message"
+    },
+    {
+        "ts": "1626512857.071900",
+        "text": "Haskell Dayに関連して以下をやりました\n• Conpassへの参加登録\n• YouTubeチャンネルのチャンネル登録\n• 発表内容の投票（<https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1625974684079800>）",
+        "user": "U570660KX",
+        "type": "message"
+    },
+    {
+        "ts": "1626513099.073300",
+        "text": "slack-logの続きをやってました。ようやくtype-of-htmlの実装をmustacheに書き換えられました。 <https://twitter.com/igrep/status/1416322233954226177>\nテンプレート自体はまだ移せてませんが。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1626513360.075700",
+        "text": "信号関数の理解はできました",
+        "user": "U018KEA7Y83",
+        "type": "message"
     }
 ]

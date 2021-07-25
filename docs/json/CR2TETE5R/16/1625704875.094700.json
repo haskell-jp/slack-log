@@ -1,0 +1,26 @@
+[
+    {
+        "ts": "1625704875.094700",
+        "text": "Windows10, GHC8.10.4を使っています。\nhSetBuffering stdin NoBufferingをしてgetCharでキーの入力を即座に読もうとしたのですが、エンターキーを押すまで入力が読み取られません\n解決法はありますでしょうか",
+        "user": "U015L5JEP8D",
+        "type": "message"
+    },
+    {
+        "ts": "1625714165.094800",
+        "text": "既知の問題らしいですね... :disappointed:\nこちらにワークアラウンドが書いてありました。\n<https://hiratara.hatenadiary.jp/entry/2017/02/19/200550>\n\nまた、 <https://stackoverflow.com/questions/66536563/haskell-cross-platform-getchar-with-nobuffering> 曰くGHC 9.0以降なら解決済みらしいので、ちょっと試してみています。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1625714917.095100",
+        "text": "さっとこんな感じのコードを書いてGHC 9.0.1を試してみましたが、残念ながら相変わらずでした :disappointed:\n```import           <http://System.IO|System.IO>\n\nmain :: IO ()\nmain = do\n  hSetBuffering stdin NoBuffering\n  c &lt;- getChar\n  print c```",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1625734969.095300",
+        "text": "本件、問題のissueで訪ねてみたところ、RTSオプションというのを設定しないといけないようです（デフォルトで有効になっていると勘違いしてました！ :man-bowing: ）<https://gitlab.haskell.org/ghc/ghc/-/issues/2189#note_363795>\n\nなので、例えばGHC 9.0.1で :point_down: のようなオプションでコンパイルしてください:\n```ghc -with-rtsopts --io-manager=native file.hs```\nこうすることでコンパイル時に `--io-manager-native` というRTSオプションを有効にすることができ、getCharがバッファリングされなくなります。\nRTSオプションを有効にするほかの方法は <https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/runtime_control.html> をご覧ください。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]

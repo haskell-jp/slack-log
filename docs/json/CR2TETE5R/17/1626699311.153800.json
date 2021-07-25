@@ -1,0 +1,32 @@
+[
+    {
+        "ts": "1626699311.153800",
+        "text": "すみません\ncabalでパッケージをインストールしたかったのですが\nData/Category.hs:60:29:\n  Kind variable ‘o’ used as a type\n  In the type ‘o’\n  In the type family declaration for ‘Kind’\ncabal: Error: some packages failed to install:\ndata-category-0.10 failed during the building phase. The exception was:\nExitFailure 1\nというエラーが出てしまいます\ncabalのアップデートはしてみたのですが解決せず困っています\nこれはどのように解決すればいいでしょうか？",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    },
+    {
+        "ts": "1626699720.153900",
+        "text": "<@U018KEA7Y83>\n私の方で試してみたのですが、正常にビルドできます。\nGHCのバージョンによる問題かなと推測しました。\nGHCのバージョンなどの環境はどうなっていますか?",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1626699836.154100",
+        "text": "返信ありがとうございます\nGHCのVersionは7.10.3です",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    },
+    {
+        "ts": "1626700192.154300",
+        "text": "<@U018KEA7Y83>\nそれは流石に古すぎますね…\n私の方でもそのバージョンではビルドできないことを確認しました。\n現代の処理系を入れるなら、特に理由がなければ私はStackを推奨します。\n[Home - The Haskell Tool Stack](<https://docs.haskellstack.org/en/stable/README/>)",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1626700376.154500",
+        "text": "ありがとうございます\nやってみます",
+        "user": "U018KEA7Y83",
+        "type": "message"
+    }
+]
