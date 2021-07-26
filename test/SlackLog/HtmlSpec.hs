@@ -54,4 +54,4 @@ spec = do
 
 
 readAsExpectedHtml :: FilePath -> IO T.Text
-readAsExpectedHtml = fmap TE.decodeUtf8 . B.readFile
+readAsExpectedHtml = fmap (T.replace "\r\n" "\n" . TE.decodeUtf8) . B.readFile
