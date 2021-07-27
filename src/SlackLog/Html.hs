@@ -103,27 +103,27 @@ generateIndexHtml ws = B.writeFile "index.html" . TE.encodeUtf8 <=< renderIndexO
 
 
 data PageInfoForMustache = PageInfoForMustache
-  { wsimWorkspaceName     :: !T.Text
-  , wsimChannelId         :: !T.Text
-  , wsimChannelScreenName :: !T.Text
-  , wsimCurrentPageNumber :: !Integer
-  , wsimPreviousPagePath  :: !(Maybe FilePath)
-  , wsimNextPagePath      :: !(Maybe FilePath)
-  , wsimIndexPagePath     :: FilePath
-  , wsimMessages          :: ![MessageForMustache]
+  { pifmWorkspaceName     :: !T.Text
+  , pifmChannelId         :: !T.Text
+  , pifmChannelScreenName :: !T.Text
+  , pifmCurrentPageNumber :: !Integer
+  , pifmPreviousPagePath  :: !(Maybe FilePath)
+  , pifmNextPagePath      :: !(Maybe FilePath)
+  , pifmIndexPagePath     :: FilePath
+  , pifmMessages          :: ![MessageForMustache]
   }
 
 instance TM.ToMustache PageInfoForMustache where
   toMustache PageInfoForMustache {..} =
     TM.object
-      [ "workspaceName" ~> wsimWorkspaceName
-      , "channelId" ~> wsimChannelId
-      , "channelScreenName" ~> wsimChannelScreenName
-      , "currentPageNumber" ~> wsimCurrentPageNumber
-      , "previousPagePath" ~> wsimPreviousPagePath
-      , "nextPagePath" ~> wsimNextPagePath
-      , "indexPagePath" ~> wsimIndexPagePath
-      , "messages" ~> wsimMessages
+      [ "workspaceName" ~> pifmWorkspaceName
+      , "channelId" ~> pifmChannelId
+      , "channelScreenName" ~> pifmChannelScreenName
+      , "currentPageNumber" ~> pifmCurrentPageNumber
+      , "previousPagePath" ~> pifmPreviousPagePath
+      , "nextPagePath" ~> pifmNextPagePath
+      , "indexPagePath" ~> pifmIndexPagePath
+      , "messages" ~> pifmMessages
       ]
 
 
@@ -155,14 +155,14 @@ renderSlackMessages ws@WorkspaceInfo {..} p@PageInfo {..} =
 
 pageInfoForMustache :: WorkspaceInfo -> PageInfo -> [Slack.Message] -> PageInfoForMustache
 pageInfoForMustache ws@WorkspaceInfo {..} PageInfo {..} msgs = PageInfoForMustache
-  { wsimWorkspaceName     = workspaceInfoName
-  , wsimChannelId         = channelId
-  , wsimChannelScreenName = getChannelScreenName ws channelId
-  , wsimCurrentPageNumber = parsePageNumber currentPagePath
-  , wsimPreviousPagePath  = ("../../" ++) . ensurePathIn "html" channelId <$> previousPagePath
-  , wsimNextPagePath      = ("../../" ++) . ensurePathIn "html" channelId <$> nextPagePath
-  , wsimIndexPagePath = "../../"
-  , wsimMessages          = map (messageForMustache ws) msgs
+  { pifmWorkspaceName     = workspaceInfoName
+  , pifmChannelId         = channelId
+  , pifmChannelScreenName = getChannelScreenName ws channelId
+  , pifmCurrentPageNumber = parsePageNumber currentPagePath
+  , pifmPreviousPagePath  = ("../../" ++) . ensurePathIn "html" channelId <$> previousPagePath
+  , pifmNextPagePath      = ("../../" ++) . ensurePathIn "html" channelId <$> nextPagePath
+  , pifmIndexPagePath     = "../../"
+  , pifmMessages          = map (messageForMustache ws) msgs
   }
 
 
