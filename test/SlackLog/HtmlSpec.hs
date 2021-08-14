@@ -28,7 +28,8 @@ spec = do
   describe "renderSlackMessages" $
     it "converts messages in Slack into a byte string of HTML" $ do
       let p = PageInfo
-            { currentPagePath  = "/html/35.html"
+            { pageNumber       = 35
+            , thisPagePath     = "/html/35.html"
             , previousPagePath = Just "/html/34.html"
             , nextPagePath     = Just "/html/36.html"
             , channelId        = idOfRandom
