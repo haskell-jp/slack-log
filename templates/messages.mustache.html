@@ -26,6 +26,9 @@
             <div class="message__timestamp date"><a class="date" href="#message-{{ts}}">{{formattedTs}}</a></div>
           </div>
           <div class="message__body description">{{{htmlMessageBody}}}</div>
+          {{#hasReplies}}
+          <a class="link-to-replies" href="{{pathToReplies}}">... Replies ...</a>
+          {{/hasReplies}}
         </div>
       </div>
       {{/messages}}

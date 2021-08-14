@@ -1,8 +1,9 @@
-{-# LANGUAGE FlexibleContexts  #-}
-{-# LANGUAGE NamedFieldPuns    #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards   #-}
-{-# LANGUAGE StrictData        #-}
+{-# LANGUAGE FlexibleContexts           #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE NamedFieldPuns             #-}
+{-# LANGUAGE OverloadedStrings          #-}
+{-# LANGUAGE RecordWildCards            #-}
+{-# LANGUAGE StrictData                 #-}
 
 -- | Assumes functions in this module are executed in doc/ directory
 
@@ -49,9 +50,11 @@ import           SlackLog.Types          (ChannelId, ChannelName, Config (..),
                                           TemplatePaths (..), UserId, UserName)
 import           SlackLog.Util           (failWhenLeft, readJsonFile)
 
+import           Prelude                 hiding (pi)
 
 data PageInfo = PageInfo
-  { currentPagePath  :: FilePath
+  { pageNumber       :: Integer
+  , thisPagePath     :: FilePath
   , previousPagePath :: Maybe FilePath
   , nextPagePath     :: Maybe FilePath
   , channelId        :: ChannelId
@@ -81,10 +84,12 @@ convertJsonsInChannel ws chanId jsonPaths = do
   putStrLn channelIdStr
 
   let triples =
-        putBetweenPreviousAndNext $ sortOn parsePageNumber jsonPaths
+        putBetweenPreviousAndNext
+          . sortOn fst
+          $ map (\jsonPath -> (parsePageNumber jsonPath, jsonPath)) jsonPaths
 
-  for_ triples $ \(mPrev, name, mNext) -> do
-    let pg = PageInfo name mPrev mNext chanId
+  for_ triples $ \(mPrev, (pn, name), mNext) -> do
+    let pg = PageInfo pn name (snd <$> mPrev) (snd <$> mNext) chanId
     putStrLn $ "  " ++ show pg
     convertToHtmlFile ws pg
 
@@ -94,12 +99,15 @@ convertToHtmlFile ws pg =
   B.writeFile htmlPath . TE.encodeUtf8 =<< renderSlackMessages ws pg
  where
   cid = channelId pg
-  currentPath = currentPagePath pg
-  htmlPath = ensurePathIn "html" cid currentPath
+  currentPagePath = thisPagePath pg
+  htmlPath = ensurePathIn "html" cid currentPagePath
 
 
 generateIndexHtml :: WorkspaceInfo -> [(ChannelId, [FilePath])] -> IO ()
 generateIndexHtml ws = B.writeFile "index.html" . TE.encodeUtf8 <=< renderIndexOfPages ws
+
+
+newtype HasReplies = HasReplies Bool deriving (Eq, Show, TM.ToMustache)
 
 
 data PageInfoForMustache = PageInfoForMustache
@@ -132,6 +140,8 @@ data MessageForMustache = MessageForMustache
   , mfmHtmlMessageBody :: !T.Text
   , mfmTs              :: !T.Text
   , mfmFormattedTs     :: !T.Text
+  , mfmPathToReplies   :: !T.Text
+  , mfmHasReplies      :: !HasReplies
   }
 
 instance TM.ToMustache MessageForMustache where
@@ -141,40 +151,61 @@ instance TM.ToMustache MessageForMustache where
       , "htmlMessageBody" ~> mfmHtmlMessageBody
       , "ts" ~> mfmTs
       , "formattedTs" ~> mfmFormattedTs
+      , "pathToReplies" ~> mfmPathToReplies
+      , "hasReplies" ~> mfmHasReplies
       ]
 
 
 renderSlackMessages :: WorkspaceInfo -> PageInfo -> IO T.Text
 renderSlackMessages ws@WorkspaceInfo {..} p@PageInfo {..} =
-  printingWarning . render =<< readJsonFile (ensurePathIn "json" channelId currentPagePath)
+  printingWarning
+    . render
+    =<< mapM (\m -> (,) <$> hasReplies channelId thisPagePath m <*> pure m)
+    =<< readJsonFile jsonPath
  where
-  render :: [Slack.Message] -> ([TMR.SubstitutionError], T.Text)
   render =
     TM.checkedSubstitute messagesPageTemplate . pageInfoForMustache ws p
+  jsonPath = ensurePathIn "json" channelId thisPagePath
 
 
-pageInfoForMustache :: WorkspaceInfo -> PageInfo -> [Slack.Message] -> PageInfoForMustache
-pageInfoForMustache ws@WorkspaceInfo {..} PageInfo {..} msgs = PageInfoForMustache
+hasReplies :: ChannelId -> FilePath -> Slack.Message -> IO HasReplies
+hasReplies cid pagePath Slack.Message { messageTs } =
+  HasReplies <$> Dir.doesFileExist threadFilePath
+ where
+  threadFilePath =
+    "json"
+      </> T.unpack cid
+      </> takeBaseName pagePath
+      </> T.unpack (Slack.slackTimestampTs messageTs)
+      ++ ".json"
+
+
+pageInfoForMustache :: WorkspaceInfo -> PageInfo -> [(HasReplies, Slack.Message)] -> PageInfoForMustache
+pageInfoForMustache ws@WorkspaceInfo {..} pi@PageInfo {..} msgs = PageInfoForMustache
   { pifmWorkspaceName     = workspaceInfoName
   , pifmChannelId         = channelId
   , pifmChannelScreenName = getChannelScreenName ws channelId
-  , pifmCurrentPageNumber = parsePageNumber currentPagePath
+  , pifmCurrentPageNumber = parsePageNumber thisPagePath
   , pifmPreviousPagePath  = ("../../" ++) . ensurePathIn "html" channelId <$> previousPagePath
   , pifmNextPagePath      = ("../../" ++) . ensurePathIn "html" channelId <$> nextPagePath
   , pifmIndexPagePath     = "../../"
-  , pifmMessages          = map (messageForMustache ws) msgs
+  , pifmMessages          = map (messageForMustache ws pi) msgs
   }
 
 
-messageForMustache :: WorkspaceInfo -> Slack.Message -> MessageForMustache
-messageForMustache ws Slack.Message {..} =
+messageForMustache :: WorkspaceInfo -> PageInfo -> (HasReplies, Slack.Message) -> MessageForMustache
+messageForMustache ws pi (hasR, Slack.Message {..}) =
   MessageForMustache
     { mfmUserScreenName = getUserScreenName ws messageUser
     , mfmHtmlMessageBody = mkMessageBody ws messageText
-    , mfmTs = Slack.slackTimestampTs messageTs
+    , mfmTs = tst
     , mfmFormattedTs = T.pack . timestampBlock $ Slack.slackTimestampTime messageTs
+    , mfmPathToReplies =
+        T.pack (show (pageNumber pi)) <> "/" <> tst <> ".html"
+    , mfmHasReplies = hasR
     }
  where
+  tst = Slack.slackTimestampTs messageTs
   timestampBlock tm =
     let lt = LT.utcToZonedTime (getTimeDiff ws tm) tm
     in TF.formatTime TF.defaultTimeLocale "%Y-%m-%d %T %z" lt
