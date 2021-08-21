@@ -1,0 +1,32 @@
+[
+    {
+        "ts": "1629383380.007800",
+        "text": "はじめまして。Haskell歴1ヶ月程度の初心者です。\n現在、Haskellの型システムの上で定理証明器を作りたいと考えています。\nやりたいことは<https://hackage.haskell.org/package/gdp-0.0.3.0/docs/Logic-Propositional.html|Logic.Proposisional>に似ているのですが、\n証明したい命題を型にどう変換して、証明をどう記述すればよいのかわかりません。\n例えば、`((P -&gt; Q) -&gt; P) -&gt; P`を証明する場合、Haskellではどのように書くのでしょうか？",
+        "user": "U02CE9YGEAU",
+        "type": "message"
+    },
+    {
+        "ts": "1629435994.008000",
+        "text": "その命題には<https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%BC%E3%82%B9%E3%81%AE%E6%B3%95%E5%89%87|パースの法則>という名前が付いていて、直観主義論理では証明ができないことが知られています。なので、なんらかの形で “ズル” (再帰) をしないといけません。\nあんまり詳しく見れていなくて具体的な回答ではなくて申し訳ないのですが、Logic.Propositional の二重否定除去則の実装の部分のソースなどを覗いてみると、これを使ってできると思います。\n<https://hackage.haskell.org/package/gdp-0.0.3.0/docs/Logic-Propositional.html#v:contradiction>\n定理証明支援機を作り始める上では、最初は直観主義の、もうちょっと簡単な命題 `P -&gt; P` などから作り始めると良いと思います。\nこれは型 `P` の変数`x` を引数にとって `x`  を返す関数を定義すれば良いです。",
+        "user": "U02AXB3D9T3",
+        "type": "message"
+    },
+    {
+        "ts": "1629445587.008500",
+        "text": "<@U02AXB3D9T3>\nありがとうございます。すみません、例がよくありませんでした。\nでは、例えばA-&gt;((A-&gt;B)-&gt;B)を証明しようとすると、以下のように一つずつ順に記述していく方法しか思いつかず、また、どこが仮定なのがわかりにくくなっていしまいます。\n１行で書くことはできないのでしょうか。\n\n```h0 :: (Proof a -&gt; Proof ((a --&gt; b) --&gt; b)) -&gt; Proof (a --&gt; ((a --&gt; b) --&gt; b))\nh0 = introImpl\n\nh1 :: (Proof (a --&gt; b) -&gt; Proof b) -&gt; Proof ((a --&gt; b) --&gt; b)\nh1 = introImpl\n\nh2 :: Proof a -&gt; Proof (a --&gt; b) -&gt; Proof b\nh2 = elimImpl```",
+        "user": "U02CE9YGEAU",
+        "type": "message"
+    },
+    {
+        "ts": "1629452115.008800",
+        "text": "ケチをつけると、それだと厳密には証明ができたことにはなっていないのではないでしょうか\n“p の証明が完了した“、というのは Proof p の型の値が定義できた、ということのはずなので、h0、h1、h2  を更に組み合わせる必要があります。\n\nこの下の方が 1 行で書いた証明になっているはずです。(上に書いた simple~~ は証明のイメージです。)\n```simpleModusPonens :: a -&gt; (a -&gt; b) -&gt; b\nsimpleModusPonens x f = f x\n\nmyModusPonens :: Proof (a --&gt; (a --&gt; b) --&gt; b)\nmyModusPonens = introImpl $ \\proofA -&gt; introImpl (\\proofAtoB -&gt; proofAtoB `modusPonens` proofA)\n-- ちょっと短くすると\n-- myModusPonens = introImpl $ \\proofA -&gt; introImpl (`modusPonens` proofA)```",
+        "user": "U02AXB3D9T3",
+        "type": "message"
+    },
+    {
+        "ts": "1629458515.009000",
+        "text": "ようやく理解しました。ありがとうございます。",
+        "user": "U02CE9YGEAU",
+        "type": "message"
+    }
+]

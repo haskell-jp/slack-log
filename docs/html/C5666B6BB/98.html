@@ -106,10 +106,46 @@
       <div class="message event" id="message-1629382086.013800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">U02CE9YGEAU</div>
+            <div class="message__header user">xgrk9475</div>
             <div class="message__timestamp date"><a class="date" href="#message-1629382086.013800">2021-08-19 23:08:06 +0900</a></div>
           </div>
-          <div class="message__body description">@U02CE9YGEAU has joined the channel</div>
+          <div class="message__body description">@xgrk9475 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1629445493.014000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kasshi.4259.b.b</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1629445493.014000">2021-08-20 16:44:53 +0900</a></div>
+          </div>
+          <div class="message__body description">@kasshi.4259.b.b has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1629447450.023800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kasshi.4259.b.b</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1629447450.023800">2021-08-20 17:17:30 +0900</a></div>
+          </div>
+          <div class="message__body description">はじめまして、Kasshiと申します。<br/>ある時Free Arrowをつかいたくなって次のようなコードを書いてみたのですが、<br/>`{-# LANGUAGE RankNTypes #-}`<br/>`import Control.Category hiding (id ,(.))`<br/>`import qualified Control.Category as Cat`<br/><br/>`newtype A f a b = Arr {unA :: forall r. Arrow r =&gt; (forall x y. f x y -&gt; r x y) -&gt; r a b}`<br/>`instance Category (A f) where`<br/>   `id = Arr $ const Cat.id`<br/>   `Arr g . Arr f = Arr $ \p -&gt; f p &gt;&gt;&gt; g p`<br/>Categoryのidのconst関数のところでGHCに<br/>&gt; Couldn't match type 'b0' with 'forall x y. f x y -&gt; r x y'<br/>と怒られてしまいました。<br/><br/>そこで`const Cat.id` を`\ _ -&gt; Cat.id` と書き換えるとコンパイルが通りました。<br/>多相関数がうまく型推論されていないことが原因と思われますが、これは仕様なのかバグなのかが分かりません。<br/>知見をお持ちの方はご意見頂けると幸いです。</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1629445493.014000">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kasshi.4259.b.b</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1629445493.014000">2021-08-20 16:44:53 +0900</a></div>
+          </div>
+          <div class="message__body description">@kasshi.4259.b.b has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1629447450.023800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">kasshi.4259.b.b</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1629447450.023800">2021-08-20 17:17:30 +0900</a></div>
+          </div>
+          <div class="message__body description">はじめまして、Kasshiと申します。<br/>ある時Free Arrowをつかいたくなって次のようなコードを書いてみたのですが、<br/>`{-# LANGUAGE RankNTypes #-}`<br/>`import Control.Category hiding (id ,(.))`<br/>`import qualified Control.Category as Cat`<br/><br/>`newtype A f a b = Arr {unA :: forall r. Arrow r =&gt; (forall x y. f x y -&gt; r x y) -&gt; r a b}`<br/>`instance Category (A f) where`<br/>   `id = Arr $ const Cat.id`<br/>   `Arr g . Arr f = Arr $ \p -&gt; f p &gt;&gt;&gt; g p`<br/>Categoryのidのconst関数のところでGHCに<br/>&gt; Couldn't match type 'b0' with 'forall x y. f x y -&gt; r x y'<br/>と怒られてしまいました。<br/><br/>そこで`const Cat.id` を`\ _ -&gt; Cat.id` と書き換えるとコンパイルが通りました。<br/>多相関数がうまく型推論されていないことが原因と思われますが、これは仕様なのかバグなのかが分かりません。<br/>知見をお持ちの方はご意見頂けると幸いです。</div>
         </div>
       </div>
     </div>

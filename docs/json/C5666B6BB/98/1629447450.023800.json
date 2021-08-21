@@ -1,0 +1,32 @@
+[
+    {
+        "ts": "1629447450.023800",
+        "text": "はじめまして、Kasshiと申します。\nある時Free Arrowをつかいたくなって次のようなコードを書いてみたのですが、\n`{-# LANGUAGE RankNTypes #-}`\n`import Control.Category hiding (id ,(.))`\n`import qualified Control.Category as Cat`\n\n`newtype A f a b = Arr {unA :: forall r. Arrow r =&gt; (forall x y. f x y -&gt; r x y) -&gt; r a b}`\n`instance Category (A f) where`\n   `id = Arr $ const Cat.id`\n   `Arr g . Arr f = Arr $ \\p -&gt; f p &gt;&gt;&gt; g p`\nCategoryのidのconst関数のところでGHCに\n&gt; Couldn't match type 'b0' with 'forall x y. f x y -&gt; r x y'\nと怒られてしまいました。\n\nそこで`const Cat.id` を`\\ _ -&gt; Cat.id` と書き換えるとコンパイルが通りました。\n多相関数がうまく型推論されていないことが原因と思われますが、これは仕様なのかバグなのかが分かりません。\n知見をお持ちの方はご意見頂けると幸いです。",
+        "user": "U02BM7FC8HL",
+        "type": "message"
+    },
+    {
+        "ts": "1629449118.023900",
+        "text": "Impredicative polymorphismの罠にハマっているように見えます。私もあまり詳しくないのでちゃんと説明できないのですが... :cold_sweat:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1629449129.024100",
+        "text": "GHC 8.10系だと通ってGHC 9.0.1だとコンパイルが通らなくなってるので、simplified subsumptionの影響を受けるコードっぽいですね",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1629449461.024600",
+        "text": "問題を単純化すると `(const ()) :: (forall x. x -&gt; x) -&gt; ()` は通らなくて `(\\_ -&gt; ()) :: (forall x. x -&gt; x) -&gt; ()` は通る、ということになります。前者は `const () :: b -&gt; ()` の `b` に `forall x. x -&gt; x` というforallを含む型を当てはめることになるので（ImpredicativeTypesなしでは）エラー、後者はRankNTypesで引数の型が `forall x. x -&gt; x` になれるのでオッケーみたいな感じですかね（よくわかってない）",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1629450952.025200",
+        "text": "返信ありがとうございます。多相な型は通常では推論されないということなのですね。もうすこし調べてみます。",
+        "user": "U02BM7FC8HL",
+        "type": "message"
+    }
+]
