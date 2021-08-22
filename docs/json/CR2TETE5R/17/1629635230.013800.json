@@ -1,0 +1,38 @@
+[
+    {
+        "ts": "1629635230.013800",
+        "text": "stack installで次のようなエラーが出てしまいます。\n```scientific&gt; configure\nscientific&gt; Configuring scientific-0.3.7.0...\nscientific&gt; build\nscientific&gt; Preprocessing library for scientific-0.3.7.0..\nscientific&gt; Building library for scientific-0.3.7.0..\nscientific&gt; [1 of 5] Compiling GHC.Integer.Compat\nscientific&gt; [2 of 5] Compiling Utils\nscientific&gt; [3 of 5] Compiling Data.Scientific\nscientific&gt; \nscientific&gt; /tmp/stack-fff8d00fdcd912f1/scientific-0.3.7.0/src/Data/Scientific.hs:196:1: error:\nscientific&gt;     • Couldn't match type 'm' with 'Language.Haskell.TH.Syntax.Q'\n（略）\nscientific&gt;         lift :: Scientific -&gt; m Language.Haskell.TH.Syntax.Exp\nscientific&gt;           (bound at src/Data/Scientific.hs:196:1)\nscientific&gt;     |\nscientific&gt; 196 | deriving instance Lift Scientific\nscientific&gt;     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nscientific&gt; ```\nstack.yamlは次のとおりです。\n```extra-deps:\n  - text-1.2.4.1\n  - filepath-1.4.2.1\n  - megaparsec-9.1.0\n  - parser-combinators-1.3.0\n  - template-haskell-2.17.0.0\n  - ghc-boot-th-9.0.1```\n<https://hackage.haskell.org/package/template-haskell|template-haskell>を加えると、このエラーが出るようになりました。<https://hackage.haskell.org/package/megaparsec|megaparsec>の依存パッケージに<https://hackage.haskell.org/package/scientific|scientific>があり、これが悪さをしているのではないかと思っているのですが、stackの仕組みをまだ理解しておらず、解決できません。何かアイデアはあるでしょうか？\nちなみに、template-haskell単体ではインストールできます。",
+        "user": "U02CE9YGEAU",
+        "type": "message"
+    },
+    {
+        "ts": "1629636063.014400",
+        "text": "template-haskellはstackage LTSに含まれているため、extra-depsに書く必要はありません。というかtemplate-haskellのバージョンはGHCのバージョンと同期されている必要があり、ユーザーがバージョンを指定できるものではない気がします。GHC 9.0.1向けのtemplate-haskell-2.17.0.0をGHC 8.10系で使おうとしてそういうエラーが出ているのではないでしょうか。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1629636341.014600",
+        "text": "template-haskellの他にghc-boot-thもGHC組み込みのため、extra-depsから外す必要があります。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1629637524.015000",
+        "text": "ありがとうございます。解決しました。\npackage.yamlとstack.yamlを混同していました。\nいままで、package.yamlのdependenciesとstack.yamlのextra-depsに同じ内容を記述していたのですが、これは必要ないということですか？",
+        "user": "U02CE9YGEAU",
+        "type": "message"
+    },
+    {
+        "ts": "1629637871.015300",
+        "text": "基本的には、resolverに含まれないマイナーなパッケージを使用したい場合のみextra-depsに記述します。resolverに含まれない（&amp;extra-depsにも記述されていない）マイナーなパッケージをdependenciesに書いた場合はstackが教えてくれるのでそれを参考にすると良いでしょう。例外として、resolverに含まれるバージョンとは異なるバージョンを明示的に使いたい場合はextra-depsに書きます。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1629638027.015500",
+        "text": "例えばlts-18.7を使う場合は、text-1.2.4.1とfilepath-1.4.2.1はlts-18.7に含まれるのでextra-depsの記述は完全に冗長です。一方、megaparsecとparser-combinatorsはlts-18.7に含まれるバージョンとextra-depsに記述されているバージョンが異なるため、最新の機能やバグ修正を使いたい場合は意味のある記述ということになります。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    }
+]

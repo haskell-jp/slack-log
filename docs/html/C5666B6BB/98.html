@@ -148,6 +148,24 @@
           <div class="message__body description">はじめまして、Kasshiと申します。<br/>ある時Free Arrowをつかいたくなって次のようなコードを書いてみたのですが、<br/>`{-# LANGUAGE RankNTypes #-}`<br/>`import Control.Category hiding (id ,(.))`<br/>`import qualified Control.Category as Cat`<br/><br/>`newtype A f a b = Arr {unA :: forall r. Arrow r =&gt; (forall x y. f x y -&gt; r x y) -&gt; r a b}`<br/>`instance Category (A f) where`<br/>   `id = Arr $ const Cat.id`<br/>   `Arr g . Arr f = Arr $ \p -&gt; f p &gt;&gt;&gt; g p`<br/>Categoryのidのconst関数のところでGHCに<br/>&gt; Couldn't match type 'b0' with 'forall x y. f x y -&gt; r x y'<br/>と怒られてしまいました。<br/><br/>そこで`const Cat.id` を`\ _ -&gt; Cat.id` と書き換えるとコンパイルが通りました。<br/>多相関数がうまく型推論されていないことが原因と思われますが、これは仕様なのかバグなのかが分かりません。<br/>知見をお持ちの方はご意見頂けると幸いです。</div>
         </div>
       </div>
+      <div class="message event" id="message-1629622740.025700">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">U02BHPK5FC7</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1629622740.025700">2021-08-22 17:59:00 +0900</a></div>
+          </div>
+          <div class="message__body description">@U02BHPK5FC7 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1629627147.025900">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">U02BHQWT7FH</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1629627147.025900">2021-08-22 19:12:27 +0900</a></div>
+          </div>
+          <div class="message__body description">@U02BHQWT7FH has joined the channel</div>
+        </div>
+      </div>
     </div>
     <div class="pager ui pagination menu">
       <a href="../../html/C5666B6BB/97.html" class="pager__previous item">Previous</a>

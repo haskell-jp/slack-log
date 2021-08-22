@@ -410,6 +410,56 @@ Installing GHC ...</pre><br/></div>
           <div class="message__body description">@kasshi.4259.b.b has joined the channel</div>
         </div>
       </div>
+      <div class="message event" id="message-1629622740.009600">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">U02BHPK5FC7</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1629622740.009600">2021-08-22 17:59:00 +0900</a></div>
+          </div>
+          <div class="message__body description">@U02BHPK5FC7 has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1629627147.009800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">U02BHQWT7FH</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1629627147.009800">2021-08-22 19:12:27 +0900</a></div>
+          </div>
+          <div class="message__body description">@U02BHQWT7FH has joined the channel</div>
+        </div>
+      </div>
+      <div class="message event" id="message-1629635230.013800">
+        <div class="content">
+          <div class="summary">
+            <div class="message__header user">xgrk9475</div>
+            <div class="message__timestamp date"><a class="date" href="#message-1629635230.013800">2021-08-22 21:27:10 +0900</a></div>
+          </div>
+          <div class="message__body description">stack installで次のようなエラーが出てしまいます。<br/><pre>scientific&gt; configure
+scientific&gt; Configuring scientific-0.3.7.0...
+scientific&gt; build
+scientific&gt; Preprocessing library for scientific-0.3.7.0..
+scientific&gt; Building library for scientific-0.3.7.0..
+scientific&gt; [1 of 5] Compiling GHC.Integer.Compat
+scientific&gt; [2 of 5] Compiling Utils
+scientific&gt; [3 of 5] Compiling Data.Scientific
+scientific&gt; 
+scientific&gt; /tmp/stack-fff8d00fdcd912f1/scientific-0.3.7.0/src/Data/Scientific.hs:196:1: error:
+scientific&gt;     • Couldn't match type 'm' with 'Language.Haskell.TH.Syntax.Q'
+（略）
+scientific&gt;         lift :: Scientific -&gt; m Language.Haskell.TH.Syntax.Exp
+scientific&gt;           (bound at src/Data/Scientific.hs:196:1)
+scientific&gt;     |
+scientific&gt; 196 | deriving instance Lift Scientific
+scientific&gt;     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scientific&gt; </pre><br/>stack.yamlは次のとおりです。<br/><pre>extra-deps:
+  - text-1.2.4.1
+  - filepath-1.4.2.1
+  - megaparsec-9.1.0
+  - parser-combinators-1.3.0
+  - template-haskell-2.17.0.0
+  - ghc-boot-th-9.0.1</pre><br/><a href='https://hackage.haskell.org/package/template-haskell'>template-haskell</a>を加えると、このエラーが出るようになりました。<https://hackage.haskell.org/package/megaparsec|megaparsec>の依存パッケージに<https://hackage.haskell.org/package/scientific|scientific>があり、これが悪さをしているのではないかと思っているのですが、stackの仕組みをまだ理解しておらず、解決できません。何かアイデアはあるでしょうか？<br/>ちなみに、template-haskell単体ではインストールできます。</div>
+        </div>
+      </div>
     </div>
     <div class="pager ui pagination menu">
       <a href="../../html/CR2TETE5R/16.html" class="pager__previous item">Previous</a>
