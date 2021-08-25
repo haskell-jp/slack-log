@@ -24,20 +24,25 @@ spec = do
 
   let idOfRandom = "C4M4TT8JJ"
   -- The random channel configured in slack-log.yaml
+      p = PageInfo
+        { pageNumber       = 35
+        , thisPagePath     = "/html/35.html"
+        , previousPagePath = Just "/html/34.html"
+        , nextPagePath     = Just "/html/36.html"
+        , channelId        = idOfRandom
+        }
 
   describe "renderSlackMessages" $
     it "converts messages in Slack into a byte string of HTML" $ do
-      let p = PageInfo
-            { pageNumber       = 35
-            , thisPagePath     = "/html/35.html"
-            , previousPagePath = Just "/html/34.html"
-            , nextPagePath     = Just "/html/36.html"
-            , channelId        = idOfRandom
-            }
-
       expected <- readAsExpectedHtml "test/assets/expected-messages.html"
       Dir.withCurrentDirectory "test/assets" $
         renderSlackMessages w p `shouldReturn` expected
+
+  describe "renderThread" $
+    it "converts replies in Slack into a byte string of HTML" $ do
+      expected <- readAsExpectedHtml "test/assets/expected-replies.html"
+      Dir.withCurrentDirectory "test/assets" $
+        renderThread w p "1547694882.115200.json" `shouldReturn` expected
 
   describe "renderIndexOfPages" $
     it "build index HTML of HTML pages." $ do

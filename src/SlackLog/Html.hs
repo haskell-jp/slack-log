@@ -4,6 +4,7 @@
 {-# LANGUAGE OverloadedStrings          #-}
 {-# LANGUAGE RecordWildCards            #-}
 {-# LANGUAGE StrictData                 #-}
+{-# LANGUAGE TupleSections              #-}
 
 -- | Assumes functions in this module are executed in doc/ directory
 
@@ -12,6 +13,7 @@ module SlackLog.Html
   , generateIndexHtml
   , collectTargetJsons
   , renderSlackMessages
+  , renderThread
   , renderIndexOfPages
   , loadWorkspaceInfo
   , parsePageNumber
@@ -20,28 +22,30 @@ module SlackLog.Html
   ) where
 
 
-import           Control.Monad           ((<=<))
+import           Control.Monad           (unless, (<=<))
 import qualified Data.Aeson              as Json
 import qualified Data.ByteString         as B
 import           Data.Char               (isDigit)
 import           Data.Foldable           (for_)
 import qualified Data.HashMap.Strict     as HM
 import           Data.List               (isSuffixOf, sortOn)
-import           Data.Maybe              (fromMaybe)
+import           Data.Maybe              (fromMaybe, mapMaybe)
 import qualified Data.Text               as T
 import qualified Data.Text.Encoding      as TE
 import qualified Data.Time.Clock         as TC
+import qualified Data.Time.Clock.POSIX   as TCP
 import qualified Data.Time.Format        as TF
 import qualified Data.Time.LocalTime     as LT
 import qualified Data.Time.Zones         as TZ
 import           Data.Traversable        (for)
 import           Safe                    (lastMay)
 import qualified System.Directory        as Dir
-import           System.FilePath         (takeBaseName, (<.>), (</>))
+import           System.FilePath         (dropExtension, takeBaseName, (<.>),
+                                          (</>))
 import           System.IO               (hPrint, stderr)
 import qualified Text.Mustache           as TM
 import qualified Text.Mustache.Render    as TMR
-import           Text.Mustache.Types     ((~>))
+import           Text.Mustache.Types     (Value (Object), (~>))
 import qualified Web.Slack.Common        as Slack
 import qualified Web.Slack.MessageParser as Slack
 import           Witherable              (wither)
@@ -65,6 +69,7 @@ data WorkspaceInfo = WorkspaceInfo
   , channelNameById      :: HM.HashMap ChannelId ChannelName
   , indexPageTemplate    :: TM.Template
   , messagesPageTemplate :: TM.Template
+  , threadPageTemplate   :: TM.Template
   , workspaceInfoName    :: T.Text
   , getTimeDiff          :: TC.UTCTime -> LT.TimeZone
   }
@@ -79,7 +84,8 @@ convertJsonsInChannel :: WorkspaceInfo -> ChannelId -> [FilePath] -> IO ()
 convertJsonsInChannel ws chanId jsonPaths = do
   let channelIdStr = T.unpack chanId
 
-  Dir.createDirectoryIfMissing True $ "html" </> channelIdStr
+  let channelHtmlDir = "html" </> channelIdStr
+  Dir.createDirectoryIfMissing True channelHtmlDir
 
   putStrLn channelIdStr
 
@@ -93,14 +99,44 @@ convertJsonsInChannel ws chanId jsonPaths = do
     putStrLn $ "  " ++ show pg
     convertToHtmlFile ws pg
 
+    let threadsHtmlDir = channelHtmlDir </> show (pageNumber pg)
+    Dir.createDirectoryIfMissing True threadsHtmlDir
 
-convertToHtmlFile :: WorkspaceInfo -> PageInfo -> IO ()
-convertToHtmlFile ws pg =
-  B.writeFile htmlPath . TE.encodeUtf8 =<< renderSlackMessages ws pg
+    convertToRepliesHtmlFiles ws pg
+
+
+convertToRepliesHtmlFiles :: WorkspaceInfo -> PageInfo -> IO ()
+convertToRepliesHtmlFiles ws pg = do
+  threadJsonNames <- collectThreadJsonNames pg
+  for_ threadJsonNames $ \threadJsonName -> do
+    let htmlPath = ensureThreadPathIn "html" cid currentPagePath $ takeBaseName threadJsonName
+    B.writeFile htmlPath . TE.encodeUtf8 =<< renderThread ws pg threadJsonName
+
  where
   cid = channelId pg
   currentPagePath = thisPagePath pg
-  htmlPath = ensurePathIn "html" cid currentPagePath
+
+
+collectThreadJsonNames :: PageInfo -> IO [FilePath]
+collectThreadJsonNames PageInfo {pageNumber, channelId} = do
+  putStrLn $ "Collecting Channel " ++ T.unpack channelId ++ "'s threads at page#" ++ show pageNumber
+  let chanDir = "json" </> T.unpack channelId
+      prependChanDirIfPageFound d =
+        if d == show pageNumber
+          then Just $ chanDir </> d
+          else Nothing
+  pageDirs <-
+    mapMaybe prependChanDirIfPageFound <$> Dir.listDirectory chanDir
+  unless (null pageDirs) .
+    putStrLn $ "Found page directories: " ++ show pageDirs ++ " in " ++ T.unpack channelId
+  filter (".json" `isSuffixOf`) . concat <$> mapM Dir.listDirectory pageDirs
+
+
+convertToHtmlFile :: WorkspaceInfo -> PageInfo -> IO ()
+convertToHtmlFile ws pg@PageInfo{channelId, thisPagePath} =
+  B.writeFile htmlPath . TE.encodeUtf8 =<< renderSlackMessages ws pg
+ where
+  htmlPath = ensurePathIn "html" channelId thisPagePath
 
 
 generateIndexHtml :: WorkspaceInfo -> [(ChannelId, [FilePath])] -> IO ()
@@ -173,11 +209,7 @@ hasReplies cid pagePath Slack.Message { messageTs } =
   HasReplies <$> Dir.doesFileExist threadFilePath
  where
   threadFilePath =
-    "json"
-      </> T.unpack cid
-      </> takeBaseName pagePath
-      </> T.unpack (Slack.slackTimestampTs messageTs)
-      ++ ".json"
+    ensureThreadPathIn "json" cid pagePath $ T.unpack (Slack.slackTimestampTs messageTs)
 
 
 pageInfoForMustache :: WorkspaceInfo -> PageInfo -> [(HasReplies, Slack.Message)] -> PageInfoForMustache
@@ -199,23 +231,77 @@ messageForMustache ws pi (hasR, Slack.Message {..}) =
     { mfmUserScreenName = getUserScreenName ws messageUser
     , mfmHtmlMessageBody = mkMessageBody ws messageText
     , mfmTs = tst
-    , mfmFormattedTs = T.pack . timestampBlock $ Slack.slackTimestampTime messageTs
+    , mfmFormattedTs = T.pack . timestampBlock ws $ Slack.slackTimestampTime messageTs
     , mfmPathToReplies =
         T.pack (show (pageNumber pi)) <> "/" <> tst <> ".html"
     , mfmHasReplies = hasR
     }
  where
   tst = Slack.slackTimestampTs messageTs
-  timestampBlock tm =
-    let lt = LT.utcToZonedTime (getTimeDiff ws tm) tm
-    in TF.formatTime TF.defaultTimeLocale "%Y-%m-%d %T %z" lt
+
+
+timestampBlock :: WorkspaceInfo -> TC.UTCTime -> String
+timestampBlock ws tm =
+  let lt = LT.utcToZonedTime (getTimeDiff ws tm) tm
+  in TF.formatTime TF.defaultTimeLocale "%Y-%m-%d %T %z" lt
+
+
+data ThreadForMustache = ThreadForMustache
+  { tfmThreadFormattedTs :: !T.Text
+  , tfmPathToParentPage  :: !T.Text
+  , tfmParentPage        :: PageInfoForMustache
+  }
+
+instance TM.ToMustache ThreadForMustache where
+  toMustache ThreadForMustache {..} =
+    -- Merge with PageInfoForMustache to flatten the object
+    Object $ tfm <> pifm
+   where
+    tfm = HM.fromList
+      [ "threadFormattedTs" ~> tfmThreadFormattedTs
+      , "pathToParentPage" ~> tfmPathToParentPage
+      ]
+    pifm =
+      case TM.toMustache tfmParentPage of
+          Object o -> o
+          other    -> error $ "Unexpected Mustache Value: " ++ show other
+
+
+threadForMustache :: WorkspaceInfo -> PageInfo -> FilePath -> [Slack.Message] -> ThreadForMustache
+threadForMustache ws pi@PageInfo {pageNumber} threadJsonName msgs = ThreadForMustache
+  { tfmThreadFormattedTs = T.pack . timestampBlock ws $ tsFromThreadJsonFileName threadJsonName
+  , tfmPathToParentPage  = "../" <> T.pack (show pageNumber) <> ".html"
+  , tfmParentPage        = pageInfoForMustache ws pi $ map (HasReplies False,) msgs
+  }
+
+
+tsFromThreadJsonFileName :: FilePath -> TC.UTCTime
+tsFromThreadJsonFileName =
+  -- Valid strings for the (Read NominalDiffTime) instance must be prefixed with "s".
+  TCP.posixSecondsToUTCTime . read . (++ "s") . dropExtension
+
+
+renderThread :: WorkspaceInfo -> PageInfo -> FilePath -> IO T.Text
+renderThread ws@WorkspaceInfo {..} p@PageInfo {..} threadJsonName =
+  printingWarning
+    . render
+    =<< readJsonFile jsonPath
+ where
+  render :: [Slack.Message] -> ([TMR.SubstitutionError], T.Text)
+  render =
+    TM.checkedSubstitute threadPageTemplate . threadForMustache ws p threadJsonName
+  jsonPath = ensureThreadPathIn "json" channelId thisPagePath (takeBaseName threadJsonName)
 
 
 loadWorkspaceInfo :: Config -> FilePath -> IO WorkspaceInfo
 loadWorkspaceInfo cfg dir = do
   userNameById <- failWhenLeft =<< Json.eitherDecodeFileStrict' (dir </> ".users.json")
   let channelNameById = targetChannels cfg
-      TemplatePaths { indexPage, messagesPage } = templatePaths cfg
+      TemplatePaths
+        { indexPage
+        , messagesPage
+        , threadPage
+        } = templatePaths cfg
       workspaceInfoName = workspaceName cfg
   getTimeDiff <- fmap TZ.timeZoneForUTCTime . TZ.loadTZFromDB $ timeZone cfg
 
@@ -223,6 +309,8 @@ loadWorkspaceInfo cfg dir = do
     either (fail . show) return =<< TM.localAutomaticCompile indexPage
   messagesPageTemplate <-
     either (fail . show) return =<< TM.localAutomaticCompile messagesPage
+  threadPageTemplate <-
+    either (fail . show) return =<< TM.localAutomaticCompile threadPage
 
   return WorkspaceInfo {..}
 
@@ -320,73 +408,6 @@ renderIndexOfPages ws@WorkspaceInfo {..} cidJsonPaths = do
   readLastMessage :: FilePath -> IO Slack.Message
   readLastMessage = fmap last . readJsonFile
 
-{-
-  fmap wrapBody
-    . traverse (\(cid, jsonPaths) -> do
-      let sortedJsonPaths = sortOn parsePageNumber jsonPaths
-      case lastMay sortedJsonPaths of
-          Just lastPath -> do
-            lastLastMessage <- readLastMessage $ ensurePathIn "json" cid lastPath
-            Just . channelSummary cid lastPath lastLastMessage
-              <$> mapM (\path -> channelDetail cid path <$> readFirstMessage (ensurePathIn "json" cid path)) sortedJsonPaths
-          _ ->
-            return Nothing
-      )
- where
-  wrapBody body =
-    H.renderByteString
-      ( H.doctype_
-      # H.html_
-        ( H.head_
-          ( H.meta_A (A.charset_ "utf-8")
-          # H.title_ title
-          # H.link_A
-            ( A.rel_ "stylesheet"
-            # A.href_ "main.css"
-            # A.type_ "text/css"
-            # A.media_ "screen"
-            )
-          )
-        # H.body_
-          ( H.div_A (A.class_ "ui container")
-            ( H.h1_ title
-            # H.div_A (A.class_ "channels_list ui relaxed divided list") body
-            )
-          )
-        )
-      )
-  title = T.pack "Slack log of " <> workspaceInfoName
-
-  channelSummary cid lastJsonPath Slack.Message { messageTs } details =
-    H.div_A (A.class_ "item")
-      ( H.div_A (A.class_ "content")
-        ( H.details_A (A.class_ "channel")
-          ( H.summary_A (A.class_ "channel__name")
-            ( H.a_A (A.href_ (ensurePathIn "html" cid lastJsonPath)) (getChannelScreenName wsi cid)
-            # " "
-            # H.span_A () ("(Last updated at " <> timestampWords (Slack.slackTimestampTime messageTs) <> ")")
-            )
-          # H.div_A (A.class_ "pages_list ui items") details
-          )
-        )
-      )
-
-  channelDetail cid jsonPath Slack.Message { messageTs, messageUser, messageText } =
-    H.div_A (A.class_ "page item")
-      ( H.div_A (A.class_ "content")
-        ( H.a_A (A.class_ "header" # A.href_ (ensurePathIn "html" cid jsonPath))
-          (T.pack "#" <> T.pack (show (parsePageNumber jsonPath)))
-        # H.div_A (A.class_ "meta")
-          ( H.span_A (A.class_ "page__first_message__header")
-            (getUserScreenName wsi messageUser)
-          # H.span_A (A.class_ "page__first_message__timestamp")
-            (timestampWords $ Slack.slackTimestampTime messageTs)
-          )
-        # H.div_A (A.class_ "page__first_message__body description")
-          (unescapeHtmlEntities $ truncatedMessage messageText)
-        )
-      )
--}
 
 mkMessageBody :: WorkspaceInfo -> Slack.SlackMessageText -> T.Text
 mkMessageBody =
@@ -410,6 +431,15 @@ unescapeHtmlEntities =
 
 ensurePathIn :: String -> ChannelId -> FilePath -> FilePath
 ensurePathIn typ cid name = typ ++ "/" ++ T.unpack cid ++ "/" ++ takeBaseName name <.> typ
+
+
+ensureThreadPathIn :: String -> ChannelId -> FilePath -> FilePath -> FilePath
+ensureThreadPathIn typ cid pagePath tsStr =
+  typ
+    </> T.unpack cid
+    </> takeBaseName pagePath
+    </> tsStr
+    <.> typ
 
 
 getChannelScreenName :: WorkspaceInfo -> ChannelId -> ChannelName

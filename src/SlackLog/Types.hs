@@ -50,6 +50,7 @@ data Config = Config
 data TemplatePaths = TemplatePaths
   { indexPage    :: FilePath
   , messagesPage :: FilePath
+  , threadPage   :: FilePath
   } deriving (Eq, Show, Generic, Json.FromJSON)
 
 type TargetChannels = HM.HashMap ChannelId ChannelName
