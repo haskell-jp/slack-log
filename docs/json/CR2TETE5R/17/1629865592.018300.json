@@ -1,0 +1,14 @@
+[
+    {
+        "ts": "1629865592.018300",
+        "text": "windows10のコマンドプロンプトで\nstack install hmatrix\nとしたところ、以下のようなエラーが出ました。\n```hmatrix&gt; configure\nhmatrix&gt; Configuring hmatrix-0.20.2...\nhmatrix&gt; Cabal-simple_Z6RU0evB_3.2.1.0_ghc-8.10.4.exe: Missing dependencies on foreign\nhmatrix&gt; libraries:\nhmatrix&gt; * Missing (or bad) C libraries: blas, lapack\nhmatrix&gt; This problem can usually be solved by installing the system packages that\nhmatrix&gt; provide these libraries (you may need the \"-dev\" versions). If the libraries\nhmatrix&gt; are already installed but in a non-standard location then you can use the\nhmatrix&gt; flags --extra-include-dirs= and --extra-lib-dirs= to specify where they are.If\nhmatrix&gt; the library files do exist, it may contain errors that are caught by the C\nhmatrix&gt; compiler at the preprocessing stage. In this case you can re-run configure\nhmatrix&gt; with the verbosity flag -v3 to see the error messages.```\n情報が足りないかもしれませんが、このエラーの原因を教えていただきたいです。よろしくお願いします。",
+        "user": "U02C4FQFQSC",
+        "type": "message"
+    },
+    {
+        "ts": "1629872785.018400",
+        "text": "エラーメッセージのとおり、blasとlapackというライブラリーがインストールされていないためのエラーです。\n「windows lapack」や「windows blas」で検索するとどこかしらでそれらのdllファイルとhファイルが見つかるかと思います。\nインストールする際は stack.yaml の `extra-include-dirs` という設定項目で `.h` ファイルが含まれているディレクトリーを指定し、 `extra-lib-dirs` という設定項目で `.dll` ファイルが含まれるディレクトリーを指定してください。\nまた、コンパイルした後の実行時に `.dll` ファイルが含まれているディレクトリーを `PATH` に追加しておく必要もあったはずなので、その点もご注意を。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]
