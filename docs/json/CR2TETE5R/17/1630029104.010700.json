@@ -1,0 +1,32 @@
+[
+    {
+        "ts": "1630029104.010700",
+        "text": "再掲）\n```Windows PowerShell\nCopyright (C) Microsoft Corporation. All rights reserved.\n\n新しいクロスプラットフォームの PowerShell をお試しください <https://aka.ms/pscore6>\n\nPS C:\\Users\\toshi&gt; wsl.exe\nWelcome to Ubuntu 20.04.2 LTS (GNU/Linux 4.4.0-19041-Microsoft x86_64)\n\n * Documentation:  <https://help.ubuntu.com>\n * Management:     <https://landscape.canonical.com>\n * Support:        <https://ubuntu.com/advantage>\n\n  System information as of Fri Aug 27 09:50:26 JST 2021\n\n  System load:    0.52      Processes:              7\n  Usage of /home: unknown   Users logged in:        0\n  Memory usage:   52%       IPv4 address for eth1:  192.168.56.1\n  Swap usage:     0%        IPv4 address for wifi0: 192.168.2.100\n\n139 updates can be installed immediately.\n58 of these updates are security updates.\nTo see these additional updates run: apt list --upgradable\n\n\nThe list of available updates is more than a week old.\nTo check for new updates run: sudo apt update\n\n\nThis message is shown once a day. To disable it please create the\n/home/pig_dweller/.hushlogin file.\npig_dweller@DESKTOP-IF52AIJ:/mnt/c/Users/toshi$ stack install hmatrix\nPreparing to install GHC (tinfo6) to an isolated location.\nThis will not interfere with any system-level installation.\nAlready downloaded.\nghc-pkg: Couldn't open database /home/pig_dweller/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4/lib/ghc-8.10.4/package.conf.d for modification: {handle: /home/pig_dweller/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4/lib/ghc-8.10.4/package.conf.d/package.cache.lock}: hLock: invalid argument (Invalid argument)\nmake[1]: *** [<http://ghc.mk:973|ghc.mk:973>: install_packages] Error 1\nmake: *** [Makefile:51: install] Error 2\nReceived ExitFailure 2 when running\nRaw command: /usr/bin/make install\nRun from: /home/pig_dweller/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4.temp/ghc-8.10.4/\n\n\nError: Error encountered while installing GHC with\n         make install\n         run in /home/pig_dweller/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4.temp/ghc-8.10.4/\n\n       The following directories may now contain files, but won't be used by stack:\n         - /home/pig_dweller/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4.temp/\n         - /home/pig_dweller/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4/\n\n       For more information consider rerunning with --verbose flag\n\nInstalling GHC ...\npig_dweller@DESKTOP-IF52AIJ:/mnt/c/Users/toshi$```\nこのえらーのないようをおしえてください",
+        "user": "U02C4FQFQSC",
+        "type": "message"
+    },
+    {
+        "ts": "1630030344.010800",
+        "text": "<https://haskell-jp.slack.com/archives/CR2TETE5R/p1626432250123200> とよく似たケースに見えるのですが、WSLのバージョンはわかりますか？\n\nあと、「再掲」と言いつつ一昨日とエラーメッセージも環境も異なっているのが気になります :confused: 私の回答のあとどうなったのかも教えていただいてませんし。\n<https://haskell-jp.slack.com/archives/CR2TETE5R/p1629865592018300>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1630031051.011100",
+        "text": "内容は分かりませんが、WSL2にすると治るとかいう謎が結構あるらしいです",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1630049928.011600",
+        "text": "みなさんありがとうございます。がんばってみます",
+        "user": "U02C4FQFQSC",
+        "type": "message"
+    },
+    {
+        "ts": "1630069062.012000",
+        "text": "<@U02C4FQFQSC> DMで詳しい解説ありがとうございました。でも私にしか見えないので、原則パブリックな場で返事をください。特にこの場合、端から見て私の指摘に全く答えていないように見えるので心象が若干悪いです。\n\n本筋と関係ない話はこの辺にして、一つ補足させてください。次Windowsで試すときはcygwinを使うとのことでしたが、cygwin以外にもWindows上で直接（WSLなど仮想マシンを使わずに）Unix由来のソフトウェアを動かす仕組みとしてMSYS2と言うのがあります。実はWindows版GHCが間接的に依存している関係で、stackでGHCをインストールすると自動でにMSYS2もインストールされます。なので実は知らないうちにnoshigoroさんもMSYS2をすでに使っている可能性があります。\n\nで、hmatrixについて私も調べてみたんですが、なるほど確かにdllはともかく.hファイルのありかが分かりづらいですね...:cold_sweat:\nそこで「windows hmatrix」で検索してみたところ、 <https://github.com/haskell-numerics/hmatrix/blob/master/INSTALL.md> が見つかりました。\n試したところ、こちらの方法でも残念ながら、stackがインストールするMSYS2が古すぎるためか <https://github.com/roswell/roswell/issues/469> と似た問題が起きてインストールできませんでしたが、報告まで。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]
