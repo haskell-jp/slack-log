@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #96 at 2021-03-21 18:02:43 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #96 at 2021-03-21 18:02:43 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1616317363.001400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1616317363.001400">2021-03-21 18:02:43 +0900</a></div>
+          </div>
+          <div class="description">persistent 関連のテストを書いてるんですけど、なんかいい感じに <strike>モック</strike> テスト用データを作ったりできるテストライブラリってあるんですかね？<br/>Ruby (Rails) とかだと <a href='https://github.com/thoughtbot/factory_bot'>factory_bot</a> とかを使うんですけど、パッと探した感じ、そういうの見つかりませんでした。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616317629.001600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1616317629.001600">2021-03-21 18:07:09 +0900</a></div>
+          </div>
+          <div class="description">factory_botってモックに使うものでしたっけ。テスト用に実際にDBのレコードを作成するライブラリーのような。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616317764.001800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1616317764.001800">2021-03-21 18:09:24 +0900</a></div>
+          </div>
+          <div class="description">あ、はい、モックというかなんというか<br/>テスト用に簡単にデータ作って入れてって感じです、やりたいことは</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616318058.002200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1616318058.002200">2021-03-21 18:14:18 +0900</a></div>
+          </div>
+          <div class="description">なるほど。申し訳なくも該当するようなライブラリーは私は知らないです。個別にユーティリティ関数を作るしかなさそう :disappointed:<br/>願わくば、なるべくDBのスキーマに依存しないで、アプリケーションの設計上の言葉でテストにふさわしい状況を作り出す関数を定義して、それをテストでも使いたいところですね。<br/>（持論なんですが、ちょっと分かりづらかったらすみません）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616396427.002600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1616396427.002600">2021-03-22 16:00:27 +0900</a></div>
+          </div>
+          <div class="description">私のYesodアプリケーションのテストのためには地道にinsertしてますね…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616396637.003000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1616396637.003000">2021-03-22 16:03:57 +0900</a></div>
+          </div>
+          <div class="description">結局地道に insert + delete を繰り返す処理を書きました :innocent:<br/><a href='https://github.com/matsubara0507/homelyapp/blob/5bbb518f79ce45e28c5bb145b7a401f837b27ab4/test/Test/Homely/DB.hs#L94-L100'>https://github.com/matsubara0507/homelyapp/blob/5bbb518f79ce45e28c5bb145b7a401f837b27ab4/test/Test/Homely/DB.hs#L94-L100</a><br/>もう少しユースケースが見えてきたら、なんかいい感じに処理を抽象化しても良いかもしれないですが。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616416121.008000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nakaji-dayo</div>
+            <div class="date"><a class="date" href="#message-1616416121.008000">2021-03-22 21:28:41 +0900</a></div>
+          </div>
+          <div class="description">同じく欲しいなって思って探した事ありますが、その時は見つからなかったですね。。<br/>その時は、Entity的なものをDefaultのインスタンスにして、lensで書き換えてテストデータを作り、StateMonadを雑に使って作ったデータ管理(参照したり、上書きして新たなテストデータにしたり)しました</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+  </div>
+</body>
+</html>

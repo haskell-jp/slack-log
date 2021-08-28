@@ -8,469 +8,469 @@
 <body>
   <div class="ui container">
     <h1>haskell-jp / questions #10</h1>
-    <div class="pager ui pagination menu">
-      <a href="../../html/C5666B6BB/9.html" class="pager__previous item">Previous</a>
-      <a href="../../" class="pager__top item">Top</a>
-      <a href="../../html/C5666B6BB/11.html" class="pager__next item">Next</a>
+    <div class="ui pagination menu">
+      <a href="../../html/C5666B6BB/9.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+      <a href="../../html/C5666B6BB/11.html" class="item">Next</a>
     </div>
-    <div class="message_list ui feed">
-      <div class="message event" id="message-1515739828.000083">
+    <div class="ui feed">
+      <div class="event" id="message-1515739828.000083">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515739828.000083">2018-01-12 15:50:28 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1515739828.000083">2018-01-12 15:50:28 +0900</a></div>
           </div>
-          <div class="message__body description"><code>stack clean</code> では不足ってことですよね。。。</div>
+          <div class="description"><code>stack clean</code> では不足ってことですよね。。。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515744001.000315">
+      <div class="event" id="message-1515744001.000315">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515744001.000315">2018-01-12 17:00:01 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1515744001.000315">2018-01-12 17:00:01 +0900</a></div>
           </div>
-          <div class="message__body description"><code>clean</code> だと全部消しちゃいませんか？</div>
+          <div class="description"><code>clean</code> だと全部消しちゃいませんか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1515744188.000265">
+      <div class="event" id="message-1515744188.000265">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515744188.000265">2018-01-12 17:03:08 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1515744188.000265">2018-01-12 17:03:08 +0900</a></div>
           </div>
-          <div class="message__body description">正確に把握してませんが、 <code>stack clean --help</code> 曰く<br/><code>local package</code> だけなので自分で作った（cabalファイルに書いた）パッケージだけではないかと認識しています。<br/>あとは <code>extra-dependencies</code> としてビルドしたものぐらい？</div>
+          <div class="description">正確に把握してませんが、 <code>stack clean --help</code> 曰く<br/><code>local package</code> だけなので自分で作った（cabalファイルに書いた）パッケージだけではないかと認識しています。<br/>あとは <code>extra-dependencies</code> としてビルドしたものぐらい？</div>
         </div>
       </div>
-      <div class="message event" id="message-1515744240.000048">
+      <div class="event" id="message-1515744240.000048">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515744240.000048">2018-01-12 17:04:00 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1515744240.000048">2018-01-12 17:04:00 +0900</a></div>
           </div>
-          <div class="message__body description">おう，そもそも <code>clean</code> はビルド生成物だけを消すコマンドなんですね．ビルド生成物を消したいわけじゃなくて，hoogle dbとか各ltsごとに保持しているパッケージ情報を消したいです</div>
+          <div class="description">おう，そもそも <code>clean</code> はビルド生成物だけを消すコマンドなんですね．ビルド生成物を消したいわけじゃなくて，hoogle dbとか各ltsごとに保持しているパッケージ情報を消したいです</div>
         </div>
       </div>
-      <div class="message event" id="message-1515744750.000012">
+      <div class="event" id="message-1515744750.000012">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515744750.000012">2018-01-12 17:12:30 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1515744750.000012">2018-01-12 17:12:30 +0900</a></div>
           </div>
-          <div class="message__body description">もしかして、 <code>.stack-work</code> 以下に各resolverのコンパイル済みパッケージが入ると勘違いしてませんか...?<br/>実際には <code>~/.stack/</code> 以下のはずです。<br/>その辺はcabal sandboxから改善されているはずなので。。。</div>
+          <div class="description">もしかして、 <code>.stack-work</code> 以下に各resolverのコンパイル済みパッケージが入ると勘違いしてませんか...?<br/>実際には <code>~/.stack/</code> 以下のはずです。<br/>その辺はcabal sandboxから改善されているはずなので。。。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515744827.000054">
+      <div class="event" id="message-1515744827.000054">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515744827.000054">2018-01-12 17:13:47 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1515744827.000054">2018-01-12 17:13:47 +0900</a></div>
           </div>
-          <div class="message__body description">うーんでも， 200M ぐらいあるので…</div>
+          <div class="description">うーんでも， 200M ぐらいあるので…</div>
         </div>
       </div>
-      <div class="message event" id="message-1515744997.000266">
+      <div class="event" id="message-1515744997.000266">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515744997.000266">2018-01-12 17:16:37 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1515744997.000266">2018-01-12 17:16:37 +0900</a></div>
           </div>
-          <div class="message__body description">そういえば、と思って自分も手元のプロジェクトを見てみたら、334MBもあったw<br/>そして <code>du -hs</code> で掘ってみた感じ、どうも自分のパッケージをビルドしてできる<br/><code>.stack-work/dist/x86_64-linux</code> 以下が主にとっているみたいですね。。。</div>
+          <div class="description">そういえば、と思って自分も手元のプロジェクトを見てみたら、334MBもあったw<br/>そして <code>du -hs</code> で掘ってみた感じ、どうも自分のパッケージをビルドしてできる<br/><code>.stack-work/dist/x86_64-linux</code> 以下が主にとっているみたいですね。。。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515745069.000050">
+      <div class="event" id="message-1515745069.000050">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515745069.000050">2018-01-12 17:17:49 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1515745069.000050">2018-01-12 17:17:49 +0900</a></div>
           </div>
-          <div class="message__body description">あ、と思ったら <code>.stack-work/install</code> 以下も結構とってるな。。。</div>
+          <div class="description">あ、と思ったら <code>.stack-work/install</code> 以下も結構とってるな。。。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515745160.000166">
+      <div class="event" id="message-1515745160.000166">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515745160.000166">2018-01-12 17:19:20 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1515745160.000166">2018-01-12 17:19:20 +0900</a></div>
           </div>
-          <div class="message__body description">主に消したいのは <code>.stack-work/install</code> 以下の使わないlts分のものですね</div>
+          <div class="description">主に消したいのは <code>.stack-work/install</code> 以下の使わないlts分のものですね</div>
         </div>
       </div>
-      <div class="message event" id="message-1515745193.000006">
+      <div class="event" id="message-1515745193.000006">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515745193.000006">2018-01-12 17:19:53 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1515745193.000006">2018-01-12 17:19:53 +0900</a></div>
           </div>
-          <div class="message__body description">あってもおかしく無いと思ったんですけど，まあ無いなら普通に消します</div>
+          <div class="description">あってもおかしく無いと思ったんですけど，まあ無いなら普通に消します</div>
         </div>
       </div>
-      <div class="message event" id="message-1515745257.000392">
+      <div class="event" id="message-1515745257.000392">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515745257.000392">2018-01-12 17:20:57 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1515745257.000392">2018-01-12 17:20:57 +0900</a></div>
           </div>
-          <div class="message__body description">なるほど。そっちも掘ってみましたが、やっぱり入っているのは自前のパッケージっぽいですね。<br/>だから思い切って消しちゃってもいいかも。<br/>そして <code>stack clean</code> しても消えない模様。。。 :disappointed:</div>
+          <div class="description">なるほど。そっちも掘ってみましたが、やっぱり入っているのは自前のパッケージっぽいですね。<br/>だから思い切って消しちゃってもいいかも。<br/>そして <code>stack clean</code> しても消えない模様。。。 :disappointed:</div>
         </div>
       </div>
-      <div class="message event" id="message-1515745360.000318">
+      <div class="event" id="message-1515745360.000318">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515745360.000318">2018-01-12 17:22:40 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1515745360.000318">2018-01-12 17:22:40 +0900</a></div>
           </div>
-          <div class="message__body description">結論、resolver毎にビルド結果を残してしまうstackの仕様に加え、GHCがビルドしたものがそもそも大きすぎるのが問題な気がしました :sweat_smile:</div>
+          <div class="description">結論、resolver毎にビルド結果を残してしまうstackの仕様に加え、GHCがビルドしたものがそもそも大きすぎるのが問題な気がしました :sweat_smile:</div>
         </div>
       </div>
-      <div class="message event" id="message-1515774272.000915">
+      <div class="event" id="message-1515774272.000915">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">hs.ioling.hs</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515774272.000915">2018-01-13 01:24:32 +0900</a></div>
+            <div class="user">hs.ioling.hs</div>
+            <div class="date"><a class="date" href="#message-1515774272.000915">2018-01-13 01:24:32 +0900</a></div>
           </div>
-          <div class="message__body description"><a href='https://twitter.com/hsjoihs/status/951851803531816960'>https://twitter.com/hsjoihs/status/951851803531816960</a><br/>freeモナドとかoperationalとかcontとかを学ぶ際に最初に読むべきもの、なんかオススメありますかね（英語可）（現状の理解度：StateTぐらいなら分かる、圏論の背景知識は不足している、LispとかSchemeとかcall/ccとかは全く理解していない）</div>
+          <div class="description"><a href='https://twitter.com/hsjoihs/status/951851803531816960'>https://twitter.com/hsjoihs/status/951851803531816960</a><br/>freeモナドとかoperationalとかcontとかを学ぶ際に最初に読むべきもの、なんかオススメありますかね（英語可）（現状の理解度：StateTぐらいなら分かる、圏論の背景知識は不足している、LispとかSchemeとかcall/ccとかは全く理解していない）</div>
         </div>
       </div>
-      <div class="message event" id="message-1515775218.000594">
+      <div class="event" id="message-1515775218.000594">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515775218.000594">2018-01-13 01:40:18 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1515775218.000594">2018-01-13 01:40:18 +0900</a></div>
           </div>
-          <div class="message__body description">freeモナドについては<br/><a href='https://apfelmus.nfshost.com/articles/operational-monad.html'>https://apfelmus.nfshost.com/articles/operational-monad.html</a> などを見ながら，ひとまずこのパッケージで何か作って見るのがいい気がします．<br/><a href='https://hackage.haskell.org/package/MonadPrompt'>https://hackage.haskell.org/package/MonadPrompt</a><br/>オススメはIOモナドですかね？(ファイルの読み取りや書き込みなどを自分のDSLで書けるようにする，より良いIOのための小さなフレームワークを作るなど)</div>
+          <div class="description">freeモナドについては<br/><a href='https://apfelmus.nfshost.com/articles/operational-monad.html'>https://apfelmus.nfshost.com/articles/operational-monad.html</a> などを見ながら，ひとまずこのパッケージで何か作って見るのがいい気がします．<br/><a href='https://hackage.haskell.org/package/MonadPrompt'>https://hackage.haskell.org/package/MonadPrompt</a><br/>オススメはIOモナドですかね？(ファイルの読み取りや書き込みなどを自分のDSLで書けるようにする，より良いIOのための小さなフレームワークを作るなど)</div>
         </div>
       </div>
-      <div class="message event" id="message-1515776535.000410">
+      <div class="event" id="message-1515776535.000410">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515776535.000410">2018-01-13 02:02:15 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1515776535.000410">2018-01-13 02:02:15 +0900</a></div>
           </div>
-          <div class="message__body description">継続(continuation/cont monad)については，話題が結構多岐にわたるんですが，基礎的な話についてはあまり良い資料を見つけられませんでした．<br/><a href='https://github.com/lotz84/haskell/blob/master/docs/continuation.md'>https://github.com/lotz84/haskell/blob/master/docs/continuation.md</a><br/>とかで幾つか資料を見て見るのがいいんですかね？(誰か強い人にお任せ)</div>
+          <div class="description">継続(continuation/cont monad)については，話題が結構多岐にわたるんですが，基礎的な話についてはあまり良い資料を見つけられませんでした．<br/><a href='https://github.com/lotz84/haskell/blob/master/docs/continuation.md'>https://github.com/lotz84/haskell/blob/master/docs/continuation.md</a><br/>とかで幾つか資料を見て見るのがいいんですかね？(誰か強い人にお任せ)</div>
         </div>
       </div>
-      <div class="message event" id="message-1515788627.000330">
+      <div class="event" id="message-1515788627.000330">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">maoe</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515788627.000330">2018-01-13 05:23:47 +0900</a></div>
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1515788627.000330">2018-01-13 05:23:47 +0900</a></div>
           </div>
-          <div class="message__body description">僕もWindowsの挙動は詳しくないのですがstack corruptionが起きるそうです。<https://github.com/haskell/ThreadScope/commit/299546b7aef4155849437d327d34059589a82643#commitcomment-23352756><br/>コメントの通りwindows_cconv.hを使うのがおすすめだそうです。</div>
+          <div class="description">僕もWindowsの挙動は詳しくないのですがstack corruptionが起きるそうです。<https://github.com/haskell/ThreadScope/commit/299546b7aef4155849437d327d34059589a82643#commitcomment-23352756><br/>コメントの通りwindows_cconv.hを使うのがおすすめだそうです。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515800573.000056">
+      <div class="event" id="message-1515800573.000056">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">yoshikunijujo</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515800573.000056">2018-01-13 08:42:53 +0900</a></div>
+            <div class="user">yoshikunijujo</div>
+            <div class="date"><a class="date" href="#message-1515800573.000056">2018-01-13 08:42:53 +0900</a></div>
           </div>
-          <div class="message__body description">Qiitaの僕の記事です。<https://qiita.com/YoshikuniJujo/items/c71644b5af1f5195cbf3><br/>FreeモナドとOperationalモナドについての説明もありますので、もしよろしければ。ご参考までに。</div>
+          <div class="description">Qiitaの僕の記事です。<https://qiita.com/YoshikuniJujo/items/c71644b5af1f5195cbf3><br/>FreeモナドとOperationalモナドについての説明もありますので、もしよろしければ。ご参考までに。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515814588.000002">
+      <div class="event" id="message-1515814588.000002">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515814588.000002">2018-01-13 12:36:28 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1515814588.000002">2018-01-13 12:36:28 +0900</a></div>
           </div>
-          <div class="message__body description">入門向けではないですが私のお薦めは “FUNCTIONAL PEARL Data types a la carte” です。  <a href='http://www.cs.ru.nl/~W.Swierstra/Publications/DataTypesALaCarte.pdf'>http://www.cs.ru.nl/~W.Swierstra/Publications/DataTypesALaCarte.pdf</a></div>
+          <div class="description">入門向けではないですが私のお薦めは “FUNCTIONAL PEARL Data types a la carte” です。  <a href='http://www.cs.ru.nl/~W.Swierstra/Publications/DataTypesALaCarte.pdf'>http://www.cs.ru.nl/~W.Swierstra/Publications/DataTypesALaCarte.pdf</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1515831056.000020">
+      <div class="event" id="message-1515831056.000020">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515831056.000020">2018-01-13 17:10:56 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1515831056.000020">2018-01-13 17:10:56 +0900</a></div>
           </div>
-          <div class="message__body description">data types a la carteのfree monadに関しての洞察は，代数的な側面が強いので，あまりモナドに設置させるという感じでは無いかもしれないですね．freeモナドの方を重点的に解説してる記事としては<br/><a href='http://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html'>http://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html</a><br/>とかもありますね</div>
+          <div class="description">data types a la carteのfree monadに関しての洞察は，代数的な側面が強いので，あまりモナドに設置させるという感じでは無いかもしれないですね．freeモナドの方を重点的に解説してる記事としては<br/><a href='http://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html'>http://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html</a><br/>とかもありますね</div>
         </div>
       </div>
-      <div class="message event" id="message-1515831207.000010">
+      <div class="event" id="message-1515831207.000010">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515831207.000010">2018-01-13 17:13:27 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1515831207.000010">2018-01-13 17:13:27 +0900</a></div>
           </div>
-          <div class="message__body description">ただ，data types a la carteの手法自体は，free monadとは独立に知っておくと面白いと思います(理論面でも技術面でもfreeモナドとつながりが深いですし)</div>
+          <div class="description">ただ，data types a la carteの手法自体は，free monadとは独立に知っておくと面白いと思います(理論面でも技術面でもfreeモナドとつながりが深いですし)</div>
         </div>
       </div>
-      <div class="message event" id="message-1515988462.000070">
+      <div class="event" id="message-1515988462.000070">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515988462.000070">2018-01-15 12:54:22 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1515988462.000070">2018-01-15 12:54:22 +0900</a></div>
           </div>
-          <div class="message__body description">枝が Map k で分岐している木<br/><pre>
+          <div class="description">枝が Map k で分岐している木<br/><pre>
 data X k a = Leaf a | Node (Map k (X k a))
 </pre><br/>に特別な名前が付いていますか。二分木とかトライ木のような。<br/>トライ木と呼んでもいいのかな。（キーが文字列でないだけで）</div>
         </div>
       </div>
-      <div class="message event" id="message-1515988727.000080">
+      <div class="event" id="message-1515988727.000080">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515988727.000080">2018-01-15 12:58:47 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1515988727.000080">2018-01-15 12:58:47 +0900</a></div>
           </div>
-          <div class="message__body description">Map に Node が入り得るんですか？</div>
+          <div class="description">Map に Node が入り得るんですか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1515988739.000129">
+      <div class="event" id="message-1515988739.000129">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515988739.000129">2018-01-15 12:58:59 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1515988739.000129">2018-01-15 12:58:59 +0900</a></div>
           </div>
-          <div class="message__body description">例示したコードと若干異なりますが、<br/>Rose treeの <code>Map</code> 版、ぐらいですかね。。。</div>
+          <div class="description">例示したコードと若干異なりますが、<br/>Rose treeの <code>Map</code> 版、ぐらいですかね。。。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515988833.000052">
+      <div class="event" id="message-1515988833.000052">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">as_capabl</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515988833.000052">2018-01-15 13:00:33 +0900</a></div>
+            <div class="user">as_capabl</div>
+            <div class="date"><a class="date" href="#message-1515988833.000052">2018-01-15 13:00:33 +0900</a></div>
           </div>
-          <div class="message__body description">Freeモナドについては、私はfumievalさんやちゅーんさんのブログで勉強しました</div>
+          <div class="description">Freeモナドについては、私はfumievalさんやちゅーんさんのブログで勉強しました</div>
         </div>
       </div>
-      <div class="message event" id="message-1515988844.000102">
+      <div class="event" id="message-1515988844.000102">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">as_capabl</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515988844.000102">2018-01-15 13:00:44 +0900</a></div>
+            <div class="user">as_capabl</div>
+            <div class="date"><a class="date" href="#message-1515988844.000102">2018-01-15 13:00:44 +0900</a></div>
           </div>
-          <div class="message__body description"><a href='http://d.hatena.ne.jp/its_out_of_tune/20121111/1352632815'>http://d.hatena.ne.jp/its_out_of_tune/20121111/1352632815</a></div>
+          <div class="description"><a href='http://d.hatena.ne.jp/its_out_of_tune/20121111/1352632815'>http://d.hatena.ne.jp/its_out_of_tune/20121111/1352632815</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1515988858.000084">
+      <div class="event" id="message-1515988858.000084">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">as_capabl</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515988858.000084">2018-01-15 13:00:58 +0900</a></div>
+            <div class="user">as_capabl</div>
+            <div class="date"><a class="date" href="#message-1515988858.000084">2018-01-15 13:00:58 +0900</a></div>
           </div>
-          <div class="message__body description"><a href='http://d.hatena.ne.jp/fumiexcel/20121111/1352614885'>http://d.hatena.ne.jp/fumiexcel/20121111/1352614885</a></div>
+          <div class="description"><a href='http://d.hatena.ne.jp/fumiexcel/20121111/1352614885'>http://d.hatena.ne.jp/fumiexcel/20121111/1352614885</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1515988897.000196">
+      <div class="event" id="message-1515988897.000196">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515988897.000196">2018-01-15 13:01:37 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1515988897.000196">2018-01-15 13:01:37 +0900</a></div>
           </div>
-          <div class="message__body description"><code>Cofree</code> はrose treeを一般化したものなので、 <code>Cofree f a</code> の <code>f</code> を <code>Map k</code> としたバージョンともいえそうです。<br/><a href='https://www.stackage.org/haddock/lts-10.3/free-4.12.4/Control-Comonad-Cofree.html#t:Cofree'>https://www.stackage.org/haddock/lts-10.3/free-4.12.4/Control-Comonad-Cofree.html#t:Cofree</a></div>
+          <div class="description"><code>Cofree</code> はrose treeを一般化したものなので、 <code>Cofree f a</code> の <code>f</code> を <code>Map k</code> としたバージョンともいえそうです。<br/><a href='https://www.stackage.org/haddock/lts-10.3/free-4.12.4/Control-Comonad-Cofree.html#t:Cofree'>https://www.stackage.org/haddock/lts-10.3/free-4.12.4/Control-Comonad-Cofree.html#t:Cofree</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1515988953.000241">
+      <div class="event" id="message-1515988953.000241">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515988953.000241">2018-01-15 13:02:33 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1515988953.000241">2018-01-15 13:02:33 +0900</a></div>
           </div>
-          <div class="message__body description">あー、rose tree (多分木)ですね。</div>
+          <div class="description">あー、rose tree (多分木)ですね。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515989008.000049">
+      <div class="event" id="message-1515989008.000049">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515989008.000049">2018-01-15 13:03:28 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1515989008.000049">2018-01-15 13:03:28 +0900</a></div>
           </div>
-          <div class="message__body description">Free (Map k) のつもりだったのですが、Cofree の方ですか？</div>
+          <div class="description">Free (Map k) のつもりだったのですが、Cofree の方ですか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1515989053.000150">
+      <div class="event" id="message-1515989053.000150">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515989053.000150">2018-01-15 13:04:13 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1515989053.000150">2018-01-15 13:04:13 +0900</a></div>
           </div>
-          <div class="message__body description">ああー、例示したコードだとその方が近そうですね。。。</div>
+          <div class="description">ああー、例示したコードだとその方が近そうですね。。。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515989311.000160">
+      <div class="event" id="message-1515989311.000160">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515989311.000160">2018-01-15 13:08:31 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1515989311.000160">2018-01-15 13:08:31 +0900</a></div>
           </div>
-          <div class="message__body description">多分木は Free [] ですよね。多分。</div>
+          <div class="description">多分木は Free [] ですよね。多分。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515989402.000233">
+      <div class="event" id="message-1515989402.000233">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515989402.000233">2018-01-15 13:10:02 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1515989402.000233">2018-01-15 13:10:02 +0900</a></div>
           </div>
-          <div class="message__body description">そうか。私が想定していたrose treeの場合、木の各階層に値が入ると思っていたんですが、提案されたものの場合葉にしか値が入らないのか。</div>
+          <div class="description">そうか。私が想定していたrose treeの場合、木の各階層に値が入ると思っていたんですが、提案されたものの場合葉にしか値が入らないのか。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515989465.000036">
+      <div class="event" id="message-1515989465.000036">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515989465.000036">2018-01-15 13:11:05 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1515989465.000036">2018-01-15 13:11:05 +0900</a></div>
           </div>
-          <div class="message__body description">枝に値が入るかどうかで名前が変わりそうですね。</div>
+          <div class="description">枝に値が入るかどうかで名前が変わりそうですね。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515989538.000077">
+      <div class="event" id="message-1515989538.000077">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515989538.000077">2018-01-15 13:12:18 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1515989538.000077">2018-01-15 13:12:18 +0900</a></div>
           </div>
-          <div class="message__body description">Leaf に値が入る木って、Haskell だとあまり見ないですね。。。</div>
+          <div class="description">Leaf に値が入る木って、Haskell だとあまり見ないですね。。。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515989639.000079">
+      <div class="event" id="message-1515989639.000079">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515989639.000079">2018-01-15 13:13:59 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1515989639.000079">2018-01-15 13:13:59 +0900</a></div>
           </div>
-          <div class="message__body description">トライ木は枝に値が付くのか。</div>
+          <div class="description">トライ木は枝に値が付くのか。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515989763.000036">
+      <div class="event" id="message-1515989763.000036">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515989763.000036">2018-01-15 13:16:03 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1515989763.000036">2018-01-15 13:16:03 +0900</a></div>
           </div>
-          <div class="message__body description">葉に値が付く木で、僕が Haskell で使ったことがあるのは、Huffuman 符号の木ぐらいですねぇ。</div>
+          <div class="description">葉に値が付く木で、僕が Haskell で使ったことがあるのは、Huffuman 符号の木ぐらいですねぇ。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515990220.000156">
+      <div class="event" id="message-1515990220.000156">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515990220.000156">2018-01-15 13:23:40 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1515990220.000156">2018-01-15 13:23:40 +0900</a></div>
           </div>
-          <div class="message__body description">入門本ではどういう例で載せているか見たら「H本」はNodeにだけ持ち、「関数プログラミング入門」ではLeafにだけ持ってました。</div>
+          <div class="description">入門本ではどういう例で載せているか見たら「H本」はNodeにだけ持ち、「関数プログラミング入門」ではLeafにだけ持ってました。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515990401.000040">
+      <div class="event" id="message-1515990401.000040">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515990401.000040">2018-01-15 13:26:41 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1515990401.000040">2018-01-15 13:26:41 +0900</a></div>
           </div>
-          <div class="message__body description">そもそもは Free ((-&gt;) k) の例で名前がついているデータ型にどういうのがあるかなと思っての質問でした。<br/>例えば Bool -&gt; a の Free は（Leaf にだけ値を持つ）2分木、とか。</div>
+          <div class="description">そもそもは Free ((-&gt;) k) の例で名前がついているデータ型にどういうのがあるかなと思っての質問でした。<br/>例えば Bool -&gt; a の Free は（Leaf にだけ値を持つ）2分木、とか。</div>
         </div>
       </div>
-      <div class="message event" id="message-1515994235.000077">
+      <div class="event" id="message-1515994235.000077">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1515994235.000077">2018-01-15 14:30:35 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1515994235.000077">2018-01-15 14:30:35 +0900</a></div>
           </div>
-          <div class="message__body description">話のついでで、これも入門向けではなくて圏論的な解説ですが読みやすく F代数の勉強にもなったので。<br/>“Free monads in category theory (part 1)” <a href='https://www.paolocapriotti.com/blog/2013/11/20/free-monads-part-1/'>https://www.paolocapriotti.com/blog/2013/11/20/free-monads-part-1/</a><br/>part 3 まであります。</div>
+          <div class="description">話のついでで、これも入門向けではなくて圏論的な解説ですが読みやすく F代数の勉強にもなったので。<br/>“Free monads in category theory (part 1)” <a href='https://www.paolocapriotti.com/blog/2013/11/20/free-monads-part-1/'>https://www.paolocapriotti.com/blog/2013/11/20/free-monads-part-1/</a><br/>part 3 まであります。</div>
         </div>
       </div>
-      <div class="message event" id="message-1516002128.000134">
+      <div class="event" id="message-1516002128.000134">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1516002128.000134">2018-01-15 16:42:08 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1516002128.000134">2018-01-15 16:42:08 +0900</a></div>
           </div>
-          <div class="message__body description">もう決着がついてるのかわからないのですが，Free ((-&gt;) k)は多分木の一種だと思いますね． k = Bool なら2分木ですし， Ix k =&gt; ならFree []と同じです．多分木は通常Cofree ((-&gt;) k)だと思いますが，Free ((-&gt;) k)はそれの葉にだけ値を持つようなもの Cofree ((-&gt;) k) (Maybe a)のインスタンスのような感じだと思いますね</div>
+          <div class="description">もう決着がついてるのかわからないのですが，Free ((-&gt;) k)は多分木の一種だと思いますね． k = Bool なら2分木ですし， Ix k =&gt; ならFree []と同じです．多分木は通常Cofree ((-&gt;) k)だと思いますが，Free ((-&gt;) k)はそれの葉にだけ値を持つようなもの Cofree ((-&gt;) k) (Maybe a)のインスタンスのような感じだと思いますね</div>
         </div>
       </div>
-      <div class="message event" id="message-1516002285.000281">
+      <div class="event" id="message-1516002285.000281">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1516002285.000281">2018-01-15 16:44:45 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1516002285.000281">2018-01-15 16:44:45 +0900</a></div>
           </div>
-          <div class="message__body description">通常アルゴリズム界隈だと，木の種類というよりは実益がある木かどうかでデータ構造を分類する風潮があるので，あまり抽象化したものに名前をつけるという感じでは無いと思います（まあ，あまり詳しく無いのでもしかしたら名前がついてるかもですが）</div>
+          <div class="description">通常アルゴリズム界隈だと，木の種類というよりは実益がある木かどうかでデータ構造を分類する風潮があるので，あまり抽象化したものに名前をつけるという感じでは無いと思います（まあ，あまり詳しく無いのでもしかしたら名前がついてるかもですが）</div>
         </div>
       </div>
-      <div class="message event" id="message-1516002398.000199">
+      <div class="event" id="message-1516002398.000199">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1516002398.000199">2018-01-15 16:46:38 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1516002398.000199">2018-01-15 16:46:38 +0900</a></div>
           </div>
-          <div class="message__body description">トライ木なんかも構造に注目した名前じゃなくて主な機能であるRetrievalの「trie」から来た名前ですもんね。</div>
+          <div class="description">トライ木なんかも構造に注目した名前じゃなくて主な機能であるRetrievalの「trie」から来た名前ですもんね。</div>
         </div>
       </div>
-      <div class="message event" id="message-1516002850.000170">
+      <div class="event" id="message-1516002850.000170">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1516002850.000170">2018-01-15 16:54:10 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1516002850.000170">2018-01-15 16:54:10 +0900</a></div>
           </div>
-          <div class="message__body description">ありがとうござます。<br/>答えているのは、最近networkのメンテナーになった人ですね。</div>
+          <div class="description">ありがとうござます。<br/>答えているのは、最近networkのメンテナーになった人ですね。</div>
         </div>
       </div>
-      <div class="message event" id="message-1516004063.000230">
+      <div class="event" id="message-1516004063.000230">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1516004063.000230">2018-01-15 17:14:23 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1516004063.000230">2018-01-15 17:14:23 +0900</a></div>
           </div>
-          <div class="message__body description">Freeモナドはよく <a href='https://hackage.haskell.org/package/free-4.12.4/docs/Control-Monad-Free.html'>https://hackage.haskell.org/package/free-4.12.4/docs/Control-Monad-Free.html</a> が題材に出されているのですが，個人的には Functorからmonadが抽出可能とか，圏論的な意味でのfree objectの代数的な性質の話というよりも(こちらも分かれば面白いのですが，分かる最短ルートは圏論を勉強することだと思っています)，Haskellプログラミングにおいての入門としては <a href='https://hackage.haskell.org/package/MonadPrompt-1.0.0.5/docs/Control-Monad-Prompt.html'>https://hackage.haskell.org/package/MonadPrompt-1.0.0.5/docs/Control-Monad-Prompt.html</a> にあるように，<br/><blockquote>1. Prompt is pure; it is only through the observation function runPromptC that you can cause effects.<br/>2. You don’t have to worry about the monad laws; they are correct by construction and you cannot break them.<br/>3. You can implement several observation functions for the same type.</blockquote>となるような抽象データであることが，一番重要だと思っています．その点で結構MonadPromptは良いチュートリアルになっていると思いますね．<br/>operationalもfreeも出回ってる実装は結構奇怪で，それの理解を行うためには圏論の知識を多少身につけておいたほうがいいのですが，どちらも一番の強みは中身の実装を気にしなくても(実際多くのパッケージは，中身は公開してないと思いますね)なぜかモナドに設置できることなので，中身のメカニズムを知るのはHaskellプログラミングにおいてそのアドバンテージが分かってからでもいいと思いますね</div>
+          <div class="description">Freeモナドはよく <a href='https://hackage.haskell.org/package/free-4.12.4/docs/Control-Monad-Free.html'>https://hackage.haskell.org/package/free-4.12.4/docs/Control-Monad-Free.html</a> が題材に出されているのですが，個人的には Functorからmonadが抽出可能とか，圏論的な意味でのfree objectの代数的な性質の話というよりも(こちらも分かれば面白いのですが，分かる最短ルートは圏論を勉強することだと思っています)，Haskellプログラミングにおいての入門としては <a href='https://hackage.haskell.org/package/MonadPrompt-1.0.0.5/docs/Control-Monad-Prompt.html'>https://hackage.haskell.org/package/MonadPrompt-1.0.0.5/docs/Control-Monad-Prompt.html</a> にあるように，<br/><blockquote>1. Prompt is pure; it is only through the observation function runPromptC that you can cause effects.<br/>2. You don’t have to worry about the monad laws; they are correct by construction and you cannot break them.<br/>3. You can implement several observation functions for the same type.</blockquote>となるような抽象データであることが，一番重要だと思っています．その点で結構MonadPromptは良いチュートリアルになっていると思いますね．<br/>operationalもfreeも出回ってる実装は結構奇怪で，それの理解を行うためには圏論の知識を多少身につけておいたほうがいいのですが，どちらも一番の強みは中身の実装を気にしなくても(実際多くのパッケージは，中身は公開してないと思いますね)なぜかモナドに設置できることなので，中身のメカニズムを知るのはHaskellプログラミングにおいてそのアドバンテージが分かってからでもいいと思いますね</div>
         </div>
       </div>
-      <div class="message event" id="message-1516022500.000358">
+      <div class="event" id="message-1516022500.000358">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1516022500.000358">2018-01-15 22:21:40 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1516022500.000358">2018-01-15 22:21:40 +0900</a></div>
           </div>
-          <div class="message__body description">返信遅くなってしまいすみません:bow: <br/>なるほど!どうもありがとうございます:pray:</div>
+          <div class="description">返信遅くなってしまいすみません:bow: <br/>なるほど!どうもありがとうございます:pray:</div>
         </div>
       </div>
-      <div class="message event" id="message-1516047402.000215">
+      <div class="event" id="message-1516047402.000215">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1516047402.000215">2018-01-16 05:16:42 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1516047402.000215">2018-01-16 05:16:42 +0900</a></div>
           </div>
-          <div class="message__body description">あ，それから continuation については，この記事が非常にわかりやすいと思います．3本立てです<br/><a href='https://genkami.github.io/2018/01/14/01-haskell-continuation.html'>https://genkami.github.io/2018/01/14/01-haskell-continuation.html</a></div>
+          <div class="description">あ，それから continuation については，この記事が非常にわかりやすいと思います．3本立てです<br/><a href='https://genkami.github.io/2018/01/14/01-haskell-continuation.html'>https://genkami.github.io/2018/01/14/01-haskell-continuation.html</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1516061013.000020">
+      <div class="event" id="message-1516061013.000020">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">falsandtru</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1516061013.000020">2018-01-16 09:03:33 +0900</a></div>
+            <div class="user">falsandtru</div>
+            <div class="date"><a class="date" href="#message-1516061013.000020">2018-01-16 09:03:33 +0900</a></div>
           </div>
-          <div class="message__body description">@falsandtru has joined the channel</div>
+          <div class="description">@falsandtru has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1516338183.000196">
+      <div class="event" id="message-1516338183.000196">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1516338183.000196">2018-01-19 14:03:03 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1516338183.000196">2018-01-19 14:03:03 +0900</a></div>
           </div>
-          <div class="message__body description">(Numではなく)任意の型クラスのデフォルトの型を指定する方法ってありましたっけ？</div>
+          <div class="description">(Numではなく)任意の型クラスのデフォルトの型を指定する方法ってありましたっけ？</div>
         </div>
       </div>
-      <div class="message event" id="message-1516338397.000082">
+      <div class="event" id="message-1516338397.000082">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">notogawa</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1516338397.000082">2018-01-19 14:06:37 +0900</a></div>
+            <div class="user">notogawa</div>
+            <div class="date"><a class="date" href="#message-1516338397.000082">2018-01-19 14:06:37 +0900</a></div>
           </div>
-          <div class="message__body description">ないはず</div>
+          <div class="description">ないはず</div>
         </div>
       </div>
-      <div class="message event" id="message-1516338603.000083">
+      <div class="event" id="message-1516338603.000083">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">syocy</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1516338603.000083">2018-01-19 14:10:03 +0900</a></div>
+            <div class="user">syocy</div>
+            <div class="date"><a class="date" href="#message-1516338603.000083">2018-01-19 14:10:03 +0900</a></div>
           </div>
-          <div class="message__body description"><code>default</code> キーワードでできた気がしましたが現状 Prelude の数値クラスに限定されているみたいですね。 <a href='https://prime.haskell.org/wiki/Defaulting'>https://prime.haskell.org/wiki/Defaulting</a></div>
+          <div class="description"><code>default</code> キーワードでできた気がしましたが現状 Prelude の数値クラスに限定されているみたいですね。 <a href='https://prime.haskell.org/wiki/Defaulting'>https://prime.haskell.org/wiki/Defaulting</a></div>
         </div>
       </div>
     </div>
-    <div class="pager ui pagination menu">
-      <a href="../../html/C5666B6BB/9.html" class="pager__previous item">Previous</a>
-      <a href="../../" class="pager__top item">Top</a>
-      <a href="../../html/C5666B6BB/11.html" class="pager__next item">Next</a>
+    <div class="ui pagination menu">
+      <a href="../../html/C5666B6BB/9.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+      <a href="../../html/C5666B6BB/11.html" class="item">Next</a>
     </div>
   </div>
 </body>

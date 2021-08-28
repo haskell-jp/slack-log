@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #17 at 2021-07-17 09:35:36 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #17 at 2021-07-17 09:35:36 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../17.html" class="item">Back to beginners #17</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1626482136.131300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kerf_cat</div>
+            <div class="date"><a class="date" href="#message-1626482136.131300">2021-07-17 09:35:36 +0900</a></div>
+          </div>
+          <div class="description">SemiGroup,Monoidが定義されている状態でGroupを自分で定義してMonoidのインスタンスにしたいのですが&lt;&gt;はSemigroup,memptyはMonoidで定義されている時にインスタンス宣言を一つで済ませる方法はないのでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626508721.136800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kerf_cat</div>
+            <div class="date"><a class="date" href="#message-1626508721.136800">2021-07-17 16:58:41 +0900</a></div>
+          </div>
+          <div class="description">instance Group Bool where<br/>    unit = False<br/>    plus = (||)<br/>    inv = (const False)<br/><br/>instance Ring Bool where<br/>    product = (&amp;&amp;)<br/>    unitpro = True<br/><br/>instance Field Bool where<br/>    invpro = (const True)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626508899.137000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1626508899.137000">2021-07-17 17:01:39 +0900</a></div>
+          </div>
+          <div class="description">口頭で伺ったところ、 <code>Group</code> 型クラスなどは自分で定義したものだそうなので、 <code>Group</code> 型クラスを :point_down: のように書き換えてみると、重複が少なくて済むのではないでしょうか:<br/><pre>class Monoid a =&gt; Group a where
+  inv :: a -&gt; a</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1626509557.137300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1626509557.137300">2021-07-17 17:12:37 +0900</a></div>
+          </div>
+          <div class="description">画面共有で確認しました。仰っていることを実現したい場合、元の <code>Field</code> 型クラスのメソッドとして <code>unit</code>から <code>invpro</code> まですべて定義しないとできませんね... どうしても一箇所にまとめたいのであれば例えば定義用のmoduleを分けるとして、<br/><pre>module BoolMethods where
+
+unit :: Bool
+unit = False
+
+plus :: Bool -&gt; Bool -&gt; Bool
+plus = (||)
+
+...
+
+invpro :: Bool -&gt; Bool
+invpro = const True</pre><br/>みたいな <code>BoolMethods</code> というモジュールを定義してから、<br/><pre>module BoolInstances where
+
+import qualified BoolMethods as B
+
+instance Group Bool where
+  unit = B.unit
+  ...</pre><br/>という書き方をするしかないですね...<br/>あくまでもFieldのメソッドはFieldのメソッドであって、GroupやRingのメソッドではないので。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626509610.137500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kerf_cat</div>
+            <div class="date"><a class="date" href="#message-1626509610.137500">2021-07-17 17:13:30 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626509734.137700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">as_capabl</div>
+            <div class="date"><a class="date" href="#message-1626509734.137700">2021-07-17 17:15:34 +0900</a></div>
+          </div>
+          <div class="description">たとえば派生クラスの定義があるなら基底クラスの定義は自然に導出できるよ、という場合、以下の <code>fmapDefault</code> や <code>foldMapDefault</code> ように普通の関数として提供しておいてインスタンス定義のときに使ってね、というパターンもあります<br/><a href='https://hackage.haskell.org/package/base-4.15.0.0/docs/Data-Traversable.html#v:foldMapDefault'>https://hackage.haskell.org/package/base-4.15.0.0/docs/Data-Traversable.html#v:foldMapDefault</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1626510858.138200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kerf_cat</div>
+            <div class="date"><a class="date" href="#message-1626510858.138200">2021-07-17 17:34:18 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../17.html" class="item">Back to beginners #17</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #14 at 2021-03-03 20:49:15 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #14 at 2021-03-03 20:49:15 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../14.html" class="item">Back to beginners #14</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1614772155.014500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ssktisi78</div>
+            <div class="date"><a class="date" href="#message-1614772155.014500">2021-03-03 20:49:15 +0900</a></div>
+          </div>
+          <div class="description">「すごいH本」の72〜73ページでわからないことがあります．<br/><pre>ghci&gt; let listOfFans = map (*) [0..]
+ghci&gt; (listOfFans !! 4) 5
+20</pre><br/>と書いてあり，実行すると実際に20が出力されるのですが，`[0..]`で得られるリストは`[0, 1, 2, 3, 4, 5, 6, ...]`ですよね？`(listOfFans !! 4)`ではリスト4番目の要素の3が戻り値になると思ったのですが，なぜ4なのでしょうか．<br/>初歩的な質問ですが教えていただけると幸いです．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1614772632.020800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">hexirp</div>
+            <div class="date"><a class="date" href="#message-1614772632.020800">2021-03-03 20:57:12 +0900</a></div>
+          </div>
+          <div class="description"><code>[0..] !! 4</code> を実行してみましょう。すると、 <code>4</code> という結果になります。他の数として <code>[0..] !! 1</code> を実行すると <code>1</code> になります。<br/>リストの最初の要素を取り出すには <code>0</code> を使わなければなりません。その次の要素を取り出すには <code>1</code> を使わなければなりません。その次も……というようになります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1614773362.021100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ssktisi78</div>
+            <div class="date"><a class="date" href="#message-1614773362.021100">2021-03-03 21:09:22 +0900</a></div>
+          </div>
+          <div class="description">返信ありがとうございます．<br/><code>!!</code> を使ってn個目の要素を取得するとき，nは0から数え始めるってことですかね．確かにPythonなどで`a = [1, 2, 3, 4, 5]` のリストから1を取りたいときは`a[0]` だから，それと同じ考えですね．<br/>ありがとうございました．</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../14.html" class="item">Back to beginners #14</a>
+    </div>
+  </div>
+</body>
+</html>

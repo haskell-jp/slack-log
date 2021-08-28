@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / mokumoku-online #36 at 2021-06-12 14:47:13 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / mokumoku-online #36 at 2021-06-12 14:47:13 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../36.html" class="item">Back to mokumoku-online #36</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1623476833.027300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">naosak1006</div>
+            <div class="date"><a class="date" href="#message-1623476833.027300">2021-06-12 14:47:13 +0900</a></div>
+          </div>
+          <div class="description">@igrep すみません、ちょっと質問よろしいでしょうか<br/><pre>main = do
+  input &lt;- getContents
+  putStrLn input</pre><br/>上記のようなコードを実行すると、`input` を入力して出力するという動作が無限ループのように何度も何度も行われてしまうので、毎回`ctrl + c(z)` を押してプログラムを終了しなければいけません。これはHaskellの仕様ですか？一回だけ実行して終わってほしいのですが...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1623477527.027400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1623477527.027400">2021-06-12 14:58:47 +0900</a></div>
+          </div>
+          <div class="description">それは Haskell の仕様というより、getContents の仕組みだと思います。getContent は EOF もらうまで入力を受け付けるので、無限ループしてるみたいに感じるのだと。実際には、この2行をグルグルしてるのではなく、受け取った input を逐次 putStrLn で出力してるだけですかね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1623477578.027600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1623477578.027600">2021-06-12 14:59:38 +0900</a></div>
+          </div>
+          <div class="description">Ctrl+CじゃなくてCtrl+Dを押せば普通に終了できます！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1623477653.027800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1623477653.027800">2021-06-12 15:00:53 +0900</a></div>
+          </div>
+          <div class="description">一行ずつでいいなら getLine を使うか <code><http://System.IO|System.IO>.Strict.getContents</code> を使えば、期待する振る舞いになるかと</div>
+        </div>
+      </div>
+      <div class="event" id="message-1623478062.028400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1623478062.028400">2021-06-12 15:07:42 +0900</a></div>
+          </div>
+          <div class="description">詳しくは「遅延IO」で検索してみてください。結構取り扱いが難しいので、 <code>getContents</code> はあまり使わない方がいいでしょう。数GBもあるファイルを読むのでなければ、 仰るとおり <code><http://System.IO|System.IO>.Strict.getContents</code> で十分でしょうし、本当に大容量のファイルを少しずつ読みたいのであればconduitなどのストリーミング用ライブラリーを使った方が確実ですし。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1623478853.028600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">naosak1006</div>
+            <div class="date"><a class="date" href="#message-1623478853.028600">2021-06-12 15:20:53 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！`<http://System.IO|System.IO>.Strict.getContents` で期待通りになりました。遅延IOについてちょっと調べてみます！！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1623489481.035700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1623489481.035700">2021-06-12 18:18:01 +0900</a></div>
+          </div>
+          <div class="description">いまだに遅延 IO 分からない……（分からなくても困らない</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../36.html" class="item">Back to mokumoku-online #36</a>
+    </div>
+  </div>
+</body>
+</html>

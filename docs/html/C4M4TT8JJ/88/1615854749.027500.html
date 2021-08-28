@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #88 at 2021-03-16 09:32:29 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #88 at 2021-03-16 09:32:29 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../88.html" class="item">Back to random #88</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1615854749.027500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1615854749.027500">2021-03-16 09:32:29 +0900</a></div>
+          </div>
+          <div class="description">数年前にHsOpenSSLに比べてtlsがかなり遅かったので少しコードを見てみたら、cryptoniteかmemoryかbasementか忘れましたがあまり速度を気にせず書かれている感じでした。あれからあまり変わっていないのであれば、速度を気にするところで使うならパフォーマンスチューニングが必要かもしれません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615860199.004800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">konn.jinro</div>
+            <div class="date"><a class="date" href="#message-1615860199.004800">2021-03-16 11:03:19 +0900</a></div>
+          </div>
+          <div class="description">basementとかfoundation、効率のために標準的なbytestringやtext、vectorに当たるものを全部自前で実装してbaseのStringなどを置き換えているという認識だったんですが、そんなに速くないんですか……。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615860306.007100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">konn.jinro</div>
+            <div class="date"><a class="date" href="#message-1615860306.007100">2021-03-16 11:05:06 +0900</a></div>
+          </div>
+          <div class="description">個人的には、欲しいと思ったライブラリがbasementやfoundationに依存していると、baseやbytestringなどの既存のエコシステムと役割が被りしかも変換にcompat layerが必要な巨大ライブラリが別途インストールされてしまうので、極力basementやfoundationに依存しているパッケージは避けてきた経緯があり、メンテナが変わるならこの辺なんとか既存のエコシステムと整合性を取る方に舵がきってくれないかな……と思っています</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615860458.008200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">konn.jinro</div>
+            <div class="date"><a class="date" href="#message-1615860458.008200">2021-03-16 11:07:38 +0900</a></div>
+          </div>
+          <div class="description">個人的にはrioのように既存のエコシステムを組み合わせて代替Preludeを作るアプローチの方が筋が良い気がしているんですよね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615860705.009200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1615860705.009200">2021-03-16 11:11:45 +0900</a></div>
+          </div>
+          <div class="description">以前はtlsかその依存ライブラリで不要なthunkをたくさん作るようなコードが散見されたのですが、おぼろげな記憶でこういうことを言うのは良くなかったですね。すみません。性能については現在のコードを確認してみないと確かなことはわかりません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615860745.009500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1615860745.009500">2021-03-16 11:12:25 +0900</a></div>
+          </div>
+          <div class="description">既存のエコシステムとの親和性に関しては同感です</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615860859.009700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1615860859.009700">2021-03-16 11:14:19 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://labs.gree.jp/blog/2015/12/14786/'>https://labs.gree.jp/blog/2015/12/14786/</a><br/>だいぶ古いですが5倍くらい性能の違いがでましたね。<br/>tlsとHsOpenSSLは。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../88.html" class="item">Back to random #88</a>
+    </div>
+  </div>
+</body>
+</html>

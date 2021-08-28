@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #15 at 2021-04-19 22:53:35 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #15 at 2021-04-19 22:53:35 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../15.html" class="item">Back to beginners #15</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1618840415.042600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">yoshitomo4561105</div>
+            <div class="date"><a class="date" href="#message-1618840415.042600">2021-04-19 22:53:35 +0900</a></div>
+          </div>
+          <div class="description">こんばんは。Haskellで以下の振る舞いをするコードを書こうとしています。<br/><pre>ghci&gt; Val 1   
+1
+ghci&gt; Var 2 3 
+x 23
+ghci&gt; Plus [Val 1, Var 2 3]
+(+ 1 x23)</pre><br/>そこで以下のようなコードを書いてみました。<br/><pre>data Exp = Var Int Int | Val Int | Plus [Exp]
+instance Show Exp where
+    show (Var i j) = "x" ++ show i ++ show j
+    show (Val n) = show n
+    show (Plus (exp1:exp2:exp)) = "(+" ++ " " ++ show exp1 ++ " " ++ show exp2 ++ ")"</pre><br/>これでも(おそらく)正しく動いているのですが、VSCode上で以下のように注意されます。<br/><pre>Pattern match(es) are non-exhaustive
+In an equation for 'show':
+    Patterns not matched:
+        Plus [(Var _ _)]
+        Plus [(Val _)]
+        Plus [(Plus _)]
+        Plus []</pre><br/>パターンマッチが網羅的では無いのですが、具体的にどう書けば良いか分かりませんでした。<br/>どう書けば網羅的になるのか、ご教示いただけると嬉しいです。よろしくお願いいたします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618842856.042700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1618842856.042700">2021-04-19 23:34:16 +0900</a></div>
+          </div>
+          <div class="description"><code>Plus []</code> , <code>Plus [Var 1 2]</code>, <code>Plus [Var 1 1, Var 1 2, Var 1 3]</code>, などの可能性はあるものとしたいですか？ ないものとしたいですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618843064.042900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1618843064.042900">2021-04-19 23:37:44 +0900</a></div>
+          </div>
+          <div class="description">出てきているのがLisp式なので，<br/><pre>Plus [] -&gt; "(+)"
+Plus [Var 1 2] -&gt; "(+ x12)"
+Plus [Var 1 1, Var 1 2, Var 1 3] -&gt; "(+ x11 x12 x13)"</pre><br/>とする，としても不自然ではないようにおもいますが…．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618849367.043600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">yoshitomo4561105</div>
+            <div class="date"><a class="date" href="#message-1618849367.043600">2021-04-20 01:22:47 +0900</a></div>
+          </div>
+          <div class="description">ご返信ありがとうございます。<br/><blockquote>可能性はあるものとしたいですか？ ないものとしたいですか？</blockquote>ないものとしたいです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618849847.043900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">yoshitomo4561105</div>
+            <div class="date"><a class="date" href="#message-1618849847.043900">2021-04-20 01:30:47 +0900</a></div>
+          </div>
+          <div class="description">もしかして<br/><pre>data Exp = Var Int Int | Val Int | Plus Exp Exp
+instance Show Exp where
+  show (Var i j) = "x" ++ show i ++ show j
+  show (Val n) = show n
+  show (Plus e1 e2) = "(+" ++ " " ++ show e1 ++ " " ++ show e2 ++ ")"</pre><br/>これで表現できるのでしょうか…？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618849873.044100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1618849873.044100">2021-04-20 01:31:13 +0900</a></div>
+          </div>
+          <div class="description">はい，それで表現できています！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618850040.044300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">yoshitomo4561105</div>
+            <div class="date"><a class="date" href="#message-1618850040.044300">2021-04-20 01:34:00 +0900</a></div>
+          </div>
+          <div class="description">なるほど、納得しました！お騒がせして申し訳ございません。<br/>ありがとうございました！</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../15.html" class="item">Back to beginners #15</a>
+    </div>
+  </div>
+</body>
+</html>

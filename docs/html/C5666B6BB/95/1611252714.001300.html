@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #95 at 2021-01-22 03:11:54 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #95 at 2021-01-22 03:11:54 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../95.html" class="item">Back to questions #95</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1611252714.001300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1611252714.001300">2021-01-22 03:11:54 +0900</a></div>
+          </div>
+          <div class="description"><code>dist-newstyle\build\x86_64-windows\ghc-8.10.3\foo-0.1.0.0</code> みたいなパスを cabal-install で取得する方法をどなたかご存じですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1611301450.001600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1611301450.001600">2021-01-22 16:44:10 +0900</a></div>
+          </div>
+          <div class="description">背景を書くと、<br/>• DLL を生成したい<br/>• DLL に C で実装した関数も含めたい<br/>• cabal build では ghc に -c オプションを渡して .o ファイルを生成している<br/>• C コードも別途 ghc -c で .o ファイルを生成している<br/>• DLL 生成は ghc -shared で、このとき事前に生成した .o の場所を知りたい</div>
+        </div>
+      </div>
+      <div class="event" id="message-1611301473.001900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1611301473.001900">2021-01-22 16:44:33 +0900</a></div>
+          </div>
+          <div class="description">そもそも cabal で DLL 生成までできるのかな</div>
+        </div>
+      </div>
+      <div class="event" id="message-1611304835.002200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1611304835.002200">2021-01-22 17:40:35 +0900</a></div>
+          </div>
+          <div class="description"><code>--enable-shared</code> ふむ <a href='https://cabal.readthedocs.io/en/3.4/cabal-project.html#dynamic-linking-options'>https://cabal.readthedocs.io/en/3.4/cabal-project.html#dynamic-linking-options</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1611308057.002400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1611308057.002400">2021-01-22 18:34:17 +0900</a></div>
+          </div>
+          <div class="description"><code>--enable-shared</code> 試したけどどこに生成されるんだ？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1611308115.002600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1611308115.002600">2021-01-22 18:35:15 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>• cabal build では ghc に -c オプションを渡して .o ファイルを生成している</blockquote>ここの -c は要らないな</div>
+        </div>
+      </div>
+      <div class="event" id="message-1611309552.002800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1611309552.002800">2021-01-22 18:59:12 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>• C コードも別途 ghc -c で .o ファイルを生成している</blockquote>ここもオプション要らないな</div>
+        </div>
+      </div>
+      <div class="event" id="message-1611321635.003100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">as_capabl</div>
+            <div class="date"><a class="date" href="#message-1611321635.003100">2021-01-22 22:20:35 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://github.com/as-capabl/clay-dhall/blob/master/aux-list-path/src/aux-list-path.hs'>https://github.com/as-capabl/clay-dhall/blob/master/aux-list-path/src/aux-list-path.hs</a> cabal-planを使うと良さそうでしょうか</div>
+        </div>
+      </div>
+      <div class="event" id="message-1611321745.003500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">as_capabl</div>
+            <div class="date"><a class="date" href="#message-1611321745.003500">2021-01-22 22:22:25 +0900</a></div>
+          </div>
+          <div class="description">新しいcabal-planだとplan.jsonの場所を取得する機能もあるみたいです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1611401842.003800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1611401842.003800">2021-01-23 20:37:22 +0900</a></div>
+          </div>
+          <div class="description">教えてもらった cabal-plan でビルドツール書いてたんですけど、cabal ファイルに <code>foreign-library</code> というのがあるのを発見した<br/><a href='https://cabal.readthedocs.io/en/3.4/cabal-package.html#foreign-libraries'>https://cabal.readthedocs.io/en/3.4/cabal-package.html#foreign-libraries</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1611402955.004000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1611402955.004000">2021-01-23 20:55:55 +0900</a></div>
+          </div>
+          <div class="description"><code>foreign-library</code> でイッパツだった:hugging_face:</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../95.html" class="item">Back to questions #95</a>
+    </div>
+  </div>
+</body>
+</html>

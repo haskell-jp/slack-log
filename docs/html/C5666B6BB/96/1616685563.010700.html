@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #96 at 2021-03-26 00:19:23 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #96 at 2021-03-26 00:19:23 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1616685563.010700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">wasabi.nvim.st</div>
+            <div class="date"><a class="date" href="#message-1616685563.010700">2021-03-26 00:19:23 +0900</a></div>
+          </div>
+          <div class="description"><code>fused-effects</code>を用いて`callCC`をサポートするEffectを作ろうとしているのですが<br/>実装がうまく行きません. どうすれば実装できるか知りたいです. 質問の詳細はスレッドに<br/>続きます.</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616685888.010800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">wasabi.nvim.st</div>
+            <div class="date"><a class="date" href="#message-1616685888.010800">2021-03-26 00:24:48 +0900</a></div>
+          </div>
+          <div class="description">現状の実装が見当違いなのかもしれませんが, 一応それがどのようになっていて, どこで詰まっているかを書きます.<br/><br/>1. まずEffectとして次の型を定義<br/>```data Cont m k where<br/>  CallCC :: ((a -&gt; m b) -&gt; m a) -&gt; Cont m a<br/><br/>callCC :: Has Cont sig m =&gt; ((a -&gt; m b) -&gt; m a) -&gt; m a<br/>callCC f = send (CallCC f)```<br/>2. Carrierとして次の型を定義<br/>```newtype ContC m a = ContC<br/>  { runContC :: forall r. (a -&gt; m r) -&gt; m r<br/>  }<br/><br/>{- ContC の Functor, Applicative, Monad のインスタンスの実装も行った -}```<br/>3. `Algebra`のインスタンスの定義で詰まる<br/>以下のコードの`_hole`と書いてある部分が実装できない<br/>```instance Algebra sig m =&gt; Algebra (Cont :+: sig) (ContC m) where<br/>  alg ::<br/>    Functor ctx =&gt;<br/>    Handler ctx n (ContC m) -&gt;<br/>    (Cont :+: sig) n a -&gt;<br/>    ctx () -&gt;<br/>    ContC m (ctx a)<br/>  alg hdl sig ctx = case sig of<br/>    L (CallCC f) -&gt;<br/>      -- hole :: n b<br/>      ContC \k -&gt; runContC (hdl . (&lt;$ ctx) $ f (\x -&gt; _hole)) k<br/><br/>    R other -&gt;<br/>      ContC (alg (flip runContC pure . hdl) other ctx &gt;&gt;=)```<br/>なぜ詰まっているかというと`_hole`は`n b`という型にならなければならないのですが,その型の値を作り出せる手段がない(と思っている)からです. 気持ちとしては`_hole`の部分で`ContC \_ -&gt; k (x &lt;$ ctx)`のようにやりたいのですが`ContC m`を`n`に持ち上げられなくない?となりました</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616685962.011000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">wasabi.nvim.st</div>
+            <div class="date"><a class="date" href="#message-1616685962.011000">2021-03-26 00:26:02 +0900</a></div>
+          </div>
+          <div class="description">コード全文はこちらになります</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616713778.011600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1616713778.011600">2021-03-26 08:09:38 +0900</a></div>
+          </div>
+          <div class="description">取り急ぎ。ぱっと参考文献が挙げられないので自信がないのですが、確かこの手のeffectはExtensible Effectだと実現不可能だったような気がします。ReaderのlocalやExceptのcatchと同じ理由で。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616715429.015800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">wasabi.nvim.st</div>
+            <div class="date"><a class="date" href="#message-1616715429.015800">2021-03-26 08:37:09 +0900</a></div>
+          </div>
+          <div class="description">fused-effectsはHigher-order effects(?)も提供しているから、localやcatchも実装できると<https://github.com/fused-effects/fused-effects#higher-order-effects|README.md> にありました. そして実際に定義されてるReader EffectsにはLocalコンストラクタがあるみたいです... <a href='https://hackage.haskell.org/package/fused-effects-1.1.1.0/docs/Control-Effect-Reader.html'>https://hackage.haskell.org/package/fused-effects-1.1.1.0/docs/Control-Effect-Reader.html</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1617250703.019100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">as_capabl</div>
+            <div class="date"><a class="date" href="#message-1617250703.019100">2021-04-01 13:18:23 +0900</a></div>
+          </div>
+          <div class="description"><code>mtl</code> の <code>Cont</code>は、戻り値型rを加えた <code>Cont r</code> がモナドになりますが、今回の実装だとrが明示されていないですよね。<br/>恐らく、rを明示しないとHaskellでは実装できないんじゃないかな…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1617251539.019300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">as_capabl</div>
+            <div class="date"><a class="date" href="#message-1617251539.019300">2021-04-01 13:32:19 +0900</a></div>
+          </div>
+          <div class="description">Contのrを全称量化(？)するとCodensityになるんですね。どういう違いが出るのか興味深い <a href='https://hackage.haskell.org/package/kan-extensions-5.2.2/docs/Control-Monad-Codensity.html'>https://hackage.haskell.org/package/kan-extensions-5.2.2/docs/Control-Monad-Codensity.html</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1617264015.020000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">wasabi.nvim.st</div>
+            <div class="date"><a class="date" href="#message-1617264015.020000">2021-04-01 17:00:15 +0900</a></div>
+          </div>
+          <div class="description">確かに <code>r</code> がないと実装できなさそうですね(CodensityでcallCCのようなものを実装できなかった)...<br/><code>ContC</code> に <code>r</code> を加えたものについても検討してみたのですが, それはそれで別の問題が出てしまいました..</div>
+        </div>
+      </div>
+      <div class="event" id="message-1617264643.020200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">wasabi.nvim.st</div>
+            <div class="date"><a class="date" href="#message-1617264643.020200">2021-04-01 17:10:43 +0900</a></div>
+          </div>
+          <div class="description"><pre>instance Algebra sig m =&gt; Algebra (Cont :+: sig) (ContC r m) where
+    alg hdl sig ctx = case sig of
+        R other -&gt;
+            -- _hole :: forall x. Cont r m (ctx x) -&gt; m (ctx x)
+            ContC (alg (_hole . hdl) other ctx &gt;&gt;=)</pre><br/>上記のコードは <code>r</code> を型引数に加えた場合のインスタンスの実装です.<br/> <code>_hole</code>の部分で <code>runContC</code>を使って <code>ContC</code> をはがしたいのですが, 返り値の型が <code>r</code> に固定されてしまって <code>x</code> にできなくなってしまいます...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1617264842.020600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">wasabi.nvim.st</div>
+            <div class="date"><a class="date" href="#message-1617264842.020600">2021-04-01 17:14:02 +0900</a></div>
+          </div>
+          <div class="description">もうちょっと考えて難しそうだったら諦めます<br/>質問に答えてくださってありがとうございました!</div>
+        </div>
+      </div>
+      <div class="event" id="message-1617266924.021000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">as_capabl</div>
+            <div class="date"><a class="date" href="#message-1617266924.021000">2021-04-01 17:48:44 +0900</a></div>
+          </div>
+          <div class="description">あと良くあるパターンとしては、 <strike><code>f :: forall r. (a -&gt; n r) -&gt; n r</code></strike> (ContとContCを見間違えましたやっぱなし)のrは好きな型を代入できるポイントなので、ここに入れる型を工夫して全体の型を合わせる奴かなとも思いますが、ちょっと時間ができたら自分の方でもやってみます</div>
+        </div>
+      </div>
+      <div class="event" id="message-1617268585.021700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">wasabi.nvim.st</div>
+            <div class="date"><a class="date" href="#message-1617268585.021700">2021-04-01 18:16:25 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1617467624.022200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">as_capabl</div>
+            <div class="date"><a class="date" href="#message-1617467624.022200">2021-04-04 01:33:44 +0900</a></div>
+          </div>
+          <div class="description"><pre>{-# LANGUAGE ScopedTypeVariables #-}
+
+...
+
+instance Algebra sig m =&gt; Algebra (Cont :+: sig) (ContC r m) where
+  alg ::
+    forall ctx n a.
+    Functor ctx =&gt;
+    Handler ctx n (ContC r m) -&gt;
+    (Cont :+: sig) n a -&gt;
+    ctx () -&gt;
+    ContC r m (ctx a)
+  alg hdl sig ctx = case sig of
+    L (CallCC f) -&gt;
+      ContC \k -&gt; undefined -- runContC (hdl . (&lt;$ ctx) $ f (\x -&gt; _hole)) k
+    R other -&gt;
+      ContC \rest -&gt; thread (hdlCont ~&lt;~ hdl) other (pure ctx) &gt;&gt;= \(ContC x) -&gt; x rest
+    where
+      hdlCont :: forall x. ContC r m (ContC r m x) -&gt; m (ContC r m x) -- Handler (ContC r m) (ContC r m) m
+      hdlCont = pure . join</pre><br/>途中ですがこんな感じで……<br/><code>thread</code> がキーっぽいですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1617467679.022400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">as_capabl</div>
+            <div class="date"><a class="date" href="#message-1617467679.022400">2021-04-04 01:34:39 +0900</a></div>
+          </div>
+          <div class="description">見づらいのでエディタ等に貼って頂ければ</div>
+        </div>
+      </div>
+      <div class="event" id="message-1617533044.026600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">wasabi.nvim.st</div>
+            <div class="date"><a class="date" href="#message-1617533044.026600">2021-04-04 19:44:04 +0900</a></div>
+          </div>
+          <div class="description">なるほど、これは思いつかなかった…<br/><code>thread</code>を使うことで`runContC`を`forall x.`じゃないところに持って行けたんですね…</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+  </div>
+</body>
+</html>

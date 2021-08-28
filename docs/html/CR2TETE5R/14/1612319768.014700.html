@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #14 at 2021-02-03 11:36:08 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #14 at 2021-02-03 11:36:08 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../14.html" class="item">Back to beginners #14</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1612319768.014700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1612319768.014700">2021-02-03 11:36:08 +0900</a></div>
+          </div>
+          <div class="description">入力処理で、1回の入力単位が1行であれば、hGetLine hdl でよいのですが、<br/>1回の入力単位が複数の改行を含み特定の文字列（たとえば"\n&gt;&gt;&gt; "）が出現するまで、<br/>という場合どう書けばいいでしょうか。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1612357996.015600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1612357996.015600">2021-02-03 22:13:16 +0900</a></div>
+          </div>
+          <div class="description">こういうことですか<br/><br/><pre>import           <http://System.IO|System.IO>
+
+hGetLineUntil :: Handle -&gt; String -&gt; IO String
+hGetLineUntil hdl marker = go ""
+ where
+  go accum = do
+    line &lt;- hGetLine hdl
+    if line == marker
+      then return accum
+      else go $ accum ++ line ++ "\n"
+
+
+main :: IO ()
+main =
+  print =&lt;&lt; hGetLineUntil stdin "&gt;&gt;&gt;"</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1612364055.015800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1612364055.015800">2021-02-03 23:54:15 +0900</a></div>
+          </div>
+          <div class="description">ああ、説明不足でした、特定の文字列というのは或る種のプロンプトであることを想定していまして、<br/>プロンプトの後は一文字も来ていない時点で取得したいのです。<br/>プロンプトは来ていても、改行文字は来ないので、hGetLineではプロンプトが得られない状況です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1612365284.016200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1612365284.016200">2021-02-04 00:14:44 +0900</a></div>
+          </div>
+          <div class="description">とりあえず、書いてみたのですが、入出力が不得意すぎて、なんだかなコードのような気がしています。<br/><pre>hGetUntil :: Handle -&gt; String -&gt; IO String
+hGetUntil h str = do
+    { eof &lt;- hIsEOF h
+    ; if eof then return ""
+      else do
+          { c &lt;- hGetChar h
+          ; if c == head str then (c :) &lt;$&gt; getStr (tail str)
+            else (c :) &lt;$&gt; hGetUntil h str
+          }
+    }
+    where
+        getStr []     = return ""
+        getStr (c:cs) = do
+            { eof &lt;- hIsEOF h
+            ; if eof then return ""
+              else do
+                  { c' &lt;- hGetChar h
+                  ; if c == c' then (c' :) &lt;$&gt; getStr cs
+                    else (c' :) &lt;$&gt; hGetUntil h str
+                  }
+            }</pre><br/></div>
+        </div>
+      </div>
+      <div class="event" id="message-1612383980.016400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">asakamirai</div>
+            <div class="date"><a class="date" href="#message-1612383980.016400">2021-02-04 05:26:20 +0900</a></div>
+          </div>
+          <div class="description">やりたいことはこういうことだったりしますか？<br/><pre>{-# LANGUAGE OverloadedStrings #-}
+
+module Main where
+
+import qualified <http://System.IO|System.IO>             as S
+import qualified Data.ByteString.Char8 as BS
+import           Data.IORef            (IORef, newIORef, readIORef, writeIORef)
+import           System.IO.Unsafe      (unsafePerformIO)
+
+mkBuffer :: IO (IORef BS.ByteString)
+mkBuffer = newIORef ""
+
+hGetUntil :: S.Handle -&gt; IORef BS.ByteString -&gt; BS.ByteString -&gt; IO BS.ByteString
+hGetUntil h ref marker = do
+  prevRemain &lt;- readIORef ref
+  (item, remain) &lt;- go prevRemain
+  writeIORef ref remain
+  return item
+ where
+  go prevRemain =
+    if BS.null bs2
+      then do
+        mBs &lt;- getBs prevRemain
+        case mBs of
+          Nothing     -&gt; return (prevRemain, "")
+          Just remain -&gt; go remain
+      else return (bs1, bs3)
+   where
+    (bs1, bs2) = BS.breakSubstring marker prevRemain
+    bs3        = BS.drop (BS.length marker) bs2
+  getBs :: BS.ByteString -&gt; IO (Maybe BS.ByteString)
+  getBs prev = do
+    isEOF &lt;- S.hIsEOF h
+    if isEOF
+      then return Nothing
+      else do
+        True &lt;- S.hWaitForInput h (-1)
+        Just . BS.append prev &lt;$&gt; BS.hGetNonBlocking h 1024
+
+main :: IO ()
+main = do
+  buf &lt;- mkBuffer
+  print =&lt;&lt; hGetUntil S.stdin buf "\n&gt;&gt;&gt;"</pre><br/>（IORefは必須ではないですが、どこかに情報をためて受け渡したりする必要があります）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1612395874.016700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1612395874.016700">2021-02-04 08:44:34 +0900</a></div>
+          </div>
+          <div class="description">REPLのラッパーを書こうとしいます。*ユーザーの入力(改行終端)ごと*にREPLからの出力(プロンプト文字列終端)を表示するものです。<br/>模式的には、以下の(1)〜(3)の要素を繋げてループにする(あるいはそれぞれをループにしてから繋げる)イメージです。<br/><br/><pre>(1)  (stdin &amp; hgetLine        ) &gt;&gt;= (INPUT-FILTER  &gt;&gt;&gt; hPutStrLn oh1   )
+(2)  (ih1   &amp; hGetLine        ) &gt;&gt;= (REPL          &gt;&gt;&gt; hPutStr   oh2   )
+(3)  (ih2   &amp; hGetUntil prompt) &gt;&gt;= (OUTPUT-FILTER &gt;&gt;&gt; hPutStr   stdout)</pre></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../14.html" class="item">Back to beginners #14</a>
+    </div>
+  </div>
+</body>
+</html>

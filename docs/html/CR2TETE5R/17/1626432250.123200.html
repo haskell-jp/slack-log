@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #17 at 2021-07-16 19:44:10 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #17 at 2021-07-16 19:44:10 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../17.html" class="item">Back to beginners #17</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1626432250.123200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">naosak1006</div>
+            <div class="date"><a class="date" href="#message-1626432250.123200">2021-07-16 19:44:10 +0900</a></div>
+          </div>
+          <div class="description">メモリ増設を機にubuntu20.04を削除してインストールしなおしてからstackを入れてstack setupまで行うと画像のようなエラーが発生します。buildのほうも成功しません。検索しましたが、私見では有用な解決策が見当たりませんでした。どなたかお力添えいただけると助かります。Haskellを、書きたいです。<br/><pre>Preparing to install GHC (tinfo6) to an isolated location.
+This will not interfere with any system-level installation.
+Downloaded ghc-tinfo6-8.10.4.
+ghc-pkg: Couldn't open database /home/sa/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4/lib/ghc-8.10.4/package.conf.d for modification: {handle: /home/sa/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4/lib/ghc-8.10.4/package.conf.d/package.cache.lock}: hLock: invalid argument (Invalid argument)
+make[1]: *** [<http://ghc.mk:973|ghc.mk:973>: install_packages] Error 1
+make: *** [Makefile:51: install] Error 2
+Received ExitFailure 2 when running
+Raw command: /usr/bin/make install
+Run from: /home/sa/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4.temp/ghc-8.10.4/
+
+
+
+
+
+Error: Error encountered while installing GHC with
+         make install
+         run in /home/sa/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4.temp/ghc-8.10.4/
+
+       The following directories may now contain files, but won't be used by stack:
+         - /home/sa/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4.temp/
+         - /home/sa/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4/
+
+       For more information consider rerunning with --verbose flag
+
+Installing GHC ...</pre><br/></div>
+        </div>
+      </div>
+      <div class="event" id="message-1626432801.123800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1626432801.123800">2021-07-16 19:53:21 +0900</a></div>
+          </div>
+          <div class="description">ネットワーク障害か何かかなと思ってDockerでUbuntu 20.04で試してみましたが再現しませんでした。<br/>~/.stack, .stack-workをどこか別の場所に移動しても同じ感じになりますか?</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626433787.124200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1626433787.124200">2021-07-16 20:09:47 +0900</a></div>
+          </div>
+          <div class="description">一度 <code>/home/sa/.stack/programs/x86_64-linux/ghc-tinfo6-8.10.4</code> 以下を削除してもう一度実行したらどうなりますかね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626435192.124900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">naosak1006</div>
+            <div class="date"><a class="date" href="#message-1626435192.124900">2021-07-16 20:33:12 +0900</a></div>
+          </div>
+          <div class="description">@igrep<br/>削除してsetupしたら復活してエラーが発生したんですけどsetupじゃなくてbuildのほうがいいですかね？それも上手くいかなかったらncaqさんのプランも実行してみようと思います</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626436357.125300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">naosak1006</div>
+            <div class="date"><a class="date" href="#message-1626436357.125300">2021-07-16 20:52:37 +0900</a></div>
+          </div>
+          <div class="description">@ncaq<br/>適当に作った別のフォルダに移動させてみましたが同様のエラーが出ましたね...辛いです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626436460.125500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1626436460.125500">2021-07-16 20:54:20 +0900</a></div>
+          </div>
+          <div class="description">これ、ネイティブのLinuxで動かしてますか?それともWSLなどですか?</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626436758.125700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">naosak1006</div>
+            <div class="date"><a class="date" href="#message-1626436758.125700">2021-07-16 20:59:18 +0900</a></div>
+          </div>
+          <div class="description">windowsのMicrosoft StroreでダウンロードしたUbuntuをターミナル(でいいのかな？)で動かしているのでWSLになると思います</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626436827.126000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1626436827.126000">2021-07-16 21:00:27 +0900</a></div>
+          </div>
+          <div class="description"><code>wsl --list --verbose</code> などで確認できるwslのバージョンはどうなってますか?</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626437026.126200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">naosak1006</div>
+            <div class="date"><a class="date" href="#message-1626437026.126200">2021-07-16 21:03:46 +0900</a></div>
+          </div>
+          <div class="description">確認したところ1でした。これ、2じゃないと上手く動かないですかね？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626437099.126400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1626437099.126400">2021-07-16 21:04:59 +0900</a></div>
+          </div>
+          <div class="description">WSLは今は私は使ってないのでなんとも言い難いのですが、この先WSL2がメインとなるでしょうし、WSL2にすることで解決するならばWSL2を使って解決したほうが良いと思います</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626438121.126600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">naosak1006</div>
+            <div class="date"><a class="date" href="#message-1626438121.126600">2021-07-16 21:22:01 +0900</a></div>
+          </div>
+          <div class="description">WSL2にバージョンを変更したところうまくいきました！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626438208.126800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">naosak1006</div>
+            <div class="date"><a class="date" href="#message-1626438208.126800">2021-07-16 21:23:28 +0900</a></div>
+          </div>
+          <div class="description">ビルドも上手くいきましたね。よく分かりませんが、通ってくれたので嬉しいです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626440040.127500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">yudai.tnb</div>
+            <div class="date"><a class="date" href="#message-1626440040.127500">2021-07-16 21:54:00 +0900</a></div>
+          </div>
+          <div class="description">昨晩正に同じ症状でハマッていたのですが、その時に以下のリンクを発見しました。<br/><a href='https://gitlab.haskell.org/ghc/ghc/-/issues/17918'>https://gitlab.haskell.org/ghc/ghc/-/issues/17918</a><br/>私もWSL2にして解決してしまったので原因を理解しているわけではないのですが、参考になれば。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../17.html" class="item">Back to beginners #17</a>
+    </div>
+  </div>
+</body>
+</html>

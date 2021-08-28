@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #14 at 2021-02-14 12:17:15 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #14 at 2021-02-14 12:17:15 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../14.html" class="item">Back to beginners #14</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1613272635.018000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ohsofty</div>
+            <div class="date"><a class="date" href="#message-1613272635.018000">2021-02-14 12:17:15 +0900</a></div>
+          </div>
+          <div class="description">@channel<br/>すごいH本 第1版 p104で、<br/>string2digits::String-&gt;[Int]<br/>string2digits = map digitToInt .filter isDigit　…(1)<br/>とあり、<br/><br/>*Main Data.Char&gt; filter isDigit "4545-45345"<br/>"454545345"<br/><br/>*Main Data.Char&gt; map digitToInt "454545454343"<br/>[4,5,4,5,4,5,4,5,4,3,4,3]<br/><br/>となるまでは分かるのですが、なぜ(1)のように書けるか<br/>分からず、解説をお願いしたいです。<br/>(関数合成(.)を使うと、"digitToInt .filter isDigit"がひとまとめになって、mapした各要素に適用されるイメージのため)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1613274366.019500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">lotz</div>
+            <div class="date"><a class="date" href="#message-1613274366.019500">2021-02-14 12:46:06 +0900</a></div>
+          </div>
+          <div class="description">関数適用の優先度が最も高いので、<br/><pre>map digitToInt . filter isDigit</pre><br/>は分かりやすいように括弧を付けると<br/><pre>(map digitToInt) . (filter isDigit)</pre><br/>と評価されるからです!<br/><br/>逆に<br/><blockquote>“digitToInt .filter isDigit”がひとまとめになって、</blockquote>を実現したい時は<br/><pre>map (digitToInt . filter isDigit)</pre><br/>と明示的に書く必要があります:eyes:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1613274402.019800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">hexirp</div>
+            <div class="date"><a class="date" href="#message-1613274402.019800">2021-02-14 12:46:42 +0900</a></div>
+          </div>
+          <div class="description"><code>map digitToInt . filter isDigit</code> は <code>(map digitToInt) . (filter isDigit)</code> と同じです。関数合成 <code>f . g</code> は加算 <code>m + n</code> と同じ二項演算子なので、そうなります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1613284312.020500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ohsofty</div>
+            <div class="date"><a class="date" href="#message-1613284312.020500">2021-02-14 15:31:52 +0900</a></div>
+          </div>
+          <div class="description">@lotz / @hexirp<br/> ありがとうございます</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../14.html" class="item">Back to beginners #14</a>
+    </div>
+  </div>
+</body>
+</html>

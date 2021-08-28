@@ -8,469 +8,469 @@
 <body>
   <div class="ui container">
     <h1>haskell-jp / random #27</h1>
-    <div class="pager ui pagination menu">
-      <a href="../../html/C4M4TT8JJ/26.html" class="pager__previous item">Previous</a>
-      <a href="../../" class="pager__top item">Top</a>
-      <a href="../../html/C4M4TT8JJ/28.html" class="pager__next item">Next</a>
+    <div class="ui pagination menu">
+      <a href="../../html/C4M4TT8JJ/26.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+      <a href="../../html/C4M4TT8JJ/28.html" class="item">Next</a>
     </div>
-    <div class="message_list ui feed">
-      <div class="message event" id="message-1541120228.032200">
+    <div class="ui feed">
+      <div class="event" id="message-1541120228.032200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541120228.032200">2018-11-02 09:57:08 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541120228.032200">2018-11-02 09:57:08 +0900</a></div>
           </div>
-          <div class="message__body description">はい，let-束縛で変数を束縛するのは値ではなく，計算であるというのは理解できました．<br/>「サンク」であることと「停止しない計算」とは区別できないように思いますがどうでしょう．</div>
+          <div class="description">はい，let-束縛で変数を束縛するのは値ではなく，計算であるというのは理解できました．<br/>「サンク」であることと「停止しない計算」とは区別できないように思いますがどうでしょう．</div>
         </div>
       </div>
-      <div class="message event" id="message-1541121468.032400">
+      <div class="event" id="message-1541121468.032400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541121468.032400">2018-11-02 10:17:48 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541121468.032400">2018-11-02 10:17:48 +0900</a></div>
           </div>
-          <div class="message__body description">それと，let x = 1 のときx に束縛されるのは 1 という式で表される計算であって，値ではないと考えていいように思います．<br/><blockquote>オブジェクトは大きく分けて2種類ある</blockquote>計算の1種類だけでよいような気がしますがどうですか？</div>
+          <div class="description">それと，let x = 1 のときx に束縛されるのは 1 という式で表される計算であって，値ではないと考えていいように思います．<br/><blockquote>オブジェクトは大きく分けて2種類ある</blockquote>計算の1種類だけでよいような気がしますがどうですか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1541123752.032800">
+      <div class="event" id="message-1541123752.032800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541123752.032800">2018-11-02 10:55:52 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1541123752.032800">2018-11-02 10:55:52 +0900</a></div>
           </div>
-          <div class="message__body description"><blockquote>「サンク」であることと「停止しない計算」とは区別できないように思いますがどうでしょう．</blockquote>Haskellの関数は基本的には値を取るため、オブジェクトがサンクかどうかを判定することはできません(GHCにはunpackClosure#のような例外あり)が、書き手が区別しないわけではないというのが重要だと思います。<br/><blockquote>計算の1種類だけでよいような気がしますがどうですか？</blockquote>サンクは計算を指し示していますが、計算そのものとは別に扱うべきで、実際のモデルと乖離した定義をする(GHCなら17種類あるものを全部"計算"と呼ぶ)ことには賛成できません。</div>
+          <div class="description"><blockquote>「サンク」であることと「停止しない計算」とは区別できないように思いますがどうでしょう．</blockquote>Haskellの関数は基本的には値を取るため、オブジェクトがサンクかどうかを判定することはできません(GHCにはunpackClosure#のような例外あり)が、書き手が区別しないわけではないというのが重要だと思います。<br/><blockquote>計算の1種類だけでよいような気がしますがどうですか？</blockquote>サンクは計算を指し示していますが、計算そのものとは別に扱うべきで、実際のモデルと乖離した定義をする(GHCなら17種類あるものを全部"計算"と呼ぶ)ことには賛成できません。</div>
         </div>
       </div>
-      <div class="message event" id="message-1541124254.033100">
+      <div class="event" id="message-1541124254.033100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541124254.033100">2018-11-02 11:04:14 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1541124254.033100">2018-11-02 11:04:14 +0900</a></div>
           </div>
-          <div class="message__body description">本文中では、「代入が」オブジェクトに関するものだとしており、この束縛と計算の議論とは直接関係ないので、あえてオブジェクトの定義に触れる必要はないと思います。</div>
+          <div class="description">本文中では、「代入が」オブジェクトに関するものだとしており、この束縛と計算の議論とは直接関係ないので、あえてオブジェクトの定義に触れる必要はないと思います。</div>
         </div>
       </div>
-      <div class="message event" id="message-1541126593.033700">
+      <div class="event" id="message-1541126593.033700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541126593.033700">2018-11-02 11:43:13 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541126593.033700">2018-11-02 11:43:13 +0900</a></div>
           </div>
-          <div class="message__body description">ああ．またやらかしました．すみません．変数にバインドできるものをオブジェクトと読んでしまってました．</div>
+          <div class="description">ああ．またやらかしました．すみません．変数にバインドできるものをオブジェクトと読んでしまってました．</div>
         </div>
       </div>
-      <div class="message event" id="message-1541139155.033900">
+      <div class="event" id="message-1541139155.033900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">as_capabl</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541139155.033900">2018-11-02 15:12:35 +0900</a></div>
+            <div class="user">as_capabl</div>
+            <div class="date"><a class="date" href="#message-1541139155.033900">2018-11-02 15:12:35 +0900</a></div>
           </div>
-          <div class="message__body description">評価完了していない値を_|_と書くのは、Wikipediaに載ってる不動点意味論の流儀なのかなあと思うのですが、確かにHaskellの一般的な用法とちょっと違う感じがしますね <a href='https://ja.wikipedia.org/wiki/%E8%A1%A8%E7%A4%BA%E7%9A%84%E6%84%8F%E5%91%B3%E8%AB%96'>https://ja.wikipedia.org/wiki/%E8%A1%A8%E7%A4%BA%E7%9A%84%E6%84%8F%E5%91%B3%E8%AB%96</a></div>
+          <div class="description">評価完了していない値を_|_と書くのは、Wikipediaに載ってる不動点意味論の流儀なのかなあと思うのですが、確かにHaskellの一般的な用法とちょっと違う感じがしますね <a href='https://ja.wikipedia.org/wiki/%E8%A1%A8%E7%A4%BA%E7%9A%84%E6%84%8F%E5%91%B3%E8%AB%96'>https://ja.wikipedia.org/wiki/%E8%A1%A8%E7%A4%BA%E7%9A%84%E6%84%8F%E5%91%B3%E8%AB%96</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1541140401.034200">
+      <div class="event" id="message-1541140401.034200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541140401.034200">2018-11-02 15:33:21 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1541140401.034200">2018-11-02 15:33:21 +0900</a></div>
           </div>
-          <div class="message__body description"><blockquote>評価完了していない値を_|_と書くのは、Wikipediaに載ってる不動点意味論の流儀なのかなあと思うのですが</blockquote>なるほど、これは僕の勉強不足でした :bow: </div>
+          <div class="description"><blockquote>評価完了していない値を_|_と書くのは、Wikipediaに載ってる不動点意味論の流儀なのかなあと思うのですが</blockquote>なるほど、これは僕の勉強不足でした :bow: </div>
         </div>
       </div>
-      <div class="message event" id="message-1541151009.034700">
+      <div class="event" id="message-1541151009.034700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541151009.034700">2018-11-02 18:30:09 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1541151009.034700">2018-11-02 18:30:09 +0900</a></div>
           </div>
-          <div class="message__body description">QuasiQuoteのいい活用方法だと思う。<br/><a href='https://github.com/ryota-ka/duration'>https://github.com/ryota-ka/duration</a></div>
+          <div class="description">QuasiQuoteのいい活用方法だと思う。<br/><a href='https://github.com/ryota-ka/duration'>https://github.com/ryota-ka/duration</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1541157914.035000">
+      <div class="event" id="message-1541157914.035000">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">yamanasirio_mia</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541157914.035000">2018-11-02 20:25:14 +0900</a></div>
+            <div class="user">yamanasirio_mia</div>
+            <div class="date"><a class="date" href="#message-1541157914.035000">2018-11-02 20:25:14 +0900</a></div>
           </div>
-          <div class="message__body description">@yamanasirio_mia has joined the channel</div>
+          <div class="description">@yamanasirio_mia has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1541161411.035300">
+      <div class="event" id="message-1541161411.035300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541161411.035300">2018-11-02 21:23:31 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541161411.035300">2018-11-02 21:23:31 +0900</a></div>
           </div>
-          <div class="message__body description">⊥の話は，R.Bird "Introduction to Functional Programming using Haskell" に少し出てきます．</div>
+          <div class="description">⊥の話は，R.Bird "Introduction to Functional Programming using Haskell" に少し出てきます．</div>
         </div>
       </div>
-      <div class="message event" id="message-1541170370.036000">
+      <div class="event" id="message-1541170370.036000">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kakkun61</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541170370.036000">2018-11-02 23:52:50 +0900</a></div>
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1541170370.036000">2018-11-02 23:52:50 +0900</a></div>
           </div>
-          <div class="message__body description">Hackage に上がりました <a href='http://hackage.haskell.org/package/pixela'>http://hackage.haskell.org/package/pixela</a></div>
+          <div class="description">Hackage に上がりました <a href='http://hackage.haskell.org/package/pixela'>http://hackage.haskell.org/package/pixela</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1541170407.036400">
+      <div class="event" id="message-1541170407.036400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kakkun61</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541170407.036400">2018-11-02 23:53:27 +0900</a></div>
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1541170407.036400">2018-11-02 23:53:27 +0900</a></div>
           </div>
-          <div class="message__body description">CI したい</div>
+          <div class="description">CI したい</div>
         </div>
       </div>
-      <div class="message event" id="message-1541200168.036800">
+      <div class="event" id="message-1541200168.036800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541200168.036800">2018-11-03 08:09:28 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541200168.036800">2018-11-03 08:09:28 +0900</a></div>
           </div>
-          <div class="message__body description"><blockquote>Haskellでは let x = 1 <b> 2 はxに(1 </b> 2を計算した)値を束縛しているのではなく，言うとしたら(call by name的には)1 <b> 2という式自体への束縛，または(call by need的には)1 </b> 2という計算自体への束縛というのが正しいと思います(なので記事の値への束縛というのが誤った使用法というのはHaskellでは誤りというのに同意です)．</blockquote><br/>「変数の値へのバインド」ではcall-by-needを実現できないということでしょうか？変数と値の対(バインディング)のリストを環境として，式を環境下で解釈して値を得る意味関数ではcall-by-need流の意味論を構成できないということでしょうか？</div>
+          <div class="description"><blockquote>Haskellでは let x = 1 <b> 2 はxに(1 </b> 2を計算した)値を束縛しているのではなく，言うとしたら(call by name的には)1 <b> 2という式自体への束縛，または(call by need的には)1 </b> 2という計算自体への束縛というのが正しいと思います(なので記事の値への束縛というのが誤った使用法というのはHaskellでは誤りというのに同意です)．</blockquote><br/>「変数の値へのバインド」ではcall-by-needを実現できないということでしょうか？変数と値の対(バインディング)のリストを環境として，式を環境下で解釈して値を得る意味関数ではcall-by-need流の意味論を構成できないということでしょうか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1541206098.037300">
+      <div class="event" id="message-1541206098.037300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541206098.037300">2018-11-03 09:48:18 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1541206098.037300">2018-11-03 09:48:18 +0900</a></div>
           </div>
-          <div class="message__body description">議論が後退している気がします。値をバインドするとしてしまうと、評価していないものをバインドできない（したがってcall-by-needにならない）というのは本文でもこの議論でも触れたとおりです。</div>
+          <div class="description">議論が後退している気がします。値をバインドするとしてしまうと、評価していないものをバインドできない（したがってcall-by-needにならない）というのは本文でもこの議論でも触れたとおりです。</div>
         </div>
       </div>
-      <div class="message event" id="message-1541206313.037500">
+      <div class="event" id="message-1541206313.037500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541206313.037500">2018-11-03 09:51:53 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1541206313.037500">2018-11-03 09:51:53 +0900</a></div>
           </div>
-          <div class="message__body description">また、「λ変数」「意味関数」のような一般的に使われていない用語を定義せずに持ち込むのは、議論が困難になるので避けていただきたいです</div>
+          <div class="description">また、「λ変数」「意味関数」のような一般的に使われていない用語を定義せずに持ち込むのは、議論が困難になるので避けていただきたいです</div>
         </div>
       </div>
-      <div class="message event" id="message-1541207589.037700">
+      <div class="event" id="message-1541207589.037700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541207589.037700">2018-11-03 10:13:09 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541207589.037700">2018-11-03 10:13:09 +0900</a></div>
           </div>
-          <div class="message__body description"><blockquote>また、「λ変数」「意味関数」のような一般的に使われていない用語を定義せずに持ち込むのは、議論が困難になるので避けていただきたいです</blockquote>すみません．「λ変数」は「束縛変数」，「意味関数」は「評価器」と読みかえてください．今後は，この用語は使いません．</div>
+          <div class="description"><blockquote>また、「λ変数」「意味関数」のような一般的に使われていない用語を定義せずに持ち込むのは、議論が困難になるので避けていただきたいです</blockquote>すみません．「λ変数」は「束縛変数」，「意味関数」は「評価器」と読みかえてください．今後は，この用語は使いません．</div>
         </div>
       </div>
-      <div class="message event" id="message-1541207844.037900">
+      <div class="event" id="message-1541207844.037900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541207844.037900">2018-11-03 10:17:24 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541207844.037900">2018-11-03 10:17:24 +0900</a></div>
           </div>
-          <div class="message__body description"><blockquote>値をバインドするとしてしまうと、評価していものをバインドできない（したがってcall-by-needにならない）というのは本文でもこの議論でも触れたとおりです。</blockquote>ここのところは「値をバインドするとしてしまうとcall-by-needになるような評価器を作成できない」と解釈してもいいですか？</div>
+          <div class="description"><blockquote>値をバインドするとしてしまうと、評価していものをバインドできない（したがってcall-by-needにならない）というのは本文でもこの議論でも触れたとおりです。</blockquote>ここのところは「値をバインドするとしてしまうとcall-by-needになるような評価器を作成できない」と解釈してもいいですか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1541210715.038500">
+      <div class="event" id="message-1541210715.038500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541210715.038500">2018-11-03 11:05:15 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1541210715.038500">2018-11-03 11:05:15 +0900</a></div>
           </div>
-          <div class="message__body description">はい、実装してみようとしてみるとできないことが比較的簡単にわかると思います</div>
+          <div class="description">はい、実装してみようとしてみるとできないことが比較的簡単にわかると思います</div>
         </div>
       </div>
-      <div class="message event" id="message-1541211173.038700">
+      <div class="event" id="message-1541211173.038700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541211173.038700">2018-11-03 11:12:53 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541211173.038700">2018-11-03 11:12:53 +0900</a></div>
           </div>
-          <div class="message__body description">ありがとうございます．ちょっとやってみます．</div>
+          <div class="description">ありがとうございます．ちょっとやってみます．</div>
         </div>
       </div>
-      <div class="message event" id="message-1541221427.039500">
+      <div class="event" id="message-1541221427.039500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">aiya000</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541221427.039500">2018-11-03 14:03:47 +0900</a></div>
+            <div class="user">aiya000</div>
+            <div class="date"><a class="date" href="#message-1541221427.039500">2018-11-03 14:03:47 +0900</a></div>
           </div>
-          <div class="message__body description"><a href='https://www.tweag.io/posts/2018-10-04-capability.html'>https://www.tweag.io/posts/2018-10-04-capability.html</a></div>
+          <div class="description"><a href='https://www.tweag.io/posts/2018-10-04-capability.html'>https://www.tweag.io/posts/2018-10-04-capability.html</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1541221524.041100">
+      <div class="event" id="message-1541221524.041100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">aiya000</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541221524.041100">2018-11-03 14:05:24 +0900</a></div>
+            <div class="user">aiya000</div>
+            <div class="date"><a class="date" href="#message-1541221524.041100">2018-11-03 14:05:24 +0900</a></div>
           </div>
-          <div class="message__body description">deriving via句にMonadReaderが出てきて :thinking_face: ってなったけど、capabilityのMonadReader m aはm aのnewtypeなのか！</div>
+          <div class="description">deriving via句にMonadReaderが出てきて :thinking_face: ってなったけど、capabilityのMonadReader m aはm aのnewtypeなのか！</div>
         </div>
       </div>
-      <div class="message event" id="message-1541221531.041300">
+      <div class="event" id="message-1541221531.041300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">aiya000</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541221531.041300">2018-11-03 14:05:31 +0900</a></div>
+            <div class="user">aiya000</div>
+            <div class="date"><a class="date" href="#message-1541221531.041300">2018-11-03 14:05:31 +0900</a></div>
           </div>
-          <div class="message__body description"><a href='https://github.com/tweag/capability/blob/master/src/Capability/Reader/Internal/Strategies.hs'>https://github.com/tweag/capability/blob/master/src/Capability/Reader/Internal/Strategies.hs</a></div>
+          <div class="description"><a href='https://github.com/tweag/capability/blob/master/src/Capability/Reader/Internal/Strategies.hs'>https://github.com/tweag/capability/blob/master/src/Capability/Reader/Internal/Strategies.hs</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1541225309.041500">
+      <div class="event" id="message-1541225309.041500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541225309.041500">2018-11-03 15:08:29 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541225309.041500">2018-11-03 15:08:29 +0900</a></div>
           </div>
-          <div class="message__body description">Lazyな(おもちゃ)言語を作ってみました．<br/>変数を値にバインドしたバインディングのリストで環境を構成しています．</div>
+          <div class="description">Lazyな(おもちゃ)言語を作ってみました．<br/>変数を値にバインドしたバインディングのリストで環境を構成しています．</div>
         </div>
       </div>
-      <div class="message event" id="message-1541225331.041700">
+      <div class="event" id="message-1541225331.041700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541225331.041700">2018-11-03 15:08:51 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541225331.041700">2018-11-03 15:08:51 +0900</a></div>
           </div>
-          <div class="message__body description"><a href='https://gist.github.com/nobsun/5b310dd4a397af624690b6ca4b0af2c8'>https://gist.github.com/nobsun/5b310dd4a397af624690b6ca4b0af2c8</a></div>
+          <div class="description"><a href='https://gist.github.com/nobsun/5b310dd4a397af624690b6ca4b0af2c8'>https://gist.github.com/nobsun/5b310dd4a397af624690b6ca4b0af2c8</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1541227130.042300">
+      <div class="event" id="message-1541227130.042300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541227130.042300">2018-11-03 15:38:50 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1541227130.042300">2018-11-03 15:38:50 +0900</a></div>
           </div>
-          <div class="message__body description">Bindの定義を見るとわかる通り、これは変数名と「Valueの計算」の対(タプルは要素について非正格なため)になっていますね</div>
+          <div class="description">Bindの定義を見るとわかる通り、これは変数名と「Valueの計算」の対(タプルは要素について非正格なため)になっていますね</div>
         </div>
       </div>
-      <div class="message event" id="message-1541227419.042500">
+      <div class="event" id="message-1541227419.042500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541227419.042500">2018-11-03 15:43:39 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541227419.042500">2018-11-03 15:43:39 +0900</a></div>
           </div>
-          <div class="message__body description">「Value」と「Valueの計算」は別ものですか？</div>
+          <div class="description">「Value」と「Valueの計算」は別ものですか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1541227601.042700">
+      <div class="event" id="message-1541227601.042700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541227601.042700">2018-11-03 15:46:41 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1541227601.042700">2018-11-03 15:46:41 +0900</a></div>
           </div>
-          <div class="message__body description">別物であるがゆえに、その評価器はcall-by-needを実現しています。</div>
+          <div class="description">別物であるがゆえに、その評価器はcall-by-needを実現しています。</div>
         </div>
       </div>
-      <div class="message event" id="message-1541227624.042900">
+      <div class="event" id="message-1541227624.042900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541227624.042900">2018-11-03 15:47:04 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541227624.042900">2018-11-03 15:47:04 +0900</a></div>
           </div>
-          <div class="message__body description">どうやって区別するのですか？</div>
+          <div class="description">どうやって区別するのですか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1541227721.043100">
+      <div class="event" id="message-1541227721.043100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541227721.043100">2018-11-03 15:48:41 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1541227721.043100">2018-11-03 15:48:41 +0900</a></div>
           </div>
-          <div class="message__body description">タプルはその要素が値である必要はなく、サンクも入れることができます。<http://hackage.haskell.org/package/ghc-heap-view-0.5.10/docs/GHC-HeapView.html>　を使えばプログラムの中で判別することもできますよ。</div>
+          <div class="description">タプルはその要素が値である必要はなく、サンクも入れることができます。<http://hackage.haskell.org/package/ghc-heap-view-0.5.10/docs/GHC-HeapView.html>　を使えばプログラムの中で判別することもできますよ。</div>
         </div>
       </div>
-      <div class="message event" id="message-1541227726.043300">
+      <div class="event" id="message-1541227726.043300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541227726.043300">2018-11-03 15:48:46 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541227726.043300">2018-11-03 15:48:46 +0900</a></div>
           </div>
-          <div class="message__body description">書くのに全く区別を意識したわけではなです．</div>
+          <div class="description">書くのに全く区別を意識したわけではなです．</div>
         </div>
       </div>
-      <div class="message event" id="message-1541227815.043500">
+      <div class="event" id="message-1541227815.043500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541227815.043500">2018-11-03 15:50:15 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1541227815.043500">2018-11-03 15:50:15 +0900</a></div>
           </div>
-          <div class="message__body description">区別を意識して実装しなければ議論が成り立ちません。</div>
+          <div class="description">区別を意識して実装しなければ議論が成り立ちません。</div>
         </div>
       </div>
-      <div class="message event" id="message-1541228026.043700">
+      <div class="event" id="message-1541228026.043700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541228026.043700">2018-11-03 15:53:46 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541228026.043700">2018-11-03 15:53:46 +0900</a></div>
           </div>
-          <div class="message__body description">区別する必要が全くなかったので意識しませんでした．私が議論が理解できなかったのはそこですね．なぜ区別するのかが判らないんです．</div>
+          <div class="description">区別する必要が全くなかったので意識しませんでした．私が議論が理解できなかったのはそこですね．なぜ区別するのかが判らないんです．</div>
         </div>
       </div>
-      <div class="message event" id="message-1541228069.043900">
+      <div class="event" id="message-1541228069.043900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541228069.043900">2018-11-03 15:54:29 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1541228069.043900">2018-11-03 15:54:29 +0900</a></div>
           </div>
-          <div class="message__body description">申し訳ないのですが、これ以上議論を進められる気がしないのでこれ以上のコメント(おそらく同じ説明を繰り返すことになるでしょう)は控えさせていただきます。</div>
+          <div class="description">申し訳ないのですが、これ以上議論を進められる気がしないのでこれ以上のコメント(おそらく同じ説明を繰り返すことになるでしょう)は控えさせていただきます。</div>
         </div>
       </div>
-      <div class="message event" id="message-1541228197.044100">
+      <div class="event" id="message-1541228197.044100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541228197.044100">2018-11-03 15:56:37 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541228197.044100">2018-11-03 15:56:37 +0900</a></div>
           </div>
-          <div class="message__body description">はい．ここからは，自分で考えてみたいとおもいます．長々とお付き合いいただきありがとうございます．</div>
+          <div class="description">はい．ここからは，自分で考えてみたいとおもいます．長々とお付き合いいただきありがとうございます．</div>
         </div>
       </div>
-      <div class="message event" id="message-1541228268.044300">
+      <div class="event" id="message-1541228268.044300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541228268.044300">2018-11-03 15:57:48 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1541228268.044300">2018-11-03 15:57:48 +0900</a></div>
           </div>
-          <div class="message__body description">おそらく実装する言語を正格な言語(例えばRustやOCamlなど)にしてみるのがいいのではないでしょうか?</div>
+          <div class="description">おそらく実装する言語を正格な言語(例えばRustやOCamlなど)にしてみるのがいいのではないでしょうか?</div>
         </div>
       </div>
-      <div class="message event" id="message-1541228809.044500">
+      <div class="event" id="message-1541228809.044500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541228809.044500">2018-11-03 16:06:49 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541228809.044500">2018-11-03 16:06:49 +0900</a></div>
           </div>
-          <div class="message__body description">正格な言語を使えば意識せざるを得ないだろうことは想像できますが，非正格の言語を使うときにどう考えるのかという話であったように思います．それで，ふつうにHaskellで実装しました．Haskellを使っている限りにおいて意識しませんし，しなくてよいのではという思いが私の根底にあるようです．だからこそ，Haskellを使っているのに何故，意識しなければならないのかを理解したかったのです．</div>
+          <div class="description">正格な言語を使えば意識せざるを得ないだろうことは想像できますが，非正格の言語を使うときにどう考えるのかという話であったように思います．それで，ふつうにHaskellで実装しました．Haskellを使っている限りにおいて意識しませんし，しなくてよいのではという思いが私の根底にあるようです．だからこそ，Haskellを使っているのに何故，意識しなければならないのかを理解したかったのです．</div>
         </div>
       </div>
-      <div class="message event" id="message-1541229216.044700">
+      <div class="event" id="message-1541229216.044700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541229216.044700">2018-11-03 16:13:36 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541229216.044700">2018-11-03 16:13:36 +0900</a></div>
           </div>
-          <div class="message__body description">式が評価ずみであろうが評価中であろうが，式が表す値は値だという考え方に，何か不都合があるのならそれを知りたかったということです．アドバイスありがとうございます．</div>
+          <div class="description">式が評価ずみであろうが評価中であろうが，式が表す値は値だという考え方に，何か不都合があるのならそれを知りたかったということです．アドバイスありがとうございます．</div>
         </div>
       </div>
-      <div class="message event" id="message-1541229291.044900">
+      <div class="event" id="message-1541229291.044900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541229291.044900">2018-11-03 16:14:51 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1541229291.044900">2018-11-03 16:14:51 +0900</a></div>
           </div>
-          <div class="message__body description">うーん、ではcall by valueを実装してみればよいのでは無いでしょうか?今回のはHaskellで意識しなくていいという話というより、たまたまHaskellでcall by needの実装だったからだと思います</div>
+          <div class="description">うーん、ではcall by valueを実装してみればよいのでは無いでしょうか?今回のはHaskellで意識しなくていいという話というより、たまたまHaskellでcall by needの実装だったからだと思います</div>
         </div>
       </div>
-      <div class="message event" id="message-1541229310.045100">
+      <div class="event" id="message-1541229310.045100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541229310.045100">2018-11-03 16:15:10 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1541229310.045100">2018-11-03 16:15:10 +0900</a></div>
           </div>
-          <div class="message__body description">Haskellから機械語へのコンパイラをHaskellで作れば絶対に理解できます。</div>
+          <div class="description">Haskellから機械語へのコンパイラをHaskellで作れば絶対に理解できます。</div>
         </div>
       </div>
-      <div class="message event" id="message-1541230198.045300">
+      <div class="event" id="message-1541230198.045300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541230198.045300">2018-11-03 16:29:58 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541230198.045300">2018-11-03 16:29:58 +0900</a></div>
           </div>
-          <div class="message__body description"><blockquote>Haskellから機械語へのコンパイラをHaskellで作れば絶対に理解できます。</blockquote>はい，是非挑戦してみたいです．<br/><br/><blockquote>call by valueを実装してみればよいのでは無いでしょうか?</blockquote>これもちょっとやってみます．</div>
+          <div class="description"><blockquote>Haskellから機械語へのコンパイラをHaskellで作れば絶対に理解できます。</blockquote>はい，是非挑戦してみたいです．<br/><br/><blockquote>call by valueを実装してみればよいのでは無いでしょうか?</blockquote>これもちょっとやってみます．</div>
         </div>
       </div>
-      <div class="message event" id="message-1541234492.045500">
+      <div class="event" id="message-1541234492.045500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541234492.045500">2018-11-03 17:41:32 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541234492.045500">2018-11-03 17:41:32 +0900</a></div>
           </div>
-          <div class="message__body description">call-by-valueを実装してみました．</div>
+          <div class="description">call-by-valueを実装してみました．</div>
         </div>
       </div>
-      <div class="message event" id="message-1541234574.045700">
+      <div class="event" id="message-1541234574.045700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541234574.045700">2018-11-03 17:42:54 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541234574.045700">2018-11-03 17:42:54 +0900</a></div>
           </div>
-          <div class="message__body description"><a href='https://gist.github.com/nobsun/1f2535d5f191f6733df0039cede9face'>https://gist.github.com/nobsun/1f2535d5f191f6733df0039cede9face</a></div>
+          <div class="description"><a href='https://gist.github.com/nobsun/1f2535d5f191f6733df0039cede9face'>https://gist.github.com/nobsun/1f2535d5f191f6733df0039cede9face</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1541235858.046000">
+      <div class="event" id="message-1541235858.046000">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541235858.046000">2018-11-03 18:04:18 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541235858.046000">2018-11-03 18:04:18 +0900</a></div>
           </div>
-          <div class="message__body description">本質的に変更したのは，関数適用式の評価に際して，関数部分の式を評価して得られる関数値を，引数部分の式を評価して得られる値に「正格に」適用しただけです．もう一箇所，Valueの関数ではない方は，裸のIntと同型になるようにbangを付けています．これはLazyの方も修正してあり，Valueの定義自身は両方で同じです．</div>
+          <div class="description">本質的に変更したのは，関数適用式の評価に際して，関数部分の式を評価して得られる関数値を，引数部分の式を評価して得られる値に「正格に」適用しただけです．もう一箇所，Valueの関数ではない方は，裸のIntと同型になるようにbangを付けています．これはLazyの方も修正してあり，Valueの定義自身は両方で同じです．</div>
         </div>
       </div>
-      <div class="message event" id="message-1541235912.046200">
+      <div class="event" id="message-1541235912.046200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541235912.046200">2018-11-03 18:05:12 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1541235912.046200">2018-11-03 18:05:12 +0900</a></div>
           </div>
-          <div class="message__body description"><a href='https://github.com/tweag/capability/blob/f1529d502d7c6a3c3eb0feaf488973999b3f6297/src/Capability/Reader/Internal/Strategies.hs#L47'>https://github.com/tweag/capability/blob/f1529d502d7c6a3c3eb0feaf488973999b3f6297/src/Capability/Reader/Internal/Strategies.hs#L47</a> のことね。<br/>（こういうときは該当のソースを表示させているときに「y」を押すといい）</div>
+          <div class="description"><a href='https://github.com/tweag/capability/blob/f1529d502d7c6a3c3eb0feaf488973999b3f6297/src/Capability/Reader/Internal/Strategies.hs#L47'>https://github.com/tweag/capability/blob/f1529d502d7c6a3c3eb0feaf488973999b3f6297/src/Capability/Reader/Internal/Strategies.hs#L47</a> のことね。<br/>（こういうときは該当のソースを表示させているときに「y」を押すといい）</div>
         </div>
       </div>
-      <div class="message event" id="message-1541235993.046600">
+      <div class="event" id="message-1541235993.046600">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541235993.046600">2018-11-03 18:06:33 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1541235993.046600">2018-11-03 18:06:33 +0900</a></div>
           </div>
-          <div class="message__body description">通常call by valueでは，let x = e in e’ ~ (\x -&gt; e’) eな気がするので，let bot = bot in botが無限ループしないのはあまりcall by valueと言えない気がします</div>
+          <div class="description">通常call by valueでは，let x = e in e’ ~ (\x -&gt; e’) eな気がするので，let bot = bot in botが無限ループしないのはあまりcall by valueと言えない気がします</div>
         </div>
       </div>
-      <div class="message event" id="message-1541236101.046800">
+      <div class="event" id="message-1541236101.046800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541236101.046800">2018-11-03 18:08:21 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541236101.046800">2018-11-03 18:08:21 +0900</a></div>
           </div>
-          <div class="message__body description">あらら．</div>
+          <div class="description">あらら．</div>
         </div>
       </div>
-      <div class="message event" id="message-1541236476.047000">
+      <div class="event" id="message-1541236476.047000">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541236476.047000">2018-11-03 18:14:36 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541236476.047000">2018-11-03 18:14:36 +0900</a></div>
           </div>
-          <div class="message__body description">手元では無限ループしますが．．．doctestの記述を修正しわすれた．</div>
+          <div class="description">手元では無限ループしますが．．．doctestの記述を修正しわすれた．</div>
         </div>
       </div>
-      <div class="message event" id="message-1541236588.047200">
+      <div class="event" id="message-1541236588.047200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541236588.047200">2018-11-03 18:16:28 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1541236588.047200">2018-11-03 18:16:28 +0900</a></div>
           </div>
-          <div class="message__body description">あ，すいません．無限ループしますね．ちょっと勘違いでした．言いたかったのは次のパターンですね<br/><pre>
+          <div class="description">あ，すいません．無限ループしますね．ちょっと勘違いでした．言いたかったのは次のパターンですね<br/><pre>
 eval $ Let [("bot",Div (Con 1) (Con 0))] (Con 0)
 </pre><br/>これがexceptionを吐かないのはおかしな気がします</div>
         </div>
       </div>
-      <div class="message event" id="message-1541236849.047400">
+      <div class="event" id="message-1541236849.047400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541236849.047400">2018-11-03 18:20:49 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541236849.047400">2018-11-03 18:20:49 +0900</a></div>
           </div>
-          <div class="message__body description">あちゃーっ!!</div>
+          <div class="description">あちゃーっ!!</div>
         </div>
       </div>
-      <div class="message event" id="message-1541248464.047900">
+      <div class="event" id="message-1541248464.047900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1541248464.047900">2018-11-03 21:34:24 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1541248464.047900">2018-11-03 21:34:24 +0900</a></div>
           </div>
-          <div class="message__body description">修正．Valueの関数を正格関数として生成．interpの際はそのまま適用．</div>
+          <div class="description">修正．Valueの関数を正格関数として生成．interpの際はそのまま適用．</div>
         </div>
       </div>
     </div>
-    <div class="pager ui pagination menu">
-      <a href="../../html/C4M4TT8JJ/26.html" class="pager__previous item">Previous</a>
-      <a href="../../" class="pager__top item">Top</a>
-      <a href="../../html/C4M4TT8JJ/28.html" class="pager__next item">Next</a>
+    <div class="ui pagination menu">
+      <a href="../../html/C4M4TT8JJ/26.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+      <a href="../../html/C4M4TT8JJ/28.html" class="item">Next</a>
     </div>
   </div>
 </body>

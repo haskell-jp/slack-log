@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #14 at 2021-02-21 13:40:49 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #14 at 2021-02-21 13:40:49 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../14.html" class="item">Back to beginners #14</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1613882449.004500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">eagle.hokkaido2317</div>
+            <div class="date"><a class="date" href="#message-1613882449.004500">2021-02-21 13:40:49 +0900</a></div>
+          </div>
+          <div class="description">DB用のdockerコンテナを立ち上げた状態で，Servant用dockerイメージを作成するべく<br/>docker build -t servant-app . コマンドでdefineTableFromDB'を呼ぶとDBコンテナが見つからずにSQL error でコンパイルに失敗します．<br/>ローカルで同一のServant appをbuildするとlocalhost:5432でDBコンテナにアクセス成功するのですが，どのように設定すれば良いかご存知の方いらっしゃいますか？<br/>なお，servant側でのdb設定用のyamlは以下です<br/><pre>port    : _env:DBPORT:"5432"
+host    : _env:DBHOST:"localhost"
+user    : _env:DBUSER:"postgres"
+dbname  : _env:DBNAME:"postgres"
+pass    : _env:DBPASS:"mypassword"
+sslmode : _env:DBSSLMODE:"disable"</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1613889740.004700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1613889740.004700">2021-02-21 15:42:20 +0900</a></div>
+          </div>
+          <div class="description">dockerのポート転送機能で、コンテナ内のポートをホストのポートに紐付ける必要があります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1613890373.004900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1613890373.004900">2021-02-21 15:52:53 +0900</a></div>
+          </div>
+          <div class="description"><code>docker run -p ホストのポート:コンテナのポート イメージ名</code>  と実行してください。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1613902291.005100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">eagle.hokkaido2317</div>
+            <div class="date"><a class="date" href="#message-1613902291.005100">2021-02-21 19:11:31 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます，このコマンドを叩くとpostgresql側と干渉しているよーと教えられたので，もう少しポート設定とコンテナ管理をいじってみます．docker初心者には壁が高い..<br/>なんだかhaskellと関係ない質問になってしまって恐縮です:droplet:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1613903959.005300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nakaji-dayo</div>
+            <div class="date"><a class="date" href="#message-1613903959.005300">2021-02-21 19:39:19 +0900</a></div>
+          </div>
+          <div class="description">「Docker container内で、(defineTableFromDB'を使った)Haskellのコードをコンパイルしようとしている」という認識であってますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1613904084.005600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">eagle.hokkaido2317</div>
+            <div class="date"><a class="date" href="#message-1613904084.005600">2021-02-21 19:41:24 +0900</a></div>
+          </div>
+          <div class="description">はい、仰る通りです。ローカルではビルドが通るので別コンテナにあるpsqlとの通信で躓いていている現状です。コンテナ内外でポート設定があることをついさっき知ったので調査中です</div>
+        </div>
+      </div>
+      <div class="event" id="message-1613904533.005800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nakaji-dayo</div>
+            <div class="date"><a class="date" href="#message-1613904533.005800">2021-02-21 19:48:53 +0900</a></div>
+          </div>
+          <div class="description">それでしたら、ビルド環境コンテナとDBランタイムコンテナが通信できるように設定する必要があるので、<br/>• docker networkを設定する<br/>• --linkを使う(レガシー)<br/>が関係しそうですね。<br/><br/>または別の手法として、<br/>「ghcなどビルドツール」と「postgresql server」両方を含んだ大きな「ビルド用Image」を作り、その中で「db 起動 -&gt; db schema migration -&gt; servant-appのビルド」を行うという手法もあります。<br/>docker multi stageビルドを使うと、「ビルド用Image」から成果物を取り出し、小さめな「ランタイム用Image」を作ることがシンプルにできます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1613904861.006200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">eagle.hokkaido2317</div>
+            <div class="date"><a class="date" href="#message-1613904861.006200">2021-02-21 19:54:21 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます．<br/>• docker networkを設定する<br/>• --linkを使う(レガシー)<br/>1つ目は今docker-compose.ymlに記述して回しているところで，2つ目はこれから調べてみます<br/><br/>docker multi stage buildは便利そうですね，イメージサイズが矢鱈と大きいのでビルドに成功してから取り組もうと考えていました．<br/><a href='https://matsuand.github.io/docs.docker.jp.onthefly/develop/develop-images/multistage-build/'>https://matsuand.github.io/docs.docker.jp.onthefly/develop/develop-images/multistage-build/</a><br/>この辺りから勉強し始めてみます:muscle:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1613905441.006700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1613905441.006700">2021-02-21 20:04:01 +0900</a></div>
+          </div>
+          <div class="description">ああー、すみません、ちゃんと読めてませんでした... :cold_sweat:<br/>ソースコードはホスト側にあると思ってました...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1613905545.006900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">eagle.hokkaido2317</div>
+            <div class="date"><a class="date" href="#message-1613905545.006900">2021-02-21 20:05:45 +0900</a></div>
+          </div>
+          <div class="description">いえいえ！定型的な記述法がわからず回りくどい書き方をしてしまったと思いますので！</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../14.html" class="item">Back to beginners #14</a>
+    </div>
+  </div>
+</body>
+</html>

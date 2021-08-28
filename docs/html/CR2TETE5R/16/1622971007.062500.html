@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #16 at 2021-06-06 18:16:47 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #16 at 2021-06-06 18:16:47 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../16.html" class="item">Back to beginners #16</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1622971007.062500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">muratomo.0205</div>
+            <div class="date"><a class="date" href="#message-1622971007.062500">2021-06-06 18:16:47 +0900</a></div>
+          </div>
+          <div class="description">漸化式として無限等差数列を定義するにはどうしたら良いでしょうか?<br/>ネットで検索した分には次のようなコードを見つけました．<br/><pre>step=3:(map (+ 4) step)
+
+fib = 0 : 1 : zipWith (+) fib (tail fib)</pre><br/>これらは無限等差数列は実現できているのですが，漸化式としての特徴がコードを見てもわかりにくいように感じます．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1622972931.065400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">wasabi.nvim.st</div>
+            <div class="date"><a class="date" href="#message-1622972931.065400">2021-06-06 18:48:51 +0900</a></div>
+          </div>
+          <div class="description">直前の項にしか依存しないタイプの漸化式は<https://www.stackage.org/haddock/lts-17.14/base-4.14.1.0/Prelude.html#v:iterate|iterate> 関数を使えば以下のようにかけるのですがどうでしょう？<br/><pre>init = 3
+next n = n + 4
+
+step = iterate next init</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1622973652.065600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">wasabi.nvim.st</div>
+            <div class="date"><a class="date" href="#message-1622973652.065600">2021-06-06 19:00:52 +0900</a></div>
+          </div>
+          <div class="description">上のコードと同じスタイルとして，隣接二項間漸化式も以下のような`iterate2` 関数を作ってあげれば出来そうです<br/><pre>iterate2 f x y = x : iterate2 f y (f x y)
+
+fib = iterate2 (+) 0 1</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1623218283.067300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">muratomo.0205</div>
+            <div class="date"><a class="date" href="#message-1623218283.067300">2021-06-09 14:58:03 +0900</a></div>
+          </div>
+          <div class="description">そんな関数があったんですね<br/>ありがとうございます．</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../16.html" class="item">Back to beginners #16</a>
+    </div>
+  </div>
+</body>
+</html>

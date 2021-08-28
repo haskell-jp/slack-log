@@ -8,201 +8,201 @@
 <body>
   <div class="ui container">
     <h1>haskell-jp / questions #91</h1>
-    <div class="pager ui pagination menu">
-      <a href="../../html/C5666B6BB/90.html" class="pager__previous item">Previous</a>
-      <a href="../../" class="pager__top item">Top</a>
-      <a href="../../html/C5666B6BB/92.html" class="pager__next item">Next</a>
+    <div class="ui pagination menu">
+      <a href="../../html/C5666B6BB/90.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+      <a href="../../html/C5666B6BB/92.html" class="item">Next</a>
     </div>
-    <div class="message_list ui feed">
-      <div class="message event" id="message-1601935082.044900">
+    <div class="ui feed">
+      <div class="event" id="message-1601935082.044900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1601935082.044900">2020-10-06 06:58:02 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1601935082.044900">2020-10-06 06:58:02 +0900</a></div>
           </div>
-          <div class="message__body description">あるいは、<br/><pre>instance MonadFail m =&gt; AWST' env m where
+          <div class="description">あるいは、<br/><pre>instance MonadFail m =&gt; AWST' env m where
   fail = ...</pre><br/>というインスタンスなら汎用性があるのでそれをPRしてあげるか。</div>
         </div>
       </div>
-      <div class="message event" id="message-1601935219.045100">
+      <div class="event" id="message-1601935219.045100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ncaq</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1601935219.045100">2020-10-06 07:00:19 +0900</a></div>
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1601935219.045100">2020-10-06 07:00:19 +0900</a></div>
           </div>
-          <div class="message__body description">amazonka的にはMonadCatch系を使いたいようなので本流には入らなさそうな気がしますね</div>
+          <div class="description">amazonka的にはMonadCatch系を使いたいようなので本流には入らなさそうな気がしますね</div>
         </div>
       </div>
-      <div class="message event" id="message-1601935364.045300">
+      <div class="event" id="message-1601935364.045300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1601935364.045300">2020-10-06 07:02:44 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1601935364.045300">2020-10-06 07:02:44 +0900</a></div>
           </div>
-          <div class="message__body description">なるほど <code>streaming</code> の方はサードパーティーか... じゃあおかしいのは<br/>amazonka-s3-streaming のほうですね... ざっとソース読んだ感じ別に <code>fail</code> が絶対に必要な展開ではないんだよなぁ... <a href='https://hackage.haskell.org/package/amazonka-s3-streaming-1.1.0.0/docs/src/Network.AWS.S3.StreamingUpload.html#concurrentUpload'>https://hackage.haskell.org/package/amazonka-s3-streaming-1.1.0.0/docs/src/Network.AWS.S3.StreamingUpload.html#concurrentUpload</a></div>
+          <div class="description">なるほど <code>streaming</code> の方はサードパーティーか... じゃあおかしいのは<br/>amazonka-s3-streaming のほうですね... ざっとソース読んだ感じ別に <code>fail</code> が絶対に必要な展開ではないんだよなぁ... <a href='https://hackage.haskell.org/package/amazonka-s3-streaming-1.1.0.0/docs/src/Network.AWS.S3.StreamingUpload.html#concurrentUpload'>https://hackage.haskell.org/package/amazonka-s3-streaming-1.1.0.0/docs/src/Network.AWS.S3.StreamingUpload.html#concurrentUpload</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1601935414.045500">
+      <div class="event" id="message-1601935414.045500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ncaq</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1601935414.045500">2020-10-06 07:03:34 +0900</a></div>
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1601935414.045500">2020-10-06 07:03:34 +0900</a></div>
           </div>
-          <div class="message__body description">作者も修正したさそうなので修正投げようかと思ったのですが型が大きく変動しそうなのでちょっと気後れしちゃいますね</div>
+          <div class="description">作者も修正したさそうなので修正投げようかと思ったのですが型が大きく変動しそうなのでちょっと気後れしちゃいますね</div>
         </div>
       </div>
-      <div class="message event" id="message-1601935898.045800">
+      <div class="event" id="message-1601935898.045800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1601935898.045800">2020-10-06 07:11:38 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1601935898.045800">2020-10-06 07:11:38 +0900</a></div>
           </div>
-          <div class="message__body description"><code>MonadFail</code> を <code>MonadThrow</code> に変えるか、 <code>SomeException</code> で <code>fail</code> で投げるはずの例外を包んであげればいいかな、と思いましたが、そもそも、すでに <code>m</code> は <code>MonadUnliftIO m</code> （ <code>MonadIO</code> のサブクラス）が実装済みなワケですから <code>liftIO fail</code> にすればそこで賄えるかと（多分作者の気持ちはそっちの方が近いし）<br/><br/>それに、仮に変わるとしてもそういうときのためのHPVPなんですから、何も恐れる必要はないと思いますよ！はっきりいって使い物にならないような設計にしてしまっているので恐れず変えちゃいましょう。</div>
+          <div class="description"><code>MonadFail</code> を <code>MonadThrow</code> に変えるか、 <code>SomeException</code> で <code>fail</code> で投げるはずの例外を包んであげればいいかな、と思いましたが、そもそも、すでに <code>m</code> は <code>MonadUnliftIO m</code> （ <code>MonadIO</code> のサブクラス）が実装済みなワケですから <code>liftIO fail</code> にすればそこで賄えるかと（多分作者の気持ちはそっちの方が近いし）<br/><br/>それに、仮に変わるとしてもそういうときのためのHPVPなんですから、何も恐れる必要はないと思いますよ！はっきりいって使い物にならないような設計にしてしまっているので恐れず変えちゃいましょう。</div>
         </div>
       </div>
-      <div class="message event" id="message-1601936028.046000">
+      <div class="event" id="message-1601936028.046000">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ncaq</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1601936028.046000">2020-10-06 07:13:48 +0900</a></div>
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1601936028.046000">2020-10-06 07:13:48 +0900</a></div>
           </div>
-          <div class="message__body description">なるほどfailをliftIOする方法がありましたか<br/>考えてみます</div>
+          <div class="description">なるほどfailをliftIOする方法がありましたか<br/>考えてみます</div>
         </div>
       </div>
-      <div class="message event" id="message-1601936343.046300">
+      <div class="event" id="message-1601936343.046300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1601936343.046300">2020-10-06 07:19:03 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1601936343.046300">2020-10-06 07:19:03 +0900</a></div>
           </div>
-          <div class="message__body description">ちなみに、 <code>MonadThrow</code> に変える方法に抵抗がある理由が「例外作らなきゃいけない」でしたら <code>throwString</code> の使用をご検討ください。<br/><a href='https://www.stackage.org/haddock/lts-16.17/unliftio-0.2.13/UnliftIO-Exception.html#v:throwString'>https://www.stackage.org/haddock/lts-16.17/unliftio-0.2.13/UnliftIO-Exception.html#v:throwString</a><br/>unliftioに入っているので新たに依存関係を足す必要もありません。</div>
+          <div class="description">ちなみに、 <code>MonadThrow</code> に変える方法に抵抗がある理由が「例外作らなきゃいけない」でしたら <code>throwString</code> の使用をご検討ください。<br/><a href='https://www.stackage.org/haddock/lts-16.17/unliftio-0.2.13/UnliftIO-Exception.html#v:throwString'>https://www.stackage.org/haddock/lts-16.17/unliftio-0.2.13/UnliftIO-Exception.html#v:throwString</a><br/>unliftioに入っているので新たに依存関係を足す必要もありません。</div>
         </div>
       </div>
-      <div class="message event" id="message-1601936564.046600">
+      <div class="event" id="message-1601936564.046600">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1601936564.046600">2020-10-06 07:22:44 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1601936564.046600">2020-10-06 07:22:44 +0900</a></div>
           </div>
-          <div class="message__body description">続けて済みません「作者が痛みとして思っている」という情報はどこらですか？ <a href='https://github.com/axman6/amazonka-s3-streaming/issues'>https://github.com/axman6/amazonka-s3-streaming/issues</a> をざっと見ましたがそれらしいものはないみたいで。どういう論点で <code>MonadFail</code> のままにしているのか気になります。</div>
+          <div class="description">続けて済みません「作者が痛みとして思っている」という情報はどこらですか？ <a href='https://github.com/axman6/amazonka-s3-streaming/issues'>https://github.com/axman6/amazonka-s3-streaming/issues</a> をざっと見ましたがそれらしいものはないみたいで。どういう論点で <code>MonadFail</code> のままにしているのか気になります。</div>
         </div>
       </div>
-      <div class="message event" id="message-1601936666.046900">
+      <div class="event" id="message-1601936666.046900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ncaq</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1601936666.046900">2020-10-06 07:24:26 +0900</a></div>
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1601936666.046900">2020-10-06 07:24:26 +0900</a></div>
           </div>
-          <div class="message__body description">パフォーマンス改善のpull requestsへのコメントで<br/>作者「MonadFail辛いしやめたい」<br/>PR作成者「それこのPRで扱うことではないのでは」<br/>みたいなやり取りがありました</div>
+          <div class="description">パフォーマンス改善のpull requestsへのコメントで<br/>作者「MonadFail辛いしやめたい」<br/>PR作成者「それこのPRで扱うことではないのでは」<br/>みたいなやり取りがありました</div>
         </div>
       </div>
-      <div class="message event" id="message-1601942234.047100">
+      <div class="event" id="message-1601942234.047100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1601942234.047100">2020-10-06 08:57:14 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1601942234.047100">2020-10-06 08:57:14 +0900</a></div>
           </div>
-          <div class="message__body description">MonadFailじゃなくてMonadAWSの話みたいですよ！<br/><a href='https://github.com/axman6/amazonka-s3-streaming/pull/20'>https://github.com/axman6/amazonka-s3-streaming/pull/20</a></div>
+          <div class="description">MonadFailじゃなくてMonadAWSの話みたいですよ！<br/><a href='https://github.com/axman6/amazonka-s3-streaming/pull/20'>https://github.com/axman6/amazonka-s3-streaming/pull/20</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1601942323.047400">
+      <div class="event" id="message-1601942323.047400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1601942323.047400">2020-10-06 08:58:43 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1601942323.047400">2020-10-06 08:58:43 +0900</a></div>
           </div>
-          <div class="message__body description">該当するスレッドはこっちか<br/><a href='https://github.com/axman6/amazonka-s3-streaming/pull/22#discussion_r397516136'>https://github.com/axman6/amazonka-s3-streaming/pull/22#discussion_r397516136</a></div>
+          <div class="description">該当するスレッドはこっちか<br/><a href='https://github.com/axman6/amazonka-s3-streaming/pull/22#discussion_r397516136'>https://github.com/axman6/amazonka-s3-streaming/pull/22#discussion_r397516136</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1602001113.047700">
+      <div class="event" id="message-1602001113.047700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ynagayasu1</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602001113.047700">2020-10-07 01:18:33 +0900</a></div>
+            <div class="user">ynagayasu1</div>
+            <div class="date"><a class="date" href="#message-1602001113.047700">2020-10-07 01:18:33 +0900</a></div>
           </div>
-          <div class="message__body description">@ynagayasu1 has joined the channel</div>
+          <div class="description">@ynagayasu1 has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1602030660.047900">
+      <div class="event" id="message-1602030660.047900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ks_y_sk</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602030660.047900">2020-10-07 09:31:00 +0900</a></div>
+            <div class="user">ks_y_sk</div>
+            <div class="date"><a class="date" href="#message-1602030660.047900">2020-10-07 09:31:00 +0900</a></div>
           </div>
-          <div class="message__body description">@ks_y_sk has joined the channel</div>
+          <div class="description">@ks_y_sk has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1602036752.049600">
+      <div class="event" id="message-1602036752.049600">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602036752.049600">2020-10-07 11:12:32 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1602036752.049600">2020-10-07 11:12:32 +0900</a></div>
           </div>
-          <div class="message__body description">リストをなんらかの区切りでリストのリストに分けたいとします。<br/>ただし、区切りは捨てたいです。<br/>どのように実現するのが簡単でしょうか？<br/>たとえば、-1 が区切りだとして、groupBy を使うと、-1 が残ってしまいますね。<br/><br/><pre>&gt; groupBy (\_ x -&gt; x /= -1) [1,2,-1,3,4,-1,5,6]
+          <div class="description">リストをなんらかの区切りでリストのリストに分けたいとします。<br/>ただし、区切りは捨てたいです。<br/>どのように実現するのが簡単でしょうか？<br/>たとえば、-1 が区切りだとして、groupBy を使うと、-1 が残ってしまいますね。<br/><br/><pre>&gt; groupBy (\_ x -&gt; x /= -1) [1,2,-1,3,4,-1,5,6]
 [[1,2],[-1,3,4],[-1,5,6]]</pre><br/></div>
         </div>
       </div>
-      <div class="message event" id="message-1602036821.049700">
+      <div class="event" id="message-1602036821.049700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602036821.049700">2020-10-07 11:13:41 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1602036821.049700">2020-10-07 11:13:41 +0900</a></div>
           </div>
-          <div class="message__body description">実際には Conduit を使ってやります。</div>
+          <div class="description">実際には Conduit を使ってやります。</div>
         </div>
       </div>
-      <div class="message event" id="message-1602036891.049900">
+      <div class="event" id="message-1602036891.049900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">maoe</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602036891.049900">2020-10-07 11:14:51 +0900</a></div>
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1602036891.049900">2020-10-07 11:14:51 +0900</a></div>
           </div>
-          <div class="message__body description">splitパッケージを見るといいと思います。</div>
+          <div class="description">splitパッケージを見るといいと思います。</div>
         </div>
       </div>
-      <div class="message event" id="message-1602039014.050300">
+      <div class="event" id="message-1602039014.050300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602039014.050300">2020-10-07 11:50:14 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1602039014.050300">2020-10-07 11:50:14 +0900</a></div>
           </div>
-          <div class="message__body description">つまり自作しろと。。。うう。</div>
+          <div class="description">つまり自作しろと。。。うう。</div>
         </div>
       </div>
-      <div class="message event" id="message-1602039564.050500">
+      <div class="event" id="message-1602039564.050500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">maoe</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602039564.050500">2020-10-07 11:59:24 +0900</a></div>
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1602039564.050500">2020-10-07 11:59:24 +0900</a></div>
           </div>
-          <div class="message__body description">使ったことないですが <a href='https://hackage.haskell.org/package/conduit-1.3.2.1/docs/Data-Conduit-Combinators.html#v:splitOnUnboundedE'>https://hackage.haskell.org/package/conduit-1.3.2.1/docs/Data-Conduit-Combinators.html#v:splitOnUnboundedE</a> でしょうか</div>
+          <div class="description">使ったことないですが <a href='https://hackage.haskell.org/package/conduit-1.3.2.1/docs/Data-Conduit-Combinators.html#v:splitOnUnboundedE'>https://hackage.haskell.org/package/conduit-1.3.2.1/docs/Data-Conduit-Combinators.html#v:splitOnUnboundedE</a> でしょうか</div>
         </div>
       </div>
-      <div class="message event" id="message-1602039625.050700">
+      <div class="event" id="message-1602039625.050700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602039625.050700">2020-10-07 12:00:25 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1602039625.050700">2020-10-07 12:00:25 +0900</a></div>
           </div>
-          <div class="message__body description">すでに試しているのですが、それではない気がします。</div>
+          <div class="description">すでに試しているのですが、それではない気がします。</div>
         </div>
       </div>
-      <div class="message event" id="message-1602040828.050900">
+      <div class="event" id="message-1602040828.050900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602040828.050900">2020-10-07 12:20:28 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1602040828.050900">2020-10-07 12:20:28 +0900</a></div>
           </div>
-          <div class="message__body description"><code>Element ByteString = Word8</code> なので、空行 (`"\n\n"`)とか指定できないですね。。。</div>
+          <div class="description"><code>Element ByteString = Word8</code> なので、空行 (`"\n\n"`)とか指定できないですね。。。</div>
         </div>
       </div>
-      <div class="message event" id="message-1602042192.051100">
+      <div class="event" id="message-1602042192.051100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602042192.051100">2020-10-07 12:43:12 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1602042192.051100">2020-10-07 12:43:12 +0900</a></div>
           </div>
-          <div class="message__body description"><pre>group :: Monad m =&gt; (a -&gt; Bool) -&gt; ConduitT a [a] m ()
+          <div class="description"><pre>group :: Monad m =&gt; (a -&gt; Bool) -&gt; ConduitT a [a] m ()
 group f = loop id
   where
     loop rest = do
@@ -216,139 +216,139 @@ group f = loop id
             | otherwise -&gt; loop (rest . (x:))</pre><br/></div>
         </div>
       </div>
-      <div class="message event" id="message-1602042215.051300">
+      <div class="event" id="message-1602042215.051300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602042215.051300">2020-10-07 12:43:35 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1602042215.051300">2020-10-07 12:43:35 +0900</a></div>
           </div>
-          <div class="message__body description">結局自作しましたが、何が正しいのか Michael に聞いてみます。</div>
+          <div class="description">結局自作しましたが、何が正しいのか Michael に聞いてみます。</div>
         </div>
       </div>
-      <div class="message event" id="message-1602121728.051500">
+      <div class="event" id="message-1602121728.051500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602121728.051500">2020-10-08 10:48:48 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1602121728.051500">2020-10-08 10:48:48 +0900</a></div>
           </div>
-          <div class="message__body description">Michael から返事が来て「君の実装が一番いい」と言われました。^^;  Haskell ライブラリには、なぜか <code>splitOn</code> が提供されない問題ですね！</div>
+          <div class="description">Michael から返事が来て「君の実装が一番いい」と言われました。^^;  Haskell ライブラリには、なぜか <code>splitOn</code> が提供されない問題ですね！</div>
         </div>
       </div>
-      <div class="message event" id="message-1602214391.051800">
+      <div class="event" id="message-1602214391.051800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">juhpetersen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602214391.051800">2020-10-09 12:33:11 +0900</a></div>
+            <div class="user">juhpetersen</div>
+            <div class="date"><a class="date" href="#message-1602214391.051800">2020-10-09 12:33:11 +0900</a></div>
           </div>
-          <div class="message__body description">@juhpetersen has joined the channel</div>
+          <div class="description">@juhpetersen has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1602236816.053200">
+      <div class="event" id="message-1602236816.053200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ncaq</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602236816.053200">2020-10-09 18:46:56 +0900</a></div>
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1602236816.053200">2020-10-09 18:46:56 +0900</a></div>
           </div>
-          <div class="message__body description">[日本語をshowしてうまく表示されなかったら - Haskell-jp](<https://haskell.jp/blog/posts/2019/unicode-show.html>)<br/>のように開発時のREPLのためにpretty-simpleパッケージを使おうと思っています<br/>しかし実際のパッケージではREPLのためのpretty-simpleには依存していません<br/>npmのdevDependenciesのように開発向けパッケージを定義したいのですがそのような方法はありますか?</div>
+          <div class="description">[日本語をshowしてうまく表示されなかったら - Haskell-jp](<https://haskell.jp/blog/posts/2019/unicode-show.html>)<br/>のように開発時のREPLのためにpretty-simpleパッケージを使おうと思っています<br/>しかし実際のパッケージではREPLのためのpretty-simpleには依存していません<br/>npmのdevDependenciesのように開発向けパッケージを定義したいのですがそのような方法はありますか?</div>
         </div>
       </div>
-      <div class="message event" id="message-1602237043.053400">
+      <div class="event" id="message-1602237043.053400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602237043.053400">2020-10-09 18:50:43 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1602237043.053400">2020-10-09 18:50:43 +0900</a></div>
           </div>
-          <div class="message__body description">うーん、開発者向けのドキュメントに「 <code>stack build pretty-simiple</code> （あるいは <code>cabal install --lib pretty-simple</code> ）してくれ」と書くか、<br/>cabalファイルのフラグ機能を使ってデフォルトオフなフラグを作っておいて、 <code>stack.yaml</code> か <code>cabal.project</code> には有効にするよう記載する、ってところですかね。</div>
+          <div class="description">うーん、開発者向けのドキュメントに「 <code>stack build pretty-simiple</code> （あるいは <code>cabal install --lib pretty-simple</code> ）してくれ」と書くか、<br/>cabalファイルのフラグ機能を使ってデフォルトオフなフラグを作っておいて、 <code>stack.yaml</code> か <code>cabal.project</code> には有効にするよう記載する、ってところですかね。</div>
         </div>
       </div>
-      <div class="message event" id="message-1602237171.053600">
+      <div class="event" id="message-1602237171.053600">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ncaq</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602237171.053600">2020-10-09 18:52:51 +0900</a></div>
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1602237171.053600">2020-10-09 18:52:51 +0900</a></div>
           </div>
-          <div class="message__body description">なるほど、フラグ機能を使う手がありましたか<br/>今回のケース <a href='https://github.com/ncaq/dic-nico-intersection-pixiv'>https://github.com/ncaq/dic-nico-intersection-pixiv</a> ではどうせ開発者は私しか居ないしアプリケーションなのでそこまで気にする必要は無いのですが、広範囲に使っていこうとした時にどうしようかなと悩んでいました<br/>ありがとうございます</div>
+          <div class="description">なるほど、フラグ機能を使う手がありましたか<br/>今回のケース <a href='https://github.com/ncaq/dic-nico-intersection-pixiv'>https://github.com/ncaq/dic-nico-intersection-pixiv</a> ではどうせ開発者は私しか居ないしアプリケーションなのでそこまで気にする必要は無いのですが、広範囲に使っていこうとした時にどうしようかなと悩んでいました<br/>ありがとうございます</div>
         </div>
       </div>
-      <div class="message event" id="message-1602310549.057800">
+      <div class="event" id="message-1602310549.057800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602310549.057800">2020-10-10 15:15:49 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1602310549.057800">2020-10-10 15:15:49 +0900</a></div>
           </div>
-          <div class="message__body description">型クラスの旨味がなくなるというのはインスタンスによってメソッドの呼び出し方とか呼び出せるかどうかとかが変わっちゃうからですか？<br/>だとするともしかして、メソッドの制約の部分が関連型族になるのも旨味がなくなってたりしますか？<br/>なんかもうどう設計するのがよかったのかわからなくなっちゃいました༼;´༎ຶ ༎ຶ༽</div>
+          <div class="description">型クラスの旨味がなくなるというのはインスタンスによってメソッドの呼び出し方とか呼び出せるかどうかとかが変わっちゃうからですか？<br/>だとするともしかして、メソッドの制約の部分が関連型族になるのも旨味がなくなってたりしますか？<br/>なんかもうどう設計するのがよかったのかわからなくなっちゃいました༼;´༎ຶ ༎ຶ༽</div>
         </div>
       </div>
-      <div class="message event" id="message-1602324430.058200">
+      <div class="event" id="message-1602324430.058200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602324430.058200">2020-10-10 19:07:10 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1602324430.058200">2020-10-10 19:07:10 +0900</a></div>
           </div>
-          <div class="message__body description">その通りです。インスタンスが違っても共通のコードから呼び出せるという利点をなくしてしまうと、別々の関数として定義するのと同じになってしまうので…　型族によって制約を変えること自体は、その性質を崩さないので大丈夫です</div>
+          <div class="description">その通りです。インスタンスが違っても共通のコードから呼び出せるという利点をなくしてしまうと、別々の関数として定義するのと同じになってしまうので…　型族によって制約を変えること自体は、その性質を崩さないので大丈夫です</div>
         </div>
       </div>
-      <div class="message event" id="message-1602412718.058600">
+      <div class="event" id="message-1602412718.058600">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602412718.058600">2020-10-11 19:38:38 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1602412718.058600">2020-10-11 19:38:38 +0900</a></div>
           </div>
-          <div class="message__body description">どうして制約の部分が変わるのは大丈夫なんですか?:owl:<br/><code>() =&gt; a -&gt; Hoge</code> って関数がいきなり <code>Num a =&gt; a -&gt; Hoge</code>  とかに変わったら同じコードから呼び出せなくなりませんか?</div>
+          <div class="description">どうして制約の部分が変わるのは大丈夫なんですか?:owl:<br/><code>() =&gt; a -&gt; Hoge</code> って関数がいきなり <code>Num a =&gt; a -&gt; Hoge</code>  とかに変わったら同じコードから呼び出せなくなりませんか?</div>
         </div>
       </div>
-      <div class="message event" id="message-1602507204.059600">
+      <div class="event" id="message-1602507204.059600">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602507204.059600">2020-10-12 21:53:24 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1602507204.059600">2020-10-12 21:53:24 +0900</a></div>
           </div>
-          <div class="message__body description">RIOがIOに変わったらほぼ100%呼び出すことはできなくなりますが、もし扱っている型がすべてNumであるという前提条件があるなら、同じコードを使いまわすことができます。もしそうでないなら、型クラスを使わずに別々に定義すべきなのでしょう</div>
+          <div class="description">RIOがIOに変わったらほぼ100%呼び出すことはできなくなりますが、もし扱っている型がすべてNumであるという前提条件があるなら、同じコードを使いまわすことができます。もしそうでないなら、型クラスを使わずに別々に定義すべきなのでしょう</div>
         </div>
       </div>
-      <div class="message event" id="message-1602628073.060300">
+      <div class="event" id="message-1602628073.060300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kkawaharasshoutarou</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602628073.060300">2020-10-14 07:27:53 +0900</a></div>
+            <div class="user">kkawaharasshoutarou</div>
+            <div class="date"><a class="date" href="#message-1602628073.060300">2020-10-14 07:27:53 +0900</a></div>
           </div>
-          <div class="message__body description">@kkawaharasshoutarou has joined the channel</div>
+          <div class="description">@kkawaharasshoutarou has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1602656592.060500">
+      <div class="event" id="message-1602656592.060500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">viktor.kronvall870</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602656592.060500">2020-10-14 15:23:12 +0900</a></div>
+            <div class="user">viktor.kronvall870</div>
+            <div class="date"><a class="date" href="#message-1602656592.060500">2020-10-14 15:23:12 +0900</a></div>
           </div>
-          <div class="message__body description">@viktor.kronvall870 has joined the channel</div>
+          <div class="description">@viktor.kronvall870 has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1602666574.060700">
+      <div class="event" id="message-1602666574.060700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">jonascarpay</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602666574.060700">2020-10-14 18:09:34 +0900</a></div>
+            <div class="user">jonascarpay</div>
+            <div class="date"><a class="date" href="#message-1602666574.060700">2020-10-14 18:09:34 +0900</a></div>
           </div>
-          <div class="message__body description">@jonascarpay has joined the channel</div>
+          <div class="description">@jonascarpay has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1602703924.060800">
+      <div class="event" id="message-1602703924.060800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602703924.060800">2020-10-15 04:32:04 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1602703924.060800">2020-10-15 04:32:04 +0900</a></div>
           </div>
-          <div class="message__body description">なるほど〜どうもありがとうございます:owl:<br/>自分でもじっくり色々考えてみたけどRIOを使うところは固定しちゃうのが良さそうというのがわかってきました</div>
+          <div class="description">なるほど〜どうもありがとうございます:owl:<br/>自分でもじっくり色々考えてみたけどRIOを使うところは固定しちゃうのが良さそうというのがわかってきました</div>
         </div>
       </div>
-      <div class="message event" id="message-1602769716.061500">
+      <div class="event" id="message-1602769716.061500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602769716.061500">2020-10-15 22:48:36 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1602769716.061500">2020-10-15 22:48:36 +0900</a></div>
           </div>
-          <div class="message__body description">その方針で実装しようとしたらもう一つ問題が出てきちゃいました:sob:<br/><pre>data AnyBot = forall b. Bot b =&gt; AnyBot b
+          <div class="description">その方針で実装しようとしたらもう一つ問題が出てきちゃいました:sob:<br/><pre>data AnyBot = forall b. Bot b =&gt; AnyBot b
 
 instance Bot AnyBot where
   type Dep AnyBot a = ()
@@ -356,137 +356,137 @@ instance Bot AnyBot where
   reply (AnyBot b) msg = reply b msg</pre><br/>このような存在型を追加したら<br/><pre>Could not deduce: Dep b env arising from a use of 'reply'</pre><br/>というエラーが出てしまってどうしたらいいのかわからなくなっちゃいました<br/>どうかお助けください:sob::sorena::oden::exploding_head:</div>
         </div>
       </div>
-      <div class="message event" id="message-1602810703.063300">
+      <div class="event" id="message-1602810703.063300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602810703.063300">2020-10-16 10:11:43 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1602810703.063300">2020-10-16 10:11:43 +0900</a></div>
           </div>
-          <div class="message__body description">AnyBotの中身が何かに依存しているにも関わらず、`type Dep AnyBot a = ()` とすることはできないのでそのままでは定義できません。AnyBotに型パラメータを追加して、`type Dep (AnyBot env) a = (a ~ env)` としてみては？</div>
+          <div class="description">AnyBotの中身が何かに依存しているにも関わらず、`type Dep AnyBot a = ()` とすることはできないのでそのままでは定義できません。AnyBotに型パラメータを追加して、`type Dep (AnyBot env) a = (a ~ env)` としてみては？</div>
         </div>
       </div>
-      <div class="message event" id="message-1602829496.063600">
+      <div class="event" id="message-1602829496.063600">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">in9lude</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1602829496.063600">2020-10-16 15:24:56 +0900</a></div>
+            <div class="user">in9lude</div>
+            <div class="date"><a class="date" href="#message-1602829496.063600">2020-10-16 15:24:56 +0900</a></div>
           </div>
-          <div class="message__body description">@in9lude has joined the channel</div>
+          <div class="description">@in9lude has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1603021327.063800">
+      <div class="event" id="message-1603021327.063800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">cedar123pc</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603021327.063800">2020-10-18 20:42:07 +0900</a></div>
+            <div class="user">cedar123pc</div>
+            <div class="date"><a class="date" href="#message-1603021327.063800">2020-10-18 20:42:07 +0900</a></div>
           </div>
-          <div class="message__body description">@cedar123pc has joined the channel</div>
+          <div class="description">@cedar123pc has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1603098356.063900">
+      <div class="event" id="message-1603098356.063900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">hexirp</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603098356.063900">2020-10-19 18:05:56 +0900</a></div>
+            <div class="user">hexirp</div>
+            <div class="date"><a class="date" href="#message-1603098356.063900">2020-10-19 18:05:56 +0900</a></div>
           </div>
-          <div class="message__body description">GitHub Pages で動作させたいプログラムです。 jsaddle は GHCJS がない時はサーバーで動くようなので、適用できなさそうです。</div>
+          <div class="description">GitHub Pages で動作させたいプログラムです。 jsaddle は GHCJS がない時はサーバーで動くようなので、適用できなさそうです。</div>
         </div>
       </div>
-      <div class="message event" id="message-1603166180.064200">
+      <div class="event" id="message-1603166180.064200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">sano-jin</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603166180.064200">2020-10-20 12:56:20 +0900</a></div>
+            <div class="user">sano-jin</div>
+            <div class="date"><a class="date" href="#message-1603166180.064200">2020-10-20 12:56:20 +0900</a></div>
           </div>
-          <div class="message__body description">@sano-jin has joined the channel</div>
+          <div class="description">@sano-jin has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1603198113.064400">
+      <div class="event" id="message-1603198113.064400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">takino.t2</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603198113.064400">2020-10-20 21:48:33 +0900</a></div>
+            <div class="user">takino.t2</div>
+            <div class="date"><a class="date" href="#message-1603198113.064400">2020-10-20 21:48:33 +0900</a></div>
           </div>
-          <div class="message__body description">@takino.t2 has joined the channel</div>
+          <div class="description">@takino.t2 has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1603353899.069900">
+      <div class="event" id="message-1603353899.069900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">k.marumaru524</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603353899.069900">2020-10-22 17:04:59 +0900</a></div>
+            <div class="user">k.marumaru524</div>
+            <div class="date"><a class="date" href="#message-1603353899.069900">2020-10-22 17:04:59 +0900</a></div>
           </div>
-          <div class="message__body description">初歩的な質問です。<br/><br/>0からIntegerの <code>n</code> までの総和を求める関数を作りたいです。<br/><code>f n = sum [0..n]</code> と書けばしまいですが、こうすると <code>n</code>が大きく(9桁とか)なったときにかなり時間がかかってしまいます。(回避策はあるのでしょうか)<br/><br/>そこで、`f n = n*(n+1)/2` として求めたいのですが、こうすると、返り値の型をFractionalなものにしないといけなくなってしまいます。こういう場合はどう書くのが良いのでしょうか？`f :: Integer -&gt; Integer`としたいです。<br/><br/>Integerを代入した場合、返り値がIntegerで表現できることは明確保証されているはずですが、`fromDouble` 的な関数を使って型変換をする必要があるのでしょうか？<br/><br/>どなたかご存じの方がいらっしゃったらお願いします。</div>
+          <div class="description">初歩的な質問です。<br/><br/>0からIntegerの <code>n</code> までの総和を求める関数を作りたいです。<br/><code>f n = sum [0..n]</code> と書けばしまいですが、こうすると <code>n</code>が大きく(9桁とか)なったときにかなり時間がかかってしまいます。(回避策はあるのでしょうか)<br/><br/>そこで、`f n = n*(n+1)/2` として求めたいのですが、こうすると、返り値の型をFractionalなものにしないといけなくなってしまいます。こういう場合はどう書くのが良いのでしょうか？`f :: Integer -&gt; Integer`としたいです。<br/><br/>Integerを代入した場合、返り値がIntegerで表現できることは明確保証されているはずですが、`fromDouble` 的な関数を使って型変換をする必要があるのでしょうか？<br/><br/>どなたかご存じの方がいらっしゃったらお願いします。</div>
         </div>
       </div>
-      <div class="message event" id="message-1603354179.070000">
+      <div class="event" id="message-1603354179.070000">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ncaq</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603354179.070000">2020-10-22 17:09:39 +0900</a></div>
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1603354179.070000">2020-10-22 17:09:39 +0900</a></div>
           </div>
-          <div class="message__body description"><code>div</code> 関数があるので、余りが出ないことを確信しているなら使えます<br/>[Prelude](<https://www.stackage.org/haddock/lts-16.19/base-4.13.0.0/Prelude.html#v:div>)</div>
+          <div class="description"><code>div</code> 関数があるので、余りが出ないことを確信しているなら使えます<br/>[Prelude](<https://www.stackage.org/haddock/lts-16.19/base-4.13.0.0/Prelude.html#v:div>)</div>
         </div>
       </div>
-      <div class="message event" id="message-1603354278.070200">
+      <div class="event" id="message-1603354278.070200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">k.marumaru524</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603354278.070200">2020-10-22 17:11:18 +0900</a></div>
+            <div class="user">k.marumaru524</div>
+            <div class="date"><a class="date" href="#message-1603354278.070200">2020-10-22 17:11:18 +0900</a></div>
           </div>
-          <div class="message__body description">あーーー、なるほどです！！解決しました。ありがとうございます。</div>
+          <div class="description">あーーー、なるほどです！！解決しました。ありがとうございます。</div>
         </div>
       </div>
-      <div class="message event" id="message-1603406030.070900">
+      <div class="event" id="message-1603406030.070900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">akihiroshinmori</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603406030.070900">2020-10-23 07:33:50 +0900</a></div>
+            <div class="user">akihiroshinmori</div>
+            <div class="date"><a class="date" href="#message-1603406030.070900">2020-10-23 07:33:50 +0900</a></div>
           </div>
-          <div class="message__body description">@akihiroshinmori has joined the channel</div>
+          <div class="description">@akihiroshinmori has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1603465267.071400">
+      <div class="event" id="message-1603465267.071400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">sasada.taisho.su0</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603465267.071400">2020-10-24 00:01:07 +0900</a></div>
+            <div class="user">sasada.taisho.su0</div>
+            <div class="date"><a class="date" href="#message-1603465267.071400">2020-10-24 00:01:07 +0900</a></div>
           </div>
-          <div class="message__body description">@sasada.taisho.su0 has joined the channel</div>
+          <div class="description">@sasada.taisho.su0 has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1603512240.074300">
+      <div class="event" id="message-1603512240.074300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603512240.074300">2020-10-24 13:04:00 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1603512240.074300">2020-10-24 13:04:00 +0900</a></div>
           </div>
-          <div class="message__body description">なるほど…ありがとございます:innocent:<br/>なんかこの辺の型考えるの、まだすぐ頭ごちゃごちゃになっちゃいます。<br/>イメージするコツとかあります？</div>
+          <div class="description">なるほど…ありがとございます:innocent:<br/>なんかこの辺の型考えるの、まだすぐ頭ごちゃごちゃになっちゃいます。<br/>イメージするコツとかあります？</div>
         </div>
       </div>
-      <div class="message event" id="message-1603531829.075000">
+      <div class="event" id="message-1603531829.075000">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">t-nakanishi</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603531829.075000">2020-10-24 18:30:29 +0900</a></div>
+            <div class="user">t-nakanishi</div>
+            <div class="date"><a class="date" href="#message-1603531829.075000">2020-10-24 18:30:29 +0900</a></div>
           </div>
-          <div class="message__body description">@t-nakanishi has joined the channel</div>
+          <div class="description">@t-nakanishi has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1603580945.075200">
+      <div class="event" id="message-1603580945.075200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">0ismore</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603580945.075200">2020-10-25 08:09:05 +0900</a></div>
+            <div class="user">0ismore</div>
+            <div class="date"><a class="date" href="#message-1603580945.075200">2020-10-25 08:09:05 +0900</a></div>
           </div>
-          <div class="message__body description">@0ismore has joined the channel</div>
+          <div class="description">@0ismore has joined the channel</div>
         </div>
       </div>
     </div>
-    <div class="pager ui pagination menu">
-      <a href="../../html/C5666B6BB/90.html" class="pager__previous item">Previous</a>
-      <a href="../../" class="pager__top item">Top</a>
-      <a href="../../html/C5666B6BB/92.html" class="pager__next item">Next</a>
+    <div class="ui pagination menu">
+      <a href="../../html/C5666B6BB/90.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+      <a href="../../html/C5666B6BB/92.html" class="item">Next</a>
     </div>
   </div>
 </body>

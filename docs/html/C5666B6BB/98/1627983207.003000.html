@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #98 at 2021-08-03 18:33:27 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #98 at 2021-08-03 18:33:27 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../98.html" class="item">Back to questions #98</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1627983207.003000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1627983207.003000">2021-08-03 18:33:27 +0900</a></div>
+          </div>
+          <div class="description">上の質問の直和型をデータベースに保存する話ですが、返答いただいた方法と別の方法(私がやりたかった方法)を見つけたので、Qiitaで記事にしてみました。<br/>この方法ならHaskell上で自然に直和型が扱えると思います。<br/>ぜひ、ご意見などいただけると幸いです。<br/><a href='https://qiita.com/nekonibox/items/297c1d2d44b273be2571'>https://qiita.com/nekonibox/items/297c1d2d44b273be2571</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1627986080.003400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1627986080.003400">2021-08-03 19:21:20 +0900</a></div>
+          </div>
+          <div class="description">この方法であれば、昨今のRDBならおおむねどこも提供しているJSON型を使った方がより使いやすいかと。メリットデメリットもJSON型のものがそのまま当てはまりそうです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1627986702.003800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">naohaq</div>
+            <div class="date"><a class="date" href="#message-1627986702.003800">2021-08-03 19:31:42 +0900</a></div>
+          </div>
+          <div class="description">直和型をデータベースに保存する方法っていうか、Haskellのデータを直列化してデータベースに保存する方法ですね……</div>
+        </div>
+      </div>
+      <div class="event" id="message-1627991805.004100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1627991805.004100">2021-08-03 20:56:45 +0900</a></div>
+          </div>
+          <div class="description">なるほど、ご意見ありがとうございます。<br/><br/>うーん、とは言ってもリスト、直積、Set、Vectorも全部同じようにStringとして保存しているので直和があってもとは思ったのですが...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1627992356.004400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1627992356.004400">2021-08-03 21:05:56 +0900</a></div>
+          </div>
+          <div class="description">見た目の上では直接保存しているように見えることを重視した感じです。<br/>理想的には、実際のデータベースとのやりとりを知らなくても、メインプログラムを記述する上では特別な型を作らないで、あたかもHaskellで普段使う型のまま完結してほしい感じですかね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1627992507.004700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1627992507.004700">2021-08-03 21:08:27 +0900</a></div>
+          </div>
+          <div class="description">まじっすか... :cold_sweat: それは、直積であれなんであれRDBでやる以上極力やらない方がいいですね...。割り切った上でやるにしてもまだJSON型の方がマシです（多分、persistentが出た当時JSON型が出てなかったか普及してなかったんでしょうけど）。文字列に変換された列はとても検索しづらくなるので用途が絞られる。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1628002642.004900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1628002642.004900">2021-08-03 23:57:22 +0900</a></div>
+          </div>
+          <div class="description">persistent はあんまり凝ったクエリーが書けなかった気がするので persistent 経由でしか RDB を触らないならいい気がします<br/>（persistent で <code>PersistList</code> ってどう保存されるんでしたっけ</div>
+        </div>
+      </div>
+      <div class="event" id="message-1628032558.005200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1628032558.005200">2021-08-04 08:15:58 +0900</a></div>
+          </div>
+          <div class="description">しかし、直和型以外の複合型（レコードとかリストとか）に対してそこまで大胆な設計をしているのになんで直和型だけ？という気持ちには確かになりますね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1628041944.005400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">naohaq</div>
+            <div class="date"><a class="date" href="#message-1628041944.005400">2021-08-04 10:52:24 +0900</a></div>
+          </div>
+          <div class="description">persistentっていう名前の印象からして、RDB的なものというよりデータの永続化を主目的としてる感じがするんですが、どうなんでしょう(あまり調べないで言ってる)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1628042566.005600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1628042566.005600">2021-08-04 11:02:46 +0900</a></div>
+          </div>
+          <div class="description">えぇ、そこはその通りで、MongoDBのバックエンドもあるくらいですから。MongoDBならリストなりレコードなりを直接保存するのはよくわかります。それとの一貫性という意味でRDBでも文字列に変換して保存する機能を提供しているんでしょう。その上でやっぱりじゃあなんで直和型だけ...？という気がします :confused:</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../98.html" class="item">Back to questions #98</a>
+    </div>
+  </div>
+</body>
+</html>

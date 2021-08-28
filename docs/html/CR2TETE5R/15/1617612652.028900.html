@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #15 at 2021-04-05 17:50:52 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #15 at 2021-04-05 17:50:52 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../15.html" class="item">Back to beginners #15</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1617612652.028900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1617612652.028900">2021-04-05 17:50:52 +0900</a></div>
+          </div>
+          <div class="description">VSCode の質問です。<br/>IDEのエラーか何かで<br/><code>ghcide compiled against GHC 8.8.2 but currently using 8.6.5 This is unsupported, ghcide must be compiled with the same GHC ...</code><br/>と出てきてしまい、何を打っても一番最初の行に赤線が引かれてしまいます。<br/>解決したいのですが、調べてもわからず、困ってしまいました。助けてくださると幸いです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1617612967.029000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1617612967.029000">2021-04-05 17:56:07 +0900</a></div>
+          </div>
+          <div class="description">思うにVSCodeが使っているコンパイラ？がstackのそれと一致していないみたいな霊感を感じますが多分違いますかね……。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1617613706.029200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1617613706.029200">2021-04-05 18:08:26 +0900</a></div>
+          </div>
+          <div class="description">VS Codeが使っているコンパイラー、ではなくghcideという補完や型チェックを行うアプリケーションのバージョンが、プロジェクトで使用するGHCのバージョン（stackの場合stack.yamlに書いたresolverに対応するもの）と合っていないことによるエラーです。<br/><br/>しかし、本来であればVS Codeが自動で足りないghcideをインストールしてくれるはずなので、ちょっと奇妙ですね... :confused:<br/>あと、今はghcideではなくhaskell-language-serverに移行することが推奨されているので、それも気になります。<br/><br/>利用しているVS Codeの拡張が何か気になります。私は普段VS Codeを使わないので、今どれを利用するべきなのか正直わかりませんが、古いものを使っていないでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1617680651.029400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1617680651.029400">2021-04-06 12:44:11 +0900</a></div>
+          </div>
+          <div class="description"><code>Haskell</code> と`Haskell(legacy)`が入ってました。レガシーの方は無効にしてみましたが状況は変わりませんね……。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1617688997.029600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1617688997.029600">2021-04-06 15:03:17 +0900</a></div>
+          </div>
+          <div class="description">うーん、VS Code側の問題に見えますが、私にはこれ以上分からないので、エラーメッセージに従って、プロジェクトの <code>stack.yaml</code> を編集してGHC 8.8.2 （あるいはそれ以降）を使うよう変えてみるのが確実かなぁと思います。<br/>GHC 8.6じゃないとビルド出来ないプロジェクトだったりすると面倒ですが...<br/><code>stack.yaml</code> の <code>resolver</code> というキーを編集して、該当するGHCを使うLTS Haskellにしてください。<br/>「該当するGHC」については <a href='https://www.stackage.org/'>https://www.stackage.org/</a> の「Latest releases per GHC version」に書かれています。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../15.html" class="item">Back to beginners #15</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #16 at 2021-06-01 18:49:48 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #16 at 2021-06-01 18:49:48 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../16.html" class="item">Back to beginners #16</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1622540988.054000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kyoheiu</div>
+            <div class="date"><a class="date" href="#message-1622540988.054000">2021-06-01 18:49:48 +0900</a></div>
+          </div>
+          <div class="description">はじめまして。<br/>Haskell学習のため [Advent of Code 2020](<https://adventofcode.com/>) をちまちま解いているところなのですが、解答できたけれどコードが汚くなってしまうものがあります。<br/><a href='https://adventofcode.com/2020/day/8'>https://adventofcode.com/2020/day/8</a> ８日めのこの問題、こういうコードになりました。<br/><a href='https://github.com/kyoheiu/aoc2020-haskell/blob/master/day08/app/Main.hs'>https://github.com/kyoheiu/aoc2020-haskell/blob/master/day08/app/Main.hs</a><br/><br/>そもそも最適なアプローチはこれではないということかもしれませんが、それはいったんおいて、このアプローチでもっとHaskellっぽいコードにリファクタリングするにはどういう考え方があるでしょうか？<br/>とりあえず引数の数が多いのが嫌な感じなのですが…。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1622564788.054200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">seasellsheshell_com.s</div>
+            <div class="date"><a class="date" href="#message-1622564788.054200">2021-06-02 01:26:28 +0900</a></div>
+          </div>
+          <div class="description">@kyoheiu この中でいうと、例えば「符号付き整数文字列を整数に変換する」関数を1つにまとめると、ちょっと簡潔になる気がします。持たなくてはならない状態量が多いので、引数の数が多いのはどうにもならない気がしますね……。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1622567493.054400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1622567493.054400">2021-06-02 02:11:33 +0900</a></div>
+          </div>
+          <div class="description">素朴かつ関数的に（ここでは、do構文を使わない、配列を使わない、程度の意味）考えるなら、<br/>性能はともかく、こんな感じでしょうか。(詳細は書いてないので動かしてませんが。^^;）<br/><br/><pre>module Main where
+
+import Data.Char ( toUpper )
+
+main :: IO ()
+main = print . lastState . run . load . map toUpper . filter ('+' /=)
+     =&lt;&lt; readFile "day08.txt"
+
+type Code = (OP, Arg)
+data OP
+    = NOP
+    | ACC
+    | JMP
+    deriving (Eq, Show, Read)
+
+type Arg = Int
+
+type Offset = Int
+
+type Mem = ([Code], Code, [Code])
+derefPC :: Mem -&gt; Code
+derefPC (_, c, _) = c
+
+jump :: Offset -&gt; Mem -&gt; Mem
+jump offset mem = undefined 
+
+type Acc = Int
+updAcc :: Offset -&gt; Acc -&gt; Acc
+updAcc offset acc = acc + offset
+
+type Count = Int
+updCount :: Count -&gt; Count
+updCount count = succ count 
+
+type Output = String
+
+type VMState = (Mem, Acc, Count, Output)
+
+isFinalState :: VMState -&gt; Bool
+isFinalState vm = undefined 
+
+load :: String -&gt; VMState
+load src = case map toCode (lines src) of
+    h : t -&gt; (([], h, t), 0, 0, "")
+
+toCode :: String -&gt; Code
+toCode ln = case words ln of
+    op : num : _ -&gt; (read op, read num)
+
+run :: VMState -&gt; [VMState]
+run st = st : if isFinalState st then [] else run (step st)
+
+step :: VMState -&gt; VMState
+step vm = execute (decode (fetch vm)) vm
+
+fetch :: VMState -&gt; Code
+fetch (mem, _, _, _) = derefPC mem
+
+decode :: Code -&gt; (VMState -&gt; VMState)
+decode code vm = case code of
+    (op, offset) -&gt; undefined
+
+execute :: (VMState -&gt; VMState) -&gt; VMState -&gt; VMState
+execute = id
+
+lastState :: [VMState] -&gt; (Acc, Count, Output)
+lastState states = case last states of
+    (_,acc,cnt,msg) -&gt;  (acc, cnt, msg)</pre><br/></div>
+        </div>
+      </div>
+      <div class="event" id="message-1622567814.054600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1622567814.054600">2021-06-02 02:16:54 +0900</a></div>
+          </div>
+          <div class="description">命令列をロードしたメモリをいわゆるZipperにしてあるので、jump も簡単に実装できるでしょう。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1622603218.056100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1622603218.056100">2021-06-02 12:06:58 +0900</a></div>
+          </div>
+          <div class="description">私ならStateモナドを使いますね(アプローチが違ってそうですが…)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1622603671.056300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">seasellsheshell_com.s</div>
+            <div class="date"><a class="date" href="#message-1622603671.056300">2021-06-02 12:14:31 +0900</a></div>
+          </div>
+          <div class="description">「このアプローチで」縛りがなくなり始めてるので私も自分が書いてみたコードを貼り付けてみます。Haskell的かどうかはわかりませんが見た目はスッキリしているはずです。<https://gist.github.com/TonalidadeHidrica/eedabaa1a842c4875ae737a4f802374f#file-a-hs></div>
+        </div>
+      </div>
+      <div class="event" id="message-1622603809.056500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kyoheiu</div>
+            <div class="date"><a class="date" href="#message-1622603809.056500">2021-06-02 12:16:49 +0900</a></div>
+          </div>
+          <div class="description">皆さんありがとうございます。コード勉強になります！精読させていただきます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1622604754.056700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kyoheiu</div>
+            <div class="date"><a class="date" href="#message-1622604754.056700">2021-06-02 12:32:34 +0900</a></div>
+          </div>
+          <div class="description">@ncaq Stateモナドですよね、作り終わってから気が付きました。慣れていないので勉強がてら使ってみます。<br/><a href='https://github.com/graninas/The-Voids-Of-Haskell#Clean-Functional-Code'>https://github.com/graninas/The-Voids-Of-Haskell#Clean-Functional-Code</a> こういうの欲しい…</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../16.html" class="item">Back to beginners #16</a>
+    </div>
+  </div>
+</body>
+</html>

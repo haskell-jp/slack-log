@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #16 at 2021-06-24 23:38:29 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #16 at 2021-06-24 23:38:29 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../16.html" class="item">Back to beginners #16</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1624545509.073700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kerf_cat</div>
+            <div class="date"><a class="date" href="#message-1624545509.073700">2021-06-24 23:38:29 +0900</a></div>
+          </div>
+          <div class="description">初めまして<br/>ダウンロードしたパッケージ(System.Random)をghciにインポートしたいのですが<br/>インポートするときに<br/>Prelude&gt; :l Main<br/><br/>Main.hs:seven:8:<br/>  Could not find module ‘Control.Monad.State.Strict’<br/>  Perhaps you meant<br/>   Control.Monad.ST.Strict (from base-4.8.2.0)<br/>   Control.Monad.Trans.State.Strict (from transformers-0.4.2.0@trans_GZTjP9K5WFq01xC9BAGQpF)<br/>  Use -v to see a list of the files searched for.<br/><br/>Main.hs:13:8:<br/>  Could not find module ‘Gauge.Main’<br/>  Use -v to see a list of the files searched for.<br/><br/>Main.hs:15:8:<br/>  Could not find module ‘System.Random.SplitMix’<br/>  Use -v to see a list of the files searched for.<br/><br/>Main.hs:17:8:<br/>  Could not find module ‘System.Random.Stateful’<br/>  Use -v to see a list of the files searched for.<br/>Failed, modules loaded: none.<br/>というエラーが出てしまいます<br/>これはどのように解決したら良いでしょうか<br/>また、やり方が間違っていたらやり方を教えていただけると幸いです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1624581928.073800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1624581928.073800">2021-06-25 09:45:28 +0900</a></div>
+          </div>
+          <div class="description">問題のパッケージはどのようにダウンロードしましたか？ <code>stack install random</code> ？<br/>あと、エラーメッセージを見る限り、System.Randomを含むrandomパッケージ以外にも Control.Monad.State.Strict を含むmtlパッケージや、Gauge.Mainを含むgaugeパッケージ、 <a href='https://hackage.haskell.org/package/splitmix/docs/System-Random-SplitMix.html'>System.Random.SplitMix</a> を含む splitmixパッケージなどがインストールできていないようです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1624584516.074000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kerf_cat</div>
+            <div class="date"><a class="date" href="#message-1624584516.074000">2021-06-25 10:28:36 +0900</a></div>
+          </div>
+          <div class="description">返信ありがとうございます<br/><a href='https://hackage.haskell.org/package/random'>https://hackage.haskell.org/package/random</a> このページのDownloadsの欄からダウンロードしました<br/>また、このエラーメッセージに書いてあるモジュールを含むパッケージを全部ダウンロードするということで了解しました<br/>そのあとについてなのですが、うつコマンドは:l Mainで正しいのでしょうか？<br/>正直どのファイル（フォルダ？）についてどのコマンドを打てば良いのかわからない状態なので教えていただけるととても嬉しいです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1624585022.074300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ttsurutani</div>
+            <div class="date"><a class="date" href="#message-1624585022.074300">2021-06-25 10:37:02 +0900</a></div>
+          </div>
+          <div class="description">私のこの記事は役に立ちますか？<br/><a href='https://qiita.com/TTsurutani/items/b68956a555747fc3cb0e'>https://qiita.com/TTsurutani/items/b68956a555747fc3cb0e</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1624585320.074700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1624585320.074700">2021-06-25 10:42:00 +0900</a></div>
+          </div>
+          <div class="description"><blockquote><a href='https://hackage.haskell.org/package/random'>https://hackage.haskell.org/package/random</a> このページのDownloadsの欄からダウンロードしました</blockquote>それは通常行う方法ではないですね... ttsurutaniさんの記事の通りひとまず <code>stack install random</code> や <code>cabal install --lib random</code> などでのインストールを推奨します。<br/><br/><code>:l Main</code> について... ですが、（若干記憶が怪しいのでちょっと詳細確認しますが）何という名前のファイルになんというモジュールを書いたかによります。<br/>恐らく状況を察するに、 <code>module Main where</code>という行をファイルの*冒頭に書いてない*適当なファイル名（例えば <code>file.hs</code>  ）のファイルを読もうとしているのではないかと思います。その場合、 <code>:l file.hs</code> のように、ファイル名を直接指定して <code>:l</code> するのを推奨します。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1624587513.074900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kerf_cat</div>
+            <div class="date"><a class="date" href="#message-1624587513.074900">2021-06-25 11:18:33 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます<br/>記事を参考にしたら<br/>インストールとインポートができました<br/>cabalからダウンロードすると依存するモジュールまでインストールできるんですね<br/>お二人とも本当にありがとうございました</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../16.html" class="item">Back to beginners #16</a>
+    </div>
+  </div>
+</body>
+</html>

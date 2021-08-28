@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #96 at 2021-04-29 21:07:11 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #96 at 2021-04-29 21:07:11 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1619698031.076900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">hexirp</div>
+            <div class="date"><a class="date" href="#message-1619698031.076900">2021-04-29 21:07:11 +0900</a></div>
+          </div>
+          <div class="description">simultaneous and mutually recursive definitions ってどう訳すればいいと思います？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1619699533.077200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">hexirp</div>
+            <div class="date"><a class="date" href="#message-1619699533.077200">2021-04-29 21:32:13 +0900</a></div>
+          </div>
+          <div class="description">とりあえず、「相互再帰による定義」で良いのか知りたいです。 simultaneous recursion と mutual recursion の違いがよくわかってません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1619708525.077500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobuyuki.tomizawa</div>
+            <div class="date"><a class="date" href="#message-1619708525.077500">2021-04-30 00:02:05 +0900</a></div>
+          </div>
+          <div class="description">simultaneousのほうは<https://ja.wikipedia.org/wiki/%E5%86%8D%E5%B8%B0%E7%90%86%E8%AB%96|再帰理論>（<https://ja.wikipedia.org/wiki/%E5%8E%9F%E5%A7%8B%E5%86%8D%E5%B8%B0%E9%96%A2%E6%95%B0|原始再帰関数>とか出てくる授業とかで出てくる内容…だと思う）方面に関連するようなのですが、これ以上は猛烈な力不足で私にはどうにも :slightly_smiling_face:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1619747197.077900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1619747197.077900">2021-04-30 10:46:37 +0900</a></div>
+          </div>
+          <div class="description">simultaneous induction は同時帰納法と訳されることが多いですね．<br/><br/>* simultaneous induction は複数の帰納ステップを並列して (多くの場合は交互的に) 進める帰納法全般を指し recursion の variation としては multiple recursion が対応するはずです<br/>* ただ，structural induction の variation として狭義的には，複数の judgement にまたがる帰納ステップを持つ帰納を指すので，そっちの方は mutual  recursion に対応すると思います<br/><br/>結局，元の質問で言うと，訳はどういうことを伝えたいかによると思いますが，これはどこかの文書の言葉を訳したいという話なんですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1619775698.078600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">hexirp</div>
+            <div class="date"><a class="date" href="#message-1619775698.078600">2021-04-30 18:41:38 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://ja.wikipedia.org/w/index.php?title=%E9%96%A2%E6%95%B0%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0&amp;oldid=83239750'>https://ja.wikipedia.org/w/index.php?title=%E9%96%A2%E6%95%B0%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0&amp;oldid=83239750</a><br/>ここでの「 let 節と where 節を導入して、そこに同時再帰と相互再帰の概念も含めた」の所です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1619775754.078800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">hexirp</div>
+            <div class="date"><a class="date" href="#message-1619775754.078800">2021-04-30 18:42:34 +0900</a></div>
+          </div>
+          <div class="description">Conception, evolution, and application of functional programming languages の p. 371 の所にあります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1619779855.079200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1619779855.079200">2021-04-30 19:50:55 +0900</a></div>
+          </div>
+          <div class="description">ここでの simultaneously というのはそこまで厳格な意味はないように見えますね．それまで定義順が大事だったのと対比して，定義順が順不同 (simultaneously) で，相互的であっても (mutually) 良いような表記法を導入したと言ってるように見えます．原文の意図としては相互的であることに踏まえて，定義順によらないことを強調したかったということのように見えます<br/><br/>それならば，訳は同時的かつ相互的再帰的定義で良いような気はしますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1619781466.083300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">hexirp</div>
+            <div class="date"><a class="date" href="#message-1619781466.083300">2021-04-30 20:17:46 +0900</a></div>
+          </div>
+          <div class="description">なるほど、 simultaneously は、順序なく同時に定義するという感じに訳すれば良さそうですね！ simultaneous induction という言葉をなまじ知っていたせいで、これに関連するのかと思って、かえって混乱してしまいました。この場合は、一般的な意味を持つ言葉として捉えれば良かったんですね。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+  </div>
+</body>
+</html>

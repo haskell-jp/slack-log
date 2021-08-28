@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #96 at 2021-03-13 14:18:15 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #96 at 2021-03-13 14:18:15 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1615612695.020100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1615612695.020100">2021-03-13 14:18:15 +0900</a></div>
+          </div>
+          <div class="description">理想としては、Architecture型の引数をもらって、それに応じてデータベースのやりとりとJSONの入出力を行ってくれる関数を定義したい感じです。<br/><br/>データベースから's型の変数を作り、入力のJSONを'i型に変換し、updateを施した後、返り値の's型のデータをデータベースに保存し、'o型の返り値をJSONに変換して出力。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615613260.020300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">autotaker</div>
+            <div class="date"><a class="date" href="#message-1615613260.020300">2021-03-13 14:27:40 +0900</a></div>
+          </div>
+          <div class="description">そのやり方だとデータベース全体をロードする必要があるとおもいます。<br/>一般的なデータベース（mysqlとか）とやりとりする場合はIOモナドを使います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615613384.020500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">autotaker</div>
+            <div class="date"><a class="date" href="#message-1615613384.020500">2021-03-13 14:29:44 +0900</a></div>
+          </div>
+          <div class="description">IO monadは <code>s -&gt; (a, s)</code>  型の関数だと思えば良いので　update相当のことができます</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615613799.020900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1615613799.020900">2021-03-13 14:36:39 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。s-&gt;(a,s)型があればうまくいきそうですね。少し調べてみます。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+  </div>
+</body>
+</html>

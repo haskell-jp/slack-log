@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #97 at 2021-05-13 13:33:04 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #97 at 2021-05-13 13:33:04 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../97.html" class="item">Back to questions #97</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1620880384.089100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">wasabi.nvim.st</div>
+            <div class="date"><a class="date" href="#message-1620880384.089100">2021-05-13 13:33:04 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://www.stackage.org/haddock/lts-17.11/exceptions-0.10.4/Control-Monad-Catch.html'>exceptions</a>パッケージで`MonadCatch`クラスに`ContT` インスタンスが提供されていないのは何か理由があるのでしょうか？<br/>具体的には実装として以下のものを考えられると思うのですがまずい部分があるのでしょうか？<br/><pre>instance MonadCatch m =&gt; MonadCatch (ContT r m) where
+  catch m f = ContT $ \k -&gt; catch (runContT m k) (flip runContT k . f)</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1620885608.089800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1620885608.089800">2021-05-13 15:00:08 +0900</a></div>
+          </div>
+          <div class="description">その実装だと、mの本質的な処理を終え、継続(k)の部分で例外が発生したときに、ハンドラで再びその継続が呼ばれることになります。第一引数で発生した例外を受け止めるというcatchの本来の振る舞いから乖離してしまうため、そのような実装は意図的に除外されているものと認識しています(cf. <a href='https://github.com/ekmett/exceptions/blame/d0e7e68a465831887aacf656373cd795dddf7f0e/src/Control/Monad/Catch.hs#L719'>https://github.com/ekmett/exceptions/blame/d0e7e68a465831887aacf656373cd795dddf7f0e/src/Control/Monad/Catch.hs#L719</a>)。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1620887487.090600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">wasabi.nvim.st</div>
+            <div class="date"><a class="date" href="#message-1620887487.090600">2021-05-13 15:31:27 +0900</a></div>
+          </div>
+          <div class="description">なるほど…たしかにそうですね…<br/>ありがとうございます:man-bowing:</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../97.html" class="item">Back to questions #97</a>
+    </div>
+  </div>
+</body>
+</html>

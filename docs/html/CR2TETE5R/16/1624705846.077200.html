@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #16 at 2021-06-26 20:10:46 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #16 at 2021-06-26 20:10:46 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../16.html" class="item">Back to beginners #16</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1624705846.077200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">naosak1006</div>
+            <div class="date"><a class="date" href="#message-1624705846.077200">2021-06-26 20:10:46 +0900</a></div>
+          </div>
+          <div class="description">質問です。<br/>Haskellのフレームワークって何種類かあるようですが、最初に触れるなら今どきどれがオススメでしょうか？なんとなくYesodがいいのかなと思ってますが……</div>
+        </div>
+      </div>
+      <div class="event" id="message-1624706410.077300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1624706410.077300">2021-06-26 20:20:10 +0900</a></div>
+          </div>
+          <div class="description">ウェブアプリケーションフレームワークのことでしたら <a href='https://wiki.haskell.jp/Hikers%20Guide%20to%20Haskell#web%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3'>https://wiki.haskell.jp/Hikers%20Guide%20to%20Haskell#web%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3</a> をご覧ください。結論から言うと、とっつきやすいのはscottyです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1624706874.077500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">naosak1006</div>
+            <div class="date"><a class="date" href="#message-1624706874.077500">2021-06-26 20:27:54 +0900</a></div>
+          </div>
+          <div class="description">なるほど、scottyですか。<br/>なかなか日本語の記事が少ないので避けようとしてましたが、そこは頑張るしかないですね。ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1624707204.077700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1624707204.077700">2021-06-26 20:33:24 +0900</a></div>
+          </div>
+          <div class="description">日本語の情報、 :naruhodo:<br/>そういう意味ですとちょっと古くなっているかも知れませんが、 <a href='https://gihyo.jp/book/2017/978-4-7741-9237-6'>https://gihyo.jp/book/2017/978-4-7741-9237-6</a> に、scottyとspockというフレームワークを使った例があります。<br/>spockは長いことメンテナンスが止まっていたので先ほどのWikiには掲載してませんでしたが、今見るとまたメンテされているみたいなのでこちらもおすすめです。<br/>使い勝手はscottyとよく似ています。spockの方が若干高度なことをしてはいますが。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1624707762.078000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">naosak1006</div>
+            <div class="date"><a class="date" href="#message-1624707762.078000">2021-06-26 20:42:42 +0900</a></div>
+          </div>
+          <div class="description">その書籍も気になっていたんでいいきっかけが得られました。<br/>とりあえずそのspockかscottyに絞って勉強してみます<br/>ご丁寧にありがとうございました！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1624864103.078300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1624864103.078300">2021-06-28 16:08:23 +0900</a></div>
+          </div>
+          <div class="description">私は今業務でYesodを使っていますが、Yesodはあまりおすすめしません。<br/>これはYesod自体が悪いのではなく、そもそもフルスタックwebフレームワークと言う発想が辛くなってきた[要出典][独自研究]ためです。<br/>私は一応Yesodのコントリビュータでもありますが(しょーもない修正とかプラグインしか書いてないけど)、JavaScriptとの連携がもう面倒なのでフロントエンドに寄せたい場面が多々あります。<br/>Servant + Elmみたいな構成が良いのかなと思っています。<br/>YesodのサブプロジェクトであるPersistentはまだまだ普通に使っていって良さそうです。<br/>(Haskell-jp的にはHRRと競合するけど)<br/>開発もYesod本体よりPersistent + Esqueletoの方が活発だったり…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1624897583.079700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">yusuke.en30</div>
+            <div class="date"><a class="date" href="#message-1624897583.079700">2021-06-29 01:26:23 +0900</a></div>
+          </div>
+          <div class="description">はじめまして。関連して質問です。<br/>最近フルスタックwebフレームワークとしてIHPというものも出てきているみたいですが、もし触ったことがある方がいれば、普段Haskellを書いている方からした印象はどうなのか伺いたいです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1624978792.083900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">yusuke.en30</div>
+            <div class="date"><a class="date" href="#message-1624978792.083900">2021-06-29 23:59:52 +0900</a></div>
+          </div>
+          <div class="description">Matt Parsonsという方がIHPをレビューしているのを見つけました。<br/><a href='https://twitter.com/mattoflambda/status/1275469469360336896'>https://twitter.com/mattoflambda/status/1275469469360336896</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1624978917.084200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">yusuke.en30</div>
+            <div class="date"><a class="date" href="#message-1624978917.084200">2021-06-30 00:01:57 +0900</a></div>
+          </div>
+          <div class="description">自分で試してみて何らかのことが言えそうだったらまたどこかに書き込みたいと思います。<br/>（Haskell学び始めなので一体いつになるかはわかりませんが:innocent: ）</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../16.html" class="item">Back to beginners #16</a>
+    </div>
+  </div>
+</body>
+</html>

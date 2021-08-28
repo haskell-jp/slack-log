@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #97 at 2021-06-13 00:48:03 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #97 at 2021-06-13 00:48:03 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../97.html" class="item">Back to questions #97</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1623512883.032000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1623512883.032000">2021-06-13 00:48:03 +0900</a></div>
+          </div>
+          <div class="description"><code>IntSet</code> みたいな~trie木~Patricia木を車輪の再開発しなければならなくなったのですが、型の御加護を受けつつ余計なreference indirectionを避けるために<br/><br/><pre>
+data Patricia (inhabited :: Bool) :: Type where
+  Branch :: {-# UNPACK #-} !Word -&gt; !(Patricia True) -&gt; !(Patricia True) -&gt; Patricia True
+  Tip :: {-# UNPACK #-} !Word -&gt; Patricia True
+  Nil :: Patricia False
+
+newtype Patricia' = forall b. Patricia' (Patricia b)</pre><br/>みたいなことを考えたのですが、existential type って newtypeでは使えないようで、効率が悪そうというよりはただただ気持ち悪いです。empty と non-emptyを型で分離した上で、それらを統合するwrapperがheap中にもう一個できるのを回避するのは不可能でしょうか…。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1623516829.040100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1623516829.040100">2021-06-13 01:53:49 +0900</a></div>
+          </div>
+          <div class="description">何しろ、 これができないのなら<br/><br/><pre>data InhabitedPatricia = Branch { label :: {-# UNPACK #-} !Word,
+                                  leftChild :: !InhabitedPatricia,
+                                  rightChild :: !InhabitedPatricia }
+                       | Tip { key :: {-# UNPACK #-} !Word }
+
+data Patricia = Inhabited !InhabitedPatricia | Empty</pre><br/>でも構わないことになる（ほんとか…？）ので。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1623528033.046000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1623528033.046000">2021-06-13 05:00:33 +0900</a></div>
+          </div>
+          <div class="description">今思いついたのが、<br/><br/><pre>data Patricia (nullable :: Bool) :: Type where
+  Branch :: forall nullable. {-# UNPACK #-} !Word -&gt; !(Patricia False) -&gt; !(Patricia False) -&gt; Patricia nullable
+  Tip :: forall nullable. {-# UNPACK #-} !Word -&gt; Patricia nullable
+  Nil :: Patricia True
+
+newtype InhabitedPatricia = IPatricia (forall nullable. Patricia nullable)
+
+newtype PatriciaTree = PatriciaTree (Patricia True)</pre><br/>っていう。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../97.html" class="item">Back to questions #97</a>
+    </div>
+  </div>
+</body>
+</html>

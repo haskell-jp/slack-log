@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #96 at 2021-04-12 16:51:48 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #96 at 2021-04-12 16:51:48 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1618213908.033500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">muratomo.0205</div>
+            <div class="date"><a class="date" href="#message-1618213908.033500">2021-04-12 16:51:48 +0900</a></div>
+          </div>
+          <div class="description">はじめまして，本日参加させていただきました．いきなりですが質問失礼します．<br/>こちらと同じ機能をcaseを使って書くことはできるのでしょうか?</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618214773.033800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">muratomo.0205</div>
+            <div class="date"><a class="date" href="#message-1618214773.033800">2021-04-12 17:06:13 +0900</a></div>
+          </div>
+          <div class="description">すべて`x`でマッチしてガード式を使うというのは自分で思いつきました</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618214995.034200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">konn.jinro</div>
+            <div class="date"><a class="date" href="#message-1618214995.034200">2021-04-12 17:09:55 +0900</a></div>
+          </div>
+          <div class="description">case にこだわらなければ、MultiWayIf 拡張を使って以下のように書けますね：<br/><br/><pre>{-# LANGUAGE MultiWayIf #-}
+
+-- ...
+
+if | n &lt; 1 -&gt; "top"
+   | 1 &lt;= n &amp;&amp; n &lt;= 5 -&gt; "middle"
+   | otherwise -&gt; "back"</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1618217725.034700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">muratomo.0205</div>
+            <div class="date"><a class="date" href="#message-1618217725.034700">2021-04-12 17:55:25 +0900</a></div>
+          </div>
+          <div class="description">ほえーこんな文法実装されてるんですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618217764.034900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">muratomo.0205</div>
+            <div class="date"><a class="date" href="#message-1618217764.034900">2021-04-12 17:56:04 +0900</a></div>
+          </div>
+          <div class="description">どちらにせよ最初に提示したものはあまり推奨されない感じですか?</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618217949.035100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">konn.jinro</div>
+            <div class="date"><a class="date" href="#message-1618217949.035100">2021-04-12 17:59:09 +0900</a></div>
+          </div>
+          <div class="description">好みやコード規約によると思います。二重の if くらいなら MultiWayIf を使わないでネストした if で書くこともときどきありますし、MultiWayIf は一応 GHC の独自拡張なので、標準言語仕様に準拠したい場合は case () of _ | ... -&gt; で書いたりネスト if で書いたりすることになると思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618218026.035300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">konn.jinro</div>
+            <div class="date"><a class="date" href="#message-1618218026.035300">2021-04-12 18:00:26 +0900</a></div>
+          </div>
+          <div class="description">MultiWayIf は実質的に case +  guard と同値なので、最後の otherwise -&gt; に準ずる節を忘れると partial になってしまう（if の用に必ず else 節が存在するわけではなくなってしまう）ので、そういう点から避けたいと思う場合もあるかもしれません</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618218107.035500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">konn.jinro</div>
+            <div class="date"><a class="date" href="#message-1618218107.035500">2021-04-12 18:01:47 +0900</a></div>
+          </div>
+          <div class="description">使っているコードフォーマッタによっては、ネストでどんどんインデントが深まっていって見辛いので、特にそういう規約でなければ僕じしんは MultiWayIf を使いますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618218805.035700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">muratomo.0205</div>
+            <div class="date"><a class="date" href="#message-1618218805.035700">2021-04-12 18:13:25 +0900</a></div>
+          </div>
+          <div class="description">わかりました<br/>ご丁寧に回答していただきありがとうございました．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618284843.036400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1618284843.036400">2021-04-13 12:34:03 +0900</a></div>
+          </div>
+          <div class="description"><pre>if c then t else f</pre><br/>は<br/><br/><pre>case c of
+  True  -&gt; t
+  False -&gt; f</pre><br/>の構文糖衣ですよ。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618364843.036600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1618364843.036600">2021-04-14 10:47:23 +0900</a></div>
+          </div>
+          <div class="description">@muratomo.0205 念のため ping しておきますね。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+  </div>
+</body>
+</html>

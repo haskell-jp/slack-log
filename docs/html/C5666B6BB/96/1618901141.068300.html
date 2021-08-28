@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #96 at 2021-04-20 15:45:41 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #96 at 2021-04-20 15:45:41 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1618901141.068300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">sakaguchi</div>
+            <div class="date"><a class="date" href="#message-1618901141.068300">2021-04-20 15:45:41 +0900</a></div>
+          </div>
+          <div class="description">こんにちは。GHC である計算 `act :: IO ()` を走らせたときに、それによってヒープ上に確保されたバイト数の総量（の近似）を知る方法をご存知の方がいたら教えてください。最初 `GHC.Stats` の `allocated_bytes` がそれかなと思っていたのですが、`act` を実行している間に勝手に GC が走らないように `+RTS -T -I0 -A8G -G1 -m1` を渡してみたところ、最初から 8GB の領域が確保された状態になり（従って `allocated_bytes` は 8 * 1024^3 になる？）、その中でどれだけのメモリが実際に使われているかが分かりません。 <https://hackage.haskell.org/package/base-4.15.0.0/docs/GHC-Stats.html></div>
+        </div>
+      </div>
+      <div class="event" id="message-1618901594.068400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">konn.jinro</div>
+            <div class="date"><a class="date" href="#message-1618901594.068400">2021-04-20 15:53:14 +0900</a></div>
+          </div>
+          <div class="description">関数呼び出しに対してヒープアロケーション量をはかる場合だと、ぼくはよく weigh を使いますね<br/><a href='https://hackage.haskell.org/package/weigh'>https://hackage.haskell.org/package/weigh</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1618901797.068800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">konn.jinro</div>
+            <div class="date"><a class="date" href="#message-1618901797.068800">2021-04-20 15:56:37 +0900</a></div>
+          </div>
+          <div class="description">これはたしか GHC.Stats を内部的には使って適切な処理をしてくれるんだったはず</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618901975.069300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">sakaguchi</div>
+            <div class="date"><a class="date" href="#message-1618901975.069300">2021-04-20 15:59:35 +0900</a></div>
+          </div>
+          <div class="description">ありがとう。試してみます。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+  </div>
+</body>
+</html>
