@@ -8,24 +8,24 @@
 <body>
   <div class="ui container">
     <h1>{{workspaceName}} / {{channelScreenName}} #{{currentPageNumber}}</h1>
-    <div class="pager ui pagination menu">
+    <div class="ui pagination menu">
       {{#previousPagePath}}
-      <a href="{{previousPagePath}}" class="pager__previous item">Previous</a>
+      <a href="{{previousPagePath}}" class="item">Previous</a>
       {{/previousPagePath}}
-      <a href="{{indexPagePath}}" class="pager__top item">Top</a>
+      <a href="{{indexPagePath}}" class="item">Top</a>
       {{#nextPagePath}}
-      <a href="{{nextPagePath}}" class="pager__next item">Next</a>
+      <a href="{{nextPagePath}}" class="item">Next</a>
       {{/nextPagePath}}
     </div>
-    <div class="message_list ui feed">
+    <div class="ui feed">
       {{#messages}}
-      <div class="message event" id="message-{{ts}}">
+      <div class="event" id="message-{{ts}}">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">{{userScreenName}}</div>
-            <div class="message__timestamp date"><a class="date" href="#message-{{ts}}">{{formattedTs}}</a></div>
+            <div class="user">{{userScreenName}}</div>
+            <div class="date"><a class="date" href="#message-{{ts}}">{{formattedTs}}</a></div>
           </div>
-          <div class="message__body description">{{{htmlMessageBody}}}</div>
+          <div class="description">{{{htmlMessageBody}}}</div>
           {{#hasReplies}}
           <a class="link-to-replies" href="{{pathToReplies}}">... Replies ...</a>
           {{/hasReplies}}
@@ -33,13 +33,13 @@
       </div>
       {{/messages}}
     </div>
-    <div class="pager ui pagination menu">
+    <div class="ui pagination menu">
       {{#previousPagePath}}
-      <a href="{{previousPagePath}}" class="pager__previous item">Previous</a>
+      <a href="{{previousPagePath}}" class="item">Previous</a>
       {{/previousPagePath}}
-      <a href="{{indexPagePath}}" class="pager__top item">Top</a>
+      <a href="{{indexPagePath}}" class="item">Top</a>
       {{#nextPagePath}}
-      <a href="{{nextPagePath}}" class="pager__next item">Next</a>
+      <a href="{{nextPagePath}}" class="item">Next</a>
       {{/nextPagePath}}
     </div>
   </div>
