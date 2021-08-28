@@ -8,167 +8,167 @@
 <body>
   <div class="ui container">
     <h1>haskell-jp / questions #92</h1>
-    <div class="pager ui pagination menu">
-      <a href="../../html/C5666B6BB/91.html" class="pager__previous item">Previous</a>
-      <a href="../../" class="pager__top item">Top</a>
-      <a href="../../html/C5666B6BB/93.html" class="pager__next item">Next</a>
+    <div class="ui pagination menu">
+      <a href="../../html/C5666B6BB/91.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+      <a href="../../html/C5666B6BB/93.html" class="item">Next</a>
     </div>
-    <div class="message_list ui feed">
-      <div class="message event" id="message-1603582003.075300">
+    <div class="ui feed">
+      <div class="event" id="message-1603582003.075300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603582003.075300">2020-10-25 08:26:43 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1603582003.075300">2020-10-25 08:26:43 +0900</a></div>
           </div>
-          <div class="message__body description">そのやり方をしたら今度は <code>reply b msg</code>  の部分で型推論できなくてエラーになっちゃいましたorz<br/>どうすれば・・・</div>
+          <div class="description">そのやり方をしたら今度は <code>reply b msg</code>  の部分で型推論できなくてエラーになっちゃいましたorz<br/>どうすれば・・・</div>
         </div>
       </div>
-      <div class="message event" id="message-1603596663.075500">
+      <div class="event" id="message-1603596663.075500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603596663.075500">2020-10-25 12:31:03 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1603596663.075500">2020-10-25 12:31:03 +0900</a></div>
           </div>
-          <div class="message__body description"><pre>data AnyBot env = forall b. (Bot b, Dep b env) =&gt; AnyBot b
+          <div class="description"><pre>data AnyBot env = forall b. (Bot b, Dep b env) =&gt; AnyBot b
 instance Bot (AnyBot env) where
   type Dep (AnyBot env) a = (a ~ env)
   name (AnyBot b) = name b
   reply (AnyBot b) msg = reply b msg</pre><br/>これで通りますがもしかしてDep b envが足りなかったのでしょうか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1603600377.078900">
+      <div class="event" id="message-1603600377.078900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603600377.078900">2020-10-25 13:32:57 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1603600377.078900">2020-10-25 13:32:57 +0900</a></div>
           </div>
-          <div class="message__body description">わあ！まさにその通りでした！ありがとございます！！<br/><br/>さっぱりどうしていいかわからなかったのですが、どのように思考したらそうなるんですか！？<br/>たけのこは型推論の流れみたいなものを学べばこれを理解できるようになるんでしょうか？༼;´༎ຶ ༎ຶ༽</div>
+          <div class="description">わあ！まさにその通りでした！ありがとございます！！<br/><br/>さっぱりどうしていいかわからなかったのですが、どのように思考したらそうなるんですか！？<br/>たけのこは型推論の流れみたいなものを学べばこれを理解できるようになるんでしょうか？༼;´༎ຶ ༎ຶ༽</div>
         </div>
       </div>
-      <div class="message event" id="message-1603603642.079100">
+      <div class="event" id="message-1603603642.079100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603603642.079100">2020-10-25 14:27:22 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1603603642.079100">2020-10-25 14:27:22 +0900</a></div>
           </div>
-          <div class="message__body description">AnyBotにパターンマッチしたとき使えるのは、AnyBotの宣言で量化している制約のみで、一方replyが要求する制約はDep b envを含んでいるので、そこに食い違いがあることがわかります。一般論として、何が要求されていて、それを満たすためにはどこを変えればよいかをエラーメッセージなどなら見極めることが大切だと思います</div>
+          <div class="description">AnyBotにパターンマッチしたとき使えるのは、AnyBotの宣言で量化している制約のみで、一方replyが要求する制約はDep b envを含んでいるので、そこに食い違いがあることがわかります。一般論として、何が要求されていて、それを満たすためにはどこを変えればよいかをエラーメッセージなどなら見極めることが大切だと思います</div>
         </div>
       </div>
-      <div class="message event" id="message-1603606670.081500">
+      <div class="event" id="message-1603606670.081500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603606670.081500">2020-10-25 15:17:50 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1603606670.081500">2020-10-25 15:17:50 +0900</a></div>
           </div>
-          <div class="message__body description">ライブラリーを作るときに、ライブラリーで提供する型は、特に理由がなければ <code>Generic</code> や <code>NFData</code> （あと、多分テストで使う都合で <code>Eq</code> や <code>Show</code> も）のインスタンスにしておいた方がいいでしょうか？<br/>他にもこれはインスタンスにしておくと助かるなぁ、という型クラスがあれば教えてください！</div>
+          <div class="description">ライブラリーを作るときに、ライブラリーで提供する型は、特に理由がなければ <code>Generic</code> や <code>NFData</code> （あと、多分テストで使う都合で <code>Eq</code> や <code>Show</code> も）のインスタンスにしておいた方がいいでしょうか？<br/>他にもこれはインスタンスにしておくと助かるなぁ、という型クラスがあれば教えてください！</div>
         </div>
       </div>
-      <div class="message event" id="message-1603607652.081600">
+      <div class="event" id="message-1603607652.081600">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603607652.081600">2020-10-25 15:34:12 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1603607652.081600">2020-10-25 15:34:12 +0900</a></div>
           </div>
-          <div class="message__body description">コンストラクタを隠したいなどそうしない明確な理由がなければそうすべき、という立場です。<http://hackage.haskell.org/package/base-4.14.0.0/docs/Data-Proxy.html> Proxy や、　<http://hackage.haskell.org/package/aeson-1.5.4.1/docs/Data-Aeson.html#t:Value> aesonのValue型あたりが参考になると思います</div>
+          <div class="description">コンストラクタを隠したいなどそうしない明確な理由がなければそうすべき、という立場です。<http://hackage.haskell.org/package/base-4.14.0.0/docs/Data-Proxy.html> Proxy や、　<http://hackage.haskell.org/package/aeson-1.5.4.1/docs/Data-Aeson.html#t:Value> aesonのValue型あたりが参考になると思います</div>
         </div>
       </div>
-      <div class="message event" id="message-1603633807.081900">
+      <div class="event" id="message-1603633807.081900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">dfordivam</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603633807.081900">2020-10-25 22:50:07 +0900</a></div>
+            <div class="user">dfordivam</div>
+            <div class="date"><a class="date" href="#message-1603633807.081900">2020-10-25 22:50:07 +0900</a></div>
           </div>
-          <div class="message__body description">確かに状況はこの通りですけど、間もなくJsaddleのアプリがWebGHC・Wasmで動作させることができると思います。例えば「<https://commonmark-wasm.srid.ca/>」「<https://github.com/WebGHC/example-jsaddle-project>」</div>
+          <div class="description">確かに状況はこの通りですけど、間もなくJsaddleのアプリがWebGHC・Wasmで動作させることができると思います。例えば「<https://commonmark-wasm.srid.ca/>」「<https://github.com/WebGHC/example-jsaddle-project>」</div>
         </div>
       </div>
-      <div class="message event" id="message-1603848067.083800">
+      <div class="event" id="message-1603848067.083800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603848067.083800">2020-10-28 10:21:07 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1603848067.083800">2020-10-28 10:21:07 +0900</a></div>
           </div>
-          <div class="message__body description">自分が少し関わっているパッケージにこんなpull requestが来て気になったのですが、いくつ前のGHCまでサポートするか、についてのガイドラインってどこかにありましたっけ... 以前誰かがそんなことをおっしゃっていたような...<br/><a href='https://github.com/krdlab/haskell-oidc-client/pull/46'>https://github.com/krdlab/haskell-oidc-client/pull/46</a></div>
+          <div class="description">自分が少し関わっているパッケージにこんなpull requestが来て気になったのですが、いくつ前のGHCまでサポートするか、についてのガイドラインってどこかにありましたっけ... 以前誰かがそんなことをおっしゃっていたような...<br/><a href='https://github.com/krdlab/haskell-oidc-client/pull/46'>https://github.com/krdlab/haskell-oidc-client/pull/46</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1603848189.084000">
+      <div class="event" id="message-1603848189.084000">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603848189.084000">2020-10-28 10:23:09 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1603848189.084000">2020-10-28 10:23:09 +0900</a></div>
           </div>
-          <div class="message__body description">最低限、major を3つですが、GHC 8 はすべてサポートする方が親切でしょうね。</div>
+          <div class="description">最低限、major を3つですが、GHC 8 はすべてサポートする方が親切でしょうね。</div>
         </div>
       </div>
-      <div class="message event" id="message-1603848434.084300">
+      <div class="event" id="message-1603848434.084300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603848434.084300">2020-10-28 10:27:14 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1603848434.084300">2020-10-28 10:27:14 +0900</a></div>
           </div>
-          <div class="message__body description">ああー、kazuさんでしたか。その「majorを3つ」というのはどこかに書いてましたっけ...？</div>
+          <div class="description">ああー、kazuさんでしたか。その「majorを3つ」というのはどこかに書いてましたっけ...？</div>
         </div>
       </div>
-      <div class="message event" id="message-1603848710.084500">
+      <div class="event" id="message-1603848710.084500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603848710.084500">2020-10-28 10:31:50 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1603848710.084500">2020-10-28 10:31:50 +0900</a></div>
           </div>
-          <div class="message__body description">正式じゃないけど、こことか？ <a href='https://www.snoyman.com/blog/2018/07/stop-supporting-older-ghcs'>https://www.snoyman.com/blog/2018/07/stop-supporting-older-ghcs</a></div>
+          <div class="description">正式じゃないけど、こことか？ <a href='https://www.snoyman.com/blog/2018/07/stop-supporting-older-ghcs'>https://www.snoyman.com/blog/2018/07/stop-supporting-older-ghcs</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1603848805.084900">
+      <div class="event" id="message-1603848805.084900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603848805.084900">2020-10-28 10:33:25 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1603848805.084900">2020-10-28 10:33:25 +0900</a></div>
           </div>
-          <div class="message__body description">ありがとうございます！まぁ、習慣的なものでしょうし、今回は軽微なものですからきっとマージしてくれるでしょうけども、何かしら引用したくなったときのための覚えておきます。 :memo:</div>
+          <div class="description">ありがとうございます！まぁ、習慣的なものでしょうし、今回は軽微なものですからきっとマージしてくれるでしょうけども、何かしら引用したくなったときのための覚えておきます。 :memo:</div>
         </div>
       </div>
-      <div class="message event" id="message-1603848865.085100">
+      <div class="event" id="message-1603848865.085100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603848865.085100">2020-10-28 10:34:25 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1603848865.085100">2020-10-28 10:34:25 +0900</a></div>
           </div>
-          <div class="message__body description">どこかに正式な文章があった気がするけど、今は探し出せませんでした。</div>
+          <div class="description">どこかに正式な文章があった気がするけど、今は探し出せませんでした。</div>
         </div>
       </div>
-      <div class="message event" id="message-1603848956.085400">
+      <div class="event" id="message-1603848956.085400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603848956.085400">2020-10-28 10:35:56 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1603848956.085400">2020-10-28 10:35:56 +0900</a></div>
           </div>
-          <div class="message__body description">ただし、それは一年に一回GHCのメジャーバージョンが出てたころの文章で、その後正式な合意があるかは分かりません。まぁ、3年分ぐらいサポートすればいいでしょう。</div>
+          <div class="description">ただし、それは一年に一回GHCのメジャーバージョンが出てたころの文章で、その後正式な合意があるかは分かりません。まぁ、3年分ぐらいサポートすればいいでしょう。</div>
         </div>
       </div>
-      <div class="message event" id="message-1603858586.085800">
+      <div class="event" id="message-1603858586.085800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">notogawa</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603858586.085800">2020-10-28 13:16:26 +0900</a></div>
+            <div class="user">notogawa</div>
+            <div class="date"><a class="date" href="#message-1603858586.085800">2020-10-28 13:16:26 +0900</a></div>
           </div>
-          <div class="message__body description">自分は“debian stableに入ってるghcバージョン以降“を1つの基準にしてます．</div>
+          <div class="description">自分は“debian stableに入ってるghcバージョン以降“を1つの基準にしてます．</div>
         </div>
       </div>
-      <div class="message event" id="message-1603887957.086200">
+      <div class="event" id="message-1603887957.086200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">takenobu.hs</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603887957.086200">2020-10-28 21:25:57 +0900</a></div>
+            <div class="user">takenobu.hs</div>
+            <div class="date"><a class="date" href="#message-1603887957.086200">2020-10-28 21:25:57 +0900</a></div>
           </div>
-          <div class="message__body description">以下のURLが元の`3-Release-Policy`の定義ページだったと思いますが、TracからGitLabへのWiki移行でprime系を移行できていないようです。<br/><a href='https://prime.haskell.org/wiki/Libraries/3-Release-Policy'>https://prime.haskell.org/wiki/Libraries/3-Release-Policy</a></div>
+          <div class="description">以下のURLが元の`3-Release-Policy`の定義ページだったと思いますが、TracからGitLabへのWiki移行でprime系を移行できていないようです。<br/><a href='https://prime.haskell.org/wiki/Libraries/3-Release-Policy'>https://prime.haskell.org/wiki/Libraries/3-Release-Policy</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1603954864.087000">
+      <div class="event" id="message-1603954864.087000">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603954864.087000">2020-10-29 16:01:04 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1603954864.087000">2020-10-29 16:01:04 +0900</a></div>
           </div>
-          <div class="message__body description">なるほど!ありがとうございます!<br/>型族とかで頭が混乱していて存在型の制約がパターンマッチして使えるようになることとかを忘れてました:scream_cat:<br/><br/>今度は <code>Bot</code> のリストとかも <code>Bot</code> のインスタンスにしたいなと思って以下のようにインスタンス宣言を追加したら、またどうしていいかわからないエラーが出ちゃいました:sob::x::one::zero::zero::zero:<br/><br/><pre>instance (Bot (b (env :: *)), Dep (b env) env, Functor t, Traversable t) =&gt; Bot (t (b env)) where
+          <div class="description">なるほど!ありがとうございます!<br/>型族とかで頭が混乱していて存在型の制約がパターンマッチして使えるようになることとかを忘れてました:scream_cat:<br/><br/>今度は <code>Bot</code> のリストとかも <code>Bot</code> のインスタンスにしたいなと思って以下のようにインスタンス宣言を追加したら、またどうしていいかわからないエラーが出ちゃいました:sob::x::one::zero::zero::zero:<br/><br/><pre>instance (Bot (b (env :: *)), Dep (b env) env, Functor t, Traversable t) =&gt; Bot (t (b env)) where
   type Dep (t (b env)) a = a ~ env
   name _ = "Bot Pool"
   reply bs msg = join . L.find isJust &lt;$&gt; traverse (`reply` msg) bs</pre><br/><pre>Conflicting family instance declarations:
@@ -176,215 +176,215 @@ instance Bot (AnyBot env) where
       Dep (t (b env)) a = a ~ env -- Defined at src/Bot.hs:54:</pre><br/>考えてみてもいい解決策が思いつかないです༼;´༎ຶ ༎ຶ༽<br/>どうかお助けを༼;´༎ຶ ༎ຶ༽</div>
         </div>
       </div>
-      <div class="message event" id="message-1603962796.087200">
+      <div class="event" id="message-1603962796.087200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603962796.087200">2020-10-29 18:13:16 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1603962796.087200">2020-10-29 18:13:16 +0900</a></div>
           </div>
-          <div class="message__body description">前の例をコピーするのはあまり筋がよくないですね。どのような型がインスタンスになるかもう一度考えてみましょう</div>
+          <div class="description">前の例をコピーするのはあまり筋がよくないですね。どのような型がインスタンスになるかもう一度考えてみましょう</div>
         </div>
       </div>
-      <div class="message event" id="message-1603965512.092500">
+      <div class="event" id="message-1603965512.092500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603965512.092500">2020-10-29 18:58:32 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1603965512.092500">2020-10-29 18:58:32 +0900</a></div>
           </div>
-          <div class="message__body description">もしかして <code>AnyBot</code> を <code>Bot</code> のインスタンスにするのをやめて、`AnyBot` を <code>Functor</code> と <code>Traversable</code> にしちゃうのがいいんでしょうか…？<br/>とすると`name` メソッドなどを`"Bot Pool"` じゃない名前にしたい場合どうしたらいいでしょうか？<br/>:boom:༼;´༎ຶ ༎ຶ༽:boom::oil_drum:三 :oil_drum:三</div>
+          <div class="description">もしかして <code>AnyBot</code> を <code>Bot</code> のインスタンスにするのをやめて、`AnyBot` を <code>Functor</code> と <code>Traversable</code> にしちゃうのがいいんでしょうか…？<br/>とすると`name` メソッドなどを`"Bot Pool"` じゃない名前にしたい場合どうしたらいいでしょうか？<br/>:boom:༼;´༎ຶ ༎ຶ༽:boom::oil_drum:三 :oil_drum:三</div>
         </div>
       </div>
-      <div class="message event" id="message-1603966194.093100">
+      <div class="event" id="message-1603966194.093100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603966194.093100">2020-10-29 19:09:54 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1603966194.093100">2020-10-29 19:09:54 +0900</a></div>
           </div>
-          <div class="message__body description">「`Bot` のリストとかも <code>Bot</code> のインスタンスにしたい」とのことなので、具体的にどんな型をインスタンスにしたいか列挙して、それらがどう実装できるかを試してみるのが良いと思います</div>
+          <div class="description">「`Bot` のリストとかも <code>Bot</code> のインスタンスにしたい」とのことなので、具体的にどんな型をインスタンスにしたいか列挙して、それらがどう実装できるかを試してみるのが良いと思います</div>
         </div>
       </div>
-      <div class="message event" id="message-1603967302.096000">
+      <div class="event" id="message-1603967302.096000">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603967302.096000">2020-10-29 19:28:22 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1603967302.096000">2020-10-29 19:28:22 +0900</a></div>
           </div>
-          <div class="message__body description"><code>instance Bot b =&gt; Bot [b]</code><br/>とか<br/><code>instance Bot b =&gt; Bot (Vector b)</code><br/>みたいな感じでしょうか？<br/>インスタンス宣言ってあまり一般的に書かない方がいいんでしょうか？</div>
+          <div class="description"><code>instance Bot b =&gt; Bot [b]</code><br/>とか<br/><code>instance Bot b =&gt; Bot (Vector b)</code><br/>みたいな感じでしょうか？<br/>インスタンス宣言ってあまり一般的に書かない方がいいんでしょうか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1603968102.096300">
+      <div class="event" id="message-1603968102.096300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603968102.096300">2020-10-29 19:41:42 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1603968102.096300">2020-10-29 19:41:42 +0900</a></div>
           </div>
-          <div class="message__body description"><code>instance Bot b =&gt; Bot [b]</code> まさにその通りです。`instance Applicative f =&gt; MyClass f`のような宣言はあらゆる型に対してインスタンスを定義することになるので、多くの場合はアンチパターンです</div>
+          <div class="description"><code>instance Bot b =&gt; Bot [b]</code> まさにその通りです。`instance Applicative f =&gt; MyClass f`のような宣言はあらゆる型に対してインスタンスを定義することになるので、多くの場合はアンチパターンです</div>
         </div>
       </div>
-      <div class="message event" id="message-1603971137.101500">
+      <div class="event" id="message-1603971137.101500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603971137.101500">2020-10-29 20:32:17 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1603971137.101500">2020-10-29 20:32:17 +0900</a></div>
           </div>
-          <div class="message__body description">なるほど〜<br/>でもどうしてあらゆる型に対するインスタンスを定義することがアンチパターンに近づきがちになっちゃうんでしょうか？<br/>できるだけ一般的な形で書いた方がより便利そうな気が:hatched_chick:</div>
+          <div class="description">なるほど〜<br/>でもどうしてあらゆる型に対するインスタンスを定義することがアンチパターンに近づきがちになっちゃうんでしょうか？<br/>できるだけ一般的な形で書いた方がより便利そうな気が:hatched_chick:</div>
         </div>
       </div>
-      <div class="message event" id="message-1603973607.101800">
+      <div class="event" id="message-1603973607.101800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603973607.101800">2020-10-29 21:13:27 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1603973607.101800">2020-10-29 21:13:27 +0900</a></div>
           </div>
-          <div class="message__body description">全ての型に対して同じ定義で済むなら、型クラスである必要がないためです。たとえば <code>class Summable a where sum :: a -&gt; a</code> に対して <code>instance (Foldable f, Num a) =&gt; Summable (f a) where sum = foldl' (+) 0</code> という一般的な定義をしても、それは最初から型クラスを使わずに <code>sum = foldl' (+) 0</code> と定義するのと変わらないのです</div>
+          <div class="description">全ての型に対して同じ定義で済むなら、型クラスである必要がないためです。たとえば <code>class Summable a where sum :: a -&gt; a</code> に対して <code>instance (Foldable f, Num a) =&gt; Summable (f a) where sum = foldl' (+) 0</code> という一般的な定義をしても、それは最初から型クラスを使わずに <code>sum = foldl' (+) 0</code> と定義するのと変わらないのです</div>
         </div>
       </div>
-      <div class="message event" id="message-1603975221.105100">
+      <div class="event" id="message-1603975221.105100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603975221.105100">2020-10-29 21:40:21 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1603975221.105100">2020-10-29 21:40:21 +0900</a></div>
           </div>
-          <div class="message__body description">わぁ！<br/>言われてみれば確かに！<br/>頭良すぎですか？:muscle::skin-tone-2:<br/>もしかしてこういうのって有名な話でどこかに書いてあったりするんでしょうか！？</div>
+          <div class="description">わぁ！<br/>言われてみれば確かに！<br/>頭良すぎですか？:muscle::skin-tone-2:<br/>もしかしてこういうのって有名な話でどこかに書いてあったりするんでしょうか！？</div>
         </div>
       </div>
-      <div class="message event" id="message-1603982884.105500">
+      <div class="event" id="message-1603982884.105500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1603982884.105500">2020-10-29 23:48:04 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1603982884.105500">2020-10-29 23:48:04 +0900</a></div>
           </div>
-          <div class="message__body description">ありがちな誤解ではあるものの、どこかに書いてあるかというとちょっと心当たりがないです。Haskellでやるべきではないことの一覧みたいなのがあるといいですね</div>
+          <div class="description">ありがちな誤解ではあるものの、どこかに書いてあるかというとちょっと心当たりがないです。Haskellでやるべきではないことの一覧みたいなのがあるといいですね</div>
         </div>
       </div>
-      <div class="message event" id="message-1604021462.107700">
+      <div class="event" id="message-1604021462.107700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604021462.107700">2020-10-30 10:31:02 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1604021462.107700">2020-10-30 10:31:02 +0900</a></div>
           </div>
-          <div class="message__body description">なるほどーいっぱい勉強になりました！<br/>ありがとです！</div>
+          <div class="description">なるほどーいっぱい勉強になりました！<br/>ありがとです！</div>
         </div>
       </div>
-      <div class="message event" id="message-1604024185.108200">
+      <div class="event" id="message-1604024185.108200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">s.uotani.zetakansu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604024185.108200">2020-10-30 11:16:25 +0900</a></div>
+            <div class="user">s.uotani.zetakansu</div>
+            <div class="date"><a class="date" href="#message-1604024185.108200">2020-10-30 11:16:25 +0900</a></div>
           </div>
-          <div class="message__body description">@s.uotani.zetakansu has joined the channel</div>
+          <div class="description">@s.uotani.zetakansu has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1604152718.108500">
+      <div class="event" id="message-1604152718.108500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">taka23131</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604152718.108500">2020-10-31 22:58:38 +0900</a></div>
+            <div class="user">taka23131</div>
+            <div class="date"><a class="date" href="#message-1604152718.108500">2020-10-31 22:58:38 +0900</a></div>
           </div>
-          <div class="message__body description">haskellのpreludeはデフォルト以外ではどれを使うのが良いのでしょうか？<br/><a href='https://haskell.e-bigmoon.com/posts/2018/05-23-extended-prelude.html'>https://haskell.e-bigmoon.com/posts/2018/05-23-extended-prelude.html</a></div>
+          <div class="description">haskellのpreludeはデフォルト以外ではどれを使うのが良いのでしょうか？<br/><a href='https://haskell.e-bigmoon.com/posts/2018/05-23-extended-prelude.html'>https://haskell.e-bigmoon.com/posts/2018/05-23-extended-prelude.html</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1604168083.108800">
+      <div class="event" id="message-1604168083.108800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">boogie_of_lesfreres</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604168083.108800">2020-11-01 03:14:43 +0900</a></div>
+            <div class="user">boogie_of_lesfreres</div>
+            <div class="date"><a class="date" href="#message-1604168083.108800">2020-11-01 03:14:43 +0900</a></div>
           </div>
-          <div class="message__body description">@boogie_of_lesfreres has joined the channel</div>
+          <div class="description">@boogie_of_lesfreres has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1604187592.108900">
+      <div class="event" id="message-1604187592.108900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604187592.108900">2020-11-01 08:39:52 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1604187592.108900">2020-11-01 08:39:52 +0900</a></div>
           </div>
-          <div class="message__body description">私もほとんど（それもrioだけしか）採用したことがないんですけど、 <a href='http://hackage.haskell.org/package/rio'>http://hackage.haskell.org/package/rio</a> は結構よくできてますし、人気もありますね。</div>
+          <div class="description">私もほとんど（それもrioだけしか）採用したことがないんですけど、 <a href='http://hackage.haskell.org/package/rio'>http://hackage.haskell.org/package/rio</a> は結構よくできてますし、人気もありますね。</div>
         </div>
       </div>
-      <div class="message event" id="message-1604321411.109300">
+      <div class="event" id="message-1604321411.109300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604321411.109300">2020-11-02 21:50:11 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1604321411.109300">2020-11-02 21:50:11 +0900</a></div>
           </div>
-          <div class="message__body description">だずげでぐだざい゛:sob::sob:<br/><br/><pre>allBots :: HasLogFunc e =&gt; [AnyBot e]
+          <div class="description">だずげでぐだざい゛:sob::sob:<br/><br/><pre>allBots :: HasLogFunc e =&gt; [AnyBot e]
 allBots = [AnyBot MarkovChain, AnyBot Shiritori]
 
 allBotNames :: forall e. HasLogFunc e =&gt; [String]
 allBotNames = map name (allBots :: [AnyBot e]) </pre><br/>という定義をしたんですけれども、<br/><code>allBotNames</code> を呼び出す方法がわからないです:sob:<br/><br/>どうやって呼び出せばいいんでしょうか?<br/>それとももしかして根本的に設計がおかしかったりするんでしょうか?</div>
         </div>
       </div>
-      <div class="message event" id="message-1604321773.109500">
+      <div class="event" id="message-1604321773.109500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604321773.109500">2020-11-02 21:56:13 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1604321773.109500">2020-11-02 21:56:13 +0900</a></div>
           </div>
-          <div class="message__body description">恐らく欲しいのはこの機能でしょう。<br/><a href='https://ja.wikibooks.org/wiki/Haskell/%E5%AD%98%E5%9C%A8%E9%87%8F%E5%8C%96%E3%81%95%E3%82%8C%E3%81%9F%E5%9E%8B'>https://ja.wikibooks.org/wiki/Haskell/%E5%AD%98%E5%9C%A8%E9%87%8F%E5%8C%96%E3%81%95%E3%82%8C%E3%81%9F%E5%9E%8B</a><br/><br/><a href='https://kazu-yamamoto.hatenablog.jp/entry/20081024/1224819961'>https://kazu-yamamoto.hatenablog.jp/entry/20081024/1224819961</a> の3つめの「部分型多相(inclusion,subtyping)」が割と簡潔に使い方を紹介しています。</div>
+          <div class="description">恐らく欲しいのはこの機能でしょう。<br/><a href='https://ja.wikibooks.org/wiki/Haskell/%E5%AD%98%E5%9C%A8%E9%87%8F%E5%8C%96%E3%81%95%E3%82%8C%E3%81%9F%E5%9E%8B'>https://ja.wikibooks.org/wiki/Haskell/%E5%AD%98%E5%9C%A8%E9%87%8F%E5%8C%96%E3%81%95%E3%82%8C%E3%81%9F%E5%9E%8B</a><br/><br/><a href='https://kazu-yamamoto.hatenablog.jp/entry/20081024/1224819961'>https://kazu-yamamoto.hatenablog.jp/entry/20081024/1224819961</a> の3つめの「部分型多相(inclusion,subtyping)」が割と簡潔に使い方を紹介しています。</div>
         </div>
       </div>
-      <div class="message event" id="message-1604323102.109800">
+      <div class="event" id="message-1604323102.109800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604323102.109800">2020-11-02 22:18:22 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1604323102.109800">2020-11-02 22:18:22 +0900</a></div>
           </div>
-          <div class="message__body description">ただ、正直なところ型クラスを使わずにrecord of functionにしてしまった方がシンプルで柔軟になる気がします。<br/>ここまでうっすらそう思っておきながら黙ってしまっていて恐縮ですが...</div>
+          <div class="description">ただ、正直なところ型クラスを使わずにrecord of functionにしてしまった方がシンプルで柔軟になる気がします。<br/>ここまでうっすらそう思っておきながら黙ってしまっていて恐縮ですが...</div>
         </div>
       </div>
-      <div class="message event" id="message-1604323125.110100">
+      <div class="event" id="message-1604323125.110100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604323125.110100">2020-11-02 22:18:45 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1604323125.110100">2020-11-02 22:18:45 +0900</a></div>
           </div>
-          <div class="message__body description"><strike>これって、`HasLogFunc` の制約は必要ですか？ ちょっと今までの話を追えてないですが、</strike><br/><pre>allBots :: [AnyBot e]
+          <div class="description"><strike>これって、`HasLogFunc` の制約は必要ですか？ ちょっと今までの話を追えてないですが、</strike><br/><pre>allBots :: [AnyBot e]
 allBots = [AnyBot MarkovChain, AnyBot Shiritori]
 
 allBotNames :: [String]
 allBotNames = map name (allBots :: [AnyBot ()])</pre><br/><strike>とかで良かったりしないですかね？ (今までの話をなんとなく見てると、`reply` で初めて <code>Dep (AnyBot env) env</code> が成立することが必要な気がしますが)</strike></div>
         </div>
       </div>
-      <div class="message event" id="message-1604323398.110300">
+      <div class="event" id="message-1604323398.110300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604323398.110300">2020-11-02 22:23:18 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1604323398.110300">2020-11-02 22:23:18 +0900</a></div>
           </div>
-          <div class="message__body description">後、`AnyBot` でやりたいことって、実は <code>Bot</code> のインスタンスにすることではなく、全てのボットを同じ型で管理して、名前が取れることだけだったりしないですかね？その場合、<br/><pre>instance Bot (AnyBot env)</pre><br/>は多分いらなくて、<br/><pre>allBots :: [AnyBot e]
+          <div class="description">後、`AnyBot` でやりたいことって、実は <code>Bot</code> のインスタンスにすることではなく、全てのボットを同じ型で管理して、名前が取れることだけだったりしないですかね？その場合、<br/><pre>instance Bot (AnyBot env)</pre><br/>は多分いらなくて、<br/><pre>allBots :: [AnyBot e]
 allBots = [AnyBot MarkovChain, AnyBot Shiritori]
 
 allBotNames :: [String]
 allBotNames = map (\(AnyBot b) -&gt; name b) (allBots :: [AnyBot ()])</pre><br/>という風に定義するだけでよいと思いますが (AnyBot 自体を bot にしたい感じなんですかね？)</div>
         </div>
       </div>
-      <div class="message event" id="message-1604323632.110500">
+      <div class="event" id="message-1604323632.110500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604323632.110500">2020-11-02 22:27:12 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1604323632.110500">2020-11-02 22:27:12 +0900</a></div>
           </div>
-          <div class="message__body description">ああ、`HasLogFunc` が必要になってるのは、`forall b. (Bot b, Dep b env) =&gt; AnyBot b` で存在型の pack 時に <code>Dep b env</code> を要求してるからか...</div>
+          <div class="description">ああ、`HasLogFunc` が必要になってるのは、`forall b. (Bot b, Dep b env) =&gt; AnyBot b` で存在型の pack 時に <code>Dep b env</code> を要求してるからか...</div>
         </div>
       </div>
-      <div class="message event" id="message-1604324228.111100">
+      <div class="event" id="message-1604324228.111100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604324228.111100">2020-11-02 22:37:08 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1604324228.111100">2020-11-02 22:37:08 +0900</a></div>
           </div>
-          <div class="message__body description">後は、<br/><pre>instance HasLogFunc Logger</pre><br/>みたいなインスタンスを持つ型 <code>Logger</code> があるなら、一応は<br/><pre>allBotNames :: [String]
+          <div class="description">後は、<br/><pre>instance HasLogFunc Logger</pre><br/>みたいなインスタンスを持つ型 <code>Logger</code> があるなら、一応は<br/><pre>allBotNames :: [String]
 allBotNames = map name (allBots :: [AnyBot Logger])</pre><br/>とかでもいける気がしますね</div>
         </div>
       </div>
-      <div class="message event" id="message-1604325351.111300">
+      <div class="event" id="message-1604325351.111300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604325351.111300">2020-11-02 22:55:51 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1604325351.111300">2020-11-02 22:55:51 +0900</a></div>
           </div>
-          <div class="message__body description">まあ、igrep さんの言う通り、最終的にしたいことは普通のデータ型でも実現できそうな気がしますね。多分拡張性を考えて、型クラスを使いたいという動機はあると思いますが、ひとまず bot を幾つか作ってみてそれに見合うような抽象化を考えて、置き換えていった方がスムーズに進むと思いますね。今回のケースだと、<br/><pre>data Bot = Bot
+          <div class="description">まあ、igrep さんの言う通り、最終的にしたいことは普通のデータ型でも実現できそうな気がしますね。多分拡張性を考えて、型クラスを使いたいという動機はあると思いますが、ひとまず bot を幾つか作ってみてそれに見合うような抽象化を考えて、置き換えていった方がスムーズに進むと思いますね。今回のケースだと、<br/><pre>data Bot = Bot
   { name :: String
   , reply :: HasLogFunc e =&gt; String -&gt; RIO env (Maybe String)
   }
@@ -402,73 +402,73 @@ allBotNames :: [String]
 allBotNames = map name allBots</pre><br/>みたいな感じですかね</div>
         </div>
       </div>
-      <div class="message event" id="message-1604327241.115400">
+      <div class="event" id="message-1604327241.115400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604327241.115400">2020-11-02 23:27:21 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1604327241.115400">2020-11-02 23:27:21 +0900</a></div>
           </div>
-          <div class="message__body description">実は一番初めはそうやってレコード型に関数を持たせて実装してました:woman-girl-girl:<br/>だけどそれだとexpression problemがあって嫌だし、それにいつもそういう方針の実装ばっかなので、あえて今回は型クラスを使った方針にしました༼;´༎ຶ ༎ຶ༽<br/>なのでレコード型に関数持たせる方針じゃなくて型クラス使いたいです༼;´༎ຶ ༎ຶ༽</div>
+          <div class="description">実は一番初めはそうやってレコード型に関数を持たせて実装してました:woman-girl-girl:<br/>だけどそれだとexpression problemがあって嫌だし、それにいつもそういう方針の実装ばっかなので、あえて今回は型クラスを使った方針にしました༼;´༎ຶ ༎ຶ༽<br/>なのでレコード型に関数持たせる方針じゃなくて型クラス使いたいです༼;´༎ຶ ༎ຶ༽</div>
         </div>
       </div>
-      <div class="message event" id="message-1604328985.116800">
+      <div class="event" id="message-1604328985.116800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604328985.116800">2020-11-02 23:56:25 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1604328985.116800">2020-11-02 23:56:25 +0900</a></div>
           </div>
-          <div class="message__body description">おっしゃるとおり、<br/><pre>instance HasLogFunc LogFunc</pre><br/>というのが定義されていました!<br/>なので<br/><pre>allBotNames :: [String]
+          <div class="description">おっしゃるとおり、<br/><pre>instance HasLogFunc LogFunc</pre><br/>というのが定義されていました!<br/>なので<br/><pre>allBotNames :: [String]
 allBotNames = map name (allBots :: [AnyBot LogFunc])</pre><br/>とできました!:star2:<br/><br/>できたはいいけど、全然使っていない謎の具体的な型 <code>LogFunc</code> が出てくるのはなんかすごく変な感じします:sob:<br/>やはり設計がおかしいんでしょうか・・・</div>
         </div>
       </div>
-      <div class="message event" id="message-1604332724.118000">
+      <div class="event" id="message-1604332724.118000">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604332724.118000">2020-11-03 00:58:44 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1604332724.118000">2020-11-03 00:58:44 +0900</a></div>
           </div>
-          <div class="message__body description"><pre>allBots :: [AnyBot e]
+          <div class="description"><pre>allBots :: [AnyBot e]
 allBots = [AnyBot MarkovChain, AnyBot Shiritori]</pre><br/>って方法だと <code>AnyBot MarkovChain</code>  のところで必要な <code>HasLogFunc</code>  がなくてエラーになっちゃいます:sob:<br/>どうすれば:sob:</div>
         </div>
       </div>
-      <div class="message event" id="message-1604360839.118400">
+      <div class="event" id="message-1604360839.118400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604360839.118400">2020-11-03 08:47:19 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1604360839.118400">2020-11-03 08:47:19 +0900</a></div>
           </div>
-          <div class="message__body description">同じリストに入れたいのであれば、 <code>e</code> も存在型で包んでしまう、ですかねぇ（本当にそれで問題ないのか、他に問題が発生しないか自信がないです</div>
+          <div class="description">同じリストに入れたいのであれば、 <code>e</code> も存在型で包んでしまう、ですかねぇ（本当にそれで問題ないのか、他に問題が発生しないか自信がないです</div>
         </div>
       </div>
-      <div class="message event" id="message-1604380516.118700">
+      <div class="event" id="message-1604380516.118700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604380516.118700">2020-11-03 14:15:16 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1604380516.118700">2020-11-03 14:15:16 +0900</a></div>
           </div>
-          <div class="message__body description">すべてのインスタンスを使ってallBotsを定義するのであれば、当然あらゆるインスタンスに対応したenvが必要になり、それを回避することに大きなメリットはないと思います。一応元の質問についてですが、forall a. Tのような型を持つ値は、TypeApplications拡張を使えば呼び出せます</div>
+          <div class="description">すべてのインスタンスを使ってallBotsを定義するのであれば、当然あらゆるインスタンスに対応したenvが必要になり、それを回避することに大きなメリットはないと思います。一応元の質問についてですが、forall a. Tのような型を持つ値は、TypeApplications拡張を使えば呼び出せます</div>
         </div>
       </div>
-      <div class="message event" id="message-1604389707.118900">
+      <div class="event" id="message-1604389707.118900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604389707.118900">2020-11-03 16:48:27 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1604389707.118900">2020-11-03 16:48:27 +0900</a></div>
           </div>
-          <div class="message__body description">多分，元々は <code>name</code> を呼び出すのに <code>env</code> に関する制約が必要なかったのに，`AnyBot` に関しては必要になるところが問題なんですかね？元々のやり方を踏襲するなら，基本的には<br/><pre>data AnyBot env = forall b. (Bot b, Dep b env) =&gt; AnyBot b
+          <div class="description">多分，元々は <code>name</code> を呼び出すのに <code>env</code> に関する制約が必要なかったのに，`AnyBot` に関しては必要になるところが問題なんですかね？元々のやり方を踏襲するなら，基本的には<br/><pre>data AnyBot env = forall b. (Bot b, Dep b env) =&gt; AnyBot b
 instance Bot (AnyBot env) where
   type Dep (AnyBot env) a = (a ~ env)
   name (AnyBot b) = name b
   reply (AnyBot b) msg = reply b msg</pre><br/>の <code>AnyBot</code> の定義とインスタンス定義が問題なんだと思いますね．`Bot` クラスの <code>Dep</code> は本来，`reply` に必要な <code>env</code> の制約を表してたんだと思いますが，それが <code>AnyBot</code> の pack 時に押し付けられて，`AnyBot` に対する <code>Dep</code> は型合わせのための制約しか入ってないのが問題なんだと思います</div>
         </div>
       </div>
-      <div class="message event" id="message-1604390017.119200">
+      <div class="event" id="message-1604390017.119200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604390017.119200">2020-11-03 16:53:37 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1604390017.119200">2020-11-03 16:53:37 +0900</a></div>
           </div>
-          <div class="message__body description">そもそもですが，おそらく <code>MarkovChain</code> / <code>Shiritori</code> などはユーザが定義するものですが，`AnyBot` はその定義されたボットを使う側，つまりボットサーバの実装側が定義するものだと思うので，別に <code>env</code> が多相的になっていなくても問題ないと思いますね．なので，実装側で使う <code>AppEnv</code> のような型に対して，<br/><pre>data AppBot = forall b. (Bot b, Dep b AppEnv) =&gt; AppBot b
+          <div class="description">そもそもですが，おそらく <code>MarkovChain</code> / <code>Shiritori</code> などはユーザが定義するものですが，`AnyBot` はその定義されたボットを使う側，つまりボットサーバの実装側が定義するものだと思うので，別に <code>env</code> が多相的になっていなくても問題ないと思いますね．なので，実装側で使う <code>AppEnv</code> のような型に対して，<br/><pre>data AppBot = forall b. (Bot b, Dep b AppEnv) =&gt; AppBot b
 
 instance Bot AppBot where
   type Dep AppBot env = env ~ AppEnv
@@ -476,47 +476,47 @@ instance Bot AppBot where
   reply (AppBot b) msg = reply b msg</pre><br/>みたいなのが本来欲しいものだったりしないですかね？</div>
         </div>
       </div>
-      <div class="message event" id="message-1604390185.119400">
+      <div class="event" id="message-1604390185.119400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604390185.119400">2020-11-03 16:56:25 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1604390185.119400">2020-11-03 16:56:25 +0900</a></div>
           </div>
-          <div class="message__body description">それはともかくとして，元々のものを無理やり実現したいなら，`QuantifiedConstraints` を使えばできることはできると思いますね（変なボイラープレートが増えますが)</div>
+          <div class="description">それはともかくとして，元々のものを無理やり実現したいなら，`QuantifiedConstraints` を使えばできることはできると思いますね（変なボイラープレートが増えますが)</div>
         </div>
       </div>
-      <div class="message event" id="message-1604410067.132000">
+      <div class="event" id="message-1604410067.132000">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604410067.132000">2020-11-03 22:27:47 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1604410067.132000">2020-11-03 22:27:47 +0900</a></div>
           </div>
-          <div class="message__body description">わぁーありがとございます:heart_eyes_cat:</div>
+          <div class="description">わぁーありがとございます:heart_eyes_cat:</div>
         </div>
       </div>
-      <div class="message event" id="message-1604410116.133100">
+      <div class="event" id="message-1604410116.133100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604410116.133100">2020-11-03 22:28:36 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1604410116.133100">2020-11-03 22:28:36 +0900</a></div>
           </div>
-          <div class="message__body description"><code>e</code> も存在型にってどうするんでしょう<br/>考えてたら頭爆発しました:exploding_head::skull_and_crossbones:</div>
+          <div class="description"><code>e</code> も存在型にってどうするんでしょう<br/>考えてたら頭爆発しました:exploding_head::skull_and_crossbones:</div>
         </div>
       </div>
-      <div class="message event" id="message-1604410201.133700">
+      <div class="event" id="message-1604410201.133700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ttaakkee</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1604410201.133700">2020-11-03 22:30:01 +0900</a></div>
+            <div class="user">ttaakkee</div>
+            <div class="date"><a class="date" href="#message-1604410201.133700">2020-11-03 22:30:01 +0900</a></div>
           </div>
-          <div class="message__body description">たしかに！<br/><code>allBots</code>を定義するときには <code>[AnyBot MarkovChain, AnyBot Shiritori]</code> などと列挙するので、それらが必要としてる`env`の制約を書くのを回避する必要はあまりなさそうですね:owl:<br/><br/><code>TypeApplications</code> ならできるんですね！<br/>なんかでもその関数を呼び出してるとろでも明示的に型適用して、それを呼び出してるところでも明示的に型適用して、…ってなって大変そうな気が:jack_o_lantern:<br/>そういうものなのでしょうか…？</div>
+          <div class="description">たしかに！<br/><code>allBots</code>を定義するときには <code>[AnyBot MarkovChain, AnyBot Shiritori]</code> などと列挙するので、それらが必要としてる`env`の制約を書くのを回避する必要はあまりなさそうですね:owl:<br/><br/><code>TypeApplications</code> ならできるんですね！<br/>なんかでもその関数を呼び出してるとろでも明示的に型適用して、それを呼び出してるところでも明示的に型適用して、…ってなって大変そうな気が:jack_o_lantern:<br/>そういうものなのでしょうか…？</div>
         </div>
       </div>
     </div>
-    <div class="pager ui pagination menu">
-      <a href="../../html/C5666B6BB/91.html" class="pager__previous item">Previous</a>
-      <a href="../../" class="pager__top item">Top</a>
-      <a href="../../html/C5666B6BB/93.html" class="pager__next item">Next</a>
+    <div class="ui pagination menu">
+      <a href="../../html/C5666B6BB/91.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+      <a href="../../html/C5666B6BB/93.html" class="item">Next</a>
     </div>
   </div>
 </body>

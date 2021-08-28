@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #97 at 2021-06-01 17:05:38 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #97 at 2021-06-01 17:05:38 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../97.html" class="item">Back to questions #97</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1622534738.009000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1622534738.009000">2021-06-01 17:05:38 +0900</a></div>
+          </div>
+          <div class="description">Windows 10 に stack をインストールして Haskellプログラミングの環境を作成しようとしたら、%USERPROFILE% にnon-ASCII文字があるとNG という地雷を踏んでしまいました。<br/>ユーザー名に日本語が含まれていたためです。ユーザー名にnonASCII文字を含まないローカルアカウントを作成し、そちらのアカウントでやれば回避できるのですが、<br/>日本語を含むユーザー名のままで、この問題を回避する方法はありますでしょうか。特殊な事情があり、WSLは使えません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1622536586.009300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1622536586.009300">2021-06-01 17:36:26 +0900</a></div>
+          </div>
+          <div class="description"><code>$STACK_ROOT\config.yaml</code> を編集すると回避できるかもしれません<br/><a href='https://kakkun61.hatenablog.com/entry/2019/11/15/C_%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%E4%BE%9D%E5%AD%98%E3%82%92%E6%B8%9B%E3%82%89%E3%81%99'>https://kakkun61.hatenablog.com/entry/2019/11/15/C_%E3%83%89%E3%83%A9%E3%82%A4%E3%83%96%E4%BE%9D%E5%AD%98%E3%82%92%E6%B8%9B%E3%82%89%E3%81%99</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1622536843.009800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1622536843.009800">2021-06-01 17:40:43 +0900</a></div>
+          </div>
+          <div class="description">おお、ありがとうございます。やってみます。なるほどなるほど。<br/>あれっ、このページみたことある。。。 <blockquote>ものわすれはげしい和紙</blockquote></div>
+        </div>
+      </div>
+      <div class="event" id="message-1622556306.010200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1622556306.010200">2021-06-01 23:05:06 +0900</a></div>
+          </div>
+          <div class="description">stack setup で、ghc をインストールしたあとのサニタリーチェックに失敗するなぁ。まだ、LOCALAPPDATA を参照しているところがあるんですねぇ。<br/><pre>The GHC located at C:\sr\Programs\x86_64-windows\ghc-8.10.4\bin\ghc-8.10.4.EXE failed to compile a sanity check. Please see:        
+
+    <http://docs.haskellstack.org/en/stable/install_and_upgrade/>   
+
+for more information. Exception was:
+Received ExitFailure 1 when running
+Raw command: "C:\\sr\\Programs\\x86_64-windows\\ghc-8.10.4\\bin\\ghc-8.10.4.EXE" "C:\\Users\\\12398\12406\12362\\AppData\\Local\\Temp\\stack-sanity-check-c8b3e573344a8cb4\\Main.hs" -no-user-package-db
+Run from: C:\Users\のぶお\AppData\Local\Temp\stack-sanity-check-c8b3e573344a8cb4\
+Standard output:
+
+[1 of 1] Compiling Main             ( C:\\Users\stack.exe: &lt;stderr&gt;: commitAndReleaseBuffer: invalid argument (invalid character)</pre><br/></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../97.html" class="item">Back to questions #97</a>
+    </div>
+  </div>
+</body>
+</html>

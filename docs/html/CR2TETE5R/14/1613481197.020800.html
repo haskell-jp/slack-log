@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #14 at 2021-02-16 22:13:17 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #14 at 2021-02-16 22:13:17 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../14.html" class="item">Back to beginners #14</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1613481197.020800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">sky.is.gray</div>
+            <div class="date"><a class="date" href="#message-1613481197.020800">2021-02-16 22:13:17 +0900</a></div>
+          </div>
+          <div class="description">Haskellでヒアドキュメントを実現する一番良い方法は何でしょうか<br/>たとえば、<br/>1から100までの連番それぞれに対して、<br/>その番号を含んだ文書を、計100通り出力したいです。<br/>シェルスクリプトやPerlでもよくある処理なので難しいことではないと思っていたのですが、<br/>Haskellでしようとすると詰まってしまいました。<br/><br/> *試したこと*<br/><br/>• *String Gapを使う方法*<br/>⇒正しくできることもありましたが、下記のエラーがでて動かないこともありました。<br/>`lexical error in string/character literal at character '\n'`<br/><br/>改行の位置やインデントの問題なのかもしれませんが、どこを見れば正しいやり方が把握できるのかがわからなかったです。<br/><br/>• *ライブラリを使う方法*<br/>⇒stackageでヒットしたheredocというライブラリ　heredoc<br/><https://www.stackage.org/package/heredoc><br/>では、変数を埋め込むことが出来なさそうな感じでした。<br/>また、変数を埋め込むことのできるライブラリ  heredocs<br/><https://github.com/cutsea110/heredoc><br/>はstackに載っておらず、stackで作成したプロジェクトへの導入の仕方がわからず敬遠している状況です。<br/><br/>いいやり方をご存じの方、教えていただきたいです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1613484744.021000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1613484744.021000">2021-02-16 23:12:24 +0900</a></div>
+          </div>
+          <div class="description">僕はよく <a href='https://hackage.haskell.org/package/here'>https://hackage.haskell.org/package/here</a> を使います</div>
+        </div>
+      </div>
+      <div class="event" id="message-1613520834.021300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1613520834.021300">2021-02-17 09:13:54 +0900</a></div>
+          </div>
+          <div class="description"><blockquote> ⇒正しくできることもありましたが、下記のエラーがでて動かないこともありました。</blockquote>これは具体的にどういうコードを書いたのか気になりますね。<br/><br/><blockquote>stackで作成したプロジェクトへの導入の仕方がわからず</blockquote>stack.yaml に extra-depsという項目があるのでそこに追記してください。<br/>書き方は <code>stack init</code> や <code>stack new</code> などで生成したstack.yamlにコメントアウトされています。<br/>あと、それでなくともとりあえず cabal ファイル（あるいは package.yaml があるなら package.yaml）に追加すれば <code>stack build</code> の際「こうやって追記してね！」って教えてくれるはずです。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../14.html" class="item">Back to beginners #14</a>
+    </div>
+  </div>
+</body>
+</html>

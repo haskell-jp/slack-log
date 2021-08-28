@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #17 at 2021-07-16 18:09:05 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #17 at 2021-07-16 18:09:05 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../17.html" class="item">Back to beginners #17</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1626426545.120400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1626426545.120400">2021-07-16 18:09:05 +0900</a></div>
+          </div>
+          <div class="description"><pre>example15.hs:1:1: error:
+    Could not find module 'Monad'
+    Use -v (or `:set -v` in ghci) to see a list of the files searched for.
+  |
+1 | import Monad
+  | ^^^^^^^^^^^^
+
+example15.hs:2:1: error:
+    Could not find module 'System'
+    Use -v (or `:set -v` in ghci) to see a list of the files searched for.
+  |
+2 | import System
+  | ^^^^^^^^^^^^^
+
+example15.hs:3:1: error:
+    Could not find module 'IO'
+    Perhaps you meant Id (needs flag -package-key ghc-8.10.4)
+    Use -v (or `:set -v` in ghci) to see a list of the files searched for.
+  |
+3 | import IO
+  | ^^^^^^^^^
+
+example15.hs:4:1: error:
+    Could not find module 'Random'
+    Use -v (or `:set -v` in ghci) to see a list of the files searched for.
+  |
+4 | import Random
+  | ^^^^^^^^^^^^^</pre><br/>このようなエラーが出ます。<br/>何かがうまく行ってないのですが、cabalを編集しても全くうまくいきません。<br/>助けてください。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626428079.120500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1626428079.120500">2021-07-16 18:34:39 +0900</a></div>
+          </div>
+          <div class="description">なんかのコードを参考にしたんですかね？<br/><code>Monad</code> ってモジュールはなく、 <code>Control.Monad</code> モジュールはありますけど。それとも自身で定義したモジュールですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626429067.121800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama</div>
+            <div class="date"><a class="date" href="#message-1626429067.121800">2021-07-16 18:51:07 +0900</a></div>
+          </div>
+          <div class="description">Haskell98 時代の標準モジュールですよね。私も長らく Haskell に触ってないのでそのころのソースコードを久々にいじったりするとハマるのですが、いまどきはもう import 文を書き直すしかないのでしょうかね？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626430398.122400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1626430398.122400">2021-07-16 19:13:18 +0900</a></div>
+          </div>
+          <div class="description">1. 端的に言うと参考にしている資料が古いです。MonadとかSystemとかIOなどはHaskell 98時代の古いモジュール名で、GHC 7.10（2015年リリース）以降では使えなくなっています。<br/>2. 対処方法としては、Monad→Control.Monad, System→System.Exit/System.Environment, IO→<http://System.IO|System.IO>, Random→（randomパッケージの）System.Randomという風に書き換えます。<br/>3. かつては（GHC 7.8までは）古いモジュール名を使えるようにするパッケージ "haskell98" がGHCに添付されていましたが、GHC 7.10以降はそれがなくなりました。Hackageに上がっているhaskell98パッケージもGHC 7.8までの対応のようです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626433252.124000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1626433252.124000">2021-07-16 20:00:52 +0900</a></div>
+          </div>
+          <div class="description"><pre>Example15.hs:4:1: error:
+    Could not find module 'System.Random'
+    Use -v (or `:set -v` in ghci) to see a list of the files searched for.
+  |
+4 | import System.Random
+  | ^^^^^^^^^^^^^^^^^^^^</pre><br/>System.Randomって非公式なんですか？<br/>何もわからなくてすみません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626433826.124400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ttsurutani</div>
+            <div class="date"><a class="date" href="#message-1626433826.124400">2021-07-16 20:10:26 +0900</a></div>
+          </div>
+          <div class="description">私のこの記事は参考になりますか？<br/><a href='https://qiita.com/TTsurutani/items/b68956a555747fc3cb0e'>https://qiita.com/TTsurutani/items/b68956a555747fc3cb0e</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1626434356.124700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1626434356.124700">2021-07-16 20:19:16 +0900</a></div>
+          </div>
+          <div class="description">記事の通りに`stack install random`したのですが<br/><pre>sirkerf:yaminabe sirkerf$ stack install random
+/Users/sirkerf/Desktop/programming/Haskell/haskell_sutdy/yaminabe/yaminabe.cabal was modified manually. Ignoring /Users/sirkerf/Desktop/programming/Haskell/haskell_sutdy/yaminabe/package.yaml in favor of the cabal file.
+If you want to use the package.yaml file instead of the cabal file,
+then please delete the cabal file.
+Unable to parse cabal file from package /Users/sirkerf/Desktop/programming/Haskell/haskell_sutdy/yaminabe/yaminabe.cabal
+
+- 41:14: 
+unexpected '.'
+expecting "-", white space, ":", opening paren, operator, comma or end of input</pre><br/>となってうまくいきませんでした。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626436041.125100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1626436041.125100">2021-07-16 20:47:21 +0900</a></div>
+          </div>
+          <div class="description"><code>Could not find module 'System.Random'</code> などのエラーが出る時って、どうやってビルドしてますか？<br/><code>stack build</code> です？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626439827.127300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1626439827.127300">2021-07-16 21:50:27 +0900</a></div>
+          </div>
+          <div class="description"><code>stack build</code>  です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626444875.128000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1626444875.128000">2021-07-16 23:14:35 +0900</a></div>
+          </div>
+          <div class="description"><code>stack build</code> しているディレクトリに <code>package.yaml</code> か <code>.cabal</code> が拡張子のファイルはありますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626475712.128500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1626475712.128500">2021-07-17 07:48:32 +0900</a></div>
+          </div>
+          <div class="description"><code>pakcage.yaml</code>  と <code>.yaml</code>  が拡張子のファイルがあります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626484821.131600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1626484821.131600">2021-07-17 10:20:21 +0900</a></div>
+          </div>
+          <div class="description">であれば、`package.yaml` の <code>dependencies</code> というとこに <code>random</code> を追記するとビルドできるかと</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626678970.151400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1626678970.151400">2021-07-19 16:16:10 +0900</a></div>
+          </div>
+          <div class="description">うーむ、できないようです……。<br/>別件でXcodeが消えて再ダウンロード不可能というトラブルも発生してしまったので、一旦この問題は保留とさせてください。質問した上に回答までいただいたのに申し訳ありません。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../17.html" class="item">Back to beginners #17</a>
+    </div>
+  </div>
+</body>
+</html>

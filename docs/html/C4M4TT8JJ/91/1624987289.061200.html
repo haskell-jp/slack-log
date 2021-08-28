@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #91 at 2021-06-30 02:21:29 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #91 at 2021-06-30 02:21:29 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../91.html" class="item">Back to random #91</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1624987289.061200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1624987289.061200">2021-06-30 02:21:29 +0900</a></div>
+          </div>
+          <div class="description">きっと何かコードがまちがっているんだろうが、GHC の型簡約がオーバーフローした :bath:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1624994140.063500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1624994140.063500">2021-06-30 04:15:40 +0900</a></div>
+          </div>
+          <div class="description"><code>Set a</code> を <code>[a]</code> にすることで一時的に <code>Ord a</code> 制約を不要にして、この問題を回避したけど、根本の原因が分からん……</div>
+        </div>
+      </div>
+      <div class="event" id="message-1624996161.063800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1624996161.063800">2021-06-30 04:49:21 +0900</a></div>
+          </div>
+          <div class="description">簡約がオーバーフローということは型関数が再帰してる？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1624996604.064000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1624996604.064000">2021-06-30 04:56:44 +0900</a></div>
+          </div>
+          <div class="description">動かないコードなのでまだアップロードしてないが、たぶん原因はこのあたり<br/><a href='https://www.github.com/kakkun61/kmkm/tree/46d79f370b8a3b3ff49270b55fc41095308b216a/compiler%2Fsrc%2FLanguage%2FKmkm%2FSyntax.hs'>https://www.github.com/kakkun61/kmkm/tree/46d79f370b8a3b3ff49270b55fc41095308b216a/compiler%2Fsrc%2FLanguage%2FKmkm%2FSyntax.hs</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1625018585.065400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1625018585.065400">2021-06-30 11:03:05 +0900</a></div>
+          </div>
+          <div class="description">すでに試していればすみません、<br/>エラーメッセージでも触れているとおり、 <code>-freduction-depth=0</code> で一度チェックを切ってみるのも一案ですよ。本当に無限再帰してたらスタックがあふれるなりしてエラーになりそうですけど... :fearful:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1625024414.065600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1625024414.065600">2021-06-30 12:40:14 +0900</a></div>
+          </div>
+          <div class="description">はい <code>-freduction-depth=0</code> したら延々終わりませんでした</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../91.html" class="item">Back to random #91</a>
+    </div>
+  </div>
+</body>
+</html>

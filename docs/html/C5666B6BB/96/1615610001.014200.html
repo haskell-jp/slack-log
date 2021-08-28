@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #96 at 2021-03-13 13:33:21 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #96 at 2021-03-13 13:33:21 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1615610001.014200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1615610001.014200">2021-03-13 13:33:21 +0900</a></div>
+          </div>
+          <div class="description">まず、Haskellというよりももっと一般的な質問なのですが、<br/>webアプリのバックエンドって、フロントから呼び出されるたびに起動して、データベースを読み込んだりするものなのでしょうか？<br/><br/>何がいいたいかというと、バックエンドでフロントから送られてきたデータを使ってリストを作りたいのですが、このリストは毎回データベースに保存しなければならないのか、それともバックエンドのプログラム内に保持しておくことができるのか、という質問です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615610289.016100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1615610289.016100">2021-03-13 13:38:09 +0900</a></div>
+          </div>
+          <div class="description">ケースバイケースですけど、まぁ極めてシンプルな構成を考えるなら、フロントからアクセスがくるたびにDBへアクセスするでいいと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615611136.017800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1615611136.017800">2021-03-13 13:52:16 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。ちなみにリストもうまく保存できたりするのでしょうか？<br/>DBとのやりとりの例としてよくあげられているのは順序を持たない個々のレコードなどデータであることが多くて、リストなどの順序をもつ場合のデータを保存するやり方がよく分からないです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615611323.018100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1615611323.018100">2021-03-13 13:55:23 +0900</a></div>
+          </div>
+          <div class="description">一般的にはDBに保存するものにはユニークなIDを付けます。顧客データ然り。大抵はそのIDの順で順序づけすると思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615611378.018300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1615611378.018300">2021-03-13 13:56:18 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。ちなみにリストの途中に挿入したりする場合があると思うのですが、この場合のIDってどう定義しますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615611964.018600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1615611964.018600">2021-03-13 14:06:04 +0900</a></div>
+          </div>
+          <div class="description">リストの順序を保存するためのフィールドを</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615611984.018800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1615611984.018800">2021-03-13 14:06:24 +0900</a></div>
+          </div>
+          <div class="description">作って、その値を毎回変えていく感じですかね？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615612226.019000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1615612226.019000">2021-03-13 14:10:26 +0900</a></div>
+          </div>
+          <div class="description">古典的な？RDBの設計の場合、DBに値を insert するときに ID を生成するような気がします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1615612691.019900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1615612691.019900">2021-03-13 14:18:11 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。RDBについて少し調べてみます。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+  </div>
+</body>
+</html>

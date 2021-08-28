@@ -8,19 +8,19 @@
 <body>
   <div class="ui container">
     <h1>haskell-jp / random #11</h1>
-    <div class="pager ui pagination menu">
-      <a href="../../html/C4M4TT8JJ/10.html" class="pager__previous item">Previous</a>
-      <a href="../../" class="pager__top item">Top</a>
-      <a href="../../html/C4M4TT8JJ/12.html" class="pager__next item">Next</a>
+    <div class="ui pagination menu">
+      <a href="../../html/C4M4TT8JJ/10.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+      <a href="../../html/C4M4TT8JJ/12.html" class="item">Next</a>
     </div>
-    <div class="message_list ui feed">
-      <div class="message event" id="message-1518662343.000172">
+    <div class="ui feed">
+      <div class="event" id="message-1518662343.000172">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">voqn.tyrant</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1518662343.000172">2018-02-15 11:39:03 +0900</a></div>
+            <div class="user">voqn.tyrant</div>
+            <div class="date"><a class="date" href="#message-1518662343.000172">2018-02-15 11:39:03 +0900</a></div>
           </div>
-          <div class="message__body description">ああ、説明が足りませんでした。<br/>構文木を評価した結果の型を以下のようにして、型の構造はシンプルなままにして外側から注釈をつけられるような Functor として扱えないかなって取り組んでみたのです<br/><br/><pre>hs
+          <div class="description">ああ、説明が足りませんでした。<br/>構文木を評価した結果の型を以下のようにして、型の構造はシンプルなままにして外側から注釈をつけられるような Functor として扱えないかなって取り組んでみたのです<br/><br/><pre>hs
 data ValF a
   = Unit
   | Bool    Bool
@@ -30,67 +30,67 @@ data ValF a
 </pre><br/>ビルトインの関数やラムダ式を <code>Func</code>   にあてがう用途に足したのですが、この時点でFunctorの導出は出来ないなって気づいて</div>
         </div>
       </div>
-      <div class="message event" id="message-1518662486.000122">
+      <div class="event" id="message-1518662486.000122">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1518662486.000122">2018-02-15 11:41:26 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1518662486.000122">2018-02-15 11:41:26 +0900</a></div>
           </div>
-          <div class="message__body description">aはアノテーションにして，型情報とかを入れたい感じですか？</div>
+          <div class="description">aはアノテーションにして，型情報とかを入れたい感じですか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1518662602.000163">
+      <div class="event" id="message-1518662602.000163">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1518662602.000163">2018-02-15 11:43:22 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1518662602.000163">2018-02-15 11:43:22 +0900</a></div>
           </div>
-          <div class="message__body description"><code>Func</code> の型の意味がよく分かってないんですが， <code>([a], Either Error a)</code> ではなくて関数型なんです？</div>
+          <div class="description"><code>Func</code> の型の意味がよく分かってないんですが， <code>([a], Either Error a)</code> ではなくて関数型なんです？</div>
         </div>
       </div>
-      <div class="message event" id="message-1518662627.000001">
+      <div class="event" id="message-1518662627.000001">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">voqn.tyrant</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1518662627.000001">2018-02-15 11:43:47 +0900</a></div>
+            <div class="user">voqn.tyrant</div>
+            <div class="date"><a class="date" href="#message-1518662627.000001">2018-02-15 11:43:47 +0900</a></div>
           </div>
-          <div class="message__body description">更にコレを <code>newtype Fix f = Fix (f (Fix f))</code> でラップすると、外側から中に注釈を差し込めるっていう感じです</div>
+          <div class="description">更にコレを <code>newtype Fix f = Fix (f (Fix f))</code> でラップすると、外側から中に注釈を差し込めるっていう感じです</div>
         </div>
       </div>
-      <div class="message event" id="message-1518662820.000206">
+      <div class="event" id="message-1518662820.000206">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">voqn.tyrant</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1518662820.000206">2018-02-15 11:47:00 +0900</a></div>
+            <div class="user">voqn.tyrant</div>
+            <div class="date"><a class="date" href="#message-1518662820.000206">2018-02-15 11:47:00 +0900</a></div>
           </div>
-          <div class="message__body description"><code>Func</code> はhaskellの方で実装しているビルトイン関数本体を渡すように考えていて eval する時にそれを適用させてインタプリタを実装する、という目論見でした。</div>
+          <div class="description"><code>Func</code> はhaskellの方で実装しているビルトイン関数本体を渡すように考えていて eval する時にそれを適用させてインタプリタを実装する、という目論見でした。</div>
         </div>
       </div>
-      <div class="message event" id="message-1518662933.000070">
+      <div class="event" id="message-1518662933.000070">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">voqn.tyrant</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1518662933.000070">2018-02-15 11:48:53 +0900</a></div>
+            <div class="user">voqn.tyrant</div>
+            <div class="date"><a class="date" href="#message-1518662933.000070">2018-02-15 11:48:53 +0900</a></div>
           </div>
-          <div class="message__body description">ここの “Adding basic primitives” の項に書いてあるような感じ <a href='https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours/Evaluation,_Part_1'>https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours/Evaluation,_Part_1</a></div>
+          <div class="description">ここの “Adding basic primitives” の項に書いてあるような感じ <a href='https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours/Evaluation,_Part_1'>https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours/Evaluation,_Part_1</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1518663227.000179">
+      <div class="event" id="message-1518663227.000179">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">voqn.tyrant</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1518663227.000179">2018-02-15 11:53:47 +0900</a></div>
+            <div class="user">voqn.tyrant</div>
+            <div class="date"><a class="date" href="#message-1518663227.000179">2018-02-15 11:53:47 +0900</a></div>
           </div>
-          <div class="message__body description"><a href='https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours/Defining_Scheme_Functions'>https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours/Defining_Scheme_Functions</a><br/>こっちの方が近いかもです。この例の <code>LispVal</code> のように、関数をメンバーに持たせて、apply の型を <code>Val -&gt; [Val] -&gt; Either Error Val</code> という風にしたかった</div>
+          <div class="description"><a href='https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours/Defining_Scheme_Functions'>https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours/Defining_Scheme_Functions</a><br/>こっちの方が近いかもです。この例の <code>LispVal</code> のように、関数をメンバーに持たせて、apply の型を <code>Val -&gt; [Val] -&gt; Either Error Val</code> という風にしたかった</div>
         </div>
       </div>
-      <div class="message event" id="message-1518663231.000031">
+      <div class="event" id="message-1518663231.000031">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1518663231.000031">2018-02-15 11:53:51 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1518663231.000031">2018-02-15 11:53:51 +0900</a></div>
           </div>
-          <div class="message__body description">うーん，それは，<br/><pre>
+          <div class="description">うーん，それは，<br/><pre>
 type Val = Fix ValF
 eval :: Val -&gt; Either Error Val
 ...
@@ -98,31 +98,31 @@ eval (FunApp name xs) = buildinf name xs
 </pre><br/>みたいな実装になる気がしたのですが(ビルトインをeval時に埋め込むなら)，Funはどういう感じの実装になるんでしょう？(ちょっと察しが悪くてすいません)</div>
         </div>
       </div>
-      <div class="message event" id="message-1518663367.000139">
+      <div class="event" id="message-1518663367.000139">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1518663367.000139">2018-02-15 11:56:07 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1518663367.000139">2018-02-15 11:56:07 +0900</a></div>
           </div>
-          <div class="message__body description">あー分かりました．ListがFunAppなんですね(Lisp脳じゃなかった)．evalのシステムはFunctorなくても実装できそうな気がするんですが，ValFに関して何かトラバースがしたい感じなんでしょうか？</div>
+          <div class="description">あー分かりました．ListがFunAppなんですね(Lisp脳じゃなかった)．evalのシステムはFunctorなくても実装できそうな気がするんですが，ValFに関して何かトラバースがしたい感じなんでしょうか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1518663785.000133">
+      <div class="event" id="message-1518663785.000133">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">voqn.tyrant</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1518663785.000133">2018-02-15 12:03:05 +0900</a></div>
+            <div class="user">voqn.tyrant</div>
+            <div class="date"><a class="date" href="#message-1518663785.000133">2018-02-15 12:03:05 +0900</a></div>
           </div>
-          <div class="message__body description">ValFに、「何も注釈つけてない版」でテストを書いて、AstからValFに変換する時にはシンボルの位置情報をつけたり、型推論の結果を注釈側に足したり、って言う風にしたかったんです。もちろん素朴にValの構造をコピペして <code>LocatedVal</code> とか <code>TypedVal</code> とかを作っても同様の事が出来はするんですが、ボイラープレートの山が出来るし…</div>
+          <div class="description">ValFに、「何も注釈つけてない版」でテストを書いて、AstからValFに変換する時にはシンボルの位置情報をつけたり、型推論の結果を注釈側に足したり、って言う風にしたかったんです。もちろん素朴にValの構造をコピペして <code>LocatedVal</code> とか <code>TypedVal</code> とかを作っても同様の事が出来はするんですが、ボイラープレートの山が出来るし…</div>
         </div>
       </div>
-      <div class="message event" id="message-1518664011.000114">
+      <div class="event" id="message-1518664011.000114">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1518664011.000114">2018-02-15 12:06:51 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1518664011.000114">2018-02-15 12:06:51 +0900</a></div>
           </div>
-          <div class="message__body description">印象としては，Func fというデータで関数fは注釈情報を受け取ることは想定してないように見えるんですが，想定してるんですかね？想定してるなら，確かにうまくなんとかしたい感じはあるんですが，想定してないなら<br/><pre>
+          <div class="description">印象としては，Func fというデータで関数fは注釈情報を受け取ることは想定してないように見えるんですが，想定してるんですかね？想定してるなら，確かにうまくなんとかしたい感じはあるんですが，想定してないなら<br/><pre>
   ...
   | Func ([Val] -&gt; Either Error Val)
 
@@ -130,362 +130,362 @@ apply (Func f) args = &lt;argsから注釈抜いて[Val]に変換したのを適
 </pre><br/>みたいなんが正しそうな気がするんですよね</div>
         </div>
       </div>
-      <div class="message event" id="message-1518664398.000014">
+      <div class="event" id="message-1518664398.000014">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">voqn.tyrant</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1518664398.000014">2018-02-15 12:13:18 +0900</a></div>
+            <div class="user">voqn.tyrant</div>
+            <div class="date"><a class="date" href="#message-1518664398.000014">2018-02-15 12:13:18 +0900</a></div>
           </div>
-          <div class="message__body description">!!</div>
+          <div class="description">!!</div>
         </div>
       </div>
-      <div class="message event" id="message-1518664498.000109">
+      <div class="event" id="message-1518664498.000109">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">voqn.tyrant</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1518664498.000109">2018-02-15 12:14:58 +0900</a></div>
+            <div class="user">voqn.tyrant</div>
+            <div class="date"><a class="date" href="#message-1518664498.000109">2018-02-15 12:14:58 +0900</a></div>
           </div>
-          <div class="message__body description">ありがとうございます、確かにそうだった。後で試してみます</div>
+          <div class="description">ありがとうございます、確かにそうだった。後で試してみます</div>
         </div>
       </div>
-      <div class="message event" id="message-1518664618.000112">
+      <div class="event" id="message-1518664618.000112">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">voqn.tyrant</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1518664618.000112">2018-02-15 12:16:58 +0900</a></div>
+            <div class="user">voqn.tyrant</div>
+            <div class="date"><a class="date" href="#message-1518664618.000112">2018-02-15 12:16:58 +0900</a></div>
           </div>
-          <div class="message__body description">ついでに、この手のテクニックって結構紹介されていて、　<https://stackoverflow.com/questions/38462563/how-to-work-with-ast-with-cofree-annotation><br/><br/>ekmett さんのライブラリでも Fix-Functor の組み合わせでTHのライブラリ作っていたりします<br/><a href='https://github.com/ekmett/recursion-schemes/pull/23'>https://github.com/ekmett/recursion-schemes/pull/23</a></div>
+          <div class="description">ついでに、この手のテクニックって結構紹介されていて、　<https://stackoverflow.com/questions/38462563/how-to-work-with-ast-with-cofree-annotation><br/><br/>ekmett さんのライブラリでも Fix-Functor の組み合わせでTHのライブラリ作っていたりします<br/><a href='https://github.com/ekmett/recursion-schemes/pull/23'>https://github.com/ekmett/recursion-schemes/pull/23</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1518664859.000073">
+      <div class="event" id="message-1518664859.000073">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1518664859.000073">2018-02-15 12:20:59 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1518664859.000073">2018-02-15 12:20:59 +0900</a></div>
           </div>
-          <div class="message__body description">ASTでcofree annotationを使ったことはあるんですが，実行時表現をそれで作るのはあまりやったことなかったです．<br/>(個人的にFixの辛いとこは，type synonymを使わなきゃいけないのも合わさって，型エラーがやばいことになるとこだと思ってるので，素直にannotation変数追加してDeriveFunctor使っちゃうことも多いです)</div>
+          <div class="description">ASTでcofree annotationを使ったことはあるんですが，実行時表現をそれで作るのはあまりやったことなかったです．<br/>(個人的にFixの辛いとこは，type synonymを使わなきゃいけないのも合わさって，型エラーがやばいことになるとこだと思ってるので，素直にannotation変数追加してDeriveFunctor使っちゃうことも多いです)</div>
         </div>
       </div>
-      <div class="message event" id="message-1518665584.000122">
+      <div class="event" id="message-1518665584.000122">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">voqn.tyrant</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1518665584.000122">2018-02-15 12:33:04 +0900</a></div>
+            <div class="user">voqn.tyrant</div>
+            <div class="date"><a class="date" href="#message-1518665584.000122">2018-02-15 12:33:04 +0900</a></div>
           </div>
-          <div class="message__body description">たぶん実行時表現まで（本当はAstそのもの使いたい）そうしたがってしまうのはLispっ子ゆえの悪癖かもしれない…</div>
+          <div class="description">たぶん実行時表現まで（本当はAstそのもの使いたい）そうしたがってしまうのはLispっ子ゆえの悪癖かもしれない…</div>
         </div>
       </div>
-      <div class="message event" id="message-1519011331.000030">
+      <div class="event" id="message-1519011331.000030">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">msakai</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519011331.000030">2018-02-19 12:35:31 +0900</a></div>
+            <div class="user">msakai</div>
+            <div class="date"><a class="date" href="#message-1519011331.000030">2018-02-19 12:35:31 +0900</a></div>
           </div>
-          <div class="message__body description">3/19（月）にオープンハウスがありますので、興味のある方は是非〜<br/><a href='https://preferred-networks.connpass.com/event/79219/'>https://preferred-networks.connpass.com/event/79219/</a></div>
+          <div class="description">3/19（月）にオープンハウスがありますので、興味のある方は是非〜<br/><a href='https://preferred-networks.connpass.com/event/79219/'>https://preferred-networks.connpass.com/event/79219/</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1519026160.000054">
+      <div class="event" id="message-1519026160.000054">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">maru8m.jp</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519026160.000054">2018-02-19 16:42:40 +0900</a></div>
+            <div class="user">maru8m.jp</div>
+            <div class="date"><a class="date" href="#message-1519026160.000054">2018-02-19 16:42:40 +0900</a></div>
           </div>
-          <div class="message__body description">@maru8m.jp has joined the channel</div>
+          <div class="description">@maru8m.jp has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1519027141.000214">
+      <div class="event" id="message-1519027141.000214">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kakkun61</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519027141.000214">2018-02-19 16:59:01 +0900</a></div>
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1519027141.000214">2018-02-19 16:59:01 +0900</a></div>
           </div>
-          <div class="message__body description">話がちょっとそれて、cofree が何か知らないんですが、この ↓ AST って cofree 使ってるんですかね<br/>この PDF 読みながら実装してるんですが <a href='http://www.cs.ru.nl/~W.Swierstra/Publications/DataTypesALaCarte.pdf'>http://www.cs.ru.nl/~W.Swierstra/Publications/DataTypesALaCarte.pdf</a><br/><a href='https://github.com/kakkun61/liquoh/blob/0eea3ea99e480f11e419febeac476fc3caa32d07/src/Text/Liquoh/Interpreter/Expression.hs'>https://github.com/kakkun61/liquoh/blob/0eea3ea99e480f11e419febeac476fc3caa32d07/src/Text/Liquoh/Interpreter/Expression.hs</a></div>
+          <div class="description">話がちょっとそれて、cofree が何か知らないんですが、この ↓ AST って cofree 使ってるんですかね<br/>この PDF 読みながら実装してるんですが <a href='http://www.cs.ru.nl/~W.Swierstra/Publications/DataTypesALaCarte.pdf'>http://www.cs.ru.nl/~W.Swierstra/Publications/DataTypesALaCarte.pdf</a><br/><a href='https://github.com/kakkun61/liquoh/blob/0eea3ea99e480f11e419febeac476fc3caa32d07/src/Text/Liquoh/Interpreter/Expression.hs'>https://github.com/kakkun61/liquoh/blob/0eea3ea99e480f11e419febeac476fc3caa32d07/src/Text/Liquoh/Interpreter/Expression.hs</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1519039514.000199">
+      <div class="event" id="message-1519039514.000199">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519039514.000199">2018-02-19 20:25:14 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1519039514.000199">2018-02-19 20:25:14 +0900</a></div>
           </div>
-          <div class="message__body description">@kakkun61 多分， <a href='#C8KBGEBR7'>code-review</a> の方がいいと思うので，そっち行きますね</div>
+          <div class="description">@kakkun61 多分， <a href='#C8KBGEBR7'>code-review</a> の方がいいと思うので，そっち行きますね</div>
         </div>
       </div>
-      <div class="message event" id="message-1519227767.000810">
+      <div class="event" id="message-1519227767.000810">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">voqn.tyrant</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519227767.000810">2018-02-22 00:42:47 +0900</a></div>
+            <div class="user">voqn.tyrant</div>
+            <div class="date"><a class="date" href="#message-1519227767.000810">2018-02-22 00:42:47 +0900</a></div>
           </div>
-          <div class="message__body description">HPCでテストのカバレッジを取る時、deriving で導出した部分は（特にderiving (Eq, Show, Ord, Typeable) あたり）は除外したいって思ってしまうのですが、みなさんどうしてるんだろ</div>
+          <div class="description">HPCでテストのカバレッジを取る時、deriving で導出した部分は（特にderiving (Eq, Show, Ord, Typeable) あたり）は除外したいって思ってしまうのですが、みなさんどうしてるんだろ</div>
         </div>
       </div>
-      <div class="message event" id="message-1519390651.000303">
+      <div class="event" id="message-1519390651.000303">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">gaminume_ts29</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519390651.000303">2018-02-23 21:57:31 +0900</a></div>
+            <div class="user">gaminume_ts29</div>
+            <div class="date"><a class="date" href="#message-1519390651.000303">2018-02-23 21:57:31 +0900</a></div>
           </div>
-          <div class="message__body description">@gaminume_ts29 has joined the channel</div>
+          <div class="description">@gaminume_ts29 has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1519561156.000006">
+      <div class="event" id="message-1519561156.000006">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">quote.curly</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519561156.000006">2018-02-25 21:19:16 +0900</a></div>
+            <div class="user">quote.curly</div>
+            <div class="date"><a class="date" href="#message-1519561156.000006">2018-02-25 21:19:16 +0900</a></div>
           </div>
-          <div class="message__body description">@quote.curly has joined the channel</div>
+          <div class="description">@quote.curly has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1519633041.000110">
+      <div class="event" id="message-1519633041.000110">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519633041.000110">2018-02-26 17:17:21 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1519633041.000110">2018-02-26 17:17:21 +0900</a></div>
           </div>
-          <div class="message__body description">なにがありましたっけ？「Haskell風の別の言語」というとPureScriptやElmが思い浮かびますが、それ以外があまり出てこない… Ivoryとか？ <a href='https://twitter.com/qnighy/status/967959302118895616?s=09'>https://twitter.com/qnighy/status/967959302118895616?s=09</a></div>
+          <div class="description">なにがありましたっけ？「Haskell風の別の言語」というとPureScriptやElmが思い浮かびますが、それ以外があまり出てこない… Ivoryとか？ <a href='https://twitter.com/qnighy/status/967959302118895616?s=09'>https://twitter.com/qnighy/status/967959302118895616?s=09</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1519633609.000064">
+      <div class="event" id="message-1519633609.000064">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">matsubara0507</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519633609.000064">2018-02-26 17:26:49 +0900</a></div>
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1519633609.000064">2018-02-26 17:26:49 +0900</a></div>
           </div>
-          <div class="message__body description">Agda とか Idris とか？</div>
+          <div class="description">Agda とか Idris とか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1519633681.000154">
+      <div class="event" id="message-1519633681.000154">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ncaq</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519633681.000154">2018-02-26 17:28:01 +0900</a></div>
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1519633681.000154">2018-02-26 17:28:01 +0900</a></div>
           </div>
-          <div class="message__body description">Fay, Haste, Royなどがありますが皆まだ生きてるのかは知らない…</div>
+          <div class="description">Fay, Haste, Royなどがありますが皆まだ生きてるのかは知らない…</div>
         </div>
       </div>
-      <div class="message event" id="message-1519633742.000122">
+      <div class="event" id="message-1519633742.000122">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">matsubara0507</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519633742.000122">2018-02-26 17:29:02 +0900</a></div>
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1519633742.000122">2018-02-26 17:29:02 +0900</a></div>
           </div>
-          <div class="message__body description">Curry というのがあった<br/><a href='https://en.wikipedia.org/wiki/Curry_(programming_language)'>https://en.wikipedia.org/wiki/Curry_(programming_language)</a></div>
+          <div class="description">Curry というのがあった<br/><a href='https://en.wikipedia.org/wiki/Curry_(programming_language)'>https://en.wikipedia.org/wiki/Curry_(programming_language)</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1519635239.000391">
+      <div class="event" id="message-1519635239.000391">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">syocy</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519635239.000391">2018-02-26 17:53:59 +0900</a></div>
+            <div class="user">syocy</div>
+            <div class="date"><a class="date" href="#message-1519635239.000391">2018-02-26 17:53:59 +0900</a></div>
           </div>
-          <div class="message__body description">定義によるが Haste は Haskell 風言語ではなく Haskell そのものと言えそう。</div>
+          <div class="description">定義によるが Haste は Haskell 風言語ではなく Haskell そのものと言えそう。</div>
         </div>
       </div>
-      <div class="message event" id="message-1519637509.000379">
+      <div class="event" id="message-1519637509.000379">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">voqn.tyrant</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519637509.000379">2018-02-26 18:31:49 +0900</a></div>
+            <div class="user">voqn.tyrant</div>
+            <div class="date"><a class="date" href="#message-1519637509.000379">2018-02-26 18:31:49 +0900</a></div>
           </div>
-          <div class="message__body description">haskell実装だとlunaとかも</div>
+          <div class="description">haskell実装だとlunaとかも</div>
         </div>
       </div>
-      <div class="message event" id="message-1519638672.000073">
+      <div class="event" id="message-1519638672.000073">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kakkun61</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519638672.000073">2018-02-26 18:51:12 +0900</a></div>
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1519638672.000073">2018-02-26 18:51:12 +0900</a></div>
           </div>
-          <div class="message__body description">JVM で動く Eta とか</div>
+          <div class="description">JVM で動く Eta とか</div>
         </div>
       </div>
-      <div class="message event" id="message-1519642184.000391">
+      <div class="event" id="message-1519642184.000391">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">junji.hashimoto</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519642184.000391">2018-02-26 19:49:44 +0900</a></div>
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1519642184.000391">2018-02-26 19:49:44 +0900</a></div>
           </div>
-          <div class="message__body description">ml系</div>
+          <div class="description">ml系</div>
         </div>
       </div>
-      <div class="message event" id="message-1519643881.000275">
+      <div class="event" id="message-1519643881.000275">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">matsubara0507</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519643881.000275">2018-02-26 20:18:01 +0900</a></div>
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1519643881.000275">2018-02-26 20:18:01 +0900</a></div>
           </div>
-          <div class="message__body description">ML系とHaskell違くない？</div>
+          <div class="description">ML系とHaskell違くない？</div>
         </div>
       </div>
-      <div class="message event" id="message-1519644552.000106">
+      <div class="event" id="message-1519644552.000106">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">syocy</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519644552.000106">2018-02-26 20:29:12 +0900</a></div>
+            <div class="user">syocy</div>
+            <div class="date"><a class="date" href="#message-1519644552.000106">2018-02-26 20:29:12 +0900</a></div>
           </div>
-          <div class="message__body description">JVM系で言うと、Eta は GHC を使ってるので Haskell そのものと十分言える。Frege は Haskell 2010 を参考にしている部分が多いが GHC を使っておらず Haskell 完全準拠ではないはずなので Haskell 系の別言語と言えそう。（このあたり @y_taka_23 さんが詳しいはず…）</div>
+          <div class="description">JVM系で言うと、Eta は GHC を使ってるので Haskell そのものと十分言える。Frege は Haskell 2010 を参考にしている部分が多いが GHC を使っておらず Haskell 完全準拠ではないはずなので Haskell 系の別言語と言えそう。（このあたり @y_taka_23 さんが詳しいはず…）</div>
         </div>
       </div>
-      <div class="message event" id="message-1519645917.000165">
+      <div class="event" id="message-1519645917.000165">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519645917.000165">2018-02-26 20:51:57 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1519645917.000165">2018-02-26 20:51:57 +0900</a></div>
           </div>
-          <div class="message__body description">ああ、すみません、熱に浮かされていたせいかいろいろど忘れしてました…:sweat_smile:</div>
+          <div class="description">ああ、すみません、熱に浮かされていたせいかいろいろど忘れしてました…:sweat_smile:</div>
         </div>
       </div>
-      <div class="message event" id="message-1519647741.000338">
+      <div class="event" id="message-1519647741.000338">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">y_taka_23</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519647741.000338">2018-02-26 21:22:21 +0900</a></div>
+            <div class="user">y_taka_23</div>
+            <div class="date"><a class="date" href="#message-1519647741.000338">2018-02-26 21:22:21 +0900</a></div>
           </div>
-          <div class="message__body description">@syocy Frege と Eta は Haskell と言ってしまってよいでしょう。両者とも Haskell 2010 準拠を謳って（少なくとも目指しては）います。Eta はさらに GHC7 相当の拡張を載せることで既存の Hackage ライブラリを再利用可能にしている、という点が Frege に対するアドバンテージです。C-FFI を使っているライブラリはそのままでは動かせないので、パッチを当てるための仕組みがあります。<br/><br/>コードベースに関して言うなら、Frege は GHC とは別系統です（そもそも当初は JVM 言語ですらなく v1 は Perl 実装だった）。Eta は GHC のフォークで、STG 生成までは GHC と同じコードを使います。ちなみにビルドツール Etlas も Cabal のフォークです。</div>
+          <div class="description">@syocy Frege と Eta は Haskell と言ってしまってよいでしょう。両者とも Haskell 2010 準拠を謳って（少なくとも目指しては）います。Eta はさらに GHC7 相当の拡張を載せることで既存の Hackage ライブラリを再利用可能にしている、という点が Frege に対するアドバンテージです。C-FFI を使っているライブラリはそのままでは動かせないので、パッチを当てるための仕組みがあります。<br/><br/>コードベースに関して言うなら、Frege は GHC とは別系統です（そもそも当初は JVM 言語ですらなく v1 は Perl 実装だった）。Eta は GHC のフォークで、STG 生成までは GHC と同じコードを使います。ちなみにビルドツール Etlas も Cabal のフォークです。</div>
         </div>
       </div>
-      <div class="message event" id="message-1519647784.000258">
+      <div class="event" id="message-1519647784.000258">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">y_taka_23</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519647784.000258">2018-02-26 21:23:04 +0900</a></div>
+            <div class="user">y_taka_23</div>
+            <div class="date"><a class="date" href="#message-1519647784.000258">2018-02-26 21:23:04 +0900</a></div>
           </div>
-          <div class="message__body description">なんか早口のオタクみたいになってしまった。</div>
+          <div class="description">なんか早口のオタクみたいになってしまった。</div>
         </div>
       </div>
-      <div class="message event" id="message-1519692370.000090">
+      <div class="event" id="message-1519692370.000090">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kakkun61</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519692370.000090">2018-02-27 09:46:10 +0900</a></div>
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1519692370.000090">2018-02-27 09:46:10 +0900</a></div>
           </div>
-          <div class="message__body description"><a href='http://slackarchive.io'>slackarchive.io</a> の収集がなんか止まってるように見えますね<br/><a href='https://haskell-jp.slackarchive.io'>https://haskell-jp.slackarchive.io</a></div>
+          <div class="description"><a href='http://slackarchive.io'>slackarchive.io</a> の収集がなんか止まってるように見えますね<br/><a href='https://haskell-jp.slackarchive.io'>https://haskell-jp.slackarchive.io</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1519716338.000201">
+      <div class="event" id="message-1519716338.000201">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">maoe</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519716338.000201">2018-02-27 16:25:38 +0900</a></div>
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1519716338.000201">2018-02-27 16:25:38 +0900</a></div>
           </div>
-          <div class="message__body description">gtk2hsではなくてgi-gtkを使ったことがある人はいますか？gtk2hsはAPIに抜けがあったり公式に新しいアプリでは非推奨と書いてあるんですが、既存のアプリをポートする価値があるかなと検討してます。</div>
+          <div class="description">gtk2hsではなくてgi-gtkを使ったことがある人はいますか？gtk2hsはAPIに抜けがあったり公式に新しいアプリでは非推奨と書いてあるんですが、既存のアプリをポートする価値があるかなと検討してます。</div>
         </div>
       </div>
-      <div class="message event" id="message-1519720430.000295">
+      <div class="event" id="message-1519720430.000295">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kameoka.ryota</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519720430.000295">2018-02-27 17:33:50 +0900</a></div>
+            <div class="user">kameoka.ryota</div>
+            <div class="date"><a class="date" href="#message-1519720430.000295">2018-02-27 17:33:50 +0900</a></div>
           </div>
-          <div class="message__body description">@kameoka.ryota has joined the channel</div>
+          <div class="description">@kameoka.ryota has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1519722242.000325">
+      <div class="event" id="message-1519722242.000325">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">shnarazk</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519722242.000325">2018-02-27 18:04:02 +0900</a></div>
+            <div class="user">shnarazk</div>
+            <div class="date"><a class="date" href="#message-1519722242.000325">2018-02-27 18:04:02 +0900</a></div>
           </div>
-          <div class="message__body description">一度だけgtk2hsからgi-gtkに書き直したことがあります。<br/>cairo周りの変更への追従もあり、色々と修正が必要でしたが、使えない機能（ウィジェット）がないのはよいと思いました。</div>
+          <div class="description">一度だけgtk2hsからgi-gtkに書き直したことがあります。<br/>cairo周りの変更への追従もあり、色々と修正が必要でしたが、使えない機能（ウィジェット）がないのはよいと思いました。</div>
         </div>
       </div>
-      <div class="message event" id="message-1519723895.000125">
+      <div class="event" id="message-1519723895.000125">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">maoe</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519723895.000125">2018-02-27 18:31:35 +0900</a></div>
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1519723895.000125">2018-02-27 18:31:35 +0900</a></div>
           </div>
-          <div class="message__body description">特にハマったところもない感じでしょうか。依存関係にxml-conduitが入っていて、conduit周りの依存を引っ張ってきてしまうのも気になるところです。</div>
+          <div class="description">特にハマったところもない感じでしょうか。依存関係にxml-conduitが入っていて、conduit周りの依存を引っ張ってきてしまうのも気になるところです。</div>
         </div>
       </div>
-      <div class="message event" id="message-1519726455.000317">
+      <div class="event" id="message-1519726455.000317">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">shnarazk</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519726455.000317">2018-02-27 19:14:15 +0900</a></div>
+            <div class="user">shnarazk</div>
+            <div class="date"><a class="date" href="#message-1519726455.000317">2018-02-27 19:14:15 +0900</a></div>
           </div>
-          <div class="message__body description">そうですねえ、まずサンプルプログラムで違いを理解してから移植に取り組んだのですが、それほど大きな違いはなかったと思います。依存パッケージは増えますが、新しいHeaderBarなどを使いたかったのでgtk-giにしました。しかしgtk2hsも開発続いていたんですね（今知りました）。</div>
+          <div class="description">そうですねえ、まずサンプルプログラムで違いを理解してから移植に取り組んだのですが、それほど大きな違いはなかったと思います。依存パッケージは増えますが、新しいHeaderBarなどを使いたかったのでgtk-giにしました。しかしgtk2hsも開発続いていたんですね（今知りました）。</div>
         </div>
       </div>
-      <div class="message event" id="message-1519730689.000410">
+      <div class="event" id="message-1519730689.000410">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">thimura</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519730689.000410">2018-02-27 20:24:49 +0900</a></div>
+            <div class="user">thimura</div>
+            <div class="date"><a class="date" href="#message-1519730689.000410">2018-02-27 20:24:49 +0900</a></div>
           </div>
-          <div class="message__body description">私も最近 gi-gtk に移行したのですが、ListStore まわりの移植でちょっとハマったくらいですかね (gi-gtk-hs を知らなかった)</div>
+          <div class="description">私も最近 gi-gtk に移行したのですが、ListStore まわりの移植でちょっとハマったくらいですかね (gi-gtk-hs を知らなかった)</div>
         </div>
       </div>
-      <div class="message event" id="message-1519763746.000311">
+      <div class="event" id="message-1519763746.000311">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">maoe</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519763746.000311">2018-02-28 05:35:46 +0900</a></div>
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1519763746.000311">2018-02-28 05:35:46 +0900</a></div>
           </div>
-          <div class="message__body description">gi-gtkにListStoreがあってgi-gtk-hsにはSeqStoreというgtk2hsのListStoreのコピーがあるんですね。どう違うのでしょうか。</div>
+          <div class="description">gi-gtkにListStoreがあってgi-gtk-hsにはSeqStoreというgtk2hsのListStoreのコピーがあるんですね。どう違うのでしょうか。</div>
         </div>
       </div>
-      <div class="message event" id="message-1519799513.000006">
+      <div class="event" id="message-1519799513.000006">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519799513.000006">2018-02-28 15:31:53 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1519799513.000006">2018-02-28 15:31:53 +0900</a></div>
           </div>
-          <div class="message__body description">インスタンスのメソッドが未定義でも警告で済まされてしまうせいで二度も足止めを食らってしまった… :hole: <a href='https://hackage.haskell.org/package/exceptions-0.9.0/docs/Control-Monad-Catch.html#v:generalBracket'>https://hackage.haskell.org/package/exceptions-0.9.0/docs/Control-Monad-Catch.html#v:generalBracket</a></div>
+          <div class="description">インスタンスのメソッドが未定義でも警告で済まされてしまうせいで二度も足止めを食らってしまった… :hole: <a href='https://hackage.haskell.org/package/exceptions-0.9.0/docs/Control-Monad-Catch.html#v:generalBracket'>https://hackage.haskell.org/package/exceptions-0.9.0/docs/Control-Monad-Catch.html#v:generalBracket</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1519809862.000390">
+      <div class="event" id="message-1519809862.000390">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">thimura</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519809862.000390">2018-02-28 18:24:22 +0900</a></div>
+            <div class="user">thimura</div>
+            <div class="date"><a class="date" href="#message-1519809862.000390">2018-02-28 18:24:22 +0900</a></div>
           </div>
-          <div class="message__body description">gi-gtk の ListStore は gobject-introspection そのままなので、格納する値は GValue にする必要がありますが、<br/>一方、gi-gtk-hs の SeqStore だと Haskell の任意の型を入れられるという感じですかね？</div>
+          <div class="description">gi-gtk の ListStore は gobject-introspection そのままなので、格納する値は GValue にする必要がありますが、<br/>一方、gi-gtk-hs の SeqStore だと Haskell の任意の型を入れられるという感じですかね？</div>
         </div>
       </div>
-      <div class="message event" id="message-1519822511.000076">
+      <div class="event" id="message-1519822511.000076">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">maoe</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519822511.000076">2018-02-28 21:55:11 +0900</a></div>
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1519822511.000076">2018-02-28 21:55:11 +0900</a></div>
           </div>
-          <div class="message__body description">なるほど、ListStoreの方は使いにくそうですね</div>
+          <div class="description">なるほど、ListStoreの方は使いにくそうですね</div>
         </div>
       </div>
-      <div class="message event" id="message-1519829703.000554">
+      <div class="event" id="message-1519829703.000554">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">msakai</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519829703.000554">2018-02-28 23:55:03 +0900</a></div>
+            <div class="user">msakai</div>
+            <div class="date"><a class="date" href="#message-1519829703.000554">2018-02-28 23:55:03 +0900</a></div>
           </div>
-          <div class="message__body description">知らなかった……<br/><a href='https://twitter.com/masahiro_sakai/status/968861617038360576'>https://twitter.com/masahiro_sakai/status/968861617038360576</a></div>
+          <div class="description">知らなかった……<br/><a href='https://twitter.com/masahiro_sakai/status/968861617038360576'>https://twitter.com/masahiro_sakai/status/968861617038360576</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1519866293.000121">
+      <div class="event" id="message-1519866293.000121">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519866293.000121">2018-03-01 10:04:53 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1519866293.000121">2018-03-01 10:04:53 +0900</a></div>
           </div>
-          <div class="message__body description">気が向いたらでいいのでTwitterで突っついといて頂けると助かります:pray:</div>
+          <div class="description">気が向いたらでいいのでTwitterで突っついといて頂けると助かります:pray:</div>
         </div>
       </div>
-      <div class="message event" id="message-1519866689.000246">
+      <div class="event" id="message-1519866689.000246">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1519866689.000246">2018-03-01 10:11:29 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1519866689.000246">2018-03-01 10:11:29 +0900</a></div>
           </div>
-          <div class="message__body description">今できることはそれぐらいしかないので…<br/>取り急ぎ私からも再度お願いしました <br/><a href='https://twitter.com/igrep/status/969016207432040449?s=19'>https://twitter.com/igrep/status/969016207432040449?s=19</a></div>
+          <div class="description">今できることはそれぐらいしかないので…<br/>取り急ぎ私からも再度お願いしました <br/><a href='https://twitter.com/igrep/status/969016207432040449?s=19'>https://twitter.com/igrep/status/969016207432040449?s=19</a></div>
         </div>
       </div>
     </div>
-    <div class="pager ui pagination menu">
-      <a href="../../html/C4M4TT8JJ/10.html" class="pager__previous item">Previous</a>
-      <a href="../../" class="pager__top item">Top</a>
-      <a href="../../html/C4M4TT8JJ/12.html" class="pager__next item">Next</a>
+    <div class="ui pagination menu">
+      <a href="../../html/C4M4TT8JJ/10.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+      <a href="../../html/C4M4TT8JJ/12.html" class="item">Next</a>
     </div>
   </div>
 </body>

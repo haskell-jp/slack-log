@@ -8,37 +8,37 @@
 <body>
   <div class="ui container">
     <h1>haskell-jp / questions #61</h1>
-    <div class="pager ui pagination menu">
-      <a href="../../html/C5666B6BB/60.html" class="pager__previous item">Previous</a>
-      <a href="../../" class="pager__top item">Top</a>
-      <a href="../../html/C5666B6BB/62.html" class="pager__next item">Next</a>
+    <div class="ui pagination menu">
+      <a href="../../html/C5666B6BB/60.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+      <a href="../../html/C5666B6BB/62.html" class="item">Next</a>
     </div>
-    <div class="message_list ui feed">
-      <div class="message event" id="message-1559552257.030000">
+    <div class="ui feed">
+      <div class="event" id="message-1559552257.030000">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">shunsuke.masuda</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559552257.030000">2019-06-03 17:57:37 +0900</a></div>
+            <div class="user">shunsuke.masuda</div>
+            <div class="date"><a class="date" href="#message-1559552257.030000">2019-06-03 17:57:37 +0900</a></div>
           </div>
-          <div class="message__body description">まったくの思いつきで恐縮ですが、<br/><code>forkIO</code>で別スレッドで処理される中で、コネクションの`close`が意図するタイミングで呼ばれていない可能性はありませんか？</div>
+          <div class="description">まったくの思いつきで恐縮ですが、<br/><code>forkIO</code>で別スレッドで処理される中で、コネクションの`close`が意図するタイミングで呼ばれていない可能性はありませんか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1559552386.030200">
+      <div class="event" id="message-1559552386.030200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">shunsuke.masuda</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559552386.030200">2019-06-03 17:59:46 +0900</a></div>
+            <div class="user">shunsuke.masuda</div>
+            <div class="date"><a class="date" href="#message-1559552386.030200">2019-06-03 17:59:46 +0900</a></div>
           </div>
-          <div class="message__body description"><code>insertLog db' lf</code> を <code>bracket</code>を使うようにするとどうでしょうか。</div>
+          <div class="description"><code>insertLog db' lf</code> を <code>bracket</code>を使うようにするとどうでしょうか。</div>
         </div>
       </div>
-      <div class="message event" id="message-1559552899.030500">
+      <div class="event" id="message-1559552899.030500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">misaki</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559552899.030500">2019-06-03 18:08:19 +0900</a></div>
+            <div class="user">misaki</div>
+            <div class="date"><a class="date" href="#message-1559552899.030500">2019-06-03 18:08:19 +0900</a></div>
           </div>
-          <div class="message__body description">ありがとうございます．<br/><code>bracket</code>を利用しましたが同様の挙動になりました．<br/><pre>
+          <div class="description">ありがとうございます．<br/><code>bracket</code>を利用しましたが同様の挙動になりました．<br/><pre>
 insertLog :: String -&gt; LogField -&gt; IO()
 insertLog db' lf = bracket
                    (open db')
@@ -47,76 +47,76 @@ insertLog db' lf = bracket
 </pre></div>
         </div>
       </div>
-      <div class="message event" id="message-1559553015.031100">
+      <div class="event" id="message-1559553015.031100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">koyama</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559553015.031100">2019-06-03 18:10:15 +0900</a></div>
+            <div class="user">koyama</div>
+            <div class="date"><a class="date" href="#message-1559553015.031100">2019-06-03 18:10:15 +0900</a></div>
           </div>
-          <div class="message__body description"><a href='https://teratail.com/questions/5099'>https://teratail.com/questions/5099</a> このような記述をみつけました。本質的な問題なのかも？<br/><blockquote>たしか、現在の実装では、当該データベース ファイルに対する更新処理はジャーナル ファイルにいったん保持した後、ジャーナルの世代が古い順からトランザクションとして処理していき（FIFO）、最終的にジャーナル ファイルがなくなるまでファイルを更新し続けます。<br/>その際、更新処理が多重で走ることによりジャーナルをデータベース ファイルに適用するのが間に合わなくなってくると、ロックに関する例外を吐くようになります。</blockquote></div>
+          <div class="description"><a href='https://teratail.com/questions/5099'>https://teratail.com/questions/5099</a> このような記述をみつけました。本質的な問題なのかも？<br/><blockquote>たしか、現在の実装では、当該データベース ファイルに対する更新処理はジャーナル ファイルにいったん保持した後、ジャーナルの世代が古い順からトランザクションとして処理していき（FIFO）、最終的にジャーナル ファイルがなくなるまでファイルを更新し続けます。<br/>その際、更新処理が多重で走ることによりジャーナルをデータベース ファイルに適用するのが間に合わなくなってくると、ロックに関する例外を吐くようになります。</blockquote></div>
         </div>
       </div>
-      <div class="message event" id="message-1559553375.031600">
+      <div class="event" id="message-1559553375.031600">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">misaki</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559553375.031600">2019-06-03 18:16:15 +0900</a></div>
+            <div class="user">misaki</div>
+            <div class="date"><a class="date" href="#message-1559553375.031600">2019-06-03 18:16:15 +0900</a></div>
           </div>
-          <div class="message__body description">ロックの問題はどこかで「retryすればいいよ!」と見かけたのですが，もしかしたらその処理が追い付かなくなっているのかもしれないですね．．．<br/>この際pgがmysqlを導入することを検討しようかと思います．<br/>みなさんありがとうございます．</div>
+          <div class="description">ロックの問題はどこかで「retryすればいいよ!」と見かけたのですが，もしかしたらその処理が追い付かなくなっているのかもしれないですね．．．<br/>この際pgがmysqlを導入することを検討しようかと思います．<br/>みなさんありがとうございます．</div>
         </div>
       </div>
-      <div class="message event" id="message-1559553806.031800">
+      <div class="event" id="message-1559553806.031800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559553806.031800">2019-06-03 18:23:26 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559553806.031800">2019-06-03 18:23:26 +0900</a></div>
           </div>
-          <div class="message__body description">ログ書くときの <code>forkIO</code> を止めて同期的に書き込むだけで若干改善されませんかね（もちろんその分動作は遅くなりますが）<br/>（どちらにしてもそれだけのリクエストを裁くのであればSQLiteは止めた方がいいのでしょうけども）</div>
+          <div class="description">ログ書くときの <code>forkIO</code> を止めて同期的に書き込むだけで若干改善されませんかね（もちろんその分動作は遅くなりますが）<br/>（どちらにしてもそれだけのリクエストを裁くのであればSQLiteは止めた方がいいのでしょうけども）</div>
         </div>
       </div>
-      <div class="message event" id="message-1559553957.032100">
+      <div class="event" id="message-1559553957.032100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">misaki</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559553957.032100">2019-06-03 18:25:57 +0900</a></div>
+            <div class="user">misaki</div>
+            <div class="date"><a class="date" href="#message-1559553957.032100">2019-06-03 18:25:57 +0900</a></div>
           </div>
-          <div class="message__body description">そうですね，このプログラム自体がサイトのレスポンスタイムを記録しておきたいものなのでspawnしたいです．．<br/>私個人のサイトなのでsqliteでいいかなと思ったのですが，pg動かすことにします．</div>
+          <div class="description">そうですね，このプログラム自体がサイトのレスポンスタイムを記録しておきたいものなのでspawnしたいです．．<br/>私個人のサイトなのでsqliteでいいかなと思ったのですが，pg動かすことにします．</div>
         </div>
       </div>
-      <div class="message event" id="message-1559564676.032500">
+      <div class="event" id="message-1559564676.032500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">nobsun</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559564676.032500">2019-06-03 21:24:36 +0900</a></div>
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1559564676.032500">2019-06-03 21:24:36 +0900</a></div>
           </div>
-          <div class="message__body description">ナイーブに字句解析器でトークンに位置情報を入れるというのはよくやります．</div>
+          <div class="description">ナイーブに字句解析器でトークンに位置情報を入れるというのはよくやります．</div>
         </div>
       </div>
-      <div class="message event" id="message-1559676243.000200">
+      <div class="event" id="message-1559676243.000200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">n.kurata1005</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559676243.000200">2019-06-05 04:24:03 +0900</a></div>
+            <div class="user">n.kurata1005</div>
+            <div class="date"><a class="date" href="#message-1559676243.000200">2019-06-05 04:24:03 +0900</a></div>
           </div>
-          <div class="message__body description">@n.kurata1005 has joined the channel</div>
+          <div class="description">@n.kurata1005 has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1559699224.002100">
+      <div class="event" id="message-1559699224.002100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559699224.002100">2019-06-05 10:47:04 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559699224.002100">2019-06-05 10:47:04 +0900</a></div>
           </div>
-          <div class="message__body description">こちらの方法、今日になって気づいたんですが、 <b>引数が2つ以上ある関数の場合、 <code>(&gt;&gt;)</code> の第2引数に渡した関数しか実行されない</b> という落とし穴があるようです。 :scream:<br/>自分でも調べてみますが、どなたか詳しい理由がわかったら教えてください...<br/>Haskell-jp Blogの記事にしようかな...<br/><a href='https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1559094017015900'>https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1559094017015900</a></div>
+          <div class="description">こちらの方法、今日になって気づいたんですが、 <b>引数が2つ以上ある関数の場合、 <code>(&gt;&gt;)</code> の第2引数に渡した関数しか実行されない</b> という落とし穴があるようです。 :scream:<br/>自分でも調べてみますが、どなたか詳しい理由がわかったら教えてください...<br/>Haskell-jp Blogの記事にしようかな...<br/><a href='https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1559094017015900'>https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1559094017015900</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1559699573.002400">
+      <div class="event" id="message-1559699573.002400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559699573.002400">2019-06-05 10:52:53 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559699573.002400">2019-06-05 10:52:53 +0900</a></div>
           </div>
-          <div class="message__body description">例:<br/><pre>
+          <div class="description">例:<br/><pre>
 &gt; a x y = putStrLn ("a: " ++ x ++ y)
 &gt; b x y = putStrLn ("b: " ++ x ++ y)
 &gt; ((&gt;&gt;) &lt;$&gt; a &lt;*&gt; b) "x" "y"
@@ -124,58 +124,58 @@ b: xy
 </pre></div>
         </div>
       </div>
-      <div class="message event" id="message-1559700169.002700">
+      <div class="event" id="message-1559700169.002700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559700169.002700">2019-06-05 11:02:49 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1559700169.002700">2019-06-05 11:02:49 +0900</a></div>
           </div>
-          <div class="message__body description">(&gt;&gt;)が関数のモナドに対するものなので、ask <blockquote><blockquote>...みたいなふるまいをしていますね</blockquote></blockquote></div>
+          <div class="description">(&gt;&gt;)が関数のモナドに対するものなので、ask <blockquote><blockquote>...みたいなふるまいをしていますね</blockquote></blockquote></div>
         </div>
       </div>
-      <div class="message event" id="message-1559700211.003100">
+      <div class="event" id="message-1559700211.003100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559700211.003100">2019-06-05 11:03:31 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559700211.003100">2019-06-05 11:03:31 +0900</a></div>
           </div>
-          <div class="message__body description">っぽいですね... 自分も等式変換しているうちに見えてきました... :disappointed_relieved:</div>
+          <div class="description">っぽいですね... 自分も等式変換しているうちに見えてきました... :disappointed_relieved:</div>
         </div>
       </div>
-      <div class="message event" id="message-1559700723.003400">
+      <div class="event" id="message-1559700723.003400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">notogawa</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559700723.003400">2019-06-05 11:12:03 +0900</a></div>
+            <div class="user">notogawa</div>
+            <div class="date"><a class="date" href="#message-1559700723.003400">2019-06-05 11:12:03 +0900</a></div>
           </div>
-          <div class="message__body description"><code>((&lt;*&gt;) &lt;$&gt; (((&lt;$&gt;) (&gt;&gt;)) . a) &lt;*&gt; b) "x" "y"</code></div>
+          <div class="description"><code>((&lt;*&gt;) &lt;$&gt; (((&lt;$&gt;) (&gt;&gt;)) . a) &lt;*&gt; b) "x" "y"</code></div>
         </div>
       </div>
-      <div class="message event" id="message-1559700782.003700">
+      <div class="event" id="message-1559700782.003700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559700782.003700">2019-06-05 11:13:02 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559700782.003700">2019-06-05 11:13:02 +0900</a></div>
           </div>
-          <div class="message__body description">おおかわさんさすがです... :joy:</div>
+          <div class="description">おおかわさんさすがです... :joy:</div>
         </div>
       </div>
-      <div class="message event" id="message-1559700980.003900">
+      <div class="event" id="message-1559700980.003900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">notogawa</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559700980.003900">2019-06-05 11:16:20 +0900</a></div>
+            <div class="user">notogawa</div>
+            <div class="date"><a class="date" href="#message-1559700980.003900">2019-06-05 11:16:20 +0900</a></div>
           </div>
-          <div class="message__body description">というわけで，単に2以上のarityに対して等価な変換じゃないというだけですね．落とし穴ではない</div>
+          <div class="description">というわけで，単に2以上のarityに対して等価な変換じゃないというだけですね．落とし穴ではない</div>
         </div>
       </div>
-      <div class="message event" id="message-1559702158.004300">
+      <div class="event" id="message-1559702158.004300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559702158.004300">2019-06-05 11:35:58 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559702158.004300">2019-06-05 11:35:58 +0900</a></div>
           </div>
-          <div class="message__body description">地道に簡約してみました<br/><br/><pre>
+          <div class="description">地道に簡約してみました<br/><br/><pre>
 ((&gt;&gt;) &lt;$&gt; a &lt;*&gt; b) "x" "y"
 ((fmap (&gt;&gt;) a) &lt;*&gt; b) "x" "y"
 (((&gt;&gt;) . a) &lt;*&gt; b) "x" "y"
@@ -192,116 +192,116 @@ b: xy
 </pre></div>
         </div>
       </div>
-      <div class="message event" id="message-1559702969.004500">
+      <div class="event" id="message-1559702969.004500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559702969.004500">2019-06-05 11:49:29 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559702969.004500">2019-06-05 11:49:29 +0900</a></div>
           </div>
-          <div class="message__body description">これ、:point_down: みたいに引数を一切追加しないで <code>do</code> に直したら <code>unused-do-bind</code> の警告になりましたね。<br/><pre>
+          <div class="description">これ、:point_down: みたいに引数を一切追加しないで <code>do</code> に直したら <code>unused-do-bind</code> の警告になりましたね。<br/><pre>
 do
   a
   b
 </pre><br/>戻り値が関数になっている（あるいは、もっとアグレッシブに戻り値が <code>()</code> 以外の）アクションに対して <code>(&gt;&gt;)</code> を使うと警告が出る、みたいな仕組みを作るといいのかもしれません。</div>
         </div>
       </div>
-      <div class="message event" id="message-1559726420.004900">
+      <div class="event" id="message-1559726420.004900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ncaq</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559726420.004900">2019-06-05 18:20:20 +0900</a></div>
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1559726420.004900">2019-06-05 18:20:20 +0900</a></div>
           </div>
-          <div class="message__body description">自分がYesodとPostgreSQLで同じような問題に突き当たった時は,コネクションを取得している文脈でコネクションを開放せずにコネクションをもう一度取得しようとしていて,複数の関数でコネクションを取得しようとしてデッドロックに陥ってました<br/>Simpleの仕組みはよくわかりませんがDBを使ったらその場でコネクションを削除するようにすれば問題なくなるかもしれません</div>
+          <div class="description">自分がYesodとPostgreSQLで同じような問題に突き当たった時は,コネクションを取得している文脈でコネクションを開放せずにコネクションをもう一度取得しようとしていて,複数の関数でコネクションを取得しようとしてデッドロックに陥ってました<br/>Simpleの仕組みはよくわかりませんがDBを使ったらその場でコネクションを削除するようにすれば問題なくなるかもしれません</div>
         </div>
       </div>
-      <div class="message event" id="message-1559728105.005100">
+      <div class="event" id="message-1559728105.005100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">naohaq</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559728105.005100">2019-06-05 18:48:25 +0900</a></div>
+            <div class="user">naohaq</div>
+            <div class="date"><a class="date" href="#message-1559728105.005100">2019-06-05 18:48:25 +0900</a></div>
           </div>
-          <div class="message__body description">doはシンタックスシュガーだからコンパイル時に警告が出てくれるとありがたいですけど、 <code>(&gt;&gt;)</code> は第一引数のアクションの戻り値を捨てる関数だから、警告出すのは微妙な気がしますね……。 <code>const 1 (f x)</code> って書いたときに <code>(f x)</code> は評価されないよーっていう警告を出すかどうかみたいな。</div>
+          <div class="description">doはシンタックスシュガーだからコンパイル時に警告が出てくれるとありがたいですけど、 <code>(&gt;&gt;)</code> は第一引数のアクションの戻り値を捨てる関数だから、警告出すのは微妙な気がしますね……。 <code>const 1 (f x)</code> って書いたときに <code>(f x)</code> は評価されないよーっていう警告を出すかどうかみたいな。</div>
         </div>
       </div>
-      <div class="message event" id="message-1559729351.005300">
+      <div class="event" id="message-1559729351.005300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559729351.005300">2019-06-05 19:09:11 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559729351.005300">2019-06-05 19:09:11 +0900</a></div>
           </div>
-          <div class="message__body description">気分的には、HLintに「こういう組み合わせの式は使わないで、こっちを使ってね」と警告させるのと同じような感じにすれば、オプトイン・オプトアウトも簡単になるしいいかな、と思うのですが、いかがでしょう？（現状のHLintにそこまでできたかは忘れましたが）</div>
+          <div class="description">気分的には、HLintに「こういう組み合わせの式は使わないで、こっちを使ってね」と警告させるのと同じような感じにすれば、オプトイン・オプトアウトも簡単になるしいいかな、と思うのですが、いかがでしょう？（現状のHLintにそこまでできたかは忘れましたが）</div>
         </div>
       </div>
-      <div class="message event" id="message-1559734020.005500">
+      <div class="event" id="message-1559734020.005500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">syocy</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559734020.005500">2019-06-05 20:27:00 +0900</a></div>
+            <div class="user">syocy</div>
+            <div class="date"><a class="date" href="#message-1559734020.005500">2019-06-05 20:27:00 +0900</a></div>
           </div>
-          <div class="message__body description">文脈を理解していないですが引数を必ず使わせたいなら linear types の出番？</div>
+          <div class="description">文脈を理解していないですが引数を必ず使わせたいなら linear types の出番？</div>
         </div>
       </div>
-      <div class="message event" id="message-1559735186.005700">
+      <div class="event" id="message-1559735186.005700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559735186.005700">2019-06-05 20:46:26 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559735186.005700">2019-06-05 20:46:26 +0900</a></div>
           </div>
-          <div class="message__body description">それは確かにそのとおりですが、ちょっとオーバーキルかな... と。 :sweat_smile:</div>
+          <div class="description">それは確かにそのとおりですが、ちょっとオーバーキルかな... と。 :sweat_smile:</div>
         </div>
       </div>
-      <div class="message event" id="message-1559735326.005900">
+      <div class="event" id="message-1559735326.005900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559735326.005900">2019-06-05 20:48:46 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559735326.005900">2019-06-05 20:48:46 +0900</a></div>
           </div>
-          <div class="message__body description">どちらかというと、意図しないインスタンスを使用しないためにはどうすればいいか、というところにフォーカスする方に個人的には関心があります。（ちょっと話がそれてしまいますが...）<br/><a href='https://haskell-jp.slack.com/archives/C5666B6BB/p1558343939072900'>https://haskell-jp.slack.com/archives/C5666B6BB/p1558343939072900</a> の時みたいに。</div>
+          <div class="description">どちらかというと、意図しないインスタンスを使用しないためにはどうすればいいか、というところにフォーカスする方に個人的には関心があります。（ちょっと話がそれてしまいますが...）<br/><a href='https://haskell-jp.slack.com/archives/C5666B6BB/p1558343939072900'>https://haskell-jp.slack.com/archives/C5666B6BB/p1558343939072900</a> の時みたいに。</div>
         </div>
       </div>
-      <div class="message event" id="message-1559738604.006300">
+      <div class="event" id="message-1559738604.006300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559738604.006300">2019-06-05 21:43:24 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1559738604.006300">2019-06-05 21:43:24 +0900</a></div>
           </div>
-          <div class="message__body description">値を捨てている部分を可視化できるようなエディタの支援機能があったら面白そうです。 <strike>しばしば議論の的となるlength (1,2)とかもわかるし</strike></div>
+          <div class="description">値を捨てている部分を可視化できるようなエディタの支援機能があったら面白そうです。 <strike>しばしば議論の的となるlength (1,2)とかもわかるし</strike></div>
         </div>
       </div>
-      <div class="message event" id="message-1559739929.006800">
+      <div class="event" id="message-1559739929.006800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">notogawa</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559739929.006800">2019-06-05 22:05:29 +0900</a></div>
+            <div class="user">notogawa</div>
+            <div class="date"><a class="date" href="#message-1559739929.006800">2019-06-05 22:05:29 +0900</a></div>
           </div>
-          <div class="message__body description">↑に対して「1と2を捨ててる(見てない)」ってわかるやつってことですか？</div>
+          <div class="description">↑に対して「1と2を捨ててる(見てない)」ってわかるやつってことですか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1559740358.007300">
+      <div class="event" id="message-1559740358.007300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">fumieval</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559740358.007300">2019-06-05 22:12:38 +0900</a></div>
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1559740358.007300">2019-06-05 22:12:38 +0900</a></div>
           </div>
-          <div class="message__body description">よく考えたら何の意味もない例でした。すみません</div>
+          <div class="description">よく考えたら何の意味もない例でした。すみません</div>
         </div>
       </div>
-      <div class="message event" id="message-1559797340.007900">
+      <div class="event" id="message-1559797340.007900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">sky.is.gray</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559797340.007900">2019-06-06 14:02:20 +0900</a></div>
+            <div class="user">sky.is.gray</div>
+            <div class="date"><a class="date" href="#message-1559797340.007900">2019-06-06 14:02:20 +0900</a></div>
           </div>
-          <div class="message__body description">@sky.is.gray has joined the channel</div>
+          <div class="description">@sky.is.gray has joined the channel</div>
         </div>
       </div>
-      <div class="message event" id="message-1559806186.010400">
+      <div class="event" id="message-1559806186.010400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">karoyakani</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559806186.010400">2019-06-06 16:29:46 +0900</a></div>
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1559806186.010400">2019-06-06 16:29:46 +0900</a></div>
           </div>
-          <div class="message__body description">STArray (または STUArray )を複数同時に初期化するにはどうしたら良いでしょうか？<br/>例えば一つならば　<br/><pre>
+          <div class="description">STArray (または STUArray )を複数同時に初期化するにはどうしたら良いでしょうか？<br/>例えば一つならば　<br/><pre>
 buildA = runSTUArray $ do
   a &lt;- newArray (0,2) 0 :: ST s (STUArray s Int Int)
   writeArray a 0 999
@@ -328,13 +328,13 @@ buildAB = runSTUArray $ do
 </pre></div>
         </div>
       </div>
-      <div class="message event" id="message-1559806446.013400">
+      <div class="event" id="message-1559806446.013400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559806446.013400">2019-06-06 16:34:06 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559806446.013400">2019-06-06 16:34:06 +0900</a></div>
           </div>
-          <div class="message__body description">Lensを使っていて、ちょっと気になる挙動に出遭ったので、どなたか理由をご存知であれば教えていただきたいです。<br/>こちらのコード <a href='https://gist.github.com/igrep/19139bb4e3bc7fe7988597559b9ab2dd'>https://gist.github.com/igrep/19139bb4e3bc7fe7988597559b9ab2dd</a> なんですが、<br/><pre>
+          <div class="description">Lensを使っていて、ちょっと気になる挙動に出遭ったので、どなたか理由をご存知であれば教えていただきたいです。<br/>こちらのコード <a href='https://gist.github.com/igrep/19139bb4e3bc7fe7988597559b9ab2dd'>https://gist.github.com/igrep/19139bb4e3bc7fe7988597559b9ab2dd</a> なんですが、<br/><pre>
 viewThenSet :: Sample -&gt; Lens' Sample Int -&gt; (Int, Sample)
 </pre><br/>という <code>Lens</code> を受け取る関数を使って、<br/><pre>
 main = print . viewThenSet (Sample 1 2) $ field' @"sample1"
@@ -343,67 +343,67 @@ main = print $ viewThenSet (Sample 1 2) $ field' @"sample1"
 </pre><br/>通常、 <code>f $ g $ x</code> という式は <code>f . g $ x</code> という式に書き換えられることが知られてますが、なぜこの場合は <code>.</code> を使うと型エラーになるのでしょうか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1559806448.013500">
+      <div class="event" id="message-1559806448.013500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559806448.013500">2019-06-06 16:34:08 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559806448.013500">2019-06-06 16:34:08 +0900</a></div>
           </div>
-          <div class="message__body description"></div>
+          <div class="description"></div>
         </div>
       </div>
-      <div class="message event" id="message-1559806851.014100">
+      <div class="event" id="message-1559806851.014100">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">matsubara0507</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559806851.014100">2019-06-06 16:40:51 +0900</a></div>
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1559806851.014100">2019-06-06 16:40:51 +0900</a></div>
           </div>
-          <div class="message__body description"><code>main = print $ viewThenSet (Sample 1 2) $ field' @"sample1"</code><br/>2つ目はこう？</div>
+          <div class="description"><code>main = print $ viewThenSet (Sample 1 2) $ field' @"sample1"</code><br/>2つ目はこう？</div>
         </div>
       </div>
-      <div class="message event" id="message-1559806979.014300">
+      <div class="event" id="message-1559806979.014300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kakkun61</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559806979.014300">2019-06-06 16:42:59 +0900</a></div>
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1559806979.014300">2019-06-06 16:42:59 +0900</a></div>
           </div>
-          <div class="message__body description">すぐに思い付いたのはこれですが、これだとそれぞれの初期化が独立である必要がありますね。<br/>おそらく配列 a と b の初期化で何らか相互に関係するのですよね？<br/><a href='https://wandbox.org/permlink/9cSyhgzxGAGprbN1'>https://wandbox.org/permlink/9cSyhgzxGAGprbN1</a></div>
+          <div class="description">すぐに思い付いたのはこれですが、これだとそれぞれの初期化が独立である必要がありますね。<br/>おそらく配列 a と b の初期化で何らか相互に関係するのですよね？<br/><a href='https://wandbox.org/permlink/9cSyhgzxGAGprbN1'>https://wandbox.org/permlink/9cSyhgzxGAGprbN1</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1559807087.014600">
+      <div class="event" id="message-1559807087.014600">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559807087.014600">2019-06-06 16:44:47 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559807087.014600">2019-06-06 16:44:47 +0900</a></div>
           </div>
-          <div class="message__body description">もっといい方法がありそうな気がしますが、ぱっと思いつくところでは、 <code>runSTArray</code>  <a href='https://www.stackage.org/haddock/lts-13.24/array-0.5.3.0/src/Data-Array-ST.html#runSTArray'>https://www.stackage.org/haddock/lts-13.24/array-0.5.3.0/src/Data-Array-ST.html#runSTArray</a> がやっているように、 <code>GHC.Arr.unsafeFreezeSTArray</code> を自前で呼んで <code>runST </code>すればよいのではないかと思います。<br/>hackageにhaddockも生成されてないモジュールの関数なんで大丈夫なのか？という気もしますが...</div>
+          <div class="description">もっといい方法がありそうな気がしますが、ぱっと思いつくところでは、 <code>runSTArray</code>  <a href='https://www.stackage.org/haddock/lts-13.24/array-0.5.3.0/src/Data-Array-ST.html#runSTArray'>https://www.stackage.org/haddock/lts-13.24/array-0.5.3.0/src/Data-Array-ST.html#runSTArray</a> がやっているように、 <code>GHC.Arr.unsafeFreezeSTArray</code> を自前で呼んで <code>runST </code>すればよいのではないかと思います。<br/>hackageにhaddockも生成されてないモジュールの関数なんで大丈夫なのか？という気もしますが...</div>
         </div>
       </div>
-      <div class="message event" id="message-1559807125.014800">
+      <div class="event" id="message-1559807125.014800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559807125.014800">2019-06-06 16:45:25 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559807125.014800">2019-06-06 16:45:25 +0900</a></div>
           </div>
-          <div class="message__body description">おっと済みません凡ミスでした...<br/>修正済みです。</div>
+          <div class="description">おっと済みません凡ミスでした...<br/>修正済みです。</div>
         </div>
       </div>
-      <div class="message event" id="message-1559807481.015200">
+      <div class="event" id="message-1559807481.015200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559807481.015200">2019-06-06 16:51:21 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559807481.015200">2019-06-06 16:51:21 +0900</a></div>
           </div>
-          <div class="message__body description"><a href='https://twitter.com/YoshikuniJujo/status/1136537216665079808'>https://twitter.com/YoshikuniJujo/status/1136537216665079808</a> こんな指摘をいただいた。</div>
+          <div class="description"><a href='https://twitter.com/YoshikuniJujo/status/1136537216665079808'>https://twitter.com/YoshikuniJujo/status/1136537216665079808</a> こんな指摘をいただいた。</div>
         </div>
       </div>
-      <div class="message event" id="message-1559808639.015500">
+      <div class="event" id="message-1559808639.015500">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">koyama</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559808639.015500">2019-06-06 17:10:39 +0900</a></div>
+            <div class="user">koyama</div>
+            <div class="date"><a class="date" href="#message-1559808639.015500">2019-06-06 17:10:39 +0900</a></div>
           </div>
-          <div class="message__body description">このぐらいで再現できますね<br/><pre>
+          <div class="description">このぐらいで再現できますね<br/><pre>
 {-# LANGUAGE RankNTypes #-}
 rankNfunc :: (forall a. Show a =&gt; a-&gt;b) -&gt; [b]
 rankNfunc f = [f 42, f True]
@@ -413,124 +413,124 @@ g = length . rankNfunc $ show   -- NG
 </pre></div>
         </div>
       </div>
-      <div class="message event" id="message-1559808900.015900">
+      <div class="event" id="message-1559808900.015900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">minorinoki_haskjp</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559808900.015900">2019-06-06 17:15:00 +0900</a></div>
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1559808900.015900">2019-06-06 17:15:00 +0900</a></div>
           </div>
-          <div class="message__body description">impredicative polymorphismと <code>$</code> の特別扱いの話は以前記事を書いたので参考までに： <a href='https://qiita.com/mod_poppo/items/806c9c3e0ccb46be92ae#%E9%96%A2%E6%95%B0%E9%81%A9%E7%94%A8%E6%BC%94%E7%AE%97%E5%AD%90%E3%81%AE%E7%89%B9%E4%BE%8B'>https://qiita.com/mod_poppo/items/806c9c3e0ccb46be92ae#%E9%96%A2%E6%95%B0%E9%81%A9%E7%94%A8%E6%BC%94%E7%AE%97%E5%AD%90%E3%81%AE%E7%89%B9%E4%BE%8B</a></div>
+          <div class="description">impredicative polymorphismと <code>$</code> の特別扱いの話は以前記事を書いたので参考までに： <a href='https://qiita.com/mod_poppo/items/806c9c3e0ccb46be92ae#%E9%96%A2%E6%95%B0%E9%81%A9%E7%94%A8%E6%BC%94%E7%AE%97%E5%AD%90%E3%81%AE%E7%89%B9%E4%BE%8B'>https://qiita.com/mod_poppo/items/806c9c3e0ccb46be92ae#%E9%96%A2%E6%95%B0%E9%81%A9%E7%94%A8%E6%BC%94%E7%AE%97%E5%AD%90%E3%81%AE%E7%89%B9%E4%BE%8B</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1559808954.016400">
+      <div class="event" id="message-1559808954.016400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559808954.016400">2019-06-06 17:15:54 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559808954.016400">2019-06-06 17:15:54 +0900</a></div>
           </div>
-          <div class="message__body description">ありがとうございます！案の定読んではてブしてるのに忘れてるw</div>
+          <div class="description">ありがとうございます！案の定読んではてブしてるのに忘れてるw</div>
         </div>
       </div>
-      <div class="message event" id="message-1559809664.016700">
+      <div class="event" id="message-1559809664.016700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">koyama</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559809664.016700">2019-06-06 17:27:44 +0900</a></div>
+            <div class="user">koyama</div>
+            <div class="date"><a class="date" href="#message-1559809664.016700">2019-06-06 17:27:44 +0900</a></div>
           </div>
-          <div class="message__body description">それにしても <code>{-# LANGUAGE ImpredicativeTypes #-}</code> をつけると <code>g = (length . rankNfunc) show</code> はいけるようになるのに <code>g = length . rankNfunc $ show</code> だとだめなままなのはなんでだろう… <code>($)</code> の特別扱いが逆に悪さしてるんですかね</div>
+          <div class="description">それにしても <code>{-# LANGUAGE ImpredicativeTypes #-}</code> をつけると <code>g = (length . rankNfunc) show</code> はいけるようになるのに <code>g = length . rankNfunc $ show</code> だとだめなままなのはなんでだろう… <code>($)</code> の特別扱いが逆に悪さしてるんですかね</div>
         </div>
       </div>
-      <div class="message event" id="message-1559809878.017000">
+      <div class="event" id="message-1559809878.017000">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559809878.017000">2019-06-06 17:31:18 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559809878.017000">2019-06-06 17:31:18 +0900</a></div>
           </div>
-          <div class="message__body description">ただ、なるべく独立して初期化させた方が行儀のいいコードにはなりそうな気がします。</div>
+          <div class="description">ただ、なるべく独立して初期化させた方が行儀のいいコードにはなりそうな気がします。</div>
         </div>
       </div>
-      <div class="message event" id="message-1559810023.017300">
+      <div class="event" id="message-1559810023.017300">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">karoyakani</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559810023.017300">2019-06-06 17:33:43 +0900</a></div>
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1559810023.017300">2019-06-06 17:33:43 +0900</a></div>
           </div>
-          <div class="message__body description">kakkun61 さんどうもありがとうございます　お察しのとうり訳アリで <code>a</code> と <code>b</code> の初期化は絡み合っていて　分離は出来ません<br/><br/>@igrep さん　環境設定が悪いのかもしれませんが　出来ませんでした<br/><pre>
+          <div class="description">kakkun61 さんどうもありがとうございます　お察しのとうり訳アリで <code>a</code> と <code>b</code> の初期化は絡み合っていて　分離は出来ません<br/><br/>@igrep さん　環境設定が悪いのかもしれませんが　出来ませんでした<br/><pre>
 Not in scope: ‘GHC.Arr.unsafeFreezeSTUArray’
 No module named ‘GHC.Arr’ is imported.
 </pre></div>
         </div>
       </div>
-      <div class="message event" id="message-1559810052.017600">
+      <div class="event" id="message-1559810052.017600">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559810052.017600">2019-06-06 17:34:12 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559810052.017600">2019-06-06 17:34:12 +0900</a></div>
           </div>
-          <div class="message__body description"><code>import GHC.Arr (unsafeFreezeSTUArray)</code> してください。そういう意味です。</div>
+          <div class="description"><code>import GHC.Arr (unsafeFreezeSTUArray)</code> してください。そういう意味です。</div>
         </div>
       </div>
-      <div class="message event" id="message-1559810060.017800">
+      <div class="event" id="message-1559810060.017800">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">koyama</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559810060.017800">2019-06-06 17:34:20 +0900</a></div>
+            <div class="user">koyama</div>
+            <div class="date"><a class="date" href="#message-1559810060.017800">2019-06-06 17:34:20 +0900</a></div>
           </div>
-          <div class="message__body description">いや、あれ、 ghci のバージョンによって挙動が違う気がしてきました…<br/>手元にあった 8.0.2 だと ImpredicativeTypes で <code>(length . rankNfunc) show</code> が通るけれど 8.4.4 と 8.6.3 では ImpredicativeTypes をつけてもダメっぽい</div>
+          <div class="description">いや、あれ、 ghci のバージョンによって挙動が違う気がしてきました…<br/>手元にあった 8.0.2 だと ImpredicativeTypes で <code>(length . rankNfunc) show</code> が通るけれど 8.4.4 と 8.6.3 では ImpredicativeTypes をつけてもダメっぽい</div>
         </div>
       </div>
-      <div class="message event" id="message-1559810345.018200">
+      <div class="event" id="message-1559810345.018200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">karoyakani</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559810345.018200">2019-06-06 17:39:05 +0900</a></div>
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1559810345.018200">2019-06-06 17:39:05 +0900</a></div>
           </div>
-          <div class="message__body description">それはしてあります</div>
+          <div class="description">それはしてあります</div>
         </div>
       </div>
-      <div class="message event" id="message-1559810393.018400">
+      <div class="event" id="message-1559810393.018400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559810393.018400">2019-06-06 17:39:53 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559810393.018400">2019-06-06 17:39:53 +0900</a></div>
           </div>
-          <div class="message__body description">参照するときは <code>GHC.Arr.</code> をつけずに <code>unsafeFreezeSTUArray</code> と呼べばいいはずですが...</div>
+          <div class="description">参照するときは <code>GHC.Arr.</code> をつけずに <code>unsafeFreezeSTUArray</code> と呼べばいいはずですが...</div>
         </div>
       </div>
-      <div class="message event" id="message-1559810595.018700">
+      <div class="event" id="message-1559810595.018700">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">koyama</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559810595.018700">2019-06-06 17:43:15 +0900</a></div>
+            <div class="user">koyama</div>
+            <div class="date"><a class="date" href="#message-1559810595.018700">2019-06-06 17:43:15 +0900</a></div>
           </div>
-          <div class="message__body description">それにしても <code>@"sample1"</code> ってなんだろうとおもったら、これ、 TypeApplications と DataKinds のコンボですか？</div>
+          <div class="description">それにしても <code>@"sample1"</code> ってなんだろうとおもったら、これ、 TypeApplications と DataKinds のコンボですか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1559810703.018900">
+      <div class="event" id="message-1559810703.018900">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559810703.018900">2019-06-06 17:45:03 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1559810703.018900">2019-06-06 17:45:03 +0900</a></div>
           </div>
-          <div class="message__body description">そうです。generic-lensを使っていますので。すみません、言及が漏れてましたね。。。 <a href='https://github.com/kcsongor/generic-lens'>https://github.com/kcsongor/generic-lens</a></div>
+          <div class="description">そうです。generic-lensを使っていますので。すみません、言及が漏れてましたね。。。 <a href='https://github.com/kcsongor/generic-lens'>https://github.com/kcsongor/generic-lens</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1559810789.019200">
+      <div class="event" id="message-1559810789.019200">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">koyama</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559810789.019200">2019-06-06 17:46:29 +0900</a></div>
+            <div class="user">koyama</div>
+            <div class="date"><a class="date" href="#message-1559810789.019200">2019-06-06 17:46:29 +0900</a></div>
           </div>
-          <div class="message__body description">いえ、脳内が Haskell2010 のままで止まっているので勉強になります^^; （イヤ、下手したら Haskell98 のままで止まってるかも…）</div>
+          <div class="description">いえ、脳内が Haskell2010 のままで止まっているので勉強になります^^; （イヤ、下手したら Haskell98 のままで止まってるかも…）</div>
         </div>
       </div>
-      <div class="message event" id="message-1559810875.019400">
+      <div class="event" id="message-1559810875.019400">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">karoyakani</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1559810875.019400">2019-06-06 17:47:55 +0900</a></div>
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1559810875.019400">2019-06-06 17:47:55 +0900</a></div>
           </div>
-          <div class="message__body description"><pre>
+          <div class="description"><pre>
 ...
 import GHC.Arr (unsafeFreezeSTUArray)
 ...
@@ -543,10 +543,10 @@ buildA' = runST $ do
         </div>
       </div>
     </div>
-    <div class="pager ui pagination menu">
-      <a href="../../html/C5666B6BB/60.html" class="pager__previous item">Previous</a>
-      <a href="../../" class="pager__top item">Top</a>
-      <a href="../../html/C5666B6BB/62.html" class="pager__next item">Next</a>
+    <div class="ui pagination menu">
+      <a href="../../html/C5666B6BB/60.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+      <a href="../../html/C5666B6BB/62.html" class="item">Next</a>
     </div>
   </div>
 </body>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #97 at 2021-07-01 14:58:14 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #97 at 2021-07-01 14:58:14 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../97.html" class="item">Back to questions #97</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1625119094.074300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1625119094.074300">2021-07-01 14:58:14 +0900</a></div>
+          </div>
+          <div class="description">どなたかservant-elmを使っている方はいらっしゃいますでしょうか？<br/><br/>servant-elmで生成したelmのエンコーダ、デコーダを使ってlocalhostでやりとりをしようとしていて困ったことがありました。<br/><br/>まず、servantで書いたサーバ側のURLが<http://localhost:8080> でelmで書いたクライアント側が<http://localhost8000> なので、CORSが働いてうまく作用しないことがわかりました。(WebブラウザはSafariです)<br/>そこで、サーバ側のHaskellコードでwai-corsライブラリを使ってCORSの設定としてSimpleCorsResoucePolicyを設定したところ、<br/>GETメソッドは通るようになりましたが、なぜかPOSTメソッドが通らず、<br/>Preflight response is not successful<br/>XMLHttpRequest cannot load <a href='http://localhost:8080/xxx'>http://localhost:8080/xxx</a> due to access control check<br/>とエラーメッセージが表示されてどう対処していいのか分からない状態です。<br/><br/>一応、サーバにターミナルのcurlコマンドで直接アクセスするとPOSTメソッドもうまくいくので、サーバ内部で発生したエラーではなさそうです。<br/>原因はおそらくCORS回りだと思うのですが、SimpleCorsResoucePolicyは"GET", "HEAD", "POST"メソッドを許容するような設定のはずなので、GETだけうまくいってPOSTがうまくいかない理由が分からないです。<br/><br/>何かアドバイスいただけないでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1625119935.074400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1625119935.074400">2021-07-01 15:12:15 +0900</a></div>
+          </div>
+          <div class="description">僕はよく、Elm で生成した JS （と、その JS が操作するようの HTML）を Servant から返すようにしてます。なので、CORS の問題がないです。<br/>（直接の解決になってないと思いますが。。。）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1625122297.074700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1625122297.074700">2021-07-01 15:51:37 +0900</a></div>
+          </div>
+          <div class="description">返答ありがとうございます。<br/>なるほど、そういう回避手段もあるのですね。<br/><br/>ただ、せっかくここまで来たので、Elmで作成したサイトからアクセスできればなと考えています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1625123123.074900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nakaji-dayo</div>
+            <div class="date"><a class="date" href="#message-1625123123.074900">2021-07-01 16:05:23 +0900</a></div>
+          </div>
+          <div class="description">(servant-elm使っていません)<br/>推測ですみませんが、POSTのときはrequest header増えてたりしませんか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1625124930.075400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nakaji-dayo</div>
+            <div class="date"><a class="date" href="#message-1625124930.075400">2021-07-01 16:35:30 +0900</a></div>
+          </div>
+          <div class="description">↑すみません、ちょっと修正します</div>
+        </div>
+      </div>
+      <div class="event" id="message-1625126413.075700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1625126413.075700">2021-07-01 17:00:13 +0900</a></div>
+          </div>
+          <div class="description">返信ありがとうございます。<br/>request headerをちゃんと理解していないのですが、自動生成されたエンコーダのheadersは空列になっているので、何も指定していないと思います。<br/>これはGETも同様です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1625126839.075900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1625126839.075900">2021-07-01 17:07:19 +0900</a></div>
+          </div>
+          <div class="description">Elmコードで申し訳ないですが、servant-elmによって自動生成されたものがこれです。<br/>(関数名も自動生成なのでちょっと変ですが、そこは多めにみてください)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1625129651.076100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1625129651.076100">2021-07-01 17:54:11 +0900</a></div>
+          </div>
+          <div class="description">このissueかな？ <a href='https://github.com/elm/http/issues/69'>https://github.com/elm/http/issues/69</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1625130110.076400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1625130110.076400">2021-07-01 18:01:50 +0900</a></div>
+          </div>
+          <div class="description">curlはブラウザーじゃないので、クロスオリジンかどうかは気にせず普通に通信します。普通クロスオリジンかどうかの判定をしてはじくのは通例ブラウザー自身ではないかと思います。なので、クライアント側の問題である可能性も十分あるかと</div>
+        </div>
+      </div>
+      <div class="event" id="message-1625130713.076600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1625130713.076600">2021-07-01 18:11:53 +0900</a></div>
+          </div>
+          <div class="description">あまり正確なことを言う自信はないのですが、後できることは、開発者ツールなりFiddlerなりで、どんなリクエストヘッダーとレスポンスヘッダーが出ているか見て、ちゃんと <a href='https://developer.mozilla.org/ja/docs/Web/HTTP/CORS'>https://developer.mozilla.org/ja/docs/Web/HTTP/CORS</a> のルールを満たしているかチェックする、といったところでしょうか。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1625132890.076900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nakaji-dayo</div>
+            <div class="date"><a class="date" href="#message-1625132890.076900">2021-07-01 18:48:10 +0900</a></div>
+          </div>
+          <div class="description"><blockquote> headersは空列になっているので、何も指定していないと思います。</blockquote>igrepさんも仰ってますが、ブラウザの開発者ツールでrequest headerを確認して頂いたほうが良さそうです。<br/>推測ですが、content-typeとか飛んでいる気がします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1625133312.077200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nakaji-dayo</div>
+            <div class="date"><a class="date" href="#message-1625133312.077200">2021-07-01 18:55:12 +0900</a></div>
+          </div>
+          <div class="description">ここっぽいです<br/><a href='https://github.com/elm/http/blob/81b6fdc67d8e5fb25644fd79e6b0edbe2e14e474/src/Http.elm#L250'>https://github.com/elm/http/blob/81b6fdc67d8e5fb25644fd79e6b0edbe2e14e474/src/Http.elm#L250</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1625138717.077800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1625138717.077800">2021-07-01 20:25:17 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。<br/>headerにcontent-typeを含んでいるものをCORSに許可したらPOSTでもちゃんと返してくれました。<br/>Webアプリ開発は初めてだったもので、色々と知らなかった点が多いですが、皆さまのおかげでとても助かりました。<br/>ありがとうございました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../97.html" class="item">Back to questions #97</a>
+    </div>
+  </div>
+</body>
+</html>

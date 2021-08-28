@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #89 at 2021-04-02 10:34:55 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #89 at 2021-04-02 10:34:55 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../89.html" class="item">Back to random #89</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1617327295.025100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1617327295.025100">2021-04-02 10:34:55 +0900</a></div>
+          </div>
+          <div class="description">GHC2021とレコード周りの修正がめっちゃありがたいですねー。プロファイリングやデバッグ周りもよさげな新機能が :eyes:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1617359032.025800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">takenobu.hs</div>
+            <div class="date"><a class="date" href="#message-1617359032.025800">2021-04-02 19:23:52 +0900</a></div>
+          </div>
+          <div class="description">GHC 9.2.1-alpha1では、RecordDot構文が使えるようになっています。 こんな感じ。<br/><pre>ghci&gt; :set -XOverloadedRecordDot 
+ghci&gt; data Val = Val {field1::Bool, field2::Int} deriving Show
+ghci&gt; x = Val True 100
+ghci&gt; x.field1
+True
+ghci&gt; x.field2
+100</pre><br/>あと、`GHC2021`言語拡張はデフォルトで有効になっています。<br/>これで有効になる言語拡張の一覧はここ。<br/><a href='https://downloads.haskell.org/ghc/9.2.1-alpha1/docs/html/users_guide/exts/control.html#extension-GHC2021'>https://downloads.haskell.org/ghc/9.2.1-alpha1/docs/html/users_guide/exts/control.html#extension-GHC2021</a><br/>コード冒頭のLanguageプラグマのリストが減ります:slightly_smiling_face:</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../89.html" class="item">Back to random #89</a>
+    </div>
+  </div>
+</body>
+</html>

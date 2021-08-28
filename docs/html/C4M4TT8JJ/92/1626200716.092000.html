@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #92 at 2021-07-14 03:25:16 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #92 at 2021-07-14 03:25:16 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../92.html" class="item">Back to random #92</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1626200716.092000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1626200716.092000">2021-07-14 03:25:16 +0900</a></div>
+          </div>
+          <div class="description">higher kinded data の使いどころかと思ったけど微妙に babies とは違う型クラスができた……<br/><pre>-- barbies
+class FunctorB (b :: (k -&gt; Type) -&gt; Type) where
+  bmap :: (forall a . f a -&gt; g a) -&gt; b f -&gt; b g
+
+-- 自作
+class FunctorB b where
+  bmap :: (Functor f, Functor g) =&gt; (forall a. f a -&gt; g a) -&gt; b f -&gt; b g</pre><br/>これ ↓ を<br/><pre>data Foo =
+  Foo [(Bar, Buzz)]</pre><br/>こう ↓ したかった<br/><pre>data Foo f =
+  Foo (f [f (f Bar, f Buzz)])</pre><br/>barbies だとこう ↓ なる<br/><pre>data Foo f =
+  Foo (f [(bar, Buzz)])</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1626367861.095500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1626367861.095500">2021-07-16 01:51:01 +0900</a></div>
+          </div>
+          <div class="description">重ね着バービー人形 <a href='https://hackage.haskell.org/package/barbies-layered'>https://hackage.haskell.org/package/barbies-layered</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../92.html" class="item">Back to random #92</a>
+    </div>
+  </div>
+</body>
+</html>

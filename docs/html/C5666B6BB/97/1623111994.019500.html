@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #97 at 2021-06-08 09:26:34 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #97 at 2021-06-08 09:26:34 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../97.html" class="item">Back to questions #97</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1623111994.019500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1623111994.019500">2021-06-08 09:26:34 +0900</a></div>
+          </div>
+          <div class="description">servantについて質問です。<br/><br/>Tutorialのfirst exampleのstartAppを1つの関数にまとめたらどうなるのかやってみようとして失敗しました。<br/>Tutorialのプログラムの <code>startApp</code> は <code>UserAPI1</code> 型に依存するはずですが、`myStartApp` にはこの型の変数を引数に取ることがないので、代わりに型変数 <code>apiType</code> を取るようにするためにforallを使ってみたのですが、<br/><code>Illegal symbol forall in type</code><br/>というエラーが出てうまくいきません。<br/>どのように記述すればいいでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1623125157.019600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1623125157.019600">2021-06-08 13:05:57 +0900</a></div>
+          </div>
+          <div class="description"><code>ExplicitForAll</code> 言語拡張は有効にしていますか？<br/><a href='https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/explicit_forall.html'>https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/explicit_forall.html</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1623133494.019800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1623133494.019800">2021-06-08 15:24:54 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。これを入れたらforallの部分は通りました。<br/><br/>しかし、returnTypeの部分が通らないですね。<br/><code>Server</code>の返り値のソースを調べてみると、実際には一般の型returnTypeではなく、apiTypeに依存する型でないといけないみたいで、`:&gt;`や <code>&lt;:&gt;</code> などの構成子の入れ子から型を取り出す必要があり、この作用を記述しないといけないみたいです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1623133630.020000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nekonistyle</div>
+            <div class="date"><a class="date" href="#message-1623133630.020000">2021-06-08 15:27:10 +0900</a></div>
+          </div>
+          <div class="description">ちゃんとソースが読めていないのですが、思っていたより、かなり難しそうですね...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1623319108.020700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">wasabi.nvim.st</div>
+            <div class="date"><a class="date" href="#message-1623319108.020700">2021-06-10 18:58:28 +0900</a></div>
+          </div>
+          <div class="description">一応これでいけました！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1623320356.021000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">wasabi.nvim.st</div>
+            <div class="date"><a class="date" href="#message-1623320356.021000">2021-06-10 19:19:16 +0900</a></div>
+          </div>
+          <div class="description">returnTypeとapiTypeの依存関係を`~` を使って表すのがミソだと思います</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../97.html" class="item">Back to questions #97</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #90 at 2021-04-22 14:34:09 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #90 at 2021-04-22 14:34:09 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../90.html" class="item">Back to random #90</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1619069649.065500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1619069649.065500">2021-04-22 14:34:09 +0900</a></div>
+          </div>
+          <div class="description">どうも buffer overrun を起こして、GCのデータを壊しているっぽい。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1619096360.066000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">takenobu.hs</div>
+            <div class="date"><a class="date" href="#message-1619096360.066000">2021-04-22 21:59:20 +0900</a></div>
+          </div>
+          <div class="description">私は使ったことがないのですが、GC時の不整合であれば、sanityチェックオプション(-DS)でチェックできるという話を聞いたことがあります。<br/><a href='https://gitlab.haskell.org/ghc/ghc/-/wikis/debugging/runtime-system#debugging-the-runtime-system'>https://gitlab.haskell.org/ghc/ghc/-/wikis/debugging/runtime-system#debugging-the-runtime-system</a><br/><a href='https://gitlab.haskell.org/ghc/ghc/-/wikis/commentary/rts/sanity#sanity-checking'>https://gitlab.haskell.org/ghc/ghc/-/wikis/commentary/rts/sanity#sanity-checking</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1619504176.084900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1619504176.084900">2021-04-27 15:16:16 +0900</a></div>
+          </div>
+          <div class="description">@takenobu.hs ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1619504227.085100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1619504227.085100">2021-04-27 15:17:07 +0900</a></div>
+          </div>
+          <div class="description">gdb の中で -DS で走らせてみました。<br/>spec: internal error: ASSERTION FAILED: file rts/sm/Sanity.c, line 740<br/>とか<br/>spec: internal error: ASSERTION FAILED: file rts/sm/Scav.c, line 1606<br/>とか言われます。<br/>やはり、buffer overrun を疑っています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1619748160.090000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1619748160.090000">2021-04-30 11:02:40 +0900</a></div>
+          </div>
+          <div class="description">@takenobu.hs <code>memset</code> が buffer overrun している箇所を発見し、めでたく修正できました。間違っていた箇所はテストコードで CI は確率的に失敗するが、フィールドテストしているサーバーでは問題が起きない点がやっかいでした。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../90.html" class="item">Back to random #90</a>
+    </div>
+  </div>
+</body>
+</html>

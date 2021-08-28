@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #15 at 2021-03-19 18:14:36 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #15 at 2021-03-19 18:14:36 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../15.html" class="item">Back to beginners #15</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1616145276.006000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1616145276.006000">2021-03-19 18:14:36 +0900</a></div>
+          </div>
+          <div class="description">Could not find module ‘Data.Vector.Unboxed’というエラーが出ました。<br/>ハッケージにはあるんですけどこれは何故なのでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616148457.012300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">takohati0821</div>
+            <div class="date"><a class="date" href="#message-1616148457.012300">2021-03-19 19:07:37 +0900</a></div>
+          </div>
+          <div class="description">もう少し詳細な情報はありますか？（システムにインストールしたghcでコンパイルした、cabal buildした、stack buildした、など）<br/>例えば、stackの場合はpackage.yamlのdependenciesにvectorを追加すると、Data.Vector.Unboxedなどのvectorパッケージが提供するモジュールを使えるようになります</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616238366.019400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1616238366.019400">2021-03-20 20:06:06 +0900</a></div>
+          </div>
+          <div class="description">stackでbuildしました。<br/>package.yamlのdependenciesにvectorを追加するのは、どうすればいいでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616246419.020100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">takohati0821</div>
+            <div class="date"><a class="date" href="#message-1616246419.020100">2021-03-20 22:20:19 +0900</a></div>
+          </div>
+          <div class="description"><pre>dependencies:
+  - base
+  - vector # この行を追加</pre><br/>のように、そのままvectorをdependenciesに追加すればOKです。package.yamlの詳細な書き方が知りたいときは stackのUser guide（<https://docs.haskellstack.org/en/stable/GUIDE/#user-guide>）やhpackのREADMEを読むと良いです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616588292.020700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1616588292.020700">2021-03-24 21:18:12 +0900</a></div>
+          </div>
+          <div class="description">package.yamlが見つかりませんね……。<br/>どこを探すとあるのでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616657513.020900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">takohati0821</div>
+            <div class="date"><a class="date" href="#message-1616657513.020900">2021-03-25 16:31:53 +0900</a></div>
+          </div>
+          <div class="description">普通にstack newしたなら、src/ディレクトリがあるディレクトリにあるはずです。<br/><br/>ですが、package.yamlが見つからないということは、stack ghcなどでファイルを直接コンパイルしているのだと思います（違ったらこの段落は読み飛ばしてください）。その場合は、stackに`--package vector`オプションを渡します。例えば`stack ghc Main.hs --package vector`。<br/>この下りはドキュメントを読んだだけなのであまり自信がないです。もしかしたら、コンパイルする前に`stack install vector`を実行するだけでいいかも。<br/><br/>もう一つありえるのは、hpackを使わず.cabalファイルを直接使っている可能性です。その場合は、&lt;プロジェクト名&gt;.cabalのbuild-dependsにvectorを追加します。`build-depends: base, vector`のように`,`区切りで書きます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1617178924.024900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1617178924.024900">2021-03-31 17:22:04 +0900</a></div>
+          </div>
+          <div class="description"><code>stack install vector</code> で通りました。<br/>ありがとうございます。<br/>返事が遅れて申し訳ありません。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../15.html" class="item">Back to beginners #15</a>
+    </div>
+  </div>
+</body>
+</html>

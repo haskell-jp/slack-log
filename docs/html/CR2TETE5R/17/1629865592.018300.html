@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #17 at 2021-08-25 13:26:32 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #17 at 2021-08-25 13:26:32 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../17.html" class="item">Back to beginners #17</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1629865592.018300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">noshigoro98</div>
+            <div class="date"><a class="date" href="#message-1629865592.018300">2021-08-25 13:26:32 +0900</a></div>
+          </div>
+          <div class="description">windows10のコマンドプロンプトで<br/>stack install hmatrix<br/>としたところ、以下のようなエラーが出ました。<br/><pre>hmatrix&gt; configure
+hmatrix&gt; Configuring hmatrix-0.20.2...
+hmatrix&gt; Cabal-simple_Z6RU0evB_3.2.1.0_ghc-8.10.4.exe: Missing dependencies on foreign
+hmatrix&gt; libraries:
+hmatrix&gt; * Missing (or bad) C libraries: blas, lapack
+hmatrix&gt; This problem can usually be solved by installing the system packages that
+hmatrix&gt; provide these libraries (you may need the "-dev" versions). If the libraries
+hmatrix&gt; are already installed but in a non-standard location then you can use the
+hmatrix&gt; flags --extra-include-dirs= and --extra-lib-dirs= to specify where they are.If
+hmatrix&gt; the library files do exist, it may contain errors that are caught by the C
+hmatrix&gt; compiler at the preprocessing stage. In this case you can re-run configure
+hmatrix&gt; with the verbosity flag -v3 to see the error messages.</pre><br/>情報が足りないかもしれませんが、このエラーの原因を教えていただきたいです。よろしくお願いします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1629872785.018400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1629872785.018400">2021-08-25 15:26:25 +0900</a></div>
+          </div>
+          <div class="description">エラーメッセージのとおり、blasとlapackというライブラリーがインストールされていないためのエラーです。<br/>「windows lapack」や「windows blas」で検索するとどこかしらでそれらのdllファイルとhファイルが見つかるかと思います。<br/>インストールする際は stack.yaml の <code>extra-include-dirs</code> という設定項目で <code>.h</code> ファイルが含まれているディレクトリーを指定し、 <code>extra-lib-dirs</code> という設定項目で <code>.dll</code> ファイルが含まれるディレクトリーを指定してください。<br/>また、コンパイルした後の実行時に <code>.dll</code> ファイルが含まれているディレクトリーを <code>PATH</code> に追加しておく必要もあったはずなので、その点もご注意を。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../17.html" class="item">Back to beginners #17</a>
+    </div>
+  </div>
+</body>
+</html>

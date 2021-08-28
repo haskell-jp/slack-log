@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #17 at 2021-07-22 13:27:11 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #17 at 2021-07-22 13:27:11 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../17.html" class="item">Back to beginners #17</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1626928031.165900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">naosak1006</div>
+            <div class="date"><a class="date" href="#message-1626928031.165900">2021-07-22 13:27:11 +0900</a></div>
+          </div>
+          <div class="description">質問です。以下のコードは、getLineで受け取った文字列の先頭に1文字(今回ならk)だけ付け加えているのですが、先頭にではなく末尾に付け加えたいと思っています。`:` の逆バージョンのような簡潔な表現はないのでしょうか？<br/><pre>main=getLine&gt;&gt;=putStrLn.(:)'k'</pre><br/></div>
+        </div>
+      </div>
+      <div class="event" id="message-1626930295.166000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">seasellsheshell_com.s</div>
+            <div class="date"><a class="date" href="#message-1626930295.166000">2021-07-22 14:04:55 +0900</a></div>
+          </div>
+          <div class="description">@naosak1006<br/><code>flip (:)</code> を用いるのはいかがでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626930561.166200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1626930561.166200">2021-07-22 14:09:21 +0900</a></div>
+          </div>
+          <div class="description">そのような関数はsnocと名付けられることが多く、textやbytestringにはあります<br/>しかしListには標準では定義されてないようです<br/>多分、リスト全部辿って入れないといけないので++で遅いことをプログラマに自覚させたいのでしょう</div>
+        </div>
+      </div>
+      <div class="event" id="message-1626930946.166500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">naosak1006</div>
+            <div class="date"><a class="date" href="#message-1626930946.166500">2021-07-22 14:15:46 +0900</a></div>
+          </div>
+          <div class="description">@seasellsheshell_com.s<br/>ちなみにflip用いるとどんな表現になりそうですかね...?</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../17.html" class="item">Back to beginners #17</a>
+    </div>
+  </div>
+</body>
+</html>

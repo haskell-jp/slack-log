@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #96 at 2021-03-22 16:47:35 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #96 at 2021-03-22 16:47:35 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1616399255.005500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1616399255.005500">2021-03-22 16:47:35 +0900</a></div>
+          </div>
+          <div class="description">CloudWatch logのJSON形式で良い感じにログを出力させるOSSって既にありますか?<br/>[amazonka-cloudwatch-logs: Amazon CloudWatch Logs SDK.](<https://hackage.haskell.org/package/amazonka-cloudwatch-logs>)<br/>は出力するのではなく逆に出力を解析する方みたいで不適に見えます<br/>ちゃんとフォーマットするかはともかく作ること自体は簡単そうですが、車輪の再発明はしたくないなと思ったのです<br/>無いなら作ります</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616399997.006100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1616399997.006100">2021-03-22 16:59:57 +0900</a></div>
+          </div>
+          <div class="description">雑にググった感じ、CloudWatch を前提にしたロガー的なのはなさそうですね<br/><a href='https://github.com/search?l=Haskell&amp;q=cloudwatch&amp;type=Repositories'>https://github.com/search?l=Haskell&amp;q=cloudwatch&amp;type=Repositories</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1616401857.006300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1616401857.006300">2021-03-22 17:30:57 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://docs.aws.amazon.com/ja_jp/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html'>https://docs.aws.amazon.com/ja_jp/AmazonCloudWatchLogs/latest/APIReference/API_GetLogEvents.html</a><br/><a href='https://hackage.haskell.org/package/amazonka-cloudwatch-logs-1.6.1/docs/Network-AWS-CloudWatchLogs-GetLogEvents.html#t:GetLogEvents'>https://hackage.haskell.org/package/amazonka-cloudwatch-logs-1.6.1/docs/Network-AWS-CloudWatchLogs-GetLogEvents.html#t:GetLogEvents</a><br/>GetLogEventsはjson形式でデータがとれますがこういうのと違いますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616401963.006600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1616401963.006600">2021-03-22 17:32:43 +0900</a></div>
+          </div>
+          <div class="description">@junji.hashimoto 言葉が足りませんでした。取得する方をどうにかするのではなくて、Yesodアプリケーションでログを出力する際にCloudWatchで見やすくJSONでログを出力したかったのですよね。<br/>ありがとうございます、無さそうでしたら作ることにします。<br/>CloudWatchのJSONのスキーマがよく分からないけど…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616402115.006800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1616402115.006800">2021-03-22 17:35:15 +0900</a></div>
+          </div>
+          <div class="description">了解です。<br/><a href='https://hackage.haskell.org/package/amazonka-cloudwatch-logs-1.6.1/docs/Network-AWS-CloudWatchLogs-PutLogEvents.html'>https://hackage.haskell.org/package/amazonka-cloudwatch-logs-1.6.1/docs/Network-AWS-CloudWatchLogs-PutLogEvents.html</a><br/>逆側ならPutLogEventsですかね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616402264.007000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1616402264.007000">2021-03-22 17:37:44 +0900</a></div>
+          </div>
+          <div class="description">これ見た感じタイムスタンプとメッセージしかなさそうなのでエラーであるとか送れなさそうなんですよね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616411326.007400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1616411326.007400">2021-03-22 20:08:46 +0900</a></div>
+          </div>
+          <div class="description">そのメッセージにJSONをかくのが一般的なような気がします。<br/>そうすればcloudwatch logs insightsとかでログが検索できるようです。<br/><a href='https://dev.classmethod.jp/articles/how-to-cloudwatch-logs-insights/'>https://dev.classmethod.jp/articles/how-to-cloudwatch-logs-insights/</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1616414055.007800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1616414055.007800">2021-03-22 20:54:15 +0900</a></div>
+          </div>
+          <div class="description">なんかいい感じに出来た気がするのでブログ記事にまとめて投下します</div>
+        </div>
+      </div>
+      <div class="event" id="message-1616417150.008400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1616417150.008400">2021-03-22 21:45:50 +0900</a></div>
+          </div>
+          <div class="description">とりあえず私の解決策です<br/>[Yesodのログを改善して解析しやすくする - ncaq](<https://www.ncaq.net/2021/03/22/20/48/47/>)</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+  </div>
+</body>
+</html>

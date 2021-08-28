@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #96 at 2021-04-17 14:29:40 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #96 at 2021-04-17 14:29:40 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1618637380.047800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1618637380.047800">2021-04-17 14:29:40 +0900</a></div>
+          </div>
+          <div class="description">前ここで質問させていただいた、<br/><a href='https://haskell-jp.slack.com/archives/C5666B6BB/p1594261873131500'>https://haskell-jp.slack.com/archives/C5666B6BB/p1594261873131500</a><br/>に関連するのですが、haskellのlayout付きコードをbraces and semicolonsに完全に変換するのって、自分で例のレポートのL関数を(悪名高いparse-error(t)含め)実装するしかないのでしょうか？ ghcの拡張をふんだんに使ったコードを変換するので、あんまり車輪の再発明はしたくなくて…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618643307.048100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1618643307.048100">2021-04-17 16:08:27 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://github.com/goldfirere/th-desugar'>https://github.com/goldfirere/th-desugar</a> とか要件を満たしますかね？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618643348.048500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1618643348.048500">2021-04-17 16:09:08 +0900</a></div>
+          </div>
+          <div class="description">ああー、と思ったけどレイアウトルールとかについては何もしてくれないか... :disappointed:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618658976.049600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1618658976.049600">2021-04-17 20:29:36 +0900</a></div>
+          </div>
+          <div class="description">そうっぽいですね…．<br/>「あるライブラリパッケージのモジュールを全部1つのexecutable program source fileに埋め込む」みたいなことをしたくて，ライブラリ側をimport部と宣言部に分けてpreprocessしてそれぞれぶち込んじゃえ，という発想になったんですね．import部において，対象パッケージ外をimportしてるものを全部 import qualifiedにして対応する宣言部のimported nameをぜんぶfully-qualified nameに置き換えようと思ったときに，レイアウトがおもいっきり崩れて辛いんで，レイアウトから自由になれればいいなあ，という動機だったんですが…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618668851.051500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">autotaker</div>
+            <div class="date"><a class="date" href="#message-1618668851.051500">2021-04-17 23:14:11 +0900</a></div>
+          </div>
+          <div class="description">将来的な話ですが1ファイルに複数モジュール定義できるようにするLocal modulesのproposalが議論されていますよ。<br/><br/><a href='https://github.com/ghc-proposals/ghc-proposals/pull/283'>https://github.com/ghc-proposals/ghc-proposals/pull/283</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1618697095.051900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1618697095.051900">2021-04-18 07:04:55 +0900</a></div>
+          </div>
+          <div class="description">:point_up: の自分の発言で思いついたんですが、Template Haskellでパースしてからpretty printしちゃうというのはいかがでしょうか？ドキュメントのとおり、そもそもTempate Haskellレベルの構文木ではレイアウトルールは一切考慮されないみたいですし<br/><a href='http://hackage.haskell.org/package/template-haskell-2.17.0.0/docs/Language-Haskell-TH.html#t:Exp'>http://hackage.haskell.org/package/template-haskell-2.17.0.0/docs/Language-Haskell-TH.html#t:Exp</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1618700099.052200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1618700099.052200">2021-04-18 07:54:59 +0900</a></div>
+          </div>
+          <div class="description">あっ、もちろん適当なフォーマッターを使うのもアリだと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618740568.055200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1618740568.055200">2021-04-18 19:09:28 +0900</a></div>
+          </div>
+          <div class="description">@autotaker いいですね！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618744900.058800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1618744900.058800">2021-04-18 20:21:40 +0900</a></div>
+          </div>
+          <div class="description">@igrep 元々fully qualificationをどうやったらいいかわからなくて、template haskellに頼るつもりだったので、割とありな気はしますね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618746972.060000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1618746972.060000">2021-04-18 20:56:12 +0900</a></div>
+          </div>
+          <div class="description">@igrep ただ，<br/><pre>runST $ do VU.unsafeWrite ufpar root2 root1
+           VU.unsafeModify ufrank (+1) root1</pre><br/>を<br/><pre>Control.Monad.ST.runST $ do Data.Vector.Unboxed.Mutable.unsafeWrite ufpar root2 root1
+           Data.Vector.Unboxed.Mutable.unsafeModify ufrank (+1) root1</pre><br/>にしちゃった，みたいなのって，フォーマッターでなんとかなるんでしょうか…？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618747155.060400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1618747155.060400">2021-04-18 20:59:15 +0900</a></div>
+          </div>
+          <div class="description">なるんだったらそれでなんとかしたい</div>
+        </div>
+      </div>
+      <div class="event" id="message-1618747174.060600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1618747174.060600">2021-04-18 20:59:34 +0900</a></div>
+          </div>
+          <div class="description">なるほど... 確かにそうなってしまうとパースが失敗するでしょうからきついでしょうね... :disappointed:</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../96.html" class="item">Back to questions #96</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #98 at 2021-08-20 17:17:30 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #98 at 2021-08-20 17:17:30 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../98.html" class="item">Back to questions #98</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1629447450.023800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kasshi.4259.b.b</div>
+            <div class="date"><a class="date" href="#message-1629447450.023800">2021-08-20 17:17:30 +0900</a></div>
+          </div>
+          <div class="description">はじめまして、Kasshiと申します。<br/>ある時Free Arrowをつかいたくなって次のようなコードを書いてみたのですが、<br/>`{-# LANGUAGE RankNTypes #-}`<br/>`import Control.Category hiding (id ,(.))`<br/>`import qualified Control.Category as Cat`<br/><br/>`newtype A f a b = Arr {unA :: forall r. Arrow r =&gt; (forall x y. f x y -&gt; r x y) -&gt; r a b}`<br/>`instance Category (A f) where`<br/>   `id = Arr $ const Cat.id`<br/>   `Arr g . Arr f = Arr $ \p -&gt; f p &gt;&gt;&gt; g p`<br/>Categoryのidのconst関数のところでGHCに<br/>&gt; Couldn't match type 'b0' with 'forall x y. f x y -&gt; r x y'<br/>と怒られてしまいました。<br/><br/>そこで`const Cat.id` を`\ _ -&gt; Cat.id` と書き換えるとコンパイルが通りました。<br/>多相関数がうまく型推論されていないことが原因と思われますが、これは仕様なのかバグなのかが分かりません。<br/>知見をお持ちの方はご意見頂けると幸いです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1629449118.023900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1629449118.023900">2021-08-20 17:45:18 +0900</a></div>
+          </div>
+          <div class="description">Impredicative polymorphismの罠にハマっているように見えます。私もあまり詳しくないのでちゃんと説明できないのですが... :cold_sweat:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1629449129.024100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1629449129.024100">2021-08-20 17:45:29 +0900</a></div>
+          </div>
+          <div class="description">GHC 8.10系だと通ってGHC 9.0.1だとコンパイルが通らなくなってるので、simplified subsumptionの影響を受けるコードっぽいですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1629449461.024600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1629449461.024600">2021-08-20 17:51:01 +0900</a></div>
+          </div>
+          <div class="description">問題を単純化すると <code>(const ()) :: (forall x. x -&gt; x) -&gt; ()</code> は通らなくて <code>(\_ -&gt; ()) :: (forall x. x -&gt; x) -&gt; ()</code> は通る、ということになります。前者は <code>const () :: b -&gt; ()</code> の <code>b</code> に <code>forall x. x -&gt; x</code> というforallを含む型を当てはめることになるので（ImpredicativeTypesなしでは）エラー、後者はRankNTypesで引数の型が <code>forall x. x -&gt; x</code> になれるのでオッケーみたいな感じですかね（よくわかってない）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1629450952.025200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kasshi.4259.b.b</div>
+            <div class="date"><a class="date" href="#message-1629450952.025200">2021-08-20 18:15:52 +0900</a></div>
+          </div>
+          <div class="description">返信ありがとうございます。多相な型は通常では推論されないということなのですね。もうすこし調べてみます。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../98.html" class="item">Back to questions #98</a>
+    </div>
+  </div>
+</body>
+</html>

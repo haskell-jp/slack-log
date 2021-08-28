@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #17 at 2021-08-19 23:29:40 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #17 at 2021-08-19 23:29:40 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../17.html" class="item">Back to beginners #17</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1629383380.007800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">xgrk9475</div>
+            <div class="date"><a class="date" href="#message-1629383380.007800">2021-08-19 23:29:40 +0900</a></div>
+          </div>
+          <div class="description">はじめまして。Haskell歴1ヶ月程度の初心者です。<br/>現在、Haskellの型システムの上で定理証明器を作りたいと考えています。<br/>やりたいことは<https://hackage.haskell.org/package/gdp-0.0.3.0/docs/Logic-Propositional.html|Logic.Proposisional>に似ているのですが、<br/>証明したい命題を型にどう変換して、証明をどう記述すればよいのかわかりません。<br/>例えば、`((P -&gt; Q) -&gt; P) -&gt; P`を証明する場合、Haskellではどのように書くのでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1629435994.008000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">s3beeeekbbn.t</div>
+            <div class="date"><a class="date" href="#message-1629435994.008000">2021-08-20 14:06:34 +0900</a></div>
+          </div>
+          <div class="description">その命題には<https://ja.wikipedia.org/wiki/%E3%83%91%E3%83%BC%E3%82%B9%E3%81%AE%E6%B3%95%E5%89%87|パースの法則>という名前が付いていて、直観主義論理では証明ができないことが知られています。なので、なんらかの形で “ズル” (再帰) をしないといけません。<br/>あんまり詳しく見れていなくて具体的な回答ではなくて申し訳ないのですが、Logic.Propositional の二重否定除去則の実装の部分のソースなどを覗いてみると、これを使ってできると思います。<br/><a href='https://hackage.haskell.org/package/gdp-0.0.3.0/docs/Logic-Propositional.html#v:contradiction'>https://hackage.haskell.org/package/gdp-0.0.3.0/docs/Logic-Propositional.html#v:contradiction</a><br/>定理証明支援機を作り始める上では、最初は直観主義の、もうちょっと簡単な命題 <code>P -&gt; P</code> などから作り始めると良いと思います。<br/>これは型 <code>P</code> の変数`x` を引数にとって <code>x</code>  を返す関数を定義すれば良いです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1629445587.008500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">xgrk9475</div>
+            <div class="date"><a class="date" href="#message-1629445587.008500">2021-08-20 16:46:27 +0900</a></div>
+          </div>
+          <div class="description">@s3beeeekbbn.t<br/>ありがとうございます。すみません、例がよくありませんでした。<br/>では、例えばA-&gt;((A-&gt;B)-&gt;B)を証明しようとすると、以下のように一つずつ順に記述していく方法しか思いつかず、また、どこが仮定なのがわかりにくくなっていしまいます。<br/>１行で書くことはできないのでしょうか。<br/><br/><pre>h0 :: (Proof a -&gt; Proof ((a --&gt; b) --&gt; b)) -&gt; Proof (a --&gt; ((a --&gt; b) --&gt; b))
+h0 = introImpl
+
+h1 :: (Proof (a --&gt; b) -&gt; Proof b) -&gt; Proof ((a --&gt; b) --&gt; b)
+h1 = introImpl
+
+h2 :: Proof a -&gt; Proof (a --&gt; b) -&gt; Proof b
+h2 = elimImpl</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1629452115.008800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">s3beeeekbbn.t</div>
+            <div class="date"><a class="date" href="#message-1629452115.008800">2021-08-20 18:35:15 +0900</a></div>
+          </div>
+          <div class="description">ケチをつけると、それだと厳密には証明ができたことにはなっていないのではないでしょうか<br/>“p の証明が完了した“、というのは Proof p の型の値が定義できた、ということのはずなので、h0、h1、h2  を更に組み合わせる必要があります。<br/><br/>この下の方が 1 行で書いた証明になっているはずです。(上に書いた simple~~ は証明のイメージです。)<br/>```simpleModusPonens :: a -&gt; (a -&gt; b) -&gt; b<br/>simpleModusPonens x f = f x<br/><br/>myModusPonens :: Proof (a --&gt; (a --&gt; b) --&gt; b)<br/>myModusPonens = introImpl $ \proofA -&gt; introImpl (\proofAtoB -&gt; proofAtoB `modusPonens` proofA)<br/>-- ちょっと短くすると<br/>-- myModusPonens = introImpl $ \proofA -&gt; introImpl (`modusPonens` proofA)```</div>
+        </div>
+      </div>
+      <div class="event" id="message-1629458515.009000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">xgrk9475</div>
+            <div class="date"><a class="date" href="#message-1629458515.009000">2021-08-20 20:21:55 +0900</a></div>
+          </div>
+          <div class="description">ようやく理解しました。ありがとうございます。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../17.html" class="item">Back to beginners #17</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -8,201 +8,201 @@
 <body>
   <div class="ui container">
     <h1>haskell-jp / questions #4</h1>
-    <div class="pager ui pagination menu">
-      <a href="../../html/C5666B6BB/3.html" class="pager__previous item">Previous</a>
-      <a href="../../" class="pager__top item">Top</a>
-      <a href="../../html/C5666B6BB/5.html" class="pager__next item">Next</a>
+    <div class="ui pagination menu">
+      <a href="../../html/C5666B6BB/3.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+      <a href="../../html/C5666B6BB/5.html" class="item">Next</a>
     </div>
-    <div class="message_list ui feed">
-      <div class="message event" id="message-1510470054.000057">
+    <div class="ui feed">
+      <div class="event" id="message-1510470054.000057">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510470054.000057">2017-11-12 16:00:54 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1510470054.000057">2017-11-12 16:00:54 +0900</a></div>
           </div>
-          <div class="message__body description">型に言及するには，制約が <code>Monoid</code> しかないので，情報が足りないのではないでしょうか？</div>
+          <div class="description">型に言及するには，制約が <code>Monoid</code> しかないので，情報が足りないのではないでしょうか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1510470161.000004">
+      <div class="event" id="message-1510470161.000004">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510470161.000004">2017-11-12 16:02:41 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1510470161.000004">2017-11-12 16:02:41 +0900</a></div>
           </div>
-          <div class="message__body description">多相関数というのは割と結構強い制約で，例えばFunctor則は <code>fmap</code> が多相関数なのでどちらかの則があれば自動的にもう一方を満たします(<https://www.schoolofhaskell.com/user/edwardk/snippets/fmap>)</div>
+          <div class="description">多相関数というのは割と結構強い制約で，例えばFunctor則は <code>fmap</code> が多相関数なのでどちらかの則があれば自動的にもう一方を満たします(<https://www.schoolofhaskell.com/user/edwardk/snippets/fmap>)</div>
         </div>
       </div>
-      <div class="message event" id="message-1510470210.000039">
+      <div class="event" id="message-1510470210.000039">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510470210.000039">2017-11-12 16:03:30 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1510470210.000039">2017-11-12 16:03:30 +0900</a></div>
           </div>
-          <div class="message__body description">なので， Foldableも多相関数を利用してる場合その時点で割と実装が限られて来ます (もっとも，ボトムを定義中に使われると色々と壊れるのですが)</div>
+          <div class="description">なので， Foldableも多相関数を利用してる場合その時点で割と実装が限られて来ます (もっとも，ボトムを定義中に使われると色々と壊れるのですが)</div>
         </div>
       </div>
-      <div class="message event" id="message-1510470466.000002">
+      <div class="event" id="message-1510470466.000002">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510470466.000002">2017-11-12 16:07:46 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1510470466.000002">2017-11-12 16:07:46 +0900</a></div>
           </div>
-          <div class="message__body description">そういう意味では、多相関数を使ってなくて Functor であってもなくてもよく（Functor でもなおかつという方が面白いですが）いかにも不自然な感じのする Foldable の例があるかという質問と思ってください。</div>
+          <div class="description">そういう意味では、多相関数を使ってなくて Functor であってもなくてもよく（Functor でもなおかつという方が面白いですが）いかにも不自然な感じのする Foldable の例があるかという質問と思ってください。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510470608.000024">
+      <div class="event" id="message-1510470608.000024">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510470608.000024">2017-11-12 16:10:08 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1510470608.000024">2017-11-12 16:10:08 +0900</a></div>
           </div>
-          <div class="message__body description">それはあり得ると思いますが，多相関数でない以上FoldableではないのでそれはfoldやfoldMapの型を特殊化したものと型が一致したただの別の関数ということになってしまうのではないでしょうか？</div>
+          <div class="description">それはあり得ると思いますが，多相関数でない以上FoldableではないのでそれはfoldやfoldMapの型を特殊化したものと型が一致したただの別の関数ということになってしまうのではないでしょうか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1510470730.000054">
+      <div class="event" id="message-1510470730.000054">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510470730.000054">2017-11-12 16:12:10 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1510470730.000054">2017-11-12 16:12:10 +0900</a></div>
           </div>
-          <div class="message__body description">なお， Foldableをもう少し弱めたものならば <a href='https://hackage.haskell.org/package/recursion-schemes-5.0.2/docs/Data-Functor-Foldable.html#t:Recursive'>https://hackage.haskell.org/package/recursion-schemes-5.0.2/docs/Data-Functor-Foldable.html#t:Recursive</a> などがあります</div>
+          <div class="description">なお， Foldableをもう少し弱めたものならば <a href='https://hackage.haskell.org/package/recursion-schemes-5.0.2/docs/Data-Functor-Foldable.html#t:Recursive'>https://hackage.haskell.org/package/recursion-schemes-5.0.2/docs/Data-Functor-Foldable.html#t:Recursive</a> などがあります</div>
         </div>
       </div>
-      <div class="message event" id="message-1510471096.000003">
+      <div class="event" id="message-1510471096.000003">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510471096.000003">2017-11-12 16:18:16 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1510471096.000003">2017-11-12 16:18:16 +0900</a></div>
           </div>
-          <div class="message__body description">うむむむ、リストとリスト以外のモノイドで実装を分けて書けないので多相的な実装しか書けないですね。確かに。</div>
+          <div class="description">うむむむ、リストとリスト以外のモノイドで実装を分けて書けないので多相的な実装しか書けないですね。確かに。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510471145.000029">
+      <div class="event" id="message-1510471145.000029">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510471145.000029">2017-11-12 16:19:05 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1510471145.000029">2017-11-12 16:19:05 +0900</a></div>
           </div>
-          <div class="message__body description">これがfoldのチュートリアルみたいです．これを読んでみると疑問が解決するかもしれません？（ちょっと僕も読んでみます）<br/><a href='http://www.cs.nott.ac.uk/~pszgmh/fold.pdf'>http://www.cs.nott.ac.uk/~pszgmh/fold.pdf</a></div>
+          <div class="description">これがfoldのチュートリアルみたいです．これを読んでみると疑問が解決するかもしれません？（ちょっと僕も読んでみます）<br/><a href='http://www.cs.nott.ac.uk/~pszgmh/fold.pdf'>http://www.cs.nott.ac.uk/~pszgmh/fold.pdf</a></div>
         </div>
       </div>
-      <div class="message event" id="message-1510471478.000017">
+      <div class="event" id="message-1510471478.000017">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510471478.000017">2017-11-12 16:24:38 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1510471478.000017">2017-11-12 16:24:38 +0900</a></div>
           </div>
-          <div class="message__body description">では、木の形だけで判断するとして好きに選んだいくつかのある木のときだけは mempty にしてそれ以外では concat した値にするとしたら整合性や不自然さはどうでしょう。</div>
+          <div class="description">では、木の形だけで判断するとして好きに選んだいくつかのある木のときだけは mempty にしてそれ以外では concat した値にするとしたら整合性や不自然さはどうでしょう。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510471674.000018">
+      <div class="event" id="message-1510471674.000018">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510471674.000018">2017-11-12 16:27:54 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1510471674.000018">2017-11-12 16:27:54 +0900</a></div>
           </div>
-          <div class="message__body description">多分それも代数的には意味のある構造なのだと思います．それを木という代数的構造で考えると不自然なのですが，別の代数と考えるとそのfoldを考えてるようなものなのだと思います</div>
+          <div class="description">多分それも代数的には意味のある構造なのだと思います．それを木という代数的構造で考えると不自然なのですが，別の代数と考えるとそのfoldを考えてるようなものなのだと思います</div>
         </div>
       </div>
-      <div class="message event" id="message-1510471721.000041">
+      <div class="event" id="message-1510471721.000041">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510471721.000041">2017-11-12 16:28:41 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1510471721.000041">2017-11-12 16:28:41 +0900</a></div>
           </div>
-          <div class="message__body description">なので，Foldable的にはおかしくないのだと思うのですが(ちょっとFoldableの背景には明るくないので，明確には言えないです)</div>
+          <div class="description">なので，Foldable的にはおかしくないのだと思うのですが(ちょっとFoldableの背景には明るくないので，明確には言えないです)</div>
         </div>
       </div>
-      <div class="message event" id="message-1510472257.000025">
+      <div class="event" id="message-1510472257.000025">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510472257.000025">2017-11-12 16:37:37 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1510472257.000025">2017-11-12 16:37:37 +0900</a></div>
           </div>
-          <div class="message__body description">そもそもこのことを考え始めたきっかけは「Haskell 教養としての関数型プログラミング」に 「Foldable は並べられるという性質」とあって「並べられる」っぽっくない Foldable の例はないだろうかと考え始めたのでした。</div>
+          <div class="description">そもそもこのことを考え始めたきっかけは「Haskell 教養としての関数型プログラミング」に 「Foldable は並べられるという性質」とあって「並べられる」っぽっくない Foldable の例はないだろうかと考え始めたのでした。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510472334.000066">
+      <div class="event" id="message-1510472334.000066">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510472334.000066">2017-11-12 16:38:54 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1510472334.000066">2017-11-12 16:38:54 +0900</a></div>
           </div>
-          <div class="message__body description">なるほど．並べられるというより並べ方を定義するの方が分かりやすいかもしれません</div>
+          <div class="description">なるほど．並べられるというより並べ方を定義するの方が分かりやすいかもしれません</div>
         </div>
       </div>
-      <div class="message event" id="message-1510472424.000018">
+      <div class="event" id="message-1510472424.000018">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510472424.000018">2017-11-12 16:40:24 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1510472424.000018">2017-11-12 16:40:24 +0900</a></div>
           </div>
-          <div class="message__body description">foldMapを定義すれば基本的にtoListが定義できるので</div>
+          <div class="description">foldMapを定義すれば基本的にtoListが定義できるので</div>
         </div>
       </div>
-      <div class="message event" id="message-1510472550.000014">
+      <div class="event" id="message-1510472550.000014">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510472550.000014">2017-11-12 16:42:30 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1510472550.000014">2017-11-12 16:42:30 +0900</a></div>
           </div>
-          <div class="message__body description">まあ「並べる」とはどういう意味かということに帰着されて <code>toList t = build (\ c n -&gt; foldr c n t)</code> を「並べる」ということだ言ってしまえばその通りかもしれませんが普通の直感とは多分違うような気が。</div>
+          <div class="description">まあ「並べる」とはどういう意味かということに帰着されて <code>toList t = build (\ c n -&gt; foldr c n t)</code> を「並べる」ということだ言ってしまえばその通りかもしれませんが普通の直感とは多分違うような気が。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510472730.000004">
+      <div class="event" id="message-1510472730.000004">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510472730.000004">2017-11-12 16:45:30 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1510472730.000004">2017-11-12 16:45:30 +0900</a></div>
           </div>
-          <div class="message__body description">まあ確かに普通の直感とは異なるかもしれません．ただ，普通の直感の並べ方をもっと形式的に表せないかというのがfoldMapのアイデアの元になってて,</div>
+          <div class="description">まあ確かに普通の直感とは異なるかもしれません．ただ，普通の直感の並べ方をもっと形式的に表せないかというのがfoldMapのアイデアの元になってて,</div>
         </div>
       </div>
-      <div class="message event" id="message-1510472843.000090">
+      <div class="event" id="message-1510472843.000090">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510472843.000090">2017-11-12 16:47:23 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1510472843.000090">2017-11-12 16:47:23 +0900</a></div>
           </div>
-          <div class="message__body description">リストに対してのfoldMapが出来てそれでtoListがちゃんと表せて，木もフラットにする方法がやっぱり同じ方法で出来て，じゃあFoldableにまとめたら他の代数でも同じように並べ方が定義できるようになったという感じだと思います．</div>
+          <div class="description">リストに対してのfoldMapが出来てそれでtoListがちゃんと表せて，木もフラットにする方法がやっぱり同じ方法で出来て，じゃあFoldableにまとめたら他の代数でも同じように並べ方が定義できるようになったという感じだと思います．</div>
         </div>
       </div>
-      <div class="message event" id="message-1510473084.000007">
+      <div class="event" id="message-1510473084.000007">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510473084.000007">2017-11-12 16:51:24 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1510473084.000007">2017-11-12 16:51:24 +0900</a></div>
           </div>
-          <div class="message__body description">なので直感的な感覚から始まって，色々な並べるをうまく表せるFoldableを一つの並べるの定義方法だと思えば，非直感的な並べ方に対しても同じようなことができてその並べ方に沿って並べるをアルゴリズムの一部として使うようなものが一般的に書けるという点では，Foldableも並べられるという性質を持っているといって問題ないのではないでしょうか？</div>
+          <div class="description">なので直感的な感覚から始まって，色々な並べるをうまく表せるFoldableを一つの並べるの定義方法だと思えば，非直感的な並べ方に対しても同じようなことができてその並べ方に沿って並べるをアルゴリズムの一部として使うようなものが一般的に書けるという点では，Foldableも並べられるという性質を持っているといって問題ないのではないでしょうか？</div>
         </div>
       </div>
-      <div class="message event" id="message-1510473916.000008">
+      <div class="event" id="message-1510473916.000008">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510473916.000008">2017-11-12 17:05:16 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1510473916.000008">2017-11-12 17:05:16 +0900</a></div>
           </div>
-          <div class="message__body description">うーん、そうですね。上に書いたときどき mempty になる例も列に並ぶのをさぼるグループがいると考えれば「並べる」と言える気がしてきました。自分のコピーを作って複数人分潜り込ませて並ぶというのもありかな。</div>
+          <div class="description">うーん、そうですね。上に書いたときどき mempty になる例も列に並ぶのをさぼるグループがいると考えれば「並べる」と言える気がしてきました。自分のコピーを作って複数人分潜り込ませて並ぶというのもありかな。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510474985.000053">
+      <div class="event" id="message-1510474985.000053">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510474985.000053">2017-11-12 17:23:05 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1510474985.000053">2017-11-12 17:23:05 +0900</a></div>
           </div>
-          <div class="message__body description"><pre>
+          <div class="description"><pre>
 newtype Square a = Square a
 </pre><br/>とかだったら意味論的にはありだと思いますね</div>
         </div>
       </div>
-      <div class="message event" id="message-1510481874.000020">
+      <div class="event" id="message-1510481874.000020">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510481874.000020">2017-11-12 19:17:54 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1510481874.000020">2017-11-12 19:17:54 +0900</a></div>
           </div>
-          <div class="message__body description">リストも（標準のリストFoldableとは違いますが）<br/><pre>
+          <div class="description">リストも（標準のリストFoldableとは違いますが）<br/><pre>
 fold [] = mempty
 fold [m1] = m1 &lt;&gt; m1
 fold [m1, m2] = m2
@@ -212,128 +212,128 @@ fold [m1, m2, m3, m4] = mempty
 </pre><br/>のように要素と &lt;&gt;  と memtpy だけを組み合わせているかぎりどのように定義しても Foldable になりそうですね。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510504726.000031">
+      <div class="event" id="message-1510504726.000031">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510504726.000031">2017-11-13 01:38:46 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1510504726.000031">2017-11-13 01:38:46 +0900</a></div>
           </div>
-          <div class="message__body description">あれ、toList の話に自分で build を出しましたが build は cata, ana を想定してない一般には定義されてないですよね。toList は fold からどう定義できるんでしたっけ。Foldableパッケージには toList = elems と書いてあるだけでその elems はどう定義するのでしょう。上の例では<br/><pre>
+          <div class="description">あれ、toList の話に自分で build を出しましたが build は cata, ana を想定してない一般には定義されてないですよね。toList は fold からどう定義できるんでしたっけ。Foldableパッケージには toList = elems と書いてあるだけでその elems はどう定義するのでしょう。上の例では<br/><pre>
 elems [m1] = [m1,m1]
 elems [m1,m2] = [m2]
 ...
 </pre><br/>と定義するという堂々巡りしているだけ？</div>
         </div>
       </div>
-      <div class="message event" id="message-1510512428.000022">
+      <div class="event" id="message-1510512428.000022">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510512428.000022">2017-11-13 03:47:08 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1510512428.000022">2017-11-13 03:47:08 +0900</a></div>
           </div>
-          <div class="message__body description">どの <code>Foldable</code> を見てるかはよく分かりませんが，現状のbase( <a href='https://hackage.haskell.org/package/base-4.10.0.0/docs/src/Data.Foldable.html#line-230'>https://hackage.haskell.org/package/base-4.10.0.0/docs/src/Data.Foldable.html#line-230</a> )では， <code>toList = build (\ c n -&gt; foldr c n t)</code> がデフォルトになっています． <code>build</code> は <a href='https://hackage.haskell.org/package/base-4.10.0.0/docs/src/GHC.Base.html#line-871'>https://hackage.haskell.org/package/base-4.10.0.0/docs/src/GHC.Base.html#line-871</a> ですね．リストを作るためのビルダーになっていて， foldr/build変換なども適用されるようになります</div>
+          <div class="description">どの <code>Foldable</code> を見てるかはよく分かりませんが，現状のbase( <a href='https://hackage.haskell.org/package/base-4.10.0.0/docs/src/Data.Foldable.html#line-230'>https://hackage.haskell.org/package/base-4.10.0.0/docs/src/Data.Foldable.html#line-230</a> )では， <code>toList = build (\ c n -&gt; foldr c n t)</code> がデフォルトになっています． <code>build</code> は <a href='https://hackage.haskell.org/package/base-4.10.0.0/docs/src/GHC.Base.html#line-871'>https://hackage.haskell.org/package/base-4.10.0.0/docs/src/GHC.Base.html#line-871</a> ですね．リストを作るためのビルダーになっていて， foldr/build変換なども適用されるようになります</div>
         </div>
       </div>
-      <div class="message event" id="message-1510555268.000089">
+      <div class="event" id="message-1510555268.000089">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">ncaq</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510555268.000089">2017-11-13 15:41:08 +0900</a></div>
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1510555268.000089">2017-11-13 15:41:08 +0900</a></div>
           </div>
-          <div class="message__body description">一回stack buildでcabalファイルを生成してから使えばpackage.yamlにも使えるのでは?手で編集できないほど依存ライブラリの数が多ければわかりませんが…</div>
+          <div class="description">一回stack buildでcabalファイルを生成してから使えばpackage.yamlにも使えるのでは?手で編集できないほど依存ライブラリの数が多ければわかりませんが…</div>
         </div>
       </div>
-      <div class="message event" id="message-1510561822.000162">
+      <div class="event" id="message-1510561822.000162">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510561822.000162">2017-11-13 17:30:22 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1510561822.000162">2017-11-13 17:30:22 +0900</a></div>
           </div>
-          <div class="message__body description">ううう、build はそうでした。上で書いた fold の例だと <code>toList [m1] = m1:m1:[] = [m1,m1]</code> ですね。<br/>elems と書いてあったのは <code>instance Foldable (Array i)</code> の中のところでした。<br/><code>'toList = '</code> で検索したのが失敗だった orz。</div>
+          <div class="description">ううう、build はそうでした。上で書いた fold の例だと <code>toList [m1] = m1:m1:[] = [m1,m1]</code> ですね。<br/>elems と書いてあったのは <code>instance Foldable (Array i)</code> の中のところでした。<br/><code>'toList = '</code> で検索したのが失敗だった orz。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510715994.000101">
+      <div class="event" id="message-1510715994.000101">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">1to100pen</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510715994.000101">2017-11-15 12:19:54 +0900</a></div>
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1510715994.000101">2017-11-15 12:19:54 +0900</a></div>
           </div>
-          <div class="message__body description">前に書いていた <code>fold . fmap f = f . fold</code> は f はモノイド準同型を前提してということですか。</div>
+          <div class="description">前に書いていた <code>fold . fmap f = f . fold</code> は f はモノイド準同型を前提してということですか。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510726603.000115">
+      <div class="event" id="message-1510726603.000115">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">mizunashi-mana</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510726603.000115">2017-11-15 15:16:43 +0900</a></div>
+            <div class="user">mizunashi-mana</div>
+            <div class="date"><a class="date" href="#message-1510726603.000115">2017-11-15 15:16:43 +0900</a></div>
           </div>
-          <div class="message__body description">あ，そうですね． <code>f</code> がモノイド準同型であることが必要です</div>
+          <div class="description">あ，そうですね． <code>f</code> がモノイド準同型であることが必要です</div>
         </div>
       </div>
-      <div class="message event" id="message-1510731561.000247">
+      <div class="event" id="message-1510731561.000247">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">brackss1</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510731561.000247">2017-11-15 16:39:21 +0900</a></div>
+            <div class="user">brackss1</div>
+            <div class="date"><a class="date" href="#message-1510731561.000247">2017-11-15 16:39:21 +0900</a></div>
           </div>
-          <div class="message__body description">初歩的な質問なのですが<br/><code>import qualified Data.Text as T</code>とすると<br/><code>T.Text</code>と型にもTが付くんですか?</div>
+          <div class="description">初歩的な質問なのですが<br/><code>import qualified Data.Text as T</code>とすると<br/><code>T.Text</code>と型にもTが付くんですか?</div>
         </div>
       </div>
-      <div class="message event" id="message-1510731628.000105">
+      <div class="event" id="message-1510731628.000105">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510731628.000105">2017-11-15 16:40:28 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1510731628.000105">2017-11-15 16:40:28 +0900</a></div>
           </div>
-          <div class="message__body description">はい。</div>
+          <div class="description">はい。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510731645.000081">
+      <div class="event" id="message-1510731645.000081">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">brackss1</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510731645.000081">2017-11-15 16:40:45 +0900</a></div>
+            <div class="user">brackss1</div>
+            <div class="date"><a class="date" href="#message-1510731645.000081">2017-11-15 16:40:45 +0900</a></div>
           </div>
-          <div class="message__body description">ありがとうございます。</div>
+          <div class="description">ありがとうございます。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510733750.000262">
+      <div class="event" id="message-1510733750.000262">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">wado</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510733750.000262">2017-11-15 17:15:50 +0900</a></div>
+            <div class="user">wado</div>
+            <div class="date"><a class="date" href="#message-1510733750.000262">2017-11-15 17:15:50 +0900</a></div>
           </div>
-          <div class="message__body description">型を <code>T.Text</code> にしたくない場合はこんな感じで定義されてることが多いですね！<br/><br/><pre>
+          <div class="description">型を <code>T.Text</code> にしたくない場合はこんな感じで定義されてることが多いですね！<br/><br/><pre>
 import Data.Text (Text)
 import qualified Data.Text as T
 </pre><br/><br/><code>Data.Map</code> を <code>import</code> する際にも良くみかけます:grinning:</div>
         </div>
       </div>
-      <div class="message event" id="message-1510734420.000172">
+      <div class="event" id="message-1510734420.000172">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kakkun61</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510734420.000172">2017-11-15 17:27:00 +0900</a></div>
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1510734420.000172">2017-11-15 17:27:00 +0900</a></div>
           </div>
-          <div class="message__body description">wado さんの提示してるやり方よくしますね</div>
+          <div class="description">wado さんの提示してるやり方よくしますね</div>
         </div>
       </div>
-      <div class="message event" id="message-1510735436.000187">
+      <div class="event" id="message-1510735436.000187">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">brackss1</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510735436.000187">2017-11-15 17:43:56 +0900</a></div>
+            <div class="user">brackss1</div>
+            <div class="date"><a class="date" href="#message-1510735436.000187">2017-11-15 17:43:56 +0900</a></div>
           </div>
-          <div class="message__body description">括弧付きimportのほうが優先順位が高いんですね</div>
+          <div class="description">括弧付きimportのほうが優先順位が高いんですね</div>
         </div>
       </div>
-      <div class="message event" id="message-1510735901.000080">
+      <div class="event" id="message-1510735901.000080">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">wado</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510735901.000080">2017-11-15 17:51:41 +0900</a></div>
+            <div class="user">wado</div>
+            <div class="date"><a class="date" href="#message-1510735901.000080">2017-11-15 17:51:41 +0900</a></div>
           </div>
-          <div class="message__body description">モジュールの括弧は優先順位とは全く無関係です。括弧によってモジュールから <code>import</code> するもの (関数や型など) を明示的に列挙できます。<br/><br/><pre>
+          <div class="description">モジュールの括弧は優先順位とは全く無関係です。括弧によってモジュールから <code>import</code> するもの (関数や型など) を明示的に列挙できます。<br/><br/><pre>
 import Data.Text (Text)
 </pre><br/><br/>上記は <code>Text</code> 型のみを <code>import</code> します。その際、 <code>qualified ... as</code> 形式ではないため <code>Text</code> という表記で利用できます。<br/><br/><pre>
 import qualified Data.Text as T
@@ -343,155 +343,155 @@ import qualified Data.Text as T hiding (Text)
 </pre><br/><br/>長くなりましたが、だいたいこんな感じだと思います。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510744302.000321">
+      <div class="event" id="message-1510744302.000321">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">brackss1</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510744302.000321">2017-11-15 20:11:42 +0900</a></div>
+            <div class="user">brackss1</div>
+            <div class="date"><a class="date" href="#message-1510744302.000321">2017-11-15 20:11:42 +0900</a></div>
           </div>
-          <div class="message__body description">なるほど。<br/>ありがとうございます:musical_note:</div>
+          <div class="description">なるほど。<br/>ありがとうございます:musical_note:</div>
         </div>
       </div>
-      <div class="message event" id="message-1510790576.000058">
+      <div class="event" id="message-1510790576.000058">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">takuo</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510790576.000058">2017-11-16 09:02:56 +0900</a></div>
+            <div class="user">takuo</div>
+            <div class="date"><a class="date" href="#message-1510790576.000058">2017-11-16 09:02:56 +0900</a></div>
           </div>
-          <div class="message__body description">Stackを使った開発でのghc-modの利用について質問させてください．Stackage LTS-8.xにはghc-modがあったので問題なくインストールできましたが，LTS-9.xからは外されて(?)しまい，cabal-installで別途導入しようとしても途中でエラーになってしまいます．LTS-9.xでghc-modを利用できている方はどのようにやっていらっしゃるのでしょうか．</div>
+          <div class="description">Stackを使った開発でのghc-modの利用について質問させてください．Stackage LTS-8.xにはghc-modがあったので問題なくインストールできましたが，LTS-9.xからは外されて(?)しまい，cabal-installで別途導入しようとしても途中でエラーになってしまいます．LTS-9.xでghc-modを利用できている方はどのようにやっていらっしゃるのでしょうか．</div>
         </div>
       </div>
-      <div class="message event" id="message-1510791571.000276">
+      <div class="event" id="message-1510791571.000276">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510791571.000276">2017-11-16 09:19:31 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1510791571.000276">2017-11-16 09:19:31 +0900</a></div>
           </div>
-          <div class="message__body description">ghc-modは、もう僕の手を離れているので、よく分かりません。</div>
+          <div class="description">ghc-modは、もう僕の手を離れているので、よく分かりません。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510791592.000054">
+      <div class="event" id="message-1510791592.000054">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510791592.000054">2017-11-16 09:19:52 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1510791592.000054">2017-11-16 09:19:52 +0900</a></div>
           </div>
-          <div class="message__body description">GHC 8.0.2では使えますし、僕も stack なしで使っています。</div>
+          <div class="description">GHC 8.0.2では使えますし、僕も stack なしで使っています。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510791612.000091">
+      <div class="event" id="message-1510791612.000091">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510791612.000091">2017-11-16 09:20:12 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1510791612.000091">2017-11-16 09:20:12 +0900</a></div>
           </div>
-          <div class="message__body description">なお、ghc-modは、まだ GHC 8.2.x には対応していません。</div>
+          <div class="description">なお、ghc-modは、まだ GHC 8.2.x には対応していません。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510792155.000150">
+      <div class="event" id="message-1510792155.000150">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">wado</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510792155.000150">2017-11-16 09:29:15 +0900</a></div>
+            <div class="user">wado</div>
+            <div class="date"><a class="date" href="#message-1510792155.000150">2017-11-16 09:29:15 +0900</a></div>
           </div>
-          <div class="message__body description"><code>lts-9</code> 系でも <code>stack install ghc-mod</code> でインストールできたような気がします。</div>
+          <div class="description"><code>lts-9</code> 系でも <code>stack install ghc-mod</code> でインストールできたような気がします。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510792785.000086">
+      <div class="event" id="message-1510792785.000086">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">takuo</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510792785.000086">2017-11-16 09:39:45 +0900</a></div>
+            <div class="user">takuo</div>
+            <div class="date"><a class="date" href="#message-1510792785.000086">2017-11-16 09:39:45 +0900</a></div>
           </div>
-          <div class="message__body description">試しにやってみたらインストールできたようです（macOS 10.13.1, Stack LTS-9.13）．LTS-9.x になって以来パッケージリストに ghc-mod が含まれていないので stack install ではできないものと思って試していませんでした．ありがとうございます．</div>
+          <div class="description">試しにやってみたらインストールできたようです（macOS 10.13.1, Stack LTS-9.13）．LTS-9.x になって以来パッケージリストに ghc-mod が含まれていないので stack install ではできないものと思って試していませんでした．ありがとうございます．</div>
         </div>
       </div>
-      <div class="message event" id="message-1510792839.000180">
+      <div class="event" id="message-1510792839.000180">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">naohaq</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510792839.000180">2017-11-16 09:40:39 +0900</a></div>
+            <div class="user">naohaq</div>
+            <div class="date"><a class="date" href="#message-1510792839.000180">2017-11-16 09:40:39 +0900</a></div>
           </div>
-          <div class="message__body description">便乗ですが、今だとEmacsでhaskellのコードを書く場合は <code>haskell-mode</code> を使っておくのがいいんでしょうか。(というかそれ以外に選択肢がない？)</div>
+          <div class="description">便乗ですが、今だとEmacsでhaskellのコードを書く場合は <code>haskell-mode</code> を使っておくのがいいんでしょうか。(というかそれ以外に選択肢がない？)</div>
         </div>
       </div>
-      <div class="message event" id="message-1510794752.000033">
+      <div class="event" id="message-1510794752.000033">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510794752.000033">2017-11-16 10:12:32 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1510794752.000033">2017-11-16 10:12:32 +0900</a></div>
           </div>
-          <div class="message__body description">はい。elpaに上がっているhaskell-modeが最新だと思います。</div>
+          <div class="description">はい。elpaに上がっているhaskell-modeが最新だと思います。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510798655.000193">
+      <div class="event" id="message-1510798655.000193">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">myuon_myon</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510798655.000193">2017-11-16 11:17:35 +0900</a></div>
+            <div class="user">myuon_myon</div>
+            <div class="date"><a class="date" href="#message-1510798655.000193">2017-11-16 11:17:35 +0900</a></div>
           </div>
-          <div class="message__body description">単にsyntax highlightくらいできればいいならhaskell-modeでいいと思います<br/>もっとIDE的な機能が欲しければinteroっていうプラグインがありますね</div>
+          <div class="description">単にsyntax highlightくらいできればいいならhaskell-modeでいいと思います<br/>もっとIDE的な機能が欲しければinteroっていうプラグインがありますね</div>
         </div>
       </div>
-      <div class="message event" id="message-1510879403.000061">
+      <div class="event" id="message-1510879403.000061">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">kazu</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510879403.000061">2017-11-17 09:43:23 +0900</a></div>
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1510879403.000061">2017-11-17 09:43:23 +0900</a></div>
           </div>
-          <div class="message__body description">ある typeclass の instance を reexport する方法って、Haskellにはないんでしたっけ？</div>
+          <div class="description">ある typeclass の instance を reexport する方法って、Haskellにはないんでしたっけ？</div>
         </div>
       </div>
-      <div class="message event" id="message-1510882435.000032">
+      <div class="event" id="message-1510882435.000032">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">igrep</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510882435.000032">2017-11-17 10:33:55 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1510882435.000032">2017-11-17 10:33:55 +0900</a></div>
           </div>
-          <div class="message__body description">普通に <a href='https://github.com/tfausak/autoexporter'>https://github.com/tfausak/autoexporter</a> などでやるように module ごと reexport すればできたように思います。<br/>ちょっと記憶が怪しい（しかもTHによる例）ので恐縮ですが、<br/><a href='https://github.com/igrep/typesafe-precure/blob/5dc0800ae8f8f4e002ee3d32d92ae6450b86d653/src/ACME/PreCure/Textbook/KirakiraALaMode/Instances.hs'>https://github.com/igrep/typesafe-precure/blob/5dc0800ae8f8f4e002ee3d32d92ae6450b86d653/src/ACME/PreCure/Textbook/KirakiraALaMode/Instances.hs</a> の時点のtypesafe-precureは<br/><code>ACME.PreCure.Textbook.KirakiraALaMode.Instances</code> でインスタンスしか定義していない module を export して、<br/>更に src/ACME/PreCure/Textbook/KirakiraALaMode.hs などでreexport していました。</div>
+          <div class="description">普通に <a href='https://github.com/tfausak/autoexporter'>https://github.com/tfausak/autoexporter</a> などでやるように module ごと reexport すればできたように思います。<br/>ちょっと記憶が怪しい（しかもTHによる例）ので恐縮ですが、<br/><a href='https://github.com/igrep/typesafe-precure/blob/5dc0800ae8f8f4e002ee3d32d92ae6450b86d653/src/ACME/PreCure/Textbook/KirakiraALaMode/Instances.hs'>https://github.com/igrep/typesafe-precure/blob/5dc0800ae8f8f4e002ee3d32d92ae6450b86d653/src/ACME/PreCure/Textbook/KirakiraALaMode/Instances.hs</a> の時点のtypesafe-precureは<br/><code>ACME.PreCure.Textbook.KirakiraALaMode.Instances</code> でインスタンスしか定義していない module を export して、<br/>更に src/ACME/PreCure/Textbook/KirakiraALaMode.hs などでreexport していました。</div>
         </div>
       </div>
-      <div class="message event" id="message-1510890461.000059">
+      <div class="event" id="message-1510890461.000059">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">as_capabl</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510890461.000059">2017-11-17 12:47:41 +0900</a></div>
+            <div class="user">as_capabl</div>
+            <div class="date"><a class="date" href="#message-1510890461.000059">2017-11-17 12:47:41 +0900</a></div>
           </div>
-          <div class="message__body description">” All instances defined in a module A are imported automatically when importing A, or importing any module that imports A, directly or indirectly.”  <a href='https://wiki.haskell.org/Orphan_instance'>https://wiki.haskell.org/Orphan_instance</a> だそうで、有無を言わさず自動的に再エクスポートされるみたいです</div>
+          <div class="description">” All instances defined in a module A are imported automatically when importing A, or importing any module that imports A, directly or indirectly.”  <a href='https://wiki.haskell.org/Orphan_instance'>https://wiki.haskell.org/Orphan_instance</a> だそうで、有無を言わさず自動的に再エクスポートされるみたいです</div>
         </div>
       </div>
-      <div class="message event" id="message-1510994045.000043">
+      <div class="event" id="message-1510994045.000043">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">brackss1</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510994045.000043">2017-11-18 17:34:05 +0900</a></div>
+            <div class="user">brackss1</div>
+            <div class="date"><a class="date" href="#message-1510994045.000043">2017-11-18 17:34:05 +0900</a></div>
           </div>
-          <div class="message__body description">誰かText.EDEに詳しい人いませんか</div>
+          <div class="description">誰かText.EDEに詳しい人いませんか</div>
         </div>
       </div>
-      <div class="message event" id="message-1510994928.000036">
+      <div class="event" id="message-1510994928.000036">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">brackss1</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510994928.000036">2017-11-18 17:48:48 +0900</a></div>
+            <div class="user">brackss1</div>
+            <div class="date"><a class="date" href="#message-1510994928.000036">2017-11-18 17:48:48 +0900</a></div>
           </div>
-          <div class="message__body description"><code>env = fromPairs ["list" .=["AA","BB","CC"]]</code></div>
+          <div class="description"><code>env = fromPairs ["list" .=["AA","BB","CC"]]</code></div>
         </div>
       </div>
-      <div class="message event" id="message-1510994949.000038">
+      <div class="event" id="message-1510994949.000038">
         <div class="content">
           <div class="summary">
-            <div class="message__header user">brackss1</div>
-            <div class="message__timestamp date"><a class="date" href="#message-1510994949.000038">2017-11-18 17:49:09 +0900</a></div>
+            <div class="user">brackss1</div>
+            <div class="date"><a class="date" href="#message-1510994949.000038">2017-11-18 17:49:09 +0900</a></div>
           </div>
-          <div class="message__body description">こうしてもうまくレンダリングできません</div>
+          <div class="description">こうしてもうまくレンダリングできません</div>
         </div>
       </div>
     </div>
-    <div class="pager ui pagination menu">
-      <a href="../../html/C5666B6BB/3.html" class="pager__previous item">Previous</a>
-      <a href="../../" class="pager__top item">Top</a>
-      <a href="../../html/C5666B6BB/5.html" class="pager__next item">Next</a>
+    <div class="ui pagination menu">
+      <a href="../../html/C5666B6BB/3.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+      <a href="../../html/C5666B6BB/5.html" class="item">Next</a>
     </div>
   </div>
 </body>
