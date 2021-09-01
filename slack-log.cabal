@@ -1,0 +1,97 @@
+cabal-version:  2.4
+name:           slack-log
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/haskell-jp/slack-log#readme>
+homepage:       https://github.com/haskell-jp/slack-log#readme
+bug-reports:    https://github.com/haskell-jp/slack-log/issues
+author:         Japan Haskell User Group
+maintainer:     igrep@n.email.ne.jp
+copyright:      2018 Japan Haskell User Group
+license:        Apache-2.0
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+    test/assets/expected-index.html
+    test/assets/expected-messages.html
+    test/assets/expected-replies.html
+    test/assets/json/C4M4TT8JJ/35.json
+    templates/index.mustache.html
+    templates/messages.mustache.html
+    templates/thread.mustache.html
+
+source-repository head
+  type: git
+  location: https://github.com/haskell-jp/slack-log
+
+common common
+  build-depends:
+    , base >= 4.7 && < 5
+    , QuickCheck
+    , aeson
+    , aeson-pretty
+    , base >=4.7 && <5
+    , butcher
+    , bytestring
+    , directory
+    , envy
+    , exceptions
+    , extra
+    , filepath
+    , mtl
+    , quickcheck-instances
+    , safe
+    , slack-web
+    , template-haskell
+    , text
+    , time
+    , tz
+    , unordered-containers
+    , yaml
+  default-language: Haskell2010
+
+library
+  import: common
+  exposed-modules:
+      SlackLog.Duration
+      SlackLog.Html
+      SlackLog.Pagination
+      SlackLog.Replies
+      SlackLog.Types
+      SlackLog.Util
+      Web.Slack.Instances
+  hs-source-dirs:
+      src
+  build-depends:
+    , mustache
+    , witherable
+  default-language: Haskell2010
+
+executable slack-log
+  import: common
+  main-is: Main.hs
+  other-modules:
+      Paths_slack_log
+  hs-source-dirs:
+      app
+  build-depends:
+    , slack-log
+    , slack-web
+
+test-suite slack-log-test
+  import: common
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      SlackLog.DurationSpec
+      SlackLog.HtmlSpec
+      SlackLog.PaginationSpec
+      SlackLog.RepliesSpec
+      Web.Slack.InstancesSpec
+      Paths_slack_log
+  hs-source-dirs:
+      test
+  build-depends:
+    , hspec
+    , slack-log
