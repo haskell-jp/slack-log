@@ -16,7 +16,6 @@ limitations under the License.
 
 -- | Export and upload messages from haskell-jp.slack.com
 
-{-# LANGUAGE LambdaCase        #-}
 {-# LANGUAGE NamedFieldPuns    #-}
 {-# LANGUAGE OverloadedStrings #-}
 
@@ -28,7 +27,7 @@ import           Control.Exception        (bracket)
 import           Control.Monad            (unless, when)
 import           Control.Monad.Catch      (throwM)
 import           Control.Monad.IO.Class   (liftIO)
-import           Control.Monad.Reader     (runReaderT)
+import           Control.Monad.Reader     (ReaderT, ask, runReaderT)
 import qualified Data.Aeson.Encode.Pretty as Json
 import qualified Data.ByteString.Lazy     as BL
 import           Data.Foldable            (for_)
@@ -114,34 +113,36 @@ saveCmd = do
 
     -- These actions have to be performed before generating HTMLs.
     -- Because generating HTMLs requires channelsByName, usersByName
-    saveUsersList apiConfig
+    (`runReaderT` apiConfig) $ do
+      saveUsersList
 
-    let targets = targetChannels config
-    saveResult <- for (HM.keys targets) $ \chanId -> do
-      newTs <- saveChannel apiConfig oldTss chanId
+      let targets = targetChannels config
+      saveResult <- for (HM.keys targets) $ \chanId -> do
+        newTs <- saveChannel oldTss chanId
 
-      now <- getCurrentTime
-      saveReplies apiConfig config now $ ConversationId chanId
+        now <- liftIO getCurrentTime
+        saveReplies config now $ ConversationId chanId
 
-      jsonPaths <- collectTargetJsons chanId
-      convertJsonsInChannel ws chanId jsonPaths
+        liftIO $ do
+          jsonPaths <- collectTargetJsons chanId
+          convertJsonsInChannel ws chanId jsonPaths
+          return ((chanId, newTs), (chanId, jsonPaths))
 
-      return ((chanId, newTs), (chanId, jsonPaths))
+      liftIO $ do
+        let (newTss, newNames) = Arrow.first HM.fromList $ unzip saveResult
+        BL.writeFile "json/.timestamps.json" $ Json.encodePretty newTss
 
-    let (newTss, newNames) = Arrow.first HM.fromList $ unzip saveResult
-
-    BL.writeFile "json/.timestamps.json" $ Json.encodePretty newTss
-
-    when (oldTss /=  newTss) $
-      generateIndexHtml ws newNames
+        when (oldTss /=  newTss) $
+          generateIndexHtml ws newNames
 
 
 -- |
 -- The directory structure of replies: @docs/json/<CHANNEL_ID>/<PAGE_NUM>/<MESSAGE_TIMESTAMP>.json@.
 -- Assumes the current directory is @docs/@
-saveReplies :: Slack.SlackConfig -> Config -> UTCTime -> ConversationId -> IO ()
-saveReplies apiConfig Config { saveRepliesBefore = Duration before } now convId =
-  Dir.withCurrentDirectory "json" $ do
+saveReplies :: Config -> UTCTime -> ConversationId -> ReaderT Slack.SlackConfig IO ()
+saveReplies Config { saveRepliesBefore = Duration before } now convId = do
+  apiConfig <- ask
+  liftIO . Dir.withCurrentDirectory "json" $ do
     let saveSince = addUTCTime (negate before) now
     putStrLn
       $ "Channel "
@@ -193,10 +194,11 @@ paginateJsonCmd =
 
 
 -- | Assumes the current directory is @docs/@
-saveUsersList :: Slack.SlackConfig -> IO ()
-saveUsersList apiConfig =
-  Slack.usersList
-    `runReaderT` apiConfig >>= \case
+saveUsersList :: ReaderT Slack.SlackConfig IO ()
+saveUsersList = do
+  result <- Slack.usersList
+  liftIO $
+    case result of
       Right (User.ListRsp us) -> do
         let usersByName = HM.fromList $ map ((,) <$> Slack.unUserId . User.userId <*> User.userName) us
         BL.writeFile "json/.users.json" $ Json.encodePretty usersByName
@@ -207,39 +209,38 @@ saveUsersList apiConfig =
 
 -- | Assumes the current directory is @docs/@
 saveChannel
-  :: Slack.SlackConfig
-  -> TimestampsByChannel
+  ::  TimestampsByChannel
   -> ChannelId
-  -> IO Slack.SlackTimestamp
-saveChannel cfg tss chanId = do
+  -> ReaderT Slack.SlackConfig IO Slack.SlackTimestamp
+saveChannel tss chanId = do
   let old = fromMaybe (Slack.mkSlackTimestamp $ UTCTime (fromGregorian 2017 1 1) 0) (HM.lookup chanId tss)
-  putStrLn $ "Channel " ++ T.unpack chanId ++ "'s last timestamp: " ++ show (Slack.slackTimestampTime old) ++ "."
+  liftIO . putStrLn $ "Channel " ++ T.unpack chanId ++ "'s last timestamp: " ++ show (Slack.slackTimestampTime old) ++ "."
   let histReq = (Conversation.mkHistoryReq (ConversationId chanId))
         { Conversation.historyReqInclusive = False
         , Conversation.historyReqOldest = Just old
         }
-  (`runReaderT` cfg) $ do
-    latestTsRef <- liftIO $ IOR.newIORef old
-    loadPage <- Slack.conversationsHistoryAll histReq
-    Slack.loadingPage loadPage $ \epage -> liftIO $
-      case epage of
-          Right msgs ->
-            if null msgs
-              then
-                putStrLn $ "Channel " ++ T.unpack chanId ++ ": Empty page returned by LoadPage. Finishing to save."
-              else do
-                lastTs <- IOR.readIORef latestTsRef
-                putStrLn $ "Channel " ++ T.unpack chanId ++ ": Saving page since " ++ show (Slack.slackTimestampTime lastTs) ++ "."
+  latestTsRef <- liftIO $ IOR.newIORef old
+  loadPage <- Slack.conversationsHistoryAll histReq
+  Slack.loadingPage loadPage $ \epage -> liftIO $
+    case epage of
+        Right msgs ->
+          if null msgs
+            then
+              putStrLn $ "Channel " ++ T.unpack chanId ++ ": Empty page returned by LoadPage. Finishing to save."
+            else do
+              lastTs <- IOR.readIORef latestTsRef
+              putStrLn $ "Channel " ++ T.unpack chanId ++ ": Saving page since " ++ show (Slack.slackTimestampTime lastTs) ++ "."
 
-                let latestTs = maximumDef lastTs $ map Slack.messageTs msgs
-                IOR.writeIORef latestTsRef latestTs
+              let latestTs = maximumDef lastTs $ map Slack.messageTs msgs
+              IOR.writeIORef latestTsRef latestTs
 
-                addMessagesToChannelDirectory chanId $ sortOn Slack.messageTs msgs
-          Left err -> do
-            hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show chanId ++ ":"
-            hPrint stderr err
-    liftIO . putStrLn $ "Channel " ++ T.unpack chanId ++ ": Finishing saving the channel history."
-    liftIO $ IOR.readIORef latestTsRef
+              addMessagesToChannelDirectory chanId $ sortOn Slack.messageTs msgs
+        Left err -> do
+          hPutStrLn stderr $ "WARNING: Error when fetching the history of " ++ show chanId ++ ":"
+          hPrint stderr err
+  liftIO $ do
+    putStrLn $ "Channel " ++ T.unpack chanId ++ ": Finishing saving the channel history."
+    IOR.readIORef latestTsRef
 
 
 -- | Assumes the current directory is @docs/@
