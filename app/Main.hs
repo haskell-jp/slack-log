@@ -111,12 +111,12 @@ saveCmd = do
   Dir.withCurrentDirectory "docs" $ do
     ws <- loadWorkspaceInfo config "json"
     oldTss <- readJsonFile "json/.timestamps.json"
-    let targets = targetChannels config
 
     -- These actions have to be performed before generating HTMLs.
     -- Because generating HTMLs requires channelsByName, usersByName
     saveUsersList apiConfig
 
+    let targets = targetChannels config
     saveResult <- for (HM.keys targets) $ \chanId -> do
       newTs <- saveChannel apiConfig oldTss chanId
 
