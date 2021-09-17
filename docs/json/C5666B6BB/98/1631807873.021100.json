@@ -1,0 +1,14 @@
+[
+    {
+        "ts": "1631807873.021100",
+        "text": "あるバイナリファイル(xmobarの実行可能ファイル)をxmonad(正確には `xmonad-contrib` ) の `XMonad.Hooks.DynamicLog.statusBar` を用いて実行した場合と、直接バイナリを叩いた場合(bashから、 `/bin/sh -c \"与えられた実行可能ファイル\"`) の挙動が違う現象に遭遇して困っています。(xmonadからの場合はUTF8文字列が描画できず、直接ならできる)\n\n`statusBar` は内部では  `System.Posix.Process.ExecuteFile` を叩いており(<https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/src/XMonad.Util.Run.html#spawnPipe|該当コード>)、 `/bin/sh -c \"与えた実行可能ファイル\"` を(execvシステムコールを用いて)実行しています。\nなので直叩きする際も念のためshから呼びだしていますが同じにならず...\nシステムコール周りの違いとか...?くらいしか思い付かず...\nあまりHaskellな質問ではない気もしてしまいますが、似たような現象があったりした程度でも教えていただきたいです...!\n\n（参考、画像最上部がxmonadを用いた時で画像最下部が直叩きの時の結果です）\n<https://twitter.com/Cj_bc_sd/status/1438519917846822923|https://twitter.com/Cj_bc_sd/status/1438519917846822923>",
+        "user": "ULTBB86UC",
+        "type": "message"
+    },
+    {
+        "ts": "1631837274.021400",
+        "text": "環境変数が引き継げてないとか、じゃないっすかね。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]

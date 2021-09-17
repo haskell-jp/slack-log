@@ -1,0 +1,152 @@
+[
+    {
+        "ts": "1631755708.021300",
+        "text": "お久しぶりです。\n昔に質問したと思うのですが、覚えていないのと自力解決を臨んでみたもののうまくいかなかったので質問します。\n```DP2.hs:12:1: error:\n    Could not find module 'Data.Vector.Unboxed'\n    Use -v (or `:set -v` in ghci) to see a list of the files searched for.\n   |\n12 | import qualified Data.Vector.Unboxed as U\n   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^```\n`DP2.hs` を `stack runghc DP2.hs` で走らせようとした時に生じたエラーメッセージです。\n\nこれに対し私は `package.yaml` の `dependencies`  に\n`Data`  を書き加えたのですが、全く同じエラーが出ます。\n解決方法を求めます。お願いします。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1631755922.021400",
+        "text": "<@UFMV026NR> <https://hackage.haskell.org/package/vector-0.12.3.0/docs/Data-Vector-Unboxed.html|こちらのドキュメント> の左上を見ていただけるとわかると思うのですが、 `Data.Vector.Unboxed` は `vector` というパッケージによって公開されているようです。ですので、追加すべきは `Data` でなく `vector` かと思われます。（Haskell の場合、 `import` 文に書くパッケージ階層はセマンティクスによる分類であって依存関係単位による分類ではないのですよね）",
+        "user": "U021XMH7NDT",
+        "type": "message"
+    },
+    {
+        "ts": "1631756014.021600",
+        "text": "<@U021XMH7NDT>\nありがとうございます。追加してみます。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1631756149.021800",
+        "text": "```dependencies:\n- base &gt;= 4.7 &amp;&amp; &lt; 5\n- array\n- bytestring\n- containers\n- random\n- vector```\n`package.yaml` の一部抜粋です。\nこのようにしましたが、解決されませんでした。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1631756488.022000",
+        "text": "大文字なのかな？",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1631756516.022300",
+        "text": "なるほど、でしたらわかりません……（私も Haskell 初心者なので当てずっぽうで回答してしましました＞＜）",
+        "user": "U021XMH7NDT",
+        "type": "message"
+    },
+    {
+        "ts": "1631756544.022500",
+        "text": "大文字じゃなかったでした。\nわかりました、回答くださってありがとうございます。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1631756574.022700",
+        "text": "stack init されてます？",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1631756949.022900",
+        "text": "`stack init`  しようとしたら怒られが発生したので `stack init --force`  して `package.yaml` に `vector`  を追加してそして `stack runghc DP2.hs -v` したらなんかすごいことが始まってしまいました。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1631757015.023100",
+        "text": "あー……やはりエラーは同じメッセージが返って来ますね……。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1631758180.023300",
+        "text": "`stack init`  しましたが、同じエラーが発生します。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1631758569.023600",
+        "text": "1. package.yaml 全体の内容を貼り付けてください。\n2. 件のDP2.hsというファイルとpackage.yamlはどのディレクトリーに置いていて、どのディレクトリーから問題のコマンドを実行しましたか？\n3. 問題が発生したコマンドは何でしょうか？ `stack build` ？あるいは `stack runghc DP2.hs` ？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1631758886.023900",
+        "text": "1.\n```name:                yaminabe\nversion:             0.1.0.0\ngithub:              \"yourusername/yaminabe\"\nlicense:             BSD3\nauthor:              \"Your Name\"\nmaintainer:          \"<mailto:youremail@example.com|youremail@example.com>\"\ncopyright:           \"2021 Your Name\"\n\nextra-source-files:\n- README.md\n- ChangeLog.md\n\n# Metadata used when publishing your package\n# synopsis:            Short description of your package\n# category:            Web\n\n# To avoid duplicated efforts in documentation and dealing with the\n# complications of embedding Haddock markup inside cabal files, it is\n# common to point users to the README.md file.\ndescription:         Please see the README on GitHub at &lt;<https://github.com/yourusername/yaminabe#readme>&gt;\n\ndependencies:\n- base &gt;= 4.7 &amp;&amp; &lt; 5\n- array\n- bytestring\n- containers\n- random\n- vector\nlibrary:\n  source-dirs: src\n\nexecutables:\n  yaminabe-exe:\n    main:                Example15.hs\n    source-dirs:         app\n    ghc-options:\n    - -threaded\n    - -rtsopts\n    - -with-rtsopts=-N\n    dependencies:\n    - yaminabe```\n2.\n`yaminabe`  というディレクトリに置いて、このディレクトリから実行しました。\n3.\n`stack runghc DP2.hs`  です。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1631759087.024100",
+        "text": "多分ソースコードはsrc以下に置いてないとダメだと思う",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1631759149.024300",
+        "text": "`stack runghc` は1ファイルで完結するような、package.yamlを指定するまでもない小さなプログラムで用いるコマンドです。なのでpackage.yamlは参照しません。\nこのまま `runghc` で動かすのであれば、 `stack runghc --package vector DP2.hs` と実行してください。ほかにも必要なパッケージがある場合同じようなエラーが出るでしょう。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1631759369.024900",
+        "text": "うーん?stack ghcってパッケージ読み込まないのかな、読み込むような気がするけど…\nまあ何にせよ、そもそもstack ghcするよりstack ghciしてインタラクティブ環境をロードして関数を実行したりreloadした方がdebugには役に立つ気がします",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1631759750.025100",
+        "text": "<@U4LGTMTMK> <@U57CUMWQ6>\nありがとうございます。\n動きました。\n\n1ファイル完結の小さなプログラムで `runghc`  を用いるのですね。\nその場合は `package.yaml`  は参照されないとのこと、承知しました。\n今のところまだ大きなプログラムを書いていないので、今後も `runghc` を使うことが多いと思いますが、頭に入れておきます。\n\nお二方、本当にありがとうございました。\n助かりました。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1631759796.025400",
+        "text": "1ファイル完結の場合stack script形式を使うのも手だと思います\nこれだとコマンド方式覚えなくても良いので",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1631760381.025700",
+        "text": "<https://qiita.com/tanakh/items/1ca4ba9e1f5006a30106>\n\nここに載っているような例でしょうか？",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1631760500.026100",
+        "text": "はい、ただ私は実は使ったことないです。\nポータブルな単体ファイルを用意する必要が無かったことと、\nライブラリを試してみるとかの範囲なら、stack installをglobalに実行して書き捨ててEmacsのinf-haskell(ghci)で読み込んで実行して終わりに出来るからです。",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1631761908.026300",
+        "text": ":man-bowing: `stack runghc` がpackage.yamlを読むのでは？という話については今念のためチェックしていますが、うっかりGHC 8.10.7のインストールが始まってしまったため時間がかかっています :man-bowing:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1631762014.026500",
+        "text": "<@U57CUMWQ6>\nなんとなくですが、そちらの方がお手軽そうに見えますね……。＞stack installをglobalに実行して書き捨ててEmacsのinf-haskellで読み込んで実行して終わり\n\nなんとか今よりもお手軽な実行方法を身に付けたいと思います。\nお答えいただきありがとうございました。\n本当に感謝です。\n\n<@U4LGTMTMK>\n検証ありがとうございます。お時間いただいてしまい申し訳ありません。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1631762607.026700",
+        "text": "サクッと `stack new`  してからこんなプロジェクトを作ってみましたがやっぱり package.yaml に書いた `safe` パッケージは参照していないようです:\npackage.yaml:\n```name:                test\nversion:             0.1.0.0\ngithub:              \"githubuser/test\"\nlicense:             BSD3\nauthor:              \"Author name here\"\nmaintainer:          \"<mailto:example@example.com|example@example.com>\"\ncopyright:           \"2021 Author name here\"\n\nextra-source-files:\n- README.md\n- ChangeLog.md\n\n# Metadata used when publishing your package\n# synopsis:            Short description of your package\n# category:            Web\n\n# To avoid duplicated efforts in documentation and dealing with the\n# complications of embedding Haddock markup inside cabal files, it is\n# common to point users to the README.md file.\ndescription:         Please see the README on GitHub at &lt;<https://github.com/githubuser/test#readme>&gt;\n\ndependencies:\n- base &gt;= 4.7 &amp;&amp; &lt; 5\n- safe\n\nlibrary:\n  source-dirs: src\n\nexecutables:\n  test-exe:\n    main:                Main.hs\n    source-dirs:         app\n    ghc-options:\n    - -threaded\n    - -rtsopts\n    - -with-rtsopts=-N\n    dependencies:\n    - test\n\ntests:\n  test-test:\n    main:                Spec.hs\n    source-dirs:         test\n    ghc-options:\n    - -threaded\n    - -rtsopts\n    - -with-rtsopts=-N\n    dependencies:\n    - test```\nsrc/Lib.hs:\n```module Lib\n    ( main\n    ) where\n\nimport           Safe\n\nmain :: IO ()\nmain = print $ headMay [True]```\nただ、ちょっと紛らわしい挙動をするので補足します。\n`stack build` や `stack runghc --package safe src/Lib.hs` を実行する*前*に `stack runghc src/Lib.hs` すると予想通り `Safe` モジュールがないと言われるのですが、`stack build` や `stack runghc --package safe src/Lib.hs` を実行した*後*に `stack runghc src/Lib.hs` すると*エラーが起きません*。どうやら、 `stack runghc` は現在のpackage dbにインストールされているパッケージを、package.yamlの記載にかかわらず使用しているようです。\nそれが証拠に、 package.yaml から safe パッケージを*削除しても*、`stack build` や `stack runghc --package safe src/Lib.hs` を実行した*後*であれば `stack runghc src/Lib.hs` は成功するからです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1631762699.026900",
+        "text": "なるほど、なので私は勘違いしたわけですね。\n検証と回答ありがとうございます。",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1631775576.027100",
+        "text": "検証ありがとうございます。\n覚えておきたいと思います。\nお二方ありがとうございました。",
+        "user": "UFMV026NR",
+        "type": "message"
+    }
+]

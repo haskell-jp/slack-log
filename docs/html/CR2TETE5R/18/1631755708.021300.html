@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #18 at 2021-09-16 10:28:28 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #18 at 2021-09-16 10:28:28 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../18.html" class="item">Back to beginners #18</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1631755708.021300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1631755708.021300">2021-09-16 10:28:28 +0900</a></div>
+          </div>
+          <div class="description">お久しぶりです。<br/>昔に質問したと思うのですが、覚えていないのと自力解決を臨んでみたもののうまくいかなかったので質問します。<br/><pre>DP2.hs:12:1: error:
+    Could not find module 'Data.Vector.Unboxed'
+    Use -v (or `:set -v` in ghci) to see a list of the files searched for.
+   |
+12 | import qualified Data.Vector.Unboxed as U
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre><br/><code>DP2.hs</code> を <code>stack runghc DP2.hs</code> で走らせようとした時に生じたエラーメッセージです。<br/><br/>これに対し私は <code>package.yaml</code> の <code>dependencies</code>  に<br/><code>Data</code>  を書き加えたのですが、全く同じエラーが出ます。<br/>解決方法を求めます。お願いします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631755922.021400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">seasellsheshell_com.s</div>
+            <div class="date"><a class="date" href="#message-1631755922.021400">2021-09-16 10:32:02 +0900</a></div>
+          </div>
+          <div class="description">@tcokygets <a href='https://hackage.haskell.org/package/vector-0.12.3.0/docs/Data-Vector-Unboxed.html'>こちらのドキュメント</a> の左上を見ていただけるとわかると思うのですが、 <code>Data.Vector.Unboxed</code> は <code>vector</code> というパッケージによって公開されているようです。ですので、追加すべきは <code>Data</code> でなく <code>vector</code> かと思われます。（Haskell の場合、 <code>import</code> 文に書くパッケージ階層はセマンティクスによる分類であって依存関係単位による分類ではないのですよね）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631756014.021600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1631756014.021600">2021-09-16 10:33:34 +0900</a></div>
+          </div>
+          <div class="description">@seasellsheshell_com.s<br/>ありがとうございます。追加してみます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631756149.021800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1631756149.021800">2021-09-16 10:35:49 +0900</a></div>
+          </div>
+          <div class="description"><pre>dependencies:
+- base &gt;= 4.7 &amp;&amp; &lt; 5
+- array
+- bytestring
+- containers
+- random
+- vector</pre><br/><code>package.yaml</code> の一部抜粋です。<br/>このようにしましたが、解決されませんでした。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631756488.022000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1631756488.022000">2021-09-16 10:41:28 +0900</a></div>
+          </div>
+          <div class="description">大文字なのかな？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631756516.022300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">seasellsheshell_com.s</div>
+            <div class="date"><a class="date" href="#message-1631756516.022300">2021-09-16 10:41:56 +0900</a></div>
+          </div>
+          <div class="description">なるほど、でしたらわかりません……（私も Haskell 初心者なので当てずっぽうで回答してしましました＞＜）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631756544.022500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1631756544.022500">2021-09-16 10:42:24 +0900</a></div>
+          </div>
+          <div class="description">大文字じゃなかったでした。<br/>わかりました、回答くださってありがとうございます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631756574.022700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1631756574.022700">2021-09-16 10:42:54 +0900</a></div>
+          </div>
+          <div class="description">stack init されてます？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631756949.022900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1631756949.022900">2021-09-16 10:49:09 +0900</a></div>
+          </div>
+          <div class="description"><code>stack init</code>  しようとしたら怒られが発生したので <code>stack init --force</code>  して <code>package.yaml</code> に <code>vector</code>  を追加してそして <code>stack runghc DP2.hs -v</code> したらなんかすごいことが始まってしまいました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631757015.023100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1631757015.023100">2021-09-16 10:50:15 +0900</a></div>
+          </div>
+          <div class="description">あー……やはりエラーは同じメッセージが返って来ますね……。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631758180.023300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1631758180.023300">2021-09-16 11:09:40 +0900</a></div>
+          </div>
+          <div class="description"><code>stack init</code>  しましたが、同じエラーが発生します。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631758569.023600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1631758569.023600">2021-09-16 11:16:09 +0900</a></div>
+          </div>
+          <div class="description">1. package.yaml 全体の内容を貼り付けてください。<br/>2. 件のDP2.hsというファイルとpackage.yamlはどのディレクトリーに置いていて、どのディレクトリーから問題のコマンドを実行しましたか？<br/>3. 問題が発生したコマンドは何でしょうか？ <code>stack build</code> ？あるいは <code>stack runghc DP2.hs</code> ？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631758886.023900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1631758886.023900">2021-09-16 11:21:26 +0900</a></div>
+          </div>
+          <div class="description">1.<br/><pre>name:                yaminabe
+version:             0.1.0.0
+github:              "yourusername/yaminabe"
+license:             BSD3
+author:              "Your Name"
+maintainer:          "<mailto:youremail@example.com|youremail@example.com>"
+copyright:           "2021 Your Name"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at &lt;<https://github.com/yourusername/yaminabe#readme>&gt;
+
+dependencies:
+- base &gt;= 4.7 &amp;&amp; &lt; 5
+- array
+- bytestring
+- containers
+- random
+- vector
+library:
+  source-dirs: src
+
+executables:
+  yaminabe-exe:
+    main:                Example15.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - yaminabe</pre><br/>2.<br/><code>yaminabe</code>  というディレクトリに置いて、このディレクトリから実行しました。<br/>3.<br/><code>stack runghc DP2.hs</code>  です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631759087.024100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1631759087.024100">2021-09-16 11:24:47 +0900</a></div>
+          </div>
+          <div class="description">多分ソースコードはsrc以下に置いてないとダメだと思う</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631759149.024300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1631759149.024300">2021-09-16 11:25:49 +0900</a></div>
+          </div>
+          <div class="description"><code>stack runghc</code> は1ファイルで完結するような、package.yamlを指定するまでもない小さなプログラムで用いるコマンドです。なのでpackage.yamlは参照しません。<br/>このまま <code>runghc</code> で動かすのであれば、 <code>stack runghc --package vector DP2.hs</code> と実行してください。ほかにも必要なパッケージがある場合同じようなエラーが出るでしょう。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631759369.024900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1631759369.024900">2021-09-16 11:29:29 +0900</a></div>
+          </div>
+          <div class="description">うーん?stack ghcってパッケージ読み込まないのかな、読み込むような気がするけど…<br/>まあ何にせよ、そもそもstack ghcするよりstack ghciしてインタラクティブ環境をロードして関数を実行したりreloadした方がdebugには役に立つ気がします</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631759750.025100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1631759750.025100">2021-09-16 11:35:50 +0900</a></div>
+          </div>
+          <div class="description">@igrep @ncaq<br/>ありがとうございます。<br/>動きました。<br/><br/>1ファイル完結の小さなプログラムで <code>runghc</code>  を用いるのですね。<br/>その場合は <code>package.yaml</code>  は参照されないとのこと、承知しました。<br/>今のところまだ大きなプログラムを書いていないので、今後も <code>runghc</code> を使うことが多いと思いますが、頭に入れておきます。<br/><br/>お二方、本当にありがとうございました。<br/>助かりました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631759796.025400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1631759796.025400">2021-09-16 11:36:36 +0900</a></div>
+          </div>
+          <div class="description">1ファイル完結の場合stack script形式を使うのも手だと思います<br/>これだとコマンド方式覚えなくても良いので</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631760381.025700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1631760381.025700">2021-09-16 11:46:21 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://qiita.com/tanakh/items/1ca4ba9e1f5006a30106'>https://qiita.com/tanakh/items/1ca4ba9e1f5006a30106</a><br/><br/>ここに載っているような例でしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631760500.026100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1631760500.026100">2021-09-16 11:48:20 +0900</a></div>
+          </div>
+          <div class="description">はい、ただ私は実は使ったことないです。<br/>ポータブルな単体ファイルを用意する必要が無かったことと、<br/>ライブラリを試してみるとかの範囲なら、stack installをglobalに実行して書き捨ててEmacsのinf-haskell(ghci)で読み込んで実行して終わりに出来るからです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631761908.026300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1631761908.026300">2021-09-16 12:11:48 +0900</a></div>
+          </div>
+          <div class="description">:man-bowing: <code>stack runghc</code> がpackage.yamlを読むのでは？という話については今念のためチェックしていますが、うっかりGHC 8.10.7のインストールが始まってしまったため時間がかかっています :man-bowing:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631762014.026500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1631762014.026500">2021-09-16 12:13:34 +0900</a></div>
+          </div>
+          <div class="description">@ncaq<br/>なんとなくですが、そちらの方がお手軽そうに見えますね……。＞stack installをglobalに実行して書き捨ててEmacsのinf-haskellで読み込んで実行して終わり<br/><br/>なんとか今よりもお手軽な実行方法を身に付けたいと思います。<br/>お答えいただきありがとうございました。<br/>本当に感謝です。<br/><br/>@igrep<br/>検証ありがとうございます。お時間いただいてしまい申し訳ありません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631762607.026700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1631762607.026700">2021-09-16 12:23:27 +0900</a></div>
+          </div>
+          <div class="description">サクッと <code>stack new</code>  してからこんなプロジェクトを作ってみましたがやっぱり package.yaml に書いた <code>safe</code> パッケージは参照していないようです:<br/>package.yaml:<br/><pre>name:                test
+version:             0.1.0.0
+github:              "githubuser/test"
+license:             BSD3
+author:              "Author name here"
+maintainer:          "<mailto:example@example.com|example@example.com>"
+copyright:           "2021 Author name here"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at &lt;<https://github.com/githubuser/test#readme>&gt;
+
+dependencies:
+- base &gt;= 4.7 &amp;&amp; &lt; 5
+- safe
+
+library:
+  source-dirs: src
+
+executables:
+  test-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - test
+
+tests:
+  test-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - test</pre><br/>src/Lib.hs:<br/><pre>module Lib
+    ( main
+    ) where
+
+import           Safe
+
+main :: IO ()
+main = print $ headMay [True]</pre><br/>ただ、ちょっと紛らわしい挙動をするので補足します。<br/><code>stack build</code> や <code>stack runghc --package safe src/Lib.hs</code> を実行する*前*に <code>stack runghc src/Lib.hs</code> すると予想通り <code>Safe</code> モジュールがないと言われるのですが、`stack build` や <code>stack runghc --package safe src/Lib.hs</code> を実行した*後*に <code>stack runghc src/Lib.hs</code> すると*エラーが起きません*。どうやら、 <code>stack runghc</code> は現在のpackage dbにインストールされているパッケージを、package.yamlの記載にかかわらず使用しているようです。<br/>それが証拠に、 package.yaml から safe パッケージを*削除しても*、`stack build` や <code>stack runghc --package safe src/Lib.hs</code> を実行した*後*であれば <code>stack runghc src/Lib.hs</code> は成功するからです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631762699.026900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1631762699.026900">2021-09-16 12:24:59 +0900</a></div>
+          </div>
+          <div class="description">なるほど、なので私は勘違いしたわけですね。<br/>検証と回答ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631775576.027100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1631775576.027100">2021-09-16 15:59:36 +0900</a></div>
+          </div>
+          <div class="description">検証ありがとうございます。<br/>覚えておきたいと思います。<br/>お二方ありがとうございました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../18.html" class="item">Back to beginners #18</a>
+    </div>
+  </div>
+</body>
+</html>
