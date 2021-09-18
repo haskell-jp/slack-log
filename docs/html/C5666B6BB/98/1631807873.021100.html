@@ -30,6 +30,42 @@
           <div class="description">環境変数が引き継げてないとか、じゃないっすかね。</div>
         </div>
       </div>
+      <div class="event" id="message-1631837466.023100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cj.bc-sd</div>
+            <div class="date"><a class="date" href="#message-1631837466.023100">2021-09-17 09:11:06 +0900</a></div>
+          </div>
+          <div class="description">なるほど〜…？<br/>statusBarの方のことですよね、とりあえず環境変数周りいじってみます…！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631838513.023300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1631838513.023300">2021-09-17 09:28:33 +0900</a></div>
+          </div>
+          <div class="description">「直接バイナリを叩いた場合」というのはターミナルからbashを呼んだ場合、ですよね？であればターミナルからシェルを起動した時点でシェルの設定（bashであれば .profile とか .bashrc とか）から環境変数を読んでいるのでそれが、xmonadからだと読めていない可能性があります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631839010.026600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cj.bc-sd</div>
+            <div class="date"><a class="date" href="#message-1631839010.026600">2021-09-17 09:36:50 +0900</a></div>
+          </div>
+          <div class="description">あ〜〜なるほど！<br/>ターミナル上でも <code>/bin/sh -c</code> で叩いてみてたので条件同じになってると思ってたんですが、そうか呼び出し元の環境変数が違うんですね…<br/>色々試してみます！ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1631851142.027200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cj.bc-sd</div>
+            <div class="date"><a class="date" href="#message-1631851142.027200">2021-09-17 12:59:02 +0900</a></div>
+          </div>
+          <div class="description">色々弄ってみた所、 <code>LANG=ja_JP.UTF-8</code> にしてあげたら動きました!!<br/>環境変数盲点でした...ありがとうございます..!!</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../98.html" class="item">Back to questions #98</a>
