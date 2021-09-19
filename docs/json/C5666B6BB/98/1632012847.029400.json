@@ -1,0 +1,26 @@
+[
+    {
+        "ts": "1632012847.029400",
+        "text": "モナドについての質問です。(既出だったらすみません。)\n以下の型を持つ関数は一般に存在しますかね？",
+        "user": "U01R1UNMVT5",
+        "type": "message"
+    },
+    {
+        "ts": "1632013856.029500",
+        "text": "Monadじゃないけどtraverseっぽい",
+        "user": "UMKGDJ2RZ",
+        "type": "message"
+    },
+    {
+        "ts": "1632014927.029700",
+        "text": "ありがとうございます。やりたいのは多分それでした。\nなるほど、traverseというのですね。\n\nちなみに、自分でも考えてみましたが、Monadの場合は存在しないことがわかりました。\n\nmとnがMonadのとき、\nforall a b, (a -&gt; m b) -&gt; n a -&gt; m (n a)\nforall a, n (m a) -&gt; m (n a)\nが同値になって、明らかに後者は成り立たないので。",
+        "user": "U01R1UNMVT5",
+        "type": "message"
+    },
+    {
+        "ts": "1632016173.030000",
+        "text": "まさにtraverseの公理そのものでしたね...\n返答いただき、ありがとうございました。",
+        "user": "U01R1UNMVT5",
+        "type": "message"
+    }
+]

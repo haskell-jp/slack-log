@@ -1,0 +1,50 @@
+[
+    {
+        "ts": "1632032922.030800",
+        "text": "はじめまして。\n\n<https://github.com/jabbalaci/SpeedTests>\nこのリポジトリを見つけ、Haskellだけ妙に遅いのが気になり高速化してみようと思ったのですが、それ以前にわからないところもあり質問させてください。\n\nmapM_ print $ filter (\\i -&gt; isMunchausen i i 0 cache) [0 .. 440000000]\nなぜこれで順次数値が表示されるのでしょうか?\nfilterのイメージではTrueの要素だけか格納された[0,1,3435,438579088]というものがまず生成されて、その後いっぺんにprintされると思ったのですが。\n\n{-# LANGUAGE Strict #-}\n{-# LANGUAGE StrictData #-}\nを有効にし、cacheをData.Vector.Unboxedにしてみたところ最初2分のものが1分くらいになったのですが、Goは8秒切り、Zigは4秒を切ります。\nHaskellとはこのくらいの速度差があるものなのでしょうか?\n\nよろしくお願いします。",
+        "user": "U02FM2G52D6",
+        "type": "message"
+    },
+    {
+        "ts": "1632033486.031000",
+        "text": "これ以上高速化する術はわかりませんが、「なぜこれで順次数値が表示されるのでしょうか?」については一言で言うと「遅延評価のおかげ」です。\n遅延評価のおかげで `filter` 関数が `isMunchausen i i 0 cache` が `True` を返す度に該当する値を一つずつ返すような振る舞いになります。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1632035789.031200",
+        "text": "高速化についてですが、Haskellのdiv/modはquot/remに比べて遅いので、結果が変わらない場合（引数が非負である場合）はquot/remを使うという手がありますね",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1632042341.031600",
+        "text": "遅延評価のイメージが理解できていないのですが、StrictとStrictDataをファイル先頭に書いたので遅延評価はなくなっているのだと思っていました。\n\nquotRemというものを使ってみたところ40秒になり結果の数値も変わりませんでした。\n\nigrepさん、mod_poppoさんありがとうございます。",
+        "user": "U02FM2G52D6",
+        "type": "message"
+    },
+    {
+        "ts": "1632042769.031800",
+        "text": "`Strict` 拡張はあらゆる処理から遅延評価をなくしてくれる、というものではなく、 `Strict` を有効にしたモジュール内で定義した関数における、名前のついた各引数について `!` を付けて一段正格に評価する、というものなので、実際にはこの場合\n```isMunchausen number n total cache```\nを\n```isMunchausen !number !n !total !cache```\nに書き換えたり、\n```(\\i -&gt; isMunchausen i i 0 cache)```\nを\n```(\\!i -&gt; isMunchausen i i 0 cache)```\nに書き換えたりするまでの効果しかありません。（あと、 `let cache = ...` も `let !cache = ...` に変わるはず）。\n※ちなみに、 `Strict` 拡張を有効にすると `StrictData` も同時に有効になります。\n詳しくは手前味噌ですが <https://haskell.jp/blog/posts/2020/strict-gotchas.html> をご覧ください。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1632053482.032200",
+        "text": "ありがとうございます。\nこれから読ませていただきます。",
+        "user": "U02FM2G52D6",
+        "type": "message"
+    },
+    {
+        "ts": "1632063304.032400",
+        "text": "ncgとllvmでアセンブリコードがどう変わるかまで追っていませんが\n• div/modからquot/remに換える\n• cacheをunboxed vectorに換える\n• llvmバックエンドを使う\nの3つで他の言語並みに速くなります。\n手元では-O2でビルドすると\n```% hyperfine ./haskell/dist-newstyle/build/x86_64-osx/ghc-8.10.7/haskell-0.1.0.0/x/haskell/opt/build/haskell/haskell ./rust/target/release/rust\nBenchmark #1: ./haskell/dist-newstyle/build/x86_64-osx/ghc-8.10.7/haskell-0.1.0.0/x/haskell/opt/build/haskell/haskell\n  Time (mean ± σ):      3.277 s ±  0.080 s    [User: 3.241 s, System: 0.026 s]\n  Range (min … max):    3.170 s …  3.403 s    10 runs\n\nBenchmark #2: ./rust/target/release/rust\n  Time (mean ± σ):      2.543 s ±  0.073 s    [User: 2.522 s, System: 0.017 s]\n  Range (min … max):    2.443 s …  2.669 s    10 runs\n\nSummary\n  './rust/target/release/rust' ran\n    1.29 ± 0.05 times faster than './haskell/dist-newstyle/build/x86_64-osx/ghc-8.10.7/haskell-0.1.0.0/x/haskell/opt/build/haskell/haskell'```\n",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1632064709.032800",
+        "text": "<https://github.com/jabbalaci/SpeedTests/compare/master...maoe:haskell> にpushしました",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    }
+]

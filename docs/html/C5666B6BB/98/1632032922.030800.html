@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #98 at 2021-09-19 15:28:42 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #98 at 2021-09-19 15:28:42 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../98.html" class="item">Back to questions #98</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1632032922.030800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U02FM2G52D6</div>
+            <div class="date"><a class="date" href="#message-1632032922.030800">2021-09-19 15:28:42 +0900</a></div>
+          </div>
+          <div class="description">はじめまして。<br/><br/><https://github.com/jabbalaci/SpeedTests><br/>このリポジトリを見つけ、Haskellだけ妙に遅いのが気になり高速化してみようと思ったのですが、それ以前にわからないところもあり質問させてください。<br/><br/>mapM_ print $ filter (\i -&gt; isMunchausen i i 0 cache) [0 .. 440000000]<br/>なぜこれで順次数値が表示されるのでしょうか?<br/>filterのイメージではTrueの要素だけか格納された[0,1,3435,438579088]というものがまず生成されて、その後いっぺんにprintされると思ったのですが。<br/><br/>{-# LANGUAGE Strict #-}<br/>{-# LANGUAGE StrictData #-}<br/>を有効にし、cacheをData.Vector.Unboxedにしてみたところ最初2分のものが1分くらいになったのですが、Goは8秒切り、Zigは4秒を切ります。<br/>Haskellとはこのくらいの速度差があるものなのでしょうか?<br/><br/>よろしくお願いします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632033486.031000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1632033486.031000">2021-09-19 15:38:06 +0900</a></div>
+          </div>
+          <div class="description">これ以上高速化する術はわかりませんが、「なぜこれで順次数値が表示されるのでしょうか?」については一言で言うと「遅延評価のおかげ」です。<br/>遅延評価のおかげで <code>filter</code> 関数が <code>isMunchausen i i 0 cache</code> が <code>True</code> を返す度に該当する値を一つずつ返すような振る舞いになります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632035789.031200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1632035789.031200">2021-09-19 16:16:29 +0900</a></div>
+          </div>
+          <div class="description">高速化についてですが、Haskellのdiv/modはquot/remに比べて遅いので、結果が変わらない場合（引数が非負である場合）はquot/remを使うという手がありますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632042341.031600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U02FM2G52D6</div>
+            <div class="date"><a class="date" href="#message-1632042341.031600">2021-09-19 18:05:41 +0900</a></div>
+          </div>
+          <div class="description">遅延評価のイメージが理解できていないのですが、StrictとStrictDataをファイル先頭に書いたので遅延評価はなくなっているのだと思っていました。<br/><br/>quotRemというものを使ってみたところ40秒になり結果の数値も変わりませんでした。<br/><br/>igrepさん、mod_poppoさんありがとうございます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632042769.031800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1632042769.031800">2021-09-19 18:12:49 +0900</a></div>
+          </div>
+          <div class="description"><code>Strict</code> 拡張はあらゆる処理から遅延評価をなくしてくれる、というものではなく、 <code>Strict</code> を有効にしたモジュール内で定義した関数における、名前のついた各引数について <code>!</code> を付けて一段正格に評価する、というものなので、実際にはこの場合<br/><pre>isMunchausen number n total cache</pre><br/>を<br/><pre>isMunchausen !number !n !total !cache</pre><br/>に書き換えたり、<br/><pre>(\i -&gt; isMunchausen i i 0 cache)</pre><br/>を<br/><pre>(\!i -&gt; isMunchausen i i 0 cache)</pre><br/>に書き換えたりするまでの効果しかありません。（あと、 <code>let cache = ...</code> も <code>let !cache = ...</code> に変わるはず）。<br/>※ちなみに、 <code>Strict</code> 拡張を有効にすると <code>StrictData</code> も同時に有効になります。<br/>詳しくは手前味噌ですが <a href='https://haskell.jp/blog/posts/2020/strict-gotchas.html'>https://haskell.jp/blog/posts/2020/strict-gotchas.html</a> をご覧ください。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632053482.032200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U02FM2G52D6</div>
+            <div class="date"><a class="date" href="#message-1632053482.032200">2021-09-19 21:11:22 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。<br/>これから読ませていただきます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632063304.032400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1632063304.032400">2021-09-19 23:55:04 +0900</a></div>
+          </div>
+          <div class="description">ncgとllvmでアセンブリコードがどう変わるかまで追っていませんが<br/>• div/modからquot/remに換える<br/>• cacheをunboxed vectorに換える<br/>• llvmバックエンドを使う<br/>の3つで他の言語並みに速くなります。<br/>手元では-O2でビルドすると<br/><pre>% hyperfine ./haskell/dist-newstyle/build/x86_64-osx/ghc-8.10.7/haskell-0.1.0.0/x/haskell/opt/build/haskell/haskell ./rust/target/release/rust
+Benchmark #1: ./haskell/dist-newstyle/build/x86_64-osx/ghc-8.10.7/haskell-0.1.0.0/x/haskell/opt/build/haskell/haskell
+  Time (mean ± σ):      3.277 s ±  0.080 s    [User: 3.241 s, System: 0.026 s]
+  Range (min … max):    3.170 s …  3.403 s    10 runs
+
+Benchmark #2: ./rust/target/release/rust
+  Time (mean ± σ):      2.543 s ±  0.073 s    [User: 2.522 s, System: 0.017 s]
+  Range (min … max):    2.443 s …  2.669 s    10 runs
+
+Summary
+  './rust/target/release/rust' ran
+    1.29 ± 0.05 times faster than './haskell/dist-newstyle/build/x86_64-osx/ghc-8.10.7/haskell-0.1.0.0/x/haskell/opt/build/haskell/haskell'</pre><br/></div>
+        </div>
+      </div>
+      <div class="event" id="message-1632064709.032800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1632064709.032800">2021-09-20 00:18:29 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://github.com/jabbalaci/SpeedTests/compare/master...maoe:haskell'>https://github.com/jabbalaci/SpeedTests/compare/master...maoe:haskell</a> にpushしました</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../98.html" class="item">Back to questions #98</a>
+    </div>
+  </div>
+</body>
+</html>
