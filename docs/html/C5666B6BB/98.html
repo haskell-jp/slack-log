@@ -294,20 +294,133 @@
       <div class="event" id="message-1632030465.030400">
         <div class="content">
           <div class="summary">
-            <div class="user">U02FM2G52D6</div>
+            <div class="user">goldent</div>
             <div class="date"><a class="date" href="#message-1632030465.030400">2021-09-19 14:47:45 +0900</a></div>
           </div>
-          <div class="description">@U02FM2G52D6 has joined the channel</div>
+          <div class="description">@goldent has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1632032922.030800">
         <div class="content">
           <div class="summary">
-            <div class="user">U02FM2G52D6</div>
+            <div class="user">goldent</div>
             <div class="date"><a class="date" href="#message-1632032922.030800">2021-09-19 15:28:42 +0900</a></div>
           </div>
           <div class="description">はじめまして。<br/><br/><https://github.com/jabbalaci/SpeedTests><br/>このリポジトリを見つけ、Haskellだけ妙に遅いのが気になり高速化してみようと思ったのですが、それ以前にわからないところもあり質問させてください。<br/><br/>mapM_ print $ filter (\i -&gt; isMunchausen i i 0 cache) [0 .. 440000000]<br/>なぜこれで順次数値が表示されるのでしょうか?<br/>filterのイメージではTrueの要素だけか格納された[0,1,3435,438579088]というものがまず生成されて、その後いっぺんにprintされると思ったのですが。<br/><br/>{-# LANGUAGE Strict #-}<br/>{-# LANGUAGE StrictData #-}<br/>を有効にし、cacheをData.Vector.Unboxedにしてみたところ最初2分のものが1分くらいになったのですが、Goは8秒切り、Zigは4秒を切ります。<br/>Haskellとはこのくらいの速度差があるものなのでしょうか?<br/><br/>よろしくお願いします。</div>
           <a class="link-to-replies" href="98/1632032922.030800.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1632111175.035500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U02EVE5LNSZ</div>
+            <div class="date"><a class="date" href="#message-1632111175.035500">2021-09-20 13:12:55 +0900</a></div>
+          </div>
+          <div class="description">@U02EVE5LNSZ has joined the channel</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632151792.047000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1632151792.047000">2021-09-21 00:29:52 +0900</a></div>
+          </div>
+          <div class="description">Stream fusionというときのMonadicな <code>Stream</code> の質問で，リストに変換する方法を二つほど思いついたんです．ひとつはふつうにやる方法(下のコードの <code>streamToList</code>)，もう一つは，Monadが <code>PrimMonad</code> であることを前提にして 書き込み可能配列に書いておく方法 (下のコードの <code>streamToList2</code>)です．Monadic Stream の Monad が <code>PrimMonad</code> であるとき，これらの方法って一致するのかどうかがわからなくて…どなたか反例を思いつく方っていらっしゃいます？<br/><br/><pre>import Control.Monad.Primitive
+
+implementationOmitted :: a
+implementationOmitted = undefined
+
+
+------------------- Growable Vector API --------------------------------
+
+
+-- | Extendable boxed vector.
+data GrowableVector s a = DefinitionOmitted
+
+createEmpty' :: ST s (GrowableVector s a)
+createEmpty' = implementationOmitted
+
+length' :: GrowableVector s a -&gt; ST s Int
+length' = implementationOmitted
+
+-- append to a vector. The length of the vector will be incremented by one.
+append' :: GrowableVector s a -&gt; a -&gt; ST s ()
+append' = implementationOmitted
+
+-- write into a vector. The index shall be within the length of the vector;
+-- otherwise the behavior is undefined.
+write' :: GrowableVector s a -&gt; Int -&gt; a -&gt; ST s ()
+write' = implementationOmitted
+
+appendOrWrite' :: GrowableVector s a -&gt; Int -&gt; a -&gt; ST s ()
+appendOrWrite' v i a | i &lt; 0 = error "Negative index not allowed"
+                     | otherwise = do
+                         l &lt;- length' v
+                         if i &lt; l then write' v i a else append v a
+
+-- Safely copies the current snapshot of a vector into a list.
+freeze' :: GrowableVector s a -&gt; ST s [a]
+freeze' v = implementationOmitted
+
+freezeTill' :: Int -&gt; GrowableVector s a -&gt; ST s [a]
+freezeTill' i v = fmap (take i) $ freeze' v
+
+
+---------------- PrimMonad wrappers for Growable Vector --------------
+
+createEmpty
+  :: PrimMonad m
+  =&gt; m (GrowableVector (PrimMonad m) a)
+createEmpty = stToPrim createEmpty'
+
+appendOrWrite
+  :: PrimMonad m
+  =&gt; GrowableVector (PrimMonad m) a
+  -&gt; Int -&gt; a -&gt; m ()
+appendOrWrite = stToPrim appendOrWrite'
+
+freezeTill
+  :: PrimMonad m
+  =&gt; Int
+  -&gt; GrowableVector (PrimMonad m) a
+  -&gt; m [a]
+freezeTill = stToPrim freezeTill'
+
+
+-------------- Stream and its conversion to list ---------------
+
+data Stream m a = forall s. Stream (s -&gt; m (Step s a)) s
+data Step s a = Yield a s | Skip s | Done
+
+-- convert a stream to a list.
+streamToList
+  :: Monad m
+  =&gt; Stream m a
+  -&gt; m [a]
+streamToList (Stream step s0) = go s0
+  where
+    go s = do
+      r &lt;- step s
+      case r of
+        Yield a t -&gt; (:) a &lt;$&gt; go t
+        Skip t -&gt; go t
+        Done -&gt; return []
+
+-- convert a stream to a list.
+streamToList2
+  :: PrimMonad m
+  =&gt; Stream m a
+  -&gt; m [a]
+streamToList2 (Stream step s0) = do
+  mem &lt;- createEmpty
+  let go !n s = do
+        r &lt;- step s
+        case r of
+          Yield a t -&gt; do appendOrWrite mem n a
+                          go (n+1) t
+          Skip t -&gt; go n t
+          Done -&gt; freezeTill n mem
+  go 0 s0</pre></div>
         </div>
       </div>
     </div>

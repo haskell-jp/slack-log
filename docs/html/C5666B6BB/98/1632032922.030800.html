@@ -15,7 +15,7 @@
       <div class="event" id="message-1632032922.030800">
         <div class="content">
           <div class="summary">
-            <div class="user">U02FM2G52D6</div>
+            <div class="user">goldent</div>
             <div class="date"><a class="date" href="#message-1632032922.030800">2021-09-19 15:28:42 +0900</a></div>
           </div>
           <div class="description">はじめまして。<br/><br/><https://github.com/jabbalaci/SpeedTests><br/>このリポジトリを見つけ、Haskellだけ妙に遅いのが気になり高速化してみようと思ったのですが、それ以前にわからないところもあり質問させてください。<br/><br/>mapM_ print $ filter (\i -&gt; isMunchausen i i 0 cache) [0 .. 440000000]<br/>なぜこれで順次数値が表示されるのでしょうか?<br/>filterのイメージではTrueの要素だけか格納された[0,1,3435,438579088]というものがまず生成されて、その後いっぺんにprintされると思ったのですが。<br/><br/>{-# LANGUAGE Strict #-}<br/>{-# LANGUAGE StrictData #-}<br/>を有効にし、cacheをData.Vector.Unboxedにしてみたところ最初2分のものが1分くらいになったのですが、Goは8秒切り、Zigは4秒を切ります。<br/>Haskellとはこのくらいの速度差があるものなのでしょうか?<br/><br/>よろしくお願いします。</div>
@@ -42,7 +42,7 @@
       <div class="event" id="message-1632042341.031600">
         <div class="content">
           <div class="summary">
-            <div class="user">U02FM2G52D6</div>
+            <div class="user">goldent</div>
             <div class="date"><a class="date" href="#message-1632042341.031600">2021-09-19 18:05:41 +0900</a></div>
           </div>
           <div class="description">遅延評価のイメージが理解できていないのですが、StrictとStrictDataをファイル先頭に書いたので遅延評価はなくなっているのだと思っていました。<br/><br/>quotRemというものを使ってみたところ40秒になり結果の数値も変わりませんでした。<br/><br/>igrepさん、mod_poppoさんありがとうございます。</div>
@@ -60,7 +60,7 @@
       <div class="event" id="message-1632053482.032200">
         <div class="content">
           <div class="summary">
-            <div class="user">U02FM2G52D6</div>
+            <div class="user">goldent</div>
             <div class="date"><a class="date" href="#message-1632053482.032200">2021-09-19 21:11:22 +0900</a></div>
           </div>
           <div class="description">ありがとうございます。<br/>これから読ませていただきます。</div>
@@ -93,6 +93,42 @@ Summary
             <div class="date"><a class="date" href="#message-1632064709.032800">2021-09-20 00:18:29 +0900</a></div>
           </div>
           <div class="description"><a href='https://github.com/jabbalaci/SpeedTests/compare/master...maoe:haskell'>https://github.com/jabbalaci/SpeedTests/compare/master...maoe:haskell</a> にpushしました</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632105771.035000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1632105771.035000">2021-09-20 11:42:51 +0900</a></div>
+          </div>
+          <div class="description">よく見たらgenerateの一つ目の引数は+1しないとダメそうですね。あとで時間があるときに直します。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632107005.035200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1632107005.035200">2021-09-20 12:03:25 +0900</a></div>
+          </div>
+          <div class="description">READMEいわく「If you know how to make something faster, let me know!」とのことなんでPull requestを送ってみてはいかがでしょうか！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632124470.035600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">goldent</div>
+            <div class="date"><a class="date" href="#message-1632124470.035600">2021-09-20 16:54:30 +0900</a></div>
+          </div>
+          <div class="description">-fllvmがWindowsで試せず、-fllvmをmacでやってみたところ、44.8秒が5.26秒になりました。<br/>-fllvm -O2だと3.95秒でした。<br/><br/>ここまで変わるとは思っていませんでした。<br/>ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632125158.035900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1632125158.035900">2021-09-20 17:05:58 +0900</a></div>
+          </div>
+          <div class="description">Wikipedia曰くZigもLLVMを使っているらしいので、やっぱLLVMすごいですね... :open_mouth:</div>
         </div>
       </div>
     </div>
