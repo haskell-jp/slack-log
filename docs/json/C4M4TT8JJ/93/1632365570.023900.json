@@ -1,0 +1,26 @@
+[
+    {
+        "ts": "1632365570.023900",
+        "text": "設定にオンオフの要素があるとき、例えばその名前を checked とすると\n```data Checked = Checked\n\ndata Config = Config { checked :: Maybe Checked }```\nというようにコードにするの違和感あります？\n```data Config = Config { checked :: Bool }```\nでいいかどうか\n動機としては要素が増えて `Config True False False` となると何番目がどれだっけとなる……けどレコードの記法すればいいかなどと逡巡しております",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1632367999.024100",
+        "text": "その方法だと `Nothing` が並んだとき結局どれがどれか分からなくなりますし、私なら `Bool` を `newtype` しますね。でもまぁレコードラベルがあるならそれを使う、でもいいですけど。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1632376387.024400",
+        "text": "choice という Bool に意味をのせるライブラリがあります。実用したことはないので使い勝手はわかりません。何年か前に見たときに、個人的には割とシンプルでよさそう! と思いましたが。\n\n<https://hackage.haskell.org/package/choice-0.2.2/docs/Data-Choice.html>",
+        "user": "U578W9676",
+        "type": "message"
+    },
+    {
+        "ts": "1632386888.024900",
+        "text": "ほほう",
+        "user": "U4L0B71L1",
+        "type": "message"
+    }
+]

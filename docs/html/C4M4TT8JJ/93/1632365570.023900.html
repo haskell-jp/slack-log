@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #93 at 2021-09-23 11:52:50 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #93 at 2021-09-23 11:52:50 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../93.html" class="item">Back to random #93</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1632365570.023900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1632365570.023900">2021-09-23 11:52:50 +0900</a></div>
+          </div>
+          <div class="description">設定にオンオフの要素があるとき、例えばその名前を checked とすると<br/><pre>data Checked = Checked
+
+data Config = Config { checked :: Maybe Checked }</pre><br/>というようにコードにするの違和感あります？<br/><pre>data Config = Config { checked :: Bool }</pre><br/>でいいかどうか<br/>動機としては要素が増えて <code>Config True False False</code> となると何番目がどれだっけとなる……けどレコードの記法すればいいかなどと逡巡しております</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632367999.024100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1632367999.024100">2021-09-23 12:33:19 +0900</a></div>
+          </div>
+          <div class="description">その方法だと <code>Nothing</code> が並んだとき結局どれがどれか分からなくなりますし、私なら <code>Bool</code> を <code>newtype</code> しますね。でもまぁレコードラベルがあるならそれを使う、でもいいですけど。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632376387.024400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cohei</div>
+            <div class="date"><a class="date" href="#message-1632376387.024400">2021-09-23 14:53:07 +0900</a></div>
+          </div>
+          <div class="description">choice という Bool に意味をのせるライブラリがあります。実用したことはないので使い勝手はわかりません。何年か前に見たときに、個人的には割とシンプルでよさそう! と思いましたが。<br/><br/><a href='https://hackage.haskell.org/package/choice-0.2.2/docs/Data-Choice.html'>https://hackage.haskell.org/package/choice-0.2.2/docs/Data-Choice.html</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1632386888.024900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1632386888.024900">2021-09-23 17:48:08 +0900</a></div>
+          </div>
+          <div class="description">ほほう</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../93.html" class="item">Back to random #93</a>
+    </div>
+  </div>
+</body>
+</html>
