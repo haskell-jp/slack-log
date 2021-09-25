@@ -70,5 +70,17 @@
         "text": "はじめまして！\n\n環境構築について質問です。\n\nm1チップのmacbookでvscodeを使ってhaskellを学習したいのですが、vscode上でhlsがうまく動いてくれません。以下のようなエラーメッセージが出ます。\n• `Error on initialize: $HOME/.cache/ghcide: createDirectory: permission denied (Permission denied)`\n• `Couldn't start client Haskell` \n• `The Haskell server crashed 5 times in the last 3 minutes. The server will not be restarted`\n一つ目のエラーで 権限がないとのことなので、\n```$ chmod -R +w $HOME/.cache```\nとしたのですが、依然としてエラーが出ます。\n\nちなみに今は、ghcupを使ってghc, cabal-install, hlsを入れています。（stackは入りませんでした。）\nvscodeの拡張機能の設定でhlsのpathは`$HOME/.ghcup/` 以下のbinを指定しています。\n\nどなたかm1チップのmacとvscodeで環境構築できた方がいたら構築方法をご教示いただけないでしょうか？\n\nよろしくお願いします:man-bowing:",
         "user": "U01KE6706CR",
         "type": "message"
+    },
+    {
+        "ts": "1632560266.086500",
+        "text": "VSCodeで\n```The Haskell server crashed 5 times in the last 3 minutes. The server will not be restarted.```\nというエラーが発生しました。\n`stack clean --full` でキャッシュを掃除してVSCodeを再起動したのですが依然と同じエラーが出ます。\n解決方法を募集したいです。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1632566224.088800",
+        "text": "となると多分デフォルトの値なんでしょうね。\nVSCode使わないから正直これ以上どう調べるか分からないなぁ。どなたか使っている方助け船を！ :pray:",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]

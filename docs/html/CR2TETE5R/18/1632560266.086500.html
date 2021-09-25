@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #18 at 2021-09-25 17:57:46 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #18 at 2021-09-25 17:57:46 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../18.html" class="item">Back to beginners #18</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1632560266.086500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1632560266.086500">2021-09-25 17:57:46 +0900</a></div>
+          </div>
+          <div class="description">VSCodeで<br/><pre>The Haskell server crashed 5 times in the last 3 minutes. The server will not be restarted.</pre><br/>というエラーが発生しました。<br/><code>stack clean --full</code> でキャッシュを掃除してVSCodeを再起動したのですが依然と同じエラーが出ます。<br/>解決方法を募集したいです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632560436.086600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1632560436.086600">2021-09-25 18:00:36 +0900</a></div>
+          </div>
+          <div class="description"><code>command+Shift+P</code>  で <code>Haskell:Restart Haskell LSP server</code>  を実行しても同じエラーが出ます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632560959.086800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1632560959.086800">2021-09-25 18:09:19 +0900</a></div>
+          </div>
+          <div class="description">問題のエラーが起きているディレクトリーで <code>haskell-language-server-wrapper -d</code>か <code>stack exec -- haskell-language-server-wrapper -d</code> を実行すると、もう少し詳細な原因が分かるでしょう</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632561681.087000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1632561681.087000">2021-09-25 18:21:21 +0900</a></div>
+          </div>
+          <div class="description"><pre>Executable named haskell-language-server-wrapper not found on path:</pre><br/>と出てきました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632562312.087200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1632562312.087200">2021-09-25 18:31:52 +0900</a></div>
+          </div>
+          <div class="description"><code>stack exec -- haskell-language-server-wrapper -d</code> を実行しました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632563639.087400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1632563639.087400">2021-09-25 18:53:59 +0900</a></div>
+          </div>
+          <div class="description">何が出力されましたか？恐らく、すぐに終了してしまうと思うのですが、終了してしまう前に何が出力されたか、だけでもヒントになると思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632563841.087600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1632563841.087600">2021-09-25 18:57:21 +0900</a></div>
+          </div>
+          <div class="description"><code>stack exec -- haskell-language-server-wrapper -d</code> を実行したところ<br/><pre>Executable named haskell-language-server-wrapper not found on path: ["/Users/sirkerf/Desktop/programming/Haskell/haskell_sutdy/yaminabe/.stack-work/install/x86_64-osx/2d587c00132ec5e8f20b6c3ddbee5856cd0a90966b8bb007376d619fc2682135/8.10.7/bin","/Users/sirkerf/.stack/snapshots/x86_64-osx/2d587c00132ec5e8f20b6c3ddbee5856cd0a90966b8bb007376d619fc2682135/8.10.7/bin","/Users/sirkerf/.stack/compiler-tools/x86_64-osx/ghc-8.10.7/bin","/Users/sirkerf/.stack/programs/x86_64-osx/ghc-8.10.7/bin","/Users/sirkerf/.pyenv/shims","/Users/sirkerf/.pyenv/bin","/Users/sirkerf/.rbenv/shims","~/.rbenv/shims","/usr/local/bin","/usr/local/bin","/usr/bin","/bin","/usr/sbin","/sbin","/Library/TeX/texbin","/Library/Apple/usr/bin","/Users/sirkerf/.local/binexport"]</pre><br/>と出力されました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632564122.087800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1632564122.087800">2021-09-25 19:02:02 +0900</a></div>
+          </div>
+          <div class="description">うーん、そもそもインストールできていないのかな... VSCodeのHaskellプラグインの設定に、haskell-language-serverをインストールしたディレクトリーが書いてあると思うので、そのパスをフルパスで指定して実行するとどうなりますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632564777.088000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1632564777.088000">2021-09-25 19:12:57 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>VSCodeのHaskellプラグインの設定</blockquote>これがどこかわからなくて困りました……。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632564979.088200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1632564979.088200">2021-09-25 19:16:19 +0900</a></div>
+          </div>
+          <div class="description">設定は <a href='https://qiita.com/y-w/items/614843b259c04bb91495'>https://qiita.com/y-w/items/614843b259c04bb91495</a> のとおり、JSONで開けましたよね。<br/><a href='https://github.com/haskell/vscode-haskell#configuration-options'>https://github.com/haskell/vscode-haskell#configuration-options</a> 曰く、 <code>haskell.serverExecutablePath</code> という名前のプロパティにあるそうです（多分デフォルトのままなんでしょうけども）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632565524.088600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1632565524.088600">2021-09-25 19:25:24 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>haskell-language-serverをインストールしたディレクトリーが書いてあると思うので</blockquote>設定を開いたところ、見当たりませんでした。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632566224.088800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1632566224.088800">2021-09-25 19:37:04 +0900</a></div>
+          </div>
+          <div class="description">となると多分デフォルトの値なんでしょうね。<br/>VSCode使わないから正直これ以上どう調べるか分からないなぁ。どなたか使っている方助け船を！ :pray:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632569697.089100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1632569697.089100">2021-09-25 20:34:57 +0900</a></div>
+          </div>
+          <div class="description">一度 vscode の拡張機能 Haskell をアンインストールして、あらためて、インストールするとどうなりますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632572137.089300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1632572137.089300">2021-09-25 21:15:37 +0900</a></div>
+          </div>
+          <div class="description">VSCodeの <code>.hs</code>  ファイル全てにおいて開くと1行目に必ず赤い線が引かれるようになりました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632574010.089500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1632574010.089500">2021-09-25 21:46:50 +0900</a></div>
+          </div>
+          <div class="description">赤い線のあたりにマウスのポインタをもっていくと、なにがしかのメッセージがでていませんか？そのメッセージはどういうものですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632575237.089700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1632575237.089700">2021-09-25 22:07:17 +0900</a></div>
+          </div>
+          <div class="description">わたくしの以下の環境ではとくに問題はないのですが。vscode のバージョン1.60.2 拡張機能Haskellのバージョン1.7.1にしても同じでしょうか？<br/><pre>% uname -a
+Linux tpp1g3 5.11.0-36-generic #40~20.04.1-Ubuntu SMP Sat Sep 18 02:14:19 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+% code --version
+1.60.2
+7f6ab5485bbc008386c4386d08766667e155244e
+x64
+% code --list-extentions --show-versions                                                                                                                                             
+haskell.haskell@1.7.1
+justusadam.language-haskell@3.4.0</pre><br/></div>
+        </div>
+      </div>
+      <div class="event" id="message-1632575709.089900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1632575709.089900">2021-09-25 22:15:09 +0900</a></div>
+          </div>
+          <div class="description"><pre>Multi Cradle: No prefixes matched
+pwd: /Users/sirkerf/Desktop/programming/Haskell/haskell_sutdy/yaminabe
+filepath: /Users/sirkerf/Desktop/programming/Haskell/haskell_sutdy/yaminabe/fizzbuzz.hs
+prefixes:
+("./src",Stack {component = Just "yaminabe:lib", stackYaml = Nothing})
+("./app/Example15.hs",Stack {component = Just "yaminabe:exe:yaminabe-exe", stackYaml = Nothing})
+("./app/Main.hs",Stack {component = Just "yaminabe:exe:yaminabe-exe", stackYaml = Nothing})
+("./app/Paths_yaminabe.hs",Stack {component = Just "yaminabe:exe:yaminabe-exe", stackYaml = Nothing})
+cradle</pre><br/>と出ます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632575883.090100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1632575883.090100">2021-09-25 22:18:03 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>vscode のバージョン1.60.2 拡張機能Haskellのバージョン1.7.1にしても同じでしょうか？</blockquote>はい、同じです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632575937.090300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1632575937.090300">2021-09-25 22:18:57 +0900</a></div>
+          </div>
+          <div class="description">赤い線のメッセージはどういうものですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632575991.090500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1632575991.090500">2021-09-25 22:19:51 +0900</a></div>
+          </div>
+          <div class="description">赤い線のメッセージは<br/><pre>Multi Cradle: No prefixes matched
+pwd: /Users/sirkerf/Desktop/programming/Haskell/haskell_sutdy/yaminabe
+filepath: /Users/sirkerf/Desktop/programming/Haskell/haskell_sutdy/yaminabe/fizzbuzz.hs
+prefixes:
+("./src",Stack {component = Just "yaminabe:lib", stackYaml = Nothing})
+("./app/Example15.hs",Stack {component = Just "yaminabe:exe:yaminabe-exe", stackYaml = Nothing})
+("./app/Main.hs",Stack {component = Just "yaminabe:exe:yaminabe-exe", stackYaml = Nothing})
+("./app/Paths_yaminabe.hs",Stack {component = Just "yaminabe:exe:yaminabe-exe", stackYaml = Nothing})
+cradle</pre><br/>です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632576179.090700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1632576179.090700">2021-09-25 22:22:59 +0900</a></div>
+          </div>
+          <div class="description">プロジェクトのルートに以下の内容の hie.yaml というファイルをてみてください。<br/><pre>cradle:
+  stack:</pre><br/>どうなりますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632576420.090900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1632576420.090900">2021-09-25 22:27:00 +0900</a></div>
+          </div>
+          <div class="description"><code>hie.yaml</code>  は消したので存在しません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632576496.091100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1632576496.091100">2021-09-25 22:28:16 +0900</a></div>
+          </div>
+          <div class="description">↑の内容で作成するとどうなりますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632576800.091300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1632576800.091300">2021-09-25 22:33:20 +0900</a></div>
+          </div>
+          <div class="description">直りました！ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632576842.091500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1632576842.091500">2021-09-25 22:34:02 +0900</a></div>
+          </div>
+          <div class="description">よかった。:relaxed:</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../18.html" class="item">Back to beginners #18</a>
+    </div>
+  </div>
+</body>
+</html>
