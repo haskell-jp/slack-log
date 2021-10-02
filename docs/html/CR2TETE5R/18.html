@@ -155,6 +155,86 @@
           <div class="description">となると多分デフォルトの値なんでしょうね。<br/>VSCode使わないから正直これ以上どう調べるか分からないなぁ。どなたか使っている方助け船を！ :pray:</div>
         </div>
       </div>
+      <div class="event" id="message-1632963970.095800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">shogibeshow</div>
+            <div class="date"><a class="date" href="#message-1632963970.095800">2021-09-30 10:06:10 +0900</a></div>
+          </div>
+          <div class="description">こんにちは、Template Haskellを書いている最中に<br/>Illegal variable name: Mail<br/>というエラーが出てきて困っています。<br/><br/>エラーとしては<br/><pre>mailscript/app/Main.hs:18:1: error:
+    Illegal variable name: 'Mail'
+    When splicing a TH declaration:
+      main_0 = do {bodyTpl_1 &lt;- eitherParseFile "./template/body.txt";
+             titleTpl_2 &lt;- eitherParseFile "./template/title.txt";
+             Data.Traversable.mapM (\property_3 -&gt; GHC.Base.pure (Language.Haskell.TH.Syntax.BindS (Language.Haskell.TH.Syntax.VarP (Language.Haskell.TH.Syntax.mkName GHC.Base.$ ("input" GHC.Base.++ property_3))) (Language.Haskell.TH.Syntax.VarE System.IO.getLine))) ps;
+             let {env_4 = fromPairs [(Data.Text.Lazy.unpack GHC.Base.$ Lib.key (Lib.Schema (Data.Text.Lazy.pack "mail") [Data.Text.Lazy.pack "todayWorkSchedule",
+                                                                                                                         Data.Text.Lazy.pack "todayOutcome",
+                                                                                                                         Data.Text.Lazy.pack "tomorrowWorkSchedule",
+                                                                                                                         Data.Text.Lazy.pack "thoughts"])) Data.Aeson.Types.ToJSON..= (Data.Aeson.Types.ToJSON.toJSON GHC.Base.$ Data.Foldable.foldl (GHC.Base.$) Main.Mail ps)];
+                  body_5 = Data.Either.either GHC.Err.error toStrict GHC.Base.$ (bodyTpl_1 GHC.Base.&gt;&gt;= (`eitherRender` env_4));
+                  title_6 = Data.Either.either GHC.Err.error toStrict GHC.Base.$ (titleTpl_2 GHC.Base.&gt;&gt;= (`eitherRender` env_4))};
+             uprint body_5;
+             uprint title_6}
+   |
+18 | do
+   | ^^...</pre><br/>現在、会社の日報のためにメール送信スクリプトを作成しようと考えています。jsonでデータの構造を書いておき、そのインスタンスをEDEでメールの定型文に読み込む方針で す。<br/><br/>対象となるコードはこちらになります。Template Haskell自体まだ概念に馴染めておらず、なかなか苦戦しております…<br/>なにかおすすめの資料等あれば教えていただけるとありがたいです:writing_hand:<br/><br/><pre>data Properties = Properties [Text] deriving Show
+instance FromJSON Properties where
+    parseJSON (Array v) = Properties &lt;$&gt; parseJSON (Array v)
+    parseJSON _ = mzero
+
+data Schema = Schema
+    { key :: Text
+    , properties :: [Text]
+    } deriving (Lift, Show)
+instance FromJSON Schema where
+    parseJSON (Object v) =
+        if size v /= 1 then
+            fail "expected a pair."
+        else
+            do hs &lt;- parseJSON (Object v)
+               let ls = toList hs
+               return . (\(key, Properties properties) -&gt; Schema key properties) $ head ls
+
+
+toTitle :: Text -&gt; String
+toTitle =
+    let
+        toTitleString (c:cs) =
+            (toUpper c):cs
+    in
+    toTitleString . unpack
+
+
+schemaToData :: Schema -&gt; Q [Dec]
+schemaToData schema =
+  do
+    name &lt;- ( newName . toTitle $ key schema )
+    pure
+      [ DataD [] name [] Nothing
+        [ RecC
+            ( mkName . toTitle $ key schema )
+            ( Prelude.map
+                (\property -&gt; ( mkName $ unpack property, Bang Language.Haskell.TH.NoSourceUnpackedness Language.Haskell.TH.NoSourceStrictness, ConT ''Text ))
+                ( properties schema )
+            )
+        ]
+        [ DerivClause Nothing [ConT ''Show, ConT ''Generic]
+        ]
+      , InstanceD Nothing [] (AppT (ConT ''ToJSON) (ConT name)) []
+      , InstanceD Nothing [] (AppT (ConT ''FromJSON) (ConT name)) []
+      ]</pre></div>
+          <a class="link-to-replies" href="18/1632963970.095800.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1632969952.096400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1632969952.096400">2021-09-30 11:45:52 +0900</a></div>
+          </div>
+          <div class="description">Template Haskellの <code>[e| ... |]</code> などについてもっと詳しく解説してる記事があれば誰補足してほしいです... :pray:</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/17.html" class="item">Previous</a>

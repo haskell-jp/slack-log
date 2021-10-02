@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #18 at 2021-09-30 10:06:10 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #18 at 2021-09-30 10:06:10 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../18.html" class="item">Back to beginners #18</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1632963970.095800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">shogibeshow</div>
+            <div class="date"><a class="date" href="#message-1632963970.095800">2021-09-30 10:06:10 +0900</a></div>
+          </div>
+          <div class="description">こんにちは、Template Haskellを書いている最中に<br/>Illegal variable name: Mail<br/>というエラーが出てきて困っています。<br/><br/>エラーとしては<br/><pre>mailscript/app/Main.hs:18:1: error:
+    Illegal variable name: 'Mail'
+    When splicing a TH declaration:
+      main_0 = do {bodyTpl_1 &lt;- eitherParseFile "./template/body.txt";
+             titleTpl_2 &lt;- eitherParseFile "./template/title.txt";
+             Data.Traversable.mapM (\property_3 -&gt; GHC.Base.pure (Language.Haskell.TH.Syntax.BindS (Language.Haskell.TH.Syntax.VarP (Language.Haskell.TH.Syntax.mkName GHC.Base.$ ("input" GHC.Base.++ property_3))) (Language.Haskell.TH.Syntax.VarE System.IO.getLine))) ps;
+             let {env_4 = fromPairs [(Data.Text.Lazy.unpack GHC.Base.$ Lib.key (Lib.Schema (Data.Text.Lazy.pack "mail") [Data.Text.Lazy.pack "todayWorkSchedule",
+                                                                                                                         Data.Text.Lazy.pack "todayOutcome",
+                                                                                                                         Data.Text.Lazy.pack "tomorrowWorkSchedule",
+                                                                                                                         Data.Text.Lazy.pack "thoughts"])) Data.Aeson.Types.ToJSON..= (Data.Aeson.Types.ToJSON.toJSON GHC.Base.$ Data.Foldable.foldl (GHC.Base.$) Main.Mail ps)];
+                  body_5 = Data.Either.either GHC.Err.error toStrict GHC.Base.$ (bodyTpl_1 GHC.Base.&gt;&gt;= (`eitherRender` env_4));
+                  title_6 = Data.Either.either GHC.Err.error toStrict GHC.Base.$ (titleTpl_2 GHC.Base.&gt;&gt;= (`eitherRender` env_4))};
+             uprint body_5;
+             uprint title_6}
+   |
+18 | do
+   | ^^...</pre><br/>現在、会社の日報のためにメール送信スクリプトを作成しようと考えています。jsonでデータの構造を書いておき、そのインスタンスをEDEでメールの定型文に読み込む方針で す。<br/><br/>対象となるコードはこちらになります。Template Haskell自体まだ概念に馴染めておらず、なかなか苦戦しております…<br/>なにかおすすめの資料等あれば教えていただけるとありがたいです:writing_hand:<br/><br/><pre>data Properties = Properties [Text] deriving Show
+instance FromJSON Properties where
+    parseJSON (Array v) = Properties &lt;$&gt; parseJSON (Array v)
+    parseJSON _ = mzero
+
+data Schema = Schema
+    { key :: Text
+    , properties :: [Text]
+    } deriving (Lift, Show)
+instance FromJSON Schema where
+    parseJSON (Object v) =
+        if size v /= 1 then
+            fail "expected a pair."
+        else
+            do hs &lt;- parseJSON (Object v)
+               let ls = toList hs
+               return . (\(key, Properties properties) -&gt; Schema key properties) $ head ls
+
+
+toTitle :: Text -&gt; String
+toTitle =
+    let
+        toTitleString (c:cs) =
+            (toUpper c):cs
+    in
+    toTitleString . unpack
+
+
+schemaToData :: Schema -&gt; Q [Dec]
+schemaToData schema =
+  do
+    name &lt;- ( newName . toTitle $ key schema )
+    pure
+      [ DataD [] name [] Nothing
+        [ RecC
+            ( mkName . toTitle $ key schema )
+            ( Prelude.map
+                (\property -&gt; ( mkName $ unpack property, Bang Language.Haskell.TH.NoSourceUnpackedness Language.Haskell.TH.NoSourceStrictness, ConT ''Text ))
+                ( properties schema )
+            )
+        ]
+        [ DerivClause Nothing [ConT ''Show, ConT ''Generic]
+        ]
+      , InstanceD Nothing [] (AppT (ConT ''ToJSON) (ConT name)) []
+      , InstanceD Nothing [] (AppT (ConT ''FromJSON) (ConT name)) []
+      ]</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1632968955.095900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1632968955.095900">2021-09-30 11:29:15 +0900</a></div>
+          </div>
+          <div class="description"><pre>(\property -&gt; ( mkName $ unpack property, Bang </pre><br/>の行で、 <code>mkName</code> に渡している <code>unpack property</code> の結果の文字列が大文字始まりになっていることが原因と思われます。<br/>この <code>property</code> は外から入ってきたデータのようなので、これ自体に大文字始まりの文字列が入ってしまっている、もっと根本的な原因は分からないです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632969870.096100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1632969870.096100">2021-09-30 11:44:30 +0900</a></div>
+          </div>
+          <div class="description">あと、Template Haskellで構文木を組み立てるときは、極力 <code>[d| |]</code> や <code>[e| |]</code> などのquote構文を使いましょう。これを使うと、直接Haskellのコードを書いて構文木を組み立てることができて、劇的にコード量が減りますし、Template Haskellの仕様変更にも強くなります。例えば拙作ですがtypesafe-precureというパッケージでは、今回のケースのように外部からのデータで型を作成してそのインスタンス定義までしている箇所がたくさんあります。<br/>具体的には <a href='https://github.com/igrep/typesafe-precure/blob/411e39147b068ffa9e98a73175e244f07c39aa86/src/ACME/PreCure/Types/TH.hs#L139-L205'>https://github.com/igrep/typesafe-precure/blob/411e39147b068ffa9e98a73175e244f07c39aa86/src/ACME/PreCure/Types/TH.hs#L139-L205</a> のあたり。<br/><br/>中に何を <code>$( )</code> で埋め込めるかが分かりづらくて、あらゆるケースで使えるわけじゃないのでご注意ください。多分そのあたりでハマると思うのでそのときは改めて教えてください。<br/><br/>さらにもう一つ。上記の方法がうまく使えず、 <code>DataD</code> や <code>RecC</code> といった値コンストラクターを直接使って構文木を組み立てる場合においても、よりよい方法があります。<br/><a href='https://hackage.haskell.org/package/template-haskell-2.17.0.0/docs/Language-Haskell-TH-Lib.html'>https://hackage.haskell.org/package/template-haskell-2.17.0.0/docs/Language-Haskell-TH-Lib.html</a> こちらのモジュールで定義されている、`dataD` などの関数を使いましょう。こちらは直接 <code>Q</code> Monadの値を返してくれるので <code>pure</code> を使う必要性が減るだけでなく、値コンストラクターではなく関数なので互換性を維持しやすい（Template Haskellの仕様変更に少し強い）というメリットもあります。<br/>Template HaskellはGHCのメジャーバージョンが変わる毎にちまちまと仕様変更を繰り返しているので、これらの方策でなるべく変更に強いコードにしておきましょう。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632969952.096400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1632969952.096400">2021-09-30 11:45:52 +0900</a></div>
+          </div>
+          <div class="description">Template Haskellの <code>[e| ... |]</code> などについてもっと詳しく解説してる記事があれば誰補足してほしいです... :pray:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1632980506.096700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">shogibeshow</div>
+            <div class="date"><a class="date" href="#message-1632980506.096700">2021-09-30 14:41:46 +0900</a></div>
+          </div>
+          <div class="description">ご返信ありがとうございます！<br/>data コンストラクタだから勝手に大文字始まりだと思いこんでいました……Nameあたりまたドキュメント読み直して調べてみます！<br/><br/>実は<@U4LGTMTMK> さんのタイプセーフプリキュアの記事をhaskell-jpで見て、template haskellに興味を持ったんです。<br/>ソースコードを呼んでみたいと思います。ありがとうございます！<br/><br/>stageやlift等コンパイラに怒られてしまって、ちょっとまだ難しいと思いdataD等避けていました。<br/>これからは関数で記法を統一していこうと思います。ありがとうございます。:pray:</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../18.html" class="item">Back to beginners #18</a>
+    </div>
+  </div>
+</body>
+</html>
