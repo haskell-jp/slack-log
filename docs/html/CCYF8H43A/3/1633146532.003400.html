@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / nix #3 at 2021-10-02 12:48:52 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / nix #3 at 2021-10-02 12:48:52 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../3.html" class="item">Back to nix #3</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1633146532.003400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1633146532.003400">2021-10-02 12:48:52 +0900</a></div>
+          </div>
+          <div class="description">こんなcontribution guideを敷いているリポジトリーにPull requestを送ろうとしたんですが、Nixをインストールして <code>nix-shell</code> したところ、多くのパッケージを何時間もかけてコンパイルしようとして結局失敗してしまいました（申し訳なくも失敗の正確な原因はつかめてません）。こういうとき、そもそもこれだけのためにわざわざコンパイルするのが苦痛なんでなんとか省略する方法はないのでしょうか？Cachixというのを使えばいいんですかね？<br/><a href='https://github.com/NorfairKing/sydtest/blob/master/CONTRIBUTING.md'>https://github.com/NorfairKing/sydtest/blob/master/CONTRIBUTING.md</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1633187168.006100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633187168.006100">2021-10-03 00:06:08 +0900</a></div>
+          </div>
+          <div class="description">ご認識の通りcachixをいれれば解決かと思います。<br/><a href='https://github.com/NorfairKing/sydtest/blob/master/.github/workflows/nix.yaml#L39-L44'>https://github.com/NorfairKing/sydtest/blob/master/.github/workflows/nix.yaml#L39-L44</a><br/>github-actionsでもcachixつかっていますね。<br/>6分くらいで終わるようです。<br/><pre>nix-env -i cachix
+cachix use sydtest</pre><br/>を実行したあとに`nix-build`を実行ですかね。<br/>ただこのキャッシュがubuntu向けのようなのでmacosで実行した場合はキャッシュはないでしょうね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633187455.006600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633187455.006600">2021-10-03 00:10:55 +0900</a></div>
+          </div>
+          <div class="description">私は問題の調査方法として次のコマンドを実行して<br/>失敗した/nix/store/*.drvの問題を調べています。<br/><br/>```#drvの環境に入る<br/>nix-shell "失敗したdrvへのパス"<br/><br/>#build用の設定の読み込み<br/>source $stdenv/setup<br/><br/>#エラーがでてもdrvの環境から抜けないようにする<br/>set +e<br/><br/>#build<br/>genericBuild```<br/></div>
+        </div>
+      </div>
+      <div class="event" id="message-1633187812.006900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633187812.006900">2021-10-03 00:16:52 +0900</a></div>
+          </div>
+          <div class="description">あとはビルドのログの確認ですが、次のようにして確認できます。<br/><pre>nix log "drvへのパス"</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1633212700.007400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1633212700.007400">2021-10-03 07:11:40 +0900</a></div>
+          </div>
+          <div class="description">詳しい回答ありがとうございます！！<br/>今はDebianを使っているのですが、sydtestのGitHub  Actionsが利用しているキャッシュをそのまま利用する場合はUbuntuにした方がいいのでしょうか？</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../3.html" class="item">Back to nix #3</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+[
+    {
+        "ts": "1633146532.003400",
+        "text": "こんなcontribution guideを敷いているリポジトリーにPull requestを送ろうとしたんですが、Nixをインストールして `nix-shell` したところ、多くのパッケージを何時間もかけてコンパイルしようとして結局失敗してしまいました（申し訳なくも失敗の正確な原因はつかめてません）。こういうとき、そもそもこれだけのためにわざわざコンパイルするのが苦痛なんでなんとか省略する方法はないのでしょうか？Cachixというのを使えばいいんですかね？\n<https://github.com/NorfairKing/sydtest/blob/master/CONTRIBUTING.md>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1633187168.006100",
+        "text": "ご認識の通りcachixをいれれば解決かと思います。\n<https://github.com/NorfairKing/sydtest/blob/master/.github/workflows/nix.yaml#L39-L44>\ngithub-actionsでもcachixつかっていますね。\n6分くらいで終わるようです。\n```nix-env -i cachix\ncachix use sydtest```\nを実行したあとに`nix-build`を実行ですかね。\nただこのキャッシュがubuntu向けのようなのでmacosで実行した場合はキャッシュはないでしょうね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633187455.006600",
+        "text": "私は問題の調査方法として次のコマンドを実行して\n失敗した/nix/store/*.drvの問題を調べています。\n\n```#drvの環境に入る\nnix-shell \"失敗したdrvへのパス\"\n\n#build用の設定の読み込み\nsource $stdenv/setup\n\n#エラーがでてもdrvの環境から抜けないようにする\nset +e\n\n#build\ngenericBuild```\n",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633187812.006900",
+        "text": "あとはビルドのログの確認ですが、次のようにして確認できます。\n```nix log \"drvへのパス\"```",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633212700.007400",
+        "text": "詳しい回答ありがとうございます！！\n今はDebianを使っているのですが、sydtestのGitHub  Actionsが利用しているキャッシュをそのまま利用する場合はUbuntuにした方がいいのでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]

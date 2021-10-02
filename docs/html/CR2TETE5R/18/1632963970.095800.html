@@ -118,6 +118,51 @@ schemaToData schema =
           <div class="description">ご返信ありがとうございます！<br/>data コンストラクタだから勝手に大文字始まりだと思いこんでいました……Nameあたりまたドキュメント読み直して調べてみます！<br/><br/>実は<@U4LGTMTMK> さんのタイプセーフプリキュアの記事をhaskell-jpで見て、template haskellに興味を持ったんです。<br/>ソースコードを呼んでみたいと思います。ありがとうございます！<br/><br/>stageやlift等コンパイラに怒られてしまって、ちょっとまだ難しいと思いdataD等避けていました。<br/>これからは関数で記法を統一していこうと思います。ありがとうございます。:pray:</div>
         </div>
       </div>
+      <div class="event" id="message-1633183727.097000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">shogibeshow</div>
+            <div class="date"><a class="date" href="#message-1633183727.097000">2021-10-02 23:08:47 +0900</a></div>
+          </div>
+          <div class="description">@igrep<br/>すごく小さなスクリプトですが、とうとう完成できました！ありがとうございます！<br/>stage restrictionで長い間手こずりましたが……<br/><br/>ここで質問があります。<br/>1. <strike>日本語を表示する際unicode-showを使っているが、“が追加されるのを回避する方法はあるか？(showの挙動なので回避できない？)</strike><br/>2. SMTPでメール送信をしたいと考えているが、その際のメールアカウントのパスワードはどのように保存するべきか?<br/><br/><strike>1番に関しては、後々TUIにしようと考えているので大きな問題ではないですが、もし何か解決法があるならお伺いしたいです。</strike><br/>馬鹿な勘違いでした:persevere:<br/><br/>2番に関しては秘密鍵をコンパイル時に生成してコードに埋め込み、暗号化したパスワードをファイルに保存しようかと思っています。<br/>これってセキュリティ的に問題があるんですかね？(使用するのは個人のパソコンなので問題ないのか？とも思っていますが……)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633184026.097400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1633184026.097400">2021-10-02 23:13:46 +0900</a></div>
+          </div>
+          <div class="description">取り急ぎ 1. だけ。状況がよくわからないんですが、普通に <code>putStr</code> などで直接出力するのではダメなんでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633184372.097600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">shogibeshow</div>
+            <div class="date"><a class="date" href="#message-1633184372.097600">2021-10-02 23:19:32 +0900</a></div>
+          </div>
+          <div class="description">お恥ずかしい……putStrでもエスケープされると思い込んでました…！<br/>repl脳になってました:persevere:<br/>たしかに考えてみたら、printで制御文字とかを表示するための便利仕様という位置づけでしたね…ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633184536.097900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1633184536.097900">2021-10-02 23:22:16 +0900</a></div>
+          </div>
+          <div class="description">2. については、秘密鍵を実行ファイルに書き込んでしまうと結局外のファイルに書き込んでおくのとあまり差がないのではないかと思います。もちろん、リバースエンジニアリングして複合する難易度は多かれ少なかれ上がるでしょうけども。<br/>できるだけ安全にしたいのなら、可能なら、起動時に <code>hSetEcho stdin False</code> した上で 標準入力などから入力を隠した状態で読んでおいてオンメモリーでしか保持しない、という手があります。<br/>ただ単純にこの方法だけだと、メモリーダンプから読み取れてしまう恐れなどがあるので（まぁ、それも個人のパソコンに入られてしまってる時点でどうやねんという話ではあるんですが）、<br/><a href='https://www.ipa.go.jp/security/awareness/vendor/programmingv2/contents/c607.html'>https://www.ipa.go.jp/security/awareness/vendor/programmingv2/contents/c607.html</a><br/>で紹介されているような保護機構が使えるのではないかと思います。<br/>ただ、これをHaskellから手軽にやるライブラリーがあるかは知りません... FFIだけでできるのかな...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633185393.098300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">shogibeshow</div>
+            <div class="date"><a class="date" href="#message-1633185393.098300">2021-10-02 23:36:33 +0900</a></div>
+          </div>
+          <div class="description">迅速な返信ありがとうございます！<br/>ディスク上に書き出させないようにして、強制終了された時などに盗まれないようにするものなんですね。<br/><br/>私はまだ初心者で前提知識が足りなさすぎると感じるので、今回はこの方法は見送ることにします…。ありがとうございます。<br/>UNIXやwindowsなどのOSの知識も重要ですね。すべてやったほうが良い知識ではあるからどこから手を付けたらいいのやら:sweat_smile:<br/><br/>今回はいっそのこと暗号化しなくても良いかもしれないです。入られたらもろとも終わりや精神で！高くを自分に求めすぎると挫折してしまうので:relieved:</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../18.html" class="item">Back to beginners #18</a>
