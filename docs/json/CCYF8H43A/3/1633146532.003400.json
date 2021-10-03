@@ -40,5 +40,77 @@
         "text": "本件続報です。cachixをインストールしようとして気づいたのですが、どうも当初からこちらの問題にハマっていたのではないかと思います。\n<https://discourse.nixos.org/t/nix-build-trying-to-build-basic-tools-for-all-packages-from-scratch/11097/2>\nで、解決策曰くconfiguration.nixの `nix.trustedUsers` という項目をいじれ、とのことなのですが、 `find / -name configuration.nix` してみても該当のファイルが見当たりませんでした。どこに置いてあるのでしょうか？",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1633253090.008700",
+        "text": "```/etc/nix/nix.conf```\nこちらですかね。\nconfiguration.nixはnixosの場合の設定ファイルです。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633253198.008900",
+        "text": "ありがとうございます！やっぱそれなんですかね。構文が全く違うのでどう編集したものかと困惑してましたが...",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1633253270.009100",
+        "text": "あと\n```    - uses: cachix/cachix-action@v8\n      with:\n        name: sydtest\n        extraPullNames: yamlparse\n        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'```\nとなっていてextraPullNamesのところもサーバーのようですね。\nなので\n```cachix use sydtest\ncachix use yamlparse```\nの二つが必要ですね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633259635.009400",
+        "text": "ようやくnix-shellができました！ありがとうございます！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1633260425.009600",
+        "text": "ようやくnix-shellを起動して必要なものをインストールできたのでCONTRIBUTING.md の指示どおりnix-shellで `stack test --pedantic` したところ、こんなエラーが\n``` &lt;command line&gt;: /nix/store/ikl21vjfq900ccbqg1xasp83kadw6q8y-glibc-2.32-46/lib/libc.so.6: symbol _dl_fatal_printf version GLIBC_PRIVATE not defined in file ld-linux-x86-64.so.2 with link time reference```\n検索して見つかった <https://stackoverflow.com/questions/49245547/version-glibc-private-not-defined-in-file-ld-linux-x86-64-so-2> を読んだところ、元々DebianにインストールされていたglibcとNixが入れたglibcとで競合しているために発生しているようです。\nどなたか直し方に心当たりありませんか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1633263308.010000",
+        "text": "実は僕もいま同じ問題をかかえていて\nどうやって直したものかと思っていました。\n<https://github.com/hasktorch/hasktorch/pull/619/checks?check_run_id=3776938349#step:10:1080>",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633264194.010300",
+        "text": "こんなページがあって、ここでは対象の実行ファイルに対して patchelf ってコマンドを使ってますね。私の場合どのコマンドかさえイマイチわからなかったのでちょっと試せてないのですが...\n<https://newbedev.com/how-to-use-libraries-installed-by-nix-at-run-time>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1633267557.010600",
+        "text": "patchelfはデフォルトのローダーやライブラリのリンクをかえるものですね。\n例えば、ubuntuのlsのローダーは/lib64にあるものになりますが\n```$ patchelf --print-interpreter /usr/bin/ls\n/lib64/ld-linux-x86-64.so.2```\nnixでビルドすると\n```$ patchelf --print-interpreter ./result/bin/cpod\n/nix/store/2jfn3d7vyj7h0h6lmh510rz31db68l1i-glibc-2.33-50/lib/ld-linux-x86-64.so.2```\nこちらのようにnixの用意したローダーに書き換えられます。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633267879.011000",
+        "text": "libcで競合するなら、なにもかも動かなくなる気がしますが、\n特定のケースだけなぜ動かないのかよくわからないですね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633268142.011400",
+        "text": "参照するべきライブラリがわかっているなら\nなにか実行するまえに下記を実行したらいいはずです。\n（今回なにをみるべきかよくわからないです。）\n```export LD_PRELOAD=参照したいライブラリ```",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633271041.011800",
+        "text": "とりあえず、自分の問題のほうは、\nよくわからないですが、既存のファイルの影響を排除するため\n~/.stackと.stack-workのあたりを消してみて再実行してみます。\n...\n再実行してもだめでしたね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633271341.012200",
+        "text": "GLIBC_PRIVATEに関するメモ。\n<https://groups.google.com/g/uk.comp.os.linux/c/PX3rstGtZRQ?pli=1>",
+        "user": "U74KTAG0N",
+        "type": "message"
     }
 ]

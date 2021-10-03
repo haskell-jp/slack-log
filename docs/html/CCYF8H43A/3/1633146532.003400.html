@@ -76,6 +76,121 @@ cachix use sydtest</pre><br/>を実行したあとに`nix-build`を実行です�
           <div class="description">本件続報です。cachixをインストールしようとして気づいたのですが、どうも当初からこちらの問題にハマっていたのではないかと思います。<br/><a href='https://discourse.nixos.org/t/nix-build-trying-to-build-basic-tools-for-all-packages-from-scratch/11097/2'>https://discourse.nixos.org/t/nix-build-trying-to-build-basic-tools-for-all-packages-from-scratch/11097/2</a><br/>で、解決策曰くconfiguration.nixの <code>nix.trustedUsers</code> という項目をいじれ、とのことなのですが、 <code>find / -name configuration.nix</code> してみても該当のファイルが見当たりませんでした。どこに置いてあるのでしょうか？</div>
         </div>
       </div>
+      <div class="event" id="message-1633253090.008700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633253090.008700">2021-10-03 18:24:50 +0900</a></div>
+          </div>
+          <div class="description"><pre>/etc/nix/nix.conf</pre><br/>こちらですかね。<br/>configuration.nixはnixosの場合の設定ファイルです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633253198.008900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1633253198.008900">2021-10-03 18:26:38 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！やっぱそれなんですかね。構文が全く違うのでどう編集したものかと困惑してましたが...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633253270.009100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633253270.009100">2021-10-03 18:27:50 +0900</a></div>
+          </div>
+          <div class="description">あと<br/><pre>    - uses: cachix/cachix-action@v8
+      with:
+        name: sydtest
+        extraPullNames: yamlparse
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'</pre><br/>となっていてextraPullNamesのところもサーバーのようですね。<br/>なので<br/><pre>cachix use sydtest
+cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633259635.009400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1633259635.009400">2021-10-03 20:13:55 +0900</a></div>
+          </div>
+          <div class="description">ようやくnix-shellができました！ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633260425.009600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1633260425.009600">2021-10-03 20:27:05 +0900</a></div>
+          </div>
+          <div class="description">ようやくnix-shellを起動して必要なものをインストールできたのでCONTRIBUTING.md の指示どおりnix-shellで <code>stack test --pedantic</code> したところ、こんなエラーが<br/><pre> &lt;command line&gt;: /nix/store/ikl21vjfq900ccbqg1xasp83kadw6q8y-glibc-2.32-46/lib/libc.so.6: symbol _dl_fatal_printf version GLIBC_PRIVATE not defined in file ld-linux-x86-64.so.2 with link time reference</pre><br/>検索して見つかった <a href='https://stackoverflow.com/questions/49245547/version-glibc-private-not-defined-in-file-ld-linux-x86-64-so-2'>https://stackoverflow.com/questions/49245547/version-glibc-private-not-defined-in-file-ld-linux-x86-64-so-2</a> を読んだところ、元々DebianにインストールされていたglibcとNixが入れたglibcとで競合しているために発生しているようです。<br/>どなたか直し方に心当たりありませんか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633263308.010000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633263308.010000">2021-10-03 21:15:08 +0900</a></div>
+          </div>
+          <div class="description">実は僕もいま同じ問題をかかえていて<br/>どうやって直したものかと思っていました。<br/><a href='https://github.com/hasktorch/hasktorch/pull/619/checks?check_run_id=3776938349#step:10:1080'>https://github.com/hasktorch/hasktorch/pull/619/checks?check_run_id=3776938349#step:10:1080</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1633264194.010300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1633264194.010300">2021-10-03 21:29:54 +0900</a></div>
+          </div>
+          <div class="description">こんなページがあって、ここでは対象の実行ファイルに対して patchelf ってコマンドを使ってますね。私の場合どのコマンドかさえイマイチわからなかったのでちょっと試せてないのですが...<br/><a href='https://newbedev.com/how-to-use-libraries-installed-by-nix-at-run-time'>https://newbedev.com/how-to-use-libraries-installed-by-nix-at-run-time</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1633267557.010600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633267557.010600">2021-10-03 22:25:57 +0900</a></div>
+          </div>
+          <div class="description">patchelfはデフォルトのローダーやライブラリのリンクをかえるものですね。<br/>例えば、ubuntuのlsのローダーは/lib64にあるものになりますが<br/><pre>$ patchelf --print-interpreter /usr/bin/ls
+/lib64/ld-linux-x86-64.so.2</pre><br/>nixでビルドすると<br/><pre>$ patchelf --print-interpreter ./result/bin/cpod
+/nix/store/2jfn3d7vyj7h0h6lmh510rz31db68l1i-glibc-2.33-50/lib/ld-linux-x86-64.so.2</pre><br/>こちらのようにnixの用意したローダーに書き換えられます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633267879.011000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633267879.011000">2021-10-03 22:31:19 +0900</a></div>
+          </div>
+          <div class="description">libcで競合するなら、なにもかも動かなくなる気がしますが、<br/>特定のケースだけなぜ動かないのかよくわからないですね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633268142.011400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633268142.011400">2021-10-03 22:35:42 +0900</a></div>
+          </div>
+          <div class="description">参照するべきライブラリがわかっているなら<br/>なにか実行するまえに下記を実行したらいいはずです。<br/>（今回なにをみるべきかよくわからないです。）<br/><pre>export LD_PRELOAD=参照したいライブラリ</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1633271041.011800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633271041.011800">2021-10-03 23:24:01 +0900</a></div>
+          </div>
+          <div class="description">とりあえず、自分の問題のほうは、<br/>よくわからないですが、既存のファイルの影響を排除するため<br/>~/.stackと.stack-workのあたりを消してみて再実行してみます。<br/>...<br/>再実行してもだめでしたね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633271341.012200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633271341.012200">2021-10-03 23:29:01 +0900</a></div>
+          </div>
+          <div class="description">GLIBC_PRIVATEに関するメモ。<br/><a href='https://groups.google.com/g/uk.comp.os.linux/c/PX3rstGtZRQ?pli=1'>https://groups.google.com/g/uk.comp.os.linux/c/PX3rstGtZRQ?pli=1</a></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../3.html" class="item">Back to nix #3</a>

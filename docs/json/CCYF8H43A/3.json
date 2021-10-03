@@ -58,5 +58,11 @@
         "text": "本件続報です。cachixをインストールしようとして気づいたのですが、どうも当初からこちらの問題にハマっていたのではないかと思います。\n<https://discourse.nixos.org/t/nix-build-trying-to-build-basic-tools-for-all-packages-from-scratch/11097/2>\nで、解決策曰くconfiguration.nixの `nix.trustedUsers` という項目をいじれ、とのことなのですが、 `find / -name configuration.nix` してみても該当のファイルが見当たりませんでした。どこに置いてあるのでしょうか？",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1633260425.009600",
+        "text": "ようやくnix-shellを起動して必要なものをインストールできたのでCONTRIBUTING.md の指示どおりnix-shellで `stack test --pedantic` したところ、こんなエラーが\n``` &lt;command line&gt;: /nix/store/ikl21vjfq900ccbqg1xasp83kadw6q8y-glibc-2.32-46/lib/libc.so.6: symbol _dl_fatal_printf version GLIBC_PRIVATE not defined in file ld-linux-x86-64.so.2 with link time reference```\n検索して見つかった <https://stackoverflow.com/questions/49245547/version-glibc-private-not-defined-in-file-ld-linux-x86-64-so-2> を読んだところ、元々DebianにインストールされていたglibcとNixが入れたglibcとで競合しているために発生しているようです。\nどなたか直し方に心当たりありませんか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
