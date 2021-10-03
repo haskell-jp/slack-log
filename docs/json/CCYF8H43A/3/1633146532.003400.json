@@ -28,5 +28,17 @@
         "text": "詳しい回答ありがとうございます！！\n今はDebianを使っているのですが、sydtestのGitHub  Actionsが利用しているキャッシュをそのまま利用する場合はUbuntuにした方がいいのでしょうか？",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1633217154.007700",
+        "text": "キャッシュはx86_64-linuxやx86_64-darwinなど実行するアーキテクチャごとなので、debianのままで大丈夫です。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633247938.008300",
+        "text": "本件続報です。cachixをインストールしようとして気づいたのですが、どうも当初からこちらの問題にハマっていたのではないかと思います。\n<https://discourse.nixos.org/t/nix-build-trying-to-build-basic-tools-for-all-packages-from-scratch/11097/2>\nで、解決策曰くconfiguration.nixの `nix.trustedUsers` という項目をいじれ、とのことなのですが、 `find / -name configuration.nix` してみても該当のファイルが見当たりませんでした。どこに置いてあるのでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]

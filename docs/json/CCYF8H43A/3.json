@@ -52,5 +52,11 @@
         "text": "こんなcontribution guideを敷いているリポジトリーにPull requestを送ろうとしたんですが、Nixをインストールして `nix-shell` したところ、多くのパッケージを何時間もかけてコンパイルしようとして結局失敗してしまいました（申し訳なくも失敗の正確な原因はつかめてません）。こういうとき、そもそもこれだけのためにわざわざコンパイルするのが苦痛なんでなんとか省略する方法はないのでしょうか？Cachixというのを使えばいいんですかね？\n<https://github.com/NorfairKing/sydtest/blob/master/CONTRIBUTING.md>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1633247938.008300",
+        "text": "本件続報です。cachixをインストールしようとして気づいたのですが、どうも当初からこちらの問題にハマっていたのではないかと思います。\n<https://discourse.nixos.org/t/nix-build-trying-to-build-basic-tools-for-all-packages-from-scratch/11097/2>\nで、解決策曰くconfiguration.nixの `nix.trustedUsers` という項目をいじれ、とのことなのですが、 `find / -name configuration.nix` してみても該当のファイルが見当たりませんでした。どこに置いてあるのでしょうか？",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]

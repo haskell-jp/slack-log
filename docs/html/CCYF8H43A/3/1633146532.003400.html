@@ -58,6 +58,24 @@ cachix use sydtest</pre><br/>を実行したあとに`nix-build`を実行です�
           <div class="description">詳しい回答ありがとうございます！！<br/>今はDebianを使っているのですが、sydtestのGitHub  Actionsが利用しているキャッシュをそのまま利用する場合はUbuntuにした方がいいのでしょうか？</div>
         </div>
       </div>
+      <div class="event" id="message-1633217154.007700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633217154.007700">2021-10-03 08:25:54 +0900</a></div>
+          </div>
+          <div class="description">キャッシュはx86_64-linuxやx86_64-darwinなど実行するアーキテクチャごとなので、debianのままで大丈夫です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633247938.008300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1633247938.008300">2021-10-03 16:58:58 +0900</a></div>
+          </div>
+          <div class="description">本件続報です。cachixをインストールしようとして気づいたのですが、どうも当初からこちらの問題にハマっていたのではないかと思います。<br/><a href='https://discourse.nixos.org/t/nix-build-trying-to-build-basic-tools-for-all-packages-from-scratch/11097/2'>https://discourse.nixos.org/t/nix-build-trying-to-build-basic-tools-for-all-packages-from-scratch/11097/2</a><br/>で、解決策曰くconfiguration.nixの <code>nix.trustedUsers</code> という項目をいじれ、とのことなのですが、 <code>find / -name configuration.nix</code> してみても該当のファイルが見当たりませんでした。どこに置いてあるのでしょうか？</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../3.html" class="item">Back to nix #3</a>
