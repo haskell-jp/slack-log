@@ -1,0 +1,26 @@
+[
+    {
+        "ts": "1633320879.001200",
+        "text": "連投申し訳ありません。高次元圏をHaskellで実現することはできますか？\n3-cellなどの実装もできるのでしょうか。",
+        "user": "UFMV026NR",
+        "type": "message"
+    },
+    {
+        "ts": "1633344359.019700",
+        "text": "基本的に Haskellでいう category ってhomは値、Hom-setが型、対象は型でOb-set が種ですよね。well-typedにやろうとするなら、 `x,y :: Ob` に対して `f,g :: Hom1 x y`, `theta :: Hom2 x y f g` とかできて欲しいとこで、Haskellは dependently typed じゃないから、自然には  `Ob = * = Type = TYPE 'LiftedRep` になっちゃうし、 `Hom1 x y` が何かの型になっちゃうんですよね。そうすると `Hom2 x y f g` の `f g` にどうやってはめ込むんだって話になるので、ちょっと難しい気がします。`TypeInType` 拡張とか使って `data Ob = &lt;hogehoge&gt;` とやり `data Hom1 x y = &lt;hogehoge&gt;` とやって両方kindとみなすなら何とかなりますが、それって `Ob` も `Hom` も列挙型くらいにしかならなくてそんなに豊かではない気がしますね…。typeってコンパイル時には消去されるから実行時には2-cellしかいないし。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1633344645.020700",
+        "text": "あー… globular にやるなら何とかなるか",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1633344850.025900",
+        "text": "`Ob, Mor1, Mor2, Mor3` 型を用意し、 `id0 :: Ob -&gt; Mor1` , `dom1, cod1 :: Mor1 -&gt; Ob` 等を用意する。 ただしこうすると `comp1 :: Mor1 -&gt; Mor1 -&gt; Maybe Mor1` になって結合の際の `dom` と `cod` が一致してないのを実行時エラーとしてしか報告できなくなりますね…。 ",
+        "user": "UL1HFJATE",
+        "type": "message"
+    }
+]

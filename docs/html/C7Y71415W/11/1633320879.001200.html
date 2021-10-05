@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / math #11 at 2021-10-04 13:14:39 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / math #11 at 2021-10-04 13:14:39 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../11.html" class="item">Back to math #11</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1633320879.001200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tcokygets</div>
+            <div class="date"><a class="date" href="#message-1633320879.001200">2021-10-04 13:14:39 +0900</a></div>
+          </div>
+          <div class="description">連投申し訳ありません。高次元圏をHaskellで実現することはできますか？<br/>3-cellなどの実装もできるのでしょうか。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633344359.019700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1633344359.019700">2021-10-04 19:45:59 +0900</a></div>
+          </div>
+          <div class="description">基本的に Haskellでいう category ってhomは値、Hom-setが型、対象は型でOb-set が種ですよね。well-typedにやろうとするなら、 <code>x,y :: Ob</code> に対して <code>f,g :: Hom1 x y</code>, <code>theta :: Hom2 x y f g</code> とかできて欲しいとこで、Haskellは dependently typed じゃないから、自然には  <code>Ob = * = Type = TYPE 'LiftedRep</code> になっちゃうし、 <code>Hom1 x y</code> が何かの型になっちゃうんですよね。そうすると <code>Hom2 x y f g</code> の <code>f g</code> にどうやってはめ込むんだって話になるので、ちょっと難しい気がします。`TypeInType` 拡張とか使って <code>data Ob = &lt;hogehoge&gt;</code> とやり <code>data Hom1 x y = &lt;hogehoge&gt;</code> とやって両方kindとみなすなら何とかなりますが、それって <code>Ob</code> も <code>Hom</code> も列挙型くらいにしかならなくてそんなに豊かではない気がしますね…。typeってコンパイル時には消去されるから実行時には2-cellしかいないし。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633344645.020700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1633344645.020700">2021-10-04 19:50:45 +0900</a></div>
+          </div>
+          <div class="description">あー… globular にやるなら何とかなるか</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633344850.025900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1633344850.025900">2021-10-04 19:54:10 +0900</a></div>
+          </div>
+          <div class="description"><code>Ob, Mor1, Mor2, Mor3</code> 型を用意し、 <code>id0 :: Ob -&gt; Mor1</code> , <code>dom1, cod1 :: Mor1 -&gt; Ob</code> 等を用意する。 ただしこうすると <code>comp1 :: Mor1 -&gt; Mor1 -&gt; Maybe Mor1</code> になって結合の際の <code>dom</code> と <code>cod</code> が一致してないのを実行時エラーとしてしか報告できなくなりますね…。 </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../11.html" class="item">Back to math #11</a>
+    </div>
+  </div>
+</body>
+</html>
