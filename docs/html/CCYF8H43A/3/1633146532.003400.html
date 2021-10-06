@@ -191,6 +191,105 @@ cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
           <div class="description">GLIBC_PRIVATEに関するメモ。<br/><a href='https://groups.google.com/g/uk.comp.os.linux/c/PX3rstGtZRQ?pli=1'>https://groups.google.com/g/uk.comp.os.linux/c/PX3rstGtZRQ?pli=1</a></div>
         </div>
       </div>
+      <div class="event" id="message-1633398262.013100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633398262.013100">2021-10-05 10:44:22 +0900</a></div>
+          </div>
+          <div class="description"><pre>~/.stack/programs/x86_64-linux-nix/ghc-8.10.4/lib/ghc-8.10.4/bin/ghc</pre><br/>ここにあるghcがつかわれるようですが、nixが用意したldじゃなくてシステムのデフォルトが使われているのが原因のようですね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633398681.013300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633398681.013300">2021-10-05 10:51:21 +0900</a></div>
+          </div>
+          <div class="description">nix-shellがghcを用意しているのに、</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633398734.013700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633398734.013700">2021-10-05 10:52:14 +0900</a></div>
+          </div>
+          <div class="description">ghcをダウンロードしてダウンロードしたほうをつかおうとしますね。<br/>stackのバグですかね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633399742.013900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1633399742.013900">2021-10-05 11:09:02 +0900</a></div>
+          </div>
+          <div class="description"><code>--system-ghc</code> をstackに加えればいいんじゃないでしょうか。そうでないならその挙動は仕様な気がします。それにしてもやっぱりNixOSなしのNix（あるいは、Nixの外である程度環境を整えた状態でのNix）は混乱の元ですね... :weary:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633401355.014200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633401355.014200">2021-10-05 11:35:55 +0900</a></div>
+          </div>
+          <div class="description">これはそれによらないと思いますね。<br/>結局ダウンロードするので。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633401394.014400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633401394.014400">2021-10-05 11:36:34 +0900</a></div>
+          </div>
+          <div class="description">じつはstackとnixを両方使っているユーザーをあまり見たことがないですね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633401417.014600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633401417.014600">2021-10-05 11:36:57 +0900</a></div>
+          </div>
+          <div class="description">nixと素のcabalだけ使う人はよく見ますが。あまりデバッグがされてない気がします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633401648.014900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633401648.014900">2021-10-05 11:40:48 +0900</a></div>
+          </div>
+          <div class="description"><pre>stack test --pedantic --system-ghc</pre><br/>これでビルドできましたね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633401668.015100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633401668.015100">2021-10-05 11:41:08 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633401904.015600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1633401904.015600">2021-10-05 11:45:04 +0900</a></div>
+          </div>
+          <div class="description">こちらこそ詳細の調査ありがとうございました！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1633468881.015800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">junji.hashimoto</div>
+            <div class="date"><a class="date" href="#message-1633468881.015800">2021-10-06 06:21:21 +0900</a></div>
+          </div>
+          <div class="description">僕の抱えていた問題もおなじでした。<br/>ただ、--system-ghcはstackの要求するghcのバージョンとsystemにインストールずみのghcのバージョンが一致する場合だけ有効なようです。<br/>そうでないと勝手にダウンロードしてきますね。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../3.html" class="item">Back to nix #3</a>

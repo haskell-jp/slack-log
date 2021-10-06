@@ -112,5 +112,71 @@
         "text": "GLIBC_PRIVATEに関するメモ。\n<https://groups.google.com/g/uk.comp.os.linux/c/PX3rstGtZRQ?pli=1>",
         "user": "U74KTAG0N",
         "type": "message"
+    },
+    {
+        "ts": "1633398262.013100",
+        "text": "```~/.stack/programs/x86_64-linux-nix/ghc-8.10.4/lib/ghc-8.10.4/bin/ghc```\nここにあるghcがつかわれるようですが、nixが用意したldじゃなくてシステムのデフォルトが使われているのが原因のようですね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633398681.013300",
+        "text": "nix-shellがghcを用意しているのに、",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633398734.013700",
+        "text": "ghcをダウンロードしてダウンロードしたほうをつかおうとしますね。\nstackのバグですかね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633399742.013900",
+        "text": "`--system-ghc` をstackに加えればいいんじゃないでしょうか。そうでないならその挙動は仕様な気がします。それにしてもやっぱりNixOSなしのNix（あるいは、Nixの外である程度環境を整えた状態でのNix）は混乱の元ですね... :weary:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1633401355.014200",
+        "text": "これはそれによらないと思いますね。\n結局ダウンロードするので。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633401394.014400",
+        "text": "じつはstackとnixを両方使っているユーザーをあまり見たことがないですね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633401417.014600",
+        "text": "nixと素のcabalだけ使う人はよく見ますが。あまりデバッグがされてない気がします。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633401648.014900",
+        "text": "```stack test --pedantic --system-ghc```\nこれでビルドできましたね。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633401668.015100",
+        "text": "ありがとうございます。",
+        "user": "U74KTAG0N",
+        "type": "message"
+    },
+    {
+        "ts": "1633401904.015600",
+        "text": "こちらこそ詳細の調査ありがとうございました！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1633468881.015800",
+        "text": "僕の抱えていた問題もおなじでした。\nただ、--system-ghcはstackの要求するghcのバージョンとsystemにインストールずみのghcのバージョンが一致する場合だけ有効なようです。\nそうでないと勝手にダウンロードしてきますね。",
+        "user": "U74KTAG0N",
+        "type": "message"
     }
 ]
