@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #18 at 2021-10-17 15:37:04 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #18 at 2021-10-17 15:37:04 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../18.html" class="item">Back to beginners #18</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1634452624.126300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">shogibeshow</div>
+            <div class="date"><a class="date" href="#message-1634452624.126300">2021-10-17 15:37:04 +0900</a></div>
+          </div>
+          <div class="description">こんにちは、一つ質問をさせてください！<br/>現在型安全に状態遷移を表現する方法について悩んでいます。<br/><br/><pre>data State
+  = Ready 'StateA -- 型の上で次の状態を指定すれば、型安全な状態遷移を実現できるのではないか
+  | StateA [Text] 'StateB
+  | StateB [Text] 'Finished
+  | Finished [Text] '()
+
+toStateA :: State -&gt; Text -&gt; State -- この型上で何かしらパターンマッチングをしないといけない？
+toStateA (Ready 'StateA) text = -- 値でパターンマッチングをすることはできない
+  StateA [text]</pre><br/>理解が足りず、実現する手がかりがありません……<br/><br/>型安全な状態遷移をするのに必要なことは<br/>• 型に次の状態を入れ込む<br/>• 関数のシグネチャで、特定の遷移先の情報を持っている型のみ引数に取るようにする<br/>だと考えているのですが、どのように状態の型を定義すればいいか少々混乱しています。なにかお力添えいただけないでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1634463345.126600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1634463345.126600">2021-10-17 18:35:45 +0900</a></div>
+          </div>
+          <div class="description">愚直にやるなら、単純に <code>State</code> 型の各コンストラクターをそれぞれ別の型にすれば良いかと思うのですが、それでは間に合わない事情があるのでしょうか。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1634467961.126800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">shogibeshow</div>
+            <div class="date"><a class="date" href="#message-1634467961.126800">2021-10-17 19:52:41 +0900</a></div>
+          </div>
+          <div class="description">@igrep さん<br/>いつもご返信ありがとうございます。<br/>現在<https://hackage.haskell.org/package/brick-0.64.1|brick>を利用してTUIを作成しているのですが(前回回答いただいたプロジェクトです)、<br/>すべてのstateを一つの型として定義する必要があり、<br/><br/>• data/newtypeで定義すると名前の重複<br/>• typeで定義する際はunion typeが使えず<br/>と言った具合で、どうにも実現できなかった次第です。<br/>確実に私の理解・知識不足だと思うのですが、一寸先は闇状態で…<br/>なにか常識的な解法がありそうだと踏んで質問させていただきました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1634468915.127100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1634468915.127100">2021-10-17 20:08:35 +0900</a></div>
+          </div>
+          <div class="description">いやー、そんなに謙遜する必要もないです。<br/>依存型などの仕組みが必要な問題なのでかなり面倒な問題です。常識的な解法は「ある意味でない」と私は思います。個人的には、そこで依存型を真剣に勉強して詰まるよりは、普通にランタイムエラーが起こるのを覚悟で作って試行錯誤した方がいいんじゃないかなぁと思います。Haskellの依存型はまだ完全なものではなく使いづらいですし...。もちろん、何をultimate goalとしてやっているのか次第で、依存型などのそうした技術を本当に勉強したいのであれば調べればいいと思います。そうでないなら、アプリができるよう手を動かしましょう。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1634469754.127300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">shogibeshow</div>
+            <div class="date"><a class="date" href="#message-1634469754.127300">2021-10-17 20:22:34 +0900</a></div>
+          </div>
+          <div class="description">なるほど…。そこまで高難易度な問題だったのですね。<br/>確かに以前idrisや依存型等調べていたときに、プログラムの証明等沼に入り込むことになるからやめたほうがいい…<br/>のような趣旨の文言を目にしました。<br/><br/>この問題は腰を据えて勉強するべきものなんですね。それがわかってよかったです！<br/>現状最優先事項は型レベルプログラミングの勉強をすることではなく、完成させることなので続けて実装します！ありがとうございます！</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../18.html" class="item">Back to beginners #18</a>
+    </div>
+  </div>
+</body>
+</html>

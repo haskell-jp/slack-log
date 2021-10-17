@@ -302,10 +302,28 @@ schemaToData schema =
       <div class="event" id="message-1634361154.116800">
         <div class="content">
           <div class="summary">
-            <div class="user">U02HX93AXNH</div>
+            <div class="user">shota140204</div>
             <div class="date"><a class="date" href="#message-1634361154.116800">2021-10-16 14:12:34 +0900</a></div>
           </div>
-          <div class="description">@U02HX93AXNH has joined the channel</div>
+          <div class="description">@shota140204 has joined the channel</div>
+        </div>
+      </div>
+      <div class="event" id="message-1634452624.126300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">shogibeshow</div>
+            <div class="date"><a class="date" href="#message-1634452624.126300">2021-10-17 15:37:04 +0900</a></div>
+          </div>
+          <div class="description">こんにちは、一つ質問をさせてください！<br/>現在型安全に状態遷移を表現する方法について悩んでいます。<br/><br/><pre>data State
+  = Ready 'StateA -- 型の上で次の状態を指定すれば、型安全な状態遷移を実現できるのではないか
+  | StateA [Text] 'StateB
+  | StateB [Text] 'Finished
+  | Finished [Text] '()
+
+toStateA :: State -&gt; Text -&gt; State -- この型上で何かしらパターンマッチングをしないといけない？
+toStateA (Ready 'StateA) text = -- 値でパターンマッチングをすることはできない
+  StateA [text]</pre><br/>理解が足りず、実現する手がかりがありません……<br/><br/>型安全な状態遷移をするのに必要なことは<br/>• 型に次の状態を入れ込む<br/>• 関数のシグネチャで、特定の遷移先の情報を持っている型のみ引数に取るようにする<br/>だと考えているのですが、どのように状態の型を定義すればいいか少々混乱しています。なにかお力添えいただけないでしょうか？</div>
+          <a class="link-to-replies" href="18/1634452624.126300.html">... Replies ...</a>
         </div>
       </div>
     </div>
