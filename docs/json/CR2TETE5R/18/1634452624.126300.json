@@ -34,5 +34,47 @@
         "text": "私も似たようなことが必要になったので、\nその時は、\n`data State hasA hasB` みたいに型引数突っ込んで、\n`type ReadyA = State Identity Maybe` みたいに具象化してました。",
         "user": "U57CUMWQ6",
         "type": "message"
+    },
+    {
+        "ts": "1634710629.133900",
+        "text": "ありがとうございます！\n今の私にはまだ何がわからないのかもわからないぐらいです。\n\nなぜ型引数にmonadを突っ込んでいるのでしょうか？\nkindも合わないような気がしてます。\nなにか特別なやり方が隠されているんでしょうか……!",
+        "user": "U028P8GL2FJ",
+        "type": "message"
+    },
+    {
+        "ts": "1634711106.134100",
+        "text": "今回の件とは似てるけどちょっと違うので混乱を招いたかもしれません、それにかなり説明不足でしたね…申し訳ない。\n前提条件としてデータAからデータBを導く関数fがあって、fはデータAを要求するため、関数の型定義として状態StateはフィールドとしてデータAは必ず持っているとしたいわけです。\nそこでStateのフィールドは `a :: hasA A` としておいて、型引数hasAをIdentityとMaybeで切り替えれば、hasAがIdentityの場合は必ずフィールドaは持っていることが分かる、と言ったことを行っていました。",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1634712536.134700",
+        "text": "※すみません、途中まで書いて送信しちゃいましたが、やっぱり考えがまとまらなかったので消しました。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1634734594.134900",
+        "text": "なるほど、ありがとうございます。ものすごい浅瀬からの意見ですが、これはHKDですか？\n今朝たまたまhaskell荘園を見学していたら出てきました。\n\n```data State hasA hasB = State (hasA A) (hasB B)\n\ndata A = A Int String\nnewtype B = B Bool\n\ntype HasA = State Identity Maybe\ntype HasB = State Maybe Identity\n\nd :: HasB\nd = State Nothing (Identity (B True))```\nこんな感じで、外側から一定の性質を入れ込む方法なんですね。\n私はまだ経験も知見も足りないので、こういう高度な事は過剰に使って複雑性を高めてしまいそうです笑\nでも使ってみないことには適切な使用方法もわからないでしょうし、少し試してみようと思います！ありがとうございます！\n\n↑ちょうどrandomにも上がっていますね！笑",
+        "user": "U028P8GL2FJ",
+        "type": "message"
+    },
+    {
+        "ts": "1634737020.135400",
+        "text": "HKDですねえ、ただ既存のライブラリが対応してるHKDは1,2引数で全てMaybeとか全てIdentityとかなのであんまり既存のライブラリを使えませんでしたね…",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1634775691.135800",
+        "text": "なるほど、ありがとうございます。\nHKDというのは比較的新しいパターンということなんでしょうか？歴史的な経緯等は存じ上げないので見当違いかもしれませんが。",
+        "user": "U028P8GL2FJ",
+        "type": "message"
+    },
+    {
+        "ts": "1634775860.136000",
+        "text": "それはよく分かりません",
+        "user": "U57CUMWQ6",
+        "type": "message"
     }
 ]

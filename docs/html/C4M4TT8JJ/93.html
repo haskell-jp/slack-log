@@ -322,6 +322,7 @@ data Config = Config { checked :: Maybe Checked }</pre><br/>というように�
             <div class="date"><a class="date" href="#message-1634264083.037100">2021-10-15 11:14:43 +0900</a></div>
           </div>
           <div class="description">:warning: aesonパッケージにおけるHash DoS脆弱性について :warning: ビルド時のフラグで利用する連想配列の実装を、従来の（脆弱な）HashMapか（安全な）Mapか選べるようになったので、例えばよくあるREST APIのような、aesonを使って外からのJSONを処理するアプリケーションは、フラグの設定が推奨されます<br/>詳細: <a href='https://frasertweedale.github.io/blog-fp/posts/2021-10-12-aeson-hash-flooding-protection.html'>https://frasertweedale.github.io/blog-fp/posts/2021-10-12-aeson-hash-flooding-protection.html</a></div>
+          <a class="link-to-replies" href="93/1634264083.037100.html">... Replies ...</a>
         </div>
       </div>
       <div class="event" id="message-1634361154.038100">
@@ -340,6 +341,24 @@ data Config = Config { checked :: Maybe Checked }</pre><br/>というように�
             <div class="date"><a class="date" href="#message-1634658355.044300">2021-10-20 00:45:55 +0900</a></div>
           </div>
           <div class="description"><a href='https://scrapbox.io/haskell-shoen/barbies-th'>https://scrapbox.io/haskell-shoen/barbies-th</a> barbies-thは、Haskellの通常のデータ型の定義をHigher Kinded Dataに変換するライブラリです。試験的に、変換元と等価な型シノニムも定義するpassthroughBareBという関数を追加しました。これを使えば一切既存のコードを変更せずにHKD化ができるので(インポートやLANGUAGEプラグマは必要ですが)、ビギナーにもおすすめです。HKDを使ってみたいけれど型名周りの対応が面倒、という人はぜひGitHubの最新版を使ってみてください</div>
+        </div>
+      </div>
+      <div class="event" id="message-1634700438.044900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U02JRBV5T6V</div>
+            <div class="date"><a class="date" href="#message-1634700438.044900">2021-10-20 12:27:18 +0900</a></div>
+          </div>
+          <div class="description">@U02JRBV5T6V has joined the channel</div>
+        </div>
+      </div>
+      <div class="event" id="message-1634721915.045800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1634721915.045800">2021-10-20 18:25:15 +0900</a></div>
+          </div>
+          <div class="description">このスレッドの件、試しに開発中の <a href='https://github.com/igrep/wai-sample'>https://github.com/igrep/wai-sample</a> でaesonのバージョンを上げてみたんですが、aesonに間接的に依存しているパッケージに依存していると、まだサポートできていないものがあって厄介ですね... :disappointed:<br/><a href='https://twitter.com/igrep/status/1450752567311405058'>https://twitter.com/igrep/status/1450752567311405058</a><br/>のとおり、例えば現状yamlパッケージを使う場合は、stack.yamlの <code>extra-deps</code> に <code>- yaml-0.11.7.0</code> などと追記することになりそうです。</div>
         </div>
       </div>
     </div>

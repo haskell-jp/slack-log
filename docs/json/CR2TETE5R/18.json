@@ -148,5 +148,11 @@
         "text": "こんにちは、一つ質問をさせてください！\n現在型安全に状態遷移を表現する方法について悩んでいます。\n\n```data State\n  = Ready 'StateA -- 型の上で次の状態を指定すれば、型安全な状態遷移を実現できるのではないか\n  | StateA [Text] 'StateB\n  | StateB [Text] 'Finished\n  | Finished [Text] '()\n\ntoStateA :: State -&gt; Text -&gt; State -- この型上で何かしらパターンマッチングをしないといけない？\ntoStateA (Ready 'StateA) text = -- 値でパターンマッチングをすることはできない\n  StateA [text]```\n理解が足りず、実現する手がかりがありません……\n\n型安全な状態遷移をするのに必要なことは\n• 型に次の状態を入れ込む\n• 関数のシグネチャで、特定の遷移先の情報を持っている型のみ引数に取るようにする\nだと考えているのですが、どのように状態の型を定義すればいいか少々混乱しています。なにかお力添えいただけないでしょうか？",
         "user": "U028P8GL2FJ",
         "type": "message"
+    },
+    {
+        "ts": "1634700438.133400",
+        "text": "<@U02JRBV5T6V> has joined the channel",
+        "user": "U02JRBV5T6V",
+        "type": "message"
     }
 ]

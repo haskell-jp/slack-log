@@ -74,6 +74,78 @@ toStateA (Ready 'StateA) text = -- 値でパターンマッチングをするこ
           <div class="description">私も似たようなことが必要になったので、<br/>その時は、<br/><code>data State hasA hasB</code> みたいに型引数突っ込んで、<br/><code>type ReadyA = State Identity Maybe</code> みたいに具象化してました。</div>
         </div>
       </div>
+      <div class="event" id="message-1634710629.133900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">shogibeshow</div>
+            <div class="date"><a class="date" href="#message-1634710629.133900">2021-10-20 15:17:09 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！<br/>今の私にはまだ何がわからないのかもわからないぐらいです。<br/><br/>なぜ型引数にmonadを突っ込んでいるのでしょうか？<br/>kindも合わないような気がしてます。<br/>なにか特別なやり方が隠されているんでしょうか……!</div>
+        </div>
+      </div>
+      <div class="event" id="message-1634711106.134100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1634711106.134100">2021-10-20 15:25:06 +0900</a></div>
+          </div>
+          <div class="description">今回の件とは似てるけどちょっと違うので混乱を招いたかもしれません、それにかなり説明不足でしたね…申し訳ない。<br/>前提条件としてデータAからデータBを導く関数fがあって、fはデータAを要求するため、関数の型定義として状態StateはフィールドとしてデータAは必ず持っているとしたいわけです。<br/>そこでStateのフィールドは <code>a :: hasA A</code> としておいて、型引数hasAをIdentityとMaybeで切り替えれば、hasAがIdentityの場合は必ずフィールドaは持っていることが分かる、と言ったことを行っていました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1634712536.134700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1634712536.134700">2021-10-20 15:48:56 +0900</a></div>
+          </div>
+          <div class="description">※すみません、途中まで書いて送信しちゃいましたが、やっぱり考えがまとまらなかったので消しました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1634734594.134900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">shogibeshow</div>
+            <div class="date"><a class="date" href="#message-1634734594.134900">2021-10-20 21:56:34 +0900</a></div>
+          </div>
+          <div class="description">なるほど、ありがとうございます。ものすごい浅瀬からの意見ですが、これはHKDですか？<br/>今朝たまたまhaskell荘園を見学していたら出てきました。<br/><br/><pre>data State hasA hasB = State (hasA A) (hasB B)
+
+data A = A Int String
+newtype B = B Bool
+
+type HasA = State Identity Maybe
+type HasB = State Maybe Identity
+
+d :: HasB
+d = State Nothing (Identity (B True))</pre><br/>こんな感じで、外側から一定の性質を入れ込む方法なんですね。<br/>私はまだ経験も知見も足りないので、こういう高度な事は過剰に使って複雑性を高めてしまいそうです笑<br/>でも使ってみないことには適切な使用方法もわからないでしょうし、少し試してみようと思います！ありがとうございます！<br/><br/>↑ちょうどrandomにも上がっていますね！笑</div>
+        </div>
+      </div>
+      <div class="event" id="message-1634737020.135400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1634737020.135400">2021-10-20 22:37:00 +0900</a></div>
+          </div>
+          <div class="description">HKDですねえ、ただ既存のライブラリが対応してるHKDは1,2引数で全てMaybeとか全てIdentityとかなのであんまり既存のライブラリを使えませんでしたね…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1634775691.135800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">shogibeshow</div>
+            <div class="date"><a class="date" href="#message-1634775691.135800">2021-10-21 09:21:31 +0900</a></div>
+          </div>
+          <div class="description">なるほど、ありがとうございます。<br/>HKDというのは比較的新しいパターンということなんでしょうか？歴史的な経緯等は存じ上げないので見当違いかもしれませんが。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1634775860.136000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1634775860.136000">2021-10-21 09:24:20 +0900</a></div>
+          </div>
+          <div class="description">それはよく分かりません</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../18.html" class="item">Back to beginners #18</a>

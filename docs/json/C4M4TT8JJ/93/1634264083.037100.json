@@ -1,0 +1,14 @@
+[
+    {
+        "ts": "1634264083.037100",
+        "text": ":warning: aesonパッケージにおけるHash DoS脆弱性について :warning: ビルド時のフラグで利用する連想配列の実装を、従来の（脆弱な）HashMapか（安全な）Mapか選べるようになったので、例えばよくあるREST APIのような、aesonを使って外からのJSONを処理するアプリケーションは、フラグの設定が推奨されます\n詳細: <https://frasertweedale.github.io/blog-fp/posts/2021-10-12-aeson-hash-flooding-protection.html>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1634721915.045800",
+        "text": "このスレッドの件、試しに開発中の <https://github.com/igrep/wai-sample> でaesonのバージョンを上げてみたんですが、aesonに間接的に依存しているパッケージに依存していると、まだサポートできていないものがあって厄介ですね... :disappointed:\n<https://twitter.com/igrep/status/1450752567311405058>\nのとおり、例えば現状yamlパッケージを使う場合は、stack.yamlの `extra-deps` に `- yaml-0.11.7.0` などと追記することになりそうです。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    }
+]
