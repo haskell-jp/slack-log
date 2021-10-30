@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #99 at 2021-10-30 07:43:30 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #99 at 2021-10-30 07:43:30 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1635547410.006900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mahsa.datsu</div>
+            <div class="date"><a class="date" href="#message-1635547410.006900">2021-10-30 07:43:30 +0900</a></div>
+          </div>
+          <div class="description">はじめまして、Haskell初心者で、さらにSlackを使うのも初めてでして、投稿方法など間違っていましたらすみません。<br/>とても簡単な質問かもしれないのですが、<br/>「行列の第 i, j 成分のみ関数 f を適用する」<br/>という関数<br/>matrixsubst :: ( a -&gt; a ) -&gt; [[a]] -&gt; [Int] -&gt; [[a]]<br/>matrixsubst f m [i, j] =<br/>を作りたいのですが、どうしたらよいでしょうか。<br/><br/>具体例としましては、<br/>f = (\x -&gt; x^2),<br/>m=<br/>[[1,2,3]<br/>,[4,5,6]<br/>,[7,8,9]]<br/>i= 2, j=3<br/>とすると、出力として<br/>[[1,2,3]<br/>,[4,5,36]<br/>,[7,8,9]]<br/>を得たい、ということです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635551682.010400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1635551682.010400">2021-10-30 08:54:42 +0900</a></div>
+          </div>
+          <div class="description">いきなり行列だと難しいので、まずは「リストのi番目のみ関数を適用する関数 modify :: (a -&gt; a) -&gt; Int -&gt; [a] -&gt; [a]」を作ってみると良いと思います。行列の場合はそれを組み合わせればできそうです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635556162.010600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mahsa.datsu</div>
+            <div class="date"><a class="date" href="#message-1635556162.010600">2021-10-30 10:09:22 +0900</a></div>
+          </div>
+          <div class="description">なるほど、ありがとうございます。<br/><br/>modifyを作ってみました。<br/>もっとシンプルな書き方ができるのでしたら教えていただけたら幸いです。<br/><br/><code>applyvect :: [(a -&gt; b)] -&gt; [a] -&gt; [b]</code><br/><code>applyvect [] _ = []</code><br/><code>applyvect _ [] = []</code><br/><code>applyvect (f:fs) (x:xs) = (f x) : applyvect fs xs</code><br/><br/><code>modify :: ( a -&gt; a ) -&gt; [a] -&gt; Int -&gt; [a]</code><br/><code>modify f v i = applyvect ((replicate i id) ++ (f : (repeat id))) v</code><br/><br/>実際、`modify (\x -&gt; x*x) [1,2,3,4,5] 3`<br/>と入力すると、<br/><code>[1,2,3,16,5]</code><br/>と出力されます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635556860.011000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1635556860.011000">2021-10-30 10:21:00 +0900</a></div>
+          </div>
+          <div class="description">関数のリストを作るのではなく、modifyの方でリストにパターンマッチさせつつiを減らしていけばapplyvectを使わなくてもできます。<br/><pre>modify f [] i = [] -- あるいはエラーにする
+modify f (x:xs) i | i == 0 = f x : xs
+                  | otherwise = x : modify f xs (i - 1)</pre><br/>みたいな感じですね。余談ですが、applyvectは <code>zipWith ($)</code> と等価です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635556946.011200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1635556946.011200">2021-10-30 10:22:26 +0900</a></div>
+          </div>
+          <div class="description">modifyを2段重ね、つまりmodifyの第1引数としてmodify自身を与えるようにすれば元々のmatrixsubstが実現できると思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635559147.011800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mahsa.datsu</div>
+            <div class="date"><a class="date" href="#message-1635559147.011800">2021-10-30 10:59:07 +0900</a></div>
+          </div>
+          <div class="description">なるほど、ご丁寧にありがとうがざいました。<br/>勉強になりました！<br/>ちなみに、一般的な質問なのですが、<br/>このような初歩的な質問もこのチャンネルのquestionsに流していいのでしょうか？<br/>もしくはもっと適切な場などがあるのでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635561504.015500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1635561504.015500">2021-10-30 11:38:24 +0900</a></div>
+          </div>
+          <div class="description">全然ウェルカムです！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635562374.016500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1635562374.016500">2021-10-30 11:52:54 +0900</a></div>
+          </div>
+          <div class="description">一応そういう質問専用に <a href='#CR2TETE5R'>beginners</a> も作りましたが、どちらでも :ok: です！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635568550.016900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mahsa.datsu</div>
+            <div class="date"><a class="date" href="#message-1635568550.016900">2021-10-30 13:35:50 +0900</a></div>
+          </div>
+          <div class="description">みなさま、ありがとうございます、<br/>実は私は作りたいプログラムがあるので、<br/>またbeginnersまたはここで質問させていただきたいと思います。<br/>(今回の件は、ネットで見かけた問題を解いてみようと思ったときにでてきた質問でした。)<br/><br/>またどこかでよろしくおねがいいたします。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+  </div>
+</body>
+</html>

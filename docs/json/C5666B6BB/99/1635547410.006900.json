@@ -1,0 +1,56 @@
+[
+    {
+        "ts": "1635547410.006900",
+        "text": "はじめまして、Haskell初心者で、さらにSlackを使うのも初めてでして、投稿方法など間違っていましたらすみません。\nとても簡単な質問かもしれないのですが、\n「行列の第 i, j 成分のみ関数 f を適用する」\nという関数\nmatrixsubst :: ( a -&gt; a ) -&gt; [[a]] -&gt; [Int] -&gt; [[a]]\nmatrixsubst f m [i, j] =\nを作りたいのですが、どうしたらよいでしょうか。\n\n具体例としましては、\nf = (\\x -&gt; x^2),\nm=\n[[1,2,3]\n,[4,5,6]\n,[7,8,9]]\ni= 2, j=3\nとすると、出力として\n[[1,2,3]\n,[4,5,36]\n,[7,8,9]]\nを得たい、ということです。",
+        "user": "U02KLUFFJ6N",
+        "type": "message"
+    },
+    {
+        "ts": "1635551682.010400",
+        "text": "いきなり行列だと難しいので、まずは「リストのi番目のみ関数を適用する関数 modify :: (a -&gt; a) -&gt; Int -&gt; [a] -&gt; [a]」を作ってみると良いと思います。行列の場合はそれを組み合わせればできそうです。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1635556162.010600",
+        "text": "なるほど、ありがとうございます。\n\nmodifyを作ってみました。\nもっとシンプルな書き方ができるのでしたら教えていただけたら幸いです。\n\n`applyvect :: [(a -&gt; b)] -&gt; [a] -&gt; [b]`\n`applyvect [] _ = []`\n`applyvect _ [] = []`\n`applyvect (f:fs) (x:xs) = (f x) : applyvect fs xs`\n\n`modify :: ( a -&gt; a ) -&gt; [a] -&gt; Int -&gt; [a]`\n`modify f v i = applyvect ((replicate i id) ++ (f : (repeat id))) v`\n\n実際、`modify (\\x -&gt; x*x) [1,2,3,4,5] 3`\nと入力すると、\n`[1,2,3,16,5]`\nと出力されます。",
+        "user": "U02KLUFFJ6N",
+        "type": "message"
+    },
+    {
+        "ts": "1635556860.011000",
+        "text": "関数のリストを作るのではなく、modifyの方でリストにパターンマッチさせつつiを減らしていけばapplyvectを使わなくてもできます。\n```modify f [] i = [] -- あるいはエラーにする\nmodify f (x:xs) i | i == 0 = f x : xs\n                  | otherwise = x : modify f xs (i - 1)```\nみたいな感じですね。余談ですが、applyvectは `zipWith ($)` と等価です。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1635556946.011200",
+        "text": "modifyを2段重ね、つまりmodifyの第1引数としてmodify自身を与えるようにすれば元々のmatrixsubstが実現できると思います。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    },
+    {
+        "ts": "1635559147.011800",
+        "text": "なるほど、ご丁寧にありがとうがざいました。\n勉強になりました！\nちなみに、一般的な質問なのですが、\nこのような初歩的な質問もこのチャンネルのquestionsに流していいのでしょうか？\nもしくはもっと適切な場などがあるのでしょうか？",
+        "user": "U02KLUFFJ6N",
+        "type": "message"
+    },
+    {
+        "ts": "1635561504.015500",
+        "text": "全然ウェルカムです！",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1635562374.016500",
+        "text": "一応そういう質問専用に <#CR2TETE5R|beginners> も作りましたが、どちらでも :ok: です！",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1635568550.016900",
+        "text": "みなさま、ありがとうございます、\n実は私は作りたいプログラムがあるので、\nまたbeginnersまたはここで質問させていただきたいと思います。\n(今回の件は、ネットで見かけた問題を解いてみようと思ったときにでてきた質問でした。)\n\nまたどこかでよろしくおねがいいたします。",
+        "user": "U02KLUFFJ6N",
+        "type": "message"
+    }
+]

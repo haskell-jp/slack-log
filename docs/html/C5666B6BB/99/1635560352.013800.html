@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #99 at 2021-10-30 11:19:12 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #99 at 2021-10-30 11:19:12 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1635560352.013800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">idiotpanzer</div>
+            <div class="date"><a class="date" href="#message-1635560352.013800">2021-10-30 11:19:12 +0900</a></div>
+          </div>
+          <div class="description">既出かもしれませんが<br/>Haskellでパターンマッチを実行するとき想定外のパターンはエラー（コンパイルエラーか実行時エラー）にしたりすることはできるのでしょうか？<br/>よくパターンマッチを使うと以下のような警告が出るのですが、そもそもありえないパターンが入ってたりするのです。<br/><pre>Warning: Pattern match(es) are non-exhaustive</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1635561483.015300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1635561483.015300">2021-10-30 11:38:03 +0900</a></div>
+          </div>
+          <div class="description">型としてありえないものはコンパイルエラーになりますが値としてありえないものはコンパイルエラーにはなりませんね<br/><code>error</code> 関数を使うなどして実行時エラーにしたりします</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635562273.016200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1635562273.016200">2021-10-30 11:51:13 +0900</a></div>
+          </div>
+          <div class="description">残念ながら「そもそもありえないパターン」かどうかをコンパイラーは判断できないので、kakkunさんの仰るとおり、あり得ないパターンの箇所で <code>error</code> 関数などを使って実行時エラーにするしかないです。「Assertion failure」とか「Impossible」みたいなメッセージで「このエラーが起こると言うことは何かおかしい！バグかも！」ということを明示するのがおすすめです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635572207.017300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">idiotpanzer</div>
+            <div class="date"><a class="date" href="#message-1635572207.017300">2021-10-30 14:36:47 +0900</a></div>
+          </div>
+          <div class="description">なるほど:thinking_face:<br/>とすると出来るだけ型にしといて、型にできないところはerror使う感じにしようかな<br/>ありがとうございます</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+  </div>
+</body>
+</html>
