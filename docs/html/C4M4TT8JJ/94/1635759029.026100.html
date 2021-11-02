@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #94 at 2021-11-01 18:30:29 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #94 at 2021-11-01 18:30:29 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../94.html" class="item">Back to random #94</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1635759029.026100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1635759029.026100">2021-11-01 18:30:29 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://twitter.com/fumieval/status/1455103912382369798'>https://twitter.com/fumieval/status/1455103912382369798</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1635759444.026400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1635759444.026400">2021-11-01 18:37:24 +0900</a></div>
+          </div>
+          <div class="description">想像以上にabuseできますねw <code>OverloadedRecordDot</code> の「Record」とはなんだったのか... :sweat_smile:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635759594.026600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1635759594.026600">2021-11-01 18:39:54 +0900</a></div>
+          </div>
+          <div class="description">overloaded record dot も <code>HasField</code> を見るのか～</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635759883.026800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1635759883.026800">2021-11-01 18:44:43 +0900</a></div>
+          </div>
+          <div class="description">もはやOverloadedDotと呼ぶべきですね。qualified import前提にするか、型名を入れて他と被らないようにするかの二択だったところに新たな選択肢が</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635761520.028000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1635761520.028000">2021-11-01 19:12:00 +0900</a></div>
+          </div>
+          <div class="description">フィールドにプレフィクス付けなくて済むだけでメチャクチャありがたいと思ってたら拡張メソッド記法が生えてきた<br/>Rustのimplとパワーが似通っていますね…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635761563.028200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1635761563.028200">2021-11-01 19:12:43 +0900</a></div>
+          </div>
+          <div class="description">以前もここで紹介したんですが、実際impl宣言っぽいことを実現した例もあるんですよ<br/><a href='https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1628401613012900'>https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1628401613012900</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1635762010.028500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1635762010.028500">2021-11-01 19:20:10 +0900</a></div>
+          </div>
+          <div class="description">THでimplとか無いかなーって思ってたらそれそのものが既にあったんですね<br/>ただQuasiQuoteで書いていくとsyntax highlightとかflycheckとかがつらい気もするからここはやるならネイティブのサポートが欲しい気もしますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635762401.028700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1635762401.028700">2021-11-01 19:26:41 +0900</a></div>
+          </div>
+          <div class="description"><pre>impl ''User [d|
+
+    greet :: String -&gt; IO ()
+    greet message = do
+        putStrLn $ concat [message, ", ", self.name]
+|]</pre><br/>まだできてないみたいですが仮に使い方がこう :point_up: だとすると使うQuasiQuoterは標準の <code>[d|</code> だけなので、その心配はいらないかと。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635764105.029100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1635764105.029100">2021-11-01 19:55:05 +0900</a></div>
+          </div>
+          <div class="description">あーなるほど、確かにEmacsのhaskell-modeとかも標準のものには一応対応してるっぽいですね</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../94.html" class="item">Back to random #94</a>
+    </div>
+  </div>
+</body>
+</html>

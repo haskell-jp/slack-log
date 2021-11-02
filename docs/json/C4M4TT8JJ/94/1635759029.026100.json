@@ -1,0 +1,56 @@
+[
+    {
+        "ts": "1635759029.026100",
+        "text": "<https://twitter.com/fumieval/status/1455103912382369798>",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1635759444.026400",
+        "text": "想像以上にabuseできますねw `OverloadedRecordDot` の「Record」とはなんだったのか... :sweat_smile:",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1635759594.026600",
+        "text": "overloaded record dot も `HasField` を見るのか～",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1635759883.026800",
+        "text": "もはやOverloadedDotと呼ぶべきですね。qualified import前提にするか、型名を入れて他と被らないようにするかの二択だったところに新たな選択肢が",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1635761520.028000",
+        "text": "フィールドにプレフィクス付けなくて済むだけでメチャクチャありがたいと思ってたら拡張メソッド記法が生えてきた\nRustのimplとパワーが似通っていますね…",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1635761563.028200",
+        "text": "以前もここで紹介したんですが、実際impl宣言っぽいことを実現した例もあるんですよ\n<https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1628401613012900>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1635762010.028500",
+        "text": "THでimplとか無いかなーって思ってたらそれそのものが既にあったんですね\nただQuasiQuoteで書いていくとsyntax highlightとかflycheckとかがつらい気もするからここはやるならネイティブのサポートが欲しい気もしますね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1635762401.028700",
+        "text": "```impl ''User [d|\n\n    greet :: String -&gt; IO ()\n    greet message = do\n        putStrLn $ concat [message, \", \", self.name]\n|]```\nまだできてないみたいですが仮に使い方がこう :point_up: だとすると使うQuasiQuoterは標準の `[d|` だけなので、その心配はいらないかと。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1635764105.029100",
+        "text": "あーなるほど、確かにEmacsのhaskell-modeとかも標準のものには一応対応してるっぽいですね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    }
+]
