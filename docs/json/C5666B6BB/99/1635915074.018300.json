@@ -1,0 +1,26 @@
+[
+    {
+        "ts": "1635915074.018300",
+        "text": "あまり経験がなかったので気になったのですが、newtypeで宣言できる型をdataで宣言するユースケースって何があるでしょうか？",
+        "user": "UH195J82Y",
+        "type": "message"
+    },
+    {
+        "ts": "1635918397.018400",
+        "text": "あとでフィールドを増やす可能性のあるデータ型など自明な場合を除くと、 lens越しに正格な更新をするための治具という使い方もあります\n```data Box a = Box { unBox :: a } deriving (Functor)\n\ninstance Applicative Box where\n    pure = Box\n    Box f &lt;*&gt; Box a = Box (f a)\n\n-- (t %~! const undefined) x === undefined\n(%~!) :: ((a -&gt; Box b) -&gt; s -&gt; Box t) -&gt; (a -&gt; b) -&gt; s -&gt; t\nt %~! f = unBox . t ((Box $!) . f)```",
+        "user": "U4KUNQF9N",
+        "type": "message"
+    },
+    {
+        "ts": "1635922930.018800",
+        "text": "ありがとうございます！\nこちらと同じ事象でしょうか?\n\n<https://stackoverflow.com/questions/53391237/difference-between-newtype-and-data-with-a-strictness-annotation|https://stackoverflow.com/questions/53391237/difference-between-newtype-and-data-with-a-strictness-annotation>",
+        "user": "UH195J82Y",
+        "type": "message"
+    },
+    {
+        "ts": "1635923085.019100",
+        "text": "stackoverflowのやつとはちょっと違いそう\nもうちょっと考えます",
+        "user": "UH195J82Y",
+        "type": "message"
+    }
+]

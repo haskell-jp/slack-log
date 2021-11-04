@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #99 at 2021-11-03 13:51:14 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #99 at 2021-11-03 13:51:14 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1635915074.018300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">misaki</div>
+            <div class="date"><a class="date" href="#message-1635915074.018300">2021-11-03 13:51:14 +0900</a></div>
+          </div>
+          <div class="description">あまり経験がなかったので気になったのですが、newtypeで宣言できる型をdataで宣言するユースケースって何があるでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1635918397.018400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1635918397.018400">2021-11-03 14:46:37 +0900</a></div>
+          </div>
+          <div class="description">あとでフィールドを増やす可能性のあるデータ型など自明な場合を除くと、 lens越しに正格な更新をするための治具という使い方もあります<br/><pre>data Box a = Box { unBox :: a } deriving (Functor)
+
+instance Applicative Box where
+    pure = Box
+    Box f &lt;*&gt; Box a = Box (f a)
+
+-- (t %~! const undefined) x === undefined
+(%~!) :: ((a -&gt; Box b) -&gt; s -&gt; Box t) -&gt; (a -&gt; b) -&gt; s -&gt; t
+t %~! f = unBox . t ((Box $!) . f)</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1635922930.018800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">misaki</div>
+            <div class="date"><a class="date" href="#message-1635922930.018800">2021-11-03 16:02:10 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！<br/>こちらと同じ事象でしょうか?<br/><br/><a href='https://stackoverflow.com/questions/53391237/difference-between-newtype-and-data-with-a-strictness-annotation'>https://stackoverflow.com/questions/53391237/difference-between-newtype-and-data-with-a-strictness-annotation</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1635923085.019100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">misaki</div>
+            <div class="date"><a class="date" href="#message-1635923085.019100">2021-11-03 16:04:45 +0900</a></div>
+          </div>
+          <div class="description">stackoverflowのやつとはちょっと違いそう<br/>もうちょっと考えます</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+  </div>
+</body>
+</html>
