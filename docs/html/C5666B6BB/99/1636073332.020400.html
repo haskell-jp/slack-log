@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #99 at 2021-11-05 09:48:52 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #99 at 2021-11-05 09:48:52 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1636073332.020400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1636073332.020400">2021-11-05 09:48:52 +0900</a></div>
+          </div>
+          <div class="description">GHC 9.2 でライブラリをコンパイルすると、Word8 (#付きかも)で問題が出ることが多いんですが、これは何が変更されたためですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1636074151.020600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1636074151.020600">2021-11-05 10:02:31 +0900</a></div>
+          </div>
+          <div class="description">Word8型の内部表現が新しく導入されたWord8#型に変わっています。Int8/16/32/Word16/32についても同様です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1636074526.020800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1636074526.020800">2021-11-05 10:08:46 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。どこかに、経緯とか説明とかはありますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1636075019.021000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1636075019.021000">2021-11-05 10:16:59 +0900</a></div>
+          </div>
+          <div class="description">changelogの類を軽く見た感じでは記載はなさそうです。動機としては、Arm64 DarwinのC FFIに対応するのに整数型の正確な幅が必要だから、というようなものだったはずです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1636075212.021200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1636075212.021200">2021-11-05 10:20:12 +0900</a></div>
+          </div>
+          <div class="description">当該変更はこれっぽいです <a href='https://gitlab.haskell.org/ghc/ghc/-/merge_requests/4390'>https://gitlab.haskell.org/ghc/ghc/-/merge_requests/4390</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1636075629.021500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1636075629.021500">2021-11-05 10:27:09 +0900</a></div>
+          </div>
+          <div class="description">おお、ありがとうございます！</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+  </div>
+</body>
+</html>
