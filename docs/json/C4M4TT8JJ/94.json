@@ -124,5 +124,17 @@
         "text": "GHC から Windows 32 ビット版のサポートがなくなったのってバージョンいくつからでしたっけ？",
         "user": "U4L0B71L1",
         "type": "message"
+    },
+    {
+        "ts": "1636342237.050300",
+        "text": "Haskell Day 2021 お疲れさまでした。私の発表 `take k (sort xs)` in Haskell has O(n + k log k) time complexity の間にクイックソートと遅延評価が組み合わさったときの計算量がどうなるかというコメントが <@U570660KX> さんからあったと思うので、この場を借りて回答します。（チャットで書いたつもりが、リンクを含んでいたせいかアーカイブに残っていなかったもので……）\n結論としては、クイックソートの場合も実装が適切であれば `take k (sort xs)` の平均時間計算量を O(n + k log k) にできそうです。詳細な説明は <https://apfelmus.nfshost.com/articles/quicksearch.html#message-2---quicksort|Heinrich Apfelmus の投稿> や <https://youtu.be/2MWWgDfE3KE?t=3185|Peter Van Roy の講義動画> にありますが、いずれの場合も「平均時間計算量を考えているので、partition はリストを大体同じ長さの2つの部分に分割するものと考える」というクイックソートの平均時間計算量の証明でありがちなごまかし（だと自分は思っているんですが、これって妥当なんでしょうか？）が見られるので、証明をより精緻にする余地があると思います。",
+        "user": "U58BK72FL",
+        "type": "message"
+    },
+    {
+        "ts": "1636380053.053400",
+        "text": "extensibleの謎の構造として居座っていたTangleのエッセンスを、独立したパッケージに切り出してリリースしました。HKDの表現力を生かし、依存関係を持った計算をメモ化して合成可能にするライブラリです　<https://hackage.haskell.org/package/tangle>",
+        "user": "U4KUNQF9N",
+        "type": "message"
     }
 ]

@@ -172,10 +172,10 @@
       <div class="event" id="message-1636257337.038200">
         <div class="content">
           <div class="summary">
-            <div class="user">U02LF3A4U58</div>
+            <div class="user">nekurai</div>
             <div class="date"><a class="date" href="#message-1636257337.038200">2021-11-07 12:55:37 +0900</a></div>
           </div>
-          <div class="description">@U02LF3A4U58 has joined the channel</div>
+          <div class="description">@nekurai has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1636260351.038400">
@@ -204,6 +204,25 @@
           </div>
           <div class="description">GHC から Windows 32 ビット版のサポートがなくなったのってバージョンいくつからでしたっけ？</div>
           <a class="link-to-replies" href="94/1636293816.041900.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1636342237.050300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">sakaguchi</div>
+            <div class="date"><a class="date" href="#message-1636342237.050300">2021-11-08 12:30:37 +0900</a></div>
+          </div>
+          <div class="description">Haskell Day 2021 お疲れさまでした。私の発表 <code>take k (sort xs)</code> in Haskell has O(n + k log k) time complexity の間にクイックソートと遅延評価が組み合わさったときの計算量がどうなるかというコメントが @as_capabl さんからあったと思うので、この場を借りて回答します。（チャットで書いたつもりが、リンクを含んでいたせいかアーカイブに残っていなかったもので……）<br/>結論としては、クイックソートの場合も実装が適切であれば <code>take k (sort xs)</code> の平均時間計算量を O(n + k log k) にできそうです。詳細な説明は <a href='https://apfelmus.nfshost.com/articles/quicksearch.html#message-2---quicksort'>Heinrich Apfelmus の投稿</a> や <a href='https://youtu.be/2MWWgDfE3KE?t=3185'>Peter Van Roy の講義動画</a> にありますが、いずれの場合も「平均時間計算量を考えているので、partition はリストを大体同じ長さの2つの部分に分割するものと考える」というクイックソートの平均時間計算量の証明でありがちなごまかし（だと自分は思っているんですが、これって妥当なんでしょうか？）が見られるので、証明をより精緻にする余地があると思います。</div>
+          <a class="link-to-replies" href="94/1636342237.050300.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1636380053.053400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1636380053.053400">2021-11-08 23:00:53 +0900</a></div>
+          </div>
+          <div class="description">extensibleの謎の構造として居座っていたTangleのエッセンスを、独立したパッケージに切り出してリリースしました。HKDの表現力を生かし、依存関係を持った計算をメモ化して合成可能にするライブラリです　<https://hackage.haskell.org/package/tangle></div>
         </div>
       </div>
     </div>
