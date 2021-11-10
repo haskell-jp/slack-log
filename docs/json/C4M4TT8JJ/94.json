@@ -136,5 +136,71 @@
         "text": "extensibleの謎の構造として居座っていたTangleのエッセンスを、独立したパッケージに切り出してリリースしました。HKDの表現力を生かし、依存関係を持った計算をメモ化して合成可能にするライブラリです　<https://hackage.haskell.org/package/tangle>",
         "user": "U4KUNQF9N",
         "type": "message"
+    },
+    {
+        "ts": "1636437392.056700",
+        "text": "hspecの作者にPRで「流石にGHC 7はもうサポートしなくて良いんじゃないですか、古いやつを使いたい人は古いパッケージを使えば良いわけですし、大抵のパッケージはもうbaseが8前提になってるから追加がつらい」\nみたいなこと言ったけど「GHC 7をサポートしたい」って普通に言われたので他のパッケージのデバッグをやっています",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1636443259.059100",
+        "text": "ウオーunicode-showのCIコケてる問題を解消したけどあまりにもコードがアドホックすぎる、提出したくないが、少なくともテストケースを通らない状態よりは通ってる状態の方が良いはずなのでPR提出します\n提出することでGHC内部のlexerに詳しい人がちゃんと直してくれるかもしれないし、それに期待ですね\n<@U4LGTMTMK> さんがレビューする感じで良いのでしたっけ\n<https://github.com/haskell-jp/unicode-show/pull/5|fixed: Pass the tests that were already done by CI. by ncaq · Pull Request #5 · haskell-jp/unicode-show>",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1636443343.059600",
+        "text": "Travis CIもはや分からなすぎる、GitHub Actionsに移行した方が良かったりするのかな",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1636443465.060600",
+        "text": "移行して全然良いと思います\nうっかり取り残されてるだけだと思うので",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1636444066.061600",
+        "text": "まあとりあえず見たら簡単に更新が、証明書が死んでるからcurlでStackを取ってこれない…ダメっぽいですね…\nGitHub Actionsに移行させますか",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1636445113.062700",
+        "text": "あ、ほんまか？となって投稿消した",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1636445589.064100",
+        "text": "古いイメージとかですかね？ &gt; curl\nLet’s encryptのルート証明書が切れた際に、古いイメージの古い curl （の設定）だとエラーはいて動作しなくなっちゃったんですよね",
+        "user": "U56L7EVNY",
+        "type": "message"
+    },
+    {
+        "ts": "1636448192.065200",
+        "text": "Travis CIのデフォルト指定マシンで動いてるのにcurlがエラーになるのはちょっとなあってもうTravis調べるより将来性あるしってGitHub Actions移行を書いてしまった",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1636448256.065800",
+        "text": "<https://github.com/haskell-jp/unicode-show/pull/7|modified: Travis CIからGitHub Actionsに移行 by ncaq · Pull Request #7 · haskell-jp/unicode-show>\nこれです、実は自分はCircleCI派なのでGitHub Actionsはあまりよく分かってなかったりしますが…",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    },
+    {
+        "ts": "1636460052.067200",
+        "text": "<@U57CUMWQ6> <@U56L7EVNY> ありがとうございます！いい機会なのでchannelを作っておきました <#C02LRB42G84|unicode-show>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1636493243.067500",
+        "text": "<@U02LRUA906N> has joined the channel",
+        "user": "U02LRUA906N",
+        "type": "message"
     }
 ]

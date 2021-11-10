@@ -225,6 +225,105 @@
           <div class="description">extensibleの謎の構造として居座っていたTangleのエッセンスを、独立したパッケージに切り出してリリースしました。HKDの表現力を生かし、依存関係を持った計算をメモ化して合成可能にするライブラリです　<https://hackage.haskell.org/package/tangle></div>
         </div>
       </div>
+      <div class="event" id="message-1636437392.056700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1636437392.056700">2021-11-09 14:56:32 +0900</a></div>
+          </div>
+          <div class="description">hspecの作者にPRで「流石にGHC 7はもうサポートしなくて良いんじゃないですか、古いやつを使いたい人は古いパッケージを使えば良いわけですし、大抵のパッケージはもうbaseが8前提になってるから追加がつらい」<br/>みたいなこと言ったけど「GHC 7をサポートしたい」って普通に言われたので他のパッケージのデバッグをやっています</div>
+        </div>
+      </div>
+      <div class="event" id="message-1636443259.059100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1636443259.059100">2021-11-09 16:34:19 +0900</a></div>
+          </div>
+          <div class="description">ウオーunicode-showのCIコケてる問題を解消したけどあまりにもコードがアドホックすぎる、提出したくないが、少なくともテストケースを通らない状態よりは通ってる状態の方が良いはずなのでPR提出します<br/>提出することでGHC内部のlexerに詳しい人がちゃんと直してくれるかもしれないし、それに期待ですね<br/>@igrep さんがレビューする感じで良いのでしたっけ<br/><a href='https://github.com/haskell-jp/unicode-show/pull/5'>fixed: Pass the tests that were already done by CI. by ncaq · Pull Request #5 · haskell-jp/unicode-show</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1636443343.059600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1636443343.059600">2021-11-09 16:35:43 +0900</a></div>
+          </div>
+          <div class="description">Travis CIもはや分からなすぎる、GitHub Actionsに移行した方が良かったりするのかな</div>
+        </div>
+      </div>
+      <div class="event" id="message-1636443465.060600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1636443465.060600">2021-11-09 16:37:45 +0900</a></div>
+          </div>
+          <div class="description">移行して全然良いと思います<br/>うっかり取り残されてるだけだと思うので</div>
+        </div>
+      </div>
+      <div class="event" id="message-1636444066.061600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1636444066.061600">2021-11-09 16:47:46 +0900</a></div>
+          </div>
+          <div class="description">まあとりあえず見たら簡単に更新が、証明書が死んでるからcurlでStackを取ってこれない…ダメっぽいですね…<br/>GitHub Actionsに移行させますか</div>
+        </div>
+      </div>
+      <div class="event" id="message-1636445113.062700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1636445113.062700">2021-11-09 17:05:13 +0900</a></div>
+          </div>
+          <div class="description">あ、ほんまか？となって投稿消した</div>
+        </div>
+      </div>
+      <div class="event" id="message-1636445589.064100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1636445589.064100">2021-11-09 17:13:09 +0900</a></div>
+          </div>
+          <div class="description">古いイメージとかですかね？ <blockquote>curl</blockquote>Let’s encryptのルート証明書が切れた際に、古いイメージの古い curl （の設定）だとエラーはいて動作しなくなっちゃったんですよね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1636448192.065200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1636448192.065200">2021-11-09 17:56:32 +0900</a></div>
+          </div>
+          <div class="description">Travis CIのデフォルト指定マシンで動いてるのにcurlがエラーになるのはちょっとなあってもうTravis調べるより将来性あるしってGitHub Actions移行を書いてしまった</div>
+        </div>
+      </div>
+      <div class="event" id="message-1636448256.065800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1636448256.065800">2021-11-09 17:57:36 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://github.com/haskell-jp/unicode-show/pull/7'>modified: Travis CIからGitHub Actionsに移行 by ncaq · Pull Request #7 · haskell-jp/unicode-show</a><br/>これです、実は自分はCircleCI派なのでGitHub Actionsはあまりよく分かってなかったりしますが…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1636460052.067200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1636460052.067200">2021-11-09 21:14:12 +0900</a></div>
+          </div>
+          <div class="description">@ncaq @matsubara0507 ありがとうございます！いい機会なのでchannelを作っておきました <a href='#C02LRB42G84'>unicode-show</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1636493243.067500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U02LRUA906N</div>
+            <div class="date"><a class="date" href="#message-1636493243.067500">2021-11-10 06:27:23 +0900</a></div>
+          </div>
+          <div class="description">@U02LRUA906N has joined the channel</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C4M4TT8JJ/93.html" class="item">Previous</a>
