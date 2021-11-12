@@ -22,5 +22,23 @@
         "text": "これ、静的リンクオプション外して--dockerなしで `stack build` するとextra-deps無しで通るんですよね",
         "user": "U015L5JEP8D",
         "type": "message"
+    },
+    {
+        "ts": "1636677696.032700",
+        "text": "こちらの問題ですね <https://github.com/utdemir/ghc-musl/issues/17>\nghc-muslではライセンスの都合でinteger-gmpが使えない、と。最後のコメントに\n&gt;  Before GHC 9, GHC supports two integer implementations `integer-gmp` and `integer-simple`. Usually, libraries which depend on `integer-gmp` has flags to make them depend on `integer-simple` instead. eg: <https://github.com/haskell-unordered-containers/hashable/blob/66b6383c3c7b43c1a4e5f2cf801e886294ba10cf/hashable.cabal#L103-L108|hashable.cabal>\nとあるとおり、integer-gmpを使う代わりにinteger-simpleを使う必要があります。\n今回の場合、scientificやhashableなど、いくつかのパッケージがinteger-gmpに依存しているので、 <https://docs.haskellstack.org/en/stable/yaml_configuration/#flags> を参考にそれぞれのパッケージでinteger-simpleを利用するよう変えてみてください。",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1636685133.033700",
+        "text": "scientific･integer-logarithms･hashableにフラグを設定して、integer-simple-0.1.1.1をextra-depsに加えた状態でビルドしたところ、今度は以下のようなエラーで止まりました\n```integer-logarithms   &gt; /tmp/stack-fcdd0188ecbca6d6/integer-logarithms-1.0.3.1/src/GHC/Integer/Logarithms/Compat.hs:24:1: error:\ninteger-logarithms   &gt;     Bad interface file: (略)/8.10.7/lib/x86_64-linux-ghc-8.10.7/integer-simple-0.1.1.1-RAJdiybHJ47N2pZrr0Kz6/GHC/Integer/Logarithms.hi\ninteger-logarithms   &gt;         Something is amiss; requested module  integer-simple-0.1.1.1:GHC.Integer.Logarithms differs from name found in the interface file integer-simple:GHC.Integer.Logarithms (if these names look the same, try again with -dppr-debug)\ninteger-logarithms   &gt;    |                 \ninteger-logarithms   &gt; 24 | import GHC.Integer.Logarithms\ninteger-logarithms   &gt;    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ninteger-logarithms   &gt;                      \nhashable             &gt; Configuring hashable-1.3.0.0...\nhashable             &gt; Warning:\nhashable             &gt;     This package indirectly depends on multiple versions of the same package. This is very likely to cause a compile failure.\nhashable             &gt;       package hashable (hashable-1.3.0.0) requires integer-simple-0.1.1.1-RAJdiybHJ47N2pZrr0Kz6\nhashable             &gt;       package base (base-4.14.3.0) requires integer-simple-0.1.2.0\nhashable             &gt; build\nhashable             &gt; Preprocessing library for hashable-1.3.0.0..\nhashable             &gt; Building library for hashable-1.3.0.0..\nhashable             &gt; [1 of 5] Compiling Data.Hashable.Class\nhashable             &gt; Bad interface file: (略)/8.10.7/lib/x86_64-linux-ghc-8.10.7/integer-simple-0.1.1.1-RAJdiybHJ47N2pZrr0Kz6/GHC/Integer/Type.hi\nhashable             &gt;     Something is amiss; requested module  integer-simple-0.1.1.1:GHC.Integer.Type differs from name found in the interface file integer-simple:GHC.Integer.Type (if these names look the same, try again with -dppr-debug)\nProgress 21/30```",
+        "user": "U015L5JEP8D",
+        "type": "message"
+    },
+    {
+        "ts": "1636687845.033900",
+        "text": "integer-simple-0.1.1.1をextra-depsから抜いたらコンパイル通りました……\nありがとうございました～",
+        "user": "U015L5JEP8D",
+        "type": "message"
     }
 ]

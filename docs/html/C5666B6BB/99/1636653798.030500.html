@@ -105,6 +105,51 @@ Possible causes of this issue:
           <div class="description">これ、静的リンクオプション外して--dockerなしで <code>stack build</code> するとextra-deps無しで通るんですよね</div>
         </div>
       </div>
+      <div class="event" id="message-1636677696.032700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1636677696.032700">2021-11-12 09:41:36 +0900</a></div>
+          </div>
+          <div class="description">こちらの問題ですね <a href='https://github.com/utdemir/ghc-musl/issues/17'>https://github.com/utdemir/ghc-musl/issues/17</a><br/>ghc-muslではライセンスの都合でinteger-gmpが使えない、と。最後のコメントに<br/><blockquote> Before GHC 9, GHC supports two integer implementations <code>integer-gmp</code> and <code>integer-simple</code>. Usually, libraries which depend on <code>integer-gmp</code> has flags to make them depend on <code>integer-simple</code> instead. eg: <a href='https://github.com/haskell-unordered-containers/hashable/blob/66b6383c3c7b43c1a4e5f2cf801e886294ba10cf/hashable.cabal#L103-L108'>hashable.cabal</a></blockquote>とあるとおり、integer-gmpを使う代わりにinteger-simpleを使う必要があります。<br/>今回の場合、scientificやhashableなど、いくつかのパッケージがinteger-gmpに依存しているので、 <a href='https://docs.haskellstack.org/en/stable/yaml_configuration/#flags'>https://docs.haskellstack.org/en/stable/yaml_configuration/#flags</a> を参考にそれぞれのパッケージでinteger-simpleを利用するよう変えてみてください。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1636685133.033700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">benzene.chlorobenzene</div>
+            <div class="date"><a class="date" href="#message-1636685133.033700">2021-11-12 11:45:33 +0900</a></div>
+          </div>
+          <div class="description">scientific･integer-logarithms･hashableにフラグを設定して、integer-simple-0.1.1.1をextra-depsに加えた状態でビルドしたところ、今度は以下のようなエラーで止まりました<br/><pre>integer-logarithms   &gt; /tmp/stack-fcdd0188ecbca6d6/integer-logarithms-1.0.3.1/src/GHC/Integer/Logarithms/Compat.hs:24:1: error:
+integer-logarithms   &gt;     Bad interface file: (略)/8.10.7/lib/x86_64-linux-ghc-8.10.7/integer-simple-0.1.1.1-RAJdiybHJ47N2pZrr0Kz6/GHC/Integer/Logarithms.hi
+integer-logarithms   &gt;         Something is amiss; requested module  integer-simple-0.1.1.1:GHC.Integer.Logarithms differs from name found in the interface file integer-simple:GHC.Integer.Logarithms (if these names look the same, try again with -dppr-debug)
+integer-logarithms   &gt;    |                 
+integer-logarithms   &gt; 24 | import GHC.Integer.Logarithms
+integer-logarithms   &gt;    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+integer-logarithms   &gt;                      
+hashable             &gt; Configuring hashable-1.3.0.0...
+hashable             &gt; Warning:
+hashable             &gt;     This package indirectly depends on multiple versions of the same package. This is very likely to cause a compile failure.
+hashable             &gt;       package hashable (hashable-1.3.0.0) requires integer-simple-0.1.1.1-RAJdiybHJ47N2pZrr0Kz6
+hashable             &gt;       package base (base-4.14.3.0) requires integer-simple-0.1.2.0
+hashable             &gt; build
+hashable             &gt; Preprocessing library for hashable-1.3.0.0..
+hashable             &gt; Building library for hashable-1.3.0.0..
+hashable             &gt; [1 of 5] Compiling Data.Hashable.Class
+hashable             &gt; Bad interface file: (略)/8.10.7/lib/x86_64-linux-ghc-8.10.7/integer-simple-0.1.1.1-RAJdiybHJ47N2pZrr0Kz6/GHC/Integer/Type.hi
+hashable             &gt;     Something is amiss; requested module  integer-simple-0.1.1.1:GHC.Integer.Type differs from name found in the interface file integer-simple:GHC.Integer.Type (if these names look the same, try again with -dppr-debug)
+Progress 21/30</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1636687845.033900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">benzene.chlorobenzene</div>
+            <div class="date"><a class="date" href="#message-1636687845.033900">2021-11-12 12:30:45 +0900</a></div>
+          </div>
+          <div class="description">integer-simple-0.1.1.1をextra-depsから抜いたらコンパイル通りました……<br/>ありがとうございました～</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../99.html" class="item">Back to questions #99</a>
