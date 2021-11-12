@@ -1,0 +1,38 @@
+[
+    {
+        "ts": "1636592171.025900",
+        "text": "GHC 9.0.1 ですが、Linuxではうまく動いています。\nしかし、macOSだと warp や quic の cabal test が失敗するようになりました。\n将来 GHC 9.0.2 となるブランチの先頭で試してみたいのですが、Intel macOS 用の GHC nightly build ってどこかに落ちていませんか？\ngitlab を探してみたのですが、見つかりませんでした。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1636607603.026200",
+        "text": "しょうがないので、自分で GHC を build してみましたが、問題は解決していませんでした。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1636610032.026400",
+        "text": "issue を出してみました。\n<https://gitlab.haskell.org/ghc/ghc/-/issues/20662>",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1636671736.031700",
+        "text": "nightlyというよりHEADですが\n1. <https://gitlab.haskell.org/ghc/ghc/-/pipelines?page=1&amp;scope=finished&amp;ref=master&amp;status=success> から好きなpipelineを選んでクリック\n2. Full-buildのvalidate-xxxから自分のプラットフォームに合うものをクリック\n3. Job artifactsのBrowseをクリック\n4. ghc-*-tar.xzをクリック\n5. ダウンロードリンクをコピー\n6. `ghcup install ghc -u リンク 名前` でインストールできます。名前はheadなり好きなものを使えます。",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1636672181.032000",
+        "text": "nightlyはこっちにあるみたいですね <https://gitlab.haskell.org/ghc/ghc/-/pipeline_schedules>",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    },
+    {
+        "ts": "1636672296.032300",
+        "text": "しかしGHCはmasterでもCIが頻繁にコケていて治安があまりよくありませんね",
+        "user": "U4M9NJ7QE",
+        "type": "message"
+    }
+]

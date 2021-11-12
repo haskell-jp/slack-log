@@ -117,6 +117,71 @@
           <div class="description">@yuzu.kuri.027449 has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1636592171.025900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1636592171.025900">2021-11-11 09:56:11 +0900</a></div>
+          </div>
+          <div class="description">GHC 9.0.1 ですが、Linuxではうまく動いています。<br/>しかし、macOSだと warp や quic の cabal test が失敗するようになりました。<br/>将来 GHC 9.0.2 となるブランチの先頭で試してみたいのですが、Intel macOS 用の GHC nightly build ってどこかに落ちていませんか？<br/>gitlab を探してみたのですが、見つかりませんでした。</div>
+          <a class="link-to-replies" href="99/1636592171.025900.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1636653798.030500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">benzene.chlorobenzene</div>
+            <div class="date"><a class="date" href="#message-1636653798.030500">2021-11-12 03:03:18 +0900</a></div>
+          </div>
+          <div class="description">stackのLTS18.16で、muslを静的リンクしたaesonに依存するバイナリを作ろうとして躓いています。<br/>再現手順：<br/>1. <a href='https://qiita.com/lambda_funtaro/items/5ac47f83616f8c07d4db'>https://qiita.com/lambda_funtaro/items/5ac47f83616f8c07d4db</a> の通りに設定する（stack.yaml中のdockerのrepoはutdemir/ghc-musl:v22-ghc8107にする）<br/>2. package.yamlのdependenciesにaesonを加える<br/>3. <code>stack build --docker</code>する<br/>4. ビルドに失敗する↓<br/><pre>Error: While constructing the build
+plan, the following exceptions were
+encountered:
+
+In the dependencies
+for hashable-1.3.0.0:
+    integer-gmp must
+                match &gt;=0.4 &amp;&amp; &lt;1.1, but
+                the stack configuration
+                has no specified
+                version  (latest
+                matching version
+                is 1.0.3.0)
+needed due to test-0.1.0.0
+               -&gt; hashable-1.3.0.0
+
+In the dependencies
+for integer-logarithms-1.0.3.1:
+    integer-gmp must match &lt;1.1, but the
+                stack configuration has
+                no specified version
+                (latest matching version
+                is 1.0.3.0)
+needed due to test-0.1.0.0
+               -&gt; integer-logarithms-1.0.3.1
+
+In the dependencies
+for scientific-0.3.7.0:
+    integer-gmp needed, but the stack
+                configuration has no
+                specified version
+                (latest matching version
+                is 1.0.3.0)
+needed due to test-0.1.0.0
+               -&gt; scientific-0.3.7.0
+
+Some different approaches to resolving
+this:
+
+  * Recommended action: try adding the
+    following to your extra-deps
+    in (略)/stack.yaml:
+
+- integer-gmp-1.0.3.0@sha256:514e81647473ce380cf1814821664c0dcedc2801ad8dbf41b19a10f916e1cc75,2138
+
+Plan construction failed.</pre></div>
+          <a class="link-to-replies" href="99/1636653798.030500.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C5666B6BB/98.html" class="item">Previous</a>
