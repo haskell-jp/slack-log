@@ -76,5 +76,11 @@
         "text": "stackのLTS18.16で、muslを静的リンクしたaesonに依存するバイナリを作ろうとして躓いています。\n再現手順：\n1. <https://qiita.com/lambda_funtaro/items/5ac47f83616f8c07d4db> の通りに設定する（stack.yaml中のdockerのrepoはutdemir/ghc-musl:v22-ghc8107にする）\n2. package.yamlのdependenciesにaesonを加える\n3. `stack build --docker`する\n4. ビルドに失敗する↓\n```Error: While constructing the build\nplan, the following exceptions were\nencountered:\n\nIn the dependencies\nfor hashable-1.3.0.0:\n    integer-gmp must\n                match &gt;=0.4 &amp;&amp; &lt;1.1, but\n                the stack configuration\n                has no specified\n                version  (latest\n                matching version\n                is 1.0.3.0)\nneeded due to test-0.1.0.0\n               -&gt; hashable-1.3.0.0\n\nIn the dependencies\nfor integer-logarithms-1.0.3.1:\n    integer-gmp must match &lt;1.1, but the\n                stack configuration has\n                no specified version\n                (latest matching version\n                is 1.0.3.0)\nneeded due to test-0.1.0.0\n               -&gt; integer-logarithms-1.0.3.1\n\nIn the dependencies\nfor scientific-0.3.7.0:\n    integer-gmp needed, but the stack\n                configuration has no\n                specified version\n                (latest matching version\n                is 1.0.3.0)\nneeded due to test-0.1.0.0\n               -&gt; scientific-0.3.7.0\n\nSome different approaches to resolving\nthis:\n\n  * Recommended action: try adding the\n    following to your extra-deps\n    in (略)/stack.yaml:\n\n- integer-gmp-1.0.3.0@sha256:514e81647473ce380cf1814821664c0dcedc2801ad8dbf41b19a10f916e1cc75,2138\n\nPlan construction failed.```",
         "user": "U015L5JEP8D",
         "type": "message"
+    },
+    {
+        "ts": "1636764294.036400",
+        "text": "stackのpackage.yamlのexecutables欄に指定することで異なるオプションを持つ複数のバイナリを生成することができますが、そのうちのいくつかをデフォルトでは生成されないようにすることってできますか",
+        "user": "U015L5JEP8D",
+        "type": "message"
     }
 ]
