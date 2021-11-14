@@ -1,0 +1,20 @@
+[
+    {
+        "ts": "1636885345.028600",
+        "text": "自分はC#を用いることが多いのですが、FFIを用いてHaskellの関数やユーザー定義のデータ型などをC#とやり取りするにはどのようにすればよいのでしょうか？\n一応自分では調べてみたもののCの知識などを使うことが多くよくわからなかったので、できればそのあたりも教えてくださると大変助かります。",
+        "user": "U02M9636PFV",
+        "type": "message"
+    },
+    {
+        "ts": "1636889996.028700",
+        "text": "多くのプログラミング言語と*恐らく*C#も同様に、HaskellからC#の関数を呼ぶにせよ、C#からHaskellの関数を呼ぶにせよ、C言語の関数としてFFIでexportしてFFIでimportする、というのが確実かと思います。\n\nただ、知る限りWindows限定ではあるものの、COMを使う、という手もあるかも知れません。\nと思ってhackageを漁ったら随分古いパッケージが出てきましたね... 今使えるかと言われるとこれは怪しい :disappointed:\n<https://hackage.haskell.org/package/com>\n\n（あと、これはWasm好きとしての余談ですがWebAssembly Interface Typesが普及すればこういう相互呼び出しも楽になるはず...）",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1636894722.029000",
+        "text": "Haskellで書かれた関数を他の言語から呼び出したい場合、GHC User's GuideのFFIのセクションにあるような手順で共有ライブラリーを作って、Cのライブラリーとして外から呼び出してやれば一応は可能です。その際、データ型の類は全てC言語で表現できる範囲に落とし込む必要があります。 <https://downloads.haskell.org/ghc/latest/docs/html/users_guide/exts/ffi.html#making-a-haskell-library-that-can-be-called-from-foreign-code> ただ、個人的な感触としては、C FFIを経由して外からHaskellを呼び出すのは茨の道で、Haskell側の処理を単体の実行ファイルとして使えるようにしてプロセス間通信した方が良いのではという気がします。",
+        "user": "UGM9F7XQS",
+        "type": "message"
+    }
+]
