@@ -16,5 +16,17 @@
         "text": "Haskellで書かれた関数を他の言語から呼び出したい場合、GHC User's GuideのFFIのセクションにあるような手順で共有ライブラリーを作って、Cのライブラリーとして外から呼び出してやれば一応は可能です。その際、データ型の類は全てC言語で表現できる範囲に落とし込む必要があります。 <https://downloads.haskell.org/ghc/latest/docs/html/users_guide/exts/ffi.html#making-a-haskell-library-that-can-be-called-from-foreign-code> ただ、個人的な感触としては、C FFIを経由して外からHaskellを呼び出すのは茨の道で、Haskell側の処理を単体の実行ファイルとして使えるようにしてプロセス間通信した方が良いのではという気がします。",
         "user": "UGM9F7XQS",
         "type": "message"
+    },
+    {
+        "ts": "1636940662.029500",
+        "text": "お二人ともありがとうございます。\nやはりFFIでやるには一回Cのライブラリに落とす必要があるんですね。\n\nプロセス間通信については一度調べてみようと思います。",
+        "user": "U02M9636PFV",
+        "type": "message"
+    },
+    {
+        "ts": "1636956772.029800",
+        "text": "最近自然言語処理でPythonを呼び出す必要がガンガンあるんですが、短時間に何度も呼び出したり相互に呼び出したりしないので、HTTPでJSONをやり取りしてます\nECSをタスクを分けられるので安全でもありますね\nPython側はFastAPIで、Haskell側はservant-clientを使っています",
+        "user": "U57CUMWQ6",
+        "type": "message"
     }
 ]
