@@ -57,6 +57,33 @@
           <div class="description">最近自然言語処理でPythonを呼び出す必要がガンガンあるんですが、短時間に何度も呼び出したり相互に呼び出したりしないので、HTTPでJSONをやり取りしてます<br/>ECSをタスクを分けられるので安全でもありますね<br/>Python側はFastAPIで、Haskell側はservant-clientを使っています</div>
         </div>
       </div>
+      <div class="event" id="message-1637108021.035900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">yousukeman3</div>
+            <div class="date"><a class="date" href="#message-1637108021.035900">2021-11-17 09:13:41 +0900</a></div>
+          </div>
+          <div class="description">なるほど、確かにそれが一番やりやすそうな気がしますね。そちらも調べてみようと思います。<br/><br/>ところでECSってなんですか？<br/><br/>あと、短時間に何度もやり取りする必要がある場合はやはりIPCやFFIを使うことになるんですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1637111004.036300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1637111004.036300">2021-11-17 10:03:24 +0900</a></div>
+          </div>
+          <div class="description">ECSと言うのはAWSのDockerコンテナ実行サービスです<br/>ECSを分けられるというのは要するにサーバをそれぞれ分けられるということです<br/><br/>短時間に何度も呼び出してパフォーマンスが必要になってHTTPのボトルネックが気になる場合、やはりFFIやIPCということになりそうですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1637117138.036700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">yousukeman3</div>
+            <div class="date"><a class="date" href="#message-1637117138.036700">2021-11-17 11:45:38 +0900</a></div>
+          </div>
+          <div class="description">なるほど、そうなんですね。<br/><br/>今のところはローカル環境でプログラムを作ることを考えててhaskellとC#を短時間に何度も通信する必要があるかもしれないのでとりあえず難しそうですがIPCを使ってみようと思います。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../18.html" class="item">Back to beginners #18</a>

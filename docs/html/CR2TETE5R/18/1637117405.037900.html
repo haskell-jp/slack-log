@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #18 at 2021-11-17 11:50:05 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #18 at 2021-11-17 11:50:05 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../18.html" class="item">Back to beginners #18</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1637117405.037900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">yousukeman3</div>
+            <div class="date"><a class="date" href="#message-1637117405.037900">2021-11-17 11:50:05 +0900</a></div>
+          </div>
+          <div class="description">再帰関数って再起しすぎると関数のスタックがオーバーフローしたりしないのでしょうか</div>
+        </div>
+      </div>
+      <div class="event" id="message-1637117686.038000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1637117686.038000">2021-11-17 11:54:46 +0900</a></div>
+          </div>
+          <div class="description">一言で言うとします。（Haskell固有の詳しい回答はちゃんと説明できる自信がないので他の人にお願いしたい....）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1637121260.038300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1637121260.038300">2021-11-17 12:54:20 +0900</a></div>
+          </div>
+          <div class="description"><code>f n = if n == 0 then 0 else f (n - 1) + 1</code> このような関数は、`+ 1` を計算するためにスタックを消費するのでスタックオーバーフローします。`f n = if n == 0 then 0 else f (n - 1)`` の場合はその必要がないのでオーバーフローを避けられます(末尾再帰)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1637124164.038600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">yousukeman3</div>
+            <div class="date"><a class="date" href="#message-1637124164.038600">2021-11-17 13:42:44 +0900</a></div>
+          </div>
+          <div class="description">なるほど、戻ってくる必要がないような再帰関数ならスタックを消費しないってことですね</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../18.html" class="item">Back to beginners #18</a>
+    </div>
+  </div>
+</body>
+</html>
