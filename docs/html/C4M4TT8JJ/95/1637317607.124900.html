@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #95 at 2021-11-19 19:26:47 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #95 at 2021-11-19 19:26:47 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../95.html" class="item">Back to random #95</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1637317607.124900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1637317607.124900">2021-11-19 19:26:47 +0900</a></div>
+          </div>
+          <div class="description">まだリリースされてないバージョンを依存の上限に指定するの、意味あるのかなあ（と思いながらがっつり削除する PR 作った<br/><a href='https://github.com/Deewiant/glob/pull/44'>https://github.com/Deewiant/glob/pull/44</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1637318402.125200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">matsubara0507</div>
+            <div class="date"><a class="date" href="#message-1637318402.125200">2021-11-19 19:40:02 +0900</a></div>
+          </div>
+          <div class="description">リリースされた瞬間ビルドエラーになるのを防ぐためではなく？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1637318867.128600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1637318867.128600">2021-11-19 19:47:47 +0900</a></div>
+          </div>
+          <div class="description">Hackageってリビジョン機能があるんで、依存可能バージョンの拡張はbreaking changeではないけど依存可能バージョンの縮小はbreaking changeであると言うことを考慮して先にPVPでbreaking changeが導入されうるmajor versionは念のために排除しておくという慣習だと思っていました</div>
+        </div>
+      </div>
+      <div class="event" id="message-1637318943.129200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1637318943.129200">2021-11-19 19:49:03 +0900</a></div>
+          </div>
+          <div class="description">が、違うのでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1637319634.134900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1637319634.134900">2021-11-19 20:00:34 +0900</a></div>
+          </div>
+          <div class="description">合っていると思います。<br/>パッケージPがパッケージAに上限を設定せず依存しているとき、Aに非互換な変更が入ると当然Pは壊れます。P側で修正して新しいリリースをしてもcabalのdependency solverが古いパッケージを選択すれば壊れるので、非互換かつ上限を指定していないすべてのPのバージョンに対して新しいリビジョンでAのバージョンの上限を指定していく必要があります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1637319809.135200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1637319809.135200">2021-11-19 20:03:29 +0900</a></div>
+          </div>
+          <div class="description">ここら辺が昔、バージョン指定したくないstack陣営と、正確なバージョン指定をしたいcabal陣営で意見が割れていた元凶でもあります</div>
+        </div>
+      </div>
+      <div class="event" id="message-1637319870.135400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1637319870.135400">2021-11-19 20:04:30 +0900</a></div>
+          </div>
+          <div class="description">またhackage trusteesの人たちの仕事の一部でもあります</div>
+        </div>
+      </div>
+      <div class="event" id="message-1637358194.135800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1637358194.135800">2021-11-20 06:43:14 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>パッケージPがパッケージAに上限を設定せず依存しているとき、Aに非互換な変更が入ると当然Pは壊れます。P側で修正して新しいリリースをしてもcabalのdependency solverが古いパッケージを選択すれば壊れるので、非互換かつ上限を指定していないすべてのPのバージョンに対して新しいリビジョンでAのバージョンの上限を指定していく必要があります。<br/></blockquote>なるほど！<br/>a.b.c のバージョンをリリースしたらそれより古い a.b.d のバージョンをメンテナンスする意識がなかったですね<br/>互換性があるのだから a.b.x の x は最新を使えばいいという認識でした<br/>自分がバージョン上限を撤廃したい理由としては、ほとんどの PR が上限撤廃の依頼で、手離れが悪いと思ったからですね<br/>自分がライブラリー使う側だと 上限撤廃依頼への反応の悪いメンテナーにやきもきするというのもあります<br/>（反応がないときは trustee に依頼すればよい？<br/>stack 陣営 cabal 陣営で意見の対立があったのですか～</div>
+        </div>
+      </div>
+      <div class="event" id="message-1637380107.139300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">maoe</div>
+            <div class="date"><a class="date" href="#message-1637380107.139300">2021-11-20 12:48:27 +0900</a></div>
+          </div>
+          <div class="description">Trusteesはビルドが壊れていないかをなんらかの方法で見張っていて、影響が大きくかつメタデータの修正のみで直せるものは適宜リビジョンで対応してくれるという認識です。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../95.html" class="item">Back to random #95</a>
+    </div>
+  </div>
+</body>
+</html>
