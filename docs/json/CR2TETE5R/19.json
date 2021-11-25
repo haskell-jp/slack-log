@@ -1,0 +1,8 @@
+[
+    {
+        "ts": "1637817370.043200",
+        "text": "`Bifunctor`  って第一引数を固定すると `Functor`  になると思うんですが，そういうインスタンス定義は提供されてないみたいなので，\n```instance Bifunctor f =&gt; Functor (f a) where\n  fmap = second```\nと書いてみるとこれはコンパイル通りません．エラーメッセージは\n```[1 of 1] Compiling Main             ( adv.hs, interpreted )\n\nadv.hs:70:25: error:\n    • Illegal instance declaration for 'Functor (f a)'\n        (All instance types must be of the form (T a1 ... an)\n         where a1 ... an are *distinct type variables*,\n         and each type variable appears at most once in the instance head.\n         Use FlexibleInstances if you want to disable this.)\n    • In the instance declaration for 'Functor (f a)'\n   |\n70 | instance Bifunctor f =&gt; Functor (f a) where\n   |                         ^^^^^^^^^^^^^\nFailed, no modules loaded.```\nで，指示通り `{-# LANGUAGE FlexibleInstances #-}` をつけるとコンパイルは通りますが，デフォルトだとなんでこんな制約があるんでしょう？",
+        "user": "U02NV1XHYBT",
+        "type": "message"
+    }
+]

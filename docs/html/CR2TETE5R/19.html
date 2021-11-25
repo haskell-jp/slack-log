@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #19</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #19</h1>
+    <div class="ui pagination menu">
+      <a href="../../html/CR2TETE5R/18.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1637817370.043200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mail741</div>
+            <div class="date"><a class="date" href="#message-1637817370.043200">2021-11-25 14:16:10 +0900</a></div>
+          </div>
+          <div class="description"><code>Bifunctor</code>  って第一引数を固定すると <code>Functor</code>  になると思うんですが，そういうインスタンス定義は提供されてないみたいなので，<br/><pre>instance Bifunctor f =&gt; Functor (f a) where
+  fmap = second</pre><br/>と書いてみるとこれはコンパイル通りません．エラーメッセージは<br/><pre>[1 of 1] Compiling Main             ( adv.hs, interpreted )
+
+adv.hs:70:25: error:
+    • Illegal instance declaration for 'Functor (f a)'
+        (All instance types must be of the form (T a1 ... an)
+         where a1 ... an are *distinct type variables*,
+         and each type variable appears at most once in the instance head.
+         Use FlexibleInstances if you want to disable this.)
+    • In the instance declaration for 'Functor (f a)'
+   |
+70 | instance Bifunctor f =&gt; Functor (f a) where
+   |                         ^^^^^^^^^^^^^
+Failed, no modules loaded.</pre><br/>で，指示通り <code>{-# LANGUAGE FlexibleInstances #-}</code> をつけるとコンパイルは通りますが，デフォルトだとなんでこんな制約があるんでしょう？</div>
+          <a class="link-to-replies" href="19/1637817370.043200.html">... Replies ...</a>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../../html/CR2TETE5R/18.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+    </div>
+  </div>
+</body>
+</html>

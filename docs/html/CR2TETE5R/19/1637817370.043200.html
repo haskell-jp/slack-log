@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #19 at 2021-11-25 14:16:10 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #19 at 2021-11-25 14:16:10 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../19.html" class="item">Back to beginners #19</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1637817370.043200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mail741</div>
+            <div class="date"><a class="date" href="#message-1637817370.043200">2021-11-25 14:16:10 +0900</a></div>
+          </div>
+          <div class="description"><code>Bifunctor</code>  って第一引数を固定すると <code>Functor</code>  になると思うんですが，そういうインスタンス定義は提供されてないみたいなので，<br/><pre>instance Bifunctor f =&gt; Functor (f a) where
+  fmap = second</pre><br/>と書いてみるとこれはコンパイル通りません．エラーメッセージは<br/><pre>[1 of 1] Compiling Main             ( adv.hs, interpreted )
+
+adv.hs:70:25: error:
+    • Illegal instance declaration for 'Functor (f a)'
+        (All instance types must be of the form (T a1 ... an)
+         where a1 ... an are *distinct type variables*,
+         and each type variable appears at most once in the instance head.
+         Use FlexibleInstances if you want to disable this.)
+    • In the instance declaration for 'Functor (f a)'
+   |
+70 | instance Bifunctor f =&gt; Functor (f a) where
+   |                         ^^^^^^^^^^^^^
+Failed, no modules loaded.</pre><br/>で，指示通り <code>{-# LANGUAGE FlexibleInstances #-}</code> をつけるとコンパイルは通りますが，デフォルトだとなんでこんな制約があるんでしょう？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1637818267.043300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1637818267.043300">2021-11-25 14:31:07 +0900</a></div>
+          </div>
+          <div class="description"><code>Functor (f a)</code> に対してそういうインスタンスを定義してしまうと、具体的な型 <code>F</code> に対する <code>Functor (F a)</code> を定義できなくなります。例えば次のコードがコンパイルエラーになります：<br/><pre>instance Bifunctor f =&gt; Functor (f a) where
+  fmap = second
+
+data Foo k a = Foo (k -&gt; k) a -- FooはBifunctorではない
+
+instance Functor (Foo k) where
+  fmap f (Foo k a) = Foo k (f a)</pre><br/>「`Bifunctor`  を利用した <code>Functor</code> のインスタンスを定義したい」のであればnewtypeを使うのがHaskell流のやり方になるかと思います：<br/><pre>newtype WrappedBifunctor f a b = WrappedBifunctor (f a b)
+instance Bifunctor f =&gt; Functor (WrappedBifunctor f a) where
+  fmap f (WrappedBifunctor a) = WrappedBifunctor (second f a)</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1637819443.043600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mail741</div>
+            <div class="date"><a class="date" href="#message-1637819443.043600">2021-11-25 14:50:43 +0900</a></div>
+          </div>
+          <div class="description">なるほど！ちょうど <code>instance Functor (RoseTreeF a) where ...</code>  とかやって怒られてたところでした．今回の場合，`RoseTreeF` が <code>Bifunctor</code>  だということは導けないはずなんですが，GHC はその手の探索（制約解消？）まではやってくれないということなんですね．</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../19.html" class="item">Back to beginners #19</a>
+    </div>
+  </div>
+</body>
+</html>
