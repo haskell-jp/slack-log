@@ -60,6 +60,15 @@ instance Bifunctor f =&gt; Functor (WrappedBifunctor f a) where
           <div class="description">なるほど！ちょうど <code>instance Functor (RoseTreeF a) where ...</code>  とかやって怒られてたところでした．今回の場合，`RoseTreeF` が <code>Bifunctor</code>  だということは導けないはずなんですが，GHC はその手の探索（制約解消？）まではやってくれないということなんですね．</div>
         </div>
       </div>
+      <div class="event" id="message-1637885923.043900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1637885923.043900">2021-11-26 09:18:43 +0900</a></div>
+          </div>
+          <div class="description">残念ながらご認識のとおりです。GHCが型クラスのインスタンスを解決するときは、例えば<br/><pre>instance SomeClass a =&gt; SomeClass (SomeType a)</pre><br/>と書いたときの <code>SomeType a</code> という部分でしか探索しません。 <code>SomeClass a</code> が実際に満たされているかは解決した後に確認します。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../19.html" class="item">Back to beginners #19</a>

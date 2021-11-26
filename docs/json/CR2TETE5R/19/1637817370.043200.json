@@ -16,5 +16,11 @@
         "text": "なるほど！ちょうど `instance Functor (RoseTreeF a) where ...`  とかやって怒られてたところでした．今回の場合，`RoseTreeF` が `Bifunctor`  だということは導けないはずなんですが，GHC はその手の探索（制約解消？）まではやってくれないということなんですね．",
         "user": "U02NV1XHYBT",
         "type": "message"
+    },
+    {
+        "ts": "1637885923.043900",
+        "text": "残念ながらご認識のとおりです。GHCが型クラスのインスタンスを解決するときは、例えば\n```instance SomeClass a =&gt; SomeClass (SomeType a)```\nと書いたときの `SomeType a` という部分でしか探索しません。 `SomeClass a` が実際に満たされているかは解決した後に確認します。",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
