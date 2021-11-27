@@ -36,6 +36,45 @@ Failed, no modules loaded.</pre><br/>で，指示通り <code>{-# LANGUAGE Flexi
           <a class="link-to-replies" href="19/1637817370.043200.html">... Replies ...</a>
         </div>
       </div>
+      <div class="event" id="message-1638018727.046600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">muratomo.0205</div>
+            <div class="date"><a class="date" href="#message-1638018727.046600">2021-11-27 22:12:07 +0900</a></div>
+          </div>
+          <div class="description">質問失礼します．<br/>RPELで<br/><pre>hoge 0 = 0
+hoge 1 = 1
+hoge x = hoge (x-1) + hoge (x-2)</pre><br/>を定義する方法はありますか?caseを使うしかないのでしょうか?<br/>このように定義すると，単に関数の定義を上書きしているとみなされてしまいます．</div>
+          <a class="link-to-replies" href="19/1638018727.046600.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1638020585.048800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">muratomo.0205</div>
+            <div class="date"><a class="date" href="#message-1638020585.048800">2021-11-27 22:43:05 +0900</a></div>
+          </div>
+          <div class="description">質問連投すみません．<br/>こちらをMain.hsに入力しました：<br/><pre>hoge 0 = 0
+hoge 1 = 1
+hoge x = hoge (x-1) + hoge (x-2)</pre><br/>REPLを起動してロードしても，定義されていないことになっており，行き詰まってしまいました．．．<br/><pre>Resolving dependencies...
+Build profile: -w ghc-8.10.4 -O1
+In order, the following will be built (use -v for more details):
+ - fake-package-0 (lib) (first run)
+Configuring library for fake-package-0..
+Preprocessing library for fake-package-0..
+Warning: No exposed modules
+GHCi, version 8.10.4: <https://www.haskell.org/ghc/>  :? for help
+Loaded GHCi configuration from /var/folders/xq/fpvgsjwd3ms24_w3lwl_4d780000gn/T/cabal-repl.-18964/setcwd.ghci
+Prelude&gt; :l Main
+[1 of 1] Compiling Main             ( Main.hs, interpreted )
+Ok, one module loaded.
+Prelude&gt; hoge 5
+
+&lt;interactive&gt;:2:1: error: Variable not in scope: hoge :: t0 -&gt; t
+Prelude&gt; </pre><br/></div>
+          <a class="link-to-replies" href="19/1638020585.048800.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/18.html" class="item">Previous</a>

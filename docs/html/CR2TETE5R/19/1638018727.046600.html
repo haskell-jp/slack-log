@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #19 at 2021-11-27 22:12:07 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #19 at 2021-11-27 22:12:07 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../19.html" class="item">Back to beginners #19</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1638018727.046600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">muratomo.0205</div>
+            <div class="date"><a class="date" href="#message-1638018727.046600">2021-11-27 22:12:07 +0900</a></div>
+          </div>
+          <div class="description">質問失礼します．<br/>RPELで<br/><pre>hoge 0 = 0
+hoge 1 = 1
+hoge x = hoge (x-1) + hoge (x-2)</pre><br/>を定義する方法はありますか?caseを使うしかないのでしょうか?<br/>このように定義すると，単に関数の定義を上書きしているとみなされてしまいます．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1638019253.046800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1638019253.046800">2021-11-27 22:20:53 +0900</a></div>
+          </div>
+          <div class="description"><code>:{</code> / <code>:}</code> コマンドを使うと複数行の定義を書けます。使用例は<br/><pre>Prelude&gt; :{
+Prelude| hoge 0 = 0
+Prelude| hoge 1 = 1
+Prelude| hoge x = hoge (x-1) + hoge (x-2)
+Prelude| :}</pre><br/>という感じです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1638019626.047000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">muratomo.0205</div>
+            <div class="date"><a class="date" href="#message-1638019626.047000">2021-11-27 22:27:06 +0900</a></div>
+          </div>
+          <div class="description">複数行定義とはそういうことでしたか!<br/>ありがとうございました．</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../19.html" class="item">Back to beginners #19</a>
+    </div>
+  </div>
+</body>
+</html>

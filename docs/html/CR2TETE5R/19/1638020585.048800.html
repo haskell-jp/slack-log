@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #19 at 2021-11-27 22:43:05 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #19 at 2021-11-27 22:43:05 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../19.html" class="item">Back to beginners #19</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1638020585.048800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">muratomo.0205</div>
+            <div class="date"><a class="date" href="#message-1638020585.048800">2021-11-27 22:43:05 +0900</a></div>
+          </div>
+          <div class="description">質問連投すみません．<br/>こちらをMain.hsに入力しました：<br/><pre>hoge 0 = 0
+hoge 1 = 1
+hoge x = hoge (x-1) + hoge (x-2)</pre><br/>REPLを起動してロードしても，定義されていないことになっており，行き詰まってしまいました．．．<br/><pre>Resolving dependencies...
+Build profile: -w ghc-8.10.4 -O1
+In order, the following will be built (use -v for more details):
+ - fake-package-0 (lib) (first run)
+Configuring library for fake-package-0..
+Preprocessing library for fake-package-0..
+Warning: No exposed modules
+GHCi, version 8.10.4: <https://www.haskell.org/ghc/>  :? for help
+Loaded GHCi configuration from /var/folders/xq/fpvgsjwd3ms24_w3lwl_4d780000gn/T/cabal-repl.-18964/setcwd.ghci
+Prelude&gt; :l Main
+[1 of 1] Compiling Main             ( Main.hs, interpreted )
+Ok, one module loaded.
+Prelude&gt; hoge 5
+
+&lt;interactive&gt;:2:1: error: Variable not in scope: hoge :: t0 -&gt; t
+Prelude&gt; </pre><br/></div>
+        </div>
+      </div>
+      <div class="event" id="message-1638026632.049000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cohei</div>
+            <div class="date"><a class="date" href="#message-1638026632.049000">2021-11-28 00:23:52 +0900</a></div>
+          </div>
+          <div class="description">うまくいくはずに思えます。<br/><br/><code>Main</code> モジュールがロードできているので、ghci から見えないディレクトリに Main.hs があるというわけでもなさそうですし。<br/><br/>それでも考えられるのは、 Main.hs に実は <code>hoge</code> が定義されていないことぐらいですかね…<br/><br/><code>:browse Main</code> で <code>Main</code> モジュールに定義されているものが表示されるので、これを確認してみてはどうでしょうか?</div>
+        </div>
+      </div>
+      <div class="event" id="message-1638026841.049200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cohei</div>
+            <div class="date"><a class="date" href="#message-1638026841.049200">2021-11-28 00:27:21 +0900</a></div>
+          </div>
+          <div class="description">1つ気になるのは、Main.hs のロードに成功したらプロンプトが <code>*Main&gt;</code> になる気がしますが、ここでは <code>Prelude&gt;</code> のままである点ですね。<br/>おかしいなと思うのですが、どういうことなのかはちょっとわからないのですけど…</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../19.html" class="item">Back to beginners #19</a>
+    </div>
+  </div>
+</body>
+</html>

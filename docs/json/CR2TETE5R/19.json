@@ -4,5 +4,17 @@
         "text": "`Bifunctor`  って第一引数を固定すると `Functor`  になると思うんですが，そういうインスタンス定義は提供されてないみたいなので，\n```instance Bifunctor f =&gt; Functor (f a) where\n  fmap = second```\nと書いてみるとこれはコンパイル通りません．エラーメッセージは\n```[1 of 1] Compiling Main             ( adv.hs, interpreted )\n\nadv.hs:70:25: error:\n    • Illegal instance declaration for 'Functor (f a)'\n        (All instance types must be of the form (T a1 ... an)\n         where a1 ... an are *distinct type variables*,\n         and each type variable appears at most once in the instance head.\n         Use FlexibleInstances if you want to disable this.)\n    • In the instance declaration for 'Functor (f a)'\n   |\n70 | instance Bifunctor f =&gt; Functor (f a) where\n   |                         ^^^^^^^^^^^^^\nFailed, no modules loaded.```\nで，指示通り `{-# LANGUAGE FlexibleInstances #-}` をつけるとコンパイルは通りますが，デフォルトだとなんでこんな制約があるんでしょう？",
         "user": "U02NV1XHYBT",
         "type": "message"
+    },
+    {
+        "ts": "1638018727.046600",
+        "text": "質問失礼します．\nRPELで\n```hoge 0 = 0\nhoge 1 = 1\nhoge x = hoge (x-1) + hoge (x-2)```\nを定義する方法はありますか?caseを使うしかないのでしょうか?\nこのように定義すると，単に関数の定義を上書きしているとみなされてしまいます．",
+        "user": "U01TZ1XM7MG",
+        "type": "message"
+    },
+    {
+        "ts": "1638020585.048800",
+        "text": "質問連投すみません．\nこちらをMain.hsに入力しました：\n```hoge 0 = 0\nhoge 1 = 1\nhoge x = hoge (x-1) + hoge (x-2)```\nREPLを起動してロードしても，定義されていないことになっており，行き詰まってしまいました．．．\n```Resolving dependencies...\nBuild profile: -w ghc-8.10.4 -O1\nIn order, the following will be built (use -v for more details):\n - fake-package-0 (lib) (first run)\nConfiguring library for fake-package-0..\nPreprocessing library for fake-package-0..\nWarning: No exposed modules\nGHCi, version 8.10.4: <https://www.haskell.org/ghc/>  :? for help\nLoaded GHCi configuration from /var/folders/xq/fpvgsjwd3ms24_w3lwl_4d780000gn/T/cabal-repl.-18964/setcwd.ghci\nPrelude&gt; :l Main\n[1 of 1] Compiling Main             ( Main.hs, interpreted )\nOk, one module loaded.\nPrelude&gt; hoge 5\n\n&lt;interactive&gt;:2:1: error: Variable not in scope: hoge :: t0 -&gt; t\nPrelude&gt; ```\n",
+        "user": "U01TZ1XM7MG",
+        "type": "message"
     }
 ]
