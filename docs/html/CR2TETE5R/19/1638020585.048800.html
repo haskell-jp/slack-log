@@ -56,6 +56,24 @@ Prelude&gt; </pre><br/></div>
           <div class="description">1つ気になるのは、Main.hs のロードに成功したらプロンプトが <code>*Main&gt;</code> になる気がしますが、ここでは <code>Prelude&gt;</code> のままである点ですね。<br/>おかしいなと思うのですが、どういうことなのかはちょっとわからないのですけど…</div>
         </div>
       </div>
+      <div class="event" id="message-1638089951.049900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1638089951.049900">2021-11-28 17:59:11 +0900</a></div>
+          </div>
+          <div class="description">cabal replで読み込むファイルにmodule宣言がないとそういう挙動になるようですね。読み込むファイルに <code>module Main where</code> と書くか素の <code>ghci</code> コマンドを使うとうまくいきます。理由までは分かりませんが…。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1638096852.050200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1638096852.050200">2021-11-28 19:54:12 +0900</a></div>
+          </div>
+          <div class="description">モジュール名ではなくファイル名として指定したらどうでしょうか。 <code>:l Main.hs</code> みたいに</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../19.html" class="item">Back to beginners #19</a>
