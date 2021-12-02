@@ -76,6 +76,19 @@ x &amp; g &amp; f -- と書けます</pre></div>
           <div class="description">どのように、考えるか、見るかによって、自然な書き方が違ってくるのだと思います。<br/><blockquote>関数を連ねてしてデータを変換するという思考プロセス</blockquote>では、ボトムアップで考えているので、おっしゃる通り g、f という順序が自然にみえます。<br/>逆にトップダウンで考えているのなら、 f、g という順序が自然に見えるでしょう。<br/>たとえば、リストの構成は通常トップダウンでみていますから、[1,2,3]を構成するとき、h = (1:) . (2:) . (3:) として h $ [] とするほうが h = (3:) <blockquote><blockquote><blockquote>(2:) <blockquote><blockquote><blockquote>(1:) として [] &amp; h とするよりも自然に見えます。</blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></div>
         </div>
       </div>
+      <div class="event" id="message-1638331600.053700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1638331600.053700">2021-12-01 13:06:40 +0900</a></div>
+          </div>
+          <div class="description">OCamlで |&gt; という演算子が流行っているようですが、Haskellでも簡単に実装できます。<br/><br/><pre>&gt; (f |&gt; g) x = g (f x)
+&gt; :type (|&gt;)
+(|&gt;) :: (t1 -&gt; t2) -&gt; (t2 -&gt; t3) -&gt; t1 -&gt; t3
+&gt; (map (+1) |&gt; sum) [1,2,3]
+9</pre></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../99.html" class="item">Back to questions #99</a>

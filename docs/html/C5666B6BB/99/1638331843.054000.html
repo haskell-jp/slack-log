@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #99 at 2021-12-01 13:10:43 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #99 at 2021-12-01 13:10:43 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1638331843.054000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1638331843.054000">2021-12-01 13:10:43 +0900</a></div>
+          </div>
+          <div class="description">pattern synonyms は便利なんですが、以下の例では Show インスタンスが冗長に感じます。自動生成する方法はありませんか？<br/><br/><pre>newtype Error = Error Int
+pattern InternalError = Error 1
+instance Show Error where
+  show (Error 1) = "InternalError"</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1638354236.054300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1638354236.054300">2021-12-01 19:23:56 +0900</a></div>
+          </div>
+          <div class="description">ちょっと聞いたことがないです。Template Haskellでも使ってライブラリー作るしかないんじゃないっすかね... :disappointed:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1638355355.055400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1638355355.055400">2021-12-01 19:42:35 +0900</a></div>
+          </div>
+          <div class="description">パターンシノニムは、シノニムというだけあり、Typableのように概念から値を引き出すことができないので、Template Haskellなどを使う必要があると思います</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+  </div>
+</body>
+</html>

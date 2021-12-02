@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #99 at 2021-12-01 19:27:44 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #99 at 2021-12-01 19:27:44 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1638354464.055200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1638354464.055200">2021-12-01 19:27:44 +0900</a></div>
+          </div>
+          <div class="description">これと等価なことをHaskellでやる方法ってありますか？<br/><a href='https://qiita.com/yosuke_furukawa/items/ec30f619166cb8090a09'>https://qiita.com/yosuke_furukawa/items/ec30f619166cb8090a09</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1638356932.055700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">notogawa</div>
+            <div class="date"><a class="date" href="#message-1638356932.055700">2021-12-01 20:08:52 +0900</a></div>
+          </div>
+          <div class="description">コレって<https://man7.org/linux/man-pages/man7/ip.7.html|manpage ip(7)>に書いてある<br/><blockquote>When listen(2) is called on an unbound socket, the socket is automatically bound to a random free port with the local address set to INADDR_ANY.</blockquote>相当なだけじゃないんですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1638358050.056100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama</div>
+            <div class="date"><a class="date" href="#message-1638358050.056100">2021-12-01 20:27:30 +0900</a></div>
+          </div>
+          <div class="description">たぶんそうですね。そもそも空いてるポートを知ってるのはカーネルだけなので、そういう機能はシステムコールにしかできない芸当だと思います</div>
+        </div>
+      </div>
+      <div class="event" id="message-1638360546.056300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1638360546.056300">2021-12-01 21:09:06 +0900</a></div>
+          </div>
+          <div class="description">やっぱOSの機能ですよね。warpから使いたいなぁ、と思ってソースを覗いていたら、warpが利用してる <a href='https://www.stackage.org/haddock/lts-18.18/streaming-commons-0.2.2.2/Data-Streaming-Network.html#v:bindPortTCP'>bindPortTCP</a> の他に、 bindRandomPortTCPなる関数があるじゃありませんか！これを使って作ればいいのか！</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+  </div>
+</body>
+</html>
