@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #19 at 2021-12-02 16:56:14 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #19 at 2021-12-02 16:56:14 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../19.html" class="item">Back to beginners #19</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1638431774.056900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mail741</div>
+            <div class="date"><a class="date" href="#message-1638431774.056900">2021-12-02 16:56:14 +0900</a></div>
+          </div>
+          <div class="description">Calculate Polytypically! にある crush 演算子を Haskell で定義したい人です．本当は依存型のような仕組みを使って n-ary functor を扱いたかったのですが，よくわからなかったため，とりあえず論文にある例を動かすためには Bifunctor まで扱えればいいかなということで，<https://haskell-jp.slack.com/archives/CR2TETE5R/p1637818267043300?thread_ts=1637817370.043200&amp;cid=CR2TETE5R|このへん> を参考にしつつ書いてみました．たぶん動いてはいるんですが，これ以前に書いた Haskell のコードが Hutton 本 2 の演習問題くらいしかないので，Haskell らしい良い書き方というものがわからず，いまいち自信がもてません．ぱっと見で改善点があれば教えてほしいです．コードはスレッドにぶら下げておきます．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1638431793.057100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mail741</div>
+            <div class="date"><a class="date" href="#message-1638431793.057100">2021-12-02 16:56:33 +0900</a></div>
+          </div>
+          <div class="description"><pre>{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE TypeSynonymInstances #-}
+
+import Data.Functor.Constant
+import Data.Functor.Identity
+import Data.Functor.Sum
+import Data.Functor.Product
+import Data.Bifunctor
+
+type Algebra f a = f a -&gt; a
+
+newtype WrappedBifunctor f a b = Wrap { unwrap :: f a b }
+instance Bifunctor f =&gt; Functor (WrappedBifunctor f a) where
+  fmap f (Wrap a) = Wrap (second f a)
+
+newtype Mu f = Mu { unMu :: f (Mu f) }
+newtype Tau f a = Tau { unTau :: Mu (WrappedBifunctor f a) }
+
+cata :: Functor f =&gt; Algebra f a -&gt; Mu f -&gt; a
+cata phi = phi . fmap (cata phi) . unMu
+
+type K = Constant
+type I = Identity
+type (:+:) = Sum
+type (:*:) = Product
+
+instance Bifunctor f =&gt; Functor (Tau f) where
+  fmap g = Tau . (cata (Mu . Wrap . first g . unwrap)) . unTau
+
+newtype Biconstant a b c = Biconstant { getBiConstant :: a }
+instance Bifunctor (Biconstant a) where
+  bimap _ _ (Biconstant x) = Biconstant x
+
+newtype ProjectionL f a b = ProjectionL { runProjectionLeft :: f a }
+instance Functor f =&gt; Bifunctor (ProjectionL f) where
+  bimap g _ (ProjectionL x) = ProjectionL (fmap g x)
+
+newtype ProjectionR f a b = ProjectionR { runProjectionRight :: f b }
+instance Functor f =&gt; Bifunctor (ProjectionR f) where
+  bimap _ h (ProjectionR x) = ProjectionR (fmap h x)
+
+data Bisum f g a b = BiinL (f a b) | BiinR (g a b)
+instance (Bifunctor f, Bifunctor g) =&gt; Bifunctor (Bisum f g) where
+  bimap f g (BiinL x) = BiinL (bimap f g x)
+  bimap f g (BiinR y) = BiinR (bimap f g y)
+
+data Biproduct f g a b = Bipair (f a b) (g a b)
+instance (Bifunctor f, Bifunctor g) =&gt; Bifunctor (Biproduct f g) where
+  bimap f g (Bipair x y) = Bipair (bimap f g x) (bimap f g y)
+
+type KK = Biconstant
+type L = ProjectionL
+type R = ProjectionR
+type (:++:) = Bisum
+type (:**:) = Biproduct
+
+class Functor f =&gt; CrushableFunctor f where
+  crush :: (a -&gt; a -&gt; a) -&gt; a -&gt; f a -&gt; a
+
+class Bifunctor f =&gt; CrushableBifunctor f where
+  bicrush :: (a -&gt; a -&gt; a) -&gt; a -&gt; f a a -&gt; a
+
+-- CrushableFunctor :=
+--   | Const *
+--   | Identity
+--   | Sum CrushableFunctor CrushableFunctor
+--   | Prod CrushableFunctor CrushableFunctor
+--   | Tau CrushableBiFunctor
+
+instance CrushableFunctor (K a) where
+  crush _ nu (Constant x) = nu
+
+instance CrushableFunctor I where
+  crush _ _ (Identity x) = x
+
+instance (CrushableFunctor f, CrushableFunctor g) =&gt; CrushableFunctor (f :+: g) where
+  crush op nu (InL x) = crush op nu x
+  crush op nu (InR x) = crush op nu x
+
+instance (CrushableFunctor f, CrushableFunctor g) =&gt; CrushableFunctor (f :*: g) where
+  crush op nu (Pair x y) = op (crush op nu x) (crush op nu y)
+
+instance CrushableBifunctor f =&gt; CrushableFunctor (Tau f) where
+  crush op nu = cata (bicrush op nu . unwrap) . unTau
+
+-- CrushableBiFunctor :=
+--   | Const *
+--   | ProjL CrushableFunctor
+--   | ProjR CrushableFunctor
+--   | Sum CrushableBiFunctor CrushableBiFunctor
+--   | Prod CrushableBiFunctor CrushableBiFunctor
+
+instance CrushableBifunctor (KK a) where
+  bicrush _ nu (Biconstant x) = nu
+
+instance CrushableFunctor f =&gt; CrushableBifunctor (L f) where
+  bicrush op nu (ProjectionL x) = crush op nu x
+
+instance CrushableFunctor f =&gt; CrushableBifunctor (R f) where
+  bicrush op nu (ProjectionR x) = crush op nu x
+
+instance (CrushableBifunctor f, CrushableBifunctor g) =&gt; CrushableBifunctor (f :++: g) where
+  bicrush op nu (BiinL x) = bicrush op nu x
+  bicrush op nu (BiinR x) = bicrush op nu x
+
+instance (CrushableBifunctor f, CrushableBifunctor g) =&gt; CrushableBifunctor (f :**: g) where
+  bicrush op nu (Bipair x y) = op (bicrush op nu x) (bicrush op nu y)
+
+-- MaybeF = 1 + id
+type MaybeF = (K ()) :+: I
+
+none :: MaybeF a
+none = InL (Constant ())
+
+some :: a -&gt; MaybeF a
+some x = InR (Identity x)
+
+-- ListF a = μ (1 + (a * id))
+type ListF = Tau ((KK ()) :++: ((L I) :**: (R I)))
+
+nil :: ListF a
+nil = Tau (Mu (Wrap (BiinL (Biconstant ()))))
+
+cons :: a -&gt; ListF a -&gt; ListF a
+cons x xs = Tau (Mu (Wrap (BiinR (Bipair (ProjectionL (Identity x)) (ProjectionR (Identity (unTau xs)))))))
+
+-- BinTreeF a = μ (a + (id * id))
+type BinTreeF = Tau ((L I) :++: ((R I) :**: (R I)))
+
+tip :: a -&gt; BinTreeF a
+tip x = Tau (Mu (Wrap (BiinL (ProjectionL (Identity x)))))
+
+join :: BinTreeF a -&gt; BinTreeF a -&gt; BinTreeF a
+join x y = Tau (Mu (Wrap (BiinR (Bipair (ProjectionR (Identity (unTau x))) (ProjectionR (Identity (unTau y)))))))
+
+-- RoseTreeF a = μ (a * ListF) = μ (a * (\b -&gt; μ (1 + (b * id))))
+type RoseTreeF = Tau ((L I) :**: (R ListF))
+
+fork :: a -&gt; ListF (RoseTreeF a) -&gt; RoseTreeF a
+fork x xs = Tau (Mu (Wrap (Bipair (ProjectionL (Identity x)) (ProjectionR (fmap unTau xs)))))
+
+sum_ :: CrushableFunctor f =&gt; f Int -&gt; Int
+sum_ = crush (+) 0
+
+crushf :: CrushableFunctor f =&gt; (a -&gt; a -&gt; a) -&gt; a -&gt; (b -&gt; a) -&gt; f b -&gt; a
+crushf op nu g = crush op nu . fmap g
+
+size :: CrushableFunctor f =&gt; f a -&gt; Int
+size = crushf (+) 0 (const 1)
+
+elem_ :: (CrushableFunctor f, Eq a) =&gt; a -&gt; f a -&gt; Bool
+elem_ e = crushf (||) False (== e)
+
+flatten :: CrushableFunctor f =&gt; f a -&gt; [a]
+flatten = crushf (++) [] (\x -&gt; [x])
+
+crushM :: CrushableFunctor f =&gt; (a -&gt; a -&gt; a) -&gt; f a -&gt; Maybe a
+crushM op = crushf opM Nothing Just
+  where
+  opM Nothing Nothing = Nothing
+  opM (Just x) Nothing = Just x
+  opM Nothing (Just y) = Just y
+  opM (Just x) (Just y) = Just (op x y)
+
+first_ :: CrushableFunctor f =&gt; f a -&gt; Maybe a
+first_ = crushM const
+
+crushMf :: CrushableFunctor f =&gt; (a -&gt; a -&gt; a) -&gt; (b -&gt; a) -&gt; f b -&gt; Maybe a
+crushMf op g = crushf opM Nothing (Just . g)
+  where
+  opM Nothing Nothing = Nothing
+  opM (Just x) Nothing = Just x
+  opM Nothing (Just y) = Just y
+  opM (Just x) (Just y) = Just (op x y)
+
+depth :: CrushableFunctor f =&gt; f a -&gt; Maybe Int
+depth = crushMf (\m n -&gt; (max m n) + 1) (const 0)
+
+binned :: CrushableFunctor f =&gt; f a -&gt; Maybe (BinTreeF a)
+binned = crushMf join tip</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1638431870.057300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mail741</div>
+            <div class="date"><a class="date" href="#message-1638431870.057300">2021-12-02 16:57:50 +0900</a></div>
+          </div>
+          <div class="description">個人的にはコンストラクタが大量にあって混乱しまくりで，なんとかならんかなと思うのですが，ある程度は仕方ないのでしょうか．</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../19.html" class="item">Back to beginners #19</a>
+    </div>
+  </div>
+</body>
+</html>
