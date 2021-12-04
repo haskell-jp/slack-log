@@ -102,6 +102,33 @@
           <div class="description">最近この件で気づいたんですけど、依存パッケージの上限をつけないままアップロードしていると、Hackageでドキュメントが生成されない原因になるみたいで悩ましいですね。<br/>（例えば <a href='https://hackage.haskell.org/package/autodocodec'>https://hackage.haskell.org/package/autodocodec</a> の<https://hackage.haskell.org/package/autodocodec-0.0.0.0/reports/2|build log>を見るとaeson 2.0に対応できてないために失敗している）<br/>もういっそCargoやnpmみたいに半自動で上限つけてほしい...（そうするとまた更新が面倒という問題に戻るんでしょうけど...</div>
         </div>
       </div>
+      <div class="event" id="message-1638603107.171100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1638603107.171100">2021-12-04 16:31:47 +0900</a></div>
+          </div>
+          <div class="description">そういうパターンは rev を上げればいいのかな</div>
+        </div>
+      </div>
+      <div class="event" id="message-1638603127.171300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1638603127.171300">2021-12-04 16:32:07 +0900</a></div>
+          </div>
+          <div class="description">依存パッケージ上限を追加した rev を</div>
+        </div>
+      </div>
+      <div class="event" id="message-1638615311.171600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1638615311.171600">2021-12-04 19:55:11 +0900</a></div>
+          </div>
+          <div class="description">ただ、その方針だと<br/><blockquote>依存可能バージョンの縮小はbreaking changeである</blockquote>のルールに反してしまうのが痛いですね。なんでそんなルールなのか私は分かってませんが...<br/><a href='https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1637318867128600?thread_ts=1637317607.124900&amp;cid=C4M4TT8JJ'>https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1637318867128600?thread_ts=1637317607.124900&amp;cid=C4M4TT8JJ</a></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../95.html" class="item">Back to random #95</a>
