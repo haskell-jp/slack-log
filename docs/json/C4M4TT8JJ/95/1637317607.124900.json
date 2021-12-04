@@ -52,5 +52,11 @@
         "text": "Trusteesはビルドが壊れていないかをなんらかの方法で見張っていて、影響が大きくかつメタデータの修正のみで直せるものは適宜リビジョンで対応してくれるという認識です。",
         "user": "U4M9NJ7QE",
         "type": "message"
+    },
+    {
+        "ts": "1638505644.168000",
+        "text": "最近この件で気づいたんですけど、依存パッケージの上限をつけないままアップロードしていると、Hackageでドキュメントが生成されない原因になるみたいで悩ましいですね。\n（例えば <https://hackage.haskell.org/package/autodocodec> の<https://hackage.haskell.org/package/autodocodec-0.0.0.0/reports/2|build log>を見るとaeson 2.0に対応できてないために失敗している）\nもういっそCargoやnpmみたいに半自動で上限つけてほしい...（そうするとまた更新が面倒という問題に戻るんでしょうけど...",
+        "user": "U4LGTMTMK",
+        "type": "message"
     }
 ]
