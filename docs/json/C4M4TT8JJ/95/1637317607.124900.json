@@ -76,5 +76,23 @@
         "text": "ただ、その方針だと\n&gt; 依存可能バージョンの縮小はbreaking changeである\nのルールに反してしまうのが痛いですね。なんでそんなルールなのか私は分かってませんが...\n<https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1637318867128600?thread_ts=1637317607.124900&amp;cid=C4M4TT8JJ>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1638699610.172300",
+        "text": "あー:confounded:",
+        "user": "U4L0B71L1",
+        "type": "message"
+    },
+    {
+        "ts": "1638743114.187100",
+        "text": "A-1.1.0のdependency B-1.1.9のbreaking change B-1.2.0によってA-1.1のbuildが失敗する場合はAのversion constraint制限追加ってbreaking changeでもなんでもないですけど、B-1.2.0のbreaking changeが単なる動作変更であるがために、A-1.1の動作が単に変わる場合もあり得ますよね。それでドキュメントでライブラリユーザ向けにAが行った契約が破られる場合、契約を守るためにはAのversion constraintを制限しなければならないけど、これってライブラリユーザからすれば「使えていた組み合わせが使えなくなる」変化ですね。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1638743479.189500",
+        "text": "特に、executableが動作の安定性を保証するために `B==1.2.0,A==1.1.0` でリリースしていた場合とかが目も当てられない",
+        "user": "UL1HFJATE",
+        "type": "message"
     }
 ]

@@ -129,6 +129,33 @@
           <div class="description">ただ、その方針だと<br/><blockquote>依存可能バージョンの縮小はbreaking changeである</blockquote>のルールに反してしまうのが痛いですね。なんでそんなルールなのか私は分かってませんが...<br/><a href='https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1637318867128600?thread_ts=1637317607.124900&amp;cid=C4M4TT8JJ'>https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1637318867128600?thread_ts=1637317607.124900&amp;cid=C4M4TT8JJ</a></div>
         </div>
       </div>
+      <div class="event" id="message-1638699610.172300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1638699610.172300">2021-12-05 19:20:10 +0900</a></div>
+          </div>
+          <div class="description">あー:confounded:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1638743114.187100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1638743114.187100">2021-12-06 07:25:14 +0900</a></div>
+          </div>
+          <div class="description">A-1.1.0のdependency B-1.1.9のbreaking change B-1.2.0によってA-1.1のbuildが失敗する場合はAのversion constraint制限追加ってbreaking changeでもなんでもないですけど、B-1.2.0のbreaking changeが単なる動作変更であるがために、A-1.1の動作が単に変わる場合もあり得ますよね。それでドキュメントでライブラリユーザ向けにAが行った契約が破られる場合、契約を守るためにはAのversion constraintを制限しなければならないけど、これってライブラリユーザからすれば「使えていた組み合わせが使えなくなる」変化ですね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1638743479.189500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1638743479.189500">2021-12-06 07:31:19 +0900</a></div>
+          </div>
+          <div class="description">特に、executableが動作の安定性を保証するために <code>B==1.2.0,A==1.1.0</code> でリリースしていた場合とかが目も当てられない</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../95.html" class="item">Back to random #95</a>
