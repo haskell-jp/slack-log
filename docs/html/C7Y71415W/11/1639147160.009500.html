@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / math #11 at 2021-12-10 23:39:20 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / math #11 at 2021-12-10 23:39:20 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../11.html" class="item">Back to math #11</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1639147160.009500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1639147160.009500">2021-12-10 23:39:20 +0900</a></div>
+          </div>
+          <div class="description">今ちょっと気になったのですが、Haskellの型と関数の「圏」Hask って、<br/><code>f: a → b, g: b → c</code> に対して、<br/><br/><pre>f &gt;&gt;&gt; g =  f `seq` g `seq` \x -&gt; g (f x)</pre><br/>で定義すると本物の圏ですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1639407081.010600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama</div>
+            <div class="date"><a class="date" href="#message-1639407081.010600">2021-12-13 23:51:21 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://stackoverflow.com/questions/48485660/is-hask-even-a-category'>https://stackoverflow.com/questions/48485660/is-hask-even-a-category</a> なんかそのものずばりの話をしているように見えるページをみつけたのですが、内容はよくわかっていません^^;</div>
+        </div>
+      </div>
+      <div class="event" id="message-1639407268.011000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama</div>
+            <div class="date"><a class="date" href="#message-1639407268.011000">2021-12-13 23:54:28 +0900</a></div>
+          </div>
+          <div class="description">undefined と seq の組み合わせめんどくさいねという話と、「そもそもこの圏において射が等しいとはどう定義すべきか」という話が出ているように見えますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1639407492.011200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama</div>
+            <div class="date"><a class="date" href="#message-1639407492.011200">2021-12-13 23:58:12 +0900</a></div>
+          </div>
+          <div class="description">ただ、一つ疑問なのですが、この例でいうところの undef1 と undef2 は等しいのか等しくないのかという以前に、そもそもこれらは「射」なのでしょうか？　この圏では「型」を対象とするのでこの圏における射は monomorphic な関数のみだと思うのですが、 undef1 や undef2 は polymorphic なのでそもそも単一の射ではない気がするのです（あえていうなら自然変換でしょうか？）</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../11.html" class="item">Back to math #11</a>
+    </div>
+  </div>
+</body>
+</html>
