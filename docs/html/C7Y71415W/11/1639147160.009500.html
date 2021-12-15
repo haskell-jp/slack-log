@@ -48,6 +48,24 @@
           <div class="description">ただ、一つ疑問なのですが、この例でいうところの undef1 と undef2 は等しいのか等しくないのかという以前に、そもそもこれらは「射」なのでしょうか？　この圏では「型」を対象とするのでこの圏における射は monomorphic な関数のみだと思うのですが、 undef1 や undef2 は polymorphic なのでそもそも単一の射ではない気がするのです（あえていうなら自然変換でしょうか？）</div>
         </div>
       </div>
+      <div class="event" id="message-1639453864.018900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1639453864.018900">2021-12-14 12:51:04 +0900</a></div>
+          </div>
+          <div class="description">問題ありません、と言いそうになりましたが、正確には定義によります。a, b が型である時に、Hom(a,b) は a <code>-&gt;</code> b に instantiateできる式の全体に適切な同値関係を入れたもの、とすれば射になるし、Hom(a,b) は a <code>-&gt;</code> b に型推論される式の全体に適切な同値関係を入れたもの、とするなら射にはなりません。後者とするなら <code>undefined ::</code> a <code>-&gt;</code> b とか <code>(\x -&gt; undefined) ::</code> a <code>-&gt;</code> b を考える必要がありますね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1639460074.020300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1639460074.020300">2021-12-14 14:34:34 +0900</a></div>
+          </div>
+          <div class="description">この同値関係をうまく入れないと結合律やら単位律が成り立たないわけですが。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../11.html" class="item">Back to math #11</a>
