@@ -10,5 +10,23 @@
         "text": "超小物パッケージです。`exitSuccess` 関数を `IO` 以外のMonadから呼ぶためだけに作りました。\n<https://hackage.haskell.org/package/monad-throw-exit>",
         "user": "U4LGTMTMK",
         "type": "message"
+    },
+    {
+        "ts": "1639956829.219000",
+        "text": "github action で CI を回すときの注意：\n• macos-latest だと hspec がハングする。macOS-10.15 を使うべし\n• GHC '8.10' で使われる 8.10.2 は Windows ではリンカーのバグがある。'8.8'を使うべし\nこのせいで、一日損した。",
+        "user": "U56MBRKR9",
+        "type": "message"
+    },
+    {
+        "ts": "1639977076.219600",
+        "text": "<@U02RQ8E76DP> has joined the channel",
+        "user": "U02RQ8E76DP",
+        "type": "message"
+    },
+    {
+        "ts": "1639981418.221400",
+        "text": "&gt; 今までは、どの OS であれ `ghc-X.Y.Z` のようなディレクトリ名でした。しかし、9.2.1 の Windows と Mac、9.0.1 の Windows は（なぜか）`ghc-9.2.1-x86_64-apple-darwin` のような `tar.xz` ファイル名になっていました。仕方がないので、GHC のバージョンと OS によってディレクトリ名が変わるように修正しました:\n&gt; <https://matsubara0507.github.io/posts/2021-12-20-fix-rules_haskell-for-ghc_9_2_1.html> by <@U56L7EVNY> \n分かる…… これなんで変わったのかな\nghcman でもこの対応入れた\n<https://github.com/kakkun61/ghcman/blob/master/version.yaml>\nCabal も 3.4 からパスの命名規則変わったんすよね",
+        "user": "U4L0B71L1",
+        "type": "message"
     }
 ]

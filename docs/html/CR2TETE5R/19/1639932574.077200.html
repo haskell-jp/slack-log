@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #19 at 2021-12-20 01:49:34 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #19 at 2021-12-20 01:49:34 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../19.html" class="item">Back to beginners #19</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1639932574.077200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">benzene.chlorobenzene</div>
+            <div class="date"><a class="date" href="#message-1639932574.077200">2021-12-20 01:49:34 +0900</a></div>
+          </div>
+          <div class="description"><code>unsafePerformIO</code> は禁断だとか型安全性を壊すとかヤバいとかいう話はよく見かけるのですが、実際に`unsafePerformIO` が使われる場面ってどんなのがあるのでしょうか</div>
+        </div>
+      </div>
+      <div class="event" id="message-1639953491.077300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1639953491.077300">2021-12-20 07:38:11 +0900</a></div>
+          </div>
+          <div class="description">デバッグのためです。一番有名なところだと<br/>Debug.Traceモジュールの関数です。<br/>ソース: <a href='https://hackage.haskell.org/package/base-4.16.0.0/docs/src/Debug.Trace.html#trace'>https://hackage.haskell.org/package/base-4.16.0.0/docs/src/Debug.Trace.html#trace</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1639966374.092200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1639966374.092200">2021-12-20 11:12:54 +0900</a></div>
+          </div>
+          <div class="description">「全能すぎる」型の機能を制限したら <code>IO</code> 値関数が純粋な関数と思えるようになった、みたいな時に、 <code>IO</code> 関数を純粋関数に変換するためにも使える気がします。 <code>vector</code> パッケージの <code>Data.Vector.Storable</code> モジュールとか <code>bytestring</code> パッケージとかが好例ですが、 <code>bytestring</code> なんかは <code>unsafePerformIO</code> よりもっと危険な関数を使っているので、昔はよくバグっていたみたいです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1639971368.092600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1639971368.092600">2021-12-20 12:36:08 +0900</a></div>
+          </div>
+          <div class="description"><code>stdin, stdout, stderr :: Handle</code> の実装でも使われていますね．<br/><a href='https://hackage.haskell.org/package/base-4.14.3.0/docs/GHC-IO-Handle-FD.html'>https://hackage.haskell.org/package/base-4.14.3.0/docs/GHC-IO-Handle-FD.html</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1640006107.093200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1640006107.093200">2021-12-20 22:15:07 +0900</a></div>
+          </div>
+          <div class="description">C言語とかとのFFIは方が保証してくれないのでどうにもならないことはあると思います<br/>自分がコード読んでいく中で「これ仕方なくなくない?本当に必要か?」と思った選手権No1は<br/><a href='https://github.com/yesodweb/shakespeare/blob/7f0f9d3aca5140e09ac55cf7ebf248feb47d0bd4/Text/Hamlet.hs#L575'>https://github.com/yesodweb/shakespeare/blob/7f0f9d3aca5140e09ac55cf7ebf248feb47d0bd4/Text/Hamlet.hs#L575</a><br/>ですかね</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../19.html" class="item">Back to beginners #19</a>
+    </div>
+  </div>
+</body>
+</html>

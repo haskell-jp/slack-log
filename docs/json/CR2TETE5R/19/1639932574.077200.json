@@ -1,0 +1,32 @@
+[
+    {
+        "ts": "1639932574.077200",
+        "text": "`unsafePerformIO` は禁断だとか型安全性を壊すとかヤバいとかいう話はよく見かけるのですが、実際に`unsafePerformIO` が使われる場面ってどんなのがあるのでしょうか",
+        "user": "U015L5JEP8D",
+        "type": "message"
+    },
+    {
+        "ts": "1639953491.077300",
+        "text": "デバッグのためです。一番有名なところだと\nDebug.Traceモジュールの関数です。\nソース: <https://hackage.haskell.org/package/base-4.16.0.0/docs/src/Debug.Trace.html#trace>",
+        "user": "U4LGTMTMK",
+        "type": "message"
+    },
+    {
+        "ts": "1639966374.092200",
+        "text": "「全能すぎる」型の機能を制限したら `IO` 値関数が純粋な関数と思えるようになった、みたいな時に、 `IO` 関数を純粋関数に変換するためにも使える気がします。 `vector` パッケージの `Data.Vector.Storable` モジュールとか `bytestring` パッケージとかが好例ですが、 `bytestring` なんかは `unsafePerformIO` よりもっと危険な関数を使っているので、昔はよくバグっていたみたいです。",
+        "user": "UL1HFJATE",
+        "type": "message"
+    },
+    {
+        "ts": "1639971368.092600",
+        "text": "`stdin, stdout, stderr :: Handle` の実装でも使われていますね．\n<https://hackage.haskell.org/package/base-4.14.3.0/docs/GHC-IO-Handle-FD.html>",
+        "user": "U4KU9ABL0",
+        "type": "message"
+    },
+    {
+        "ts": "1640006107.093200",
+        "text": "C言語とかとのFFIは方が保証してくれないのでどうにもならないことはあると思います\n自分がコード読んでいく中で「これ仕方なくなくない?本当に必要か?」と思った選手権No1は\n<https://github.com/yesodweb/shakespeare/blob/7f0f9d3aca5140e09ac55cf7ebf248feb47d0bd4/Text/Hamlet.hs#L575>\nですかね",
+        "user": "U57CUMWQ6",
+        "type": "message"
+    }
+]
