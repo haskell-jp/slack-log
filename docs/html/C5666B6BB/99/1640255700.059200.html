@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #99 at 2021-12-23 19:35:00 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #99 at 2021-12-23 19:35:00 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1640255700.059200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1640255700.059200">2021-12-23 19:35:00 +0900</a></div>
+          </div>
+          <div class="description">Sum Typeに対するLensのフィールドを自動生成する方法について質問です。<br/>(多分日本語を含むのでバイナリ扱いされている)スニペットに詳細を書いてあるように、<br/><br/><pre>deriveFieldsForSumType ''HasBase ''ToyExpr</pre><br/>のように書いたら、<br/><br/><pre>instance HasBase ToyExpr Text where
+  base = lens getter setter
+    where getter (ToyExprToyInt x) = view base x
+          getter (ToyExprToyStr x) = view base x
+
+          setter (ToyExprToyInt x) y = toToyExpr $ set base y x
+          setter (ToyExprToyStr x) y = toToyExpr $ set base y x</pre><br/>のようなコードが自動生成されると嬉しいなと思っています。<br/><br/>軽く探した所そういうライブラリは見当たらなかったので、<br/>自分で書こうとも思っていますが、<br/>Template Haskellはそんなに得意では無いので、<br/>既存のライブラリがあったり、<br/>そもそも他の方法を使えばボイラープレート書かなくても良いなどという指摘があれば欲しいと思っています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640327804.059300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1640327804.059300">2021-12-24 15:36:44 +0900</a></div>
+          </div>
+          <div class="description">こちら、概ね自分で書けてきた感じがします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640329293.059500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1640329293.059500">2021-12-24 16:01:33 +0900</a></div>
+          </div>
+          <div class="description">求めている機能はジェネリクスやTHで実装できるとは思いますが、baseに相当する値が入っていることがあらかじめ保証された型を使うのが定石だと思います。data ExprF a = Lit Literal | App a aのようなFunctorとdata Cofree f a = a :&lt; f (Cofree f a)を使ってASTを定義すれば、Cofree ExprF Textは各ノードに必ずTextが入っていることが保証され、さらに型などのアノテーションに応用することも容易です</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640330406.059700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1640330406.059700">2021-12-24 16:20:06 +0900</a></div>
+          </div>
+          <div class="description">前提知識が足りていないからかちゃんと物事を理解しているか自信が全く無いのですが、<br/>それは一部のツリーには共通したフィールドがあるけど、<br/>他のツリーではそうでもないという場合でも応用可能ですか?<br/><br/>業務の問題の無いコード部分許可とって持って来ればよかった気がしますが、<br/>例えば、<br/>MyStrを更に分割して、UTF-8, UTF-16, UTF-32のそれぞれの文字列型のSum Typeにします。<br/>そこでMyStrに対しては文字列に共通する、<br/>文字列の容量のlengthを共通のlensのアクセサとしてアクセスできるようにします。<br/>そしてMyExprからは一発でlengthは取れないが、<br/>MyStrまで分解したらそれ以上のパターンマッチ無しでアクセサでアクセスできるようにしたいという感じです。<br/>こういった場合でもその定石は使えるものなのでしょうか。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640356236.059900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1640356236.059900">2021-12-24 23:30:36 +0900</a></div>
+          </div>
+          <div class="description">そのlengthのアクセサを使って何らかの値をセットしたとき、どのような挙動をしますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640356347.060100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1640356347.060100">2021-12-24 23:32:27 +0900</a></div>
+          </div>
+          <div class="description">単純にパターンマッチしてセットを行ったデータをセットしたのと同じで、値が更新されたデータが帰ってきます</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640356455.060300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1640356455.060300">2021-12-24 23:34:15 +0900</a></div>
+          </div>
+          <div class="description">すみません、理解できないです。lengthのアクセサを使って"hello, world"に4をセットしたらどうなりますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640356543.060600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1640356543.060600">2021-12-24 23:35:43 +0900</a></div>
+          </div>
+          <div class="description">…あー、確かにおかしな話をしてしまいました<br/>文字列バリアントに無理に共通のデータフィールドを考えて長さぐらいしか思いついてなかったので無茶なことを言っていました</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640356983.060800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1640356983.060800">2021-12-24 23:43:03 +0900</a></div>
+          </div>
+          <div class="description">実際、プロダクトコードでは構築時にはそれぞれデータ型を作って、Sum Typeをたくさん含むツリーを構築し終わったあとに、中間レイヤーでサクッと、この例ではbaseだけを出して文字列リストとして見るとか、基本的に読み出し専用で使うことが多いです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640357811.061000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1640357811.061000">2021-12-24 23:56:51 +0900</a></div>
+          </div>
+          <div class="description">コメントが全く理解できなかったのでコードだけ見るとだいたい何をしたいのか想像できました。ToyExprにHasBaseを持たないコンストラクタを追加した場合、Lensは定義できなくなります(Traversalにはできます)。そして、HasBaseのインスタンスがあるかどうかは、THはもちろんそのモジュールをコンパイルしている段階では通常知りえない情報なので、そのTraversalはToyExprに対するパターンマッチによって実装すべきだと思います。`ContainsBase :: Type -&gt; Bool`なる型族を定義すればTraversalの対象になるかどうか決められるため、ジェネリクスによる導出も可能になりますが、ほとんどの場合は割りに合わないでしょう</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640359706.061300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1640359706.061300">2021-12-25 00:28:26 +0900</a></div>
+          </div>
+          <div class="description">やっぱり業務とちょっと違う技術的に近い例え話を行うのは困難だったことを感じています…<br/>ToyExprにHasBaseを持たないコンストラクタを追加するのではなく、Sum TypeであるToyExprの下位のToyStrが更にToyStrUtf8とかのSum Typeであるとかの想定で、ToyExprは共通するlengthフィールドを持たないけれどToyStrは共通するlengthフィールドを持つ場合部分的に統一アクセスは出来るかみたいな事を言っていました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+  </div>
+</body>
+</html>
