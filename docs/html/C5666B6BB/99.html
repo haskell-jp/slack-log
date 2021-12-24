@@ -306,6 +306,21 @@ instance Show Error where
           <div class="description">@mitani.takamasa has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1640255700.059200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1640255700.059200">2021-12-23 19:35:00 +0900</a></div>
+          </div>
+          <div class="description">Sum Typeに対するLensのフィールドを自動生成する方法について質問です。<br/>(多分日本語を含むのでバイナリ扱いされている)スニペットに詳細を書いてあるように、<br/><br/><pre>deriveFieldsForSumType ''HasBase ''ToyExpr</pre><br/>のように書いたら、<br/><br/><pre>instance HasBase ToyExpr Text where
+  base = lens getter setter
+    where getter (ToyExprToyInt x) = view base x
+          getter (ToyExprToyStr x) = view base x
+
+          setter (ToyExprToyInt x) y = toToyExpr $ set base y x
+          setter (ToyExprToyStr x) y = toToyExpr $ set base y x</pre><br/>のようなコードが自動生成されると嬉しいなと思っています。<br/><br/>軽く探した所そういうライブラリは見当たらなかったので、<br/>自分で書こうとも思っていますが、<br/>Template Haskellはそんなに得意では無いので、<br/>既存のライブラリがあったり、<br/>そもそも他の方法を使えばボイラープレート書かなくても良いなどという指摘があれば欲しいと思っています。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C5666B6BB/98.html" class="item">Previous</a>

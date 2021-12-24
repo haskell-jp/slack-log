@@ -154,5 +154,11 @@
         "text": "<@U02RZNLGUV7> has joined the channel",
         "user": "U02RZNLGUV7",
         "type": "message"
+    },
+    {
+        "ts": "1640255700.059200",
+        "text": "Sum Typeに対するLensのフィールドを自動生成する方法について質問です。\n(多分日本語を含むのでバイナリ扱いされている)スニペットに詳細を書いてあるように、\n\n```deriveFieldsForSumType ''HasBase ''ToyExpr```\nのように書いたら、\n\n```instance HasBase ToyExpr Text where\n  base = lens getter setter\n    where getter (ToyExprToyInt x) = view base x\n          getter (ToyExprToyStr x) = view base x\n\n          setter (ToyExprToyInt x) y = toToyExpr $ set base y x\n          setter (ToyExprToyStr x) y = toToyExpr $ set base y x```\nのようなコードが自動生成されると嬉しいなと思っています。\n\n軽く探した所そういうライブラリは見当たらなかったので、\n自分で書こうとも思っていますが、\nTemplate Haskellはそんなに得意では無いので、\n既存のライブラリがあったり、\nそもそも他の方法を使えばボイラープレート書かなくても良いなどという指摘があれば欲しいと思っています。",
+        "user": "U57CUMWQ6",
+        "type": "message"
     }
 ]
