@@ -1,32 +1,32 @@
 [
     {
-        "ts": "1637817370.043200",
         "text": "`Bifunctor`  って第一引数を固定すると `Functor`  になると思うんですが，そういうインスタンス定義は提供されてないみたいなので，\n```instance Bifunctor f =&gt; Functor (f a) where\n  fmap = second```\nと書いてみるとこれはコンパイル通りません．エラーメッセージは\n```[1 of 1] Compiling Main             ( adv.hs, interpreted )\n\nadv.hs:70:25: error:\n    • Illegal instance declaration for 'Functor (f a)'\n        (All instance types must be of the form (T a1 ... an)\n         where a1 ... an are *distinct type variables*,\n         and each type variable appears at most once in the instance head.\n         Use FlexibleInstances if you want to disable this.)\n    • In the instance declaration for 'Functor (f a)'\n   |\n70 | instance Bifunctor f =&gt; Functor (f a) where\n   |                         ^^^^^^^^^^^^^\nFailed, no modules loaded.```\nで，指示通り `{-# LANGUAGE FlexibleInstances #-}` をつけるとコンパイルは通りますが，デフォルトだとなんでこんな制約があるんでしょう？",
-        "user": "U02NV1XHYBT",
-        "type": "message"
+        "type": "message",
+        "ts": "1637817370.043200",
+        "user": "U02NV1XHYBT"
     },
     {
-        "ts": "1637818267.043300",
         "text": "`Functor (f a)` に対してそういうインスタンスを定義してしまうと、具体的な型 `F` に対する `Functor (F a)` を定義できなくなります。例えば次のコードがコンパイルエラーになります：\n```instance Bifunctor f =&gt; Functor (f a) where\n  fmap = second\n\ndata Foo k a = Foo (k -&gt; k) a -- FooはBifunctorではない\n\ninstance Functor (Foo k) where\n  fmap f (Foo k a) = Foo k (f a)```\n「`Bifunctor`  を利用した `Functor` のインスタンスを定義したい」のであればnewtypeを使うのがHaskell流のやり方になるかと思います：\n```newtype WrappedBifunctor f a b = WrappedBifunctor (f a b)\ninstance Bifunctor f =&gt; Functor (WrappedBifunctor f a) where\n  fmap f (WrappedBifunctor a) = WrappedBifunctor (second f a)```",
-        "user": "UGM9F7XQS",
-        "type": "message"
+        "type": "message",
+        "ts": "1637818267.043300",
+        "user": "UGM9F7XQS"
     },
     {
-        "ts": "1637819443.043600",
         "text": "なるほど！ちょうど `instance Functor (RoseTreeF a) where ...`  とかやって怒られてたところでした．今回の場合，`RoseTreeF` が `Bifunctor`  だということは導けないはずなんですが，GHC はその手の探索（制約解消？）まではやってくれないということなんですね．",
-        "user": "U02NV1XHYBT",
-        "type": "message"
+        "type": "message",
+        "ts": "1637819443.043600",
+        "user": "U02NV1XHYBT"
     },
     {
-        "ts": "1637885923.043900",
         "text": "残念ながらご認識のとおりです。GHCが型クラスのインスタンスを解決するときは、例えば\n```instance SomeClass a =&gt; SomeClass (SomeType a)```\nと書いたときの `SomeType a` という部分でしか探索しません。 `SomeClass a` が実際に満たされているかは解決した後に確認します。",
-        "user": "U4LGTMTMK",
-        "type": "message"
+        "type": "message",
+        "ts": "1637885923.043900",
+        "user": "U4LGTMTMK"
     },
     {
-        "ts": "1637930874.045500",
         "text": "なるほど、Haskell 的にはそれくらいがちょうどいい落とし所だという認識なのだろうと思うと面白いですね。読みたい: <https://people.csail.mit.edu/dnj/teaching/6898/papers/wadler88.pdf|https://people.csail.mit.edu/dnj/teaching/6898/papers/wadler88.pdf>",
-        "user": "U02NV1XHYBT",
-        "type": "message"
+        "type": "message",
+        "ts": "1637930874.045500",
+        "user": "U02NV1XHYBT"
     }
 ]

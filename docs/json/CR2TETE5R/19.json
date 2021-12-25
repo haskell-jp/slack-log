@@ -1,98 +1,104 @@
 [
     {
-        "ts": "1637817370.043200",
         "text": "`Bifunctor`  って第一引数を固定すると `Functor`  になると思うんですが，そういうインスタンス定義は提供されてないみたいなので，\n```instance Bifunctor f =&gt; Functor (f a) where\n  fmap = second```\nと書いてみるとこれはコンパイル通りません．エラーメッセージは\n```[1 of 1] Compiling Main             ( adv.hs, interpreted )\n\nadv.hs:70:25: error:\n    • Illegal instance declaration for 'Functor (f a)'\n        (All instance types must be of the form (T a1 ... an)\n         where a1 ... an are *distinct type variables*,\n         and each type variable appears at most once in the instance head.\n         Use FlexibleInstances if you want to disable this.)\n    • In the instance declaration for 'Functor (f a)'\n   |\n70 | instance Bifunctor f =&gt; Functor (f a) where\n   |                         ^^^^^^^^^^^^^\nFailed, no modules loaded.```\nで，指示通り `{-# LANGUAGE FlexibleInstances #-}` をつけるとコンパイルは通りますが，デフォルトだとなんでこんな制約があるんでしょう？",
-        "user": "U02NV1XHYBT",
-        "type": "message"
+        "type": "message",
+        "ts": "1637817370.043200",
+        "user": "U02NV1XHYBT"
     },
     {
-        "ts": "1638018727.046600",
         "text": "質問失礼します．\nRPELで\n```hoge 0 = 0\nhoge 1 = 1\nhoge x = hoge (x-1) + hoge (x-2)```\nを定義する方法はありますか?caseを使うしかないのでしょうか?\nこのように定義すると，単に関数の定義を上書きしているとみなされてしまいます．",
-        "user": "U01TZ1XM7MG",
-        "type": "message"
+        "type": "message",
+        "ts": "1638018727.046600",
+        "user": "U01TZ1XM7MG"
     },
     {
-        "ts": "1638020585.048800",
         "text": "質問連投すみません．\nこちらをMain.hsに入力しました：\n```hoge 0 = 0\nhoge 1 = 1\nhoge x = hoge (x-1) + hoge (x-2)```\nREPLを起動してロードしても，定義されていないことになっており，行き詰まってしまいました．．．\n```Resolving dependencies...\nBuild profile: -w ghc-8.10.4 -O1\nIn order, the following will be built (use -v for more details):\n - fake-package-0 (lib) (first run)\nConfiguring library for fake-package-0..\nPreprocessing library for fake-package-0..\nWarning: No exposed modules\nGHCi, version 8.10.4: <https://www.haskell.org/ghc/>  :? for help\nLoaded GHCi configuration from /var/folders/xq/fpvgsjwd3ms24_w3lwl_4d780000gn/T/cabal-repl.-18964/setcwd.ghci\nPrelude&gt; :l Main\n[1 of 1] Compiling Main             ( Main.hs, interpreted )\nOk, one module loaded.\nPrelude&gt; hoge 5\n\n&lt;interactive&gt;:2:1: error: Variable not in scope: hoge :: t0 -&gt; t\nPrelude&gt; ```\n",
-        "user": "U01TZ1XM7MG",
-        "type": "message"
+        "type": "message",
+        "ts": "1638020585.048800",
+        "user": "U01TZ1XM7MG"
     },
     {
-        "ts": "1638084178.049800",
         "text": "<@U02NV8V2EEQ> has joined the channel",
-        "user": "U02NV8V2EEQ",
-        "type": "message"
+        "type": "message",
+        "ts": "1638084178.049800",
+        "user": "U02NV8V2EEQ"
     },
     {
-        "ts": "1638431774.056900",
         "text": "Calculate Polytypically! にある crush 演算子を Haskell で定義したい人です．本当は依存型のような仕組みを使って n-ary functor を扱いたかったのですが，よくわからなかったため，とりあえず論文にある例を動かすためには Bifunctor まで扱えればいいかなということで，<https://haskell-jp.slack.com/archives/CR2TETE5R/p1637818267043300?thread_ts=1637817370.043200&amp;cid=CR2TETE5R|このへん> を参考にしつつ書いてみました．たぶん動いてはいるんですが，これ以前に書いた Haskell のコードが Hutton 本 2 の演習問題くらいしかないので，Haskell らしい良い書き方というものがわからず，いまいち自信がもてません．ぱっと見で改善点があれば教えてほしいです．コードはスレッドにぶら下げておきます．",
-        "user": "U02NV1XHYBT",
-        "type": "message"
+        "type": "message",
+        "ts": "1638431774.056900",
+        "user": "U02NV1XHYBT"
     },
     {
-        "ts": "1638601411.058300",
         "text": "<@U02PHQ2D9D0> has joined the channel",
-        "user": "U02PHQ2D9D0",
-        "type": "message"
+        "type": "message",
+        "ts": "1638601411.058300",
+        "user": "U02PHQ2D9D0"
     },
     {
-        "ts": "1638601966.063500",
         "text": "はじめまして\n1年くらい前にすごいH本を買って読んで辞めてを数回繰り返してたくらいの知識です。\n今度こそちゃんと勉強しようとまず環境をそろえているのですが、VSCodeのHaskellの拡張機能がインテリセンスをしてくれないです。。\n初歩にすら立っていない質問で恐縮ですが、どなたかご教示いただけますと幸いです。\n環境はubuntu18.04のPCにRemote Developerで接続しています。\nhaskellは良く調べずに初めにapt installで古いhaskellをインストールしてから拡張機能が動かないのでghcupでインストールした次第です。\n何卒宜しくお願い致します。",
-        "user": "U02PHQ2D9D0",
-        "type": "message"
+        "type": "message",
+        "ts": "1638601966.063500",
+        "user": "U02PHQ2D9D0"
     },
     {
-        "ts": "1638711222.065000",
         "text": "<@U02P4JW563Z> has joined the channel",
-        "user": "U02P4JW563Z",
-        "type": "message"
+        "type": "message",
+        "ts": "1638711222.065000",
+        "user": "U02P4JW563Z"
     },
     {
-        "ts": "1638792128.065500",
         "text": "<@U02PMKJTR8S> has joined the channel",
-        "user": "U02PMKJTR8S",
-        "type": "message"
+        "type": "message",
+        "ts": "1638792128.065500",
+        "user": "U02PMKJTR8S"
     },
     {
-        "ts": "1639026447.067800",
         "text": "別に質問じゃないんですが，Pearls of Functional Algorithm Design って超むずくないですか．最初の章からわからないことばかり．（比較対象として言うと，Programming in Haskell 2nd Edition は補遺を除いてわからないと思うことがほとんどありませんでした．身についたかは別として．）",
-        "user": "U02NV1XHYBT",
-        "type": "message"
+        "type": "message",
+        "ts": "1639026447.067800",
+        "user": "U02NV1XHYBT"
     },
     {
-        "ts": "1639027158.069100",
         "text": "`flip (.)` の名称として一番よく使われているものってなんでしょうか",
-        "user": "U015L5JEP8D",
-        "type": "message"
+        "type": "message",
+        "ts": "1639027158.069100",
+        "user": "U015L5JEP8D"
     },
     {
-        "ts": "1639064116.075200",
         "text": "`$` と`.`の使い分けのポイントはありますでしょうか？\n以下のような例ではどちらの書き方も可能で結果も同じになります。\n```list :: [Int]\nlist = [1..3]\nf :: Int\nf = sum . map (+2) $ list\ng :: Int\ng = sum $ map (+2) list```\nhaskellの拡張機能のインテリセンスも特に何もサジェストしてくれないので好みでいい感じなのでしょうか。",
-        "user": "U02PHQ2D9D0",
-        "type": "message"
+        "type": "message",
+        "ts": "1639064116.075200",
+        "user": "U02PHQ2D9D0"
     },
     {
-        "ts": "1639806628.075900",
         "text": "<@U02RB7KA56Y> has joined the channel",
-        "user": "U02RB7KA56Y",
-        "type": "message"
+        "type": "message",
+        "ts": "1639806628.075900",
+        "user": "U02RB7KA56Y"
     },
     {
-        "ts": "1639932574.077200",
         "text": "`unsafePerformIO` は禁断だとか型安全性を壊すとかヤバいとかいう話はよく見かけるのですが、実際に`unsafePerformIO` が使われる場面ってどんなのがあるのでしょうか",
-        "user": "U015L5JEP8D",
-        "type": "message"
+        "type": "message",
+        "ts": "1639932574.077200",
+        "user": "U015L5JEP8D"
     },
     {
-        "ts": "1639977076.093100",
         "text": "<@U02RQ8E76DP> has joined the channel",
-        "user": "U02RQ8E76DP",
-        "type": "message"
+        "type": "message",
+        "ts": "1639977076.093100",
+        "user": "U02RQ8E76DP"
     },
     {
-        "ts": "1640130779.093600",
         "text": "<@U02RZNLGUV7> has joined the channel",
-        "user": "U02RZNLGUV7",
-        "type": "message"
+        "type": "message",
+        "ts": "1640130779.093600",
+        "user": "U02RZNLGUV7"
+    },
+    {
+        "text": "今日のAtCoder の AtCoder Beginner Contest 233で `StateT (MaybeT (ST s))` モナドを使い、\n\n```lift . MaybeT . return :: Maybe a -&gt; StateT (MaybeT (ST s)) a```\nを捻り出すのに割と時間を取られてしまったのですが、もうちょっと簡単な書き方ってありますか？",
+        "type": "message",
+        "ts": "1640444272.097200",
+        "user": "UL1HFJATE"
     }
 ]

@@ -1,68 +1,116 @@
 [
     {
-        "ts": "1640255700.059200",
         "text": "Sum Typeに対するLensのフィールドを自動生成する方法について質問です。\n(多分日本語を含むのでバイナリ扱いされている)スニペットに詳細を書いてあるように、\n\n```deriveFieldsForSumType ''HasBase ''ToyExpr```\nのように書いたら、\n\n```instance HasBase ToyExpr Text where\n  base = lens getter setter\n    where getter (ToyExprToyInt x) = view base x\n          getter (ToyExprToyStr x) = view base x\n\n          setter (ToyExprToyInt x) y = toToyExpr $ set base y x\n          setter (ToyExprToyStr x) y = toToyExpr $ set base y x```\nのようなコードが自動生成されると嬉しいなと思っています。\n\n軽く探した所そういうライブラリは見当たらなかったので、\n自分で書こうとも思っていますが、\nTemplate Haskellはそんなに得意では無いので、\n既存のライブラリがあったり、\nそもそも他の方法を使えばボイラープレート書かなくても良いなどという指摘があれば欲しいと思っています。",
-        "user": "U57CUMWQ6",
-        "type": "message"
+        "type": "message",
+        "ts": "1640255700.059200",
+        "user": "U57CUMWQ6"
     },
     {
-        "ts": "1640327804.059300",
         "text": "こちら、概ね自分で書けてきた感じがします。",
-        "user": "U57CUMWQ6",
-        "type": "message"
+        "type": "message",
+        "ts": "1640327804.059300",
+        "user": "U57CUMWQ6"
     },
     {
-        "ts": "1640329293.059500",
         "text": "求めている機能はジェネリクスやTHで実装できるとは思いますが、baseに相当する値が入っていることがあらかじめ保証された型を使うのが定石だと思います。data ExprF a = Lit Literal | App a aのようなFunctorとdata Cofree f a = a :&lt; f (Cofree f a)を使ってASTを定義すれば、Cofree ExprF Textは各ノードに必ずTextが入っていることが保証され、さらに型などのアノテーションに応用することも容易です",
-        "user": "U4KUNQF9N",
-        "type": "message"
+        "type": "message",
+        "ts": "1640329293.059500",
+        "user": "U4KUNQF9N"
     },
     {
-        "ts": "1640330406.059700",
         "text": "前提知識が足りていないからかちゃんと物事を理解しているか自信が全く無いのですが、\nそれは一部のツリーには共通したフィールドがあるけど、\n他のツリーではそうでもないという場合でも応用可能ですか?\n\n業務の問題の無いコード部分許可とって持って来ればよかった気がしますが、\n例えば、\nMyStrを更に分割して、UTF-8, UTF-16, UTF-32のそれぞれの文字列型のSum Typeにします。\nそこでMyStrに対しては文字列に共通する、\n文字列の容量のlengthを共通のlensのアクセサとしてアクセスできるようにします。\nそしてMyExprからは一発でlengthは取れないが、\nMyStrまで分解したらそれ以上のパターンマッチ無しでアクセサでアクセスできるようにしたいという感じです。\nこういった場合でもその定石は使えるものなのでしょうか。",
-        "user": "U57CUMWQ6",
-        "type": "message"
+        "type": "message",
+        "ts": "1640330406.059700",
+        "user": "U57CUMWQ6"
     },
     {
-        "ts": "1640356236.059900",
         "text": "そのlengthのアクセサを使って何らかの値をセットしたとき、どのような挙動をしますか？",
-        "user": "U4KUNQF9N",
-        "type": "message"
+        "type": "message",
+        "ts": "1640356236.059900",
+        "user": "U4KUNQF9N"
     },
     {
-        "ts": "1640356347.060100",
         "text": "単純にパターンマッチしてセットを行ったデータをセットしたのと同じで、値が更新されたデータが帰ってきます",
-        "user": "U57CUMWQ6",
-        "type": "message"
+        "type": "message",
+        "ts": "1640356347.060100",
+        "user": "U57CUMWQ6"
     },
     {
-        "ts": "1640356455.060300",
         "text": "すみません、理解できないです。lengthのアクセサを使って\"hello, world\"に4をセットしたらどうなりますか？",
-        "user": "U4KUNQF9N",
-        "type": "message"
+        "type": "message",
+        "ts": "1640356455.060300",
+        "user": "U4KUNQF9N"
     },
     {
-        "ts": "1640356543.060600",
         "text": "…あー、確かにおかしな話をしてしまいました\n文字列バリアントに無理に共通のデータフィールドを考えて長さぐらいしか思いついてなかったので無茶なことを言っていました",
-        "user": "U57CUMWQ6",
-        "type": "message"
+        "type": "message",
+        "ts": "1640356543.060600",
+        "user": "U57CUMWQ6"
     },
     {
-        "ts": "1640356983.060800",
         "text": "実際、プロダクトコードでは構築時にはそれぞれデータ型を作って、Sum Typeをたくさん含むツリーを構築し終わったあとに、中間レイヤーでサクッと、この例ではbaseだけを出して文字列リストとして見るとか、基本的に読み出し専用で使うことが多いです",
-        "user": "U57CUMWQ6",
-        "type": "message"
+        "type": "message",
+        "ts": "1640356983.060800",
+        "user": "U57CUMWQ6"
     },
     {
-        "ts": "1640357811.061000",
         "text": "コメントが全く理解できなかったのでコードだけ見るとだいたい何をしたいのか想像できました。ToyExprにHasBaseを持たないコンストラクタを追加した場合、Lensは定義できなくなります(Traversalにはできます)。そして、HasBaseのインスタンスがあるかどうかは、THはもちろんそのモジュールをコンパイルしている段階では通常知りえない情報なので、そのTraversalはToyExprに対するパターンマッチによって実装すべきだと思います。`ContainsBase :: Type -&gt; Bool`なる型族を定義すればTraversalの対象になるかどうか決められるため、ジェネリクスによる導出も可能になりますが、ほとんどの場合は割りに合わないでしょう",
-        "user": "U4KUNQF9N",
-        "type": "message"
+        "type": "message",
+        "ts": "1640357811.061000",
+        "user": "U4KUNQF9N"
     },
     {
-        "ts": "1640359706.061300",
         "text": "やっぱり業務とちょっと違う技術的に近い例え話を行うのは困難だったことを感じています…\nToyExprにHasBaseを持たないコンストラクタを追加するのではなく、Sum TypeであるToyExprの下位のToyStrが更にToyStrUtf8とかのSum Typeであるとかの想定で、ToyExprは共通するlengthフィールドを持たないけれどToyStrは共通するlengthフィールドを持つ場合部分的に統一アクセスは出来るかみたいな事を言っていました。",
-        "user": "U57CUMWQ6",
-        "type": "message"
+        "type": "message",
+        "ts": "1640359706.061300",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "「他のツリーではそうでもない」というのはそういう意味（HasBaseを持たないコンストラクタ）ではなかったのですか？lengthはそもそもフィールドではないし、なぜToyExprに言及する必要があるのかもわかりません。",
+        "type": "message",
+        "ts": "1640398126.061600",
+        "user": "U4KUNQF9N"
+    },
+    {
+        "text": "はい、違います\nbaseは全体にあるけど、lengthは一部のツリーに共通するフィールドだけど全部のツリーが持っているフィールドではない、という意図でした\n説明が下手で申し訳ありません\nlengthの不自然さについては、例を頑張って考えただけなので仮にlengthを作っただけなので単に文字列バリアントだけに共通するフィールドがあると捉えてもらえると嬉しいです",
+        "type": "message",
+        "ts": "1640405964.061800",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "説明については、「文字列バリアント」「ツリー」 「下位」「統一アクセス」のような未定義語を減らしたり、一つの問題に焦点を当てる(この場合、lensやMyExprの話を除外し、MyStrにフォーカスする)と分かりやすくなると思います。あくまで私の想像ですが、 `data Hoge = FromA A | FromB B | FromC C` のようなバリアント型が与えられており、A、B、Cが `class HasFoo a where getFoo :: Lens' a Foo`のような型クラスのインスタンスであるとき、 `HasFoo Hoge` のインスタンスを導出したい、ということですか？",
+        "type": "message",
+        "ts": "1640422996.062000",
+        "user": "U4KUNQF9N"
+    },
+    {
+        "text": "はい、その通りです。\nそれ自体は自分でTHを書いて概ね実現できました。\nボイラープレートの一部削減は実現できました。\n会社の許可などが取れたらOSSとして公開したいと思っています。\n\nその上でふみあきさんの最初の返信のExprFの話が私の知識不足からかよく分からなかったため、質問を続行していたという形になります。",
+        "type": "message",
+        "ts": "1640423338.062300",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "なるほど、ようやく理解できました。面白い問題を発見しましたね。これはジェネリクスを使って簡潔に書けるので、実装例を紹介します。この例ではdata Numeral = NumInt Int | NumDouble Double の中身がNumおよびShowであるという前提をHasCommonalityで表しています。viewsCommonやoverCommonによって、中身がIntの場合もDoubleのときもshowしたり+1したりできます",
+        "type": "message",
+        "ts": "1640426859.062600",
+        "user": "U4KUNQF9N"
+    },
+    {
+        "text": "なるほど、ジェネリクスは正直あんまり分かってないので実装はよく分からないのですが、かなり簡潔に書けるのですね。\nこちらのプロダクトでは通常のフィールドアクセスにLensを使っているのでLensの関数合成が便利なことと、THのインスタンス生成では型推論の補助をせずともアクセス出来る点を考えると、どちらの方法にも利点欠点があるなあと感じました。\nジェネリクス版での実装を示していただいてありがとうございます。",
+        "type": "message",
+        "ts": "1640428049.062800",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "traverseCommon自体はLensではありませんが、`\\f -&gt; traverseCommon @IsText (Data.Text.Lens.unpacked f)` のように他のLensと合成すればLensになります。型推論の補助というのはTypeApplicationのことを言っているのでしょうか？どのクラスを利用するかはどこかで指定しないといけないと思いますが……",
+        "type": "message",
+        "ts": "1640430570.063000",
+        "user": "U4KUNQF9N"
+    },
+    {
+        "text": "はい、TypeApplicationのことを言っています。\nlensのインスタンス生成をする方法だとその生成時に確かに指定は必要ですが、生成した後のアクセサを利用するのに型引数は不要のため、その点で一長一短かなあと思った次第です。",
+        "type": "message",
+        "ts": "1640431272.063300",
+        "user": "U57CUMWQ6"
     }
 ]

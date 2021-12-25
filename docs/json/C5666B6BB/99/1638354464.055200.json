@@ -1,32 +1,32 @@
 [
     {
-        "ts": "1638354464.055200",
         "text": "これと等価なことをHaskellでやる方法ってありますか？\n<https://qiita.com/yosuke_furukawa/items/ec30f619166cb8090a09>",
-        "user": "U4LGTMTMK",
-        "type": "message"
+        "type": "message",
+        "ts": "1638354464.055200",
+        "user": "U4LGTMTMK"
     },
     {
-        "ts": "1638356932.055700",
         "text": "コレって<https://man7.org/linux/man-pages/man7/ip.7.html|manpage ip(7)>に書いてある\n&gt; When listen(2) is called on an unbound socket, the socket is automatically bound to a random free port with the local address set to INADDR_ANY.\n相当なだけじゃないんですか？",
-        "user": "U5G2BCVBN",
-        "type": "message"
+        "type": "message",
+        "ts": "1638356932.055700",
+        "user": "U5G2BCVBN"
     },
     {
-        "ts": "1638358050.056100",
         "text": "たぶんそうですね。そもそも空いてるポートを知ってるのはカーネルだけなので、そういう機能はシステムコールにしかできない芸当だと思います",
-        "user": "UF8SE896V",
-        "type": "message"
+        "type": "message",
+        "ts": "1638358050.056100",
+        "user": "UF8SE896V"
     },
     {
-        "ts": "1638360546.056300",
         "text": "やっぱOSの機能ですよね。warpから使いたいなぁ、と思ってソースを覗いていたら、warpが利用してる <https://www.stackage.org/haddock/lts-18.18/streaming-commons-0.2.2.2/Data-Streaming-Network.html#v:bindPortTCP|bindPortTCP> の他に、 bindRandomPortTCPなる関数があるじゃありませんか！これを使って作ればいいのか！",
-        "user": "U4LGTMTMK",
-        "type": "message"
+        "type": "message",
+        "ts": "1638360546.056300",
+        "user": "U4LGTMTMK"
     },
     {
-        "ts": "1638957334.057800",
         "text": "と思ったら `withApplication` や `testWithApplication`  というそのものズバリな関数がすでにありました！\n<https://hackage.haskell.org/package/warp-3.3.18/docs/Network-Wai-Handler-Warp.html#v:withApplication>",
-        "user": "U4LGTMTMK",
-        "type": "message"
+        "type": "message",
+        "ts": "1638957334.057800",
+        "user": "U4LGTMTMK"
     }
 ]

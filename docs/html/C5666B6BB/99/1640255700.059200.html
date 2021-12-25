@@ -117,6 +117,78 @@
           <div class="description">やっぱり業務とちょっと違う技術的に近い例え話を行うのは困難だったことを感じています…<br/>ToyExprにHasBaseを持たないコンストラクタを追加するのではなく、Sum TypeであるToyExprの下位のToyStrが更にToyStrUtf8とかのSum Typeであるとかの想定で、ToyExprは共通するlengthフィールドを持たないけれどToyStrは共通するlengthフィールドを持つ場合部分的に統一アクセスは出来るかみたいな事を言っていました。</div>
         </div>
       </div>
+      <div class="event" id="message-1640398126.061600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1640398126.061600">2021-12-25 11:08:46 +0900</a></div>
+          </div>
+          <div class="description">「他のツリーではそうでもない」というのはそういう意味（HasBaseを持たないコンストラクタ）ではなかったのですか？lengthはそもそもフィールドではないし、なぜToyExprに言及する必要があるのかもわかりません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640405964.061800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1640405964.061800">2021-12-25 13:19:24 +0900</a></div>
+          </div>
+          <div class="description">はい、違います<br/>baseは全体にあるけど、lengthは一部のツリーに共通するフィールドだけど全部のツリーが持っているフィールドではない、という意図でした<br/>説明が下手で申し訳ありません<br/>lengthの不自然さについては、例を頑張って考えただけなので仮にlengthを作っただけなので単に文字列バリアントだけに共通するフィールドがあると捉えてもらえると嬉しいです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640422996.062000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1640422996.062000">2021-12-25 18:03:16 +0900</a></div>
+          </div>
+          <div class="description">説明については、「文字列バリアント」「ツリー」 「下位」「統一アクセス」のような未定義語を減らしたり、一つの問題に焦点を当てる(この場合、lensやMyExprの話を除外し、MyStrにフォーカスする)と分かりやすくなると思います。あくまで私の想像ですが、 <code>data Hoge = FromA A | FromB B | FromC C</code> のようなバリアント型が与えられており、A、B、Cが <code>class HasFoo a where getFoo :: Lens' a Foo</code>のような型クラスのインスタンスであるとき、 <code>HasFoo Hoge</code> のインスタンスを導出したい、ということですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640423338.062300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1640423338.062300">2021-12-25 18:08:58 +0900</a></div>
+          </div>
+          <div class="description">はい、その通りです。<br/>それ自体は自分でTHを書いて概ね実現できました。<br/>ボイラープレートの一部削減は実現できました。<br/>会社の許可などが取れたらOSSとして公開したいと思っています。<br/><br/>その上でふみあきさんの最初の返信のExprFの話が私の知識不足からかよく分からなかったため、質問を続行していたという形になります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640426859.062600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1640426859.062600">2021-12-25 19:07:39 +0900</a></div>
+          </div>
+          <div class="description">なるほど、ようやく理解できました。面白い問題を発見しましたね。これはジェネリクスを使って簡潔に書けるので、実装例を紹介します。この例ではdata Numeral = NumInt Int | NumDouble Double の中身がNumおよびShowであるという前提をHasCommonalityで表しています。viewsCommonやoverCommonによって、中身がIntの場合もDoubleのときもshowしたり+1したりできます</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640428049.062800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1640428049.062800">2021-12-25 19:27:29 +0900</a></div>
+          </div>
+          <div class="description">なるほど、ジェネリクスは正直あんまり分かってないので実装はよく分からないのですが、かなり簡潔に書けるのですね。<br/>こちらのプロダクトでは通常のフィールドアクセスにLensを使っているのでLensの関数合成が便利なことと、THのインスタンス生成では型推論の補助をせずともアクセス出来る点を考えると、どちらの方法にも利点欠点があるなあと感じました。<br/>ジェネリクス版での実装を示していただいてありがとうございます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640430570.063000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1640430570.063000">2021-12-25 20:09:30 +0900</a></div>
+          </div>
+          <div class="description">traverseCommon自体はLensではありませんが、`\f -&gt; traverseCommon @IsText (Data.Text.Lens.unpacked f)` のように他のLensと合成すればLensになります。型推論の補助というのはTypeApplicationのことを言っているのでしょうか？どのクラスを利用するかはどこかで指定しないといけないと思いますが……</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640431272.063300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1640431272.063300">2021-12-25 20:21:12 +0900</a></div>
+          </div>
+          <div class="description">はい、TypeApplicationのことを言っています。<br/>lensのインスタンス生成をする方法だとその生成時に確かに指定は必要ですが、生成した後のアクセサを利用するのに型引数は不要のため、その点で一長一短かなあと思った次第です。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../99.html" class="item">Back to questions #99</a>

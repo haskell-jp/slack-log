@@ -1,122 +1,122 @@
 [
     {
-        "ts": "1637317607.124900",
         "text": "まだリリースされてないバージョンを依存の上限に指定するの、意味あるのかなあ（と思いながらがっつり削除する PR 作った\n<https://github.com/Deewiant/glob/pull/44>",
-        "user": "U4L0B71L1",
-        "type": "message"
+        "type": "message",
+        "ts": "1637317607.124900",
+        "user": "U4L0B71L1"
     },
     {
-        "ts": "1637318402.125200",
         "text": "リリースされた瞬間ビルドエラーになるのを防ぐためではなく？",
-        "user": "U56L7EVNY",
-        "type": "message"
+        "type": "message",
+        "ts": "1637318402.125200",
+        "user": "U56L7EVNY"
     },
     {
-        "ts": "1637318867.128600",
         "text": "Hackageってリビジョン機能があるんで、依存可能バージョンの拡張はbreaking changeではないけど依存可能バージョンの縮小はbreaking changeであると言うことを考慮して先にPVPでbreaking changeが導入されうるmajor versionは念のために排除しておくという慣習だと思っていました",
-        "user": "UL1HFJATE",
-        "type": "message"
+        "type": "message",
+        "ts": "1637318867.128600",
+        "user": "UL1HFJATE"
     },
     {
-        "ts": "1637318943.129200",
         "text": "が、違うのでしょうか？",
-        "user": "UL1HFJATE",
-        "type": "message"
+        "type": "message",
+        "ts": "1637318943.129200",
+        "user": "UL1HFJATE"
     },
     {
-        "ts": "1637319634.134900",
         "text": "合っていると思います。\nパッケージPがパッケージAに上限を設定せず依存しているとき、Aに非互換な変更が入ると当然Pは壊れます。P側で修正して新しいリリースをしてもcabalのdependency solverが古いパッケージを選択すれば壊れるので、非互換かつ上限を指定していないすべてのPのバージョンに対して新しいリビジョンでAのバージョンの上限を指定していく必要があります。",
-        "user": "U4M9NJ7QE",
-        "type": "message"
+        "type": "message",
+        "ts": "1637319634.134900",
+        "user": "U4M9NJ7QE"
     },
     {
-        "ts": "1637319809.135200",
         "text": "ここら辺が昔、バージョン指定したくないstack陣営と、正確なバージョン指定をしたいcabal陣営で意見が割れていた元凶でもあります",
-        "user": "U4M9NJ7QE",
-        "type": "message"
+        "type": "message",
+        "ts": "1637319809.135200",
+        "user": "U4M9NJ7QE"
     },
     {
-        "ts": "1637319870.135400",
         "text": "またhackage trusteesの人たちの仕事の一部でもあります",
-        "user": "U4M9NJ7QE",
-        "type": "message"
+        "type": "message",
+        "ts": "1637319870.135400",
+        "user": "U4M9NJ7QE"
     },
     {
-        "ts": "1637358194.135800",
         "text": "&gt; パッケージPがパッケージAに上限を設定せず依存しているとき、Aに非互換な変更が入ると当然Pは壊れます。P側で修正して新しいリリースをしてもcabalのdependency solverが古いパッケージを選択すれば壊れるので、非互換かつ上限を指定していないすべてのPのバージョンに対して新しいリビジョンでAのバージョンの上限を指定していく必要があります。\n&gt; \nなるほど！\na.b.c のバージョンをリリースしたらそれより古い a.b.d のバージョンをメンテナンスする意識がなかったですね\n互換性があるのだから a.b.x の x は最新を使えばいいという認識でした\n自分がバージョン上限を撤廃したい理由としては、ほとんどの PR が上限撤廃の依頼で、手離れが悪いと思ったからですね\n自分がライブラリー使う側だと 上限撤廃依頼への反応の悪いメンテナーにやきもきするというのもあります\n（反応がないときは trustee に依頼すればよい？\nstack 陣営 cabal 陣営で意見の対立があったのですか～",
-        "user": "U4L0B71L1",
-        "type": "message"
+        "type": "message",
+        "ts": "1637358194.135800",
+        "user": "U4L0B71L1"
     },
     {
-        "ts": "1637380107.139300",
         "text": "Trusteesはビルドが壊れていないかをなんらかの方法で見張っていて、影響が大きくかつメタデータの修正のみで直せるものは適宜リビジョンで対応してくれるという認識です。",
-        "user": "U4M9NJ7QE",
-        "type": "message"
+        "type": "message",
+        "ts": "1637380107.139300",
+        "user": "U4M9NJ7QE"
     },
     {
-        "ts": "1638505644.168000",
         "text": "最近この件で気づいたんですけど、依存パッケージの上限をつけないままアップロードしていると、Hackageでドキュメントが生成されない原因になるみたいで悩ましいですね。\n（例えば <https://hackage.haskell.org/package/autodocodec> の<https://hackage.haskell.org/package/autodocodec-0.0.0.0/reports/2|build log>を見るとaeson 2.0に対応できてないために失敗している）\nもういっそCargoやnpmみたいに半自動で上限つけてほしい...（そうするとまた更新が面倒という問題に戻るんでしょうけど...",
-        "user": "U4LGTMTMK",
-        "type": "message"
+        "type": "message",
+        "ts": "1638505644.168000",
+        "user": "U4LGTMTMK"
     },
     {
-        "ts": "1638603107.171100",
         "text": "そういうパターンは rev を上げればいいのかな",
-        "user": "U4L0B71L1",
-        "type": "message"
+        "type": "message",
+        "ts": "1638603107.171100",
+        "user": "U4L0B71L1"
     },
     {
-        "ts": "1638603127.171300",
         "text": "依存パッケージ上限を追加した rev を",
-        "user": "U4L0B71L1",
-        "type": "message"
+        "type": "message",
+        "ts": "1638603127.171300",
+        "user": "U4L0B71L1"
     },
     {
-        "ts": "1638615311.171600",
         "text": "ただ、その方針だと\n&gt; 依存可能バージョンの縮小はbreaking changeである\nのルールに反してしまうのが痛いですね。なんでそんなルールなのか私は分かってませんが...\n<https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1637318867128600?thread_ts=1637317607.124900&amp;cid=C4M4TT8JJ>",
-        "user": "U4LGTMTMK",
-        "type": "message"
+        "type": "message",
+        "ts": "1638615311.171600",
+        "user": "U4LGTMTMK"
     },
     {
-        "ts": "1638699610.172300",
         "text": "あー:confounded:",
-        "user": "U4L0B71L1",
-        "type": "message"
+        "type": "message",
+        "ts": "1638699610.172300",
+        "user": "U4L0B71L1"
     },
     {
-        "ts": "1638743114.187100",
         "text": "A-1.1.0のdependency B-1.1.9のbreaking change B-1.2.0によってA-1.1のbuildが失敗する場合はAのversion constraint制限追加ってbreaking changeでもなんでもないですけど、B-1.2.0のbreaking changeが単なる動作変更であるがために、A-1.1の動作が単に変わる場合もあり得ますよね。それでドキュメントでライブラリユーザ向けにAが行った契約が破られる場合、契約を守るためにはAのversion constraintを制限しなければならないけど、これってライブラリユーザからすれば「使えていた組み合わせが使えなくなる」変化ですね。",
-        "user": "UL1HFJATE",
-        "type": "message"
+        "type": "message",
+        "ts": "1638743114.187100",
+        "user": "UL1HFJATE"
     },
     {
-        "ts": "1638743479.189500",
         "text": "特に、executableが動作の安定性を保証するために `B==1.2.0,A==1.1.0` でリリースしていた場合とかが目も当てられない",
-        "user": "UL1HFJATE",
-        "type": "message"
+        "type": "message",
+        "ts": "1638743479.189500",
+        "user": "UL1HFJATE"
     },
     {
-        "ts": "1638768971.190200",
         "text": "なるほど。その論点だと、「ビルドが失敗するような事態になったら依存可能バージョンの縮小はOK」という例外規定があるとよいような気がするんですがいかがでしょうか？今問題にしているケースってまさに「A-1.1.0のdependency B-1.1.9のbreaking change B-1.2.0によってA-1.1.0のbuildが失敗する場合」は「A-1.1.0にB &lt; 1.2.0を加えよう」という話なので",
-        "user": "U4LGTMTMK",
-        "type": "message"
+        "type": "message",
+        "ts": "1638768971.190200",
+        "user": "U4LGTMTMK"
     },
     {
-        "ts": "1638772066.194200",
         "text": "あってもいいんですが、Major dependency constraintを仮置きするかしないか、という論点で言うと、「メジャーバージョンアップによって型によるコンパイル失敗を介さずに関数の挙動が変更される」のは未来の事象なので、起こるか起こらないかは神のみぞ知る、というのが非常にアレですね。",
-        "user": "UL1HFJATE",
-        "type": "message"
+        "type": "message",
+        "ts": "1638772066.194200",
+        "user": "UL1HFJATE"
     },
     {
-        "ts": "1638773001.195200",
         "text": "対処するためには仮置きして後から緩和しないといけない…",
-        "user": "UL1HFJATE",
-        "type": "message"
+        "type": "message",
+        "ts": "1638773001.195200",
+        "user": "UL1HFJATE"
     },
     {
-        "ts": "1638797802.201100",
         "text": "あー、私の言ったbreaking changeっていうのは出典があるわけではなくて、「既存パッケージのビルド可能性または挙動を変えうる変更」って意味ですねえ……。pvpに定義済みの用語としてbreaking changeがあるんで、同じ言葉をつかうべきでは無かったですね。すみません。",
-        "user": "UL1HFJATE",
-        "type": "message"
+        "type": "message",
+        "ts": "1638797802.201100",
+        "user": "UL1HFJATE"
     }
 ]
