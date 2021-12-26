@@ -1,0 +1,26 @@
+[
+    {
+        "text": "今日のAtCoder の AtCoder Beginner Contest 233で `StateT (MaybeT (ST s))` モナドを使い、\n\n```lift . MaybeT . return :: Maybe a -&gt; StateT (MaybeT (ST s)) a```\nを捻り出すのに割と時間を取られてしまったのですが、もうちょっと簡単な書き方ってありますか？",
+        "type": "message",
+        "ts": "1640444272.097200",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "`liftBase` ですかねぇ。\n<https://hackage.haskell.org/package/monad-unlift-0.2.0/docs/Control-Monad-Trans-Unlift.html#t:MonadBase>",
+        "type": "message",
+        "ts": "1640470349.097400",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "あー…。どうでしょう。この場合 base monad って `ST s` になりそうなので\n\n```liftBase :: ST s a -&gt; StateT Int (MaybeT (ST s)) a```\nであるような気もします。",
+        "type": "message",
+        "ts": "1640476986.099700",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "```getAlt . Foldable.foldMap (Alt . pure) :: (Foldable f, Alternative t) =&gt; f a -&gt; t a\n```\nでもいけますけど、うーん。",
+        "type": "message",
+        "ts": "1640513588.102900",
+        "user": "UL1HFJATE"
+    }
+]
