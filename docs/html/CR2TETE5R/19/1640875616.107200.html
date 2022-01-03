@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #19 at 2021-12-30 23:46:56 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #19 at 2021-12-30 23:46:56 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../19.html" class="item">Back to beginners #19</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1640875616.107200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">taka23131</div>
+            <div class="date"><a class="date" href="#message-1640875616.107200">2021-12-30 23:46:56 +0900</a></div>
+          </div>
+          <div class="description">Haskellで、MonadThrowのthrowMをhspecでテストするときにcatchしたいのですが、いうならばshouldcatchのような関数はありますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1640910099.107300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1640910099.107300">2021-12-31 09:21:39 +0900</a></div>
+          </div>
+          <div class="description"><code>catch</code> するよりも下記のいずれかの方法で <code>Either</code> に変換するのがおすすめです。 <code>shouldCatch</code> が Hspecにないのもそういう背景でしょう。<br/>1. <code>MonadCatch</code> のインスタンスを加えれば <code>try</code> を使って <code>m (Either SomeException a)</code> に変換できます。まぁ、テストであれば <code>IO</code> の <code>try</code> を使うのでもいいでしょう。<br/>2. 実は <code>Either SomeException</code> も <code>MonadThrow</code> のインスタンスなので、 <code>Either</code> だけでよいのであればそれでも :ok: です。<br/>3. また、この <code>Either SomeException</code> のMonad Transformer版、 <code>CatchT</code> というのもあります。<br/>先日3. の方法を使ってテストを書いたので参考までに例として共有します。<br/><a href='https://github.com/igrep/multipost/blob/60a00b522da2ce60ff28252097f19c5d545d748b/test/MultipostSpec.hs'>https://github.com/igrep/multipost/blob/60a00b522da2ce60ff28252097f19c5d545d748b/test/MultipostSpec.hs</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../19.html" class="item">Back to beginners #19</a>
+    </div>
+  </div>
+</body>
+</html>

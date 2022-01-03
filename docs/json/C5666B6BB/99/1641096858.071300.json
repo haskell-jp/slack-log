@@ -1,0 +1,14 @@
+[
+    {
+        "text": "HspecのExpectations(`shouldBe` とか)について質問です\n数値をテストする際に、浮動少数計算によって起きる僅かな誤差を取り除いてくれるExpectationってありますか...?\n今3次元ベクトルを回転行列で変換する関数を書いていて、そのテストをしたいのですが三角関数周りの誤差でテストが書けずにいます...\n例えば `cos (pi/2) `shouldBe` 0` は成功してほしいのですが失敗するなどします。\n\n現在は、ある程度の誤差を無視する以下のような関数を作成してそれで判定をしているのですが、何かしら一般的な方法があったりしますでしょうか...?\n```almostEqual :: Float -&gt; Float -&gt; Bool\nalmostEqual a b = a+diff &gt;= b &amp;&amp; b &lt;= a+diff \n  where\n    diff = 0.1 -- 無視してよい誤差の範囲を決めるよしなな数字、今は適当```\n",
+        "type": "message",
+        "ts": "1641096858.071300",
+        "user": "ULTBB86UC"
+    },
+    {
+        "text": "自分で使ったことはないのですがこういうのがあるみたいです\n<https://hackage.haskell.org/package/HUnit-approx-1.1.1.1/docs/Test-HUnit-Approx.html|https://hackage.haskell.org/package/HUnit-approx-1.1.1.1/docs/Test-HUnit-Approx.html>",
+        "type": "message",
+        "ts": "1641178077.071400",
+        "user": "U4L0B71L1"
+    }
+]

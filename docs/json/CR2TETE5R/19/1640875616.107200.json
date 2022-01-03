@@ -1,0 +1,14 @@
+[
+    {
+        "text": "Haskellで、MonadThrowのthrowMをhspecでテストするときにcatchしたいのですが、いうならばshouldcatchのような関数はありますか？",
+        "type": "message",
+        "ts": "1640875616.107200",
+        "user": "UQERMQX8W"
+    },
+    {
+        "text": "`catch` するよりも下記のいずれかの方法で `Either` に変換するのがおすすめです。 `shouldCatch` が Hspecにないのもそういう背景でしょう。\n1. `MonadCatch` のインスタンスを加えれば `try` を使って `m (Either SomeException a)` に変換できます。まぁ、テストであれば `IO` の `try` を使うのでもいいでしょう。\n2. 実は `Either SomeException` も `MonadThrow` のインスタンスなので、 `Either` だけでよいのであればそれでも :ok: です。\n3. また、この `Either SomeException` のMonad Transformer版、 `CatchT` というのもあります。\n先日3. の方法を使ってテストを書いたので参考までに例として共有します。\n<https://github.com/igrep/multipost/blob/60a00b522da2ce60ff28252097f19c5d545d748b/test/MultipostSpec.hs>",
+        "type": "message",
+        "ts": "1640910099.107300",
+        "user": "U4LGTMTMK"
+    }
+]
