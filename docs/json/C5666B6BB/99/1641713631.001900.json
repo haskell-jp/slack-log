@@ -1,0 +1,26 @@
+[
+    {
+        "text": "こんな感じの関数を書きたいのですが、型エラーの直し方が分かりません！\n（詳細なエラーをスレッドに貼ります）\n```liftToReader\n  :: forall env m a. (MonadReader env m, MonadIO m)\n  =&gt; (env -&gt; IO a) -&gt; m a\nliftToReader f = reader $ \\env -&gt;\n  (liftIO :: IO a -&gt; m a) $ f env```",
+        "type": "message",
+        "ts": "1641713631.001900",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "発生したエラーの例:\n```src\\Web\\Slack\\Classy.hs:232:18: error:\n    • Occurs check: cannot construct the infinite type: a ~ m a\n      Expected type: m a\n        Actual type: m (m a)\n    • In the expression:\n        reader $ \\ env -&gt; (liftIO :: IO a -&gt; m a) $ f env\n      In an equation for 'liftToReader':\n          liftToReader f = reader $ \\ env -&gt; (liftIO :: IO a -&gt; m a) $ f env\n    • Relevant bindings include\n        f :: env -&gt; IO a (bound at src\\Web\\Slack\\Classy.hs:232:14)\n        liftToReader :: (env -&gt; IO a) -&gt; m a\n          (bound at src\\Web\\Slack\\Classy.hs:232:1)\n    |\n232 | liftToReader f = reader $ \\env -&gt;\n    |                  ^^^^^^^^^^^^^^^^...```",
+        "type": "message",
+        "ts": "1641713655.002000",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "ちょっと詳細な事情が分かってきました。実際は\n```reader :: (env -&gt; a) -&gt; m a```\nのところ、\n```reader :: (env -&gt; m a) -&gt; m a```\nとして使おうとしているのが原因のようです。つまり後者のような `reader` があれば解決するはず...",
+        "type": "message",
+        "ts": "1641713967.002300",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "こうか！ `reader` なんか要らんかった！\n```liftToReader\n  :: (MonadReader env m, MonadIO m)\n  =&gt; (env -&gt; IO a) -&gt; m a\nliftToReader f = do\n  env &lt;- ask\n  liftIO $ f env```",
+        "type": "message",
+        "ts": "1641714184.002700",
+        "user": "U4LGTMTMK"
+    }
+]

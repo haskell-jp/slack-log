@@ -220,5 +220,11 @@
         "type": "message",
         "ts": "1641308127.072700",
         "user": "U02T0K000AV"
+    },
+    {
+        "text": "こんな感じの関数を書きたいのですが、型エラーの直し方が分かりません！\n（詳細なエラーをスレッドに貼ります）\n```liftToReader\n  :: forall env m a. (MonadReader env m, MonadIO m)\n  =&gt; (env -&gt; IO a) -&gt; m a\nliftToReader f = reader $ \\env -&gt;\n  (liftIO :: IO a -&gt; m a) $ f env```",
+        "type": "message",
+        "ts": "1641713631.001900",
+        "user": "U4LGTMTMK"
     }
 ]

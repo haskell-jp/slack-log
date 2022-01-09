@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #99 at 2022-01-09 16:33:51 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #99 at 2022-01-09 16:33:51 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1641713631.001900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1641713631.001900">2022-01-09 16:33:51 +0900</a></div>
+          </div>
+          <div class="description">こんな感じの関数を書きたいのですが、型エラーの直し方が分かりません！<br/>（詳細なエラーをスレッドに貼ります）<br/><pre>liftToReader
+  :: forall env m a. (MonadReader env m, MonadIO m)
+  =&gt; (env -&gt; IO a) -&gt; m a
+liftToReader f = reader $ \env -&gt;
+  (liftIO :: IO a -&gt; m a) $ f env</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1641713655.002000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1641713655.002000">2022-01-09 16:34:15 +0900</a></div>
+          </div>
+          <div class="description">発生したエラーの例:<br/><pre>src\Web\Slack\Classy.hs:232:18: error:
+    • Occurs check: cannot construct the infinite type: a ~ m a
+      Expected type: m a
+        Actual type: m (m a)
+    • In the expression:
+        reader $ \ env -&gt; (liftIO :: IO a -&gt; m a) $ f env
+      In an equation for 'liftToReader':
+          liftToReader f = reader $ \ env -&gt; (liftIO :: IO a -&gt; m a) $ f env
+    • Relevant bindings include
+        f :: env -&gt; IO a (bound at src\Web\Slack\Classy.hs:232:14)
+        liftToReader :: (env -&gt; IO a) -&gt; m a
+          (bound at src\Web\Slack\Classy.hs:232:1)
+    |
+232 | liftToReader f = reader $ \env -&gt;
+    |                  ^^^^^^^^^^^^^^^^...</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1641713967.002300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1641713967.002300">2022-01-09 16:39:27 +0900</a></div>
+          </div>
+          <div class="description">ちょっと詳細な事情が分かってきました。実際は<br/><pre>reader :: (env -&gt; a) -&gt; m a</pre><br/>のところ、<br/><pre>reader :: (env -&gt; m a) -&gt; m a</pre><br/>として使おうとしているのが原因のようです。つまり後者のような <code>reader</code> があれば解決するはず...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1641714184.002700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1641714184.002700">2022-01-09 16:43:04 +0900</a></div>
+          </div>
+          <div class="description">こうか！ <code>reader</code> なんか要らんかった！<br/><pre>liftToReader
+  :: (MonadReader env m, MonadIO m)
+  =&gt; (env -&gt; IO a) -&gt; m a
+liftToReader f = do
+  env &lt;- ask
+  liftIO $ f env</pre></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+  </div>
+</body>
+</html>
