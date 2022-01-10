@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #19 at 2022-01-10 01:18:04 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #19 at 2022-01-10 01:18:04 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../19.html" class="item">Back to beginners #19</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1641745084.012100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ose20dive</div>
+            <div class="date"><a class="date" href="#message-1641745084.012100">2022-01-10 01:18:04 +0900</a></div>
+          </div>
+          <div class="description">Stack を使って初めてプログラムをビルド、実行したのですが、ターミナルの表示がうまくいきません。具体的には、『Programming in Haskell』にあった計算機のプログラム（を少し変えたもの）を使いました。このプログラムはうまくいけば電卓のインターフェースがターミナルに表示されてREPLのように振る舞うのですが、画像のようにパスワードを入力するようなモードになってしまい、プログラムの出力も、こちらからの入力も見えない状態になってしまいました。control + c で終了するとその間の入力および出力が保存されていることはわかります。原因をご存知の方がいれば教えていただけないでしょうか。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1641781787.012300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1641781787.012300">2022-01-10 11:29:47 +0900</a></div>
+          </div>
+          <div class="description">とりあえず差し支えなければソースコード全体を見せていただけませんか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1641785417.012500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ose20dive</div>
+            <div class="date"><a class="date" href="#message-1641785417.012500">2022-01-10 12:30:17 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。stack new でプロジェクトを作成した後、src/Lib.hs と app/Main.hs のみを変更しましたので、その2つのソースコードを以下に添付します。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1641785456.012700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ose20dive</div>
+            <div class="date"><a class="date" href="#message-1641785456.012700">2022-01-10 12:30:56 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1641785504.012900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ose20dive</div>
+            <div class="date"><a class="date" href="#message-1641785504.012900">2022-01-10 12:31:44 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1641796247.013100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1641796247.013100">2022-01-10 15:30:47 +0900</a></div>
+          </div>
+          <div class="description">実行してみたところ標準入出力がバッファリングされてしまっているようですね。なんで本で触れないんだろう...<br/>恐らく次のように <code>run</code> 関数などの先頭でバッファリングを切れば直ります:<br/><pre>run :: IO ()
+run = do hSetBuffering stdout NoBuffering
+         hSetBuffering stdin NoBuffering
+         cls
+         showbox
+         standby []</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1641796422.013400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1641796422.013400">2022-01-10 15:33:42 +0900</a></div>
+          </div>
+          <div class="description">※「恐らく」と言ったのは手元ですぐに使える環境がWindowsなので、 <a href='https://gitlab.haskell.org/ghc/ghc/-/issues/2189'>https://gitlab.haskell.org/ghc/ghc/-/issues/2189</a> のバグにハマって完全な確認はできなかったため</div>
+        </div>
+      </div>
+      <div class="event" id="message-1641800657.013800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ose20dive</div>
+            <div class="date"><a class="date" href="#message-1641800657.013800">2022-01-10 16:44:17 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。バッファリングを切ったら期待通り動いてくれました！あと、確かにhSetBufferingについては『Programming in Haskell』の電卓を実装する章では触れられていなかったのですが、それより前の「10章対話プログラム」で（さらっとですが）触れられていました。入出力に関する不具合というところからバッファリングに問題があるかもしれないと気づけていればこの本の該当箇所のことを思い出せたかもしれません。こういうトラブルシューティングの際の目の付け所は経験あるのみなのでしょうかね。。。とにかく助かりました、ありがとうございました:relieved:</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../19.html" class="item">Back to beginners #19</a>
+    </div>
+  </div>
+</body>
+</html>
