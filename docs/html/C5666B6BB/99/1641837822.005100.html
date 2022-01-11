@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #99 at 2022-01-11 03:03:42 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #99 at 2022-01-11 03:03:42 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1641837822.005100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">benzene.chlorobenzene</div>
+            <div class="date"><a class="date" href="#message-1641837822.005100">2022-01-11 03:03:42 +0900</a></div>
+          </div>
+          <div class="description">IOの正体はRealWorldに対する読み書きを表す(State# RealWorld -&gt; (# State# RealWorld, a #))だと聞いたのですが、RealWorldからの読み出しのみすることを表す(State# RealWorld -&gt; a)に対応する型はありますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1641860807.005200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1641860807.005200">2022-01-11 09:26:47 +0900</a></div>
+          </div>
+          <div class="description">そういう型の値も作れると思います（有用かどうかは別にして<br/><pre>f :: State# RealWorld -&gt; a
+f = const undefined
+</pre><br/>（`undefined` 使ったらそれは作れるというのか:thinking_face:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1641863095.025000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1641863095.025000">2022-01-11 10:04:55 +0900</a></div>
+          </div>
+          <div class="description">んー、 箇条書きにすると、<br/>•  <code>State# RealWorld -&gt; a</code> は <code>RealWorld</code> からの読み出しを表さない<br/>• ので、無意味なので <code>State# RealWorld -&gt; a</code> を表す <code>newtype</code> は普通のライブラリからはエクスポートされてない<br/>• けど、 <code>newtype Bad a = Bad (State# RealWorld -&gt; a)</code> ってやれば自分で定義することはできる<br/>• <code>newtype IO a = IO (State# RealWorld -&gt; (# State# RealWorld, a #))</code> なのだから、次の <code>ioToBad</code> 関数が書けるので、任意の <code>IO a</code> から <code>Bad a</code> が作れる。読み書きのどっちであるかは関係ない。 そしてこの <code>Bad a</code> の値は(きちんと意味のある I/O 操作をするために I/O操作たちの間で順序を強制するための)役には立たない。<br/><pre>ioToBad :: IO a -&gt; Bad a
+ioToBad (IO f) = Bad $ \s0 -&gt; case (f s0) of (# s1, a #) -&gt; a</pre><br/>ってところだと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1641864089.037800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1641864089.037800">2022-01-11 10:21:29 +0900</a></div>
+          </div>
+          <div class="description">ちなみになんで「読み」を表せないかというと、 <code>State# RealWorld</code> の値は世界全体を保存している訳ではないので、例えば<br/><br/><pre>newIORef# :: a -&gt; State# RealWorld -&gt; (# State# RealWorld, IORef a #)
+newIORef# a = case newIORef a of IO x -&gt; x
+
+writeIORef# :: IORef a -&gt; a -&gt; State# RealWorld -&gt; (# State# RealWorld, () #)
+writeIORef# ref a = case writeIORef ref a of IO f -&gt; f
+
+readIORef# :: IORef a -&gt; State# RealWorld -&gt; (# State# RealWorld, a #)
+readIORef# ref = case readIORef ref of IO f -&gt; f
+
+badReadIORef# :: IORef a -&gt; State# RealWorld -&gt; a
+badReadIORef# ref = case ioToBad (readIORef ref) of Bad f -&gt; f</pre><br/>の状態で<br/><pre>\s0 -&gt; let (# s1, ref1 #) = newIORef# (0::Int) s0
+           a              = badReadIORef# ref s1
+           (# s2, () #)   = writeIORef# (2::Int) s1
+           (# s3, ref2 #) = seq a (newIORef# a) s2
+        in readIORef# ref2 s3</pre><br/>みたいな関数を書くと、`a` は <code>s1</code> のタイミングの <code>ref1</code> の値 <code>0</code> ではなく、`a` が評価されたタイミング (`s2` のタイミング) の値 <code>2</code> になってしまうので</div>
+        </div>
+      </div>
+      <div class="event" id="message-1641864119.038500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1641864119.038500">2022-01-11 10:21:59 +0900</a></div>
+          </div>
+          <div class="description">なんかアレで良くないな、という。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1641869762.038800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">fumieval</div>
+            <div class="date"><a class="date" href="#message-1641869762.038800">2022-01-11 11:56:02 +0900</a></div>
+          </div>
+          <div class="description">指摘されている通り、通常のユーザーが使う型として定義することにほとんど意味はありませんが、unsafePerformIOの定義に使われるrunRW#の引数に出現したりします　<https://downloads.haskell.org/~ghc/latest/docs/html/libraries/ghc-prim-0.8.0/GHC-Magic.html#v:runRW-35-></div>
+        </div>
+      </div>
+      <div class="event" id="message-1641870700.046800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1641870700.046800">2022-01-11 12:11:40 +0900</a></div>
+          </div>
+          <div class="description">確かに！　その <code>o</code> って、現状多くののユースケースで <code>(# State# s, a #)</code> の形をしていますが、 <code>runST</code> やら <code>unsafePerformIO</code> で使うなら別に実際の実装のように<br/><br/><pre>runST (ST f) = case runRW# f of (# !_, a #) -&gt; a</pre><br/>としなくても<br/><br/><pre>runST (ST f) = runRW# $ \s -&gt; case f s of (# !_, a #) -&gt; a</pre><br/>としても構わないですしね（ほんとか…？）。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1641871480.047200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">benzene.chlorobenzene</div>
+            <div class="date"><a class="date" href="#message-1641871480.047200">2022-01-11 12:24:40 +0900</a></div>
+          </div>
+          <div class="description">そうしたら、評価順序の正格性が保証されていないHaskellではうまく「RealWorldからの読み出しのみを行う」を型で表すのはできないということでしょうか</div>
+        </div>
+      </div>
+      <div class="event" id="message-1641873010.049400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1641873010.049400">2022-01-11 12:50:10 +0900</a></div>
+          </div>
+          <div class="description">モジュール境界を使えばそういう意味を持つ <code>newtype</code> を作ることはできますが、定義から原理的に読み出ししかできない型っていうのは無理じゃないかなと思います…。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1641873503.049700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1641873503.049700">2022-01-11 12:58:23 +0900</a></div>
+          </div>
+          <div class="description">リアルワールドから読み出しをするとその後のリアルワールドは変化しているはずで、変化した後のリアルワールドを使ってその後の IO をしないといけなくなる。<br/><code>State# RealWorld -&gt; a</code> 単体で実行しちゃうと上記の「変化した後のリアルワールド」を見失ってしまうのでその後はもう IO ができなくなってしまうように思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1641873878.049900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">benzene.chlorobenzene</div>
+            <div class="date"><a class="date" href="#message-1641873878.049900">2022-01-11 13:04:38 +0900</a></div>
+          </div>
+          <div class="description">:naruhodo:</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+  </div>
+</body>
+</html>

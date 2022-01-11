@@ -1,0 +1,68 @@
+[
+    {
+        "text": "IOの正体はRealWorldに対する読み書きを表す(State# RealWorld -&gt; (# State# RealWorld, a #))だと聞いたのですが、RealWorldからの読み出しのみすることを表す(State# RealWorld -&gt; a)に対応する型はありますか？",
+        "type": "message",
+        "ts": "1641837822.005100",
+        "user": "U015L5JEP8D"
+    },
+    {
+        "text": "そういう型の値も作れると思います（有用かどうかは別にして\n```f :: State# RealWorld -&gt; a\nf = const undefined\n```\n（`undefined` 使ったらそれは作れるというのか:thinking_face:",
+        "type": "message",
+        "ts": "1641860807.005200",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "んー、 箇条書きにすると、\n•  `State# RealWorld -&gt; a` は `RealWorld` からの読み出しを表さない\n• ので、無意味なので `State# RealWorld -&gt; a` を表す `newtype` は普通のライブラリからはエクスポートされてない\n• けど、 `newtype Bad a = Bad (State# RealWorld -&gt; a)` ってやれば自分で定義することはできる\n• `newtype IO a = IO (State# RealWorld -&gt; (# State# RealWorld, a #))` なのだから、次の `ioToBad` 関数が書けるので、任意の `IO a` から `Bad a` が作れる。読み書きのどっちであるかは関係ない。 そしてこの `Bad a` の値は(きちんと意味のある I/O 操作をするために I/O操作たちの間で順序を強制するための)役には立たない。\n```ioToBad :: IO a -&gt; Bad a\nioToBad (IO f) = Bad $ \\s0 -&gt; case (f s0) of (# s1, a #) -&gt; a```\nってところだと思います。",
+        "type": "message",
+        "ts": "1641863095.025000",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "ちなみになんで「読み」を表せないかというと、 `State# RealWorld` の値は世界全体を保存している訳ではないので、例えば\n\n```newIORef# :: a -&gt; State# RealWorld -&gt; (# State# RealWorld, IORef a #)\nnewIORef# a = case newIORef a of IO x -&gt; x\n\nwriteIORef# :: IORef a -&gt; a -&gt; State# RealWorld -&gt; (# State# RealWorld, () #)\nwriteIORef# ref a = case writeIORef ref a of IO f -&gt; f\n\nreadIORef# :: IORef a -&gt; State# RealWorld -&gt; (# State# RealWorld, a #)\nreadIORef# ref = case readIORef ref of IO f -&gt; f\n\nbadReadIORef# :: IORef a -&gt; State# RealWorld -&gt; a\nbadReadIORef# ref = case ioToBad (readIORef ref) of Bad f -&gt; f```\nの状態で\n```\\s0 -&gt; let (# s1, ref1 #) = newIORef# (0::Int) s0\n           a              = badReadIORef# ref s1\n           (# s2, () #)   = writeIORef# (2::Int) s1\n           (# s3, ref2 #) = seq a (newIORef# a) s2\n        in readIORef# ref2 s3```\nみたいな関数を書くと、`a` は `s1` のタイミングの `ref1` の値 `0` ではなく、`a` が評価されたタイミング (`s2` のタイミング) の値 `2` になってしまうので",
+        "type": "message",
+        "ts": "1641864089.037800",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "なんかアレで良くないな、という。",
+        "type": "message",
+        "ts": "1641864119.038500",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "指摘されている通り、通常のユーザーが使う型として定義することにほとんど意味はありませんが、unsafePerformIOの定義に使われるrunRW#の引数に出現したりします　<https://downloads.haskell.org/~ghc/latest/docs/html/libraries/ghc-prim-0.8.0/GHC-Magic.html#v:runRW-35->",
+        "type": "message",
+        "ts": "1641869762.038800",
+        "user": "U4KUNQF9N"
+    },
+    {
+        "text": "確かに！　その `o` って、現状多くののユースケースで `(# State# s, a #)` の形をしていますが、 `runST` やら `unsafePerformIO` で使うなら別に実際の実装のように\n\n```runST (ST f) = case runRW# f of (# !_, a #) -&gt; a```\nとしなくても\n\n```runST (ST f) = runRW# $ \\s -&gt; case f s of (# !_, a #) -&gt; a```\nとしても構わないですしね（ほんとか…？）。",
+        "type": "message",
+        "ts": "1641870700.046800",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "そうしたら、評価順序の正格性が保証されていないHaskellではうまく「RealWorldからの読み出しのみを行う」を型で表すのはできないということでしょうか",
+        "type": "message",
+        "ts": "1641871480.047200",
+        "user": "U015L5JEP8D"
+    },
+    {
+        "text": "モジュール境界を使えばそういう意味を持つ `newtype` を作ることはできますが、定義から原理的に読み出ししかできない型っていうのは無理じゃないかなと思います…。",
+        "type": "message",
+        "ts": "1641873010.049400",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "リアルワールドから読み出しをするとその後のリアルワールドは変化しているはずで、変化した後のリアルワールドを使ってその後の IO をしないといけなくなる。\n`State# RealWorld -&gt; a` 単体で実行しちゃうと上記の「変化した後のリアルワールド」を見失ってしまうのでその後はもう IO ができなくなってしまうように思います。",
+        "type": "message",
+        "ts": "1641873503.049700",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": ":naruhodo:",
+        "type": "message",
+        "ts": "1641873878.049900",
+        "user": "U015L5JEP8D"
+    }
+]
