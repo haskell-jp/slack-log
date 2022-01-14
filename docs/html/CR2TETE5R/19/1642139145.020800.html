@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #19 at 2022-01-14 14:45:45 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #19 at 2022-01-14 14:45:45 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../19.html" class="item">Back to beginners #19</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1642139145.020800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">muratomo.0205</div>
+            <div class="date"><a class="date" href="#message-1642139145.020800">2022-01-14 14:45:45 +0900</a></div>
+          </div>
+          <div class="description">ghciに`3 = 4`と入力してもエラーになりませんでしたが，`3`を評価させるとやはり`3`になります．`4` になると思ったのですが．GHCIは`3=4`をどのように処理したのでしょうか?</div>
+        </div>
+      </div>
+      <div class="event" id="message-1642140312.021100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">seasellsheshell_com.s</div>
+            <div class="date"><a class="date" href="#message-1642140312.021100">2022-01-14 15:05:12 +0900</a></div>
+          </div>
+          <div class="description">何もわかりませんが、 <code>'a' = 1</code> はエラーになりますね。関係あるんでしょうか。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1642140332.021300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">seasellsheshell_com.s</div>
+            <div class="date"><a class="date" href="#message-1642140332.021300">2022-01-14 15:05:32 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1642143528.021600">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1642143528.021600">2022-01-14 15:58:48 +0900</a></div>
+          </div>
+          <div class="description">無意味なパターンマッチをしています。<br/><pre>f 3 = 4</pre><br/>みたいな定義から <code>f</code> を取り去ったものだと考えてください。<br/>この場合は <code>f</code> は <code>3</code> を受け取ったら <code>4</code> を返す関数と定義されるので<br/><pre>&gt; f 3
+4</pre><br/>となります。<br/><code>'a' = 1</code> の件は私はちょっとぱっと見で分からないですね...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1642143725.021800">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1642143725.021800">2022-01-14 16:02:05 +0900</a></div>
+          </div>
+          <div class="description">うーむ、`'a' = 1` の件から類推するに実はちょっと違う話なのでは、という気がしてきました。ずっとそう信じていたんですが....。<br/>言った直後にすみません</div>
+        </div>
+      </div>
+      <div class="event" id="message-1642143748.022000">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1642143748.022000">2022-01-14 16:02:28 +0900</a></div>
+          </div>
+          <div class="description">例えば <code>x@3 = 4</code> と打ち込むと、変数 <code>x</code> に何かが束縛されます。この <code>x</code> を評価するとパターンマッチ失敗のエラーが出ますが、トップレベルの束縛は非正格なので束縛しただけではエラーになりません。この <code>x@3 = 4</code> から <code>x</code> への束縛を削除したのが <code>3 = 4</code> で、`3` というパターンに <code>4</code> をマッチさせている（が非正格なので評価は起こらない）、ということになります。変種として、BangPatternsの下で <code>let !3 = 4</code> と打ち込むとパターンマッチが正格に行われてその場でエラーが出ます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1642143774.022200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1642143774.022200">2022-01-14 16:02:54 +0900</a></div>
+          </div>
+          <div class="description"><code>'a' = 1</code> が型エラーになるのは <code>x@'a' = 1</code> が型エラーになるのと同じです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1642143906.022700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1642143906.022700">2022-01-14 16:05:06 +0900</a></div>
+          </div>
+          <div class="description">なるほど！ありがとうございます！<br/><pre>&gt; :set -XBangPatterns
+&gt; let !3 = 4 in 9
+*** Exception: &lt;interactive&gt;:17:5-10: Non-exhaustive patterns in 3
+
+&gt; let !4 = 4 in 9
+9</pre></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../19.html" class="item">Back to beginners #19</a>
+    </div>
+  </div>
+</body>
+</html>
