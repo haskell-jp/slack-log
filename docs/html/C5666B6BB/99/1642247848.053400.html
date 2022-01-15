@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #99 at 2022-01-15 20:57:28 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #99 at 2022-01-15 20:57:28 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1642247848.053400">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1642247848.053400">2022-01-15 20:57:28 +0900</a></div>
+          </div>
+          <div class="description">識者がいれば教えてほしいんですけど、text 2.0 で Windows 向け GHC 8.2 の MinGW に付いてこない C ライブラリーを使うようになったんですかね？これは推測でまったくの検討違いかもしれないのですが。<br/>ことの発端としては Glob のテストが通らなくなりまして、エラーメッセージ的にそうかなあと。<br/><pre>C:\sr\ghc-8.2.2\text-2.0-5e3f12ca9a37edf5a48459f7f3969564285f2adb\lib/libHStext-2.0-5e3f12ca9a37edf5a48459f7f3969564285f2adb.a(measure_off.o):measure_off.c:(.text+0x2da): undefined reference to `__get_cpuid_count'</pre><br/><a href='https://github.com/Deewiant/glob/runs/4826516512?check_suite_focus=true#step:6:39'>https://github.com/Deewiant/glob/runs/4826516512?check_suite_focus=true#step:6:39</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1642249807.053500">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1642249807.053500">2022-01-15 21:30:07 +0900</a></div>
+          </div>
+          <div class="description"><code>__get_cpuid_count</code> は <code>&lt;cpuid.h&gt;</code> でインライン関数として定義されるべき関数のようですね。textの <code>measure_off.c</code> ではGCC 6以降でそれを使うようになっているが、GHC 8.2に付属するGCC 6.2にはそれが含まれない、と。 <a href='https://github.com/haskell/text/blob/master/cbits/measure_off.c#L40'>https://github.com/haskell/text/blob/master/cbits/measure_off.c#L40</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1642249924.053900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1642249924.053900">2022-01-15 21:32:04 +0900</a></div>
+          </div>
+          <div class="description">同じようなエラーがちょいちょい報告されてますね<br/><a href='https://github.com/haskell/text/issues/385'>https://github.com/haskell/text/issues/385</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1642250078.054200">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1642250078.054200">2022-01-15 21:34:38 +0900</a></div>
+          </div>
+          <div class="description">text-2.0リリース後の1/7にもまさしくGHC 8.2.2でこちらのエラーが。最新のmasterでは直っているっぽいです。<br/><a href='https://github.com/haskell/text/issues/385#issuecomment-1007032602'>https://github.com/haskell/text/issues/385#issuecomment-1007032602</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1642250647.054700">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1642250647.054700">2022-01-15 21:44:07 +0900</a></div>
+          </div>
+          <div class="description"><code>__get_cpuid_count</code> はGCC 6.3.0以降の機能のようです <a href='https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/ChangeLog;h=06ebfb1a548abc36a464ec713c33232c3c872baf;hb=91c632c88994dca583bcd94e39cd3eba1506ecfe'>https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/ChangeLog;h=06ebfb1a548abc36a464ec713c33232c3c872baf;hb=91c632c88994dca583bcd94e39cd3eba1506ecfe</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1642250958.054900">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1642250958.054900">2022-01-15 21:49:18 +0900</a></div>
+          </div>
+          <div class="description">textのmasterではGHC 8.2 on Windowsでのビルドを禁止することで解決（？）したんですかね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1642253502.055300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1642253502.055300">2022-01-15 22:31:42 +0900</a></div>
+          </div>
+          <div class="description">すみません、肝心の「直した」PRをちゃんと読めてませんでした... :cold_sweat:</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../99.html" class="item">Back to questions #99</a>
+    </div>
+  </div>
+</body>
+</html>

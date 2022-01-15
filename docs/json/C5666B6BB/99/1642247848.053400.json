@@ -1,0 +1,44 @@
+[
+    {
+        "text": "識者がいれば教えてほしいんですけど、text 2.0 で Windows 向け GHC 8.2 の MinGW に付いてこない C ライブラリーを使うようになったんですかね？これは推測でまったくの検討違いかもしれないのですが。\nことの発端としては Glob のテストが通らなくなりまして、エラーメッセージ的にそうかなあと。\n```C:\\sr\\ghc-8.2.2\\text-2.0-5e3f12ca9a37edf5a48459f7f3969564285f2adb\\lib/libHStext-2.0-5e3f12ca9a37edf5a48459f7f3969564285f2adb.a(measure_off.o):measure_off.c:(.text+0x2da): undefined reference to `__get_cpuid_count'```\n<https://github.com/Deewiant/glob/runs/4826516512?check_suite_focus=true#step:6:39>",
+        "type": "message",
+        "ts": "1642247848.053400",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "`__get_cpuid_count` は `&lt;cpuid.h&gt;` でインライン関数として定義されるべき関数のようですね。textの `measure_off.c` ではGCC 6以降でそれを使うようになっているが、GHC 8.2に付属するGCC 6.2にはそれが含まれない、と。 <https://github.com/haskell/text/blob/master/cbits/measure_off.c#L40>",
+        "type": "message",
+        "ts": "1642249807.053500",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "同じようなエラーがちょいちょい報告されてますね\n<https://github.com/haskell/text/issues/385>",
+        "type": "message",
+        "ts": "1642249924.053900",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "text-2.0リリース後の1/7にもまさしくGHC 8.2.2でこちらのエラーが。最新のmasterでは直っているっぽいです。\n<https://github.com/haskell/text/issues/385#issuecomment-1007032602>",
+        "type": "message",
+        "ts": "1642250078.054200",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "`__get_cpuid_count` はGCC 6.3.0以降の機能のようです <https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=gcc/ChangeLog;h=06ebfb1a548abc36a464ec713c33232c3c872baf;hb=91c632c88994dca583bcd94e39cd3eba1506ecfe>",
+        "type": "message",
+        "ts": "1642250647.054700",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "textのmasterではGHC 8.2 on Windowsでのビルドを禁止することで解決（？）したんですかね",
+        "type": "message",
+        "ts": "1642250958.054900",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "すみません、肝心の「直した」PRをちゃんと読めてませんでした... :cold_sweat:",
+        "type": "message",
+        "ts": "1642253502.055300",
+        "user": "U4LGTMTMK"
+    }
+]
