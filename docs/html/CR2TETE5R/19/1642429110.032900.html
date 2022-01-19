@@ -39,6 +39,25 @@
           <div class="description">ご返信ありがとうございます！<br/>stack exec project-exeと書くと、ファイルが生成されて、それを後からgnuplotすることで描画しているのですね。。失礼いたしました。<br/>実は、僕の環境でこれを書いてみてもうまくいかなかったので、混乱してしまっています。簡単な例として、例えば、y = sin xのグラフを描画したい時にはstackのMain.hsには何を書けば良いのでしょうか。。<br/>(なんとなく下に添付させていただいたスクショのようになるかと思ったのですが、writeFileの後には何を書けばいいのでしょうか。Main.hsを完成させた後に, gnuplotなどの操作をするのだとすれば、ghciで操作しなければならないのでしょうか。)<br/><br/>いくつか質問させていただいて恐縮です。よろしくお願い申し上げます。<br/>(初心者なので、根本的な間違いがあるかもしれません。何卒、ご容赦ください:woman-bowing:)</div>
         </div>
       </div>
+      <div class="event" id="message-1642475854.035100">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1642475854.035100">2022-01-18 12:17:34 +0900</a></div>
+          </div>
+          <div class="description">gnuplotがどういう形式のファイルを受け付けるようになっているか詳細が分からないので確信はないのですが、例えば挙げていただいた記事の例を見る限り<br/><pre>appendFile filePath (show x ++ "\n")</pre><br/>と、 <code>appendFile</code> 関数を使って、1行毎に`Coordinate`型の値を`show`した結果を書き込んでいるようです。<br/>で、「`Coordinate`型の値を`show`した結果」というのは、<br/><pre>instance Show Coordinate where
+    show (Crd t x y z) =  map show |&gt; foldl1 (\s0 s1 -&gt; s0 ++ "," ++ s1) $ [t, x, y, z]</pre><br/>とあるとおり、恐らく <code>1.0,2.1,3,2,4.3</code> のような、数値をカンマ区切りにした文字列のようです。<br/><br/>ご質問の、 y = sin xは2次元のグラフでしょうから、2つの数値をカンマ区切りで1行ずつ書き込めばいいんじゃないかと思います。<br/>詳細はHaskellの話を超えるので、gnuplotの使い方を調べてください。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1642504704.035300">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nashnicolas2020</div>
+            <div class="date"><a class="date" href="#message-1642504704.035300">2022-01-18 20:18:24 +0900</a></div>
+          </div>
+          <div class="description">ご返信ありがとうございます！<br/>gnuplotに渡すファイルを作るところまでがHaskellの話で、そこからはまた違う話になってしまうのですね。gnuplotとHaskellをくっつけて考えてしまってばかりいました。<br/><br/>今、サイトの描画が無事にできました:woman-bowing:<br/>sinの描画もトライしてみます。<br/><br/>教えて頂き、なんとなく理解できたような気がします。ありがとうございました！</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../19.html" class="item">Back to beginners #19</a>

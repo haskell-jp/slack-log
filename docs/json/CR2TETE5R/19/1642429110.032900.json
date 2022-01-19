@@ -16,5 +16,17 @@
         "type": "message",
         "ts": "1642438760.034800",
         "user": "US17MP6TY"
+    },
+    {
+        "text": "gnuplotがどういう形式のファイルを受け付けるようになっているか詳細が分からないので確信はないのですが、例えば挙げていただいた記事の例を見る限り\n```appendFile filePath (show x ++ \"\\n\")```\nと、 `appendFile` 関数を使って、1行毎に`Coordinate`型の値を`show`した結果を書き込んでいるようです。\nで、「`Coordinate`型の値を`show`した結果」というのは、\n```instance Show Coordinate where\n    show (Crd t x y z) =  map show |&gt; foldl1 (\\s0 s1 -&gt; s0 ++ \",\" ++ s1) $ [t, x, y, z]```\nとあるとおり、恐らく `1.0,2.1,3,2,4.3` のような、数値をカンマ区切りにした文字列のようです。\n\nご質問の、 y = sin xは2次元のグラフでしょうから、2つの数値をカンマ区切りで1行ずつ書き込めばいいんじゃないかと思います。\n詳細はHaskellの話を超えるので、gnuplotの使い方を調べてください。",
+        "type": "message",
+        "ts": "1642475854.035100",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "ご返信ありがとうございます！\ngnuplotに渡すファイルを作るところまでがHaskellの話で、そこからはまた違う話になってしまうのですね。gnuplotとHaskellをくっつけて考えてしまってばかりいました。\n\n今、サイトの描画が無事にできました:woman-bowing:\nsinの描画もトライしてみます。\n\n教えて頂き、なんとなく理解できたような気がします。ありがとうございました！",
+        "type": "message",
+        "ts": "1642504704.035300",
+        "user": "US17MP6TY"
     }
 ]
