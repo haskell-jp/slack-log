@@ -1,290 +1,296 @@
 [
     {
-        "ts": "1575953405.030800",
         "text": "<@UH195J82Y> has joined the channel",
-        "user": "UH195J82Y",
-        "type": "message"
+        "type": "message",
+        "ts": "1575953405.030800",
+        "user": "UH195J82Y"
     },
     {
-        "ts": "1579531623.000200",
         "text": "<@U57D8V59U> has joined the channel",
-        "user": "U57D8V59U",
-        "type": "message"
+        "type": "message",
+        "ts": "1579531623.000200",
+        "user": "U57D8V59U"
     },
     {
-        "ts": "1579792353.000200",
         "text": "<@UGD7EBDFC> has joined the channel",
-        "user": "UGD7EBDFC",
-        "type": "message"
+        "type": "message",
+        "ts": "1579792353.000200",
+        "user": "UGD7EBDFC"
     },
     {
-        "ts": "1579841508.000400",
         "text": "<@UK50TKYSE> has joined the channel",
-        "user": "UK50TKYSE",
-        "type": "message"
+        "type": "message",
+        "ts": "1579841508.000400",
+        "user": "UK50TKYSE"
     },
     {
-        "ts": "1580192966.000600",
         "text": "<@UB5UV511U> has joined the channel",
-        "user": "UB5UV511U",
-        "type": "message"
+        "type": "message",
+        "ts": "1580192966.000600",
+        "user": "UB5UV511U"
     },
     {
-        "ts": "1581742823.000800",
         "text": "<@UU1R63GSU> has joined the channel",
-        "user": "UU1R63GSU",
-        "type": "message"
+        "type": "message",
+        "ts": "1581742823.000800",
+        "user": "UU1R63GSU"
     },
     {
-        "ts": "1581919654.001000",
         "text": "<@UHVPLNHL1> has joined the channel",
-        "user": "UHVPLNHL1",
-        "type": "message"
+        "type": "message",
+        "ts": "1581919654.001000",
+        "user": "UHVPLNHL1"
     },
     {
-        "ts": "1581931953.001200",
         "text": "<@U5FSLCV2N> has joined the channel",
-        "user": "U5FSLCV2N",
-        "type": "message"
+        "type": "message",
+        "ts": "1581931953.001200",
+        "user": "U5FSLCV2N"
     },
     {
-        "ts": "1584191217.000200",
         "text": "<@UE4JVGDRP> has joined the channel",
-        "user": "UE4JVGDRP",
-        "type": "message"
+        "type": "message",
+        "ts": "1584191217.000200",
+        "user": "UE4JVGDRP"
     },
     {
-        "ts": "1585140867.000200",
         "text": "<@ULBC77RC3> has joined the channel",
-        "user": "ULBC77RC3",
-        "type": "message"
+        "type": "message",
+        "ts": "1585140867.000200",
+        "user": "ULBC77RC3"
     },
     {
-        "ts": "1586411613.007500",
         "text": "コンパイラーの状態みたいなものを表すしっくりくる英単語ってありませんかね。ライブラリをフォークして書き直ししている途中で Snapshot という型を見つけました。それは Compiler というモナドの中で使われている型であって、 Compiler モナドには Snapshot の値を送出する機能と、指定した値の Snapshot を指定した別の Compiler モナドの値が既に送出しているかどうか確かめる機能がありました。この設計から分かるように Snapshot というのは Compiler の計算の途中の値を保存するものではなく、どうやらコンパイラのフェーズの進みを確かめるマーカーに近いようなのです。そうすると Snapshot という名前には違和感があるのですが、別の名前が思い浮かびません。",
-        "user": "U5LEE6C1J",
-        "type": "message"
+        "type": "message",
+        "ts": "1586411613.007500",
+        "user": "U5LEE6C1J"
     },
     {
-        "ts": "1586497623.009000",
         "text": "…ピンときていないのですが、CompilationPhaseではピンとこないのですか？",
-        "user": "UL1HFJATE",
-        "type": "message"
+        "type": "message",
+        "ts": "1586497623.009000",
+        "user": "UL1HFJATE"
     },
     {
-        "ts": "1586498049.011600",
         "text": "Phase の名前と Phase が終了したというマーカーの二つの役割がある状態なので、どんな名前を付けてもしっくり来てない状態なんだと思います",
-        "user": "U5LEE6C1J",
-        "type": "message"
+        "type": "message",
+        "ts": "1586498049.011600",
+        "user": "U5LEE6C1J"
     },
     {
-        "ts": "1586498670.013600",
         "text": "…`PhaseSignal`?",
-        "user": "UL1HFJATE",
-        "type": "message"
+        "type": "message",
+        "ts": "1586498670.013600",
+        "user": "UL1HFJATE"
     },
     {
-        "ts": "1586498836.016200",
         "text": "と言うか、「マーカー」という日本語の使用に違和感を感じないような状況なんであれば、安直に `PhaseMarker` はどうか、とか思ってしまうんですが。",
-        "user": "UL1HFJATE",
-        "type": "message"
+        "type": "message",
+        "ts": "1586498836.016200",
+        "user": "UL1HFJATE"
     },
     {
-        "ts": "1586574051.016400",
         "text": "`PhaseMarker = PhaseMarker { ..., phaseName :: ...}` みたいな設計にしようかと思います。答えていただきありがとうございます！",
-        "user": "U5LEE6C1J",
-        "type": "message"
+        "type": "message",
+        "ts": "1586574051.016400",
+        "user": "U5LEE6C1J"
     },
     {
-        "ts": "1589366997.016700",
         "text": "<@U4MMHDSNT> has joined the channel",
-        "user": "U4MMHDSNT",
-        "type": "message"
+        "type": "message",
+        "ts": "1589366997.016700",
+        "user": "U4MMHDSNT"
     },
     {
-        "ts": "1590291563.016900",
         "text": "<@U5LV76EJH> has joined the channel",
-        "user": "U5LV76EJH",
-        "type": "message"
+        "type": "message",
+        "ts": "1590291563.016900",
+        "user": "U5LV76EJH"
     },
     {
-        "ts": "1590455188.017100",
         "text": "<@UR1U3B6LU> has joined the channel",
-        "user": "UR1U3B6LU",
-        "type": "message"
+        "type": "message",
+        "ts": "1590455188.017100",
+        "user": "UR1U3B6LU"
     },
     {
-        "ts": "1592189700.017300",
         "text": "<@USFQ6M2PR> has joined the channel",
-        "user": "USFQ6M2PR",
-        "type": "message"
+        "type": "message",
+        "ts": "1592189700.017300",
+        "user": "USFQ6M2PR"
     },
     {
-        "ts": "1593575314.017500",
         "text": "<@U015X47HJHM> has joined the channel",
-        "user": "U015X47HJHM",
-        "type": "message"
+        "type": "message",
+        "ts": "1593575314.017500",
+        "user": "U015X47HJHM"
     },
     {
-        "ts": "1598789242.000200",
         "text": "<@UAG73SX6W> has joined the channel",
-        "user": "UAG73SX6W",
-        "type": "message"
+        "type": "message",
+        "ts": "1598789242.000200",
+        "user": "UAG73SX6W"
     },
     {
-        "ts": "1599177930.000400",
         "text": "<@ULW9GKNQ0> has joined the channel",
-        "user": "ULW9GKNQ0",
-        "type": "message"
+        "type": "message",
+        "ts": "1599177930.000400",
+        "user": "ULW9GKNQ0"
     },
     {
-        "ts": "1600758654.000200",
         "text": "<@U01B4SYCQMR> has joined the channel",
-        "user": "U01B4SYCQMR",
-        "type": "message"
+        "type": "message",
+        "ts": "1600758654.000200",
+        "user": "U01B4SYCQMR"
     },
     {
-        "ts": "1601552484.000200",
         "text": "<@U01BY9MH3D2> has joined the channel",
-        "user": "U01BY9MH3D2",
-        "type": "message"
+        "type": "message",
+        "ts": "1601552484.000200",
+        "user": "U01BY9MH3D2"
     },
     {
-        "ts": "1601606511.000400",
         "text": "<@U4KNU6N48> has joined the channel",
-        "user": "U4KNU6N48",
-        "type": "message"
+        "type": "message",
+        "ts": "1601606511.000400",
+        "user": "U4KNU6N48"
     },
     {
-        "ts": "1602302913.000600",
         "text": "<@UCZD3FLCS> has joined the channel",
-        "user": "UCZD3FLCS",
-        "type": "message"
+        "type": "message",
+        "ts": "1602302913.000600",
+        "user": "UCZD3FLCS"
     },
     {
-        "ts": "1603461132.000800",
         "text": "<@U56JX2GM8> has joined the channel",
-        "user": "U56JX2GM8",
-        "type": "message"
+        "type": "message",
+        "ts": "1603461132.000800",
+        "user": "U56JX2GM8"
     },
     {
-        "ts": "1605556496.001100",
         "text": "<@UL3EYH36Z> has joined the channel",
-        "user": "UL3EYH36Z",
-        "type": "message"
+        "type": "message",
+        "ts": "1605556496.001100",
+        "user": "UL3EYH36Z"
     },
     {
-        "ts": "1606711283.001300",
         "text": "<@U01FWJ90CKE> has joined the channel",
-        "user": "U01FWJ90CKE",
-        "type": "message"
+        "type": "message",
+        "ts": "1606711283.001300",
+        "user": "U01FWJ90CKE"
     },
     {
-        "ts": "1607305206.001600",
         "text": "<@U7822EKEW> has joined the channel",
-        "user": "U7822EKEW",
-        "type": "message"
+        "type": "message",
+        "ts": "1607305206.001600",
+        "user": "U7822EKEW"
     },
     {
-        "ts": "1607359096.001800",
         "text": "<@USS5JD12Q> has joined the channel",
-        "user": "USS5JD12Q",
-        "type": "message"
+        "type": "message",
+        "ts": "1607359096.001800",
+        "user": "USS5JD12Q"
     },
     {
-        "ts": "1609596747.002100",
         "text": "<@U01HPB51LLE> has joined the channel",
-        "user": "U01HPB51LLE",
-        "type": "message"
+        "type": "message",
+        "ts": "1609596747.002100",
+        "user": "U01HPB51LLE"
     },
     {
-        "ts": "1613734109.000300",
         "text": "<@UEU4W901W> has joined the channel",
-        "user": "UEU4W901W",
-        "type": "message"
+        "type": "message",
+        "ts": "1613734109.000300",
+        "user": "UEU4W901W"
     },
     {
-        "ts": "1616120168.000200",
         "text": "<@UF8SE896V> has joined the channel",
-        "user": "UF8SE896V",
-        "type": "message"
+        "type": "message",
+        "ts": "1616120168.000200",
+        "user": "UF8SE896V"
     },
     {
-        "ts": "1621091579.000400",
         "text": "<@U021XMH7NDT> has joined the channel",
-        "user": "U021XMH7NDT",
-        "type": "message"
+        "type": "message",
+        "ts": "1621091579.000400",
+        "user": "U021XMH7NDT"
     },
     {
-        "ts": "1625668993.000200",
         "text": "<@U027BSBUHMH> has joined the channel",
-        "user": "U027BSBUHMH",
-        "type": "message"
+        "type": "message",
+        "ts": "1625668993.000200",
+        "user": "U027BSBUHMH"
     },
     {
-        "ts": "1626745099.000200",
         "text": "<@U028RHBT7TN> has joined the channel",
-        "user": "U028RHBT7TN",
-        "type": "message"
+        "type": "message",
+        "ts": "1626745099.000200",
+        "user": "U028RHBT7TN"
     },
     {
-        "ts": "1628948394.000200",
         "text": "<@U02B78W3F7U> has joined the channel",
-        "user": "U02B78W3F7U",
-        "type": "message"
+        "type": "message",
+        "ts": "1628948394.000200",
+        "user": "U02B78W3F7U"
     },
     {
-        "ts": "1632837966.001000",
         "text": "今スライドの英訳を作っていて分からなくなったんですが、型推論の文脈で、型変数に具体型を当てはめることを英語でなんていうんでしたっけ？",
-        "user": "U4LGTMTMK",
-        "type": "message"
+        "type": "message",
+        "ts": "1632837966.001000",
+        "user": "U4LGTMTMK"
     },
     {
-        "ts": "1632838111.002000",
         "text": "bind a type variable to a concrete type かな",
-        "user": "U4L0B71L1",
-        "type": "message"
+        "type": "message",
+        "ts": "1632838111.002000",
+        "user": "U4L0B71L1"
     },
     {
-        "ts": "1632838252.005700",
         "text": "「型代入」に対応する語として、substitution が使われることがあるように思います。Typing Haskell in Haskell でも、たしかそう呼んでました",
-        "user": "USS5JD12Q",
-        "type": "message"
+        "type": "message",
+        "ts": "1632838252.005700",
+        "user": "USS5JD12Q"
     },
     {
-        "ts": "1632838282.006100",
         "text": "それだ！ :bulb:",
-        "user": "U4LGTMTMK",
-        "type": "message"
+        "type": "message",
+        "ts": "1632838282.006100",
+        "user": "U4LGTMTMK"
     },
     {
-        "ts": "1632838292.006300",
         "text": "わーい",
-        "user": "USS5JD12Q",
-        "type": "message"
+        "type": "message",
+        "ts": "1632838292.006300",
+        "user": "USS5JD12Q"
     },
     {
-        "ts": "1632838961.007600",
         "text": "余談ですが思わず「そうだそうだ、束縛でもこの場合充分良さそうだけど置換の方が適切だった」などと文脈を知らない人が聞けば妙に物騒な独り言が出てしまいましたw",
-        "user": "U4LGTMTMK",
-        "type": "message"
+        "type": "message",
+        "ts": "1632838961.007600",
+        "user": "U4LGTMTMK"
     },
     {
-        "ts": "1632912599.008000",
         "text": "instantiateではないですか？",
-        "user": "U4KUNQF9N",
-        "type": "message"
+        "type": "message",
+        "ts": "1632912599.008000",
+        "user": "U4KUNQF9N"
     },
     {
-        "ts": "1632913274.008600",
         "text": "言われてみれば確かにその方が確かに適切な気がしてきた...！（揺れる心）",
-        "user": "U4LGTMTMK",
-        "type": "message"
+        "type": "message",
+        "ts": "1632913274.008600",
+        "user": "U4LGTMTMK"
     },
     {
-        "ts": "1638711466.000300",
         "text": "<@U02P4JW563Z> has joined the channel",
-        "user": "U02P4JW563Z",
-        "type": "message"
+        "type": "message",
+        "ts": "1638711466.000300",
+        "user": "U02P4JW563Z"
+    },
+    {
+        "text": "<@U02USQMELUX> has joined the channel",
+        "type": "message",
+        "ts": "1642950870.000200",
+        "user": "U02USQMELUX"
     }
 ]
