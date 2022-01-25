@@ -1,0 +1,50 @@
+[
+    {
+        "text": "はじめまして。\n以下のHLSのエラーについてご質問させてください。\n```[cradle] [E] Multi Cradle: No prefixes matched```\nソースコードはこちらです。app/AST.hsを開くと発生します。\n<https://github.com/htlsne/misc/tree/arithmetic-expression/haskell/arithmetic_expression>\n\nHLSのバージョンは以下です。\nhaskell-language-server version: 1.5.1.0 (GHC: 8.10.7)\n\n以下を試しましたが解決しませんでした。\n1. `gen-hie &gt; hie.yaml`を実行してhie.yamlを生成したのですが、 エラーは消えませんでした。（<https://github.com/htlsne/misc/blob/e73b0812a4265a0515d6ae84efaffeb7e831ba64/haskell/arithmetic_expression/hie.yaml|hie.yaml>）\n2. hie.yamlにAST.hsを追加したところ、AST.hsのエラーは消えました。しかし今度はMain.hsで`[not found] [E] Could not find module 'AST'` というエラーが出ています。（<https://github.com/htlsne/misc/blob/11d08d3c3d0eddf8e8bed727bbb1f91ad72fbf42/haskell/arithmetic_expression/hie.yaml|hie.yaml>）\nどのようにしたら解決できるでしょうか。また、そもそもモジュールの作り方はこれで合っているのでしょうか。\n既出の質問のようなのですが、解決できなかったためご相談させてください。",
+        "type": "message",
+        "ts": "1643019666.037900",
+        "user": "U02U62Z90LS"
+    },
+    {
+        "text": "<https://cabal.readthedocs.io/en/3.4/cabal-package.html#build-information|Cabalドキュメンテーションの7.2.9節>に\n\n&gt; Note\n&gt; 　\n&gt; Every module in the package must be listed in one of other-modules, library:exposed-modules or executable:main-is fields.\n&gt; \nとあるように、Cabalを使うならモジュール名は全て `.cabal` ファイルに書かないとマズイっぽくて、そんで、とりあえず executable arithmetic-expressionに付属して他のlibraryやexecutableから参照されないものは その executableの `other-modules` に書くことになってるっぽいので、Cabalファイルを\n\n\n```-- A longer description of the package.\n-- description:\n\n-- A URL where users can report bugs.\n-- bug-reports:\n\n-- The license under which the package is released.\n-- license:\nauthor:             htlsne\nmaintainer:         <mailto:htlsne23@gmail.com|htlsne23@gmail.com>\n\n-- A copyright notice.\n-- copyright:\n-- category:\nextra-source-files: CHANGELOG.md\n\nexecutable arithmetic-expression\n    main-is:          Main.hs\n\n    -- Modules included in this executable, other than Main.\n    other-modules:   AST\n\n    -- LANGUAGE extensions used by modules in this package.\n    -- other-extensions:\n    build-depends:\n        base ^&gt;=4.14.3.0,\n        parsec ^&gt;= 3.1.15.0\n    hs-source-dirs:   app\n    default-language: Haskell2010```\nに直して `gen-hie &gt; hie.yaml` を実行してみたところ、当方のEmacs環境上では動いているように見えますが、自信はありません…",
+        "type": "message",
+        "ts": "1643026321.039200",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "ちなみにこのcabalファイルで `gen-hie &gt; hie.yaml` すると\n\n```cradle:\n  cabal:\n    - path: \"app/Main.hs\"\n      component: \"arithmetic-expression:exe:arithmetic-expression\"\n\n    - path: \"app/AST.hs\"\n      component: \"arithmetic-expression:exe:arithmetic-expression\"```\n",
+        "type": "message",
+        "ts": "1643027097.040700",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "になります。",
+        "type": "message",
+        "ts": "1643027159.041100",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "ありがとうございます。\nなるほど、すべてのモジュールを記載する必要があるのですね…。\nother-modulesに記載したところ、hie.yamlを作成しなくてもエラーは出なくなったようでした。\n\nこれってCabal特有の話なのでしょうか。\nStackでもすべてのモジュールを追加する必要があるのでしょうか？\n\nまた、hpackというものを見つけたのですが、皆さんこのようなツールを使って解決されているのでしょうか。",
+        "type": "message",
+        "ts": "1643029382.041300",
+        "user": "U02U62Z90LS"
+    },
+    {
+        "text": "ご確認なさったかもしれませんが、hpackは `package.yaml` というyaml形式のファイルを変換して `&lt;package-name&gt;.cabal` ファイル群を生成するツールです。このhpackには、cabalファイルを生成する際に、`exposed-modules` か `other-modules` の一方が未指定で他方が指定済みの場合、取り残された `.hs` ファイルを全て未指定の方(libraryの場合に両方未指定のなら `exposed` の方)に突っ込む、という機能があります。というかこれが最も主要な機能の一個ですね。ですので、package.yaml+hpackを使うなら、other-modulesにいちいち書く必要はないわけです。\n\nところで、Stackは、自動的にhpackを呼びます。そうすることで、package.yamlファイルを使っても.cabalファイルを使ってもパッケージを作成できるようになっています。ということは、.cabalファイルを使ってStackを使うなら、すべてのモジュールをいちいち書く必要がありますが、package.yamlを使う場合にはその必要はないわけです。",
+        "type": "message",
+        "ts": "1643033258.057000",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "なるほどです、納得できました。\n\nStackを使うにせよCabalを使うにせよ、hpackを使う方向で試してみたいと思います。\n丁寧に説明いただきありがとうございました！",
+        "type": "message",
+        "ts": "1643035982.057700",
+        "user": "U02U62Z90LS"
+    },
+    {
+        "text": "cabalは勝手にhpackを呼んではくれないので、cabal+hpackを自動化するならちょっと頑張らないといけないっぽいですけどね…。なんにせよ、お役に立てたならよかったです！",
+        "type": "message",
+        "ts": "1643037590.060300",
+        "user": "UL1HFJATE"
+    }
+]
