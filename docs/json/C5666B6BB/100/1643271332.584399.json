@@ -1,0 +1,38 @@
+[
+    {
+        "text": "<https://github.com/egison/egison/blob/master/hs-src/Language/Egison/Math/Rewrite.hs#L64>　\nこのコードがtemplate haskellのQuasiQuotesを使ってるみたいなんですが、[mc | ...... |]の部分の読み方がわかりません。",
+        "type": "message",
+        "ts": "1643271332.584399",
+        "user": "U016WTKJ2UV"
+    },
+    {
+        "text": "これはEgisonライクな独自言語を持ち込んでいるので、独自の構文を理解しないと読めません。\n雑に言うと、これにマッチした場合変数 `k` と `xss` にデータが代入されて、 `-&gt;` の右辺では変数代入済みの通常のHaskellコードが書かれています",
+        "type": "message",
+        "ts": "1643271628.191029",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "解説ありがとうござます。\n-Wunused-local-bindsのワーニングを取り除きたいだけなんですが、どうすればよろしいでしょうか？",
+        "type": "message",
+        "ts": "1643272770.378109",
+        "user": "U016WTKJ2UV"
+    },
+    {
+        "text": "一番確実なのは `-ddump-splices` で生成されたソースコードを確認することですが、多分めっちゃ大変だと思うので <@U80GXHF6Y> さんに直接聞くのがいいんじゃないっすかね。",
+        "type": "message",
+        "ts": "1643276840.921319",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "shakespeareでも偽陽性の変数の未使用あった気がするので、色々と厳しいかもしれません",
+        "type": "message",
+        "ts": "1643276911.427249",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "<https://github.com/egison/sweet-egison>\nこのライブラリを使ったコードなのですが，-Wunused-local-bindsのワーニングを取り除くのが難しくて諦めた記憶があります．",
+        "type": "message",
+        "ts": "1643292691.257249",
+        "user": "U80GXHF6Y"
+    }
+]
