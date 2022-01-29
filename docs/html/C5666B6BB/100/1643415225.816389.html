@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #100 at 2022-01-29 09:13:45 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #100 at 2022-01-29 09:13:45 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../100.html" class="item">Back to questions #100</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1643415225.816389">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1643415225.816389">2022-01-29 09:13:45 +0900</a></div>
+          </div>
+          <div class="description"><a href='#CR2TETE5R'>beginners</a> であった @mail741 さんの質問  <a href='https://haskell-jp.slack.com/archives/CR2TETE5R/p1643286256145989'>https://haskell-jp.slack.com/archives/CR2TETE5R/p1643286256145989</a> を見てて思ったのですが、Cabal (cabal-the-library, Stack とか cabal-installから呼ばれるやつ) と cabal-install (cabal-the-command-line-tool) の違いってなんでしょう。つまり、Cabalがやらなくてcabal-installがやることってなんでしょうか。もちろんCabalはコマンドラインオプションの解析はしないわけですし、Cabalのdependencyを見るに、インターネット接続が必要な、パッケージのダウンロードはやらなそうに見えるのですが…。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1643446510.260179">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1643446510.260179">2022-01-29 17:55:10 +0900</a></div>
+          </div>
+          <div class="description">ちゃんとソース読んだわけじゃないので私も確かなことは言えないのですが、stackやcabal-installがCabalのフロントエンド、という説明で十分な気がするんですが、いかがでしょうか？「Cabalがやらなくてcabal-installがやること」に対する答えは質問文にある「コマンドライン引数の解析」などなのではないかと</div>
+        </div>
+      </div>
+      <div class="event" id="message-1643453099.692839">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1643453099.692839">2022-01-29 19:44:59 +0900</a></div>
+          </div>
+          <div class="description">んー… 例えばなんですが、 <code>HTTP</code> だの <code>network-uri</code> だの <code>hackage-security</code> だののパッケージは <code>cabal-install</code> のdependencyではあるんですが、 <code>Cabal</code> のdependencyではないし、 あと、 <code>cabal-install-solver</code> という「ライブラリ」が全部 <code>cabal-install</code> executableの <code>other-modules</code> になってたりするので、パッケージを選択してダウンロードするところまで全部 <code>cabal-install</code> 占有の機能で、 <code>Cabal</code> は落ちてきたパッケージ群をビルドしているだけなのでは、みたいな疑問があったんですよね。 そうなった時に <code>Cabal</code> って実際どこまでの機能を持ってるんだろうと。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1643453223.756579">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1643453223.756579">2022-01-29 19:47:03 +0900</a></div>
+          </div>
+          <div class="description">というかそもそもこういうでかいパッケージってどっから読んだらいいかわからん、というのがあってですね…。GHCとかどうやって読めば良いんだろう。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../100.html" class="item">Back to questions #100</a>
+    </div>
+  </div>
+</body>
+</html>

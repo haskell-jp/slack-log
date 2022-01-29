@@ -1,0 +1,26 @@
+[
+    {
+        "text": "<#CR2TETE5R|beginners> であった <@U02NV1XHYBT> さんの質問  <https://haskell-jp.slack.com/archives/CR2TETE5R/p1643286256145989|https://haskell-jp.slack.com/archives/CR2TETE5R/p1643286256145989> を見てて思ったのですが、Cabal (cabal-the-library, Stack とか cabal-installから呼ばれるやつ) と cabal-install (cabal-the-command-line-tool) の違いってなんでしょう。つまり、Cabalがやらなくてcabal-installがやることってなんでしょうか。もちろんCabalはコマンドラインオプションの解析はしないわけですし、Cabalのdependencyを見るに、インターネット接続が必要な、パッケージのダウンロードはやらなそうに見えるのですが…。",
+        "type": "message",
+        "ts": "1643415225.816389",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "ちゃんとソース読んだわけじゃないので私も確かなことは言えないのですが、stackやcabal-installがCabalのフロントエンド、という説明で十分な気がするんですが、いかがでしょうか？「Cabalがやらなくてcabal-installがやること」に対する答えは質問文にある「コマンドライン引数の解析」などなのではないかと",
+        "type": "message",
+        "ts": "1643446510.260179",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "んー… 例えばなんですが、 `HTTP` だの `network-uri` だの `hackage-security` だののパッケージは `cabal-install` のdependencyではあるんですが、 `Cabal` のdependencyではないし、 あと、 `cabal-install-solver` という「ライブラリ」が全部 `cabal-install` executableの `other-modules` になってたりするので、パッケージを選択してダウンロードするところまで全部 `cabal-install` 占有の機能で、 `Cabal` は落ちてきたパッケージ群をビルドしているだけなのでは、みたいな疑問があったんですよね。 そうなった時に `Cabal` って実際どこまでの機能を持ってるんだろうと。",
+        "type": "message",
+        "ts": "1643453099.692839",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "というかそもそもこういうでかいパッケージってどっから読んだらいいかわからん、というのがあってですね…。GHCとかどうやって読めば良いんだろう。",
+        "type": "message",
+        "ts": "1643453223.756579",
+        "user": "UL1HFJATE"
+    }
+]
