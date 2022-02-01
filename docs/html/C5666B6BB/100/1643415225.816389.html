@@ -57,6 +57,33 @@
           <div class="description">実際にコードを追ったわけではないので大雑把にですが<br/>• Cabal: Setup.hsができること<br/>• cabal-install: 依存関係の解決も含む残りすべて<br/>と理解しています。</div>
         </div>
       </div>
+      <div class="event" id="message-1643607554.549859">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1643607554.549859">2022-01-31 14:39:14 +0900</a></div>
+          </div>
+          <div class="description"><@UL1HFJATE> cabal-install に network が使われているというところまで分かっているのですから、grep -r Network.Socket * を実行し、該当したモジュールから読み始めるのはいかがですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1643654452.434379">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1643654452.434379">2022-02-01 03:40:52 +0900</a></div>
+          </div>
+          <div class="description">@maoe なるほど。ビルドスクリプトにできるべきことは全部できるべき、と言うlibraryだ、みたいな話でしょうか。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1643654655.855979">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1643654655.855979">2022-02-01 03:44:15 +0900</a></div>
+          </div>
+          <div class="description">@kazu  ！ <code>network</code> 自体は (`network-uri` とは異なり) dependency ではないのでそのgrepはemptyでしたが、 <code>HTTP</code> も dependencyなのでそのモジュールを読むのは意味がありそうですね。ありがとうございます！</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../100.html" class="item">Back to questions #100</a>
