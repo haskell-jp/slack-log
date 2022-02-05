@@ -16,5 +16,11 @@
         "type": "message",
         "ts": "1643846407.543369",
         "user": "USLACKBOT"
+    },
+    {
+        "text": "VSCodeでプログラムを書いているのですが、import文で `Could not find module Data.Attoparsec.Text` などと出たときの対処はどうすれば良いのでしょか。使用している拡張機能は以下の2つです。\n・Haskell <https://marketplace.visualstudio.com/items?itemName=haskell.haskell>\n・Haskell Syntax Highlighting <https://marketplace.visualstudio.com/items?itemName=justusadam.language-haskell>\n\nちなみに、.ghcup/bin/ghci でこのプログラムをloadすると\n`Could not find module 'Data.Attoparsec.Text'`\nとメッセージが VSCode 側と同じエラーが出るのですが、\n普段使っている stack 経由で実行した ghci でこのプログラムをloadすると問題なく動きました。\nなので、stack 側だけが上手いことやってくれているのだと思いますが、どこの設定を変更すれば良いのかがわかりません。\n\n```{-# LANGUAGE OverloadedStrings #-}\nimport qualified Data.Text as T\nimport Data.Attoparsec.Text hiding (take)\n\nmain :: IO ()\nmain = do\n  print $ parse decimal \"1000\"```\n",
+        "type": "message",
+        "ts": "1644038215.253089",
+        "user": "U02NV8V2EEQ"
     }
 ]

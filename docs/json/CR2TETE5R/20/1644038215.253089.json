@@ -1,0 +1,50 @@
+[
+    {
+        "text": "VSCodeでプログラムを書いているのですが、import文で `Could not find module Data.Attoparsec.Text` などと出たときの対処はどうすれば良いのでしょか。使用している拡張機能は以下の2つです。\n・Haskell <https://marketplace.visualstudio.com/items?itemName=haskell.haskell>\n・Haskell Syntax Highlighting <https://marketplace.visualstudio.com/items?itemName=justusadam.language-haskell>\n\nちなみに、.ghcup/bin/ghci でこのプログラムをloadすると\n`Could not find module 'Data.Attoparsec.Text'`\nとメッセージが VSCode 側と同じエラーが出るのですが、\n普段使っている stack 経由で実行した ghci でこのプログラムをloadすると問題なく動きました。\nなので、stack 側だけが上手いことやってくれているのだと思いますが、どこの設定を変更すれば良いのかがわかりません。\n\n```{-# LANGUAGE OverloadedStrings #-}\nimport qualified Data.Text as T\nimport Data.Attoparsec.Text hiding (take)\n\nmain :: IO ()\nmain = do\n  print $ parse decimal \"1000\"```\n",
+        "type": "message",
+        "ts": "1644038215.253089",
+        "user": "U02NV8V2EEQ"
+    },
+    {
+        "text": "cabal のプロジェクト内ではないってことで合ってますか？",
+        "type": "message",
+        "ts": "1644040115.875389",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "はい。cabal は使っていません。",
+        "type": "message",
+        "ts": "1644042709.938559",
+        "user": "U02NV8V2EEQ"
+    },
+    {
+        "text": "cabalをそもそも使ってないんだったら `stack exec ghci` などして使うしかないですね...\nghcup も使わず、 `alias ghci stack exec ghci --` 等の設定で、ghciコマンドを実行したときにstackからGHCiを呼ぶように設定した方がいいと思います。",
+        "type": "message",
+        "ts": "1644044643.977739",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "ありがとうございます。3点質問をさせてください。\n1. `stack ghci` ではなく `stack exec ghci` なのは何か意味があるのでしょうか（私は `stack ghci` の方を使っていました）。\n2. `alias ghci stack exec ghci —` とする意図は、VSCode 側でソースコードを処理するときに内部で呼んでいる(?) ghci コマンドと、私がいつも `stack ghci` として実行している ghci コマンドを同じにしたいということであっていますか。\n3. そもそもの話なのですが、「cabal を使っていないのであれば」ということは、これは cabal ではなく stack を使っている人がぶつかる問題ということなのでしょうか。\n",
+        "type": "message",
+        "ts": "1644045850.026919",
+        "user": "U02NV8V2EEQ"
+    },
+    {
+        "text": "1. 実はその二つは目的が違うコマンドでして、先に後者を説明すると、後者は、現在のプロジェクトのstack.yamlに応じた環境変数を指定した状態でghciを起動するだけ、です。対する前者は、後者の機能に加え、プロジェクトの中で実行した場合、プロジェクトの中にあるモジュールを一通りロードした状態でGHCiを起動します。前者の方が高機能ではあるのですが、ghciコマンドに直接オプションを渡しづらいという問題があるので必要なとき以外は `stack exec ghci` をおすすめします。\n2. いや、単純にghciコマンドだけで（stackがインストールしたパッケージが利用できる状態で）ghciを起動したいならaliasを設定しておくといいですよ、という話です。VS Codeがどうやってどのghciを起動させているのかは知りません。\n3. 「stackを使っている人がぶつかる」というより正確にはstackとghcup両方をインストールして両方でGHCをインストールした人がぶつかる、といった方が適切かも知れません。 <https://haskell-jp.slack.com/archives/CR2TETE5R/p1643286256145989> の回答で説明したとおり、stackはそれだけでghcupやcabal相当のことを概ねすべてこなしてくれるので、stackかghcup+cabalかのどちらかに絞った方が混乱しにくいかと思います。",
+        "type": "message",
+        "ts": "1644046163.539079",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "（途中で送信してしまいましたが今完成させました）",
+        "type": "message",
+        "ts": "1644046449.835709",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "なるほど…\n1. そんな違いがあったのですね。初学者としてもおすすめを教えていただけるのはありがたいです。`stack exec ghci`を使おうと思います。\n2. これはその通りですね。\n3. ghcupを削除したらVS Codeの方のエラーもなくなったので「stackとghcup両方をインストールして両方でGHCをインストールした人がぶつかる」っぽいですね。stack, ghcup, cabalの関係性も少し理解が進みました。ありがとうございました。",
+        "type": "message",
+        "ts": "1644049006.582539",
+        "user": "U02NV8V2EEQ"
+    }
+]

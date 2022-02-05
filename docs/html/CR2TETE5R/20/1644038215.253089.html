@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #20 at 2022-02-05 14:16:55 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #20 at 2022-02-05 14:16:55 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../20.html" class="item">Back to beginners #20</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1644038215.253089">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ose20dive</div>
+            <div class="date"><a class="date" href="#message-1644038215.253089">2022-02-05 14:16:55 +0900</a></div>
+          </div>
+          <div class="description">VSCodeでプログラムを書いているのですが、import文で `Could not find module Data.Attoparsec.Text` などと出たときの対処はどうすれば良いのでしょか。使用している拡張機能は以下の2つです。<br/>・Haskell <https://marketplace.visualstudio.com/items?itemName=haskell.haskell><br/>・Haskell Syntax Highlighting <https://marketplace.visualstudio.com/items?itemName=justusadam.language-haskell><br/><br/>ちなみに、.ghcup/bin/ghci でこのプログラムをloadすると<br/><code>Could not find module 'Data.Attoparsec.Text'</code><br/>とメッセージが VSCode 側と同じエラーが出るのですが、<br/>普段使っている stack 経由で実行した ghci でこのプログラムをloadすると問題なく動きました。<br/>なので、stack 側だけが上手いことやってくれているのだと思いますが、どこの設定を変更すれば良いのかがわかりません。<br/><br/><pre>{-# LANGUAGE OverloadedStrings #-}
+import qualified Data.Text as T
+import Data.Attoparsec.Text hiding (take)
+
+main :: IO ()
+main = do
+  print $ parse decimal "1000"</pre><br/></div>
+        </div>
+      </div>
+      <div class="event" id="message-1644040115.875389">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1644040115.875389">2022-02-05 14:48:35 +0900</a></div>
+          </div>
+          <div class="description">cabal のプロジェクト内ではないってことで合ってますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1644042709.938559">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ose20dive</div>
+            <div class="date"><a class="date" href="#message-1644042709.938559">2022-02-05 15:31:49 +0900</a></div>
+          </div>
+          <div class="description">はい。cabal は使っていません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1644044643.977739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1644044643.977739">2022-02-05 16:04:03 +0900</a></div>
+          </div>
+          <div class="description">cabalをそもそも使ってないんだったら <code>stack exec ghci</code> などして使うしかないですね...<br/>ghcup も使わず、 <code>alias ghci stack exec ghci --</code> 等の設定で、ghciコマンドを実行したときにstackからGHCiを呼ぶように設定した方がいいと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1644045850.026919">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ose20dive</div>
+            <div class="date"><a class="date" href="#message-1644045850.026919">2022-02-05 16:24:10 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。3点質問をさせてください。<br/>1. <code>stack ghci</code> ではなく <code>stack exec ghci</code> なのは何か意味があるのでしょうか（私は <code>stack ghci</code> の方を使っていました）。<br/>2. <code>alias ghci stack exec ghci —</code> とする意図は、VSCode 側でソースコードを処理するときに内部で呼んでいる(?) ghci コマンドと、私がいつも <code>stack ghci</code> として実行している ghci コマンドを同じにしたいということであっていますか。<br/>3. そもそもの話なのですが、「cabal を使っていないのであれば」ということは、これは cabal ではなく stack を使っている人がぶつかる問題ということなのでしょうか。<br/></div>
+        </div>
+      </div>
+      <div class="event" id="message-1644046163.539079">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1644046163.539079">2022-02-05 16:29:23 +0900</a></div>
+          </div>
+          <div class="description">1. 実はその二つは目的が違うコマンドでして、先に後者を説明すると、後者は、現在のプロジェクトのstack.yamlに応じた環境変数を指定した状態でghciを起動するだけ、です。対する前者は、後者の機能に加え、プロジェクトの中で実行した場合、プロジェクトの中にあるモジュールを一通りロードした状態でGHCiを起動します。前者の方が高機能ではあるのですが、ghciコマンドに直接オプションを渡しづらいという問題があるので必要なとき以外は <code>stack exec ghci</code> をおすすめします。<br/>2. いや、単純にghciコマンドだけで（stackがインストールしたパッケージが利用できる状態で）ghciを起動したいならaliasを設定しておくといいですよ、という話です。VS Codeがどうやってどのghciを起動させているのかは知りません。<br/>3. 「stackを使っている人がぶつかる」というより正確にはstackとghcup両方をインストールして両方でGHCをインストールした人がぶつかる、といった方が適切かも知れません。 <a href='https://haskell-jp.slack.com/archives/CR2TETE5R/p1643286256145989'>https://haskell-jp.slack.com/archives/CR2TETE5R/p1643286256145989</a> の回答で説明したとおり、stackはそれだけでghcupやcabal相当のことを概ねすべてこなしてくれるので、stackかghcup+cabalかのどちらかに絞った方が混乱しにくいかと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1644046449.835709">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1644046449.835709">2022-02-05 16:34:09 +0900</a></div>
+          </div>
+          <div class="description">（途中で送信してしまいましたが今完成させました）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1644049006.582539">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ose20dive</div>
+            <div class="date"><a class="date" href="#message-1644049006.582539">2022-02-05 17:16:46 +0900</a></div>
+          </div>
+          <div class="description">なるほど…<br/>1. そんな違いがあったのですね。初学者としてもおすすめを教えていただけるのはありがたいです。`stack exec ghci`を使おうと思います。<br/>2. これはその通りですね。<br/>3. ghcupを削除したらVS Codeの方のエラーもなくなったので「stackとghcup両方をインストールして両方でGHCをインストールした人がぶつかる」っぽいですね。stack, ghcup, cabalの関係性も少し理解が進みました。ありがとうございました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../20.html" class="item">Back to beginners #20</a>
+    </div>
+  </div>
+</body>
+</html>

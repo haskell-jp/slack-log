@@ -40,6 +40,22 @@
           <div class="description">Reminder: beginnersチャンネルは、新しい人がスムーズにHaskellに慣れるための質問を歓迎するチャンネルです。<br/>Haskell-Beginners ML や IRCの#haskell-beginners  や RedditのMonthly Hask Anythingのような位置づけを意図しています。<br/><br/>beginnersチャンネルでの回答側は、以下の左側のような応答を厳禁とする運用です。<br/>• それはくだらない質問だ → くだらない質問など無い<br/>• その質問は以前にもあった → 質問者はそんなこと知らない<br/>• Google検索せよ → 検索できないから質問している<br/><br/>beginnersチャンネルでは、例えば以下のレベルの質問から歓迎します。<br/>• <code>:</code> とは何のことですか。<br/>• タプルとは何ですか。<br/></div>
         </div>
       </div>
+      <div class="event" id="message-1644038215.253089">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ose20dive</div>
+            <div class="date"><a class="date" href="#message-1644038215.253089">2022-02-05 14:16:55 +0900</a></div>
+          </div>
+          <div class="description">VSCodeでプログラムを書いているのですが、import文で `Could not find module Data.Attoparsec.Text` などと出たときの対処はどうすれば良いのでしょか。使用している拡張機能は以下の2つです。<br/>・Haskell <https://marketplace.visualstudio.com/items?itemName=haskell.haskell><br/>・Haskell Syntax Highlighting <https://marketplace.visualstudio.com/items?itemName=justusadam.language-haskell><br/><br/>ちなみに、.ghcup/bin/ghci でこのプログラムをloadすると<br/><code>Could not find module 'Data.Attoparsec.Text'</code><br/>とメッセージが VSCode 側と同じエラーが出るのですが、<br/>普段使っている stack 経由で実行した ghci でこのプログラムをloadすると問題なく動きました。<br/>なので、stack 側だけが上手いことやってくれているのだと思いますが、どこの設定を変更すれば良いのかがわかりません。<br/><br/><pre>{-# LANGUAGE OverloadedStrings #-}
+import qualified Data.Text as T
+import Data.Attoparsec.Text hiding (take)
+
+main :: IO ()
+main = do
+  print $ parse decimal "1000"</pre><br/></div>
+          <a class="link-to-replies" href="20/1644038215.253089.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/19.html" class="item">Previous</a>

@@ -154,5 +154,137 @@
         "type": "message",
         "ts": "1643718273.185519",
         "user": "U4M4XHKB8"
+    },
+    {
+        "text": "",
+        "type": "message",
+        "ts": "1644033753.374139",
+        "user": null
+    },
+    {
+        "text": "今日は『Haskell入門』の7章を読み進めます。なんとか読み切りたい…",
+        "type": "message",
+        "ts": "1644034295.923509",
+        "user": "U02NV8V2EEQ"
+    },
+    {
+        "text": "山本悠滋です。年度末タスクが一区切りついた :relieved:\nお昼食べてからHaskell-jp Adminsのこととか、makeMistakesToLearnHaskellの続きとか、cabalへの乗り換えの件やります",
+        "type": "message",
+        "ts": "1644034710.890299",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "遅くなりました。ニコラスです。今日も何か描きます:muscle:",
+        "type": "message",
+        "ts": "1644038597.955389",
+        "user": "US17MP6TY"
+    },
+    {
+        "text": "チェシャ猫です。今日は Gloss の `playIO` を使って、キー入力を受け付けるサンプルを作ってみようと思います。",
+        "type": "message",
+        "ts": "1644043089.651209",
+        "user": "U4M4XHKB8"
+    },
+    {
+        "text": "先日 thank-you-stars も Stack から cabal に乗り換えたんですけど、やり方あれで良かったのか分かんないんですよね…。一応 `extra-source-files` に Stackage から持ってきた freeze ファイルを入れて `--with-compiler`  指定してあるので依存は固定できてるとは思うんですが…。",
+        "type": "message",
+        "ts": "1644043490.175839",
+        "user": "U4M4XHKB8"
+    },
+    {
+        "text": "extra-source-files に入れる必要はないんじゃないっすか。Hackageに上げるtarballに入れるわけじゃあるまいし",
+        "type": "message",
+        "ts": "1644044472.189899",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "最初そう思ったんですが、Hackage に入ってないと cabal install でビルドできなくないです？",
+        "type": "message",
+        "ts": "1644044693.957729",
+        "user": "U4M4XHKB8"
+    },
+    {
+        "text": "まさか。stackでアップロードしたパッケージには当然cabal.project.freezeなんてないですけど普通にcabal installでもインストールできますし。",
+        "type": "message",
+        "ts": "1644045136.568069",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "それだと依存の具体的なバージョンを固定する方法がないので、もとから freeze なしでも cabal ファイルのバージョン制約のみでビルドできたパッケージ、ということじゃないでしょうか？",
+        "type": "message",
+        "ts": "1644045486.271589",
+        "user": "U4M4XHKB8"
+    },
+    {
+        "text": "はい。もともとみんなそうしてるでしょうし。",
+        "type": "message",
+        "ts": "1644045556.547129",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "そもそもパッケージのextra-source-filesに入っているcabal.project.freezeなんて考慮してくれるのか怪しいです。考慮しているとしたらcabal.project.freezeに書かれた組み合わせのバージョンでしかビルドできないことになってしまうでしょうし...",
+        "type": "message",
+        "ts": "1644045657.005239",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "そうか、だとしたら cabal ファイル単体で、確実にビルドできるバージョン範囲が明示されてる必要があるわけですね。ずっと Stack におまかせだったから cabal ファイルにバージョン制約全く書いてなかった。どうやって組み合わせを探せばいいんだ…。",
+        "type": "message",
+        "ts": "1644045870.542829",
+        "user": "U4M4XHKB8"
+    },
+    {
+        "text": "よく考えると npm にも `package-lock.json` は含まれてないのと同じか…。",
+        "type": "message",
+        "ts": "1644046149.061549",
+        "user": "U4M4XHKB8"
+    },
+    {
+        "text": "参考までにリポジトリーにcabal.project.freezeがあるとプロジェクトのオーナーがどんなバージョンでテストしているか分かるから助かる、というのはあるんですけどね。",
+        "type": "message",
+        "ts": "1644046569.971409",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "一番ものぐさなやり方は、とりあえず使った当時のメジャーバージョンを下限にしておいて、上限は問題があったときに設定する、じゃないかと思います。実はリリースした後のバージョンでも後からかえられるので...",
+        "type": "message",
+        "ts": "1644046688.394819",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "なるほど…。定期的にビルドしないと問題が発覚しないので、本当は dependabot みたいなやつで watch したいとこですね。 <https://github.com/dependabot/dependabot-core/issues/2745>",
+        "type": "message",
+        "ts": "1644046963.458189",
+        "user": "U4M4XHKB8"
+    },
+    {
+        "text": "",
+        "type": "message",
+        "ts": "1644051671.190759",
+        "user": null
+    },
+    {
+        "text": "makeMistakesToLearnHaskellをちょっとだけ進めて、Haskell-jp Adminsの件で領収書探しなどをしてました。",
+        "type": "message",
+        "ts": "1644051792.696519",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "上で話していたバージョンの件を修正して、あとは Gloss の `play` を触ってみました。必要な要素は TEA と似てる。",
+        "type": "message",
+        "ts": "1644051994.754479",
+        "user": "U4M4XHKB8"
+    },
+    {
+        "text": "『Haskell入門』の7.5.4まで読み終わりました。このままもうちょっとだけ進めようと思います。",
+        "type": "message",
+        "ts": "1644052149.594679",
+        "user": "U02NV8V2EEQ"
+    },
+    {
+        "text": "円です:laughing:！！(Runge Kutta法で先週の微分方程式を描きました。)",
+        "type": "message",
+        "ts": "1644052302.044369",
+        "user": "US17MP6TY"
     }
 ]
