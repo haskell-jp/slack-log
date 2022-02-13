@@ -1,0 +1,38 @@
+[
+    {
+        "text": "ose20です．\nこちら (<http://www.nct9.ne.jp/m_hiroi/func/haskell09.html>) のお気楽 Haskell プログラミング入門というサイトを参考にしながら色々なパズルを解くプログラムを Haskell で書いてみます．",
+        "type": "message",
+        "ts": "1644725099.876789",
+        "user": "U02NV8V2EEQ"
+    },
+    {
+        "text": "チェシャ猫です。今更ですが in します。前回 Gloss の概要はわかったので、表示は一旦置いといて今日はゲームのロジック部分を粛々と進めてます。",
+        "type": "message",
+        "ts": "1644738691.835019",
+        "user": "U4M4XHKB8"
+    },
+    {
+        "text": "",
+        "type": "message",
+        "ts": "1644742909.790329",
+        "user": null
+    },
+    {
+        "text": "makeMistakesToLearnHaskellの成果:\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/2e61e4372dd43ab76bb347121c72c047cdde37bc>\ncabal replについて: cabal replやstack replが `ghc --interactive` に渡すオプションを参考に、 `stack repl` がやっていることを `ghc --interactive` を直接起動することで再現できるか試してみてます。思ったより難しい。",
+        "type": "message",
+        "ts": "1644743098.554709",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "1 時間ぐらいしかやってないですが、とりあえずコマンドが一つ追加できました。`RIO.Vector` が破壊的更新をエクスポートしていないので、そこだけ `Data.Vector.Generic.Mutable` を直接インポートするという邪道に出ています。",
+        "type": "message",
+        "ts": "1644743522.581639",
+        "user": "U4M4XHKB8"
+    },
+    {
+        "text": "お気楽 Haskell 入門のパズルの解法の部分を読んでいました．\n紹介されている関数の (++) を使わない実装を試してみたり，中にはそれで実行速度が速くなったのもあって楽しかったです．例えば concatNumber という数字のリストを分解する関数が速くなりました:blush:\n```-- 例: concatNumber' [1..3] = [[1,2,3],[1,23],[12,3],[123]]\nconcatNumber' :: [Int] -&gt; [[Int]]\nconcatNumber' xs = aux xs id [] where\n  aux [] _ _          = []\n  aux [x] f cum       = f [x] : cum\n  aux (x:y:zs) f cum  = aux (y:zs) (f . (x:)) (aux ((10*x+y):zs) f cum)```",
+        "type": "message",
+        "ts": "1644743633.085739",
+        "user": "U02NV8V2EEQ"
+    }
+]

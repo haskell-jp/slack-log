@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / mokumoku-online #42</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / mokumoku-online #42</h1>
+    <div class="ui pagination menu">
+      <a href="../../html/CUPBC8WCE/41.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1644725099.876789">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ose20dive</div>
+            <div class="date"><a class="date" href="#message-1644725099.876789">2022-02-13 13:04:59 +0900</a></div>
+          </div>
+          <div class="description">ose20です．<br/>こちら (<http://www.nct9.ne.jp/m_hiroi/func/haskell09.html>) のお気楽 Haskell プログラミング入門というサイトを参考にしながら色々なパズルを解くプログラムを Haskell で書いてみます．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1644738691.835019">
+        <div class="content">
+          <div class="summary">
+            <div class="user">y_taka_23</div>
+            <div class="date"><a class="date" href="#message-1644738691.835019">2022-02-13 16:51:31 +0900</a></div>
+          </div>
+          <div class="description">チェシャ猫です。今更ですが in します。前回 Gloss の概要はわかったので、表示は一旦置いといて今日はゲームのロジック部分を粛々と進めてます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1644742909.790329">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1644742909.790329">2022-02-13 18:01:49 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1644743098.554709">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1644743098.554709">2022-02-13 18:04:58 +0900</a></div>
+          </div>
+          <div class="description">makeMistakesToLearnHaskellの成果:<br/><a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/2e61e4372dd43ab76bb347121c72c047cdde37bc'>https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/2e61e4372dd43ab76bb347121c72c047cdde37bc</a><br/>cabal replについて: cabal replやstack replが <code>ghc --interactive</code> に渡すオプションを参考に、 <code>stack repl</code> がやっていることを <code>ghc --interactive</code> を直接起動することで再現できるか試してみてます。思ったより難しい。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1644743522.581639">
+        <div class="content">
+          <div class="summary">
+            <div class="user">y_taka_23</div>
+            <div class="date"><a class="date" href="#message-1644743522.581639">2022-02-13 18:12:02 +0900</a></div>
+          </div>
+          <div class="description">1 時間ぐらいしかやってないですが、とりあえずコマンドが一つ追加できました。`RIO.Vector` が破壊的更新をエクスポートしていないので、そこだけ <code>Data.Vector.Generic.Mutable</code> を直接インポートするという邪道に出ています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1644743633.085739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ose20dive</div>
+            <div class="date"><a class="date" href="#message-1644743633.085739">2022-02-13 18:13:53 +0900</a></div>
+          </div>
+          <div class="description">お気楽 Haskell 入門のパズルの解法の部分を読んでいました．<br/>紹介されている関数の (++) を使わない実装を試してみたり，中にはそれで実行速度が速くなったのもあって楽しかったです．例えば concatNumber という数字のリストを分解する関数が速くなりました:blush:<br/><pre>-- 例: concatNumber' [1..3] = [[1,2,3],[1,23],[12,3],[123]]
+concatNumber' :: [Int] -&gt; [[Int]]
+concatNumber' xs = aux xs id [] where
+  aux [] _ _          = []
+  aux [x] f cum       = f [x] : cum
+  aux (x:y:zs) f cum  = aux (y:zs) (f . (x:)) (aux ((10*x+y):zs) f cum)</pre></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../../html/CUPBC8WCE/41.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+    </div>
+  </div>
+</body>
+</html>
