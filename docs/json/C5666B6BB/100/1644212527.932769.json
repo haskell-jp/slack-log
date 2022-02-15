@@ -1,0 +1,20 @@
+[
+    {
+        "text": "<https://github.com/yesodweb/serversession|yesodweb/serversession: Secure, modular server-side sessions.>\nを新しいStackage LTSに対応させてビルド出来るようにしようかと思っているのですが、\n長年放置されているのでもう皆さんこれ使ってなくて他のより良いパッケージを使っていらっしゃったりします?\nその場合移行する方針で頑張ろうかと思うのですが",
+        "type": "message",
+        "ts": "1644212527.932769",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "新しいPersistentに移行をとりあえずやるかとやっています。\nInternalに移動したデータコンストラクタに依存してしまうのは一回割り切って、実装してから分離できないかissue建てるかと思っています。\nそれ以前の問題があるからです。\n\n`mkMigrate` が受け取るデータ型が `EntityDef -&gt; UnboundEntityDef` となり、そのように変換する `unbindEntityDef` を使うと以上のようなよく分からないエラーになってしまい、どこに型エラーを引き起こす場所があるのかエラーメッセージから読み取れなくて困っています。\nこのような状況のときどうやってエラーメッセージを読み解けば良いのでしょうか…",
+        "type": "message",
+        "ts": "1644827193.150839",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "ソース読んでましたけどTemplate Haskellで生成したコードに型エラーがありそうですね…\nうーんメタプログラミングも考えものですね",
+        "type": "message",
+        "ts": "1644828778.505589",
+        "user": "U57CUMWQ6"
+    }
+]
