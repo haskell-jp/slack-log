@@ -1,0 +1,32 @@
+[
+    {
+        "text": "type families に data-type families と closed type-synonym families があるけど closed data-type families はないという認識で合ってますか？\n```data family Foo a where\n  Foo Int = Bar\n  Foo Char = Buzz```\nみたいなのはできない？\n<https://gitlab.haskell.org/ghc/ghc/-/wikis/type-functions/>\n<https://wiki.haskell.org/GHC/Type_families>",
+        "type": "message",
+        "ts": "1645288903.764169",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "GADTでできるのではないでしょうか",
+        "type": "message",
+        "ts": "1645318414.449279",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "<@UGM9F7XQS> GADT でできるというのがどういうものかイメージできてないです\n例示してもらえますか？",
+        "type": "message",
+        "ts": "1645335476.914799",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "最初の投稿の例でやりたいことはGADTで\n```data Foo a where\n  Bar :: Foo Int\n  Buzz :: Foo Char```\nと書けると思います。",
+        "type": "message",
+        "ts": "1645338199.039629",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "おっ おお 確かに",
+        "type": "message",
+        "ts": "1645343986.307179",
+        "user": "U4L0B71L1"
+    }
+]
