@@ -39,6 +39,53 @@
           <div class="description"><a href='https://gist.github.com/phadej/2fc066c00e33b9486e1a3e5f7767a8d7#file-poly-nfdata-hs-L26'>https://gist.github.com/phadej/2fc066c00e33b9486e1a3e5f7767a8d7#file-poly-nfdata-hs-L26</a></div>
         </div>
       </div>
+      <div class="event" id="message-1645500104.719889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1645500104.719889">2022-02-22 12:21:44 +0900</a></div>
+          </div>
+          <div class="description">最近のGHCならStandaloneKindSignaturesが使えますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1645510664.584129">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1645510664.584129">2022-02-22 15:17:44 +0900</a></div>
+          </div>
+          <div class="description">standalone kind signatures 試してダメっぽいとなったんですけど再度試すといけました<br/>あれ？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1645512509.797329">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1645512509.797329">2022-02-22 15:48:29 +0900</a></div>
+          </div>
+          <div class="description">あ、そうだ、associated type families のときに standalone kind signatures でカインド注釈書く方法が分からないんでした<br/><pre>class Foo t where
+  type Bar :: Type -&gt; Type
+  type Bar t = r | r -&gt; t</pre><br/>kind signature のつもりの <code>type Bar :: Type -&gt; Type</code> が type family にされちゃう</div>
+        </div>
+      </div>
+      <div class="event" id="message-1645513948.249679">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minorinoki_haskjp</div>
+            <div class="date"><a class="date" href="#message-1645513948.249679">2022-02-22 16:12:28 +0900</a></div>
+          </div>
+          <div class="description">associated type familiesに対するstandalone kind signaturesは実装されてないはずです <a href='https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0054-kind-signatures.rst#associated-types'>https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0054-kind-signatures.rst#associated-types</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1645515635.120159">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1645515635.120159">2022-02-22 16:40:35 +0900</a></div>
+          </div>
+          <div class="description">なるほど<br/>すっきりしました</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../100.html" class="item">Back to questions #100</a>

@@ -16,5 +16,35 @@
         "type": "message",
         "ts": "1645456344.758869",
         "user": "U4L0B71L1"
+    },
+    {
+        "text": "最近のGHCならStandaloneKindSignaturesが使えますね",
+        "type": "message",
+        "ts": "1645500104.719889",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "standalone kind signatures 試してダメっぽいとなったんですけど再度試すといけました\nあれ？",
+        "type": "message",
+        "ts": "1645510664.584129",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "あ、そうだ、associated type families のときに standalone kind signatures でカインド注釈書く方法が分からないんでした\n```class Foo t where\n  type Bar :: Type -&gt; Type\n  type Bar t = r | r -&gt; t```\nkind signature のつもりの `type Bar :: Type -&gt; Type` が type family にされちゃう",
+        "type": "message",
+        "ts": "1645512509.797329",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "associated type familiesに対するstandalone kind signaturesは実装されてないはずです <https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0054-kind-signatures.rst#associated-types>",
+        "type": "message",
+        "ts": "1645513948.249679",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "なるほど\nすっきりしました",
+        "type": "message",
+        "ts": "1645515635.120159",
+        "user": "U4L0B71L1"
     }
 ]
