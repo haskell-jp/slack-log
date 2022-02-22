@@ -1,0 +1,20 @@
+[
+    {
+        "text": "`TypeFamilyDependencies` とカインド注釈の併記ってどうすればいいんでしょう？\n```type family Foo a :: Type```\nと\n```type family Foo a = t | t -&gt; a```\nがそれぞれできるんですが両方書こうと思うと……？",
+        "type": "message",
+        "ts": "1645456116.640939",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "あ、どうもこうっぽい\n```type family Foo a = (t :: Type) | t -&gt; a```",
+        "type": "message",
+        "ts": "1645456296.514119",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "<https://gist.github.com/phadej/2fc066c00e33b9486e1a3e5f7767a8d7#file-poly-nfdata-hs-L26>",
+        "type": "message",
+        "ts": "1645456344.758869",
+        "user": "U4L0B71L1"
+    }
+]

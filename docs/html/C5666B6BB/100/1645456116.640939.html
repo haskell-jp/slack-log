@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #100 at 2022-02-22 00:08:36 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #100 at 2022-02-22 00:08:36 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../100.html" class="item">Back to questions #100</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1645456116.640939">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1645456116.640939">2022-02-22 00:08:36 +0900</a></div>
+          </div>
+          <div class="description"><code>TypeFamilyDependencies</code> とカインド注釈の併記ってどうすればいいんでしょう？<br/><pre>type family Foo a :: Type</pre><br/>と<br/><pre>type family Foo a = t | t -&gt; a</pre><br/>がそれぞれできるんですが両方書こうと思うと……？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1645456296.514119">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1645456296.514119">2022-02-22 00:11:36 +0900</a></div>
+          </div>
+          <div class="description">あ、どうもこうっぽい<br/><pre>type family Foo a = (t :: Type) | t -&gt; a</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1645456344.758869">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1645456344.758869">2022-02-22 00:12:24 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://gist.github.com/phadej/2fc066c00e33b9486e1a3e5f7767a8d7#file-poly-nfdata-hs-L26'>https://gist.github.com/phadej/2fc066c00e33b9486e1a3e5f7767a8d7#file-poly-nfdata-hs-L26</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../100.html" class="item">Back to questions #100</a>
+    </div>
+  </div>
+</body>
+</html>
