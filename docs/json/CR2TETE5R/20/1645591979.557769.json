@@ -1,0 +1,26 @@
+[
+    {
+        "text": "はじめまして。\n`Maybe Int` のような型から`Int` 型を取り出すことは可能なのかお聞きしたいです。\nやりたいこととしてはtypescriptの以下のような推論をやってみたい感じです。\n```type A&lt;T&gt; = { a: T }\ntype B&lt;F&gt; = { b: F }\n\ntype C = A&lt;B&lt;number&gt;&gt;\n\ntype GetT&lt;AA extends A&lt;any&gt;&gt; = AA extends A&lt;infer T&gt; ? T : never\ntype GetF&lt;BB extends B&lt;any&gt;&gt; = BB extends B&lt;infer F&gt; ? F : never\n\ntype D = GetF&lt;GetT&lt;C&gt;&gt; // number```\nよろしくおねがいします。",
+        "type": "message",
+        "ts": "1645591979.557769",
+        "user": "U0343282GJ1"
+    },
+    {
+        "text": "以下のようにType Familyを使えば実現できるはずです\n```{-# LANGUAGE TypeFamilies #-}\n\nimport Data.Proxy\n\ndata A t = A { a :: t }\ndata B f = B { b :: f }\ntype C = A (B Int)\n\ntype family GetT a where\n    GetT (A t) = t\n    \ntype family GetF a where\n    GetF (B f) = f\n    \ntype D = GetF (GetT C)\n\n\neq :: Proxy (D ~ Int)\neq = Proxy\n\nmain = putStrLn \"typechecked\"```",
+        "type": "message",
+        "ts": "1645595553.787509",
+        "user": "UP6J2B1LL"
+    },
+    {
+        "text": "Type Familyは大雑把にいうと型から型への関数のようなものという認識です\n<https://qiita.com/rooooomania/items/c6da1158d676e6fe87e2>\n<https://wiki.haskell.org/GHC/Type_families>",
+        "type": "message",
+        "ts": "1645596020.680709",
+        "user": "UP6J2B1LL"
+    },
+    {
+        "text": "type familyという概念をはじめて知りました。\n調べてみます。ありがとうございます！",
+        "type": "message",
+        "ts": "1645597323.228059",
+        "user": "U0343282GJ1"
+    }
+]
