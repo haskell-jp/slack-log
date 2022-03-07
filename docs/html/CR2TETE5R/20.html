@@ -147,6 +147,24 @@ type D = GetF&lt;GetT&lt;C&gt;&gt; // number</pre><br/>よろしくおねがい�
           <div class="description">@rouc.slack has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1646663320.370199">
+        <div class="content">
+          <div class="summary">
+            <div class="user">xgrk9475</div>
+            <div class="date"><a class="date" href="#message-1646663320.370199">2022-03-07 23:28:40 +0900</a></div>
+          </div>
+          <div class="description">数学、論理学寄りの質問なのですが、今私はHaskellでproof checkをしてみたくて、Haskellの型で論理結合子を表現しようとしているのですが、全称量化子と存在量化子の表現方法がわからずに詰まっています。<br/><a href='https://en.wikipedia.org/wiki/Brouwer%E2%80%93Heyting%E2%80%93Kolmogorov_interpretation'>”BHK解釈”のwiki</a>で以下の画像のような記述を発見したのですが、xが証明ではなく、集合Sの要素であることを表現するにはどのようにすればよいか、教えていただきたいです。<br/><pre>import Data.Void (Void)
+
+type Imply a b = a -&gt; b
+type And a b = (a, b)
+type Or a b = Either a b
+type False = Void
+type Not a = a -&gt; False
+
+type Forall x a = x -&gt; a -- xは個体変項 aは論理式
+type Exists x a = (x, a)</pre><br/></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/19.html" class="item">Previous</a>
