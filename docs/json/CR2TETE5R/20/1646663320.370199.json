@@ -1,0 +1,20 @@
+[
+    {
+        "text": "数学、論理学寄りの質問なのですが、今私はHaskellでproof checkをしてみたくて、Haskellの型で論理結合子を表現しようとしているのですが、全称量化子と存在量化子の表現方法がわからずに詰まっています。\n<https://en.wikipedia.org/wiki/Brouwer%E2%80%93Heyting%E2%80%93Kolmogorov_interpretation|”BHK解釈”のwiki>で以下の画像のような記述を発見したのですが、xが証明ではなく、集合Sの要素であることを表現するにはどのようにすればよいか、教えていただきたいです。\n```import Data.Void (Void)\n\ntype Imply a b = a -&gt; b\ntype And a b = (a, b)\ntype Or a b = Either a b\ntype False = Void\ntype Not a = a -&gt; False\n\ntype Forall x a = x -&gt; a -- xは個体変項 aは論理式\ntype Exists x a = (x, a)```\n",
+        "type": "message",
+        "ts": "1646663320.370199",
+        "user": "U02CE9YGEAU"
+    },
+    {
+        "text": "各型 (And a bにおけるa,bなど) の値には何が格納されることを想定してますか？",
+        "type": "message",
+        "ts": "1646698827.604989",
+        "user": "U01PHSV8GAH"
+    },
+    {
+        "text": "証明を表すデータが格納されるということならば、データSの値をx∈Sの証明とみなして、`S -&gt; A` 型の値として証明が書けると思います (∀x∈S.P(x)とは∀x.((x∈S)→P(x))のことなので)。",
+        "type": "message",
+        "ts": "1646699514.945259",
+        "user": "U01PHSV8GAH"
+    }
+]
