@@ -16,5 +16,17 @@
         "type": "message",
         "ts": "1646699514.945259",
         "user": "U01PHSV8GAH"
+    },
+    {
+        "text": "<@U01PHSV8GAH>\nすみません、ご指摘を踏まえて自分でいろいろ試してみたのですが、具体的に型を構成する方法がわかりませんでした。\n参考として、<http://www.cse.chalmers.se/~peterd/papers/DependentTypesAtWork.pdf|DependentTypesAtWork>のp22によると、AgdaではForallとExistsを以下のようにかけるようです。\n```data Forall (A : Set) (B : A -&gt; Set) : Set where\n  dfun : ((a : A) -&gt; B a) -&gt; Forall A B\n\ndata Exists (A : Set) (B : A -&gt; Set) : Set where\n  [_,_] : (a : A) -&gt; B a -&gt; Exists A B```\nこれと等価な式はHaskellでも構成可能なのでしょうか？\nPolyKinds拡張を有効にすると、それっぽくはかけるのですが、\n```type Forall (x :: s) a = s -&gt; a x\ntype Exists (x :: s) a = (s, a x)```\nForallとExistsがとる第一引数は集合であるsではなく、その要素であるxになってしまいます。（上のAgdaの例ではForallとExistsは、集合であるAと命題の述語記号Bを引数にとっている）",
+        "type": "message",
+        "ts": "1646906602.990889",
+        "user": "U02CE9YGEAU"
+    },
+    {
+        "text": "一応、例として、命題論理では以下のように証明しています。（長くてすみません）\n・シンボルの定義\n```class Prop a\n\ntype Imply a b = a -&gt; b\ninstance Prop (a -&gt; b)\n\ntype And a b = (a, b)\ninstance Prop (a, b)\n\ntype Or a b = Either a b\ninstance Prop (Either a b)\n\n-- 略記法と結合の強さの定義\ntype p /\\ q = p `And` q\ntype p \\/ q = p `Or` q　\ntype p --&gt; q = p `Imply` q\ninfixl 3 /\\\ninfixl 2 \\/\ninfixr 1 --&gt;```\n・（自然演繹の）推論規則と命題：(A\\/C)-&gt;(B\\/C)-&gt;~(A\\/B)の証明\n```introAnd :: (Prop a, Prop b) =&gt; a -&gt; b -&gt; And a b\nintroAnd a b = (a, b)\n\ncontradict :: Prop a =&gt; a -&gt; Not a -&gt; False\ncontradict a na = na a\n\nabsurd :: Prop a =&gt; False -&gt; a\nabsurd f = case f of\n\nlemma :: (Prop a, Prop b, Prop c) =&gt; (a \\/ c) --&gt; (b \\/ c) --&gt; Not (a /\\ b) --&gt; c\nlemma ac bc nab = case ac of\n    Left a -&gt; case bc of\n        Left b -&gt; absurd (contradict (introAnd a b) nab)\n        Right c -&gt; c\n    Right c -&gt; c```\n少し複雑なので分かりづらいかもしれませんが、このような感じで、述語論理に関しても、全称量化子と存在量化子を型で定義して、推論規則の組み合わせで命題を証明したいと考えています。",
+        "type": "message",
+        "ts": "1646906657.653529",
+        "user": "U02CE9YGEAU"
     }
 ]

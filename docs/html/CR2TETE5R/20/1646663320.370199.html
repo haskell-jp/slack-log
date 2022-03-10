@@ -48,6 +48,60 @@ type Exists x a = (x, a)</pre><br/></div>
           <div class="description">証明を表すデータが格納されるということならば、データSの値をx∈Sの証明とみなして、`S -&gt; A` 型の値として証明が書けると思います (∀x∈S.P(x)とは∀x.((x∈S)→P(x))のことなので)。</div>
         </div>
       </div>
+      <div class="event" id="message-1646906602.990889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">xgrk9475</div>
+            <div class="date"><a class="date" href="#message-1646906602.990889">2022-03-10 19:03:22 +0900</a></div>
+          </div>
+          <div class="description">@yf.vermilion<br/>すみません、ご指摘を踏まえて自分でいろいろ試してみたのですが、具体的に型を構成する方法がわかりませんでした。<br/>参考として、<http://www.cse.chalmers.se/~peterd/papers/DependentTypesAtWork.pdf|DependentTypesAtWork>のp22によると、AgdaではForallとExistsを以下のようにかけるようです。<br/><pre>data Forall (A : Set) (B : A -&gt; Set) : Set where
+  dfun : ((a : A) -&gt; B a) -&gt; Forall A B
+
+data Exists (A : Set) (B : A -&gt; Set) : Set where
+  [_,_] : (a : A) -&gt; B a -&gt; Exists A B</pre><br/>これと等価な式はHaskellでも構成可能なのでしょうか？<br/>PolyKinds拡張を有効にすると、それっぽくはかけるのですが、<br/><pre>type Forall (x :: s) a = s -&gt; a x
+type Exists (x :: s) a = (s, a x)</pre><br/>ForallとExistsがとる第一引数は集合であるsではなく、その要素であるxになってしまいます。（上のAgdaの例ではForallとExistsは、集合であるAと命題の述語記号Bを引数にとっている）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1646906657.653529">
+        <div class="content">
+          <div class="summary">
+            <div class="user">xgrk9475</div>
+            <div class="date"><a class="date" href="#message-1646906657.653529">2022-03-10 19:04:17 +0900</a></div>
+          </div>
+          <div class="description">一応、例として、命題論理では以下のように証明しています。（長くてすみません）<br/>・シンボルの定義<br/><pre>class Prop a
+
+type Imply a b = a -&gt; b
+instance Prop (a -&gt; b)
+
+type And a b = (a, b)
+instance Prop (a, b)
+
+type Or a b = Either a b
+instance Prop (Either a b)
+
+-- 略記法と結合の強さの定義
+type p /\ q = p `And` q
+type p \/ q = p `Or` q　
+type p --&gt; q = p `Imply` q
+infixl 3 /\
+infixl 2 \/
+infixr 1 --&gt;</pre><br/>・（自然演繹の）推論規則と命題：(A\/C)-&gt;(B\/C)-&gt;~(A\/B)の証明<br/><pre>introAnd :: (Prop a, Prop b) =&gt; a -&gt; b -&gt; And a b
+introAnd a b = (a, b)
+
+contradict :: Prop a =&gt; a -&gt; Not a -&gt; False
+contradict a na = na a
+
+absurd :: Prop a =&gt; False -&gt; a
+absurd f = case f of
+
+lemma :: (Prop a, Prop b, Prop c) =&gt; (a \/ c) --&gt; (b \/ c) --&gt; Not (a /\ b) --&gt; c
+lemma ac bc nab = case ac of
+    Left a -&gt; case bc of
+        Left b -&gt; absurd (contradict (introAnd a b) nab)
+        Right c -&gt; c
+    Right c -&gt; c</pre><br/>少し複雑なので分かりづらいかもしれませんが、このような感じで、述語論理に関しても、全称量化子と存在量化子を型で定義して、推論規則の組み合わせで命題を証明したいと考えています。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../20.html" class="item">Back to beginners #20</a>
