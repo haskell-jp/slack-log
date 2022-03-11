@@ -102,6 +102,34 @@ lemma ac bc nab = case ac of
     Right c -&gt; c</pre><br/>少し複雑なので分かりづらいかもしれませんが、このような感じで、述語論理に関しても、全称量化子と存在量化子を型で定義して、推論規則の組み合わせで命題を証明したいと考えています。</div>
         </div>
       </div>
+      <div class="event" id="message-1646976529.264339">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1646976529.264339">2022-03-11 14:28:49 +0900</a></div>
+          </div>
+          <div class="description">ちょっと無理がある気がしますね……。型が命題、その型を持つ項・プログラムが証明に対応するので、for all/ existsを表現しようとすれば項をパラメータに取る型が必要(dependent type theory)ですが、haskellのdependent type theoryのサポートってdatakindsくらいでかなり弱いので…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1646999903.337249">
+        <div class="content">
+          <div class="summary">
+            <div class="user">xgrk9475</div>
+            <div class="date"><a class="date" href="#message-1646999903.337249">2022-03-11 20:58:23 +0900</a></div>
+          </div>
+          <div class="description">@gettaplacetogo<br/>なるほど。「依存型」と述語論理はそういう風に関連してくるのですか。少し理解が進みました。ありがとうございます。とりあえずHaskellでやるのは断念します。<br/>ちなみに、一番近いのは<br/><pre>{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PolyKinds #-}
+
+type Forall s (a :: s -&gt; *) = forall (x :: s). x -&gt; a x
+type Exists s (a :: s -&gt; *) = forall (x :: s). (x, a x)</pre><br/>だったのですが、<br/><pre>Expected a type, but 'x' has kind 's'
+• In the type 'forall (x :: s). x -&gt; a x'
+  In the type declaration for 'Forall'
+  NB: Type 'Forall' was inferred to use visible dependent quantification.
+Most types with visible dependent quantification are
+  polymorphically recursive and need a standalone kind
+  signature. Perhaps supply one, with StandaloneKindSignatures.</pre><br/>というエラーが出て駄目でした。エラーにならって、StandaloneKindSignatures拡張を入れましたが効きませんでした。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../20.html" class="item">Back to beginners #20</a>

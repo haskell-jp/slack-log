@@ -28,5 +28,17 @@
         "type": "message",
         "ts": "1646906657.653529",
         "user": "U02CE9YGEAU"
+    },
+    {
+        "text": "ちょっと無理がある気がしますね……。型が命題、その型を持つ項・プログラムが証明に対応するので、for all/ existsを表現しようとすれば項をパラメータに取る型が必要(dependent type theory)ですが、haskellのdependent type theoryのサポートってdatakindsくらいでかなり弱いので…",
+        "type": "message",
+        "ts": "1646976529.264339",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "<@UL1HFJATE>\nなるほど。「依存型」と述語論理はそういう風に関連してくるのですか。少し理解が進みました。ありがとうございます。とりあえずHaskellでやるのは断念します。\nちなみに、一番近いのは\n```{-# LANGUAGE RankNTypes #-}\n{-# LANGUAGE PolyKinds #-}\n\ntype Forall s (a :: s -&gt; *) = forall (x :: s). x -&gt; a x\ntype Exists s (a :: s -&gt; *) = forall (x :: s). (x, a x)```\nだったのですが、\n```Expected a type, but 'x' has kind 's'\n• In the type 'forall (x :: s). x -&gt; a x'\n  In the type declaration for 'Forall'\n  NB: Type 'Forall' was inferred to use visible dependent quantification.\nMost types with visible dependent quantification are\n  polymorphically recursive and need a standalone kind\n  signature. Perhaps supply one, with StandaloneKindSignatures.```\nというエラーが出て駄目でした。エラーにならって、StandaloneKindSignatures拡張を入れましたが効きませんでした。",
+        "type": "message",
+        "ts": "1646999903.337249",
+        "user": "U02CE9YGEAU"
     }
 ]
