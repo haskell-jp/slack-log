@@ -130,6 +130,26 @@ Most types with visible dependent quantification are
   signature. Perhaps supply one, with StandaloneKindSignatures.</pre><br/>というエラーが出て駄目でした。エラーにならって、StandaloneKindSignatures拡張を入れましたが効きませんでした。</div>
         </div>
       </div>
+      <div class="event" id="message-1647149180.036219">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gettaplacetogo</div>
+            <div class="date"><a class="date" href="#message-1647149180.036219">2022-03-13 14:26:20 +0900</a></div>
+          </div>
+          <div class="description">@xgrk9475<br/><br/><blockquote>Perhaps supply one</blockquote>とあるように、“one” つまり “a standalone kind signature”(スタンドアロンの種注釈) を与えてよるのがいいかもしれない、そのためには <code>StandAloneKindSignatures</code> 拡張が要るよ、という話な訳ですね．for all の定義として適切なように standalone kind signature をつけるなら<br/><br/><pre>{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PolyKinds #-}
+{-# LANGUAGE StandaloneKindSignatures #-}
+
+type Forall :: forall k -&gt; (k -&gt; *) -&gt; *
+type Forall k (f :: k -&gt; *) = forall (x :: k). f x</pre><br/>のような形になるでしょうか． existsをtype synonym で やりきるのは難しい気がします．data typeを使うなら：<br/><br/><pre>{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE PolyKinds #-}
+{-# LANGUAGE StandaloneKindSignatures #-}
+{-# LANGUAGE ExistentialQuantification #-}
+
+newtype Forall k (f :: k -&gt; *) = ForallIntro (forall (x :: k). f x)
+data Exists k (f :: k -&gt; *) = forall (x :: k). ExistsIntro (f x)</pre><br/>のような形になるでしょうか．ただ，この場合のどちらにしても， <code>k</code> は型ではなく種であり，種として見做せるHaskellの型はあまり多くない，というのが(命題の表現力の意味で)ネックにはなってきますね…．</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../20.html" class="item">Back to beginners #20</a>

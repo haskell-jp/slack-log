@@ -40,5 +40,11 @@
         "type": "message",
         "ts": "1646999903.337249",
         "user": "U02CE9YGEAU"
+    },
+    {
+        "text": "<@U02CE9YGEAU>\n\n&gt; Perhaps supply one\nとあるように、“one” つまり “a standalone kind signature”(スタンドアロンの種注釈) を与えてよるのがいいかもしれない、そのためには `StandAloneKindSignatures` 拡張が要るよ、という話な訳ですね．for all の定義として適切なように standalone kind signature をつけるなら\n\n```{-# LANGUAGE RankNTypes #-}\n{-# LANGUAGE PolyKinds #-}\n{-# LANGUAGE StandaloneKindSignatures #-}\n\ntype Forall :: forall k -&gt; (k -&gt; *) -&gt; *\ntype Forall k (f :: k -&gt; *) = forall (x :: k). f x```\nのような形になるでしょうか． existsをtype synonym で やりきるのは難しい気がします．data typeを使うなら：\n\n```{-# LANGUAGE RankNTypes #-}\n{-# LANGUAGE PolyKinds #-}\n{-# LANGUAGE StandaloneKindSignatures #-}\n{-# LANGUAGE ExistentialQuantification #-}\n\nnewtype Forall k (f :: k -&gt; *) = ForallIntro (forall (x :: k). f x)\ndata Exists k (f :: k -&gt; *) = forall (x :: k). ExistsIntro (f x)```\nのような形になるでしょうか．ただ，この場合のどちらにしても， `k` は型ではなく種であり，種として見做せるHaskellの型はあまり多くない，というのが(命題の表現力の意味で)ネックにはなってきますね…．",
+        "type": "message",
+        "ts": "1647149180.036219",
+        "user": "UL1HFJATE"
     }
 ]
