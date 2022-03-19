@@ -1,0 +1,32 @@
+[
+    {
+        "text": "`GeneralizedNewtypeDeriving` はLensの `makeFields` が作る `HasFoo` のような複数の型引数を受け取る型クラスに対して使えますか?\n\n具体的には、スニペットに添付したような状況を想定しています。\n\n上をコメントアウトして、下のコメントアウトを外すと以下のようなエラーになります。\n\n```    • Can't make a derived instance of\n        ‘HasBase Search String’ with the newtype strategy:\n        GeneralizedNewtypeDeriving cannot be used on non-newtypes\n    • In the stand-alone deriving instance for ‘HasBase Search String’```",
+        "type": "message",
+        "ts": "1647618098.698709",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "&gt; We can even derive instances of multi-parameter classes, provided the newtype is the last class parameter.\n`newtype` で作る型がマルチパラメータークラスの最後の引数じゃないとダメそう\n<https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/newtype_deriving.html>",
+        "type": "message",
+        "ts": "1647619700.251179",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "なるほど、そういうものなのですね…",
+        "type": "message",
+        "ts": "1647619781.204579",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "がんばるならこんな感じですかね？\n```{-# LANGUAGE DefaultSignatures          #-}\n{-# LANGUAGE DerivingStrategies         #-}\n{-# LANGUAGE FlexibleInstances          #-}\n{-# LANGUAGE GeneralizedNewtypeDeriving #-}\n{-# LANGUAGE MultiParamTypeClasses      #-}\n{-# LANGUAGE UndecidableInstances       #-}\n\nmodule Main where\n\nmain :: IO ()\nmain = do\n  print $ base (Search $ Noun \"a\" \"b\") \"\"\n\ndata Noun\n  = Noun\n  { nounSurf :: String\n  , nounBase :: String\n  }\n  deriving (Eq, Ord, Read, Show)\n\ninstance HasBase Noun String where\n  base _ _ = 0\n\ninstance HasBaseFlipped String Noun\n\nnewtype Search\n  = Search\n  { searchNoun :: Noun\n  }\n  deriving stock (Eq, Ord, Read, Show)\n  deriving newtype (HasBaseFlipped String)\n\nclass HasBase a b where\n  base :: a -&gt; b -&gt; Int\n\nclass HasBaseFlipped a b where\n  base' :: b -&gt; a -&gt; Int\n  default base' :: HasBase b a =&gt; b -&gt; a -&gt; Int\n  base' = base\n\ninstance {-# OVERLAPPABLE #-} HasBaseFlipped b a =&gt; HasBase a b where\n  base = base'```",
+        "type": "message",
+        "ts": "1647621311.720129",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "そうなりそうですね…\nそこまで頑張るならTHで実装しようかなぁと思えました\nありがとうございます",
+        "type": "message",
+        "ts": "1647621419.327269",
+        "user": "U57CUMWQ6"
+    }
+]

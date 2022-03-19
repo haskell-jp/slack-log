@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #100 at 2022-03-19 00:41:38 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #100 at 2022-03-19 00:41:38 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../100.html" class="item">Back to questions #100</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1647618098.698709">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1647618098.698709">2022-03-19 00:41:38 +0900</a></div>
+          </div>
+          <div class="description"><code>GeneralizedNewtypeDeriving</code> はLensの <code>makeFields</code> が作る <code>HasFoo</code> のような複数の型引数を受け取る型クラスに対して使えますか?<br/><br/>具体的には、スニペットに添付したような状況を想定しています。<br/><br/>上をコメントアウトして、下のコメントアウトを外すと以下のようなエラーになります。<br/><br/><pre>    • Can't make a derived instance of
+        ‘HasBase Search String’ with the newtype strategy:
+        GeneralizedNewtypeDeriving cannot be used on non-newtypes
+    • In the stand-alone deriving instance for ‘HasBase Search String’</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1647619700.251179">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1647619700.251179">2022-03-19 01:08:20 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>We can even derive instances of multi-parameter classes, provided the newtype is the last class parameter.</blockquote><code>newtype</code> で作る型がマルチパラメータークラスの最後の引数じゃないとダメそう<br/><a href='https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/newtype_deriving.html'>https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/newtype_deriving.html</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1647619781.204579">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1647619781.204579">2022-03-19 01:09:41 +0900</a></div>
+          </div>
+          <div class="description">なるほど、そういうものなのですね…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1647621311.720129">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1647621311.720129">2022-03-19 01:35:11 +0900</a></div>
+          </div>
+          <div class="description">がんばるならこんな感じですかね？<br/><pre>{-# LANGUAGE DefaultSignatures          #-}
+{-# LANGUAGE DerivingStrategies         #-}
+{-# LANGUAGE FlexibleInstances          #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MultiParamTypeClasses      #-}
+{-# LANGUAGE UndecidableInstances       #-}
+
+module Main where
+
+main :: IO ()
+main = do
+  print $ base (Search $ Noun "a" "b") ""
+
+data Noun
+  = Noun
+  { nounSurf :: String
+  , nounBase :: String
+  }
+  deriving (Eq, Ord, Read, Show)
+
+instance HasBase Noun String where
+  base _ _ = 0
+
+instance HasBaseFlipped String Noun
+
+newtype Search
+  = Search
+  { searchNoun :: Noun
+  }
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (HasBaseFlipped String)
+
+class HasBase a b where
+  base :: a -&gt; b -&gt; Int
+
+class HasBaseFlipped a b where
+  base' :: b -&gt; a -&gt; Int
+  default base' :: HasBase b a =&gt; b -&gt; a -&gt; Int
+  base' = base
+
+instance {-# OVERLAPPABLE #-} HasBaseFlipped b a =&gt; HasBase a b where
+  base = base'</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1647621419.327269">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ncaq</div>
+            <div class="date"><a class="date" href="#message-1647621419.327269">2022-03-19 01:36:59 +0900</a></div>
+          </div>
+          <div class="description">そうなりそうですね…<br/>そこまで頑張るならTHで実装しようかなぁと思えました<br/>ありがとうございます</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../100.html" class="item">Back to questions #100</a>
+    </div>
+  </div>
+</body>
+</html>
