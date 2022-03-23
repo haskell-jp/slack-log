@@ -1,0 +1,56 @@
+[
+    {
+        "text": "aesonのparseJSONするときにファイルに書かれている設定値を使いたいのですが、\n&gt; parseJSON :: <https://hackage.haskell.org/package/aeson-2.0.3.0/docs/Data-Aeson.html#t:Value|Value> -&gt; <https://hackage.haskell.org/package/aeson-2.0.3.0/docs/Data-Aeson-Types.html#t:Parser|Parser> a\nこんな関数なのでできないですよね。\n一度parseJSONしたあとに他でやるしかないですかね。",
+        "type": "message",
+        "ts": "1647935277.605289",
+        "user": "U74KTAG0N"
+    },
+    {
+        "text": "他のファイルに書いてある設定値によってパース方法を変えたいってことですか？であればreflectionパッケージを使ってこんな感じに書くのがいいと思います:\n```instance Given OtherFileContents =&gt; FromJSON ConfigFromJson where\n  parseJSON = withObject \"ConfigFromJson\" $ \\o -&gt;\n    -- ...\n   where\n    otherFileContents = given```",
+        "type": "message",
+        "ts": "1647937003.189519",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "端的でちょっと何をしたいのかよく分からないのですが、私はいわゆる設定ファイルには、\n`loadYamlSettings`\nを使って、環境変数なども参照するようにしています。",
+        "type": "message",
+        "ts": "1647937552.302139",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "「設定値」とは何ですか？定義と実例を見たいです",
+        "type": "message",
+        "ts": "1647940291.763869",
+        "user": "U4KUNQF9N"
+    },
+    {
+        "text": "あるファイルA.jsonに\n• hoo1\n    ◦ hoo12\n• hoo2\n    ◦ hoo23\n• hoo3\n    ◦ hoo34\nというのがあって、\nファイルB.jsonがあって、\nある項目にhoo1というのがあったら\nhoo12に置き換えるようなことをやりたいです。\nファイルA.jsonが設定値にあたります。",
+        "type": "message",
+        "ts": "1647941111.971579",
+        "user": "U74KTAG0N"
+    },
+    {
+        "text": "それでhoo1,hoo2,hoo3以外のものがファイルB.jsonにあった時点（行）で\nエラーを出したいです。",
+        "type": "message",
+        "ts": "1647941205.472999",
+        "user": "U74KTAG0N"
+    },
+    {
+        "text": "なるほど。これはaesonパッケージが担当する問題ではないので、まずA.jsonを`Map Text Value`としてデコードし、一括で置換を行う関数 `Map Text Value -&gt; Value -&gt; Value`を定義するというアプローチが考えられますが、`parseJSON`内で置換することや、型によって挙動を変えることにこだわりがあるならigrepさんの方法が使えます",
+        "type": "message",
+        "ts": "1647941524.962559",
+        "user": "U4KUNQF9N"
+    },
+    {
+        "text": "出来なくはない気がしますが、他の方の意見と同じく、一度両方を読み込んで置換した方が良いと思いますね。\n\n&gt; それでhoo1,hoo2,hoo3以外のものがファイルB.jsonにあった時点（行）で\n&gt; エラーを出したいです。\nについては、\nparseJSONの内部で想定してないキーが来たら `prependFailure` などを呼び出す、\n方法などがあると思います。",
+        "type": "message",
+        "ts": "1647941794.698769",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "reflectionパッケージがあっている気がします。\nありがとうございます。",
+        "type": "message",
+        "ts": "1647942522.338389",
+        "user": "U74KTAG0N"
+    }
+]
