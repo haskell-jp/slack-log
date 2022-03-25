@@ -16,5 +16,35 @@
         "type": "message",
         "ts": "1647988374.883989",
         "user": "U02KK6NUFFE"
+    },
+    {
+        "text": "コマンドラインで実行でき、\nかつhtMainWithArgsみたいな関数で内部的にもAPIがあることがわかったのでよかったのですが\n`-n` は否定表現なので `--exclude` 的なオプションなんですね\n`--include` 的なオプションも欲しかった。こういうのは汎用的なワードでなんと言えばいいのやら。\n\nGoだと `-run` で`--include` 的なオプションが使えますね",
+        "type": "message",
+        "ts": "1648179517.182499",
+        "user": "U02KK6NUFFE"
+    },
+    {
+        "text": "`USAGE: COMMAND [OPTION ...] PATTERN ...` なので、オプションではない、ただの引数が include 相当ですかね?",
+        "type": "message",
+        "ts": "1648196106.406889",
+        "user": "U578W9676"
+    },
+    {
+        "text": "コマンド名を知らないので、仮に `htf` としますが、\n\n• パターンで限定したいとき: `htf pattern-to-match`\n• パターンで除外したいとき: `htf --not=pattern-to-exclude`\nのようになるのではないかと思われます。",
+        "type": "message",
+        "ts": "1648197701.186709",
+        "user": "U578W9676"
+    },
+    {
+        "text": "なるほど盲点でした、ありがとうございます!\n試してみます\n\nちなみに直接コマンド実行する感じではなく、以下のhtfMainWithArgsを使ってます（既存ソースが複数のテストケースをまとめてhtfMainから実行する形式だったため）\n\n<https://hackage.haskell.org/package/HTF-0.15.0.0/docs/Test-Framework.html|https://hackage.haskell.org/package/HTF-0.15.0.0/docs/Test-Framework.html>",
+        "type": "message",
+        "ts": "1648204520.392279",
+        "user": "U02KK6NUFFE"
+    },
+    {
+        "text": "`htfMainWithArgs` は `[String]` をとるようなので `htfMainWithArgs [\"pattern-to-match\"]` や `htfMainWithArgs [\"--not=pattern-to-exclude\"]` のようになるのでしょうか。しっかり追えていなくて予想で申し訳ないですが…",
+        "type": "message",
+        "ts": "1648204951.868709",
+        "user": "U578W9676"
     }
 ]

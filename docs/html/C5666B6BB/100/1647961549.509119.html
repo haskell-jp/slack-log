@@ -39,6 +39,51 @@
           <div class="description">ありがとうございます<br/>試してみます</div>
         </div>
       </div>
+      <div class="event" id="message-1648179517.182499">
+        <div class="content">
+          <div class="summary">
+            <div class="user">idiotpanzer</div>
+            <div class="date"><a class="date" href="#message-1648179517.182499">2022-03-25 12:38:37 +0900</a></div>
+          </div>
+          <div class="description">コマンドラインで実行でき、<br/>かつhtMainWithArgsみたいな関数で内部的にもAPIがあることがわかったのでよかったのですが<br/><code>-n</code> は否定表現なので <code>--exclude</code> 的なオプションなんですね<br/><code>--include</code> 的なオプションも欲しかった。こういうのは汎用的なワードでなんと言えばいいのやら。<br/><br/>Goだと <code>-run</code> で`--include` 的なオプションが使えますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1648196106.406889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cohei</div>
+            <div class="date"><a class="date" href="#message-1648196106.406889">2022-03-25 17:15:06 +0900</a></div>
+          </div>
+          <div class="description"><code>USAGE: COMMAND [OPTION ...] PATTERN ...</code> なので、オプションではない、ただの引数が include 相当ですかね?</div>
+        </div>
+      </div>
+      <div class="event" id="message-1648197701.186709">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cohei</div>
+            <div class="date"><a class="date" href="#message-1648197701.186709">2022-03-25 17:41:41 +0900</a></div>
+          </div>
+          <div class="description">コマンド名を知らないので、仮に <code>htf</code> としますが、<br/><br/>• パターンで限定したいとき: <code>htf pattern-to-match</code><br/>• パターンで除外したいとき: <code>htf --not=pattern-to-exclude</code><br/>のようになるのではないかと思われます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1648204520.392279">
+        <div class="content">
+          <div class="summary">
+            <div class="user">idiotpanzer</div>
+            <div class="date"><a class="date" href="#message-1648204520.392279">2022-03-25 19:35:20 +0900</a></div>
+          </div>
+          <div class="description">なるほど盲点でした、ありがとうございます!<br/>試してみます<br/><br/>ちなみに直接コマンド実行する感じではなく、以下のhtfMainWithArgsを使ってます（既存ソースが複数のテストケースをまとめてhtfMainから実行する形式だったため）<br/><br/><a href='https://hackage.haskell.org/package/HTF-0.15.0.0/docs/Test-Framework.html'>https://hackage.haskell.org/package/HTF-0.15.0.0/docs/Test-Framework.html</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1648204951.868709">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cohei</div>
+            <div class="date"><a class="date" href="#message-1648204951.868709">2022-03-25 19:42:31 +0900</a></div>
+          </div>
+          <div class="description"><code>htfMainWithArgs</code> は <code>[String]</code> をとるようなので <code>htfMainWithArgs ["pattern-to-match"]</code> や <code>htfMainWithArgs ["--not=pattern-to-exclude"]</code> のようになるのでしょうか。しっかり追えていなくて予想で申し訳ないですが…</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../100.html" class="item">Back to questions #100</a>
