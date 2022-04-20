@@ -106,5 +106,65 @@
         "type": "message",
         "ts": "1650327006.108289",
         "user": "U4L0B71L1"
+    },
+    {
+        "text": "ghci でロード（リロード）したときのエラーメッセージに対して less みたいなことしたいな……",
+        "type": "message",
+        "ts": "1650339789.906779",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "単にターミナルのスクロールバーじゃ面倒ですかね。",
+        "type": "message",
+        "ts": "1650354515.626989",
+        "user": "U4KU9ABL0"
+    },
+    {
+        "text": "Emacsのcomintでの起動が便利",
+        "type": "message",
+        "ts": "1650355795.738429",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "確かに -interactive-print のコンパイルエラー版がほしいですね。",
+        "type": "message",
+        "ts": "1650357741.392909",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "Ghciセッションを入力、出力（エラー出力も含めて）ログファイルに残すというのは、ad hoc な方法でやってます。でも、その場で less はできるかどうか確かめてないですねぇ。",
+        "type": "message",
+        "ts": "1650358929.164979",
+        "user": "U4KU9ABL0"
+    },
+    {
+        "text": "```ginput | tee -a -i ghci.log | stack exec -- ghci 2&gt;&amp;1 | tee -a -i ghci.log```",
+        "type": "message",
+        "ts": "1650359132.476139",
+        "user": "U4KU9ABL0"
+    },
+    {
+        "text": "スクロールバーでたどると `:r` を見逃すんですよね",
+        "type": "message",
+        "ts": "1650370106.052129",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "プロンプトを2行に分けてプロンプトを見逃さないようにするという手はあるかもです。私はタイムスタンプを入れるようにしてます。.ghci の設定はこんな感じ\n```import Data.Time\n_prompt _ n = (utcToLocalTime &lt;$&gt; getCurrentTimeZone &lt;*&gt; getCurrentTime) &gt;&gt;= print &gt;&gt; return \"&gt;&gt;&gt; \"\n:set prompt-function _prompt\n:set -interactive-print=Text.Show.Unicode.uprint\n:set -XLambdaCase -XMultiWayIf -XOverloadedStrings -XBangPatterns -XScopedTypeVariables\n:set editor catn```",
+        "type": "message",
+        "ts": "1650371262.869669",
+        "user": "U4KU9ABL0"
+    },
+    {
+        "text": "色付けてみようかな",
+        "type": "message",
+        "ts": "1650374250.067279",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "こちらの投稿に関して、運営の方に質問です。\nログの発言者の名前が私の場合、スクリーンネームではなく、メールアドレスの＠の前部分になっているのですが、メールアドレスの公開も規約の一部なのでしょうか。\n<https://haskell-jp.slack.com/archives/C4LFB6DE0/p1646541532486519>",
+        "type": "message",
+        "ts": "1650374515.243699",
+        "user": "U02CE9YGEAU"
     }
 ]
