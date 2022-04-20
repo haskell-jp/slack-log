@@ -200,11 +200,17 @@ saveUsersList = do
   liftIO $
     case result of
       Right (User.ListRsp us) -> do
-        let usersByName = HM.fromList $ map ((,) <$> Slack.unUserId . User.userId <*> User.userName) us
+        let usersByName =
+              HM.fromList $ map ((,) <$> Slack.unUserId . User.userId <*> getDisplayName) us
         BL.writeFile "json/.users.json" $ Json.encodePretty usersByName
       Left err -> do
         hPutStrLn stderr "WARNING: Error when fetching the list of users:"
         hPrint stderr err
+
+ where
+  getDisplayName u = fromMaybe "" $ do
+    p <- User.userProfile u
+    User.profileDisplayName p <|> User.profileDisplayNameNormalized p
 
 
 -- | Assumes the current directory is @docs/@
