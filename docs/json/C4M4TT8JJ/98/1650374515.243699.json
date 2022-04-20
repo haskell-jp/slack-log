@@ -1,0 +1,32 @@
+[
+    {
+        "text": "こちらの投稿に関して、運営の方に質問です。\nログの発言者の名前が私の場合、スクリーンネームではなく、メールアドレスの＠の前部分になっているのですが、メールアドレスの公開も規約の一部なのでしょうか。\n<https://haskell-jp.slack.com/archives/C4LFB6DE0/p1646541532486519>",
+        "type": "message",
+        "ts": "1650374515.243699",
+        "user": "U02CE9YGEAU"
+    },
+    {
+        "text": "すみません、Slack側の仕様について誤解があったようです。（もしかしたらAPIの仕様が変わったのかも知れません）\n実際に保存しているのはあくまでも <https://api.slack.com/methods/users.list> における `members` フィールドの `name` であり、メールアドレス全体が保存されていると言うことはありません。実際に保存されている内容は <https://github.com/haskell-jp/slack-log/blob/master/docs/json/.users.json> から閲覧できます。",
+        "type": "message",
+        "ts": "1650413595.939709",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "ちなみに、「profile」の「display name」では恐らくksrkとなっているかと思いますが（Slack日本語版だと設定項目の名前が異なるかと思いますが悪しからず）、 <https://haskell-jp.slack.com/account/settings#username> の設定からはどう見えていますか？",
+        "type": "message",
+        "ts": "1650413896.074019",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "上のリンクの「ユーザー名」がログの方で使用されていました！\n表示名やユーザーIdとは別にユーザ名もあったのを知りませんでした。\nどうもありがとうございます。",
+        "type": "message",
+        "ts": "1650420945.253479",
+        "user": "U02CE9YGEAU"
+    },
+    {
+        "text": "ともあれ、誤解を招く状態には違いないので、対応したいと思います。 <https://github.com/haskell-jp/slack-log/issues/60>",
+        "type": "message",
+        "ts": "1650421127.681669",
+        "user": "U4LGTMTMK"
+    }
+]
