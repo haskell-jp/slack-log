@@ -17,7 +17,7 @@
       <div class="event" id="message-1621669520.010500">
         <div class="content">
           <div class="summary">
-            <div class="user">muratomo.0205</div>
+            <div class="user">basashi</div>
             <div class="date"><a class="date" href="#message-1621669520.010500">2021-05-22 16:45:20 +0900</a></div>
           </div>
           <div class="description">質問連投失礼します．上のような関数を定義したのですが，このままでは無限リストになってしまいます．すでに登場したインデックスの呼び出しが再び出てきたら再帰を停止するという条件で，基底状態を定義することはできるのでしょうか?</div>
@@ -26,7 +26,7 @@
       <div class="event" id="message-1621669559.011100">
         <div class="content">
           <div class="summary">
-            <div class="user">muratomo.0205</div>
+            <div class="user">basashi</div>
             <div class="date"><a class="date" href="#message-1621669559.011100">2021-05-22 16:45:59 +0900</a></div>
           </div>
           <div class="description">要は以下のような値を返してほしいのです．</div>
@@ -35,7 +35,7 @@
       <div class="event" id="message-1621669583.011200">
         <div class="content">
           <div class="summary">
-            <div class="user">muratomo.0205</div>
+            <div class="user">basashi</div>
             <div class="date"><a class="date" href="#message-1621669583.011200">2021-05-22 16:46:23 +0900</a></div>
           </div>
           <div class="description"></div>
@@ -44,7 +44,7 @@
       <div class="event" id="message-1621669623.011700">
         <div class="content">
           <div class="summary">
-            <div class="user">muratomo.0205</div>
+            <div class="user">basashi</div>
             <div class="date"><a class="date" href="#message-1621669623.011700">2021-05-22 16:47:03 +0900</a></div>
           </div>
           <div class="description">よろしくおねがいします．</div>
@@ -53,10 +53,10 @@
       <div class="event" id="message-1621672953.016900">
         <div class="content">
           <div class="summary">
-            <div class="user">crtmike</div>
+            <div class="user">juxtapose</div>
             <div class="date"><a class="date" href="#message-1621672953.016900">2021-05-22 17:42:33 +0900</a></div>
           </div>
-          <div class="description">@muratomo.0205 このままではちょっと難しいかも。登場したインデックスを持てばいいと思います。<br/><pre>route :: [Int] -&gt; Int -&gt; [Int]
+          <div class="description">@basashi このままではちょっと難しいかも。登場したインデックスを持てばいいと思います。<br/><pre>route :: [Int] -&gt; Int -&gt; [Int]
 route xs = go []
   where go res i | i `elem` res = reverse res
                  | otherwise    = go (i:res) (xs!!i)</pre></div>
@@ -65,7 +65,7 @@ route xs = go []
       <div class="event" id="message-1621673011.017400">
         <div class="content">
           <div class="summary">
-            <div class="user">seasellsheshell_com.s</div>
+            <div class="user">TH</div>
             <div class="date"><a class="date" href="#message-1621673011.017400">2021-05-22 17:43:31 +0900</a></div>
           </div>
           <div class="description">（なお、これだと O(n^2) かかりそうなので、高速化する場合は Array / Vector を使ってあげたほうがいいですね）</div>
@@ -74,25 +74,25 @@ route xs = go []
       <div class="event" id="message-1621679556.020100">
         <div class="content">
           <div class="summary">
-            <div class="user">muratomo.0205</div>
+            <div class="user">basashi</div>
             <div class="date"><a class="date" href="#message-1621679556.020100">2021-05-22 19:32:36 +0900</a></div>
           </div>
-          <div class="description">@crtmike<br/>なるほど。<br/>再帰の結果を引数として持つ。ただ、その引数を隠すために再帰させる関数をラップする。<br/>という理解でいいでしょうか？</div>
+          <div class="description">@juxtapose<br/>なるほど。<br/>再帰の結果を引数として持つ。ただ、その引数を隠すために再帰させる関数をラップする。<br/>という理解でいいでしょうか？</div>
         </div>
       </div>
       <div class="event" id="message-1621679737.021900">
         <div class="content">
           <div class="summary">
-            <div class="user">muratomo.0205</div>
+            <div class="user">basashi</div>
             <div class="date"><a class="date" href="#message-1621679737.021900">2021-05-22 19:35:37 +0900</a></div>
           </div>
-          <div class="description">@seasellsheshell_com.s 計算量を考慮すると、一旦無限リストにしておいて、他の関数でtakeのように一部切り取るという使い方が推奨されるのでしょうか？</div>
+          <div class="description">@TH 計算量を考慮すると、一旦無限リストにしておいて、他の関数でtakeのように一部切り取るという使い方が推奨されるのでしょうか？</div>
         </div>
       </div>
       <div class="event" id="message-1621679793.022800">
         <div class="content">
           <div class="summary">
-            <div class="user">seasellsheshell_com.s</div>
+            <div class="user">TH</div>
             <div class="date"><a class="date" href="#message-1621679793.022800">2021-05-22 19:36:33 +0900</a></div>
           </div>
           <div class="description">計算量を考慮する場合、第一引数（それぞれの頂点からの行き先）の配列をランダムアクセスできるように Array にしたほうがいいのと、すでに到達した場所を保存するための Array を保持したほうがいいということです。</div>
@@ -101,7 +101,7 @@ route xs = go []
       <div class="event" id="message-1621679812.023300">
         <div class="content">
           <div class="summary">
-            <div class="user">seasellsheshell_com.s</div>
+            <div class="user">TH</div>
             <div class="date"><a class="date" href="#message-1621679812.023300">2021-05-22 19:36:52 +0900</a></div>
           </div>
           <div class="description">現在の仕組みだと、それぞれの頂点に到達するたびに、（最悪で）列全体をなめる必要があるのです。</div>
@@ -110,7 +110,7 @@ route xs = go []
       <div class="event" id="message-1621679825.023700">
         <div class="content">
           <div class="summary">
-            <div class="user">seasellsheshell_com.s</div>
+            <div class="user">TH</div>
             <div class="date"><a class="date" href="#message-1621679825.023700">2021-05-22 19:37:05 +0900</a></div>
           </div>
           <div class="description">ただし、 n = 10^3 程度なら現実的な時間で終わると言えると思います。</div>
@@ -119,7 +119,7 @@ route xs = go []
       <div class="event" id="message-1621680080.024700">
         <div class="content">
           <div class="summary">
-            <div class="user">muratomo.0205</div>
+            <div class="user">basashi</div>
             <div class="date"><a class="date" href="#message-1621680080.024700">2021-05-22 19:41:20 +0900</a></div>
           </div>
           <div class="description">なるほど<br/>ただ、まだ勉強がArrayまでたどり着いていなくて</div>
@@ -128,7 +128,7 @@ route xs = go []
       <div class="event" id="message-1621680300.028900">
         <div class="content">
           <div class="summary">
-            <div class="user">muratomo.0205</div>
+            <div class="user">basashi</div>
             <div class="date"><a class="date" href="#message-1621680300.028900">2021-05-22 19:45:00 +0900</a></div>
           </div>
           <div class="description">計算量を減らすにはArrayが推奨されるのは納得しました。一方でリストを使ってなんとか計算量を抑えたい時、一旦無限リストにして他の関数で切り取るという流れにすることでjuxtaposeさんの提示してくださったコードよりも計算量を減らすことは可能ですか？</div>
@@ -137,7 +137,7 @@ route xs = go []
       <div class="event" id="message-1621683337.041100">
         <div class="content">
           <div class="summary">
-            <div class="user">seasellsheshell_com.s</div>
+            <div class="user">TH</div>
             <div class="date"><a class="date" href="#message-1621683337.041100">2021-05-22 20:35:37 +0900</a></div>
           </div>
           <div class="description">いえ、一旦無限リストを作ってから切り取ることと、途中で再帰しなくなる条件を関数自身に書くことは、遅延評価の Haskell においては基本的に同等だと思います。</div>
@@ -146,16 +146,16 @@ route xs = go []
       <div class="event" id="message-1621723678.041300">
         <div class="content">
           <div class="summary">
-            <div class="user">sak13134</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1621723678.041300">2021-05-23 07:47:58 +0900</a></div>
           </div>
-          <div class="description">@sak13134 has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1621822287.046300">
         <div class="content">
           <div class="summary">
-            <div class="user">ringo1625</div>
+            <div class="user">apo</div>
             <div class="date"><a class="date" href="#message-1621822287.046300">2021-05-24 11:11:27 +0900</a></div>
           </div>
           <div class="description">GUIをやろうと思いhaskell-giを試していますが、HelloWorld以上のことができません。具体的にはテキストボックスが使えていません。Gtk.EntryやGtk.TextViewでテキストボックスを設置することはできましたが、実際に入力された値を取り出すことができません。何か参考になるようなサイトをご存知でしたらご教示頂きたく。公式サイトを見ましたが構文だけで実際にどうコーディングすればいいのかわかりませんでした。公式サイトのexamplesも見てみましたが、参考になりそうなコードはありませんでした（見つけられませんでした）。teratailで質問しましたが、まだ出来るようになっていません。<https://teratail.com/questions/303653></div>
@@ -165,34 +165,34 @@ route xs = go []
       <div class="event" id="message-1621926224.048300">
         <div class="content">
           <div class="summary">
-            <div class="user">muratomo.0205</div>
+            <div class="user">basashi</div>
             <div class="date"><a class="date" href="#message-1621926224.048300">2021-05-25 16:03:44 +0900</a></div>
           </div>
-          <div class="description">@seasellsheshell_com.s さん<br/>返信遅れました。遅延評価ですか、なるほど<br/>勉強になりました。ありがとうございます</div>
+          <div class="description">@TH さん<br/>返信遅れました。遅延評価ですか、なるほど<br/>勉強になりました。ありがとうございます</div>
         </div>
       </div>
       <div class="event" id="message-1621946967.048600">
         <div class="content">
           <div class="summary">
-            <div class="user">monoma632</div>
+            <div class="user">Kei</div>
             <div class="date"><a class="date" href="#message-1621946967.048600">2021-05-25 21:49:27 +0900</a></div>
           </div>
-          <div class="description">@monoma632 has joined the channel</div>
+          <div class="description">@Kei has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1622027544.048800">
         <div class="content">
           <div class="summary">
-            <div class="user">czheo1987</div>
+            <div class="user">T C</div>
             <div class="date"><a class="date" href="#message-1622027544.048800">2021-05-26 20:12:24 +0900</a></div>
           </div>
-          <div class="description">@czheo1987 has joined the channel</div>
+          <div class="description">@T C has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1622073618.048900">
         <div class="content">
           <div class="summary">
-            <div class="user">slackbot</div>
+            <div class="user">Slackbot</div>
             <div class="date"><a class="date" href="#message-1622073618.048900">2021-05-27 09:00:18 +0900</a></div>
           </div>
           <div class="description">Reminder: beginnersチャンネルは、新しい人がスムーズにHaskellに慣れるための質問を歓迎するチャンネルです。<br/>Haskell-Beginners ML や IRCの#haskell-beginners  や RedditのMonthly Hask Anythingのような位置づけを意図しています。<br/><br/>beginnersチャンネルでの回答側は、以下の左側のような応答を厳禁とする運用です。<br/>• それはくだらない質問だ → くだらない質問など無い<br/>• その質問は以前にもあった → 質問者はそんなこと知らない<br/>• Google検索せよ → 検索できないから質問している<br/><br/>beginnersチャンネルでは、例えば以下のレベルの質問から歓迎します。<br/>• <code>:</code> とは何のことですか。<br/>• タプルとは何ですか。<br/></div>
@@ -210,10 +210,10 @@ route xs = go []
       <div class="event" id="message-1622521093.049700">
         <div class="content">
           <div class="summary">
-            <div class="user">developer.n.seki</div>
+            <div class="user">nseki</div>
             <div class="date"><a class="date" href="#message-1622521093.049700">2021-06-01 13:18:13 +0900</a></div>
           </div>
-          <div class="description">@developer.n.seki has joined the channel</div>
+          <div class="description">@nseki has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1622540988.054000">
@@ -229,43 +229,43 @@ route xs = go []
       <div class="event" id="message-1622601548.056000">
         <div class="content">
           <div class="summary">
-            <div class="user">machtskampf</div>
+            <div class="user">thanai</div>
             <div class="date"><a class="date" href="#message-1622601548.056000">2021-06-02 11:39:08 +0900</a></div>
           </div>
-          <div class="description">@machtskampf has joined the channel</div>
+          <div class="description">@thanai has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1622702815.057400">
         <div class="content">
           <div class="summary">
-            <div class="user">hakamatao_haskell-jp</div>
+            <div class="user">hakamatao</div>
             <div class="date"><a class="date" href="#message-1622702815.057400">2021-06-03 15:46:55 +0900</a></div>
           </div>
-          <div class="description">@hakamatao_haskell-jp has joined the channel</div>
+          <div class="description">@hakamatao has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1622731036.057700">
         <div class="content">
           <div class="summary">
-            <div class="user">ytk.nishimura</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1622731036.057700">2021-06-03 23:37:16 +0900</a></div>
           </div>
-          <div class="description">@ytk.nishimura has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1622881060.057900">
         <div class="content">
           <div class="summary">
-            <div class="user">fff.claypool</div>
+            <div class="user">MegaClaypool</div>
             <div class="date"><a class="date" href="#message-1622881060.057900">2021-06-05 17:17:40 +0900</a></div>
           </div>
-          <div class="description">@fff.claypool has joined the channel</div>
+          <div class="description">@MegaClaypool has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1622971007.062500">
         <div class="content">
           <div class="summary">
-            <div class="user">muratomo.0205</div>
+            <div class="user">basashi</div>
             <div class="date"><a class="date" href="#message-1622971007.062500">2021-06-06 18:16:47 +0900</a></div>
           </div>
           <div class="description">漸化式として無限等差数列を定義するにはどうしたら良いでしょうか?<br/>ネットで検索した分には次のようなコードを見つけました．<br/><pre>step=3:(map (+ 4) step)
@@ -277,37 +277,37 @@ fib = 0 : 1 : zipWith (+) fib (tail fib)</pre><br/>これらは無限等差数�
       <div class="event" id="message-1623144623.066900">
         <div class="content">
           <div class="summary">
-            <div class="user">kentachoko345</div>
+            <div class="user">yakami</div>
             <div class="date"><a class="date" href="#message-1623144623.066900">2021-06-08 18:30:23 +0900</a></div>
           </div>
-          <div class="description">@kentachoko345 has joined the channel</div>
+          <div class="description">@yakami has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1623205147.067100">
         <div class="content">
           <div class="summary">
-            <div class="user">naosak1006</div>
+            <div class="user">sanao</div>
             <div class="date"><a class="date" href="#message-1623205147.067100">2021-06-09 11:19:07 +0900</a></div>
           </div>
-          <div class="description">@naosak1006 has joined the channel</div>
+          <div class="description">@sanao has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1623664209.067600">
         <div class="content">
           <div class="summary">
-            <div class="user">heguisonggang</div>
+            <div class="user">matsu</div>
             <div class="date"><a class="date" href="#message-1623664209.067600">2021-06-14 18:50:09 +0900</a></div>
           </div>
-          <div class="description">@heguisonggang has joined the channel</div>
+          <div class="description">@matsu has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1623738094.069400">
         <div class="content">
           <div class="summary">
-            <div class="user">0yc32615213056x</div>
+            <div class="user">takumi_matsuura</div>
             <div class="date"><a class="date" href="#message-1623738094.069400">2021-06-15 15:21:34 +0900</a></div>
           </div>
-          <div class="description">@0yc32615213056x has joined the channel</div>
+          <div class="description">@takumi_matsuura has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1623840065.069600">
@@ -322,43 +322,43 @@ fib = 0 : 1 : zipWith (+) fib (tail fib)</pre><br/>これらは無限等差数�
       <div class="event" id="message-1624112682.069800">
         <div class="content">
           <div class="summary">
-            <div class="user">yusuke.en30</div>
+            <div class="user">en30</div>
             <div class="date"><a class="date" href="#message-1624112682.069800">2021-06-19 23:24:42 +0900</a></div>
           </div>
-          <div class="description">@yusuke.en30 has joined the channel</div>
+          <div class="description">@en30 has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1624288839.070000">
         <div class="content">
           <div class="summary">
-            <div class="user">riotintacos</div>
+            <div class="user">yuyawk</div>
             <div class="date"><a class="date" href="#message-1624288839.070000">2021-06-22 00:20:39 +0900</a></div>
           </div>
-          <div class="description">@riotintacos has joined the channel</div>
+          <div class="description">@yuyawk has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1624327536.070300">
         <div class="content">
           <div class="summary">
-            <div class="user">parker30_liu</div>
+            <div class="user">Parker Liu</div>
             <div class="date"><a class="date" href="#message-1624327536.070300">2021-06-22 11:05:36 +0900</a></div>
           </div>
-          <div class="description">@parker30_liu has joined the channel</div>
+          <div class="description">@Parker Liu has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1624529952.070600">
         <div class="content">
           <div class="summary">
-            <div class="user">mori1220</div>
+            <div class="user">gest N</div>
             <div class="date"><a class="date" href="#message-1624529952.070600">2021-06-24 19:19:12 +0900</a></div>
           </div>
-          <div class="description">@mori1220 has joined the channel</div>
+          <div class="description">@gest N has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1624545509.073700">
         <div class="content">
           <div class="summary">
-            <div class="user">kerf_cat</div>
+            <div class="user">SF</div>
             <div class="date"><a class="date" href="#message-1624545509.073700">2021-06-24 23:38:29 +0900</a></div>
           </div>
           <div class="description">初めまして<br/>ダウンロードしたパッケージ(System.Random)をghciにインポートしたいのですが<br/>インポートするときに<br/>Prelude&gt; :l Main<br/><br/>Main.hs:seven:8:<br/>  Could not find module ‘Control.Monad.State.Strict’<br/>  Perhaps you meant<br/>   Control.Monad.ST.Strict (from base-4.8.2.0)<br/>   Control.Monad.Trans.State.Strict (from transformers-0.4.2.0@trans_GZTjP9K5WFq01xC9BAGQpF)<br/>  Use -v to see a list of the files searched for.<br/><br/>Main.hs:13:8:<br/>  Could not find module ‘Gauge.Main’<br/>  Use -v to see a list of the files searched for.<br/><br/>Main.hs:15:8:<br/>  Could not find module ‘System.Random.SplitMix’<br/>  Use -v to see a list of the files searched for.<br/><br/>Main.hs:17:8:<br/>  Could not find module ‘System.Random.Stateful’<br/>  Use -v to see a list of the files searched for.<br/>Failed, modules loaded: none.<br/>というエラーが出てしまいます<br/>これはどのように解決したら良いでしょうか<br/>また、やり方が間違っていたらやり方を教えていただけると幸いです</div>
@@ -368,16 +368,16 @@ fib = 0 : 1 : zipWith (+) fib (tail fib)</pre><br/>これらは無限等差数�
       <div class="event" id="message-1624630379.076400">
         <div class="content">
           <div class="summary">
-            <div class="user">elfiautomata</div>
+            <div class="user">Elfi Automata</div>
             <div class="date"><a class="date" href="#message-1624630379.076400">2021-06-25 23:12:59 +0900</a></div>
           </div>
-          <div class="description">@elfiautomata has joined the channel</div>
+          <div class="description">@Elfi Automata has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1624705846.077200">
         <div class="content">
           <div class="summary">
-            <div class="user">naosak1006</div>
+            <div class="user">sanao</div>
             <div class="date"><a class="date" href="#message-1624705846.077200">2021-06-26 20:10:46 +0900</a></div>
           </div>
           <div class="description">質問です。<br/>Haskellのフレームワークって何種類かあるようですが、最初に触れるなら今どきどれがオススメでしょうか？なんとなくYesodがいいのかなと思ってますが……</div>
@@ -387,7 +387,7 @@ fib = 0 : 1 : zipWith (+) fib (tail fib)</pre><br/>これらは無限等差数�
       <div class="event" id="message-1624897583.079700">
         <div class="content">
           <div class="summary">
-            <div class="user">yusuke.en30</div>
+            <div class="user">en30</div>
             <div class="date"><a class="date" href="#message-1624897583.079700">2021-06-29 01:26:23 +0900</a></div>
           </div>
           <div class="description">はじめまして。関連して質問です。<br/>最近フルスタックwebフレームワークとしてIHPというものも出てきているみたいですが、もし触ったことがある方がいれば、普段Haskellを書いている方からした印象はどうなのか伺いたいです。</div>
@@ -396,7 +396,7 @@ fib = 0 : 1 : zipWith (+) fib (tail fib)</pre><br/>これらは無限等差数�
       <div class="event" id="message-1624925756.083300">
         <div class="content">
           <div class="summary">
-            <div class="user">kerf_cat</div>
+            <div class="user">SF</div>
             <div class="date"><a class="date" href="#message-1624925756.083300">2021-06-29 09:15:56 +0900</a></div>
           </div>
           <div class="description">すみません　解決しました</div>
@@ -405,25 +405,25 @@ fib = 0 : 1 : zipWith (+) fib (tail fib)</pre><br/>これらは無限等差数�
       <div class="event" id="message-1624977884.083800">
         <div class="content">
           <div class="summary">
-            <div class="user">legend.mathlava</div>
+            <div class="user">LEG END</div>
             <div class="date"><a class="date" href="#message-1624977884.083800">2021-06-29 23:44:44 +0900</a></div>
           </div>
-          <div class="description">@legend.mathlava has joined the channel</div>
+          <div class="description">@LEG END has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1624992751.084500">
         <div class="content">
           <div class="summary">
-            <div class="user">moa17stock</div>
+            <div class="user">fuji</div>
             <div class="date"><a class="date" href="#message-1624992751.084500">2021-06-30 03:52:31 +0900</a></div>
           </div>
-          <div class="description">@moa17stock has joined the channel</div>
+          <div class="description">@fuji has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1625121147.086400">
         <div class="content">
           <div class="summary">
-            <div class="user">kerf_cat</div>
+            <div class="user">SF</div>
             <div class="date"><a class="date" href="#message-1625121147.086400">2021-07-01 15:32:27 +0900</a></div>
           </div>
           <div class="description">arrowの書き方で main = getLine <blockquote><blockquote>= print と同じ関数を書くにはどうしたらいいでしょうか？</blockquote></blockquote></div>
@@ -433,7 +433,7 @@ fib = 0 : 1 : zipWith (+) fib (tail fib)</pre><br/>これらは無限等差数�
       <div class="event" id="message-1625325113.093000">
         <div class="content">
           <div class="summary">
-            <div class="user">kerf_cat</div>
+            <div class="user">SF</div>
             <div class="date"><a class="date" href="#message-1625325113.093000">2021-07-04 00:11:53 +0900</a></div>
           </div>
           <div class="description">すみません<br/>arrowをproc?記法を使わないで書くとKleisli const が大量に出てきてしまうのですがこれは回避する方法があるのでしょうか？</div>
@@ -443,16 +443,16 @@ fib = 0 : 1 : zipWith (+) fib (tail fib)</pre><br/>これらは無限等差数�
       <div class="event" id="message-1625668869.094100">
         <div class="content">
           <div class="summary">
-            <div class="user">yoshikuni.kato.g</div>
+            <div class="user">Yoshikuni Kato</div>
             <div class="date"><a class="date" href="#message-1625668869.094100">2021-07-07 23:41:09 +0900</a></div>
           </div>
-          <div class="description">@yoshikuni.kato.g has joined the channel</div>
+          <div class="description">@Yoshikuni Kato has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1625704875.094700">
         <div class="content">
           <div class="summary">
-            <div class="user">benzene.chlorobenzene</div>
+            <div class="user">minus1216</div>
             <div class="date"><a class="date" href="#message-1625704875.094700">2021-07-08 09:41:15 +0900</a></div>
           </div>
           <div class="description">Windows10, GHC8.10.4を使っています。<br/>hSetBuffering stdin NoBufferingをしてgetCharでキーの入力を即座に読もうとしたのですが、エンターキーを押すまで入力が読み取られません<br/>解決法はありますでしょうか</div>
@@ -462,7 +462,7 @@ fib = 0 : 1 : zipWith (+) fib (tail fib)</pre><br/>これらは無限等差数�
       <div class="event" id="message-1625740361.095600">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1625740361.095600">2021-07-08 19:32:41 +0900</a></div>
           </div>
           <div class="description">1年前ぐらいから、lens恐怖症を克服してlensを使うようになりました。<br/><code>makeFields</code> でプレフィクス無しで参照できるのを便利に使っています。<br/>しかし、取得時が楽になった分、これまで我慢していた構築時のプレフィクスも消せないかなと思えてしまいます。<br/>添付したスニペットみたいに、構築時にもプレフィクスを取り除きたいです。<br/><br/>最近大量のデータ型をサンプル生成しなければいけなくて、強くそう思うようになりました。<br/>とりあえずは雑なデータを入れて、変更したい場所だけをlensのSetterで変更するようにしていますが、雑に入れるわけにもいかないデータを構築するときや、そもそも構築の原点ではやはりプレフィクスを一々入れる必要があるので面倒です。<br/>Stackageに載ってないGHCは流石に実運用するのがライブラリの構築など面倒なので、`NoFieldSelectors` を使ってプレフィクス自体を消すわけにもいきません。<br/>lensなどを使ってプレフィクス無しで構築する方法は存在しますか?</div>
@@ -472,7 +472,7 @@ fib = 0 : 1 : zipWith (+) fib (tail fib)</pre><br/>これらは無限等差数�
       <div class="event" id="message-1625874754.096700">
         <div class="content">
           <div class="summary">
-            <div class="user">tcokygets</div>
+            <div class="user">sirkerf</div>
             <div class="date"><a class="date" href="#message-1625874754.096700">2021-07-10 08:52:34 +0900</a></div>
           </div>
           <div class="description">モナド変換子について質問です。<br/>モナド変換子は圏論的にはどのように理解すればよいでしょうか？</div>

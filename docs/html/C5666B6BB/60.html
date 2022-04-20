@@ -17,7 +17,7 @@
       <div class="event" id="message-1558658628.093400">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1558658628.093400">2019-05-24 09:43:48 +0900</a></div>
           </div>
           <div class="description">こんにちは。型クラスについて質問です。<br/>Int64をラップしたMyNumberという型をつくりました。<br/>この型について、以下のような操作を定義したいのですが、どうもうまくいきません。そもそもこのようなことが可能なのか、可能であればどうしたらよいのか、ぜひ教えてください。<br/><br/>やりたいこと：<br/>- 許可：MyNumber 同士の 足し算、引き算<br/>- 許可：MyNumber の整数倍<br/>- 許可：MyNumber 同士の大小比較<br/>- 不許可： MyNumber と整数の足し算、引き算<br/>- 不許可：MyNumberと 整数の大小比較<br/>- 不許可：MyNumber同士の掛け算。<br/><br/>不許可については、コンパイル時にエラーとなるのが理想です。<br/><br/>こんな感じで書き進めてみたものの、なにか根本的に違うような気がしています。<br/>作戦として、MyNumberをNumやOrdのインスタンスにして、不許可の操作を実装しない、もしくは何らかの方法でコンパイルエラーにする、ということを考えました。<br/><br/><pre>haskell
@@ -90,7 +90,7 @@ main = do
       <div class="event" id="message-1558693882.000400">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1558693882.000400">2019-05-24 19:31:22 +0900</a></div>
           </div>
           <div class="description">Numに全部ぶちこんだのはHaskellの初期設計過ち四天王に入りそうで入らなさそう</div>
@@ -108,25 +108,25 @@ main = do
       <div class="event" id="message-1558963421.001100">
         <div class="content">
           <div class="summary">
-            <div class="user">polymonyrks</div>
+            <div class="user">Taichi Ishikawa</div>
             <div class="date"><a class="date" href="#message-1558963421.001100">2019-05-27 22:23:41 +0900</a></div>
           </div>
-          <div class="description">@polymonyrks has joined the channel</div>
+          <div class="description">@Taichi Ishikawa has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1559009020.001400">
         <div class="content">
           <div class="summary">
-            <div class="user">aviatesk</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1559009020.001400">2019-05-28 11:03:40 +0900</a></div>
           </div>
-          <div class="description">@aviatesk has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1559011117.003200">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1559011117.003200">2019-05-28 11:38:37 +0900</a></div>
           </div>
           <div class="description">Haskellで｢送られてきたメールアドレスの少なくともドメインがメールサーバとして成立しているかどうか(DNSでMXもしくはAもしくはAAAAを持つか)｣どうか調べる必要があって,汎用性があるからOSSにしようかと思ってるのですが既出なら教えてください<br/>後DNS周りで楽に取れるやつが欲しい…パフォーマンス気にしなければ <a href='http://hackage.haskell.org/package/resolv-0.1.1.2/docs/Network-DNS.html'>http://hackage.haskell.org/package/resolv-0.1.1.2/docs/Network-DNS.html</a> で良いんですが…いや別に気にしなくても良いのか</div>
@@ -135,7 +135,7 @@ main = do
       <div class="event" id="message-1559011160.003300">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1559011160.003300">2019-05-28 11:39:20 +0900</a></div>
           </div>
           <div class="description">いやパフォーマンスの問題ではなく使い勝手の問題ですねこれは</div>
@@ -167,7 +167,7 @@ do
       <div class="event" id="message-1559018427.006500">
         <div class="content">
           <div class="summary">
-            <div class="user">a_kirisaki</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1559018427.006500">2019-05-28 13:40:27 +0900</a></div>
           </div>
           <div class="description">dns: DNS library in Haskell - <a href='http://hackage.haskell.org/package/dns'>http://hackage.haskell.org/package/dns</a> もありますが、使い勝手は似たようなものっぽいですね</div>
@@ -203,7 +203,7 @@ do
       <div class="event" id="message-1559024850.007500">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1559024850.007500">2019-05-28 15:27:30 +0900</a></div>
           </div>
           <div class="description">こんなのはどうでしょう？<br/><a href='https://gist.github.com/mizunashi-mana/c2d6b87206e9c1f43046f84b135fd445'>https://gist.github.com/mizunashi-mana/c2d6b87206e9c1f43046f84b135fd445</a><br/><br/>やってることは大体 <code>catches</code> と同じです</div>
@@ -221,16 +221,16 @@ do
       <div class="event" id="message-1559118620.008400">
         <div class="content">
           <div class="summary">
-            <div class="user">clha4fn6</div>
+            <div class="user">atled</div>
             <div class="date"><a class="date" href="#message-1559118620.008400">2019-05-29 17:30:20 +0900</a></div>
           </div>
-          <div class="description">@clha4fn6 has joined the channel</div>
+          <div class="description">@atled has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1559198752.000200">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1559198752.000200">2019-05-30 15:45:52 +0900</a></div>
           </div>
           <div class="description">みなさんありがとうございました。vector-spaceは良さげですね！直接は大小比較をサポートしていない（ベクトルだから当たり前ですが）ので、その部分を手当してあげる必要はありそうです。</div>
@@ -239,7 +239,7 @@ do
       <div class="event" id="message-1559268175.002400">
         <div class="content">
           <div class="summary">
-            <div class="user">misaki</div>
+            <div class="user">sarashino</div>
             <div class="date"><a class="date" href="#message-1559268175.002400">2019-05-31 11:02:55 +0900</a></div>
           </div>
           <div class="description">Haskellでデータをファイルに書き出し，読み込みできるようなライブラリはなにがあるでしょうか．<br/>思い付くのだとAesonを使うしかないのかなと考えています．<br/>より効率がいいものがあるような気がするのですが，見付けられませんでした．</div>
@@ -248,7 +248,7 @@ do
       <div class="event" id="message-1559270297.002900">
         <div class="content">
           <div class="summary">
-            <div class="user">matonix</div>
+            <div class="user">maton</div>
             <div class="date"><a class="date" href="#message-1559270297.002900">2019-05-31 11:38:17 +0900</a></div>
           </div>
           <div class="description">シリアライズライブラリという認識でよろしいでしょうか．<br/>こちらの方で有志の方々がシリアライズのパフォーマンス比較をなさっておられるので参考になると思います．<br/><a href='https://scrapbox.io/haskell-shoen/シリアライズ'>https://scrapbox.io/haskell-shoen/シリアライズ</a></div>
@@ -257,7 +257,7 @@ do
       <div class="event" id="message-1559272495.003300">
         <div class="content">
           <div class="summary">
-            <div class="user">misaki</div>
+            <div class="user">sarashino</div>
             <div class="date"><a class="date" href="#message-1559272495.003300">2019-05-31 12:14:55 +0900</a></div>
           </div>
           <div class="description">ありがとうございます!<br/>たすかりました!</div>
@@ -266,7 +266,7 @@ do
       <div class="event" id="message-1559374102.008300">
         <div class="content">
           <div class="summary">
-            <div class="user">a_kirisaki</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1559374102.008300">2019-06-01 16:28:22 +0900</a></div>
           </div>
           <div class="description">自分で簡単なパーサーを作ろうと思っています。失敗した時の位置情報を出すくらいの機能はつけたいのですが、その実装について述べられているページや基本的なアイディアなとご存知でしたら教えていただければ幸いです（Parsecあたりのソースコードを読め、と言われればそうなんですが……）</div>
@@ -275,7 +275,7 @@ do
       <div class="event" id="message-1559377409.008400">
         <div class="content">
           <div class="summary">
-            <div class="user">a_kirisaki</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1559377409.008400">2019-06-01 17:23:29 +0900</a></div>
           </div>
           <div class="description">読んでたらなんとなくわかってきたかも……もうちょい自分で頑張ってみます</div>
@@ -293,7 +293,7 @@ do
       <div class="event" id="message-1559391832.009000">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1559391832.009000">2019-06-01 21:23:52 +0900</a></div>
           </div>
           <div class="description">Text.Parser.Pos に SourcePos というのがあって、 <code>getPosition :: Monad m =&gt; ParsecT s u m SourcePos</code> でいつでも取得できます。 igrep さんがいうようなメンテナンスは、 <code>setPosition :: Monad m =&gt; SourcePos -&gt; ParsecT s u m ()</code> でやることができるのですが、 Text.Parser.Char に含まれてるようなコンビネータはもともと一文字単位でいい感じに setPosition してるのだと思うので、自分で書く必要はほとんどないのでは、と思います</div>
@@ -302,7 +302,7 @@ do
       <div class="event" id="message-1559391962.009200">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1559391962.009200">2019-06-01 21:26:02 +0900</a></div>
           </div>
           <div class="description">あとは、 AST に SourcePos の情報を混ぜ込んで扱うのが吉だと思います。 <a href='https://qiita.com/Mizunashi_Mana/items/115855bf2af9b9970198'>https://qiita.com/Mizunashi_Mana/items/115855bf2af9b9970198</a> 個々の例だと AST に a の穴をあけておいてそこに SourcePos をいれていますね</div>
@@ -311,7 +311,7 @@ do
       <div class="event" id="message-1559392081.009500">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1559392081.009500">2019-06-01 21:28:01 +0900</a></div>
           </div>
           <div class="description">ちなみにガチの AST の例として LLVM の C++ フロントエンドである Clang の AST をみてると、 AST に対応するソースコード位置の情報を「その AST に対応する部分の先頭位置・終了位置・代表的な位置（エラーメッセージにつけるのにもっともよさげな位置）」と三種類ぐらい持っていた気がします。そこまでやらないとあの親切なエラーメッセージは出せないんだなあ、っていう感じでした</div>
@@ -320,7 +320,7 @@ do
       <div class="event" id="message-1559392257.009700">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1559392257.009700">2019-06-01 21:30:57 +0900</a></div>
           </div>
           <div class="description">あ、ひょっとしてパーサコンビネータライブラリを作る、っていうもう一個メタな話をしていらっしゃるんでしたら、釈迦に説法でしたか…^^;;</div>
@@ -329,7 +329,7 @@ do
       <div class="event" id="message-1559392364.009900">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1559392364.009900">2019-06-01 21:32:44 +0900</a></div>
           </div>
           <div class="description">もし、パーサコンビネータに頼らずにパーサを書くとなると、結局「1文字パースするたびにアップデートする基礎の層」を作ってそれをメンテナンスできる State をもっておいて、適宜 get しておくようにしつつ、結局は AST に混ぜ込むようにするという話になって、それは AST を設計する際に考えましょうっていう話になると思います。</div>
@@ -338,16 +338,16 @@ do
       <div class="event" id="message-1559406646.011000">
         <div class="content">
           <div class="summary">
-            <div class="user">aco.drumming</div>
+            <div class="user">acoman</div>
             <div class="date"><a class="date" href="#message-1559406646.011000">2019-06-02 01:30:46 +0900</a></div>
           </div>
-          <div class="description">@aco.drumming has joined the channel</div>
+          <div class="description">@acoman has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1559487843.017400">
         <div class="content">
           <div class="summary">
-            <div class="user">k.marumaru524</div>
+            <div class="user">mrsekut</div>
             <div class="date"><a class="date" href="#message-1559487843.017400">2019-06-03 00:04:03 +0900</a></div>
           </div>
           <div class="description">haskell初心者です<br/>テストに関して質問させてください<br/><br/>自分で定義したリスト型を返す関数のテストをhspecを用いて実行しようとしています。<br/><br/><pre>
@@ -389,7 +389,7 @@ spec = do
       <div class="event" id="message-1559488892.017600">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1559488892.017600">2019-06-03 00:21:32 +0900</a></div>
           </div>
           <div class="description">パッと見た感じ<br/>• exportがうまくいっていない<br/>が原因だと思います．<br/><br/>ちょっと分かりにくいのですが，<br/><pre>
@@ -400,7 +400,7 @@ data A = A { valueA :: Int }
       <div class="event" id="message-1559489361.017800">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1559489361.017800">2019-06-03 00:29:21 +0900</a></div>
           </div>
           <div class="description">今回問題になっているのは，<br/><pre>
@@ -419,7 +419,7 @@ module Lexer (TokenType, Token(Token, tokenType, valueString), lexer) where
       <div class="event" id="message-1559491538.018000">
         <div class="content">
           <div class="summary">
-            <div class="user">k.marumaru524</div>
+            <div class="user">mrsekut</div>
             <div class="date"><a class="date" href="#message-1559491538.018000">2019-06-03 01:05:38 +0900</a></div>
           </div>
           <div class="description">丁寧な回答有り難うございます！！！<br/><code>Token(..)</code>でexportする方法があるんですね！<br/>少し進むことが出来ました</div>
@@ -428,7 +428,7 @@ module Lexer (TokenType, Token(Token, tokenType, valueString), lexer) where
       <div class="event" id="message-1559491659.018200">
         <div class="content">
           <div class="summary">
-            <div class="user">k.marumaru524</div>
+            <div class="user">mrsekut</div>
             <div class="date"><a class="date" href="#message-1559491659.018200">2019-06-03 01:07:39 +0900</a></div>
           </div>
           <div class="description">しかし、また別のエラーが出てしまいました<br/>(①~④という番号は僕が振っています)<br/><pre>
@@ -461,7 +461,7 @@ spec = do
       <div class="event" id="message-1559514923.018500">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1559514923.018500">2019-06-03 07:35:23 +0900</a></div>
           </div>
           <div class="description">①～④は別々のエラーではなくてそれで一続きのメッセージですね。①のエラーが起きた場所が②の部分であり、その②の部分は（より大きな範囲で見ると）③であり、それは（さらに大きな範囲で見ると）④である、と言っているだけなので、①と②ぐらいを見て場所がわかるのならそれ以降を見る必要はないと思います。<br/>で、①のエラーは「shouldBe を使うことに起因して、 Token 型についての Eq クラスのインスタンス宣言が無いことが問題」だと言っているので、 <code>instance Eq Token where …</code> を必要とする、ということになります。あるいは <code>data Token …</code> の後ろに <code>deriving Eq</code> を書いて自動的に Eq のインスタンス宣言を導出するのでもよいと思います</div>
@@ -470,7 +470,7 @@ spec = do
       <div class="event" id="message-1559515048.018800">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1559515048.018800">2019-06-03 07:37:28 +0900</a></div>
           </div>
           <div class="description">すでに <code>deriving Show</code> が書いてあるので <code>deriving (Show, Eq)</code> のようにカッコにくくってカンマで列挙して書くことになりますね</div>
@@ -495,7 +495,7 @@ Path/To/Module.hs:123:45: error:
       <div class="event" id="message-1559535589.020400">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1559535589.020400">2019-06-03 13:19:49 +0900</a></div>
           </div>
           <div class="description">「必ず」複数の行に渡ります、はさすがに言いすぎではないでしょうか。シンプルな構文エラーだと<br/><code>Main.hs:1:13: error: parse error on input 'whree'</code><br/>てな感じですし…（where をタイプミスした例）</div>
@@ -504,7 +504,7 @@ Path/To/Module.hs:123:45: error:
       <div class="event" id="message-1559535686.020700">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1559535686.020700">2019-06-03 13:21:26 +0900</a></div>
           </div>
           <div class="description">あ、「型エラー」は、と書かれていました、失礼しました。型エラーは確かに必ず複数行になりますね</div>
@@ -513,25 +513,25 @@ Path/To/Module.hs:123:45: error:
       <div class="event" id="message-1559536959.021200">
         <div class="content">
           <div class="summary">
-            <div class="user">konn.jinro</div>
+            <div class="user">Hiromi ISHII / mr_konn</div>
             <div class="date"><a class="date" href="#message-1559536959.021200">2019-06-03 13:42:39 +0900</a></div>
           </div>
-          <div class="description">@konn.jinro has joined the channel</div>
+          <div class="description">@Hiromi ISHII / mr_konn has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1559538648.021500">
         <div class="content">
           <div class="summary">
-            <div class="user">k.marumaru524</div>
+            <div class="user">mrsekut</div>
             <div class="date"><a class="date" href="#message-1559538648.021500">2019-06-03 14:10:48 +0900</a></div>
           </div>
-          <div class="description">@koyama<br/>あああ、できました！！！ありがとうございます…<br/><br/>@koyama @igrep<br/>なるほど！！ありがとうございます<br/>エラー文の読み方、参考になりました:man-bowing:</div>
+          <div class="description">@koyama41<br/>あああ、できました！！！ありがとうございます…<br/><br/>@koyama41 @igrep<br/>なるほど！！ありがとうございます<br/>エラー文の読み方、参考になりました:man-bowing:</div>
         </div>
       </div>
       <div class="event" id="message-1559544831.027800">
         <div class="content">
           <div class="summary">
-            <div class="user">misaki</div>
+            <div class="user">sarashino</div>
             <div class="date"><a class="date" href="#message-1559544831.027800">2019-06-03 15:53:51 +0900</a></div>
           </div>
           <div class="description">Haskellの問題ではない可能性も高いのですが，<br/>SQLite3(SQLite.Simple)で複数回の書き込み後にErrorCan’tOpenがでてしまいます．<br/>おそらく100回程度の書き込み(成功) -&gt; しばらくErrorCan’tOpen -&gt; 時間を置いて復活<br/>という謎挙動でまいっています．．．<br/>拙作ですがコメント以外そのままのコードを載せます．<br/>```<br/>logger :: String -&gt; Middleware<br/>logger db app req sendResponse = do<br/>    t0 &lt;- getCurrentTime<br/>    app req $ \rsp -&gt; do<br/>        let isRaw =<br/>                case rsp of<br/>                  ResponseRaw{} -&gt; True<br/>                  _ -&gt; False<br/>        t1 &lt;- getCurrentTime<br/>        let logRow = LogField<br/>              { getDatetime = t0<br/>              , getRemoteHost = remoteHost req<br/>              , getRequestMethod = requestMethod req<br/>              , getStatusCode = if isRaw then Nothing else Just $ H.statusCode . responseStatus $ rsp<br/>              , getPath = rawPathInfo req<br/>              , getQuery = rawQueryString req<br/>              , getRequestHeaderHost = requestHeaderHost req<br/>              , getRequestHeaderReferer = requestHeaderReferer req<br/>              , getRequestHeaderUserAgent = requestHeaderUserAgent req<br/>              , getResponseTime = diffUTCTime t1 t0<br/>              }<br/>        void $ forkIO $ do<br/>            insertLogRetry db logRow<br/><br/>        sendResponse rsp<br/>    where<br/>        insertLogRetry :: String -&gt; LogField -&gt; IO()<br/>        insertLogRetry db' logRow = insertLog db' logRow<br/>                                    `catch` (\x -&gt; case sqlError x of<br/>                                        ErrorBusy -&gt; insertLogRetry' db' logRow<br/>                                        ErrorLocked -&gt; insertLogRetry' db' logRow<br/>                                        e -&gt; putStrLn $ "unknown error: " ++ show e ++ "\n" ++ show logRow) -- ErrorCan'tOpenが発生する<br/>        insertLogRetry' :: String -&gt; LogField -&gt; IO()<br/>        insertLogRetry' db' lr = (retry 100 $ do<br/>                                    gen &lt;- Rand.newStdGen<br/>                                    let (t, _) = Rand.randomR (1, 10) gen<br/>                                    threadDelay t<br/>                                    insertLog db' lr)<br/>                                  `catch` (\x -&gt; case sqlError x of<br/>                                    e -&gt; putStrLn $ show e ++ "error occurs after retry 100 times")<br/>        insertLog :: String -&gt; LogField -&gt; IO()<br/>        insertLog db' lf = do<br/>                         conn &lt;- open db'<br/>                         execute conn "INSERT INTO log VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)" lf<br/>                         close conn<br/>```<br/>もしどなたか心当たりあれば不確実な情報でもお願いします…_(:3 」∠ )_</div>
@@ -540,7 +540,7 @@ Path/To/Module.hs:123:45: error:
       <div class="event" id="message-1559546450.028100">
         <div class="content">
           <div class="summary">
-            <div class="user">misaki</div>
+            <div class="user">sarashino</div>
             <div class="date"><a class="date" href="#message-1559546450.028100">2019-06-03 16:20:50 +0900</a></div>
           </div>
           <div class="description">さきほどレポジトリの設定をPublicにしたので，こちらから見れます．．．<br/><a href='https://gitlab.com/sarashino/prida'>https://gitlab.com/sarashino/prida</a></div>
@@ -567,7 +567,7 @@ Path/To/Module.hs:123:45: error:
       <div class="event" id="message-1559551556.029200">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1559551556.029200">2019-06-03 17:45:56 +0900</a></div>
           </div>
           <div class="description">しかし sqlite3 なのでコネクションといっても単にローカルファイルを open してるだけな気がするのですよね…100個ぐらいで限界がくるものなのだろうか？という気がします</div>

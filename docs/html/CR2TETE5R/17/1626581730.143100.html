@@ -15,7 +15,7 @@
       <div class="event" id="message-1626581730.143100">
         <div class="content">
           <div class="summary">
-            <div class="user">0yc32615213056x</div>
+            <div class="user">takumi_matsuura</div>
             <div class="date"><a class="date" href="#message-1626581730.143100">2021-07-18 13:15:30 +0900</a></div>
           </div>
           <div class="description">初心者です。<br/>このサイト（<https://wiki.haskell.org/99_questions/Solutions/3>）に<br/>fun n xs = xs ! !  (n - 1)と<br/>fun = (last . ) . take . ( + 1)が<br/>同じと書かれているのですがよくわかりません。<br/>特に(last . ) . というのが何を表しているのかが分からないのですが、これはなんなのですか？</div>
@@ -24,7 +24,7 @@
       <div class="event" id="message-1626590884.145500">
         <div class="content">
           <div class="summary">
-            <div class="user">seasellsheshell_com.s</div>
+            <div class="user">TH</div>
             <div class="date"><a class="date" href="#message-1626590884.145500">2021-07-18 15:48:04 +0900</a></div>
           </div>
           <div class="description">まず、ご存知だとは思いますが <code>.</code> は関数合成をする右結合の演算子です。<br/>次に、 <code>(  ) . take . (  )</code> というのは、この3つの関数を合成することを意味します。<br/>さらに、`(last .)` というのはセクション記法で、「関数を受け取って、その関数に <code>last</code> を合成したものを返す」ものです。<br/><br/>流れは以下のようになります。<br/>まず、整数 <code>n</code> が <code>fun</code> に入ってきます。<br/><code>n</code> は関数 <code>(+ 1)</code> の作用を受けて <code>n + 1</code> になります。<br/>さらに、関数 <code>take</code> の作用を受けて、「リストを受け取り、リストの最初の <code>n+1</code> 個を返す関数」になります。<br/>最後に、 <code>(last .)</code> の作用を受けます。これにより、上記の関数は<br/>「リストを受け取り、リストの最初の <code>n+1</code> 個を返」したあと「そのリストの一番最後の値を返す」ような関数に変換されます。<br/>これは、リストの <code>n</code> 番目（ただし <code>n</code> は1-indexed）で取得する関数と等価になります。</div>
@@ -33,7 +33,7 @@
       <div class="event" id="message-1626604476.149600">
         <div class="content">
           <div class="summary">
-            <div class="user">0yc32615213056x</div>
+            <div class="user">takumi_matsuura</div>
             <div class="date"><a class="date" href="#message-1626604476.149600">2021-07-18 19:34:36 +0900</a></div>
           </div>
           <div class="description">とてもわかりやすかったです。<br/>教えていただきありがとうございます。</div>

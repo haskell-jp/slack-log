@@ -17,7 +17,7 @@
       <div class="event" id="message-1592620487.062600">
         <div class="content">
           <div class="summary">
-            <div class="user">cj.bc-sd</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1592620487.062600">2020-06-20 11:34:47 +0900</a></div>
           </div>
           <div class="description">返信遅くなりましたがうまく行きました！！！<br/>ありがとうございます！！<br/>Lensはoverやsetやviewと使うものだという固定概念がありました…今度からもっと型を注意してみるようにしてみます<br/><br/><pre>Prelude Control.Lens&gt; _2 (\a -&gt; print ("PRINTED: " ++ show a) &gt;&gt; return (Just "a")) (("hoge",6), 1.20)
@@ -31,7 +31,7 @@ Prelude Control.Lens&gt; (_1 . _2) (\a -&gt; print ("PRINTED: " ++ show a) &gt;&
       <div class="event" id="message-1592726883.064100">
         <div class="content">
           <div class="summary">
-            <div class="user">dex10619</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1592726883.064100">2020-06-21 17:08:03 +0900</a></div>
           </div>
           <div class="description">初歩的な質問ですが、お尋ねさせてください。<br/>仮定として、Main.hsに以下のような相対パス指定のファイル読み込みのコードが書かれているとします。<br/><br/><pre>readFile "../hoge.txt" --1つ上の階層のパスからファイルを読み込み</pre><br/>この時、current working directoryに依存せずに、「Main.hsファイルを起点とした相対パス指定」でファイルを読み込みたいです。<br/>（「stack exec XXX-exe」でプロセスを起動すると、current working directory起点とした相対パス指定になるため、場合によりうまく動かないです。）<br/><br/>上記のやりたいことを実現するための、お決まりのパターンとかってありますか？<br/>getCurrentDirectoryだと、簡単には行かなそうです。</div>
@@ -40,7 +40,7 @@ Prelude Control.Lens&gt; (_1 . _2) (\a -&gt; print ("PRINTED: " ++ show a) &gt;&
       <div class="event" id="message-1592729423.064300">
         <div class="content">
           <div class="summary">
-            <div class="user">matonix</div>
+            <div class="user">maton</div>
             <div class="date"><a class="date" href="#message-1592729423.064300">2020-06-21 17:50:23 +0900</a></div>
           </div>
           <div class="description">私が同じような問題に当たっときは「コンパイル時に相対パス指定したファイルを埋め込む」という方法を取りました。<br/>以下のパッケージがそのような手段を提供しています。<br/><a href='https://hackage.haskell.org/package/file-embed-0.0.12.0'>https://hackage.haskell.org/package/file-embed-0.0.12.0</a><br/>他の方法をご存じの方がいらっしゃいましたらよろしくお願いします（私も気になってます…）</div>
@@ -49,10 +49,10 @@ Prelude Control.Lens&gt; (_1 . _2) (\a -&gt; print ("PRINTED: " ++ show a) &gt;&
       <div class="event" id="message-1592730211.064700">
         <div class="content">
           <div class="summary">
-            <div class="user">dex10619</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1592730211.064700">2020-06-21 18:03:31 +0900</a></div>
           </div>
-          <div class="description">@matonix<br/>回答ありがとうございます。上記の方法はなかなかテクニカルですね。。<br/>意外と手軽にできる方法はなかったりするのですかね:cry:</div>
+          <div class="description">@maton<br/>回答ありがとうございます。上記の方法はなかなかテクニカルですね。。<br/>意外と手軽にできる方法はなかったりするのですかね:cry:</div>
         </div>
       </div>
       <div class="event" id="message-1592730946.064900">
@@ -85,7 +85,7 @@ Prelude Control.Lens&gt; (_1 . _2) (\a -&gt; print ("PRINTED: " ++ show a) &gt;&
       <div class="event" id="message-1592733614.068800">
         <div class="content">
           <div class="summary">
-            <div class="user">dex10619</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1592733614.068800">2020-06-21 19:00:14 +0900</a></div>
           </div>
           <div class="description">@igrep @kakkun61 @maoe<br/>なるほど、ありがとうございます！<br/>確かに<br/><br/><blockquote>コンパイル時のことって基本的に忘れられてしまうので難しいですね。</blockquote>これが真理な気がしてきました。。</div>
@@ -94,7 +94,7 @@ Prelude Control.Lens&gt; (_1 . _2) (\a -&gt; print ("PRINTED: " ++ show a) &gt;&
       <div class="event" id="message-1592734058.069000">
         <div class="content">
           <div class="summary">
-            <div class="user">dex10619</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1592734058.069000">2020-06-21 19:07:38 +0900</a></div>
           </div>
           <div class="description">基本的にstackを利用してprojectを作成する際は、実行体である.exeファイルはstackのサンドボックス内に作られるので、プロセスの起動もサンドボックス内の特定のディレクトリで行う、という形をとるのが素直な気がしてきました:bow:</div>
@@ -103,52 +103,52 @@ Prelude Control.Lens&gt; (_1 . _2) (\a -&gt; print ("PRINTED: " ++ show a) &gt;&
       <div class="event" id="message-1593074145.069800">
         <div class="content">
           <div class="summary">
-            <div class="user">ym0429_ma4ma</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593074145.069800">2020-06-25 17:35:45 +0900</a></div>
           </div>
-          <div class="description">@ym0429_ma4ma has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1593243213.070100">
         <div class="content">
           <div class="summary">
-            <div class="user">znmxodq1</div>
+            <div class="user">kuu</div>
             <div class="date"><a class="date" href="#message-1593243213.070100">2020-06-27 16:33:33 +0900</a></div>
           </div>
-          <div class="description">@znmxodq1 has joined the channel</div>
+          <div class="description">@kuu has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1593512177.070500">
         <div class="content">
           <div class="summary">
-            <div class="user">falgon53</div>
+            <div class="user">Roki</div>
             <div class="date"><a class="date" href="#message-1593512177.070500">2020-06-30 19:16:17 +0900</a></div>
           </div>
-          <div class="description">@falgon53 has joined the channel</div>
+          <div class="description">@Roki has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1593575176.070800">
         <div class="content">
           <div class="summary">
-            <div class="user">sdghrwihl456</div>
+            <div class="user">Shota</div>
             <div class="date"><a class="date" href="#message-1593575176.070800">2020-07-01 12:46:16 +0900</a></div>
           </div>
-          <div class="description">@sdghrwihl456 has joined the channel</div>
+          <div class="description">@Shota has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1593672664.071100">
         <div class="content">
           <div class="summary">
-            <div class="user">kazuki.matsuo.728</div>
+            <div class="user">kazuki</div>
             <div class="date"><a class="date" href="#message-1593672664.071100">2020-07-02 15:51:04 +0900</a></div>
           </div>
-          <div class="description">@kazuki.matsuo.728 has joined the channel</div>
+          <div class="description">@kazuki has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1593710468.075000">
         <div class="content">
           <div class="summary">
-            <div class="user">dex10619</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593710468.075000">2020-07-03 02:21:08 +0900</a></div>
           </div>
           <div class="description">「プログラミングHaskell 第2版」１３章の「モナドパーサー」を読んでいますが、<br/>以下の式がどう簡約されていき、最終的に[("1", "a")]と評価されているのか分からず、苦戦中。。<br/><br/>これ、どのような順序で式が評価されていってるのでしょう。。<br/><pre>&gt;parse (some digit) "1a"
@@ -227,7 +227,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593736937.075700">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593736937.075700">2020-07-03 09:42:17 +0900</a></div>
           </div>
           <div class="description">基本的には、遅延評価と覚えるのではなく、いちばん外側の式から簡約されていくと思えばいいです<br/><br/><code>parse (some digit) "1a"</code> は <code>(parse (some digit)) "1a"</code> の略記なので、いちばん最初は <code>e1 e2</code> (`e1 = parse (some digit)`、`e2 = "1a"`) の形の簡約から始まります。<br/><br/><code>e1 e2</code> の形の簡約方法は、`e1` を <code>(\x -&gt; ...)</code> の形かコンストラクタへの部分適用まで評価した後、`e2` を適用するというものです。今回は、まず <code>parse (some digit)</code> をその形まで簡約します。<br/><br/><code>parse (some digit)</code> もやっぱり、`e1 e2` の形なので、さらに <code>parse</code> の簡約を行います。`parse` はその定義から <code>\(Parse p) inp -&gt; p inp</code> の形に簡約されます。</div>
@@ -236,7 +236,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593737455.076000">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593737455.076000">2020-07-03 09:50:55 +0900</a></div>
           </div>
           <div class="description">次に、`(\(Parse p) inp -&gt; p inp) (some digit)` の適用が始まります。<br/><br/><code>(\(Parse p) inp -&gt; p inp)</code> は <code>\x inp -&gt; case x of { Parse p -&gt; p inp }</code> の略記なので、まず適用結果は <code>\inp -&gt; case (some digit) of { Parse p -&gt; p inp }</code> になります。</div>
@@ -245,7 +245,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593738026.076200">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593738026.076200">2020-07-03 10:00:26 +0900</a></div>
           </div>
           <div class="description">で、一番最初の <code>parse (some digit) "1a"</code> が <code>(\inp -&gt; case (some digit) of { Parse p -&gt; p inp }) "1a"</code> になり、適用操作が始まります。その結果 <code>case (some digit) of { Parse p -&gt; p "1a" }</code> になります。<br/><br/>ここからがちょっと特殊で、`Parse` 型が <code>data</code> か <code>newtype</code> かで簡約方法が異なります。今回は <code>newtype</code> なので、その場合の簡約方法を見ていきます。<br/><br/>まず、今の一番外側の式の形は <code>case e1 of { ... }</code> になるので、この形の簡約方法が適用されます。`case` の形は結構複雑で、その全容は <a href='https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-580003.17'>https://www.haskell.org/onlinereport/haskell2010/haskellch3.html#x8-580003.17</a> に書かれています。<br/><br/>今回の <code>case e1 of { Parse p -&gt; p "1a" }</code> でのパターン <code>Parse p</code> の場合、`newtype` によるコンストラクタ <code>Parse</code> はないものとして扱われ、`e1` は <code>p</code> に直接紐づかされます。これは、Haskell の式では表現できないですが、気分的には <code>cast&lt;String -&gt; ...&gt;(some digit) "1a"</code> みたいな感じで <code>e1</code> は <code>Parse</code> 型ではなく <code>String -&gt; ...</code> 型の値として扱われるようになります。<br/><br/>で、また <code>e1 e2</code> の形の簡約が適用されます。この場合 <code>cast&lt;...&gt;( )</code> はないものと思ってもらってよくて、`some digit` をまず簡約するという流れになります</div>
@@ -254,7 +254,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593739585.076600">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593739585.076600">2020-07-03 10:26:25 +0900</a></div>
           </div>
           <div class="description"><code>some digit</code> はやっぱり <code>e1 e2</code> の形をしているので、今までの流れと同じく <code>some</code> の定義から <code>(\x -&gt; pure (:) &lt;*&gt; x &lt;*&gt; many x) digit</code> になった後、`x` に <code>digit</code> が紐づき <code>pure (:) &lt;*&gt; digit &lt;*&gt; many digit</code>  のように簡約されます<br/><br/>(実際には変数 <code>x</code> の領域が作られ、そこに <code>digit</code> と紐づいてることが記憶され、簡約結果は変数 <code>x</code> を残しそこの簡約が走ると記憶領域が参照されその時初めて <code>digit</code> に置き換わりますが、今回は省略します)</div>
@@ -263,7 +263,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593739797.076800">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593739797.076800">2020-07-03 10:29:57 +0900</a></div>
           </div>
           <div class="description"><code>pure (:) &lt;*&gt; digit &lt;*&gt; many digit</code> は <code>&lt;*&gt;</code> が左結合なので、`(&lt;*&gt;) ((&lt;*&gt;) (pure (:)) digit) (many digit)` の略記になります。なので、`e1 = (&lt;*&gt;) ((&lt;*&gt;) (pure (:)) digit)`、`e2 = many digit` においていちばん外側の式の形が <code>e1 e2</code> になる式です。</div>
@@ -272,7 +272,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593740157.077200">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593740157.077200">2020-07-03 10:35:57 +0900</a></div>
           </div>
           <div class="description">よって、今までの流れ通り <code>(&lt;*&gt;) ((&lt;*&gt;) (pure (:)) digit)</code> の簡約が実行されます。これは <code>(&lt;*&gt;)</code> の定義が <code>(\pf pa -&gt; Parser (\inp -&gt; case parse pf of ...))</code> なのでそれに展開され、その後 <code>pf</code> に <code>(&lt;*&gt;) (pure (:)) digit</code> が紐づいて <code>\pa -&gt; Parser (\inp -&gt; case parse ((&lt;*&gt;) (pure (:)) digit) inp of ...)</code> になります。<br/><br/>で、最初に戻って今度は <code>pa</code> に <code>many digit</code> が紐づいて <code>Parser (\inp -&gt; case parse ((&lt;*&gt;) (pure (:)) digit) inp of ...)</code> になります。<br/><br/><code>newtype</code> の <code>Parser</code> コンストラクタは無視してよいので <code>cast&lt;...&gt;(some digit)</code> は <code>\inp -&gt; case parse ((&lt;*&gt;) (pure (:)) digit) inp of ...</code> にようやく簡約されることになります</div>
@@ -281,7 +281,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593740255.077500">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593740255.077500">2020-07-03 10:37:35 +0900</a></div>
           </div>
           <div class="description">で、`inp` に <code>"1a"</code> が紐づき <code>case parse ((&lt;*&gt;) (pure (:)) digit) "1a" of ...</code> の簡約が始まります</div>
@@ -290,7 +290,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593740818.077700">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593740818.077700">2020-07-03 10:46:58 +0900</a></div>
           </div>
           <div class="description"><code>case e1 of ...</code> は基本的にはマッチするパターンを最初から探していき、その過程で <code>e1</code> が簡約されていきます。今回は、<br/><pre>case parse ((&lt;*&gt;) (pure (:)) digit) "1a" of
@@ -301,7 +301,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593741163.077900">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593741163.077900">2020-07-03 10:52:43 +0900</a></div>
           </div>
           <div class="description">最終的に、`parse ((&lt;*&gt;) (pure (:)) digit) "1a"` は<br/><pre>case parse (pure (:)) "1a" of
@@ -314,7 +314,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593741323.078500">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593741323.078500">2020-07-03 10:55:23 +0900</a></div>
           </div>
           <div class="description">これは <code>[]</code> のパターンマッチに失敗し、今度は <code>[(f, out)]</code> のパターンが参照されます。こちらには成功するので、`f` に <code>(:)</code> が、`out` に <code>"1a"</code> が紐づき <code>parse (fmap (:) digit) "1a"</code> に簡約が進みます</div>
@@ -323,7 +323,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593744349.078700">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593744349.078700">2020-07-03 11:45:49 +0900</a></div>
           </div>
           <div class="description">ここからは省略気味で進めます。`parse (fmap (:) digit) "1a"` は、<br/><pre>case parse digit "1a" of
@@ -336,7 +336,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593744647.078900">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593744647.078900">2020-07-03 11:50:47 +0900</a></div>
           </div>
           <div class="description">で、この式はさらに <code>(&gt;&gt;=) item (\x -&gt; if isDigit x then return x else empty</code> の略記なので、`(&gt;&gt;=)` の定義から<br/><pre>\inp -&gt; case parse item inp of
@@ -349,7 +349,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593744767.079100">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593744767.079100">2020-07-03 11:52:47 +0900</a></div>
           </div>
           <div class="description">これまでと同様 <code>[]</code> パターンから <code>parse item "1a"</code> の簡約が始まり、<br/><pre>case "1a" of
@@ -360,7 +360,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593745248.079300">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593745248.079300">2020-07-03 12:00:48 +0900</a></div>
           </div>
           <div class="description">その手順を続けていくと、`parse (fmap (:) digit) "1a"` は<br/><pre>[((:) '1', "a")]</pre><br/>になることになります。後は、そのまま簡約を上記の手順で進めていくと、`parse (some digit) "1a"` が最終的に <code>[("1", "a")]</code> になる過程が分かると思います</div>
@@ -369,16 +369,16 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593748902.082800">
         <div class="content">
           <div class="summary">
-            <div class="user">dex10619</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593748902.082800">2020-07-03 13:01:42 +0900</a></div>
           </div>
-          <div class="description">@mizunashi-mana <br/>詳細な解説ありがとうございます！:sob:<br/>後でじっくり読ませていただきます！:man-bowing:<br/><br/>@igrep <br/>デバッグ手順のご教示ありがとうございます！勉強になります:smile:<br/>あ、末尾再帰ではないですね:sweat_drops:日本語の表現がおかしくてすみません:man-bowing:<br/>:sprintは後で試してみます！</div>
+          <div class="description">@ <br/>詳細な解説ありがとうございます！:sob:<br/>後でじっくり読ませていただきます！:man-bowing:<br/><br/>@igrep <br/>デバッグ手順のご教示ありがとうございます！勉強になります:smile:<br/>あ、末尾再帰ではないですね:sweat_drops:日本語の表現がおかしくてすみません:man-bowing:<br/>:sprintは後で試してみます！</div>
         </div>
       </div>
       <div class="event" id="message-1593751113.083300">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593751113.083300">2020-07-03 13:38:33 +0900</a></div>
           </div>
           <div class="description">ついでに、`parse (some digit) (repeat '1')` が stack overflow するやつは、ぱっと見<br/><pre>many x = some x &lt;|&gt; pure []</pre><br/>この定義が問題ですね (詳しく見てないので、間違ってたらすいません)<br/><br/>ずっとマッチし続ける場合 <code>some x</code> のパースがどんどん進行していきその過程で <code>many x</code> がどんどん再帰的に展開されます。で、`many x` が展開された際、使用されない <code>pure []</code> が遅延されたまま残り続けることになります。<br/><br/>なので、`many x` が展開された分だけ、遅延された <code>pure []</code> に相当するオブジェクトが増え続けます。<br/><br/>通常この遅延されたオブジェクトはヒープ領域に格納されていくので、通常はヒープオーバフローになるんですが、実は Haskell の GHCi は通常のコンパイル結果と異なる簡易的なスタックマシンでコードを実行するので、GHCi 上ではスタックにこの遅延されたオブジェクトが積まれていき、スタックオーバフローになるんだと思いますね</div>
@@ -387,7 +387,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593751502.083700">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593751502.083700">2020-07-03 13:45:02 +0900</a></div>
           </div>
           <div class="description">Haskell の実行マシンはちょっと特殊で、全ての関数呼び出しは単なるジャンプ (末尾呼び出し相当) なので、末尾再帰でないからスタックオーバーフローが起きるというわけではありません。<br/><br/>ただ、通常の言語と傾向としては似ていて、many / some の相互再帰で、many が some を実行した結果を見て <code>pure []</code> を計算するか判断しなければいけなくて、そのためには many が展開された時のフレームを何らかの方法で退避しておかなければいけないのは共通です。<br/><br/>それが通常の言語ではスタック退避なのが、Haskell ではフレームの代わりに遅延オブジェクトをヒープに退避させる (GHCi ならスタックに退避させる) ことになる傾向はあります<br/><br/>(ただ、これは一概に完全に対応するわけではなく、たまたま Haskell だとうまくオブジェクトが消費されたり、逆に普通の言語だと退避が起きない状況で退避が起きたりということはありますね)</div>
@@ -396,10 +396,10 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593757926.084100">
         <div class="content">
           <div class="summary">
-            <div class="user">jaxuzb</div>
+            <div class="user">Jahon</div>
             <div class="date"><a class="date" href="#message-1593757926.084100">2020-07-03 15:32:06 +0900</a></div>
           </div>
-          <div class="description">@jaxuzb has joined the channel</div>
+          <div class="description">@Jahon has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1593761609.084400">
@@ -423,7 +423,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593765706.086500">
         <div class="content">
           <div class="summary">
-            <div class="user">dex10619</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593765706.086500">2020-07-03 17:41:46 +0900</a></div>
           </div>
           <div class="description">@kakkun61 <br/>ありがとうございます！:sob:<br/>勉強になります:man-bowing:</div>
@@ -432,7 +432,7 @@ digit = sat isDigit</pre><br/></div>
       <div class="event" id="message-1593912783.090100">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593912783.090100">2020-07-05 10:33:03 +0900</a></div>
           </div>
           <div class="description">TemplateHaskell の Type データを，(型クラス自分で定義する以外で) 型から作る方法ってありますか？イメージとしては，<br/><pre>import qualified <http://Language.Haskell.TH|Language.Haskell.TH> as TH
@@ -452,7 +452,7 @@ _ :: (...) =&gt; Proxy a -&gt; TH.Type</pre><br/>みたいな型の関数が書�
       <div class="event" id="message-1593927098.090600">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593927098.090600">2020-07-05 14:31:38 +0900</a></div>
           </div>
           <div class="description">その方法で，うまくいきそうです．ありがとうございます</div>
@@ -461,7 +461,7 @@ _ :: (...) =&gt; Proxy a -&gt; TH.Type</pre><br/>みたいな型の関数が書�
       <div class="event" id="message-1593969526.094700">
         <div class="content">
           <div class="summary">
-            <div class="user">dex10619</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593969526.094700">2020-07-06 02:18:46 +0900</a></div>
           </div>
           <div class="description">GHCiによるデバッグ時に、出力される内容に分からないことがありましたので質問させてください。<br/>(GHCiデバッグに限らない内容ですが、ポチポチしているときに改めて気になりました。。）<br/><br/>GHCiにて、「:break 2」コマンドを打つと、現在ロードされているモジュールの2行目にブレークポイントが貼られ、<br/>以下のような内容が出力されます。<br/><pre>*Main&gt; :break 2
@@ -475,7 +475,7 @@ main = print (qsort [8, 4, 0, 3, 1, 23, 11, 18])</pre><br/>※qsort.hsの内容�
       <div class="event" id="message-1593970829.094800">
         <div class="content">
           <div class="summary">
-            <div class="user">cohei</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593970829.094800">2020-07-06 02:40:29 +0900</a></div>
           </div>
           <div class="description"><code>2:15-46</code> で2行目の15文字目から46文字目という範囲、すなわち <code>qsort left ++ [a] ++ qsort right</code> を表しています。<br/>どこかにはっきり説明があるというわけでもない (たぶん) ので、ハマりますよね…</div>
@@ -484,19 +484,19 @@ main = print (qsort [8, 4, 0, 3, 1, 23, 11, 18])</pre><br/>※qsort.hsの内容�
       <div class="event" id="message-1593971185.096000">
         <div class="content">
           <div class="summary">
-            <div class="user">dex10619</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1593971185.096000">2020-07-06 02:46:25 +0900</a></div>
           </div>
-          <div class="description">@cohei <br/>ありがとうございます！<br/>そういうことだったんですね！モヤモヤが晴れました:smile:</div>
+          <div class="description">@ <br/>ありがとうございます！<br/>そういうことだったんですね！モヤモヤが晴れました:smile:</div>
         </div>
       </div>
       <div class="event" id="message-1593974679.096500">
         <div class="content">
           <div class="summary">
-            <div class="user">orfj18</div>
+            <div class="user">Aquila Minakami</div>
             <div class="date"><a class="date" href="#message-1593974679.096500">2020-07-06 03:44:39 +0900</a></div>
           </div>
-          <div class="description">@orfj18 has joined the channel</div>
+          <div class="description">@Aquila Minakami has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1593987296.096800">
@@ -511,7 +511,7 @@ main = print (qsort [8, 4, 0, 3, 1, 23, 11, 18])</pre><br/>※qsort.hsの内容�
       <div class="event" id="message-1594007590.097700">
         <div class="content">
           <div class="summary">
-            <div class="user">dex10619</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1594007590.097700">2020-07-06 12:53:10 +0900</a></div>
           </div>
           <div class="description">@igrep  <br/>なるほど！<br/>そういう時に役立ちますね！</div>
@@ -520,7 +520,7 @@ main = print (qsort [8, 4, 0, 3, 1, 23, 11, 18])</pre><br/>※qsort.hsの内容�
       <div class="event" id="message-1594109672.099500">
         <div class="content">
           <div class="summary">
-            <div class="user">shunkichi.sato</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1594109672.099500">2020-07-07 17:14:32 +0900</a></div>
           </div>
           <div class="description">attoparsec、あるいはApplicativeやAlternativeの基本についてご質問です<br/><br/><br/>やろうとしているのは<br/>`Dest=Comp;Jump` ないし `Dest=Comp` という形式のテキストのパースです<br/><br/><br/>スレッド欄にて<br/>* こんな風に書きたいが、正しくないコード（Ideal）<br/>* 正しいが、汚いと思うコード（Reality）<br/>をご覧ください<br/><br/><br/>目的はIdealの簡潔さをなるべく保ちながらRealityの正しさを実現することです<br/><br/><br/>`Ideal.test` を実行すると、入力 `MD=...`  については<br/>`aDest` が `M` しか消費しないので、残る `D=...` が `=` にマッチせず失敗しています<br/><br/><br/>`Reality.test` を実行すると、結果は all isRight で正しくパースされているのですが<br/>* `aDest` の `&lt;* char '='`<br/>* `aComp` の `A   &lt;$ "A"`<br/>が冗長と感じます、もっとスッキリ書けないでしょうか？<br/><br/><br/>`aDest` の定義で `&lt;|&gt;` でつないだ並びは実際には数が多くコピペで済ませたいので<br/>これを正しくソートするという方法は避けたいです</div>
@@ -529,7 +529,7 @@ main = print (qsort [8, 4, 0, 3, 1, 23, 11, 18])</pre><br/>※qsort.hsの内容�
       <div class="event" id="message-1594109719.099600">
         <div class="content">
           <div class="summary">
-            <div class="user">shunkichi.sato</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1594109719.099600">2020-07-07 17:15:19 +0900</a></div>
           </div>
           <div class="description">こんな風に書きたいが、正しくないコード（Ideal）</div>
@@ -538,7 +538,7 @@ main = print (qsort [8, 4, 0, 3, 1, 23, 11, 18])</pre><br/>※qsort.hsの内容�
       <div class="event" id="message-1594109740.100000">
         <div class="content">
           <div class="summary">
-            <div class="user">shunkichi.sato</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1594109740.100000">2020-07-07 17:15:40 +0900</a></div>
           </div>
           <div class="description">正しいが、汚いと思うコード（Reality）</div>

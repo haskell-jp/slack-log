@@ -15,7 +15,7 @@
       <div class="event" id="message-1646663320.370199">
         <div class="content">
           <div class="summary">
-            <div class="user">xgrk9475</div>
+            <div class="user">ksrk</div>
             <div class="date"><a class="date" href="#message-1646663320.370199">2022-03-07 23:28:40 +0900</a></div>
           </div>
           <div class="description">数学、論理学寄りの質問なのですが、今私はHaskellでproof checkをしてみたくて、Haskellの型で論理結合子を表現しようとしているのですが、全称量化子と存在量化子の表現方法がわからずに詰まっています。<br/><a href='https://en.wikipedia.org/wiki/Brouwer%E2%80%93Heyting%E2%80%93Kolmogorov_interpretation'>”BHK解釈”のwiki</a>で以下の画像のような記述を発見したのですが、xが証明ではなく、集合Sの要素であることを表現するにはどのようにすればよいか、教えていただきたいです。<br/><pre>import Data.Void (Void)
@@ -33,7 +33,7 @@ type Exists x a = (x, a)</pre><br/></div>
       <div class="event" id="message-1646698827.604989">
         <div class="content">
           <div class="summary">
-            <div class="user">yf.vermilion</div>
+            <div class="user">yFkhr</div>
             <div class="date"><a class="date" href="#message-1646698827.604989">2022-03-08 09:20:27 +0900</a></div>
           </div>
           <div class="description">各型 (And a bにおけるa,bなど) の値には何が格納されることを想定してますか？</div>
@@ -42,7 +42,7 @@ type Exists x a = (x, a)</pre><br/></div>
       <div class="event" id="message-1646699514.945259">
         <div class="content">
           <div class="summary">
-            <div class="user">yf.vermilion</div>
+            <div class="user">yFkhr</div>
             <div class="date"><a class="date" href="#message-1646699514.945259">2022-03-08 09:31:54 +0900</a></div>
           </div>
           <div class="description">証明を表すデータが格納されるということならば、データSの値をx∈Sの証明とみなして、`S -&gt; A` 型の値として証明が書けると思います (∀x∈S.P(x)とは∀x.((x∈S)→P(x))のことなので)。</div>
@@ -51,10 +51,10 @@ type Exists x a = (x, a)</pre><br/></div>
       <div class="event" id="message-1646906602.990889">
         <div class="content">
           <div class="summary">
-            <div class="user">xgrk9475</div>
+            <div class="user">ksrk</div>
             <div class="date"><a class="date" href="#message-1646906602.990889">2022-03-10 19:03:22 +0900</a></div>
           </div>
-          <div class="description">@yf.vermilion<br/>すみません、ご指摘を踏まえて自分でいろいろ試してみたのですが、具体的に型を構成する方法がわかりませんでした。<br/>参考として、<http://www.cse.chalmers.se/~peterd/papers/DependentTypesAtWork.pdf|DependentTypesAtWork>のp22によると、AgdaではForallとExistsを以下のようにかけるようです。<br/><pre>data Forall (A : Set) (B : A -&gt; Set) : Set where
+          <div class="description">@yFkhr<br/>すみません、ご指摘を踏まえて自分でいろいろ試してみたのですが、具体的に型を構成する方法がわかりませんでした。<br/>参考として、<http://www.cse.chalmers.se/~peterd/papers/DependentTypesAtWork.pdf|DependentTypesAtWork>のp22によると、AgdaではForallとExistsを以下のようにかけるようです。<br/><pre>data Forall (A : Set) (B : A -&gt; Set) : Set where
   dfun : ((a : A) -&gt; B a) -&gt; Forall A B
 
 data Exists (A : Set) (B : A -&gt; Set) : Set where
@@ -65,7 +65,7 @@ type Exists (x :: s) a = (s, a x)</pre><br/>ForallとExistsがとる第一引数
       <div class="event" id="message-1646906657.653529">
         <div class="content">
           <div class="summary">
-            <div class="user">xgrk9475</div>
+            <div class="user">ksrk</div>
             <div class="date"><a class="date" href="#message-1646906657.653529">2022-03-10 19:04:17 +0900</a></div>
           </div>
           <div class="description">一応、例として、命題論理では以下のように証明しています。（長くてすみません）<br/>・シンボルの定義<br/><pre>class Prop a
@@ -105,7 +105,7 @@ lemma ac bc nab = case ac of
       <div class="event" id="message-1646976529.264339">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1646976529.264339">2022-03-11 14:28:49 +0900</a></div>
           </div>
           <div class="description">ちょっと無理がある気がしますね……。型が命題、その型を持つ項・プログラムが証明に対応するので、for all/ existsを表現しようとすれば項をパラメータに取る型が必要(dependent type theory)ですが、haskellのdependent type theoryのサポートってdatakindsくらいでかなり弱いので…</div>
@@ -114,10 +114,10 @@ lemma ac bc nab = case ac of
       <div class="event" id="message-1646999903.337249">
         <div class="content">
           <div class="summary">
-            <div class="user">xgrk9475</div>
+            <div class="user">ksrk</div>
             <div class="date"><a class="date" href="#message-1646999903.337249">2022-03-11 20:58:23 +0900</a></div>
           </div>
-          <div class="description">@gettaplacetogo<br/>なるほど。「依存型」と述語論理はそういう風に関連してくるのですか。少し理解が進みました。ありがとうございます。とりあえずHaskellでやるのは断念します。<br/>ちなみに、一番近いのは<br/><pre>{-# LANGUAGE RankNTypes #-}
+          <div class="description">@<br/>なるほど。「依存型」と述語論理はそういう風に関連してくるのですか。少し理解が進みました。ありがとうございます。とりあえずHaskellでやるのは断念します。<br/>ちなみに、一番近いのは<br/><pre>{-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE PolyKinds #-}
 
 type Forall s (a :: s -&gt; *) = forall (x :: s). x -&gt; a x
@@ -133,10 +133,10 @@ Most types with visible dependent quantification are
       <div class="event" id="message-1647149180.036219">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1647149180.036219">2022-03-13 14:26:20 +0900</a></div>
           </div>
-          <div class="description">@xgrk9475<br/><br/><blockquote>Perhaps supply one</blockquote>とあるように、“one” つまり “a standalone kind signature”(スタンドアロンの種注釈) を与えてよるのがいいかもしれない、そのためには <code>StandAloneKindSignatures</code> 拡張が要るよ、という話な訳ですね．for all の定義として適切なように standalone kind signature をつけるなら<br/><br/><pre>{-# LANGUAGE RankNTypes #-}
+          <div class="description">@ksrk<br/><br/><blockquote>Perhaps supply one</blockquote>とあるように、“one” つまり “a standalone kind signature”(スタンドアロンの種注釈) を与えてよるのがいいかもしれない、そのためには <code>StandAloneKindSignatures</code> 拡張が要るよ、という話な訳ですね．for all の定義として適切なように standalone kind signature をつけるなら<br/><br/><pre>{-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE PolyKinds #-}
 {-# LANGUAGE StandaloneKindSignatures #-}
 

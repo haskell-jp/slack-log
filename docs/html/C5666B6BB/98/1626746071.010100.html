@@ -15,7 +15,7 @@
       <div class="event" id="message-1626746071.010100">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1626746071.010100">2021-07-20 10:54:31 +0900</a></div>
           </div>
           <div class="description">persistentについて、というよりデータベースについての質問です。<br/>直和型のデータをデータベースに保存したい場合、どのデータベースを使うのがいいのでしょうか？<br/><br/>persistentだとpersistValue型に直和を表すものがなく、というよりそもそもRDBでは直和型を直接サポートしていない(RDBの元となった関係モデルでは演算として直和を考慮していないと思われる)ので、Maybe型などを使って無理やり表現する以外に方法がないように思えるのですが、<br/>RDB以外のデータベースならサポートしているのかなと。<br/><br/>何か意見をいただければ幸いです。</div>
@@ -33,7 +33,7 @@
       <div class="event" id="message-1626746863.010500">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1626746863.010500">2021-07-20 11:07:43 +0900</a></div>
           </div>
           <div class="description">返答ありがとうございます。調べてみます。</div>
@@ -51,7 +51,7 @@
       <div class="event" id="message-1626772603.011200">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1626772603.011200">2021-07-20 18:16:43 +0900</a></div>
           </div>
           <div class="description">ありがとうございます。いろいろと試してみたいと思います。</div>
@@ -60,7 +60,7 @@
       <div class="event" id="message-1627090925.011800">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1627090925.011800">2021-07-24 10:42:05 +0900</a></div>
           </div>
           <div class="description">追加の質問すみません、RDBで直和型を表現する方法について質問なのですが、<br/>これって直和型のデータを削除したときに、Garbage Collectionを作らないと大量のゴミが残る感じですかね？</div>
@@ -78,7 +78,7 @@
       <div class="event" id="message-1627120495.012300">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1627120495.012300">2021-07-24 18:54:55 +0900</a></div>
           </div>
           <div class="description">返信ありがとうございます。<br/>なるほど、ということは、XやYを型としてZをXとYの直和型としたとき、<br/>Shared Primary Keyの場合は、直和Zの実装としてXかYの要素のid値を保存するからZの値を削除しただけではXかYの要素を削除できなくて、<br/>The persistent Approachの場合は、直和Zは自身のid値を中身のXかYの要素のid値をそのまま使用することで表現するから、id値で削除すれば、XかYの要素も削除できるという理解で合ってますでしょうか？</div>
@@ -96,7 +96,7 @@
       <div class="event" id="message-1627121265.012800">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1627121265.012800">2021-07-24 19:07:45 +0900</a></div>
           </div>
           <div class="description">ええとすみません、私自身、RDBの外部キー制約をちゃんと理解していないことが分かったので、勉強するために少し時間をいただけますでしょうか？</div>
@@ -114,7 +114,7 @@
       <div class="event" id="message-1627132090.013500">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1627132090.013500">2021-07-24 22:08:10 +0900</a></div>
           </div>
           <div class="description">分かりました。<br/>Shared Primary Keysの場合は、Zが親テーブルで、XやYが子テーブルになって、CASCADE設定してZを削除すると、それを参照していたXやYのデータも削除されるということですね。</div>
@@ -123,7 +123,7 @@
       <div class="event" id="message-1627132320.013800">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1627132320.013800">2021-07-24 22:12:00 +0900</a></div>
           </div>
           <div class="description">The persistent Approachの場合は、XやYが親テーブルでZが子テーブルなので、子であるZのデータを削除してもXやYのデータが残ってしまうという感じですかね？</div>

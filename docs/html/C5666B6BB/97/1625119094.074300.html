@@ -15,7 +15,7 @@
       <div class="event" id="message-1625119094.074300">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1625119094.074300">2021-07-01 14:58:14 +0900</a></div>
           </div>
           <div class="description">どなたかservant-elmを使っている方はいらっしゃいますでしょうか？<br/><br/>servant-elmで生成したelmのエンコーダ、デコーダを使ってlocalhostでやりとりをしようとしていて困ったことがありました。<br/><br/>まず、servantで書いたサーバ側のURLが<http://localhost:8080> でelmで書いたクライアント側が<http://localhost8000> なので、CORSが働いてうまく作用しないことがわかりました。(WebブラウザはSafariです)<br/>そこで、サーバ側のHaskellコードでwai-corsライブラリを使ってCORSの設定としてSimpleCorsResoucePolicyを設定したところ、<br/>GETメソッドは通るようになりましたが、なぜかPOSTメソッドが通らず、<br/>Preflight response is not successful<br/>XMLHttpRequest cannot load <a href='http://localhost:8080/xxx'>http://localhost:8080/xxx</a> due to access control check<br/>とエラーメッセージが表示されてどう対処していいのか分からない状態です。<br/><br/>一応、サーバにターミナルのcurlコマンドで直接アクセスするとPOSTメソッドもうまくいくので、サーバ内部で発生したエラーではなさそうです。<br/>原因はおそらくCORS回りだと思うのですが、SimpleCorsResoucePolicyは"GET", "HEAD", "POST"メソッドを許容するような設定のはずなので、GETだけうまくいってPOSTがうまくいかない理由が分からないです。<br/><br/>何かアドバイスいただけないでしょうか？</div>
@@ -33,7 +33,7 @@
       <div class="event" id="message-1625122297.074700">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1625122297.074700">2021-07-01 15:51:37 +0900</a></div>
           </div>
           <div class="description">返答ありがとうございます。<br/>なるほど、そういう回避手段もあるのですね。<br/><br/>ただ、せっかくここまで来たので、Elmで作成したサイトからアクセスできればなと考えています。</div>
@@ -60,7 +60,7 @@
       <div class="event" id="message-1625126413.075700">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1625126413.075700">2021-07-01 17:00:13 +0900</a></div>
           </div>
           <div class="description">返信ありがとうございます。<br/>request headerをちゃんと理解していないのですが、自動生成されたエンコーダのheadersは空列になっているので、何も指定していないと思います。<br/>これはGETも同様です。</div>
@@ -69,7 +69,7 @@
       <div class="event" id="message-1625126839.075900">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1625126839.075900">2021-07-01 17:07:19 +0900</a></div>
           </div>
           <div class="description">Elmコードで申し訳ないですが、servant-elmによって自動生成されたものがこれです。<br/>(関数名も自動生成なのでちょっと変ですが、そこは多めにみてください)</div>
@@ -123,7 +123,7 @@
       <div class="event" id="message-1625138717.077800">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1625138717.077800">2021-07-01 20:25:17 +0900</a></div>
           </div>
           <div class="description">ありがとうございます。<br/>headerにcontent-typeを含んでいるものをCORSに許可したらPOSTでもちゃんと返してくれました。<br/>Webアプリ開発は初めてだったもので、色々と知らなかった点が多いですが、皆さまのおかげでとても助かりました。<br/>ありがとうございました。</div>

@@ -15,7 +15,7 @@
       <div class="event" id="message-1632032922.030800">
         <div class="content">
           <div class="summary">
-            <div class="user">goldent</div>
+            <div class="user">tuft</div>
             <div class="date"><a class="date" href="#message-1632032922.030800">2021-09-19 15:28:42 +0900</a></div>
           </div>
           <div class="description">はじめまして。<br/><br/><https://github.com/jabbalaci/SpeedTests><br/>このリポジトリを見つけ、Haskellだけ妙に遅いのが気になり高速化してみようと思ったのですが、それ以前にわからないところもあり質問させてください。<br/><br/>mapM_ print $ filter (\i -&gt; isMunchausen i i 0 cache) [0 .. 440000000]<br/>なぜこれで順次数値が表示されるのでしょうか?<br/>filterのイメージではTrueの要素だけか格納された[0,1,3435,438579088]というものがまず生成されて、その後いっぺんにprintされると思ったのですが。<br/><br/>{-# LANGUAGE Strict #-}<br/>{-# LANGUAGE StrictData #-}<br/>を有効にし、cacheをData.Vector.Unboxedにしてみたところ最初2分のものが1分くらいになったのですが、Goは8秒切り、Zigは4秒を切ります。<br/>Haskellとはこのくらいの速度差があるものなのでしょうか?<br/><br/>よろしくお願いします。</div>
@@ -33,7 +33,7 @@
       <div class="event" id="message-1632035789.031200">
         <div class="content">
           <div class="summary">
-            <div class="user">minorinoki_haskjp</div>
+            <div class="user">mod_poppo</div>
             <div class="date"><a class="date" href="#message-1632035789.031200">2021-09-19 16:16:29 +0900</a></div>
           </div>
           <div class="description">高速化についてですが、Haskellのdiv/modはquot/remに比べて遅いので、結果が変わらない場合（引数が非負である場合）はquot/remを使うという手がありますね</div>
@@ -42,7 +42,7 @@
       <div class="event" id="message-1632042341.031600">
         <div class="content">
           <div class="summary">
-            <div class="user">goldent</div>
+            <div class="user">tuft</div>
             <div class="date"><a class="date" href="#message-1632042341.031600">2021-09-19 18:05:41 +0900</a></div>
           </div>
           <div class="description">遅延評価のイメージが理解できていないのですが、StrictとStrictDataをファイル先頭に書いたので遅延評価はなくなっているのだと思っていました。<br/><br/>quotRemというものを使ってみたところ40秒になり結果の数値も変わりませんでした。<br/><br/>igrepさん、mod_poppoさんありがとうございます。</div>
@@ -60,7 +60,7 @@
       <div class="event" id="message-1632053482.032200">
         <div class="content">
           <div class="summary">
-            <div class="user">goldent</div>
+            <div class="user">tuft</div>
             <div class="date"><a class="date" href="#message-1632053482.032200">2021-09-19 21:11:22 +0900</a></div>
           </div>
           <div class="description">ありがとうございます。<br/>これから読ませていただきます。</div>
@@ -116,7 +116,7 @@ Summary
       <div class="event" id="message-1632124470.035600">
         <div class="content">
           <div class="summary">
-            <div class="user">goldent</div>
+            <div class="user">tuft</div>
             <div class="date"><a class="date" href="#message-1632124470.035600">2021-09-20 16:54:30 +0900</a></div>
           </div>
           <div class="description">-fllvmがWindowsで試せず、-fllvmをmacでやってみたところ、44.8秒が5.26秒になりました。<br/>-fllvm -O2だと3.95秒でした。<br/><br/>ここまで変わるとは思っていませんでした。<br/>ありがとうございます。</div>
@@ -143,7 +143,7 @@ Summary
       <div class="event" id="message-1634157233.073300">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1634157233.073300">2021-10-14 05:33:53 +0900</a></div>
           </div>
           <div class="description">余談ですが<br/>アルゴリズム上は10進数なら割り算をシフトで置き換えられるので、（それで割り算をなくせる）<br/>このコードのように10倍くらい高速化できるはずです。<br/><a href='https://gist.github.com/junjihashimoto/fe75780dba77ef3e33e8be605b3cf0c5'>https://gist.github.com/junjihashimoto/fe75780dba77ef3e33e8be605b3cf0c5</a><br/><br/>なので問題にあったData.Decimalのようなものをつくれればいいかと思ったのですが、<br/>まだできてないです。<br/><br/><a href='https://hackage.haskell.org/package/Decimal-0.5.2/docs/Data-Decimal.html'>https://hackage.haskell.org/package/Decimal-0.5.2/docs/Data-Decimal.html</a><br/>こちらは固定小数点で内部の表現はIntegerですね。</div>

@@ -15,7 +15,7 @@
       <div class="event" id="message-1647935277.605289">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1647935277.605289">2022-03-22 16:47:57 +0900</a></div>
           </div>
           <div class="description">aesonのparseJSONするときにファイルに書かれている設定値を使いたいのですが、<br/><blockquote>parseJSON :: <a href='https://hackage.haskell.org/package/aeson-2.0.3.0/docs/Data-Aeson.html#t:Value'>Value</a> -&gt; <a href='https://hackage.haskell.org/package/aeson-2.0.3.0/docs/Data-Aeson-Types.html#t:Parser'>Parser</a> a</blockquote>こんな関数なのでできないですよね。<br/>一度parseJSONしたあとに他でやるしかないですかね。</div>
@@ -37,7 +37,7 @@
       <div class="event" id="message-1647937552.302139">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1647937552.302139">2022-03-22 17:25:52 +0900</a></div>
           </div>
           <div class="description">端的でちょっと何をしたいのかよく分からないのですが、私はいわゆる設定ファイルには、<br/><code>loadYamlSettings</code><br/>を使って、環境変数なども参照するようにしています。</div>
@@ -55,7 +55,7 @@
       <div class="event" id="message-1647941111.971579">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1647941111.971579">2022-03-22 18:25:11 +0900</a></div>
           </div>
           <div class="description">あるファイルA.jsonに<br/>• hoo1<br/>    ◦ hoo12<br/>• hoo2<br/>    ◦ hoo23<br/>• hoo3<br/>    ◦ hoo34<br/>というのがあって、<br/>ファイルB.jsonがあって、<br/>ある項目にhoo1というのがあったら<br/>hoo12に置き換えるようなことをやりたいです。<br/>ファイルA.jsonが設定値にあたります。</div>
@@ -64,7 +64,7 @@
       <div class="event" id="message-1647941205.472999">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1647941205.472999">2022-03-22 18:26:45 +0900</a></div>
           </div>
           <div class="description">それでhoo1,hoo2,hoo3以外のものがファイルB.jsonにあった時点（行）で<br/>エラーを出したいです。</div>
@@ -82,7 +82,7 @@
       <div class="event" id="message-1647941794.698769">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1647941794.698769">2022-03-22 18:36:34 +0900</a></div>
           </div>
           <div class="description">出来なくはない気がしますが、他の方の意見と同じく、一度両方を読み込んで置換した方が良いと思いますね。<br/><br/><blockquote>それでhoo1,hoo2,hoo3以外のものがファイルB.jsonにあった時点（行）で<br/>エラーを出したいです。</blockquote>については、<br/>parseJSONの内部で想定してないキーが来たら <code>prependFailure</code> などを呼び出す、<br/>方法などがあると思います。</div>
@@ -91,7 +91,7 @@
       <div class="event" id="message-1647942522.338389">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1647942522.338389">2022-03-22 18:48:42 +0900</a></div>
           </div>
           <div class="description">reflectionパッケージがあっている気がします。<br/>ありがとうございます。</div>

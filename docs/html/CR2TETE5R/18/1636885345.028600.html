@@ -15,7 +15,7 @@
       <div class="event" id="message-1636885345.028600">
         <div class="content">
           <div class="summary">
-            <div class="user">yousukeman3</div>
+            <div class="user">葉酸you3</div>
             <div class="date"><a class="date" href="#message-1636885345.028600">2021-11-14 19:22:25 +0900</a></div>
           </div>
           <div class="description">自分はC#を用いることが多いのですが、FFIを用いてHaskellの関数やユーザー定義のデータ型などをC#とやり取りするにはどのようにすればよいのでしょうか？<br/>一応自分では調べてみたもののCの知識などを使うことが多くよくわからなかったので、できればそのあたりも教えてくださると大変助かります。</div>
@@ -33,7 +33,7 @@
       <div class="event" id="message-1636894722.029000">
         <div class="content">
           <div class="summary">
-            <div class="user">minorinoki_haskjp</div>
+            <div class="user">mod_poppo</div>
             <div class="date"><a class="date" href="#message-1636894722.029000">2021-11-14 21:58:42 +0900</a></div>
           </div>
           <div class="description">Haskellで書かれた関数を他の言語から呼び出したい場合、GHC User's GuideのFFIのセクションにあるような手順で共有ライブラリーを作って、Cのライブラリーとして外から呼び出してやれば一応は可能です。その際、データ型の類は全てC言語で表現できる範囲に落とし込む必要があります。 <a href='https://downloads.haskell.org/ghc/latest/docs/html/users_guide/exts/ffi.html#making-a-haskell-library-that-can-be-called-from-foreign-code'>https://downloads.haskell.org/ghc/latest/docs/html/users_guide/exts/ffi.html#making-a-haskell-library-that-can-be-called-from-foreign-code</a> ただ、個人的な感触としては、C FFIを経由して外からHaskellを呼び出すのは茨の道で、Haskell側の処理を単体の実行ファイルとして使えるようにしてプロセス間通信した方が良いのではという気がします。</div>
@@ -42,7 +42,7 @@
       <div class="event" id="message-1636940662.029500">
         <div class="content">
           <div class="summary">
-            <div class="user">yousukeman3</div>
+            <div class="user">葉酸you3</div>
             <div class="date"><a class="date" href="#message-1636940662.029500">2021-11-15 10:44:22 +0900</a></div>
           </div>
           <div class="description">お二人ともありがとうございます。<br/>やはりFFIでやるには一回Cのライブラリに落とす必要があるんですね。<br/><br/>プロセス間通信については一度調べてみようと思います。</div>
@@ -51,7 +51,7 @@
       <div class="event" id="message-1636956772.029800">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1636956772.029800">2021-11-15 15:12:52 +0900</a></div>
           </div>
           <div class="description">最近自然言語処理でPythonを呼び出す必要がガンガンあるんですが、短時間に何度も呼び出したり相互に呼び出したりしないので、HTTPでJSONをやり取りしてます<br/>ECSをタスクを分けられるので安全でもありますね<br/>Python側はFastAPIで、Haskell側はservant-clientを使っています</div>
@@ -60,7 +60,7 @@
       <div class="event" id="message-1637108021.035900">
         <div class="content">
           <div class="summary">
-            <div class="user">yousukeman3</div>
+            <div class="user">葉酸you3</div>
             <div class="date"><a class="date" href="#message-1637108021.035900">2021-11-17 09:13:41 +0900</a></div>
           </div>
           <div class="description">なるほど、確かにそれが一番やりやすそうな気がしますね。そちらも調べてみようと思います。<br/><br/>ところでECSってなんですか？<br/><br/>あと、短時間に何度もやり取りする必要がある場合はやはりIPCやFFIを使うことになるんですか？</div>
@@ -69,7 +69,7 @@
       <div class="event" id="message-1637111004.036300">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1637111004.036300">2021-11-17 10:03:24 +0900</a></div>
           </div>
           <div class="description">ECSと言うのはAWSのDockerコンテナ実行サービスです<br/>ECSを分けられるというのは要するにサーバをそれぞれ分けられるということです<br/><br/>短時間に何度も呼び出してパフォーマンスが必要になってHTTPのボトルネックが気になる場合、やはりFFIやIPCということになりそうですね</div>
@@ -78,7 +78,7 @@
       <div class="event" id="message-1637117138.036700">
         <div class="content">
           <div class="summary">
-            <div class="user">yousukeman3</div>
+            <div class="user">葉酸you3</div>
             <div class="date"><a class="date" href="#message-1637117138.036700">2021-11-17 11:45:38 +0900</a></div>
           </div>
           <div class="description">なるほど、そうなんですね。<br/><br/>今のところはローカル環境でプログラムを作ることを考えててhaskellとC#を短時間に何度も通信する必要があるかもしれないのでとりあえず難しそうですがIPCを使ってみようと思います。</div>

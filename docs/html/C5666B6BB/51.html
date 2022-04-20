@@ -17,7 +17,7 @@
       <div class="event" id="message-1551963300.155300">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551963300.155300">2019-03-07 21:55:00 +0900</a></div>
           </div>
           <div class="description">もし本当に「リストの長さが違っていて長い方のリストの後ろの方に Nothing がある場合も Nothing」にしたいなら、先にそれぞれ sequence してから liftA2 zip して fmap fromList すればよさそうですね</div>
@@ -26,7 +26,7 @@
       <div class="event" id="message-1551963329.155500">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551963329.155500">2019-03-07 21:55:29 +0900</a></div>
           </div>
           <div class="description"><code>fmap fromList $ liftA2 zip (sequence keys) (sequence values)</code></div>
@@ -35,7 +35,7 @@
       <div class="event" id="message-1551963387.156600">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551963387.156600">2019-03-07 21:56:27 +0900</a></div>
           </div>
           <div class="description">せっかくだから <code>fromList &lt;$&gt; liftA2 zip (sequence keys) (sequence values)</code> と書きたいか^^;</div>
@@ -53,7 +53,7 @@
       <div class="event" id="message-1551963411.157500">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551963411.157500">2019-03-07 21:56:51 +0900</a></div>
           </div>
           <div class="description">いや書きましたｗ</div>
@@ -62,7 +62,7 @@
       <div class="event" id="message-1551963424.157700">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551963424.157700">2019-03-07 21:57:04 +0900</a></div>
           </div>
           <div class="description">liftA2 までやるとちょっと読みにくいかなーと^^;</div>
@@ -80,7 +80,7 @@
       <div class="event" id="message-1551963464.158500">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551963464.158500">2019-03-07 21:57:44 +0900</a></div>
           </div>
           <div class="description"><code>fromList &lt;$&gt; (zip &lt;$&gt; sequence keys &lt;*&gt; sequence values)</code> ですね、はい^^;</div>
@@ -89,7 +89,7 @@
       <div class="event" id="message-1551963668.158700">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551963668.158700">2019-03-07 22:01:08 +0900</a></div>
           </div>
           <div class="description">あ、これちがうな、なんかペアがつくれてないな</div>
@@ -98,7 +98,7 @@
       <div class="event" id="message-1551963702.158900">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551963702.158900">2019-03-07 22:01:42 +0900</a></div>
           </div>
           <div class="description">これだと keyばっかりのリストとvalueばっかりのリストがペアになるだけでした^^;</div>
@@ -107,7 +107,7 @@
       <div class="event" id="message-1551963789.159100">
         <div class="content">
           <div class="summary">
-            <div class="user">shogo.otake</div>
+            <div class="user">otake84</div>
             <div class="date"><a class="date" href="#message-1551963789.159100">2019-03-07 22:03:09 +0900</a></div>
           </div>
           <div class="description">なるほど！とても勉強になります！！</div>
@@ -116,7 +116,7 @@
       <div class="event" id="message-1551963814.159300">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551963814.159300">2019-03-07 22:03:34 +0900</a></div>
           </div>
           <div class="description">あれ、いや<br/>ちゃんとペアできてた</div>
@@ -134,7 +134,7 @@
       <div class="event" id="message-1551963896.161200">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551963896.161200">2019-03-07 22:04:56 +0900</a></div>
           </div>
           <div class="description">いや、元のやつが間違ってるかと思ったのでした…目がおかしかったようです</div>
@@ -143,7 +143,7 @@
       <div class="event" id="message-1551963968.161400">
         <div class="content">
           <div class="summary">
-            <div class="user">shogo.otake</div>
+            <div class="user">otake84</div>
             <div class="date"><a class="date" href="#message-1551963968.161400">2019-03-07 22:06:08 +0900</a></div>
           </div>
           <div class="description">こんな初心者の質問に皆さんいろんな意見を出して頂けてとても嬉しいです！:relaxed:</div>
@@ -152,7 +152,7 @@
       <div class="event" id="message-1551963978.161600">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551963978.161600">2019-03-07 22:06:18 +0900</a></div>
           </div>
           <div class="description">で、もちろんそれぞれ sequence するということはそれぞれスキャンし終えてからもう一度 zip でたどることになるんですけど、それが仕様ならそうするしかないですよね</div>
@@ -161,7 +161,7 @@
       <div class="event" id="message-1551964083.161800">
         <div class="content">
           <div class="summary">
-            <div class="user">shogo.otake</div>
+            <div class="user">otake84</div>
             <div class="date"><a class="date" href="#message-1551964083.161800">2019-03-07 22:08:03 +0900</a></div>
           </div>
           <div class="description">あ、ちなみに今回の僕のケースだとkeysとvaluesでサイズが違う場合があります</div>
@@ -170,7 +170,7 @@
       <div class="event" id="message-1551964115.162000">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551964115.162000">2019-03-07 22:08:35 +0900</a></div>
           </div>
           <div class="description">ただ、まあ、元のコードはスキャンの回数よりもむしろ fromJust が部分関数なあたりが怖いので、それをなくせれば良さそうな感じはしますね</div>
@@ -179,7 +179,7 @@
       <div class="event" id="message-1551964158.162200">
         <div class="content">
           <div class="summary">
-            <div class="user">shogo.otake</div>
+            <div class="user">otake84</div>
             <div class="date"><a class="date" href="#message-1551964158.162200">2019-03-07 22:09:18 +0900</a></div>
           </div>
           <div class="description">はい！allでチェック済みとはいえ部分関数を使っていたのですごくどうにかしたい気持ちがありました</div>
@@ -188,7 +188,7 @@
       <div class="event" id="message-1551964651.162500">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1551964651.162500">2019-03-07 22:17:31 +0900</a></div>
           </div>
           <div class="description">僕も勉強になった！そして最終的にこうなった。(これは間違っています)<br/><br/><pre>
@@ -203,7 +203,7 @@ some keys values = M.fromList &lt;$&gt; zipWithM f keys values
       <div class="event" id="message-1551964710.162800">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551964710.162800">2019-03-07 22:18:30 +0900</a></div>
           </div>
           <div class="description">ああ、つまり「長い方の後ろのほうにある Nothing」は無視するほうの仕様になったんですね</div>
@@ -212,7 +212,7 @@ some keys values = M.fromList &lt;$&gt; zipWithM f keys values
       <div class="event" id="message-1551965074.163300">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1551965074.163300">2019-03-07 22:24:34 +0900</a></div>
           </div>
           <div class="description">そうだった。。忘れてた。。もう寝ます</div>
@@ -262,7 +262,7 @@ some xs ys = sequence ps `left` sequence rs
       <div class="event" id="message-1551972496.166200">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551972496.166200">2019-03-08 00:28:16 +0900</a></div>
           </div>
           <div class="description">後ろを <code>Just undefined</code> で詰めるんですね^^;</div>
@@ -280,7 +280,7 @@ some xs ys = sequence ps `left` sequence rs
       <div class="event" id="message-1551974756.166600">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551974756.166600">2019-03-08 01:05:56 +0900</a></div>
           </div>
           <div class="description">pairWith って liftA2 だったりしませんか</div>
@@ -289,7 +289,7 @@ some xs ys = sequence ps `left` sequence rs
       <div class="event" id="message-1551974989.166800">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551974989.166800">2019-03-08 01:09:49 +0900</a></div>
           </div>
           <div class="description">@cutsea110 さんの見ながら直してたらこんなんできました<br/><pre>
@@ -307,7 +307,7 @@ some xs     []     = Just [] `left` sequence xs
       <div class="event" id="message-1551975060.167000">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551975060.167000">2019-03-08 01:11:00 +0900</a></div>
           </div>
           <div class="description"># <code>&lt;,&gt;</code> が作りたかったけどカンマは無理だった…</div>
@@ -325,7 +325,7 @@ some xs     []     = Just [] `left` sequence xs
       <div class="event" id="message-1551975825.167600">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551975825.167600">2019-03-08 01:23:45 +0900</a></div>
           </div>
           <div class="description">たしかにこれ、 Control.Applicative をまるっと import すると some がぶつかるんですよね^^;</div>
@@ -366,7 +366,7 @@ hylo phi z psi x = case psi x of
       <div class="event" id="message-1551980343.168000">
         <div class="content">
           <div class="summary">
-            <div class="user">cohei</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1551980343.168000">2019-03-08 02:39:03 +0900</a></div>
           </div>
           <div class="description">hylomorphism まで出てくると、 [The Evolution of a Haskell Programmer](<https://www.willamette.edu/~fruehr/haskell/evolution.html>) を思いだしました :sweat_smile:</div>
@@ -490,7 +490,7 @@ buildMap = hylo phi psi
       <div class="event" id="message-1552037862.213500">
         <div class="content">
           <div class="summary">
-            <div class="user">wado</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1552037862.213500">2019-03-08 18:37:42 +0900</a></div>
           </div>
           <div class="description">スレッドの内容をページに反映させました。空白を含む場合について全然考えていませんでした。ありがとうございます:star:<br/><a href='https://haskell.e-bigmoon.com/stack/etc/stylish-haskell.html'>https://haskell.e-bigmoon.com/stack/etc/stylish-haskell.html</a></div>
@@ -499,7 +499,7 @@ buildMap = hylo phi psi
       <div class="event" id="message-1552040954.214400">
         <div class="content">
           <div class="summary">
-            <div class="user">hs.ioling.hs</div>
+            <div class="user">hsjoihs</div>
             <div class="date"><a class="date" href="#message-1552040954.214400">2019-03-08 19:29:14 +0900</a></div>
           </div>
           <div class="description"><a href='https://twitter.com/hsjoihs/status/1103965106616983552'>https://twitter.com/hsjoihs/status/1103965106616983552</a><br/>「Haskellの演算子に使う記号で、なんかこういうのにはこれを使うみたいな慣習」がまとまっていたりする記事とかってありますかね？</div>
@@ -508,7 +508,7 @@ buildMap = hylo phi psi
       <div class="event" id="message-1552042552.218100">
         <div class="content">
           <div class="summary">
-            <div class="user">yharuhi39</div>
+            <div class="user">りんご姫</div>
             <div class="date"><a class="date" href="#message-1552042552.218100">2019-03-08 19:55:52 +0900</a></div>
           </div>
           <div class="description">一応学術誌に頻出するようなのは、それと近いものにするとかあるみたいですが、後は型が別の演算子に似てたらそれに似せるとか、そういう程度ではないのでしょうか。 正直無数にありすぎて実質無法地帯な感は否めませんが、、、 と個人的に思ってます</div>
@@ -535,10 +535,10 @@ buildMap = hylo phi psi
       <div class="event" id="message-1552105322.220500">
         <div class="content">
           <div class="summary">
-            <div class="user">elkel53930</div>
+            <div class="user">K.Iida</div>
             <div class="date"><a class="date" href="#message-1552105322.220500">2019-03-09 13:22:02 +0900</a></div>
           </div>
-          <div class="description">@elkel53930 has joined the channel</div>
+          <div class="description">@K.Iida has joined the channel</div>
         </div>
       </div>
     </div>

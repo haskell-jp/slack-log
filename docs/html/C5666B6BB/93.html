@@ -17,7 +17,7 @@
       <div class="event" id="message-1604410736.138100">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1604410736.138100">2020-11-03 22:38:56 +0900</a></div>
           </div>
           <div class="description">なるほど〜<br/>整理して考えるとたしかに！<br/><code>name</code> は <code>env</code> に依存してないってだけなのに、それだけで、`AnyBot`の定義のせいで異質なメソッドになっちゃってる感じですね༼;´༎ຶ ༎ຶ༽<br/><br/>(ちなみにpackってなんですか？:exploding_head:)</div>
@@ -26,7 +26,7 @@
       <div class="event" id="message-1604411412.143900">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1604411412.143900">2020-11-03 22:50:12 +0900</a></div>
           </div>
           <div class="description"><code>env</code>が多相的なのは Has Type Class Pattern とかいうしきたりを真似してみたかんじです:sob:<br/>メソッドの呼び出し元によって具体的な`env`の型が変わり得るので多相的にしたい感じです:sob:</div>
@@ -35,7 +35,7 @@
       <div class="event" id="message-1604414976.147500">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1604414976.147500">2020-11-03 23:49:36 +0900</a></div>
           </div>
           <div class="description"><code>QuantifiedConstraints</code>なんて拡張があるんですね！<br/>なんかへんなとこに`forall`ついてる:exploding_head:<br/>調べながら読んでたんですけど今のところわけわかめです༼;´༎ຶ ༎ຶ༽×999</div>
@@ -44,7 +44,7 @@
       <div class="event" id="message-1604569571.148000">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1604569571.148000">2020-11-05 18:46:11 +0900</a></div>
           </div>
           <div class="description">何がどうなってるのかさっぱりわからないです:shocked_face_with_exploding_head: :joy:<br/><pre>AnyBot :: forall b. (Bot b, forall env. Dep AnyBot env =&gt; BotDep b env) =&gt; b -&gt; AnyBot</pre><br/>これって一体何を意味してるんですか?:exploding_head::x::one::zero::zero::zero:</div>
@@ -53,7 +53,7 @@
       <div class="event" id="message-1604585342.148200">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1604585342.148200">2020-11-05 23:09:02 +0900</a></div>
           </div>
           <div class="description">&gt; (ちなみにpackってなんですか？:exploding_head:)<br/>AnyBot のような、ある型の値を existential type の値に変換する操作のことですね。AnyBot の適用と読み替えてもらって構わないです<br/><br/>&gt; これって一体何を意味してるんですか?<br/>GADTSyntax 使わず existential type で書き直すなら、<br/>```data AnyBot = forall b. (Bot b, forall env. Dep AnyBot env =&gt; BotDep b env) =&gt; AnyBot b```<br/>と同じですね。`(Bot b, forall env. Dep AnyBot env =&gt; BotDep b env)` の部分は、<br/>* `Bot b` の制約が成り立つ<br/>* 任意の `env` 型について、`Dep AnyBot env` 制約が成り立つならば `BotDep b env` 制約が成り立つ<br/>の両方が成り立つみたいな意味ですね。`forall env. Dep AnyBot env =&gt; BotDep b env` の部分が `QuantifiedConstraints` 拡張により表現可能になる制約です</div>
@@ -62,7 +62,7 @@
       <div class="event" id="message-1604603465.149000">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1604603465.149000">2020-11-06 04:11:05 +0900</a></div>
           </div>
           <div class="description">ウ～ン(+_+)<br/><br/>1. <code>AnyBot</code> の型パラメタに <code>env</code>  をもたせると、`env` を必要としない <code>name</code> メソッドの呼び出しがえらいことになるから、`AnyBot` に <code>env</code>  をもたせない。<br/>2. すると <code>reply</code> メソッドの呼び出しに必要な <code>Dep b env</code> が足りなくなっちゃうから、`AnyBot`  にパターンマッチしたときに使える制約に <code>forall env. Dep b env</code>  的なものを入れたい。<br/>3. <code>QuantifiedConstraints</code>  拡張では <code>Dep b env</code>  みたいな型族をかけないから、仕方なく <code>BotDep</code>  型クラスを追加して、`instance Dep AnyBot env =&gt; BotDep AnyBot env` とかやって <code>BotDep</code>  から <code>Dep</code>  が得られるようにしてる。<br/>って感じのアイディアで大体あってますか?<br/>むずすぎてむりちゃづけです༼;´༎ຶ ༎ຶ༽</div>
@@ -71,7 +71,7 @@
       <div class="event" id="message-1604618745.150100">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1604618745.150100">2020-11-06 08:25:45 +0900</a></div>
           </div>
           <div class="description">`forall env. Dep AnyBot env =&gt; BotDep b env` というのは、気持ち的には `forall env. Dep AnyBot env =&gt; Dep b env` と同じですね。これは、<br/><br/>`Dep AnyBot env` 制約が成り立つ場合に、`Dep b env` 制約が成り立つ<br/><br/>つまり、`AnyBot` コンストラクタで pack できる型は、<br/><br/>* `Bot` 制約を満たし<br/>* `AnyBot` の `Dep` 制約 (今回は `HasLogFunc`) だけから、`Dep` に必要な制約を導ける (今回は例えば `Dep MarkovChain env` は `HasLogFunc env` と同じなので、`Dep MarkovChain env` は `HasLogFunc env`、つまり `Dep AnyBot env` の制約から導けます。もし `Dep MarkovChain env` が `(HasLogFunc env, HasWriteRef Task env)` みたいな制約を必要としていた場合、これは `HasLogFunc env` 制約からは導けないので AnyBot コンストラクタでの pack は失敗します)<br/><br/>みたいな条件のものだけということになります。この条件を守っているなら、各ボットの `reply :: Dep b env =&gt; ...` は `reply :: Dep AnyBot env =&gt; ...` と書いても実装ができるはずなので、`AnyBot` の `Bot` インスタンスが実装できます。そして、上の `AnyBot` コンストラクタで pack される時の条件は `Dep` が成り立つ必要は特に要求していなくて、*もし `Dep AnyBot env` が成り立つならば* `Dep b env` が成り立つことを要求しているだけなので、`Dep` は成り立たなくても pack はでき、`name` も特に `Dep` 制約を必要としないので呼び出せるということになりますね</div>
@@ -80,7 +80,7 @@
       <div class="event" id="message-1604619115.150400">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1604619115.150400">2020-11-06 08:31:55 +0900</a></div>
           </div>
           <div class="description">ああ、それと <code>BotDep</code> 型クラスについてですが、これは本質的なものではなくて <code>QuantifiedConstraints</code> の制約でこういうのを作らないといけないというだけですね。<https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/quantified_constraints.html#termination> に制約の内容がありますが、`QuantifiedConstraints` の実装上の制約で <code>forall env. Dep AnyBot env =&gt; ...</code> の <code>...</code> の部分には type family は書けません。なので、`forall env. Dep AnyBot env =&gt; Dep b env` とは書けないので、代わりに <code>Dep b env</code> に相当する型クラス <code>BotDep b env</code> を作ってそれを指定しています。</div>
@@ -89,7 +89,7 @@
       <div class="event" id="message-1604696865.151400">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1604696865.151400">2020-11-07 06:07:45 +0900</a></div>
           </div>
           <div class="description">わあ!そういうことか!完全に理解しました!:serval:<br/><code>forall env. Dep AnyBot env =&gt; BotDep b env</code> ってのは、左辺の <code>Dep AnyBot env</code> の制約が右辺の <code>BotDep b env</code> より厳しい、即ち、`type Dep AnyBot env = ...` で羅列されてる制約の中に、packされようとしている <code>Bot</code> インスタンスの <code>Dep</code>  の制約が含まれてることを要求してるんですね!<br/><br/><code>BotDep</code> 型クラスのあたりもいまいちどういう発想て゛そんなこと考えついたのかわかりません:sob:<br/><code>go :: Bot b =&gt; BotDep b env =&gt; b -&gt; String -&gt; RIO env (Maybe String)</code> の部分の <code>=&gt;</code> が重なっているのはなぜなのでしょうか?</div>
@@ -98,16 +98,16 @@
       <div class="event" id="message-1604720450.152200">
         <div class="content">
           <div class="summary">
-            <div class="user">taxtu06</div>
+            <div class="user">kazyasui</div>
             <div class="date"><a class="date" href="#message-1604720450.152200">2020-11-07 12:40:50 +0900</a></div>
           </div>
-          <div class="description">@taxtu06 has joined the channel</div>
+          <div class="description">@kazyasui has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1604722111.152300">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1604722111.152300">2020-11-07 13:08:31 +0900</a></div>
           </div>
           <div class="description"><blockquote>go :: Bot b =&gt; BotDep b env =&gt; b -&gt; String -&gt; RIO env (Maybe String) の部分の =&gt; が重なっているのはなぜなのでしょう</blockquote>ああ、すいません。癖で書いちゃいましたが、`Bot b =&gt; BotDep b env =&gt;` は <code>(Bot b, BotDep b env) =&gt;</code> と同じです</div>
@@ -116,16 +116,16 @@
       <div class="event" id="message-1604731271.152600">
         <div class="content">
           <div class="summary">
-            <div class="user">takenari.shinohara</div>
+            <div class="user">shintak</div>
             <div class="date"><a class="date" href="#message-1604731271.152600">2020-11-07 15:41:11 +0900</a></div>
           </div>
-          <div class="description">@takenari.shinohara has joined the channel</div>
+          <div class="description">@shintak has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1604911576.153200">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1604911576.153200">2020-11-09 17:46:16 +0900</a></div>
           </div>
           <div class="description">ありがとうございます:arigatougozaimasu:<br/>そうだったんですね!文脈のところもカリー化みたいな感じなことできるんですね!<br/><br/>後もう一つ、`UndecidableSuperClasses` スーパークラスとして型族指定しているのも初めて見ました・・・<br/>調べているんですけどこれもどう考えればいいのかイマイチまだつかめてないです:sob:</div>
@@ -134,25 +134,25 @@
       <div class="event" id="message-1604977000.153500">
         <div class="content">
           <div class="summary">
-            <div class="user">mayoimaimai9</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1604977000.153500">2020-11-10 11:56:40 +0900</a></div>
           </div>
-          <div class="description">@mayoimaimai9 has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1605066217.153700">
         <div class="content">
           <div class="summary">
-            <div class="user">aka2tom8bo_slack</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1605066217.153700">2020-11-11 12:43:37 +0900</a></div>
           </div>
-          <div class="description">@aka2tom8bo_slack has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1605092063.155100">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1605092063.155100">2020-11-11 19:54:23 +0900</a></div>
           </div>
           <div class="description">わあーごめんなさい:woman-bowing:<br/>一呼吸おいて冷静に考えてみたら全部理解できました༼;´༎ຶ ༎ຶ༽<br/>すごい勉強になりましたありがとうございます！！！🥳:star-struck:</div>
@@ -161,10 +161,10 @@
       <div class="event" id="message-1605334722.162000">
         <div class="content">
           <div class="summary">
-            <div class="user">sevensins0410s</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1605334722.162000">2020-11-14 15:18:42 +0900</a></div>
           </div>
-          <div class="description">@sevensins0410s has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1605575950.163500">
@@ -179,7 +179,7 @@
       <div class="event" id="message-1605683225.163600">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1605683225.163600">2020-11-18 16:07:05 +0900</a></div>
           </div>
           <div class="description">新しくBotを追加するたびに`allBots`だけでなく`AnyBot`のインスタンス定義まで書き換えなきゃいけないのが少しイヤだったので、自分なりに作ってみたら難しくなっちゃいました:sob:<br/><br/>もっと上手に書くやり方ありませんか?<br/>あと変数名や関数名などももっと良いのありますか?:exploding_head:</div>
@@ -197,7 +197,7 @@
       <div class="event" id="message-1605703967.164200">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1605703967.164200">2020-11-18 21:52:47 +0900</a></div>
           </div>
           <div class="description"></div>
@@ -206,7 +206,7 @@
       <div class="event" id="message-1605704015.164600">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1605704015.164600">2020-11-18 21:53:35 +0900</a></div>
           </div>
           <div class="description">なるほど， <code>AnyBot</code> を constraint 持てるようにしておくと，後から変えられて確かに便利ですね．HList のところは，単に一々 <code>SomeBot</code> を <code>allBots</code> の全てのボットで書くのが面倒という理由で使ってるなら，ビルダをそもそも定義すればいいだけだと思いますね．その例が上に post したやつです</div>
@@ -215,19 +215,19 @@
       <div class="event" id="message-1605884874.165400">
         <div class="content">
           <div class="summary">
-            <div class="user">manami2622</div>
+            <div class="user">Manami</div>
             <div class="date"><a class="date" href="#message-1605884874.165400">2020-11-21 00:07:54 +0900</a></div>
           </div>
-          <div class="description">@manami2622 has joined the channel</div>
+          <div class="description">@Manami has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1605928592.165600">
         <div class="content">
           <div class="summary">
-            <div class="user">escapegoat173</div>
+            <div class="user">Hesca</div>
             <div class="date"><a class="date" href="#message-1605928592.165600">2020-11-21 12:16:32 +0900</a></div>
           </div>
-          <div class="description">@escapegoat173 has joined the channel</div>
+          <div class="description">@Hesca has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1605931184.165700">
@@ -242,10 +242,10 @@
       <div class="event" id="message-1605977651.166000">
         <div class="content">
           <div class="summary">
-            <div class="user">usabarashi</div>
+            <div class="user">gen usabarashi</div>
             <div class="date"><a class="date" href="#message-1605977651.166000">2020-11-22 01:54:11 +0900</a></div>
           </div>
-          <div class="description">@usabarashi has joined the channel</div>
+          <div class="description">@gen usabarashi has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1606031546.172600">
@@ -318,16 +318,16 @@ compiled using version 3.2.0.0 of the Cabal library </pre></div>
       <div class="event" id="message-1606225433.177500">
         <div class="content">
           <div class="summary">
-            <div class="user">yasufrom24</div>
+            <div class="user">Yasuhiro</div>
             <div class="date"><a class="date" href="#message-1606225433.177500">2020-11-24 22:43:53 +0900</a></div>
           </div>
-          <div class="description">@yasufrom24 has joined the channel</div>
+          <div class="description">@Yasuhiro has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1606392856.180900">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1606392856.180900">2020-11-26 21:14:16 +0900</a></div>
           </div>
           <div class="description">ありがとうございます！なるほど！`HList`定義しなくてもビルダーで書けばかなりスッキリシンプルになりますね！<br/>ただその代わり値からの型推論はできなくなっちゃうみたいですね…<br/>どうしよう…<br/></div>
@@ -336,7 +336,7 @@ compiled using version 3.2.0.0 of the Cabal library </pre></div>
       <div class="event" id="message-1606393069.184400">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1606393069.184400">2020-11-26 21:17:49 +0900</a></div>
           </div>
           <div class="description">わあありがとございます！たしかに！タプルで十分できそうですね！<br/>そういうインスタンス定義するだけで<br/><code>(HogeBot,(FugaBot,PiyoBot))</code>とかすればリストみたいにできちゃいますね〜ふむふむ…</div>
@@ -345,10 +345,10 @@ compiled using version 3.2.0.0 of the Cabal library </pre></div>
       <div class="event" id="message-1606452843.184700">
         <div class="content">
           <div class="summary">
-            <div class="user">han</div>
+            <div class="user">Jaeseung Han</div>
             <div class="date"><a class="date" href="#message-1606452843.184700">2020-11-27 13:54:03 +0900</a></div>
           </div>
-          <div class="description">@han has joined the channel</div>
+          <div class="description">@Jaeseung Han has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1606462288.184800">
@@ -363,7 +363,7 @@ compiled using version 3.2.0.0 of the Cabal library </pre></div>
       <div class="event" id="message-1606492583.185000">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1606492583.185000">2020-11-28 00:56:23 +0900</a></div>
           </div>
           <div class="description">わああたしかに良さそうですね!:owl:<br/><br/>HList にしてるのは<br/><pre>allBots = MarkovChain :+: Shiritori :+: HNil</pre><br/>とかから型推論させてみたいからです〜<br/>まあでもこれだと型推論はできても<br/><pre>allBots :: HList HasLogFunc</pre><br/>とか書いたときにエラーになっちゃうんですよね〜<br/><pre>type family (:&amp;&amp;:) c1 c2 :: Type -&gt; Constraint where
@@ -380,25 +380,25 @@ data HList :: (Type -&gt; Constraint) -&gt; Type where
       <div class="event" id="message-1606572499.186000">
         <div class="content">
           <div class="summary">
-            <div class="user">yudai.tnb</div>
+            <div class="user">Yudai Tanabe</div>
             <div class="date"><a class="date" href="#message-1606572499.186000">2020-11-28 23:08:19 +0900</a></div>
           </div>
-          <div class="description">@yudai.tnb has joined the channel</div>
+          <div class="description">@Yudai Tanabe has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1606576089.186200">
         <div class="content">
           <div class="summary">
-            <div class="user">sh9temp</div>
+            <div class="user">sh9</div>
             <div class="date"><a class="date" href="#message-1606576089.186200">2020-11-29 00:08:09 +0900</a></div>
           </div>
-          <div class="description">@sh9temp has joined the channel</div>
+          <div class="description">@sh9 has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1606671906.186300">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1606671906.186300">2020-11-30 02:45:06 +0900</a></div>
           </div>
           <div class="description">ふと思ったんですけど、麻那さんのプログラムの<br/><pre>go :: Bot b =&gt; BotDep b env =&gt; b -&gt; String -&gt; RIO env (Maybe String)</pre><br/>ってとこ、どうして普通の <code>Dep b env</code> じゃ動かないんでしょうか?</div>
@@ -470,7 +470,7 @@ data HList :: (Type -&gt; Constraint) -&gt; Type where
       <div class="event" id="message-1606960187.195300">
         <div class="content">
           <div class="summary">
-            <div class="user">wasabi.nvim.st</div>
+            <div class="user">wasabi</div>
             <div class="date"><a class="date" href="#message-1606960187.195300">2020-12-03 10:49:47 +0900</a></div>
           </div>
           <div class="description">自分で定義した型の値を他の直積型のフィールドにする際にUNPACKプラグマをつけるかどうかで違いは出てきますか？<br/>例えば以下のような状況です<br/><pre>data Foo = Foo {-# UNPACK #-} !Int {-# UNPACK #-} !Int

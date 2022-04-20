@@ -15,7 +15,7 @@
       <div class="event" id="message-1636653798.030500">
         <div class="content">
           <div class="summary">
-            <div class="user">benzene.chlorobenzene</div>
+            <div class="user">minus1216</div>
             <div class="date"><a class="date" href="#message-1636653798.030500">2021-11-12 03:03:18 +0900</a></div>
           </div>
           <div class="description">stackのLTS18.16で、muslを静的リンクしたaesonに依存するバイナリを作ろうとして躓いています。<br/>再現手順：<br/>1. <a href='https://qiita.com/lambda_funtaro/items/5ac47f83616f8c07d4db'>https://qiita.com/lambda_funtaro/items/5ac47f83616f8c07d4db</a> の通りに設定する（stack.yaml中のdockerのrepoはutdemir/ghc-musl:v22-ghc8107にする）<br/>2. package.yamlのdependenciesにaesonを加える<br/>3. <code>stack build --docker</code>する<br/>4. ビルドに失敗する↓<br/><pre>Error: While constructing the build
@@ -78,7 +78,7 @@ Plan construction failed.</pre></div>
       <div class="event" id="message-1636670776.031200">
         <div class="content">
           <div class="summary">
-            <div class="user">benzene.chlorobenzene</div>
+            <div class="user">minus1216</div>
             <div class="date"><a class="date" href="#message-1636670776.031200">2021-11-12 07:46:16 +0900</a></div>
           </div>
           <div class="description">追記しても死ぬことを書きそびれてました、エラーメッセージの指示通りextra-depsに追記して再度 <code>stack build --docker</code> したところ、<br/><pre>integer-gmp         &gt; setup: can't find include file ghc-gmp.h
@@ -99,7 +99,7 @@ Possible causes of this issue:
       <div class="event" id="message-1636670847.031400">
         <div class="content">
           <div class="summary">
-            <div class="user">benzene.chlorobenzene</div>
+            <div class="user">minus1216</div>
             <div class="date"><a class="date" href="#message-1636670847.031400">2021-11-12 07:47:27 +0900</a></div>
           </div>
           <div class="description">これ、静的リンクオプション外して--dockerなしで <code>stack build</code> するとextra-deps無しで通るんですよね</div>
@@ -117,7 +117,7 @@ Possible causes of this issue:
       <div class="event" id="message-1636685133.033700">
         <div class="content">
           <div class="summary">
-            <div class="user">benzene.chlorobenzene</div>
+            <div class="user">minus1216</div>
             <div class="date"><a class="date" href="#message-1636685133.033700">2021-11-12 11:45:33 +0900</a></div>
           </div>
           <div class="description">scientific･integer-logarithms･hashableにフラグを設定して、integer-simple-0.1.1.1をextra-depsに加えた状態でビルドしたところ、今度は以下のようなエラーで止まりました<br/><pre>integer-logarithms   &gt; /tmp/stack-fcdd0188ecbca6d6/integer-logarithms-1.0.3.1/src/GHC/Integer/Logarithms/Compat.hs:24:1: error:
@@ -144,7 +144,7 @@ Progress 21/30</pre></div>
       <div class="event" id="message-1636687845.033900">
         <div class="content">
           <div class="summary">
-            <div class="user">benzene.chlorobenzene</div>
+            <div class="user">minus1216</div>
             <div class="date"><a class="date" href="#message-1636687845.033900">2021-11-12 12:30:45 +0900</a></div>
           </div>
           <div class="description">integer-simple-0.1.1.1をextra-depsから抜いたらコンパイル通りました……<br/>ありがとうございました～</div>

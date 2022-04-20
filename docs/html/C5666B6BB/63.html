@@ -26,7 +26,7 @@
       <div class="event" id="message-1560949274.026000">
         <div class="content">
           <div class="summary">
-            <div class="user">yuichi</div>
+            <div class="user">JokerTheWild</div>
             <div class="date"><a class="date" href="#message-1560949274.026000">2019-06-19 22:01:14 +0900</a></div>
           </div>
           <div class="description">ありがとうございます。authenticateメソッドの定義自体が無い状態ですので調べて実装してみます。</div>
@@ -35,10 +35,10 @@
       <div class="event" id="message-1560950295.026400">
         <div class="content">
           <div class="summary">
-            <div class="user">net</div>
+            <div class="user">Nori Hayashi</div>
             <div class="date"><a class="date" href="#message-1560950295.026400">2019-06-19 22:18:15 +0900</a></div>
           </div>
-          <div class="description">@net has joined the channel</div>
+          <div class="description">@Nori Hayashi has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1560995611.026600">
@@ -89,7 +89,7 @@
       <div class="event" id="message-1561018058.028500">
         <div class="content">
           <div class="summary">
-            <div class="user">yuichi</div>
+            <div class="user">JokerTheWild</div>
             <div class="date"><a class="date" href="#message-1561018058.028500">2019-06-20 17:07:38 +0900</a></div>
           </div>
           <div class="description">以下のようにauthenticateを作ってみたのですが、Invalid username/password combinationの<br/>エラーになって行き詰まっています。<br/><pre>
@@ -152,7 +152,7 @@ exit = ContT . const
       <div class="event" id="message-1561020855.029100">
         <div class="content">
           <div class="summary">
-            <div class="user">wado</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1561020855.029100">2019-06-20 17:54:15 +0900</a></div>
           </div>
           <div class="description">sqlite + hashDB の最小のサンプルが手元にあったので、参考になれば・・・。</div>
@@ -177,7 +177,7 @@ main = evalConstT $ do
       <div class="event" id="message-1561080708.029900">
         <div class="content">
           <div class="summary">
-            <div class="user">yuichi</div>
+            <div class="user">JokerTheWild</div>
             <div class="date"><a class="date" href="#message-1561080708.029900">2019-06-21 10:31:48 +0900</a></div>
           </div>
           <div class="description">ありがとうございます。参考にさせて頂きます。<br/><br/>見た所、`authenticate`の実装はほぼ同じ内容なので原因は別の所にありそうですね。</div>
@@ -186,7 +186,7 @@ main = evalConstT $ do
       <div class="event" id="message-1561083748.030200">
         <div class="content">
           <div class="summary">
-            <div class="user">wado</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1561083748.030200">2019-06-21 11:22:28 +0900</a></div>
           </div>
           <div class="description"><blockquote>psqlで手入力で認証情報をテーブルにinsertしました。</blockquote><br/><code>settings.yml</code> の DB とは違うところに insert してる可能性もあるかもしれないですね。<br/>これ以上は実際のコード見てみないと、僕には解決できなさそうです。</div>
@@ -260,7 +260,7 @@ r &lt;- maybe (exit "なんとか") return mr
       <div class="event" id="message-1561171236.033800">
         <div class="content">
           <div class="summary">
-            <div class="user">yuichi</div>
+            <div class="user">JokerTheWild</div>
             <div class="date"><a class="date" href="#message-1561171236.033800">2019-06-22 11:40:36 +0900</a></div>
           </div>
           <div class="description">返信ありがとうございます。<br/><br/>マイグレーションでYesodが生成してくれたテーブルにpsqlで手入力したのでDBが違うという事はないと思います。<br/><br/>auth-hashdbが勝手にsaltとかつけてるのかも知れないと思い、psqlから手入力ではなくてyesodから管理者アカウントを登録してみようと思っています。migration時に管理者アカウントを追加できれば良いのですが、モナドトランスフォーマーの理解が不十分なので上手く行かなくて苦戦しています。<br/><br/>それで入力フォームを先に作成しようと頑張っているのですが、まだHaskell自体に不慣れなので苦戦しています。<br/><br/><pre>
@@ -309,7 +309,7 @@ ClientAuth
       <div class="event" id="message-1561172515.034000">
         <div class="content">
           <div class="summary">
-            <div class="user">wado</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1561172515.034000">2019-06-22 12:01:55 +0900</a></div>
           </div>
           <div class="description"><blockquote>auth-hashdbが勝手にsaltとかつけてるのかも知れないと思い</blockquote><br/>内部では特に <code>salt</code> とかは付けていなかったと思います。<br/><br/><blockquote>このフォームがコンパイルできないんですが、ClientIdやSystemIdはIntに変えないとダメなんでしょうか？</blockquote><br/>これは <code>models</code> で <code>systemId Int</code> と宣言しているのに、form では <code>Key System</code> の値を返しているからだと思います。<br/><br/><pre>
@@ -330,7 +330,7 @@ ClientAuth
       <div class="event" id="message-1561183369.034300">
         <div class="content">
           <div class="summary">
-            <div class="user">yuichi</div>
+            <div class="user">JokerTheWild</div>
             <div class="date"><a class="date" href="#message-1561183369.034300">2019-06-22 15:02:49 +0900</a></div>
           </div>
           <div class="description">ありがとうございます。ご指摘の通り modelの<br/>`systemId Int`<br/>の部分に問題がありました。それを直したらエラーがそれぞれ１箇所だけになりました。<br/><br/><br/>```<br/>-- ソース<br/>clientAuthForm :: Html -&gt; MForm Handler (FormResult ClientAuth, Widget)<br/>clientAuthForm = renderDivs $ ClientAuth<br/>    &lt;$&gt; areq (selectFieldList clients) "クライアント" Nothing<br/>    &lt;*&gt; areq (selectFieldList systems) "システム" Nothing<br/>    &lt;*&gt; areq textField "Username" Nothing<br/>    &lt;*&gt; areq textField "Password" Nothing<br/>    where<br/>        clients :: [(Text,Key Client)]<br/>        clients = do<br/>            list &lt;- runDB $ selectList [] [Asc ClientId]<br/>            fmap (\(Entity clientId c) -&gt; (clientName c::Text,clientId)) list<br/><br/>        systems :: [(Text,Key System)]<br/>        systems = do<br/>            list &lt;- runDB $ selectList [] [Asc SystemId]<br/>            fmap (\(Entity systemId s) -&gt; (systemType s::Text,systemId)) list<br/>```<br/><br/>```<br/>-- エラー<br/>/Users/you/haskell/CustomerLedger/src/Handler/ClientAuth.hs:18:21: error:<br/>    • Couldn't match type ‘HandlerFor site1’ with ‘[]’<br/>      Expected type: [[Entity Client]]<br/>        Actual type: HandlerFor site1 [Entity Client]<br/>    • In a stmt of a 'do' block:<br/>        list &lt;- runDB $ selectList [] [Asc ClientId]<br/>      In the expression:<br/>        do list &lt;- runDB $ selectList [] [Asc ClientId]<br/>           fmap<br/>             (\ (Entity clientId c) -&gt; (clientName c :: Text, clientId)) list<br/>      In an equation for ‘clients’:<br/>          clients<br/>            = do list &lt;- runDB $ selectList [] [Asc ClientId]<br/>                 fmap<br/>                   (\ (Entity clientId c) -&gt; (clientName c :: Text, clientId)) list<br/>   |<br/>18 |             list &lt;- runDB $ selectList [] [Asc ClientId]<br/>   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^<br/><br/>/Users/you/haskell/CustomerLedger/src/Handler/ClientAuth.hs:23:21: error:<br/>    • Couldn't match type ‘HandlerFor site0’ with ‘[]’<br/>      Expected type: [[Entity System]]<br/>        Actual type: HandlerFor site0 [Entity System]<br/>    • In a stmt of a 'do' block:<br/>        list &lt;- runDB $ selectList [] [Asc SystemId]<br/>      In the expression:<br/>        do list &lt;- runDB $ selectList [] [Asc SystemId]<br/>           fmap<br/>             (\ (Entity systemId s) -&gt; (systemType s :: Text, systemId)) list<br/>      In an equation for ‘systems’:<br/>          systems<br/>            = do list &lt;- runDB $ selectList [] [Asc SystemId]<br/>                 fmap<br/>                   (\ (Entity systemId s) -&gt; (systemType s :: Text, systemId)) list<br/>   |<br/>23 |             list &lt;- runDB $ selectList [] [Asc SystemId]<br/>   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^<br/>```<br/><br/>なぜこのコードでExpected typeが２重のリストになってしまうのでしょうか？<br/>データベースからEntityのリストを所得してそれをタプルのリストにするという処理のつもりなのですが、<br/>どこに問題があるのでしょうか？_</div>
@@ -339,7 +339,7 @@ ClientAuth
       <div class="event" id="message-1561186499.034500">
         <div class="content">
           <div class="summary">
-            <div class="user">wado</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1561186499.034500">2019-06-22 15:54:59 +0900</a></div>
           </div>
           <div class="description">どこから説明するべきか悩みますが、以下の <code>clients</code> は明らかにコンパイルが通らないコードです。<br/><br/><pre>
@@ -378,7 +378,7 @@ list &lt;- runDB (...)
       <div class="event" id="message-1561195159.034800">
         <div class="content">
           <div class="summary">
-            <div class="user">wado</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1561195159.034800">2019-06-22 18:19:19 +0900</a></div>
           </div>
           <div class="description">ローカルで試したら問題無く動きました。<br/>サンプルコードあげておきます。<br/><a href='https://github.com/waddlaw/yesod-hashdb-example-psql'>https://github.com/waddlaw/yesod-hashdb-example-psql</a></div>
@@ -387,7 +387,7 @@ list &lt;- runDB (...)
       <div class="event" id="message-1561195484.035100">
         <div class="content">
           <div class="summary">
-            <div class="user">wado</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1561195484.035100">2019-06-22 18:24:44 +0900</a></div>
           </div>
           <div class="description"><pre>
@@ -402,7 +402,7 @@ postgres-hashdb-example=# select * from "user";
       <div class="event" id="message-1561209227.041400">
         <div class="content">
           <div class="summary">
-            <div class="user">k.marumaru524</div>
+            <div class="user">mrsekut</div>
             <div class="date"><a class="date" href="#message-1561209227.041400">2019-06-22 22:13:47 +0900</a></div>
           </div>
           <div class="description">Haskell初心者です<br/>Haskellのデータ構造についての質問です。<br/>haskellを使って簡単なparserを書きたいと考えていています<br/><br/><pre>
@@ -433,7 +433,7 @@ data Ast = Ast {
       <div class="event" id="message-1561209691.041500">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1561209691.041500">2019-06-22 22:21:31 +0900</a></div>
           </div>
           <div class="description">Haskell と json の違いというよりは、静的な型がある言語と無い言語での発想の違いかな、という気がします。<br/><pre>
@@ -448,7 +448,7 @@ data Expr = Add Expr Expr -- "+" 演算子を表現
       <div class="event" id="message-1561209977.041700">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1561209977.041700">2019-06-22 22:26:17 +0900</a></div>
           </div>
           <div class="description">あえて <code>data Ast =</code> と書かなかったのは、たぶんこの <code>Expr</code> という型は Ast 全体ではなくてその一部になるだろう、という予想をしたからです。おそらく Ast としては「式」以外に「文」とかも扱うことになると思うのですがそれはそれでさらに別の型を必要とすることになり、そういうものを組み合わせてようやく目的の Ast 型を作ることができると思います。</div>
@@ -457,7 +457,7 @@ data Expr = Add Expr Expr -- "+" 演算子を表現
       <div class="event" id="message-1561210031.041900">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1561210031.041900">2019-06-22 22:27:11 +0900</a></div>
           </div>
           <div class="description">json は、 json さえあれば何でも表現できてしまうので、そういう発想をしないんですよね…。</div>
@@ -466,7 +466,7 @@ data Expr = Add Expr Expr -- "+" 演算子を表現
       <div class="event" id="message-1561210332.042100">
         <div class="content">
           <div class="summary">
-            <div class="user">a_kirisaki</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1561210332.042100">2019-06-22 22:32:12 +0900</a></div>
           </div>
           <div class="description">printデバッグをしたい場合は <code>Debug.Trace</code> パッケージの <code>traceShowId</code> という関数が使えます。 <code>Show</code> なやつは <code>traceShowId (hoge)</code> みたいにくるんでやると <code>hoge</code> が評価される時にprintされます。</div>
@@ -475,7 +475,7 @@ data Expr = Add Expr Expr -- "+" 演算子を表現
       <div class="event" id="message-1561215631.042300">
         <div class="content">
           <div class="summary">
-            <div class="user">k.marumaru524</div>
+            <div class="user">mrsekut</div>
             <div class="date"><a class="date" href="#message-1561215631.042300">2019-06-23 00:00:31 +0900</a></div>
           </div>
           <div class="description">なるほど！！ありがとうございます<br/>ちょっと試してみます</div>
@@ -484,7 +484,7 @@ data Expr = Add Expr Expr -- "+" 演算子を表現
       <div class="event" id="message-1561233611.042500">
         <div class="content">
           <div class="summary">
-            <div class="user">yuichi</div>
+            <div class="user">JokerTheWild</div>
             <div class="date"><a class="date" href="#message-1561233611.042500">2019-06-23 05:00:11 +0900</a></div>
           </div>
           <div class="description">詳しい説明とサンプルコードありがとうございます。問題解決致しました。<br/><br/>意外な所にミスがあってお恥ずかしい限りなのですが、DBに登録されているpasswordのダブルコーテーションが問題でした。:sweat_smile:<br/><br/>誤<br/>"sha256|17|gQ3ny1p2WBkGrxrz5krLXg==|bKJ2rPrKczl3eFjQLRwsZi3OpiVepEH0511ocjcAO98="<br/><br/>正<br/>sha256|17|gQ3ny1p2WBkGrxrz5krLXg==|bKJ2rPrKczl3eFjQLRwsZi3OpiVepEH0511ocjcAO98=<br/><br/>フォームに関してはモナドとモナドトランスフォーマー辺りの勉強が足りてないのが原因だと思うので頂いた情報を元にghciで型を調べながら進めていこうと思います。<br/><br/>丁寧にご回答頂いてとても助かりました。ありがとうございました。</div>
@@ -493,28 +493,28 @@ data Expr = Add Expr Expr -- "+" 演算子を表現
       <div class="event" id="message-1561302551.043400">
         <div class="content">
           <div class="summary">
-            <div class="user">frenzieddoll</div>
+            <div class="user">honda</div>
             <div class="date"><a class="date" href="#message-1561302551.043400">2019-06-24 00:09:11 +0900</a></div>
           </div>
-          <div class="description">@frenzieddoll has joined the channel</div>
+          <div class="description">@honda has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1561312944.043800">
         <div class="content">
           <div class="summary">
-            <div class="user">kamogawa.doumei</div>
+            <div class="user">kamo</div>
             <div class="date"><a class="date" href="#message-1561312944.043800">2019-06-24 03:02:24 +0900</a></div>
           </div>
-          <div class="description">@kamogawa.doumei has joined the channel</div>
+          <div class="description">@kamo has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1561327355.044100">
         <div class="content">
           <div class="summary">
-            <div class="user">takase</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1561327355.044100">2019-06-24 07:02:35 +0900</a></div>
           </div>
-          <div class="description">@takase has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1561432976.048500">
@@ -546,16 +546,16 @@ run with --reorder-goals).
       <div class="event" id="message-1561435619.048800">
         <div class="content">
           <div class="summary">
-            <div class="user">masako.shinomiya</div>
+            <div class="user">Masako Shinomiya</div>
             <div class="date"><a class="date" href="#message-1561435619.048800">2019-06-25 13:06:59 +0900</a></div>
           </div>
-          <div class="description">@masako.shinomiya has joined the channel</div>
+          <div class="description">@Masako Shinomiya has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1561439895.050200">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1561439895.050200">2019-06-25 14:18:15 +0900</a></div>
           </div>
           <div class="description">こんにちは。どなたか、もしこのライブラリの使い方のサンプルコードご存知でしたら教えてください。  AWS SecretsManagerから、SecretString を取得することができるはずなのですが。。　ソース読まないとだめかな。<br/><a href='http://hackage.haskell.org/package/amazonka-secretsmanager-1.6.1/docs/Network-AWS-SecretsManager-GetSecretValue.html'>http://hackage.haskell.org/package/amazonka-secretsmanager-1.6.1/docs/Network-AWS-SecretsManager-GetSecretValue.html</a></div>
@@ -596,7 +596,7 @@ source-repository-package
       <div class="event" id="message-1561445122.051500">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1561445122.051500">2019-06-25 15:45:22 +0900</a></div>
           </div>
           <div class="description">いじっているうちに出来ました。お騒がせしました。</div>
@@ -614,7 +614,7 @@ source-repository-package
       <div class="event" id="message-1561452748.052500">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1561452748.052500">2019-06-25 17:52:28 +0900</a></div>
           </div>
           <div class="description">需要あるかどうかわかりませんが、一応公開。<br/><a href='https://github.com/smasuda/haskell-aws-secretsmanager'>https://github.com/smasuda/haskell-aws-secretsmanager</a></div>
@@ -638,16 +638,16 @@ cabal v2-build --with-ghc=&lt;適当なGHC 8.6.5のプロジェクトでstack ex
       <div class="event" id="message-1561517044.053300">
         <div class="content">
           <div class="summary">
-            <div class="user">yhrsys.04</div>
+            <div class="user">s_tomita</div>
             <div class="date"><a class="date" href="#message-1561517044.053300">2019-06-26 11:44:04 +0900</a></div>
           </div>
-          <div class="description">@yhrsys.04 has joined the channel</div>
+          <div class="description">@s_tomita has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1561525404.055200">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1561525404.055200">2019-06-26 14:03:24 +0900</a></div>
           </div>
           <div class="description">お疲れ様です。<br/>unsafePerformIの中でperformGC呼んでも安全？（定義が難しいですが、ランタイム的にとしておきましょうか。）<br/>でしょうか？やってはいけない操作がありますか？</div>
@@ -656,10 +656,10 @@ cabal v2-build --with-ghc=&lt;適当なGHC 8.6.5のプロジェクトでstack ex
       <div class="event" id="message-1561561900.056300">
         <div class="content">
           <div class="summary">
-            <div class="user">t.mitsuchi3</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1561561900.056300">2019-06-27 00:11:40 +0900</a></div>
           </div>
-          <div class="description">@t.mitsuchi3 has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1561619420.059900">

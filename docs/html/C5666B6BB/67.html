@@ -17,7 +17,7 @@
       <div class="event" id="message-1564557369.063600">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1564557369.063600">2019-07-31 16:16:09 +0900</a></div>
           </div>
           <div class="description">一応補足ですが，現在の GHC では full laziness が入るタイミングが調整されていて，<br/><pre>
@@ -38,19 +38,19 @@ fact x = map fact' [0..] !! x
       <div class="event" id="message-1564577136.064100">
         <div class="content">
           <div class="summary">
-            <div class="user">flugel428</div>
+            <div class="user">Mokumitsu</div>
             <div class="date"><a class="date" href="#message-1564577136.064100">2019-07-31 21:45:36 +0900</a></div>
           </div>
-          <div class="description">@flugel428 has joined the channel</div>
+          <div class="description">@Mokumitsu has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1564580251.064400">
         <div class="content">
           <div class="summary">
-            <div class="user">cynthia7engineer</div>
+            <div class="user">Cynthia</div>
             <div class="date"><a class="date" href="#message-1564580251.064400">2019-07-31 22:37:31 +0900</a></div>
           </div>
-          <div class="description">@cynthia7engineer has joined the channel</div>
+          <div class="description">@Cynthia has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1564587041.064600">
@@ -65,7 +65,7 @@ fact x = map fact' [0..] !! x
       <div class="event" id="message-1564590486.066800">
         <div class="content">
           <div class="summary">
-            <div class="user">yharuhi39</div>
+            <div class="user">りんご姫</div>
             <div class="date"><a class="date" href="#message-1564590486.066800">2019-08-01 01:28:06 +0900</a></div>
           </div>
           <div class="description">確かに あれはただのコメントでプラグまですらなかったですね:persevere: 雰囲気的に(?) 型が削除される以前に消されてそうですね…</div>
@@ -83,25 +83,25 @@ fact x = map fact' [0..] !! x
       <div class="event" id="message-1564632506.072200">
         <div class="content">
           <div class="summary">
-            <div class="user">miau.jp</div>
+            <div class="user">miau</div>
             <div class="date"><a class="date" href="#message-1564632506.072200">2019-08-01 13:08:26 +0900</a></div>
           </div>
-          <div class="description">@miau.jp has joined the channel</div>
+          <div class="description">@miau has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1564646022.072500">
         <div class="content">
           <div class="summary">
-            <div class="user">jmsf0203</div>
+            <div class="user">mazamachi</div>
             <div class="date"><a class="date" href="#message-1564646022.072500">2019-08-01 16:53:42 +0900</a></div>
           </div>
-          <div class="description">@jmsf0203 has joined the channel</div>
+          <div class="description">@mazamachi has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1564668616.072700">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1564668616.072700">2019-08-01 23:10:16 +0900</a></div>
           </div>
           <div class="description">GHC の最適化は通常 equational reasoning に基づいて行われてるので，その意味で意味論が変わるものはあまりないと思いますね (Haskell はちゃんとした formal semantics はないので，ある程度簡略化したラムダ計算の体系の元でということにはなりますが)．<br/><br/>CAF を static closure にして欲しくないという話であれば， <a href='https://stackoverflow.com/questions/6090932/how-to-make-a-caf-not-a-caf-in-haskell/6091166#6091166'>https://stackoverflow.com/questions/6090932/how-to-make-a-caf-not-a-caf-in-haskell/6091166#6091166</a> みたいな話があって，今回の場合 <code>map fact' [0..]</code> の部分を切り出して， <code>fact</code> の引数を受け取るようにして <code>NOINLINE</code> すればいいと思いますね．と，思ったんですが，<br/><pre>
@@ -175,10 +175,10 @@ factMemo2 !_ f = map f [0..]
       <div class="event" id="message-1564993898.076500">
         <div class="content">
           <div class="summary">
-            <div class="user">nekmatar</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1564993898.076500">2019-08-05 17:31:38 +0900</a></div>
           </div>
-          <div class="description">@nekmatar has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1564998373.076700">
@@ -229,7 +229,7 @@ factMemo2 !_ f = map f [0..]
       <div class="event" id="message-1565089371.080600">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1565089371.080600">2019-08-06 20:02:51 +0900</a></div>
           </div>
           <div class="description">一応 <a href='https://gitlab.haskell.org/ghc/ghc/blob/ghc-8.6.5-release/compiler/deSugar/DsExpr.hs#L837'>https://gitlab.haskell.org/ghc/ghc/blob/ghc-8.6.5-release/compiler/deSugar/DsExpr.hs#L837</a> の部分がそうです。リテラルは Haskell レベルだといじれないので通常は脱糖で扱われることになりますね</div>
@@ -238,7 +238,7 @@ factMemo2 !_ f = map f [0..]
       <div class="event" id="message-1565245599.082900">
         <div class="content">
           <div class="summary">
-            <div class="user">t.mitsuchi3</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1565245599.082900">2019-08-08 15:26:39 +0900</a></div>
           </div>
           <div class="description">リスト、木、グラフみたいな基本的なデータ構造のうえでの、ソートとか探索とかの基本的なアルゴリズムについて Haskell でのコードをまとめたサイトとか本はなにかありますか？</div>
@@ -256,7 +256,7 @@ factMemo2 !_ f = map f [0..]
       <div class="event" id="message-1565246125.083500">
         <div class="content">
           <div class="summary">
-            <div class="user">t.mitsuchi3</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1565246125.083500">2019-08-08 15:35:25 +0900</a></div>
           </div>
           <div class="description">ありがとうございます！</div>
@@ -265,7 +265,7 @@ factMemo2 !_ f = map f [0..]
       <div class="event" id="message-1565246591.083700">
         <div class="content">
           <div class="summary">
-            <div class="user">t.mitsuchi3</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1565246591.083700">2019-08-08 15:43:11 +0900</a></div>
           </div>
           <div class="description">なかなかまとまってる資料が見当たらず、いまのところは Data.Tree とか Data.Graph とかのソースを読んでいます。</div>
@@ -328,16 +328,16 @@ do
       <div class="event" id="message-1565609491.095000">
         <div class="content">
           <div class="summary">
-            <div class="user">t.miliya612</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1565609491.095000">2019-08-12 20:31:31 +0900</a></div>
           </div>
-          <div class="description">@t.miliya612 has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1565703499.099300">
         <div class="content">
           <div class="summary">
-            <div class="user">cj.bc-sd</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1565703499.099300">2019-08-13 22:38:19 +0900</a></div>
           </div>
           <div class="description">ちょっとhaskellの話ではなくって数学の初歩みたいな質問失礼します(ここで聞いていいのかな…)<br/>減法のプロパティベーステストを書きたいのですが、減法の性質ってなんなのでしょうか…(どういう条件を満たせばいいのかが調べてもわからなかったです…)<br/>ここで言いたい`条件`というのは、例えば加法で言えば以下のようなものです(これは調べられました)<br/><pre>
@@ -350,7 +350,7 @@ a + 0 = a
       <div class="event" id="message-1565706078.099900">
         <div class="content">
           <div class="summary">
-            <div class="user">tkskzyk0925</div>
+            <div class="user">Guvalif</div>
             <div class="date"><a class="date" href="#message-1565706078.099900">2019-08-13 23:21:18 +0900</a></div>
           </div>
           <div class="description">減法の性質というよりは <code>-1</code> がどのように導入されるかという話になりますが、<br/><br/>- 自然数 N を考える<br/>- n ∈ N なる元を取ったときに、n + m = 0 となる m は (n = 0 のときを除いて) N に存在しない<br/>- ここで、N 上の代数方程式 N[x] に関して、x^2 = 1となる特別な元 <code>-1</code> を考え、N に添加 (代数拡大) する<br/>- これにより、n + m = 0 をみたす元として m = -n (-1 × n) を考えることができるようになる<br/><br/>という感じが多いと思います。つまり、減法の性質もあくまで加法の性質と同様で、元として <code>-1</code> も含まれているだけ、ということです<br/><br/>---<br/><br/>テストの書き方は他のHaskell強者の方にゆずります :pray:<br/>(∀n ∈ Z，∃!m ∈ Z，n + m = 0 を書ければ良いと思いますが)</div>
@@ -359,7 +359,7 @@ a + 0 = a
       <div class="event" id="message-1565706354.100300">
         <div class="content">
           <div class="summary">
-            <div class="user">tkskzyk0925</div>
+            <div class="user">Guvalif</div>
             <div class="date"><a class="date" href="#message-1565706354.100300">2019-08-13 23:25:54 +0900</a></div>
           </div>
           <div class="description">厳密な資料だとこのあたりが参考になると思います↓<br/><a href='https://www.slideshare.net/yoshihiromizoguchi/ss-28541012'>https://www.slideshare.net/yoshihiromizoguchi/ss-28541012</a></div>
@@ -368,7 +368,7 @@ a + 0 = a
       <div class="event" id="message-1565707938.100700">
         <div class="content">
           <div class="summary">
-            <div class="user">cj.bc-sd</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1565707938.100700">2019-08-13 23:52:18 +0900</a></div>
           </div>
           <div class="description">ありがとうございます！！<br/>haskellの <code>-</code> の実装を見て <code>n - m = n + negate m</code> と書けるのは確認してましたが、数学的にはそう考えるのですね…<br/>難しいけど楽しい。とても為になりました！<br/>今の数学力でどこまで行けるかわからないですが資料も読んでみます。ありがとうございます</div>
@@ -415,16 +415,16 @@ liftIO $ BS.hGet h (sizeOf @Int32 undefined) &gt;&gt;= BS.useAsCString `flip` (p
       <div class="event" id="message-1566008950.106300">
         <div class="content">
           <div class="summary">
-            <div class="user">transradial</div>
+            <div class="user">Dr_Radialist(KAMAKURA)</div>
             <div class="date"><a class="date" href="#message-1566008950.106300">2019-08-17 11:29:10 +0900</a></div>
           </div>
-          <div class="description">@transradial has joined the channel</div>
+          <div class="description">@Dr_Radialist(KAMAKURA) has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1566051320.111000">
         <div class="content">
           <div class="summary">
-            <div class="user">k.marumaru524</div>
+            <div class="user">mrsekut</div>
             <div class="date"><a class="date" href="#message-1566051320.111000">2019-08-17 23:15:20 +0900</a></div>
           </div>
           <div class="description">こんばんは. Haskell &amp; Parsec入門者です<br/>Parsecを使ってパーサーを作っているのですが、<br/><code>&gt;=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&lt;=</code>をパースする関数がどうも不格好で冗長な見た目をしています。<br/>もっとわかりやすく書くために、こういう書き方もあるよ、というのがあれば教えていただけませんでしょうか<br/><br/><pre>
@@ -449,10 +449,10 @@ relational = do
       <div class="event" id="message-1566082042.111700">
         <div class="content">
           <div class="summary">
-            <div class="user">kh2yam1</div>
+            <div class="user">Kohei Yamamoto</div>
             <div class="date"><a class="date" href="#message-1566082042.111700">2019-08-18 07:47:22 +0900</a></div>
           </div>
-          <div class="description">@kh2yam1 has joined the channel</div>
+          <div class="description">@Kohei Yamamoto has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1566131161.111900">
@@ -474,13 +474,13 @@ nat = do
 
 -- natの「前後の空白をスキップするバージョン」を作っておく
 natural = token nat
-</pre><br/><br/>こんな感じで @k.marumaru524 さんのパーサーについても、 <code>spaces *&gt; ...</code> という部分を抽象化するだけで結構すっきりするのではないかと思います。</div>
+</pre><br/><br/>こんな感じで @mrsekut さんのパーサーについても、 <code>spaces *&gt; ...</code> という部分を抽象化するだけで結構すっきりするのではないかと思います。</div>
         </div>
       </div>
       <div class="event" id="message-1566151362.112400">
         <div class="content">
           <div class="summary">
-            <div class="user">k.marumaru524</div>
+            <div class="user">mrsekut</div>
             <div class="date"><a class="date" href="#message-1566151362.112400">2019-08-19 03:02:42 +0900</a></div>
           </div>
           <div class="description">ありがとうございます！<br/>アドバイスを受けて修正をしようとしたのですが、うまくいきません。。。<br/>アドバイスの一歩前段階の以下のような変形です<br/><br/>↓元のやつ。factorは “(123)“も”(    123   )“もパース可能<br/><pre>

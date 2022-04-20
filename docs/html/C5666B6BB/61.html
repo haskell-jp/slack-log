@@ -17,7 +17,7 @@
       <div class="event" id="message-1559552257.030000">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1559552257.030000">2019-06-03 17:57:37 +0900</a></div>
           </div>
           <div class="description">まったくの思いつきで恐縮ですが、<br/><code>forkIO</code>で別スレッドで処理される中で、コネクションの`close`が意図するタイミングで呼ばれていない可能性はありませんか？</div>
@@ -26,7 +26,7 @@
       <div class="event" id="message-1559552386.030200">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1559552386.030200">2019-06-03 17:59:46 +0900</a></div>
           </div>
           <div class="description"><code>insertLog db' lf</code> を <code>bracket</code>を使うようにするとどうでしょうか。</div>
@@ -35,7 +35,7 @@
       <div class="event" id="message-1559552899.030500">
         <div class="content">
           <div class="summary">
-            <div class="user">misaki</div>
+            <div class="user">sarashino</div>
             <div class="date"><a class="date" href="#message-1559552899.030500">2019-06-03 18:08:19 +0900</a></div>
           </div>
           <div class="description">ありがとうございます．<br/><code>bracket</code>を利用しましたが同様の挙動になりました．<br/><pre>
@@ -50,7 +50,7 @@ insertLog db' lf = bracket
       <div class="event" id="message-1559553015.031100">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1559553015.031100">2019-06-03 18:10:15 +0900</a></div>
           </div>
           <div class="description"><a href='https://teratail.com/questions/5099'>https://teratail.com/questions/5099</a> このような記述をみつけました。本質的な問題なのかも？<br/><blockquote>たしか、現在の実装では、当該データベース ファイルに対する更新処理はジャーナル ファイルにいったん保持した後、ジャーナルの世代が古い順からトランザクションとして処理していき（FIFO）、最終的にジャーナル ファイルがなくなるまでファイルを更新し続けます。<br/>その際、更新処理が多重で走ることによりジャーナルをデータベース ファイルに適用するのが間に合わなくなってくると、ロックに関する例外を吐くようになります。</blockquote></div>
@@ -59,7 +59,7 @@ insertLog db' lf = bracket
       <div class="event" id="message-1559553375.031600">
         <div class="content">
           <div class="summary">
-            <div class="user">misaki</div>
+            <div class="user">sarashino</div>
             <div class="date"><a class="date" href="#message-1559553375.031600">2019-06-03 18:16:15 +0900</a></div>
           </div>
           <div class="description">ロックの問題はどこかで「retryすればいいよ!」と見かけたのですが，もしかしたらその処理が追い付かなくなっているのかもしれないですね．．．<br/>この際pgがmysqlを導入することを検討しようかと思います．<br/>みなさんありがとうございます．</div>
@@ -77,7 +77,7 @@ insertLog db' lf = bracket
       <div class="event" id="message-1559553957.032100">
         <div class="content">
           <div class="summary">
-            <div class="user">misaki</div>
+            <div class="user">sarashino</div>
             <div class="date"><a class="date" href="#message-1559553957.032100">2019-06-03 18:25:57 +0900</a></div>
           </div>
           <div class="description">そうですね，このプログラム自体がサイトのレスポンスタイムを記録しておきたいものなのでspawnしたいです．．<br/>私個人のサイトなのでsqliteでいいかなと思ったのですが，pg動かすことにします．</div>
@@ -95,10 +95,10 @@ insertLog db' lf = bracket
       <div class="event" id="message-1559676243.000200">
         <div class="content">
           <div class="summary">
-            <div class="user">n.kurata1005</div>
+            <div class="user">kazuokiriyama_</div>
             <div class="date"><a class="date" href="#message-1559676243.000200">2019-06-05 04:24:03 +0900</a></div>
           </div>
-          <div class="description">@n.kurata1005 has joined the channel</div>
+          <div class="description">@kazuokiriyama_ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1559699224.002100">
@@ -208,7 +208,7 @@ do
       <div class="event" id="message-1559726420.004900">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1559726420.004900">2019-06-05 18:20:20 +0900</a></div>
           </div>
           <div class="description">自分がYesodとPostgreSQLで同じような問題に突き当たった時は,コネクションを取得している文脈でコネクションを開放せずにコネクションをもう一度取得しようとしていて,複数の関数でコネクションを取得しようとしてデッドロックに陥ってました<br/>Simpleの仕組みはよくわかりませんがDBを使ったらその場でコネクションを削除するようにすれば問題なくなるかもしれません</div>
@@ -289,10 +289,10 @@ do
       <div class="event" id="message-1559797340.007900">
         <div class="content">
           <div class="summary">
-            <div class="user">sky.is.gray</div>
+            <div class="user">t_x_cxjp</div>
             <div class="date"><a class="date" href="#message-1559797340.007900">2019-06-06 14:02:20 +0900</a></div>
           </div>
-          <div class="description">@sky.is.gray has joined the channel</div>
+          <div class="description">@t_x_cxjp has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1559806186.010400">
@@ -400,7 +400,7 @@ main = print $ viewThenSet (Sample 1 2) $ field' @"sample1"
       <div class="event" id="message-1559808639.015500">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1559808639.015500">2019-06-06 17:10:39 +0900</a></div>
           </div>
           <div class="description">このぐらいで再現できますね<br/><pre>
@@ -416,7 +416,7 @@ g = length . rankNfunc $ show   -- NG
       <div class="event" id="message-1559808900.015900">
         <div class="content">
           <div class="summary">
-            <div class="user">minorinoki_haskjp</div>
+            <div class="user">mod_poppo</div>
             <div class="date"><a class="date" href="#message-1559808900.015900">2019-06-06 17:15:00 +0900</a></div>
           </div>
           <div class="description">impredicative polymorphismと <code>$</code> の特別扱いの話は以前記事を書いたので参考までに： <a href='https://qiita.com/mod_poppo/items/806c9c3e0ccb46be92ae#%E9%96%A2%E6%95%B0%E9%81%A9%E7%94%A8%E6%BC%94%E7%AE%97%E5%AD%90%E3%81%AE%E7%89%B9%E4%BE%8B'>https://qiita.com/mod_poppo/items/806c9c3e0ccb46be92ae#%E9%96%A2%E6%95%B0%E9%81%A9%E7%94%A8%E6%BC%94%E7%AE%97%E5%AD%90%E3%81%AE%E7%89%B9%E4%BE%8B</a></div>
@@ -434,7 +434,7 @@ g = length . rankNfunc $ show   -- NG
       <div class="event" id="message-1559809664.016700">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1559809664.016700">2019-06-06 17:27:44 +0900</a></div>
           </div>
           <div class="description">それにしても <code>{-# LANGUAGE ImpredicativeTypes #-}</code> をつけると <code>g = (length . rankNfunc) show</code> はいけるようになるのに <code>g = length . rankNfunc $ show</code> だとだめなままなのはなんでだろう… <code>($)</code> の特別扱いが逆に悪さしてるんですかね</div>
@@ -473,7 +473,7 @@ No module named ‘GHC.Arr’ is imported.
       <div class="event" id="message-1559810060.017800">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1559810060.017800">2019-06-06 17:34:20 +0900</a></div>
           </div>
           <div class="description">いや、あれ、 ghci のバージョンによって挙動が違う気がしてきました…<br/>手元にあった 8.0.2 だと ImpredicativeTypes で <code>(length . rankNfunc) show</code> が通るけれど 8.4.4 と 8.6.3 では ImpredicativeTypes をつけてもダメっぽい</div>
@@ -500,7 +500,7 @@ No module named ‘GHC.Arr’ is imported.
       <div class="event" id="message-1559810595.018700">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1559810595.018700">2019-06-06 17:43:15 +0900</a></div>
           </div>
           <div class="description">それにしても <code>@"sample1"</code> ってなんだろうとおもったら、これ、 TypeApplications と DataKinds のコンボですか？</div>
@@ -518,7 +518,7 @@ No module named ‘GHC.Arr’ is imported.
       <div class="event" id="message-1559810789.019200">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1559810789.019200">2019-06-06 17:46:29 +0900</a></div>
           </div>
           <div class="description">いえ、脳内が Haskell2010 のままで止まっているので勉強になります^^; （イヤ、下手したら Haskell98 のままで止まってるかも…）</div>

@@ -289,10 +289,10 @@ main = readFile "file_list.txt" &gt;&gt;= mapM_ (readFile &gt;=&gt; print . leng
       <div class="event" id="message-1514183838.000052">
         <div class="content">
           <div class="summary">
-            <div class="user">eagle.hokkaido2317</div>
+            <div class="user">駒鳥(hxf_vogel)</div>
             <div class="date"><a class="date" href="#message-1514183838.000052">2017-12-25 15:37:18 +0900</a></div>
           </div>
-          <div class="description">@eagle.hokkaido2317 has joined the channel</div>
+          <div class="description">@駒鳥(hxf_vogel) has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1514188382.000068">
@@ -316,7 +316,7 @@ main = readFile "file_list.txt" &gt;&gt;= mapM_ (readFile &gt;=&gt; print . leng
       <div class="event" id="message-1514272657.000123">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1514272657.000123">2017-12-26 16:17:37 +0900</a></div>
           </div>
           <div class="description">これのことでしょうか？<br/><a href='https://stackoverflow.com/questions/4922560/why-doesnt-typesynonyminstances-allow-partially-applied-type-synonyms-to-be-use'>https://stackoverflow.com/questions/4922560/why-doesnt-typesynonyminstances-allow-partially-applied-type-synonyms-to-be-use</a><br/><br/>partial applyのことなら，type checkがundecidableになるので，Haskellの派生系でも許可してるものは見かけないですね</div>
@@ -334,7 +334,7 @@ main = readFile "file_list.txt" &gt;&gt;= mapM_ (readFile &gt;=&gt; print . leng
       <div class="event" id="message-1514274715.000097">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1514274715.000097">2017-12-26 16:51:55 +0900</a></div>
           </div>
           <div class="description">type synonymは一種の型関数ですから， <code>type A a = B a a</code> という型関数において，型クラス <code>C :: * -&gt; *</code> のインスタンスとして <code>instance C A where</code> という定義があった時に，最終的にインスタンスを決める時に <code>(\a -&gt; B a a) ~ A</code> をどうやって判定するかという問題になります．このような問題は，一般に実際に全ての値に対して返り値が一致しているかという方法で判断しますが，これをチェックするのは通常難しいですね．<br/><br/>例に出したものだと単純なので決定的にできるかもしれませんが，上のstack overflowの例でこの問題を考えてみた場合，納得がいくと思います</div>
@@ -352,7 +352,7 @@ main = readFile "file_list.txt" &gt;&gt;= mapM_ (readFile &gt;=&gt; print . leng
       <div class="event" id="message-1514275561.000194">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1514275561.000194">2017-12-26 17:06:01 +0900</a></div>
           </div>
           <div class="description">例えば， <code>type A2 a = B a a</code> というのがあった時に， <code>A2 ~ A</code> なので <code>C A2</code> という制約は <code>instance C A</code> から成り立つはずです．これをどう判定するかということですね</div>
@@ -361,7 +361,7 @@ main = readFile "file_list.txt" &gt;&gt;= mapM_ (readFile &gt;=&gt; print . leng
       <div class="event" id="message-1514275625.000158">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1514275625.000158">2017-12-26 17:07:05 +0900</a></div>
           </div>
           <div class="description">s/ <code>\a a -&gt; B a a</code> / <code>\a -&gt; B a a</code> / でした</div>
@@ -379,7 +379,7 @@ main = readFile "file_list.txt" &gt;&gt;= mapM_ (readFile &gt;=&gt; print . leng
       <div class="event" id="message-1514276358.000064">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1514276358.000064">2017-12-26 17:19:18 +0900</a></div>
           </div>
           <div class="description">まあ一般にはその判定( <code>forall a :: *. A2 a ~ A a</code> が成り立つかどうか)が undecidable だということですね．この例の場合はdecidableにするアルゴリズムがあるかもしれません(なので，今回の場合はできるかもしれません)が，これを一般の場合で考えた場合(例えば，ブール論理を埋め込んだstack overflowの例の場合)，それを判定する決定的なアルゴリズムを構築するのが困難だということです</div>
@@ -397,7 +397,7 @@ main = readFile "file_list.txt" &gt;&gt;= mapM_ (readFile &gt;=&gt; print . leng
       <div class="event" id="message-1514276775.000030">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1514276775.000030">2017-12-26 17:26:15 +0900</a></div>
           </div>
           <div class="description">そうです</div>
@@ -415,7 +415,7 @@ main = readFile "file_list.txt" &gt;&gt;= mapM_ (readFile &gt;=&gt; print . leng
       <div class="event" id="message-1514281265.000202">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1514281265.000202">2017-12-26 18:41:05 +0900</a></div>
           </div>
           <div class="description">あまりパッといい文献を出せませんが，もし気になるならeta expansion problemsなどで調べてみると，いいかもしれません</div>

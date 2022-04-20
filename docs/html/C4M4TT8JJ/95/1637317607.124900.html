@@ -33,7 +33,7 @@
       <div class="event" id="message-1637318867.128600">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1637318867.128600">2021-11-19 19:47:47 +0900</a></div>
           </div>
           <div class="description">Hackageってリビジョン機能があるんで、依存可能バージョンの拡張はbreaking changeではないけど依存可能バージョンの縮小はbreaking changeであると言うことを考慮して先にPVPでbreaking changeが導入されうるmajor versionは念のために排除しておくという慣習だと思っていました</div>
@@ -42,7 +42,7 @@
       <div class="event" id="message-1637318943.129200">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1637318943.129200">2021-11-19 19:49:03 +0900</a></div>
           </div>
           <div class="description">が、違うのでしょうか？</div>
@@ -141,7 +141,7 @@
       <div class="event" id="message-1638743114.187100">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1638743114.187100">2021-12-06 07:25:14 +0900</a></div>
           </div>
           <div class="description">A-1.1.0のdependency B-1.1.9のbreaking change B-1.2.0によってA-1.1のbuildが失敗する場合はAのversion constraint制限追加ってbreaking changeでもなんでもないですけど、B-1.2.0のbreaking changeが単なる動作変更であるがために、A-1.1の動作が単に変わる場合もあり得ますよね。それでドキュメントでライブラリユーザ向けにAが行った契約が破られる場合、契約を守るためにはAのversion constraintを制限しなければならないけど、これってライブラリユーザからすれば「使えていた組み合わせが使えなくなる」変化ですね。</div>
@@ -150,7 +150,7 @@
       <div class="event" id="message-1638743479.189500">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1638743479.189500">2021-12-06 07:31:19 +0900</a></div>
           </div>
           <div class="description">特に、executableが動作の安定性を保証するために <code>B==1.2.0,A==1.1.0</code> でリリースしていた場合とかが目も当てられない</div>
@@ -168,7 +168,7 @@
       <div class="event" id="message-1638772066.194200">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1638772066.194200">2021-12-06 15:27:46 +0900</a></div>
           </div>
           <div class="description">あってもいいんですが、Major dependency constraintを仮置きするかしないか、という論点で言うと、「メジャーバージョンアップによって型によるコンパイル失敗を介さずに関数の挙動が変更される」のは未来の事象なので、起こるか起こらないかは神のみぞ知る、というのが非常にアレですね。</div>
@@ -177,7 +177,7 @@
       <div class="event" id="message-1638773001.195200">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1638773001.195200">2021-12-06 15:43:21 +0900</a></div>
           </div>
           <div class="description">対処するためには仮置きして後から緩和しないといけない…</div>
@@ -186,7 +186,7 @@
       <div class="event" id="message-1638797802.201100">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1638797802.201100">2021-12-06 22:36:42 +0900</a></div>
           </div>
           <div class="description">あー、私の言ったbreaking changeっていうのは出典があるわけではなくて、「既存パッケージのビルド可能性または挙動を変えうる変更」って意味ですねえ……。pvpに定義済みの用語としてbreaking changeがあるんで、同じ言葉をつかうべきでは無かったですね。すみません。</div>

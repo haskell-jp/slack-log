@@ -17,7 +17,7 @@
       <div class="event" id="message-1511000732.000092">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1511000732.000092">2017-11-18 19:25:32 +0900</a></div>
           </div>
           <div class="description">それはコンパイルエラーになるということでしょうか？それとも，例外が出るということでしょうか？テンプレートが思った通りに表示できないということでしょうか？</div>
@@ -62,7 +62,7 @@
       <div class="event" id="message-1511158251.000010">
         <div class="content">
           <div class="summary">
-            <div class="user">brackss1</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1511158251.000010">2017-11-20 15:10:51 +0900</a></div>
           </div>
           <div class="description">失礼しました。コンパイルエラーが出たので、<br/>env = fromPairs ["list".= toJSON ["aa","bb","cc"]] としても[String]がToJSONのinstanceになっていない?などのコンパイルエラーがでました</div>
@@ -71,7 +71,7 @@
       <div class="event" id="message-1511165032.000025">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1511165032.000025">2017-11-20 17:03:52 +0900</a></div>
           </div>
           <div class="description">edeは，大雑把にはテンプレートをJSONデータをパラメータにしてレンダリングするライブラリです．で，HaskellではJSONを扱うライブラリの金字塔として， aeson というライブラリ(<https://www.stackage.org/package/aeson>)があり ede でもそれを使用しています．(.=)はaesonの関数です．aesonは，Valueという型 (<https://hackage.haskell.org/package/aeson-1.1.0.0/docs/Data-Aeson-Types.html#t:Value>) でJSONデータを表現しています．`fromPairs` は[(Text, Value)] というものから Value型の値を作る関数ですが，この関数はキーとその中身のJSONデータから新たなるJSONデータを作る関数 (イメージとしては， <code>[("ab", { "a": "b" }), ("cd", { "c": "d" })] =&gt; { "ab": { "a": "b" }, "cd": { "c": "d" } }</code> というような変換を行う関数)です．<br/><br/>まず一つ目ですが，aesonではToJSONという型クラスを用意しており，この型クラスには名前の通りJSONのデータへ変換できる型がインスタンスとして登録されています． (.=) は <code>&lt;キーとなるテキスト&gt; .= &lt;JSONになれる型の値(ToJSONのインスタンス)&gt;</code> という感じで使い，右の値は自動的にJSONデータに変換してくれます．なので， <code>fromPairs [ "list" .= toJSON ["aa", "bb", "cc" ]</code> は <code>fromPairs [ "list" .= [ "aa", "bb", "cc" ] ]</code> と同値です．JSONデータとしての表現は， aeson と bytestring というライブラリをロードしてghci上で<br/><pre>
@@ -86,7 +86,7 @@
       <div class="event" id="message-1511165623.000082">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1511165623.000082">2017-11-20 17:13:43 +0900</a></div>
           </div>
           <div class="description">この <code>OverloadedStrings</code> はよく使う拡張なので， edeのドキュメントには書かれていないのですが， それを有効にしていないままドキュメントのサンプルを動かそうとするとエラーが出るはずです．この拡張を有効にしていなかったりしないでしょうか？</div>
@@ -113,7 +113,7 @@
       <div class="event" id="message-1511183721.000048">
         <div class="content">
           <div class="summary">
-            <div class="user">brackss1</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1511183721.000048">2017-11-20 22:15:21 +0900</a></div>
           </div>
           <div class="description">OverloadedStringsは有効にしてあるのですがここでのData.Text.TextはData.Text.Lazy.Textの方ですか?</div>
@@ -122,7 +122,7 @@
       <div class="event" id="message-1511185225.000029">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1511185225.000029">2017-11-20 22:40:25 +0900</a></div>
           </div>
           <div class="description">いいえ、strictのですね。うーん、OverloadedStringsが有効になってるなら、逆に <code>fromPairs ["list" .= (["aa","bb","cc"] :: [String])]</code> と書かなきゃいけない方ですかね？</div>
@@ -131,7 +131,7 @@
       <div class="event" id="message-1511186718.000555">
         <div class="content">
           <div class="summary">
-            <div class="user">brackss1</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1511186718.000555">2017-11-20 23:05:18 +0900</a></div>
           </div>
           <div class="description"><code>:: [Data.Text.Text]</code>で型指定してみます</div>
@@ -140,7 +140,7 @@
       <div class="event" id="message-1511188624.000417">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1511188624.000417">2017-11-20 23:37:04 +0900</a></div>
           </div>
           <div class="description">あ、後説明の都合上Data.Text.Textと書きましたが、 import Data.Text (Text) してモジュール名指定無しで使用することを想定しているのでその辺は都度読み替えていただけるとって感じです :pray: </div>
@@ -158,7 +158,7 @@
       <div class="event" id="message-1511250257.000071">
         <div class="content">
           <div class="summary">
-            <div class="user">brackss1</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1511250257.000071">2017-11-21 16:44:17 +0900</a></div>
           </div>
           <div class="description">Textで型付けしましたが、実行してアクセスすると、eitherRenderにレンダリング不能と出力されました。<br/>丸投げをお許しください:sweat_drops:（スレッドでソース作れません）<br/><pre>
@@ -203,7 +203,7 @@ main = do
       <div class="event" id="message-1511259666.000281">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1511259666.000281">2017-11-21 19:21:06 +0900</a></div>
           </div>
           <div class="description">ちょっと今試せる環境がないのですが、for文のとこは <code>{% for food in foods %} &lt;li&gt;{{ food.value }}&lt;/li&gt; {% endfor %}</code> な気がします</div>
@@ -212,7 +212,7 @@ main = do
       <div class="event" id="message-1511265202.000345">
         <div class="content">
           <div class="summary">
-            <div class="user">brackss1</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1511265202.000345">2017-11-21 20:53:22 +0900</a></div>
           </div>
           <div class="description">あ…それですね。</div>
@@ -221,7 +221,7 @@ main = do
       <div class="event" id="message-1511353884.000016">
         <div class="content">
           <div class="summary">
-            <div class="user">brackss1</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1511353884.000016">2017-11-22 21:31:24 +0900</a></div>
           </div>
           <div class="description">出来ました!ありがとうございます</div>
@@ -230,28 +230,28 @@ main = do
       <div class="event" id="message-1511427155.000206">
         <div class="content">
           <div class="summary">
-            <div class="user">not.hot.red.pepper</div>
+            <div class="user">karako</div>
             <div class="date"><a class="date" href="#message-1511427155.000206">2017-11-23 17:52:35 +0900</a></div>
           </div>
-          <div class="description">@not.hot.red.pepper has joined the channel</div>
+          <div class="description">@karako has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1511427539.000122">
         <div class="content">
           <div class="summary">
-            <div class="user">not.hot.red.pepper</div>
+            <div class="user">karako</div>
             <div class="date"><a class="date" href="#message-1511427539.000122">2017-11-23 17:58:59 +0900</a></div>
           </div>
-          <div class="description">@not.hot.red.pepper has left the channel</div>
+          <div class="description">@karako has left the channel</div>
         </div>
       </div>
       <div class="event" id="message-1511673555.000013">
         <div class="content">
           <div class="summary">
-            <div class="user">becausethespiderspied</div>
+            <div class="user">oganao</div>
             <div class="date"><a class="date" href="#message-1511673555.000013">2017-11-26 14:19:15 +0900</a></div>
           </div>
-          <div class="description">@becausethespiderspied has joined the channel</div>
+          <div class="description">@oganao has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1511708585.000012">
@@ -431,7 +431,7 @@ packages:
       <div class="event" id="message-1511839848.000213">
         <div class="content">
           <div class="summary">
-            <div class="user">wado</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1511839848.000213">2017-11-28 12:30:48 +0900</a></div>
           </div>
           <div class="description"><code>stack 1.6.0</code> からもう少し簡単になりますよ。</div>
@@ -440,7 +440,7 @@ packages:
       <div class="event" id="message-1511840091.000088">
         <div class="content">
           <div class="summary">
-            <div class="user">wado</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1511840091.000088">2017-11-28 12:34:51 +0900</a></div>
           </div>
           <div class="description"><a href='https://github.com/commercialhaskell/stack/blob/master/doc/custom_snapshot.md'>https://github.com/commercialhaskell/stack/blob/master/doc/custom_snapshot.md</a><br/><a href='https://www.fpcomplete.com/blog/2017/07/stacks-new-extensible-snapshots'>https://www.fpcomplete.com/blog/2017/07/stacks-new-extensible-snapshots</a><br/><br/>この辺の話です:grinning:</div>
@@ -449,7 +449,7 @@ packages:
       <div class="event" id="message-1511840212.000246">
         <div class="content">
           <div class="summary">
-            <div class="user">wado</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1511840212.000246">2017-11-28 12:36:52 +0900</a></div>
           </div>
           <div class="description"><code>extra-deps</code> の指定はこっちでした。<br/><a href='https://github.com/commercialhaskell/stack/blob/master/doc/yaml_configuration.md#packages-and-extra-deps'>https://github.com/commercialhaskell/stack/blob/master/doc/yaml_configuration.md#packages-and-extra-deps</a></div>
