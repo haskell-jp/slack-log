@@ -24,7 +24,7 @@
       <div class="event" id="message-1633187168.006100">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633187168.006100">2021-10-03 00:06:08 +0900</a></div>
           </div>
           <div class="description">ご認識の通りcachixをいれれば解決かと思います。<br/><a href='https://github.com/NorfairKing/sydtest/blob/master/.github/workflows/nix.yaml#L39-L44'>https://github.com/NorfairKing/sydtest/blob/master/.github/workflows/nix.yaml#L39-L44</a><br/>github-actionsでもcachixつかっていますね。<br/>6分くらいで終わるようです。<br/><pre>nix-env -i cachix
@@ -34,7 +34,7 @@ cachix use sydtest</pre><br/>を実行したあとに`nix-build`を実行です�
       <div class="event" id="message-1633187455.006600">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633187455.006600">2021-10-03 00:10:55 +0900</a></div>
           </div>
           <div class="description">私は問題の調査方法として次のコマンドを実行して<br/>失敗した/nix/store/*.drvの問題を調べています。<br/><br/>```#drvの環境に入る<br/>nix-shell "失敗したdrvへのパス"<br/><br/>#build用の設定の読み込み<br/>source $stdenv/setup<br/><br/>#エラーがでてもdrvの環境から抜けないようにする<br/>set +e<br/><br/>#build<br/>genericBuild```<br/></div>
@@ -43,7 +43,7 @@ cachix use sydtest</pre><br/>を実行したあとに`nix-build`を実行です�
       <div class="event" id="message-1633187812.006900">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633187812.006900">2021-10-03 00:16:52 +0900</a></div>
           </div>
           <div class="description">あとはビルドのログの確認ですが、次のようにして確認できます。<br/><pre>nix log "drvへのパス"</pre></div>
@@ -61,7 +61,7 @@ cachix use sydtest</pre><br/>を実行したあとに`nix-build`を実行です�
       <div class="event" id="message-1633217154.007700">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633217154.007700">2021-10-03 08:25:54 +0900</a></div>
           </div>
           <div class="description">キャッシュはx86_64-linuxやx86_64-darwinなど実行するアーキテクチャごとなので、debianのままで大丈夫です。</div>
@@ -79,7 +79,7 @@ cachix use sydtest</pre><br/>を実行したあとに`nix-build`を実行です�
       <div class="event" id="message-1633253090.008700">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633253090.008700">2021-10-03 18:24:50 +0900</a></div>
           </div>
           <div class="description"><pre>/etc/nix/nix.conf</pre><br/>こちらですかね。<br/>configuration.nixはnixosの場合の設定ファイルです。</div>
@@ -97,7 +97,7 @@ cachix use sydtest</pre><br/>を実行したあとに`nix-build`を実行です�
       <div class="event" id="message-1633253270.009100">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633253270.009100">2021-10-03 18:27:50 +0900</a></div>
           </div>
           <div class="description">あと<br/><pre>    - uses: cachix/cachix-action@v8
@@ -129,7 +129,7 @@ cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
       <div class="event" id="message-1633263308.010000">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633263308.010000">2021-10-03 21:15:08 +0900</a></div>
           </div>
           <div class="description">実は僕もいま同じ問題をかかえていて<br/>どうやって直したものかと思っていました。<br/><a href='https://github.com/hasktorch/hasktorch/pull/619/checks?check_run_id=3776938349#step:10:1080'>https://github.com/hasktorch/hasktorch/pull/619/checks?check_run_id=3776938349#step:10:1080</a></div>
@@ -147,7 +147,7 @@ cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
       <div class="event" id="message-1633267557.010600">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633267557.010600">2021-10-03 22:25:57 +0900</a></div>
           </div>
           <div class="description">patchelfはデフォルトのローダーやライブラリのリンクをかえるものですね。<br/>例えば、ubuntuのlsのローダーは/lib64にあるものになりますが<br/><pre>$ patchelf --print-interpreter /usr/bin/ls
@@ -158,7 +158,7 @@ cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
       <div class="event" id="message-1633267879.011000">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633267879.011000">2021-10-03 22:31:19 +0900</a></div>
           </div>
           <div class="description">libcで競合するなら、なにもかも動かなくなる気がしますが、<br/>特定のケースだけなぜ動かないのかよくわからないですね。</div>
@@ -167,7 +167,7 @@ cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
       <div class="event" id="message-1633268142.011400">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633268142.011400">2021-10-03 22:35:42 +0900</a></div>
           </div>
           <div class="description">参照するべきライブラリがわかっているなら<br/>なにか実行するまえに下記を実行したらいいはずです。<br/>（今回なにをみるべきかよくわからないです。）<br/><pre>export LD_PRELOAD=参照したいライブラリ</pre></div>
@@ -176,7 +176,7 @@ cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
       <div class="event" id="message-1633271041.011800">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633271041.011800">2021-10-03 23:24:01 +0900</a></div>
           </div>
           <div class="description">とりあえず、自分の問題のほうは、<br/>よくわからないですが、既存のファイルの影響を排除するため<br/>~/.stackと.stack-workのあたりを消してみて再実行してみます。<br/>...<br/>再実行してもだめでしたね。</div>
@@ -185,7 +185,7 @@ cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
       <div class="event" id="message-1633271341.012200">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633271341.012200">2021-10-03 23:29:01 +0900</a></div>
           </div>
           <div class="description">GLIBC_PRIVATEに関するメモ。<br/><a href='https://groups.google.com/g/uk.comp.os.linux/c/PX3rstGtZRQ?pli=1'>https://groups.google.com/g/uk.comp.os.linux/c/PX3rstGtZRQ?pli=1</a></div>
@@ -194,7 +194,7 @@ cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
       <div class="event" id="message-1633398262.013100">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633398262.013100">2021-10-05 10:44:22 +0900</a></div>
           </div>
           <div class="description"><pre>~/.stack/programs/x86_64-linux-nix/ghc-8.10.4/lib/ghc-8.10.4/bin/ghc</pre><br/>ここにあるghcがつかわれるようですが、nixが用意したldじゃなくてシステムのデフォルトが使われているのが原因のようですね。</div>
@@ -203,7 +203,7 @@ cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
       <div class="event" id="message-1633398681.013300">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633398681.013300">2021-10-05 10:51:21 +0900</a></div>
           </div>
           <div class="description">nix-shellがghcを用意しているのに、</div>
@@ -212,7 +212,7 @@ cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
       <div class="event" id="message-1633398734.013700">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633398734.013700">2021-10-05 10:52:14 +0900</a></div>
           </div>
           <div class="description">ghcをダウンロードしてダウンロードしたほうをつかおうとしますね。<br/>stackのバグですかね。</div>
@@ -230,7 +230,7 @@ cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
       <div class="event" id="message-1633401355.014200">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633401355.014200">2021-10-05 11:35:55 +0900</a></div>
           </div>
           <div class="description">これはそれによらないと思いますね。<br/>結局ダウンロードするので。</div>
@@ -239,7 +239,7 @@ cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
       <div class="event" id="message-1633401394.014400">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633401394.014400">2021-10-05 11:36:34 +0900</a></div>
           </div>
           <div class="description">じつはstackとnixを両方使っているユーザーをあまり見たことがないですね。</div>
@@ -248,7 +248,7 @@ cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
       <div class="event" id="message-1633401417.014600">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633401417.014600">2021-10-05 11:36:57 +0900</a></div>
           </div>
           <div class="description">nixと素のcabalだけ使う人はよく見ますが。あまりデバッグがされてない気がします。</div>
@@ -257,7 +257,7 @@ cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
       <div class="event" id="message-1633401648.014900">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633401648.014900">2021-10-05 11:40:48 +0900</a></div>
           </div>
           <div class="description"><pre>stack test --pedantic --system-ghc</pre><br/>これでビルドできましたね。</div>
@@ -266,7 +266,7 @@ cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
       <div class="event" id="message-1633401668.015100">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633401668.015100">2021-10-05 11:41:08 +0900</a></div>
           </div>
           <div class="description">ありがとうございます。</div>
@@ -284,7 +284,7 @@ cachix use yamlparse</pre><br/>の二つが必要ですね。</div>
       <div class="event" id="message-1633468881.015800">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1633468881.015800">2021-10-06 06:21:21 +0900</a></div>
           </div>
           <div class="description">僕の抱えていた問題もおなじでした。<br/>ただ、--system-ghcはstackの要求するghcのバージョンとsystemにインストールずみのghcのバージョンが一致する場合だけ有効なようです。<br/>そうでないと勝手にダウンロードしてきますね。</div>

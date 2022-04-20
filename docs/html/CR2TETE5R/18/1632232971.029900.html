@@ -15,16 +15,16 @@
       <div class="event" id="message-1632232971.029900">
         <div class="content">
           <div class="summary">
-            <div class="user">naosak1006</div>
+            <div class="user">sanao</div>
             <div class="date"><a class="date" href="#message-1632232971.029900">2021-09-21 23:02:51 +0900</a></div>
           </div>
-          <div class="description">@minorinoki_haskjp <@UL1HFJATE> もしくは他の方でも構いません<br/>「Haskellで戦う競技プログラミング」でプリミティブ型についての説明をされている部分があったのですがいまいちピンとこなかったので質問させてください。<br/>以下第4章 P.33より抜粋<br/><blockquote> ここでの「プリミティブ型」という言い方は便宜的なものです。GHC 的にはプリミティブ型と言った<br/>ら GHC.Prim で定義されている unboxed 型のことでしょうが、ここでは「GHC の unboxed 型を<br/>ラップした型」程度の意味です。</blockquote>「GHC的にはプリミティブ型といったらGHC.Primで定義されているunboxed型」と「GHC の unboxed 型をラップした型」これらの文が理解できませんでした。<br/>GHC.Primが何のモジュールなのかもHackage見ただけではイマイチ理解できないレベルです。ざっくりとでも構いません、以上の文を噛み砕いていただけると助かります</div>
+          <div class="description">@mod_poppo <@UL1HFJATE> もしくは他の方でも構いません<br/>「Haskellで戦う競技プログラミング」でプリミティブ型についての説明をされている部分があったのですがいまいちピンとこなかったので質問させてください。<br/>以下第4章 P.33より抜粋<br/><blockquote> ここでの「プリミティブ型」という言い方は便宜的なものです。GHC 的にはプリミティブ型と言った<br/>ら GHC.Prim で定義されている unboxed 型のことでしょうが、ここでは「GHC の unboxed 型を<br/>ラップした型」程度の意味です。</blockquote>「GHC的にはプリミティブ型といったらGHC.Primで定義されているunboxed型」と「GHC の unboxed 型をラップした型」これらの文が理解できませんでした。<br/>GHC.Primが何のモジュールなのかもHackage見ただけではイマイチ理解できないレベルです。ざっくりとでも構いません、以上の文を噛み砕いていただけると助かります</div>
         </div>
       </div>
       <div class="event" id="message-1632234325.041600">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1632234325.041600">2021-09-21 23:25:25 +0900</a></div>
           </div>
           <div class="description">GHC の基本ライブラリって <code>ghc-prim</code> の上に <code>base</code> が乗っかってる、みたいな構造をしてて、 <code>ghc-prim</code> には「GHC内部で定義された、実際には Haskell で実装が書かれてない型や関数」があり、 <code>base</code> でそれらを簡単に呼び出すためのラッパーが定義されています。<br/><br/><pre>-- in ghc-prim
@@ -36,7 +36,7 @@ data Int = I# Int#</pre><br/>みたいなことになっています。`GHC.Prim
       <div class="event" id="message-1632234535.045200">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1632234535.045200">2021-09-21 23:28:55 +0900</a></div>
           </div>
           <div class="description">unboxedを説明する前に <code>#</code> について注意しておくと、 <code>#</code> は演算子を表す記号ではなく、 <code>Int#</code> で一個の名前です。<br/><br/><pre>{-# LANGUAGE MagicHash #-}</pre><br/>で、英数字名の識別子の後ろに <code>#</code> をくっつけても識別子とみなされるようになります。</div>
@@ -45,7 +45,7 @@ data Int = I# Int#</pre><br/>みたいなことになっています。`GHC.Prim
       <div class="event" id="message-1632234813.047700">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1632234813.047700">2021-09-21 23:33:33 +0900</a></div>
           </div>
           <div class="description">unboxed は、ちゃんと説明しようとすると「ヒープ」、「スタック」、「ポインタ」、「サンク」くらいの用語を使うのですが、聞いたことあります？</div>
@@ -54,7 +54,7 @@ data Int = I# Int#</pre><br/>みたいなことになっています。`GHC.Prim
       <div class="event" id="message-1632235097.047900">
         <div class="content">
           <div class="summary">
-            <div class="user">naosak1006</div>
+            <div class="user">sanao</div>
             <div class="date"><a class="date" href="#message-1632235097.047900">2021-09-21 23:38:17 +0900</a></div>
           </div>
           <div class="description">そこらへんの用語は問題なく使用していただいて大丈夫です</div>
@@ -63,7 +63,7 @@ data Int = I# Int#</pre><br/>みたいなことになっています。`GHC.Prim
       <div class="event" id="message-1632235394.052900">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1632235394.052900">2021-09-21 23:43:14 +0900</a></div>
           </div>
           <div class="description">boxedは大まかにいって「いつ何時でも実体がヒープにあることが強制されており、その値は必ず実体へのポインタとして表現される」型のことです。このboxedは型がliftedである（発散値を値として持つ≒値の実体がサンクでありうる）ための必要条件ですね、多分</div>
@@ -72,7 +72,7 @@ data Int = I# Int#</pre><br/>みたいなことになっています。`GHC.Prim
       <div class="event" id="message-1632235674.057400">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1632235674.057400">2021-09-21 23:47:54 +0900</a></div>
           </div>
           <div class="description">unboxedはこの否定をとって得られます。典型的には（多分全てかな?）値が格納されているところにそのまま実体があります。だから <code>Int#</code> はヒープに居てもスタックに居てもよくて、まんま32bitsか64bitsの符号付き整数を表すビットパターンです。</div>
@@ -81,7 +81,7 @@ data Int = I# Int#</pre><br/>みたいなことになっています。`GHC.Prim
       <div class="event" id="message-1632235972.063300">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1632235972.063300">2021-09-21 23:52:52 +0900</a></div>
           </div>
           <div class="description"><code>data Int = I# Int#</code> がスタックに居るとしてもヒープに居るとしても、`Int` の値が居るところには整数そのものを表すビットパターンはいなくて、ただヒープへのポインタだけがあります。そのポインタはサンクを指しているかもしれないし、2wordの構造体を指しているかもしれないです。後者の場合、`I#` を表すタグであるワードと、整数そのものを表すビットパターン(`Int#`)であるワードからなる構造体です。</div>
@@ -90,7 +90,7 @@ data Int = I# Int#</pre><br/>みたいなことになっています。`GHC.Prim
       <div class="event" id="message-1632236086.065400">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1632236086.065400">2021-09-21 23:54:46 +0900</a></div>
           </div>
           <div class="description">一方で、`Int#` は、スタックに居ようとヒープに居ようと、1word分のビットパターンがそこにあります。</div>
@@ -99,7 +99,7 @@ data Int = I# Int#</pre><br/>みたいなことになっています。`GHC.Prim
       <div class="event" id="message-1632236663.066400">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1632236663.066400">2021-09-22 00:04:23 +0900</a></div>
           </div>
           <div class="description">「値」という用語に混乱が見られるので、どうか真似しないでください</div>
@@ -108,7 +108,7 @@ data Int = I# Int#</pre><br/>みたいなことになっています。`GHC.Prim
       <div class="event" id="message-1632267971.077700">
         <div class="content">
           <div class="summary">
-            <div class="user">naosak1006</div>
+            <div class="user">sanao</div>
             <div class="date"><a class="date" href="#message-1632267971.077700">2021-09-22 08:46:11 +0900</a></div>
           </div>
           <div class="description">む、難しいですね……<br/>なんとか理解したいと思います<br/>ご丁寧にありがとうございました</div>
@@ -126,7 +126,7 @@ data Int = I# Int#</pre><br/>みたいなことになっています。`GHC.Prim
       <div class="event" id="message-1632277969.078300">
         <div class="content">
           <div class="summary">
-            <div class="user">naosak1006</div>
+            <div class="user">sanao</div>
             <div class="date"><a class="date" href="#message-1632277969.078300">2021-09-22 11:32:49 +0900</a></div>
           </div>
           <div class="description">@igrep ありがとうございます！読んでみます！</div>
@@ -135,7 +135,7 @@ data Int = I# Int#</pre><br/>みたいなことになっています。`GHC.Prim
       <div class="event" id="message-1634559910.132800">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1634559910.132800">2021-10-18 21:25:10 +0900</a></div>
           </div>
           <div class="description">今更ですが、boxed typeとはC--に直した時に <code>void *</code> になる型のことで、そのうちlifted typeとはその <code>void *</code> がthunkを指しうる型のこと、とか説明したらいい気がしてきました</div>

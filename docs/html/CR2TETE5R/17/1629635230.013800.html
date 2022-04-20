@@ -15,7 +15,7 @@
       <div class="event" id="message-1629635230.013800">
         <div class="content">
           <div class="summary">
-            <div class="user">xgrk9475</div>
+            <div class="user">ksrk</div>
             <div class="date"><a class="date" href="#message-1629635230.013800">2021-08-22 21:27:10 +0900</a></div>
           </div>
           <div class="description">stack installで次のようなエラーが出てしまいます。<br/><pre>scientific&gt; configure
@@ -47,7 +47,7 @@ scientific&gt; </pre><br/>stack.yamlは次のとおりです。<br/><pre>extra-d
       <div class="event" id="message-1629636063.014400">
         <div class="content">
           <div class="summary">
-            <div class="user">minorinoki_haskjp</div>
+            <div class="user">mod_poppo</div>
             <div class="date"><a class="date" href="#message-1629636063.014400">2021-08-22 21:41:03 +0900</a></div>
           </div>
           <div class="description">template-haskellはstackage LTSに含まれているため、extra-depsに書く必要はありません。というかtemplate-haskellのバージョンはGHCのバージョンと同期されている必要があり、ユーザーがバージョンを指定できるものではない気がします。GHC 9.0.1向けのtemplate-haskell-2.17.0.0をGHC 8.10系で使おうとしてそういうエラーが出ているのではないでしょうか。</div>
@@ -56,7 +56,7 @@ scientific&gt; </pre><br/>stack.yamlは次のとおりです。<br/><pre>extra-d
       <div class="event" id="message-1629636341.014600">
         <div class="content">
           <div class="summary">
-            <div class="user">minorinoki_haskjp</div>
+            <div class="user">mod_poppo</div>
             <div class="date"><a class="date" href="#message-1629636341.014600">2021-08-22 21:45:41 +0900</a></div>
           </div>
           <div class="description">template-haskellの他にghc-boot-thもGHC組み込みのため、extra-depsから外す必要があります。</div>
@@ -65,7 +65,7 @@ scientific&gt; </pre><br/>stack.yamlは次のとおりです。<br/><pre>extra-d
       <div class="event" id="message-1629637524.015000">
         <div class="content">
           <div class="summary">
-            <div class="user">xgrk9475</div>
+            <div class="user">ksrk</div>
             <div class="date"><a class="date" href="#message-1629637524.015000">2021-08-22 22:05:24 +0900</a></div>
           </div>
           <div class="description">ありがとうございます。解決しました。<br/>package.yamlとstack.yamlを混同していました。<br/>いままで、package.yamlのdependenciesとstack.yamlのextra-depsに同じ内容を記述していたのですが、これは必要ないということですか？</div>
@@ -74,7 +74,7 @@ scientific&gt; </pre><br/>stack.yamlは次のとおりです。<br/><pre>extra-d
       <div class="event" id="message-1629637871.015300">
         <div class="content">
           <div class="summary">
-            <div class="user">minorinoki_haskjp</div>
+            <div class="user">mod_poppo</div>
             <div class="date"><a class="date" href="#message-1629637871.015300">2021-08-22 22:11:11 +0900</a></div>
           </div>
           <div class="description">基本的には、resolverに含まれないマイナーなパッケージを使用したい場合のみextra-depsに記述します。resolverに含まれない（&amp;extra-depsにも記述されていない）マイナーなパッケージをdependenciesに書いた場合はstackが教えてくれるのでそれを参考にすると良いでしょう。例外として、resolverに含まれるバージョンとは異なるバージョンを明示的に使いたい場合はextra-depsに書きます。</div>
@@ -83,7 +83,7 @@ scientific&gt; </pre><br/>stack.yamlは次のとおりです。<br/><pre>extra-d
       <div class="event" id="message-1629638027.015500">
         <div class="content">
           <div class="summary">
-            <div class="user">minorinoki_haskjp</div>
+            <div class="user">mod_poppo</div>
             <div class="date"><a class="date" href="#message-1629638027.015500">2021-08-22 22:13:47 +0900</a></div>
           </div>
           <div class="description">例えばlts-18.7を使う場合は、text-1.2.4.1とfilepath-1.4.2.1はlts-18.7に含まれるのでextra-depsの記述は完全に冗長です。一方、megaparsecとparser-combinatorsはlts-18.7に含まれるバージョンとextra-depsに記述されているバージョンが異なるため、最新の機能やバグ修正を使いたい場合は意味のある記述ということになります。</div>

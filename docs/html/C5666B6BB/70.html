@@ -26,7 +26,7 @@
       <div class="event" id="message-1567939338.051200">
         <div class="content">
           <div class="summary">
-            <div class="user">9647142</div>
+            <div class="user">linguini</div>
             <div class="date"><a class="date" href="#message-1567939338.051200">2019-09-08 19:42:18 +0900</a></div>
           </div>
           <div class="description">たしかに。<br/>括弧にくるんでるからって安心してましたけどたしかにexprASTも括弧にくるまれてるから安心できなかった</div>
@@ -35,7 +35,7 @@
       <div class="event" id="message-1567943436.051800">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1567943436.051800">2019-09-08 20:50:36 +0900</a></div>
           </div>
           <div class="description">なるほど，不思議な動作ですね… 確かに Strict の時のみ stack overflow になりました… ちょっとそれは想定してませんでしたね…</div>
@@ -44,7 +44,7 @@
       <div class="event" id="message-1567945497.052100">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1567945497.052100">2019-09-08 21:24:57 +0900</a></div>
           </div>
           <div class="description">あ，いいのか．過去の自分に追いつけてなかった．<br/>まず， Strict をつけようがつけまいが，<br/><pre>
@@ -59,7 +59,7 @@ let k = \ z x -&gt; x : z in (([] `k` 1) ... `k` n)
       <div class="event" id="message-1567945696.052800">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1567945696.052800">2019-09-08 21:28:16 +0900</a></div>
           </div>
           <div class="description">あ，だから Strict 拡張のみで stack overflow する例なんですね．前のコメントは間違いですね．失礼しました</div>
@@ -95,7 +95,7 @@ let k = \ z x -&gt; x : z in (([] `k` 1) ... `k` n)
       <div class="event" id="message-1567976577.055600">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1567976577.055600">2019-09-09 06:02:57 +0900</a></div>
           </div>
           <div class="description"><code>Q</code> モナドは， <code>runQ</code> を使えば <code>IO</code> の元で走らせることができるようになっているので，それでデバッグできます．大体のデータ型は <code>Show</code> が実装されているので，単純に表示してみると良いと思います．<br/><br/><pre>
@@ -116,7 +116,7 @@ let k = \ z x -&gt; x : z in (([] `k` 1) ... `k` n)
       <div class="event" id="message-1568007206.056600">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1568007206.056600">2019-09-09 14:33:26 +0900</a></div>
           </div>
           <div class="description">できないと思う。少なくとも僕が関わっているプロジェクトではstackでインストールしたパッケージをnixの環境では利用できなかった。<br/><br/><br/><blockquote>OSSでhydra使うにはどうしたらいいでしょうか。自分でたてるしかないですか？</blockquote>自分もよくわからないからきいてみます！</div>
@@ -125,7 +125,7 @@ let k = \ z x -&gt; x : z in (([] `k` 1) ... `k` n)
       <div class="event" id="message-1568079332.061100">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1568079332.061100">2019-09-10 10:35:32 +0900</a></div>
           </div>
           <div class="description">お疲れ様です<br/>type levelの関数をpropertyテストするにはどうすればいいでしょうか？<br/>doctestでkinds!やtype-specで個別の値はテストできるのですが。<br/>あとはtemplate haskellつかうとか？</div>
@@ -154,7 +154,7 @@ foldr (\x z -&gt; x : z) [] [1 .. size]
       <div class="event" id="message-1568135882.062900">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1568135882.062900">2019-09-11 02:18:02 +0900</a></div>
           </div>
           <div class="description"><code>foldr</code> の場合 <code>foldl</code> の時と事情が少々異なっていて，まず strict な <code>foldr</code> 相当のものは通常リストを reverse するなどしない限り，固定スタックの再帰にできません．それは，リストの後ろの要素から得られる値が分からないと前の要素に対しての計算ができないからです． <code>foldr</code> の場合，<br/><pre>
@@ -165,7 +165,7 @@ let k = \ x z -&gt; x : z in (1 `k` foldr k [] [2 .. n])
       <div class="event" id="message-1568137511.063100">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1568137511.063100">2019-09-11 02:45:11 +0900</a></div>
           </div>
           <div class="description">なので基本的には、<br/>* foldr 系統は strict 下では使ってはいけない<br/>* foldl 系統は (strict 下でなくても) 正格消費版を使うこと<br/>みたいな感じですね</div>
@@ -183,16 +183,16 @@ let k = \ x z -&gt; x : z in (1 `k` foldr k [] [2 .. n])
       <div class="event" id="message-1568158296.063800">
         <div class="content">
           <div class="summary">
-            <div class="user">makoto.atarashi0607</div>
+            <div class="user">makoto0607</div>
             <div class="date"><a class="date" href="#message-1568158296.063800">2019-09-11 08:31:36 +0900</a></div>
           </div>
-          <div class="description">@makoto.atarashi0607 has joined the channel</div>
+          <div class="description">@makoto0607 has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1568171614.064000">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1568171614.064000">2019-09-11 12:13:34 +0900</a></div>
           </div>
           <div class="description">こんにちは！OSSでHydraを使うならこれを参考にするといいよっていわれました。<br/><a href='https://nixos.org/hydra/manual/#chap-installation'>https://nixos.org/hydra/manual/#chap-installation</a></div>
@@ -201,7 +201,7 @@ let k = \ x z -&gt; x : z in (1 `k` foldr k [] [2 .. n])
       <div class="event" id="message-1568192880.065800">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1568192880.065800">2019-09-11 18:08:00 +0900</a></div>
           </div>
           <div class="description">ありがとうございます。</div>
@@ -210,10 +210,10 @@ let k = \ x z -&gt; x : z in (1 `k` foldr k [] [2 .. n])
       <div class="event" id="message-1568206505.066100">
         <div class="content">
           <div class="summary">
-            <div class="user">atsushi.sato.3r</div>
+            <div class="user">atsushi3r</div>
             <div class="date"><a class="date" href="#message-1568206505.066100">2019-09-11 21:55:05 +0900</a></div>
           </div>
-          <div class="description">@atsushi.sato.3r has joined the channel</div>
+          <div class="description">@atsushi3r has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1568250017.072200">
@@ -319,16 +319,16 @@ ghci&gt;
       <div class="event" id="message-1568270158.073800">
         <div class="content">
           <div class="summary">
-            <div class="user">pontyan12</div>
+            <div class="user">P0ngCh4ng</div>
             <div class="date"><a class="date" href="#message-1568270158.073800">2019-09-12 15:35:58 +0900</a></div>
           </div>
-          <div class="description">@pontyan12 has joined the channel</div>
+          <div class="description">@P0ngCh4ng has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1568271504.077200">
         <div class="content">
           <div class="summary">
-            <div class="user">pontyan12</div>
+            <div class="user">P0ngCh4ng</div>
             <div class="date"><a class="date" href="#message-1568271504.077200">2019-09-12 15:58:24 +0900</a></div>
           </div>
           <div class="description">質問するのが初めてでありますので必要な情報が足りなければすみません。こちらの情報としてGithubのURLを貼っておきますが、ピンポイントで欲しい情報があればそこだけピックアップして貼ります。<br/><br/>SlackBotを作ろうと思い、ネットの記事やSlackAPIのGitHubのページを参照してサンプルコードをとりあえず実行しようと思ったのですが、<br/><br/><pre>
@@ -352,7 +352,7 @@ ghci&gt;
       <div class="event" id="message-1568271871.077600">
         <div class="content">
           <div class="summary">
-            <div class="user">pontyan12</div>
+            <div class="user">P0ngCh4ng</div>
             <div class="date"><a class="date" href="#message-1568271871.077600">2019-09-12 16:04:31 +0900</a></div>
           </div>
           <div class="description"><a href='https://qiita.com/kentahama/items/261c9c86d02161680933'>https://qiita.com/kentahama/items/261c9c86d02161680933</a><br/><br/><a href='https://23prime.hatenablog.com/entry/2017/10/13/214619'>https://23prime.hatenablog.com/entry/2017/10/13/214619</a><br/><br/>こちらのページです〜〜</div>
@@ -379,7 +379,7 @@ ghci&gt;
       <div class="event" id="message-1568272379.078600">
         <div class="content">
           <div class="summary">
-            <div class="user">pontyan12</div>
+            <div class="user">P0ngCh4ng</div>
             <div class="date"><a class="date" href="#message-1568272379.078600">2019-09-12 16:12:59 +0900</a></div>
           </div>
           <div class="description">実を言うと記事の方は依存関係を参考にしたんですが、記事のコードを丸パクしても全く違うエラーが出てくるのでそちらからのアプローチは諦めて、依存関係はそのままにAPIのGithubのExampleを参考にした形です。</div>
@@ -397,7 +397,7 @@ ghci&gt;
       <div class="event" id="message-1568272631.079000">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1568272631.079000">2019-09-12 16:17:11 +0900</a></div>
           </div>
           <div class="description">GitHub の README は新しすぎるようですね． <code>SlackHandle</code> は現状の開発版で新しく入ったもののようです．参考にすべきは，こっちの方かもしれません:<br/><a href='https://github.com/mpickering/slack-api/tree/v0.12'>https://github.com/mpickering/slack-api/tree/v0.12</a></div>
@@ -406,7 +406,7 @@ ghci&gt;
       <div class="event" id="message-1568272910.079500">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1568272910.079500">2019-09-12 16:21:50 +0900</a></div>
           </div>
           <div class="description">なおリリースが 2017 年なので， Slack の現在の API に追いついてないかもしれませんね．最新のものがちゃんと動くかは分からないですが， master のを使ってみるといいかもしれません．少なくとも 0.12 では次のようなエラーが報告されてますね:<br/><a href='https://github.com/mpickering/slack-api/issues'>https://github.com/mpickering/slack-api/issues</a></div>
@@ -415,7 +415,7 @@ ghci&gt;
       <div class="event" id="message-1568273116.080000">
         <div class="content">
           <div class="summary">
-            <div class="user">pontyan12</div>
+            <div class="user">P0ngCh4ng</div>
             <div class="date"><a class="date" href="#message-1568273116.080000">2019-09-12 16:25:16 +0900</a></div>
           </div>
           <div class="description">そちらのバージョンで試してみます！</div>
@@ -424,7 +424,7 @@ ghci&gt;
       <div class="event" id="message-1568273221.080200">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1568273221.080200">2019-09-12 16:27:01 +0900</a></div>
           </div>
           <div class="description">ついでにこちらの方は一応メンテされてそうですね:<br/><a href='https://hackage.haskell.org/package/slack-web'>https://hackage.haskell.org/package/slack-web</a><br/><br/>example はなさそうですが…</div>
@@ -455,7 +455,7 @@ extra-deps:
       <div class="event" id="message-1568273597.081200">
         <div class="content">
           <div class="summary">
-            <div class="user">pontyan12</div>
+            <div class="user">P0ngCh4ng</div>
             <div class="date"><a class="date" href="#message-1568273597.081200">2019-09-12 16:33:17 +0900</a></div>
           </div>
           <div class="description">0.12の一番新しいコミットSHAを登録して今ビルドし直しています。<br/>コードは0.12のexampleを使いました。</div>
@@ -464,7 +464,7 @@ extra-deps:
       <div class="event" id="message-1568273671.081600">
         <div class="content">
           <div class="summary">
-            <div class="user">pontyan12</div>
+            <div class="user">P0ngCh4ng</div>
             <div class="date"><a class="date" href="#message-1568273671.081600">2019-09-12 16:34:31 +0900</a></div>
           </div>
           <div class="description"><pre>
@@ -484,7 +484,7 @@ user error (When parsing the record Preferences of type Web.Slack.Types.Preferen
       <div class="event" id="message-1568273906.082000">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1568273906.082000">2019-09-12 16:38:26 +0900</a></div>
           </div>
           <div class="description">多分これですね．現状の master では治ってるようですが，リリースはないと思うので master のコミットを使うしかないような気がします<br/><a href='https://github.com/mpickering/slack-api/pull/99'>https://github.com/mpickering/slack-api/pull/99</a></div>
@@ -493,7 +493,7 @@ user error (When parsing the record Preferences of type Web.Slack.Types.Preferen
       <div class="event" id="message-1568274030.082400">
         <div class="content">
           <div class="summary">
-            <div class="user">pontyan12</div>
+            <div class="user">P0ngCh4ng</div>
             <div class="date"><a class="date" href="#message-1568274030.082400">2019-09-12 16:40:30 +0900</a></div>
           </div>
           <div class="description">こっちでビルドし直してみます！</div>
@@ -502,7 +502,7 @@ user error (When parsing the record Preferences of type Web.Slack.Types.Preferen
       <div class="event" id="message-1568274214.082700">
         <div class="content">
           <div class="summary">
-            <div class="user">pontyan12</div>
+            <div class="user">P0ngCh4ng</div>
             <div class="date"><a class="date" href="#message-1568274214.082700">2019-09-12 16:43:34 +0900</a></div>
           </div>
           <div class="description"><pre>
@@ -522,7 +522,7 @@ user error (When parsing the record Preferences of type Web.Slack.Types.Preferen
       <div class="event" id="message-1568274298.083200">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1568274298.083200">2019-09-12 16:44:58 +0900</a></div>
           </div>
           <div class="description">それも修正が入ってるようです<br/><a href='https://github.com/mpickering/slack-api/pull/100'>https://github.com/mpickering/slack-api/pull/100</a></div>
@@ -531,7 +531,7 @@ user error (When parsing the record Preferences of type Web.Slack.Types.Preferen
       <div class="event" id="message-1568274335.083500">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1568274335.083500">2019-09-12 16:45:35 +0900</a></div>
           </div>
           <div class="description">多分使うコミットは <a href='https://github.com/mpickering/slack-api/commit/d084fdbf1ab1a9e705dbd1f43645175fab0d5940'>https://github.com/mpickering/slack-api/commit/d084fdbf1ab1a9e705dbd1f43645175fab0d5940</a> がいいのではないでしょうか？</div>

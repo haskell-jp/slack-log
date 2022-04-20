@@ -17,7 +17,7 @@
       <div class="event" id="message-1548925411.434600">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1548925411.434600">2019-01-31 18:03:31 +0900</a></div>
           </div>
           <div class="description">ざっと見、ネストが深くなった最初の行の空白を二重にパースしようとしている感じがします（whenJust mNumofSpaces のところで一回、その行自体を含めて続きを many1 $ do でパースしつづけるので、その行は blockParser (Just $ numOfSpaces + s) でもう一回）。</div>
@@ -26,7 +26,7 @@
       <div class="event" id="message-1548926694.434900">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1548926694.434900">2019-01-31 18:24:54 +0900</a></div>
           </div>
           <div class="description">現状だとこれが返ってくるんです。<br/><pre>
@@ -46,7 +46,7 @@ Right
       <div class="event" id="message-1548927030.435100">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1548927030.435100">2019-01-31 18:30:30 +0900</a></div>
           </div>
           <div class="description">最初は Nothing から Just 1 のインデントになるところはたぶん問題なく動いちゃうと思うんですが、 Just 1 のインデントのつもりで "  item1" の行をパースすると、まず1個スペースを読み飛ばして、残り1個のスペースの個数を数えて、合計2になって、その Just 2 を持って " item1\n  item2\n  item3\n..." をパースする（最初の item1 の行にすでに残り一個しか空白がないことに注意）のでうまくいかないんじゃないかと</div>
@@ -55,7 +55,7 @@ Right
       <div class="event" id="message-1548927387.435300">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1548927387.435300">2019-01-31 18:36:27 +0900</a></div>
           </div>
           <div class="description">bulletpointParser として try しそこねたので itemParser でパースしちゃって ListItem " item1" が返る。そして次の行でまた Just 1 の bulletpointParser で同じことが起きる…の繰り返しになりそうです</div>
@@ -64,7 +64,7 @@ Right
       <div class="event" id="message-1548928700.435500">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1548928700.435500">2019-01-31 18:58:20 +0900</a></div>
           </div>
           <div class="description">なんとなく原因はわかったけど、ではどうすればいいのかっていうところが疲れててわからない。</div>
@@ -73,7 +73,7 @@ Right
       <div class="event" id="message-1548928966.435700">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1548928966.435700">2019-01-31 19:02:46 +0900</a></div>
           </div>
           <div class="description">現状の延長で手っ取り早くやるなら一行目だけ特別扱いするのがいいんじゃないでしょうかねえ…空白を数えてしまった後はかならず itemParser できるはずなのでそこだけ自前でやって、残りを many1 じゃなくて many で処理してくっつける、みたいな感じで</div>
@@ -100,7 +100,7 @@ Right
       <div class="event" id="message-1548930291.436700">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1548930291.436700">2019-01-31 19:24:51 +0900</a></div>
           </div>
           <div class="description">修正案あげておきます<br/><a href='https://gist.github.com/mizunashi-mana/d4c03b236f7a22d8c1ce411924ba1fe8'>https://gist.github.com/mizunashi-mana/d4c03b236f7a22d8c1ce411924ba1fe8</a></div>
@@ -109,7 +109,7 @@ Right
       <div class="event" id="message-1548930487.436900">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1548930487.436900">2019-01-31 19:28:07 +0900</a></div>
           </div>
           <div class="description">ありがとー。よく見ておきます。</div>
@@ -118,7 +118,7 @@ Right
       <div class="event" id="message-1548930533.437100">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1548930533.437100">2019-01-31 19:28:53 +0900</a></div>
           </div>
           <div class="description">@aiya000<br/>ごめんなさい。正規表現は全くわからないです（だからParsecに逃げました</div>
@@ -127,7 +127,7 @@ Right
       <div class="event" id="message-1548930576.437300">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1548930576.437300">2019-01-31 19:29:36 +0900</a></div>
           </div>
           <div class="description">ああ、やっぱり Maybe Int の Nothing をやめて単に Int の 0 にしたくなりますよね^^; <blockquote>indentの数</blockquote></div>
@@ -136,19 +136,19 @@ Right
       <div class="event" id="message-1548997053.437900">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1548997053.437900">2019-02-01 13:57:33 +0900</a></div>
           </div>
-          <div class="description">@mizunashi-mana さんの修正案を元に実装してみたら上手くいきました。ありがとうございます。</div>
+          <div class="description">@ さんの修正案を元に実装してみたら上手くいきました。ありがとうございます。</div>
         </div>
       </div>
       <div class="event" id="message-1549002044.438500">
         <div class="content">
           <div class="summary">
-            <div class="user">pen_g_uin</div>
+            <div class="user">heyclor</div>
             <div class="date"><a class="date" href="#message-1549002044.438500">2019-02-01 15:20:44 +0900</a></div>
           </div>
-          <div class="description">@pen_g_uin has joined the channel</div>
+          <div class="description">@heyclor has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1549080665.440100">
@@ -325,7 +325,7 @@ Right
       <div class="event" id="message-1549185382.447600">
         <div class="content">
           <div class="summary">
-            <div class="user">yharuhi39</div>
+            <div class="user">りんご姫</div>
             <div class="date"><a class="date" href="#message-1549185382.447600">2019-02-03 18:16:22 +0900</a></div>
           </div>
           <div class="description"><code>if</code> ってのがグローバルなスコープでは駄目だよって言ってますね。スコープって言っていいのか分りませんけど。。。 誤解されるような言い方をすれば、インデントしてないところじゃ使えんよ。 って事なんでしょ。(厳密には libraryか、executableの中だけ)</div>
@@ -346,7 +346,7 @@ if impl(ghc &lt; 8.2.0)
       <div class="event" id="message-1549259287.453800">
         <div class="content">
           <div class="summary">
-            <div class="user">yamanntyu22</div>
+            <div class="user">sawada</div>
             <div class="date"><a class="date" href="#message-1549259287.453800">2019-02-04 14:48:07 +0900</a></div>
           </div>
           <div class="description">Haskell-Yampaプログラムについてここにいる皆様のおかげでかなり形になりました！質問に対応してくださり本当にありがとうございます！<br/>教授にクイックチェックの動作を見てもらってもらった感想として「テストを行うという目的としてテスト試行回数を増やすということは抜けを見つける確率を上げる方法として正しいが、スクリプトを組んで探索範囲を複数に分けて複数のコアで回せばより早くなるしそうしたほうが工夫した点や今後の課題で書きやすいから考えてみて」と言われました。<br/>自分はスクリプトというものを今まで組んだことがないのですが、書き方等をご教授願えないでしょうか？</div>
@@ -355,7 +355,7 @@ if impl(ghc &lt; 8.2.0)
       <div class="event" id="message-1549259326.453900">
         <div class="content">
           <div class="summary">
-            <div class="user">yamanntyu22</div>
+            <div class="user">sawada</div>
             <div class="date"><a class="date" href="#message-1549259326.453900">2019-02-04 14:48:46 +0900</a></div>
           </div>
           <div class="description"></div>
@@ -364,7 +364,7 @@ if impl(ghc &lt; 8.2.0)
       <div class="event" id="message-1549259700.459200">
         <div class="content">
           <div class="summary">
-            <div class="user">yamanntyu22</div>
+            <div class="user">sawada</div>
             <div class="date"><a class="date" href="#message-1549259700.459200">2019-02-04 14:55:00 +0900</a></div>
           </div>
           <div class="description">今は上のプログラムに対して<br/>*Main Lib&gt; quickCheck $ forAll (choose(5,100)) $ test_bounce<br/>と入力して初期位置が5以上100以下のものからランダムに100パターン、1000000サイクル×0.01秒後の位置が-1未満(地面を貫通しているか)で判定しているのですが、<br/>教授の言うスクリプトというものは<br/>①二つに分ける場合、初期位置等を5-50と50-100に分けておこなう<br/>②それぞれ別のコアで行う<br/>を行えるようにすることだと思うのですが、具体的にスクリプトがどのように行うものかも含めて教えてくれるとありがたいです</div>
@@ -391,7 +391,7 @@ if impl(ghc &lt; 8.2.0)
       <div class="event" id="message-1549260558.459900">
         <div class="content">
           <div class="summary">
-            <div class="user">yamanntyu22</div>
+            <div class="user">sawada</div>
             <div class="date"><a class="date" href="#message-1549260558.459900">2019-02-04 15:09:18 +0900</a></div>
           </div>
           <div class="description">Yampa の QuickCheck を並列実行を行うことだと思います。<br/>QuickCheckを並列実行を一つの端末画面で行うためにスクリプトを組んでねという感じだと思います。</div>
@@ -400,7 +400,7 @@ if impl(ghc &lt; 8.2.0)
       <div class="event" id="message-1549260683.460100">
         <div class="content">
           <div class="summary">
-            <div class="user">yamanntyu22</div>
+            <div class="user">sawada</div>
             <div class="date"><a class="date" href="#message-1549260683.460100">2019-02-04 15:11:23 +0900</a></div>
           </div>
           <div class="description">それで自分はそもそもQuickCheckの並列実行を一つの端末画面で行う方法がわからない＆スクリプトを何で書けばいいのか＆stack ghci上で行うのか等がわかっていない状況です</div>
@@ -409,7 +409,7 @@ if impl(ghc &lt; 8.2.0)
       <div class="event" id="message-1549261710.460700">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1549261710.460700">2019-02-04 15:28:30 +0900</a></div>
           </div>
           <div class="description">「２つのテストケースを並列に実行する関数を書いてね」だったらhspec + quickcheckでなんとかなりそうだけど。<br/><a href='https://hspec.github.io/parallel-spec-execution.html'>https://hspec.github.io/parallel-spec-execution.html</a></div>
@@ -429,7 +429,7 @@ quickCheckWithResult stdArgs { chatty = False } prop
       <div class="event" id="message-1549264413.461200">
         <div class="content">
           <div class="summary">
-            <div class="user">yamanntyu22</div>
+            <div class="user">sawada</div>
             <div class="date"><a class="date" href="#message-1549264413.461200">2019-02-04 16:13:33 +0900</a></div>
           </div>
           <div class="description">ありがとうございます！Parallel spec executionで試してみます。</div>
@@ -447,37 +447,37 @@ quickCheckWithResult stdArgs { chatty = False } prop
       <div class="event" id="message-1549333866.462500">
         <div class="content">
           <div class="summary">
-            <div class="user">32.allegro.con.brio.e</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549333866.462500">2019-02-05 11:31:06 +0900</a></div>
           </div>
-          <div class="description">@32.allegro.con.brio.e has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1549401729.463000">
         <div class="content">
           <div class="summary">
-            <div class="user">srtubaki</div>
+            <div class="user">白椿</div>
             <div class="date"><a class="date" href="#message-1549401729.463000">2019-02-06 06:22:09 +0900</a></div>
           </div>
-          <div class="description">@srtubaki has joined the channel</div>
+          <div class="description">@白椿 has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1549421822.463300">
         <div class="content">
           <div class="summary">
-            <div class="user">chanceux555</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549421822.463300">2019-02-06 11:57:02 +0900</a></div>
           </div>
-          <div class="description">@chanceux555 has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1549447383.463700">
         <div class="content">
           <div class="summary">
-            <div class="user">contact</div>
+            <div class="user">yantene</div>
             <div class="date"><a class="date" href="#message-1549447383.463700">2019-02-06 19:03:03 +0900</a></div>
           </div>
-          <div class="description">@contact has joined the channel</div>
+          <div class="description">@yantene has joined the channel</div>
         </div>
       </div>
     </div>

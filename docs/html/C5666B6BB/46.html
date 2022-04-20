@@ -35,7 +35,7 @@
       <div class="event" id="message-1551411302.001200">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551411302.001200">2019-03-01 12:35:02 +0900</a></div>
           </div>
           <div class="description">こんな感じでしょうか？<br/><code>newtype NewTypeRecursion a = N (Either (NewTypeRecursion a) a)</code></div>
@@ -53,7 +53,7 @@
       <div class="event" id="message-1551411567.001800">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551411567.001800">2019-03-01 12:39:27 +0900</a></div>
           </div>
           <div class="description">はるかに良い例を出されてしまった^^;</div>
@@ -62,7 +62,7 @@
       <div class="event" id="message-1551411593.002000">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551411593.002000">2019-03-01 12:39:53 +0900</a></div>
           </div>
           <div class="description">要は場合分けがないと再帰が止まらないだろうという話だったんだと思いますが、中身が場合分けを持つ型ならできるじゃんというのが私の発想で、そうでなくとも無限再帰的な型でも意味がある場合があるってことですね…</div>
@@ -71,7 +71,7 @@
       <div class="event" id="message-1551411670.002200">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551411670.002200">2019-03-01 12:41:10 +0900</a></div>
           </div>
           <div class="description">不動点オペレータの場合、結局「f」に場合分けがあることを期待している、というべきでしょうか</div>
@@ -116,7 +116,7 @@
       <div class="event" id="message-1551414188.004900">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551414188.004900">2019-03-01 13:23:08 +0900</a></div>
           </div>
           <div class="description">パッと思いつくのは phantom type で「型の違いを作るための目印として使うが実際には無視される型引数」に入れるのに使う、ってやつでしょうか（phantom type でぐぐると実例がでてきます）</div>
@@ -134,7 +134,7 @@
       <div class="event" id="message-1551414351.005500">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1551414351.005500">2019-03-01 13:25:51 +0900</a></div>
           </div>
           <div class="description">一般に， <code>type</code> は型の計算が遅延しませんが， <code>newtype</code> は遅延するのが強みだと思っていました(再帰型の場合は <code>type</code> は無限再帰が起き停止しなくなりますが， <code>newtype</code> は型上は <code>data</code> と同じ扱いなので新しい型が作られるだけですね)</div>
@@ -170,7 +170,7 @@
       <div class="event" id="message-1551415231.006900">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1551415231.006900">2019-03-01 13:40:31 +0900</a></div>
           </div>
           <div class="description"><code>newtype</code> で再帰型は割と使う人なのですが， <code>Cofree</code> とかは<br/><br/><pre>
@@ -190,7 +190,7 @@ newtype Cofree f a = Cofree (a, f (Cofree f a))
       <div class="event" id="message-1551415758.007400">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1551415758.007400">2019-03-01 13:49:18 +0900</a></div>
           </div>
           <div class="description">(あ，主に3点目は評価の違いをさしてました．パターンマッチの意味論が違う点ですね)</div>
@@ -235,7 +235,7 @@ newtype Cofree f a = Cofree (a, f (Cofree f a))
       <div class="event" id="message-1551416673.008700">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1551416673.008700">2019-03-01 14:04:33 +0900</a></div>
           </div>
           <div class="description"><blockquote>H本をぱらっと読み返してみましたが、 <code>newtype</code> は再帰できるという説明は見つけられませんでした。</blockquote>すいません，確かに書いてないようですね．これは僕の勘違いでした．<br/><br/>Hutton本2が手元にないのでどういう文脈で出てくるのか分からないですが例として<br/><br/><pre>
@@ -246,7 +246,7 @@ newtype Tree = Tree (Int, [Tree])
       <div class="event" id="message-1551416875.009100">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1551416875.009100">2019-03-01 14:07:55 +0900</a></div>
           </div>
           <div class="description">(Hutton本1で newtype に関する記述を見つけられなかったんですが， Hutton 本2から入ったんですかね？)</div>
@@ -282,19 +282,19 @@ newtype Tree = Tree (Int, [Tree])
       <div class="event" id="message-1551494788.011400">
         <div class="content">
           <div class="summary">
-            <div class="user">minorinoki_haskjp</div>
+            <div class="user">mod_poppo</div>
             <div class="date"><a class="date" href="#message-1551494788.011400">2019-03-02 11:46:28 +0900</a></div>
           </div>
-          <div class="description">@minorinoki_haskjp has joined the channel</div>
+          <div class="description">@mod_poppo has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1551520784.011700">
         <div class="content">
           <div class="summary">
-            <div class="user">hinoshita1992</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1551520784.011700">2019-03-02 18:59:44 +0900</a></div>
           </div>
-          <div class="description">@hinoshita1992 has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1551573016.013800">
@@ -327,7 +327,7 @@ newtype Tree = Tree (Int, [Tree])
       <div class="event" id="message-1551591369.014600">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1551591369.014600">2019-03-03 14:36:09 +0900</a></div>
           </div>
           <div class="description"><a href='https://ghc.haskell.org/trac/ghc/wiki/Commentary/Rts/HaskellExecution/PointerTagging'>https://ghc.haskell.org/trac/ghc/wiki/Commentary/Rts/HaskellExecution/PointerTagging</a><br/>に書かれている通り、64bitだと8個以上コンストラクタを持つ場合コンストラクタ情報はtaggingされず、evaluatedかどうかで000/001のどちらかになり、コンストラクタ情報はinfo tableを見に行くことになります</div>
@@ -336,7 +336,7 @@ newtype Tree = Tree (Int, [Tree])
       <div class="event" id="message-1551594758.014900">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1551594758.014900">2019-03-03 15:32:38 +0900</a></div>
           </div>
           <div class="description">Pointer Tagging はたぶん最下位ビット側だと思うので上位が立ってるのは不思議ですね…そして True は Bool にとっては「二番目」の値のはず（deriving Ord 的に False &lt; True なので）なので、その点でも辻褄があってない気がします</div>
@@ -367,7 +367,7 @@ ghci&gt; print $ (unsafeCoerce (-1::Int) :: Word)
       <div class="event" id="message-1551606182.016100">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1551606182.016100">2019-03-03 18:43:02 +0900</a></div>
           </div>
           <div class="description">print は I# を紐解くので、そもそも表示されてるものはオブジェクトの純正の表示では無いはずですね。ついでにうちの環境(mac/GHC 8.6.3)では再現しなかったです</div>
@@ -376,7 +376,7 @@ ghci&gt; print $ (unsafeCoerce (-1::Int) :: Word)
       <div class="event" id="message-1551610202.016300">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1551610202.016300">2019-03-03 19:50:02 +0900</a></div>
           </div>
           <div class="description">うちの環境で試した結果です:<br/><a href='https://gist.github.com/mizunashi-mana/67df53477ef464232f9e97588e099cf9'>https://gist.github.com/mizunashi-mana/67df53477ef464232f9e97588e099cf9</a><br/><br/><code>print (unsafeCoerce True :: IntOrBool)</code> が SEGV になったのは， <code>5764607523051092410</code> をBool値のヒープを指し示すポインタだと思って飛ぼうとしたせいだと思いますね．Bool値のコンストラクタはフィールドを特に持たないので，フィールドじゃない領域をフィールドだと思って参照した結果，そういう結果が返ってくるんだと思います(主に True だと True_closure + 9 ， False だと False_closure + 8 を I64 表現だと解釈した結果こういう表示になってるようです．毎回実行するごとに結果が変わっていたので，多分空いてるヒープ領域なんだと思います)</div>
@@ -455,7 +455,7 @@ Int型の数値の場合
       <div class="event" id="message-1551647023.017900">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1551647023.017900">2019-03-04 06:03:43 +0900</a></div>
           </div>
           <div class="description">そういえば True / False は data section に置かれるはずなので、ヒープ領域とは限らないのですね。 True_closure + 9 の場所が Windows だと別の data section の静的データがマッピングされる(ので毎回同じ出力になる)のに対し、 Mac/Linux とかだとゴミ領域になってる(ので初期化されていないゴミデータが出力される)とかかもですね。Mac/Linux 系でも上位ビットは毎回同じなので、元々何かがいたのかもですが</div>
@@ -464,7 +464,7 @@ Int型の数値の場合
       <div class="event" id="message-1551679556.020200">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1551679556.020200">2019-03-04 15:05:56 +0900</a></div>
           </div>
           <div class="description">各種ライブラリでhttp-client-opensslでなくてhttp-client-tlsがデフォルトなのは<br/>なにか理由があるのでしょうか。<br/>tlsのほうのパフォーマンスが悪いのでopensslに切り替えているのですが、<br/>そういうのをやめたいですね。</div>
@@ -473,7 +473,7 @@ Int型の数値の場合
       <div class="event" id="message-1551679589.020800">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1551679589.020800">2019-03-04 15:06:29 +0900</a></div>
           </div>
           <div class="description">http-client-tlsはcryptonite_gf_mul（cryptoniteのパッケージにあります） というcの関数を呼んでいるのですが、これが特に遅いです。</div>
@@ -491,7 +491,7 @@ Int型の数値の場合
       <div class="event" id="message-1551680746.021600">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1551680746.021600">2019-03-04 15:25:46 +0900</a></div>
           </div>
           <div class="description">確かに。</div>

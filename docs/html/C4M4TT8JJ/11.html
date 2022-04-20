@@ -17,7 +17,7 @@
       <div class="event" id="message-1518662343.000172">
         <div class="content">
           <div class="summary">
-            <div class="user">voqn.tyrant</div>
+            <div class="user">VoQn</div>
             <div class="date"><a class="date" href="#message-1518662343.000172">2018-02-15 11:39:03 +0900</a></div>
           </div>
           <div class="description">ああ、説明が足りませんでした。<br/>構文木を評価した結果の型を以下のようにして、型の構造はシンプルなままにして外側から注釈をつけられるような Functor として扱えないかなって取り組んでみたのです<br/><br/><pre>hs
@@ -33,7 +33,7 @@ data ValF a
       <div class="event" id="message-1518662486.000122">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1518662486.000122">2018-02-15 11:41:26 +0900</a></div>
           </div>
           <div class="description">aはアノテーションにして，型情報とかを入れたい感じですか？</div>
@@ -42,7 +42,7 @@ data ValF a
       <div class="event" id="message-1518662602.000163">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1518662602.000163">2018-02-15 11:43:22 +0900</a></div>
           </div>
           <div class="description"><code>Func</code> の型の意味がよく分かってないんですが， <code>([a], Either Error a)</code> ではなくて関数型なんです？</div>
@@ -51,7 +51,7 @@ data ValF a
       <div class="event" id="message-1518662627.000001">
         <div class="content">
           <div class="summary">
-            <div class="user">voqn.tyrant</div>
+            <div class="user">VoQn</div>
             <div class="date"><a class="date" href="#message-1518662627.000001">2018-02-15 11:43:47 +0900</a></div>
           </div>
           <div class="description">更にコレを <code>newtype Fix f = Fix (f (Fix f))</code> でラップすると、外側から中に注釈を差し込めるっていう感じです</div>
@@ -60,7 +60,7 @@ data ValF a
       <div class="event" id="message-1518662820.000206">
         <div class="content">
           <div class="summary">
-            <div class="user">voqn.tyrant</div>
+            <div class="user">VoQn</div>
             <div class="date"><a class="date" href="#message-1518662820.000206">2018-02-15 11:47:00 +0900</a></div>
           </div>
           <div class="description"><code>Func</code> はhaskellの方で実装しているビルトイン関数本体を渡すように考えていて eval する時にそれを適用させてインタプリタを実装する、という目論見でした。</div>
@@ -69,7 +69,7 @@ data ValF a
       <div class="event" id="message-1518662933.000070">
         <div class="content">
           <div class="summary">
-            <div class="user">voqn.tyrant</div>
+            <div class="user">VoQn</div>
             <div class="date"><a class="date" href="#message-1518662933.000070">2018-02-15 11:48:53 +0900</a></div>
           </div>
           <div class="description">ここの “Adding basic primitives” の項に書いてあるような感じ <a href='https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours/Evaluation,_Part_1'>https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours/Evaluation,_Part_1</a></div>
@@ -78,7 +78,7 @@ data ValF a
       <div class="event" id="message-1518663227.000179">
         <div class="content">
           <div class="summary">
-            <div class="user">voqn.tyrant</div>
+            <div class="user">VoQn</div>
             <div class="date"><a class="date" href="#message-1518663227.000179">2018-02-15 11:53:47 +0900</a></div>
           </div>
           <div class="description"><a href='https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours/Defining_Scheme_Functions'>https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours/Defining_Scheme_Functions</a><br/>こっちの方が近いかもです。この例の <code>LispVal</code> のように、関数をメンバーに持たせて、apply の型を <code>Val -&gt; [Val] -&gt; Either Error Val</code> という風にしたかった</div>
@@ -87,7 +87,7 @@ data ValF a
       <div class="event" id="message-1518663231.000031">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1518663231.000031">2018-02-15 11:53:51 +0900</a></div>
           </div>
           <div class="description">うーん，それは，<br/><pre>
@@ -101,7 +101,7 @@ eval (FunApp name xs) = buildinf name xs
       <div class="event" id="message-1518663367.000139">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1518663367.000139">2018-02-15 11:56:07 +0900</a></div>
           </div>
           <div class="description">あー分かりました．ListがFunAppなんですね(Lisp脳じゃなかった)．evalのシステムはFunctorなくても実装できそうな気がするんですが，ValFに関して何かトラバースがしたい感じなんでしょうか？</div>
@@ -110,7 +110,7 @@ eval (FunApp name xs) = buildinf name xs
       <div class="event" id="message-1518663785.000133">
         <div class="content">
           <div class="summary">
-            <div class="user">voqn.tyrant</div>
+            <div class="user">VoQn</div>
             <div class="date"><a class="date" href="#message-1518663785.000133">2018-02-15 12:03:05 +0900</a></div>
           </div>
           <div class="description">ValFに、「何も注釈つけてない版」でテストを書いて、AstからValFに変換する時にはシンボルの位置情報をつけたり、型推論の結果を注釈側に足したり、って言う風にしたかったんです。もちろん素朴にValの構造をコピペして <code>LocatedVal</code> とか <code>TypedVal</code> とかを作っても同様の事が出来はするんですが、ボイラープレートの山が出来るし…</div>
@@ -119,7 +119,7 @@ eval (FunApp name xs) = buildinf name xs
       <div class="event" id="message-1518664011.000114">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1518664011.000114">2018-02-15 12:06:51 +0900</a></div>
           </div>
           <div class="description">印象としては，Func fというデータで関数fは注釈情報を受け取ることは想定してないように見えるんですが，想定してるんですかね？想定してるなら，確かにうまくなんとかしたい感じはあるんですが，想定してないなら<br/><pre>
@@ -133,7 +133,7 @@ apply (Func f) args = &lt;argsから注釈抜いて[Val]に変換したのを適
       <div class="event" id="message-1518664398.000014">
         <div class="content">
           <div class="summary">
-            <div class="user">voqn.tyrant</div>
+            <div class="user">VoQn</div>
             <div class="date"><a class="date" href="#message-1518664398.000014">2018-02-15 12:13:18 +0900</a></div>
           </div>
           <div class="description">!!</div>
@@ -142,7 +142,7 @@ apply (Func f) args = &lt;argsから注釈抜いて[Val]に変換したのを適
       <div class="event" id="message-1518664498.000109">
         <div class="content">
           <div class="summary">
-            <div class="user">voqn.tyrant</div>
+            <div class="user">VoQn</div>
             <div class="date"><a class="date" href="#message-1518664498.000109">2018-02-15 12:14:58 +0900</a></div>
           </div>
           <div class="description">ありがとうございます、確かにそうだった。後で試してみます</div>
@@ -151,7 +151,7 @@ apply (Func f) args = &lt;argsから注釈抜いて[Val]に変換したのを適
       <div class="event" id="message-1518664618.000112">
         <div class="content">
           <div class="summary">
-            <div class="user">voqn.tyrant</div>
+            <div class="user">VoQn</div>
             <div class="date"><a class="date" href="#message-1518664618.000112">2018-02-15 12:16:58 +0900</a></div>
           </div>
           <div class="description">ついでに、この手のテクニックって結構紹介されていて、　<https://stackoverflow.com/questions/38462563/how-to-work-with-ast-with-cofree-annotation><br/><br/>ekmett さんのライブラリでも Fix-Functor の組み合わせでTHのライブラリ作っていたりします<br/><a href='https://github.com/ekmett/recursion-schemes/pull/23'>https://github.com/ekmett/recursion-schemes/pull/23</a></div>
@@ -160,7 +160,7 @@ apply (Func f) args = &lt;argsから注釈抜いて[Val]に変換したのを適
       <div class="event" id="message-1518664859.000073">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1518664859.000073">2018-02-15 12:20:59 +0900</a></div>
           </div>
           <div class="description">ASTでcofree annotationを使ったことはあるんですが，実行時表現をそれで作るのはあまりやったことなかったです．<br/>(個人的にFixの辛いとこは，type synonymを使わなきゃいけないのも合わさって，型エラーがやばいことになるとこだと思ってるので，素直にannotation変数追加してDeriveFunctor使っちゃうことも多いです)</div>
@@ -169,7 +169,7 @@ apply (Func f) args = &lt;argsから注釈抜いて[Val]に変換したのを適
       <div class="event" id="message-1518665584.000122">
         <div class="content">
           <div class="summary">
-            <div class="user">voqn.tyrant</div>
+            <div class="user">VoQn</div>
             <div class="date"><a class="date" href="#message-1518665584.000122">2018-02-15 12:33:04 +0900</a></div>
           </div>
           <div class="description">たぶん実行時表現まで（本当はAstそのもの使いたい）そうしたがってしまうのはLispっ子ゆえの悪癖かもしれない…</div>
@@ -187,10 +187,10 @@ apply (Func f) args = &lt;argsから注釈抜いて[Val]に変換したのを適
       <div class="event" id="message-1519026160.000054">
         <div class="content">
           <div class="summary">
-            <div class="user">maru8m.jp</div>
+            <div class="user">maru8m</div>
             <div class="date"><a class="date" href="#message-1519026160.000054">2018-02-19 16:42:40 +0900</a></div>
           </div>
-          <div class="description">@maru8m.jp has joined the channel</div>
+          <div class="description">@maru8m has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1519027141.000214">
@@ -205,7 +205,7 @@ apply (Func f) args = &lt;argsから注釈抜いて[Val]に変換したのを適
       <div class="event" id="message-1519039514.000199">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1519039514.000199">2018-02-19 20:25:14 +0900</a></div>
           </div>
           <div class="description">@kakkun61 多分， <a href='#C8KBGEBR7'>code-review</a> の方がいいと思うので，そっち行きますね</div>
@@ -214,7 +214,7 @@ apply (Func f) args = &lt;argsから注釈抜いて[Val]に変換したのを適
       <div class="event" id="message-1519227767.000810">
         <div class="content">
           <div class="summary">
-            <div class="user">voqn.tyrant</div>
+            <div class="user">VoQn</div>
             <div class="date"><a class="date" href="#message-1519227767.000810">2018-02-22 00:42:47 +0900</a></div>
           </div>
           <div class="description">HPCでテストのカバレッジを取る時、deriving で導出した部分は（特にderiving (Eq, Show, Ord, Typeable) あたり）は除外したいって思ってしまうのですが、みなさんどうしてるんだろ</div>
@@ -223,19 +223,19 @@ apply (Func f) args = &lt;argsから注釈抜いて[Val]に変換したのを適
       <div class="event" id="message-1519390651.000303">
         <div class="content">
           <div class="summary">
-            <div class="user">gaminume_ts29</div>
+            <div class="user">tokiude0sai</div>
             <div class="date"><a class="date" href="#message-1519390651.000303">2018-02-23 21:57:31 +0900</a></div>
           </div>
-          <div class="description">@gaminume_ts29 has joined the channel</div>
+          <div class="description">@tokiude0sai has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1519561156.000006">
         <div class="content">
           <div class="summary">
-            <div class="user">quote.curly</div>
+            <div class="user">kmiya</div>
             <div class="date"><a class="date" href="#message-1519561156.000006">2018-02-25 21:19:16 +0900</a></div>
           </div>
-          <div class="description">@quote.curly has joined the channel</div>
+          <div class="description">@kmiya has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1519633041.000110">
@@ -259,7 +259,7 @@ apply (Func f) args = &lt;argsから注釈抜いて[Val]に変換したのを適
       <div class="event" id="message-1519633681.000154">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1519633681.000154">2018-02-26 17:28:01 +0900</a></div>
           </div>
           <div class="description">Fay, Haste, Royなどがありますが皆まだ生きてるのかは知らない…</div>
@@ -286,7 +286,7 @@ apply (Func f) args = &lt;argsから注釈抜いて[Val]に変換したのを適
       <div class="event" id="message-1519637509.000379">
         <div class="content">
           <div class="summary">
-            <div class="user">voqn.tyrant</div>
+            <div class="user">VoQn</div>
             <div class="date"><a class="date" href="#message-1519637509.000379">2018-02-26 18:31:49 +0900</a></div>
           </div>
           <div class="description">haskell実装だとlunaとかも</div>
@@ -304,7 +304,7 @@ apply (Func f) args = &lt;argsから注釈抜いて[Val]に変換したのを適
       <div class="event" id="message-1519642184.000391">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1519642184.000391">2018-02-26 19:49:44 +0900</a></div>
           </div>
           <div class="description">ml系</div>
@@ -376,16 +376,16 @@ apply (Func f) args = &lt;argsから注釈抜いて[Val]に変換したのを適
       <div class="event" id="message-1519720430.000295">
         <div class="content">
           <div class="summary">
-            <div class="user">kameoka.ryota</div>
+            <div class="user">ryota-ka</div>
             <div class="date"><a class="date" href="#message-1519720430.000295">2018-02-27 17:33:50 +0900</a></div>
           </div>
-          <div class="description">@kameoka.ryota has joined the channel</div>
+          <div class="description">@ryota-ka has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1519722242.000325">
         <div class="content">
           <div class="summary">
-            <div class="user">shnarazk</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1519722242.000325">2018-02-27 18:04:02 +0900</a></div>
           </div>
           <div class="description">一度だけgtk2hsからgi-gtkに書き直したことがあります。<br/>cairo周りの変更への追従もあり、色々と修正が必要でしたが、使えない機能（ウィジェット）がないのはよいと思いました。</div>
@@ -403,7 +403,7 @@ apply (Func f) args = &lt;argsから注釈抜いて[Val]に変換したのを適
       <div class="event" id="message-1519726455.000317">
         <div class="content">
           <div class="summary">
-            <div class="user">shnarazk</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1519726455.000317">2018-02-27 19:14:15 +0900</a></div>
           </div>
           <div class="description">そうですねえ、まずサンプルプログラムで違いを理解してから移植に取り組んだのですが、それほど大きな違いはなかったと思います。依存パッケージは増えますが、新しいHeaderBarなどを使いたかったのでgtk-giにしました。しかしgtk2hsも開発続いていたんですね（今知りました）。</div>

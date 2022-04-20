@@ -15,7 +15,7 @@
       <div class="event" id="message-1643019666.037900">
         <div class="content">
           <div class="summary">
-            <div class="user">feaghkt</div>
+            <div class="user">htlsne</div>
             <div class="date"><a class="date" href="#message-1643019666.037900">2022-01-24 19:21:06 +0900</a></div>
           </div>
           <div class="description">はじめまして。<br/>以下のHLSのエラーについてご質問させてください。<br/><pre>[cradle] [E] Multi Cradle: No prefixes matched</pre><br/>ソースコードはこちらです。app/AST.hsを開くと発生します。<br/><a href='https://github.com/htlsne/misc/tree/arithmetic-expression/haskell/arithmetic_expression'>https://github.com/htlsne/misc/tree/arithmetic-expression/haskell/arithmetic_expression</a><br/><br/>HLSのバージョンは以下です。<br/>haskell-language-server version: 1.5.1.0 (GHC: 8.10.7)<br/><br/>以下を試しましたが解決しませんでした。<br/>1. <code>gen-hie &gt; hie.yaml</code>を実行してhie.yamlを生成したのですが、 エラーは消えませんでした。（<https://github.com/htlsne/misc/blob/e73b0812a4265a0515d6ae84efaffeb7e831ba64/haskell/arithmetic_expression/hie.yaml|hie.yaml>）<br/>2. hie.yamlにAST.hsを追加したところ、AST.hsのエラーは消えました。しかし今度はMain.hsで`[not found] [E] Could not find module 'AST'` というエラーが出ています。（<https://github.com/htlsne/misc/blob/11d08d3c3d0eddf8e8bed727bbb1f91ad72fbf42/haskell/arithmetic_expression/hie.yaml|hie.yaml>）<br/>どのようにしたら解決できるでしょうか。また、そもそもモジュールの作り方はこれで合っているのでしょうか。<br/>既出の質問のようなのですが、解決できなかったためご相談させてください。</div>
@@ -24,7 +24,7 @@
       <div class="event" id="message-1643026321.039200">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1643026321.039200">2022-01-24 21:12:01 +0900</a></div>
           </div>
           <div class="description"><a href='https://cabal.readthedocs.io/en/3.4/cabal-package.html#build-information'>Cabalドキュメンテーションの7.2.9節</a>に<br/><br/><blockquote>Note<br/>　<br/>Every module in the package must be listed in one of other-modules, library:exposed-modules or executable:main-is fields.<br/></blockquote>とあるように、Cabalを使うならモジュール名は全て <code>.cabal</code> ファイルに書かないとマズイっぽくて、そんで、とりあえず executable arithmetic-expressionに付属して他のlibraryやexecutableから参照されないものは その executableの <code>other-modules</code> に書くことになってるっぽいので、Cabalファイルを<br/><br/><br/><pre>-- A longer description of the package.
@@ -61,7 +61,7 @@ executable arithmetic-expression
       <div class="event" id="message-1643027097.040700">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1643027097.040700">2022-01-24 21:24:57 +0900</a></div>
           </div>
           <div class="description">ちなみにこのcabalファイルで <code>gen-hie &gt; hie.yaml</code> すると<br/><br/><pre>cradle:
@@ -76,7 +76,7 @@ executable arithmetic-expression
       <div class="event" id="message-1643027159.041100">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1643027159.041100">2022-01-24 21:25:59 +0900</a></div>
           </div>
           <div class="description">になります。</div>
@@ -85,7 +85,7 @@ executable arithmetic-expression
       <div class="event" id="message-1643029382.041300">
         <div class="content">
           <div class="summary">
-            <div class="user">feaghkt</div>
+            <div class="user">htlsne</div>
             <div class="date"><a class="date" href="#message-1643029382.041300">2022-01-24 22:03:02 +0900</a></div>
           </div>
           <div class="description">ありがとうございます。<br/>なるほど、すべてのモジュールを記載する必要があるのですね…。<br/>other-modulesに記載したところ、hie.yamlを作成しなくてもエラーは出なくなったようでした。<br/><br/>これってCabal特有の話なのでしょうか。<br/>Stackでもすべてのモジュールを追加する必要があるのでしょうか？<br/><br/>また、hpackというものを見つけたのですが、皆さんこのようなツールを使って解決されているのでしょうか。</div>
@@ -94,7 +94,7 @@ executable arithmetic-expression
       <div class="event" id="message-1643033258.057000">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1643033258.057000">2022-01-24 23:07:38 +0900</a></div>
           </div>
           <div class="description">ご確認なさったかもしれませんが、hpackは <code>package.yaml</code> というyaml形式のファイルを変換して <code>&lt;package-name&gt;.cabal</code> ファイル群を生成するツールです。このhpackには、cabalファイルを生成する際に、`exposed-modules` か <code>other-modules</code> の一方が未指定で他方が指定済みの場合、取り残された <code>.hs</code> ファイルを全て未指定の方(libraryの場合に両方未指定のなら <code>exposed</code> の方)に突っ込む、という機能があります。というかこれが最も主要な機能の一個ですね。ですので、package.yaml+hpackを使うなら、other-modulesにいちいち書く必要はないわけです。<br/><br/>ところで、Stackは、自動的にhpackを呼びます。そうすることで、package.yamlファイルを使っても.cabalファイルを使ってもパッケージを作成できるようになっています。ということは、.cabalファイルを使ってStackを使うなら、すべてのモジュールをいちいち書く必要がありますが、package.yamlを使う場合にはその必要はないわけです。</div>
@@ -103,7 +103,7 @@ executable arithmetic-expression
       <div class="event" id="message-1643035982.057700">
         <div class="content">
           <div class="summary">
-            <div class="user">feaghkt</div>
+            <div class="user">htlsne</div>
             <div class="date"><a class="date" href="#message-1643035982.057700">2022-01-24 23:53:02 +0900</a></div>
           </div>
           <div class="description">なるほどです、納得できました。<br/><br/>Stackを使うにせよCabalを使うにせよ、hpackを使う方向で試してみたいと思います。<br/>丁寧に説明いただきありがとうございました！</div>
@@ -112,7 +112,7 @@ executable arithmetic-expression
       <div class="event" id="message-1643037590.060300">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1643037590.060300">2022-01-25 00:19:50 +0900</a></div>
           </div>
           <div class="description">cabalは勝手にhpackを呼んではくれないので、cabal+hpackを自動化するならちょっと頑張らないといけないっぽいですけどね…。なんにせよ、お役に立てたならよかったです！</div>

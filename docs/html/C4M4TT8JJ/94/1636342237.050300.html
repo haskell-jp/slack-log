@@ -15,7 +15,7 @@
       <div class="event" id="message-1636342237.050300">
         <div class="content">
           <div class="summary">
-            <div class="user">sakaguchi</div>
+            <div class="user">Kazuhiko Sakaguchi</div>
             <div class="date"><a class="date" href="#message-1636342237.050300">2021-11-08 12:30:37 +0900</a></div>
           </div>
           <div class="description">Haskell Day 2021 お疲れさまでした。私の発表 <code>take k (sort xs)</code> in Haskell has O(n + k log k) time complexity の間にクイックソートと遅延評価が組み合わさったときの計算量がどうなるかというコメントが @as_capabl さんからあったと思うので、この場を借りて回答します。（チャットで書いたつもりが、リンクを含んでいたせいかアーカイブに残っていなかったもので……）<br/>結論としては、クイックソートの場合も実装が適切であれば <code>take k (sort xs)</code> の平均時間計算量を O(n + k log k) にできそうです。詳細な説明は <a href='https://apfelmus.nfshost.com/articles/quicksearch.html#message-2---quicksort'>Heinrich Apfelmus の投稿</a> や <a href='https://youtu.be/2MWWgDfE3KE?t=3185'>Peter Van Roy の講義動画</a> にありますが、いずれの場合も「平均時間計算量を考えているので、partition はリストを大体同じ長さの2つの部分に分割するものと考える」というクイックソートの平均時間計算量の証明でありがちなごまかし（だと自分は思っているんですが、これって妥当なんでしょうか？）が見られるので、証明をより精緻にする余地があると思います。</div>
@@ -24,7 +24,7 @@
       <div class="event" id="message-1636354133.050900">
         <div class="content">
           <div class="summary">
-            <div class="user">sakaguchi</div>
+            <div class="user">Kazuhiko Sakaguchi</div>
             <div class="date"><a class="date" href="#message-1636354133.050900">2021-11-08 15:48:53 +0900</a></div>
           </div>
           <div class="description">Peter Van Roy の講義動画は今年のも上がってました。もしかしたら、こっちの方が分かりやすいかもしれません。 <a href='https://youtu.be/4-u64wT3Jxk'>https://youtu.be/4-u64wT3Jxk</a></div>
@@ -33,7 +33,7 @@
       <div class="event" id="message-1636354954.051200">
         <div class="content">
           <div class="summary">
-            <div class="user">sakaguchi</div>
+            <div class="user">Kazuhiko Sakaguchi</div>
             <div class="date"><a class="date" href="#message-1636354954.051200">2021-11-08 16:02:34 +0900</a></div>
           </div>
           <div class="description">もうしばらく考えて、スライド内でも最初の方に引用していた [Paredes and Navarro 2006] と全く同じ議論で lazy quicksort に関して同様の結論が導けるような気がしました（が実はこれも p.1 しか読んでいない）。時間があればもう少し読んで考えてみます。 <a href='https://doi.org/10.1137/1.9781611972863.16'>https://doi.org/10.1137/1.9781611972863.16</a></div>

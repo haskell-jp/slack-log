@@ -15,7 +15,7 @@
       <div class="event" id="message-1647961549.509119">
         <div class="content">
           <div class="summary">
-            <div class="user">idiotpanzer</div>
+            <div class="user">hiroyuking</div>
             <div class="date"><a class="date" href="#message-1647961549.509119">2022-03-23 00:05:49 +0900</a></div>
           </div>
           <div class="description">HTFを使ってユニットテストをフィルターする方法等はあるのでしょうか？<br/>イメージ：Rubyのrpecであるような <code>bundle exec rspec -P spec/**/some_spec.rb</code><br/><a href='https://hackage.haskell.org/package/HTF'>https://hackage.haskell.org/package/HTF</a></div>
@@ -24,7 +24,7 @@
       <div class="event" id="message-1647971916.379189">
         <div class="content">
           <div class="summary">
-            <div class="user">cohei</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1647971916.379189">2022-03-23 02:58:36 +0900</a></div>
           </div>
           <div class="description"><a href='https://hackage.haskell.org/package/HTF-0.15.0.0/docs/Test-Framework-Tutorial.html#g:9'>Commandline options</a> を見るに、ファイルでのフィルターはなさそうですよね。<br/><br/><blockquote>PATTERN is a posix regular expression matching the names of the tests to run.</blockquote>とあるので、テストケース名 (おそらく <code>test_nonEmpty</code> などの関数名) ではフィルターできるのではないでしょうか。RSpec でいう <code>--example-matches</code> オプションのように。</div>
@@ -33,7 +33,7 @@
       <div class="event" id="message-1647988374.883989">
         <div class="content">
           <div class="summary">
-            <div class="user">idiotpanzer</div>
+            <div class="user">hiroyuking</div>
             <div class="date"><a class="date" href="#message-1647988374.883989">2022-03-23 07:32:54 +0900</a></div>
           </div>
           <div class="description">ありがとうございます<br/>試してみます</div>
@@ -42,7 +42,7 @@
       <div class="event" id="message-1648179517.182499">
         <div class="content">
           <div class="summary">
-            <div class="user">idiotpanzer</div>
+            <div class="user">hiroyuking</div>
             <div class="date"><a class="date" href="#message-1648179517.182499">2022-03-25 12:38:37 +0900</a></div>
           </div>
           <div class="description">コマンドラインで実行でき、<br/>かつhtMainWithArgsみたいな関数で内部的にもAPIがあることがわかったのでよかったのですが<br/><code>-n</code> は否定表現なので <code>--exclude</code> 的なオプションなんですね<br/><code>--include</code> 的なオプションも欲しかった。こういうのは汎用的なワードでなんと言えばいいのやら。<br/><br/>Goだと <code>-run</code> で`--include` 的なオプションが使えますね</div>
@@ -51,7 +51,7 @@
       <div class="event" id="message-1648196106.406889">
         <div class="content">
           <div class="summary">
-            <div class="user">cohei</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1648196106.406889">2022-03-25 17:15:06 +0900</a></div>
           </div>
           <div class="description"><code>USAGE: COMMAND [OPTION ...] PATTERN ...</code> なので、オプションではない、ただの引数が include 相当ですかね?</div>
@@ -60,7 +60,7 @@
       <div class="event" id="message-1648197701.186709">
         <div class="content">
           <div class="summary">
-            <div class="user">cohei</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1648197701.186709">2022-03-25 17:41:41 +0900</a></div>
           </div>
           <div class="description">コマンド名を知らないので、仮に <code>htf</code> としますが、<br/><br/>• パターンで限定したいとき: <code>htf pattern-to-match</code><br/>• パターンで除外したいとき: <code>htf --not=pattern-to-exclude</code><br/>のようになるのではないかと思われます。</div>
@@ -69,7 +69,7 @@
       <div class="event" id="message-1648204520.392279">
         <div class="content">
           <div class="summary">
-            <div class="user">idiotpanzer</div>
+            <div class="user">hiroyuking</div>
             <div class="date"><a class="date" href="#message-1648204520.392279">2022-03-25 19:35:20 +0900</a></div>
           </div>
           <div class="description">なるほど盲点でした、ありがとうございます!<br/>試してみます<br/><br/>ちなみに直接コマンド実行する感じではなく、以下のhtfMainWithArgsを使ってます（既存ソースが複数のテストケースをまとめてhtfMainから実行する形式だったため）<br/><br/><a href='https://hackage.haskell.org/package/HTF-0.15.0.0/docs/Test-Framework.html'>https://hackage.haskell.org/package/HTF-0.15.0.0/docs/Test-Framework.html</a></div>
@@ -78,7 +78,7 @@
       <div class="event" id="message-1648204951.868709">
         <div class="content">
           <div class="summary">
-            <div class="user">cohei</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1648204951.868709">2022-03-25 19:42:31 +0900</a></div>
           </div>
           <div class="description"><code>htfMainWithArgs</code> は <code>[String]</code> をとるようなので <code>htfMainWithArgs ["pattern-to-match"]</code> や <code>htfMainWithArgs ["--not=pattern-to-exclude"]</code> のようになるのでしょうか。しっかり追えていなくて予想で申し訳ないですが…</div>

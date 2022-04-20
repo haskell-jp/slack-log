@@ -17,7 +17,7 @@
       <div class="event" id="message-1603582003.075300">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1603582003.075300">2020-10-25 08:26:43 +0900</a></div>
           </div>
           <div class="description">そのやり方をしたら今度は <code>reply b msg</code>  の部分で型推論できなくてエラーになっちゃいましたorz<br/>どうすれば・・・</div>
@@ -39,7 +39,7 @@ instance Bot (AnyBot env) where
       <div class="event" id="message-1603600377.078900">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1603600377.078900">2020-10-25 13:32:57 +0900</a></div>
           </div>
           <div class="description">わあ！まさにその通りでした！ありがとございます！！<br/><br/>さっぱりどうしていいかわからなかったのですが、どのように思考したらそうなるんですか！？<br/>たけのこは型推論の流れみたいなものを学べばこれを理解できるようになるんでしょうか？༼;´༎ຶ ༎ຶ༽</div>
@@ -165,7 +165,7 @@ instance Bot (AnyBot env) where
       <div class="event" id="message-1603954864.087000">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1603954864.087000">2020-10-29 16:01:04 +0900</a></div>
           </div>
           <div class="description">なるほど!ありがとうございます!<br/>型族とかで頭が混乱していて存在型の制約がパターンマッチして使えるようになることとかを忘れてました:scream_cat:<br/><br/>今度は <code>Bot</code> のリストとかも <code>Bot</code> のインスタンスにしたいなと思って以下のようにインスタンス宣言を追加したら、またどうしていいかわからないエラーが出ちゃいました:sob::x::one::zero::zero::zero:<br/><br/><pre>instance (Bot (b (env :: *)), Dep (b env) env, Functor t, Traversable t) =&gt; Bot (t (b env)) where
@@ -188,7 +188,7 @@ instance Bot (AnyBot env) where
       <div class="event" id="message-1603965512.092500">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1603965512.092500">2020-10-29 18:58:32 +0900</a></div>
           </div>
           <div class="description">もしかして <code>AnyBot</code> を <code>Bot</code> のインスタンスにするのをやめて、`AnyBot` を <code>Functor</code> と <code>Traversable</code> にしちゃうのがいいんでしょうか…？<br/>とすると`name` メソッドなどを`"Bot Pool"` じゃない名前にしたい場合どうしたらいいでしょうか？<br/>:boom:༼;´༎ຶ ༎ຶ༽:boom::oil_drum:三 :oil_drum:三</div>
@@ -206,7 +206,7 @@ instance Bot (AnyBot env) where
       <div class="event" id="message-1603967302.096000">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1603967302.096000">2020-10-29 19:28:22 +0900</a></div>
           </div>
           <div class="description"><code>instance Bot b =&gt; Bot [b]</code><br/>とか<br/><code>instance Bot b =&gt; Bot (Vector b)</code><br/>みたいな感じでしょうか？<br/>インスタンス宣言ってあまり一般的に書かない方がいいんでしょうか？</div>
@@ -224,7 +224,7 @@ instance Bot (AnyBot env) where
       <div class="event" id="message-1603971137.101500">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1603971137.101500">2020-10-29 20:32:17 +0900</a></div>
           </div>
           <div class="description">なるほど〜<br/>でもどうしてあらゆる型に対するインスタンスを定義することがアンチパターンに近づきがちになっちゃうんでしょうか？<br/>できるだけ一般的な形で書いた方がより便利そうな気が:hatched_chick:</div>
@@ -242,7 +242,7 @@ instance Bot (AnyBot env) where
       <div class="event" id="message-1603975221.105100">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1603975221.105100">2020-10-29 21:40:21 +0900</a></div>
           </div>
           <div class="description">わぁ！<br/>言われてみれば確かに！<br/>頭良すぎですか？:muscle::skin-tone-2:<br/>もしかしてこういうのって有名な話でどこかに書いてあったりするんでしょうか！？</div>
@@ -260,7 +260,7 @@ instance Bot (AnyBot env) where
       <div class="event" id="message-1604021462.107700">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1604021462.107700">2020-10-30 10:31:02 +0900</a></div>
           </div>
           <div class="description">なるほどーいっぱい勉強になりました！<br/>ありがとです！</div>
@@ -269,16 +269,16 @@ instance Bot (AnyBot env) where
       <div class="event" id="message-1604024185.108200">
         <div class="content">
           <div class="summary">
-            <div class="user">s.uotani.zetakansu</div>
+            <div class="user">suotani</div>
             <div class="date"><a class="date" href="#message-1604024185.108200">2020-10-30 11:16:25 +0900</a></div>
           </div>
-          <div class="description">@s.uotani.zetakansu has joined the channel</div>
+          <div class="description">@suotani has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1604152718.108500">
         <div class="content">
           <div class="summary">
-            <div class="user">taka23131</div>
+            <div class="user">taka2</div>
             <div class="date"><a class="date" href="#message-1604152718.108500">2020-10-31 22:58:38 +0900</a></div>
           </div>
           <div class="description">haskellのpreludeはデフォルト以外ではどれを使うのが良いのでしょうか？<br/><a href='https://haskell.e-bigmoon.com/posts/2018/05-23-extended-prelude.html'>https://haskell.e-bigmoon.com/posts/2018/05-23-extended-prelude.html</a></div>
@@ -287,10 +287,10 @@ instance Bot (AnyBot env) where
       <div class="event" id="message-1604168083.108800">
         <div class="content">
           <div class="summary">
-            <div class="user">boogie_of_lesfreres</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1604168083.108800">2020-11-01 03:14:43 +0900</a></div>
           </div>
-          <div class="description">@boogie_of_lesfreres has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1604187592.108900">
@@ -305,7 +305,7 @@ instance Bot (AnyBot env) where
       <div class="event" id="message-1604321411.109300">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1604321411.109300">2020-11-02 21:50:11 +0900</a></div>
           </div>
           <div class="description">だずげでぐだざい゛:sob::sob:<br/><br/><pre>allBots :: HasLogFunc e =&gt; [AnyBot e]
@@ -336,7 +336,7 @@ allBotNames = map name (allBots :: [AnyBot e]) </pre><br/>という定義をし�
       <div class="event" id="message-1604323125.110100">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1604323125.110100">2020-11-02 22:18:45 +0900</a></div>
           </div>
           <div class="description"><strike>これって、`HasLogFunc` の制約は必要ですか？ ちょっと今までの話を追えてないですが、</strike><br/><pre>allBots :: [AnyBot e]
@@ -349,7 +349,7 @@ allBotNames = map name (allBots :: [AnyBot ()])</pre><br/><strike>とかで良�
       <div class="event" id="message-1604323398.110300">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1604323398.110300">2020-11-02 22:23:18 +0900</a></div>
           </div>
           <div class="description">後、`AnyBot` でやりたいことって、実は <code>Bot</code> のインスタンスにすることではなく、全てのボットを同じ型で管理して、名前が取れることだけだったりしないですかね？その場合、<br/><pre>instance Bot (AnyBot env)</pre><br/>は多分いらなくて、<br/><pre>allBots :: [AnyBot e]
@@ -362,7 +362,7 @@ allBotNames = map (\(AnyBot b) -&gt; name b) (allBots :: [AnyBot ()])</pre><br/>
       <div class="event" id="message-1604323632.110500">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1604323632.110500">2020-11-02 22:27:12 +0900</a></div>
           </div>
           <div class="description">ああ、`HasLogFunc` が必要になってるのは、`forall b. (Bot b, Dep b env) =&gt; AnyBot b` で存在型の pack 時に <code>Dep b env</code> を要求してるからか...</div>
@@ -371,7 +371,7 @@ allBotNames = map (\(AnyBot b) -&gt; name b) (allBots :: [AnyBot ()])</pre><br/>
       <div class="event" id="message-1604324228.111100">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1604324228.111100">2020-11-02 22:37:08 +0900</a></div>
           </div>
           <div class="description">後は、<br/><pre>instance HasLogFunc Logger</pre><br/>みたいなインスタンスを持つ型 <code>Logger</code> があるなら、一応は<br/><pre>allBotNames :: [String]
@@ -381,7 +381,7 @@ allBotNames = map name (allBots :: [AnyBot Logger])</pre><br/>とかでもいけ
       <div class="event" id="message-1604325351.111300">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1604325351.111300">2020-11-02 22:55:51 +0900</a></div>
           </div>
           <div class="description">まあ、igrep さんの言う通り、最終的にしたいことは普通のデータ型でも実現できそうな気がしますね。多分拡張性を考えて、型クラスを使いたいという動機はあると思いますが、ひとまず bot を幾つか作ってみてそれに見合うような抽象化を考えて、置き換えていった方がスムーズに進むと思いますね。今回のケースだと、<br/><pre>data Bot = Bot
@@ -405,7 +405,7 @@ allBotNames = map name allBots</pre><br/>みたいな感じですかね</div>
       <div class="event" id="message-1604327241.115400">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1604327241.115400">2020-11-02 23:27:21 +0900</a></div>
           </div>
           <div class="description">実は一番初めはそうやってレコード型に関数を持たせて実装してました:woman-girl-girl:<br/>だけどそれだとexpression problemがあって嫌だし、それにいつもそういう方針の実装ばっかなので、あえて今回は型クラスを使った方針にしました༼;´༎ຶ ༎ຶ༽<br/>なのでレコード型に関数持たせる方針じゃなくて型クラス使いたいです༼;´༎ຶ ༎ຶ༽</div>
@@ -414,7 +414,7 @@ allBotNames = map name allBots</pre><br/>みたいな感じですかね</div>
       <div class="event" id="message-1604328985.116800">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1604328985.116800">2020-11-02 23:56:25 +0900</a></div>
           </div>
           <div class="description">おっしゃるとおり、<br/><pre>instance HasLogFunc LogFunc</pre><br/>というのが定義されていました!<br/>なので<br/><pre>allBotNames :: [String]
@@ -424,7 +424,7 @@ allBotNames = map name (allBots :: [AnyBot LogFunc])</pre><br/>とできまし�
       <div class="event" id="message-1604332724.118000">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1604332724.118000">2020-11-03 00:58:44 +0900</a></div>
           </div>
           <div class="description"><pre>allBots :: [AnyBot e]
@@ -452,7 +452,7 @@ allBots = [AnyBot MarkovChain, AnyBot Shiritori]</pre><br/>って方法だと <c
       <div class="event" id="message-1604389707.118900">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1604389707.118900">2020-11-03 16:48:27 +0900</a></div>
           </div>
           <div class="description">多分，元々は <code>name</code> を呼び出すのに <code>env</code> に関する制約が必要なかったのに，`AnyBot` に関しては必要になるところが問題なんですかね？元々のやり方を踏襲するなら，基本的には<br/><pre>data AnyBot env = forall b. (Bot b, Dep b env) =&gt; AnyBot b
@@ -465,7 +465,7 @@ instance Bot (AnyBot env) where
       <div class="event" id="message-1604390017.119200">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1604390017.119200">2020-11-03 16:53:37 +0900</a></div>
           </div>
           <div class="description">そもそもですが，おそらく <code>MarkovChain</code> / <code>Shiritori</code> などはユーザが定義するものですが，`AnyBot` はその定義されたボットを使う側，つまりボットサーバの実装側が定義するものだと思うので，別に <code>env</code> が多相的になっていなくても問題ないと思いますね．なので，実装側で使う <code>AppEnv</code> のような型に対して，<br/><pre>data AppBot = forall b. (Bot b, Dep b AppEnv) =&gt; AppBot b
@@ -479,7 +479,7 @@ instance Bot AppBot where
       <div class="event" id="message-1604390185.119400">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1604390185.119400">2020-11-03 16:56:25 +0900</a></div>
           </div>
           <div class="description">それはともかくとして，元々のものを無理やり実現したいなら，`QuantifiedConstraints` を使えばできることはできると思いますね（変なボイラープレートが増えますが)</div>
@@ -488,7 +488,7 @@ instance Bot AppBot where
       <div class="event" id="message-1604410067.132000">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1604410067.132000">2020-11-03 22:27:47 +0900</a></div>
           </div>
           <div class="description">わぁーありがとございます:heart_eyes_cat:</div>
@@ -497,7 +497,7 @@ instance Bot AppBot where
       <div class="event" id="message-1604410116.133100">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1604410116.133100">2020-11-03 22:28:36 +0900</a></div>
           </div>
           <div class="description"><code>e</code> も存在型にってどうするんでしょう<br/>考えてたら頭爆発しました:exploding_head::skull_and_crossbones:</div>
@@ -506,7 +506,7 @@ instance Bot AppBot where
       <div class="event" id="message-1604410201.133700">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1604410201.133700">2020-11-03 22:30:01 +0900</a></div>
           </div>
           <div class="description">たしかに！<br/><code>allBots</code>を定義するときには <code>[AnyBot MarkovChain, AnyBot Shiritori]</code> などと列挙するので、それらが必要としてる`env`の制約を書くのを回避する必要はあまりなさそうですね:owl:<br/><br/><code>TypeApplications</code> ならできるんですね！<br/>なんかでもその関数を呼び出してるとろでも明示的に型適用して、それを呼び出してるところでも明示的に型適用して、…ってなって大変そうな気が:jack_o_lantern:<br/>そういうものなのでしょうか…？</div>

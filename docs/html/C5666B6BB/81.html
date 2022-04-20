@@ -17,7 +17,7 @@
       <div class="event" id="message-1583666327.077700">
         <div class="content">
           <div class="summary">
-            <div class="user">tcokygets</div>
+            <div class="user">sirkerf</div>
             <div class="date"><a class="date" href="#message-1583666327.077700">2020-03-08 20:18:47 +0900</a></div>
           </div>
           <div class="description">いえ 何もしてないのにいつのまにかこうなってしまったので……それにいくら再インストールしても同じ問題が発生しちゃうんですよ もう手詰まりで</div>
@@ -35,25 +35,25 @@
       <div class="event" id="message-1583672131.078200">
         <div class="content">
           <div class="summary">
-            <div class="user">koowashi</div>
+            <div class="user">eagle</div>
             <div class="date"><a class="date" href="#message-1583672131.078200">2020-03-08 21:55:31 +0900</a></div>
           </div>
-          <div class="description">@koowashi has joined the channel</div>
+          <div class="description">@eagle has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1583714881.078500">
         <div class="content">
           <div class="summary">
-            <div class="user">niijimatakashi993</div>
+            <div class="user">Takashi NIIJIMA</div>
             <div class="date"><a class="date" href="#message-1583714881.078500">2020-03-09 09:48:01 +0900</a></div>
           </div>
-          <div class="description">@niijimatakashi993 has joined the channel</div>
+          <div class="description">@Takashi NIIJIMA has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1583916124.078800">
         <div class="content">
           <div class="summary">
-            <div class="user">k.kent8192</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1583916124.078800">2020-03-11 17:42:04 +0900</a></div>
           </div>
           <div class="description"><a href='https://teratail.com/questions/246485'>https://teratail.com/questions/246485</a></div>
@@ -62,7 +62,7 @@
       <div class="event" id="message-1583916141.079400">
         <div class="content">
           <div class="summary">
-            <div class="user">k.kent8192</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1583916141.079400">2020-03-11 17:42:21 +0900</a></div>
           </div>
           <div class="description">この件に関する回答を募集しています。</div>
@@ -71,7 +71,7 @@
       <div class="event" id="message-1583916194.080800">
         <div class="content">
           <div class="summary">
-            <div class="user">k.kent8192</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1583916194.080800">2020-03-11 17:43:14 +0900</a></div>
           </div>
           <div class="description">調べてもなかなか分からなくて…</div>
@@ -89,7 +89,7 @@
       <div class="event" id="message-1584024050.093000">
         <div class="content">
           <div class="summary">
-            <div class="user">k.marumaru524</div>
+            <div class="user">mrsekut</div>
             <div class="date"><a class="date" href="#message-1584024050.093000">2020-03-12 23:40:50 +0900</a></div>
           </div>
           <div class="description">おひさしぶりです<br/><br/>Haskellで、repl付きのinterprerを実装するときの話です。<br/>以下の、HaskellでSchemeを作るサイトでは、inteprerの環境の型にIORefを使用しています。<br/><a href='https://ja.wikibooks.org/wiki/48%E6%99%82%E9%96%93%E3%81%A7Scheme%E3%82%92%E6%9B%B8%E3%81%93%E3%81%86/%E5%A4%89%E6%95%B0%E3%81%A8%E4%BB%A3%E5%85%A5'>https://ja.wikibooks.org/wiki/48%E6%99%82%E9%96%93%E3%81%A7Scheme%E3%82%92%E6%9B%B8%E3%81%93%E3%81%86/%E5%A4%89%E6%95%B0%E3%81%A8%E4%BB%A3%E5%85%A5</a><br/><br/><br/>ここで3つ質問があります。<br/>1. なぜStateが適していなくて、IORefが適しているのか<br/>2. IORefを使った場合にenvを持ち回らない方法はあるのか<br/>3. Stateを使ったときにreplが正しく動かないのはそういうものなのか、単純に僕の実装が悪いのか<br/>特に、1,2についてお聞きしたいです。<br/>質問はさておき、最終的にやりたいことは「envを持ち回らずにreplでevalを実行すること」です<br/><br/><br/>1に関しては、上記のページの上の方に解説がありますが、理由をよく理解できませんでした。<br/>関数の呼び出しの際にenvが入れ子になっていくのはわかりますが、そのときになぜStateではだめで、IORefならうまく機能するのかがわかりません<br/><br/><br/>2に関して、上のサイトを少し参考にして実装していっているものが以下です。IORefを使っていてeval関数はenvを引き回しています。StateモナドやReaderモナドを使うときのようにenvを隠蔽する必要はあるのでしょうか<br/><a href='https://github.com/mrsekut/Hytl/blob/86cca753fc/src/Eval.hs'>https://github.com/mrsekut/Hytl/blob/86cca753fc/src/Eval.hs</a><br/><br/><br/>3に関して、「これIORefじゃなくてStateにすればenv隠蔽できるやん！」と早とちりして途中まで実装したものが以下になります。Stateを使うことでenvを持ち回る事がなくなりましたが、replで動かしたときに変数呼び出しがうまく機能しません。というのも、一行入力する毎にStateあるEnvが空になっているようです。これは単に僕のreplの実装が悪いだけなのか、IOが絡む場合はStateだけではうまく動かないのか、というのをお聞きしたいです。<br/><a href='https://github.com/mrsekut/Hytl/blob/2bbf7c4058/src/Eval.hs'>https://github.com/mrsekut/Hytl/blob/2bbf7c4058/src/Eval.hs</a><br/><br/><br/><br/>よろしくおねがいします。</div>
@@ -107,7 +107,7 @@
       <div class="event" id="message-1584057448.093800">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1584057448.093800">2020-03-13 08:57:28 +0900</a></div>
           </div>
           <div class="description">@igrepさんが言ってるのは一般的な State の問題点でここでの問題点としてはかなりズレてると思います<br/><br/>今回 IORef を使用することのポイントは、式を評価する際環境を容易に変えられ、かつ環境を可変に保てるという点だと思います。State では強制的に全環境が共通のものになってしまいますが、IORef を使った場合は eval に渡す環境を変えるだけでクロージャの評価にも流用できます。それがおそらく元文献が言いたいことだと思います。<br/><br/>ところで、通常 Env の引回しを明示的にしたくなくて、でもたまに局所的に環境を変えたいという需要が、Reader モナドで実現できるというのは同意です。Eval = ReaderT Env IO とすれば前者はそのまま実現できて、後者は Reader の local メソッド で実現できます <br/><br/>ところで3番目のはコメントアウトしてる部分は型が合って内容に見えるんですが、変数の参照はどうやって実装したんでしょう?</div>
@@ -125,7 +125,7 @@
       <div class="event" id="message-1584059700.094500">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1584059700.094500">2020-03-13 09:35:00 +0900</a></div>
           </div>
           <div class="description">@igrep すいません、言葉選びが悪かったですが、上の「ずれている」は全く役に立たないと言っているわけではなく、<@UCM4G8PGW>さんに対して元文献で言ってることとは話が違うと言うことが分かるようにという意図での発言でした。元文献で言ってること以上に State ではなく Reader を使う意義があるというのは、私も同意です</div>
@@ -152,7 +152,7 @@
       <div class="event" id="message-1584068842.098600">
         <div class="content">
           <div class="summary">
-            <div class="user">k.marumaru524</div>
+            <div class="user">mrsekut</div>
             <div class="date"><a class="date" href="#message-1584068842.098600">2020-03-13 12:07:22 +0900</a></div>
           </div>
           <div class="description">igrepさん、mizunashi-manaさん、ご返事ありがとうございます。なるほど、Readerを使うのが良さそうですね。僕の実装ではまだ例外処理を書いていないのでStateを使ったときの問題に出くわしていなかったので気づけてよかったです（この辛さもまた試してみたいですが）<br/><br/><br/>実装するときに以下のような経過をたどりました<br/>IORefが良いらしい→できた→env消したい→Readerを使うと良いらしい→Readerつかう→え、これStateじゃないとムリでは？→Stateつかう→replが動かんくなった、ムリなのかなやっぱりIORefにするか→env復活するじゃん嫌だ→質問<br/><br/>３番目のリンクのコメントアウトの型がずれているのはこの経過で前の段階のものが残っているからです<br/><br/>Readerのlocalなどに対する理解が甘かったようです。Readerの理解と実装を今晩トライしてみて躓いたらまた質問させていただきます。</div>
@@ -161,7 +161,7 @@
       <div class="event" id="message-1584072790.099000">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1584072790.099000">2020-03-13 13:13:10 +0900</a></div>
           </div>
           <div class="description">補足ですが、コメントで言っている Reader を使うとは IORef を使った Env を Reader で渡すということです。Reader 単体では読み込みしかできないので、環境への書き込みが行なえませんが、IORef を読み込むことで可変にできます</div>
@@ -197,43 +197,43 @@
       <div class="event" id="message-1584159088.100800">
         <div class="content">
           <div class="summary">
-            <div class="user">call_magic</div>
+            <div class="user">myamamura</div>
             <div class="date"><a class="date" href="#message-1584159088.100800">2020-03-14 13:11:28 +0900</a></div>
           </div>
-          <div class="description">@call_magic has joined the channel</div>
+          <div class="description">@myamamura has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1584191331.101100">
         <div class="content">
           <div class="summary">
-            <div class="user">info693</div>
+            <div class="user">kuono</div>
             <div class="date"><a class="date" href="#message-1584191331.101100">2020-03-14 22:08:51 +0900</a></div>
           </div>
-          <div class="description">@info693 has joined the channel</div>
+          <div class="description">@kuono has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1584212837.101300">
         <div class="content">
           <div class="summary">
-            <div class="user">haskellcoding29</div>
+            <div class="user">paulko</div>
             <div class="date"><a class="date" href="#message-1584212837.101300">2020-03-15 04:07:17 +0900</a></div>
           </div>
-          <div class="description">@haskellcoding29 has joined the channel</div>
+          <div class="description">@paulko has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1584489695.102200">
         <div class="content">
           <div class="summary">
-            <div class="user">zionian693</div>
+            <div class="user">Izawa</div>
             <div class="date"><a class="date" href="#message-1584489695.102200">2020-03-18 09:01:35 +0900</a></div>
           </div>
-          <div class="description">@zionian693 has joined the channel</div>
+          <div class="description">@Izawa has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1584574648.104600">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1584574648.104600">2020-03-19 08:37:28 +0900</a></div>
           </div>
           <div class="description">お久しぶりです。<br/>指定した時刻までスレッドを休止してくれる関数をご存知ですか？<br/>threadDelayは、指定した時間間隔になりますが、例えば毎分０５秒に処理をしたい、というような場合は「次の分の０５秒　ー　現在時刻」の秒数を計算してセットしてあげる必要があります。</div>
@@ -242,7 +242,7 @@
       <div class="event" id="message-1584574673.105200">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1584574673.105200">2020-03-19 08:37:53 +0900</a></div>
           </div>
           <div class="description">それでもよいのですが、既存の関数があれば使いたいです。</div>
@@ -260,16 +260,16 @@
       <div class="event" id="message-1584658781.105800">
         <div class="content">
           <div class="summary">
-            <div class="user">kiyotakatheblack</div>
+            <div class="user">Kuroda</div>
             <div class="date"><a class="date" href="#message-1584658781.105800">2020-03-20 07:59:41 +0900</a></div>
           </div>
-          <div class="description">@kiyotakatheblack has joined the channel</div>
+          <div class="description">@Kuroda has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1584759748.114600">
         <div class="content">
           <div class="summary">
-            <div class="user">sugano</div>
+            <div class="user">sgsh</div>
             <div class="date"><a class="date" href="#message-1584759748.114600">2020-03-21 12:02:28 +0900</a></div>
           </div>
           <div class="description">お久しぶりです．<https://qiita.com/sgsh/items/6d0bc7e6f0831d9c47c4> の記事を執筆したのですが，出力した列が素数列になりませんでした．<br/>```&gt;&gt; map p [1..10]<br/>[2,3,5,7,11,13,129,172,172,172]```<br/>`p`が今回実装した関数で，n番目の素数を計算します．<br/>自分の予想では`e2`の中で `(** (1.0 / fromIntegral n))` を適用する過程で丸め誤差が起こっているような気がしたのですが，~（そもそも `(** (1/7)` )ってそんな誤差出るでしょうか．．． ）~ 間違えてるのか限界なのかわからず助言をいただきたいです．よろしくお願いいたします．<br/><br/>簡潔にまとめると以下です．<br/>1. 予測は合っているか．<br/>2. 合っていればより精度の良いn乗根の関数は存在するか．<br/>3. 他に誤りが原因である場合，指摘して欲しい</div>
@@ -298,7 +298,7 @@ e0 i = floor $  if (product[1..i-1] + 1) `mod` i == 0 then 1 else 0</pre><br/><p
       <div class="event" id="message-1584766021.116500">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1584766021.116500">2020-03-21 13:47:01 +0900</a></div>
           </div>
           <div class="description">多分 cos や pi の精度ってそれほど良くないので、大きい数ほど本来の値とズレていって、本来 1 と出すはずが 0 を出すと言うのが積み重なった結果だと思いますね</div>
@@ -307,7 +307,7 @@ e0 i = floor $  if (product[1..i-1] + 1) `mod` i == 0 then 1 else 0</pre><br/><p
       <div class="event" id="message-1584766419.116700">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1584766419.116700">2020-03-21 13:53:39 +0900</a></div>
           </div>
           <div class="description">ちょうど 7 番目で e0 の結果が 1 になるはずが 0 になったりしてませんかね?(後で試そうと思ってます)</div>
@@ -316,7 +316,7 @@ e0 i = floor $  if (product[1..i-1] + 1) `mod` i == 0 then 1 else 0</pre><br/><p
       <div class="event" id="message-1584776306.116900">
         <div class="content">
           <div class="summary">
-            <div class="user">sugano</div>
+            <div class="user">sgsh</div>
             <div class="date"><a class="date" href="#message-1584776306.116900">2020-03-21 16:38:26 +0900</a></div>
           </div>
           <div class="description">なるほど．．cos や pi の精度を気にしてませんでした．．， 確かにe0をmod使った式にすると治りますね．．．やはりそこはプログラミング言語らしく書く必要がありそうですね！ありがとうございます．</div>
@@ -325,7 +325,7 @@ e0 i = floor $  if (product[1..i-1] + 1) `mod` i == 0 then 1 else 0</pre><br/><p
       <div class="event" id="message-1584776552.117200">
         <div class="content">
           <div class="summary">
-            <div class="user">sugano</div>
+            <div class="user">sgsh</div>
             <div class="date"><a class="date" href="#message-1584776552.117200">2020-03-21 16:42:32 +0900</a></div>
           </div>
           <div class="description">あれ，`e0` って1~2^7のどこまで試すと良いんでしたっけ．．脳が疲れてしまったので自分も明日やってみます．．．</div>
@@ -334,7 +334,7 @@ e0 i = floor $  if (product[1..i-1] + 1) `mod` i == 0 then 1 else 0</pre><br/><p
       <div class="event" id="message-1584878866.117500">
         <div class="content">
           <div class="summary">
-            <div class="user">tikuwakunn</div>
+            <div class="user">kanimum</div>
             <div class="date"><a class="date" href="#message-1584878866.117500">2020-03-22 21:07:46 +0900</a></div>
           </div>
           <div class="description">既存の関数というと標準のライブラリということでしょうか？<br/>そうであればGHCの標準ライブラリにはそのような関数はないですね…</div>
@@ -343,61 +343,61 @@ e0 i = floor $  if (product[1..i-1] + 1) `mod` i == 0 then 1 else 0</pre><br/><p
       <div class="event" id="message-1584976096.117800">
         <div class="content">
           <div class="summary">
-            <div class="user">terutomo.takahashi</div>
+            <div class="user">teruchi</div>
             <div class="date"><a class="date" href="#message-1584976096.117800">2020-03-24 00:08:16 +0900</a></div>
           </div>
-          <div class="description">@terutomo.takahashi has joined the channel</div>
+          <div class="description">@teruchi has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1585020943.118000">
         <div class="content">
           <div class="summary">
-            <div class="user">jamesbrock</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1585020943.118000">2020-03-24 12:35:43 +0900</a></div>
           </div>
-          <div class="description">@jamesbrock has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1585038988.118200">
         <div class="content">
           <div class="summary">
-            <div class="user">shin1hi</div>
+            <div class="user">shinichi</div>
             <div class="date"><a class="date" href="#message-1585038988.118200">2020-03-24 17:36:28 +0900</a></div>
           </div>
-          <div class="description">@shin1hi has joined the channel</div>
+          <div class="description">@shinichi has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1585130311.003500">
         <div class="content">
           <div class="summary">
-            <div class="user">wataru007jp</div>
+            <div class="user">wshito</div>
             <div class="date"><a class="date" href="#message-1585130311.003500">2020-03-25 18:58:31 +0900</a></div>
           </div>
-          <div class="description">@wataru007jp has joined the channel</div>
+          <div class="description">@wshito has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1585144307.003800">
         <div class="content">
           <div class="summary">
-            <div class="user">nigodk</div>
+            <div class="user">n_odoki</div>
             <div class="date"><a class="date" href="#message-1585144307.003800">2020-03-25 22:51:47 +0900</a></div>
           </div>
-          <div class="description">@nigodk has joined the channel</div>
+          <div class="description">@n_odoki has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1585437555.004200">
         <div class="content">
           <div class="summary">
-            <div class="user">me1</div>
+            <div class="user">shimbaco</div>
             <div class="date"><a class="date" href="#message-1585437555.004200">2020-03-29 08:19:15 +0900</a></div>
           </div>
-          <div class="description">@me1 has joined the channel</div>
+          <div class="description">@shimbaco has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1585541346.005700">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1585541346.005700">2020-03-30 13:09:06 +0900</a></div>
           </div>
           <div class="description">GHCi で type constructor の role を確認する方法はありますか?</div>
@@ -406,7 +406,7 @@ e0 i = floor $  if (product[1..i-1] + 1) `mod` i == 0 then 1 else 0</pre><br/><p
       <div class="event" id="message-1585543875.007200">
         <div class="content">
           <div class="summary">
-            <div class="user">shin1hi</div>
+            <div class="user">shinichi</div>
             <div class="date"><a class="date" href="#message-1585543875.007200">2020-03-30 13:51:15 +0900</a></div>
           </div>
           <div class="description"><pre>&gt; data Hoge = Fuga 
@@ -416,7 +416,7 @@ e0 i = floor $  if (product[1..i-1] + 1) `mod` i == 0 then 1 else 0</pre><br/><p
       <div class="event" id="message-1585547297.007400">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1585547297.007400">2020-03-30 14:48:17 +0900</a></div>
           </div>
           <div class="description">role とは、<https://downloads.haskell.org/~ghc/8.8.3/docs/html/users_guide/glasgow_exts.html#roles|https://downloads.haskell.org/~ghc/8.8.3/docs/html/users_guide/glasgow_exts.html#roles> の仕様のことを指しています</div>
@@ -425,7 +425,7 @@ e0 i = floor $  if (product[1..i-1] + 1) `mod` i == 0 then 1 else 0</pre><br/><p
       <div class="event" id="message-1585547439.007600">
         <div class="content">
           <div class="summary">
-            <div class="user">highmt</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1585547439.007600">2020-03-30 14:50:39 +0900</a></div>
           </div>
           <div class="description"><pre>:set -XTypeFamilies
@@ -442,7 +442,7 @@ $( stringE . show =&lt;&lt; reifyRoles ''T )
       <div class="event" id="message-1585547551.007800">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1585547551.007800">2020-03-30 14:52:31 +0900</a></div>
           </div>
           <div class="description">なるほど、ありがとうございます。GHCi の機能としてはないですよね? (無いなら機能追加を提案しようと思ってます)</div>
@@ -451,7 +451,7 @@ $( stringE . show =&lt;&lt; reifyRoles ''T )
       <div class="event" id="message-1585547884.008100">
         <div class="content">
           <div class="summary">
-            <div class="user">highmt</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1585547884.008100">2020-03-30 14:58:04 +0900</a></div>
           </div>
           <div class="description">探してみた感じではなさそう、<br/><br/>と思ったんですが<br/><br/><pre>ghci&gt; :i T
@@ -464,7 +464,7 @@ data T a b c = MkT b (F c)
       <div class="event" id="message-1585548020.008300">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1585548020.008300">2020-03-30 15:00:20 +0900</a></div>
           </div>
           <div class="description">あれ、それって GHC バージョンいくつでしょう? (うちの 8.8 の環境だと表示されませんでした...)</div>
@@ -473,7 +473,7 @@ data T a b c = MkT b (F c)
       <div class="event" id="message-1585548065.008500">
         <div class="content">
           <div class="summary">
-            <div class="user">highmt</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1585548065.008500">2020-03-30 15:01:05 +0900</a></div>
           </div>
           <div class="description"><pre>&gt;ghci --version

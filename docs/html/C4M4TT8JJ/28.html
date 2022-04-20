@@ -17,10 +17,10 @@
       <div class="event" id="message-1541316919.048200">
         <div class="content">
           <div class="summary">
-            <div class="user">koyojb</div>
+            <div class="user">Cassin</div>
             <div class="date"><a class="date" href="#message-1541316919.048200">2018-11-04 16:35:19 +0900</a></div>
           </div>
-          <div class="description">@koyojb has joined the channel</div>
+          <div class="description">@Cassin has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1541321220.051500">
@@ -35,7 +35,7 @@
       <div class="event" id="message-1541321648.052600">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1541321648.052600">2018-11-04 17:54:08 +0900</a></div>
           </div>
           <div class="description"><a href='#C7002UTC6'>kinds</a> に関しては賛成です．他のチャンネルに関しては棄権で</div>
@@ -152,7 +152,7 @@
       <div class="event" id="message-1541416821.059800">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1541416821.059800">2018-11-05 20:20:21 +0900</a></div>
           </div>
           <div class="description">すいません，あれから少し不動点意味論の勉強をして，言いたかったことやHaskellの仕様が混乱していないという主張の意味がわかりました．<br/><br/>ところで，僕も @as_capabl さんと同じ疑問は持ったのですが，個人的にはHaskellの意味関数を[]，Toy言語の意味関数を[| |]とした時，[|e|] = [interp e]でHaskellの意味領域に接地させることで，意味関数と主張しているのだと思っていました．</div>
@@ -161,7 +161,7 @@
       <div class="event" id="message-1541416884.060000">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1541416884.060000">2018-11-05 20:21:24 +0900</a></div>
           </div>
           <div class="description">primitiveの場合単に [e1 + e2] = { ⊥ if [e1] = ⊥ || [e2] = ⊥; [e1] + [e2] else }で定義すればいいのではないでしょうか？</div>
@@ -170,7 +170,7 @@
       <div class="event" id="message-1541417510.060400">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1541417510.060400">2018-11-05 20:31:50 +0900</a></div>
           </div>
           <div class="description">あ，それで1つ前で言いたかったのは，例えばparallel ifなどを実装する際多分そのままの定義ではできなくて，それは何故できないかというと<br/><blockquote>⊥に相当する部分がill-defined</blockquote><br/>が効いてきてるのではないかなと思ったという感じです(あんまり説明になっていないかも)</div>
@@ -188,10 +188,10 @@
       <div class="event" id="message-1541418838.060900">
         <div class="content">
           <div class="summary">
-            <div class="user">yuya.gt</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1541418838.060900">2018-11-05 20:53:58 +0900</a></div>
           </div>
-          <div class="description">@yuya.gt has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1541418987.061100">
@@ -215,7 +215,7 @@
       <div class="event" id="message-1541421279.062600">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1541421279.062600">2018-11-05 21:34:39 +0900</a></div>
           </div>
           <div class="description">はい，C[pif L then M else N](env) = { [M](env) if [L](env) = true; [N](env) if [L](env) = false; [N](env) if [L](env) = ⊥ and [M](env) = [N](env); ⊥ else } みたいなやつですね．parallel orでも同じ議論ができますし，そっちの方が単純なのでそっちで考えてもらっても大丈夫です．<br/><br/><blockquote>停止が判定できないので，[e] = ⊥が判定できないです．</blockquote><br/>これがよく分からないのですが，別に意味論上は停止するかどうかは判定しなくてよくて，その表示を満たせば良いと思うのですが，何か勘違いしてるでしょうか？実装上は， <code>seq e1 . seq e2 $ e1 + e2</code> で問題ないはずです(Haskellの場合はそもそもe1 + e2でもいいですね)</div>
@@ -251,7 +251,7 @@
       <div class="event" id="message-1541422537.065800">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1541422537.065800">2018-11-05 21:55:37 +0900</a></div>
           </div>
           <div class="description">要は，⊥となるtermへの扱いが明確に定められていなくて，Haskellの式が結果的に計算が停止しないので評価器も停止しないようになっているだけで，por のような⊥の扱いが重要になる場合にそれが問題になりそうというのが言いたいことでした．個人的には，<br/><blockquote>Haskellの意味関数を[]，Toy言語の意味関数を[| |]とした時，[|e|] = [interp e]でHaskellの意味領域に接地させることで，意味関数と主張している</blockquote>ということでも問題ないとは思うのですが，denotativeと主張するならHaskellに接地させるのでなくtermに対する定義が明確になっていて，<br/><blockquote>let inf = inf + 1 in inf みたいなの</blockquote>に対する定義が明示されているべきだという主張も分かる気がするという感じです(これが明示されていれば，おそらくporの導入もそれほど難しくないのかなという．例えば， @as_capabl さんがいうように評価器がちゃんとステップを陽に見えるよう書かれていれば，porはステップを同時進行させることで実装できるはずです)</div>
@@ -269,7 +269,7 @@
       <div class="event" id="message-1541423286.066200">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1541423286.066200">2018-11-05 22:08:06 +0900</a></div>
           </div>
           <div class="description">それもありますが，主に<br/><blockquote>progressionを使った手法を導入したはずなので、表示的意味論でinterpを定義するなら考慮しないと駄目では</blockquote>ですね．多分ValueにBotを導入しただけではporは実装できないはずです(片方が停止しなくてももう片方が停止してtrueになれば結果が返せるので)</div>
@@ -287,7 +287,7 @@
       <div class="event" id="message-1541423596.066600">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1541423596.066600">2018-11-05 22:13:16 +0900</a></div>
           </div>
           <div class="description">はい，その定義は二重にだめで，isBotがおそらく停止するように実装するのが無理なのと，⊥ por falseは通常⊥になるはずっていうのですね(なので，結構実装は難しいはずです)</div>
@@ -305,7 +305,7 @@
       <div class="event" id="message-1541424338.067100">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1541424338.067100">2018-11-05 22:25:38 +0900</a></div>
           </div>
           <div class="description">(まあ，本題からかなり外れる気がするのでどうなんですかね？個人的には，<br/><blockquote>実際，[Lazyな(おもちゃ)言語 <a href='https://gist.github.com/nobsun/5b310dd4a397af624690b6ca4b0af2c8]も`interp`は意味関数'>https://gist.github.com/nobsun/5b310dd4a397af624690b6ca4b0af2c8]も`interp`は意味関数</a>(semantic function あるいは meaning function)という表示意味論で登場する意味を決める関数なわけで，操作意味論における簡約過程を書いたものではない</blockquote>という文が気になったというだけなので．後この議論で不動点意味論の気持ちが分かったので，感謝の気持ちしかないです)</div>
@@ -341,7 +341,7 @@
       <div class="event" id="message-1541465882.071400">
         <div class="content">
           <div class="summary">
-            <div class="user">cosmiafu</div>
+            <div class="user">Cosmia</div>
             <div class="date"><a class="date" href="#message-1541465882.071400">2018-11-06 09:58:02 +0900</a></div>
           </div>
           <div class="description">Alternative は (Hask, (), (,)) -&gt; (Hask, Void, Either)の monoidal functorだから、monoidっぽいのは間違いなし<br/><br/>f Void &lt;-&gt; f a — trivial<br/>f a -&gt; f b -&gt; f (Either a b) &lt;-&gt; f a -&gt; f a -&gt; f a — trivial</div>
@@ -368,7 +368,7 @@
       <div class="event" id="message-1541477861.078100">
         <div class="content">
           <div class="summary">
-            <div class="user">cosmiafu</div>
+            <div class="user">Cosmia</div>
             <div class="date"><a class="date" href="#message-1541477861.078100">2018-11-06 13:17:41 +0900</a></div>
           </div>
           <div class="description">ww<br/>そうです、その &lt;-&gt; はisomorphicの記号みたいなものww</div>
@@ -458,7 +458,7 @@
       <div class="event" id="message-1541579700.083600">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1541579700.083600">2018-11-07 17:35:00 +0900</a></div>
           </div>
           <div class="description">そういえば， <@U570660KX> さんのだと<br/>```<br/>&gt;&gt;&gt; eval $ Div (Con 1) (Con 0) `Por` Div (Con 1) (Con 1)<br/>*** Exception: divide by zero<br/>```<br/>になるんですね( <@U4KU9ABL0> の修正見るまで気づかなかった)．本来のdenotational semanticsに立ち戻るならIter ValueはあくまでValueの近似であって，Iter Value ~ Valueとみなしても良いのではないでしょうか？まあただdenotationalにも近似を束縛する，計算を束縛するとも言えるかもしれないですね．</div>

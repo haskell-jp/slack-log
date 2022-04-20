@@ -17,7 +17,7 @@
       <div class="event" id="message-1549538311.464500">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549538311.464500">2019-02-07 20:18:31 +0900</a></div>
           </div>
           <div class="description">お疲れ様です。<br/><a href='https://qiita.com/mod_poppo/items/03fc14f693b601e0a00f'>https://qiita.com/mod_poppo/items/03fc14f693b601e0a00f</a><br/>なぜIORefだと遅いのでしょうか。<br/>自分でベンチマークとるのが一番かもしれませんが。<br/>あと既出だったらすみません。<br/>:man-bowing:</div>
@@ -26,7 +26,7 @@
       <div class="event" id="message-1549538426.465500">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549538426.465500">2019-02-07 20:20:26 +0900</a></div>
           </div>
           <div class="description">IORefだとヒープで、StateTだとスタックにのるとかあるのでしょうか。</div>
@@ -44,7 +44,7 @@
       <div class="event" id="message-1549540652.465900">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549540652.465900">2019-02-07 20:57:32 +0900</a></div>
           </div>
           <div class="description">記事にも書いてありますが， IORef の場合余分なポインタによる Boxing が挟まるからです．<br/>通常は，そのままデータにアクセスすればいいですが， IORef の場合一度 IORef データのポインタから実際の IORef データにアクセスし，さらにそこに格納されているポインタからデータにアクセスする必要が出てきます．<br/><br/>特に今回の記事の内容だと，Stateの場合もインライン展開と正確性解析によるwrapper変換がうまく入ります(GHC 8.6.3 ではうまく最適化されていることを確認しました)が， IORef はうまく上記の方法で最適化できないため Boxing のままになっているのが大きな差を生んでる原因だと思います</div>
@@ -53,7 +53,7 @@
       <div class="event" id="message-1549543311.466500">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549543311.466500">2019-02-07 21:41:51 +0900</a></div>
           </div>
           <div class="description">ありがとうございます</div>
@@ -62,7 +62,7 @@
       <div class="event" id="message-1549551984.466800">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549551984.466800">2019-02-08 00:06:24 +0900</a></div>
           </div>
           <div class="description">いくつかベンチマークをしての追記なのですが， IORef で書かれたコードはインライン展開からの変換による最適化が入りにくいようです．例えば， readIORef などを readMutVar# などのプリミティブ命令に変換した後特に最適化が入りにくいのに対し， State はタプルを使った単純な関数の場合が多く， IORef を使ったコードに比べかなりのレベルまでインライン展開され joinrec を使った loop optimization がかなり入りやすいようです．もちろん，今回の記事のように wrapper 変換も入りにくいため，一般には IORef より State の方が最適化が入りやすいため高速な処理が期待できそうです．<br/><br/>なので， IORef の Boxing によるオーバーヘッドというよりは最適化がうまく入らないデメリットが大きそうですね</div>
@@ -71,7 +71,7 @@
       <div class="event" id="message-1549552453.467000">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549552453.467000">2019-02-08 00:14:13 +0900</a></div>
           </div>
           <div class="description">あ，ついでに上の話は GHC 8.6.3 で調べたので，他のバージョンだと違った結果になるかもしれません(おそらく，他のバージョンも同じ状況だとは思うんですが)</div>
@@ -80,7 +80,7 @@
       <div class="event" id="message-1549553132.467200">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549553132.467200">2019-02-08 00:25:32 +0900</a></div>
           </div>
           <div class="description">ついでに， wrapper 変換を避けるために書き直したベンチマークコードを上げておきます<br/><a href='https://gist.github.com/mizunashi-mana/1de1f69f2723d7cef51c9a57c506fdcf'>https://gist.github.com/mizunashi-mana/1de1f69f2723d7cef51c9a57c506fdcf</a></div>
@@ -89,16 +89,16 @@
       <div class="event" id="message-1549556705.467500">
         <div class="content">
           <div class="summary">
-            <div class="user">tech</div>
+            <div class="user">shinichir0</div>
             <div class="date"><a class="date" href="#message-1549556705.467500">2019-02-08 01:25:05 +0900</a></div>
           </div>
-          <div class="description">@tech has joined the channel</div>
+          <div class="description">@shinichir0 has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1549574755.467900">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549574755.467900">2019-02-08 06:25:55 +0900</a></div>
           </div>
           <div class="description"><pre>
@@ -116,7 +116,7 @@ someCalculationWithFastMutInt = do
       <div class="event" id="message-1549575367.468400">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549575367.468400">2019-02-08 06:36:07 +0900</a></div>
           </div>
           <div class="description">次の疑問はなぜIORefがunboxされないのかというところです。</div>
@@ -125,7 +125,7 @@ someCalculationWithFastMutInt = do
       <div class="event" id="message-1549575853.468600">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549575853.468600">2019-02-08 06:44:13 +0900</a></div>
           </div>
           <div class="description"><a href='http://hackage.haskell.org/package/unboxed-ref'>http://hackage.haskell.org/package/unboxed-ref</a><br/>すでにそういうパッケージがありますね。</div>
@@ -134,7 +134,7 @@ someCalculationWithFastMutInt = do
       <div class="event" id="message-1549603889.469600">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549603889.469600">2019-02-08 14:31:29 +0900</a></div>
           </div>
           <div class="description">GHC ではスタックとヒープどちらに割り当てるかなどを扱うような段階より，ずっと以前の表層の部分で多くの最適化が行われます．特に worker/wrapper 変換は Haskell のプログラムをより効率の良いプログラムに変換するような最適化で(厳密には， Core-2-Core ですが)，単純に Int や Char などの unbox 型をラップした Boxing な型に対して書かれた幾つかの制約を満たす関数をアンラップする関数と unbox 型に対して処理を行う関数に分解することで，wrap/unwrap のオーバーヘッドを無くし不要なヒープ確保を抑えるといったものです．<br/><br/>例えば，<br/><br/><pre>
@@ -157,7 +157,7 @@ sumInt = go 0
       <div class="event" id="message-1549604413.470300">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549604413.470300">2019-02-08 14:40:13 +0900</a></div>
           </div>
           <div class="description">ついでにですが，実行性能の差の要因は追記でも述べた通り unbox 化だけではないようです．なので，上の unboxed-ref を使えば worker/wrapper 変換は入るようになると思いますが，他の最適化が入りにくくなり結局 State の方が速くなるんじゃないかと思います(これは未検証なので，後でやってみたいと思います)</div>
@@ -166,7 +166,7 @@ sumInt = go 0
       <div class="event" id="message-1549612404.470800">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549612404.470800">2019-02-08 16:53:24 +0900</a></div>
           </div>
           <div class="description">-O: State &lt; IORefU &lt; Rec &lt; IORef<br/>-O2: Rec &lt; State &lt; IORefU &lt;&lt; IORef<br/>となりました．そこまで有意差ではないと思いますが IORefU の方が State より遅い傾向が見られましたね．中間コード自体はほぼ同じでしたが，やることによっては差が出る場合もあるかもしれません．<br/><a href='https://gist.github.com/mizunashi-mana/176875a0af98578d0d9bafd2dabdf876'>https://gist.github.com/mizunashi-mana/176875a0af98578d0d9bafd2dabdf876</a></div>
@@ -184,7 +184,7 @@ sumInt = go 0
       <div class="event" id="message-1549612967.471400">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549612967.471400">2019-02-08 17:02:47 +0900</a></div>
           </div>
           <div class="description">time コマンドでやりました</div>
@@ -193,7 +193,7 @@ sumInt = go 0
       <div class="event" id="message-1549612997.471700">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1549612997.471700">2019-02-08 17:03:17 +0900</a></div>
           </div>
           <div class="description">criterion でやる場合は，もっと繰り返し数少なくした方が良いと思いますね</div>
@@ -202,10 +202,10 @@ sumInt = go 0
       <div class="event" id="message-1549629516.472000">
         <div class="content">
           <div class="summary">
-            <div class="user">imawaki_k</div>
+            <div class="user">keisuke.i</div>
             <div class="date"><a class="date" href="#message-1549629516.472000">2019-02-08 21:38:36 +0900</a></div>
           </div>
-          <div class="description">@imawaki_k has joined the channel</div>
+          <div class="description">@keisuke.i has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1550133199.008600">
@@ -238,7 +238,7 @@ sumInt = go 0
       <div class="event" id="message-1550225328.017300">
         <div class="content">
           <div class="summary">
-            <div class="user">a_kirisaki</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550225328.017300">2019-02-15 19:08:48 +0900</a></div>
           </div>
           <div class="description">Cabalが作ってくれるPaths_hogeの詳しい仕様とか使い方ってどう検索すれば出てきますかね……もしくは公式をよく読めばある？</div>
@@ -256,7 +256,7 @@ sumInt = go 0
       <div class="event" id="message-1550226133.017700">
         <div class="content">
           <div class="summary">
-            <div class="user">a_kirisaki</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550226133.017700">2019-02-15 19:22:13 +0900</a></div>
           </div>
           <div class="description">アッめっちゃ書いてある。ちゃんと読まないとダメですね……。ありがとうございます</div>
@@ -265,61 +265,61 @@ sumInt = go 0
       <div class="event" id="message-1550378567.018400">
         <div class="content">
           <div class="summary">
-            <div class="user">talw10</div>
+            <div class="user">talw</div>
             <div class="date"><a class="date" href="#message-1550378567.018400">2019-02-17 13:42:47 +0900</a></div>
           </div>
-          <div class="description">@talw10 has joined the channel</div>
+          <div class="description">@talw has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1550381961.018700">
         <div class="content">
           <div class="summary">
-            <div class="user">furu.furu.kk.204</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550381961.018700">2019-02-17 14:39:21 +0900</a></div>
           </div>
-          <div class="description">@furu.furu.kk.204 has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1550384299.019000">
         <div class="content">
           <div class="summary">
-            <div class="user">ytk.nishimura</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550384299.019000">2019-02-17 15:18:19 +0900</a></div>
           </div>
-          <div class="description">@ytk.nishimura has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1550388057.019300">
         <div class="content">
           <div class="summary">
-            <div class="user">sleepy.st818</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550388057.019300">2019-02-17 16:20:57 +0900</a></div>
           </div>
-          <div class="description">@sleepy.st818 has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1550479108.019600">
         <div class="content">
           <div class="summary">
-            <div class="user">3bmnltlllpn</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550479108.019600">2019-02-18 17:38:28 +0900</a></div>
           </div>
-          <div class="description">@3bmnltlllpn has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1550496152.019900">
         <div class="content">
           <div class="summary">
-            <div class="user">yukimemi</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550496152.019900">2019-02-18 22:22:32 +0900</a></div>
           </div>
-          <div class="description">@yukimemi has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1550572995.020900">
         <div class="content">
           <div class="summary">
-            <div class="user">yethan.goes.asna</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550572995.020900">2019-02-19 19:43:15 +0900</a></div>
           </div>
           <div class="description">数独を解くコードを書いてみました。変な所があればご指摘いただけると嬉しいです。<br/><a href='https://gist.github.com/gaxiiiiiiiiiiii/0fab7374d7c3ef8f2a0801972aa0aea5'>https://gist.github.com/gaxiiiiiiiiiiii/0fab7374d7c3ef8f2a0801972aa0aea5</a></div>
@@ -382,7 +382,7 @@ sumInt = go 0
       <div class="event" id="message-1550623990.022900">
         <div class="content">
           <div class="summary">
-            <div class="user">yethan.goes.asna</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550623990.022900">2019-02-20 09:53:10 +0900</a></div>
           </div>
           <div class="description">みなさん、ありがとうございます！修正してみます！！</div>
@@ -391,7 +391,7 @@ sumInt = go 0
       <div class="event" id="message-1550628539.024500">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1550628539.024500">2019-02-20 11:08:59 +0900</a></div>
           </div>
           <div class="description">細かい話。<br/><a href='https://gist.github.com/gaxiiiiiiiiiiii/0fab7374d7c3ef8f2a0801972aa0aea5#file-sudoku-hs-L10'>https://gist.github.com/gaxiiiiiiiiiiii/0fab7374d7c3ef8f2a0801972aa0aea5#file-sudoku-hs-L10</a><br/>Showのインスタンスはあまり変えないほうがいいと思う。詳しくは<br/><a href='http://www.stephendiehl.com/posts/strings.html'>http://www.stephendiehl.com/posts/strings.html</a><br/><br/><br/><pre>
@@ -409,7 +409,7 @@ showNum (Cell n _ _ _) = show n
       <div class="event" id="message-1550628551.024800">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1550628551.024800">2019-02-20 11:09:11 +0900</a></div>
           </div>
           <div class="description">あとは実務レベルのコードにするならコードの整形とHaddockコメントがほしいね。コメントがないから頭が弱い自分にはそれぞれのデータ型、関数がなにをしてるのかよくわからない。。</div>
@@ -418,7 +418,7 @@ showNum (Cell n _ _ _) = show n
       <div class="event" id="message-1550645373.025900">
         <div class="content">
           <div class="summary">
-            <div class="user">yethan.goes.asna</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550645373.025900">2019-02-20 15:49:33 +0900</a></div>
           </div>
           <div class="description">見て頂く立場なのに、読みにくくて申し訳ないです。読みやすさも心がけます。。。</div>
@@ -427,7 +427,7 @@ showNum (Cell n _ _ _) = show n
       <div class="event" id="message-1550661256.027500">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550661256.027500">2019-02-20 20:14:16 +0900</a></div>
           </div>
           <div class="description">stack 経由で使われている ghc や haddock のバージョン番号を調べるにはどうしたらいいのでしょうか？ stack 自体のバージョン番号は stack --version ででてくるのですが…　（しょうがないので ~/.stack/programs を直接見て確認したりしているのですが）</div>
@@ -445,7 +445,7 @@ showNum (Cell n _ _ _) = show n
       <div class="event" id="message-1550661852.027800">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550661852.027800">2019-02-20 20:24:12 +0900</a></div>
           </div>
           <div class="description">をを、 exec をつければよかったのですね。 stack haddock --version とかしても出てこなかったので気付かなかったです^^;</div>
@@ -454,7 +454,7 @@ showNum (Cell n _ _ _) = show n
       <div class="event" id="message-1550661890.028000">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550661890.028000">2019-02-20 20:24:50 +0900</a></div>
           </div>
           <div class="description">あれ、でもだめっぽいですね…</div>
@@ -463,7 +463,7 @@ showNum (Cell n _ _ _) = show n
       <div class="event" id="message-1550661911.028200">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550661911.028200">2019-02-20 20:25:11 +0900</a></div>
           </div>
           <div class="description"><pre>
@@ -480,7 +480,7 @@ Usage: stack exec CMD [-- ARGS (e.g. stack exec -- ghc-pkg describe base)]
       <div class="event" id="message-1550661957.028400">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550661957.028400">2019-02-20 20:25:57 +0900</a></div>
           </div>
           <div class="description">あ -- がいるのか！</div>
@@ -498,7 +498,7 @@ Usage: stack exec CMD [-- ARGS (e.g. stack exec -- ghc-pkg describe base)]
       <div class="event" id="message-1550662029.028800">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550662029.028800">2019-02-20 20:27:09 +0900</a></div>
           </div>
           <div class="description">ありがとうございます、やっとわかりました。 :slightly_smiling_face:</div>

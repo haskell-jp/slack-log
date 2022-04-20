@@ -15,7 +15,7 @@
       <div class="event" id="message-1637817370.043200">
         <div class="content">
           <div class="summary">
-            <div class="user">mail741</div>
+            <div class="user">Endo Ryunosuke / minerva</div>
             <div class="date"><a class="date" href="#message-1637817370.043200">2021-11-25 14:16:10 +0900</a></div>
           </div>
           <div class="description"><code>Bifunctor</code>  って第一引数を固定すると <code>Functor</code>  になると思うんですが，そういうインスタンス定義は提供されてないみたいなので，<br/><pre>instance Bifunctor f =&gt; Functor (f a) where
@@ -37,7 +37,7 @@ Failed, no modules loaded.</pre><br/>で，指示通り <code>{-# LANGUAGE Flexi
       <div class="event" id="message-1637818267.043300">
         <div class="content">
           <div class="summary">
-            <div class="user">minorinoki_haskjp</div>
+            <div class="user">mod_poppo</div>
             <div class="date"><a class="date" href="#message-1637818267.043300">2021-11-25 14:31:07 +0900</a></div>
           </div>
           <div class="description"><code>Functor (f a)</code> に対してそういうインスタンスを定義してしまうと、具体的な型 <code>F</code> に対する <code>Functor (F a)</code> を定義できなくなります。例えば次のコードがコンパイルエラーになります：<br/><pre>instance Bifunctor f =&gt; Functor (f a) where
@@ -54,7 +54,7 @@ instance Bifunctor f =&gt; Functor (WrappedBifunctor f a) where
       <div class="event" id="message-1637819443.043600">
         <div class="content">
           <div class="summary">
-            <div class="user">mail741</div>
+            <div class="user">Endo Ryunosuke / minerva</div>
             <div class="date"><a class="date" href="#message-1637819443.043600">2021-11-25 14:50:43 +0900</a></div>
           </div>
           <div class="description">なるほど！ちょうど <code>instance Functor (RoseTreeF a) where ...</code>  とかやって怒られてたところでした．今回の場合，`RoseTreeF` が <code>Bifunctor</code>  だということは導けないはずなんですが，GHC はその手の探索（制約解消？）まではやってくれないということなんですね．</div>
@@ -72,7 +72,7 @@ instance Bifunctor f =&gt; Functor (WrappedBifunctor f a) where
       <div class="event" id="message-1637930874.045500">
         <div class="content">
           <div class="summary">
-            <div class="user">mail741</div>
+            <div class="user">Endo Ryunosuke / minerva</div>
             <div class="date"><a class="date" href="#message-1637930874.045500">2021-11-26 21:47:54 +0900</a></div>
           </div>
           <div class="description">なるほど、Haskell 的にはそれくらいがちょうどいい落とし所だという認識なのだろうと思うと面白いですね。読みたい: <a href='https://people.csail.mit.edu/dnj/teaching/6898/papers/wadler88.pdf'>https://people.csail.mit.edu/dnj/teaching/6898/papers/wadler88.pdf</a></div>

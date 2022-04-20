@@ -17,7 +17,7 @@
       <div class="event" id="message-1531901547.000342">
         <div class="content">
           <div class="summary">
-            <div class="user">a_kirisaki</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1531901547.000342">2018-07-18 17:12:27 +0900</a></div>
           </div>
           <div class="description">行けました！<br/><pre>
@@ -28,7 +28,7 @@ deriving instance ToFormKey a =&gt; ToFormKey (Identity a)
       <div class="event" id="message-1531901609.000241">
         <div class="content">
           <div class="summary">
-            <div class="user">a_kirisaki</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1531901609.000241">2018-07-18 17:13:29 +0900</a></div>
           </div>
           <div class="description">しかし疑問なのですが[Data\.Csv](<https://hackage.haskell.org/package/cassava-0.5.1.0/docs/Data-Csv.html#t:ToField>)が <code>Identity</code> のインスタンスを持たず、 <code>extensible</code> のソースでもインスタンスを作っていないように見えるですがどういう仕組みなんでしょう</div>
@@ -37,7 +37,7 @@ deriving instance ToFormKey a =&gt; ToFormKey (Identity a)
       <div class="event" id="message-1531916659.000068">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1531916659.000068">2018-07-18 21:24:19 +0900</a></div>
           </div>
           <div class="description">みなさんこんにちは。初歩的な質問で恐縮ですが、 モナドを使う関数の書き方について教えて下さい。<br/><br/>自分で高階関数（ hof::a-&gt;(a-&gt;b)-&gt;b )を作ったところ、　引数となる関数に モナドを返す関数　f::a-&gt;m b   を使いたくなりました。<br/><br/>ここで、以下のような対応でやってみたのですが、このようなやり方でよいのでしょうか？<br/><br/>(1)  hof をコピペして、  hofM::a-&gt;(a-&gt;m b)-&gt;m b  を作る。<br/>(2) hofMテストするときは  hofのテストに使った関数を再利用（？）して、Identity モナドでつつんで使う。</div>
@@ -55,7 +55,7 @@ deriving instance ToFormKey a =&gt; ToFormKey (Identity a)
       <div class="event" id="message-1531917690.000255">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1531917690.000255">2018-07-18 21:41:30 +0900</a></div>
           </div>
           <div class="description">hof x f = runIdentity $ hofM x (return . f)<br/><br/>で行けました。</div>
@@ -82,7 +82,7 @@ deriving instance ToFormKey a =&gt; ToFormKey (Identity a)
       <div class="event" id="message-1531954451.000284">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1531954451.000284">2018-07-19 07:54:11 +0900</a></div>
           </div>
           <div class="description">その場合、hofの中で最後にモナドを剥がすことになりますが、mがIOの場合はそれができないのでhofMが必要かなと考えました。</div>
@@ -91,7 +91,7 @@ deriving instance ToFormKey a =&gt; ToFormKey (Identity a)
       <div class="event" id="message-1531964671.000174">
         <div class="content">
           <div class="summary">
-            <div class="user">junji.hashimoto</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1531964671.000174">2018-07-19 10:44:31 +0900</a></div>
           </div>
           <div class="description">定義によりますよね<br/><pre>
@@ -109,7 +109,7 @@ hof' :: IO ()
       <div class="event" id="message-1531964744.000184">
         <div class="content">
           <div class="summary">
-            <div class="user">a_kirisaki</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1531964744.000184">2018-07-19 10:45:44 +0900</a></div>
           </div>
           <div class="description">なるほど、そういう仕組みだったのですね。ありがとうございます</div>
@@ -127,7 +127,7 @@ hof' :: IO ()
       <div class="event" id="message-1531977732.000098">
         <div class="content">
           <div class="summary">
-            <div class="user">cosmiafu</div>
+            <div class="user">Cosmia</div>
             <div class="date"><a class="date" href="#message-1531977732.000098">2018-07-19 14:22:12 +0900</a></div>
           </div>
           <div class="description">どういう関数かかわかないけど、hof をそのまま使ってはダメ？</div>
@@ -136,7 +136,7 @@ hof' :: IO ()
       <div class="event" id="message-1531978053.000095">
         <div class="content">
           <div class="summary">
-            <div class="user">cosmiafu</div>
+            <div class="user">Cosmia</div>
             <div class="date"><a class="date" href="#message-1531978053.000095">2018-07-19 14:27:33 +0900</a></div>
           </div>
           <div class="description">そして、仮にhofとhofMが挙動が違ったとしても、Applicativeで十分だと思う</div>
@@ -145,7 +145,7 @@ hof' :: IO ()
       <div class="event" id="message-1531991424.000022">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1531991424.000022">2018-07-19 18:10:24 +0900</a></div>
           </div>
           <div class="description">みなさんありがとうございます。もともとのhofはこんな感じでした。<br/><br/><pre>
@@ -162,10 +162,10 @@ hof init f =
       <div class="event" id="message-1532012810.000032">
         <div class="content">
           <div class="summary">
-            <div class="user">pan.live</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1532012810.000032">2018-07-20 00:06:50 +0900</a></div>
           </div>
-          <div class="description">@pan.live has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1532044028.000158">
@@ -174,16 +174,16 @@ hof init f =
             <div class="user">nobsun</div>
             <div class="date"><a class="date" href="#message-1532044028.000158">2018-07-20 08:47:08 +0900</a></div>
           </div>
-          <div class="description">あれ？そうか． hofM の引数 m a じゃないんだ．それなら @cosmiafu さんがおっしゃっているとおり hof そのままでいいと思います．</div>
+          <div class="description">あれ？そうか． hofM の引数 m a じゃないんだ．それなら @Cosmia さんがおっしゃっているとおり hof そのままでいいと思います．</div>
         </div>
       </div>
       <div class="event" id="message-1532508879.000070">
         <div class="content">
           <div class="summary">
-            <div class="user">takahiro.steadtler</div>
+            <div class="user">ueharaTakahiro</div>
             <div class="date"><a class="date" href="#message-1532508879.000070">2018-07-25 17:54:39 +0900</a></div>
           </div>
-          <div class="description">@takahiro.steadtler has joined the channel</div>
+          <div class="description">@ueharaTakahiro has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1532656407.000100">
@@ -241,7 +241,7 @@ test.hs:20:25: error:
       <div class="event" id="message-1532657781.000095">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1532657781.000095">2018-07-27 11:16:21 +0900</a></div>
           </div>
           <div class="description">いちよ，予想として書いておきます(合ってるかは分からないので，もうちょっとextensibleを使ってる人の意見があったらそっちを信用してもらいたいのですが)<br/>extensibleのキーとなるAssociateクラスやMemberクラスは，closed type familyとambiguousなcontextを使って，実現されています．つまり，今回の場合 <code>e</code> のどの位置に “pageId” があるかをtype familyで調べ，その位置をambiguousに型レベルの情報としてキャプチャし，それを用いてMembershipという情報を作ります．</div>
@@ -250,7 +250,7 @@ test.hs:20:25: error:
       <div class="event" id="message-1532657905.000102">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1532657905.000102">2018-07-27 11:18:25 +0900</a></div>
           </div>
           <div class="description">しかし，この方法は(Overlappingを使う手法も同じ問題があるのですが)，多相型(多相レコード)と非常に相性が悪いです(なぜなら多相型のままでは型レベルの位置情報を具体的に取り出せないため，GHCの型システム上では一意に決定できないからです)</div>
@@ -259,7 +259,7 @@ test.hs:20:25: error:
       <div class="event" id="message-1532658181.000030">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1532658181.000030">2018-07-27 11:23:01 +0900</a></div>
           </div>
           <div class="description">なので，今回の場合Associate制約によってキャプチャされることが保証された位置情報と， <code>(^. #pageId)</code> (IsLabelの制約)で必要な位置情報が同じであることがGHCには分からず( <code>e</code> が多相であるため，位置情報を一意に決定できないため)，IsLabelの制約の方が位置情報が分からない（ <code>n0</code> は位置情報をGHCが一時的にmono化した変数で，この変数はAssociateの情報からキャプチャできるのですが，そのような推論をGHCからできないので怒られている)<br/>というのが原因だと思います</div>
@@ -268,7 +268,7 @@ test.hs:20:25: error:
       <div class="event" id="message-1532658301.000141">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1532658301.000141">2018-07-27 11:25:01 +0900</a></div>
           </div>
           <div class="description">解決策は，明示的に <code>Membership</code> 情報をAssociate制約から取ってきて( <code>association</code> メソッドを呼び出して)それを明示的に使用するか，Associate制約を使ったユーティリティを使用することだと思います(が，extensibleそんなに使ったことがないので，他に解決策があるかもしれません)</div>
@@ -305,7 +305,7 @@ hoge e = do
       <div class="event" id="message-1532659756.000127">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1532659756.000127">2018-07-27 11:49:16 +0900</a></div>
           </div>
           <div class="description">MonoLocalBindsを有効にするとできましたね．以下が通りました．ちょっとGHCのインスタンス解決の仕方の理解が間違ってたかもしれないです…こういう場合できるんですね…<br/><br/><pre>
@@ -331,7 +331,7 @@ hoge e = do
       <div class="event" id="message-1532751333.000029">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1532751333.000029">2018-07-28 13:15:33 +0900</a></div>
           </div>
           <div class="description">いつもお世話になります。並列処理時の設計について質問です。<br/><br/>実行時に決定されるリスト xs と、そのリストの要素を引数とするIOアクション  f::x-&gt;IO()  があり、 mapConcurrently_  で並列化しました。<br/><br/>ここで、f が他のリストの要素に影響与えないように縛る(？)にはどうしたら良いでしょうか？  f の中ではxをキーとして複数の外部資源にアクセスしますが、例えば f のどこかで x+1 を使うというようなことを避けたい。これが守られない場合、並列で動かした時、デッドロックや外部資源上のデータの破損などが発生します。<br/><br/>fは規模が大きくなって、複数の開発者が携わる可能性があります。「コードレビュー時に気をつける」という以上に、完璧でなくてもいいのですが、何らかの仕組みを考えたいです。<br/><br/>以下、なけなしのhaskellの知識で考えた対策案ですが、よりhaskellらしい方法もあろうかと思います。よろしくお願いします。<br/><br/>案１）f 内で使われる外部資源にアクセスする関数（例えば g::x-&gt;y-&gt;IO(),   y は更新したい内容）について、予めxを部分適用した g’  を、f に渡して、f内では直接 xに触らないようにする。この場合、fが大きくなると、部分適用した関数をあちこち取り回さないといけないので、ちょっと面倒な感じもします。<br/><br/>案２）Readerモナドにxを入れて、外部資源にアクセスする関数は x をモナド経由で取り出す。Readerモナドは、ネストした関数に適用するときはlocalで上書きできてしまうので、localのないReaderモナドのようなものがあればいいのかもしれませんが、いまのところ探せていません。</div>
@@ -367,7 +367,7 @@ hoge e = do
       <div class="event" id="message-1532962519.000125">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1532962519.000125">2018-07-30 23:55:19 +0900</a></div>
           </div>
           <div class="description">@hexirp Operationalモナドのチュートリアル読み始めました。プログラム内のIOアクションの抽象化という切り口ですね。これは面白そうです。</div>
@@ -376,7 +376,7 @@ hoge e = do
       <div class="event" id="message-1532962967.000325">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1532962967.000325">2018-07-31 00:02:47 +0900</a></div>
           </div>
           <div class="description">@nobsun 「他のリストの要素を引数とするIOアクションに影響を与えない」と書くべきでした。<br/><br/>極端な例ですと、<br/><pre>
@@ -410,7 +410,7 @@ f x = writeFile (show (x+1)) =&lt;&lt; readFile (show x)
       <div class="event" id="message-1532994896.000201">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1532994896.000201">2018-07-31 08:54:56 +0900</a></div>
           </div>
           <div class="description">はい、そんな感じです。x を取り回しているので、如何様にも変えることができてしまいます。</div>
@@ -428,7 +428,7 @@ f x = writeFile (show (x+1)) =&lt;&lt; readFile (show x)
       <div class="event" id="message-1533350098.000028">
         <div class="content">
           <div class="summary">
-            <div class="user">cosmiafu</div>
+            <div class="user">Cosmia</div>
             <div class="date"><a class="date" href="#message-1533350098.000028">2018-08-04 11:34:58 +0900</a></div>
           </div>
           <div class="description"><code>ForeignObj#</code> はいったい何だろう、ググっても、GHCのgitを全部検索しても見つからない <a href='https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/ffi-chap.html#unboxed-types'>https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/ffi-chap.html#unboxed-types</a></div>
@@ -446,16 +446,16 @@ f x = writeFile (show (x+1)) =&lt;&lt; readFile (show x)
       <div class="event" id="message-1533435185.000026">
         <div class="content">
           <div class="summary">
-            <div class="user">shogo.otake</div>
+            <div class="user">otake84</div>
             <div class="date"><a class="date" href="#message-1533435185.000026">2018-08-05 11:13:05 +0900</a></div>
           </div>
-          <div class="description">@shogo.otake has joined the channel</div>
+          <div class="description">@otake84 has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1533436366.000046">
         <div class="content">
           <div class="summary">
-            <div class="user">shogo.otake</div>
+            <div class="user">otake84</div>
             <div class="date"><a class="date" href="#message-1533436366.000046">2018-08-05 11:32:46 +0900</a></div>
           </div>
           <div class="description">いくつか質問させてください。<br/><br/>1. このコードで <code>:: Int</code> を推論してもらうことはできないのでしょうか？Intを受け取るものしか定義していないのでしてくれても良さそうに感じるのですが…<br/><a href='https://repl.it/repls/EnormousStimulatingCalculator'>https://repl.it/repls/EnormousStimulatingCalculator</a><br/><br/>2. Maybeでラップしたものを返したいのですがどのように定義したら良いのでしょうか？<br/><a href='https://repl.it/repls/MassiveAssuredBootstrapping'>https://repl.it/repls/MassiveAssuredBootstrapping</a><br/><br/>3. そもそもこういうことができるクラスは標準で用意されていたりしないのでしょうか？RustのFromトレイトみたいなことがしたいのですが…<br/><br/>よろしくお願い致します。</div>
@@ -518,7 +518,7 @@ f x = writeFile (show (x+1)) =&lt;&lt; readFile (show x)
       <div class="event" id="message-1533470545.000005">
         <div class="content">
           <div class="summary">
-            <div class="user">shogo.otake</div>
+            <div class="user">otake84</div>
             <div class="date"><a class="date" href="#message-1533470545.000005">2018-08-05 21:02:25 +0900</a></div>
           </div>
           <div class="description">お返事遅れてしまいすみません！<br/>お二人ともありがとうございます！<br/>とても勉強になります！</div>
@@ -545,7 +545,7 @@ f x = writeFile (show (x+1)) =&lt;&lt; readFile (show x)
       <div class="event" id="message-1533535124.000013">
         <div class="content">
           <div class="summary">
-            <div class="user">wado</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1533535124.000013">2018-08-06 14:58:44 +0900</a></div>
           </div>
           <div class="description"><code>"languageServerHaskell.trace.server": "verbose"</code> でなんか出ます。</div>

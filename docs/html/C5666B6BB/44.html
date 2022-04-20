@@ -17,7 +17,7 @@
       <div class="event" id="message-1550662173.029100">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550662173.029100">2019-02-20 20:29:33 +0900</a></div>
           </div>
           <div class="description">実のところ、 ghc に関しては ghci を起動しちゃえばわかるじゃん、という回秘策を使っていたので、真面目に調べていなかったのです… 今回 haddock のバージョンを知りたくなってハマった、というのが正直なところです :sweat_smile:</div>
@@ -26,19 +26,19 @@
       <div class="event" id="message-1550673010.000200">
         <div class="content">
           <div class="summary">
-            <div class="user">yasuhide.takase</div>
+            <div class="user">takase</div>
             <div class="date"><a class="date" href="#message-1550673010.000200">2019-02-20 23:30:10 +0900</a></div>
           </div>
-          <div class="description">@yasuhide.takase has joined the channel</div>
+          <div class="description">@takase has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1550677025.000700">
         <div class="content">
           <div class="summary">
-            <div class="user">ponta027</div>
+            <div class="user">shibuya</div>
             <div class="date"><a class="date" href="#message-1550677025.000700">2019-02-21 00:37:05 +0900</a></div>
           </div>
-          <div class="description">@ponta027 has joined the channel</div>
+          <div class="description">@shibuya has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1550712876.001000">
@@ -80,7 +80,7 @@
       <div class="event" id="message-1550722480.006900">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1550722480.006900">2019-02-21 13:14:40 +0900</a></div>
           </div>
           <div class="description">プロセス間通信に関する質問です。２つのプロセスがお互いのHandleを相手に渡すことで通信を実現しようとしているのですが、子プロセスから親プロセスにHandleを渡す方法がわかりません。なにか方法はありますでしょうか。<br/><a href='https://gist.github.com/HirotoShioi/a0222e19c5dd2746ae04d3a2ba88c1c0'>https://gist.github.com/HirotoShioi/a0222e19c5dd2746ae04d3a2ba88c1c0</a></div>
@@ -89,7 +89,7 @@
       <div class="event" id="message-1550723225.007100">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1550723225.007100">2019-02-21 13:27:05 +0900</a></div>
           </div>
           <div class="description">あ、、わかったかも！！</div>
@@ -107,7 +107,7 @@
       <div class="event" id="message-1550724513.007600">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1550724513.007600">2019-02-21 13:48:33 +0900</a></div>
           </div>
           <div class="description">OK!</div>
@@ -125,7 +125,7 @@
       <div class="event" id="message-1550730783.008300">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1550730783.008300">2019-02-21 15:33:03 +0900</a></div>
           </div>
           <div class="description">なるほど、ありがとうございます</div>
@@ -134,7 +134,7 @@
       <div class="event" id="message-1550747460.008600">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550747460.008600">2019-02-21 20:11:00 +0900</a></div>
           </div>
           <div class="description">fork 「後」につくった場合は notogawa さんのおっしゃるとおりですが、 fork 「前」に作った fd の番号は fork 後に特に何もしなければ「同じ番号で両方のプロセスが同じリソースをつかんでいる」状態になります。なので、 pipe システムコールで作った二つの fd は「write 側でかいたものが read 側でよめる」という状態になります。ただしこれは「片方向パイプ」の役割しか果たさないので、通常は「書きたい側のプロセスは fork 後に read 側だけ閉じて write 側だけ残し、読みたい側のプロセスは fork 後に write 側だけ閉じて read 側だけ残す」ということをやると思います。</div>
@@ -143,7 +143,7 @@
       <div class="event" id="message-1550747532.008900">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550747532.008900">2019-02-21 20:12:12 +0900</a></div>
           </div>
           <div class="description">双方向に通信したい場合（どちらのプロセスからも書いたら相手側で読めるようにしたい）のなら、 fork 前に二つ pipe を作る（つまり全部で4つ fd を確保する）か、 socketpair システムコールを使うことになると思います</div>
@@ -152,7 +152,7 @@
       <div class="event" id="message-1550747543.009100">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550747543.009100">2019-02-21 20:12:23 +0900</a></div>
           </div>
           <div class="description">Haskell で socketpair が使えるのかは知りません^^;</div>
@@ -170,7 +170,7 @@
       <div class="event" id="message-1550747683.009500">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550747683.009500">2019-02-21 20:14:43 +0900</a></div>
           </div>
           <div class="description">今回のソースをざっと見た感じでは単に双方向通信をしたいだけに見えるので、デスクリプタパッシングとか出してこなくても…という気がしたのです^^;</div>
@@ -179,7 +179,7 @@
       <div class="event" id="message-1550747793.009700">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550747793.009700">2019-02-21 20:16:33 +0900</a></div>
           </div>
           <div class="description">(デスクリプタパッシング、存在は知ってるけど一度も使ったことないし^^;)</div>
@@ -188,7 +188,7 @@
       <div class="event" id="message-1550748168.011600">
         <div class="content">
           <div class="summary">
-            <div class="user">yethan.goes.asna</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550748168.011600">2019-02-21 20:22:48 +0900</a></div>
           </div>
           <div class="description">先日の数独のコード、修正してみました。諸々の細かい修正に加えて、効率化を図って <code>Tree</code> とは別のやり方を試してみました。また、おかしな所があればご指摘いただけると嬉しいです。<br/><a href='https://gist.github.com/gaxiiiiiiiiiiii/b1e58813d9afea011c4466c1c18bc1ca'>https://gist.github.com/gaxiiiiiiiiiiii/b1e58813d9afea011c4466c1c18bc1ca</a></div>
@@ -197,7 +197,7 @@
       <div class="event" id="message-1550748481.011900">
         <div class="content">
           <div class="summary">
-            <div class="user">yethan.goes.asna</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550748481.011900">2019-02-21 20:28:01 +0900</a></div>
           </div>
           <div class="description">今気づきましたが、 <code>sortBy row b</code> がダブってますね。。。</div>
@@ -215,7 +215,7 @@
       <div class="event" id="message-1550750009.012300">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550750009.012300">2019-02-21 20:53:29 +0900</a></div>
           </div>
           <div class="description">Data.List に<br/><code>sortOn :: Ord b =&gt; (a -&gt; b) -&gt; [a] -&gt; [a]</code><br/>がありますよ</div>
@@ -224,7 +224,7 @@
       <div class="event" id="message-1550751014.012500">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550751014.012500">2019-02-21 21:10:14 +0900</a></div>
           </div>
           <div class="description">Tree を使わなくなってすっきりしてるので、さらにすっきりさせるなら <code>loop</code> を <code>State -&gt; Maybe State</code> ではなくて <code>getStates</code> とおなじ <code>State -&gt; [State]</code> にすると、場合分けが <code>null empties = [(filled, [])]</code> か <code>otherwise = concatMap loop $ getState states</code> だけで済む（たぶん）ので簡単になりそうです</div>
@@ -233,7 +233,7 @@
       <div class="event" id="message-1550751066.012700">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550751066.012700">2019-02-21 21:11:06 +0900</a></div>
           </div>
           <div class="description">あんまり詳しく見てないので細かいことですが，<br/><pre>
@@ -247,7 +247,7 @@ empties = filter ((== 0) . num) board
       <div class="event" id="message-1550751180.013100">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550751180.013100">2019-02-21 21:13:00 +0900</a></div>
           </div>
           <div class="description">Valid hole fits のサンプルです．長かったのでファイルにしました</div>
@@ -256,7 +256,7 @@ empties = filter ((== 0) . num) board
       <div class="event" id="message-1550751351.013600">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550751351.013600">2019-02-21 21:15:51 +0900</a></div>
           </div>
           <div class="description">それから，個人的な好みでもありますが，<br/><pre>
@@ -269,7 +269,7 @@ classify = (`div` 3)
       <div class="event" id="message-1550751514.013900">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550751514.013900">2019-02-21 21:18:34 +0900</a></div>
           </div>
           <div class="description">あ、あとパターンマッチで使わない変数に名前がついているのが気になりました（getCandidates の e:es の es とか）。<br/>使わないところはアンダースコアにしたほうがいいと思います</div>
@@ -278,7 +278,7 @@ classify = (`div` 3)
       <div class="event" id="message-1550751580.014100">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550751580.014100">2019-02-21 21:19:40 +0900</a></div>
           </div>
           <div class="description"><code>null empties = [state]</code> としてしまえば filled のほうの名前も要らなくなりそうですね</div>
@@ -287,7 +287,7 @@ classify = (`div` 3)
       <div class="event" id="message-1550751831.014400">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550751831.014400">2019-02-21 21:23:51 +0900</a></div>
           </div>
           <div class="description">というか loop の定義をわけて <code>loop state@(_,[]) = [state]</code> と <code>loop state = concatMap loop $ getStates state</code> にしたほうがすっきりするかも</div>
@@ -296,7 +296,7 @@ classify = (`div` 3)
       <div class="event" id="message-1550757147.014800">
         <div class="content">
           <div class="summary">
-            <div class="user">yethan.goes.asna</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550757147.014800">2019-02-21 22:52:27 +0900</a></div>
           </div>
           <div class="description">おお！見違えるほどスッキリに！変に小難しく考えていたようでお恥ずかしい限り、、<br/><br/>ありがとうございます！</div>
@@ -305,10 +305,10 @@ classify = (`div` 3)
       <div class="event" id="message-1550766660.015300">
         <div class="content">
           <div class="summary">
-            <div class="user">kafu.h1998</div>
+            <div class="user">kafu</div>
             <div class="date"><a class="date" href="#message-1550766660.015300">2019-02-22 01:31:00 +0900</a></div>
           </div>
-          <div class="description">@kafu.h1998 has joined the channel</div>
+          <div class="description">@kafu has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1550793123.017800">
@@ -323,7 +323,7 @@ classify = (`div` 3)
       <div class="event" id="message-1550798309.018100">
         <div class="content">
           <div class="summary">
-            <div class="user">wado</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550798309.018100">2019-02-22 10:18:29 +0900</a></div>
           </div>
           <div class="description">無さそうな雰囲気がありますね・・・。<br/><a href='https://github.com/haskell/cabal/issues/4661'>https://github.com/haskell/cabal/issues/4661</a><br/><a href='https://github.com/haskell/cabal/issues/3850'>https://github.com/haskell/cabal/issues/3850</a></div>
@@ -332,7 +332,7 @@ classify = (`div` 3)
       <div class="event" id="message-1550798581.018500">
         <div class="content">
           <div class="summary">
-            <div class="user">satoshi.murakumo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1550798581.018500">2019-02-22 10:23:01 +0900</a></div>
           </div>
           <div class="description">モナドの説明時に、「作用」といった場合、おっしゃる通り「「主目的である値」を返すこと以外の関数の振る舞いのこと」を指していると思います。しかし、その文脈で「特に外界との入出力やグローバル変数の変更などのこと」を「副作用」と呼び分けてはいないように思います。<br/>純粋な計算に関する文章では「「主目的である値」を返すこと」が「作用」で、モナドの作用は「副作用」に。<br/>モナドに関する文章では「「主目的である値」を返すこと以外の関数の振る舞いのこと」が作用になるように思います。<br/>用語の統一を主眼としてのお話であれば「作用」「副作用」のどちらかしか使わない、というのもありかなと思います。</div>
@@ -377,7 +377,7 @@ classify = (`div` 3)
       <div class="event" id="message-1550802024.020000">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1550802024.020000">2019-02-22 11:20:24 +0900</a></div>
           </div>
           <div class="description">なるほど、ありがとうございます。とりあえず今はこんな感じです。わざわざ親プロセスにハンドルを渡さなくても、子プロセス側でメッセージを送って、後で親プロセス側で受け取れることがわかりました。<br/><a href='https://gist.github.com/HirotoShioi/443ab877898efa5f85cabd89b62d6bfd'>https://gist.github.com/HirotoShioi/443ab877898efa5f85cabd89b62d6bfd</a><br/><br/><br/>「いや、親プロセスから送れるようにしろ」と言われる可能性も一応あるので、koyamaさん、notogawaさんがおっしゃってることに関しても調べてみます。</div>
@@ -404,7 +404,7 @@ classify = (`div` 3)
       <div class="event" id="message-1550802753.020700">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1550802753.020700">2019-02-22 11:32:33 +0900</a></div>
           </div>
           <div class="description">solveはMaybe Boardを返すようにしたほうがいいと思う。理由は２つあって、まず与えられたBoardが必ず解けるわけではないことを型で表現したほうがいい。例えば全てのマスが１だったらそれは解けないよね。そういうのにも対応していると型レベルで宣言すると印象が良い。<br/>もう１つはfromJustは（おそらく）部分関数だから使わないほうがいい。<br/><a href='http://hackage.haskell.org/package/base-4.12.0.0/docs/src/Data.Maybe.html#fromJust'>http://hackage.haskell.org/package/base-4.12.0.0/docs/src/Data.Maybe.html#fromJust</a><br/><a href='http://tanakh.jp/posts/2011-12-25-partial-function-considered-harmful.html'>http://tanakh.jp/posts/2011-12-25-partial-function-considered-harmful.html</a><br/>部分関数はその場しのぎで使うにはいいけど、最終的には取り除く必要があります。</div>
@@ -413,7 +413,7 @@ classify = (`div` 3)
       <div class="event" id="message-1550802968.020900">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1550802968.020900">2019-02-22 11:36:08 +0900</a></div>
           </div>
           <div class="description">Maybe Boardに変更するのは、do記法を使えばそんなに難しくないと思う。</div>
@@ -422,7 +422,7 @@ classify = (`div` 3)
       <div class="event" id="message-1550803767.021100">
         <div class="content">
           <div class="summary">
-            <div class="user">hiroto.shioi</div>
+            <div class="user">Hiroto</div>
             <div class="date"><a class="date" href="#message-1550803767.021100">2019-02-22 11:49:27 +0900</a></div>
           </div>
           <div class="description">あと懸念要素としてぱっと見た感じ、getStates、getCandidatesの計算量がかなり大きいから、大量の問題を解こうとすると危ないかもしれない。<br/><a href='https://gist.github.com/gaxiiiiiiiiiiii/b1e58813d9afea011c4466c1c18bc1ca#file-numberplatemaybe-hs-L84'>https://gist.github.com/gaxiiiiiiiiiiii/b1e58813d9afea011c4466c1c18bc1ca#file-numberplatemaybe-hs-L84</a><br/><a href='https://gist.github.com/gaxiiiiiiiiiiii/b1e58813d9afea011c4466c1c18bc1ca#file-numberplatemaybe-hs-L89'>https://gist.github.com/gaxiiiiiiiiiiii/b1e58813d9afea011c4466c1c18bc1ca#file-numberplatemaybe-hs-L89</a><br/>でも正直これはどうにもならないかもしれないから、その場合は気にしなくてもいい。</div>
@@ -431,7 +431,7 @@ classify = (`div` 3)
       <div class="event" id="message-1550809217.021700">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550809217.021700">2019-02-22 13:20:17 +0900</a></div>
           </div>
           <div class="description">むしろ余詰めも含めて可能な解を全て求めるという考え方でリストにした方がよいとも思うのです。（最初の一個を取り出して表示しているのは単に表示時のポリシーの問題ということで、 solve 自体の機構ではない、という考え）</div>
@@ -440,7 +440,7 @@ classify = (`div` 3)
       <div class="event" id="message-1550809336.021900">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550809336.021900">2019-02-22 13:22:16 +0900</a></div>
           </div>
           <div class="description">ちなみに高速化したいのなら、 empties のたまたま左上のやつを次の一手に選ぶのではなく、先に「すべての empties に対して candidates を求めてからその中でもっとも少ない candidate を返したマス」を次の一手に選ぶようにすると劇的に高速になると思います</div>
@@ -449,7 +449,7 @@ classify = (`div` 3)
       <div class="event" id="message-1550809424.022100">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550809424.022100">2019-02-22 13:23:44 +0900</a></div>
           </div>
           <div class="description"><a href='https://www.ipsj.or.jp/07editj/promenade/4611.pdf'>https://www.ipsj.or.jp/07editj/promenade/4611.pdf</a> この論文がそういう解法だったとおもいます</div>
@@ -458,7 +458,7 @@ classify = (`div` 3)
       <div class="event" id="message-1550809677.022300">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1550809677.022300">2019-02-22 13:27:57 +0900</a></div>
           </div>
           <div class="description">…と書いておくと執筆者ご本人 @nobsun さんからフォローがあるかしら^^;</div>

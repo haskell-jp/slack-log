@@ -15,7 +15,7 @@
       <div class="event" id="message-1640255700.059200">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1640255700.059200">2021-12-23 19:35:00 +0900</a></div>
           </div>
           <div class="description">Sum Typeに対するLensのフィールドを自動生成する方法について質問です。<br/>(多分日本語を含むのでバイナリ扱いされている)スニペットに詳細を書いてあるように、<br/><br/><pre>deriveFieldsForSumType ''HasBase ''ToyExpr</pre><br/>のように書いたら、<br/><br/><pre>instance HasBase ToyExpr Text where
@@ -30,7 +30,7 @@
       <div class="event" id="message-1640327804.059300">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1640327804.059300">2021-12-24 15:36:44 +0900</a></div>
           </div>
           <div class="description">こちら、概ね自分で書けてきた感じがします。</div>
@@ -48,7 +48,7 @@
       <div class="event" id="message-1640330406.059700">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1640330406.059700">2021-12-24 16:20:06 +0900</a></div>
           </div>
           <div class="description">前提知識が足りていないからかちゃんと物事を理解しているか自信が全く無いのですが、<br/>それは一部のツリーには共通したフィールドがあるけど、<br/>他のツリーではそうでもないという場合でも応用可能ですか?<br/><br/>業務の問題の無いコード部分許可とって持って来ればよかった気がしますが、<br/>例えば、<br/>MyStrを更に分割して、UTF-8, UTF-16, UTF-32のそれぞれの文字列型のSum Typeにします。<br/>そこでMyStrに対しては文字列に共通する、<br/>文字列の容量のlengthを共通のlensのアクセサとしてアクセスできるようにします。<br/>そしてMyExprからは一発でlengthは取れないが、<br/>MyStrまで分解したらそれ以上のパターンマッチ無しでアクセサでアクセスできるようにしたいという感じです。<br/>こういった場合でもその定石は使えるものなのでしょうか。</div>
@@ -66,7 +66,7 @@
       <div class="event" id="message-1640356347.060100">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1640356347.060100">2021-12-24 23:32:27 +0900</a></div>
           </div>
           <div class="description">単純にパターンマッチしてセットを行ったデータをセットしたのと同じで、値が更新されたデータが帰ってきます</div>
@@ -84,7 +84,7 @@
       <div class="event" id="message-1640356543.060600">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1640356543.060600">2021-12-24 23:35:43 +0900</a></div>
           </div>
           <div class="description">…あー、確かにおかしな話をしてしまいました<br/>文字列バリアントに無理に共通のデータフィールドを考えて長さぐらいしか思いついてなかったので無茶なことを言っていました</div>
@@ -93,7 +93,7 @@
       <div class="event" id="message-1640356983.060800">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1640356983.060800">2021-12-24 23:43:03 +0900</a></div>
           </div>
           <div class="description">実際、プロダクトコードでは構築時にはそれぞれデータ型を作って、Sum Typeをたくさん含むツリーを構築し終わったあとに、中間レイヤーでサクッと、この例ではbaseだけを出して文字列リストとして見るとか、基本的に読み出し専用で使うことが多いです</div>
@@ -111,7 +111,7 @@
       <div class="event" id="message-1640359706.061300">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1640359706.061300">2021-12-25 00:28:26 +0900</a></div>
           </div>
           <div class="description">やっぱり業務とちょっと違う技術的に近い例え話を行うのは困難だったことを感じています…<br/>ToyExprにHasBaseを持たないコンストラクタを追加するのではなく、Sum TypeであるToyExprの下位のToyStrが更にToyStrUtf8とかのSum Typeであるとかの想定で、ToyExprは共通するlengthフィールドを持たないけれどToyStrは共通するlengthフィールドを持つ場合部分的に統一アクセスは出来るかみたいな事を言っていました。</div>
@@ -129,7 +129,7 @@
       <div class="event" id="message-1640405964.061800">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1640405964.061800">2021-12-25 13:19:24 +0900</a></div>
           </div>
           <div class="description">はい、違います<br/>baseは全体にあるけど、lengthは一部のツリーに共通するフィールドだけど全部のツリーが持っているフィールドではない、という意図でした<br/>説明が下手で申し訳ありません<br/>lengthの不自然さについては、例を頑張って考えただけなので仮にlengthを作っただけなので単に文字列バリアントだけに共通するフィールドがあると捉えてもらえると嬉しいです</div>
@@ -147,7 +147,7 @@
       <div class="event" id="message-1640423338.062300">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1640423338.062300">2021-12-25 18:08:58 +0900</a></div>
           </div>
           <div class="description">はい、その通りです。<br/>それ自体は自分でTHを書いて概ね実現できました。<br/>ボイラープレートの一部削減は実現できました。<br/>会社の許可などが取れたらOSSとして公開したいと思っています。<br/><br/>その上でふみあきさんの最初の返信のExprFの話が私の知識不足からかよく分からなかったため、質問を続行していたという形になります。</div>
@@ -165,7 +165,7 @@
       <div class="event" id="message-1640428049.062800">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1640428049.062800">2021-12-25 19:27:29 +0900</a></div>
           </div>
           <div class="description">なるほど、ジェネリクスは正直あんまり分かってないので実装はよく分からないのですが、かなり簡潔に書けるのですね。<br/>こちらのプロダクトでは通常のフィールドアクセスにLensを使っているのでLensの関数合成が便利なことと、THのインスタンス生成では型推論の補助をせずともアクセス出来る点を考えると、どちらの方法にも利点欠点があるなあと感じました。<br/>ジェネリクス版での実装を示していただいてありがとうございます。</div>
@@ -183,7 +183,7 @@
       <div class="event" id="message-1640431272.063300">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1640431272.063300">2021-12-25 20:21:12 +0900</a></div>
           </div>
           <div class="description">はい、TypeApplicationのことを言っています。<br/>lensのインスタンス生成をする方法だとその生成時に確かに指定は必要ですが、生成した後のアクセサを利用するのに型引数は不要のため、その点で一長一短かなあと思った次第です。</div>

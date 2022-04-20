@@ -15,10 +15,10 @@
       <div class="event" id="message-1643415225.816389">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1643415225.816389">2022-01-29 09:13:45 +0900</a></div>
           </div>
-          <div class="description"><a href='#CR2TETE5R'>beginners</a> であった @mail741 さんの質問  <a href='https://haskell-jp.slack.com/archives/CR2TETE5R/p1643286256145989'>https://haskell-jp.slack.com/archives/CR2TETE5R/p1643286256145989</a> を見てて思ったのですが、Cabal (cabal-the-library, Stack とか cabal-installから呼ばれるやつ) と cabal-install (cabal-the-command-line-tool) の違いってなんでしょう。つまり、Cabalがやらなくてcabal-installがやることってなんでしょうか。もちろんCabalはコマンドラインオプションの解析はしないわけですし、Cabalのdependencyを見るに、インターネット接続が必要な、パッケージのダウンロードはやらなそうに見えるのですが…。</div>
+          <div class="description"><a href='#CR2TETE5R'>beginners</a> であった @Endo Ryunosuke / minerva さんの質問  <a href='https://haskell-jp.slack.com/archives/CR2TETE5R/p1643286256145989'>https://haskell-jp.slack.com/archives/CR2TETE5R/p1643286256145989</a> を見てて思ったのですが、Cabal (cabal-the-library, Stack とか cabal-installから呼ばれるやつ) と cabal-install (cabal-the-command-line-tool) の違いってなんでしょう。つまり、Cabalがやらなくてcabal-installがやることってなんでしょうか。もちろんCabalはコマンドラインオプションの解析はしないわけですし、Cabalのdependencyを見るに、インターネット接続が必要な、パッケージのダウンロードはやらなそうに見えるのですが…。</div>
         </div>
       </div>
       <div class="event" id="message-1643446510.260179">
@@ -33,7 +33,7 @@
       <div class="event" id="message-1643453099.692839">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1643453099.692839">2022-01-29 19:44:59 +0900</a></div>
           </div>
           <div class="description">んー… 例えばなんですが、 <code>HTTP</code> だの <code>network-uri</code> だの <code>hackage-security</code> だののパッケージは <code>cabal-install</code> のdependencyではあるんですが、 <code>Cabal</code> のdependencyではないし、 あと、 <code>cabal-install-solver</code> という「ライブラリ」が全部 <code>cabal-install</code> executableの <code>other-modules</code> になってたりするので、パッケージを選択してダウンロードするところまで全部 <code>cabal-install</code> 占有の機能で、 <code>Cabal</code> は落ちてきたパッケージ群をビルドしているだけなのでは、みたいな疑問があったんですよね。 そうなった時に <code>Cabal</code> って実際どこまでの機能を持ってるんだろうと。</div>
@@ -42,7 +42,7 @@
       <div class="event" id="message-1643453223.756579">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1643453223.756579">2022-01-29 19:47:03 +0900</a></div>
           </div>
           <div class="description">というかそもそもこういうでかいパッケージってどっから読んだらいいかわからん、というのがあってですね…。GHCとかどうやって読めば良いんだろう。</div>
@@ -69,7 +69,7 @@
       <div class="event" id="message-1643654452.434379">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1643654452.434379">2022-02-01 03:40:52 +0900</a></div>
           </div>
           <div class="description">@maoe なるほど。ビルドスクリプトにできるべきことは全部できるべき、と言うlibraryだ、みたいな話でしょうか。</div>
@@ -78,7 +78,7 @@
       <div class="event" id="message-1643654655.855979">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1643654655.855979">2022-02-01 03:44:15 +0900</a></div>
           </div>
           <div class="description">@kazu  ！ <code>network</code> 自体は (`network-uri` とは異なり) dependency ではないのでそのgrepはemptyでしたが、 <code>HTTP</code> も dependencyなのでそのモジュールを読むのは意味がありそうですね。ありがとうございます！</div>

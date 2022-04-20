@@ -15,7 +15,7 @@
       <div class="event" id="message-1639147160.009500">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1639147160.009500">2021-12-10 23:39:20 +0900</a></div>
           </div>
           <div class="description">今ちょっと気になったのですが、Haskellの型と関数の「圏」Hask って、<br/><code>f: a → b, g: b → c</code> に対して、<br/><br/><pre>f &gt;&gt;&gt; g =  f `seq` g `seq` \x -&gt; g (f x)</pre><br/>で定義すると本物の圏ですか？</div>
@@ -24,7 +24,7 @@
       <div class="event" id="message-1639407081.010600">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1639407081.010600">2021-12-13 23:51:21 +0900</a></div>
           </div>
           <div class="description"><a href='https://stackoverflow.com/questions/48485660/is-hask-even-a-category'>https://stackoverflow.com/questions/48485660/is-hask-even-a-category</a> なんかそのものずばりの話をしているように見えるページをみつけたのですが、内容はよくわかっていません^^;</div>
@@ -33,7 +33,7 @@
       <div class="event" id="message-1639407268.011000">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1639407268.011000">2021-12-13 23:54:28 +0900</a></div>
           </div>
           <div class="description">undefined と seq の組み合わせめんどくさいねという話と、「そもそもこの圏において射が等しいとはどう定義すべきか」という話が出ているように見えますね</div>
@@ -42,7 +42,7 @@
       <div class="event" id="message-1639407492.011200">
         <div class="content">
           <div class="summary">
-            <div class="user">koyama</div>
+            <div class="user">koyama41</div>
             <div class="date"><a class="date" href="#message-1639407492.011200">2021-12-13 23:58:12 +0900</a></div>
           </div>
           <div class="description">ただ、一つ疑問なのですが、この例でいうところの undef1 と undef2 は等しいのか等しくないのかという以前に、そもそもこれらは「射」なのでしょうか？　この圏では「型」を対象とするのでこの圏における射は monomorphic な関数のみだと思うのですが、 undef1 や undef2 は polymorphic なのでそもそも単一の射ではない気がするのです（あえていうなら自然変換でしょうか？）</div>
@@ -51,7 +51,7 @@
       <div class="event" id="message-1639453864.018900">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1639453864.018900">2021-12-14 12:51:04 +0900</a></div>
           </div>
           <div class="description">問題ありません、と言いそうになりましたが、正確には定義によります。a, b が型である時に、Hom(a,b) は a <code>-&gt;</code> b に instantiateできる式の全体に適切な同値関係を入れたもの、とすれば射になるし、Hom(a,b) は a <code>-&gt;</code> b に型推論される式の全体に適切な同値関係を入れたもの、とするなら射にはなりません。後者とするなら <code>undefined ::</code> a <code>-&gt;</code> b とか <code>(\x -&gt; undefined) ::</code> a <code>-&gt;</code> b を考える必要がありますね。</div>
@@ -60,7 +60,7 @@
       <div class="event" id="message-1639460074.020300">
         <div class="content">
           <div class="summary">
-            <div class="user">gettaplacetogo</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1639460074.020300">2021-12-14 14:34:34 +0900</a></div>
           </div>
           <div class="description">この同値関係をうまく入れないと結合律やら単位律が成り立たないわけですが。</div>

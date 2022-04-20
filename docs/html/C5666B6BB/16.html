@@ -17,10 +17,10 @@
       <div class="event" id="message-1520860256.000049">
         <div class="content">
           <div class="summary">
-            <div class="user">tenimusubumizuniyador</div>
+            <div class="user">tyvutt</div>
             <div class="date"><a class="date" href="#message-1520860256.000049">2018-03-12 22:10:56 +0900</a></div>
           </div>
-          <div class="description">@tenimusubumizuniyador has joined the channel</div>
+          <div class="description">@tyvutt has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1520997879.000079">
@@ -80,7 +80,7 @@
       <div class="event" id="message-1521022633.000006">
         <div class="content">
           <div class="summary">
-            <div class="user">ncaq</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1521022633.000006">2018-03-14 19:17:13 +0900</a></div>
           </div>
           <div class="description">とりあえずコンパイルが通るコードが無いと何をしたいのかわからない<br/>引数を([Bool], Int) -&gt; xにするぐらいなら[Bool] -&gt; Int -&gt; xにした方が良さそうですが<br/>そもそもこの[Bool]必要なのか疑問</div>
@@ -107,7 +107,7 @@
       <div class="event" id="message-1521245351.000002">
         <div class="content">
           <div class="summary">
-            <div class="user">brackss1</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1521245351.000002">2018-03-17 09:09:11 +0900</a></div>
           </div>
           <div class="description">Extensible Effectが保持するモナド数によらずに定数時間で処理できるのはなぜなんですか?(この記事です <a href='https://konn-san.com/prog/haskell/extensible-effects.html'>https://konn-san.com/prog/haskell/extensible-effects.html</a></div>
@@ -143,7 +143,7 @@ bar :: MonadThrow m =&gt; m a
       <div class="event" id="message-1521336466.000060">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1521336466.000060">2018-03-18 10:27:46 +0900</a></div>
           </div>
           <div class="description">まず、MonadErrorとはmtlのでしょうか？</div>
@@ -152,7 +152,7 @@ bar :: MonadThrow m =&gt; m a
       <div class="event" id="message-1521336587.000059">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1521336587.000059">2018-03-18 10:29:47 +0900</a></div>
           </div>
           <div class="description">それから、これの意図はMonadThrowのthrowMをMonadErrorのthrowErrorにするようにしたいということでしょうか？</div>
@@ -179,7 +179,7 @@ bar :: MonadThrow m =&gt; m a
       <div class="event" id="message-1521341881.000032">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1521341881.000032">2018-03-18 11:58:01 +0900</a></div>
           </div>
           <div class="description">MonadErrorはパラメータeが必要な気がするんですが、そこにはSomeExceptionを当てはめる想定ですか？</div>
@@ -197,7 +197,7 @@ bar :: MonadThrow m =&gt; m a
       <div class="event" id="message-1521350658.000036">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1521350658.000036">2018-03-18 14:24:18 +0900</a></div>
           </div>
           <div class="description">either throwM pure (bar :: Either SomeException a)<br/><br/>or<br/><br/>newtype MonadThrowWrapper m a = W (m a) deriving (Functor, Applicative, Monad)<br/>instance MonadError SomeException m =&gt; MonadThrow (MonadThrowWrapper m) where<br/>  throwM = W . throwError . toException<br/>monadThrowToError :: forall me a. MonadError SomeException me =&gt; (forall mt. MonadThrow mt =&gt; mt a) -&gt; me a<br/>monadThrowToError x = coerce (x @(MonadThrowWrapper me))<br/><br/>monadThrowToError bar</div>
@@ -206,7 +206,7 @@ bar :: MonadThrow m =&gt; m a
       <div class="event" id="message-1521350831.000003">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1521350831.000003">2018-03-18 14:27:11 +0900</a></div>
           </div>
           <div class="description">とかですかね？</div>
@@ -224,7 +224,7 @@ bar :: MonadThrow m =&gt; m a
       <div class="event" id="message-1521369295.000060">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1521369295.000060">2018-03-18 19:34:55 +0900</a></div>
           </div>
           <div class="description">なんかスマフォから打ってめっちゃ間違ってたのと書きかけだったので，いちよ修正しときました</div>
@@ -266,7 +266,7 @@ data M5' a = Just' a | Nothing1 | Nothing2 | Nothing3 | Nothing4 | Nothing5
       <div class="event" id="message-1521506318.000196">
         <div class="content">
           <div class="summary">
-            <div class="user">brackss1</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1521506318.000196">2018-03-20 09:38:38 +0900</a></div>
           </div>
           <div class="description">階層になっていないから深く潜るためのコストがいらないってことですか。open-unionはただのunionとなにか違うんですか?</div>
@@ -284,7 +284,7 @@ data M5' a = Just' a | Nothing1 | Nothing2 | Nothing3 | Nothing4 | Nothing5
       <div class="event" id="message-1521520183.000126">
         <div class="content">
           <div class="summary">
-            <div class="user">brackss1</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1521520183.000126">2018-03-20 13:29:43 +0900</a></div>
           </div>
           <div class="description">使わないところはプレースホルダーでもおいて使えるんですね。詳しい説明ありがとうございます。</div>
@@ -293,7 +293,7 @@ data M5' a = Just' a | Nothing1 | Nothing2 | Nothing3 | Nothing4 | Nothing5
       <div class="event" id="message-1521528970.000121">
         <div class="content">
           <div class="summary">
-            <div class="user">brackss1</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1521528970.000121">2018-03-20 15:56:10 +0900</a></div>
           </div>
           <div class="description">集合論･群論の本でわかりやすい本を教えてください。大学数学超初心者です。</div>
@@ -320,7 +320,7 @@ data M5' a = Just' a | Nothing1 | Nothing2 | Nothing3 | Nothing4 | Nothing5
       <div class="event" id="message-1521782215.000183">
         <div class="content">
           <div class="summary">
-            <div class="user">voqn.tyrant</div>
+            <div class="user">VoQn</div>
             <div class="date"><a class="date" href="#message-1521782215.000183">2018-03-23 14:16:55 +0900</a></div>
           </div>
           <div class="description"><code>stack hoogle -- generate base</code> ?</div>
@@ -368,7 +368,7 @@ module Sonoda.Parser
       <div class="event" id="message-1521886841.000082">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1521886841.000082">2018-03-24 19:20:41 +0900</a></div>
           </div>
           <div class="description">ついでに，other-modulesでInternalモジュールにしてそこでは全てexportし，exposed-modulesでreexportするのはダメなんですか？</div>
@@ -395,7 +395,7 @@ module Sonoda.Parser
       <div class="event" id="message-1521901368.000032">
         <div class="content">
           <div class="summary">
-            <div class="user">shunsuke.masuda</div>
+            <div class="user">smasuda</div>
             <div class="date"><a class="date" href="#message-1521901368.000032">2018-03-24 23:22:48 +0900</a></div>
           </div>
           <div class="description">こんにちは。 HaskellでMessagePackのライブラリはどれを使えばよいかご存知の方、教えていただけますか？<br/><br/>data-msgpackというライブラリが該当するかと思い調べているのですが、 timestampの読み込みで、このコードだと、 2バイト目以降を読んでいるように思うのですが、 msgpackの仕様をみると、2バイト目は“Type”なので、読むなら3バイト目以降じゃないといけない気がしてます。ちゃんとテストすればいいのですが、そもそもこのライブラリでよいのかどうか自信がなく、深入りするまえにおたずねしています。<br/><br/><a href='https://github.com/TokTok/hs-msgpack/blob/ecfa24d5e237639597797b8e826b37e92efe4fe3/src/Data/MessagePack/Get.hs#L146'>https://github.com/TokTok/hs-msgpack/blob/ecfa24d5e237639597797b8e826b37e92efe4fe3/src/Data/MessagePack/Get.hs#L146</a><br/><br/><a href='https://github.com/msgpack/msgpack/blob/master/spec.md#ext-format-family'>https://github.com/msgpack/msgpack/blob/master/spec.md#ext-format-family</a></div>
@@ -449,10 +449,10 @@ module Sonoda.Parser
       <div class="event" id="message-1522035227.000187">
         <div class="content">
           <div class="summary">
-            <div class="user">h_hosokawa</div>
+            <div class="user">tsubaki</div>
             <div class="date"><a class="date" href="#message-1522035227.000187">2018-03-26 12:33:47 +0900</a></div>
           </div>
-          <div class="description">@h_hosokawa has left the channel</div>
+          <div class="description">@tsubaki has left the channel</div>
         </div>
       </div>
       <div class="event" id="message-1522054664.000183">

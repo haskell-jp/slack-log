@@ -15,7 +15,7 @@
       <div class="event" id="message-1632241964.077600">
         <div class="content">
           <div class="summary">
-            <div class="user">jimi.woodstock1995</div>
+            <div class="user">mm1995tk</div>
             <div class="date"><a class="date" href="#message-1632241964.077600">2021-09-22 01:32:44 +0900</a></div>
           </div>
           <div class="description">はじめまして！<br/><br/>環境構築について質問です。<br/><br/>m1チップのmacbookでvscodeを使ってhaskellを学習したいのですが、vscode上でhlsがうまく動いてくれません。以下のようなエラーメッセージが出ます。<br/>• <code>Error on initialize: $HOME/.cache/ghcide: createDirectory: permission denied (Permission denied)</code><br/>• <code>Couldn't start client Haskell</code> <br/>• <code>The Haskell server crashed 5 times in the last 3 minutes. The server will not be restarted</code><br/>一つ目のエラーで 権限がないとのことなので、<br/><pre>$ chmod -R +w $HOME/.cache</pre><br/>としたのですが、依然としてエラーが出ます。<br/><br/>ちなみに今は、ghcupを使ってghc, cabal-install, hlsを入れています。（stackは入りませんでした。）<br/>vscodeの拡張機能の設定でhlsのpathは`$HOME/.ghcup/` 以下のbinを指定しています。<br/><br/>どなたかm1チップのmacとvscodeで環境構築できた方がいたら構築方法をご教示いただけないでしょうか？<br/><br/>よろしくお願いします:man-bowing:</div>
@@ -24,16 +24,16 @@
       <div class="event" id="message-1632378282.078800">
         <div class="content">
           <div class="summary">
-            <div class="user">yamada.kazuki.sg</div>
+            <div class="user">山田k</div>
             <div class="date"><a class="date" href="#message-1632378282.078800">2021-09-23 15:24:42 +0900</a></div>
           </div>
-          <div class="description">@jimi.woodstock1995 さん、はじめまして！<br/><br/>僕も最近M1 macを使って、VSCodeでhaskellを学習しているものです。<br/>@jimi.woodstock1995 さんと同様に、ghucup + VSCodeを使って環境構築しました。環境構築の途中で僕も同様のエラーに当たりました。<br/>やはり、ARMが悪さしているのかなと思い、Rosseta2を使ってx86_64で環境構築してみました。そして、再度環境構築を行ったところうまく行きました。<br/>ARMとRosseta2（x86_64）の切り替えは以下が参考になりました。<br/><a href='https://zenn.dev/_lambda314/articles/63b851221a7016'>https://zenn.dev/_lambda314/articles/63b851221a7016</a></div>
+          <div class="description">@mm1995tk さん、はじめまして！<br/><br/>僕も最近M1 macを使って、VSCodeでhaskellを学習しているものです。<br/>@mm1995tk さんと同様に、ghucup + VSCodeを使って環境構築しました。環境構築の途中で僕も同様のエラーに当たりました。<br/>やはり、ARMが悪さしているのかなと思い、Rosseta2を使ってx86_64で環境構築してみました。そして、再度環境構築を行ったところうまく行きました。<br/>ARMとRosseta2（x86_64）の切り替えは以下が参考になりました。<br/><a href='https://zenn.dev/_lambda314/articles/63b851221a7016'>https://zenn.dev/_lambda314/articles/63b851221a7016</a></div>
         </div>
       </div>
       <div class="event" id="message-1632378825.079100">
         <div class="content">
           <div class="summary">
-            <div class="user">jimi.woodstock1995</div>
+            <div class="user">mm1995tk</div>
             <div class="date"><a class="date" href="#message-1632378825.079100">2021-09-23 15:33:45 +0900</a></div>
           </div>
           <div class="description">ありがとうございます！<br/><br/>おっしゃる通り、先程ロゼッタでターミナルを起動したらhlsがうごいて補完が出るようになったのですが、stylish-haskellがvscodeから実行できない状況です。<br/>chmod 700 で実行できるようになりましたがスッキリしないので、いただいた記事を参考にやり直してみます:man-bowing:</div>
@@ -42,7 +42,7 @@
       <div class="event" id="message-1632379523.079400">
         <div class="content">
           <div class="summary">
-            <div class="user">yamada.kazuki.sg</div>
+            <div class="user">山田k</div>
             <div class="date"><a class="date" href="#message-1632379523.079400">2021-09-23 15:45:23 +0900</a></div>
           </div>
           <div class="description">とりあえず、よかったです！<br/>ちなみに、M1 (ARM)にはまだ対応していないっぽい？です<br/><br/>2021/3段階で対応していないとの記事がありますが<br/><a href='https://blog.miz-ar.info/2021/03/my-first-contribution-to-ghc/'>https://blog.miz-ar.info/2021/03/my-first-contribution-to-ghc/</a><br/><a href='https://www.haskell.org/ghc/blog/20210309-apple-m1-story.html'>https://www.haskell.org/ghc/blog/20210309-apple-m1-story.html</a><br/><br/>いまだ、対応できていない状況だと思われます。<br/><a href='https://gitlab.haskell.org/ghc/ghc/-/issues/18664'>https://gitlab.haskell.org/ghc/ghc/-/issues/18664</a></div>
@@ -51,7 +51,7 @@
       <div class="event" id="message-1632403149.084200">
         <div class="content">
           <div class="summary">
-            <div class="user">minorinoki_haskjp</div>
+            <div class="user">mod_poppo</div>
             <div class="date"><a class="date" href="#message-1632403149.084200">2021-09-23 22:19:09 +0900</a></div>
           </div>
           <div class="description">紹介いただいたブログを書いた者です。GHC本体は8.10.5でApple Siliconに対応してます（9.0系は9.0.2で対応する見込み）。周辺ツールの状況は把握しきれていません（明日確認します）。</div>
@@ -60,7 +60,7 @@
       <div class="event" id="message-1632451514.084700">
         <div class="content">
           <div class="summary">
-            <div class="user">minorinoki_haskjp</div>
+            <div class="user">mod_poppo</div>
             <div class="date"><a class="date" href="#message-1632451514.084700">2021-09-24 11:45:14 +0900</a></div>
           </div>
           <div class="description">最近のghcupではArmネイティブなGHCが入るっぽいですね。私の環境ではghcupでArmネイティブなghc/cabal/hlsを入れて（Armネイティブな）VSCodeから普通に使えてしまいました。</div>

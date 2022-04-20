@@ -15,7 +15,7 @@
       <div class="event" id="message-1626591322.147600">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1626591322.147600">2021-07-18 15:55:22 +0900</a></div>
           </div>
           <div class="description">初歩的な質問ですが、<br/>あるHaskellファイルFoo.hsで、そこからの相対パスがMydir/Bar.hsのファイルをimportしたいのですが、<br/>Bar.hsの内部のモジュール名をMydir.Barに書き換えずにBarのままImport方法はありますでしょうか？</div>
@@ -33,7 +33,7 @@
       <div class="event" id="message-1626592393.148500">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1626592393.148500">2021-07-18 16:13:13 +0900</a></div>
           </div>
           <div class="description">ありがとうございます。<br/><br/>一応、なぜこのようなことをしたいかというと、<br/>Mydir/Bar.hsは実は自動生成されたプログラムで、内部を書き換えたくないのです。かといって、手書きしたFoo.hsと同じディレクトリに置くのも紛らわしいので、Generatedディレクトリに置いておきたかったというのが本音でした。</div>
@@ -51,7 +51,7 @@
       <div class="event" id="message-1626659526.149900">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1626659526.149900">2021-07-19 10:52:06 +0900</a></div>
           </div>
           <div class="description">遅くなってすみません。<br/>できなくはないと思いますが、ちょっと面倒なのと、<br/>単にHaskell側でパスを通すだけで参照できたりしないのかなと思っただけです。</div>
@@ -60,7 +60,7 @@
       <div class="event" id="message-1626661764.150300">
         <div class="content">
           <div class="summary">
-            <div class="user">minorinoki_haskjp</div>
+            <div class="user">mod_poppo</div>
             <div class="date"><a class="date" href="#message-1626661764.150300">2021-07-19 11:29:24 +0900</a></div>
           </div>
           <div class="description">.cabalの <code>hs-source-dirs</code> （package.yamlの場合は <code>source-dirs</code>）には複数のディレクトリを指定できます。そこで <code>hs-source-dirs: src src/Mydir</code> という風に指定すれば良いです。</div>
@@ -87,7 +87,7 @@
       <div class="event" id="message-1626745133.158200">
         <div class="content">
           <div class="summary">
-            <div class="user">nekonistyle</div>
+            <div class="user">Kenta Inoue</div>
             <div class="date"><a class="date" href="#message-1626745133.158200">2021-07-20 10:38:53 +0900</a></div>
           </div>
           <div class="description">遅くなりました。<br/>ありがとうございます！<br/>package.yamlを変更する方法で試してみたのですが、src/Mydirに置いてしまうと、cabalファイルのexposed-modules欄にBarとMydir.Barの両方が登録されてしまって、Mydir.Barの方でエラーが出てしまうので、srcの外に置くようにしたらコンパイルが通りました。</div>

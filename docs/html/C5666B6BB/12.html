@@ -118,7 +118,7 @@ Copying from C:\projects\hs-tls\.stack-work\install\1e01afab\bin\tls-simpleclien
       <div class="event" id="message-1518327591.000032">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1518327591.000032">2018-02-11 14:39:51 +0900</a></div>
           </div>
           <div class="description">実行時の数値からNat種の型を作る(?)には <code>GHC.TypeLits</code> の <code>someNatVal</code> 関数などを使えばできるとおもうのですが、この時作られる型を自作の型クラスのインスタンスに限定するにはどのようにすればいいのでしょうか?:sob::sob::innocent:</div>
@@ -127,7 +127,7 @@ Copying from C:\projects\hs-tls\.stack-work\install\1e01afab\bin\tls-simpleclien
       <div class="event" id="message-1518329567.000024">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1518329567.000024">2018-02-11 15:12:47 +0900</a></div>
           </div>
           <div class="description">補足します:man-bowing::writing_hand:<br/>Z/nZ を表す型として <code>IntResidueClass</code> というデータ型と、有限体を表す型クラスとして <code>FiniteField</code> 型クラスを作りました。<br/>n が素数のときにZ/nZが有限体になることを次のようにしてプログラムにしました:writing_hand::scream_cat:<br/><br/><pre>
@@ -174,16 +174,16 @@ main = do
       <div class="event" id="message-1518332550.000008">
         <div class="content">
           <div class="summary">
-            <div class="user">mashedhotate</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1518332550.000008">2018-02-11 16:02:30 +0900</a></div>
           </div>
-          <div class="description">@mashedhotate has joined the channel</div>
+          <div class="description">@ has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1518334587.000034">
         <div class="content">
           <div class="summary">
-            <div class="user">mashedhotate</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1518334587.000034">2018-02-11 16:36:27 +0900</a></div>
           </div>
           <div class="description">KnownNat n からIntegerはいつでも変換できますが、どうしても値レベルの素数判定は使いたくないということですか？仮に型レベルの素数判定を使ったとしても、この場合結局実行時に評価することになって、性能はむしろ悪くなりそうですが</div>
@@ -192,7 +192,7 @@ main = do
       <div class="event" id="message-1518335266.000018">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1518335266.000018">2018-02-11 16:47:46 +0900</a></div>
           </div>
           <div class="description">どういう状況なのかは分かりませんが，基本的なアイデアとしては， <code>SomeNat</code> と同じようにまず <code>FiniteField</code> の制約を持つ存在型で包んであげて， <code>FiniteField</code> のリフレクションでインスタンスを導出してあげれば良いです．ただ，Haskellはこの辺があまり柔軟にはできていないので，リフレクションに多少工夫が必要です．</div>
@@ -201,7 +201,7 @@ main = do
       <div class="event" id="message-1518335452.000051">
         <div class="content">
           <div class="summary">
-            <div class="user">mashedhotate</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1518335452.000051">2018-02-11 16:50:52 +0900</a></div>
           </div>
           <div class="description">そうですね。あとはGADTで型レベルのパターンマッチをするのもあると思います。GHCの型だけで数学を表現するのは大変で、たくさんの人が挫折してますね・・</div>
@@ -210,7 +210,7 @@ main = do
       <div class="event" id="message-1518336071.000046">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1518336071.000046">2018-02-11 17:01:11 +0900</a></div>
           </div>
           <div class="description">どの道どのリフレクションを使うにしろ，何らかのユーザー保証は入ってくる(素数判定の結果がIsPrimeを満たすことを，GHCではなくユーザーが保証する． <strike>型族の実装からの実行時動作を導出することは個人的には無理だと思っていますが，できるかもしれません</strike> できそうかもです．アイデアだけ次のコメントに書いておきました．)と思いますが，リフレクションの方法としては<br/>1. <code>IsPrime</code> が1つのメソッドしか持たないなら <a href='https://www.schoolofhaskell.com/user/thoughtpolice/using-reflection'>https://www.schoolofhaskell.com/user/thoughtpolice/using-reflection</a> という方法があります．<br/>2. もう一つは， <code>Typeable</code> (<https://www.stackage.org/haddock/lts-10.5/base-4.10.1.0/Type-Reflection.html#t:Typeable>) を利用して <code>someNat</code> で持ち上げた <code>Nat</code> の型情報を持ってくる方法があります<br/>他にもいろいろありますが，代表的なのはこの辺ですかね？</div>
@@ -219,7 +219,7 @@ main = do
       <div class="event" id="message-1518339576.000019">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1518339576.000019">2018-02-11 17:59:36 +0900</a></div>
           </div>
           <div class="description">あまり頭のいいことをしようと考えなければ，結構簡単にいけそうですね．とりあえず思いついた方法を書いてみました．参考にどうぞ<br/><a href='https://gist.github.com/mizunashi-mana/30bccdd729e1a069580ac17e9d0853f2'>https://gist.github.com/mizunashi-mana/30bccdd729e1a069580ac17e9d0853f2</a><br/>後，型族からの実装の抽出は，IsPrimeBが構造的帰納法などで停止することを証明して，KnownNat n =&gt; IsPrimeB n <strike> ’True \/ IsPrimeB n </strike> ’False であることを証明すれば，後はその証明を使って型レベルの’True/’Falseを値レベルのTrue/Falseに落としてTrueかどうか判定することでできそうな気がしました．まあ，ちょっとめんどそうなので，そっちの方は試してないです</div>
@@ -246,7 +246,7 @@ main = do
       <div class="event" id="message-1518367636.000053">
         <div class="content">
           <div class="summary">
-            <div class="user">ttaakkee</div>
+            <div class="user">たけのこ</div>
             <div class="date"><a class="date" href="#message-1518367636.000053">2018-02-12 01:47:16 +0900</a></div>
           </div>
           <div class="description">おお:heart_eyes:どうもありがとうございます:pray:<br/>プログラムまで書いて頂いてものすごく参考になりそうです:man-bowing:<br/>まだ全部理解できていないのですが、わからないことがあったらまた質問するかもしれないです:sweat_drops:</div>
@@ -264,7 +264,7 @@ main = do
       <div class="event" id="message-1518501074.000102">
         <div class="content">
           <div class="summary">
-            <div class="user">cohei</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1518501074.000102">2018-02-13 14:51:14 +0900</a></div>
           </div>
           <div class="description">結構前に、 Num クラスに Eq, Show 制約は不要だからなくなったと記憶しています。 xuwei さんのブログ記事がありました: <a href='http://xuwei-k.hatenablog.com/entry/20120123/1327325922'>http://xuwei-k.hatenablog.com/entry/20120123/1327325922</a></div>
@@ -437,7 +437,7 @@ type family T4 :: S -- Error!
       <div class="event" id="message-1518586501.000069">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1518586501.000069">2018-02-14 14:35:01 +0900</a></div>
           </div>
           <div class="description">僕も全然詳しくないですが，それは一重にDataKindsの型システムではtype aliasのpromotionが許可されていないけど，TypeInTypeの型システムでは許可されているからだと思いますね．GHCの現状のTypeInTypeの実装がどういう風になっているかはあまり知らないのですが，「*のカインドを*とする」のはinfiniteなtype hierarchyを許可することのように聞こえます</div>
@@ -446,7 +446,7 @@ type family T4 :: S -- Error!
       <div class="event" id="message-1518587237.000214">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1518587237.000214">2018-02-14 14:47:17 +0900</a></div>
           </div>
           <div class="description">TypeInTypeの原論文のIntroductionがいちよ解になってる気がします．<br/><a href='http://www.seas.upenn.edu/~sweirich/papers/fckinds.pdf'>http://www.seas.upenn.edu/~sweirich/papers/fckinds.pdf</a><br/>型の同値判定を種の同値判定に昇格するのが難しいと言ってますね．おそらくですが，この辺の兼ね合いでtype aliasを含めた型の同値判定を，既存の型システムで種レベルに昇格するのが難しかったのではないでしょうか？</div>
@@ -473,7 +473,7 @@ type family T4 :: S -- Error!
       <div class="event" id="message-1518587975.000027">
         <div class="content">
           <div class="summary">
-            <div class="user">mizunashi-mana</div>
+            <div class="user"></div>
             <div class="date"><a class="date" href="#message-1518587975.000027">2018-02-14 14:59:35 +0900</a></div>
           </div>
           <div class="description">Oh…<br/><blockquote>Languages such as Coq and Agda avoid the <b>:</b> axiom because it introduces inconsistency, but that is not an issue here. The FC type language is already inconsistent in the sense that all kinds are inhabited.</blockquote>なんですね，知りませんでした… 本当に文面通り*のカインドを*にするんですね…</div>
