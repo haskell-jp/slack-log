@@ -286,5 +286,11 @@
         "type": "message",
         "ts": "1650267729.911009",
         "user": "U03BU85BK42"
+    },
+    {
+        "text": "↓のようなデータでiの型を指定せずに`show infty` みたいなことをやったとき、型のエラーとかではなく`commitAndReleaseBuffer: invalid argument (invalid character)` が出る理屈ってどなたかわかりますか？\n```data Point i where\n  Pt    :: Integral i =&gt; i -&gt; Point i\n  Infty :: Point i\n\ninfty :: Point i\ninfty = Infty\n\ninstance Show i =&gt; Show (Point i) where ...```",
+        "type": "message",
+        "ts": "1650626935.471989",
+        "user": "U01PHSV8GAH"
     }
 ]

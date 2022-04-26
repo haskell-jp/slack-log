@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #100 at 2022-04-22 20:28:55 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #100 at 2022-04-22 20:28:55 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../100.html" class="item">Back to questions #100</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1650626935.471989">
+        <div class="content">
+          <div class="summary">
+            <div class="user">yFkhr</div>
+            <div class="date"><a class="date" href="#message-1650626935.471989">2022-04-22 20:28:55 +0900</a></div>
+          </div>
+          <div class="description">↓のようなデータでiの型を指定せずに`show infty` みたいなことをやったとき、型のエラーとかではなく`commitAndReleaseBuffer: invalid argument (invalid character)` が出る理屈ってどなたかわかりますか？<br/><pre>data Point i where
+  Pt    :: Integral i =&gt; i -&gt; Point i
+  Infty :: Point i
+
+infty :: Point i
+infty = Infty
+
+instance Show i =&gt; Show (Point i) where ...</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1650629119.760469">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1650629119.760469">2022-04-22 21:05:19 +0900</a></div>
+          </div>
+          <div class="description">ターミナルと出力しようとしている文字コードの不一致が原因かもです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1650629707.230499">
+        <div class="content">
+          <div class="summary">
+            <div class="user">yFkhr</div>
+            <div class="date"><a class="date" href="#message-1650629707.230499">2022-04-22 21:15:07 +0900</a></div>
+          </div>
+          <div class="description"><code>show (infty :: Point Natural)</code> みたいに型を指定すると何事もなく表示されるんですが、show (とターミナル) の仕様と思っておけばいいんでしょうか…？もしくは表示しようとしてる文字列の出どころに依るんでしょうか？<br/>ターミナルの文字コードを合わせるとそれはそれでエラーメッセージが文字化けするのであんまやりたくないんですよね…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1650630085.501039">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1650630085.501039">2022-04-22 21:21:25 +0900</a></div>
+          </div>
+          <div class="description">ふむ 再現できるコード提示できますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1650667897.135889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1650667897.135889">2022-04-23 07:51:37 +0900</a></div>
+          </div>
+          <div class="description">原因は2段階あります。修正方法からして根本的なものは、 <code>Point i</code> の <code>i</code> が決定できないことによるものと思われます。そして、そのエラーメッセージにおける特定の文字（よくあるのは「•」）が、対象のコンソールの文字コードで使用できなくなっていることで該当のエラーが発生しています。<br/>いずれにしても、ご利用の環境や、再現手順の詳細が気になります。通常GHCはこのエラーを起こさないよう工夫されているので</div>
+        </div>
+      </div>
+      <div class="event" id="message-1650707386.773959">
+        <div class="content">
+          <div class="summary">
+            <div class="user">yFkhr</div>
+            <div class="date"><a class="date" href="#message-1650707386.773959">2022-04-23 18:49:46 +0900</a></div>
+          </div>
+          <div class="description">なんとか再現できましたが、なんだか想像以上の複合要因な気がしてきました↓<br/><br/>Point.hs<br/><pre>{-# LANGUAGE GADTs #-}
+module Shard.Point (
+  Point,
+
+  infty
+) where
+
+data Point i where
+  Point :: Integral i =&gt; i-&gt; Point i
+  Infty :: Point i
+
+instance Show i =&gt; Show (Point i) where
+  showsPrec _ Infty     = showString "Infty"
+  showsPrec _ (Point i) = shows i
+
+infty :: Integral i =&gt; Point i
+infty = Infty</pre><br/>Test.hs<br/><pre>module Main (main) where
+
+import Shard.Point
+
+import Test.Tasty
+import Test.Tasty.HUnit
+
+main :: IO ()
+main = testCase "Infty" $ show infty @=? "Infty"</pre><br/>上記ファイルを適切に配置、yamlファイルたちも用意したうえで <code>stack test</code> すると私の環境では再現しました。<br/><br/>環境はWindows 11/ghc 9.0.2/stack 2.7.5/vscodeです。<br/>chcp 65001で実行した場合は、おそらく正しいエラーが出る代わりに文字化けして<br/><pre>test\Test.hs:9:8: error:
+    窶｢ Couldn't match expected type 窶露O ()窶・with actual type 窶狼estTree窶・[0m
+    窶｢ In the expression: testCase "Infty" $ show infty @=? "Infty"
+      In an equation for 窶藁ain窶・
+          main = testCase "Infty" $ show infty @=? "Infty"
+  |
+9 | main = testCase "Infty" $ show infty @=? "Infty"
+  |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre><br/>となります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1650711099.281049">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1650711099.281049">2022-04-23 19:51:39 +0900</a></div>
+          </div>
+          <div class="description">うーん、想像以上に普通の環境ですね。個人的には、そのまま <code>chcp 65001</code> でやるのをおすすめします。同様の問題はあちこちで見つかっては直しているので、なんで今更感がありますが、真面目に直そうと思ったらstackか何かに手を入れないといけない問題なので。<br/>詳細: <a href='https://haskell.jp/blog/posts/2017/windows-gotchas.html'>https://haskell.jp/blog/posts/2017/windows-gotchas.html</a><br/>あと、やはり件の「•」が原因となっているようなので、実際のところ大抵の型エラーで発生するんじゃないかとにらんでいます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1650711991.101059">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1650711991.101059">2022-04-23 20:06:31 +0900</a></div>
+          </div>
+          <div class="description">手元に近いプロジェクトを用意して、 <code>Test.hs</code> を下記のように書き換えてみてもやはり再現しました。<br/><pre>module Main (main) where
+
+main :: IO ()
+main = putStrLn True</pre><br/>この状態だと依存関係もないので <code>stack exec ghc</code> でも十分だろう... と思って試してみましたが再現しませんでした。<br/>これはstackがクロとみて間違いなさそうです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1650712082.954969">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1650712082.954969">2022-04-23 20:08:02 +0900</a></div>
+          </div>
+          <div class="description">ちなみに、cabalでも再現しませんでしたのでいっそのことcabalに乗り換えるのも手です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1650712973.807989">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1650712973.807989">2022-04-23 20:22:53 +0900</a></div>
+          </div>
+          <div class="description">同様のissueがあったので最小の手順をコメントしておきました<br/><a href='https://github.com/commercialhaskell/stack/issues/5225#issuecomment-1107455208'>https://github.com/commercialhaskell/stack/issues/5225#issuecomment-1107455208</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../100.html" class="item">Back to questions #100</a>
+    </div>
+  </div>
+</body>
+</html>

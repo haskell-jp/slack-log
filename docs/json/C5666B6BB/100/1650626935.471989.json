@@ -1,0 +1,62 @@
+[
+    {
+        "text": "↓のようなデータでiの型を指定せずに`show infty` みたいなことをやったとき、型のエラーとかではなく`commitAndReleaseBuffer: invalid argument (invalid character)` が出る理屈ってどなたかわかりますか？\n```data Point i where\n  Pt    :: Integral i =&gt; i -&gt; Point i\n  Infty :: Point i\n\ninfty :: Point i\ninfty = Infty\n\ninstance Show i =&gt; Show (Point i) where ...```",
+        "type": "message",
+        "ts": "1650626935.471989",
+        "user": "U01PHSV8GAH"
+    },
+    {
+        "text": "ターミナルと出力しようとしている文字コードの不一致が原因かもです",
+        "type": "message",
+        "ts": "1650629119.760469",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "`show (infty :: Point Natural)` みたいに型を指定すると何事もなく表示されるんですが、show (とターミナル) の仕様と思っておけばいいんでしょうか…？もしくは表示しようとしてる文字列の出どころに依るんでしょうか？\nターミナルの文字コードを合わせるとそれはそれでエラーメッセージが文字化けするのであんまやりたくないんですよね…",
+        "type": "message",
+        "ts": "1650629707.230499",
+        "user": "U01PHSV8GAH"
+    },
+    {
+        "text": "ふむ 再現できるコード提示できますか？",
+        "type": "message",
+        "ts": "1650630085.501039",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "原因は2段階あります。修正方法からして根本的なものは、 `Point i` の `i` が決定できないことによるものと思われます。そして、そのエラーメッセージにおける特定の文字（よくあるのは「•」）が、対象のコンソールの文字コードで使用できなくなっていることで該当のエラーが発生しています。\nいずれにしても、ご利用の環境や、再現手順の詳細が気になります。通常GHCはこのエラーを起こさないよう工夫されているので",
+        "type": "message",
+        "ts": "1650667897.135889",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "なんとか再現できましたが、なんだか想像以上の複合要因な気がしてきました↓\n\nPoint.hs\n```{-# LANGUAGE GADTs #-}\nmodule Shard.Point (\n  Point,\n\n  infty\n) where\n\ndata Point i where\n  Point :: Integral i =&gt; i-&gt; Point i\n  Infty :: Point i\n\ninstance Show i =&gt; Show (Point i) where\n  showsPrec _ Infty     = showString \"Infty\"\n  showsPrec _ (Point i) = shows i\n\ninfty :: Integral i =&gt; Point i\ninfty = Infty```\nTest.hs\n```module Main (main) where\n\nimport Shard.Point\n\nimport Test.Tasty\nimport Test.Tasty.HUnit\n\nmain :: IO ()\nmain = testCase \"Infty\" $ show infty @=? \"Infty\"```\n上記ファイルを適切に配置、yamlファイルたちも用意したうえで `stack test` すると私の環境では再現しました。\n\n環境はWindows 11/ghc 9.0.2/stack 2.7.5/vscodeです。\nchcp 65001で実行した場合は、おそらく正しいエラーが出る代わりに文字化けして\n```test\\Test.hs:9:8: error:\n    窶｢ Couldn't match expected type 窶露O ()窶・with actual type 窶狼estTree窶・[0m\n    窶｢ In the expression: testCase \"Infty\" $ show infty @=? \"Infty\"\n      In an equation for 窶藁ain窶・\n          main = testCase \"Infty\" $ show infty @=? \"Infty\"\n  |\n9 | main = testCase \"Infty\" $ show infty @=? \"Infty\"\n  |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^```\nとなります。",
+        "type": "message",
+        "ts": "1650707386.773959",
+        "user": "U01PHSV8GAH"
+    },
+    {
+        "text": "うーん、想像以上に普通の環境ですね。個人的には、そのまま `chcp 65001` でやるのをおすすめします。同様の問題はあちこちで見つかっては直しているので、なんで今更感がありますが、真面目に直そうと思ったらstackか何かに手を入れないといけない問題なので。\n詳細: <https://haskell.jp/blog/posts/2017/windows-gotchas.html>\nあと、やはり件の「•」が原因となっているようなので、実際のところ大抵の型エラーで発生するんじゃないかとにらんでいます。",
+        "type": "message",
+        "ts": "1650711099.281049",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "手元に近いプロジェクトを用意して、 `Test.hs` を下記のように書き換えてみてもやはり再現しました。\n```module Main (main) where\n\nmain :: IO ()\nmain = putStrLn True```\nこの状態だと依存関係もないので `stack exec ghc` でも十分だろう... と思って試してみましたが再現しませんでした。\nこれはstackがクロとみて間違いなさそうです。",
+        "type": "message",
+        "ts": "1650711991.101059",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "ちなみに、cabalでも再現しませんでしたのでいっそのことcabalに乗り換えるのも手です。",
+        "type": "message",
+        "ts": "1650712082.954969",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "同様のissueがあったので最小の手順をコメントしておきました\n<https://github.com/commercialhaskell/stack/issues/5225#issuecomment-1107455208>",
+        "type": "message",
+        "ts": "1650712973.807989",
+        "user": "U4LGTMTMK"
+    }
+]

@@ -1,0 +1,20 @@
+[
+    {
+        "text": "<@U4KNU6N48> relational-queryはOFFSET/LIMITが生成できないようですが、これには何か背景があるのですか？(見落としているだけだったらすみません)",
+        "type": "message",
+        "ts": "1647940384.012959",
+        "user": "U4KUNQF9N"
+    },
+    {
+        "text": "返事が遅くなってすいません。\n\n\n`OFFSET n FOWS` や `FETCH FIRST n ROWS ONLY` を付加したものをさらに JOIN するような使い方を想定しているでしょうか?\n\nそうでないなら、\n\n<https://hackage.haskell.org/package/relational-query-0.12.3.0/docs/Database-Relational.html#v:relationalQuery_>\n\nの `QuerySuffix` の位置に `[OFFSET, \"3\", ROWS]` や `[FETCH, FIRST, \"5\", ROWS, ONLY]` 等渡すことで Query を生成することができます。",
+        "type": "message",
+        "ts": "1650805334.353049",
+        "user": "U4KNU6N48"
+    },
+    {
+        "text": "理解しました。ありがとうございます！",
+        "type": "message",
+        "ts": "1650875827.472729",
+        "user": "U4KUNQF9N"
+    }
+]
