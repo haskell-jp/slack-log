@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #98 at 2022-04-28 21:19:05 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #98 at 2022-04-28 21:19:05 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../98.html" class="item">Back to random #98</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1651148345.393959">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1651148345.393959">2022-04-28 21:19:05 +0900</a></div>
+          </div>
+          <div class="description">Windows ユーザーにちょっと試してみてほしいんですが <a href='https://downloads.haskell.org/~ghc/9.2.2/ghc-9.2.2-x86_64-unknown-mingw32.tar.xz'>https://downloads.haskell.org/~ghc/9.2.2/ghc-9.2.2-x86_64-unknown-mingw32.tar.xz</a> でダウンロードできる <i>bin\ghc.exe</i> で <code>ghc --version</code> がちゃんと動きますか？<br/><code>--version</code> じゃなくてもいいんですが<br/>手元だと何も表示されず終了コードが <code>-1073741515</code> なんですよね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651148648.846459">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1651148648.846459">2022-04-28 21:24:08 +0900</a></div>
+          </div>
+          <div class="description">あー 9.2.2 壊れてるっぽくて 9.2.3 で直るっぽい <a href='https://gitlab.haskell.org/ghc/ghc/-/issues/21196'>https://gitlab.haskell.org/ghc/ghc/-/issues/21196</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1651148945.989729">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1651148945.989729">2022-04-28 21:29:05 +0900</a></div>
+          </div>
+          <div class="description">-1073741515 って 0xc0000135 なので Windows が出しそうなエラーコードだなと思って調べたら、 DLL が見つからないときにでるやつみたいですね。なんか tar.xz にいれそこねたとかでしょうかね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651149011.797579">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1651149011.797579">2022-04-28 21:30:11 +0900</a></div>
+          </div>
+          <div class="description">あー</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651149024.487929">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1651149024.487929">2022-04-28 21:30:24 +0900</a></div>
+          </div>
+          <div class="description">手元で「cygwin の bash で」実行してみたら<br/><blockquote>フルパス略/ghc-9.2.2-x86_64-unknown-mingw32/bin/ghc.exe: error while loading shared libraries: ?: cannot open shared object file: No such file or directory</blockquote>と出ました</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651149254.147969">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1651149254.147969">2022-04-28 21:34:14 +0900</a></div>
+          </div>
+          <div class="description">エクスプローラからダブルクリックしたら同じダイアログが出ました</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651149326.234319">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1651149326.234319">2022-04-28 21:35:26 +0900</a></div>
+          </div>
+          <div class="description">ま、解決済みのようなので問題なし、かな^^;</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../98.html" class="item">Back to random #98</a>
+    </div>
+  </div>
+</body>
+</html>

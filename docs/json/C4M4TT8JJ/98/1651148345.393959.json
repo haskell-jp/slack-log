@@ -1,0 +1,44 @@
+[
+    {
+        "text": "Windows ユーザーにちょっと試してみてほしいんですが <https://downloads.haskell.org/~ghc/9.2.2/ghc-9.2.2-x86_64-unknown-mingw32.tar.xz> でダウンロードできる _bin\\ghc.exe_ で `ghc --version` がちゃんと動きますか？\n`--version` じゃなくてもいいんですが\n手元だと何も表示されず終了コードが `-1073741515` なんですよね",
+        "type": "message",
+        "ts": "1651148345.393959",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "あー 9.2.2 壊れてるっぽくて 9.2.3 で直るっぽい <https://gitlab.haskell.org/ghc/ghc/-/issues/21196>",
+        "type": "message",
+        "ts": "1651148648.846459",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "-1073741515 って 0xc0000135 なので Windows が出しそうなエラーコードだなと思って調べたら、 DLL が見つからないときにでるやつみたいですね。なんか tar.xz にいれそこねたとかでしょうかね",
+        "type": "message",
+        "ts": "1651148945.989729",
+        "user": "UF8SE896V"
+    },
+    {
+        "text": "あー",
+        "type": "message",
+        "ts": "1651149011.797579",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "手元で「cygwin の bash で」実行してみたら\n&gt; フルパス略/ghc-9.2.2-x86_64-unknown-mingw32/bin/ghc.exe: error while loading shared libraries: ?: cannot open shared object file: No such file or directory\nと出ました",
+        "type": "message",
+        "ts": "1651149024.487929",
+        "user": "UF8SE896V"
+    },
+    {
+        "text": "エクスプローラからダブルクリックしたら同じダイアログが出ました",
+        "type": "message",
+        "ts": "1651149254.147969",
+        "user": "UF8SE896V"
+    },
+    {
+        "text": "ま、解決済みのようなので問題なし、かな^^;",
+        "type": "message",
+        "ts": "1651149326.234319",
+        "user": "UF8SE896V"
+    }
+]
