@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #100 at 2022-05-01 14:42:24 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #100 at 2022-05-01 14:42:24 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../100.html" class="item">Back to questions #100</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1651383744.948649">
+        <div class="content">
+          <div class="summary">
+            <div class="user">taka2</div>
+            <div class="date"><a class="date" href="#message-1651383744.948649">2022-05-01 14:42:24 +0900</a></div>
+          </div>
+          <div class="description">vimでhaskellを書いている方はいらっしゃいますか？もしいらっしゃれば設定等を教えていただきたいです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651386774.167119">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1651386774.167119">2022-05-01 15:32:54 +0900</a></div>
+          </div>
+          <div class="description">vimじゃなくてNeovimで、ですが、私は*<https://github.com/neovim/nvim-lspconfig|nvim-lspconfig>* を使っています。こちらNeovim専用なのであまり参考にはならないかも知れませんが一応。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651386867.750319">
+        <div class="content">
+          <div class="summary">
+            <div class="user">taka2</div>
+            <div class="date"><a class="date" href="#message-1651386867.750319">2022-05-01 15:34:27 +0900</a></div>
+          </div>
+          <div class="description">neovimでcocを使っています</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651387315.116199">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1651387315.116199">2022-05-01 15:41:55 +0900</a></div>
+          </div>
+          <div class="description">あ、あと、vim2hsというプラグインをこんな設定で使っています :point_down:<br/><pre>  call dein#add('goolord/vim2hs')
+  let g:haskell_conceal = 0
+  let g:haskell_json = 0 " Prevent "&lt;|&gt; foo &lt;|&gt;" from concealed</pre><br/>（プラグインマネージャーとしてdein.vimを使っています）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651388108.933439">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1651388108.933439">2022-05-01 15:55:08 +0900</a></div>
+          </div>
+          <div class="description">興が乗ったので共有すると、こんな関数を書いて良く使っています:<br/><pre>function! &lt;SID&gt;GoToHaskellImports() abort
+  silent normal gg
+  silent call search('^import\&gt;')
+  call histdel('/', -1)
+  let @/ = histget("/", -1)
+endfunction</pre><br/>最初の <code>import</code> 文までジャンプします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651388238.773749">
+        <div class="content">
+          <div class="summary">
+            <div class="user">taka2</div>
+            <div class="date"><a class="date" href="#message-1651388238.773749">2022-05-01 15:57:18 +0900</a></div>
+          </div>
+          <div class="description">vscodeだとコメントをeval出来たり型推論が薄い字で出てきたりする機能がありますが、vimでこれを実現出来ますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651388539.483219">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1651388539.483219">2022-05-01 16:02:19 +0900</a></div>
+          </div>
+          <div class="description">VS Codeを使ってないので詳細知りませんが、NeovimのLSPなら<br/><pre>  nnoremap &lt;buffer&gt; &lt;silent&gt; K     &lt;cmd&gt;lua vim.lsp.buf.hover()&lt;CR&gt;</pre><br/>と設定して <code>K</code> で型推論の結果を表示できるみたいですね。<br/>（全然使いこなせてねぇ... :cold_sweat: ）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651396985.571669">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1651396985.571669">2022-05-01 18:23:05 +0900</a></div>
+          </div>
+          <div class="description">HLSはLSPの仕様にはないVSCode特有の機能は使わない（LSPの範囲内で機能を提供する）という方針なので、あとはクライアント側（VSCode / emacs / vim）がLSPをどうやってどの範囲までサポートしているか、ということが問題になってきますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651397083.857859">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1651397083.857859">2022-05-01 18:24:43 +0900</a></div>
+          </div>
+          <div class="description">VSCodeで eval や import まわりなどの薄字で出てくるアクションは LSP では Code Lens と呼ばれる機能なので、使っているクライアントで code lens をどう使うのかを調べればよさそうです </div>
+        </div>
+      </div>
+      <div class="event" id="message-1651397309.169359">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1651397309.169359">2022-05-01 18:28:29 +0900</a></div>
+          </div>
+          <div class="description">codelens の踏み込んだ設定方法等は書いてないみたいですが、vim に限らず主要なエディタでの HLSの使い方は、こちらの公式ドキュメントに書かれていたりします<br/><a href='https://haskell-language-server.readthedocs.io/en/latest/configuration.html#vim-or-neovim'>https://haskell-language-server.readthedocs.io/en/latest/configuration.html#vim-or-neovim</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1651397321.460799">
+        <div class="content">
+          <div class="summary">
+            <div class="user">taka2</div>
+            <div class="date"><a class="date" href="#message-1651397321.460799">2022-05-01 18:28:41 +0900</a></div>
+          </div>
+          <div class="description">cocより他のlspクライアントの方が良かったりしますかね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651397508.162939">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1651397508.162939">2022-05-01 18:31:48 +0900</a></div>
+          </div>
+          <div class="description">いやー、<https://twitter.com/ShougoMatsu/status/1481936129910013952> とかの話を聞くとcocが一番多機能なんじゃないかと思いますね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651397539.214269">
+        <div class="content">
+          <div class="summary">
+            <div class="user">taka2</div>
+            <div class="date"><a class="date" href="#message-1651397539.214269">2022-05-01 18:32:19 +0900</a></div>
+          </div>
+          <div class="description">じゃあやっぱり設定次第なのか....</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651397631.433849">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1651397631.433849">2022-05-01 18:33:51 +0900</a></div>
+          </div>
+          <div class="description">vim使ったことがないので何とも言えませんが、codelensの対応もしているみたいですね。灰色に表示するのにあたるのは CoCは virtual text というので実現しているっぽい？<br/><br/><br/><a href='https://github.com/neoclide/coc.nvim/blob/381b4e0ce4a8def5acdfec2f2bf5cb8557f4d8f7/doc/coc.txt#L537'>https://github.com/neoclide/coc.nvim/blob/381b4e0ce4a8def5acdfec2f2bf5cb8557f4d8f7/doc/coc.txt#L537</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1651397667.312169">
+        <div class="content">
+          <div class="summary">
+            <div class="user">taka2</div>
+            <div class="date"><a class="date" href="#message-1651397667.312169">2022-05-01 18:34:27 +0900</a></div>
+          </div>
+          <div class="description">一応使っているのはneovimです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651412377.246169">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1651412377.246169">2022-05-01 22:39:37 +0900</a></div>
+          </div>
+          <div class="description">cocでは codeLens はデフォルトでオフになっているので、`coc-settings.json` に <code>codeLens.enable = true</code> と書く必要がありますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1651413358.136779">
+        <div class="content">
+          <div class="summary">
+            <div class="user">taka2</div>
+            <div class="date"><a class="date" href="#message-1651413358.136779">2022-05-01 22:55:58 +0900</a></div>
+          </div>
+          <div class="description">解決しました</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../100.html" class="item">Back to questions #100</a>
+    </div>
+  </div>
+</body>
+</html>

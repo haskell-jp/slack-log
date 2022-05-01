@@ -1,0 +1,104 @@
+[
+    {
+        "text": "vimでhaskellを書いている方はいらっしゃいますか？もしいらっしゃれば設定等を教えていただきたいです。",
+        "type": "message",
+        "ts": "1651383744.948649",
+        "user": "UQERMQX8W"
+    },
+    {
+        "text": "vimじゃなくてNeovimで、ですが、私は*<https://github.com/neovim/nvim-lspconfig|nvim-lspconfig>* を使っています。こちらNeovim専用なのであまり参考にはならないかも知れませんが一応。",
+        "type": "message",
+        "ts": "1651386774.167119",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "neovimでcocを使っています",
+        "type": "message",
+        "ts": "1651386867.750319",
+        "user": "UQERMQX8W"
+    },
+    {
+        "text": "あ、あと、vim2hsというプラグインをこんな設定で使っています :point_down:\n```  call dein#add('goolord/vim2hs')\n  let g:haskell_conceal = 0\n  let g:haskell_json = 0 \" Prevent \"&lt;|&gt; foo &lt;|&gt;\" from concealed```\n（プラグインマネージャーとしてdein.vimを使っています）",
+        "type": "message",
+        "ts": "1651387315.116199",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "興が乗ったので共有すると、こんな関数を書いて良く使っています:\n```function! &lt;SID&gt;GoToHaskellImports() abort\n  silent normal gg\n  silent call search('^import\\&gt;')\n  call histdel('/', -1)\n  let @/ = histget(\"/\", -1)\nendfunction```\n最初の `import` 文までジャンプします。",
+        "type": "message",
+        "ts": "1651388108.933439",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "vscodeだとコメントをeval出来たり型推論が薄い字で出てきたりする機能がありますが、vimでこれを実現出来ますか？",
+        "type": "message",
+        "ts": "1651388238.773749",
+        "user": "UQERMQX8W"
+    },
+    {
+        "text": "VS Codeを使ってないので詳細知りませんが、NeovimのLSPなら\n```  nnoremap &lt;buffer&gt; &lt;silent&gt; K     &lt;cmd&gt;lua vim.lsp.buf.hover()&lt;CR&gt;```\nと設定して `K` で型推論の結果を表示できるみたいですね。\n（全然使いこなせてねぇ... :cold_sweat: ）",
+        "type": "message",
+        "ts": "1651388539.483219",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "HLSはLSPの仕様にはないVSCode特有の機能は使わない（LSPの範囲内で機能を提供する）という方針なので、あとはクライアント側（VSCode / emacs / vim）がLSPをどうやってどの範囲までサポートしているか、ということが問題になってきますね",
+        "type": "message",
+        "ts": "1651396985.571669",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "text": "VSCodeで eval や import まわりなどの薄字で出てくるアクションは LSP では Code Lens と呼ばれる機能なので、使っているクライアントで code lens をどう使うのかを調べればよさそうです ",
+        "type": "message",
+        "ts": "1651397083.857859",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "text": "codelens の踏み込んだ設定方法等は書いてないみたいですが、vim に限らず主要なエディタでの HLSの使い方は、こちらの公式ドキュメントに書かれていたりします\n<https://haskell-language-server.readthedocs.io/en/latest/configuration.html#vim-or-neovim|https://haskell-language-server.readthedocs.io/en/latest/configuration.html#vim-or-neovim>",
+        "type": "message",
+        "ts": "1651397309.169359",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "text": "cocより他のlspクライアントの方が良かったりしますかね",
+        "type": "message",
+        "ts": "1651397321.460799",
+        "user": "UQERMQX8W"
+    },
+    {
+        "text": "いやー、<https://twitter.com/ShougoMatsu/status/1481936129910013952> とかの話を聞くとcocが一番多機能なんじゃないかと思いますね。",
+        "type": "message",
+        "ts": "1651397508.162939",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "じゃあやっぱり設定次第なのか....",
+        "type": "message",
+        "ts": "1651397539.214269",
+        "user": "UQERMQX8W"
+    },
+    {
+        "text": "vim使ったことがないので何とも言えませんが、codelensの対応もしているみたいですね。灰色に表示するのにあたるのは CoCは virtual text というので実現しているっぽい？\n\n\n<https://github.com/neoclide/coc.nvim/blob/381b4e0ce4a8def5acdfec2f2bf5cb8557f4d8f7/doc/coc.txt#L537|https://github.com/neoclide/coc.nvim/blob/381b4e0ce4a8def5acdfec2f2bf5cb8557f4d8f7/doc/coc.txt#L537>",
+        "type": "message",
+        "ts": "1651397631.433849",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "text": "一応使っているのはneovimです",
+        "type": "message",
+        "ts": "1651397667.312169",
+        "user": "UQERMQX8W"
+    },
+    {
+        "text": "cocでは codeLens はデフォルトでオフになっているので、`coc-settings.json` に `codeLens.enable = true` と書く必要がありますね",
+        "type": "message",
+        "ts": "1651412377.246169",
+        "user": "ULMGVGLP3"
+    },
+    {
+        "text": "解決しました",
+        "type": "message",
+        "ts": "1651413358.136779",
+        "user": "UQERMQX8W"
+    }
+]
