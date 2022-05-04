@@ -15,7 +15,7 @@
       <div class="event" id="message-1645931207.098899">
         <div class="content">
           <div class="summary">
-            <div class="user">makoto-engineer</div>
+            <div class="user">makoto</div>
             <div class="date"><a class="date" href="#message-1645931207.098899">2022-02-27 12:06:47 +0900</a></div>
           </div>
           <div class="description"><code>stack build</code> はデフォルトでコア数に合わせて自動で並列でインストール作業してくれますが、これが原因でstack buildが失敗するとかってありえますか？何回やってもbuildが失敗しています。</div>
@@ -24,7 +24,7 @@
       <div class="event" id="message-1645931349.146029">
         <div class="content">
           <div class="summary">
-            <div class="user">makoto-engineer</div>
+            <div class="user">makoto</div>
             <div class="date"><a class="date" href="#message-1645931349.146029">2022-02-27 12:09:09 +0900</a></div>
           </div>
           <div class="description">ググって出てくる対処方法はいくつか試したのですが、うまくいかず<br/>• stack setup --reinstall<br/>• <a href='https://haskell.e-bigmoon.com/posts/2018/02-23-stack-build-failure.html'>https://haskell.e-bigmoon.com/posts/2018/02-23-stack-build-failure.html</a><br/>出ているエラーはこんな感じです<br/><pre>unix-time                   &gt; [5 of 5] Compiling Data.UnixTime
@@ -42,7 +42,7 @@ unix-time                   &gt; `gcc' failed in phase `C Compiler'. (Exit code:
       <div class="event" id="message-1645931580.441689">
         <div class="content">
           <div class="summary">
-            <div class="user">makoto-engineer</div>
+            <div class="user">makoto</div>
             <div class="date"><a class="date" href="#message-1645931580.441689">2022-02-27 12:13:00 +0900</a></div>
           </div>
           <div class="description">stack buildが失敗してもう一回buildすると続きからやってくれるみたいですが、最終的には↑の箇所で止まってしまいます。<br/><br/>gccのバージョンが原因？こちらをつかっています<br/><pre> gcc --version
@@ -65,7 +65,7 @@ InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault
       <div class="event" id="message-1645951448.958769">
         <div class="content">
           <div class="summary">
-            <div class="user">makoto-engineer</div>
+            <div class="user">makoto</div>
             <div class="date"><a class="date" href="#message-1645951448.958769">2022-02-27 17:44:08 +0900</a></div>
           </div>
           <div class="description">ありがとうございます :pray: <br/>みてみます～</div>
@@ -74,7 +74,7 @@ InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault
       <div class="event" id="message-1645972233.206339">
         <div class="content">
           <div class="summary">
-            <div class="user">makoto-engineer</div>
+            <div class="user">makoto</div>
             <div class="date"><a class="date" href="#message-1645972233.206339">2022-02-27 23:30:33 +0900</a></div>
           </div>
           <div class="description">うまくいきました！<br/><pre>Installing executable weight-recorder in /Users/makoto/work/haskell/haskell-yesod-weight-record-app/.stack-work/install/x86_64-osx/02c97572d1d6d4aadb28a9c901b240b24751427553706f10a613cd2634d5c95b/8.10.7/bin
@@ -84,7 +84,7 @@ Completed 136 action(s).</pre></div>
       <div class="event" id="message-1645972247.472929">
         <div class="content">
           <div class="summary">
-            <div class="user">makoto-engineer</div>
+            <div class="user">makoto</div>
             <div class="date"><a class="date" href="#message-1645972247.472929">2022-02-27 23:30:47 +0900</a></div>
           </div>
           <div class="description">stack buildで1日が消えてしまった…</div>
@@ -93,7 +93,7 @@ Completed 136 action(s).</pre></div>
       <div class="event" id="message-1645973005.327609">
         <div class="content">
           <div class="summary">
-            <div class="user">makoto-engineer</div>
+            <div class="user">makoto</div>
             <div class="date"><a class="date" href="#message-1645973005.327609">2022-02-27 23:43:25 +0900</a></div>
           </div>
           <div class="description">この本の10章Webアプリケーションの作成で躓いていました。<br/><code>--resolver lts=8.24</code> を指定すれば完全再現できると書いてありますが上記の通り依存するライブラリのバージョンが古くなって動かないようです。<br/><a href='https://gihyo.jp/book/2017/978-4-7741-9237-6'>https://gihyo.jp/book/2017/978-4-7741-9237-6</a><br/><br/>直し方を一応残しておきます。だれか見るかもしれないので。<br/><a href='https://github.com/makoto-engineer/haskell-yesod-weight-record-app/issues/1'>https://github.com/makoto-engineer/haskell-yesod-weight-record-app/issues/1</a><br/><br/>@notogawa さんありがとうございます:pray:</div>
