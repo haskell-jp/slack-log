@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #98 at 2022-05-12 14:18:36 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #98 at 2022-05-12 14:18:36 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../98.html" class="item">Back to random #98</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1652332716.589039">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1652332716.589039">2022-05-12 14:18:36 +0900</a></div>
+          </div>
+          <div class="description">VS Code の Haskell 拡張が HLS の管理をしてくれなくなったので ghcman にも HLS 管理機能を入れたい</div>
+        </div>
+      </div>
+      <div class="event" id="message-1652332765.399179">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1652332765.399179">2022-05-12 14:19:25 +0900</a></div>
+          </div>
+          <div class="description">VSCode の Haskell extension のバージョンを上げて、手許に ghcup を入れて設定しなおせば、ツールチェインも含めて管理してくれるようになりますが、これではだめですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1652333076.702729">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1652333076.702729">2022-05-12 14:24:36 +0900</a></div>
+          </div>
+          <div class="description">HLS の自動インストールには、GHC のバージョンとOS, arch の組合せ（そのハッシュ）を適切に管理する必要があったり、GHC 9.0.2 のようなイレギュラーな場合ビルドリビジョンに起因する ABI の違いなども吸収する必要があって（ここはまだ対応できてないですが）、結構デリケートなところがあるので、GHCup と HLS のチームは連携して作業を進めていたりします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1652333719.421829">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1652333719.421829">2022-05-12 14:35:19 +0900</a></div>
+          </div>
+          <div class="description">VS Code 拡張くんは ghc-os-arch からどの HLS を使うかを ghcup 使って解決してるってことですかね<br/>ふーむ</div>
+        </div>
+      </div>
+      <div class="event" id="message-1652333810.585199">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1652333810.585199">2022-05-12 14:36:50 +0900</a></div>
+          </div>
+          <div class="description">どちらかというと ghcup にその辺りの判別まで任せて自動で入れるようにさせている、という形ですね。設定によっては、HLS だけでなく stack のインストールとかも ghcup 経由でしてくれるようになってます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1652333858.661209">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1652333858.661209">2022-05-12 14:37:38 +0900</a></div>
+          </div>
+          <div class="description">cabal ベースだったら GHC のインストールとかも自動でやってくれるんじゃなかったかな（初期設定でどこまでやってくれたかはちょっと覚えていないです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1652334061.500689">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1652334061.500689">2022-05-12 14:41:01 +0900</a></div>
+          </div>
+          <div class="description">動機としては、ふだん UNIX ツールチェーンを使ってない＆ghcup が Windows 非対応のころから自前管理してたという経緯で GHC がすでにマシンにあるのに ghcup 使うと別途インストールされるので、なんかやだなーという気持ちでした</div>
+        </div>
+      </div>
+      <div class="event" id="message-1652334150.860719">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1652334150.860719">2022-05-12 14:42:30 +0900</a></div>
+          </div>
+          <div class="description">なるほどー。stack とか使ってればそっちの ghc を使ってくれるので重複はないんですけど、自前管理だとちょっとつらそうですね。個人用途なら完全に決め打ちで持ってきてしまうとか、ghcup のリリース情報の YAML の情報だけ拝借して、そっからインストールするロジックは自前で書く（or ghcup から port する）とかがいいのかもしれません</div>
+        </div>
+      </div>
+      <div class="event" id="message-1652334207.728259">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1652334207.728259">2022-05-12 14:43:27 +0900</a></div>
+          </div>
+          <div class="description">ghcup の作者の Julian はかなり密に ghc / HLS のチームと連絡をとりあっている（何せ ghcup は公式推奨のインストール方法になっているので）ので、その成果物のリリース情報のハッシュ値はけっこう信頼していいと思います</div>
+        </div>
+      </div>
+      <div class="event" id="message-1652334268.737059">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1652334268.737059">2022-05-12 14:44:28 +0900</a></div>
+          </div>
+          <div class="description">ただ 9,0.2 は profile build まわりが欠けていて一部環境向けでは二回リリースが行われている都合上、ちょっとトリッキーなのでどのバイナリを使っているのかはちゃんと考慮する必要があったりしますが</div>
+        </div>
+      </div>
+      <div class="event" id="message-1652334373.025959">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1652334373.025959">2022-05-12 14:46:13 +0900</a></div>
+          </div>
+          <div class="description">ghcup の metadata 群はここにあるみたいですね <a href='https://github.com/haskell/ghcup-metadata'>https://github.com/haskell/ghcup-metadata</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1652334402.751389">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1652334402.751389">2022-05-12 14:46:42 +0900</a></div>
+          </div>
+          <div class="description">なんかポロっと書いただけなのに知見助かります</div>
+        </div>
+      </div>
+      <div class="event" id="message-1652334863.051909">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1652334863.051909">2022-05-12 14:54:23 +0900</a></div>
+          </div>
+          <div class="description">9.0.2、バッドノウハウすぎる……</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../98.html" class="item">Back to random #98</a>
+    </div>
+  </div>
+</body>
+</html>

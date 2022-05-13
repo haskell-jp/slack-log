@@ -1,0 +1,38 @@
+[
+    {
+        "text": "ghcup + cabal + VSCode で Haskell の環境構築をしたくて，推奨の手順等あれば教えて下さい．ゴールとしては，VSCode で HLS の支援を受けつつ小さなコマンドラインツールが作れて，適宜ライブラリをインポートしたりできればいいなと思っています．macOS の Catalina です．",
+        "type": "message",
+        "ts": "1652326651.979459",
+        "user": "U02NV1XHYBT"
+    },
+    {
+        "text": "状況としては，何もわからない状態でこれ <https://zenn.dev/autotaker/articles/haskell-setup-2021> を真似たらうまく行かなかったので，なにをやっているのかわかっている状態で進めたいなという感じです．",
+        "type": "message",
+        "ts": "1652326939.985419",
+        "user": "U02NV1XHYBT"
+    },
+    {
+        "text": "割と最近はghcupでなんとかなる感じになってると思いますが、どういうふうにうまく行きませんでしたか?\n自分はメインEmacs使いなのでVSCode周りはあまり詳しくないかもしれませんが…",
+        "type": "message",
+        "ts": "1652333265.858859",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "私もVS Codeを使ってないし、詳細に追ったわけではないのですが、件の記事をざっと読んだ限り特に古すぎるような情報はありませんでした。やはり具体的にどううまくいかなかったのかが気になります。",
+        "type": "message",
+        "ts": "1652333734.213369",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "一度 nuke してやり直してみます",
+        "type": "message",
+        "ts": "1652378065.742889",
+        "user": "U02NV1XHYBT"
+    },
+    {
+        "text": "結論から言うと，消してやり直したらうまくいきました．以前の症状は，VSCode で haskell extension が色々とエラーを吐いてよくわからんという感じでした．徒労に終わったんですが，今回の手順をメモってたので置いときます．\n\n• `ghcup nuke` して，関係ありそうな `~/.cabal` `~/.ghc` を消してスタート\n• ghcup の公式ガイド通り，`curl --proto '=https' --tlsv1.2 -sSf <https://get-ghcup.haskell.org> | sh`  を実行\n• GHCup 0.1.17.8, HLS 1.7.0.0, cabal 3.6.2.0, GHC 8.10.7 が入りました．stack はいらなさそうなので保留\n• `cabal update` を実行\n• 適当なディレクトリを作って，`cabal init -i` をデフォルト設定で実行\n• この時点で `cabal build` `cabal run` はちゃんと実行できてそうに見える\n• VSCode に haskell extension を入れてディレクトリを開く",
+        "type": "message",
+        "ts": "1652380778.882299",
+        "user": "U02NV1XHYBT"
+    }
+]

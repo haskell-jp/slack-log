@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #20 at 2022-05-12 12:37:31 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #20 at 2022-05-12 12:37:31 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../20.html" class="item">Back to beginners #20</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1652326651.979459">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Endo Ryunosuke / minerva</div>
+            <div class="date"><a class="date" href="#message-1652326651.979459">2022-05-12 12:37:31 +0900</a></div>
+          </div>
+          <div class="description">ghcup + cabal + VSCode で Haskell の環境構築をしたくて，推奨の手順等あれば教えて下さい．ゴールとしては，VSCode で HLS の支援を受けつつ小さなコマンドラインツールが作れて，適宜ライブラリをインポートしたりできればいいなと思っています．macOS の Catalina です．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1652326939.985419">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Endo Ryunosuke / minerva</div>
+            <div class="date"><a class="date" href="#message-1652326939.985419">2022-05-12 12:42:19 +0900</a></div>
+          </div>
+          <div class="description">状況としては，何もわからない状態でこれ <a href='https://zenn.dev/autotaker/articles/haskell-setup-2021'>https://zenn.dev/autotaker/articles/haskell-setup-2021</a> を真似たらうまく行かなかったので，なにをやっているのかわかっている状態で進めたいなという感じです．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1652333265.858859">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1652333265.858859">2022-05-12 14:27:45 +0900</a></div>
+          </div>
+          <div class="description">割と最近はghcupでなんとかなる感じになってると思いますが、どういうふうにうまく行きませんでしたか?<br/>自分はメインEmacs使いなのでVSCode周りはあまり詳しくないかもしれませんが…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1652333734.213369">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1652333734.213369">2022-05-12 14:35:34 +0900</a></div>
+          </div>
+          <div class="description">私もVS Codeを使ってないし、詳細に追ったわけではないのですが、件の記事をざっと読んだ限り特に古すぎるような情報はありませんでした。やはり具体的にどううまくいかなかったのかが気になります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1652378065.742889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Endo Ryunosuke / minerva</div>
+            <div class="date"><a class="date" href="#message-1652378065.742889">2022-05-13 02:54:25 +0900</a></div>
+          </div>
+          <div class="description">一度 nuke してやり直してみます</div>
+        </div>
+      </div>
+      <div class="event" id="message-1652380778.882299">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Endo Ryunosuke / minerva</div>
+            <div class="date"><a class="date" href="#message-1652380778.882299">2022-05-13 03:39:38 +0900</a></div>
+          </div>
+          <div class="description">結論から言うと，消してやり直したらうまくいきました．以前の症状は，VSCode で haskell extension が色々とエラーを吐いてよくわからんという感じでした．徒労に終わったんですが，今回の手順をメモってたので置いときます．<br/><br/>• <code>ghcup nuke</code> して，関係ありそうな <code>~/.cabal</code> <code>~/.ghc</code> を消してスタート<br/>• ghcup の公式ガイド通り，`curl --proto '=https' --tlsv1.2 -sSf <a href='https://get-ghcup.haskell.org'>https://get-ghcup.haskell.org</a> | sh`  を実行<br/>• GHCup 0.1.17.8, HLS 1.7.0.0, cabal 3.6.2.0, GHC 8.10.7 が入りました．stack はいらなさそうなので保留<br/>• <code>cabal update</code> を実行<br/>• 適当なディレクトリを作って，`cabal init -i` をデフォルト設定で実行<br/>• この時点で <code>cabal build</code> <code>cabal run</code> はちゃんと実行できてそうに見える<br/>• VSCode に haskell extension を入れてディレクトリを開く</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../20.html" class="item">Back to beginners #20</a>
+    </div>
+  </div>
+</body>
+</html>
