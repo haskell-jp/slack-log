@@ -66,6 +66,15 @@
           <div class="description">結論から言うと，消してやり直したらうまくいきました．以前の症状は，VSCode で haskell extension が色々とエラーを吐いてよくわからんという感じでした．徒労に終わったんですが，今回の手順をメモってたので置いときます．<br/><br/>• <code>ghcup nuke</code> して，関係ありそうな <code>~/.cabal</code> <code>~/.ghc</code> を消してスタート<br/>• ghcup の公式ガイド通り，`curl --proto '=https' --tlsv1.2 -sSf <a href='https://get-ghcup.haskell.org'>https://get-ghcup.haskell.org</a> | sh`  を実行<br/>• GHCup 0.1.17.8, HLS 1.7.0.0, cabal 3.6.2.0, GHC 8.10.7 が入りました．stack はいらなさそうなので保留<br/>• <code>cabal update</code> を実行<br/>• 適当なディレクトリを作って，`cabal init -i` をデフォルト設定で実行<br/>• この時点で <code>cabal build</code> <code>cabal run</code> はちゃんと実行できてそうに見える<br/>• VSCode に haskell extension を入れてディレクトリを開く</div>
         </div>
       </div>
+      <div class="event" id="message-1652410773.142119">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Endo Ryunosuke / minerva</div>
+            <div class="date"><a class="date" href="#message-1652410773.142119">2022-05-13 11:59:33 +0900</a></div>
+          </div>
+          <div class="description">メモ：<https://downloads.haskell.org/ghc/8.10.7/docs/html/users_guide/8.10.7-notes.html#included-libraries|ここ> にあるものたちは <code>build-depends:</code> に書けば入るっぽい</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../20.html" class="item">Back to beginners #20</a>
