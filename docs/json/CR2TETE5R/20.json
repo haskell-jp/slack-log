@@ -268,5 +268,11 @@
         "type": "message",
         "ts": "1653107260.079299",
         "user": "U03GBHTG64D"
+    },
+    {
+        "text": "extencibleに関する質問です\n\nscrapboxのプログラムを試していましたが、エラーの修正方法が見付かりませんので、御教授願います。\n\n\ntype Person = Record '[ \"personId\" :&gt; Int, \"name\" :&gt; String]\ntype Address = Record '[ \"personId\" :&gt; Int, \"address\" :&gt; String]\n\n-- Associate??\ngetPersonId :: Associate \"personId\" Int xs =&gt; Record xs -&gt; Int\ngetPersonId = view #personId\n\n\n-- エラーメッセージ\n-- [1 of 1] Compiling Main             ( src/extensible.hs, interpreted )\n--\n-- src/extensible.hs:83:16: error:\n--     Not in scope: type constructor or class ‘Associate’\n--     Perhaps you meant one of these:\n--       ‘Associated’ (imported from Data.Extensible),\n--       ‘Associated'’ (imported from Data.Extensible)\n--    |\n-- 83 | getPersonId :: Associate \"personId\" Int xs =&gt; Record xs -&gt; Int\n--    |                ^^^^^^^^^\n-- Failed, no modules loaded.\n\n\n-- 参考にしているサイト\n<https://scrapbox.io/haskell-shoen/extensible%2F%E5%88%9D%E5%BF%83%E8%80%85%E5%90%91%E3%81%91%E6%94%BB%E7%95%A5%E6%83%85%E5%A0%B1>",
+        "type": "message",
+        "ts": "1653235507.627809",
+        "user": "U01DASL8F33"
     }
 ]
