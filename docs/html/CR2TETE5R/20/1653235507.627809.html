@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #20 at 2022-05-23 01:05:07 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #20 at 2022-05-23 01:05:07 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../20.html" class="item">Back to beginners #20</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1653235507.627809">
+        <div class="content">
+          <div class="summary">
+            <div class="user">takino takayuki</div>
+            <div class="date"><a class="date" href="#message-1653235507.627809">2022-05-23 01:05:07 +0900</a></div>
+          </div>
+          <div class="description">extencibleに関する質問です<br/><br/>scrapboxのプログラムを試していましたが、エラーの修正方法が見付かりませんので、御教授願います。<br/><br/><br/>type Person = Record '[ "personId" :&gt; Int, "name" :&gt; String]<br/>type Address = Record '[ "personId" :&gt; Int, "address" :&gt; String]<br/><br/>-- Associate??<br/>getPersonId :: Associate "personId" Int xs =&gt; Record xs -&gt; Int<br/>getPersonId = view #personId<br/><br/><br/>-- エラーメッセージ<br/>-- [1 of 1] Compiling Main             ( src/extensible.hs, interpreted )<br/>--<br/>-- src/extensible.hs:83:16: error:<br/>--     Not in scope: type constructor or class ‘Associate’<br/>--     Perhaps you meant one of these:<br/>--       ‘Associated’ (imported from Data.Extensible),<br/>--       ‘Associated'’ (imported from Data.Extensible)<br/>--    |<br/>-- 83 | getPersonId :: Associate "personId" Int xs =&gt; Record xs -&gt; Int<br/>--    |                ^^^^^^^^^<br/>-- Failed, no modules loaded.<br/><br/><br/>-- 参考にしているサイト<br/><a href='https://scrapbox.io/haskell-shoen/extensible%2F%E5%88%9D%E5%BF%83%E8%80%85%E5%90%91%E3%81%91%E6%94%BB%E7%95%A5%E6%83%85%E5%A0%B1'>https://scrapbox.io/haskell-shoen/extensible%2F%E5%88%9D%E5%BF%83%E8%80%85%E5%90%91%E3%81%91%E6%94%BB%E7%95%A5%E6%83%85%E5%A0%B1</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1653273139.291919">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1653273139.291919">2022-05-23 11:32:19 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://hackage.haskell.org/package/extensible-0.8.3/changelog'>https://hackage.haskell.org/package/extensible-0.8.3/changelog</a> 曰く、バージョン0.8で <code>Associate</code> は削除されてしまったみたいで、件のページがその仕様変更に追いついていないようです。代わりに追加されたとおぼしき <code>Associated</code> のドキュメント <a href='https://hackage.haskell.org/package/extensible-0.8.3/docs/Data-Extensible-Inclusion.html#t:Associated'>https://hackage.haskell.org/package/extensible-0.8.3/docs/Data-Extensible-Inclusion.html#t:Associated</a> 曰く<br/><blockquote><code>Associated xs (k ':&gt; v)</code> is equivalent to <code>Associate k v xs</code></blockquote>なので<br/><pre>Associated xs ("personId" :&gt; Int) =&gt; Record xs -&gt; Int</pre><br/>ならいかがでしょうか？<br/>ちょっと試せてないので間違っていたらすみません :sweat_drops:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1653316370.366599">
+        <div class="content">
+          <div class="summary">
+            <div class="user">takino takayuki</div>
+            <div class="date"><a class="date" href="#message-1653316370.366599">2022-05-23 23:32:50 +0900</a></div>
+          </div>
+          <div class="description">ご回答の通りでうまくいきました。<br/>懇切丁寧なご返答で痛みいります。<br/>ありがとうございました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../20.html" class="item">Back to beginners #20</a>
+    </div>
+  </div>
+</body>
+</html>

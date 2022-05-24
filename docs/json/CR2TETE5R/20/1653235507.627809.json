@@ -1,0 +1,20 @@
+[
+    {
+        "text": "extencibleに関する質問です\n\nscrapboxのプログラムを試していましたが、エラーの修正方法が見付かりませんので、御教授願います。\n\n\ntype Person = Record '[ \"personId\" :&gt; Int, \"name\" :&gt; String]\ntype Address = Record '[ \"personId\" :&gt; Int, \"address\" :&gt; String]\n\n-- Associate??\ngetPersonId :: Associate \"personId\" Int xs =&gt; Record xs -&gt; Int\ngetPersonId = view #personId\n\n\n-- エラーメッセージ\n-- [1 of 1] Compiling Main             ( src/extensible.hs, interpreted )\n--\n-- src/extensible.hs:83:16: error:\n--     Not in scope: type constructor or class ‘Associate’\n--     Perhaps you meant one of these:\n--       ‘Associated’ (imported from Data.Extensible),\n--       ‘Associated'’ (imported from Data.Extensible)\n--    |\n-- 83 | getPersonId :: Associate \"personId\" Int xs =&gt; Record xs -&gt; Int\n--    |                ^^^^^^^^^\n-- Failed, no modules loaded.\n\n\n-- 参考にしているサイト\n<https://scrapbox.io/haskell-shoen/extensible%2F%E5%88%9D%E5%BF%83%E8%80%85%E5%90%91%E3%81%91%E6%94%BB%E7%95%A5%E6%83%85%E5%A0%B1>",
+        "type": "message",
+        "ts": "1653235507.627809",
+        "user": "U01DASL8F33"
+    },
+    {
+        "text": "<https://hackage.haskell.org/package/extensible-0.8.3/changelog> 曰く、バージョン0.8で `Associate` は削除されてしまったみたいで、件のページがその仕様変更に追いついていないようです。代わりに追加されたとおぼしき `Associated` のドキュメント <https://hackage.haskell.org/package/extensible-0.8.3/docs/Data-Extensible-Inclusion.html#t:Associated> 曰く\n&gt; `Associated xs (k ':&gt; v)` is equivalent to `Associate k v xs`\nなので\n```Associated xs (\"personId\" :&gt; Int) =&gt; Record xs -&gt; Int```\nならいかがでしょうか？\nちょっと試せてないので間違っていたらすみません :sweat_drops:",
+        "type": "message",
+        "ts": "1653273139.291919",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "ご回答の通りでうまくいきました。\n懇切丁寧なご返答で痛みいります。\nありがとうございました。",
+        "type": "message",
+        "ts": "1653316370.366599",
+        "user": "U01DASL8F33"
+    }
+]
