@@ -158,6 +158,56 @@
           <div class="description">@Kai Ma has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1653473368.183629">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1653473368.183629">2022-05-25 19:09:28 +0900</a></div>
+          </div>
+          <div class="description">VS Code + Haskell 拡張 で HLS がうまく動いてくれてなくて困ってます……<br/>社のコードなので再現コードをすぐには提示できなくて申し訳ないんですが<br/>どの辺があやしい、拡張が悪い、HLS が悪い、ghcup が悪い程度のヒントでもありがたいです<br/>エラーメッセージはこんな<br/><pre>Found "/home/kazuki/Projects/Herp/xxx/hie.yaml" for "/home/kazuki/Projects/Herp/xxx/a"
+Run entered for haskell-language-server-wrapper(haskell-language-server-wrapper) Version 1.7.0.0 x86_64 ghc-9.2.2
+Current directory: /home/kazuki/Projects/Herp/xxx
+Operating system: linux
+Arguments: ["--lsp"]
+Cradle directory: /home/kazuki/Projects/Herp/xxx
+Cradle type: Stack
+
+Tool versions found on the $PATH
+cabal:		3.6.2.0
+stack:		2.7.5
+ghc:		8.10.7
+
+
+Consulting the cradle to get project GHC version...
+Project GHC version: 8.10.7
+haskell-language-server exe candidates: ["haskell-language-server-8.10.7","haskell-language-server"]
+Launching haskell-language-server exe at:/mnt/wslg/runtime-dir/ghcup-ghc-8.10.7_cabal-3.6.2.0_hls-1.7.0.0_stack-2.7.5/haskell-language-server-8.10.7
+[0;31mGHC ABIs don't match![0m
+[0;31m[0m
+[0;31mExpected: Cabal-3.2.1.0:9aa4b9691119bc22fff33e788e96f702 array-0.5.4.0:84daffa90f3ca103cdf9f63b2e3dc42b base-4.14.3.0:87b3b0c5158079c42ae6b245bc931ed6 binary-0.8.8.0:e62e03d2b43d75f2961c02cb6b402737 bytestring-0.10.12.0:6f2aed7f354af02db1f34ddfd14594ee containers-0.6.5.1:f6a92e5d06a39627f4d849cd8046c0e7 deepseq-1.4.4.0:a521405ea2fb9cce775751ee169e6ef9 directory-1.3.6.0:0491e2b3e32242cb6c06688e9c6be0e4 exceptions-0.10.4:ce3e15c9ecb7c913c26e3d6fdf3be66e filepath-1.4.2.1:eff0de9acad3e94ecfae52309ec1d282 ghc-8.10.7:35e7e70f486b33bfa497ab256892777f ghc-boot-8.10.7:05969f5326bb9e37dc11361437706d9b ghc-boot-th-8.10.7:791b63caa8da80a80012db3b6e58055a ghc-compact-0.1.0.0:8adf73318a141525e030105b243fc1e4 ghc-heap-8.10.7:2804610a013fc492b7a5cd5f4cacc218 ghc-prim-0.6.1:0de0fc5f97fc1327fa41d908bc0fa855 ghci-8.10.7:634a2e7c4fab9b3ee3084b289675b14e haskeline-0.8.2:d7fd4f62a2c7e73f1a18d031688a46db hpc-0.6.1.0:564959df2eff2f2d904aeb5475adb4ec integer-gmp-1.0.3.0:bb2d3eb35c9ec3512ba0dc3a025970db libiserv-8.10.7:a97f6b549f5162fd72bd80f444ad4f07 mtl-2.2.2:3017f49a70971fbc4297d718565e8ee7 parsec-3.1.14.0:53a9bc89179ca1379954b82f23cb0dbc pretty-1.1.3.6:c92ac79323e26400a49f7d4a05f3177b process-1.6.13.2:d8142532fe09775f94825a7122f6cd66 rts-1.0.1: stm-2.5.0.1:38f5f695ace87ac7cc9de1da9a924ec2 template-haskell-2.16.0.0:4941fe1f7363fb0afdb0e1b147e8aca5 terminfo-0.4.1.4:1a507f657c3f50034ccb5a2a94bbb401 text-1.2.4.1:6a373ace8870d52a4e54b195189df9af time-1.9.3:3aaed41686a85275c46cf4501b593b8a transformers-0.5.6.2:b73c9cb722a768b9145a2c3d5591a225 unix-2.7.2.2:2e5d3292d05683cbaa7ef95d1a5f158c xhtml-3000.2.2.1:be8c6974cd731ef678793d3e44c7ca60[0m
+[0;31mGot:      Cabal-3.2.1.0:13893203e3eec7f4e06ed8264d53ce36 array-0.5.4.0:84daffa90f3ca103cdf9f63b2e3dc42b base-4.14.3.0:87b3b0c5158079c42ae6b245bc931ed6 binary-0.8.8.0:e62e03d2b43d75f2961c02cb6b402737 bytestring-0.10.12.0:6f2aed7f354af02db1f34ddfd14594ee containers-0.6.5.1:f6a92e5d06a39627f4d849cd8046c0e7 deepseq-1.4.4.0:a521405ea2fb9cce775751ee169e6ef9 directory-1.3.6.0:0491e2b3e32242cb6c06688e9c6be0e4 exceptions-0.10.4:ce3e15c9ecb7c913c26e3d6fdf3be66e filepath-1.4.2.1:eff0de9acad3e94ecfae52309ec1d282 ghc-8.10.7:c712124be98090e22f04e441db18d011 ghc-boot-8.10.7:05969f5326bb9e37dc11361437706d9b ghc-boot-th-8.10.7:791b63caa8da80a80012db3b6e58055a ghc-compact-0.1.0.0:8adf73318a141525e030105b243fc1e4 ghc-heap-8.10.7:2804610a013fc492b7a5cd5f4cacc218 ghc-prim-0.6.1:0de0fc5f97fc1327fa41d908bc0fa855 ghci-8.10.7:634a2e7c4fab9b3ee3084b289675b14e haskeline-0.8.2:d7fd4f62a2c7e73f1a18d031688a46db hpc-0.6.1.0:564959df2eff2f2d904aeb5475adb4ec integer-gmp-1.0.3.0:bb2d3eb35c9ec3512ba0dc3a025970db libiserv-8.10.7:a97f6b549f5162fd72bd80f444ad4f07 mtl-2.2.2:3017f49a70971fbc4297d718565e8ee7 parsec-3.1.14.0:53a9bc89179ca1379954b82f23cb0dbc pretty-1.1.3.6:c92ac79323e26400a49f7d4a05f3177b process-1.6.13.2:d8142532fe09775f94825a7122f6cd66 rts-1.0.1: stm-2.5.0.1:38f5f695ace87ac7cc9de1da9a924ec2 template-haskell-2.16.0.0:4941fe1f7363fb0afdb0e1b147e8aca5 terminfo-0.4.1.4:1a507f657c3f50034ccb5a2a94bbb401 text-1.2.4.1:6a373ace8870d52a4e54b195189df9af time-1.9.3:3aaed41686a85275c46cf4501b593b8a transformers-0.5.6.2:b73c9cb722a768b9145a2c3d5591a225 unix-2.7.2.2:2e5d3292d05683cbaa7ef95d1a5f158c xhtml-3000.2.2.1:be8c6974cd731ef678793d3e44c7ca60[0m
+[Error - 11:28:24 AM] Connection to server got closed. Server will not be restarted.</pre><br/>環境は<br/>• Windows 11 から WSL の Ubuntu にリモート接続した VS Code<br/>    ◦ Windows 11 21H2<br/>    ◦ Ubuntu 20.04.4<br/>    ◦ VS Code 1.67.2<br/>• direnv で nix を有効にしてるのが VS Code に反映されてるんだろうか<br/>    ◦ Nix 2.3.15</div>
+          <a class="link-to-replies" href="101/1653473368.183629.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1653473454.611969">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1653473454.611969">2022-05-25 19:10:54 +0900</a></div>
+          </div>
+          <div class="description"><pre>GHC ABIs don't match![0m</pre><br/>とあるので、バイナリが食い違ってそうですね。8.10.7 で起き得るのかちょっと微妙なところですが、HLS がビルドされている GHC と、WSL内で使われている GHC のバイナリが違うものになっているということだと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1653474766.629849">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U03H9PH8FRP</div>
+            <div class="date"><a class="date" href="#message-1653474766.629849">2022-05-25 19:32:46 +0900</a></div>
+          </div>
+          <div class="description">@U03H9PH8FRP has joined the channel</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C5666B6BB/100.html" class="item">Previous</a>
