@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #101 at 2022-05-30 14:56:35 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #101 at 2022-05-30 14:56:35 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../101.html" class="item">Back to questions #101</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1653890195.754989">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazup0n</div>
+            <div class="date"><a class="date" href="#message-1653890195.754989">2022-05-30 14:56:35 +0900</a></div>
+          </div>
+          <div class="description">ある型クラス(Heap)をラップする型を定義して、それ自体も型クラスのインスタンスにしたいのですが、コンパイルエラーになってしまって悩んでいます。解決策や別実装のアプローチがあればおしえていただきたいです（詳細をスレに書きます）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1653890204.508269">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazup0n</div>
+            <div class="date"><a class="date" href="#message-1653890204.508269">2022-05-30 14:56:44 +0900</a></div>
+          </div>
+          <div class="description"><pre>{-# LANGUAGE ExistentialQuantification #-}
+
+-- {-# LANGUAGE ScopedTypeVariables #-}
+-- {-# LANGUAGE GADTs #-}
+
+module Main where
+
+class Heap h where
+  insert :: (Ord a) =&gt; h a -&gt; a -&gt; h a
+  empty :: (Ord a) =&gt; h a
+  isEmpty :: h a -&gt; Bool
+  merge :: (Ord a) =&gt; h a -&gt; h a -&gt; h a
+
+-- 任意のヒープをラップして別のヒープを構成したい
+data HW a = forall h. Heap h =&gt; Node a (h a) | Empty
+
+instance Heap HW where
+  empty = Empty
+
+  isEmpty Empty = True
+  isEmpty _ = False
+
+  insert Empty a = Node a Empty
+  insert (Node x h) y = if x &gt; y then Node y (insert h x) else Node x (insert h y)
+
+  merge Empty h = h
+  merge h Empty = h
+  -- 「h1 h2の型が違う」と怒られる
+  merge (Node a1 h1) (Node a2 h2) = Node (if a1 &gt; a2 then a2 else a1) (merge h1 h2)
+
+main :: IO ()
+main = putStrLn "Hello, World!"</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1653890229.030089">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazup0n</div>
+            <div class="date"><a class="date" href="#message-1653890229.030089">2022-05-30 14:57:09 +0900</a></div>
+          </div>
+          <div class="description">エラーメッセージ<br/><pre> • Couldn't match type 'h1' with 'h'
+      Expected: h a
+        Actual: h1 a
+      'h1' is a rigid type variable bound by
+        a pattern with constructor:
+          Node :: forall a (h :: * -&gt; *). Heap h =&gt; a -&gt; h a -&gt; HW a,
+        in an equation for 'merge'
+        at app/Main.hs:29:23-32
+      'h' is a rigid type variable bound by
+        a pattern with constructor:
+          Node :: forall a (h :: * -&gt; *). Heap h =&gt; a -&gt; h a -&gt; HW a,
+        in an equation for 'merge'
+        at app/Main.hs:29:10-19
+    • In the second argument of 'merge', namely 'h2'
+      In the second argument of 'Node', namely '(merge h1 h2)'
+      In the expression: Node (if a1 &gt; a2 then a2 else a1) (merge h1 h2)
+    • Relevant bindings include
+        h2 :: h1 a (bound at app/Main.hs:29:31)
+        h1 :: h a (bound at app/Main.hs:29:18)
+   |
+29 |   merge (Node a1 h1) (Node a2 h2) = Node (if a1 &gt; a2 then a2 else a1) (merge h1 h2)
+   |                                                                                 ^^</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1653890340.320129">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazup0n</div>
+            <div class="date"><a class="date" href="#message-1653890340.320129">2022-05-30 14:59:00 +0900</a></div>
+          </div>
+          <div class="description">HW にはオリジナルのヒープの型が含まれないので、h1, h2は同じヒープをラップしているかわからないので、エラーになるのだろうなと推測しています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1653890929.318109">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1653890929.318109">2022-05-30 15:08:49 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>h1, h2は同じヒープをラップしているかわからない</blockquote>そういうことですね。HWの型にもとのヒープの型を含めるようにしてはどうですか？ <code>data HW h a = Node a (h a) | Empty</code> <code>instance Heap h =&gt; Heap (HW h)</code> という感じで。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1653892195.206469">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazup0n</div>
+            <div class="date"><a class="date" href="#message-1653892195.206469">2022-05-30 15:29:55 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。少しインスタンスの実装を修正する必要があったけどビルドできました！！<br/><br/><pre>-- 任意のヒープをラップして別のヒープを構成したい
+data HW h a = Node a (h a) | Empty
+
+instance Heap h =&gt; Heap (HW h) where
+  empty = Empty
+
+  isEmpty Empty = True
+  isEmpty _ = False
+
+  insert (Empty) x = Node x empty
+  insert (Node x h) y = if x &gt; y then Node y (insert h x) else Node x (insert h y)
+
+  merge Empty h = h
+  merge h Empty = h
+  -- 「h1 h2の型が違う」と怒られる
+  merge (Node a1 h1) (Node a2 h2) = Node (if a1 &gt; a2 then a2 else a1) (merge h1 h2)</pre></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../101.html" class="item">Back to questions #101</a>
+    </div>
+  </div>
+</body>
+</html>

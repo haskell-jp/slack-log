@@ -390,7 +390,7 @@ x :: Env IO     -- Defined at &lt;interactive&gt;:10:1
       <div class="event" id="message-1572280112.050200">
         <div class="content">
           <div class="summary">
-            <div class="user">P0ngCh4ng</div>
+            <div class="user">ぽんちゃん</div>
             <div class="date"><a class="date" href="#message-1572280112.050200">2019-10-29 01:28:32 +0900</a></div>
           </div>
           <div class="description">2重リストにmapを適用させる関数を書きたいのですが、<br/><br/><code>[[2],[2]Listed: Listed.hs:(10,1)-(11,55): Non-exhaustive patterns in function secmap</code><br/><br/>このようなエラーが出てしまいます。どなたかアドバイスいただけないでしょうか？<br/>また、haskellでは多重リストに対してはあまり関数を作らないのでしょうか？ネットにあまりそう言った記事がなかったので多重リストに対し処理を行うのであれば他のアプローチがあるのであれば教えていただけると幸いです。<br/>よろしくお願いします。<br/><br/><pre>
@@ -438,7 +438,7 @@ secmap f ((x : xs):xxs) = ((f x:map f xs):secmap f xxs)
       <div class="event" id="message-1572309325.055800">
         <div class="content">
           <div class="summary">
-            <div class="user">P0ngCh4ng</div>
+            <div class="user">ぽんちゃん</div>
             <div class="date"><a class="date" href="#message-1572309325.055800">2019-10-29 09:35:25 +0900</a></div>
           </div>
           <div class="description">おそらく再帰の最後(今回だと二つ目の[1]の後)にsecmapに渡されるとき[]になってしまって違う型になっているのだと思いますが、関数の定義の際それをどうやって指定すればいいのかわかりません...<br/><br/>意図としてはそうですがMap関数はリストのリストに対しても適当可能なのでしょうか？</div>
@@ -487,7 +487,7 @@ secmap f ((x : xs):xxs) = ((f x:map f xs):secmap f xxs)
       <div class="event" id="message-1572322045.058100">
         <div class="content">
           <div class="summary">
-            <div class="user">P0ngCh4ng</div>
+            <div class="user">ぽんちゃん</div>
             <div class="date"><a class="date" href="#message-1572322045.058100">2019-10-29 13:07:25 +0900</a></div>
           </div>
           <div class="description">リスト内包はこう言う時に使うんですね、、、<br/>ありがとうございます！</div>

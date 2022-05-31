@@ -1,0 +1,38 @@
+[
+    {
+        "text": "ある型クラス(Heap)をラップする型を定義して、それ自体も型クラスのインスタンスにしたいのですが、コンパイルエラーになってしまって悩んでいます。解決策や別実装のアプローチがあればおしえていただきたいです（詳細をスレに書きます）",
+        "type": "message",
+        "ts": "1653890195.754989",
+        "user": "ULU5SQJ2G"
+    },
+    {
+        "text": "```{-# LANGUAGE ExistentialQuantification #-}\n\n-- {-# LANGUAGE ScopedTypeVariables #-}\n-- {-# LANGUAGE GADTs #-}\n\nmodule Main where\n\nclass Heap h where\n  insert :: (Ord a) =&gt; h a -&gt; a -&gt; h a\n  empty :: (Ord a) =&gt; h a\n  isEmpty :: h a -&gt; Bool\n  merge :: (Ord a) =&gt; h a -&gt; h a -&gt; h a\n\n-- 任意のヒープをラップして別のヒープを構成したい\ndata HW a = forall h. Heap h =&gt; Node a (h a) | Empty\n\ninstance Heap HW where\n  empty = Empty\n\n  isEmpty Empty = True\n  isEmpty _ = False\n\n  insert Empty a = Node a Empty\n  insert (Node x h) y = if x &gt; y then Node y (insert h x) else Node x (insert h y)\n\n  merge Empty h = h\n  merge h Empty = h\n  -- 「h1 h2の型が違う」と怒られる\n  merge (Node a1 h1) (Node a2 h2) = Node (if a1 &gt; a2 then a2 else a1) (merge h1 h2)\n\nmain :: IO ()\nmain = putStrLn \"Hello, World!\"```",
+        "type": "message",
+        "ts": "1653890204.508269",
+        "user": "ULU5SQJ2G"
+    },
+    {
+        "text": "エラーメッセージ\n``` • Couldn't match type 'h1' with 'h'\n      Expected: h a\n        Actual: h1 a\n      'h1' is a rigid type variable bound by\n        a pattern with constructor:\n          Node :: forall a (h :: * -&gt; *). Heap h =&gt; a -&gt; h a -&gt; HW a,\n        in an equation for 'merge'\n        at app/Main.hs:29:23-32\n      'h' is a rigid type variable bound by\n        a pattern with constructor:\n          Node :: forall a (h :: * -&gt; *). Heap h =&gt; a -&gt; h a -&gt; HW a,\n        in an equation for 'merge'\n        at app/Main.hs:29:10-19\n    • In the second argument of 'merge', namely 'h2'\n      In the second argument of 'Node', namely '(merge h1 h2)'\n      In the expression: Node (if a1 &gt; a2 then a2 else a1) (merge h1 h2)\n    • Relevant bindings include\n        h2 :: h1 a (bound at app/Main.hs:29:31)\n        h1 :: h a (bound at app/Main.hs:29:18)\n   |\n29 |   merge (Node a1 h1) (Node a2 h2) = Node (if a1 &gt; a2 then a2 else a1) (merge h1 h2)\n   |                                                                                 ^^```",
+        "type": "message",
+        "ts": "1653890229.030089",
+        "user": "ULU5SQJ2G"
+    },
+    {
+        "text": "HW にはオリジナルのヒープの型が含まれないので、h1, h2は同じヒープをラップしているかわからないので、エラーになるのだろうなと推測しています。",
+        "type": "message",
+        "ts": "1653890340.320129",
+        "user": "ULU5SQJ2G"
+    },
+    {
+        "text": "&gt; h1, h2は同じヒープをラップしているかわからない\nそういうことですね。HWの型にもとのヒープの型を含めるようにしてはどうですか？ `data HW h a = Node a (h a) | Empty` `instance Heap h =&gt; Heap (HW h)` という感じで。",
+        "type": "message",
+        "ts": "1653890929.318109",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "ありがとうございます。少しインスタンスの実装を修正する必要があったけどビルドできました！！\n\n```-- 任意のヒープをラップして別のヒープを構成したい\ndata HW h a = Node a (h a) | Empty\n\ninstance Heap h =&gt; Heap (HW h) where\n  empty = Empty\n\n  isEmpty Empty = True\n  isEmpty _ = False\n\n  insert (Empty) x = Node x empty\n  insert (Node x h) y = if x &gt; y then Node y (insert h x) else Node x (insert h y)\n\n  merge Empty h = h\n  merge h Empty = h\n  -- 「h1 h2の型が違う」と怒られる\n  merge (Node a1 h1) (Node a2 h2) = Node (if a1 &gt; a2 then a2 else a1) (merge h1 h2)```",
+        "type": "message",
+        "ts": "1653892195.206469",
+        "user": "ULU5SQJ2G"
+    }
+]
