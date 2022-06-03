@@ -1,0 +1,14 @@
+[
+    {
+        "text": "現在haskell で gmail の新着を imap で取得し、tmux のステータスバーに表示するプログラムを常用しております。oauth2.0 認証に変更したいのですが、参考にすべきサンプルコード等を探しています。参考情報等ご教示いただけると助かります。",
+        "type": "message",
+        "ts": "1653782439.713629",
+        "user": "U03DNG36U67"
+    },
+    {
+        "text": "質問の補足として、今回使用しているコードは以下のとおりです。\n\nまた、検討の経緯は、gmailが5月30日からユーザー名とパスワードのみでログインするアプリがブロックされるとの情報によるものでした。しかし、現時点で、これまでどおり情報取得ができているため、急いで認証方式を変更する必要はないようです。\n\n```import Network.HaskellNet.IMAP.SSL\ngetMail = forever $ do\n  conn &lt;-connectIMAPSSLWithSettings \"<http://imap.gmail.com|imap.gmail.com>\" defaultSettingsIMAPSSL { sslMaxLineLength = 100000 } \n  id &lt;- getEnv \"IMAP_USER\"\n  pass &lt;- getEnv \"IMAP_PASS\"\n  login conn id pass\n  [(_, msgNo)] &lt;- status conn \"INBOX\" [UNSEEN]\n  logout conn\n  print msgNo\n  threadDelay $ 5 × 1000 × 1000```",
+        "type": "message",
+        "ts": "1654086829.602029",
+        "user": "U03DNG36U67"
+    }
+]
