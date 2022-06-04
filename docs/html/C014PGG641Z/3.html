@@ -429,6 +429,20 @@
           <div class="description">@えび (ebi_chan) has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1654360861.112459">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1654360861.112459">2022-06-05 01:41:01 +0900</a></div>
+          </div>
+          <div class="description">モノイド対象を考えるにはモノイド圏を、つまり圏とモノイド積を固定しないといけないということ。<br/><br/>つまり有名なあの文句には「モナドは単なる自己関手の圏における (関手の結合をモノイド積としたときの) モノイド対象だよ。 何か問題でも？」と補わないといけない。と思う。<br/>Hask 圏について直積 <code>(,)</code> をモノイド積としたモノイド圏のモノイド対象が Monoid 型クラスのインスタンス。Hask 圏で <code>Either</code> をモノイド積としたモノイド圏は、全ての対象 (型) がモノイド対象になりそう?<br/><br/><pre>class EitherMonoidObject a where
+  eta :: Void -&gt; a
+  eta = absurd
+
+  mu :: a `Either` a -&gt; a
+  mu = either id id</pre></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C014PGG641Z/2.html" class="item">Previous</a>
