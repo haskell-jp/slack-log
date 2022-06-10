@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #101 at 2022-06-10 10:11:54 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #101 at 2022-06-10 10:11:54 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../101.html" class="item">Back to questions #101</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1654823514.643629">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1654823514.643629">2022-06-10 10:11:54 +0900</a></div>
+          </div>
+          <div class="description">foldr と foldl で結果が異なるような場合ってありますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1654824055.864559">
+        <div class="content">
+          <div class="summary">
+            <div class="user">notogawa</div>
+            <div class="date"><a class="date" href="#message-1654824055.864559">2022-06-10 10:20:55 +0900</a></div>
+          </div>
+          <div class="description">意図がよくわかっていないので希望されてるものかわからないですが，<br/><pre>Prelude&gt; foldl const 0 [1..9]
+0
+Prelude&gt; foldr const 0 [1..9]
+1</pre><br/></div>
+        </div>
+      </div>
+      <div class="event" id="message-1654824087.574269">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1654824087.574269">2022-06-10 10:21:27 +0900</a></div>
+          </div>
+          <div class="description">おお、それだ！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1654824149.641199">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1654824149.641199">2022-06-10 10:22:29 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1654826565.519309">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1654826565.519309">2022-06-10 11:02:45 +0900</a></div>
+          </div>
+          <div class="description">若干混み入った例だと、N-進表記を直す際にうっかり foldl と foldr をまちがえて結果がかわってしまった経験がありますね。<br/><br/><pre>ghci&gt; foldl (\a b -&gt; 10*a + b) 0 [1,2,3]
+123
+
+ghci&gt; foldr (\a b -&gt; 10*a + b) 0 [1,2,3]
+60</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1654826600.936759">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1654826600.936759">2022-06-10 11:03:20 +0900</a></div>
+          </div>
+          <div class="description">素敵な例だ！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1654831819.884899">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1654831819.884899">2022-06-10 12:30:19 +0900</a></div>
+          </div>
+          <div class="description">foldl (⊗) e と foldr (⊗) e が同じ関数になるには ⊗ が結合律を満したうえで、e が単位元であるか ⊗ が交換律を満す場合かな。(IFPH 2 ed)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1654838162.816049">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1654838162.816049">2022-06-10 14:16:02 +0900</a></div>
+          </div>
+          <div class="description">そういえば浮動小数点数の加法は厳密には結合律を満たさないのでびっくりする例がつくれそう、ということで quickCheck に探してもらいました：<br/><br/><pre>ghci&gt; quickCheck $ \dbls -&gt; foldr (+) 0.0 (dbls :: [Double]) === foldl (+) 0.0 dbls
+*** Failed! Falsified (after 9 tests and 16 shrinks):     
+[0.1,1.0,-6.2]
+-5.1000000000000005 /= -5.1
+
+ghci&gt; foldr (+) 0.0 [0.1,1.0,-6.2]
+-5.1000000000000005
+
+ghci&gt; foldl (+) 0.0 [0.1,1.0,-6.2]
+-5.1</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1654838332.043549">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1654838332.043549">2022-06-10 14:18:52 +0900</a></div>
+          </div>
+          <div class="description">乗法の例：<br/><br/><pre>ghci&gt; quickCheck $ \dbls -&gt; foldr (*) 1.0 (dbls :: [Double]) === foldl (*) 1.0 dbls
+*** Failed! Falsified (after 7 tests and 11 shrinks):     
+[-1.0e-2,0.1,-3.0]
+3.0000000000000005e-3 /= 3.0e-3</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1654838402.445879">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1654838402.445879">2022-06-10 14:20:02 +0900</a></div>
+          </div>
+          <div class="description">なるほど。<br/>さすがです。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../101.html" class="item">Back to questions #101</a>
+    </div>
+  </div>
+</body>
+</html>
