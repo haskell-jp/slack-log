@@ -82,5 +82,17 @@
         "type": "message",
         "ts": "1654994068.188869",
         "user": "U03KBUSMMEY"
+    },
+    {
+        "text": "yesod のクイックスタートガイド（<https://www.yesodweb.com/page/quickstart>）に従って\nコマンド`stack install yesod-bin --install-ghc` を実行すると下記エラーになってしまいます。\n```ghc: panic! (the 'impossible' happened)\n  (GHC version 8.8.4 for x86_64-unknown-linux):\n        Prelude.chr: bad argument: 1526726659\n\nPlease report this as a GHC bug:  <https://www.haskell.org/ghc/reportabug>\n\n\n--  While building simple Setup.hs (scroll up to its section to see the error) using:\n      /home/morizumi/.stack/programs/x86_64-linux/ghc-tinfo6-8.8.4/bin/ghc-8.8.4 -rtsopts -threaded -clear-package-db -global-package-db -hide-all-packages -package base -main-is StackSetupShim.mainOverride -package Cabal-3.0.1.0 /home/morizumi/.stack/setup-exe-src/setup-mPHDZzAJ.hs /home/morizumi/.stack/setup-exe-src/setup-shim-mPHDZzAJ.hs -o /home/morizumi/.stack/setup-exe-cache/x86_64-linux-tinfo6/tmp-Cabal-simple_mPHDZzAJ_3.0.1.0_ghc-8.8.4\n    Process exited with code: ExitFailure 1```\nこのエラーを無視して`stack build` しても同じエラーになります。\nエラーの修正方法などありましたら、教えていただけると助かります。",
+        "type": "message",
+        "ts": "1655103639.443429",
+        "user": "UTK43JS4X"
+    },
+    {
+        "text": "こんにちは。\n詰まったところがあるので質問させてください。\n戻り値の型が IO Boolの solve i j 関数があり、内包表記の中で以下のコードのように使おうと思っております。[Bool]のリストを得たいと思ったのですが、solve i j の戻り値の型が IO Boolであることから、IOが邪魔で困っています([IO Bool]になってしまうので)。どうにかならないでしょうか。unsafePerfomIOは使いたくないと思っています。\n```print[solve i j | i &lt;- [0 .. n-2], j &lt;- [i+1 .. n-1]]```",
+        "type": "message",
+        "ts": "1655126132.185639",
+        "user": "U024U0DCJ3T"
     }
 ]

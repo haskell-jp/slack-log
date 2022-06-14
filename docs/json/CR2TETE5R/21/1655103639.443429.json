@@ -1,0 +1,26 @@
+[
+    {
+        "text": "yesod のクイックスタートガイド（<https://www.yesodweb.com/page/quickstart>）に従って\nコマンド`stack install yesod-bin --install-ghc` を実行すると下記エラーになってしまいます。\n```ghc: panic! (the 'impossible' happened)\n  (GHC version 8.8.4 for x86_64-unknown-linux):\n        Prelude.chr: bad argument: 1526726659\n\nPlease report this as a GHC bug:  <https://www.haskell.org/ghc/reportabug>\n\n\n--  While building simple Setup.hs (scroll up to its section to see the error) using:\n      /home/morizumi/.stack/programs/x86_64-linux/ghc-tinfo6-8.8.4/bin/ghc-8.8.4 -rtsopts -threaded -clear-package-db -global-package-db -hide-all-packages -package base -main-is StackSetupShim.mainOverride -package Cabal-3.0.1.0 /home/morizumi/.stack/setup-exe-src/setup-mPHDZzAJ.hs /home/morizumi/.stack/setup-exe-src/setup-shim-mPHDZzAJ.hs -o /home/morizumi/.stack/setup-exe-cache/x86_64-linux-tinfo6/tmp-Cabal-simple_mPHDZzAJ_3.0.1.0_ghc-8.8.4\n    Process exited with code: ExitFailure 1```\nこのエラーを無視して`stack build` しても同じエラーになります。\nエラーの修正方法などありましたら、教えていただけると助かります。",
+        "type": "message",
+        "ts": "1655103639.443429",
+        "user": "UTK43JS4X"
+    },
+    {
+        "text": "僕は初心者なのですが、そのエラーが出た時は ~/.stack を消したら動きました (原因は分かりません)",
+        "type": "message",
+        "ts": "1655110290.576399",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "<https://gitlab.haskell.org/ghc/ghc/-/issues/21398> でも報告されてますが、古い.hiファイルが残っていることによるエラーのようなので、 ~/.stack を消すのは試すべき対処法ですね。 ちなみにまっさらなLinux VMを立ち上げてstackのインストールから試したところ再現しませんでした。",
+        "type": "message",
+        "ts": "1655112864.860349",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "返信ありがございます。~/.stack を消してうまくいきました。\nありがございます。:grinning:",
+        "type": "message",
+        "ts": "1655113135.689929",
+        "user": "UTK43JS4X"
+    }
+]

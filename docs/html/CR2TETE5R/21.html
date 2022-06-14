@@ -142,6 +142,35 @@
           <div class="description">@ has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1655103639.443429">
+        <div class="content">
+          <div class="summary">
+            <div class="user">liveinwood</div>
+            <div class="date"><a class="date" href="#message-1655103639.443429">2022-06-13 16:00:39 +0900</a></div>
+          </div>
+          <div class="description">yesod のクイックスタートガイド（<https://www.yesodweb.com/page/quickstart>）に従って<br/>コマンド`stack install yesod-bin --install-ghc` を実行すると下記エラーになってしまいます。<br/><pre>ghc: panic! (the 'impossible' happened)
+  (GHC version 8.8.4 for x86_64-unknown-linux):
+        Prelude.chr: bad argument: 1526726659
+
+Please report this as a GHC bug:  <https://www.haskell.org/ghc/reportabug>
+
+
+--  While building simple Setup.hs (scroll up to its section to see the error) using:
+      /home/morizumi/.stack/programs/x86_64-linux/ghc-tinfo6-8.8.4/bin/ghc-8.8.4 -rtsopts -threaded -clear-package-db -global-package-db -hide-all-packages -package base -main-is StackSetupShim.mainOverride -package Cabal-3.0.1.0 /home/morizumi/.stack/setup-exe-src/setup-mPHDZzAJ.hs /home/morizumi/.stack/setup-exe-src/setup-shim-mPHDZzAJ.hs -o /home/morizumi/.stack/setup-exe-cache/x86_64-linux-tinfo6/tmp-Cabal-simple_mPHDZzAJ_3.0.1.0_ghc-8.8.4
+    Process exited with code: ExitFailure 1</pre><br/>このエラーを無視して`stack build` しても同じエラーになります。<br/>エラーの修正方法などありましたら、教えていただけると助かります。</div>
+          <a class="link-to-replies" href="21/1655103639.443429.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1655126132.185639">
+        <div class="content">
+          <div class="summary">
+            <div class="user">sanao</div>
+            <div class="date"><a class="date" href="#message-1655126132.185639">2022-06-13 22:15:32 +0900</a></div>
+          </div>
+          <div class="description">こんにちは。<br/>詰まったところがあるので質問させてください。<br/>戻り値の型が IO Boolの solve i j 関数があり、内包表記の中で以下のコードのように使おうと思っております。[Bool]のリストを得たいと思ったのですが、solve i j の戻り値の型が IO Boolであることから、IOが邪魔で困っています([IO Bool]になってしまうので)。どうにかならないでしょうか。unsafePerfomIOは使いたくないと思っています。<br/><pre>print[solve i j | i &lt;- [0 .. n-2], j &lt;- [i+1 .. n-1]]</pre></div>
+          <a class="link-to-replies" href="21/1655126132.185639.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/20.html" class="item">Previous</a>

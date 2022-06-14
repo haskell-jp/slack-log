@@ -1,0 +1,26 @@
+[
+    {
+        "text": "こんにちは。\n詰まったところがあるので質問させてください。\n戻り値の型が IO Boolの solve i j 関数があり、内包表記の中で以下のコードのように使おうと思っております。[Bool]のリストを得たいと思ったのですが、solve i j の戻り値の型が IO Boolであることから、IOが邪魔で困っています([IO Bool]になってしまうので)。どうにかならないでしょうか。unsafePerfomIOは使いたくないと思っています。\n```print[solve i j | i &lt;- [0 .. n-2], j &lt;- [i+1 .. n-1]]```",
+        "type": "message",
+        "ts": "1655126132.185639",
+        "user": "U024U0DCJ3T"
+    },
+    {
+        "text": "`sequence` ですかね。 `sequence :: Monad m =&gt; [m a] -&gt; m [a]` みたいな感じで。",
+        "type": "message",
+        "ts": "1655126733.360739",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "```print =&lt;&lt; sequence [ solve i j | i &lt;- [0 .. n-2], j &lt;- [i+j .. n-1] ]```",
+        "type": "message",
+        "ts": "1655126865.927199",
+        "user": "U4KU9ABL0"
+    },
+    {
+        "text": "<@UGM9F7XQS> <@U4KU9ABL0>\nいい感じにキマりました、ありがとうございます！精進します！",
+        "type": "message",
+        "ts": "1655127177.305279",
+        "user": "U024U0DCJ3T"
+    }
+]
