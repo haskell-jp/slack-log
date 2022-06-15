@@ -1,0 +1,32 @@
+[
+    {
+        "text": "liftM2とliftA2という関数について質問です。\nliftM2とliftA2の定義は以下のようになっており\n```liftA2 :: (a -&gt; b -&gt; c) -&gt; f a -&gt; f b -&gt; f c\nliftM2 :: Monad m =&gt; (a1 -&gt; a2 -&gt; r) -&gt; m a1 -&gt; m a2 -&gt; m r```\nApplicativeに包まれているかMonadに包まれているかが違いとなる印象を受けますが、liftA2で動くがliftM2では動かない、またはliftM2では動くがliftA2では動かない簡単な具体例はありますでしょうか？（ApplicativeではあるがMonadではない例とも言える？）\nふと気になり質問させていただきました。ご回答お待ちしております。",
+        "type": "message",
+        "ts": "1655215674.852489",
+        "user": "U024U0DCJ3T"
+    },
+    {
+        "text": "ApplicativeはMonadが生まれた後しばらく経ってからできたものなので、 `liftM2` はそうした時代に `liftA2` のようなユースケースを賄うものであり、基本的に `liftA2` と `liftM2` は同じように振る舞うべき、という認識です。",
+        "type": "message",
+        "ts": "1655216494.709469",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "```liftM2' :: Monad m =&gt; (a1 -&gt; a2 -&gt; r) -&gt; m a1 -&gt; m a2 -&gt; m r\nliftM2' = liftA2```\nとしたら`liftM2'`は`liftM2` と同じ型で同等にふるまうという理解は正しいですか？",
+        "type": "message",
+        "ts": "1655217012.354669",
+        "user": "U015L5JEP8D"
+    },
+    {
+        "text": "<@U015L5JEP8D> はい、同等です。<@U4LGTMTMK> さんが仰った通り`Applicative`は`Monad`より新しくて、`ap /= (&lt;*&gt;)`の場合のみ結果が異なることがあります。",
+        "type": "message",
+        "ts": "1655235626.346099",
+        "user": "U01CFSSPZHB"
+    },
+    {
+        "text": "ご回答ありがとうございます！勉強になりました！",
+        "type": "message",
+        "ts": "1655249276.681609",
+        "user": "U024U0DCJ3T"
+    }
+]
