@@ -216,10 +216,10 @@
       <div class="event" id="message-1655612122.083709">
         <div class="content">
           <div class="summary">
-            <div class="user">U03LYHQKMKJ</div>
+            <div class="user">Hiromasa Sakata</div>
             <div class="date"><a class="date" href="#message-1655612122.083709">2022-06-19 13:15:22 +0900</a></div>
           </div>
-          <div class="description">@U03LYHQKMKJ has joined the channel</div>
+          <div class="description">@Hiromasa Sakata has joined the channel</div>
         </div>
       </div>
       <div class="event" id="message-1655637574.315869">
@@ -232,6 +232,15 @@
   ( foo,
   module Foo
   ) where</pre><br/>みたいに、re-exportするモジュールに自分自身を指定してもいいんですね... :open_mouth:<br/><code>Foo</code>の識別子を全部エクスポートしつつ他のモジュールの識別子もre-exportしたい時に便利なようで<br/><a href='https://github.com/haskell/cabal/blob/dac10555299fa0d750838529a67598821264e5e3/Cabal-syntax/src/Distribution/Types/GenericPackageDescription/Lens.hs#L2-L7'>https://github.com/haskell/cabal/blob/dac10555299fa0d750838529a67598821264e5e3/Cabal-syntax/src/Distribution/Types/GenericPackageDescription/Lens.hs#L2-L7</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1655725239.982059">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1655725239.982059">2022-06-20 20:40:39 +0900</a></div>
+          </div>
+          <div class="description">vector の 0.13 がリリースされ、遂に待望の「カスタム型の Unboxed Vector を GeneralizedNewtypeDeriving や DerivingVia で手軽に定義できる機能」が実装されたようです:tada:<br/><a href='https://hackage.haskell.org/package/vector-0.13.0.0/docs/Data-Vector-Unboxed.html#g:39'>https://hackage.haskell.org/package/vector-0.13.0.0/docs/Data-Vector-Unboxed.html#g:39</a><br/><br/>この変更自体はだいぶ前から vector の issue / PR に入っていたと記憶していますが、GHC のリリースのタイミング等あって入るのは少し先になりそうという風に認識していたので、思ったより早く使えるようになってうれしいですね。<br/><br/>とはいえ、この変更のために、Generic な Vector / MVector クラスのメソッドの型が変更になっている（PrimMonad が量化された多相なものから concrete な STベースのものになっている）ので、カスタムな Vector インスタンスを定義している場合、InstanceSigs などを使って書いていたりすると旧バージョンからの移行にはひと手間が必要になる場合はあるかもしれません。</div>
         </div>
       </div>
     </div>

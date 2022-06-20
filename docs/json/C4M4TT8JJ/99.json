@@ -142,5 +142,11 @@
         "type": "message",
         "ts": "1655637574.315869",
         "user": "U4LGTMTMK"
+    },
+    {
+        "text": "vector の 0.13 がリリースされ、遂に待望の「カスタム型の Unboxed Vector を GeneralizedNewtypeDeriving や DerivingVia で手軽に定義できる機能」が実装されたようです:tada:\n<https://hackage.haskell.org/package/vector-0.13.0.0/docs/Data-Vector-Unboxed.html#g:39>\n\nこの変更自体はだいぶ前から vector の issue / PR に入っていたと記憶していますが、GHC のリリースのタイミング等あって入るのは少し先になりそうという風に認識していたので、思ったより早く使えるようになってうれしいですね。\n\nとはいえ、この変更のために、Generic な Vector / MVector クラスのメソッドの型が変更になっている（PrimMonad が量化された多相なものから concrete な STベースのものになっている）ので、カスタムな Vector インスタンスを定義している場合、InstanceSigs などを使って書いていたりすると旧バージョンからの移行にはひと手間が必要になる場合はあるかもしれません。",
+        "type": "message",
+        "ts": "1655725239.982059",
+        "user": "UK0MXUCAV"
     }
 ]
