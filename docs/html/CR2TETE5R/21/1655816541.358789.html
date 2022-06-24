@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #21 at 2022-06-21 22:02:21 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #21 at 2022-06-21 22:02:21 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../21.html" class="item">Back to beginners #21</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1655816541.358789">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1655816541.358789">2022-06-21 22:02:21 +0900</a></div>
+          </div>
+          <div class="description">こんばんは。 AtCoder で固定長配列を使いたいですが、何かお勧めがあれば教えてください。 (ただ当面リストを使うつもりです)<br/>- <code>Array</code>: ヒープに配置される気がします<br/>- <code>Data.Vector.Fixed</code>: LTS 16.11 の vector にはありませんでした<br/>- タプル: 使えそうですが、使い勝手は悪そうです<br/>- <code>repa</code>: いつか確認したいです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1655817220.791559">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1655817220.791559">2022-06-21 22:13:40 +0900</a></div>
+          </div>
+          <div class="description">AtCoder、ライブラリー、何でもは使えなくて、一覧どこでしたっけ……</div>
+        </div>
+      </div>
+      <div class="event" id="message-1655819128.808519">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1655819128.808519">2022-06-21 22:45:28 +0900</a></div>
+          </div>
+          <div class="description">あ、すみません！　こちらに載っています (<https://atcoder.jp/contests/language-test-202001?lang=ja|Language Test 202001>)。記事 <a href='https://scrapbox.io/dragoon8192-main/AtCoder:Haskell%E3%81%AE%E5%AE%9F%E8%A1%8C%E7%92%B0%E5%A2%83%E3%81%AE%E5%86%8D%E7%8F%BE'>AtCoder:Haskellの実行環境の再現</a> も参考にさせていただきました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1655865293.981119">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1655865293.981119">2022-06-22 11:34:53 +0900</a></div>
+          </div>
+          <div class="description">一次元ならData.Vector系、二次元以上ならArrayで良いのではないでしょうか。型レベルで長さを管理することにこだわりがあるのでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1655868765.897809">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1655868765.897809">2022-06-22 12:32:45 +0900</a></div>
+          </div>
+          <div class="description">リストより Vector の方がいいですね！　気にしすぎかもですが、なるべくスタックにデータを置きたいと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1655869480.817529">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1655869480.817529">2022-06-22 12:44:40 +0900</a></div>
+          </div>
+          <div class="description">Haskellを使う以上スタックに配列を置くのは諦めてください（そもそもスタックに配列を置けるのはC/C++ぐらいではないでしょうか？）。Haskellで効率を気にするなら正格評価とか値のボックス化とかを気にするべきです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1655870184.364879">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1655870184.364879">2022-06-22 12:56:24 +0900</a></div>
+          </div>
+          <div class="description">分かりました。スッキリしました、ありがとうございます :raised_hands: </div>
+        </div>
+      </div>
+      <div class="event" id="message-1655896305.490999">
+        <div class="content">
+          <div class="summary">
+            <div class="user">takenobu.hs</div>
+            <div class="date"><a class="date" href="#message-1655896305.490999">2022-06-22 20:11:45 +0900</a></div>
+          </div>
+          <div class="description">こういう適した本「Haskellで戦う競技プログラミング 第2版」がありますね:slightly_smiling_face:<br/><a href='https://booth.pm/ja/items/1577541'>https://booth.pm/ja/items/1577541</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1655953750.204269">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1655953750.204269">2022-06-23 12:09:10 +0900</a></div>
+          </div>
+          <div class="description">実は持っています :sparkles: 参考に乗っていた High performance Haskell? も買いました</div>
+        </div>
+      </div>
+      <div class="event" id="message-1655953929.828799">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1655953929.828799">2022-06-23 12:12:09 +0900</a></div>
+          </div>
+          <div class="description">Vector (Int 2つ) を作る ~~時に~~ 処理でダブルポインタを避けたかったのですが、タプルとリストで 20ms しか変わらなかったです</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../21.html" class="item">Back to beginners #21</a>
+    </div>
+  </div>
+</body>
+</html>

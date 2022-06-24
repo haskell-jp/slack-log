@@ -1,0 +1,62 @@
+[
+    {
+        "text": "こんばんは。 AtCoder で固定長配列を使いたいですが、何かお勧めがあれば教えてください。 (ただ当面リストを使うつもりです)\n- `Array`: ヒープに配置される気がします\n- `Data.Vector.Fixed`: LTS 16.11 の vector にはありませんでした\n- タプル: 使えそうですが、使い勝手は悪そうです\n- `repa`: いつか確認したいです",
+        "type": "message",
+        "ts": "1655816541.358789",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "AtCoder、ライブラリー、何でもは使えなくて、一覧どこでしたっけ……",
+        "type": "message",
+        "ts": "1655817220.791559",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "あ、すみません！　こちらに載っています (<https://atcoder.jp/contests/language-test-202001?lang=ja|Language Test 202001>)。記事 <https://scrapbox.io/dragoon8192-main/AtCoder:Haskell%E3%81%AE%E5%AE%9F%E8%A1%8C%E7%92%B0%E5%A2%83%E3%81%AE%E5%86%8D%E7%8F%BE|AtCoder:Haskellの実行環境の再現> も参考にさせていただきました。",
+        "type": "message",
+        "ts": "1655819128.808519",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "一次元ならData.Vector系、二次元以上ならArrayで良いのではないでしょうか。型レベルで長さを管理することにこだわりがあるのでしょうか？",
+        "type": "message",
+        "ts": "1655865293.981119",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "リストより Vector の方がいいですね！　気にしすぎかもですが、なるべくスタックにデータを置きたいと思います。",
+        "type": "message",
+        "ts": "1655868765.897809",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "Haskellを使う以上スタックに配列を置くのは諦めてください（そもそもスタックに配列を置けるのはC/C++ぐらいではないでしょうか？）。Haskellで効率を気にするなら正格評価とか値のボックス化とかを気にするべきです。",
+        "type": "message",
+        "ts": "1655869480.817529",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "分かりました。スッキリしました、ありがとうございます :raised_hands: ",
+        "type": "message",
+        "ts": "1655870184.364879",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "こういう適した本「Haskellで戦う競技プログラミング 第2版」がありますね:slightly_smiling_face:\n<https://booth.pm/ja/items/1577541>",
+        "type": "message",
+        "ts": "1655896305.490999",
+        "user": "U55V441FS"
+    },
+    {
+        "text": "実は持っています :sparkles: 参考に乗っていた High performance Haskell? も買いました",
+        "type": "message",
+        "ts": "1655953750.204269",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "Vector (Int 2つ) を作る ~~時に~~ 処理でダブルポインタを避けたかったのですが、タプルとリストで 20ms しか変わらなかったです",
+        "type": "message",
+        "ts": "1655953929.828799",
+        "user": "U03H9PH8FRP"
+    }
+]
