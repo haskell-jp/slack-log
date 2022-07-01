@@ -32,6 +32,28 @@
           <div class="description">recover-rttiの使い所ですかね。型に固有のShowインスタンスを使うわけではありませんが <a href='https://hackage.haskell.org/package/recover-rtti-0.4.1.0/docs/Debug-RecoverRTTI.html#v:anythingToString'>https://hackage.haskell.org/package/recover-rtti-0.4.1.0/docs/Debug-RecoverRTTI.html#v:anythingToString</a></div>
         </div>
       </div>
+      <div class="event" id="message-1656549094.383519">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1656549094.383519">2022-06-30 09:31:34 +0900</a></div>
+          </div>
+          <div class="description">多分 <code>anythingToString</code> の方がいいとは思いますが、 CPPとConstrintKindsを組み合わせて<br/><pre>#if DEBUG
+type ShowWhenDebug = Show
+#else
+type ShowEhenDebug _a = ()
+#endif</pre><br/>という手が使えるかも知れません。（試してはいない。後恐らくHaddockに載る内容に軽いノイズが入る）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1656560406.212409">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1656560406.212409">2022-06-30 12:40:06 +0900</a></div>
+          </div>
+          <div class="description">recover-rtti 忘れてましたね<br/>試してみます！</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../101.html" class="item">Back to questions #101</a>
