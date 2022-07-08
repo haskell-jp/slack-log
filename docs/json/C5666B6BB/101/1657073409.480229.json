@@ -34,5 +34,77 @@
         "type": "message",
         "ts": "1657108242.707619",
         "user": "UL1HFJATE"
+    },
+    {
+        "text": "そうですね...`cabal install QuickCheck`も似たようなエラーが出ました。",
+        "type": "message",
+        "ts": "1657155582.632019",
+        "user": "U03NA2PMECS"
+    },
+    {
+        "text": "成功しているマシン、失敗したマシンのそれぞれの `cabal install BiGUL` を実行したコンソールでただ\n\n```ar```\nを実行してみることはできますか？",
+        "type": "message",
+        "ts": "1657155860.326379",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "これって実行できたって感じですか？\n\n使用法: ar [emulation options] [-]{dmpqrstx}[abcDfilMNoPsSTuvV] [--plugin &lt;name&gt;] [member-name] [count] archive-file file...\n       ar -M [&lt;mri-script]\n コマンド:\n  d            - 書庫からファイルを削除する\n  m[ab]        - 書庫内のファイルを移動する\n  p            - 書庫内のファイルを表示する\n  q[f]         - 書庫へファイルを素早く追加する\n  r[ab][f][u]  - 書庫内の既存ファイルを置換する。存在しない場合は新規にファイルを挿入する\n  s            - ranlib として動作する\n  t            - 書庫の内容を表示する\n  x[o]         - 書庫からファイルを抽出する\n コマンドに関係した修飾子:\n  [a]          - [member-name] の後にファイルを配置する\n  [b]          - [member-name] の前にファイルを配置する ([i] と同じ)\n  [D]          - 日時、uid、gid に 0 (ゼロ) を使用する\n  [U]          - use actual timestamps and uids/gids (default)\n  [N]          - 同名インスタンスで [count] 番目のものを使う\n  [f]          - 挿入されたファイル名を切り詰める\n  [P]          - 名前の一致を調べる際に完全パスを使う\n  [o]          - 本来の日時を保持する\n  [u]          - 現在の書庫に入っているものより新しいファイルだけを置換する\n 一般的な修飾子:\n  [c]          - ライブラリファイルを作成する必要があるときでも警告しない\n  [s]          - 書庫の索引を作成する (ranlib を参照)\n  [S]          - シンボル表を構築しない\n  [T]          - 薄い書庫を作成する\n  [v]          - 冗長に表示を行う\n  [V]          - バージョン情報を表示する\n  @&lt;file&gt;      -  &lt;file&gt; からオプションを読み込む\n  --target=BFDNAME - ターゲットのオブジェクト形式を BFDNAME として指定する\n 任意指定:\n  --plugin &lt;p&gt; - 指定したプラグインを読み込む\n エミュレーションに関係したオプション:\n  エミュレーションに関係したオプションはありません\nar: サポートされているターゲット: pe-x86-64 pei-x86-64 pe-bigobj-x86-64 elf64-x86-64 elf64-l1om elf64-k1om pe-i386 pei-i386 elf32-i386 elf32-iamcu elf64-little elf64-big elf32-little elf32-big plugin srec symbolsrec verilog tekhex binary ihex",
+        "type": "message",
+        "ts": "1657156117.555179",
+        "user": "U03NA2PMECS"
+    },
+    {
+        "text": "できてますね",
+        "type": "message",
+        "ts": "1657156150.482489",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "実行できたのは成功マシンの方ですか？",
+        "type": "message",
+        "ts": "1657156439.926109",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "そうですね。失敗したマシンは今手元にないので、帰ったら実行してみます。",
+        "type": "message",
+        "ts": "1657156493.412889",
+        "user": "U03NA2PMECS"
+    },
+    {
+        "text": "失敗したマシンで実行してみました！失敗しましたね。\n\n'ar' は、内部コマンドまたは外部コマンド、操作可能なプログラムまたはバッチ ファイルとして認識されていません。",
+        "type": "message",
+        "ts": "1657159579.409579",
+        "user": "U03NA2PMECS"
+    },
+    {
+        "text": "なるほど．ちなみに，もしかして成功マシンって bash on WSLで，失敗の方は cmd.exeだったりします？",
+        "type": "message",
+        "ts": "1657170113.704249",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "そうですね。OSの環境が原因ですか？",
+        "type": "message",
+        "ts": "1657174993.314669",
+        "user": "U03NA2PMECS"
+    },
+    {
+        "text": "arがUnix系のツールだから、bashにはネイティヴインストールされてるけど、windowsの側のcmd.exeにexeとして直接見えるようには入ってないのかな、という想像をしました。ただ、解せないのは、ghcupをインストールしたのってcmd.exeを介してですよね？　それなのにそういう失敗が起こるのが不思議だなー、という。",
+        "type": "message",
+        "ts": "1657184647.382389",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "現状Windows版のGHCをインストールした場合、GHCは自身に添付されたmsys2に入ったツール群を使うので、普通はあり得ないですね。再インストールかなぁ :confused:",
+        "type": "message",
+        "ts": "1657184767.082359",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "そうですね、cmdでghcupをインストールしました。再インストールしてみます！",
+        "type": "message",
+        "ts": "1657194002.371129",
+        "user": "U03NA2PMECS"
     }
 ]

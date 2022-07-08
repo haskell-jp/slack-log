@@ -67,6 +67,114 @@ $ cabal install BiGUL</pre><br/>(`--allow-newer=base` は不要になります) 
           <div class="description">なんか エラー見ると 大体どんなパッケージのビルドにも失敗しそうな文言ですね…（それくらいしかわからないです． <code>ar</code> コマンドが Windows 上での Cabalによるビルドに実際に使われているのかとかもよくわからないので）．たとえば，<br/><pre>cabal install QuickCheck</pre><br/>とか通りますか？</div>
         </div>
       </div>
+      <div class="event" id="message-1657155582.632019">
+        <div class="content">
+          <div class="summary">
+            <div class="user">有田翔梧</div>
+            <div class="date"><a class="date" href="#message-1657155582.632019">2022-07-07 09:59:42 +0900</a></div>
+          </div>
+          <div class="description">そうですね...`cabal install QuickCheck`も似たようなエラーが出ました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1657155860.326379">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1657155860.326379">2022-07-07 10:04:20 +0900</a></div>
+          </div>
+          <div class="description">成功しているマシン、失敗したマシンのそれぞれの <code>cabal install BiGUL</code> を実行したコンソールでただ<br/><br/><pre>ar</pre><br/>を実行してみることはできますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1657156117.555179">
+        <div class="content">
+          <div class="summary">
+            <div class="user">有田翔梧</div>
+            <div class="date"><a class="date" href="#message-1657156117.555179">2022-07-07 10:08:37 +0900</a></div>
+          </div>
+          <div class="description">これって実行できたって感じですか？<br/><br/>使用法: ar [emulation options] [-]{dmpqrstx}[abcDfilMNoPsSTuvV] [--plugin &lt;name&gt;] [member-name] [count] archive-file file...<br/>       ar -M [&lt;mri-script]<br/> コマンド:<br/>  d            - 書庫からファイルを削除する<br/>  m[ab]        - 書庫内のファイルを移動する<br/>  p            - 書庫内のファイルを表示する<br/>  q[f]         - 書庫へファイルを素早く追加する<br/>  r[ab][f][u]  - 書庫内の既存ファイルを置換する。存在しない場合は新規にファイルを挿入する<br/>  s            - ranlib として動作する<br/>  t            - 書庫の内容を表示する<br/>  x[o]         - 書庫からファイルを抽出する<br/> コマンドに関係した修飾子:<br/>  [a]          - [member-name] の後にファイルを配置する<br/>  [b]          - [member-name] の前にファイルを配置する ([i] と同じ)<br/>  [D]          - 日時、uid、gid に 0 (ゼロ) を使用する<br/>  [U]          - use actual timestamps and uids/gids (default)<br/>  [N]          - 同名インスタンスで [count] 番目のものを使う<br/>  [f]          - 挿入されたファイル名を切り詰める<br/>  [P]          - 名前の一致を調べる際に完全パスを使う<br/>  [o]          - 本来の日時を保持する<br/>  [u]          - 現在の書庫に入っているものより新しいファイルだけを置換する<br/> 一般的な修飾子:<br/>  [c]          - ライブラリファイルを作成する必要があるときでも警告しない<br/>  [s]          - 書庫の索引を作成する (ranlib を参照)<br/>  [S]          - シンボル表を構築しない<br/>  [T]          - 薄い書庫を作成する<br/>  [v]          - 冗長に表示を行う<br/>  [V]          - バージョン情報を表示する<br/>  @&lt;file&gt;      -  &lt;file&gt; からオプションを読み込む<br/>  --target=BFDNAME - ターゲットのオブジェクト形式を BFDNAME として指定する<br/> 任意指定:<br/>  --plugin &lt;p&gt; - 指定したプラグインを読み込む<br/> エミュレーションに関係したオプション:<br/>  エミュレーションに関係したオプションはありません<br/>ar: サポートされているターゲット: pe-x86-64 pei-x86-64 pe-bigobj-x86-64 elf64-x86-64 elf64-l1om elf64-k1om pe-i386 pei-i386 elf32-i386 elf32-iamcu elf64-little elf64-big elf32-little elf32-big plugin srec symbolsrec verilog tekhex binary ihex</div>
+        </div>
+      </div>
+      <div class="event" id="message-1657156150.482489">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1657156150.482489">2022-07-07 10:09:10 +0900</a></div>
+          </div>
+          <div class="description">できてますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1657156439.926109">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1657156439.926109">2022-07-07 10:13:59 +0900</a></div>
+          </div>
+          <div class="description">実行できたのは成功マシンの方ですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1657156493.412889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">有田翔梧</div>
+            <div class="date"><a class="date" href="#message-1657156493.412889">2022-07-07 10:14:53 +0900</a></div>
+          </div>
+          <div class="description">そうですね。失敗したマシンは今手元にないので、帰ったら実行してみます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1657159579.409579">
+        <div class="content">
+          <div class="summary">
+            <div class="user">有田翔梧</div>
+            <div class="date"><a class="date" href="#message-1657159579.409579">2022-07-07 11:06:19 +0900</a></div>
+          </div>
+          <div class="description">失敗したマシンで実行してみました！失敗しましたね。<br/><br/>'ar' は、内部コマンドまたは外部コマンド、操作可能なプログラムまたはバッチ ファイルとして認識されていません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1657170113.704249">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1657170113.704249">2022-07-07 14:01:53 +0900</a></div>
+          </div>
+          <div class="description">なるほど．ちなみに，もしかして成功マシンって bash on WSLで，失敗の方は cmd.exeだったりします？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1657174993.314669">
+        <div class="content">
+          <div class="summary">
+            <div class="user">有田翔梧</div>
+            <div class="date"><a class="date" href="#message-1657174993.314669">2022-07-07 15:23:13 +0900</a></div>
+          </div>
+          <div class="description">そうですね。OSの環境が原因ですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1657184647.382389">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1657184647.382389">2022-07-07 18:04:07 +0900</a></div>
+          </div>
+          <div class="description">arがUnix系のツールだから、bashにはネイティヴインストールされてるけど、windowsの側のcmd.exeにexeとして直接見えるようには入ってないのかな、という想像をしました。ただ、解せないのは、ghcupをインストールしたのってcmd.exeを介してですよね？　それなのにそういう失敗が起こるのが不思議だなー、という。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1657184767.082359">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1657184767.082359">2022-07-07 18:06:07 +0900</a></div>
+          </div>
+          <div class="description">現状Windows版のGHCをインストールした場合、GHCは自身に添付されたmsys2に入ったツール群を使うので、普通はあり得ないですね。再インストールかなぁ :confused:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1657194002.371129">
+        <div class="content">
+          <div class="summary">
+            <div class="user">有田翔梧</div>
+            <div class="date"><a class="date" href="#message-1657194002.371129">2022-07-07 20:40:02 +0900</a></div>
+          </div>
+          <div class="description">そうですね、cmdでghcupをインストールしました。再インストールしてみます！</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../101.html" class="item">Back to questions #101</a>
