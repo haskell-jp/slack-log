@@ -142,5 +142,23 @@
         "type": "message",
         "ts": "1656998102.383149",
         "user": "U03NA2PMECS"
+    },
+    {
+        "text": "GHCオプションの警告や例外処理について教えてください。\nGHCのバージョンは8.10.7です。\n\n下記コードのpt1を実行すると「user error (Pattern match failure in do expression」というような例外が、pt2を実行すると「Non-exhaustive patterns in lambda」というような例外が起きてプログラムが落ちてしまうのですが、どのようにすべきなのでしょうか?\n\n-WallオプションはOnにしてみたのですが、コンパイル時にエラーになってくれません。\n-Wall以外に何か指定すべきでしょうか?\n\ncatchを使うと落ちることはなくなりました。\nmain関数のすぐ下にcatchを書いてすべて包むべきものなのでしょうか?\n\nよろしくお願いします。\n\n```func1 :: IO (Maybe Int, Maybe Int)\nfunc1 = do\n  return (Nothing, Nothing)\n\n-- user error (Pattern match failure in do expression\npt1 :: IO ()\npt1 = do\n  (_, Just var2) &lt;- func1\n  print var2\n  return ()\n\n-- Non-exhaustive patterns in lambda\npt2 :: IO ()\npt2 = do\n  bracket\n    func1\n    (\\_ -&gt; print (\"cleanup\" :: String))\n    ( \\(_, Just var2) -&gt;\n        print var2\n    )```",
+        "type": "message",
+        "ts": "1658037789.424679",
+        "user": "U02FM2G52D6"
+    },
+    {
+        "text": "パターン照合は、すべての場合を網羅するよう(exhaustive)に書くことをお勧めします。〈パターン〉&lt;- 〈式〉のような構文ではパターン並記ができないので、多段に構える必要があります。たとえば、\n```pt1 :: IO ()\npt1 = do\n  (_, q) &lt;- func1\n  case q of\n    Nothing -&gt; error \"no data\"\n    Just v  -&gt; print v```\n1つめのパターン  `(_, q)` が `(Maybe Int, Maybe Int)`  型の値すべてを網羅していることに注目してください。`case` 式では2つパターンを書いて Maybe Int 型の値のすべてを網羅しています。\n実行時エラーでプログラムを止めたくなければ、`error \"no data\"` の代りにたとえば、 `putStr \"no data\"` とするか、適当な例外を投げて、`pt1` を呼び出した側で `catch` して例外処理するようにします。\n\n`pt2` の場合のように、λ抽象式の   \\〈パターン〉-&gt;〈式〉もパターン並記ができませんが、こちらは、言語拡張 `LambdaCase` を指定すると\n```(\\ case\n   パターン1 -&gt; 式1\n   ...\n   パターンn -&gt; 式n\n)```\nのように書くこともできます。\n\nまた、パターンマッチを使わずに書くこともできます。`Data.Maybe` で定義されている `maybe :: b -&gt; (a -&gt; b) -&gt; Maybe a -&gt; b` を使います。\n```pt1 = maybe (error \"no data\") print . snd =&lt;&lt; func1```",
+        "type": "message",
+        "ts": "1658047636.580869",
+        "user": "U4KU9ABL0"
+    },
+    {
+        "text": "多段に構える、LamdaCase、maybe関数を使う、3つのパターンと回答ありがとうございます。\n\nLamdaCaseだと警告が出てくれるんですね。\nmaybeは慣れるまでなかなかぱっと出てこなさそうです。\n\npt1のように書いてしまった場合、GHCオプションで警告やエラーにするオプションはありますでしょうか?",
+        "type": "message",
+        "ts": "1658062508.826259",
+        "user": "U02FM2G52D6"
     }
 ]

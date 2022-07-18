@@ -247,6 +247,62 @@ liftM2 :: Monad m =&gt; (a1 -&gt; a2 -&gt; r) -&gt; m a1 -&gt; m a2 -&gt; m r</p
           <div class="description">@有田翔梧 has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1658037789.424679">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tuft</div>
+            <div class="date"><a class="date" href="#message-1658037789.424679">2022-07-17 15:03:09 +0900</a></div>
+          </div>
+          <div class="description">GHCオプションの警告や例外処理について教えてください。<br/>GHCのバージョンは8.10.7です。<br/><br/>下記コードのpt1を実行すると「user error (Pattern match failure in do expression」というような例外が、pt2を実行すると「Non-exhaustive patterns in lambda」というような例外が起きてプログラムが落ちてしまうのですが、どのようにすべきなのでしょうか?<br/><br/>-WallオプションはOnにしてみたのですが、コンパイル時にエラーになってくれません。<br/>-Wall以外に何か指定すべきでしょうか?<br/><br/>catchを使うと落ちることはなくなりました。<br/>main関数のすぐ下にcatchを書いてすべて包むべきものなのでしょうか?<br/><br/>よろしくお願いします。<br/><br/><pre>func1 :: IO (Maybe Int, Maybe Int)
+func1 = do
+  return (Nothing, Nothing)
+
+-- user error (Pattern match failure in do expression
+pt1 :: IO ()
+pt1 = do
+  (_, Just var2) &lt;- func1
+  print var2
+  return ()
+
+-- Non-exhaustive patterns in lambda
+pt2 :: IO ()
+pt2 = do
+  bracket
+    func1
+    (\_ -&gt; print ("cleanup" :: String))
+    ( \(_, Just var2) -&gt;
+        print var2
+    )</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1658047636.580869">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1658047636.580869">2022-07-17 17:47:16 +0900</a></div>
+          </div>
+          <div class="description">パターン照合は、すべての場合を網羅するよう(exhaustive)に書くことをお勧めします。〈パターン〉&lt;- 〈式〉のような構文ではパターン並記ができないので、多段に構える必要があります。たとえば、<br/><pre>pt1 :: IO ()
+pt1 = do
+  (_, q) &lt;- func1
+  case q of
+    Nothing -&gt; error "no data"
+    Just v  -&gt; print v</pre><br/>1つめのパターン  <code>(_, q)</code> が <code>(Maybe Int, Maybe Int)</code>  型の値すべてを網羅していることに注目してください。`case` 式では2つパターンを書いて Maybe Int 型の値のすべてを網羅しています。<br/>実行時エラーでプログラムを止めたくなければ、`error "no data"` の代りにたとえば、 <code>putStr "no data"</code> とするか、適当な例外を投げて、`pt1` を呼び出した側で <code>catch</code> して例外処理するようにします。<br/><br/><code>pt2</code> の場合のように、λ抽象式の   \〈パターン〉-&gt;〈式〉もパターン並記ができませんが、こちらは、言語拡張 <code>LambdaCase</code> を指定すると<br/><pre>(\ case
+   パターン1 -&gt; 式1
+   ...
+   パターンn -&gt; 式n
+)</pre><br/>のように書くこともできます。<br/><br/>また、パターンマッチを使わずに書くこともできます。`Data.Maybe` で定義されている <code>maybe :: b -&gt; (a -&gt; b) -&gt; Maybe a -&gt; b</code> を使います。<br/><pre>pt1 = maybe (error "no data") print . snd =&lt;&lt; func1</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1658062508.826259">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tuft</div>
+            <div class="date"><a class="date" href="#message-1658062508.826259">2022-07-17 21:55:08 +0900</a></div>
+          </div>
+          <div class="description">多段に構える、LamdaCase、maybe関数を使う、3つのパターンと回答ありがとうございます。<br/><br/>LamdaCaseだと警告が出てくれるんですね。<br/>maybeは慣れるまでなかなかぱっと出てこなさそうです。<br/><br/>pt1のように書いてしまった場合、GHCオプションで警告やエラーにするオプションはありますでしょうか?</div>
+          <a class="link-to-replies" href="21/1658062508.826259.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/20.html" class="item">Previous</a>
