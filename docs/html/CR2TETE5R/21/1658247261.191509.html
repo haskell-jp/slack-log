@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #21 at 2022-07-20 01:14:21 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #21 at 2022-07-20 01:14:21 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../21.html" class="item">Back to beginners #21</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1658247261.191509">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658247261.191509">2022-07-20 01:14:21 +0900</a></div>
+          </div>
+          <div class="description">今 sdl2 のライブラリを stack でインストールしようとしているのですが、<br/><pre> sdl2&gt; configure
+ sdl2&gt; Configuring sdl2-2.5.3.0...
+ sdl2&gt; Cabal-simple_Z6RU0evB_3.4.1.0_ghc-9.0.2.exe: The pkg-config package 'sdl2'
+ sdl2&gt; version &gt;=2.0.6 is required but it could not be found.
+</pre><br/>こんな具合に止まってしまいます。<br/>どうしたものでしょうか。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658283044.775799">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1658283044.775799">2022-07-20 11:10:44 +0900</a></div>
+          </div>
+          <div class="description">初めて見かけるエラーメッセージなので読んでの推測ですが、sdl2パッケージはC言語で書かれたSDLのbindingなので、お使いのOSのパッケージマネージャーを利用して事前にSDLをインストールする必要があると思われます。<br/>例えばUbuntuやDebianであれば<br/><pre>sudo apt install libsdl2-2.0 libsdl2-dev</pre><br/>でインストールできるようです。<br/>参考: <a href='https://wiki.libsdl.org/Installation'>https://wiki.libsdl.org/Installation</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1658283149.268069">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658283149.268069">2022-07-20 11:12:29 +0900</a></div>
+          </div>
+          <div class="description">Windows なんですよね...<br/>調べてみます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658283619.516819">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1658283619.516819">2022-07-20 11:20:19 +0900</a></div>
+          </div>
+          <div class="description">Windowsの場合、stack.yamlの <code>extra-include-dirs</code> と <code>extra-lib-dirs</code> に、それぞれヘッダーファイルへのパスとdllファイルへのパスを設定することになるでしょう。<br/><a href='https://docs.haskellstack.org/en/stable/yaml_configuration/#extra-include-dirsextra-lib-dirs'>https://docs.haskellstack.org/en/stable/yaml_configuration/#extra-include-dirsextra-lib-dirs</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1658283686.584169">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658283686.584169">2022-07-20 11:21:26 +0900</a></div>
+          </div>
+          <div class="description">おおおお<br/>ありがたい!<br/>早速試してみます!</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658284986.713179">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1658284986.713179">2022-07-20 11:43:06 +0900</a></div>
+          </div>
+          <div class="description"><code>pkg-config</code> が情報を探しにいってるっぽいので <i>stack.yaml</i> でうまくいくんだろうか？（確信はない<br/><i>sdl2.cabal</i> に↓の記述が<br/><pre>    pkgconfig-depends:
+      sdl2 &gt;= 2.0.6</pre><br/>MSYS2 内じゃないとビルドできないかも？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658285143.692309">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658285143.692309">2022-07-20 11:45:43 +0900</a></div>
+          </div>
+          <div class="description">MSYS2 で、ビルド.....</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658285463.283359">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1658285463.283359">2022-07-20 11:51:03 +0900</a></div>
+          </div>
+          <div class="description">なるほど、であればstackがインストールしたMSYS2を使うようにして<br/><pre>stack exec -- pacman -S mingw-w64-x86_64-SDL2</pre><br/>ならいかがでしょうか？<br/><a href='https://packages.msys2.org/search?t=binpkg&amp;q=sdl2'>https://packages.msys2.org/search?t=binpkg&amp;q=sdl2</a> で探してみてもどれがそれなのかイマイチ確信が持てませんでしたが</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658286075.274739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658286075.274739">2022-07-20 12:01:15 +0900</a></div>
+          </div>
+          <div class="description"><pre>&gt; stack exec -- pacman -S mingw-w64-x86_64-SDL2
+resolving dependencies...
+looking for conflicting packages...
+
+Packages (9) mingw-w64-x86_64-gcc-libs-10.3.0-2  mingw-w64-x86_64-gmp-6.2.1-2
+             mingw-w64-x86_64-libiconv-1.16-2
+             mingw-w64-x86_64-libwinpthread-git-9.0.0.6215.788f57701-1  mingw-w64-x86_64-mpc-1.2.1-1
+             mingw-w64-x86_64-mpfr-4.1.0-3  mingw-w64-x86_64-vulkan-headers-1.2.179-1
+             mingw-w64-x86_64-vulkan-loader-1.2.179-2  mingw-w64-x86_64-SDL2-2.0.14-2
+
+Total Download Size:    2.16 MiB
+Total Installed Size:  26.43 MiB
+
+:: Proceed with installation? [Y/n] y
+:: Retrieving packages...
+ mingw-w64-x86_64-mpfr-4.1.0...   357.1 KiB   235 KiB/s 00:02 [################################] 100%
+ mingw-w64-x86_64-mpc-1.2.1-...    72.7 KiB  35.5 MiB/s 00:00 [################################] 100%
+ mingw-w64-x86_64-libiconv-1...   744.5 KiB  1076 KiB/s 00:01 [################################] 100%
+ mingw-w64-x86_64-SDL2-2.0.1...  1038.0 KiB   956 KiB/s 00:01 [################################] 100%
+(9/9) checking keys in keyring                                [################################] 100%
+(9/9) checking package integrity                              [################################] 100%
+error: mingw-w64-x86_64-mpfr: signature from "David Macek &lt;david.macek.0@gmail.com&gt;" is unknown trust
+:: File /var/cache/pacman/pkg/mingw-w64-x86_64-mpfr-4.1.0-3-any.pkg.tar.zst is corrupted (invalid or corrupted package (PGP signature)).
+Do you want to delete it? [Y/n] y
+error: mingw-w64-x86_64-mpc: signature from "David Macek &lt;david.macek.0@gmail.com&gt;" is unknown trust
+:: File /var/cache/pacman/pkg/mingw-w64-x86_64-mpc-1.2.1-1-any.pkg.tar.zst is corrupted (invalid or corrupted package (PGP signature)).
+Do you want to delete it? [Y/n] y
+error: mingw-w64-x86_64-libiconv: signature from "David Macek &lt;david.macek.0@gmail.com&gt;" is unknown trust
+:: File /var/cache/pacman/pkg/mingw-w64-x86_64-libiconv-1.16-2-any.pkg.tar.zst is corrupted (invalid or corrupted package (PGP signature)).
+Do you want to delete it? [Y/n] y
+error: mingw-w64-x86_64-SDL2: signature from "David Macek &lt;david.macek.0@gmail.com&gt;" is unknown trust
+:: File /var/cache/pacman/pkg/mingw-w64-x86_64-SDL2-2.0.14-2-any.pkg.tar.zst is corrupted (invalid or corrupted package (PGP signature)).
+Do you want to delete it? [Y/n] y
+error: failed to commit transaction (invalid or corrupted package (PGP signature))
+Errors occurred, no packages were upgraded.</pre><br/>なんだかエラーが出て破損してるみたいです...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658287330.562049">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658287330.562049">2022-07-20 12:22:10 +0900</a></div>
+          </div>
+          <div class="description">なんとか頑張ってみます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658288157.483079">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1658288157.483079">2022-07-20 12:35:57 +0900</a></div>
+          </div>
+          <div class="description">手元でも同じになりましたね……:thinking_face:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658288246.269819">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658288246.269819">2022-07-20 12:37:26 +0900</a></div>
+          </div>
+          <div class="description">なるほど...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658288342.271599">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1658288342.271599">2022-07-20 12:39:02 +0900</a></div>
+          </div>
+          <div class="description">ヘッダーファイルなどを直接指定しないと難しそうであれば、cabalファイルを書き換えて <a href='https://stackoverflow.com/questions/4959802/how-to-specify-dependency-on-external-c-library-in-cabal'>https://stackoverflow.com/questions/4959802/how-to-specify-dependency-on-external-c-library-in-cabal</a> を参考にWindowsの場合はextra-lib-dirsなどが使えるようにする、という手も考えられますね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658288416.222599">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658288416.222599">2022-07-20 12:40:16 +0900</a></div>
+          </div>
+          <div class="description">そのままだと使えないのですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658288619.954399">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1658288619.954399">2022-07-20 12:43:39 +0900</a></div>
+          </div>
+          <div class="description">ざっとcabalファイルを読んだ限り現状だとpkgconfigを必ず使うようになってしまっているようなので、恐らくcabalファイルを書き換えないとダメではないかと思います。<br/><a href='https://github.com/haskell-game/sdl2/blob/master/sdl2.cabal'>https://github.com/haskell-game/sdl2/blob/master/sdl2.cabal</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1658288654.930649">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658288654.930649">2022-07-20 12:44:14 +0900</a></div>
+          </div>
+          <div class="description">なるほど</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658290753.232449">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1658290753.232449">2022-07-20 13:19:13 +0900</a></div>
+          </div>
+          <div class="description"><code>pacman -S mingw64/mingw-w64-x86_64-SDL2</code> でエラーになる問題はこれでした<br/><a href='https://www.msys2.org/news/#2020-06-29-new-packagers'>https://www.msys2.org/news/#2020-06-29-new-packagers</a><br/>で、`pacman -S mingw64/mingw-w64-x86_64-SDL2` は成功したけど <code>The program 'pkg-config' version &gt;=0.9.0 is required but it could not be found.</code> は変わらずですねえ</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658291023.791259">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1658291023.791259">2022-07-20 13:23:43 +0900</a></div>
+          </div>
+          <div class="description"><code>pkg-config</code> 自体がインストールされてなかった<br/><pre>pacman -S mingw64/mingw-w64-x86_64-pkg-config</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1658291994.694619">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1658291994.694619">2022-07-20 13:39:54 +0900</a></div>
+          </div>
+          <div class="description">:tada:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658300219.647319">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658300219.647319">2022-07-20 15:56:59 +0900</a></div>
+          </div>
+          <div class="description">すみません、病院に行っていました。<br/>どういう感じですかね？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658304092.337189">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658304092.337189">2022-07-20 17:01:32 +0900</a></div>
+          </div>
+          <div class="description"><pre>pacman -S mingw64/mingw-w64-x86_64-SDL2</pre><br/>これはエラー出ませんでした。<br/><code>pkg-config</code> もインストールされてますね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658322501.700489">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1658322501.700489">2022-07-20 22:08:21 +0900</a></div>
+          </div>
+          <div class="description">お、その状態であれば Haskell の sdl2 のビルド成功しませんかね？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658356119.273199">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658356119.273199">2022-07-21 07:28:39 +0900</a></div>
+          </div>
+          <div class="description">変わらず成功しませんね...<br/>Windows PowerShell で stack install sdl2<br/>しましたが、以前と変わらないエラーが出ました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../21.html" class="item">Back to beginners #21</a>
+    </div>
+  </div>
+</body>
+</html>

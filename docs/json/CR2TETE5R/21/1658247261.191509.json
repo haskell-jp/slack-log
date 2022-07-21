@@ -1,0 +1,140 @@
+[
+    {
+        "text": "今 sdl2 のライブラリを stack でインストールしようとしているのですが、\n``` sdl2&gt; configure\n sdl2&gt; Configuring sdl2-2.5.3.0...\n sdl2&gt; Cabal-simple_Z6RU0evB_3.4.1.0_ghc-9.0.2.exe: The pkg-config package 'sdl2'\n sdl2&gt; version &gt;=2.0.6 is required but it could not be found.\n```\nこんな具合に止まってしまいます。\nどうしたものでしょうか。",
+        "type": "message",
+        "ts": "1658247261.191509",
+        "user": "U01VCS5MBU3"
+    },
+    {
+        "text": "初めて見かけるエラーメッセージなので読んでの推測ですが、sdl2パッケージはC言語で書かれたSDLのbindingなので、お使いのOSのパッケージマネージャーを利用して事前にSDLをインストールする必要があると思われます。\n例えばUbuntuやDebianであれば\n```sudo apt install libsdl2-2.0 libsdl2-dev```\nでインストールできるようです。\n参考: <https://wiki.libsdl.org/Installation>",
+        "type": "message",
+        "ts": "1658283044.775799",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "Windows なんですよね...\n調べてみます。",
+        "type": "message",
+        "ts": "1658283149.268069",
+        "user": "U01VCS5MBU3"
+    },
+    {
+        "text": "Windowsの場合、stack.yamlの `extra-include-dirs` と `extra-lib-dirs` に、それぞれヘッダーファイルへのパスとdllファイルへのパスを設定することになるでしょう。\n<https://docs.haskellstack.org/en/stable/yaml_configuration/#extra-include-dirsextra-lib-dirs>",
+        "type": "message",
+        "ts": "1658283619.516819",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "おおおお\nありがたい!\n早速試してみます!",
+        "type": "message",
+        "ts": "1658283686.584169",
+        "user": "U01VCS5MBU3"
+    },
+    {
+        "text": "`pkg-config` が情報を探しにいってるっぽいので _stack.yaml_ でうまくいくんだろうか？（確信はない\n_sdl2.cabal_ に↓の記述が\n```    pkgconfig-depends:\n      sdl2 &gt;= 2.0.6```\nMSYS2 内じゃないとビルドできないかも？",
+        "type": "message",
+        "ts": "1658284986.713179",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "MSYS2 で、ビルド.....",
+        "type": "message",
+        "ts": "1658285143.692309",
+        "user": "U01VCS5MBU3"
+    },
+    {
+        "text": "なるほど、であればstackがインストールしたMSYS2を使うようにして\n```stack exec -- pacman -S mingw-w64-x86_64-SDL2```\nならいかがでしょうか？\n<https://packages.msys2.org/search?t=binpkg&amp;q=sdl2> で探してみてもどれがそれなのかイマイチ確信が持てませんでしたが",
+        "type": "message",
+        "ts": "1658285463.283359",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "```&gt; stack exec -- pacman -S mingw-w64-x86_64-SDL2\nresolving dependencies...\nlooking for conflicting packages...\n\nPackages (9) mingw-w64-x86_64-gcc-libs-10.3.0-2  mingw-w64-x86_64-gmp-6.2.1-2\n             mingw-w64-x86_64-libiconv-1.16-2\n             mingw-w64-x86_64-libwinpthread-git-9.0.0.6215.788f57701-1  mingw-w64-x86_64-mpc-1.2.1-1\n             mingw-w64-x86_64-mpfr-4.1.0-3  mingw-w64-x86_64-vulkan-headers-1.2.179-1\n             mingw-w64-x86_64-vulkan-loader-1.2.179-2  mingw-w64-x86_64-SDL2-2.0.14-2\n\nTotal Download Size:    2.16 MiB\nTotal Installed Size:  26.43 MiB\n\n:: Proceed with installation? [Y/n] y\n:: Retrieving packages...\n mingw-w64-x86_64-mpfr-4.1.0...   357.1 KiB   235 KiB/s 00:02 [################################] 100%\n mingw-w64-x86_64-mpc-1.2.1-...    72.7 KiB  35.5 MiB/s 00:00 [################################] 100%\n mingw-w64-x86_64-libiconv-1...   744.5 KiB  1076 KiB/s 00:01 [################################] 100%\n mingw-w64-x86_64-SDL2-2.0.1...  1038.0 KiB   956 KiB/s 00:01 [################################] 100%\n(9/9) checking keys in keyring                                [################################] 100%\n(9/9) checking package integrity                              [################################] 100%\nerror: mingw-w64-x86_64-mpfr: signature from \"David Macek &lt;david.macek.0@gmail.com&gt;\" is unknown trust\n:: File /var/cache/pacman/pkg/mingw-w64-x86_64-mpfr-4.1.0-3-any.pkg.tar.zst is corrupted (invalid or corrupted package (PGP signature)).\nDo you want to delete it? [Y/n] y\nerror: mingw-w64-x86_64-mpc: signature from \"David Macek &lt;david.macek.0@gmail.com&gt;\" is unknown trust\n:: File /var/cache/pacman/pkg/mingw-w64-x86_64-mpc-1.2.1-1-any.pkg.tar.zst is corrupted (invalid or corrupted package (PGP signature)).\nDo you want to delete it? [Y/n] y\nerror: mingw-w64-x86_64-libiconv: signature from \"David Macek &lt;david.macek.0@gmail.com&gt;\" is unknown trust\n:: File /var/cache/pacman/pkg/mingw-w64-x86_64-libiconv-1.16-2-any.pkg.tar.zst is corrupted (invalid or corrupted package (PGP signature)).\nDo you want to delete it? [Y/n] y\nerror: mingw-w64-x86_64-SDL2: signature from \"David Macek &lt;david.macek.0@gmail.com&gt;\" is unknown trust\n:: File /var/cache/pacman/pkg/mingw-w64-x86_64-SDL2-2.0.14-2-any.pkg.tar.zst is corrupted (invalid or corrupted package (PGP signature)).\nDo you want to delete it? [Y/n] y\nerror: failed to commit transaction (invalid or corrupted package (PGP signature))\nErrors occurred, no packages were upgraded.```\nなんだかエラーが出て破損してるみたいです...",
+        "type": "message",
+        "ts": "1658286075.274739",
+        "user": "U01VCS5MBU3"
+    },
+    {
+        "text": "なんとか頑張ってみます。",
+        "type": "message",
+        "ts": "1658287330.562049",
+        "user": "U01VCS5MBU3"
+    },
+    {
+        "text": "手元でも同じになりましたね……:thinking_face:",
+        "type": "message",
+        "ts": "1658288157.483079",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "なるほど...",
+        "type": "message",
+        "ts": "1658288246.269819",
+        "user": "U01VCS5MBU3"
+    },
+    {
+        "text": "ヘッダーファイルなどを直接指定しないと難しそうであれば、cabalファイルを書き換えて <https://stackoverflow.com/questions/4959802/how-to-specify-dependency-on-external-c-library-in-cabal> を参考にWindowsの場合はextra-lib-dirsなどが使えるようにする、という手も考えられますね。",
+        "type": "message",
+        "ts": "1658288342.271599",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "そのままだと使えないのですか？",
+        "type": "message",
+        "ts": "1658288416.222599",
+        "user": "U01VCS5MBU3"
+    },
+    {
+        "text": "ざっとcabalファイルを読んだ限り現状だとpkgconfigを必ず使うようになってしまっているようなので、恐らくcabalファイルを書き換えないとダメではないかと思います。\n<https://github.com/haskell-game/sdl2/blob/master/sdl2.cabal>",
+        "type": "message",
+        "ts": "1658288619.954399",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "なるほど",
+        "type": "message",
+        "ts": "1658288654.930649",
+        "user": "U01VCS5MBU3"
+    },
+    {
+        "text": "`pacman -S mingw64/mingw-w64-x86_64-SDL2` でエラーになる問題はこれでした\n<https://www.msys2.org/news/#2020-06-29-new-packagers>\nで、`pacman -S mingw64/mingw-w64-x86_64-SDL2` は成功したけど `The program 'pkg-config' version &gt;=0.9.0 is required but it could not be found.` は変わらずですねえ",
+        "type": "message",
+        "ts": "1658290753.232449",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "`pkg-config` 自体がインストールされてなかった\n```pacman -S mingw64/mingw-w64-x86_64-pkg-config```",
+        "type": "message",
+        "ts": "1658291023.791259",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": ":tada:",
+        "type": "message",
+        "ts": "1658291994.694619",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "すみません、病院に行っていました。\nどういう感じですかね？",
+        "type": "message",
+        "ts": "1658300219.647319",
+        "user": "U01VCS5MBU3"
+    },
+    {
+        "text": "```pacman -S mingw64/mingw-w64-x86_64-SDL2```\nこれはエラー出ませんでした。\n`pkg-config` もインストールされてますね。",
+        "type": "message",
+        "ts": "1658304092.337189",
+        "user": "U01VCS5MBU3"
+    },
+    {
+        "text": "お、その状態であれば Haskell の sdl2 のビルド成功しませんかね？",
+        "type": "message",
+        "ts": "1658322501.700489",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "変わらず成功しませんね...\nWindows PowerShell で stack install sdl2\nしましたが、以前と変わらないエラーが出ました。",
+        "type": "message",
+        "ts": "1658356119.273199",
+        "user": "U01VCS5MBU3"
+    }
+]
