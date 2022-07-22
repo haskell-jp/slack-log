@@ -258,6 +258,96 @@ Errors occurred, no packages were upgraded.</pre><br/>なんだかエラーが�
           <div class="description">変わらず成功しませんね...<br/>Windows PowerShell で stack install sdl2<br/>しましたが、以前と変わらないエラーが出ました。</div>
         </div>
       </div>
+      <div class="event" id="message-1658363100.802089">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1658363100.802089">2022-07-21 09:25:00 +0900</a></div>
+          </div>
+          <div class="description"><code>stack exec -- pacman -S mingw64/mingw-w64-x86_64-SDL2 pkg-config</code>  ならどうでしょうか！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658364309.356469">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658364309.356469">2022-07-21 09:45:09 +0900</a></div>
+          </div>
+          <div class="description"><pre>Executable named pacman not found on path</pre><br/>だそうです...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658364640.090739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658364640.090739">2022-07-21 09:50:40 +0900</a></div>
+          </div>
+          <div class="description">昨日までは stack exec ちゃんと動いてたんですよね...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658365058.153199">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1658365058.153199">2022-07-21 09:57:38 +0900</a></div>
+          </div>
+          <div class="description">:confused: うーん、二重に変なことが起きてますね。普通はGHCをstackでインストールした場合は、同時にstackが管理するディレクトリーにMSYS2をインストールするので、 <code>stack exec pacman</code> したらまずそこにあるpacmanを見に行くはずなんですがそれがなくて、その上別途MSYS2をインストールしていてそのpacmanは使えていた、と言うことでしょうから、仮にstackがインストールした方のpacmanが消えていたとしても別途インストールした方のものが呼ばれると思うのですが...<br/>改めて普通に pacman を実行するとどうなりますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658365448.607809">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658365448.607809">2022-07-21 10:04:08 +0900</a></div>
+          </div>
+          <div class="description">MSYS2 の上では動いてますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658365742.587279">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1658365742.587279">2022-07-21 10:09:02 +0900</a></div>
+          </div>
+          <div class="description">ああー、そういうことか。MSYS2のツールがグローバルな <code>PATH</code> では参照されてない、と。だからそっちに <code>pkg-config</code> などをいれてもうまく行かなかったわけですね。デフォルトであればstackがインストールする MSYS2 は <code>C:\Users\&lt;Windowsのユーザー名&gt;\AppData\Local\Programs\stack\x86_64-windows</code> にインストールされるはずですが、どうなっていますか？インストール済みであれば「msys2-」で始まるファイルやディレクトリーがいくつかあるはずです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658365782.318629">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658365782.318629">2022-07-21 10:09:42 +0900</a></div>
+          </div>
+          <div class="description">色々入れ直したら動きました!</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658365845.527249">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658365845.527249">2022-07-21 10:10:45 +0900</a></div>
+          </div>
+          <div class="description"><pre>error: mingw-w64-x86_64-mpfr: signature from "David Macek &lt;david.macek.0@gmail.com&gt;" is unknown trust</pre><br/>こんなこと言われました</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658365961.258779">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1658365961.258779">2022-07-21 10:12:41 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://www.msys2.org/news/#2020-06-29-new-packagers'>https://www.msys2.org/news/#2020-06-29-new-packagers</a> と同じ問題かと思います。直すには、このページに書かれている <code>pacman</code> コマンドを <code>stack exec -- pacman</code> で読み替えれば解決できると思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658365995.007629">
+        <div class="content">
+          <div class="summary">
+            <div class="user">千吉川</div>
+            <div class="date"><a class="date" href="#message-1658365995.007629">2022-07-21 10:13:15 +0900</a></div>
+          </div>
+          <div class="description">あと msys2- で始まるファイルなどを複数見つけられました</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../21.html" class="item">Back to beginners #21</a>
