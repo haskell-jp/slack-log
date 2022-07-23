@@ -395,6 +395,15 @@ Launching haskell-language-server exe at:/mnt/wslg/runtime-dir/ghcup-ghc-8.10.7_
           <div class="description">haskell/text-icu にカスタム照合規則対応を追加する PR を送ってみたのですが、これで正しいのか今一自信がありません。どなたかご助言下さいますと助かります:bow:<br/><br/>気になっていること<br/>• FFI 周りの作法は正しいか<br/>• 露出する API は適切か<br/>    ◦ <code>collatorFromRulesWith</code> や <code>rules</code> の命名<br/>    ◦ <code>rules</code> を Data.Text.ICU で再エクスポートしないこと（何の <code>rules</code> なのか名前から分からないと思うので再エクスポートしませんでした）<br/>• テスト方法<br/><a href='https://github.com/haskell/text-icu/pull/76'>https://github.com/haskell/text-icu/pull/76</a></div>
         </div>
       </div>
+      <div class="event" id="message-1658582996.123349">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1658582996.123349">2022-07-23 22:29:56 +0900</a></div>
+          </div>
+          <div class="description"><https://www.microsoft.com/en-us/research/publication/implementing-functional-languages-a-tutorial/|Implementing Functional Language: a tutorial> の練習問題3.2の証明を<https://github.com/nobsun/ifl-tut/blob/4401e4037d5c41437505d94d6071d09e8cebca05/src/Gmachine/AExprLet.hs|Haskellの型レプ>で書こうとして絶賛はまり中。<br/>というか、エラーメッセージが理解できないでいます。`Could no deduce: If (x == x) t ('Var x) ~ t`  なぜなんでしょう？<br/>```src/Gmachine/AExprLet.hs:245:24: error:<br/>    • Could not deduce: If (x == x) t ('Var x) ~ t<br/>      from the context: s ~ 'Var x1<br/>        bound by a pattern with constructor:<br/>                   SVar :: forall (x :: Name). Sing x -&gt; Sing ('Var x),<br/>                 in a case alternative<br/>        at src/Gmachine/AExprLet.hs:244:5-11<br/>      or from: x1 ~ x<br/>        bound by a pattern with constructor:<br/>                   Refl :: forall {k} (a :: k). a :~: a,<br/>                 in a case alternative<br/>        at src/Gmachine/AExprLet.hs:245:16-19<br/>      Expected: Sing (Substitute s x t)<br/>        Actual: Sing t<br/>      't' is a rigid type variable bound by<br/>        the type signature for:<br/>          saSubstitute :: forall (s :: AExpr) (x :: Name) (t :: AExpr).<br/>                          Sing s -&gt; Sing x -&gt; Sing t -&gt; Sing (Substitute s x t)<br/>        at src/Gmachine/AExprLet.hs:239:1-101<br/>    • In the expression: st<br/>      In a case alternative: Proved Refl -&gt; st<br/>      In the expression:<br/>        case sx %~ sy of<br/>          Proved Refl -&gt; st<br/>          Disproved _ -&gt; ss<br/>    • Relevant bindings include<br/>        st :: Sing t (bound at src/Gmachine/AExprLet.hs:240:20)<br/>        sx :: Sing x (bound at src/Gmachine/AExprLet.hs:240:17)<br/>        saSubstitute :: Sing s<br/>                        -&gt; Sing x -&gt; Sing t -&gt; Sing (Substitute s x t)<br/>          (bound at src/Gmachine/AExprLet.hs:240:1)<br/>    |<br/>245 |         Proved Refl -&gt; st<br/>    |                        ^^```<br/></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C5666B6BB/100.html" class="item">Previous</a>
