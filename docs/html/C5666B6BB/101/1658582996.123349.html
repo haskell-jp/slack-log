@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #101 at 2022-07-23 22:29:56 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #101 at 2022-07-23 22:29:56 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../101.html" class="item">Back to questions #101</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1658582996.123349">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1658582996.123349">2022-07-23 22:29:56 +0900</a></div>
+          </div>
+          <div class="description"><https://www.microsoft.com/en-us/research/publication/implementing-functional-languages-a-tutorial/|Implementing Functional Language: a tutorial> の練習問題3.2の証明を<https://github.com/nobsun/ifl-tut/blob/4401e4037d5c41437505d94d6071d09e8cebca05/src/Gmachine/AExprLet.hs|Haskellの型レプ>で書こうとして絶賛はまり中。<br/>というか、エラーメッセージが理解できないでいます。`Could no deduce: If (x == x) t ('Var x) ~ t`  なぜなんでしょう？<br/>```src/Gmachine/AExprLet.hs:245:24: error:<br/>    • Could not deduce: If (x == x) t ('Var x) ~ t<br/>      from the context: s ~ 'Var x1<br/>        bound by a pattern with constructor:<br/>                   SVar :: forall (x :: Name). Sing x -&gt; Sing ('Var x),<br/>                 in a case alternative<br/>        at src/Gmachine/AExprLet.hs:244:5-11<br/>      or from: x1 ~ x<br/>        bound by a pattern with constructor:<br/>                   Refl :: forall {k} (a :: k). a :~: a,<br/>                 in a case alternative<br/>        at src/Gmachine/AExprLet.hs:245:16-19<br/>      Expected: Sing (Substitute s x t)<br/>        Actual: Sing t<br/>      't' is a rigid type variable bound by<br/>        the type signature for:<br/>          saSubstitute :: forall (s :: AExpr) (x :: Name) (t :: AExpr).<br/>                          Sing s -&gt; Sing x -&gt; Sing t -&gt; Sing (Substitute s x t)<br/>        at src/Gmachine/AExprLet.hs:239:1-101<br/>    • In the expression: st<br/>      In a case alternative: Proved Refl -&gt; st<br/>      In the expression:<br/>        case sx %~ sy of<br/>          Proved Refl -&gt; st<br/>          Disproved _ -&gt; ss<br/>    • Relevant bindings include<br/>        st :: Sing t (bound at src/Gmachine/AExprLet.hs:240:20)<br/>        sx :: Sing x (bound at src/Gmachine/AExprLet.hs:240:17)<br/>        saSubstitute :: Sing s<br/>                        -&gt; Sing x -&gt; Sing t -&gt; Sing (Substitute s x t)<br/>          (bound at src/Gmachine/AExprLet.hs:240:1)<br/>    |<br/>245 |         Proved Refl -&gt; st<br/>    |                        ^^```<br/></div>
+        </div>
+      </div>
+      <div class="event" id="message-1658624576.050469">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1658624576.050469">2022-07-24 10:02:56 +0900</a></div>
+          </div>
+          <div class="description">抽象的な型変数 <code>x</code> に対しては <code>x == x</code> から <code>True</code> への簡約は行われません。 <a href='https://hackage.haskell.org/package/base-4.16.2.0/docs/Data-Type-Equality.html#t:-61--61-'>https://hackage.haskell.org/package/base-4.16.2.0/docs/Data-Type-Equality.html#t:-61--61-</a> の定義を見ると、規則 <code>a == a = True</code> が発動するのは <code>x</code> が「何らかの型コンストラクタ <code>f</code> に対して <code>f a</code> と書くことができない」ことが既知の場合のみで、抽象的な型変数に対してはそれはわからないのです。型の等価性演算子を独自に<br/><pre>type family a === b where
+  a === a = True
+  a === b = False</pre><br/>という風に定義するか、 <code>Substitute</code> の定義を書き換えて <code>==</code> を使わないようにすれば解決すると思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658666429.817949">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1658666429.817949">2022-07-24 21:40:29 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。Twitter で @mr_konnさんにも同様にアドバイス <a href='https://twitter.com/mr_konn/status/1550864037071572992'>https://twitter.com/mr_konn/status/1550864037071572992</a><br/><a href='https://twitter.com/mr_konn/status/1550862653144252417'>https://twitter.com/mr_konn/status/1550862653144252417</a><br/>をいただきました。 <code>Substitution</code> の定義の書き換えを試みていますが、理解がおいついていなくて、うまく定義しきれていません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1658670652.946169">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1658670652.946169">2022-07-24 22:50:52 +0900</a></div>
+          </div>
+          <div class="description">ようやく、コンパイルを通しました。<br/><a href='https://github.com/nobsun/ifl-tut/blob/v0.3.2.1.2/src/Gmachine/AExprLet.hs'>https://github.com/nobsun/ifl-tut/blob/v0.3.2.1.2/src/Gmachine/AExprLet.hs</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../101.html" class="item">Back to questions #101</a>
+    </div>
+  </div>
+</body>
+</html>

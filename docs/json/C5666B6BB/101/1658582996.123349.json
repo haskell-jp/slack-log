@@ -1,0 +1,26 @@
+[
+    {
+        "text": "<https://www.microsoft.com/en-us/research/publication/implementing-functional-languages-a-tutorial/|Implementing Functional Language: a tutorial> の練習問題3.2の証明を<https://github.com/nobsun/ifl-tut/blob/4401e4037d5c41437505d94d6071d09e8cebca05/src/Gmachine/AExprLet.hs|Haskellの型レプ>で書こうとして絶賛はまり中。\nというか、エラーメッセージが理解できないでいます。`Could no deduce: If (x == x) t ('Var x) ~ t`  なぜなんでしょう？\n```src/Gmachine/AExprLet.hs:245:24: error:\n    • Could not deduce: If (x == x) t ('Var x) ~ t\n      from the context: s ~ 'Var x1\n        bound by a pattern with constructor:\n                   SVar :: forall (x :: Name). Sing x -&gt; Sing ('Var x),\n                 in a case alternative\n        at src/Gmachine/AExprLet.hs:244:5-11\n      or from: x1 ~ x\n        bound by a pattern with constructor:\n                   Refl :: forall {k} (a :: k). a :~: a,\n                 in a case alternative\n        at src/Gmachine/AExprLet.hs:245:16-19\n      Expected: Sing (Substitute s x t)\n        Actual: Sing t\n      't' is a rigid type variable bound by\n        the type signature for:\n          saSubstitute :: forall (s :: AExpr) (x :: Name) (t :: AExpr).\n                          Sing s -&gt; Sing x -&gt; Sing t -&gt; Sing (Substitute s x t)\n        at src/Gmachine/AExprLet.hs:239:1-101\n    • In the expression: st\n      In a case alternative: Proved Refl -&gt; st\n      In the expression:\n        case sx %~ sy of\n          Proved Refl -&gt; st\n          Disproved _ -&gt; ss\n    • Relevant bindings include\n        st :: Sing t (bound at src/Gmachine/AExprLet.hs:240:20)\n        sx :: Sing x (bound at src/Gmachine/AExprLet.hs:240:17)\n        saSubstitute :: Sing s\n                        -&gt; Sing x -&gt; Sing t -&gt; Sing (Substitute s x t)\n          (bound at src/Gmachine/AExprLet.hs:240:1)\n    |\n245 |         Proved Refl -&gt; st\n    |                        ^^```\n",
+        "type": "message",
+        "ts": "1658582996.123349",
+        "user": "U4KU9ABL0"
+    },
+    {
+        "text": "抽象的な型変数 `x` に対しては `x == x` から `True` への簡約は行われません。 <https://hackage.haskell.org/package/base-4.16.2.0/docs/Data-Type-Equality.html#t:-61--61-> の定義を見ると、規則 `a == a = True` が発動するのは `x` が「何らかの型コンストラクタ `f` に対して `f a` と書くことができない」ことが既知の場合のみで、抽象的な型変数に対してはそれはわからないのです。型の等価性演算子を独自に\n```type family a === b where\n  a === a = True\n  a === b = False```\nという風に定義するか、 `Substitute` の定義を書き換えて `==` を使わないようにすれば解決すると思います。",
+        "type": "message",
+        "ts": "1658624576.050469",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "ありがとうございます。Twitter で @mr_konnさんにも同様にアドバイス <https://twitter.com/mr_konn/status/1550864037071572992>\n<https://twitter.com/mr_konn/status/1550862653144252417>\nをいただきました。 `Substitution` の定義の書き換えを試みていますが、理解がおいついていなくて、うまく定義しきれていません。",
+        "type": "message",
+        "ts": "1658666429.817949",
+        "user": "U4KU9ABL0"
+    },
+    {
+        "text": "ようやく、コンパイルを通しました。\n<https://github.com/nobsun/ifl-tut/blob/v0.3.2.1.2/src/Gmachine/AExprLet.hs>",
+        "type": "message",
+        "ts": "1658670652.946169",
+        "user": "U4KU9ABL0"
+    }
+]
