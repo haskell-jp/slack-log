@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #101 at 2022-07-28 18:30:52 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #101 at 2022-07-28 18:30:52 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../101.html" class="item">Back to questions #101</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1659000652.702649">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minus1216</div>
+            <div class="date"><a class="date" href="#message-1659000652.702649">2022-07-28 18:30:52 +0900</a></div>
+          </div>
+          <div class="description">再帰的な型をキーとする要素数の少ないMapに対して頻繁にlookupをかけるコードを書いており、高速化したいです。はじめはHashMapを使おうと思っていたのですが、hashWithSaltをプリミティブな演算のみで実装しても再帰のオーバーヘッドが大きかったのか、かえって遅くなってしまいました</div>
+        </div>
+      </div>
+      <div class="event" id="message-1659007364.005159">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1659007364.005159">2022-07-28 20:22:44 +0900</a></div>
+          </div>
+          <div class="description">どんなキーなのか気になりますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1659008411.519259">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minus1216</div>
+            <div class="date"><a class="date" href="#message-1659008411.519259">2022-07-28 20:40:11 +0900</a></div>
+          </div>
+          <div class="description">直観主義命題論理の命題を表す次の型Exprをキーとして持っています：<br/><pre>data Expr =
+    ExprVar Int
+  | ExprBottom
+  | Implies Expr Expr
+  | And Expr Expr
+  | Or Expr Expr
+  deriving (Eq, Ord)</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1659015598.862449">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1659015598.862449">2022-07-28 22:39:58 +0900</a></div>
+          </div>
+          <div class="description">なるほど<br/>ハッシュの計算が重いなら <code>HashMap</code> よりも containers の <code>Data.Map.Strict.Map</code> の方が軽いかもしれませんね<br/>（こちらは <code>Ord</code> の比較を使う</div>
+        </div>
+      </div>
+      <div class="event" id="message-1659032170.808609">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minus1216</div>
+            <div class="date"><a class="date" href="#message-1659032170.808609">2022-07-29 03:16:10 +0900</a></div>
+          </div>
+          <div class="description">結局比較したら`Data.Map.Map` を使うのが一番はやかったみたいです、プロファイリングするとcompareが無視できない時間走ってるみたいですが、`deriving Ord` のcompareってけっこうはやいんですかね、</div>
+        </div>
+      </div>
+      <div class="event" id="message-1659032698.922919">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1659032698.922919">2022-07-29 03:24:58 +0900</a></div>
+          </div>
+          <div class="description">ハッシュの計算が（ハッシュ関数の設計にもよりますが）`Expr` の値を全部なめるのに対して、`compare` は違いがあった時点で打ち切るのが効いてるのかもしれませんね<br/>計測してみないとなんともですが</div>
+        </div>
+      </div>
+      <div class="event" id="message-1659033271.328889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minus1216</div>
+            <div class="date"><a class="date" href="#message-1659033271.328889">2022-07-29 03:34:31 +0900</a></div>
+          </div>
+          <div class="description">たとえば、`Expr` のハッシュを先に計算して、それ以降`type ExprWithHash = ExprWithHash Expr Int` みたいな形で扱うのって有効なやり口ですかね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1659033387.431569">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1659033387.431569">2022-07-29 03:36:27 +0900</a></div>
+          </div>
+          <div class="description">キャッシュも試してみる価値ありそうですね <code>IntMap</code> が使えれば効率よさそうですし（実装までは見てませんが</div>
+        </div>
+      </div>
+      <div class="event" id="message-1659039730.609449">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minus1216</div>
+            <div class="date"><a class="date" href="#message-1659039730.609449">2022-07-29 05:22:10 +0900</a></div>
+          </div>
+          <div class="description">ハッシュのキャッシュを取るようにしてみたところ、結局`HashMap` も`HashSet` はこの条件下だと`Map` と`Set` より遅かったのですが、`IntMap` と`IntSet` に変えたら最速になりました</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../101.html" class="item">Back to questions #101</a>
+    </div>
+  </div>
+</body>
+</html>

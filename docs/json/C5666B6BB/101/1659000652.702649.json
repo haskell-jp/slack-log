@@ -1,0 +1,56 @@
+[
+    {
+        "text": "再帰的な型をキーとする要素数の少ないMapに対して頻繁にlookupをかけるコードを書いており、高速化したいです。はじめはHashMapを使おうと思っていたのですが、hashWithSaltをプリミティブな演算のみで実装しても再帰のオーバーヘッドが大きかったのか、かえって遅くなってしまいました",
+        "type": "message",
+        "ts": "1659000652.702649",
+        "user": "U015L5JEP8D"
+    },
+    {
+        "text": "どんなキーなのか気になりますね",
+        "type": "message",
+        "ts": "1659007364.005159",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "直観主義命題論理の命題を表す次の型Exprをキーとして持っています：\n```data Expr =\n    ExprVar Int\n  | ExprBottom\n  | Implies Expr Expr\n  | And Expr Expr\n  | Or Expr Expr\n  deriving (Eq, Ord)```",
+        "type": "message",
+        "ts": "1659008411.519259",
+        "user": "U015L5JEP8D"
+    },
+    {
+        "text": "なるほど\nハッシュの計算が重いなら `HashMap` よりも containers の `Data.Map.Strict.Map` の方が軽いかもしれませんね\n（こちらは `Ord` の比較を使う",
+        "type": "message",
+        "ts": "1659015598.862449",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "結局比較したら`Data.Map.Map` を使うのが一番はやかったみたいです、プロファイリングするとcompareが無視できない時間走ってるみたいですが、`deriving Ord` のcompareってけっこうはやいんですかね、",
+        "type": "message",
+        "ts": "1659032170.808609",
+        "user": "U015L5JEP8D"
+    },
+    {
+        "text": "ハッシュの計算が（ハッシュ関数の設計にもよりますが）`Expr` の値を全部なめるのに対して、`compare` は違いがあった時点で打ち切るのが効いてるのかもしれませんね\n計測してみないとなんともですが",
+        "type": "message",
+        "ts": "1659032698.922919",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "たとえば、`Expr` のハッシュを先に計算して、それ以降`type ExprWithHash = ExprWithHash Expr Int` みたいな形で扱うのって有効なやり口ですかね",
+        "type": "message",
+        "ts": "1659033271.328889",
+        "user": "U015L5JEP8D"
+    },
+    {
+        "text": "キャッシュも試してみる価値ありそうですね `IntMap` が使えれば効率よさそうですし（実装までは見てませんが",
+        "type": "message",
+        "ts": "1659033387.431569",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "ハッシュのキャッシュを取るようにしてみたところ、結局`HashMap` も`HashSet` はこの条件下だと`Map` と`Set` より遅かったのですが、`IntMap` と`IntSet` に変えたら最速になりました",
+        "type": "message",
+        "ts": "1659039730.609449",
+        "user": "U015L5JEP8D"
+    }
+]
