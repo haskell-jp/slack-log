@@ -52,5 +52,35 @@
         "type": "message",
         "ts": "1659039730.609449",
         "user": "U015L5JEP8D"
+    },
+    {
+        "text": "後思い浮かぶところとしては、 `hashWithSalt` を末尾再帰で計算してみるってところでしょうか。すでにやっていれば恐縮ですが",
+        "type": "message",
+        "ts": "1659053967.603379",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "遅かった頃の実装だとhashWithSaltを以下のように計算していたのですが、計算が二股に別れるような再帰は末尾再帰に変換できますか？\n```lcgs i =\n  (48271 * i) `remInt` 0xffff\n\nhashWithSalt' :: Int -&gt; Expr -&gt; Int\nhashWithSalt' salt expr =\n  case expr of\n    ExprVar t      -&gt; lcgs (salt + t) \n    ExprBottom     -&gt; lcgs salt\n    Implies e1 e2  -&gt; lcgs (hashWithSalt' salt e1 * 5 + hashWithSalt' salt e2) * 3 + 0\n    And     e1 e2  -&gt; lcgs (hashWithSalt' salt e1 * 5 + hashWithSalt' salt e2) * 3 + 1\n    Or      e1 e2  -&gt; lcgs (hashWithSalt' salt e1 * 5 + hashWithSalt' salt e2) * 3 + 2```",
+        "type": "message",
+        "ts": "1659065253.702949",
+        "user": "U015L5JEP8D"
+    },
+    {
+        "text": "はい。できるはずです。相互末尾再帰が必要かも知れませんし、結構面倒くさくなるとは思いますが...",
+        "type": "message",
+        "ts": "1659065840.361019",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "Generics版の実装を見ると、そもそも枝分かれさせるような実装になってないですね。\n<https://hackage.haskell.org/package/hashable-1.4.0.2/docs/src/Data.Hashable.Generic.Instances.html#line-38>\n\nちなみにGenericsでのインスタンスは試したんですか？",
+        "type": "message",
+        "ts": "1659084635.677329",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "試しましたが、かなり遅かったです",
+        "type": "message",
+        "ts": "1659084656.331529",
+        "user": "U015L5JEP8D"
     }
 ]

@@ -99,6 +99,61 @@
           <div class="description">ハッシュのキャッシュを取るようにしてみたところ、結局`HashMap` も`HashSet` はこの条件下だと`Map` と`Set` より遅かったのですが、`IntMap` と`IntSet` に変えたら最速になりました</div>
         </div>
       </div>
+      <div class="event" id="message-1659053967.603379">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1659053967.603379">2022-07-29 09:19:27 +0900</a></div>
+          </div>
+          <div class="description">後思い浮かぶところとしては、 <code>hashWithSalt</code> を末尾再帰で計算してみるってところでしょうか。すでにやっていれば恐縮ですが</div>
+        </div>
+      </div>
+      <div class="event" id="message-1659065253.702949">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minus1216</div>
+            <div class="date"><a class="date" href="#message-1659065253.702949">2022-07-29 12:27:33 +0900</a></div>
+          </div>
+          <div class="description">遅かった頃の実装だとhashWithSaltを以下のように計算していたのですが、計算が二股に別れるような再帰は末尾再帰に変換できますか？<br/><pre>lcgs i =
+  (48271 * i) `remInt` 0xffff
+
+hashWithSalt' :: Int -&gt; Expr -&gt; Int
+hashWithSalt' salt expr =
+  case expr of
+    ExprVar t      -&gt; lcgs (salt + t) 
+    ExprBottom     -&gt; lcgs salt
+    Implies e1 e2  -&gt; lcgs (hashWithSalt' salt e1 * 5 + hashWithSalt' salt e2) * 3 + 0
+    And     e1 e2  -&gt; lcgs (hashWithSalt' salt e1 * 5 + hashWithSalt' salt e2) * 3 + 1
+    Or      e1 e2  -&gt; lcgs (hashWithSalt' salt e1 * 5 + hashWithSalt' salt e2) * 3 + 2</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1659065840.361019">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1659065840.361019">2022-07-29 12:37:20 +0900</a></div>
+          </div>
+          <div class="description">はい。できるはずです。相互末尾再帰が必要かも知れませんし、結構面倒くさくなるとは思いますが...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1659084635.677329">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1659084635.677329">2022-07-29 17:50:35 +0900</a></div>
+          </div>
+          <div class="description">Generics版の実装を見ると、そもそも枝分かれさせるような実装になってないですね。<br/><a href='https://hackage.haskell.org/package/hashable-1.4.0.2/docs/src/Data.Hashable.Generic.Instances.html#line-38'>https://hackage.haskell.org/package/hashable-1.4.0.2/docs/src/Data.Hashable.Generic.Instances.html#line-38</a><br/><br/>ちなみにGenericsでのインスタンスは試したんですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1659084656.331529">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minus1216</div>
+            <div class="date"><a class="date" href="#message-1659084656.331529">2022-07-29 17:50:56 +0900</a></div>
+          </div>
+          <div class="description">試しましたが、かなり遅かったです</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../101.html" class="item">Back to questions #101</a>
