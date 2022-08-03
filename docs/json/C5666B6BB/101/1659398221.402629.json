@@ -1,0 +1,50 @@
+[
+    {
+        "text": "すみません。\nData.Array.Unboxedの使い方で分からないことがあってteratailに質問しているのですが、回答が付かないので何かわかるかたがおられましたらアドバイス頂きたく。\n<https://teratail.com/questions/r7tsy92f3nildu>",
+        "type": "message",
+        "ts": "1659398221.402629",
+        "user": "UFPRHDT8X"
+    },
+    {
+        "text": "エラーメッセージを見ると、\n```/home/apo/doc/project/make/haskell/20220730_2/my-project/app/Main.hs:8:1: error:\n    ~ Non type-variable argument in the constraint: IArray a Int\n      (Use FlexibleContexts to permit this)```\nとあるので、とりあえず、Main.hs の先頭行に `{-# LANGUAGE FlexibleContexts #-}` を追加してみるとよいかも。",
+        "type": "message",
+        "ts": "1659399407.723209",
+        "user": "U4KU9ABL0"
+    },
+    {
+        "text": "```{-# LANGUAGE FlexibleContexts #-}```\nを追加したら動きました。ありがとうございます。\n「Use FlexibleContexts to permit this」とはそういう意味だったのですね。",
+        "type": "message",
+        "ts": "1659400391.632309",
+        "user": "UFPRHDT8X"
+    },
+    {
+        "text": "FlexibleContextsを使わない解決法として、func1に明示的に型注釈を与えるというやり方もあります。\n```func1 :: UArray Int Int -&gt; IO ()```\nという感じで。Haskellではトップレベルの関数に明示的に型注釈を与えるのが良い慣習とされています。",
+        "type": "message",
+        "ts": "1659401887.913139",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "言語拡張を削除して\n```func1 :: UArray Int Int -&gt; IO ()```\nを追加しても動きました。\nありがとうございます。",
+        "type": "message",
+        "ts": "1659402264.372709",
+        "user": "UFPRHDT8X"
+    },
+    {
+        "text": "teratailで２日間、回答が付かなかった問題が、このslackで１時間の内に２通りの回答が頂けてびっくりです。ありがとうございます。haskell-jpすごい。",
+        "type": "message",
+        "ts": "1659404628.118039",
+        "user": "UFPRHDT8X"
+    },
+    {
+        "text": "通常ならteratailの質問はRSS経由で <#C707P67R7|questions-feed-jp> に流れるはずなんですが、止まっちゃってるっぽいですね... ちょっと誰か調べてくれませんか？体調不良で、パソコン版Slackを開くのが億劫な状況です。",
+        "type": "message",
+        "ts": "1659415119.533219",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "と思ったらどちらにしても今teratail不調みたいですね :cold_sweat: 焦っても今できることはなさそう \n<https://twitter.com/teratail/status/1554028954524467201?s=20&amp;t=ZpIIpArd1UoWC81-GinPKg|https://twitter.com/teratail/status/1554028954524467201?s=20&amp;t=ZpIIpArd1UoWC81-GinPKg>",
+        "type": "message",
+        "ts": "1659415563.450339",
+        "user": "U4LGTMTMK"
+    }
+]

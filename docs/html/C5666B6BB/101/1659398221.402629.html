@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #101 at 2022-08-02 08:57:01 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #101 at 2022-08-02 08:57:01 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../101.html" class="item">Back to questions #101</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1659398221.402629">
+        <div class="content">
+          <div class="summary">
+            <div class="user">apo</div>
+            <div class="date"><a class="date" href="#message-1659398221.402629">2022-08-02 08:57:01 +0900</a></div>
+          </div>
+          <div class="description">すみません。<br/>Data.Array.Unboxedの使い方で分からないことがあってteratailに質問しているのですが、回答が付かないので何かわかるかたがおられましたらアドバイス頂きたく。<br/><a href='https://teratail.com/questions/r7tsy92f3nildu'>https://teratail.com/questions/r7tsy92f3nildu</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1659399407.723209">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1659399407.723209">2022-08-02 09:16:47 +0900</a></div>
+          </div>
+          <div class="description">エラーメッセージを見ると、<br/><pre>/home/apo/doc/project/make/haskell/20220730_2/my-project/app/Main.hs:8:1: error:
+    ~ Non type-variable argument in the constraint: IArray a Int
+      (Use FlexibleContexts to permit this)</pre><br/>とあるので、とりあえず、Main.hs の先頭行に <code>{-# LANGUAGE FlexibleContexts #-}</code> を追加してみるとよいかも。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1659400391.632309">
+        <div class="content">
+          <div class="summary">
+            <div class="user">apo</div>
+            <div class="date"><a class="date" href="#message-1659400391.632309">2022-08-02 09:33:11 +0900</a></div>
+          </div>
+          <div class="description"><pre>{-# LANGUAGE FlexibleContexts #-}</pre><br/>を追加したら動きました。ありがとうございます。<br/>「Use FlexibleContexts to permit this」とはそういう意味だったのですね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1659401887.913139">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1659401887.913139">2022-08-02 09:58:07 +0900</a></div>
+          </div>
+          <div class="description">FlexibleContextsを使わない解決法として、func1に明示的に型注釈を与えるというやり方もあります。<br/><pre>func1 :: UArray Int Int -&gt; IO ()</pre><br/>という感じで。Haskellではトップレベルの関数に明示的に型注釈を与えるのが良い慣習とされています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1659402264.372709">
+        <div class="content">
+          <div class="summary">
+            <div class="user">apo</div>
+            <div class="date"><a class="date" href="#message-1659402264.372709">2022-08-02 10:04:24 +0900</a></div>
+          </div>
+          <div class="description">言語拡張を削除して<br/><pre>func1 :: UArray Int Int -&gt; IO ()</pre><br/>を追加しても動きました。<br/>ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1659404628.118039">
+        <div class="content">
+          <div class="summary">
+            <div class="user">apo</div>
+            <div class="date"><a class="date" href="#message-1659404628.118039">2022-08-02 10:43:48 +0900</a></div>
+          </div>
+          <div class="description">teratailで２日間、回答が付かなかった問題が、このslackで１時間の内に２通りの回答が頂けてびっくりです。ありがとうございます。haskell-jpすごい。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1659415119.533219">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1659415119.533219">2022-08-02 13:38:39 +0900</a></div>
+          </div>
+          <div class="description">通常ならteratailの質問はRSS経由で <a href='#C707P67R7'>questions-feed-jp</a> に流れるはずなんですが、止まっちゃってるっぽいですね... ちょっと誰か調べてくれませんか？体調不良で、パソコン版Slackを開くのが億劫な状況です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1659415563.450339">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1659415563.450339">2022-08-02 13:46:03 +0900</a></div>
+          </div>
+          <div class="description">と思ったらどちらにしても今teratail不調みたいですね :cold_sweat: 焦っても今できることはなさそう <br/><a href='https://twitter.com/teratail/status/1554028954524467201?s=20&amp;t=ZpIIpArd1UoWC81-GinPKg'>https://twitter.com/teratail/status/1554028954524467201?s=20&amp;t=ZpIIpArd1UoWC81-GinPKg</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../101.html" class="item">Back to questions #101</a>
+    </div>
+  </div>
+</body>
+</html>
