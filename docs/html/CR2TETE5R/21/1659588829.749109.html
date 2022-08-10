@@ -48,6 +48,15 @@
           <div class="description">この辺 <a href='https://wiki.haskell.org/Type_signatures_as_good_style'>https://wiki.haskell.org/Type_signatures_as_good_style</a> にも書かれていますが、実用上の理由（型注釈が必要な場面）としては<br/>• 過剰に一般的な型が推論されるのを防ぐため（引用元の質問のケースはこれ）<br/>• ある種の言語機能（多相再帰、ランクN多相、GADTs）は型注釈がないと上手く動かないため<br/>があって、それ以外の関数にも型注釈をつける理由は<br/>• 可読性のため<br/>ですね。</div>
         </div>
       </div>
+      <div class="event" id="message-1660048216.101329">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1660048216.101329">2022-08-09 21:30:16 +0900</a></div>
+          </div>
+          <div class="description">個人的には、型エラーを読みやすくするため、というのが大きいかなあと思っています。 f という関数が「バグっていて自分の意図と違う型に推論されている」場合に、 f に型注釈があれば f 自身の中で型エラーが出るはずですが、 f に型注釈がないと f 自身は正しいことになってしまって「f を利用して書かれた別の関数 g」のところでエラーがでてしまう羽目になるので、その型エラーを読み解くのに苦慮しそうです。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../21.html" class="item">Back to beginners #21</a>
