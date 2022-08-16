@@ -1,0 +1,44 @@
+[
+    {
+        "text": "Category Theory for Programmerについて質問させてください。\nPart2の2章「<https://bartoszmilewski.com/2015/04/15/limits-and-colimits/|Limits and Colimits>」のLimit as a Natural Isomorphism節の最後で、coneの圏の射の集合C(c, Lim D)とconeの集合Nat(Δc, D)の間にnatural isomorphismがあるときのみlimitが存在する、というような定理が示されています。（と思っています。。）\nこれについてC(c, Lim D)は定義からしてlimitがあることが前提の表現に見えたのでこの定理がしっくり来ていません。。limitがあるならば上記の集合間にnatural isomorphismがあるであれば納得がいきます。\nそもそも誤訳もしていそうだと感じていますので、どなたかご教授いただけますと幸いです。",
+        "type": "message",
+        "ts": "1660393980.252719",
+        "user": "U02PHQ2D9D0"
+    },
+    {
+        "text": "正確には、Lim D∈Ob(C)に対して、C(c, LimD) と Nat(Δc, D)の間にnatural isomorphism (c∈Cに関して自然なisomorphismの族)があることと、Lim Dが記号を裏切らない極限 ~である~ の構造を持つことができること、が同値、といった感じでしょうか。より技術的に表現するならば、u∈Ob(C)に対して、「uをDの極限にするようなcone Δu⇒D」と「Set-値関手F(c)=C(c,u), G(c) = Nat(Δc,D)の間のnatural isomorphism」の間に自然な一対一対応が存在します。",
+        "type": "message",
+        "ts": "1660554360.099969",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "ありがとうございます！\n自分のイメージの単語的にはconeの圏の射の集合はLim Dに限ったものではないということなんですね。\n\nちなみに圏論はこれが初めて真面目に読んでいる文献になるのですが、他に副読本的に読むと良い文献などあったりしますでしょうか？",
+        "type": "message",
+        "ts": "1660556745.166169",
+        "user": "U02PHQ2D9D0"
+    },
+    {
+        "text": "まず文献から。と言っても、私の場合バックグラウンドがそれなりに数学にあるので、あんまりよくわからないんですよね……。数学サイドの方なら\n\n1. Leinster, “Basic Category Theory”, 和名「ベーシック圏論 -普遍性からの速習コース-」、斎藤恭司監修、土岡俊介訳\n2. Mac Lane, “Categories for Working Mathematicians”, 和名 「圏論の基礎」、三好博之、高木理訳\n3. alg_d (Twitterのアカウント名)著、ホームページ「壱大整域」、セクション「数学&gt;圏論」<http://alg-d.com/math/kan_extension/|http://alg-d.com/math/kan_extension/>\nあたりをお薦めして、2だと訳語があんま正しくないので2なら原書をお勧めします、とか言うところなのですが、プログラマの方にわかりやすいかはよくわからないんですよね……",
+        "type": "message",
+        "ts": "1660558984.557029",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "1は結構最近の本で結構読みやすい、とか、3はしっかり証明が書いてあって安心して読める、とか、……。でもプログラマーにおすすめして良いのかはよくわかんないです、ごめんなさい……",
+        "type": "message",
+        "ts": "1660559082.755449",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "こんなに候補をありがとうございます！\n実はベーシック圏論はamazonで見かけて気になっていました。。買っておこうと思います。\nしかし数学お強い方がいてすごい安心しました！\nまたわからないところがあったらご教授いただけますと幸いです。\nありがとうございました。",
+        "type": "message",
+        "ts": "1660559871.877449",
+        "user": "U02PHQ2D9D0"
+    },
+    {
+        "text": "よかった．お力になれたなら嬉しいです．\n\nそんで、これは単純に言葉遣いの訂正なのですが、ダイアグラムD:I→CのConeの圏って普通\n\n対象…… cone全て、つまりc ∈Ob(C)とα:Δc ⇒ Dのペア全て\n射(c,α)→(c’,α‘)…… Cの射f: c → c’のうち、 *α, α' と可換になるもの．* つまり  α = α' ○ Δf, or equivalently ∀i, α_i = α’_i ○ f なるもの\n\nというものを指すので，Coneの圏の射集合はふつうC(a,b)という形の集合に一致しません．\n\nあと，Haskell-jpでの話題としてはこの種の話題は十分 advanced だと思うので，普通に <#C7Y71415W|math> とかで質問してくださっても大丈夫だと思います．",
+        "type": "message",
+        "ts": "1660560139.650629",
+        "user": "UL1HFJATE"
+    }
+]
