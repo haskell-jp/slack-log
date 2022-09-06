@@ -1,0 +1,26 @@
+[
+    {
+        "text": "いくつかのデータ型があらかじめ定義されており、それらはTLV(type length value)で統一的に符号化されるとします。\nこれに対する符号器/復号器の基本ライブラリを作りますが、データ型は将来追加されるかもしれないので、サードパーティライブラリで拡張可能としたいです。\n\nまず、符号化のために以下のようなクラスを定義します。\n\n```class Typeable a =&gt; T a where\n  typeT  :: Int\n  encode :: T -&gt; ByteString\n  decode :: ByteString -&gt; T\n  fromTLV :: TLV -&gt; Maybe a  -- TLVは後述\n  fromTLV (TLV x) = cast x\n  toTLS :: a -&gt; TLV\n  toTLS = TLV```\n既存のデータを表す型を A と B とすると、\n\n```data A = A ...\ndata B = B ...\n\ninstance A where\n  typeT = 0\n  encode = ...\n  decode = ...\n\ninstance B where\n  typeT = 1\n  encode = ...\n  decode = ...```\nこれらの型を同じように扱えるように、 `ExistentialQuantification` を用いて、以下の型を定義します。\n\n```data TLV = forall a. T a =&gt; TLV a```\n符号器で encode を使うのは、 `a` が与えられるので簡単です。\n\n```encodeTLV :: TLV -&gt; ByteString\nencodeTLV (TLV x) = encode x```\n問題は復号器です。TLVのTとLの部分は `ByteString` に符号化された整数なので、それをパースして V の部分の `ByteString` を切り出した後に、適切な `decode` を呼ぶだしたいのですが、どうすれば呼べるでしょうか？\n\nぱっと思いつくのは、 `Int -&gt; ByteString` の辞書を用意して、それを引くことです。拡張可能にするのは、この辞書を公開し、利用時に要素を追加可能にする必要がありそうです。\n\n基本的に reflaction に関係する問題だと思います。サードバーティが `data C` を定義したら、自動的にその `decode` も呼ばれるような魔法はあるのでしょうか？",
+        "type": "message",
+        "ts": "1662340285.680249",
+        "user": "U56MBRKR9"
+    },
+    {
+        "text": "正しく理解できているか自信がないんですが\n`decode` の型って\n```decode :: ByteString -&gt; Maybe a```\nではないんでしょうか？だとすると、`read` のように結果の型が定まる限りは自動で `C` の `decode` が呼ばれるでしょうし問題ないのでは、という気がするのですがいかがでしょうか？",
+        "type": "message",
+        "ts": "1662342737.639239",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "型がコンパイル時に定まらなくて、実行時に決まります。入力されたByteStringがTLVを表現していますので、そのTをパースした時点で決まります。",
+        "type": "message",
+        "ts": "1662342864.272619",
+        "user": "U56MBRKR9"
+    },
+    {
+        "text": "となると、型クラスだけでは不可能で、グローバルな `IORef (Map T L)` を作って、インスタンスを定義したら都度そこに登録する、みたいな方法しか思いつかないですね... :thinking_face:\n\n余談ですが最初聞いたとき <https://haskell.jp/blog/posts/2017/typesafe-precure2.html> とよく似てるな、とは思いましたがこちらは集める対象となるモジュールのディレクトリーが予め分かっている場合の話なので、ちょっと対応できなさそうです :disappointed:",
+        "type": "message",
+        "ts": "1662343136.637789",
+        "user": "U4LGTMTMK"
+    }
+]

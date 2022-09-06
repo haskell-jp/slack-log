@@ -2,27 +2,16 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>haskell-jp / questions #102</title>
-<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+<title>haskell-jp / questions #102 at 2022-09-05 10:11:25 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
 </head>
 <body>
   <div class="ui container">
-    <h1>haskell-jp / questions #102</h1>
+    <h1>haskell-jp / questions #102 at 2022-09-05 10:11:25 +0900</h1>
     <div class="ui pagination menu">
-      <a href="../../html/C5666B6BB/101.html" class="item">Previous</a>
-      <a href="../../" class="item">Top</a>
+      <a href="../102.html" class="item">Back to questions #102</a>
     </div>
     <div class="ui feed">
-      <div class="event" id="message-1661954651.345509">
-        <div class="content">
-          <div class="summary">
-            <div class="user">kakkun61</div>
-            <div class="date"><a class="date" href="#message-1661954651.345509">2022-08-31 23:04:11 +0900</a></div>
-          </div>
-          <div class="description">cabal.project.local に相当するような stack.yaml のやつってありますか？</div>
-          <a class="link-to-replies" href="102/1661954651.345509.html">... Replies ...</a>
-        </div>
-      </div>
       <div class="event" id="message-1662340285.680249">
         <div class="content">
           <div class="summary">
@@ -49,13 +38,38 @@ instance B where
   encode = ...
   decode = ...</pre><br/>これらの型を同じように扱えるように、 <code>ExistentialQuantification</code> を用いて、以下の型を定義します。<br/><br/><pre>data TLV = forall a. T a =&gt; TLV a</pre><br/>符号器で encode を使うのは、 <code>a</code> が与えられるので簡単です。<br/><br/><pre>encodeTLV :: TLV -&gt; ByteString
 encodeTLV (TLV x) = encode x</pre><br/>問題は復号器です。TLVのTとLの部分は <code>ByteString</code> に符号化された整数なので、それをパースして V の部分の <code>ByteString</code> を切り出した後に、適切な <code>decode</code> を呼ぶだしたいのですが、どうすれば呼べるでしょうか？<br/><br/>ぱっと思いつくのは、 <code>Int -&gt; ByteString</code> の辞書を用意して、それを引くことです。拡張可能にするのは、この辞書を公開し、利用時に要素を追加可能にする必要がありそうです。<br/><br/>基本的に reflaction に関係する問題だと思います。サードバーティが <code>data C</code> を定義したら、自動的にその <code>decode</code> も呼ばれるような魔法はあるのでしょうか？</div>
-          <a class="link-to-replies" href="102/1662340285.680249.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1662342737.639239">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1662342737.639239">2022-09-05 10:52:17 +0900</a></div>
+          </div>
+          <div class="description">正しく理解できているか自信がないんですが<br/><code>decode</code> の型って<br/><pre>decode :: ByteString -&gt; Maybe a</pre><br/>ではないんでしょうか？だとすると、`read` のように結果の型が定まる限りは自動で <code>C</code> の <code>decode</code> が呼ばれるでしょうし問題ないのでは、という気がするのですがいかがでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1662342864.272619">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1662342864.272619">2022-09-05 10:54:24 +0900</a></div>
+          </div>
+          <div class="description">型がコンパイル時に定まらなくて、実行時に決まります。入力されたByteStringがTLVを表現していますので、そのTをパースした時点で決まります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1662343136.637789">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1662343136.637789">2022-09-05 10:58:56 +0900</a></div>
+          </div>
+          <div class="description">となると、型クラスだけでは不可能で、グローバルな <code>IORef (Map T L)</code> を作って、インスタンスを定義したら都度そこに登録する、みたいな方法しか思いつかないですね... :thinking_face:<br/><br/>余談ですが最初聞いたとき <a href='https://haskell.jp/blog/posts/2017/typesafe-precure2.html'>https://haskell.jp/blog/posts/2017/typesafe-precure2.html</a> とよく似てるな、とは思いましたがこちらは集める対象となるモジュールのディレクトリーが予め分かっている場合の話なので、ちょっと対応できなさそうです :disappointed:</div>
         </div>
       </div>
     </div>
     <div class="ui pagination menu">
-      <a href="../../html/C5666B6BB/101.html" class="item">Previous</a>
-      <a href="../../" class="item">Top</a>
+      <a href="../102.html" class="item">Back to questions #102</a>
     </div>
   </div>
 </body>
