@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #102 at 2022-09-10 14:20:01 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #102 at 2022-09-10 14:20:01 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to questions #102</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1662787201.859309">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1662787201.859309">2022-09-10 14:20:01 +0900</a></div>
+          </div>
+          <div class="description">ライブラリを書いており、テスト用にライブラリ内で定義した型の <a href='https://hackage.haskell.org/package/QuickCheck-2.14.2/docs/Test-QuickCheck-Arbitrary.html#t:Arbitrary'>QuickCheckの </a><code>Arbitrary</code><a href='https://hackage.haskell.org/package/QuickCheck-2.14.2/docs/Test-QuickCheck-Arbitrary.html#t:Arbitrary'> インスタンス</a>を作成しようと考えています。 <code>Arbitrary</code> インスタンスをどこに書くのが良いのかで悩んでいます。<br/>このライブラリを他のプロジェクトから使った時にも <code>Arbitrary</code> インスタンスを使えるようにしたいので、テストコード側ではなくライブラリ側に書きたいと考えています。<br/>しかし、インスタンスを書く為に必要な <a href='https://hackage.haskell.org/package/quickcheck-instances'>quickcheck-instances</a>ライブラリがそれ自身を他のライブラリの依存パッケージとしないことを推奨しているため、「ライブラリ側に書く」のを躊躇しています。<br/>別のライブラリとして記述するという方法もあると思いますが、それだと後々整合性を持たせるのを忘れそうなのであまり使いたくないなぁと思っています。<br/><br/>この場合どこに書くのが適切なのでしょうか</div>
+        </div>
+      </div>
+      <div class="event" id="message-1662808124.605569">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1662808124.605569">2022-09-10 20:08:44 +0900</a></div>
+          </div>
+          <div class="description">よくある方法は、一つのリポジトリーにおける別のパッケージにしてしまう方法だと思います。それなら整合性の問題は解決しやすいかと（まとめてCIでテストしたりできるでしょうし）<br/>あと、似たようなものですが最近のcabalは一つのパッケージに複数のライブラリーをおけるはず... ですがこちら使用した例を全く聞いた事がないのでちょっと分からないです。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to questions #102</a>
+    </div>
+  </div>
+</body>
+</html>
