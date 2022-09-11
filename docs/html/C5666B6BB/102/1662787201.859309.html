@@ -30,6 +30,33 @@
           <div class="description">よくある方法は、一つのリポジトリーにおける別のパッケージにしてしまう方法だと思います。それなら整合性の問題は解決しやすいかと（まとめてCIでテストしたりできるでしょうし）<br/>あと、似たようなものですが最近のcabalは一つのパッケージに複数のライブラリーをおけるはず... ですがこちら使用した例を全く聞いた事がないのでちょっと分からないです。</div>
         </div>
       </div>
+      <div class="event" id="message-1662884040.987359">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1662884040.987359">2022-09-11 17:14:00 +0900</a></div>
+          </div>
+          <div class="description">そうか、レポジトリを一つにすることが出来るんですね<br/>stack だと <code>packages</code> あたり、cabalだと <code>cabal.project</code> の <code>packages</code> あたりでしょうか。<br/>cabalの複数ライブラリは、調べた所<https://cabal.readthedocs.io/en/3.8/cabal-package.html#sublibs|inner library>というのがあるようですね。これはそのパッケージのみから参照出来るライブラリを定義するようなので、今回の例だと違いそうです。<br/>今はstackを使っているので、stack.yamlの <code>packages</code> で試してみようかと思います!ありがとうございます!</div>
+        </div>
+      </div>
+      <div class="event" id="message-1662884803.249579">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1662884803.249579">2022-09-11 17:26:43 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>cabalの複数ライブラリは、調べた所<https://cabal.readthedocs.io/en/3.8/cabal-package.html#sublibs|inner library>というのがあるようですね。</blockquote>いや、その直後のセクションに書いてある、「*Multiple public libraries*」のことです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1662889403.302879">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1662889403.302879">2022-09-11 18:43:23 +0900</a></div>
+          </div>
+          <div class="description">本当だ!見逃しており気が付いていませんでした...orz</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../102.html" class="item">Back to questions #102</a>

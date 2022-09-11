@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #21 at 2022-09-11 09:43:25 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #21 at 2022-09-11 09:43:25 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../21.html" class="item">Back to beginners #21</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1662857005.674419">
+        <div class="content">
+          <div class="summary">
+            <div class="user">SF</div>
+            <div class="date"><a class="date" href="#message-1662857005.674419">2022-09-11 09:43:25 +0900</a></div>
+          </div>
+          <div class="description">ここでの質問が適切でなければ申し訳ありません<br/>plutusのproject内でcabal update やcabal buildをすると<br/>fatal : reference is not a tree: f827a4321e42f528e25f6079f7af3eb18f10d391<br/>というエラーが出てしまうのですが、<br/>どう解決したら良いでしょうか？<br/>もし不適切でしたらcabal updateが行っていることを教えていただけないでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1662877073.608749">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Viktor Kronvall</div>
+            <div class="date"><a class="date" href="#message-1662877073.608749">2022-09-11 15:17:53 +0900</a></div>
+          </div>
+          <div class="description">そのエラーはgitがコミットが見つからないというエラーです。主に理由は二つあります<br/>1. gitはshallowのcloneを行なっていて、指定されたbranchにそのコミットは存在しない。<br/>2. 履歴が上書きされて指定されたコミットはもう存在しない。<br/>理由1.だったら指定されたブランチかコミットを更新して、理由2の場合はコミットを更新したら大体解決出来ます。<br/><br/>どのパッケージが行けないかは`grep -R`や`git grep`で上記のコミットハッシュを検索したら更新すべき行は分かるはずです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1662932838.931029">
+        <div class="content">
+          <div class="summary">
+            <div class="user">SF</div>
+            <div class="date"><a class="date" href="#message-1662932838.931029">2022-09-12 06:47:18 +0900</a></div>
+          </div>
+          <div class="description">返信ありがとうございます<br/>コミットハッシュをgrepで検索しても何も出てこないのですがどうすればいいでしょうか？</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../21.html" class="item">Back to beginners #21</a>
+    </div>
+  </div>
+</body>
+</html>
