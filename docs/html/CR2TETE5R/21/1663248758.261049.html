@@ -78,6 +78,33 @@ pipeline :: MonadResource m =&gt; FilePath -&gt; ConduitT i o m [String]
 pipeline file = producer file .| string .| filtering .| sinkList</pre><br/>Conduitに関してそこまで詳しいというわけでは無いのですが、<br/>HaskellではdropWhileはテストが成功する限り削り続けるということになるので、<br/>この意味だとappleでない単語まで削り続けるという意味になるのと、<br/>フィルタリング関数はパイプラインに流して、<br/>副作用だけではなく結果も無視しないということが必要になるのかなと思います。</div>
         </div>
       </div>
+      <div class="event" id="message-1663300891.256939">
+        <div class="content">
+          <div class="summary">
+            <div class="user">liveinwood</div>
+            <div class="date"><a class="date" href="#message-1663300891.256939">2022-09-16 13:01:31 +0900</a></div>
+          </div>
+          <div class="description">@ さん返信ありがとうございます。<br/>dropWhile の意味を勘違いしていました。お恥ずかしい。。<br/><br/>本来の質問からそれるのですが、他に腑に落ちない点がありまして。<br/><br/> <code>runConduit $  yieldMany [1..5] .| dropC 2 .| sinkList</code>は結果が空リストで、<br/> <code>runConduit $  yieldMany [1..5] .| (dropC 2 &gt;&gt; sinkList)</code> だと期待どおり`[3,4,5]` が返ってきます。<br/>一方、`runConduit $ yieldMany [1..5] .| filterC (&gt; 2) .| sinkList`  だと`[3,4,5]` が返ってきます。<br/>dropC だと <blockquote><blockquote>を使い、filterC は .| を使く理由がよくわかっておりません。:tired_face:</blockquote></blockquote></div>
+        </div>
+      </div>
+      <div class="event" id="message-1663330294.708409">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1663330294.708409">2022-09-16 21:11:34 +0900</a></div>
+          </div>
+          <div class="description">@liveinwood<br/><code>dropC</code> や <code>dropWhileC</code> は <code>Consumers</code> に分類されて入力を消費するというside effectを起こすのですが、 <code>filterC</code> などは <code>Transformers</code> に分類されて、ストリームを変換するからですね。<br/>型も違います。<br/><code>Consumers</code> でfilterみたいなのを探してみたのですが、見つからなかったので変換で書き、実際にこういう処理は変換の方が適切かと思いました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1663334702.187289">
+        <div class="content">
+          <div class="summary">
+            <div class="user">liveinwood</div>
+            <div class="date"><a class="date" href="#message-1663334702.187289">2022-09-16 22:25:02 +0900</a></div>
+          </div>
+          <div class="description">@ さん、説明ありがとうございます。<br/>consumerとtransformerの違いなんですね。まだ理解に自信が持てないのでもう少しいろいろと試してみようと思います。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../21.html" class="item">Back to beginners #21</a>

@@ -10,5 +10,23 @@
         "type": "message",
         "ts": "1663253114.004109",
         "user": "U57CUMWQ6"
+    },
+    {
+        "text": "<@U57CUMWQ6> さん返信ありがとうございます。\ndropWhile の意味を勘違いしていました。お恥ずかしい。。\n\n本来の質問からそれるのですが、他に腑に落ちない点がありまして。\n\n `runConduit $  yieldMany [1..5] .| dropC 2 .| sinkList`は結果が空リストで、\n `runConduit $  yieldMany [1..5] .| (dropC 2 &gt;&gt; sinkList)` だと期待どおり`[3,4,5]` が返ってきます。\n一方、`runConduit $ yieldMany [1..5] .| filterC (&gt; 2) .| sinkList`  だと`[3,4,5]` が返ってきます。\ndropC だと &gt;&gt; を使い、filterC は .| を使く理由がよくわかっておりません。:tired_face:",
+        "type": "message",
+        "ts": "1663300891.256939",
+        "user": "UTK43JS4X"
+    },
+    {
+        "text": "<@UTK43JS4X>\n`dropC` や `dropWhileC` は `Consumers` に分類されて入力を消費するというside effectを起こすのですが、 `filterC` などは `Transformers` に分類されて、ストリームを変換するからですね。\n型も違います。\n`Consumers` でfilterみたいなのを探してみたのですが、見つからなかったので変換で書き、実際にこういう処理は変換の方が適切かと思いました。",
+        "type": "message",
+        "ts": "1663330294.708409",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "<@U57CUMWQ6> さん、説明ありがとうございます。\nconsumerとtransformerの違いなんですね。まだ理解に自信が持てないのでもう少しいろいろと試してみようと思います。",
+        "type": "message",
+        "ts": "1663334702.187289",
+        "user": "UTK43JS4X"
     }
 ]

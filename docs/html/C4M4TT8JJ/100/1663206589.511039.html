@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #100 at 2022-09-15 10:49:49 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #100 at 2022-09-15 10:49:49 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../100.html" class="item">Back to random #100</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1663206589.511039">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1663206589.511039">2022-09-15 10:49:49 +0900</a></div>
+          </div>
+          <div class="description">Haskell Language Server 1.8.0.0 がリリースされました :tada:<br/>GHC 9.4 系の部分的なサポートやパフォーマンスの改善、Stan プラグインなど幾つか機能追加がありますが、Ubuntu 20.04 系だと GHCup がインストールする（VSCode extension のデフォルトの挙動） HLS 1.8.0 のバイナリが GLIBC のバージョンの違いにより動かないという問題があるようです。<br/><br/><a href='https://github.com/haskell/haskell-language-server/issues/3160'>https://github.com/haskell/haskell-language-server/issues/3160</a><br/><br/>長期的に解決される可能性はありますが、可能な短期的な解決策としては、上の issue で説明さているように GHCup に deb10 向けのバイナリを強制的にインストールさせる、という回避方法があります：<br/><br/><pre>ghcup install hls -u <https://downloads.haskell.org/~hls/haskell-language-server-1.8.0.0/haskell-language-server-1.8.0.0-x86_64-linux-deb10.tar.xz> 1.8.0.0</pre><br/>ただし、これによってビルドに使われている GHC がかわり、ABI の非互換が出ます。<br/>たとえば、HLS 1.7.0.0 系 + GHC 9.0.2 を動かすためにこれまで GHC 9.0.2 のバイナリとして fedora27 向けの bindistをダウンロードさせて使っていた場合、GHCを入れ直さないと HLS 1.8.0.0 で動くようになりません。具体的には、以下の bindistを使って GHC をインストールさせればよいようです：<br/><br/><a href='https://downloads.haskell.org/~ghcup/unofficial-bindists/ghc/9.0.2/ghc-9.0.2-x86_64-deb10-linux.tar.xz'>https://downloads.haskell.org/~ghcup/unofficial-bindists/ghc/9.0.2/ghc-9.0.2-x86_64-deb10-linux.tar.xz</a><br/><br/>例としては、stack を使っている場合、プロジェクトローカルの <code>stack.yaml</code> ないし <code>~/.stack/config.yaml</code> に以下を追記した上で、 <code>rm -rf ~/.stack/programs/x86_64-linux/ghc-tinfo6-9.0.2*</code> してビルドし直せば HLS 1.8.0.0 + GHC 9.0.2 が動くようになります：<br/><br/><pre>
+setup-info:
+  ghc:
+    linux64-tinfo6:
+      9.0.2:
+        url: "<https://downloads.haskell.org/~ghcup/unofficial-bindists/ghc/9.0.2/ghc-9.0.2-x86_64-deb10-linux.tar.xz>"
+        sha256: a33263c3f819de606da079d191ddc3b86cbf503a14c6c0eec1a4ae1899008fdc</pre><br/>これが面倒だな、という場合は暫く HLS 1.7.0.0 を使うようにしておく、というのも一つの選択肢だと思います。この場合は、VSCodeだとsettings.json に以下を追加すれば、HLS 1.7 決め打ちになります：<br/><br/><pre>    "haskell.toolchain": {
+      "hls" : "1.7.0.0"
+    }</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1663332624.905039">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1663332624.905039">2022-09-16 21:50:24 +0900</a></div>
+          </div>
+          <div class="description">こちらの HLS 1.8 + Ubuntu 20 の問題ですが、GHCup 側で対処が入ったようで、これから使う場合は GHCup に任せれば問題なく動くようになるはずです。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../100.html" class="item">Back to random #100</a>
+    </div>
+  </div>
+</body>
+</html>
