@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #21 at 2022-09-15 22:32:38 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #21 at 2022-09-15 22:32:38 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../21.html" class="item">Back to beginners #21</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1663248758.261049">
+        <div class="content">
+          <div class="summary">
+            <div class="user">liveinwood</div>
+            <div class="date"><a class="date" href="#message-1663248758.261049">2022-09-15 22:32:38 +0900</a></div>
+          </div>
+          <div class="description">conduit の勉強をしていて詰まってしまったので質問させてください。<br/>words.txt から 「apple」 以外の単語を出力させる意図で、下のようなコードを書いたのですが、<br/>実行してみると 「apple」以外の単語も除外されてしまっているようです。<br/>文字列型の扱いが間違っていそうな気がするのですが、原因がわからず。解決方法を教えていただけますでしょうか。<br/><br/>words.txt の中身は <a href='https://github.com/tabatkins/wordle-list/blob/main/words'>https://github.com/tabatkins/wordle-list/blob/main/words</a> です。<br/><br/><pre>module Main where
+
+import Conduit
+import Data.Conduit.Binary as CB
+import Data.ByteString (ByteString)
+import Data.ByteString.UTF8 (toString)
+
+main :: IO ()
+main = do
+    res &lt;- runConduitRes $ pipeline "./words.txt"
+    Prelude.mapM_ print res
+
+producer :: MonadResource m =&gt; FilePath -&gt; ConduitT i ByteString m ()
+producer file = sourceFile file .| CB.lines
+
+string :: Monad m =&gt; ConduitT ByteString String m ()
+string = mapC toString
+
+filtering :: Monad m =&gt; ConduitT String o m ()
+filtering = dropWhileC ( == "apple")
+-- filtering = dropWhileC (const True)
+
+pipeline :: MonadResource m =&gt; FilePath -&gt; ConduitT i o m [String]
+pipeline file =  producer file .| string .| (filtering &gt;&gt; sinkList)</pre><br/>実行結果<br/><pre>$ stack run | grep "apple"
+"apple"</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1663253114.004109">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1663253114.004109">2022-09-15 23:45:14 +0900</a></div>
+          </div>
+          <div class="description">@liveinwood<br/>とりあえず先に正解を書いてしまうと以下のような形になります(stack newから書いてるのでmainの位置だけ違う)<br/><br/><pre>module Lib
+    ( someFunc
+    ) where
+
+import Conduit
+import Data.Conduit.Binary as CB
+import Data.ByteString (ByteString)
+import Data.ByteString.UTF8 (toString)
+
+someFunc :: IO ()
+someFunc = do
+    res &lt;- runConduitRes $ pipeline "./words.txt"
+    Prelude.mapM_ putStrLn res
+
+producer :: MonadResource m =&gt; FilePath -&gt; ConduitT i ByteString m ()
+producer file = sourceFile file .| CB.lines
+
+string :: Monad m =&gt; ConduitT ByteString String m ()
+string = mapC toString
+
+filtering :: Monad m =&gt; ConduitT String String m ()
+filtering = filterC ( /= "apple")
+
+pipeline :: MonadResource m =&gt; FilePath -&gt; ConduitT i o m [String]
+pipeline file = producer file .| string .| filtering .| sinkList</pre><br/>Conduitに関してそこまで詳しいというわけでは無いのですが、<br/>HaskellではdropWhileはテストが成功する限り削り続けるということになるので、<br/>この意味だとappleでない単語まで削り続けるという意味になるのと、<br/>フィルタリング関数はパイプラインに流して、<br/>副作用だけではなく結果も無視しないということが必要になるのかなと思います。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../21.html" class="item">Back to beginners #21</a>
+    </div>
+  </div>
+</body>
+</html>

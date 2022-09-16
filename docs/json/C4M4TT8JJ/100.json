@@ -82,5 +82,17 @@
         "type": "message",
         "ts": "1662986023.218899",
         "user": "UGM9F7XQS"
+    },
+    {
+        "text": "Haskell Language Server 1.8.0.0 がリリースされました :tada:\nGHC 9.4 系の部分的なサポートやパフォーマンスの改善、Stan プラグインなど幾つか機能追加がありますが、Ubuntu 20.04 系だと GHCup がインストールする（VSCode extension のデフォルトの挙動） HLS 1.8.0 のバイナリが GLIBC のバージョンの違いにより動かないという問題があるようです。\n\n<https://github.com/haskell/haskell-language-server/issues/3160>\n\n長期的に解決される可能性はありますが、可能な短期的な解決策としては、上の issue で説明さているように GHCup に deb10 向けのバイナリを強制的にインストールさせる、という回避方法があります：\n\n```ghcup install hls -u <https://downloads.haskell.org/~hls/haskell-language-server-1.8.0.0/haskell-language-server-1.8.0.0-x86_64-linux-deb10.tar.xz> 1.8.0.0```\nただし、これによってビルドに使われている GHC がかわり、ABI の非互換が出ます。\nたとえば、HLS 1.7.0.0 系 + GHC 9.0.2 を動かすためにこれまで GHC 9.0.2 のバイナリとして fedora27 向けの bindistをダウンロードさせて使っていた場合、GHCを入れ直さないと HLS 1.8.0.0 で動くようになりません。具体的には、以下の bindistを使って GHC をインストールさせればよいようです：\n\n<https://downloads.haskell.org/~ghcup/unofficial-bindists/ghc/9.0.2/ghc-9.0.2-x86_64-deb10-linux.tar.xz>\n\n例としては、stack を使っている場合、プロジェクトローカルの `stack.yaml` ないし `~/.stack/config.yaml` に以下を追記した上で、 `rm -rf ~/.stack/programs/x86_64-linux/ghc-tinfo6-9.0.2*` してビルドし直せば HLS 1.8.0.0 + GHC 9.0.2 が動くようになります：\n\n```\nsetup-info:\n  ghc:\n    linux64-tinfo6:\n      9.0.2:\n        url: \"<https://downloads.haskell.org/~ghcup/unofficial-bindists/ghc/9.0.2/ghc-9.0.2-x86_64-deb10-linux.tar.xz>\"\n        sha256: a33263c3f819de606da079d191ddc3b86cbf503a14c6c0eec1a4ae1899008fdc```\nこれが面倒だな、という場合は暫く HLS 1.7.0.0 を使うようにしておく、というのも一つの選択肢だと思います。この場合は、VSCodeだとsettings.json に以下を追加すれば、HLS 1.7 決め打ちになります：\n\n```    \"haskell.toolchain\": {\n      \"hls\" : \"1.7.0.0\"\n    }```",
+        "type": "message",
+        "ts": "1663206589.511039",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "text": "<@U0427D94J5V> has joined the channel",
+        "type": "message",
+        "ts": "1663285389.046429",
+        "user": "U0427D94J5V"
     }
 ]

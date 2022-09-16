@@ -457,6 +457,49 @@ pt1 = do
           <a class="link-to-replies" href="21/1662857005.674419.html">... Replies ...</a>
         </div>
       </div>
+      <div class="event" id="message-1663248758.261049">
+        <div class="content">
+          <div class="summary">
+            <div class="user">liveinwood</div>
+            <div class="date"><a class="date" href="#message-1663248758.261049">2022-09-15 22:32:38 +0900</a></div>
+          </div>
+          <div class="description">conduit の勉強をしていて詰まってしまったので質問させてください。<br/>words.txt から 「apple」 以外の単語を出力させる意図で、下のようなコードを書いたのですが、<br/>実行してみると 「apple」以外の単語も除外されてしまっているようです。<br/>文字列型の扱いが間違っていそうな気がするのですが、原因がわからず。解決方法を教えていただけますでしょうか。<br/><br/>words.txt の中身は <a href='https://github.com/tabatkins/wordle-list/blob/main/words'>https://github.com/tabatkins/wordle-list/blob/main/words</a> です。<br/><br/><pre>module Main where
+
+import Conduit
+import Data.Conduit.Binary as CB
+import Data.ByteString (ByteString)
+import Data.ByteString.UTF8 (toString)
+
+main :: IO ()
+main = do
+    res &lt;- runConduitRes $ pipeline "./words.txt"
+    Prelude.mapM_ print res
+
+producer :: MonadResource m =&gt; FilePath -&gt; ConduitT i ByteString m ()
+producer file = sourceFile file .| CB.lines
+
+string :: Monad m =&gt; ConduitT ByteString String m ()
+string = mapC toString
+
+filtering :: Monad m =&gt; ConduitT String o m ()
+filtering = dropWhileC ( == "apple")
+-- filtering = dropWhileC (const True)
+
+pipeline :: MonadResource m =&gt; FilePath -&gt; ConduitT i o m [String]
+pipeline file =  producer file .| string .| (filtering &gt;&gt; sinkList)</pre><br/>実行結果<br/><pre>$ stack run | grep "apple"
+"apple"</pre></div>
+          <a class="link-to-replies" href="21/1663248758.261049.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1663285388.071179">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U0427D94J5V</div>
+            <div class="date"><a class="date" href="#message-1663285388.071179">2022-09-16 08:43:08 +0900</a></div>
+          </div>
+          <div class="description">@U0427D94J5V has joined the channel</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/20.html" class="item">Previous</a>

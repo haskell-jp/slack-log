@@ -1,0 +1,14 @@
+[
+    {
+        "text": "conduit の勉強をしていて詰まってしまったので質問させてください。\nwords.txt から 「apple」 以外の単語を出力させる意図で、下のようなコードを書いたのですが、\n実行してみると 「apple」以外の単語も除外されてしまっているようです。\n文字列型の扱いが間違っていそうな気がするのですが、原因がわからず。解決方法を教えていただけますでしょうか。\n\nwords.txt の中身は <https://github.com/tabatkins/wordle-list/blob/main/words> です。\n\n```module Main where\n\nimport Conduit\nimport Data.Conduit.Binary as CB\nimport Data.ByteString (ByteString)\nimport Data.ByteString.UTF8 (toString)\n\nmain :: IO ()\nmain = do\n    res &lt;- runConduitRes $ pipeline \"./words.txt\"\n    Prelude.mapM_ print res\n\nproducer :: MonadResource m =&gt; FilePath -&gt; ConduitT i ByteString m ()\nproducer file = sourceFile file .| CB.lines\n\nstring :: Monad m =&gt; ConduitT ByteString String m ()\nstring = mapC toString\n\nfiltering :: Monad m =&gt; ConduitT String o m ()\nfiltering = dropWhileC ( == \"apple\")\n-- filtering = dropWhileC (const True)\n\npipeline :: MonadResource m =&gt; FilePath -&gt; ConduitT i o m [String]\npipeline file =  producer file .| string .| (filtering &gt;&gt; sinkList)```\n実行結果\n```$ stack run | grep \"apple\"\n\"apple\"```",
+        "type": "message",
+        "ts": "1663248758.261049",
+        "user": "UTK43JS4X"
+    },
+    {
+        "text": "<@UTK43JS4X>\nとりあえず先に正解を書いてしまうと以下のような形になります(stack newから書いてるのでmainの位置だけ違う)\n\n```module Lib\n    ( someFunc\n    ) where\n\nimport Conduit\nimport Data.Conduit.Binary as CB\nimport Data.ByteString (ByteString)\nimport Data.ByteString.UTF8 (toString)\n\nsomeFunc :: IO ()\nsomeFunc = do\n    res &lt;- runConduitRes $ pipeline \"./words.txt\"\n    Prelude.mapM_ putStrLn res\n\nproducer :: MonadResource m =&gt; FilePath -&gt; ConduitT i ByteString m ()\nproducer file = sourceFile file .| CB.lines\n\nstring :: Monad m =&gt; ConduitT ByteString String m ()\nstring = mapC toString\n\nfiltering :: Monad m =&gt; ConduitT String String m ()\nfiltering = filterC ( /= \"apple\")\n\npipeline :: MonadResource m =&gt; FilePath -&gt; ConduitT i o m [String]\npipeline file = producer file .| string .| filtering .| sinkList```\nConduitに関してそこまで詳しいというわけでは無いのですが、\nHaskellではdropWhileはテストが成功する限り削り続けるということになるので、\nこの意味だとappleでない単語まで削り続けるという意味になるのと、\nフィルタリング関数はパイプラインに流して、\n副作用だけではなく結果も無視しないということが必要になるのかなと思います。",
+        "type": "message",
+        "ts": "1663253114.004109",
+        "user": "U57CUMWQ6"
+    }
+]
