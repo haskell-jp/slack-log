@@ -15,7 +15,7 @@
       <div class="event" id="message-1663570888.297569">
         <div class="content">
           <div class="summary">
-            <div class="user">星雄太</div>
+            <div class="user">HY</div>
             <div class="date"><a class="date" href="#message-1663570888.297569">2022-09-19 16:01:28 +0900</a></div>
           </div>
           <div class="description">はじめて質問させていただきます。<br/>Haskell学習中の者で、理解が進まない箇所があるのでお力添えいただきたく思います:man-bowing:<br/>（続く...）</div>
@@ -24,7 +24,7 @@
       <div class="event" id="message-1663570910.914239">
         <div class="content">
           <div class="summary">
-            <div class="user">星雄太</div>
+            <div class="user">HY</div>
             <div class="date"><a class="date" href="#message-1663570910.914239">2022-09-19 16:01:50 +0900</a></div>
           </div>
           <div class="description">少し長いのでスレッドにて続きを書かせていただきます。<br/><br/>末尾再起最適化について学習をしているのですが、<br/>①「Haskellは遅延評価なので末尾再起をしてもうまみがない」と言っている記事がある<br/>②「末尾再起として挙げられているコードがそもそも末尾再起じゃない」という指摘をされている記事がある<br/>ため、混乱を極めております。<br/><br/><code>関数の処理の末尾が再起呼び出しで終了している</code><br/><code>末尾再起最適化することによって関数呼び出しごとにコールスタックを生成しなくなるのでスタックオーバーフローしない</code><br/>というのが今のところの理解です。<br/><br/>そこで質問なのですが、<br/>①以下のb,cの例は末尾再起最適化されている例といえるでしょうか？<br/>②末尾再起最適化されている場合、実行時には実際にコールスタックの生成が抑制されているのでしょうか？<br/><pre>a. よく見る末尾再起じゃない定義
@@ -90,7 +90,7 @@ fib n = fib' n 1 0
       <div class="event" id="message-1663578579.374159">
         <div class="content">
           <div class="summary">
-            <div class="user">星雄太</div>
+            <div class="user">HY</div>
             <div class="date"><a class="date" href="#message-1663578579.374159">2022-09-19 18:09:39 +0900</a></div>
           </div>
           <div class="description">@kakkun61<br/>ご確認ありがとうございます。<br/><blockquote>「末尾再帰」は「手続き」に対してのみ「末尾再帰かどうかが言える」んじゃないかなと思うんですが？</blockquote>すみません、そういった観点は持っておりませんでした。<br/>例が適切ではなかったでしょうか？<br/>末尾再起については学習中のため、ご容赦ください。</div>
@@ -99,7 +99,7 @@ fib n = fib' n 1 0
       <div class="event" id="message-1663580269.100909">
         <div class="content">
           <div class="summary">
-            <div class="user">星雄太</div>
+            <div class="user">HY</div>
             <div class="date"><a class="date" href="#message-1663580269.100909">2022-09-19 18:37:49 +0900</a></div>
           </div>
           <div class="description">@角田智活<br/>ありがとうございます。<br/>周辺知識も交えてご回答いただけて、勉強になります。<br/><blockquote>もしサンクを潰したければ、正格評価にする必要があります。</blockquote>ちなみに、正格評価にするとサンクを使用しなくなると思いますが、この場合はコールスタックを使うことになりますか？</div>
@@ -117,7 +117,7 @@ fib n = fib' n 1 0
       <div class="event" id="message-1663584170.908059">
         <div class="content">
           <div class="summary">
-            <div class="user">星雄太</div>
+            <div class="user">HY</div>
             <div class="date"><a class="date" href="#message-1663584170.908059">2022-09-19 19:42:50 +0900</a></div>
           </div>
           <div class="description">@角田智活<br/>ご追記、リンクの添付ありがとうございます:man-bowing:<br/>Haskellの評価の仕方についてはもっと理解を深めなくてはいけないですね、、参考にさせていただきます！</div>
@@ -130,6 +130,24 @@ fib n = fib' n 1 0
             <div class="date"><a class="date" href="#message-1663584183.835759">2022-09-19 19:43:03 +0900</a></div>
           </div>
           <div class="description">訂正：<br/>①以下のb,cの例は末尾再起最適化されている例といえるでしょうか？<br/>→最適化自体は働くように見えます<br/>②末尾再起最適化されている場合、実行時には実際にコールスタックの生成が抑制されているのでしょうか？<br/>→コールスタックはありませんが、遅延評価である限りサンクがあります<br/><br/>自分もまだまだ勉強しないといけませんね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1663592339.517529">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1663592339.517529">2022-09-19 21:58:59 +0900</a></div>
+          </div>
+          <div class="description">再帰定義が生成する計算プロセス進行の「かたち」を考えると判りやすくなると思います。<br/>SICPに判りやすく正確な（個人の感想です）説明があります。<br/><a href='https://sicp.iijlab.net/fulltext/x121.html'>https://sicp.iijlab.net/fulltext/x121.html</a><br/>注釈も含め端的に説明されています。参考になると思います。<br/>Haskellの場合は蓄積(アキュミュレーション)が遅延されるので、<br/>結局、反復プロセスになるように書いても蓄積部分に遅延演算(deffered operation)がのこって<br/>しまうので、うまみがないと言われてしまうわけです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1663600221.983639">
+        <div class="content">
+          <div class="summary">
+            <div class="user">HY</div>
+            <div class="date"><a class="date" href="#message-1663600221.983639">2022-09-20 00:10:21 +0900</a></div>
+          </div>
+          <div class="description">@nobsun<br/>ありがとうございます！<br/>参考にいたします:man-bowing:</div>
         </div>
       </div>
     </div>
