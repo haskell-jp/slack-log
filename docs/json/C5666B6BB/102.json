@@ -52,5 +52,11 @@
         "type": "message",
         "ts": "1663811846.559439",
         "user": "U043E4G2CRZ"
+    },
+    {
+        "text": "現在作ろうとしているツールの一環として、「一定の文字列候補の中から、入力された文字列に一致する文字列をフィルタリングする」機能を作ろうとしています。\n(最終的に作りたいものはrofiやdmenuと似たようなものです、というか具体的にはrofiクローンのようなツールを作ろうとしています)\n\nこのツールでは「文字列の一致」の判定方法をFuzzyやGlob、regex等複数から選べるようにしたいため、ツール全体のステートを維持する型の中に判定用の関数(matcherと呼ぶことにします)を含めたいです。\n\n実際に今考えていたのは以下のような型です:\n\n```data AppModel = AppModel { _typing :: Text\n           , _candidates :: Zipper Candidate\n           , _configFile :: FilePath\n           , _matcher :: (T.Text -&gt; T.Text -&gt; Bool) -- ^ ここのこと\n           } deriving (Eq)```\nしかし、 `AppModel` はUIライブラリ(<https://github.com/fjvallarino/monomer|monomer>)の都合で `Eq` インスタンスを持つ必要があるのですが、 `Eq (a -&gt; a)` のインスタンスが存在しない故に定義が出来なくなってしまっています。\n\n実装の仕方を自分なりに複数考えてみたのですが、どれも微妙でどれを選ぶべきなのか、またより良い方法は無いのかで悩んでいます。\n何かしら定石みたいなものがあれば教えていただければ幸いです :pray:\n(自分で考えたものはスレッドに書き込みます)",
+        "type": "message",
+        "ts": "1663934840.110889",
+        "user": "ULTBB86UC"
     }
 ]

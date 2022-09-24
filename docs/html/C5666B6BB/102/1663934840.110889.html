@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #102 at 2022-09-23 21:07:20 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #102 at 2022-09-23 21:07:20 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to questions #102</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1663934840.110889">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1663934840.110889">2022-09-23 21:07:20 +0900</a></div>
+          </div>
+          <div class="description">現在作ろうとしているツールの一環として、「一定の文字列候補の中から、入力された文字列に一致する文字列をフィルタリングする」機能を作ろうとしています。<br/>(最終的に作りたいものはrofiやdmenuと似たようなものです、というか具体的にはrofiクローンのようなツールを作ろうとしています)<br/><br/>このツールでは「文字列の一致」の判定方法をFuzzyやGlob、regex等複数から選べるようにしたいため、ツール全体のステートを維持する型の中に判定用の関数(matcherと呼ぶことにします)を含めたいです。<br/><br/>実際に今考えていたのは以下のような型です:<br/><br/><pre>data AppModel = AppModel { _typing :: Text
+           , _candidates :: Zipper Candidate
+           , _configFile :: FilePath
+           , _matcher :: (T.Text -&gt; T.Text -&gt; Bool) -- ^ ここのこと
+           } deriving (Eq)</pre><br/>しかし、 <code>AppModel</code> はUIライブラリ(<https://github.com/fjvallarino/monomer|monomer>)の都合で <code>Eq</code> インスタンスを持つ必要があるのですが、 <code>Eq (a -&gt; a)</code> のインスタンスが存在しない故に定義が出来なくなってしまっています。<br/><br/>実装の仕方を自分なりに複数考えてみたのですが、どれも微妙でどれを選ぶべきなのか、またより良い方法は無いのかで悩んでいます。<br/>何かしら定石みたいなものがあれば教えていただければ幸いです :pray:<br/>(自分で考えたものはスレッドに書き込みます)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1663934844.975139">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1663934844.975139">2022-09-23 21:07:24 +0900</a></div>
+          </div>
+          <div class="description">【 1. matcherが同一であるかを気にしない <code>Eq</code> のインスタンスを手書きする】<br/><br/>一番単純かつ簡単な方法だと思います。しかし、この時の <code>Eq</code>のインスタンスは <code>AppModel</code>の変更を感知するために必要であると思われるので、中途半端なインスタンスを書くのは良くないような気がしています。<br/><br/><pre> haskell
+instance Eq AppModel where
+  m1 == m2 = all [ m1^.typing ==  m2^.typing
+       , m1^.candidates == m2^.candidates
+       , m1^.configFile == m2^.configFile
+       ]</pre><br/>【 2. matcherにラッパー型を用意し、識別子を付けてそれで区別する】<br/><br/>Matcherの名前と実際の関数を含む <code>Matcher</code> 型を用意し、その <code>Eq</code>インスタンスは名前のみ一致を見るようにします。<br/><br/>一番無難そうだなとは思うのですが、矢張り <code>Matcher</code> の <code>Eq</code>インスタンスが中途半端なのと名前と関数の紐付けが緩い(同じ名前で別の関数とかも作れてしまう)ので、本当にこれで良いのだろうか…と思っています。<br/><br/><pre>data Matcher = Matcher { _matcherName :: T.Text
+             , _matcher :: T.Text -&gt; T.Text -&gt; Bool
+             }
+makeLenses ''Matcher
+
+instance Eq Matcher where
+  m1 == m2 = (m1^.matcherName) == (m2^.matcherName)
+
+-- @match prefixMatcher "search term" "Candidate"@ のようなイメージ
+match :: Matcher -&gt; (T.Text -&gt; T.Text -&gt; Bool)
+match = view matcher
+
+prefixMatcher :: Matcher
+prefixMatcher = Matcher "prefix" T.isPrefixOf
+
+data AppModel = AppModel { _typing :: Text
+           , _candidates :: Zipper Candidate
+           , _configFile :: FilePath
+           , _matcher :: Matcher
+           } deriving (Eq)</pre><br/></div>
+        </div>
+      </div>
+      <div class="event" id="message-1663935383.018309">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1663935383.018309">2022-09-23 21:16:23 +0900</a></div>
+          </div>
+          <div class="description">拡張性が減ってしまいますが私なら<br/><pre>data Mathcer = Fuzzy | Glob | Regex</pre><br/>みたいな型を作って、実際にmatchするときはそれに対するinterpreter（ <code>Matcher -&gt; T.Text -&gt; T.Text -&gt; Bool</code> のような型の関数）を作るような方法を採りますね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1663935542.316679">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1663935542.316679">2022-09-23 21:19:02 +0900</a></div>
+          </div>
+          <div class="description">成程確かに...!!<br/>Matcherに拡張性持たせる必要もあまりないと思うので、それが一番良さそうですね。<br/>関数として捉えすぎてました...難しく考えすぎていた...<br/>ありがとうございます!</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to questions #102</a>
+    </div>
+  </div>
+</body>
+</html>

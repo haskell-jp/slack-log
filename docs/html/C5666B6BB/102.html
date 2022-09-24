@@ -112,10 +112,24 @@ encodeTLV (TLV x) = encode x</pre><br/>問題は復号器です。TLVのTとLの
       <div class="event" id="message-1663811846.559439">
         <div class="content">
           <div class="summary">
-            <div class="user">U043E4G2CRZ</div>
+            <div class="user">なっつ</div>
             <div class="date"><a class="date" href="#message-1663811846.559439">2022-09-22 10:57:26 +0900</a></div>
           </div>
-          <div class="description">@U043E4G2CRZ has joined the channel</div>
+          <div class="description">@なっつ has joined the channel</div>
+        </div>
+      </div>
+      <div class="event" id="message-1663934840.110889">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1663934840.110889">2022-09-23 21:07:20 +0900</a></div>
+          </div>
+          <div class="description">現在作ろうとしているツールの一環として、「一定の文字列候補の中から、入力された文字列に一致する文字列をフィルタリングする」機能を作ろうとしています。<br/>(最終的に作りたいものはrofiやdmenuと似たようなものです、というか具体的にはrofiクローンのようなツールを作ろうとしています)<br/><br/>このツールでは「文字列の一致」の判定方法をFuzzyやGlob、regex等複数から選べるようにしたいため、ツール全体のステートを維持する型の中に判定用の関数(matcherと呼ぶことにします)を含めたいです。<br/><br/>実際に今考えていたのは以下のような型です:<br/><br/><pre>data AppModel = AppModel { _typing :: Text
+           , _candidates :: Zipper Candidate
+           , _configFile :: FilePath
+           , _matcher :: (T.Text -&gt; T.Text -&gt; Bool) -- ^ ここのこと
+           } deriving (Eq)</pre><br/>しかし、 <code>AppModel</code> はUIライブラリ(<https://github.com/fjvallarino/monomer|monomer>)の都合で <code>Eq</code> インスタンスを持つ必要があるのですが、 <code>Eq (a -&gt; a)</code> のインスタンスが存在しない故に定義が出来なくなってしまっています。<br/><br/>実装の仕方を自分なりに複数考えてみたのですが、どれも微妙でどれを選ぶべきなのか、またより良い方法は無いのかで悩んでいます。<br/>何かしら定石みたいなものがあれば教えていただければ幸いです :pray:<br/>(自分で考えたものはスレッドに書き込みます)</div>
+          <a class="link-to-replies" href="102/1663934840.110889.html">... Replies ...</a>
         </div>
       </div>
     </div>
