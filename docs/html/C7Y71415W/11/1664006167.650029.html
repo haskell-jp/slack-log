@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / math #11 at 2022-09-24 16:56:07 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / math #11 at 2022-09-24 16:56:07 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../11.html" class="item">Back to math #11</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1664006167.650029">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1664006167.650029">2022-09-24 16:56:07 +0900</a></div>
+          </div>
+          <div class="description">ベーシック圏論を読んでいるのですが、忠実性の定義が少し自信ないです。。<br/>注意 1.2.17から個別の射に対して単射ではなく、対象の間の射全体（Hom集合？）自体が単射であれば良いということでしょうか？<br/>例えば添付の画像での関手Fは忠実ですが、Gは忠実ではないというイメージであっていますでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1664015664.231799">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1664015664.231799">2022-09-24 19:34:24 +0900</a></div>
+          </div>
+          <div class="description">原著をすぐに引っ張り出せないのでアレですが、理解している人間が描く図としては曖昧すぎると思います。図を描いてきますので少々お待ちを。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1664015811.405169">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1664015811.405169">2022-09-24 19:36:51 +0900</a></div>
+          </div>
+          <div class="description">例えば、こういうのは忠実です:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1664016179.646669">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1664016179.646669">2022-09-24 19:42:59 +0900</a></div>
+          </div>
+          <div class="description">でもこういうのは忠実じゃありません:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1664016248.167889">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1664016248.167889">2022-09-24 19:44:08 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1664019971.274099">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1664019971.274099">2022-09-24 20:46:11 +0900</a></div>
+          </div>
+          <div class="description">一つの言い方は、関手F:C→Dが忠実であるための必要十分条件は、Cの二つの射f:x→y, f':x'→y'のFによる行き先が一致してしまう:F(f)=F(f')としたら、元々の射が等しい:f=f'か、さもなくばdomainかcodomainのどちらかが異なる:x≠x'またはy≠y'、ということです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1664027572.996159">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1664027572.996159">2022-09-24 22:52:52 +0900</a></div>
+          </div>
+          <div class="description">わざわざ図を描いていただいてありがとうございます。。！<br/>おかげで理解できました！かなり見当違いの理解をしていたので危なかったです。。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1664028533.211439">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1664028533.211439">2022-09-24 23:08:53 +0900</a></div>
+          </div>
+          <div class="description">すみません、理解できているかを確かめるために以下の具体例があっているかご教授いただけますと幸いです。。<br/>例えば群の圏Grpで同じ台集合からなる対象G1, G2があり、それに対する忘却関手U: Grp -&gt; Setがあるとした場合U(G1)とU(G2)は同じ対象に移るが、忘却関手で射をそのままにするため単射なので忠実になるような気がしています。<br/>例えばG1の射f1: G1 -&gt; G1とG2の射f2: G2 -&gt; G2が同じ射として移されても、それぞれのdomain, codomainが異なるため忠実というイメージです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1664029424.979589">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1664029424.979589">2022-09-24 23:23:44 +0900</a></div>
+          </div>
+          <div class="description">あってます！　一般に、集合の圏への忘却関手は忠実になることが多いです。「集合にこれこれこういう構造をつけたもの」の圏Cを考え、忘却関手U:C → Setを考えると、Cの対象xからyへの射x → yは「元々の集合の間の写像U(x) → U(y) であって特定の性質を満たすもの」であることが多いので、それらすべてからなる集合C(x,y)は、「元々の集合の間の写像U(x) → U(y)で、その性質を満たしても満たさなくても良いやつ全体」、つまりSet(U(x),U(y))の部分集合とみなせるためです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1664029832.364549">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1664029832.364549">2022-09-24 23:30:32 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！すごいほっとしました。。ｗ<br/>そして忘却関手についての補足もありがとうございます！この射の集合の関係は以前教えていただいたconeの圏の射とHom集合との対応も含めてすごいしっくりきました。<br/>この調子で読み進めていこうと思います！</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../11.html" class="item">Back to math #11</a>
+    </div>
+  </div>
+</body>
+</html>
