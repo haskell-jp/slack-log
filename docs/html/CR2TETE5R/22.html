@@ -40,6 +40,25 @@
           <div class="description">Reminder: beginnersチャンネルは、新しい人がスムーズにHaskellに慣れるための質問を歓迎するチャンネルです。 Haskell-Beginners ML や IRCの#haskell-beginners  や RedditのMonthly Hask Anythingのような位置づけを意図しています。  beginnersチャンネルでの回答側は、以下の左側のような応答を厳禁とする運用です。 • それはくだらない質問だ → くだらない質問など無い • その質問は以前にもあった → 質問者はそんなこと知らない • Google検索せよ → 検索できないから質問している  beginnersチャンネルでは、例えば以下のレベルの質問から歓迎します。 • <code>:</code> とは何のことですか。 • タプルとは何ですか。 </div>
         </div>
       </div>
+      <div class="event" id="message-1665737308.311929">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1665737308.311929">2022-10-14 17:48:28 +0900</a></div>
+          </div>
+          <div class="description">Haskellでのデバッグ方法がわからず、質問させていただいてもよろしいでしょうか。<br/>やりたいことは、JavaScriptの`console.log`のように、関数のなかの変数を`GHCi`のコンソールに出力したいです。<br/>具体的には、以下の関数で、`repeatedL1`　の部分がどんな値になっているかを見たいです。<br/><pre>cartCombine :: (a -&gt; b -&gt; c) -&gt; [a] -&gt; [b] -&gt; [c]
+cartCombine func l1 l2 = zipWith func newL1 cycledL2
+    where
+        nToAdd = length l2
+        repeatedL1 = map (take nToAdd . repeat) l1
+        newL1 = mconcat repeatedL1
+        cycledL2 = cycle l2</pre><br/>ここで、<br/><pre>repeatedL1 = map (take nToAdd . repeat) l1
+show repeatedL1
+newL1 = mconcat repeatedL1
+……</pre><br/>などとすると、エラーになってしまいます。<br/><br/>ご教示いただけますと幸いです。<br/>よろしくお願いいたします。</div>
+          <a class="link-to-replies" href="22/1665737308.311929.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/21.html" class="item">Previous</a>

@@ -1,0 +1,20 @@
+[
+    {
+        "text": "Haskellでのデバッグ方法がわからず、質問させていただいてもよろしいでしょうか。\nやりたいことは、JavaScriptの`console.log`のように、関数のなかの変数を`GHCi`のコンソールに出力したいです。\n具体的には、以下の関数で、`repeatedL1`　の部分がどんな値になっているかを見たいです。\n```cartCombine :: (a -&gt; b -&gt; c) -&gt; [a] -&gt; [b] -&gt; [c]\ncartCombine func l1 l2 = zipWith func newL1 cycledL2\n    where\n        nToAdd = length l2\n        repeatedL1 = map (take nToAdd . repeat) l1\n        newL1 = mconcat repeatedL1\n        cycledL2 = cycle l2```\nここで、\n```repeatedL1 = map (take nToAdd . repeat) l1\nshow repeatedL1\nnewL1 = mconcat repeatedL1\n……```\nなどとすると、エラーになってしまいます。\n\nご教示いただけますと幸いです。\nよろしくお願いいたします。",
+        "type": "message",
+        "ts": "1665737308.311929",
+        "user": "U0203PR2087"
+    },
+    {
+        "text": "デバッグ用途では `Debug.Trace.trace` が用意されてます！\n<https://hackage.haskell.org/package/base-4.17.0.0/docs/Debug-Trace.html#v:trace>\n使い方はこんな感じ\n<https://wandbox.org/permlink/Mj4mJuClHrgnI8Mk>",
+        "type": "message",
+        "ts": "1665742649.835419",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "今回のように変数の中身を見る場合、同じ `Debug.Trace` モジュールに入っている `traceShowId` 関数を使うのが特におすすめです。",
+        "type": "message",
+        "ts": "1665743372.131569",
+        "user": "U4LGTMTMK"
+    }
+]
