@@ -59,6 +59,54 @@ newL1 = mconcat repeatedL1
           <a class="link-to-replies" href="22/1665737308.311929.html">... Replies ...</a>
         </div>
       </div>
+      <div class="event" id="message-1665918777.693479">
+        <div class="content">
+          <div class="summary">
+            <div class="user">liveinwood</div>
+            <div class="date"><a class="date" href="#message-1665918777.693479">2022-10-16 20:12:57 +0900</a></div>
+          </div>
+          <div class="description">Practical Haskell という本を読んでいます。分からない点があるので質問させてください。<br/><br/><pre>module Main (main) where
+
+import GHC.IO.IOMode (IOMode(ReadMode))
+import GHC.IO.Handle (hGetContents, hClose)
+import <http://System.IO|System.IO> (openFile)
+
+main :: IO ()
+main = do
+    h &lt;- openFile "./some.txt" ReadMode
+    s &lt;- hGetContents h
+    hClose h
+    print s</pre><br/>これを実行するとエラーになります。`./some.txt: hGetContents: illegal operation (delayed read on closed handle)`<br/><br/>エラーになる理屈は理解していて、`hClose h`と`print s`を入れ替えれば動作します。<br/>他の解決策として   <code>seq</code> または   <code>deepseq</code>  を使っても解決できると書いてあるのですが、具体的に使い方は書いてありませんでした。<br/><br/><code>hClose h</code> する前に文字列全体を読み込めばいいので、`let !size = length s` を追加して、文字列全体を読み込むように処理を強制しました。これは動作しました。<br/><pre>{-# LANGUAGE BangPatterns #-}
+module Main (main) where
+
+import GHC.IO.IOMode (IOMode(ReadMode))
+import GHC.IO.Handle (hGetContents, hClose)
+import <http://System.IO|System.IO> (openFile)
+
+main :: IO ()
+main = do
+    h &lt;- openFile "./some.txt" ReadMode
+    s &lt;- hGetContents h
+    let !size = length s
+    hClose h
+    print s</pre><br/><code>let !size = length s</code>  を追加したのと同じ理屈で  <code>let ds =  s </code>deepseq` s` を追加したのですが、これだとエラーになります。<br/><br/><pre>{-# LANGUAGE BangPatterns #-}
+module Main (main) where
+
+import GHC.IO.IOMode (IOMode(ReadMode))
+import GHC.IO.Handle (hGetContents, hClose)
+import <http://System.IO|System.IO> (openFile)
+import Control.DeepSeq
+
+main :: IO ()
+main = do
+    h &lt;- openFile "./some.txt" ReadMode
+    s &lt;- hGetContents h
+    let ds =  s `deepseq` s
+    hClose h
+    print ds</pre><br/><code>let ds =  s </code>deepseq` s`  ではエラーになる理由をご教示いただけないでしょうか。よろしくお願い致します。</div>
+          <a class="link-to-replies" href="22/1665918777.693479.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/21.html" class="item">Previous</a>

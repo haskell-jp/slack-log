@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #22 at 2022-10-16 20:12:57 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #22 at 2022-10-16 20:12:57 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../22.html" class="item">Back to beginners #22</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1665918777.693479">
+        <div class="content">
+          <div class="summary">
+            <div class="user">liveinwood</div>
+            <div class="date"><a class="date" href="#message-1665918777.693479">2022-10-16 20:12:57 +0900</a></div>
+          </div>
+          <div class="description">Practical Haskell という本を読んでいます。分からない点があるので質問させてください。<br/><br/><pre>module Main (main) where
+
+import GHC.IO.IOMode (IOMode(ReadMode))
+import GHC.IO.Handle (hGetContents, hClose)
+import <http://System.IO|System.IO> (openFile)
+
+main :: IO ()
+main = do
+    h &lt;- openFile "./some.txt" ReadMode
+    s &lt;- hGetContents h
+    hClose h
+    print s</pre><br/>これを実行するとエラーになります。`./some.txt: hGetContents: illegal operation (delayed read on closed handle)`<br/><br/>エラーになる理屈は理解していて、`hClose h`と`print s`を入れ替えれば動作します。<br/>他の解決策として   <code>seq</code> または   <code>deepseq</code>  を使っても解決できると書いてあるのですが、具体的に使い方は書いてありませんでした。<br/><br/><code>hClose h</code> する前に文字列全体を読み込めばいいので、`let !size = length s` を追加して、文字列全体を読み込むように処理を強制しました。これは動作しました。<br/><pre>{-# LANGUAGE BangPatterns #-}
+module Main (main) where
+
+import GHC.IO.IOMode (IOMode(ReadMode))
+import GHC.IO.Handle (hGetContents, hClose)
+import <http://System.IO|System.IO> (openFile)
+
+main :: IO ()
+main = do
+    h &lt;- openFile "./some.txt" ReadMode
+    s &lt;- hGetContents h
+    let !size = length s
+    hClose h
+    print s</pre><br/><code>let !size = length s</code>  を追加したのと同じ理屈で  <code>let ds =  s </code>deepseq` s` を追加したのですが、これだとエラーになります。<br/><br/><pre>{-# LANGUAGE BangPatterns #-}
+module Main (main) where
+
+import GHC.IO.IOMode (IOMode(ReadMode))
+import GHC.IO.Handle (hGetContents, hClose)
+import <http://System.IO|System.IO> (openFile)
+import Control.DeepSeq
+
+main :: IO ()
+main = do
+    h &lt;- openFile "./some.txt" ReadMode
+    s &lt;- hGetContents h
+    let ds =  s `deepseq` s
+    hClose h
+    print ds</pre><br/><code>let ds =  s </code>deepseq` s`  ではエラーになる理由をご教示いただけないでしょうか。よろしくお願い致します。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1665922516.334199">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1665922516.334199">2022-10-16 21:15:16 +0900</a></div>
+          </div>
+          <div class="description"><pre>    let ds =  s `deepseq` s
+    hClose h
+    print ds
+</pre><br/>の部分は <code>ds</code> の評価が遅延されるので<br/><pre>    hClose h
+    print (s `deepseq` s)
+</pre><br/>と同じになるはずです<br/>（試せてないですが）<br/><pre>   s `deepseq` hClose h
+   print s
+</pre><br/>だと期待する動作だと思います</div>
+        </div>
+      </div>
+      <div class="event" id="message-1665923345.073969">
+        <div class="content">
+          <div class="summary">
+            <div class="user">liveinwood</div>
+            <div class="date"><a class="date" href="#message-1665923345.073969">2022-10-16 21:29:05 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>の部分は <code>ds</code> の評価が遅延されるので</blockquote>そうでした。そもそも`ds` が評価されるタイミングにならないと  <code>s </code>deepseq` s` も評価されないのでした。<br/><br/><blockquote><pre>  s `deepseq` hClose h
+&gt;    print s</pre></blockquote>↑で動作しました。ありがとうございます。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../22.html" class="item">Back to beginners #22</a>
+    </div>
+  </div>
+</body>
+</html>

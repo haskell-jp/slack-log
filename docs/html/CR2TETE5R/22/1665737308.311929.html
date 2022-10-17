@@ -48,6 +48,46 @@ newL1 = mconcat repeatedL1
           <div class="description">今回のように変数の中身を見る場合、同じ <code>Debug.Trace</code> モジュールに入っている <code>traceShowId</code> 関数を使うのが特におすすめです。</div>
         </div>
       </div>
+      <div class="event" id="message-1665924672.943169">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1665924672.943169">2022-10-16 21:51:12 +0900</a></div>
+          </div>
+          <div class="description">@kakkun61 @igrep<br/><br/>ありがとうございます！<br/><br/>立て続けに申し訳ありません。<br/>以下のような形で、`traceShowId` を書いたのですが、<br/>「変数が、showのインスタンスではない」というエラーになってしまいました。<br/>この場合、どうすれば`repeatedL1` の中身を見ることができるでしょうか。<br/><br/>書いたコード<br/><pre>cartCombine :: (a -&gt; b -&gt; c) -&gt; [a] -&gt; [b] -&gt; [c]
+cartCombine func l1 l2 = zipWith func newL1 cycledL2
+    where
+        nToAdd = traceShowId (length l2)
+        repeatedL1 = traceShowId (map (take nToAdd . repeat) l1)
+        newL1 = mconcat repeatedL1
+        cycledL2 = cycle l2</pre><br/>エラーメッセージ<br/><pre>error:
+    • No instance for (Show a) arising from a use of 'traceShowId'
+      Possible fix:
+        add (Show a) to the context of
+          the type signature for:
+            cartCombine :: forall a b c. (a -&gt; b -&gt; c) -&gt; [a] -&gt; [b] -&gt; [c]</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1665924996.984199">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1665924996.984199">2022-10-16 21:56:36 +0900</a></div>
+          </div>
+          <div class="description">手っ取り早いのは <code>cartCombine</code> の型を<br/><pre>cartCombine :: Show a =&gt; (a -&gt; b -&gt; c) -&gt; [a] -&gt; [b] -&gt; [c]</pre><br/>にすることですね<br/><code>Show</code> のインスタンスでない型を <code>a</code> にすることができなくなりますが</div>
+        </div>
+      </div>
+      <div class="event" id="message-1665925227.342259">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1665925227.342259">2022-10-16 22:00:27 +0900</a></div>
+          </div>
+          <div class="description">実は*珍しく*GHCの<br/><pre>Possible fix:
+  add (Show a) to the context of</pre><br/>で始まるヒントが役に立っています（個人的な経験上このヒントはあまり役に立たないのですが...）<br/>指示どおり、 <code>cartCombine :: (a -&gt; b -&gt; c) -&gt; [a] -&gt; [b] -&gt; [c]</code> における型変数 <code>a</code> に <code>Show</code> 型クラスの制約を加えてください:<br/><pre>cartCombine :: Show a =&gt; (a -&gt; b -&gt; c) -&gt; [a] -&gt; [b] -&gt; [c]</pre><br/>そして、もし <code>b</code> や <code>c</code> についても <code>No instance for (Show b) ...</code> のようなエラーメッセージがでる場合、同様に <code>b</code> , <code>c</code>についても加えます:<br/><pre>-- 型クラス制約を複数列挙する場合、カッコで囲ってカンマで列挙する点に注意
+cartCombine :: (Show a, Show b, Show c) =&gt; (a -&gt; b -&gt; c) -&gt; [a] -&gt; [b] -&gt; [c]</pre><br/>この <code>(Show a, Show b, Show c) =&gt;</code>は、デバッグのためだけに必要になってしまう制約で、 よく言われる頭の痛い問題です。<br/>一応、サードパーティーのパッケージで解決することはできますが、ここでは <code>Show</code> を追加するのが簡単かと思います。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../22.html" class="item">Back to beginners #22</a>

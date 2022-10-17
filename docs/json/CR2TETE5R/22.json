@@ -22,5 +22,11 @@
         "type": "message",
         "ts": "1665737308.311929",
         "user": "U0203PR2087"
+    },
+    {
+        "text": "Practical Haskell という本を読んでいます。分からない点があるので質問させてください。\n\n```module Main (main) where\n\nimport GHC.IO.IOMode (IOMode(ReadMode))\nimport GHC.IO.Handle (hGetContents, hClose)\nimport <http://System.IO|System.IO> (openFile)\n\nmain :: IO ()\nmain = do\n    h &lt;- openFile \"./some.txt\" ReadMode\n    s &lt;- hGetContents h\n    hClose h\n    print s```\nこれを実行するとエラーになります。`./some.txt: hGetContents: illegal operation (delayed read on closed handle)`\n\nエラーになる理屈は理解していて、`hClose h`と`print s`を入れ替えれば動作します。\n他の解決策として   `seq` または   `deepseq`  を使っても解決できると書いてあるのですが、具体的に使い方は書いてありませんでした。\n\n`hClose h` する前に文字列全体を読み込めばいいので、`let !size = length s` を追加して、文字列全体を読み込むように処理を強制しました。これは動作しました。\n```{-# LANGUAGE BangPatterns #-}\nmodule Main (main) where\n\nimport GHC.IO.IOMode (IOMode(ReadMode))\nimport GHC.IO.Handle (hGetContents, hClose)\nimport <http://System.IO|System.IO> (openFile)\n\nmain :: IO ()\nmain = do\n    h &lt;- openFile \"./some.txt\" ReadMode\n    s &lt;- hGetContents h\n    let !size = length s\n    hClose h\n    print s```\n`let !size = length s`  を追加したのと同じ理屈で  `let ds =  s `deepseq` s` を追加したのですが、これだとエラーになります。\n\n```{-# LANGUAGE BangPatterns #-}\nmodule Main (main) where\n\nimport GHC.IO.IOMode (IOMode(ReadMode))\nimport GHC.IO.Handle (hGetContents, hClose)\nimport <http://System.IO|System.IO> (openFile)\nimport Control.DeepSeq\n\nmain :: IO ()\nmain = do\n    h &lt;- openFile \"./some.txt\" ReadMode\n    s &lt;- hGetContents h\n    let ds =  s `deepseq` s\n    hClose h\n    print ds```\n`let ds =  s `deepseq` s`  ではエラーになる理由をご教示いただけないでしょうか。よろしくお願い致します。",
+        "type": "message",
+        "ts": "1665918777.693479",
+        "user": "UTK43JS4X"
     }
 ]

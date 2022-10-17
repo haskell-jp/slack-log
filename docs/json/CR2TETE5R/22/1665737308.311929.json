@@ -16,5 +16,23 @@
         "type": "message",
         "ts": "1665743372.131569",
         "user": "U4LGTMTMK"
+    },
+    {
+        "text": "<@U4L0B71L1> <@U4LGTMTMK>\n\nありがとうございます！\n\n立て続けに申し訳ありません。\n以下のような形で、`traceShowId` を書いたのですが、\n「変数が、showのインスタンスではない」というエラーになってしまいました。\nこの場合、どうすれば`repeatedL1` の中身を見ることができるでしょうか。\n\n書いたコード\n```cartCombine :: (a -&gt; b -&gt; c) -&gt; [a] -&gt; [b] -&gt; [c]\ncartCombine func l1 l2 = zipWith func newL1 cycledL2\n    where\n        nToAdd = traceShowId (length l2)\n        repeatedL1 = traceShowId (map (take nToAdd . repeat) l1)\n        newL1 = mconcat repeatedL1\n        cycledL2 = cycle l2```\nエラーメッセージ\n```error:\n    • No instance for (Show a) arising from a use of 'traceShowId'\n      Possible fix:\n        add (Show a) to the context of\n          the type signature for:\n            cartCombine :: forall a b c. (a -&gt; b -&gt; c) -&gt; [a] -&gt; [b] -&gt; [c]```",
+        "type": "message",
+        "ts": "1665924672.943169",
+        "user": "U0203PR2087"
+    },
+    {
+        "text": "手っ取り早いのは `cartCombine` の型を\n```cartCombine :: Show a =&gt; (a -&gt; b -&gt; c) -&gt; [a] -&gt; [b] -&gt; [c]```\nにすることですね\n`Show` のインスタンスでない型を `a` にすることができなくなりますが",
+        "type": "message",
+        "ts": "1665924996.984199",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "実は*珍しく*GHCの\n```Possible fix:\n  add (Show a) to the context of```\nで始まるヒントが役に立っています（個人的な経験上このヒントはあまり役に立たないのですが...）\n指示どおり、 `cartCombine :: (a -&gt; b -&gt; c) -&gt; [a] -&gt; [b] -&gt; [c]` における型変数 `a` に `Show` 型クラスの制約を加えてください:\n```cartCombine :: Show a =&gt; (a -&gt; b -&gt; c) -&gt; [a] -&gt; [b] -&gt; [c]```\nそして、もし `b` や `c` についても `No instance for (Show b) ...` のようなエラーメッセージがでる場合、同様に `b` , `c`についても加えます:\n```-- 型クラス制約を複数列挙する場合、カッコで囲ってカンマで列挙する点に注意\ncartCombine :: (Show a, Show b, Show c) =&gt; (a -&gt; b -&gt; c) -&gt; [a] -&gt; [b] -&gt; [c]```\nこの `(Show a, Show b, Show c) =&gt;`は、デバッグのためだけに必要になってしまう制約で、 よく言われる頭の痛い問題です。\n一応、サードパーティーのパッケージで解決することはできますが、ここでは `Show` を追加するのが簡単かと思います。",
+        "type": "message",
+        "ts": "1665925227.342259",
+        "user": "U4LGTMTMK"
     }
 ]
