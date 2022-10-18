@@ -1,0 +1,74 @@
+[
+    {
+        "text": "遅延評価についてよく分からなくなってきました。\n```module Main (main) where\n\nimport qualified <http://System.IO|System.IO> as SIO\n\nmain :: IO ()\nmain = do\n    h &lt;- SIO.openFile \"./input.txt\" SIO.ReadMode\n    content &lt;- SIO.hGetContents h\n    SIO.hClose h\n    print content```\nこれは実行するとエラーになる理由はわかります。`content` を評価する時には既にファイルがクローズされているから。\n\n```module Main (main) where\n\nmain :: IO ()\nmain = do\n    putStrLn \"please input1 \"\n    input &lt;- getLine\n    putStrLn \"please input2 \"\n    putStrLn $ \"your input is \" ++ input```\n同様に考えて、 `input`を評価する時に標準入力を受け付けることになり、下のような出力順になるのでは？と考えたのですが、\nそうはならず。コードに書いてある順序通りの出力になりました。\n\n```please input1 \nplease input2 \nyour input is aaa```\nこれまでちゃんと理解せずにいたのですが、混乱しています。\n\n`getLine`がlazyではないから評価された時点で入力待ち状態になる、と考えると納得できそうですが、\nそもそも `getLine`  が評価されるのは「please input2」 を出力した後なのでは？\nたぶん「遅延評価」「式を評価する」ということの意味を正確に理解できていないと思うのですが、どなたかご教示いただけないでしょうか。",
+        "type": "message",
+        "ts": "1666062034.575279",
+        "user": "UTK43JS4X"
+    },
+    {
+        "text": "getLineは遅延IOじゃないので",
+        "type": "message",
+        "ts": "1666062375.781669",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "これ、要はそもそも「遅延評価」の問題ではなくて、 IO モナドの評価自体は（hGetContents であっても）行単位で毎回発生していると考えて構わないが、そのデータの中身自体が hGetContents だと「遅延IO」と呼ばれる特殊なデータ構造だから実際のデータがまだメモリ上に読まれていない、という風にかんがえればいいのですよね？（←わたしもよくわかってない",
+        "type": "message",
+        "ts": "1666062566.640899",
+        "user": "UF8SE896V"
+    },
+    {
+        "text": "標準の関数のうち、getContents, hGetContents, readFileは遅延IOなので最初の例のような挙動をしますが、それ以外のIOは（中でgetContentsなどを読んでいない限り）順番通りに実行される、と言う認識で問題ありません。",
+        "type": "message",
+        "ts": "1666062625.658949",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "&gt; IO モナドの評価自体は（hGetContents であっても）行単位で毎回発生していると考えて構わない\n厳密には行単位ではなく、何バイトかおきだったと記憶しています。",
+        "type": "message",
+        "ts": "1666062712.850929",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "なるほど。ありがとうございます（便乗質問になってしまった^^;）",
+        "type": "message",
+        "ts": "1666062735.308369",
+        "user": "UF8SE896V"
+    },
+    {
+        "text": "遅延 IO（遅延評価ではない）はややこしいので、もう忘れてしまって `getContents` なんかは使わないようにするのがいいと自分は思ってます……",
+        "type": "message",
+        "ts": "1666062802.026259",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "<https://tanakh.hatenablog.com/entry/20100824/p1|tanakh さんの Lazy I/O must go!> っていう記事を読んで以来、私も遅延IOってのはダメなんだろうと思っています^^; (この記事のほとんどの部分はいまさら読むには大分古い内容ですが…)",
+        "type": "message",
+        "ts": "1666062890.744439",
+        "user": "UF8SE896V"
+    },
+    {
+        "text": "「your input is～～」を出力する時点で getLine が評価される、という理解は間違ってますよね？\n`getLine` は遅延IOではないから評価された時点で入力待ちになる。\n`getContents` は遅延IOだから評価はされてもメモリにファイルは読み込まれていない。",
+        "type": "message",
+        "ts": "1666063654.539279",
+        "user": "UTK43JS4X"
+    },
+    {
+        "text": "`&gt;&gt;=` の定義からして `putStrLn`の前に `getLine` は評価されている。",
+        "type": "message",
+        "ts": "1666063763.142369",
+        "user": "UTK43JS4X"
+    },
+    {
+        "text": "&gt; 「your input is～～」を出力する時点で getLine が評価される、という理解は間違ってますよね？\nはい。",
+        "type": "message",
+        "ts": "1666065887.794969",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "手前味噌ですが、すこし前に以下のようなメモをつくりました。参考になるかもしれません。<https://zenn.dev/nobsun/scraps/6c0383afe67f5b>\n私自身は、可能であれば関数的に考えてプログラミングをしたい派なので、遅延I/O :heart: です。",
+        "type": "message",
+        "ts": "1666082202.265489",
+        "user": "U4KU9ABL0"
+    }
+]

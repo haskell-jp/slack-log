@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #22 at 2022-10-18 12:00:34 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #22 at 2022-10-18 12:00:34 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../22.html" class="item">Back to beginners #22</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1666062034.575279">
+        <div class="content">
+          <div class="summary">
+            <div class="user">liveinwood</div>
+            <div class="date"><a class="date" href="#message-1666062034.575279">2022-10-18 12:00:34 +0900</a></div>
+          </div>
+          <div class="description">遅延評価についてよく分からなくなってきました。<br/><pre>module Main (main) where
+
+import qualified <http://System.IO|System.IO> as SIO
+
+main :: IO ()
+main = do
+    h &lt;- SIO.openFile "./input.txt" SIO.ReadMode
+    content &lt;- SIO.hGetContents h
+    SIO.hClose h
+    print content</pre><br/>これは実行するとエラーになる理由はわかります。`content` を評価する時には既にファイルがクローズされているから。<br/><br/><pre>module Main (main) where
+
+main :: IO ()
+main = do
+    putStrLn "please input1 "
+    input &lt;- getLine
+    putStrLn "please input2 "
+    putStrLn $ "your input is " ++ input</pre><br/>同様に考えて、 <code>input</code>を評価する時に標準入力を受け付けることになり、下のような出力順になるのでは？と考えたのですが、<br/>そうはならず。コードに書いてある順序通りの出力になりました。<br/><br/><pre>please input1 
+please input2 
+your input is aaa</pre><br/>これまでちゃんと理解せずにいたのですが、混乱しています。<br/><br/><code>getLine</code>がlazyではないから評価された時点で入力待ち状態になる、と考えると納得できそうですが、<br/>そもそも <code>getLine</code>  が評価されるのは「please input2」 を出力した後なのでは？<br/>たぶん「遅延評価」「式を評価する」ということの意味を正確に理解できていないと思うのですが、どなたかご教示いただけないでしょうか。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666062375.781669">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1666062375.781669">2022-10-18 12:06:15 +0900</a></div>
+          </div>
+          <div class="description">getLineは遅延IOじゃないので</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666062566.640899">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1666062566.640899">2022-10-18 12:09:26 +0900</a></div>
+          </div>
+          <div class="description">これ、要はそもそも「遅延評価」の問題ではなくて、 IO モナドの評価自体は（hGetContents であっても）行単位で毎回発生していると考えて構わないが、そのデータの中身自体が hGetContents だと「遅延IO」と呼ばれる特殊なデータ構造だから実際のデータがまだメモリ上に読まれていない、という風にかんがえればいいのですよね？（←わたしもよくわかってない</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666062625.658949">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1666062625.658949">2022-10-18 12:10:25 +0900</a></div>
+          </div>
+          <div class="description">標準の関数のうち、getContents, hGetContents, readFileは遅延IOなので最初の例のような挙動をしますが、それ以外のIOは（中でgetContentsなどを読んでいない限り）順番通りに実行される、と言う認識で問題ありません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666062712.850929">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1666062712.850929">2022-10-18 12:11:52 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>IO モナドの評価自体は（hGetContents であっても）行単位で毎回発生していると考えて構わない</blockquote>厳密には行単位ではなく、何バイトかおきだったと記憶しています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666062735.308369">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1666062735.308369">2022-10-18 12:12:15 +0900</a></div>
+          </div>
+          <div class="description">なるほど。ありがとうございます（便乗質問になってしまった^^;）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666062802.026259">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1666062802.026259">2022-10-18 12:13:22 +0900</a></div>
+          </div>
+          <div class="description">遅延 IO（遅延評価ではない）はややこしいので、もう忘れてしまって <code>getContents</code> なんかは使わないようにするのがいいと自分は思ってます……</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666062890.744439">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1666062890.744439">2022-10-18 12:14:50 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://tanakh.hatenablog.com/entry/20100824/p1'>tanakh さんの Lazy I/O must go!</a> っていう記事を読んで以来、私も遅延IOってのはダメなんだろうと思っています^^; (この記事のほとんどの部分はいまさら読むには大分古い内容ですが…)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666063654.539279">
+        <div class="content">
+          <div class="summary">
+            <div class="user">liveinwood</div>
+            <div class="date"><a class="date" href="#message-1666063654.539279">2022-10-18 12:27:34 +0900</a></div>
+          </div>
+          <div class="description">「your input is～～」を出力する時点で getLine が評価される、という理解は間違ってますよね？<br/><code>getLine</code> は遅延IOではないから評価された時点で入力待ちになる。<br/><code>getContents</code> は遅延IOだから評価はされてもメモリにファイルは読み込まれていない。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666063763.142369">
+        <div class="content">
+          <div class="summary">
+            <div class="user">liveinwood</div>
+            <div class="date"><a class="date" href="#message-1666063763.142369">2022-10-18 12:29:23 +0900</a></div>
+          </div>
+          <div class="description"><code>&gt;&gt;=</code> の定義からして <code>putStrLn</code>の前に <code>getLine</code> は評価されている。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666065887.794969">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1666065887.794969">2022-10-18 13:04:47 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>「your input is～～」を出力する時点で getLine が評価される、という理解は間違ってますよね？</blockquote>はい。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666082202.265489">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1666082202.265489">2022-10-18 17:36:42 +0900</a></div>
+          </div>
+          <div class="description">手前味噌ですが、すこし前に以下のようなメモをつくりました。参考になるかもしれません。<https://zenn.dev/nobsun/scraps/6c0383afe67f5b><br/>私自身は、可能であれば関数的に考えてプログラミングをしたい派なので、遅延I/O :heart: です。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../22.html" class="item">Back to beginners #22</a>
+    </div>
+  </div>
+</body>
+</html>

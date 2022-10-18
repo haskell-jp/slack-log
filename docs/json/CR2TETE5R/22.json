@@ -28,5 +28,11 @@
         "type": "message",
         "ts": "1665918777.693479",
         "user": "UTK43JS4X"
+    },
+    {
+        "text": "遅延評価についてよく分からなくなってきました。\n```module Main (main) where\n\nimport qualified <http://System.IO|System.IO> as SIO\n\nmain :: IO ()\nmain = do\n    h &lt;- SIO.openFile \"./input.txt\" SIO.ReadMode\n    content &lt;- SIO.hGetContents h\n    SIO.hClose h\n    print content```\nこれは実行するとエラーになる理由はわかります。`content` を評価する時には既にファイルがクローズされているから。\n\n```module Main (main) where\n\nmain :: IO ()\nmain = do\n    putStrLn \"please input1 \"\n    input &lt;- getLine\n    putStrLn \"please input2 \"\n    putStrLn $ \"your input is \" ++ input```\n同様に考えて、 `input`を評価する時に標準入力を受け付けることになり、下のような出力順になるのでは？と考えたのですが、\nそうはならず。コードに書いてある順序通りの出力になりました。\n\n```please input1 \nplease input2 \nyour input is aaa```\nこれまでちゃんと理解せずにいたのですが、混乱しています。\n\n`getLine`がlazyではないから評価された時点で入力待ち状態になる、と考えると納得できそうですが、\nそもそも `getLine`  が評価されるのは「please input2」 を出力した後なのでは？\nたぶん「遅延評価」「式を評価する」ということの意味を正確に理解できていないと思うのですが、どなたかご教示いただけないでしょうか。",
+        "type": "message",
+        "ts": "1666062034.575279",
+        "user": "UTK43JS4X"
     }
 ]
