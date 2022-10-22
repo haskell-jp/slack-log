@@ -84,6 +84,96 @@
           <div class="description">一方で，「直和関手」と「対角関手の左随伴」は同等の構造ですが，「直和関手が対角関手の右随伴でない」は任意の圏で成り立つとは限りません。実際、「直積関手」と「対角関手の右随伴」が同等の構造ですが、ある関手が「直積関手」と「直和関手」の両方の構造を持つ例があります。例えば可換な群の圏や可換なモノイドの圏では，対象A,Bに対して<br/>Prod(A,B) := {(X, p_1: X → A, p_2: X → B) | p_1とp_2によってXはAとBの直積となる}<br/>Coprod(A,B) := {(X, i_1: A → X, i_2: B → X) | (X,i_1,i_2) はAとBの直和}<br/>Biprod(A,B) := {(X, p_1: X → A, i_1: A → X, p_2: X → B, i_2: B → X) | (X,p_1,p_2) は 直積，(X, i_1, i_2) は直和，p_1i_1 = id_A, p_2i_2 = id_B, p_1i_2 = 0, p_2i_1 = 0 }<br/>とおくと，自然な射影<br/>Biprod(A,B) → Prod(A,B)<br/>Biprod(A,B) → Coprod(A,B)<br/>が全て全単射になります．つまり直和に自然に直積の構造が入ります．すると、直和関手は直積関手でもあります。</div>
         </div>
       </div>
+      <div class="event" id="message-1666412768.301929">
+        <div class="content">
+          <div class="summary">
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1666412768.301929">2022-10-22 13:26:08 +0900</a></div>
+          </div>
+          <div class="description">右随伴関手 G は直積を保存する G(X×Y) ≅ G(X) × G(Y) という性質を持つので<br/>今回のケースで仮に G を (+) とすると X = (A,B), Y = (C,D) に対して<br/>G((A,B)×(C,D)) = G((A×C,B×D)) = (A×C) + (B×D)<br/>一方<br/>G(A,B) × G(C,D) = (A+B) × (C+D)<br/>なので ac+bd = (a+b)(c+d) が自然数で成り立たないといけないのですがこれは成り立ちません。<br/>G が (×) の場合は (ac)(bd) = (ab)(cd) で問題ありません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666433271.654819">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666433271.654819">2022-10-22 19:07:51 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>gksato</blockquote>ありがとうございます！<br/>＋と直積関手が同型でないから右随伴ではないというのは随伴関手が一意に定まるものだから、ということであっていますでしょうか？<br/>それから「直積関手は対角関手の右随伴」の逆「対角関手の右随伴は直積関手」について違いが分かりませんでした。。<br/>随伴は一意なのでどの随伴でもこの両者は必ず満たされるのかと思っていました。<br/><br/>また、直和関手と直積関手の両方の構造を持つ例の自然な射影についても確かめようとしてみたのですが、少し詰まってしまいました。。<br/>こちらもご助言いただけますと幸いです。。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666433346.842319">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666433346.842319">2022-10-22 19:09:06 +0900</a></div>
+          </div>
+          <div class="description">全単射を示す方法がわからなかったので逆射があって合成が恒等写像になればいいのかと思って書いてみました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666435833.546409">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666435833.546409">2022-10-22 19:50:33 +0900</a></div>
+          </div>
+          <div class="description">後の質問から順番に答えさせていただきます．<br/><br/>Biprod(A,B) → Prod(A,B) の逆射を構成しましょう．それには，(X,p_1,p_2) ∈ Prod(A,B) をとって，i_1: A → X, i_2: B → X であって (X_1,p_1,p_2,i_1,i_2) ∈ Biprod(A,B) なるものが一意に存在することを示せば良いです（全単射性を示せば良いと言っているのと同じ）．<br/><br/>今，可換な群やモノイドの圏を考えていますが，それぞれの対象である群やモノイドの算法を，その素性によらず(+,0)で加法的に書くことにします．<br/>可換な群やモノイドの圏では，f,g: A → B において (f+g)(a) := f(a) + g(a) によって f+g: A → B が定義でき，同様に単位元が定義できて結合的なので，Hom(A,B)が可換なモノイドになります．0で単位元0(x) = 0を表すことにしましょう．<br/><br/>(X,p_1,p_2) ∈ Prod(A,B)を任意とします．(X,p_1,p_2) は直積なので，直積の普遍性により<br/>p_1i_1 = id_A: A → A (1)<br/>p_2i_1 = 0: A → B (2)<br/>なる射 i_1: A → X が一意に存在します．<br/>同様に，i_2: B → X であって，<br/>p_1i_2 = 0: B → A (3)<br/>p_2i_2 = id_B: B → B (4)<br/>なる射 i_2: B → X が一意に存在します．<br/><br/>これらのi_1,i_2 の一意性とBiprod(A,B)の定義に(1),(2),(3),(4)が既に含まれていることから，求めるものが存在してもたかだか一つしかないことは証明されました．あとは(X,i_1,i_2) が直和の普遍性を満たすことを示せば良いです．<br/><br/>まず i_1 p_1 + i_2 p_2 = id_X: X → X を示します．<br/>p_1 (i_1 p_1 + i_2 p_2)<br/> = (p_1 i_1) p_1 + (p_1 i_2) p_2<br/> = id_A p_1 + 0 p_2<br/> = p_1<br/> = p_1 id_X<br/>p_2 (i_1 p_1 + i_2 p_2)<br/> = (p_2 i_1) p_1 + (p_2 i_2) p_2<br/> = 0 p_1 + id_B p_2<br/> = p_2<br/> = p_2 id_X<br/>より，直積の普遍性から i_1 p_1 + i_2 p_2 = id_X．<br/>いま，f: A → Y, g: B → Y, とすると，h: X → Y が<br/>h i_1 = f, h i_2 = g を満たすためには<br/>h = h id_X<br/>= h(i_1 p_1 + i_2 p_2)<br/>= hi_1 p_1 + hi_2 p_2<br/>= f p_1 + g p_2<br/>しかなく，こうするとh i_1 = f, h i_2 = g は確かに満たされているので直和の普遍性を満たします．よって示されました．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666436677.429109">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666436677.429109">2022-10-22 20:04:37 +0900</a></div>
+          </div>
+          <div class="description">前の質問については，単純に一意性を使わない議論をしただけですね．一意性を既に学習なさっているかがわからなかったので，「Setの3点集合A={0,1,2},B={0,1,2}の任意の直積(X, p_1: X → A, p_2: X→B)について，その台となる集合Xの要素の数は必ず9となる」，「Setの3点集合A,Bの任意の直和について，その台となる集合の要素の数は必ず6となる」という命題のみを用いて，「Setにおける2対象直和関手である任意の関手Set × Set → Setには直積をとる関手の構造を与えることができない」という命題を証明し，これと「Setにおける2成分対角関手Set → Set × Setの右随伴関手としての構造をもつ関手Set × Set → Setにはかならず標準的に直積をとる関手としての構造を与えることができる」から「Setおける2対象直和関手である任意の関手Set × Set → SetにはSetにおける2成分対角関手Set → Set × Setの右随伴関手としての構造を与えることができない」を示した感じです．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666448159.477579">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666448159.477579">2022-10-22 23:15:59 +0900</a></div>
+          </div>
+          <div class="description">詳細にありがとうございます……！<br/>一つ目について理解しました！書いてくださっているままですが、直積関手と直和関手がそもそも構造が異なるので対角関手の右随伴で必要な構造ではないから直和関手は右随伴にならないということなのですね。<br/><br/>2つ目についても式展開ありがとうございます！<br/>最後に一点すみません、直和と直積の普遍性について自分が今まで見てきた条件とかなり異なっていたのですが、こちらはどのように導出されるのでしょうか？<br/>他の直積・直和になりうる対象の射影を分解する射がただ一つ存在するという条件から上のものを導いてみようとしたのですがうまくいかず。。<br/>お手数をおかけしますが、ご教示いただけますと幸いです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666449730.012489">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666449730.012489">2022-10-22 23:42:10 +0900</a></div>
+          </div>
+          <div class="description">&gt;1to100pen<br/>直積関手の性質を利用する証明のご提示ありがとうございます！<br/>この性質ですが、以下のような証明であっていますでしょうか？<br/><br/>圏Bでの対象B1, B2の直積をX、圏Aでの対象G(B1), G(B2)の直積をYとして<br/>G(X)はG(B1), G(B2)への射があるので、直積の定義から、h:G(X)-&gt;Yが1つ存在することになります。<br/>一方、随伴の関係からq1:Y-&gt;G(B1)に対応する射~q1:F(Y)-&gt;B1が存在します。<br/>F(Y)もG(X)と同様に直積の定義からf:F(Y)-&gt;Xが1つ存在することになります。<br/>このgを随伴の関係で~f:Y-&gt;G(X)に写しますと、hと~fが逆射になっており、Yは直積の候補の中での終対象なのでh, ~fの合成は恒等射となり、G(X)とYは同型になります。<br/>したがってG(X)も圏Aでの直積となるので、Gは直積を保持します。<br/><br/>お手数をお掛けしますが、ご確認いただけますと幸いです。。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666451365.111089">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666451365.111089">2022-10-23 00:09:25 +0900</a></div>
+          </div>
+          <div class="description">@t-shibata あー…ベーシック圏論の原書と物理的に離れているのでアレなのですが，「三つ組(X, p_1:X → A, p_2:X → B) が AとBの直積であるとは，任意の三つ組(Y, f: Y → A, g: Y → B) について，次の2条件を満たす射h: Y → Xがただ一つ存在すること: <strike>(1) h p_1 = f, (2) h p_2 = g</strike> (1) p_1 h = f, (2)p_2 h = g.」っていう定義はお分かりになるでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666451997.255749">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666451997.255749">2022-10-23 00:19:57 +0900</a></div>
+          </div>
+          <div class="description">はい、その定義の認識でした。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666458753.213839">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666458753.213839">2022-10-23 02:12:33 +0900</a></div>
+          </div>
+          <div class="description">@t-shibata おわかりもなにも完全に間違えていたので訂正しました． h: Y → X で p_1: X → A なので 合成 h p_1 なんて存在するわけなかったですね…．存在するのは p_1 h: Y → A の方です．暗黙に訂正した上でOKを下さったという理解でよろしいでしょうか．</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../11.html" class="item">Back to math #11</a>
