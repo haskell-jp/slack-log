@@ -174,6 +174,123 @@
           <div class="description">@t-shibata おわかりもなにも完全に間違えていたので訂正しました． h: Y → X で p_1: X → A なので 合成 h p_1 なんて存在するわけなかったですね…．存在するのは p_1 h: Y → A の方です．暗黙に訂正した上でOKを下さったという理解でよろしいでしょうか．</div>
         </div>
       </div>
+      <div class="event" id="message-1666484007.046559">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666484007.046559">2022-10-23 09:13:27 +0900</a></div>
+          </div>
+          <div class="description">すみません、よく見る定義と似てると思って自分も見落としていました。。<br/>訂正してくださった後の式の定義での認識でした。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666484138.195209">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666484138.195209">2022-10-23 09:15:38 +0900</a></div>
+          </div>
+          <div class="description">だとしたら i_1, i_2 の構成には問題はなくて，i_1 p_1 + i_2 p_2 = id_X の証明がよくわからない，という感じでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666484294.200149">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666484294.200149">2022-10-23 09:18:14 +0900</a></div>
+          </div>
+          <div class="description">すみません、i_1, i_2の構成の方からでして。。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666484471.712559">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666484471.712559">2022-10-23 09:21:11 +0900</a></div>
+          </div>
+          <div class="description">「(A, id_A: A → A, 0: A→B)に対して(X,p_1,p_2) の直積の普遍性を使って出てくる射をi_1: A → Xと呼ぶ」，でわかりますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666484981.736009">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666484981.736009">2022-10-23 09:29:41 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！理解いたしました。<br/>どうしたらp_1 i_1がid_1になるかと思案していたのですが、逆にこういう射があるとしたら普遍性からi_1が導かれるのですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666485265.680139">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666485265.680139">2022-10-23 09:34:25 +0900</a></div>
+          </div>
+          <div class="description">あとは (X, p_1: X → A, p_2: X → B) 自身に対して(X, p_1,p_2) の普遍性を使うと p_1 h = p_1, p_2 h = p_2 なるh: X → X は一個しかないですから， h の候補が二つあればそれらの候補は等しいですね．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666485753.298129">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666485753.298129">2022-10-23 09:42:33 +0900</a></div>
+          </div>
+          <div class="description">ただ一つだけという条件も出てくるのですね。<br/>少し見えてきた気がします。。！<br/>直和Xに対しても同じように(A, id_A: A-&gt;A, 0: B-&gt;A)を考えると直和の普遍性からp_1: X-&gt;Aが導かれて、X自身へ普遍性を用いるとh: X-&gt;Xは一つしかないところにi_1 p_1:X-&gt;Xとi_2 p_2:X-&gt;Xも作ることができることからi_1 p_1 + i_2 p_2 = hとできる、という感じでしょうか。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666487203.338549">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666487203.338549">2022-10-23 10:06:43 +0900</a></div>
+          </div>
+          <div class="description">あー…違います．直和の普遍性は今証明しているところなので，直和の普遍性を事実として用いることはできません．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666487354.022429">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666487354.022429">2022-10-23 10:09:14 +0900</a></div>
+          </div>
+          <div class="description">(X,p_1,p_2)の直積の普遍性と<br/>p_1i_1 = id_A: A → A (1)<br/>p_2i_1 = 0: A → B (2)<br/>p_1i_2 = 0: B → A (3)<br/>p_2i_2 = id_B: B → B (4)<br/>だけから<br/>i_1 p_1 + i_2 p_2 = id_X: X → X: (5)<br/>が出てきて，(1),(2),(3),(4),(5)から直和の普遍性が出ます．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666487605.587209">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666487605.587209">2022-10-23 10:13:25 +0900</a></div>
+          </div>
+          <div class="description">理解しました！<br/>証明の流れとして直積から出発して直和を示すのに使える式(5)を作った上で直和にもなっていることを示す、ということをされていたのですね。（よく見たら元々書いてくださった方に(5)は直積の普遍性からと書いてくださっていましたね。。）<br/>書いてくださった内容理解できたと思います！ありがとうございました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666487692.608649">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666487692.608649">2022-10-23 10:14:52 +0900</a></div>
+          </div>
+          <div class="description">蛇足に付き合わせてしまってすみませんでした…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666487897.240349">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666487897.240349">2022-10-23 10:18:17 +0900</a></div>
+          </div>
+          <div class="description">いえ、この内容とても興味深かったですし、直積からi_1の存在を作ることについて、普遍性の使い方を正しく学べたと思うのですごいありがたかったです！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666487972.130649">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666487972.130649">2022-10-23 10:19:32 +0900</a></div>
+          </div>
+          <div class="description">本当にこちらこそ丁寧にご解説いただきありがとうございました。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../11.html" class="item">Back to math #11</a>
