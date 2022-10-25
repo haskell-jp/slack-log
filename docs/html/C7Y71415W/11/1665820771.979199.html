@@ -291,6 +291,69 @@
           <div class="description">本当にこちらこそ丁寧にご解説いただきありがとうございました。</div>
         </div>
       </div>
+      <div class="event" id="message-1666606452.819129">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666606452.819129">2022-10-24 19:14:12 +0900</a></div>
+          </div>
+          <div class="description">ちなみに，1to100penさんへの返信についてですが，(X, p: X→A, q: X→B) が 圏Dにおける直積であり，(F: C → D) ⊣ (G: D → C) なる随伴である時，G(X)が単に直積の構造を持ちうるというだけでなく，この直積図式のGによる像(G(X), G(p): G(X)→G(A), G(q): G(X) → G(B)) そのものが必ず直積になります．この命題は「圏Cが直積を持つ」という仮定なしに成り立ちます．ということで，t-shibataさんの証明のようにYとG(X)の同型を証明するだけでは「G(X)が直積の構造を与えられうる」ということしか示せませんし，そもそも「圏Cが直積の構造を持つ」を使わないとYの存在は言えませんが、Yの存在は仮定しなくても命題を証明できます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666616222.446469">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666616222.446469">2022-10-24 21:57:02 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！<br/>すみません、こちらの証明をしてみようとしているのですがわからず。。<br/>ちょっと自分で導けないか今日一晩頑張ってみようと思っているのですが、これは随伴の自然性だけで示せる感じでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666616941.247089">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666616941.247089">2022-10-24 22:09:01 +0900</a></div>
+          </div>
+          <div class="description">随伴を与えるhom-setの同型とその自然性と関手が関手の条件を満たすことから証明できると思います！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666619305.080149">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666619305.080149">2022-10-24 22:48:25 +0900</a></div>
+          </div>
+          <div class="description">こうでしょうか。。<br/>自然性の適用できそうな箇所は限られているので、もともとの自分の証明のうち、圏Cの直積の仮定のみを無くしたようなものしか思いつきませんでした。。<br/><br/>圏C, D、随伴(F: C → D) ⊣ (G: D → C)があり、(X, p1: X→B1, p2: X→B2) が 圏Dの直積とします。<br/>(Y, r1: Y→B1, r2: Y→B2)に対して直積の定義からr1 = p1∘h, r2 = p2∘hとなるh: Y→Xがただ一つ存在します。<br/>このX, YをGで写したG(X), G(Y)について、G(h)がただ一つ存在し、また、G(r1) = G(p1∘h) = G(p1)∘G(h)となるため、圏Dでの直積が圏Cでも保たれます。<br/>また、q1: A→G(B1), q2: A→G(B2)を持つ任意のA∈Cがあるとします。-- (1)<br/>随伴の自然性から~q1: F(A)→B1, ~q2: F(A)→B2がただ一つ存在します。<br/>Xが直積なので~q1 = p1∘f, ~q2 = p2∘fとなるf: F(A)→Xがただ一つ存在します。<br/>ふたたび随伴の自然性から~f: A→G(X)がただ一つ存在します。-- (2)<br/>(1)なAに対し(2)が成り立つので(G(X), G(p): G(X)→G(A), G(q): G(X) → G(B))は圏Cの直積となります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666623545.404349">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666623545.404349">2022-10-24 23:59:05 +0900</a></div>
+          </div>
+          <div class="description">証明の意味がよく分かってなくて，「圏Dでの直積が圏Cでも保たれる」という言葉の意味は機械的に「(X,p1: X → B1, p2: X → B2)が圏Dでの直積ならば(G(X), G(p1): G(X) → G(B1), G(p2): G(X) → G(B2))がけんCでの直積である」ということです（だって直積とは対象ではなくて三つ組のことだから）．「圏Dでの直積が圏Cでも保たれる」と言った時点でそれが証明できているようには見えないんですよね…．G(h)がただ一つ存在する，という言い方と「随伴の自然性から~q1: F(A)→B1, ~q2: F(A)→B2がただ一つ存在します。」も割と謎です．ごめんなさい，仮にも数学側の人間なんだから理解力を持って聞くべきなんですが…．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666655219.301019">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666655219.301019">2022-10-25 08:46:59 +0900</a></div>
+          </div>
+          <div class="description">ご確認ありがとうございます！<br/>いえ、自分は本当に数学については雰囲気でしか触れてきていなかったので、このようにしっかり確認していただけるのはとてもありがたいです！<br/>一つ目のご指摘について、自分としては圏Dで直積の性質を持つ（という表現が正しいか分かりませんが）XとYが圏Cでも同じ関係性を持っているというようなことを言えればと思っていました。<br/>ただ仰って下さったようにあの表現では、そもそも証明をしたい命題自体を指すものになってしまっているのが誤りという感じでしょうか。<br/>二つ目について自分の直積の定義は「直積(X, p1: X-&gt;B1, p2: X-&gt;B2)があるときに、(Y, q1: Y-&gt;B1, q2: Y-&gt;B2)があるとすると、q1 = p1○h, q2 = p2○hとなるh: Y-&gt;Xがただ一つ存在する」、随伴の自然性はD(F(A), B)≅C(A, G(B))なので、「f: F(A)-&gt;Bに対応する~f: A-&gt;G(B)がただ一つ存在する」という認識をしていて書いていました。<br/><br/>圏論というより数学としての論理の前提的な部分な気がして大変申し訳ないのですが、認識の誤りがありましたらご教示いただけますと幸いです。。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666656267.859169">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666656267.859169">2022-10-25 09:04:27 +0900</a></div>
+          </div>
+          <div class="description">まず，一番簡単に指摘できることから．随伴の自然性の主張は間違っているかと思います．<br/>D(F(A), B)≅C(A, G(B)) for A ∈ Ob(C), B ∈ Ob(D)<br/>は随伴のHom-同型とか呼ばれている命題ですが，そもそも<br/>C^{op} × D ∋ (A^op,B) ↦ D(F(A),B) ∈ Set<br/>C^{op} × D ∋ (A^op,B) ↦ C(A,G(B)) ∈ Set<br/>は共に関手です． Ob-写像は上の通りで，Hom-写像は次の通りに定義されます： (f: A’ → A)^op = (f^op: A^op → A’^op) が C^op の射(f: A’ → A自体はCの射)， g: B → B’ が Dの射であるときに Set の射<br/>D(F(f), g): D(F(A), B) → D(F(A’), B)<br/>C(f, G(g)): C(A, G(B)) → C(A’, G(B’))<br/>が<br/>D(F(f), g)(u: F(A) → B) := g u F(f): F(A’) → B,<br/>C(f, G(g))(v: A → G(B)) := G(g) u f: A’ → G(B’)<br/>として定まるわけです．<br/><br/>そして，随伴のHom-同型は，単に各A,Bそれぞれについて同型というだけでなく，<br/>C^{op} × D ∋ (A^op,B) ↦ D(F(A),B) ∈ Set<br/>C^{op} × D ∋ (A^op,B) ↦ C(A,G(B)) ∈ Set<br/>が関手として自然同型である，つまり各A,Bについての同型を束ねたときに自然変換とみなせる，ということが要求されます．これが随伴の自然性です．</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../11.html" class="item">Back to math #11</a>
