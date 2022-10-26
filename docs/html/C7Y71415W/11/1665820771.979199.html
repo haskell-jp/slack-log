@@ -354,6 +354,105 @@
           <div class="description">まず，一番簡単に指摘できることから．随伴の自然性の主張は間違っているかと思います．<br/>D(F(A), B)≅C(A, G(B)) for A ∈ Ob(C), B ∈ Ob(D)<br/>は随伴のHom-同型とか呼ばれている命題ですが，そもそも<br/>C^{op} × D ∋ (A^op,B) ↦ D(F(A),B) ∈ Set<br/>C^{op} × D ∋ (A^op,B) ↦ C(A,G(B)) ∈ Set<br/>は共に関手です． Ob-写像は上の通りで，Hom-写像は次の通りに定義されます： (f: A’ → A)^op = (f^op: A^op → A’^op) が C^op の射(f: A’ → A自体はCの射)， g: B → B’ が Dの射であるときに Set の射<br/>D(F(f), g): D(F(A), B) → D(F(A’), B)<br/>C(f, G(g)): C(A, G(B)) → C(A’, G(B’))<br/>が<br/>D(F(f), g)(u: F(A) → B) := g u F(f): F(A’) → B,<br/>C(f, G(g))(v: A → G(B)) := G(g) u f: A’ → G(B’)<br/>として定まるわけです．<br/><br/>そして，随伴のHom-同型は，単に各A,Bそれぞれについて同型というだけでなく，<br/>C^{op} × D ∋ (A^op,B) ↦ D(F(A),B) ∈ Set<br/>C^{op} × D ∋ (A^op,B) ↦ C(A,G(B)) ∈ Set<br/>が関手として自然同型である，つまり各A,Bについての同型を束ねたときに自然変換とみなせる，ということが要求されます．これが随伴の自然性です．</div>
         </div>
       </div>
+      <div class="event" id="message-1666705087.460299">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666705087.460299">2022-10-25 22:38:07 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！<br/>つまり自分の考えていましたのはただ単に2つのHom集合が同型というだけの条件で、随伴の自然性はそれだけでなく関手として見たときに自然同型であることが抜けていた感じでしょうか。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666705424.549849">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666705424.549849">2022-10-25 22:43:44 +0900</a></div>
+          </div>
+          <div class="description">そしてこの関手として自然同型である条件をわかりやすくしているのが自然性条件のF(A)→B→B'の転置がA→G(B)→G(B')になるというものに集約されているのですね！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666707962.101899">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666707962.101899">2022-10-25 23:26:02 +0900</a></div>
+          </div>
+          <div class="description">うん、あってそうです。もちろん、自然性条件がもう一個あるのもお忘れではないですよね？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666708305.053459">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666708305.053459">2022-10-25 23:31:45 +0900</a></div>
+          </div>
+          <div class="description">はい、F(A')→F(A)→Bの転置がA'→A→G(B)となることですね。<br/>確認なのですが、この条件はD(F(A), B)→D(F(A'), B)の射関数とC(A, G(B))→C(A', G(B))の射関数で作られる可換図式を簡略化したものであっていますでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666709910.896149">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666709910.896149">2022-10-25 23:58:30 +0900</a></div>
+          </div>
+          <div class="description">はい、そうです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666710270.900149">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666710270.900149">2022-10-26 00:04:30 +0900</a></div>
+          </div>
+          <div class="description">Hom-同型の自然性はそのままではSetの射の可換図式ですが、Setの射の可換図式は写像の等式で、写像の等式は各要素への適用結果の等式で、この「適用結果」を書き下してみると圏C,Dにおける可換図式に見えてより分かりやすくなる、という格好になってますね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666715695.836779">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666715695.836779">2022-10-26 01:34:55 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！ようやく自然性条件をちゃんと理解できたように思います。<br/><br/>これをもとに元の話の証明についてなのですが、そもそも証明の進め方と書き方がちゃんとしてない気がしてまして。。<br/>大筋として<br/>「圏Dの直積(X, q1: X→B1, q2: X→B2)をGで圏Cに移したもの(G(X), G(q1): G(X)→G(B1), G(q2): G(X)→G(B2))が圏Cでの直積」を示すために<br/>「対象A∈Cについて(A, p1: A→G(B1), p2: A→G(B2))があるとき、p1 = G(q1)∘h, p2 = G(q2)∘hとなるh: A→G(X)がただ一つ存在する」を随伴の関係性などから証明していく、という順番はまずあっていますでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666736000.646089">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666736000.646089">2022-10-26 07:13:20 +0900</a></div>
+          </div>
+          <div class="description">あっています．そしてもっとわかりやすいように追加すると，φ(x)がxに関する条件であるとき，「φ(x)を満たすxがただ一つ存在する」（唯一存在）という言葉の意味は，「『φ(x)を満たすxが存在する』(存在性)かつ『任意のx,yについて，φ(x)とφ(y)の両方が成り立つならx=y』(唯一性)」と分解して定義されているので，バラバラに証明してみることをお勧めします．もちろん，「『任意のyについて，φ(y)ならx=yである』を満たすyによって変化しないxが存在する」と「φ(x)を満たすxが存在する」の二つを証明しても同値です．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666740428.549249">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666740428.549249">2022-10-26 08:27:08 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！この場合で行きますとφ(x)のxに相当するのはh: A→G(X)であっていますでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666740514.505729">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666740514.505729">2022-10-26 08:28:34 +0900</a></div>
+          </div>
+          <div class="description">あってます！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666740603.419589">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666740603.419589">2022-10-26 08:30:03 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！もう一度この感じで証明考えて見ようと思います！</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../11.html" class="item">Back to math #11</a>
