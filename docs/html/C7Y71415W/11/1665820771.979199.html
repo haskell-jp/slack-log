@@ -453,6 +453,15 @@
           <div class="description">ありがとうございます！もう一度この感じで証明考えて見ようと思います！</div>
         </div>
       </div>
+      <div class="event" id="message-1666792012.522439">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1666792012.522439">2022-10-26 22:46:52 +0900</a></div>
+          </div>
+          <div class="description">これでどうでしょうか！<br/><br/>示したい命題：<br/>圏C, D、関手F: D→C, G: C→D, 対象X∈Dについて直積(X, q1: X→B1, q2: X→B2)があるときに、<br/>対象A∈Cについて(A, p1: A→G(B1), p2: A→G(B2))があるとき、p1 = G(q1)∘h, p2 = G(q2)∘hとなるh: A→G(X)がただ一つ存在する<br/><br/>証明：<br/>随伴から以下の関手を考える。<br/>D(F(A), -): X∈D→D(F(A), X)∈SetとC(A, G(-)): Y∈C→C(A, G(Y))∈Set<br/>FとGが随伴なので自然変換α: D(F(A), -)→C(A, G(-))があり、かつ逆射α_invが存在する。<br/><br/>射hの存在性：<br/>対象A∈Cについて(A, p1: A→G(B1), p2: A→G(B2))のp1についてr1 = α_inv(p1): F(A)→B1が導かれ、同様にr2: F(A)→B2が導かれる。<br/>圏DでXの直積があるため、k: F(A)→Xで、<br/>q1∘k = r1: F(A)→B1かつq2∘k = r2: F(A)→B2 --(1)<br/>となるものがただ一つ存在する。<br/>(1)の両辺にαをかけると<br/>α(p1∘k) = α(r1)<br/>随伴の自然性から左辺はh = α(k): A→G(X)として<br/>G(p1)∘h = α(r1)<br/>r1 = α_inv(q1)かつ、α∘α_inv = 1より<br/>G(p1)∘h = q1<br/>同様にG(p2)∘h = q2となるため、条件のh: A→G(X)が存在する。<br/><br/>射hの一意性：<br/>p1 = G(q1)∘h, p2 = G(q2)∘hと分解できるhとしてh1, h2があるとする。<br/>h1についての式の両辺にα_invをかけて<br/>α_inv(p1) = α_inv(G(p1)∘h1) = p1∘α_inv(h1): F(A)→B1<br/>α_inv(p2) = p2∘α_inv(h1): F(A)→B2<br/>直積の定義からα_inv(h1)は上記の2式を満たすただ一つの射となる。<br/>同様にh2についても<br/>α_inv(p1) = p1∘α_inv(h2): F(A)→B1<br/>α_inv(p2) = p2∘α_inv(h2): F(A)→B2<br/>こちらでもα_inv(h2)が上記2式を満たすただ一つの射となるため、α_inv(h1) = α_inv(h2)<br/>両辺にαをかけて<br/>h1 = h2<br/>したがって条件のhは一意となる。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../11.html" class="item">Back to math #11</a>
