@@ -189,10 +189,19 @@ encodeTLV (TLV x) = encode x</pre><br/>問題は復号器です。TLVのTとLの
       <div class="event" id="message-1666822096.660409">
         <div class="content">
           <div class="summary">
-            <div class="user">U048BPMJ960</div>
+            <div class="user">gnkm</div>
             <div class="date"><a class="date" href="#message-1666822096.660409">2022-10-27 07:08:16 +0900</a></div>
           </div>
-          <div class="description">@U048BPMJ960 has joined the channel</div>
+          <div class="description">@gnkm has joined the channel</div>
+        </div>
+      </div>
+      <div class="event" id="message-1666917551.484099">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666917551.484099">2022-10-28 09:39:11 +0900</a></div>
+          </div>
+          <div class="description">ForeignPtrにcの関数をセットするaddCFinalizerToWeak#があるのですが、<br/>呼び出しに200nsほどかかります。（条件によって変わってきますが。）<br/><a href='https://hackage.haskell.org/package/ghc-prim-0.5.2.0/docs/GHC-Prim.html#v:addCFinalizerToWeak-35-'>https://hackage.haskell.org/package/ghc-prim-0.5.2.0/docs/GHC-Prim.html#v:addCFinalizerToWeak-35-</a><br/><a href='https://gitlab.haskell.org/ghc/ghc/-/blob/master/rts/PrimOps.cmm#L832-871'>https://gitlab.haskell.org/ghc/ghc/-/blob/master/rts/PrimOps.cmm#L832-871</a><br/>どこにそんなに時間がかかっていると思いますか？<br/>（ LOCK_CLOSURE、updateRemembSetPushPtr、 recordMutableのどれかがほとんどの時間が使っていると思いますが。）<br/>どうしたら内部の関数のマイクロベンチマークがとれますか？</div>
         </div>
       </div>
     </div>
