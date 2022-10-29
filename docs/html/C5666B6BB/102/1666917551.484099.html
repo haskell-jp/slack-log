@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #102 at 2022-10-28 09:39:11 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #102 at 2022-10-28 09:39:11 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to questions #102</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1666917551.484099">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1666917551.484099">2022-10-28 09:39:11 +0900</a></div>
+          </div>
+          <div class="description">ForeignPtrにcの関数をセットするaddCFinalizerToWeak#があるのですが、<br/>呼び出しに200nsほどかかります。（条件によって変わってきますが。）<br/><a href='https://hackage.haskell.org/package/ghc-prim-0.5.2.0/docs/GHC-Prim.html#v:addCFinalizerToWeak-35-'>https://hackage.haskell.org/package/ghc-prim-0.5.2.0/docs/GHC-Prim.html#v:addCFinalizerToWeak-35-</a><br/><a href='https://gitlab.haskell.org/ghc/ghc/-/blob/master/rts/PrimOps.cmm#L832-871'>https://gitlab.haskell.org/ghc/ghc/-/blob/master/rts/PrimOps.cmm#L832-871</a><br/>どこにそんなに時間がかかっていると思いますか？<br/>（ LOCK_CLOSURE、updateRemembSetPushPtr、 recordMutableのどれかがほとんどの時間が使っていると思いますが。）<br/>どうしたら内部の関数のマイクロベンチマークがとれますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667003915.528589">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1667003915.528589">2022-10-29 09:38:35 +0900</a></div>
+          </div>
+          <div class="description">updateRemembSetPushPtrとrecordMutableを抜いたaddCFinalizerToWeak#を作ってみましたが、<br/>ほとんど変わらなかったです。（10ns以下の変化）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667004654.161919">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1667004654.161919">2022-10-29 09:50:54 +0900</a></div>
+          </div>
+          <div class="description">LOCK_CLOSUREが問題だとすると<br/>weak pointerをつくってからcのfinallizerをセットするのではなくて、<br/>weak pointerつくるときに直接cのfinalizerをセットすれば速くなりそうですね。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to questions #102</a>
+    </div>
+  </div>
+</body>
+</html>

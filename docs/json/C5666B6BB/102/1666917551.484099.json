@@ -1,0 +1,20 @@
+[
+    {
+        "text": "ForeignPtrにcの関数をセットするaddCFinalizerToWeak#があるのですが、\n呼び出しに200nsほどかかります。（条件によって変わってきますが。）\n<https://hackage.haskell.org/package/ghc-prim-0.5.2.0/docs/GHC-Prim.html#v:addCFinalizerToWeak-35->\n<https://gitlab.haskell.org/ghc/ghc/-/blob/master/rts/PrimOps.cmm#L832-871>\nどこにそんなに時間がかかっていると思いますか？\n（ LOCK_CLOSURE、updateRemembSetPushPtr、 recordMutableのどれかがほとんどの時間が使っていると思いますが。）\nどうしたら内部の関数のマイクロベンチマークがとれますか？",
+        "type": "message",
+        "ts": "1666917551.484099",
+        "user": "U74KTAG0N"
+    },
+    {
+        "text": "updateRemembSetPushPtrとrecordMutableを抜いたaddCFinalizerToWeak#を作ってみましたが、\nほとんど変わらなかったです。（10ns以下の変化）",
+        "type": "message",
+        "ts": "1667003915.528589",
+        "user": "U74KTAG0N"
+    },
+    {
+        "text": "LOCK_CLOSUREが問題だとすると\nweak pointerをつくってからcのfinallizerをセットするのではなくて、\nweak pointerつくるときに直接cのfinalizerをセットすれば速くなりそうですね。",
+        "type": "message",
+        "ts": "1667004654.161919",
+        "user": "U74KTAG0N"
+    }
+]
