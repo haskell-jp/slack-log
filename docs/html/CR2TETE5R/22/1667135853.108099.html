@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #22 at 2022-10-30 22:17:33 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #22 at 2022-10-30 22:17:33 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../22.html" class="item">Back to beginners #22</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1667135853.108099">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1667135853.108099">2022-10-30 22:17:33 +0900</a></div>
+          </div>
+          <div class="description">ただ実際使おうにも、 1 文字を表すのに <code>Char</code> を使うべきか <code>Text.singleton</code> かなど迷う点が多くありそうです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667170004.983089">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1667170004.983089">2022-10-31 07:46:44 +0900</a></div>
+          </div>
+          <div class="description">Textにおける一文字を表すのであれば、原則 <code>Char</code> しか選択肢はないと思います。 <code>singleton</code> は型ではなく <code>Char</code> を受け取る関数なので。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667219773.252779">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1667219773.252779">2022-10-31 21:36:13 +0900</a></div>
+          </div>
+          <div class="description">Text においては `Char` が 1 文字なのですね。 `Char` も自信が無かったですし、 Parsec と組み合わせると、 `Parser Char` と `Parser Text` の選択などで迷います。<br/>まずは人のコードをざっと (100 ~ 400 行くらい) 読めればと思うのですが :grimacing: (Haskell 難しい)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667220676.193419">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1667220676.193419">2022-10-31 21:51:16 +0900</a></div>
+          </div>
+          <div class="description">えっと、ご所望のparsecを使ったものではないですが、パーサーコンビネーターの初歩的な概念を学ぶために、 <a href='https://www.lambdanote.com/products/haskell'>https://www.lambdanote.com/products/haskell</a> の第13章などの本を読むのがおすすめです。Haskellの世界にはparsec以外にも、もっと新しいmegaparsecなどいろいろなパーサーコンビネーターがありますが、基本的な使い方や考え方は全く変わらないので、サンプルとしては十分だと思います。 <code>Text</code> でやろうと <code>String</code> でやろうとも基本は変わりませんし。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667220802.313959">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1667220802.313959">2022-10-31 21:53:22 +0900</a></div>
+          </div>
+          <div class="description">あと <a href='https://zenn.dev/lotz/articles/91e377138fc4a94f956c'>https://zenn.dev/lotz/articles/91e377138fc4a94f956c</a> の「正規表現」の節も参考になるかも</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../22.html" class="item">Back to beginners #22</a>
+    </div>
+  </div>
+</body>
+</html>
