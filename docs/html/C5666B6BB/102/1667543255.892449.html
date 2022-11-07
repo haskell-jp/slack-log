@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #102 at 2022-11-04 15:27:35 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #102 at 2022-11-04 15:27:35 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to questions #102</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1667543255.892449">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Endo Ryunosuke / minerva</div>
+            <div class="date"><a class="date" href="#message-1667543255.892449">2022-11-04 15:27:35 +0900</a></div>
+          </div>
+          <div class="description">TaPL の exercise 30.4.2 に Are there any useful programs that can be written in System F4 but not in System F3? っていう問題があるのですが，思いつく人いますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667736575.540489">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ksrk</div>
+            <div class="date"><a class="date" href="#message-1667736575.540489">2022-11-06 21:09:35 +0900</a></div>
+          </div>
+          <div class="description">モナド変換子がそうではないでしょうか？<br/>```Prelude Control.Monad.State&gt; :k StateT<br/>StateT :: * -&gt; (* -&gt; *) -&gt; * -&gt; *```<br/>あと型クラスも広義にはそうかもしれません。TaPLの30.4で「Objectを計算体系の正式な式としてではなく、メタ言語略記の機構で扱うことにすればよい」と書いてありますが、これがまさに型クラスのことだと思います。実際Haskellで、型クラスはコア言語に脱糖されると、データ型と同様に扱われるようです。例えばMonadはカインドが`(* -&gt; *) -&gt; Constraint`でF3では書けず、F4でなら書けますし、実際に有用なので答えの一つになるのではないでしょうか。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667780627.095759">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Endo Ryunosuke / minerva</div>
+            <div class="date"><a class="date" href="#message-1667780627.095759">2022-11-07 09:23:47 +0900</a></div>
+          </div>
+          <div class="description">monad transformer がそうだと投稿してから気づきました．ていうか 1 段階ずらして理解しちゃってたので <code>(* =&gt; *) =&gt; *</code>  は F3 だと思ってました……．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667780694.931309">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Endo Ryunosuke / minerva</div>
+            <div class="date"><a class="date" href="#message-1667780694.931309">2022-11-07 09:24:54 +0900</a></div>
+          </div>
+          <div class="description">っていうか逆に，monad transformer を知ってればこの exercise 当たり前すぎますよね．こんな自明な問題が TaPL の星 4 なはずないと思って勘ぐっちゃったかも．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667781651.981099">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ksrk</div>
+            <div class="date"><a class="date" href="#message-1667781651.981099">2022-11-07 09:40:51 +0900</a></div>
+          </div>
+          <div class="description"><blockquote><code>(* =&gt; *) =&gt; *</code>  は F3だと思ってました</blockquote>これ結構トラップですよね。私も一応読み返しました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to questions #102</a>
+    </div>
+  </div>
+</body>
+</html>

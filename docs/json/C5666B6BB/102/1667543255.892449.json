@@ -1,0 +1,32 @@
+[
+    {
+        "text": "TaPL の exercise 30.4.2 に Are there any useful programs that can be written in System F4 but not in System F3? っていう問題があるのですが，思いつく人いますか？",
+        "type": "message",
+        "ts": "1667543255.892449",
+        "user": "U02NV1XHYBT"
+    },
+    {
+        "text": "モナド変換子がそうではないでしょうか？\n```Prelude Control.Monad.State&gt; :k StateT\nStateT :: * -&gt; (* -&gt; *) -&gt; * -&gt; *```\nあと型クラスも広義にはそうかもしれません。TaPLの30.4で「Objectを計算体系の正式な式としてではなく、メタ言語略記の機構で扱うことにすればよい」と書いてありますが、これがまさに型クラスのことだと思います。実際Haskellで、型クラスはコア言語に脱糖されると、データ型と同様に扱われるようです。例えばMonadはカインドが`(* -&gt; *) -&gt; Constraint`でF3では書けず、F4でなら書けますし、実際に有用なので答えの一つになるのではないでしょうか。",
+        "type": "message",
+        "ts": "1667736575.540489",
+        "user": "U02CE9YGEAU"
+    },
+    {
+        "text": "monad transformer がそうだと投稿してから気づきました．ていうか 1 段階ずらして理解しちゃってたので `(* =&gt; *) =&gt; *`  は F3 だと思ってました……．",
+        "type": "message",
+        "ts": "1667780627.095759",
+        "user": "U02NV1XHYBT"
+    },
+    {
+        "text": "っていうか逆に，monad transformer を知ってればこの exercise 当たり前すぎますよね．こんな自明な問題が TaPL の星 4 なはずないと思って勘ぐっちゃったかも．",
+        "type": "message",
+        "ts": "1667780694.931309",
+        "user": "U02NV1XHYBT"
+    },
+    {
+        "text": "&gt; `(* =&gt; *) =&gt; *`  は F3だと思ってました\nこれ結構トラップですよね。私も一応読み返しました。",
+        "type": "message",
+        "ts": "1667781651.981099",
+        "user": "U02CE9YGEAU"
+    }
+]
