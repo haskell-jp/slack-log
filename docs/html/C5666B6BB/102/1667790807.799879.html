@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #102 at 2022-11-07 12:13:27 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #102 at 2022-11-07 12:13:27 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to questions #102</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1667790807.799879">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1667790807.799879">2022-11-07 12:13:27 +0900</a></div>
+          </div>
+          <div class="description">こんにちは。セグメント木を実装中で、型クラスのコンパイルエラーで困っております。<br/><a href='https://gist.github.com/toyboot4e/f636dc07fdb6dc6644239aef39f7106d#file-wip-tree-hs-L57'>関連型の使い方が良くないみたいです (gist)</a> が、どう直したら良いでしょうか……？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667791113.177669">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Viktor Kronvall</div>
+            <div class="date"><a class="date" href="#message-1667791113.177669">2022-11-07 12:18:33 +0900</a></div>
+          </div>
+          <div class="description"><pre>{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE FlexibleInstances #-}</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1667791182.832069">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Viktor Kronvall</div>
+            <div class="date"><a class="date" href="#message-1667791182.832069">2022-11-07 12:19:42 +0900</a></div>
+          </div>
+          <div class="description"><code>type M a :: *</code></div>
+        </div>
+      </div>
+      <div class="event" id="message-1667791614.783439">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Viktor Kronvall</div>
+            <div class="date"><a class="date" href="#message-1667791614.783439">2022-11-07 12:26:54 +0900</a></div>
+          </div>
+          <div class="description">それでRMQのインスタンスが表現出来なくなるかも知れないので、`type M a :: <b> -&gt; </b><code>の方が良いかも知れません。
+
+上記のコードを見て</code>M`の役割がはっきりと理解できていなくて、どう言ったtype familyが相応しいかは分かりません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667791789.251529">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1667791789.251529">2022-11-07 12:29:49 +0900</a></div>
+          </div>
+          <div class="description">M は IO に相当するつもりです。帰宅次第試してみますね。ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667796954.009449">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1667796954.009449">2022-11-07 13:55:54 +0900</a></div>
+          </div>
+          <div class="description">補足しておくと、<br/><pre>type M :: * -&gt; *
+type M = IO</pre><br/>だと定義される <code>M</code> のカインドが <code>* -&gt; *</code> になってしまって型クラスの <code>a</code> との関係がわからなくなってしまうんですよね。だから<br/><pre>type M a :: * -&gt; * -- クラス定義の中
+type M (RMQ RealWorld) = IO -- インスタンス定義の中</pre><br/>という感じで型クラスの <code>a</code> の関数だとわかる形で定義しないといけないのです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667819478.460159">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1667819478.460159">2022-11-07 20:11:18 +0900</a></div>
+          </div>
+          <div class="description">コンパイルできました！　ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667819512.242419">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1667819512.242419">2022-11-07 20:11:52 +0900</a></div>
+          </div>
+          <div class="description">Rust で喩えると、明示的に <code>Self</code> 型 (ここでは <code>a</code>) を受け取るイメージでしょうか。<br/>Haskell では <code>&lt;RMQ&lt;RealWorld&gt; as SegmentTree&gt;::M</code> みたいに書けないので、 <code>M (RMQ RealWorld)</code> と書く必要がある気がしました :thinking_face:</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to questions #102</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+[
+    {
+        "text": "こんにちは。セグメント木を実装中で、型クラスのコンパイルエラーで困っております。\n<https://gist.github.com/toyboot4e/f636dc07fdb6dc6644239aef39f7106d#file-wip-tree-hs-L57|関連型の使い方が良くないみたいです (gist)> が、どう直したら良いでしょうか……？",
+        "type": "message",
+        "ts": "1667790807.799879",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "```{-# LANGUAGE TypeFamilies #-}\n{-# LANGUAGE FlexibleInstances #-}```",
+        "type": "message",
+        "ts": "1667791113.177669",
+        "user": "U01CFSSPZHB"
+    },
+    {
+        "text": "`type M a :: *`",
+        "type": "message",
+        "ts": "1667791182.832069",
+        "user": "U01CFSSPZHB"
+    },
+    {
+        "text": "それでRMQのインスタンスが表現出来なくなるかも知れないので、`type M a :: * -&gt; *`の方が良いかも知れません。\n\n上記のコードを見て`M`の役割がはっきりと理解できていなくて、どう言ったtype familyが相応しいかは分かりません。",
+        "type": "message",
+        "ts": "1667791614.783439",
+        "user": "U01CFSSPZHB"
+    },
+    {
+        "text": "M は IO に相当するつもりです。帰宅次第試してみますね。ありがとうございます！",
+        "type": "message",
+        "ts": "1667791789.251529",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "補足しておくと、\n```type M :: * -&gt; *\ntype M = IO```\nだと定義される `M` のカインドが `* -&gt; *` になってしまって型クラスの `a` との関係がわからなくなってしまうんですよね。だから\n```type M a :: * -&gt; * -- クラス定義の中\ntype M (RMQ RealWorld) = IO -- インスタンス定義の中```\nという感じで型クラスの `a` の関数だとわかる形で定義しないといけないのです。",
+        "type": "message",
+        "ts": "1667796954.009449",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "コンパイルできました！　ありがとうございます！",
+        "type": "message",
+        "ts": "1667819478.460159",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "Rust で喩えると、明示的に `Self` 型 (ここでは `a`) を受け取るイメージでしょうか。\nHaskell では `&lt;RMQ&lt;RealWorld&gt; as SegmentTree&gt;::M` みたいに書けないので、 `M (RMQ RealWorld)` と書く必要がある気がしました :thinking_face:",
+        "type": "message",
+        "ts": "1667819512.242419",
+        "user": "U03H9PH8FRP"
+    }
+]

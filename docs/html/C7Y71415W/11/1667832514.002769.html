@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / math #11 at 2022-11-07 23:48:34 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / math #11 at 2022-11-07 23:48:34 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../11.html" class="item">Back to math #11</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1667832514.002769">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1667832514.002769">2022-11-07 23:48:34 +0900</a></div>
+          </div>
+          <div class="description">線形空間を対象とした圏と圏Setの間の忘却関手と自由関手の作り方がよくわからないです。。<br/>ベーシック圏論にて随伴の例がたくさん出てくるのですが、その大半がいろんな数学の対象の忘却関手と自由関手のものでした。<br/>自分は位相も線形代数も群論も独学でさわりしか知らないため、このあたりは雰囲気だけわかればよいかなと思っていたのですが、後半章を読むにつれ随伴の話題がかなり出てくるので、ひとつくらいはちゃんと具体的な構成と随伴であることを認識したいと思いまして。。<br/>差しあたっては群の自由関手は構成が技巧的と本に書いてあったので、線形空間と圏Setの例を理解しようと試みているところになります。<br/><br/>以下のように考えているところです。<br/>体k上の線形空間を対象とする圏Vectkと集合の圏Setに対して<br/>忘却関手U: Vectk→Set<br/>対象関数：線形空間の基底のみからなる集合？<br/>イメージ）いわゆる平面のベクトルの空間V2の基底が(0, 1), (1, 0)であるときに、U(V2) = {(0, 1), (1, 0)}<br/>ある線形空間W1の基底がa, b, cの時に、U(W1) = {a, b, c}<br/>ある線形空間W2の基底がx, y, zの時に、U(W2) = {x, y, z}<br/>射関数：？<br/>例えば上にあげた例の対象についてf: W1→W2で<br/>f(a) = x + yの場合に、U(f)(a)が何になるかがわからないです。。<br/>集合では+は定義されていないのでx + yではないはずですし、かといってxかyのどちらになるのもおかしい気がしています。<br/><br/>自由関手F: Set→Vectk<br/>以下の記事を参考にしました。<br/><a href='https://qiita.com/tamanujan/items/e1ec860f973393df7d11'>https://qiita.com/tamanujan/items/e1ec860f973393df7d11</a><br/>対象関数：λ(s): S→F(S), S∈Ob(Set)でλ(s) ≠ 0<br/>イメージ）元が{x, y}の2つだけの集合S2の場合<br/>λ1(x) = 0, λ1(y) = 1<br/>λ2(x) = 1, λ2(y) = -1<br/>λ3(x) = 0.3, λ3(y) = 1.42<br/>...<br/>射関数：集合の写像そのまま？<br/><br/>そもそも線形代数ちゃんとわかっていないという問題も大いにありそうで大変恐縮ですが、ご教示いただけますと幸いです。。！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667837498.540909">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1667837498.540909">2022-11-08 01:11:38 +0900</a></div>
+          </div>
+          <div class="description">ええと，難しく考えすぎている気がします．「ベクトル空間 = 線型空間(同義語)」というのは:<br/>• 「ベクトル全て」と呼ばれる集合Vに<br/>• 「二つのベクトルを足す方法」(+): V × V → V<br/>• 「0ベクトル」0_V ∈ V<br/>• 「ベクトルをスカラー倍する方法」スカラー全体の体をKとして (・): K × V → V<br/>からなる四つ組 (V, +, 0_V, ・) のうちで特別な条件を満たすもの，ですから，<br/>Vect_K ∋  (V, +, 0_V, ・) ↦ V ∈ Set<br/>でいいんですよ．<br/><br/>そもそも，「忘却関手」U: C → D とは，「Dの対象Xになんか構造Vを乗っけたのがCの対象(X,V)で，Dの射f: X → X’のうちその構造を保つやつがCの射(X,V) → (X’,V’)になる」みたいな状況を描写します．だから U: C → D は典型的に忠実なわけですね．ところで，準同型写像 = 線型写像(同義語)<br/>f: (V, +, 0_V, ・) → (V’, +, 0_V’, ・)<br/>とは集合の写像 f: V → V’ であって<br/>• ∀x,y ∈ V, f(x + y) = f(x) + f(y)<br/>• f(0_V) = 0_V’<br/>• ∀k ∈ K, ∀x ∈ V, f(kx) = kf(x)<br/>という条件を満たすやつ，ですから，「圏論的に見てVect_Kの対象(V, +, 0_V, ・) の構造を乗っけるためのSetにおける土台はなにか」ときいたらVで間違いないですね．そして，U(V, +, 0_V, ・) = V とすることにすると一番自然に忠実な関手U: Vect_K → Set が出てきます．<br/><br/>最後に，ベクトル空間Vがあるとき，その基底というのはたくさんあって，Vだけから標準的に決まったりはしない，ということにも注意します．<br/>たとえば， K=R, 実数体，のとき，<br/>R^3 = {(x,y,z) | x,y,z ∈ R}<br/>は自然にR-線型空間ですが，<br/>• ((1,0,0), (0,1,0), (0,0,1)) も<br/>• ((1,1,1) ,(0, 1/2, 1/2), (0, 3, -2)) も<br/>• ((1,1,1), (1, 2, 3), (1, 4, 9)) も<br/>全て対等に基底です．R^3の要素からなる三つ組であるということは決まっていますが，基底であるような三つ組は無数に存在します．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667837583.861739">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1667837583.861739">2022-11-08 01:13:03 +0900</a></div>
+          </div>
+          <div class="description">自由関手は眠いのでまた後で．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667840430.224549">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1667840430.224549">2022-11-08 02:00:30 +0900</a></div>
+          </div>
+          <div class="description">夜分遅くにご回答ありがとうございます。。！<br/>つまりV∈Vect_KとU(V)は元としては全く同じものを含んでいて、違うのはVect_Kでは線形写像の条件を満たすものだけで、Setの方ではそうじゃないものも全部というところだけなのですね。。（前にご教示いただいていたことそのままでした。。すみません）<br/>そうなると対象関数も射関数も何も変化しないことになるのですね。<br/>それから基底についてもありがとうございます！<br/>上記の認識でもう一度考えてみようと思います。。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../11.html" class="item">Back to math #11</a>
+    </div>
+  </div>
+</body>
+</html>
