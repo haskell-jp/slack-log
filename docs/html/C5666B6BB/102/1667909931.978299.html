@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #102 at 2022-11-08 21:18:51 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #102 at 2022-11-08 21:18:51 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to questions #102</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1667909931.978299">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1667909931.978299">2022-11-08 21:18:51 +0900</a></div>
+          </div>
+          <div class="description">↑ の続きの質問です。 `RMQ (ST S)` と `RMQ IO` を両方 `SegmentTree` のインスタンスにしたいのですが、エラーが出て困っております。<br/>1. <https://gist.github.com/toyboot4e/d30f13734c3422f5bcab6f3596e0e5ea#file-wip-tree-2-hs-L56|instance (PrimMonad m) => .. の場合&gt;: Illegal type synonym family application のエラーが出ます。<br/>2. <https://gist.github.com/toyboot4e/d30f13734c3422f5bcab6f3596e0e5ea#file-wip-tree-2-hs-L73|IO と ST に分けて実装する場合>: 2 つの実装の範囲が重なっていてエラーが出ます。<br/>この件どう直せば良いでしょうか……？ m(_ _)m</div>
+        </div>
+      </div>
+      <div class="event" id="message-1667950248.945419">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1667950248.945419">2022-11-09 08:30:48 +0900</a></div>
+          </div>
+          <div class="description">そもそも，おなじ `primstate` に対して， `primstate ~ PrimState m` となるような `PrimMonad` である `m` はたくさん存在する，と言うのが問題ですよね．例えば，`primstate ~ RealWorld` の時点で<br/><br/>```PrimState (ST RealWorld) = RealWorld<br/>PrimState IO = RealWorld<br/>PrimState (MaybeT IO) = RealWorld```<br/>`IO` と `ST` の時点で重複があるので， `M RealWorld` を一つに定めるのは不可能です．ふつうに `ST RealWorld` を使うこともありますしね．だから，  `M primstate` という型族を用いるのが良くないのでは，という気がしています．<br/><br/>例えば:<br/><br/>```{-# LANGUAGE MultiParamTypeClasses #-}<br/>class Monad m =&gt; SegmentTree a m where<br/>    updateParent :: a -&gt; Int -&gt; Int -&gt; m Int<br/>    ....<br/><br/>instance PrimMonad m =&gt; SegmentTree (RMQ (PrimState m)) m where ...```<br/>とか，<br/><br/>```{-# LANGUAGE MultiParamTypeClasses #-}<br/>class Monad m =&gt; SegmentTree a m where<br/>    updateParent :: a -&gt; Int -&gt; Int -&gt; m Int<br/>    ....<br/><br/>instance SegmentTree (RMQ s) (ST s) where ...<br/>instance SegmentTree (RMQ RealWorld) IO where ...```<br/>とか，<br/><br/>```class SegmentTree f where<br/>    updateParent :: PrimMonad m =&gt; f (PrimState m) -&gt; Int -&gt; Int -&gt; m Int<br/>    ...<br/><br/>instance SegmentTree RMQ where ...```<br/>とか．<br/><br/>また，コードでは `RMQ s` とか `RMQ RealWorld` とかやって使うようになっていますが，質問文のように `RMQ IO` とか `RMQ (ST s)` とかやって使うとすれば:<br/><br/>```class SegmentTree f where<br/>    updateParent :: PrimMonad m =&gt; f m -&gt; Int -&gt; Int -&gt; m Int<br/>    ...<br/><br/>instance SegmentTree RMQ where ...```<br/>とかもあります．`RMQ RealWorld` バージョン にも私が思いつくだけで変種が三種類ありましたが， `RMQ IO` バージョンにも同じような変種がありますね．</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to questions #102</a>
+    </div>
+  </div>
+</body>
+</html>

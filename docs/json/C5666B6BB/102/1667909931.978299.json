@@ -1,0 +1,14 @@
+[
+    {
+        "text": "↑ の続きの質問です。 `RMQ (ST S)` と `RMQ IO` を両方 `SegmentTree` のインスタンスにしたいのですが、エラーが出て困っております。\n1. <https://gist.github.com/toyboot4e/d30f13734c3422f5bcab6f3596e0e5ea#file-wip-tree-2-hs-L56|instance (PrimMonad m) => .. の場合&gt;: Illegal type synonym family application のエラーが出ます。\n2. <https://gist.github.com/toyboot4e/d30f13734c3422f5bcab6f3596e0e5ea#file-wip-tree-2-hs-L73|IO と ST に分けて実装する場合>: 2 つの実装の範囲が重なっていてエラーが出ます。\nこの件どう直せば良いでしょうか……？ m(_ _)m",
+        "type": "message",
+        "ts": "1667909931.978299",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "そもそも，おなじ `primstate` に対して， `primstate ~ PrimState m` となるような `PrimMonad` である `m` はたくさん存在する，と言うのが問題ですよね．例えば，`primstate ~ RealWorld` の時点で\n\n```PrimState (ST RealWorld) = RealWorld\nPrimState IO = RealWorld\nPrimState (MaybeT IO) = RealWorld```\n`IO` と `ST` の時点で重複があるので， `M RealWorld` を一つに定めるのは不可能です．ふつうに `ST RealWorld` を使うこともありますしね．だから，  `M primstate` という型族を用いるのが良くないのでは，という気がしています．\n\n例えば:\n\n```{-# LANGUAGE MultiParamTypeClasses #-}\nclass Monad m =&gt; SegmentTree a m where\n    updateParent :: a -&gt; Int -&gt; Int -&gt; m Int\n    ....\n\ninstance PrimMonad m =&gt; SegmentTree (RMQ (PrimState m)) m where ...```\nとか，\n\n```{-# LANGUAGE MultiParamTypeClasses #-}\nclass Monad m =&gt; SegmentTree a m where\n    updateParent :: a -&gt; Int -&gt; Int -&gt; m Int\n    ....\n\ninstance SegmentTree (RMQ s) (ST s) where ...\ninstance SegmentTree (RMQ RealWorld) IO where ...```\nとか，\n\n```class SegmentTree f where\n    updateParent :: PrimMonad m =&gt; f (PrimState m) -&gt; Int -&gt; Int -&gt; m Int\n    ...\n\ninstance SegmentTree RMQ where ...```\nとか．\n\nまた，コードでは `RMQ s` とか `RMQ RealWorld` とかやって使うようになっていますが，質問文のように `RMQ IO` とか `RMQ (ST s)` とかやって使うとすれば:\n\n```class SegmentTree f where\n    updateParent :: PrimMonad m =&gt; f m -&gt; Int -&gt; Int -&gt; m Int\n    ...\n\ninstance SegmentTree RMQ where ...```\nとかもあります．`RMQ RealWorld` バージョン にも私が思いつくだけで変種が三種類ありましたが， `RMQ IO` バージョンにも同じような変種がありますね．",
+        "type": "message",
+        "ts": "1667950248.945419",
+        "user": "UL1HFJATE"
+    }
+]
