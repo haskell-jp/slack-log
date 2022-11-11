@@ -1,0 +1,50 @@
+[
+    {
+        "text": "こんにちは。\nVSCodeでのstackのエラーが出て、解消できず困っております。\n何かご教示いただけますと幸いです。\nHaskell自体の環境設定は、GHCupを使っています。\n\n環境\n```Windows 11 WSL2 上の Ubuntu 20.04```\nバージョン\n```stack 2.9.1\nghcup 0.1.18.0```\n再現方法\n\n```stack new palindrome-checker```\nで新規プロジェクト作成\n\n`app/Main.hs`\n\nで以下のようなエラーがでます。\nキャプチャ\n\n```ghcide compiled by GHC 9.0 failed to load packages: &lt;command line&gt;: cannot satisfy -package palindrome-checker-0.1.0.0\n    (use -v for more information). \nPlease ensure that ghcide is compiled with the same GHC installation as the project.cradle```\nバージョンの不整合が起こっているようでいろいろ調べたのですが、\nghcide がアーカイブになっていたりよくわかりません。\n\n<https://github.com/haskell/ghcide>\n\nghcのバージョンについても調べました。\n以下の二つのコマンドでGHCのバージョンが異なるようでこれも謎でした。\n\n```&gt; ghc -v\nGlasgow Haskell Compiler, Version 9.4.3, stage 2 booted by GHC version 9.2.2```\n```&gt; stack ghc -- --version\nThe Glorious Glasgow Haskell Compilation System, version 9.0.2```",
+        "type": "message",
+        "ts": "1668151362.719499",
+        "user": "U0203PR2087"
+    },
+    {
+        "text": "`ghcup tui` でGHC 9.0.2をインストールしてsでデフォルトにセットするとどうなりますか?",
+        "type": "message",
+        "ts": "1668151779.855879",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "ghcupもstackもそれぞれGHCをインストールするんですが、お互いが別々の場所に別々のバージョンをインストールする、というのが根っこの原因です。",
+        "type": "message",
+        "ts": "1668151781.428029",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "私的には `~/.stack/config.yaml` には\n\n```system-ghc: true```\nと書いておくのがオススメです",
+        "type": "message",
+        "ts": "1668151826.150449",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "仰るとおり `system-ghc: true` にした上でGHC 9.0.2をghcupでインストールすれば、確信は持てませんが多分直ると思います。\n\n個人的にはそもそもghcupとstack両方がGHCをインストールする機能を持っていてかち合うことがあるのが根本原因なので、stackごと消してしまいたいところなんですが... :disappointed:",
+        "type": "message",
+        "ts": "1668152044.405409",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "補足: エラーメッセージで「ghcide」と言っている箇所はhaskell-language-server内部で使っているghcideのライブラリーのことのはずですので、「haskell-language-server」と読み替えても差し支えありません。",
+        "type": "message",
+        "ts": "1668152199.431419",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "あるいは、逆にghcupがインストールしたGHCをすべて削除して、stackがインストールしたGHCのみを（ `stack ghc` コマンド経由で）使うようにするのでも直ると思います。",
+        "type": "message",
+        "ts": "1668152402.108229",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "横からすみません。私も同じエラーが出ていたので、`~/.stack/config.yaml` に `system-ghc: true` を追加して、ghcup でGHC9.0.2 をデフォルトに設定しました。\n`stack new`して `Main.hs` を開くとエラーは解消されませんでした。\nですが `stack build` して開き直すとエラー解消しました。謎です。",
+        "type": "message",
+        "ts": "1668167142.931569",
+        "user": "UTK43JS4X"
+    }
+]
