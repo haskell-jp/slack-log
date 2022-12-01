@@ -1,0 +1,32 @@
+[
+    {
+        "text": "こんばんは。 `State` モナドの質問です。 `mapAccumL` を `mapM` と `State` モナドで作り直してみました。\nこのとき `mapM` で <https://gist.github.com/toyboot4e/6f6c0464c1a941b28d3690a43f608d55#file-mapaccuml-hs-L12|使用した無名関数> が長くて気になりました。もしも`\\acc x -&gt; .. (acc', x')` のような純粋な関数を `State` モナドに？変換できたら、 `mapM (変換 $ \\acc x -&gt; .. (acc', x')) ..` のように書けて便利だと思います。この `変換` のような関数はありますか？　よろしくお願いします。",
+        "type": "message",
+        "ts": "1669812950.225089",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "`state`って関数見ましたか？多分簡単に使えるかと思います。\n\nただ、`Vector`で使うのなら`State`がLazy度ありすぎてパフォーマンスに良くないかも知れませんよ。",
+        "type": "message",
+        "ts": "1669813577.309439",
+        "user": "U01CFSSPZHB"
+    },
+    {
+        "text": "2 冊入門書を読んでも `State` モナドが理解できなかったのですが、今繋がってきました",
+        "type": "message",
+        "ts": "1669813800.075119",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "なんとか動きました！\n```-- (6, [1,2,3])\nprint $ runState (mapM (\\x -&gt; state $ \\acc -&gt; (x, x + acc)) [1, 2, 3]) (0 :: Int)```",
+        "type": "message",
+        "ts": "1669815214.757689",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "`State` の `mapM` は `State` 同士を繋いでくれる……？　入門書に帰ってみます！ (`mapM = sequence . fmap` ?)\n初めてまともに `State` モナドが使えました。ありがとうございます！　パフォーマンスが問題になったらまた質問させてください。",
+        "type": "message",
+        "ts": "1669815711.841069",
+        "user": "U03H9PH8FRP"
+    }
+]

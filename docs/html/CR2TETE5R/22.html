@@ -342,6 +342,25 @@ The Glorious Glasgow Haskell Compilation System, version 9.0.2</pre></div>
           <div class="description">@kino has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1669812950.225089">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1669812950.225089">2022-11-30 21:55:50 +0900</a></div>
+          </div>
+          <div class="description">こんばんは。 <code>State</code> モナドの質問です。 <code>mapAccumL</code> を <code>mapM</code> と <code>State</code> モナドで作り直してみました。<br/>このとき <code>mapM</code> で <a href='https://gist.github.com/toyboot4e/6f6c0464c1a941b28d3690a43f608d55#file-mapaccuml-hs-L12'>使用した無名関数</a> が長くて気になりました。もしも`\acc x -&gt; .. (acc', x')` のような純粋な関数を <code>State</code> モナドに？変換できたら、 <code>mapM (変換 $ \acc x -&gt; .. (acc', x')) ..</code> のように書けて便利だと思います。この <code>変換</code> のような関数はありますか？　よろしくお願いします。</div>
+          <a class="link-to-replies" href="22/1669812950.225089.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1669813167.192329">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1669813167.192329">2022-11-30 21:59:27 +0900</a></div>
+          </div>
+          <div class="description">最終的には `Vector` に対する `mapAccumL` が欲しくて、それが `mapM` と高階関数で in-place に書けるとさらに嬉しいです _(._.)_</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/21.html" class="item">Previous</a>

@@ -166,5 +166,17 @@
         "type": "message",
         "ts": "1669141559.239779",
         "user": "U04CFH59A01"
+    },
+    {
+        "text": "こんばんは。 `State` モナドの質問です。 `mapAccumL` を `mapM` と `State` モナドで作り直してみました。\nこのとき `mapM` で <https://gist.github.com/toyboot4e/6f6c0464c1a941b28d3690a43f608d55#file-mapaccuml-hs-L12|使用した無名関数> が長くて気になりました。もしも`\\acc x -&gt; .. (acc', x')` のような純粋な関数を `State` モナドに？変換できたら、 `mapM (変換 $ \\acc x -&gt; .. (acc', x')) ..` のように書けて便利だと思います。この `変換` のような関数はありますか？　よろしくお願いします。",
+        "type": "message",
+        "ts": "1669812950.225089",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "最終的には `Vector` に対する `mapAccumL` が欲しくて、それが `mapM` と高階関数で in-place に書けるとさらに嬉しいです _(._.)_",
+        "type": "message",
+        "ts": "1669813167.192329",
+        "user": "U03H9PH8FRP"
     }
 ]
