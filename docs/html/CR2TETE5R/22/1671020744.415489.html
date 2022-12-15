@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #22 at 2022-12-14 21:25:44 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #22 at 2022-12-14 21:25:44 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../22.html" class="item">Back to beginners #22</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1671020744.415489">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gest N</div>
+            <div class="date"><a class="date" href="#message-1671020744.415489">2022-12-14 21:25:44 +0900</a></div>
+          </div>
+          <div class="description">はじめまして。プログラミングHaskell第2版を読み始めました。1章のqsortについて早速質問させてください。<br/><pre>qsort[]=[]
+qsort(x;xs)=qsort smaller ++[x]++qsort larger
+ where
+  smaller = [a | a&lt;- xs,a&lt;=x]
+  larger  = [b | b&lt;- xs,b&gt;x]</pre><br/>でqsortを定義していますが、この定義はGHCiに直接書き込む物ですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671024103.600929">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1671024103.600929">2022-12-14 22:21:43 +0900</a></div>
+          </div>
+          <div class="description">GHCiに直接打つ場合は、 <code>:{</code> と <code>:}</code> で囲うとうまく行きます:<br/><br/><pre>:{
+qsort[]=[]
+qsort(x:xs)=qsort smaller ++[x]++qsort larger
+ where
+  smaller = [a | a&lt;- xs,a&lt;=x]
+  larger  = [b | b&lt;- xs,b&gt;x]
+:}</pre><br/>なお、 <code>x;xs</code> ではなく <code>x:xs</code> と、セミコロンではなくコロンを使う点にご注意ください。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../22.html" class="item">Back to beginners #22</a>
+    </div>
+  </div>
+</body>
+</html>

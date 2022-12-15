@@ -1,0 +1,14 @@
+[
+    {
+        "text": "はじめまして。プログラミングHaskell第2版を読み始めました。1章のqsortについて早速質問させてください。\n```qsort[]=[]\nqsort(x;xs)=qsort smaller ++[x]++qsort larger\n where\n  smaller = [a | a&lt;- xs,a&lt;=x]\n  larger  = [b | b&lt;- xs,b&gt;x]```\nでqsortを定義していますが、この定義はGHCiに直接書き込む物ですか？",
+        "type": "message",
+        "ts": "1671020744.415489",
+        "user": "U026S0BCF3J"
+    },
+    {
+        "text": "GHCiに直接打つ場合は、 `:{` と `:}` で囲うとうまく行きます:\n\n```:{\nqsort[]=[]\nqsort(x:xs)=qsort smaller ++[x]++qsort larger\n where\n  smaller = [a | a&lt;- xs,a&lt;=x]\n  larger  = [b | b&lt;- xs,b&gt;x]\n:}```\nなお、 `x;xs` ではなく `x:xs` と、セミコロンではなくコロンを使う点にご注意ください。",
+        "type": "message",
+        "ts": "1671024103.600929",
+        "user": "U4LGTMTMK"
+    }
+]
