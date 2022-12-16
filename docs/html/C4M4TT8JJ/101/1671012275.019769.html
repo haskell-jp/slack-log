@@ -66,6 +66,96 @@
           <div class="description">コマンドラインオプションの情報とかは、プログラム実行中にはただの定数なのに IO モナドが必要というジレンマがあるのでこの書き方がぴったりくる気がしますね<br/>(<@U56MBRKR9> さんの古い記事にもありました <a href='https://kazu-yamamoto.hatenablog.jp/entry/20090107/1231318138'>https://kazu-yamamoto.hatenablog.jp/entry/20090107/1231318138</a> )。</div>
         </div>
       </div>
+      <div class="event" id="message-1671062715.940989">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1671062715.940989">2022-12-15 09:05:15 +0900</a></div>
+          </div>
+          <div class="description">うーん、optparse-applicativeとかで普通にunsafePerformIOを使わずにコマンドラインオプションのパースができていることを考えると、ちょっとその情報は古いと思いますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671066853.559919">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1671066853.559919">2022-12-15 10:14:13 +0900</a></div>
+          </div>
+          <div class="description">情報ありがとうございます。なんか古そうだなとは思っていたので、新鮮な情報がいただけるのはありがたいです。<br/>でも、問題の本質は「オプションのパース」の部分ではなくて、「パースされた結果をプログラム中の任意の場所で参照したい」の方なので、まだ unsafePerformIO の利便性はあるのでは？という意図でした</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671068251.493049">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1671068251.493049">2022-12-15 10:37:31 +0900</a></div>
+          </div>
+          <div class="description">そういう目的でしたら <code>ReaderT IO</code> の出番ですね。そりゃぁ <code>unsafePerformIO</code> でグローバル変数を作る方が楽でしょうけど、普通のグローバル変数同様テストしやすさや再利用性が落ちますし、よほど手を抜きたいとき以外は避けたい手段ですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671068561.963279">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1671068561.963279">2022-12-15 10:42:41 +0900</a></div>
+          </div>
+          <div class="description">最初はとりあえずハードコーディングでグローバル定数で記述していた設定値を、あとからコマンドラインパラメータ化する、とかいうときに、 ReaderT IO 化すると書き直す場所が多くて大変ではないでしょうかね？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671068680.155369">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1671068680.155369">2022-12-15 10:44:40 +0900</a></div>
+          </div>
+          <div class="description">そこはトレードオフですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671069012.450199">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1671069012.450199">2022-12-15 10:50:12 +0900</a></div>
+          </div>
+          <div class="description">unsafePerformIO のグローバル変数がどこらへんまで許せるかどうかという文脈だったので、コマンドラインパラメータを運ぶのは比較的許容しやすいんじゃないかなあ、という例でございました^^;</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671069109.880769">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1671069109.880769">2022-12-15 10:51:49 +0900</a></div>
+          </div>
+          <div class="description">僕たちが作っているdnsextでは、Showのインスタンスを拡張可能にするために、黒魔術を使っています。<br/><a href='https://github.com/kazu-yamamoto/dnsext/blob/main/dnsext-types/DNS/Types/Type.hs#L124'>https://github.com/kazu-yamamoto/dnsext/blob/main/dnsext-types/DNS/Types/Type.hs#L124</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1671069377.065089">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1671069377.065089">2022-12-15 10:56:17 +0900</a></div>
+          </div>
+          <div class="description">なんと言いましても、GHCの実現に unsafePerformIO が多用されているので、Haskellerが高尚なことを言うのは、ブーメランだと思われます。。。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671070275.246909">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1671070275.246909">2022-12-15 11:11:15 +0900</a></div>
+          </div>
+          <div class="description">それこそ、別にunsafePerformIOに限らずGHCが汚いことをしている分せめて我々ユーザーはちゃんとしよう、とも言えるかと。その手の主張をし出すと大抵の「高尚な努力」を否定することになるので不快です :disappointed:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671070926.030579">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1671070926.030579">2022-12-15 11:22:06 +0900</a></div>
+          </div>
+          <div class="description">すいません。<br/>実際、以前にHaskellerがOCamlerからブーメランを受けたことがあるので。。。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../101.html" class="item">Back to random #101</a>

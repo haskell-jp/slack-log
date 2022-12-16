@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #22 at 2022-12-15 19:30:52 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #22 at 2022-12-15 19:30:52 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../22.html" class="item">Back to beginners #22</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1671100252.402679">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gest N</div>
+            <div class="date"><a class="date" href="#message-1671100252.402679">2022-12-15 19:30:52 +0900</a></div>
+          </div>
+          <div class="description"><pre>double x = x + x
+listdouble (x:xs)=[double x] ++ listdouble xs </pre><br/>によってリストの各要素を二倍にする関数を定義しようとしてみたのですが、エラーが生じてしまいました。具体的には<br/><pre>listdouble [1,2,3,4]</pre><br/>をGHCiでコンパイルすると<br/><pre>[2,4,6,8*** Exception: &lt;interactive&gt;:41:1-43: Non-exhaustive patterns in function listdouble</pre><br/>というエラーが生じます。定義が間違っていると思うのですが、何が間違っているのか理解できずにいます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671100596.200599">
+        <div class="content">
+          <div class="summary">
+            <div class="user">駒鳥(hxf_vogel)</div>
+            <div class="date"><a class="date" href="#message-1671100596.200599">2022-12-15 19:36:36 +0900</a></div>
+          </div>
+          <div class="description">空リストの時の扱いも定義してあげてください</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671107899.423939">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gest N</div>
+            <div class="date"><a class="date" href="#message-1671107899.423939">2022-12-15 21:38:19 +0900</a></div>
+          </div>
+          <div class="description">返信ありがとうございます。質問には空リストの扱いは書き忘れていたのですが、<br/><pre>listdouble [] = []</pre><br/>を定義に入れてもほぼ同様のエラーメッセージが出てしまいました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671118682.692689">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1671118682.692689">2022-12-16 00:38:02 +0900</a></div>
+          </div>
+          <div class="description">もしかして，全てGHCiで<br/><br/><pre>ghci&gt; listdouble (x:xs) = [double x] ++ listdouble xs &lt;&lt;ENTERキーを押す&gt;&gt;
+ghci&gt; listdouble [] = [] &lt;&lt;ENTERキーを押す&gt;&gt;</pre><br/>とやっていますか？　だとすれば，これはlistdoubleを場合分けして定義しているのではなく，第一の定義を第二の定義でシャドーイングしていることになります．例えば:<br/><br/><pre>ghci&gt; x = 3 :: Int
+ghci&gt; x
+3
+ghci&gt; x = 4 :: Int
+ghci&gt; x
+4</pre><br/>のように．同名の別変数の定義とみなされるわけですね．ある関数を場合分けして，二個以上の式で定義したいときには，ソースコードの中でなら，同スコープに意識せずに書けばシャドーイングも起こらず正しく定義できますが，GHCiにベタ打ちする場合，直前のご質問に @igrep さんがお答えのように，<br/><br/><pre>ghci&gt; double x = x + x
+ghci&gt; :{
+ghci&gt; listdouble (x:xs) = [double x] ++ listdouble xs
+ghci&gt; listdouble [] = []
+ghci&gt; :}</pre><br/>のごとく， <code>:{</code> と <code>:}</code> を使って「グループ化された一個の定義だよ」と指示しながら定義してやるとうまく行きます．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671180958.171889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gest N</div>
+            <div class="date"><a class="date" href="#message-1671180958.171889">2022-12-16 17:55:58 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。`:{ :}` を忘れていただけのようです。以前にも教えていただいたことを早速忘れてますね。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../22.html" class="item">Back to beginners #22</a>
+    </div>
+  </div>
+</body>
+</html>

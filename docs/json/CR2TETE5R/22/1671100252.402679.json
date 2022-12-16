@@ -1,0 +1,32 @@
+[
+    {
+        "text": "```double x = x + x\nlistdouble (x:xs)=[double x] ++ listdouble xs ```\nによってリストの各要素を二倍にする関数を定義しようとしてみたのですが、エラーが生じてしまいました。具体的には\n```listdouble [1,2,3,4]```\nをGHCiでコンパイルすると\n```[2,4,6,8*** Exception: &lt;interactive&gt;:41:1-43: Non-exhaustive patterns in function listdouble```\nというエラーが生じます。定義が間違っていると思うのですが、何が間違っているのか理解できずにいます。",
+        "type": "message",
+        "ts": "1671100252.402679",
+        "user": "U026S0BCF3J"
+    },
+    {
+        "text": "空リストの時の扱いも定義してあげてください",
+        "type": "message",
+        "ts": "1671100596.200599",
+        "user": "U8JGMG1QT"
+    },
+    {
+        "text": "返信ありがとうございます。質問には空リストの扱いは書き忘れていたのですが、\n```listdouble [] = []```\nを定義に入れてもほぼ同様のエラーメッセージが出てしまいました。",
+        "type": "message",
+        "ts": "1671107899.423939",
+        "user": "U026S0BCF3J"
+    },
+    {
+        "text": "もしかして，全てGHCiで\n\n```ghci&gt; listdouble (x:xs) = [double x] ++ listdouble xs &lt;&lt;ENTERキーを押す&gt;&gt;\nghci&gt; listdouble [] = [] &lt;&lt;ENTERキーを押す&gt;&gt;```\nとやっていますか？　だとすれば，これはlistdoubleを場合分けして定義しているのではなく，第一の定義を第二の定義でシャドーイングしていることになります．例えば:\n\n```ghci&gt; x = 3 :: Int\nghci&gt; x\n3\nghci&gt; x = 4 :: Int\nghci&gt; x\n4```\nのように．同名の別変数の定義とみなされるわけですね．ある関数を場合分けして，二個以上の式で定義したいときには，ソースコードの中でなら，同スコープに意識せずに書けばシャドーイングも起こらず正しく定義できますが，GHCiにベタ打ちする場合，直前のご質問に <@U4LGTMTMK> さんがお答えのように，\n\n```ghci&gt; double x = x + x\nghci&gt; :{\nghci&gt; listdouble (x:xs) = [double x] ++ listdouble xs\nghci&gt; listdouble [] = []\nghci&gt; :}```\nのごとく， `:{` と `:}` を使って「グループ化された一個の定義だよ」と指示しながら定義してやるとうまく行きます．",
+        "type": "message",
+        "ts": "1671118682.692689",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "ありがとうございます。`:{ :}` を忘れていただけのようです。以前にも教えていただいたことを早速忘れてますね。",
+        "type": "message",
+        "ts": "1671180958.171889",
+        "user": "U026S0BCF3J"
+    }
+]
