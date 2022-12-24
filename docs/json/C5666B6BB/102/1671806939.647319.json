@@ -1,0 +1,62 @@
+[
+    {
+        "text": "こんばんは。2 次元の動的計画法をシュッっと書きたいのですが、 ST モナドなどでハマっています。\nお力添えいただけないでしょうか (スレッドに続く) 。",
+        "type": "message",
+        "ts": "1671806939.647319",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "[1] 実現したいこと\n以下の疑似コードに相当する関数を作りたいです:\n```def run_dp(user_function, bounds):\n    array := default_2d_array(bounds)\n    for (y, x) in bounds:\n        array[y, x] = user_function(array, (y, x))\n    return array```\n[2] 実現するために自分が試した内容とその結果\n`IOArray` を使うと、似た関数をコンパイルできました (<https://atcoder.jp/contests/tessoku-book/submissions/37450443|使用例 (AtCoder)>):\n```tabulateIO :: forall i e. (Ix i) =&gt; (IOArray i e -&gt; i -&gt; IO e) -&gt; (i, i) -&gt; e -&gt; IO (IOArray i e)\ntabulateIO f bounds_ e0 = do\n  tbl &lt;- newArray bounds_ e0 :: IO (IOArray i e)\n  forM_ (range bounds_) $ \\i -&gt; do\n    e &lt;- f tbl i\n    writeArray tbl i e\n  return tbl```\n問題点:\n1. 大量にメモリを消費しました (unboxed array ではないため？) 。また\n`IOUArray` を使おうとするとエラーになりました (`newArray` の箇所で `Could not deduce (MArray IOUArray e IO)`)\n\n2. 利用側のコードで `unsafeFreeze` するのが手間でした。また\n`IOArray` を `runSTArray` + `STArray` に置き換えることができませんでした\n\n[3] 原因だと思われそうな箇所\n1. 型引数 `e` の制約が緩い (`Int`, `Char` など unboxed な型に限定する必要がある？)\n2. 引数 `f` の利用が ST モナドの制限に (なぜか) 引っかかる",
+        "type": "message",
+        "ts": "1671807339.569449",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "指摘点や『こう書けば良いのでは』などあればお願いします :pray:",
+        "type": "message",
+        "ts": "1671807578.453749",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "`IOUArray` への変更は下記のようにできました\n```#!/usr/bin/env stack\n{- stack script --resolver lts-16.11\n--package array --package bytestring --package containers\n--package vector --package vector-algorithms --package primitive --package transformers\n-}\n\n{- ORMOLU_DISABLE -}\n{-# LANGUAGE BangPatterns, BlockArguments, LambdaCase, MultiWayIf, PatternGuards, TupleSections #-}\n{-# LANGUAGE NumDecimals, NumericUnderscores #-}\n{-# LANGUAGE FlexibleInstances, MultiParamTypeClasses, ScopedTypeVariables, TypeApplications #-}\n{-# LANGUAGE TypeFamilies #-}\n{-# LANGUAGE FlexibleContexts #-}\n{- ORMOLU_ENABLE -}\n\n-- {{{ Imports\n\nmodule Main (main) where\n\nimport Control.Monad\nimport Data.Char\nimport Data.List\n\n{- ORMOLU_DISABLE -}\n\n-- array\nimport Data.Array.IArray\nimport <http://Data.Array.IO|Data.Array.IO>\nimport Data.Array.MArray\nimport <http://Data.Array.ST|Data.Array.ST>\nimport Data.Array.Unsafe\n\nimport qualified Data.Array as A\nimport qualified Data.Array.Unboxed as AU\n\n-- bytestring: <https://www.stackage.org/lts-16.11/package/bytestring-0.10.10.0>\nimport qualified Data.ByteString.Char8 as BS\n\n-- vector: <https://www.stackage.org/lts-16.11/package/vector-0.12.1.2>\nimport qualified Data.Vector.Unboxed as VU\n\n{- ORMOLU_ENABLE -}\n\ngetLineIntList :: IO [Int]\ngetLineIntList = unfoldr (BS.readInt . BS.dropWhile isSpace) &lt;$&gt; BS.getLine\n\ngetLineIntVec :: IO (VU.Vector Int)\ngetLineIntVec = VU.unfoldr (BS.readInt . BS.dropWhile isSpace) &lt;$&gt; BS.getLine\n\ntabulateIO :: forall i e. (Ix i, MArray IOUArray e IO) =&gt; (IOUArray i e -&gt; i -&gt; IO e) -&gt; (i, i) -&gt; e -&gt; IO (IOUArray i e)\ntabulateIO f bounds_ e0 = do\n  -- FIXME: \"Could not deduce (MArray IOUArray e IO)\" with `IOUArray`\n  tbl &lt;- newArray bounds_ e0 :: IO (IOUArray i e)\n  forM_ (range bounds_) $ \\i -&gt; do\n    e &lt;- f tbl i\n    writeArray tbl i e\n  return tbl\n\nmain :: IO ()\nmain = do\n  [nItems, wLimit] &lt;- getLineIntList\n  wvs &lt;- VU.replicateM nItems $ (\\[a, b] -&gt; (a, b)) &lt;$&gt; getLineIntList\n\n  let dp = tabulateIO f rng (0 :: Int)\n      rng = ((0, 0), (nItems, wLimit))\n      f :: IOUArray (Int, Int) Int -&gt; (Int, Int) -&gt; IO Int\n      f _ (0, _) = return 0\n      f tbl (i, w) = do\n        let wv = wvs VU.! (i - 1)\n        v1 &lt;- readArray tbl (i - 1, w)\n        v2 &lt;- if w - fst wv &gt;= 0 then (snd wv +) &lt;$&gt; readArray tbl (i - 1, w - fst wv) else return 0\n        return $ max v1 v2\n\n  dp' &lt;- dp\n  dp'' &lt;- unsafeFreeze dp' :: IO (AU.UArray (Int, Int) Int)\n\n  print $ maximum [dp'' ! (nItems, w) | w &lt;- [0..wLimit]]```",
+        "type": "message",
+        "ts": "1671816090.438489",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "ポイントは `tabulateIO` の `MArray IOUArray e IO` 制約ですね\n元々の `tabulateIO` の型だと `e` に関する制約がないので指定してやる必要があります",
+        "type": "message",
+        "ts": "1671816261.828389",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "まさにこれですね\n&gt; 1. 型引数 `e` の制約が緩い (`Int`, `Char` など unboxed な型に限定する必要がある？)",
+        "type": "message",
+        "ts": "1671816321.419039",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "`ST` 版はここまで書いて `runSTUArray` に `e` は `MArray (STUArray s) e (ST s)` を満たすよって教えられなかったのでちょっと引数工夫しないといけなさそう（`RankNTypes` 有効）",
+        "type": "message",
+        "ts": "1671818592.756189",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "```\ntabulateIO :: forall i e. (Ix i) =&gt; (forall s. MArray (STUArray s) e (ST s) =&gt; STUArray s i e -&gt; i -&gt; ST s e) -&gt; (i, i) -&gt; e -&gt; UArray i e\ntabulateIO f bounds_ e0 =\n  runSTUArray uarray\n  where\n    uarray :: forall s. MArray (STUArray s) e (ST s) =&gt; ST s (STUArray s i e)\n    uarray = do\n      -- FIXME: \"Could not deduce (MArray IOUArray e IO)\" with `IOUArray`\n      tbl &lt;- newArray bounds_ e0 :: ST s (STUArray s i e)\n      forM_ (range bounds_) $ \\i -&gt; do\n        e &lt;- f tbl i\n        writeArray tbl i e\n      return tbl```",
+        "type": "message",
+        "ts": "1671818608.945519",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "型引数にせず具体的な `Int` にする手もありますね",
+        "type": "message",
+        "ts": "1671818684.846299",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "&gt; `MArray IOUArray e IO` \nなるほど！　`e` の部分だけ型パラメータにして、他は具体的な型で埋めたら良かったですね。今、 `Num Int` みたいな無意味な制約を加えてキャッキャしてました",
+        "type": "message",
+        "ts": "1671846563.759559",
+        "user": "U03H9PH8FRP"
+    }
+]

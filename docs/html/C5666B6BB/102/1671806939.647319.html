@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #102 at 2022-12-23 23:48:59 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #102 at 2022-12-23 23:48:59 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to questions #102</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1671806939.647319">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1671806939.647319">2022-12-23 23:48:59 +0900</a></div>
+          </div>
+          <div class="description">こんばんは。2 次元の動的計画法をシュッっと書きたいのですが、 ST モナドなどでハマっています。<br/>お力添えいただけないでしょうか (スレッドに続く) 。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671807339.569449">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1671807339.569449">2022-12-23 23:55:39 +0900</a></div>
+          </div>
+          <div class="description">[1] 実現したいこと<br/>以下の疑似コードに相当する関数を作りたいです:<br/><pre>def run_dp(user_function, bounds):
+    array := default_2d_array(bounds)
+    for (y, x) in bounds:
+        array[y, x] = user_function(array, (y, x))
+    return array</pre><br/>[2] 実現するために自分が試した内容とその結果<br/><code>IOArray</code> を使うと、似た関数をコンパイルできました (<https://atcoder.jp/contests/tessoku-book/submissions/37450443|使用例 (AtCoder)>):<br/><pre>tabulateIO :: forall i e. (Ix i) =&gt; (IOArray i e -&gt; i -&gt; IO e) -&gt; (i, i) -&gt; e -&gt; IO (IOArray i e)
+tabulateIO f bounds_ e0 = do
+  tbl &lt;- newArray bounds_ e0 :: IO (IOArray i e)
+  forM_ (range bounds_) $ \i -&gt; do
+    e &lt;- f tbl i
+    writeArray tbl i e
+  return tbl</pre><br/>問題点:<br/>1. 大量にメモリを消費しました (unboxed array ではないため？) 。また<br/><code>IOUArray</code> を使おうとするとエラーになりました (`newArray` の箇所で <code>Could not deduce (MArray IOUArray e IO)</code>)<br/><br/>2. 利用側のコードで <code>unsafeFreeze</code> するのが手間でした。また<br/><code>IOArray</code> を <code>runSTArray</code> + <code>STArray</code> に置き換えることができませんでした<br/><br/>[3] 原因だと思われそうな箇所<br/>1. 型引数 <code>e</code> の制約が緩い (`Int`, <code>Char</code> など unboxed な型に限定する必要がある？)<br/>2. 引数 <code>f</code> の利用が ST モナドの制限に (なぜか) 引っかかる</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671807578.453749">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1671807578.453749">2022-12-23 23:59:38 +0900</a></div>
+          </div>
+          <div class="description">指摘点や『こう書けば良いのでは』などあればお願いします :pray:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671816090.438489">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1671816090.438489">2022-12-24 02:21:30 +0900</a></div>
+          </div>
+          <div class="description"><code>IOUArray</code> への変更は下記のようにできました<br/><pre>#!/usr/bin/env stack
+{- stack script --resolver lts-16.11
+--package array --package bytestring --package containers
+--package vector --package vector-algorithms --package primitive --package transformers
+-}
+
+{- ORMOLU_DISABLE -}
+{-# LANGUAGE BangPatterns, BlockArguments, LambdaCase, MultiWayIf, PatternGuards, TupleSections #-}
+{-# LANGUAGE NumDecimals, NumericUnderscores #-}
+{-# LANGUAGE FlexibleInstances, MultiParamTypeClasses, ScopedTypeVariables, TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE FlexibleContexts #-}
+{- ORMOLU_ENABLE -}
+
+-- {{{ Imports
+
+module Main (main) where
+
+import Control.Monad
+import Data.Char
+import Data.List
+
+{- ORMOLU_DISABLE -}
+
+-- array
+import Data.Array.IArray
+import <http://Data.Array.IO|Data.Array.IO>
+import Data.Array.MArray
+import <http://Data.Array.ST|Data.Array.ST>
+import Data.Array.Unsafe
+
+import qualified Data.Array as A
+import qualified Data.Array.Unboxed as AU
+
+-- bytestring: <https://www.stackage.org/lts-16.11/package/bytestring-0.10.10.0>
+import qualified Data.ByteString.Char8 as BS
+
+-- vector: <https://www.stackage.org/lts-16.11/package/vector-0.12.1.2>
+import qualified Data.Vector.Unboxed as VU
+
+{- ORMOLU_ENABLE -}
+
+getLineIntList :: IO [Int]
+getLineIntList = unfoldr (BS.readInt . BS.dropWhile isSpace) &lt;$&gt; BS.getLine
+
+getLineIntVec :: IO (VU.Vector Int)
+getLineIntVec = VU.unfoldr (BS.readInt . BS.dropWhile isSpace) &lt;$&gt; BS.getLine
+
+tabulateIO :: forall i e. (Ix i, MArray IOUArray e IO) =&gt; (IOUArray i e -&gt; i -&gt; IO e) -&gt; (i, i) -&gt; e -&gt; IO (IOUArray i e)
+tabulateIO f bounds_ e0 = do
+  -- FIXME: "Could not deduce (MArray IOUArray e IO)" with `IOUArray`
+  tbl &lt;- newArray bounds_ e0 :: IO (IOUArray i e)
+  forM_ (range bounds_) $ \i -&gt; do
+    e &lt;- f tbl i
+    writeArray tbl i e
+  return tbl
+
+main :: IO ()
+main = do
+  [nItems, wLimit] &lt;- getLineIntList
+  wvs &lt;- VU.replicateM nItems $ (\[a, b] -&gt; (a, b)) &lt;$&gt; getLineIntList
+
+  let dp = tabulateIO f rng (0 :: Int)
+      rng = ((0, 0), (nItems, wLimit))
+      f :: IOUArray (Int, Int) Int -&gt; (Int, Int) -&gt; IO Int
+      f _ (0, _) = return 0
+      f tbl (i, w) = do
+        let wv = wvs VU.! (i - 1)
+        v1 &lt;- readArray tbl (i - 1, w)
+        v2 &lt;- if w - fst wv &gt;= 0 then (snd wv +) &lt;$&gt; readArray tbl (i - 1, w - fst wv) else return 0
+        return $ max v1 v2
+
+  dp' &lt;- dp
+  dp'' &lt;- unsafeFreeze dp' :: IO (AU.UArray (Int, Int) Int)
+
+  print $ maximum [dp'' ! (nItems, w) | w &lt;- [0..wLimit]]</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1671816261.828389">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1671816261.828389">2022-12-24 02:24:21 +0900</a></div>
+          </div>
+          <div class="description">ポイントは <code>tabulateIO</code> の <code>MArray IOUArray e IO</code> 制約ですね<br/>元々の <code>tabulateIO</code> の型だと <code>e</code> に関する制約がないので指定してやる必要があります</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671816321.419039">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1671816321.419039">2022-12-24 02:25:21 +0900</a></div>
+          </div>
+          <div class="description">まさにこれですね<br/><blockquote>1. 型引数 <code>e</code> の制約が緩い (`Int`, <code>Char</code> など unboxed な型に限定する必要がある？)</blockquote></div>
+        </div>
+      </div>
+      <div class="event" id="message-1671818592.756189">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1671818592.756189">2022-12-24 03:03:12 +0900</a></div>
+          </div>
+          <div class="description"><code>ST</code> 版はここまで書いて <code>runSTUArray</code> に <code>e</code> は <code>MArray (STUArray s) e (ST s)</code> を満たすよって教えられなかったのでちょっと引数工夫しないといけなさそう（`RankNTypes` 有効）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671818608.945519">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1671818608.945519">2022-12-24 03:03:28 +0900</a></div>
+          </div>
+          <div class="description"><pre>
+tabulateIO :: forall i e. (Ix i) =&gt; (forall s. MArray (STUArray s) e (ST s) =&gt; STUArray s i e -&gt; i -&gt; ST s e) -&gt; (i, i) -&gt; e -&gt; UArray i e
+tabulateIO f bounds_ e0 =
+  runSTUArray uarray
+  where
+    uarray :: forall s. MArray (STUArray s) e (ST s) =&gt; ST s (STUArray s i e)
+    uarray = do
+      -- FIXME: "Could not deduce (MArray IOUArray e IO)" with `IOUArray`
+      tbl &lt;- newArray bounds_ e0 :: ST s (STUArray s i e)
+      forM_ (range bounds_) $ \i -&gt; do
+        e &lt;- f tbl i
+        writeArray tbl i e
+      return tbl</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1671818684.846299">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1671818684.846299">2022-12-24 03:04:44 +0900</a></div>
+          </div>
+          <div class="description">型引数にせず具体的な <code>Int</code> にする手もありますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671846563.759559">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1671846563.759559">2022-12-24 10:49:23 +0900</a></div>
+          </div>
+          <div class="description"><blockquote><code>MArray IOUArray e IO</code> </blockquote>なるほど！　`e` の部分だけ型パラメータにして、他は具体的な型で埋めたら良かったですね。今、 <code>Num Int</code> みたいな無意味な制約を加えてキャッキャしてました</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to questions #102</a>
+    </div>
+  </div>
+</body>
+</html>
