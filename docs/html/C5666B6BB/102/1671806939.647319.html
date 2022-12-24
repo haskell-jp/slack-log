@@ -199,6 +199,111 @@ tabulateIO f bounds_ e0 =
           <div class="description"><blockquote><code>MArray IOUArray e IO</code> </blockquote>なるほど！　`e` の部分だけ型パラメータにして、他は具体的な型で埋めたら良かったですね。今、 <code>Num Int</code> みたいな無意味な制約を加えてキャッキャしてました</div>
         </div>
       </div>
+      <div class="event" id="message-1671846867.677809">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1671846867.677809">2022-12-24 10:54:27 +0900</a></div>
+          </div>
+          <div class="description"><code>ST</code> 版の <code>forall s.</code> にとても納得しました。それぞれの関数が任意のライフタイム (state thread?) (の array) に適用できるという感じですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671847120.603969">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1671847120.603969">2022-12-24 10:58:40 +0900</a></div>
+          </div>
+          <div class="description">頂いた ST 版でエラーが出ました。 <code>FlexibleContexts</code> や <code>RankNTypes</code> は有効ですが、他の言語拡張が足りなかったりしますか……？<br/><pre>    • Could not deduce (MArray (STUArray s) e (ST s))
+        arising from a use of 'uarray'
+      from the context: Ix i
+        bound by the type signature for:
+                   tabulateIO :: forall i e.
+                                  Ix i =&gt;
+                                  (forall s.
+                                   MArray (STUArray s) e (ST s) =&gt;
+                                   STUArray s i e -&gt; i -&gt; ST s e)
+                                  -&gt; (i, i) -&gt; e -&gt; UArray i e
+        at /Path/To/atcoder-tessoku-hs/a19/Main.hs:65:1-139
+    • In the first argument of 'runSTUArray', namely 'uarray'
+      In the expression: runSTUArray uarray
+      In an equation for 'tabulateIO':
+          tabulateIO f bounds_ e0
+            = runSTUArray uarray
+            where
+                uarray ::
+                  forall s. MArray (STUArray s) e (ST s) =&gt; ST s (STUArray s i e)
+                uarray
+                  = do tbl &lt;- ...
+                       ....
+   |
+67 |   runSTUArray uarray
+   |               ^^^^^^</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1671847361.478179">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1671847361.478179">2022-12-24 11:02:41 +0900</a></div>
+          </div>
+          <div class="description">(<https://atcoder.jp/contests/tessoku-book/submissions/37468027|Int 版だと通りました> (追記: e を Int に置き換えたら通りました) 。また引数 <code>f</code> の型が推論されなかったので、割り切って <code>tabulateST</code> を諦めるのも良い気がしてきました。 Boilerplate と言うほどのコード量でもないですものね)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671847391.296139">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1671847391.296139">2022-12-24 11:03:11 +0900</a></div>
+          </div>
+          <div class="description">書き方悪くてすみません<br/><blockquote><code>ST</code> 版はここまで書いて <code>runSTUArray</code> に <code>e</code> は <code>MArray (STUArray s) e (ST s)</code> を満たすよって教えられなかった<br/></blockquote>ので、型検査通りませんでした:confounded:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671847424.707339">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1671847424.707339">2022-12-24 11:03:44 +0900</a></div>
+          </div>
+          <div class="description">あ、すみません！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671847458.158129">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1671847458.158129">2022-12-24 11:04:18 +0900</a></div>
+          </div>
+          <div class="description">型変数 <code>e</code> をやめて具体的にすれば通ると思います</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671847565.610489">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1671847565.610489">2022-12-24 11:06:05 +0900</a></div>
+          </div>
+          <div class="description">通りました！　DP がヌルヌル解ける……わけでもなかったので、 <code>tabulateST</code> は止めようと思います。ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671847618.252179">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1671847618.252179">2022-12-24 11:06:58 +0900</a></div>
+          </div>
+          <div class="description">(ところで BOOTH などで kakkun61 さんのコンテンツのお世話になっております。その節もありがとうございます :pray: )</div>
+        </div>
+      </div>
+      <div class="event" id="message-1671848721.828139">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1671848721.828139">2022-12-24 11:25:21 +0900</a></div>
+          </div>
+          <div class="description">わあ、ありがとうございます！</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../102.html" class="item">Back to questions #102</a>

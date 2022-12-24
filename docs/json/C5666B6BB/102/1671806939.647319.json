@@ -58,5 +58,59 @@
         "type": "message",
         "ts": "1671846563.759559",
         "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "`ST` 版の `forall s.` にとても納得しました。それぞれの関数が任意のライフタイム (state thread?) (の array) に適用できるという感じですね",
+        "type": "message",
+        "ts": "1671846867.677809",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "頂いた ST 版でエラーが出ました。 `FlexibleContexts` や `RankNTypes` は有効ですが、他の言語拡張が足りなかったりしますか……？\n```    • Could not deduce (MArray (STUArray s) e (ST s))\n        arising from a use of 'uarray'\n      from the context: Ix i\n        bound by the type signature for:\n                   tabulateIO :: forall i e.\n                                  Ix i =&gt;\n                                  (forall s.\n                                   MArray (STUArray s) e (ST s) =&gt;\n                                   STUArray s i e -&gt; i -&gt; ST s e)\n                                  -&gt; (i, i) -&gt; e -&gt; UArray i e\n        at /Path/To/atcoder-tessoku-hs/a19/Main.hs:65:1-139\n    • In the first argument of 'runSTUArray', namely 'uarray'\n      In the expression: runSTUArray uarray\n      In an equation for 'tabulateIO':\n          tabulateIO f bounds_ e0\n            = runSTUArray uarray\n            where\n                uarray ::\n                  forall s. MArray (STUArray s) e (ST s) =&gt; ST s (STUArray s i e)\n                uarray\n                  = do tbl &lt;- ...\n                       ....\n   |\n67 |   runSTUArray uarray\n   |               ^^^^^^```",
+        "type": "message",
+        "ts": "1671847120.603969",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "(<https://atcoder.jp/contests/tessoku-book/submissions/37468027|Int 版だと通りました> (追記: e を Int に置き換えたら通りました) 。また引数 `f` の型が推論されなかったので、割り切って `tabulateST` を諦めるのも良い気がしてきました。 Boilerplate と言うほどのコード量でもないですものね)",
+        "type": "message",
+        "ts": "1671847361.478179",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "書き方悪くてすみません\n&gt; `ST` 版はここまで書いて `runSTUArray` に `e` は `MArray (STUArray s) e (ST s)` を満たすよって教えられなかった\n&gt; \nので、型検査通りませんでした:confounded:",
+        "type": "message",
+        "ts": "1671847391.296139",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "あ、すみません！",
+        "type": "message",
+        "ts": "1671847424.707339",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "型変数 `e` をやめて具体的にすれば通ると思います",
+        "type": "message",
+        "ts": "1671847458.158129",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": "通りました！　DP がヌルヌル解ける……わけでもなかったので、 `tabulateST` は止めようと思います。ありがとうございます！",
+        "type": "message",
+        "ts": "1671847565.610489",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "(ところで BOOTH などで kakkun61 さんのコンテンツのお世話になっております。その節もありがとうございます :pray: )",
+        "type": "message",
+        "ts": "1671847618.252179",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "わあ、ありがとうございます！",
+        "type": "message",
+        "ts": "1671848721.828139",
+        "user": "U4L0B71L1"
     }
 ]
