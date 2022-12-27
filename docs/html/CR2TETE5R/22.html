@@ -441,6 +441,24 @@ listdouble (x:xs)=[double x] ++ listdouble xs </pre><br/>によってリスト�
           <div class="description">@ has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1672118439.693829">
+        <div class="content">
+          <div class="summary">
+            <div class="user">N gest</div>
+            <div class="date"><a class="date" href="#message-1672118439.693829">2022-12-27 14:20:39 +0900</a></div>
+          </div>
+          <div class="description">do構文の外側で定義した純粋関数にIO a 型の引数を渡す方法について知りたいです。paizaの問題<https://paiza.jp/works/mondai/drankfast/d1_step_distance> を解いていて、解答として<br/><pre>f :: Int -&gt; Int -&gt; String
+f distance stride_length = if distance * 100000 `div` stride_length &gt;= 10000 then "yes" 
+                            else "no"
+main = do 
+       putStrLn "歩いた距離(km)を入力"
+       distance &lt;- readLn :: IO Int
+       putStrLn "歩幅(cm)を入力"
+       stride_length &lt;- readLn :: IO Int
+       return (f distance stride_length)</pre><br/>を提出しました。GHCiにベタ貼りすると、一応このコードでも動きはするけど、解答としては不正解らしいのです。</div>
+          <a class="link-to-replies" href="22/1672118439.693829.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/21.html" class="item">Previous</a>

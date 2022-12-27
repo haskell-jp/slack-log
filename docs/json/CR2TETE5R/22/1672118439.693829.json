@@ -1,0 +1,20 @@
+[
+    {
+        "text": "do構文の外側で定義した純粋関数にIO a 型の引数を渡す方法について知りたいです。paizaの問題<https://paiza.jp/works/mondai/drankfast/d1_step_distance> を解いていて、解答として\n```f :: Int -&gt; Int -&gt; String\nf distance stride_length = if distance * 100000 `div` stride_length &gt;= 10000 then \"yes\" \n                            else \"no\"\nmain = do \n       putStrLn \"歩いた距離(km)を入力\"\n       distance &lt;- readLn :: IO Int\n       putStrLn \"歩幅(cm)を入力\"\n       stride_length &lt;- readLn :: IO Int\n       return (f distance stride_length)```\nを提出しました。GHCiにベタ貼りすると、一応このコードでも動きはするけど、解答としては不正解らしいのです。",
+        "type": "message",
+        "ts": "1672118439.693829",
+        "user": "U04FA03G423"
+    },
+    {
+        "text": "計算結果を出力するのではなく `return` してしまっているのが問題なのではないでしょうか。\nmainに型注釈を付けて `main :: IO ()` を追加すると何が間違っているのかわかりやすいと思います。",
+        "type": "message",
+        "ts": "1672118718.975159",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "ghciは最後の計算結果の評価を自動で表示してくれますが、単体のプログラムとしてコンパイルするとそういった操作は行ってくれないので、自分でputStrLnする必要があります。",
+        "type": "message",
+        "ts": "1672122808.532329",
+        "user": "U57CUMWQ6"
+    }
+]

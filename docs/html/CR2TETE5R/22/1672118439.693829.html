@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #22 at 2022-12-27 14:20:39 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #22 at 2022-12-27 14:20:39 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../22.html" class="item">Back to beginners #22</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1672118439.693829">
+        <div class="content">
+          <div class="summary">
+            <div class="user">N gest</div>
+            <div class="date"><a class="date" href="#message-1672118439.693829">2022-12-27 14:20:39 +0900</a></div>
+          </div>
+          <div class="description">do構文の外側で定義した純粋関数にIO a 型の引数を渡す方法について知りたいです。paizaの問題<https://paiza.jp/works/mondai/drankfast/d1_step_distance> を解いていて、解答として<br/><pre>f :: Int -&gt; Int -&gt; String
+f distance stride_length = if distance * 100000 `div` stride_length &gt;= 10000 then "yes" 
+                            else "no"
+main = do 
+       putStrLn "歩いた距離(km)を入力"
+       distance &lt;- readLn :: IO Int
+       putStrLn "歩幅(cm)を入力"
+       stride_length &lt;- readLn :: IO Int
+       return (f distance stride_length)</pre><br/>を提出しました。GHCiにベタ貼りすると、一応このコードでも動きはするけど、解答としては不正解らしいのです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1672118718.975159">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1672118718.975159">2022-12-27 14:25:18 +0900</a></div>
+          </div>
+          <div class="description">計算結果を出力するのではなく <code>return</code> してしまっているのが問題なのではないでしょうか。<br/>mainに型注釈を付けて <code>main :: IO ()</code> を追加すると何が間違っているのかわかりやすいと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1672122808.532329">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1672122808.532329">2022-12-27 15:33:28 +0900</a></div>
+          </div>
+          <div class="description">ghciは最後の計算結果の評価を自動で表示してくれますが、単体のプログラムとしてコンパイルするとそういった操作は行ってくれないので、自分でputStrLnする必要があります。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../22.html" class="item">Back to beginners #22</a>
+    </div>
+  </div>
+</body>
+</html>
