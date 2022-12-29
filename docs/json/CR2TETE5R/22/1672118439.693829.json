@@ -16,5 +16,29 @@
         "type": "message",
         "ts": "1672122808.532329",
         "user": "U57CUMWQ6"
+    },
+    {
+        "text": "mainに型注釈をつけてdo構文を`{}` で囲むと\n```Main.hs:7:17: error: parse error on input '\"'\n  |\n7 |        putStrLn \"歩いた距離(km)を入力\"\n  |                 ^```\nというエラーメッセージが出ます。putStrLnでエラーがあるようです。「自分でputStrLnする」というアドバイスについて、もう少し分かりやすく教えてもらえないでしょうか？",
+        "type": "message",
+        "ts": "1672199272.207149",
+        "user": "U04FA03G423"
+    },
+    {
+        "text": "doを波括弧で括ってインデント構文じゃなくてしてセミコロンで区切れるのは、文法上の機能としては存在して、そのスタイルを好む人も存在しますが、今回の問題解決には全く関係がないと思います\nまた、その機能をうまく使えてないと思うので、とりあえず変えた結果を貼り付けると良いと思います\n\n自分でputStrLnするというのは、mainで計算結果をreturnするのではなく、計算結果をputStrLnする必要があるということです",
+        "type": "message",
+        "ts": "1672199712.217339",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "ありがとうございます。計算結果をputStrLnするコードを書いてみました。\n```main = do :: IO (){\n       putStrLn \"歩いた距離(km)を入力\"\n       distance &lt;- readLn :: IO Int\n       putStrLn \"歩幅(cm)を入力\"\n       stride_length &lt;- readLn :: IO Int\n       if distance * 100000 `div` stride_length &gt;= 10000 then \n       putStrLn \"yes\" \n       else \n       putStrLn \"no\" }```\nエラーメッセージは\n```\t\nMain.hs:4:17: error: parse error on input '\"'\n|\n| putStrLn \"歩いた距離(km)を入力\"```\n    になります。このコードはghciでも同じものが出て、前にコードと違いghciでも動かないです。",
+        "type": "message",
+        "ts": "1672245148.176499",
+        "user": "U04FA03G423"
+    },
+    {
+        "text": "文法が全く違います。\nHaskellの入門書を読むなどして型注釈の書き方やdo構文の使い方を学ぶと良いと思います。",
+        "type": "message",
+        "ts": "1672245298.000599",
+        "user": "U57CUMWQ6"
     }
 ]

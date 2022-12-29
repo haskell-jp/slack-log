@@ -47,6 +47,56 @@ main = do
           <div class="description">ghciは最後の計算結果の評価を自動で表示してくれますが、単体のプログラムとしてコンパイルするとそういった操作は行ってくれないので、自分でputStrLnする必要があります。</div>
         </div>
       </div>
+      <div class="event" id="message-1672199272.207149">
+        <div class="content">
+          <div class="summary">
+            <div class="user">N gest</div>
+            <div class="date"><a class="date" href="#message-1672199272.207149">2022-12-28 12:47:52 +0900</a></div>
+          </div>
+          <div class="description">mainに型注釈をつけてdo構文を`{}` で囲むと<br/><pre>Main.hs:7:17: error: parse error on input '"'
+  |
+7 |        putStrLn "歩いた距離(km)を入力"
+  |                 ^</pre><br/>というエラーメッセージが出ます。putStrLnでエラーがあるようです。「自分でputStrLnする」というアドバイスについて、もう少し分かりやすく教えてもらえないでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1672199712.217339">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1672199712.217339">2022-12-28 12:55:12 +0900</a></div>
+          </div>
+          <div class="description">doを波括弧で括ってインデント構文じゃなくてしてセミコロンで区切れるのは、文法上の機能としては存在して、そのスタイルを好む人も存在しますが、今回の問題解決には全く関係がないと思います<br/>また、その機能をうまく使えてないと思うので、とりあえず変えた結果を貼り付けると良いと思います<br/><br/>自分でputStrLnするというのは、mainで計算結果をreturnするのではなく、計算結果をputStrLnする必要があるということです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1672245148.176499">
+        <div class="content">
+          <div class="summary">
+            <div class="user">N gest</div>
+            <div class="date"><a class="date" href="#message-1672245148.176499">2022-12-29 01:32:28 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。計算結果をputStrLnするコードを書いてみました。<br/><pre>main = do :: IO (){
+       putStrLn "歩いた距離(km)を入力"
+       distance &lt;- readLn :: IO Int
+       putStrLn "歩幅(cm)を入力"
+       stride_length &lt;- readLn :: IO Int
+       if distance * 100000 `div` stride_length &gt;= 10000 then 
+       putStrLn "yes" 
+       else 
+       putStrLn "no" }</pre><br/>エラーメッセージは<br/><pre>	
+Main.hs:4:17: error: parse error on input '"'
+|
+| putStrLn "歩いた距離(km)を入力"</pre><br/>    になります。このコードはghciでも同じものが出て、前にコードと違いghciでも動かないです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1672245298.000599">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1672245298.000599">2022-12-29 01:34:58 +0900</a></div>
+          </div>
+          <div class="description">文法が全く違います。<br/>Haskellの入門書を読むなどして型注釈の書き方やdo構文の使い方を学ぶと良いと思います。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../22.html" class="item">Back to beginners #22</a>
