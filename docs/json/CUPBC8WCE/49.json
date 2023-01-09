@@ -178,5 +178,89 @@
         "type": "message",
         "ts": "1672477759.934969",
         "user": "U04BD6ZFKQ8"
+    },
+    {
+        "text": "<@U04HH97L7DM> has joined the channel",
+        "type": "message",
+        "ts": "1673149846.489009",
+        "user": "U04HH97L7DM"
+    },
+    {
+        "text": "",
+        "type": "message",
+        "ts": "1673150473.541539",
+        "user": null
+    },
+    {
+        "text": "山本悠滋です。お昼ご飯を食べてから、ですが、例のごとくmakeMistakesToLearnHaskellの続きと、cabal replの件を進めます。",
+        "type": "message",
+        "ts": "1673150526.584909",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "初参加です。よろしくお願いします。\nCodewarsという、プログラミングのトレーニングができるサイトで出題されている、haskellの問題を解きます。",
+        "type": "message",
+        "ts": "1673150670.362109",
+        "user": "U04HH97L7DM"
+    },
+    {
+        "text": "S.K.です。今週もお世話になります。よろしくお願いします。\nImplementing Functional Languages:a tutorial の 3.7 Mark 5: Towards better handling of arithmetic から読み進めようと思います。",
+        "type": "message",
+        "ts": "1673150904.101239",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "text": "\"An Introduction to Recursion Schemes,\" Patrick Thomson <https://blog.sumtypeofway.com/posts/introduction-to-recursion-schemes.html>\nあとハシゴで AtCoder 鉄則本 *A26 - Prime Check* <https://atcoder.jp/contests/tessoku-book/tasks/tessoku_book_z>",
+        "type": "message",
+        "ts": "1673151154.265549",
+        "user": "U584T7GAH"
+    },
+    {
+        "text": "自作AtCoder library内の整数剰余型 `Rem m` の `(^) :: (Num (Rem m), Integral a) =&gt; Rem m -&gt; a -&gt; Rem m`  (ただし `instance Data.Reflection.Reifies m Word =&gt; Num (Rem m)`) を黒魔術で高速化すべく頑張ります",
+        "type": "message",
+        "ts": "1673157684.270449",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": ":kininaru:",
+        "type": "message",
+        "ts": "1673158900.605119",
+        "user": "U584T7GAH"
+    },
+    {
+        "text": "うまく行きましたので先抜けします．何をしたかだけ軽く書いておきますね．\n自作整数剰余型 `Rem m`  の `(^)` が遅かったのです．profをとっていないのでよくわからないのですが， この原因は， `Data.Reflection.reflect :: Data.Reflection.Reifies m a =&gt; proxy m -&gt; a` で出てくる `reflect :: Reifies m Word =&gt; proxy m -&gt; Word` の素性が simplifier にから見てよくわからないので，インライン化もされない `(*) :: Rem m -&gt; Rem m -&gt; Rem m` の呼び出しが何度も `reflect` を呼んで最適化もされない，ということだったっぽいです．そこで， `reflect` を `(^)` の計算の最初だけ呼び，`(^)` の実装内部においては， `(*)` のかわりに，その実装に使われている modulus つき乗法関数(自作) `unsafeModMult :: Word -&gt; Word -&gt; Word -&gt; Word`  を呼ぶようにする，ということをしたいです．ところが，RULES で (^) を書き換えようとすると type checker が `Num (Rem m)` を知ってるくせに `Reifies m Word` を知らない，という事態が生じます． そこで `Num (Rem m)` だけの制約からmodulusを取ってくる必要に迫られるのですが，`fromInteger :: Integer -&gt; Rem m` が `remFromIntegerWithMod modulus` に書き換えられるように実装されていることを利用して  RULES で `computeModulusFromNumConstraint (remFromIntegerWithMod modulus) = modulus`  と書き換える，みたいな真似をしています． これで， AtCoder ABC282-E の実行速度が <https://atcoder.jp/contests/abc282/submissions/37366230> (788ms) から <https://atcoder.jp/contests/abc282/submissions/37872422> (173ms) へと高速化しました．手書きの剰余冪乗を用いた<https://atcoder.jp/contests/abc282/submissions/37872052> (168ms) と遜色ない速度です．",
+        "type": "message",
+        "ts": "1673164466.000679",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "時間になりましたので成果を書きます。下記５問を解くことができました。\n一人でやるよりも緊張感があって集中できた気がします。ありがとうございました。\n<https://www.codewars.com/kata/549ee8b47111a81214000941>\n<https://www.codewars.com/kata/54ce4c6804fcc440a1000ecb>\n<https://www.codewars.com/kata/5a7f58c00025e917f30000f1>\n<https://www.codewars.com/kata/58b57ae2724e3c63df000006>\n<https://www.codewars.com/kata/58b38256e51f1c2af0000081>",
+        "type": "message",
+        "ts": "1673167041.365409",
+        "user": "U04HH97L7DM"
+    },
+    {
+        "text": "",
+        "type": "message",
+        "ts": "1673168478.721399",
+        "user": null
+    },
+    {
+        "text": "makeMistakesToLearnHaskellの続きを少し書いてましたが、いろいろ誘惑に負けちゃってあまり捗らず。",
+        "type": "message",
+        "ts": "1673168557.230039",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "3.7 Mark 5: Towards better handling of arithmetic の 3.7.2 The solution の途中まで読み進めました。\nExercise 3.28.を一応何とか解いて、Exercise 3.29. を解こうとしているところです。\n今回も時間がかかってしまいました。",
+        "type": "message",
+        "ts": "1673168581.239889",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "text": "延長戦でやっと集中できました。今週のmakeMistakesToLearnHaskellはここまで。cabal replの件もcabal --versionが出力する文字列をパースする処理のテストを書き終えました。\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/ad194d12e078a47fe859c21b5a2704403a3ebb3c>",
+        "type": "message",
+        "ts": "1673172484.275469",
+        "user": "U4LGTMTMK"
     }
 ]

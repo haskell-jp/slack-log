@@ -66,6 +66,42 @@
           <div class="description">単なるご参考：<br/>挙がっていないもので、方言っぽいので<https://wiki.clean.cs.ru.nl/Clean|clean>、ぽくないので<https://www.cs.kent.ac.uk/people/staff/dat/miranda/|miranda >とかもありますかね。<br/><br/>Hugsの前身の <a href='https://en.wikipedia.org/wiki/Gofer_(programming_language)'>gofer</a> はちょっとだけ使ったりソース読んだりしていました。<br/><br/><a href='https://ja.wikipedia.org/wiki/Haskell#%E5%AE%9F%E8%A3%85'>Wikipediaのページ</a>には、ghc以外の処理系・方言？がいくつか挙がっていました。<br/><br/>（研究（の多少）に関してはよくわからないのですが、なんとなくMLのほうが論文少ないきがしていました。）</div>
         </div>
       </div>
+      <div class="event" id="message-1673143351.367049">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ksrk</div>
+            <div class="date"><a class="date" href="#message-1673143351.367049">2023-01-08 11:02:31 +0900</a></div>
+          </div>
+          <div class="description">皆さんありがとうございます。Haskellの処理系がいくつもあったことは初めて知りました。<br/><blockquote>純粋関数型言語は全てHaskellの方言</blockquote>確かに純粋と謳っている関数型言語のシンタックスは大体Haskellのような見た目をしていますね。<br/>purescriptやelmもあまり良く知らないのですが、Haskellの方言と言っていいくらいの類似度なんですかね。<br/><br/>MLよりHaskellの方が論文が少ないというのは、どこを見るかにもよるかもしれないのですが、少なくとも私はHaskellのような言語を自作する上で、MLを対象とした論文はよく見るのですが、Haskellの実装に対してはあまり見かけませんでした。<br/><br/>確かに製品レベルのコンパイラではHaskellに類似したものも多いのですが、Haskellコンパイラを自作する例は、MLのそれ（住井先生のMinCamlや東北大学のSML#など）に比べて少ないような気がします。どうでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1673144275.219929">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1673144275.219929">2023-01-08 11:17:55 +0900</a></div>
+          </div>
+          <div class="description">まあやっぱり、コンパイラを軽く自作する例が少ないのは最初にご指摘された通り複雑だからなのではないでしょうか<br/>遅延評価と型クラスだけでもかなり大変そうです<br/>内部のSTG形式とかフルスクラッチしたくない…<br/>なのでHaskellベースの学術的な試み、例えばLiquidHaskellとかやるにしてもGHC前提で行いたい気がします<br/>どうせ世の中のライブラリはGHC拡張使いまくりなので実用性を少しでも考えるならGHC前提にしたいですし<br/><br/>SchemeとCommon LispなどをLisp方言としてまとめて良いならPureScriptもHaskell方言で良い気もしますが</div>
+        </div>
+      </div>
+      <div class="event" id="message-1673144963.830069">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1673144963.830069">2023-01-08 11:29:23 +0900</a></div>
+          </div>
+          <div class="description">後は、型クラスとかTemplate Haskellなどの自由度によってライブラリとして研究したいことが実現可能なことが多いのでわざわざ処理系から自作しなくて良いとかもあるのかもしれません<br/>最近はGHCにもプラグイン機構がありますし<br/>例えばSML#のSQL式機構とかは、Esqueletoはライブラリとして少し似たような感じで行っています<br/>XML式を導入したいとかでも準クオートで対応可能ですし</div>
+        </div>
+      </div>
+      <div class="event" id="message-1673145806.285559">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ksrk</div>
+            <div class="date"><a class="date" href="#message-1673145806.285559">2023-01-08 11:43:26 +0900</a></div>
+          </div>
+          <div class="description">なるほど。まだHaskellも使いこなせていない部分が多くあることを感じさせられました。ありがとうございます</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../102.html" class="item">Back to questions #102</a>
