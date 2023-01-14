@@ -48,6 +48,42 @@
           <div class="description">お二方ともありがとうございます！<br/>定関手の存在初めて知りました！が二つの圏の関係性を何か表すことは無いものそうですね。。<br/>そして埋め込み関数はなるほどでした！これは両者の関係性を見せてくれている感じがします。。！<br/>空集合の送り先とそれ以外の送り先の関手が作れるのは、空集合から出る射だけがあって空集合に入る射が絶対にないからという感じでしょうか？<br/>絶対にX→Yという形になり、かつこういう関係性が射が包含関係の圏に存在するはずという認識をしましたがあっていますでしょうか？</div>
         </div>
       </div>
+      <div class="event" id="message-1673694226.213139">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1673694226.213139">2023-01-14 20:03:46 +0900</a></div>
+          </div>
+          <div class="description">Set から SetOrd へ対象をそのまま保つ関手が作れないのは、包含関係がないとき Set の射を対応させる先がないからですよね。SetOrd をいじって「包含関係がない」という射 n を各 Hom に持たせると、包含関係がないときは Set の射を n に対応させられます。n は他の射と合成するとまた n になるとします。<br/>すると、Set から SetOrd (改) に対象をそのまま移し、射については包含写像があればそれに、なければ n を対応させるという関手が作れるんじゃないかなあと。<br/><br/>全然圏論に詳しくないので思いつきですが… 射の対応について Maybe みたいのがあればなんとかなるんじゃないかと思いまして。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1673700978.594849">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1673700978.594849">2023-01-14 21:56:18 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！<br/>確かにいけそう！と思ったのですが、仮にA⊂Bの時に⊂:B→Aとn:A→Bを合成して⊂∘n=n:A→Aができてしまい各対象が自分自身と比較できないことを示す射ができてしまうのでちょっと難しそうでしょうか。。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1673702691.928619">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1673702691.928619">2023-01-14 22:24:51 +0900</a></div>
+          </div>
+          <div class="description">n は SetOrd (改) の全てのホムセットに入っているので、n に加えてほかの射があれば包含関係があると考えればいけませんか?<br/>SetOrd(A, A) = { n, id }, SetOrd(A, B) = { n, ⊂ } が包含関係あり、SetOrd(A, B) = { n } を包含関係なしと考えます。⊂∘n=n:A→A の規則はそのままで。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1673704197.351949">
+        <div class="content">
+          <div class="summary">
+            <div class="user">t-shibata</div>
+            <div class="date"><a class="date" href="#message-1673704197.351949">2023-01-14 22:49:57 +0900</a></div>
+          </div>
+          <div class="description">いけそうですね！ありがとうございます。。！<br/>これならSetからSetOrd(改)に上記の関手ができますね。<br/>SetOrd(改)からSetOrdへは割り当てられない射の話のままなので、こちらは定関手などだけになりそうでしょうか。<br/><br/>しかしnはあちこち合成できるので、結果的にすべての対象間に存在しそうなので包含関係なしを超えて何か別の意味合いがありそうで面白そうです。。<br/>暗黙的にすべての対象間を結ぶネットワーク的な何かな感じでしょうか？とりあえずお互いが「ある」ことだけ認識してる感じのような。。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../11.html" class="item">Back to math #11</a>
