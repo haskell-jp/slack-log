@@ -112,5 +112,35 @@
         "type": "message",
         "ts": "1671848721.828139",
         "user": "U4L0B71L1"
+    },
+    {
+        "text": "<@U03H9PH8FRP> <@U4L0B71L1> 今更ですが、次のコードが型チェック通りました:\n\n\n```{-# LANGUAGE QuantifiedConstraints, RankNTypes, FlexibleContexts, ScopedTypeVariables #-}\n\nimport <http://Data.Array.ST|Data.Array.ST>\nimport <http://Control.Monad.ST|Control.Monad.ST> (ST)\nimport Data.Array.Unboxed\nimport Control.Monad (forM_)\n\ntabulateIO :: forall i e. (Ix i, forall s. MArray (STUArray s) e (ST s)) =&gt; (forall s. STUArray s i e -&gt; i -&gt; ST s e) -&gt; (i, i) -&gt; e -&gt; UArray i e\ntabulateIO f bounds_ e0 =\n  runSTUArray uarray\n  where\n    uarray :: forall s. MArray (STUArray s) e (ST s) =&gt; ST s (STUArray s i e)\n    uarray = do\n      tbl &lt;- newArray bounds_ e0 :: ST s (STUArray s i e)\n      forM_ (range bounds_) $ \\i -&gt; do\n        e &lt;- f tbl i\n        writeArray tbl i e\n      return tbl```",
+        "type": "message",
+        "ts": "1674269540.129589",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "は～、なるほどです",
+        "type": "message",
+        "ts": "1674269648.260799",
+        "user": "U4L0B71L1"
+    },
+    {
+        "text": ":memo: :memo: (kakkun61 さん版  `tabulateIO :: ..` の `=&gt;` を 1 個にして `QuantifiedConstraints` を有効化)",
+        "type": "message",
+        "ts": "1674270330.687839",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "ありがとうございます！！ :sob:　これを応用して、色々なパターンをシュッと書いていきたいと思います！",
+        "type": "message",
+        "ts": "1674270392.721069",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "text": "<https://atcoder.jp/contests/tessoku-book/submissions/38180500|提出> してきました。型推論もバッチリです！ :pray:",
+        "type": "message",
+        "ts": "1674271323.512149",
+        "user": "U03H9PH8FRP"
     }
 ]

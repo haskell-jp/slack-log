@@ -304,6 +304,68 @@ tabulateIO f bounds_ e0 =
           <div class="description">わあ、ありがとうございます！</div>
         </div>
       </div>
+      <div class="event" id="message-1674269540.129589">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1674269540.129589">2023-01-21 11:52:20 +0900</a></div>
+          </div>
+          <div class="description">@toyboot4e @kakkun61 今更ですが、次のコードが型チェック通りました:<br/><br/><br/><pre>{-# LANGUAGE QuantifiedConstraints, RankNTypes, FlexibleContexts, ScopedTypeVariables #-}
+
+import <http://Data.Array.ST|Data.Array.ST>
+import <http://Control.Monad.ST|Control.Monad.ST> (ST)
+import Data.Array.Unboxed
+import Control.Monad (forM_)
+
+tabulateIO :: forall i e. (Ix i, forall s. MArray (STUArray s) e (ST s)) =&gt; (forall s. STUArray s i e -&gt; i -&gt; ST s e) -&gt; (i, i) -&gt; e -&gt; UArray i e
+tabulateIO f bounds_ e0 =
+  runSTUArray uarray
+  where
+    uarray :: forall s. MArray (STUArray s) e (ST s) =&gt; ST s (STUArray s i e)
+    uarray = do
+      tbl &lt;- newArray bounds_ e0 :: ST s (STUArray s i e)
+      forM_ (range bounds_) $ \i -&gt; do
+        e &lt;- f tbl i
+        writeArray tbl i e
+      return tbl</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1674269648.260799">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1674269648.260799">2023-01-21 11:54:08 +0900</a></div>
+          </div>
+          <div class="description">は～、なるほどです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674270330.687839">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1674270330.687839">2023-01-21 12:05:30 +0900</a></div>
+          </div>
+          <div class="description">:memo: :memo: (kakkun61 さん版  <code>tabulateIO :: ..</code> の <code>=&gt;</code> を 1 個にして <code>QuantifiedConstraints</code> を有効化)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674270392.721069">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1674270392.721069">2023-01-21 12:06:32 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！！ :sob:　これを応用して、色々なパターンをシュッと書いていきたいと思います！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674271323.512149">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1674271323.512149">2023-01-21 12:22:03 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://atcoder.jp/contests/tessoku-book/submissions/38180500'>提出</a> してきました。型推論もバッチリです！ :pray:</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../102.html" class="item">Back to questions #102</a>
