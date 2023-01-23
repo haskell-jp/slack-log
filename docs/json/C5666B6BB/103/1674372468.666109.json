@@ -1,0 +1,62 @@
+[
+    {
+        "text": "`ghc-bignum` ってデフォルトが `native` になってますけど， これを `gmp` にしようと思ったら `ghcup` でGHCをインストールする時点でなんとかしないといけないですか…？",
+        "type": "message",
+        "ts": "1674372468.666109",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "え、デフォルトgmpになってませんか。環境とGHCのバージョンはどれですか？",
+        "type": "message",
+        "ts": "1674374843.132819",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "alpineだとデフォルトがnativeなのかな",
+        "type": "message",
+        "ts": "1674374933.805379",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "GHC-9.4.4 on Ubuntu 22.10です",
+        "type": "message",
+        "ts": "1674377718.240129",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "ダウンロードされたGHCのURLはどれですか？Ubuntu 22.04だと `<https://downloads.haskell.org/~ghc/9.4.4/ghc-9.4.4-x86_64-deb10-linux.tar.xz>` がダウンロードされて `GHC.Num.Backend.backendName` は `\"gmp\"` でした。",
+        "type": "message",
+        "ts": "1674379243.655959",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "import の補完リストの中に `GHC.Num.Backend.GMP` が出てこなくて勘違いしました．selected backend によらず `GHC.Num.Backend.Native` は visible で `GHC.Num.Backend.GMP` は invisible なんですね…",
+        "type": "message",
+        "ts": "1674379706.957589",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "ちなみに逆に `native` にしたいときは `ghcup install ghc` の `CONFIGURE_ARGS` を指定すればなんとかなるのでしょうか．",
+        "type": "message",
+        "ts": "1674382809.236159",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "今のGHCではビルド時にghc-bignumのバックエンドを決めてしまうはずなので、既にあるbindistのconfigureの引数を指定してもどうにもならない気がしますね。`ghcup compile` の方なら指定できるかもしれません。",
+        "type": "message",
+        "ts": "1674384433.855499",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "や、`ghcup compile` だとHadrianの方は `--bignum` を指定できなさそう？ghcupで入れるならMakeベースで `<http://build.mk|build.mk>` を用意することになるのか。",
+        "type": "message",
+        "ts": "1674384801.809869",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "割と実用的な用途がありそうなのに，だいぶ面倒ですね… いや， single binaryがじつはHaskellの場合だとそこまで需要デカくないのか？",
+        "type": "message",
+        "ts": "1674385015.308599",
+        "user": "UL1HFJATE"
+    }
+]

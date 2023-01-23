@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #103 at 2023-01-22 16:27:48 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #103 at 2023-01-22 16:27:48 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1674372468.666109">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1674372468.666109">2023-01-22 16:27:48 +0900</a></div>
+          </div>
+          <div class="description"><code>ghc-bignum</code> ってデフォルトが <code>native</code> になってますけど， これを <code>gmp</code> にしようと思ったら <code>ghcup</code> でGHCをインストールする時点でなんとかしないといけないですか…？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674374843.132819">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1674374843.132819">2023-01-22 17:07:23 +0900</a></div>
+          </div>
+          <div class="description">え、デフォルトgmpになってませんか。環境とGHCのバージョンはどれですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674374933.805379">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1674374933.805379">2023-01-22 17:08:53 +0900</a></div>
+          </div>
+          <div class="description">alpineだとデフォルトがnativeなのかな</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674377718.240129">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1674377718.240129">2023-01-22 17:55:18 +0900</a></div>
+          </div>
+          <div class="description">GHC-9.4.4 on Ubuntu 22.10です</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674379243.655959">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1674379243.655959">2023-01-22 18:20:43 +0900</a></div>
+          </div>
+          <div class="description">ダウンロードされたGHCのURLはどれですか？Ubuntu 22.04だと <code><https://downloads.haskell.org/~ghc/9.4.4/ghc-9.4.4-x86_64-deb10-linux.tar.xz></code> がダウンロードされて <code>GHC.Num.Backend.backendName</code> は <code>"gmp"</code> でした。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674379706.957589">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1674379706.957589">2023-01-22 18:28:26 +0900</a></div>
+          </div>
+          <div class="description">import の補完リストの中に <code>GHC.Num.Backend.GMP</code> が出てこなくて勘違いしました．selected backend によらず <code>GHC.Num.Backend.Native</code> は visible で <code>GHC.Num.Backend.GMP</code> は invisible なんですね…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674382809.236159">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1674382809.236159">2023-01-22 19:20:09 +0900</a></div>
+          </div>
+          <div class="description">ちなみに逆に <code>native</code> にしたいときは <code>ghcup install ghc</code> の <code>CONFIGURE_ARGS</code> を指定すればなんとかなるのでしょうか．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674384433.855499">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1674384433.855499">2023-01-22 19:47:13 +0900</a></div>
+          </div>
+          <div class="description">今のGHCではビルド時にghc-bignumのバックエンドを決めてしまうはずなので、既にあるbindistのconfigureの引数を指定してもどうにもならない気がしますね。`ghcup compile` の方なら指定できるかもしれません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674384801.809869">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1674384801.809869">2023-01-22 19:53:21 +0900</a></div>
+          </div>
+          <div class="description">や、`ghcup compile` だとHadrianの方は <code>--bignum</code> を指定できなさそう？ghcupで入れるならMakeベースで <code><http://build.mk|build.mk></code> を用意することになるのか。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674385015.308599">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1674385015.308599">2023-01-22 19:56:55 +0900</a></div>
+          </div>
+          <div class="description">割と実用的な用途がありそうなのに，だいぶ面倒ですね… いや， single binaryがじつはHaskellの場合だとそこまで需要デカくないのか？</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+  </div>
+</body>
+</html>
