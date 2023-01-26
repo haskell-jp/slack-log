@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #103 at 2023-01-25 11:21:02 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #103 at 2023-01-25 11:21:02 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1674613262.313509">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1674613262.313509">2023-01-25 11:21:02 +0900</a></div>
+          </div>
+          <div class="description">GHC 9.4 で stdc++ に依存するようになってしまったようですが、その理由はなんでしょうか？<br/>centos だと、configure が stdc++ を見つけられずに、インストールできません。。。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674614735.585199">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1674614735.585199">2023-01-25 11:45:35 +0900</a></div>
+          </div>
+          <div class="description">GHC 9.4が依存するtext-2.0がC++製のsimdutfに依存するようになった関係だと思います。ただ、このチケット <a href='https://gitlab.haskell.org/ghc/ghc/-/issues/20724'>https://gitlab.haskell.org/ghc/ghc/-/issues/20724</a> の結論は「GHC自身はsimdutfに依存しない（textに対して-simdutfを指定する）」のはずなので少々不思議ですね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674615162.301789">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1674615162.301789">2023-01-25 11:52:42 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://gitlab.haskell.org/ghc/ghc/-/issues/20010'>https://gitlab.haskell.org/ghc/ghc/-/issues/20010</a> GHC 9.4以降ではシステムのC++標準ライブラリーにリンクするための system-cxx-std-libという擬似パッケージが用意されるようになって、そのためにconfigureでlibstdc++/libc++をチェックしてるっぽいですね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674615496.503189">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1674615496.503189">2023-01-25 11:58:16 +0900</a></div>
+          </div>
+          <div class="description">なるほど、ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674615545.954089">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1674615545.954089">2023-01-25 11:59:05 +0900</a></div>
+          </div>
+          <div class="description">僕の問題は、gcc-c++ もインストールすることで解決しました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+  </div>
+</body>
+</html>
