@@ -240,6 +240,30 @@
           <div class="description">他にも欲しいパッケージ等あればどんどんください〜</div>
         </div>
       </div>
+      <div class="event" id="message-1674943791.721359">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1674943791.721359">2023-01-29 07:09:51 +0900</a></div>
+          </div>
+          <div class="description">忘れる前にメモ代わりとしてもここに記します． <code>vector-stream</code>  は絶対欲しいですね． <code>vector</code> の dependency である <code>vector-stream</code> は絶対にインストールはされますし， 前回のやり方を踏襲するなら(オフライン性を担保しようと思ったらそうするのが一番楽なので)  <code>cabal install --lib</code> なんだから  hidden 扱いにはならないかもしれませんが，万一 Stream に追加の関数が足せないと絶対困るはず．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1674945486.313749">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1674945486.313749">2023-01-29 07:38:06 +0900</a></div>
+          </div>
+          <div class="description">未テストですが，今想定しているインストール手順は<br/><br/><pre># make sure you login from the user runner!
+$ sudo apt-get update
+$ sudo apt-get install -y build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 llvm-13
+$ curl --proto '=https' --tlsv1.2 -sSf <https://get-ghcup.haskell.org> | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 BOOTSTRAP_HASKELL_GHC_VERSION=9.4 BOOTSTRAP_HASKELL_CABAL_VERSION=latest BOOTSTRAP_HASKELL_INSTALL_NO_STACK=1 sh
+$ source ~/.ghcup/env
+$ cabal install --lib &lt;packages&gt;</pre><br/>あたりです．ユーザー名が runner 固定なので user-local install にしてあります．コンパイル手順は:<br/><br/><pre>$ source ~/.ghcup/env
+$ ghc -fllvm -O2 Main.hs</pre><br/>ぐらいを考えています (未テストだからうまくいくかは完全に未知数ですが，透明性は高ければ高いだけいいと思いまして)．今は<https://haskell-jp.slack.com/archives/CL3AXB1AL/p1674386752845559?thread_ts=1674359451.004789&amp;cid=CL3AXB1AL> の話で`http-client` と <code>Cabal-syntax</code> のライブラリAPI docを読んでます．</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CL3AXB1AL/5.html" class="item">Previous</a>

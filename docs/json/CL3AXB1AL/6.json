@@ -148,5 +148,17 @@
         "type": "message",
         "ts": "1674359554.198329",
         "user": "UL1HFJATE"
+    },
+    {
+        "text": "忘れる前にメモ代わりとしてもここに記します． `vector-stream`  は絶対欲しいですね． `vector` の dependency である `vector-stream` は絶対にインストールはされますし， 前回のやり方を踏襲するなら(オフライン性を担保しようと思ったらそうするのが一番楽なので)  `cabal install --lib` なんだから  hidden 扱いにはならないかもしれませんが，万一 Stream に追加の関数が足せないと絶対困るはず．",
+        "type": "message",
+        "ts": "1674943791.721359",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "未テストですが，今想定しているインストール手順は\n\n```# make sure you login from the user runner!\n$ sudo apt-get update\n$ sudo apt-get install -y build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 llvm-13\n$ curl --proto '=https' --tlsv1.2 -sSf <https://get-ghcup.haskell.org> | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 BOOTSTRAP_HASKELL_GHC_VERSION=9.4 BOOTSTRAP_HASKELL_CABAL_VERSION=latest BOOTSTRAP_HASKELL_INSTALL_NO_STACK=1 sh\n$ source ~/.ghcup/env\n$ cabal install --lib &lt;packages&gt;```\nあたりです．ユーザー名が runner 固定なので user-local install にしてあります．コンパイル手順は:\n\n```$ source ~/.ghcup/env\n$ ghc -fllvm -O2 Main.hs```\nぐらいを考えています (未テストだからうまくいくかは完全に未知数ですが，透明性は高ければ高いだけいいと思いまして)．今は<https://haskell-jp.slack.com/archives/CL3AXB1AL/p1674386752845559?thread_ts=1674359451.004789&amp;cid=CL3AXB1AL> の話で`http-client` と `Cabal-syntax` のライブラリAPI docを読んでます．",
+        "type": "message",
+        "ts": "1674945486.313749",
+        "user": "UL1HFJATE"
     }
 ]
