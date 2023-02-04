@@ -307,6 +307,69 @@ safe-exceptions: MIT
 text: BSD-2-Clause</pre></div>
         </div>
       </div>
+      <div class="event" id="message-1675391575.192939">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1675391575.192939">2023-02-03 11:32:55 +0900</a></div>
+          </div>
+          <div class="description">取り敢えず cabal が走るところまでしかチェックしていないのですが今日中に追記しようと思ってインストール手順等を書き込んだ瞬間にfreezeされましたね…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1675391652.418429">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1675391652.418429">2023-02-03 11:34:12 +0900</a></div>
+          </div>
+          <div class="description"><code>ghc-bignum</code> も足しとかなきゃとか考えてたんですが…。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1675393620.408609">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cojna</div>
+            <div class="date"><a class="date" href="#message-1675393620.408609">2023-02-03 12:07:00 +0900</a></div>
+          </div>
+          <div class="description"><code>-pgmlo opt-13 -pgmlc llc-13</code> つけないとビルド通らないかも</div>
+        </div>
+      </div>
+      <div class="event" id="message-1675393766.073609">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1675393766.073609">2023-02-03 12:09:26 +0900</a></div>
+          </div>
+          <div class="description">あ、そっか、オプションつけないghciしか通してない！！ 自前のdockerでも確認してみますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1675394010.102689">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1675394010.102689">2023-02-03 12:13:30 +0900</a></div>
+          </div>
+          <div class="description">GHCのbindistはconfigure時に <code>opt-&lt;バージョン番号&gt;</code> , <code>llc-&lt;バージョン番号&gt;</code> のようなコマンド名も探索して記録するので、インストール時にすでにllvm-13が入っていれば大丈夫だと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1675394432.171549">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1675394432.171549">2023-02-03 12:20:32 +0900</a></div>
+          </div>
+          <div class="description">あ、docker上で、`ghc -fllvm -O2 Test.hs` が <code>main=return()</code> に対して通るのは確認できました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1675402815.431589">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1675402815.431589">2023-02-03 14:40:15 +0900</a></div>
+          </div>
+          <div class="description">がんばりました。直接installしていない物も含む、全transitive dependencyのライセンスのリスト:　<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=E5|https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=E5></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CL3AXB1AL/5.html" class="item">Previous</a>

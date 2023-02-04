@@ -184,5 +184,47 @@
         "type": "message",
         "ts": "1675347238.117959",
         "user": "UL5PAB0F9"
+    },
+    {
+        "text": "取り敢えず cabal が走るところまでしかチェックしていないのですが今日中に追記しようと思ってインストール手順等を書き込んだ瞬間にfreezeされましたね…",
+        "type": "message",
+        "ts": "1675391575.192939",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "`ghc-bignum` も足しとかなきゃとか考えてたんですが…。",
+        "type": "message",
+        "ts": "1675391652.418429",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "`-pgmlo opt-13 -pgmlc llc-13` つけないとビルド通らないかも",
+        "type": "message",
+        "ts": "1675393620.408609",
+        "user": "UL5PAB0F9"
+    },
+    {
+        "text": "あ、そっか、オプションつけないghciしか通してない！！ 自前のdockerでも確認してみますね",
+        "type": "message",
+        "ts": "1675393766.073609",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "GHCのbindistはconfigure時に `opt-&lt;バージョン番号&gt;` , `llc-&lt;バージョン番号&gt;` のようなコマンド名も探索して記録するので、インストール時にすでにllvm-13が入っていれば大丈夫だと思います。",
+        "type": "message",
+        "ts": "1675394010.102689",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "あ、docker上で、`ghc -fllvm -O2 Test.hs` が `main=return()` に対して通るのは確認できました。",
+        "type": "message",
+        "ts": "1675394432.171549",
+        "user": "UL1HFJATE"
+    },
+    {
+        "text": "がんばりました。直接installしていない物も含む、全transitive dependencyのライセンスのリスト:　<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=E5|https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=E5>",
+        "type": "message",
+        "ts": "1675402815.431589",
+        "user": "UL1HFJATE"
     }
 ]
