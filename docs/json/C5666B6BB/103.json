@@ -52,5 +52,11 @@
         "type": "message",
         "ts": "1675217802.518109",
         "user": "UA6CQEGR5"
+    },
+    {
+        "text": "<https://haskell-jp.slack.com/archives/CL3AXB1AL/p1675402815431589> （at <#CL3AXB1AL|atcoder-lang-update>)\n&gt; がんばりました。直接installしていない物も含む、全transitive dependencyのライセンスのリスト:　<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=E5>\nこの件で，あるパッケージ群の全transitive dependenciesからlicenseを取ってくる作業をしたのですが，私の知識の範囲でできる限り車輪の再開発を避けて:\n1. cabal-installにdependencyを解いてもらい，\n2. それをもとにHackage API を叩いて `.cabal` ファイルをもらってくる，\n3.  `Cabal-syntax` パッケージを使ってその `.cabal` ファイルをパースしてライセンス情報を取る\nみたいな手段を取りました．この1.に関して質問させてください．\n\nここでやりたいことは，「ビルドやインストールはしなくていいけど，現環境から見た，既ビルドのものも含めた全transitive dependenciesのリストが欲しい」ということになります．このために今回は結構乱暴な手段を取りました．Docker環境があったので，まっさらなGHC+Cabalをghcupでインストールしたのち，対象のパッケージ群を全部 `cabal install --lib` して `ghc-pkg　list` でインストールされている全パッケージのリストを取ってきたのです．しかし，これでは余計なパッケージまで見ている気がしますし，もうちょっとなんとかならんのか，という気がします．\n\n色々いじっていると，適当に一個だけcabal packageを持つcabal projectを作り，Cabal packageの `.cabal` ファイルは目的とするパッケージ群をdependenciesに持つ library だけを持つようにし，project の `cabal.project` にはそれらのライブラリについて設定すべきフラグを持たせるようにすると，  `cabal freeze` で `cabal.project.freeze` がなんかそれっぽいファイルになるのですが，これで合ってるのでしょうか…？ `cabal freeze` が良い方法なのか，あるいは別の方法があればお教えいただければありがたいです．",
+        "type": "message",
+        "ts": "1675566381.795629",
+        "user": "UL1HFJATE"
     }
 ]

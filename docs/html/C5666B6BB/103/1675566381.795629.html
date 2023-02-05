@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #103 at 2023-02-05 12:06:21 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #103 at 2023-02-05 12:06:21 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1675566381.795629">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1675566381.795629">2023-02-05 12:06:21 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://haskell-jp.slack.com/archives/CL3AXB1AL/p1675402815431589'>https://haskell-jp.slack.com/archives/CL3AXB1AL/p1675402815431589</a> （at <a href='#CL3AXB1AL'>atcoder-lang-update</a>)<br/><blockquote>がんばりました。直接installしていない物も含む、全transitive dependencyのライセンスのリスト:　<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=E5></blockquote>この件で，あるパッケージ群の全transitive dependenciesからlicenseを取ってくる作業をしたのですが，私の知識の範囲でできる限り車輪の再開発を避けて:<br/>1. cabal-installにdependencyを解いてもらい，<br/>2. それをもとにHackage API を叩いて <code>.cabal</code> ファイルをもらってくる，<br/>3.  <code>Cabal-syntax</code> パッケージを使ってその <code>.cabal</code> ファイルをパースしてライセンス情報を取る<br/>みたいな手段を取りました．この1.に関して質問させてください．<br/><br/>ここでやりたいことは，「ビルドやインストールはしなくていいけど，現環境から見た，既ビルドのものも含めた全transitive dependenciesのリストが欲しい」ということになります．このために今回は結構乱暴な手段を取りました．Docker環境があったので，まっさらなGHC+Cabalをghcupでインストールしたのち，対象のパッケージ群を全部 <code>cabal install --lib</code> して <code>ghc-pkg　list</code> でインストールされている全パッケージのリストを取ってきたのです．しかし，これでは余計なパッケージまで見ている気がしますし，もうちょっとなんとかならんのか，という気がします．<br/><br/>色々いじっていると，適当に一個だけcabal packageを持つcabal projectを作り，Cabal packageの <code>.cabal</code> ファイルは目的とするパッケージ群をdependenciesに持つ library だけを持つようにし，project の <code>cabal.project</code> にはそれらのライブラリについて設定すべきフラグを持たせるようにすると，  <code>cabal freeze</code> で <code>cabal.project.freeze</code> がなんかそれっぽいファイルになるのですが，これで合ってるのでしょうか…？ <code>cabal freeze</code> が良い方法なのか，あるいは別の方法があればお教えいただければありがたいです．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1675570222.705579">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1675570222.705579">2023-02-05 13:10:22 +0900</a></div>
+          </div>
+          <div class="description">ざっとcabal-installのドキュメントとソースを確認しただけですけど、 <code>cabal-freeze</code> で特にダメな理由が思いつかないです。<br/>参考 <a href='https://cabal.readthedocs.io/en/stable/cabal-commands.html#cabal-freeze'>https://cabal.readthedocs.io/en/stable/cabal-commands.html#cabal-freeze</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1675580996.666699">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1675580996.666699">2023-02-05 16:09:56 +0900</a></div>
+          </div>
+          <div class="description">なるほど．ありがとうございます．もう一つ質問なのですが， <code>cabal.project</code> 系ファイルの <code>constraint</code> の syntax や parser って cabal-install が internal library として持ってるのでしょうか？<br/><br/><pre>active-repositories: <http://hackage.haskell.org:merge|hackage.haskell.org:merge>
+constraints: any.OneTuple ==0.3.1,
+             any.QuickCheck ==2.14.2,
+             QuickCheck -old-random +templatehaskell,
+             any.StateVar ==1.2.2,
+             any.adjunctions ==4.4.2,
+             any.array ==0.5.4.0,
+             any.assoc ==1.0.2,
+             any.atomic-primops ==0.8.4,
+             atomic-primops -debug,
+.....
+             any.void ==0.7.3,
+             void -safe
+index-state: <http://hackage.haskell.org|hackage.haskell.org> 2023-02-02T00:29:35Z</pre><br/>みたいな出力の <code>any.</code> を説明する文書が見当たらないからどうパースをかけていいかわからなくて…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1675581816.343809">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1675581816.343809">2023-02-05 16:23:36 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://hackage.haskell.org/package/cabal-install-3.8.1.0/docs/Distribution-Client-ProjectConfig.html#t:ProjectConfig'>Distribution.Client.ProjectConfig.ProjectConfig</a> 型はそれっぽいと言えばぽいのですが…．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1675583969.972629">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1675583969.972629">2023-02-05 16:59:29 +0900</a></div>
+          </div>
+          <div class="description">この型のことのようです<br/><a href='https://hackage.haskell.org/package/cabal-install-3.8.1.0/docs/Distribution-Client-Targets.html#t:UserConstraintScope'>https://hackage.haskell.org/package/cabal-install-3.8.1.0/docs/Distribution-Client-Targets.html#t:UserConstraintScope</a><br/>該当する箇所と思しきパーサー<br/><a href='https://github.com/haskell/cabal/blob/3.8/cabal-install/src/Distribution/Client/Targets.hs#L708'>https://github.com/haskell/cabal/blob/3.8/cabal-install/src/Distribution/Client/Targets.hs#L708</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+  </div>
+</body>
+</html>
