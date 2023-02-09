@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #103 at 2023-02-09 19:03:54 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #103 at 2023-02-09 19:03:54 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1675937034.855919">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1675937034.855919">2023-02-09 19:03:54 +0900</a></div>
+          </div>
+          <div class="description">RIOパッケージをbase代替として取り入れています。<br/><code>RIO.Utf8Builder</code> の値を <i>ロギング用途ではなく</i> 標準出力に吐き出すには何を用いるのが良いのでしょうか？<br/>具体的にやりたいこととしては、情報を標準出力に出力するCLIツールを作ろうとしています。<br/>今はとりあえずTextやByteStringに変換した後に <code>putStrLn</code> 等で出力をしているのですが、他により良い方法があったりしますか？<br/><br/>【現状の方法だった場合: ByteStringにするべきかTextにするべきか】<br/>Text or ByteStringへの変換をする場合、どちらの方が良いとかあるでしょうか？それともあまり考えなくて良いのでしょうか<br/>最初は`textDisplay` が用意されていることから、Textを使うべきなのかな？と思っていました。<br/>しかし、`RIO.Utf8Builder`が内部的には <code>Data.ByteString.Builder.Builder</code> を用いているようなのでByteStringの方が良いのかな？とも考えて悩んでいます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1675937141.745839">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1675937141.745839">2023-02-09 19:05:41 +0900</a></div>
+          </div>
+          <div class="description">取り急ぎ。本当にバイナリーデータを出力したいのでなければ <code>ByteString</code> を出力には使わない方がいいです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1675937182.121899">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1675937182.121899">2023-02-09 19:06:22 +0900</a></div>
+          </div>
+          <div class="description"><code>logOptionsHandle</code> でハンドルを変えられるので、これに stdout を渡してやる感じになりますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1675937231.314029">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1675937231.314029">2023-02-09 19:07:11 +0900</a></div>
+          </div>
+          <div class="description">ログ出力じゃないということであれば、Utf8Builder の内側の Builder を取り出して、hPutBuilder stdout などとして直接吐いてやる感じかと思います</div>
+        </div>
+      </div>
+      <div class="event" id="message-1675937293.267479">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1675937293.267479">2023-02-09 19:08:13 +0900</a></div>
+          </div>
+          <div class="description">（まあ、そもそもログ用途ではないということであればわざわざ RIO の Display / Utf8Builder に無理にのっかる必要は特にないかと思います</div>
+        </div>
+      </div>
+      <div class="event" id="message-1675937744.240749">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1675937744.240749">2023-02-09 19:15:44 +0900</a></div>
+          </div>
+          <div class="description">@igrep<br/>ありがとうございます。基本的なこととして頭に入れておこうと思います!<br/><br/>@Hiromi ISHII / mr_konn<br/>ありがとうございます。今回はログ出力ではないので、 Builder を取り出してみようかなと思います。<br/><br/>今回 Utf8Builder を用いているのは、既存のライブラリで定義されているデータ型(具体的には<https://hackage.haskell.org/package/stack-2.9.3/docs/Stack-Prelude.html#t:RawSnapshotLocation|Stack.Prelude.RawSnapshotLocation>等)をテキスト表示したく、Showでは欲しい出力にならなかったためです。それ以外は別段 Utf8Builder を使用する拘りはありません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1675937989.993629">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1675937989.993629">2023-02-09 19:19:49 +0900</a></div>
+          </div>
+          <div class="description">あーなるほど！Displayの結果を使いたいんですね。それならBuilder取り出して使うのが良いと思います。(strictな) ByteStringをテキスト出力に使うのは、エンコーディングに気をつけていればまあ小さいデータとかであればそんなに問題にはならないと思います。大きなデータはBuilderを直接吐き出すか、Lazy ByteString/Lazy Textを使うとかになるかと思います</div>
+        </div>
+      </div>
+      <div class="event" id="message-1675938266.935119">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1675938266.935119">2023-02-09 19:24:26 +0900</a></div>
+          </div>
+          <div class="description">わかりました、ありがとうございます!<br/>今回は小さいデータなので先程教わった方法でやってみようと思います。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -58,5 +58,11 @@
         "type": "message",
         "ts": "1675566381.795629",
         "user": "UL1HFJATE"
+    },
+    {
+        "text": "RIOパッケージをbase代替として取り入れています。\n`RIO.Utf8Builder` の値を _ロギング用途ではなく_ 標準出力に吐き出すには何を用いるのが良いのでしょうか？\n具体的にやりたいこととしては、情報を標準出力に出力するCLIツールを作ろうとしています。\n今はとりあえずTextやByteStringに変換した後に `putStrLn` 等で出力をしているのですが、他により良い方法があったりしますか？\n\n【現状の方法だった場合: ByteStringにするべきかTextにするべきか】\nText or ByteStringへの変換をする場合、どちらの方が良いとかあるでしょうか？それともあまり考えなくて良いのでしょうか\n最初は`textDisplay` が用意されていることから、Textを使うべきなのかな？と思っていました。\nしかし、`RIO.Utf8Builder`が内部的には `Data.ByteString.Builder.Builder` を用いているようなのでByteStringの方が良いのかな？とも考えて悩んでいます。",
+        "type": "message",
+        "ts": "1675937034.855919",
+        "user": "ULTBB86UC"
     }
 ]

@@ -1,0 +1,50 @@
+[
+    {
+        "text": "RIOパッケージをbase代替として取り入れています。\n`RIO.Utf8Builder` の値を _ロギング用途ではなく_ 標準出力に吐き出すには何を用いるのが良いのでしょうか？\n具体的にやりたいこととしては、情報を標準出力に出力するCLIツールを作ろうとしています。\n今はとりあえずTextやByteStringに変換した後に `putStrLn` 等で出力をしているのですが、他により良い方法があったりしますか？\n\n【現状の方法だった場合: ByteStringにするべきかTextにするべきか】\nText or ByteStringへの変換をする場合、どちらの方が良いとかあるでしょうか？それともあまり考えなくて良いのでしょうか\n最初は`textDisplay` が用意されていることから、Textを使うべきなのかな？と思っていました。\nしかし、`RIO.Utf8Builder`が内部的には `Data.ByteString.Builder.Builder` を用いているようなのでByteStringの方が良いのかな？とも考えて悩んでいます。",
+        "type": "message",
+        "ts": "1675937034.855919",
+        "user": "ULTBB86UC"
+    },
+    {
+        "text": "取り急ぎ。本当にバイナリーデータを出力したいのでなければ `ByteString` を出力には使わない方がいいです。",
+        "type": "message",
+        "ts": "1675937141.745839",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "`logOptionsHandle` でハンドルを変えられるので、これに stdout を渡してやる感じになりますね",
+        "type": "message",
+        "ts": "1675937182.121899",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "text": "ログ出力じゃないということであれば、Utf8Builder の内側の Builder を取り出して、hPutBuilder stdout などとして直接吐いてやる感じかと思います",
+        "type": "message",
+        "ts": "1675937231.314029",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "text": "（まあ、そもそもログ用途ではないということであればわざわざ RIO の Display / Utf8Builder に無理にのっかる必要は特にないかと思います",
+        "type": "message",
+        "ts": "1675937293.267479",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "text": "<@U4LGTMTMK>\nありがとうございます。基本的なこととして頭に入れておこうと思います!\n\n<@UK0MXUCAV>\nありがとうございます。今回はログ出力ではないので、 Builder を取り出してみようかなと思います。\n\n今回 Utf8Builder を用いているのは、既存のライブラリで定義されているデータ型(具体的には<https://hackage.haskell.org/package/stack-2.9.3/docs/Stack-Prelude.html#t:RawSnapshotLocation|Stack.Prelude.RawSnapshotLocation>等)をテキスト表示したく、Showでは欲しい出力にならなかったためです。それ以外は別段 Utf8Builder を使用する拘りはありません。",
+        "type": "message",
+        "ts": "1675937744.240749",
+        "user": "ULTBB86UC"
+    },
+    {
+        "text": "あーなるほど！Displayの結果を使いたいんですね。それならBuilder取り出して使うのが良いと思います。(strictな) ByteStringをテキスト出力に使うのは、エンコーディングに気をつけていればまあ小さいデータとかであればそんなに問題にはならないと思います。大きなデータはBuilderを直接吐き出すか、Lazy ByteString/Lazy Textを使うとかになるかと思います",
+        "type": "message",
+        "ts": "1675937989.993629",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "text": "わかりました、ありがとうございます!\n今回は小さいデータなので先程教わった方法でやってみようと思います。",
+        "type": "message",
+        "ts": "1675938266.935119",
+        "user": "ULTBB86UC"
+    }
+]
