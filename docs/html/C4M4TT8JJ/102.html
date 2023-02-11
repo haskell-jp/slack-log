@@ -49,6 +49,32 @@
           <div class="description">Core Libraries Committee ってのができて CLC proposal 何番っていうふうに管理されるようになったんですね<br/>（GHC 9.6 移行案内を見てた<br/><a href='https://github.com/haskell/core-libraries-committee'>https://github.com/haskell/core-libraries-committee</a></div>
         </div>
       </div>
+      <div class="event" id="message-1676082832.861029">
+        <div class="content">
+          <div class="summary">
+            <div class="user">takenobu.hs</div>
+            <div class="date"><a class="date" href="#message-1676082832.861029">2023-02-11 11:33:52 +0900</a></div>
+          </div>
+          <div class="description">ghc 9.2.6 がリリースされています:haskell:<br/>（問題なければ、これがghc 9.2系の最終になる予定とのこと）<br/><a href='https://discourse.haskell.org/t/ghc-9-2-6-is-now-available/5782'>https://discourse.haskell.org/t/ghc-9-2-6-is-now-available/5782</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1676089993.689759">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1676089993.689759">2023-02-11 13:33:13 +0900</a></div>
+          </div>
+          <div class="description">今週末くらいから、GitHub Action の Ubuntu shared runner 内で <code>haskell/actions/setup</code> が動かなくなっています（参考リンク<https://github.com/haskell/actions/issues/187|1>, <a href='https://github.com/actions/runner-images/pull/7068'>2</a>, <a href='https://discourse.haskell.org/t/incident-github-actions-ci-failure-ghcup/5761'>3</a>）。runner 用イメージ内での ghcup のパーミッションの設定が問題のようで、ghcup の作者の方が修正に向けて動きだしています。コンテナ内でアクションを実行している場合は問題なく動くようです（setup アクションがサポートしている環境であれば、の話）。<br/>一、二週間程度かかるかもしれないとのことで、それまでの間は <a href='https://github.com/haskell/actions/issues/187'>https://github.com/haskell/actions/issues/187</a> で紹介されているように、setup 前に以下のようなコマンドを追加しておけば当座は動くようです：<br/><br/><pre>    steps:
+      ...
+      - name: Workaround runner image issue
+        if: ${{ runner.os == 'Linux' }}
+        # <https://github.com/actions/runner-images/issues/7061>
+        run: sudo chown -R "${USER}" /usr/local/.ghcup
+      - uses: haskell/actions/setup@v2
+        with:
+          ghc-version: 9.0.2</pre></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C4M4TT8JJ/101.html" class="item">Previous</a>

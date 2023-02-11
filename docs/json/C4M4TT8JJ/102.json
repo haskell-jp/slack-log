@@ -22,5 +22,17 @@
         "type": "message",
         "ts": "1676032614.754439",
         "user": "U4L0B71L1"
+    },
+    {
+        "text": "ghc 9.2.6 がリリースされています:haskell:\n（問題なければ、これがghc 9.2系の最終になる予定とのこと）\n<https://discourse.haskell.org/t/ghc-9-2-6-is-now-available/5782>",
+        "type": "message",
+        "ts": "1676082832.861029",
+        "user": "U55V441FS"
+    },
+    {
+        "text": "今週末くらいから、GitHub Action の Ubuntu shared runner 内で `haskell/actions/setup` が動かなくなっています（参考リンク<https://github.com/haskell/actions/issues/187|1>, <https://github.com/actions/runner-images/pull/7068|2>, <https://discourse.haskell.org/t/incident-github-actions-ci-failure-ghcup/5761|3>）。runner 用イメージ内での ghcup のパーミッションの設定が問題のようで、ghcup の作者の方が修正に向けて動きだしています。コンテナ内でアクションを実行している場合は問題なく動くようです（setup アクションがサポートしている環境であれば、の話）。\n一、二週間程度かかるかもしれないとのことで、それまでの間は <https://github.com/haskell/actions/issues/187> で紹介されているように、setup 前に以下のようなコマンドを追加しておけば当座は動くようです：\n\n```    steps:\n      ...\n      - name: Workaround runner image issue\n        if: ${{ runner.os == 'Linux' }}\n        # <https://github.com/actions/runner-images/issues/7061>\n        run: sudo chown -R \"${USER}\" /usr/local/.ghcup\n      - uses: haskell/actions/setup@v2\n        with:\n          ghc-version: 9.0.2```",
+        "type": "message",
+        "ts": "1676089993.689759",
+        "user": "UK0MXUCAV"
     }
 ]
