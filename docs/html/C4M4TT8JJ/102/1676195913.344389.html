@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #102 at 2023-02-12 18:58:33 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #102 at 2023-02-12 18:58:33 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to random #102</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1676195913.344389">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1676195913.344389">2023-02-12 18:58:33 +0900</a></div>
+          </div>
+          <div class="description">baseパッケージだけで <code>PATH</code> 環境変数に入ったパスを分割する、横着なワンライナーを考えました<br/><pre>mapM_ print . filter (/= ";") . groupBy (\a b -&gt; a /= ';' &amp;&amp; b /= ';') =&lt;&lt; getEnv "PATH"</pre><br/>Windows上でやったので <code>PATH</code> の区切りがセミコロンになっている点に注意</div>
+        </div>
+      </div>
+      <div class="event" id="message-1676196144.557619">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1676196144.557619">2023-02-12 19:02:24 +0900</a></div>
+          </div>
+          <div class="description">splitパッケージや、textパッケージの <code>splitOn</code> を使わず、 <code>groupBy</code> で済ませているのがポイント</div>
+        </div>
+      </div>
+      <div class="event" id="message-1676211335.960189">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1676211335.960189">2023-02-12 23:15:35 +0900</a></div>
+          </div>
+          <div class="description"><code>;</code> (あるいは <code>:</code>) を <code>\n</code> に置換して lines したほうが素直そうだなあ、と思ってしまいました^^<br/><pre>mapM_ print . lines . map (\case {':' -&gt; '\n'; x -&gt; x}) =&lt;&lt; getEnv "PATH"</pre><br/>LambdaCase つかっていますが^^;</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to random #102</a>
+    </div>
+  </div>
+</body>
+</html>
