@@ -1,0 +1,26 @@
+[
+    {
+        "text": "GHC 9からTemplate Haskellでinstanceを定義する時に相互参照が出来なくなってコンパイルが通らなくなったという問題を抱えているのですが、この破壊的変更がどこかにまとまってる場所や、より良い回避方法を知っている方は居ますか?\n具体的にどういうことが起きているのかは自分のサイトに書きました。\n<https://www.ncaq.net/2023/02/21/01/48/48/|GHC 9からTemplate Haskellでinstanceを定義する時に相互参照が出来なくなった - ncaq>",
+        "type": "message",
+        "ts": "1676912908.924149",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "```$(concat &lt;$&gt; mapM deriveSchema [''VerbInstance, ''ModifierInstance, ''Synset])```\nみたいに括弧で括ればある程度の循環参照はいけそうかなという感じになりました。",
+        "type": "message",
+        "ts": "1676919581.319109",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "text": "Migration Guideのこの辺ですかね <https://gitlab.haskell.org/ghc/ghc/-/wikis/migration/9.0#the-order-of-th-splices-is-more-important|https://gitlab.haskell.org/ghc/ghc/-/wikis/migration/9.0#the-order-of-th-splices-is-more-important>",
+        "type": "message",
+        "ts": "1676939177.871709",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "text": "ありがとうございます!\nはっきり非互換変更があったのですね!",
+        "type": "message",
+        "ts": "1676963822.708269",
+        "user": "U57CUMWQ6"
+    }
+]
