@@ -1,38 +1,38 @@
 [
     {
-        "text": "現在の提案 (2023/01/22):\n• GHC: `9.4.4`\n• 提案追加パッケージ\n    ◦ `regex-tdfa`\n    ◦ `exception`, `safe-exception` (<@UL1HFJATE>)\n    ◦ `linear-base` (<@UL5PAB0F9>)\n    ◦ `bitvec` (<@UL1HFJATE>)\n• 提案削除パッケージ\n    ◦ `repa`\nで今日のもくもく会で仮想環境ビルドを試してみたいと思います．",
         "type": "message",
+        "user": "UL1HFJATE",
         "ts": "1674359451.004789",
-        "user": "UL1HFJATE"
+        "text": "現在の提案 (2023/01/22):\n• GHC: `9.4.4`\n• 提案追加パッケージ\n    ◦ `regex-tdfa`\n    ◦ `exception`, `safe-exception` (<@UL1HFJATE>)\n    ◦ `linear-base` (<@UL5PAB0F9>)\n    ◦ `bitvec` (<@UL1HFJATE>)\n• 提案削除パッケージ\n    ◦ `repa`\nで今日のもくもく会で仮想環境ビルドを試してみたいと思います．"
     },
     {
-        "text": "とりあえず version指定なしで `cabal install &lt;packages&gt;` が通ることだけは確認しました．あとはimport だけが大量についた source file を作ってそのビルドが通ることを確認することになりますが，これどうやって作るんだ…？ 手作業…？",
         "type": "message",
+        "user": "UL1HFJATE",
         "ts": "1674386752.845559",
-        "user": "UL1HFJATE"
+        "text": "とりあえず version指定なしで `cabal install &lt;packages&gt;` が通ることだけは確認しました．あとはimport だけが大量についた source file を作ってそのビルドが通ることを確認することになりますが，これどうやって作るんだ…？ 手作業…？"
     },
     {
-        "text": "hackageのAPIでとってくるとかですかね。\nexposedモジュールを直接とってくるのはできなさそうなんで，\n/package/:package/:cabal.cabal からExposed-Modulesを抜き出すとかかな\n<https://hackage.haskell.org/api>",
         "type": "message",
+        "user": "UL5PAB0F9",
         "ts": "1674445690.209199",
-        "user": "UL5PAB0F9"
+        "text": "hackageのAPIでとってくるとかですかね。\nexposedモジュールを直接とってくるのはできなさそうなんで，\n/package/:package/:cabal.cabal からExposed-Modulesを抜き出すとかかな\n<https://hackage.haskell.org/api>"
     },
     {
-        "text": "そりゃそうか。 ありがとうございます、気が付かなかった！ あとは、Cabal-the-libraryが.cabalのparserをexposeしてくれてれば完璧なんですが、どうなってるかな…",
         "type": "message",
+        "user": "UL1HFJATE",
         "ts": "1674446311.091679",
-        "user": "UL1HFJATE"
+        "text": "そりゃそうか。 ありがとうございます、気が付かなかった！ あとは、Cabal-the-libraryが.cabalのparserをexposeしてくれてれば完璧なんですが、どうなってるかな…"
     },
     {
-        "text": "見に行ってみます",
         "type": "message",
+        "user": "UL1HFJATE",
         "ts": "1674446320.976369",
-        "user": "UL1HFJATE"
+        "text": "見に行ってみます"
     },
     {
-        "text": "<@UL5PAB0F9> あ，今更ですが，なんとかなりました．あありがとうございます！",
         "type": "message",
+        "user": "UL1HFJATE",
         "ts": "1675566141.026919",
-        "user": "UL1HFJATE"
+        "text": "<@UL5PAB0F9> あ，今更ですが，なんとかなりました．あありがとうございます！"
     }
 ]

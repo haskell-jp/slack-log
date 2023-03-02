@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #102 at 2023-02-13 16:56:03 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #102 at 2023-02-13 16:56:03 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to random #102</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1676274963.934119">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1676274963.934119">2023-02-13 16:56:03 +0900</a></div>
+          </div>
+          <div class="description">DeepFlow 社内で開発して2年ほど使っていた、Haskell 製巨大モノレポの依存関係チェックツール guardian を OSS 化したので宣伝させてください。<br/><br/><a href='https://github.com/deepflowinc/guardian'>https://github.com/deepflowinc/guardian</a><br/><br/>大量のパッケージから成るモノレポで開発を進めていると、不用意にパッケージ間の依存関係を増やした結果不必要にビルドに時間がかかってしまい、ちょっとした変更でもビルドに時間がかかってイテレーションが阻害される、という事がしばしばあります。<br/>guardian はパッケージを複数のグループ（ドメイン）に分けて、予め指定されたグループ間の依存関係以外を発見すると警告してくれる、というツールです。stackベースと cabal-install ベースのプロジェクトに対応しています。<br/>CI で手軽に呼ぶためのビルド済バイナリや、GitHub Action も用意しています。<br/><br/>詳細は以下の記事で紹介させて頂いておりますので、巨大 Haskell モノレポの依存関係の管理にお悩みの方のお役に立てれば幸いです:pray:<br/><br/><a href='https://zenn.dev/deepflow_tech/articles/secure-haskell-monorepo-deps-with-guardian'>https://zenn.dev/deepflow_tech/articles/secure-haskell-monorepo-deps-with-guardian</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1677202026.175889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1677202026.175889">2023-02-24 10:27:06 +0900</a></div>
+          </div>
+          <div class="description">highlevel だけが、型クラスを定義して提供するのですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1677202097.491879">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1677202097.491879">2023-02-24 10:28:17 +0900</a></div>
+          </div>
+          <div class="description">場合によりますね。ここでは説明のために単純化して示しているので、実際にはプロジェクトの目的・構造に応じて取り決める形です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1677202250.024559">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1677202250.024559">2023-02-24 10:30:50 +0900</a></div>
+          </div>
+          <div class="description">highlevelの役割は、APIを定義し、提供することですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1677202389.703449">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1677202389.703449">2023-02-24 10:33:09 +0900</a></div>
+          </div>
+          <div class="description">上の例では基本的にそういうことですね。記事で書いているように、<br/><blockquote>•  <code>highlevel</code>: バックエンドや方程式系、プラグインなどの高水準な抽象化</blockquote>がこの例での highlevel の役割です（これ以上詳しい説明はプロジェクトの詳細に立ち入ることになるのでご容赦ください）。<br/>繰り返しになりますが、ドメインの一覧は決め打ちではないので、プロジェクトごとに適切なドメインの集合とトポロジーを定義することになります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1677202460.774709">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1677202460.774709">2023-02-24 10:34:20 +0900</a></div>
+          </div>
+          <div class="description">highlevelで型クラスを定義して、lowlevelで実装をして、solverでくっつけると、orphan instance になりませんか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1677202499.879809">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1677202499.879809">2023-02-24 10:34:59 +0900</a></div>
+          </div>
+          <div class="description">ならないですね。ソルバで使うバックエンドの lowlevel な定義のところでインスタンスを定義するので。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1677202534.551429">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1677202534.551429">2023-02-24 10:35:34 +0900</a></div>
+          </div>
+          <div class="description">実装が抽象に依存できるので</div>
+        </div>
+      </div>
+      <div class="event" id="message-1677202662.280539">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1677202662.280539">2023-02-24 10:37:42 +0900</a></div>
+          </div>
+          <div class="description">見直すとたしかにちょっと階層図が不完全ですね。単純化の過程でちょっと抜けてました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1677202669.484769">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1677202669.484769">2023-02-24 10:37:49 +0900</a></div>
+          </div>
+          <div class="description">Orphan インスタンスを極力さけよう、というのは Haskell の基本的なプラクティスなので、そういった状況をある程度避けるように階層は設計することになります</div>
+        </div>
+      </div>
+      <div class="event" id="message-1677202675.810939">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1677202675.810939">2023-02-24 10:37:55 +0900</a></div>
+          </div>
+          <div class="description">うーん。それだと lowlevel から highlevel への (型クラスを使う)矢印が抜けていることになりませんか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1677202711.947169">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1677202711.947169">2023-02-24 10:38:31 +0900</a></div>
+          </div>
+          <div class="description">入れ違いになりました。不完全というのであれば、理解できます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1677202770.424739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1677202770.424739">2023-02-24 10:39:30 +0900</a></div>
+          </div>
+          <div class="description">弱い依存関係があると理解しておきます。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to random #102</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,56 +1,56 @@
 [
     {
-        "text": "<https://haskell-jp.slack.com/archives/CL3AXB1AL/p1675402815431589> （at <#CL3AXB1AL|atcoder-lang-update>)\n&gt; がんばりました。直接installしていない物も含む、全transitive dependencyのライセンスのリスト:　<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=E5>\nこの件で，あるパッケージ群の全transitive dependenciesからlicenseを取ってくる作業をしたのですが，私の知識の範囲でできる限り車輪の再開発を避けて:\n1. cabal-installにdependencyを解いてもらい，\n2. それをもとにHackage API を叩いて `.cabal` ファイルをもらってくる，\n3.  `Cabal-syntax` パッケージを使ってその `.cabal` ファイルをパースしてライセンス情報を取る\nみたいな手段を取りました．この1.に関して質問させてください．\n\nここでやりたいことは，「ビルドやインストールはしなくていいけど，現環境から見た，既ビルドのものも含めた全transitive dependenciesのリストが欲しい」ということになります．このために今回は結構乱暴な手段を取りました．Docker環境があったので，まっさらなGHC+Cabalをghcupでインストールしたのち，対象のパッケージ群を全部 `cabal install --lib` して `ghc-pkg　list` でインストールされている全パッケージのリストを取ってきたのです．しかし，これでは余計なパッケージまで見ている気がしますし，もうちょっとなんとかならんのか，という気がします．\n\n色々いじっていると，適当に一個だけcabal packageを持つcabal projectを作り，Cabal packageの `.cabal` ファイルは目的とするパッケージ群をdependenciesに持つ library だけを持つようにし，project の `cabal.project` にはそれらのライブラリについて設定すべきフラグを持たせるようにすると，  `cabal freeze` で `cabal.project.freeze` がなんかそれっぽいファイルになるのですが，これで合ってるのでしょうか…？ `cabal freeze` が良い方法なのか，あるいは別の方法があればお教えいただければありがたいです．",
         "type": "message",
+        "user": "UL1HFJATE",
         "ts": "1675566381.795629",
-        "user": "UL1HFJATE"
+        "text": "<https://haskell-jp.slack.com/archives/CL3AXB1AL/p1675402815431589> （at <#CL3AXB1AL|atcoder-lang-update>)\n&gt; がんばりました。直接installしていない物も含む、全transitive dependencyのライセンスのリスト:　<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=E5>\nこの件で，あるパッケージ群の全transitive dependenciesからlicenseを取ってくる作業をしたのですが，私の知識の範囲でできる限り車輪の再開発を避けて:\n1. cabal-installにdependencyを解いてもらい，\n2. それをもとにHackage API を叩いて `.cabal` ファイルをもらってくる，\n3.  `Cabal-syntax` パッケージを使ってその `.cabal` ファイルをパースしてライセンス情報を取る\nみたいな手段を取りました．この1.に関して質問させてください．\n\nここでやりたいことは，「ビルドやインストールはしなくていいけど，現環境から見た，既ビルドのものも含めた全transitive dependenciesのリストが欲しい」ということになります．このために今回は結構乱暴な手段を取りました．Docker環境があったので，まっさらなGHC+Cabalをghcupでインストールしたのち，対象のパッケージ群を全部 `cabal install --lib` して `ghc-pkg　list` でインストールされている全パッケージのリストを取ってきたのです．しかし，これでは余計なパッケージまで見ている気がしますし，もうちょっとなんとかならんのか，という気がします．\n\n色々いじっていると，適当に一個だけcabal packageを持つcabal projectを作り，Cabal packageの `.cabal` ファイルは目的とするパッケージ群をdependenciesに持つ library だけを持つようにし，project の `cabal.project` にはそれらのライブラリについて設定すべきフラグを持たせるようにすると，  `cabal freeze` で `cabal.project.freeze` がなんかそれっぽいファイルになるのですが，これで合ってるのでしょうか…？ `cabal freeze` が良い方法なのか，あるいは別の方法があればお教えいただければありがたいです．"
     },
     {
-        "text": "ざっとcabal-installのドキュメントとソースを確認しただけですけど、 `cabal-freeze` で特にダメな理由が思いつかないです。\n参考 <https://cabal.readthedocs.io/en/stable/cabal-commands.html#cabal-freeze>",
         "type": "message",
+        "user": "U4LGTMTMK",
         "ts": "1675570222.705579",
-        "user": "U4LGTMTMK"
+        "text": "ざっとcabal-installのドキュメントとソースを確認しただけですけど、 `cabal-freeze` で特にダメな理由が思いつかないです。\n参考 <https://cabal.readthedocs.io/en/stable/cabal-commands.html#cabal-freeze>"
     },
     {
-        "text": "なるほど．ありがとうございます．もう一つ質問なのですが， `cabal.project` 系ファイルの `constraint` の syntax や parser って cabal-install が internal library として持ってるのでしょうか？\n\n```active-repositories: <http://hackage.haskell.org:merge|hackage.haskell.org:merge>\nconstraints: any.OneTuple ==0.3.1,\n             any.QuickCheck ==2.14.2,\n             QuickCheck -old-random +templatehaskell,\n             any.StateVar ==1.2.2,\n             any.adjunctions ==4.4.2,\n             any.array ==0.5.4.0,\n             any.assoc ==1.0.2,\n             any.atomic-primops ==0.8.4,\n             atomic-primops -debug,\n.....\n             any.void ==0.7.3,\n             void -safe\nindex-state: <http://hackage.haskell.org|hackage.haskell.org> 2023-02-02T00:29:35Z```\nみたいな出力の `any.` を説明する文書が見当たらないからどうパースをかけていいかわからなくて…",
         "type": "message",
+        "user": "UL1HFJATE",
         "ts": "1675580996.666699",
-        "user": "UL1HFJATE"
+        "text": "なるほど．ありがとうございます．もう一つ質問なのですが， `cabal.project` 系ファイルの `constraint` の syntax や parser って cabal-install が internal library として持ってるのでしょうか？\n\n```active-repositories: <http://hackage.haskell.org:merge|hackage.haskell.org:merge>\nconstraints: any.OneTuple ==0.3.1,\n             any.QuickCheck ==2.14.2,\n             QuickCheck -old-random +templatehaskell,\n             any.StateVar ==1.2.2,\n             any.adjunctions ==4.4.2,\n             any.array ==0.5.4.0,\n             any.assoc ==1.0.2,\n             any.atomic-primops ==0.8.4,\n             atomic-primops -debug,\n.....\n             any.void ==0.7.3,\n             void -safe\nindex-state: <http://hackage.haskell.org|hackage.haskell.org> 2023-02-02T00:29:35Z```\nみたいな出力の `any.` を説明する文書が見当たらないからどうパースをかけていいかわからなくて…"
     },
     {
-        "text": "<https://hackage.haskell.org/package/cabal-install-3.8.1.0/docs/Distribution-Client-ProjectConfig.html#t:ProjectConfig|Distribution.Client.ProjectConfig.ProjectConfig> 型はそれっぽいと言えばぽいのですが…．",
         "type": "message",
+        "user": "UL1HFJATE",
         "ts": "1675581816.343809",
-        "user": "UL1HFJATE"
+        "text": "<https://hackage.haskell.org/package/cabal-install-3.8.1.0/docs/Distribution-Client-ProjectConfig.html#t:ProjectConfig|Distribution.Client.ProjectConfig.ProjectConfig> 型はそれっぽいと言えばぽいのですが…．"
     },
     {
-        "text": "この型のことのようです\n<https://hackage.haskell.org/package/cabal-install-3.8.1.0/docs/Distribution-Client-Targets.html#t:UserConstraintScope>\n該当する箇所と思しきパーサー\n<https://github.com/haskell/cabal/blob/3.8/cabal-install/src/Distribution/Client/Targets.hs#L708>",
         "type": "message",
+        "user": "U4LGTMTMK",
         "ts": "1675583969.972629",
-        "user": "U4LGTMTMK"
+        "text": "この型のことのようです\n<https://hackage.haskell.org/package/cabal-install-3.8.1.0/docs/Distribution-Client-Targets.html#t:UserConstraintScope>\n該当する箇所と思しきパーサー\n<https://github.com/haskell/cabal/blob/3.8/cabal-install/src/Distribution/Client/Targets.hs#L708>"
     },
     {
-        "text": "この辺の情報は plan.json に書き出されていて、cabal-plan というツールを使うとこいつをパーズして色々とってこれます。stack dot に対応する cabal-plan dot とかすると Graphviz の dot ファイルをはいてくれたりしますね",
         "type": "message",
+        "user": "UK0MXUCAV",
         "ts": "1675591538.480759",
-        "user": "UK0MXUCAV"
+        "text": "この辺の情報は plan.json に書き出されていて、cabal-plan というツールを使うとこいつをパーズして色々とってこれます。stack dot に対応する cabal-plan dot とかすると Graphviz の dot ファイルをはいてくれたりしますね"
     },
     {
-        "text": "cabal-plan license-report が欲しかった機能そのものですかね：\n \n<https://hackage.haskell.org/package/cabal-plan|https://hackage.haskell.org/package/cabal-plan>\n\nstackベースのプロジェクトだと、licensorというのがライセンスリポートを作ってくれたりします",
         "type": "message",
+        "user": "UK0MXUCAV",
         "ts": "1675591690.570469",
-        "user": "UK0MXUCAV"
+        "text": "cabal-plan license-report が欲しかった機能そのものですかね：\n \n<https://hackage.haskell.org/package/cabal-plan|https://hackage.haskell.org/package/cabal-plan>\n\nstackベースのプロジェクトだと、licensorというのがライセンスリポートを作ってくれたりします"
     },
     {
-        "text": "<@UK0MXUCAV> 試してみましたが，まさにそのまんまですね！ 作業が楽になります．ありがとうございます！",
         "type": "message",
+        "user": "UL1HFJATE",
         "ts": "1675660479.833339",
-        "user": "UL1HFJATE"
+        "text": "<@UK0MXUCAV> 試してみましたが，まさにそのまんまですね！ 作業が楽になります．ありがとうございます！"
     },
     {
-        "text": "<@U4LGTMTMK> おかげさまでだんだんわかってきました！ 結局完全に理解できているとは言い難いのですが，取りあえず `any.` がついてる限りは気にしないでよさそうだ，ということはわかってきました．今回は `cabal-plan` を使えばよさそうですが，参考になりました！ ありがとうございます！",
         "type": "message",
+        "user": "UL1HFJATE",
         "ts": "1675661340.382509",
-        "user": "UL1HFJATE"
+        "text": "<@U4LGTMTMK> おかげさまでだんだんわかってきました！ 結局完全に理解できているとは言い難いのですが，取りあえず `any.` がついてる限りは気にしないでよさそうだ，ということはわかってきました．今回は `cabal-plan` を使えばよさそうですが，参考になりました！ ありがとうございます！"
     }
 ]

@@ -1,20 +1,20 @@
 [
     {
-        "text": "baseパッケージだけで `PATH` 環境変数に入ったパスを分割する、横着なワンライナーを考えました\n```mapM_ print . filter (/= \";\") . groupBy (\\a b -&gt; a /= ';' &amp;&amp; b /= ';') =&lt;&lt; getEnv \"PATH\"```\nWindows上でやったので `PATH` の区切りがセミコロンになっている点に注意",
         "type": "message",
+        "user": "U4LGTMTMK",
         "ts": "1676195913.344389",
-        "user": "U4LGTMTMK"
+        "text": "baseパッケージだけで `PATH` 環境変数に入ったパスを分割する、横着なワンライナーを考えました\n```mapM_ print . filter (/= \";\") . groupBy (\\a b -&gt; a /= ';' &amp;&amp; b /= ';') =&lt;&lt; getEnv \"PATH\"```\nWindows上でやったので `PATH` の区切りがセミコロンになっている点に注意"
     },
     {
-        "text": "splitパッケージや、textパッケージの `splitOn` を使わず、 `groupBy` で済ませているのがポイント",
         "type": "message",
+        "user": "U4LGTMTMK",
         "ts": "1676196144.557619",
-        "user": "U4LGTMTMK"
+        "text": "splitパッケージや、textパッケージの `splitOn` を使わず、 `groupBy` で済ませているのがポイント"
     },
     {
-        "text": "`;` (あるいは `:`) を `\\n` に置換して lines したほうが素直そうだなあ、と思ってしまいました^^\n```mapM_ print . lines . map (\\case {':' -&gt; '\\n'; x -&gt; x}) =&lt;&lt; getEnv \"PATH\"```\nLambdaCase つかっていますが^^;",
         "type": "message",
+        "user": "UF8SE896V",
         "ts": "1676211335.960189",
-        "user": "UF8SE896V"
+        "text": "`;` (あるいは `:`) を `\\n` に置換して lines したほうが素直そうだなあ、と思ってしまいました^^\n```mapM_ print . lines . map (\\case {':' -&gt; '\\n'; x -&gt; x}) =&lt;&lt; getEnv \"PATH\"```\nLambdaCase つかっていますが^^;"
     }
 ]

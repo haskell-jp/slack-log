@@ -1,62 +1,92 @@
 [
     {
-        "text": "<@U04MBBNV5QB> has joined the channel",
         "type": "message",
+        "user": "U04MBBNV5QB",
         "ts": "1675174781.138779",
-        "user": "U04MBBNV5QB"
+        "text": "<@U04MBBNV5QB> has joined the channel"
     },
     {
-        "text": "Reminder: [定期] 現在の主要なチャンネルは :point_down: のとおりです。 - <#C5666B6BB|questions> : Haskellについてのお悩み相談 :thought_balloon: はこちら - <#CR2TETE5R|beginners> : 初心者 :beginner: 向けのより安心・より気軽なQ&amp;A用チャンネル - <#C4M4TT8JJ|random> : 見つけたHaskellに関する情報、アナウンス、その他何でも :ok: - <#CR4U9PBLL|english-help> : 英語 :uk: で困ったときの駆け込み寺 - <#C4NDY2TF1|event-announcement> : :tada: Haskellに関するイベントを開催するときはこちらにリンクを張ってください - その他のChannelは「Channels」の右にある :heavy_plus_sign: ボタン -&gt; 「Browse channels」から探してみましょう！",
         "type": "message",
+        "user": "USLACKBOT",
         "ts": "1675209615.125619",
-        "user": "USLACKBOT"
+        "text": "Reminder: [定期] 現在の主要なチャンネルは :point_down: のとおりです。 - <#C5666B6BB|questions> : Haskellについてのお悩み相談 :thought_balloon: はこちら - <#CR2TETE5R|beginners> : 初心者 :beginner: 向けのより安心・より気軽なQ&amp;A用チャンネル - <#C4M4TT8JJ|random> : 見つけたHaskellに関する情報、アナウンス、その他何でも :ok: - <#CR4U9PBLL|english-help> : 英語 :uk: で困ったときの駆け込み寺 - <#C4NDY2TF1|event-announcement> : :tada: Haskellに関するイベントを開催するときはこちらにリンクを張ってください - その他のChannelは「Channels」の右にある :heavy_plus_sign: ボタン -&gt; 「Browse channels」から探してみましょう！"
     },
     {
-        "text": "今週のHaskell Weeklyから。GHC 9.6.x Migration Guide\n <https://gitlab.haskell.org/ghc/ghc/-/wikis/migration/9.6>",
         "type": "message",
+        "user": "U4LGTMTMK",
         "ts": "1675983510.195949",
-        "user": "U4LGTMTMK"
+        "text": "今週のHaskell Weeklyから。GHC 9.6.x Migration Guide\n <https://gitlab.haskell.org/ghc/ghc/-/wikis/migration/9.6>"
     },
     {
-        "text": "Core Libraries Committee ってのができて CLC proposal 何番っていうふうに管理されるようになったんですね\n（GHC 9.6 移行案内を見てた\n<https://github.com/haskell/core-libraries-committee>",
         "type": "message",
+        "user": "U4L0B71L1",
         "ts": "1676032614.754439",
-        "user": "U4L0B71L1"
+        "text": "Core Libraries Committee ってのができて CLC proposal 何番っていうふうに管理されるようになったんですね\n（GHC 9.6 移行案内を見てた\n<https://github.com/haskell/core-libraries-committee>"
     },
     {
-        "text": "ghc 9.2.6 がリリースされています:haskell:\n（問題なければ、これがghc 9.2系の最終になる予定とのこと）\n<https://discourse.haskell.org/t/ghc-9-2-6-is-now-available/5782>",
         "type": "message",
+        "user": "U55V441FS",
         "ts": "1676082832.861029",
-        "user": "U55V441FS"
+        "text": "ghc 9.2.6 がリリースされています:haskell:\n（問題なければ、これがghc 9.2系の最終になる予定とのこと）\n<https://discourse.haskell.org/t/ghc-9-2-6-is-now-available/5782>"
     },
     {
-        "text": "今週末くらいから、GitHub Action の Ubuntu shared runner 内で `haskell/actions/setup` が動かなくなっています（参考リンク<https://github.com/haskell/actions/issues/187|1>, <https://github.com/actions/runner-images/pull/7068|2>, <https://discourse.haskell.org/t/incident-github-actions-ci-failure-ghcup/5761|3>）。runner 用イメージ内での ghcup のパーミッションの設定が問題のようで、ghcup の作者の方が修正に向けて動きだしています。コンテナ内でアクションを実行している場合は問題なく動くようです（setup アクションがサポートしている環境であれば、の話）。\n一、二週間程度かかるかもしれないとのことで、それまでの間は <https://github.com/haskell/actions/issues/187> で紹介されているように、setup 前に以下のようなコマンドを追加しておけば当座は動くようです：\n\n```    steps:\n      ...\n      - name: Workaround runner image issue\n        if: ${{ runner.os == 'Linux' }}\n        # <https://github.com/actions/runner-images/issues/7061>\n        run: sudo chown -R \"${USER}\" /usr/local/.ghcup\n      - uses: haskell/actions/setup@v2\n        with:\n          ghc-version: 9.0.2```",
         "type": "message",
+        "user": "UK0MXUCAV",
         "ts": "1676089993.689759",
-        "user": "UK0MXUCAV"
+        "text": "今週末くらいから、GitHub Action の Ubuntu shared runner 内で `haskell/actions/setup` が動かなくなっています（参考リンク<https://github.com/haskell/actions/issues/187|1>, <https://github.com/actions/runner-images/pull/7068|2>, <https://discourse.haskell.org/t/incident-github-actions-ci-failure-ghcup/5761|3>）。runner 用イメージ内での ghcup のパーミッションの設定が問題のようで、ghcup の作者の方が修正に向けて動きだしています。コンテナ内でアクションを実行している場合は問題なく動くようです（setup アクションがサポートしている環境であれば、の話）。\n一、二週間程度かかるかもしれないとのことで、それまでの間は <https://github.com/haskell/actions/issues/187> で紹介されているように、setup 前に以下のようなコマンドを追加しておけば当座は動くようです：\n\n```    steps:\n      ...\n      - name: Workaround runner image issue\n        if: ${{ runner.os == 'Linux' }}\n        # <https://github.com/actions/runner-images/issues/7061>\n        run: sudo chown -R \"${USER}\" /usr/local/.ghcup\n      - uses: haskell/actions/setup@v2\n        with:\n          ghc-version: 9.0.2```"
     },
     {
-        "text": "<@U04NS1ZNSJK> has joined the channel",
         "type": "message",
+        "user": "U04NS1ZNSJK",
         "ts": "1676140328.364539",
-        "user": "U04NS1ZNSJK"
+        "text": "<@U04NS1ZNSJK> has joined the channel"
     },
     {
-        "text": "baseパッケージだけで `PATH` 環境変数に入ったパスを分割する、横着なワンライナーを考えました\n```mapM_ print . filter (/= \";\") . groupBy (\\a b -&gt; a /= ';' &amp;&amp; b /= ';') =&lt;&lt; getEnv \"PATH\"```\nWindows上でやったので `PATH` の区切りがセミコロンになっている点に注意",
         "type": "message",
+        "user": "U4LGTMTMK",
         "ts": "1676195913.344389",
-        "user": "U4LGTMTMK"
+        "text": "baseパッケージだけで `PATH` 環境変数に入ったパスを分割する、横着なワンライナーを考えました\n```mapM_ print . filter (/= \";\") . groupBy (\\a b -&gt; a /= ';' &amp;&amp; b /= ';') =&lt;&lt; getEnv \"PATH\"```\nWindows上でやったので `PATH` の区切りがセミコロンになっている点に注意"
     },
     {
-        "text": "<@U04P4FYK221> has joined the channel",
         "type": "message",
+        "user": "U04P4FYK221",
         "ts": "1676196208.681559",
-        "user": "U04P4FYK221"
+        "text": "<@U04P4FYK221> has joined the channel"
     },
     {
-        "text": "DeepFlow 社内で開発して2年ほど使っていた、Haskell 製巨大モノレポの依存関係チェックツール guardian を OSS 化したので宣伝させてください。\n\n<https://github.com/deepflowinc/guardian>\n\n大量のパッケージから成るモノレポで開発を進めていると、不用意にパッケージ間の依存関係を増やした結果不必要にビルドに時間がかかってしまい、ちょっとした変更でもビルドに時間がかかってイテレーションが阻害される、という事がしばしばあります。\nguardian はパッケージを複数のグループ（ドメイン）に分けて、予め指定されたグループ間の依存関係以外を発見すると警告してくれる、というツールです。stackベースと cabal-install ベースのプロジェクトに対応しています。\nCI で手軽に呼ぶためのビルド済バイナリや、GitHub Action も用意しています。\n\n詳細は以下の記事で紹介させて頂いておりますので、巨大 Haskell モノレポの依存関係の管理にお悩みの方のお役に立てれば幸いです:pray:\n\n<https://zenn.dev/deepflow_tech/articles/secure-haskell-monorepo-deps-with-guardian>",
         "type": "message",
+        "user": "UK0MXUCAV",
         "ts": "1676274963.934119",
-        "user": "UK0MXUCAV"
+        "text": "DeepFlow 社内で開発して2年ほど使っていた、Haskell 製巨大モノレポの依存関係チェックツール guardian を OSS 化したので宣伝させてください。\n\n<https://github.com/deepflowinc/guardian>\n\n大量のパッケージから成るモノレポで開発を進めていると、不用意にパッケージ間の依存関係を増やした結果不必要にビルドに時間がかかってしまい、ちょっとした変更でもビルドに時間がかかってイテレーションが阻害される、という事がしばしばあります。\nguardian はパッケージを複数のグループ（ドメイン）に分けて、予め指定されたグループ間の依存関係以外を発見すると警告してくれる、というツールです。stackベースと cabal-install ベースのプロジェクトに対応しています。\nCI で手軽に呼ぶためのビルド済バイナリや、GitHub Action も用意しています。\n\n詳細は以下の記事で紹介させて頂いておりますので、巨大 Haskell モノレポの依存関係の管理にお悩みの方のお役に立てれば幸いです:pray:\n\n<https://zenn.dev/deepflow_tech/articles/secure-haskell-monorepo-deps-with-guardian>"
+    },
+    {
+        "type": "message",
+        "user": "U56MBRKR9",
+        "ts": "1677072341.531689",
+        "text": "`atomicModifyIORef'` についてまとめました。\n<https://kazu-yamamoto.hatenablog.jp/entry/2023/02/19/110709>"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1677473083.086379",
+        "text": "そういえば共有したつもりで忘れてました。ブラウザー上でHaskellを試す公式のplaygroundができたそうです。\n<https://discourse.haskell.org/t/haskell-playground-is-live-at-play-haskell-org/5869>\n<https://play.haskell.org/>"
+    },
+    {
+        "type": "message",
+        "user": "U56MBRKR9",
+        "ts": "1677547290.269799",
+        "text": "pandocをcabalなんかでインストールしても、pandocコマンドはインストールされなくなり、はまりました。\nコマンドはpandoc-cliという別パッケージになっています。"
+    },
+    {
+        "type": "message",
+        "user": "U55V441FS",
+        "ts": "1677670928.062219",
+        "text": "残念ながら9.2.6では最終にならずに、9.2.7が出てしまってますね,,, :haskell:\n<https://discourse.haskell.org/t/ghc-9-2-7-is-now-available/5883>"
+    },
+    {
+        "type": "message",
+        "user": "U04RTA85CH3",
+        "ts": "1677690080.208029",
+        "text": "<@U04RTA85CH3> has joined the channel"
     }
 ]

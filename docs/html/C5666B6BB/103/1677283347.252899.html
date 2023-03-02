@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #103 at 2023-02-25 09:02:27 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #103 at 2023-02-25 09:02:27 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1677283347.252899">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1677283347.252899">2023-02-25 09:02:27 +0900</a></div>
+          </div>
+          <div class="description">言語拡張 CPP を指定したソースコードの確認のために、CPPの処理だけが済んだ段階のソースコードを出力したいと思うのですが、ghc オプション指定でできないものでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1677289353.681439">
+        <div class="content">
+          <div class="summary">
+            <div class="user">notogawa</div>
+            <div class="date"><a class="date" href="#message-1677289353.681439">2023-02-25 10:42:33 +0900</a></div>
+          </div>
+          <div class="description"><pre>The phase at which to STOP processing is determined by a command-line
+option:
+
+    -E          stop after generating preprocessed, de-litted Haskell
+                     (used in conjunction with -cpp)</pre><br/>なので， <code>-E</code> オプションで C-preprocess までで処理が止まって .hspp ファイルが吐かれるので，<br/><pre>ghc -E Foo.hs
+cat Foo.hspp</pre><br/>で確認できるかと．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1677289688.620349">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1677289688.620349">2023-02-25 10:48:08 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。見落してました。:sweat_smile:</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,98 +1,110 @@
 [
     {
-        "text": "`ghc-bignum` ってデフォルトが `native` になってますけど， これを `gmp` にしようと思ったら `ghcup` でGHCをインストールする時点でなんとかしないといけないですか…？",
         "type": "message",
+        "user": "UL1HFJATE",
         "ts": "1674372468.666109",
-        "user": "UL1HFJATE"
+        "text": "`ghc-bignum` ってデフォルトが `native` になってますけど， これを `gmp` にしようと思ったら `ghcup` でGHCをインストールする時点でなんとかしないといけないですか…？"
     },
     {
-        "text": "<@U04L725J90T> has joined the channel",
         "type": "message",
+        "user": "U04L725J90T",
         "ts": "1674523876.552029",
-        "user": "U04L725J90T"
+        "text": "<@U04L725J90T> has joined the channel"
     },
     {
-        "text": "GHC 9.4 で stdc++ に依存するようになってしまったようですが、その理由はなんでしょうか？\ncentos だと、configure が stdc++ を見つけられずに、インストールできません。。。",
         "type": "message",
+        "user": "U56MBRKR9",
         "ts": "1674613262.313509",
-        "user": "U56MBRKR9"
+        "text": "GHC 9.4 で stdc++ に依存するようになってしまったようですが、その理由はなんでしょうか？\ncentos だと、configure が stdc++ を見つけられずに、インストールできません。。。"
     },
     {
-        "text": "<@U04LCUXALJ2> has joined the channel",
         "type": "message",
+        "user": "U04LCUXALJ2",
         "ts": "1674682624.529619",
-        "user": "U04LCUXALJ2"
+        "text": "<@U04LCUXALJ2> has joined the channel"
     },
     {
-        "text": "<@U04LKE5ECA2> has joined the channel",
         "type": "message",
+        "user": "U04LKE5ECA2",
         "ts": "1674770921.336499",
-        "user": "U04LKE5ECA2"
+        "text": "<@U04LKE5ECA2> has joined the channel"
     },
     {
-        "text": "<@U04LSF55D9U> has joined the channel",
         "type": "message",
+        "user": "U04LSF55D9U",
         "ts": "1674891407.269969",
-        "user": "U04LSF55D9U"
+        "text": "<@U04LSF55D9U> has joined the channel"
     },
     {
-        "text": "<@U04MB7BQ50T> has joined the channel",
         "type": "message",
+        "user": "U04MB7BQ50T",
         "ts": "1675173538.017639",
-        "user": "U04MB7BQ50T"
+        "text": "<@U04MB7BQ50T> has joined the channel"
     },
     {
-        "text": "<@U04MBBNV5QB> has joined the channel",
         "type": "message",
+        "user": "U04MBBNV5QB",
         "ts": "1675174781.070379",
-        "user": "U04MBBNV5QB"
+        "text": "<@U04MBBNV5QB> has joined the channel"
     },
     {
-        "text": "<@UA6CQEGR5> has joined the channel",
         "type": "message",
+        "user": "UA6CQEGR5",
         "ts": "1675217802.518109",
-        "user": "UA6CQEGR5"
+        "text": "<@UA6CQEGR5> has joined the channel"
     },
     {
-        "text": "<https://haskell-jp.slack.com/archives/CL3AXB1AL/p1675402815431589> （at <#CL3AXB1AL|atcoder-lang-update>)\n&gt; がんばりました。直接installしていない物も含む、全transitive dependencyのライセンスのリスト:　<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=E5>\nこの件で，あるパッケージ群の全transitive dependenciesからlicenseを取ってくる作業をしたのですが，私の知識の範囲でできる限り車輪の再開発を避けて:\n1. cabal-installにdependencyを解いてもらい，\n2. それをもとにHackage API を叩いて `.cabal` ファイルをもらってくる，\n3.  `Cabal-syntax` パッケージを使ってその `.cabal` ファイルをパースしてライセンス情報を取る\nみたいな手段を取りました．この1.に関して質問させてください．\n\nここでやりたいことは，「ビルドやインストールはしなくていいけど，現環境から見た，既ビルドのものも含めた全transitive dependenciesのリストが欲しい」ということになります．このために今回は結構乱暴な手段を取りました．Docker環境があったので，まっさらなGHC+Cabalをghcupでインストールしたのち，対象のパッケージ群を全部 `cabal install --lib` して `ghc-pkg　list` でインストールされている全パッケージのリストを取ってきたのです．しかし，これでは余計なパッケージまで見ている気がしますし，もうちょっとなんとかならんのか，という気がします．\n\n色々いじっていると，適当に一個だけcabal packageを持つcabal projectを作り，Cabal packageの `.cabal` ファイルは目的とするパッケージ群をdependenciesに持つ library だけを持つようにし，project の `cabal.project` にはそれらのライブラリについて設定すべきフラグを持たせるようにすると，  `cabal freeze` で `cabal.project.freeze` がなんかそれっぽいファイルになるのですが，これで合ってるのでしょうか…？ `cabal freeze` が良い方法なのか，あるいは別の方法があればお教えいただければありがたいです．",
         "type": "message",
+        "user": "UL1HFJATE",
         "ts": "1675566381.795629",
-        "user": "UL1HFJATE"
+        "text": "<https://haskell-jp.slack.com/archives/CL3AXB1AL/p1675402815431589> （at <#CL3AXB1AL|atcoder-lang-update>)\n&gt; がんばりました。直接installしていない物も含む、全transitive dependencyのライセンスのリスト:　<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=E5>\nこの件で，あるパッケージ群の全transitive dependenciesからlicenseを取ってくる作業をしたのですが，私の知識の範囲でできる限り車輪の再開発を避けて:\n1. cabal-installにdependencyを解いてもらい，\n2. それをもとにHackage API を叩いて `.cabal` ファイルをもらってくる，\n3.  `Cabal-syntax` パッケージを使ってその `.cabal` ファイルをパースしてライセンス情報を取る\nみたいな手段を取りました．この1.に関して質問させてください．\n\nここでやりたいことは，「ビルドやインストールはしなくていいけど，現環境から見た，既ビルドのものも含めた全transitive dependenciesのリストが欲しい」ということになります．このために今回は結構乱暴な手段を取りました．Docker環境があったので，まっさらなGHC+Cabalをghcupでインストールしたのち，対象のパッケージ群を全部 `cabal install --lib` して `ghc-pkg　list` でインストールされている全パッケージのリストを取ってきたのです．しかし，これでは余計なパッケージまで見ている気がしますし，もうちょっとなんとかならんのか，という気がします．\n\n色々いじっていると，適当に一個だけcabal packageを持つcabal projectを作り，Cabal packageの `.cabal` ファイルは目的とするパッケージ群をdependenciesに持つ library だけを持つようにし，project の `cabal.project` にはそれらのライブラリについて設定すべきフラグを持たせるようにすると，  `cabal freeze` で `cabal.project.freeze` がなんかそれっぽいファイルになるのですが，これで合ってるのでしょうか…？ `cabal freeze` が良い方法なのか，あるいは別の方法があればお教えいただければありがたいです．"
     },
     {
-        "text": "RIOパッケージをbase代替として取り入れています。\n`RIO.Utf8Builder` の値を _ロギング用途ではなく_ 標準出力に吐き出すには何を用いるのが良いのでしょうか？\n具体的にやりたいこととしては、情報を標準出力に出力するCLIツールを作ろうとしています。\n今はとりあえずTextやByteStringに変換した後に `putStrLn` 等で出力をしているのですが、他により良い方法があったりしますか？\n\n【現状の方法だった場合: ByteStringにするべきかTextにするべきか】\nText or ByteStringへの変換をする場合、どちらの方が良いとかあるでしょうか？それともあまり考えなくて良いのでしょうか\n最初は`textDisplay` が用意されていることから、Textを使うべきなのかな？と思っていました。\nしかし、`RIO.Utf8Builder`が内部的には `Data.ByteString.Builder.Builder` を用いているようなのでByteStringの方が良いのかな？とも考えて悩んでいます。",
         "type": "message",
+        "user": "ULTBB86UC",
         "ts": "1675937034.855919",
-        "user": "ULTBB86UC"
+        "text": "RIOパッケージをbase代替として取り入れています。\n`RIO.Utf8Builder` の値を _ロギング用途ではなく_ 標準出力に吐き出すには何を用いるのが良いのでしょうか？\n具体的にやりたいこととしては、情報を標準出力に出力するCLIツールを作ろうとしています。\n今はとりあえずTextやByteStringに変換した後に `putStrLn` 等で出力をしているのですが、他により良い方法があったりしますか？\n\n【現状の方法だった場合: ByteStringにするべきかTextにするべきか】\nText or ByteStringへの変換をする場合、どちらの方が良いとかあるでしょうか？それともあまり考えなくて良いのでしょうか\n最初は`textDisplay` が用意されていることから、Textを使うべきなのかな？と思っていました。\nしかし、`RIO.Utf8Builder`が内部的には `Data.ByteString.Builder.Builder` を用いているようなのでByteStringの方が良いのかな？とも考えて悩んでいます。"
     },
     {
-        "text": "<@U04NS1ZNSJK> has joined the channel",
         "type": "message",
+        "user": "U04NS1ZNSJK",
         "ts": "1676140328.299019",
-        "user": "U04NS1ZNSJK"
+        "text": "<@U04NS1ZNSJK> has joined the channel"
     },
     {
-        "text": "<@U04P4FYK221> has joined the channel",
         "type": "message",
+        "user": "U04P4FYK221",
         "ts": "1676196208.626109",
-        "user": "U04P4FYK221"
+        "text": "<@U04P4FYK221> has joined the channel"
     },
     {
-        "text": "GHCの管理が phabricator から gitlab になり、例えば\n<https://phabricator.haskell.org/D4884>\nのようなリンクが追えないのですが、gitlabへはどう変換されているのでしょうか？",
         "type": "message",
+        "user": "U56MBRKR9",
         "ts": "1676619242.957009",
-        "user": "U56MBRKR9"
+        "text": "GHCの管理が phabricator から gitlab になり、例えば\n<https://phabricator.haskell.org/D4884>\nのようなリンクが追えないのですが、gitlabへはどう変換されているのでしょうか？"
     },
     {
-        "text": "代替Preludeを使いたいと考えているのですが、新しくてまとまっている比較記事などはありますか？",
         "type": "message",
+        "user": "U015L5JEP8D",
         "ts": "1676844723.772979",
-        "user": "U015L5JEP8D"
+        "text": "代替Preludeを使いたいと考えているのですが、新しくてまとまっている比較記事などはありますか？"
     },
     {
-        "text": "GHC 9からTemplate Haskellでinstanceを定義する時に相互参照が出来なくなってコンパイルが通らなくなったという問題を抱えているのですが、この破壊的変更がどこかにまとまってる場所や、より良い回避方法を知っている方は居ますか?\n具体的にどういうことが起きているのかは自分のサイトに書きました。\n<https://www.ncaq.net/2023/02/21/01/48/48/|GHC 9からTemplate Haskellでinstanceを定義する時に相互参照が出来なくなった - ncaq>",
         "type": "message",
+        "user": "U57CUMWQ6",
         "ts": "1676912908.924149",
-        "user": "U57CUMWQ6"
+        "text": "GHC 9からTemplate Haskellでinstanceを定義する時に相互参照が出来なくなってコンパイルが通らなくなったという問題を抱えているのですが、この破壊的変更がどこかにまとまってる場所や、より良い回避方法を知っている方は居ますか?\n具体的にどういうことが起きているのかは自分のサイトに書きました。\n<https://www.ncaq.net/2023/02/21/01/48/48/|GHC 9からTemplate Haskellでinstanceを定義する時に相互参照が出来なくなった - ncaq>"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1677283347.252899",
+        "text": "言語拡張 CPP を指定したソースコードの確認のために、CPPの処理だけが済んだ段階のソースコードを出力したいと思うのですが、ghc オプション指定でできないものでしょうか？"
+    },
+    {
+        "type": "message",
+        "user": "U04RTA85CH3",
+        "ts": "1677690080.128899",
+        "text": "<@U04RTA85CH3> has joined the channel"
     }
 ]

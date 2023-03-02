@@ -1,0 +1,20 @@
+[
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1677283347.252899",
+        "text": "言語拡張 CPP を指定したソースコードの確認のために、CPPの処理だけが済んだ段階のソースコードを出力したいと思うのですが、ghc オプション指定でできないものでしょうか？"
+    },
+    {
+        "type": "message",
+        "user": "U5G2BCVBN",
+        "ts": "1677289353.681439",
+        "text": "```The phase at which to STOP processing is determined by a command-line\noption:\n\n    -E          stop after generating preprocessed, de-litted Haskell\n                     (used in conjunction with -cpp)```\nなので， `-E` オプションで C-preprocess までで処理が止まって .hspp ファイルが吐かれるので，\n```ghc -E Foo.hs\ncat Foo.hspp```\nで確認できるかと．"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1677289688.620349",
+        "text": "ありがとうございます。見落してました。:sweat_smile:"
+    }
+]
