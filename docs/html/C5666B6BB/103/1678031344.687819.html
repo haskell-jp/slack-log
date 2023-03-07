@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #103 at 2023-03-06 00:49:04 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #103 at 2023-03-06 00:49:04 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1678031344.687819">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1678031344.687819">2023-03-06 00:49:04 +0900</a></div>
+          </div>
+          <div class="description">ふと思ったのですが，GHCの compiler backend (LLVMとかNCGとか)って機械語吐くのに必要なんだから，ライブラリだけビルドする時って無関係，なんでしたっけ…？ こういう時どういう資料を漁ればいいかよくわからなくなってしまって．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1678066327.785499">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1678066327.785499">2023-03-06 10:32:07 +0900</a></div>
+          </div>
+          <div class="description">資料があるかはわかりませんが、結論としてはライブラリだけビルドする際もネイティブコードは出力されるはずです。前に私がNCGの問題を修正する際、NCGでビルドしたbaseとLLVMでビルドしたbaseで（プログラム側をどちらでビルドするかは関わりなく）動作が違うということがありました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1678066672.857359">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1678066672.857359">2023-03-06 10:37:52 +0900</a></div>
+          </div>
+          <div class="description">おやまあ、なるほど、びっくりです。ありがとうございます！　ということは、"dependencyだけbuildする"みたいな時も  <code>--ghc-options -fllvm</code>  つけるかつけないかで有意な差が出る可能性があるんですね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1678068377.373339">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1678068377.373339">2023-03-06 11:06:17 +0900</a></div>
+          </div>
+          <div class="description">(ghcupの GHC インストール時 って なんか ghc-make が走ってますけど，ひょっとして <code>GHC_OPTIONS="-fllvm"</code> とかやると違うものができたりして)</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+  </div>
+</body>
+</html>
