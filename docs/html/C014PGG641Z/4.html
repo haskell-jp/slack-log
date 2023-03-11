@@ -31,6 +31,33 @@
           <div class="description">Bang pattern (`!`) の有無でパフォーマンスが倍変化する例を <a href='https://zenn.dev/link/comments/4cf132495b1f79'>2 つ見つけました</a>。<br/>変化の理由は分かりませんが、ひとまず <code>Vector</code> を使う時は <code>!</code> をつけるようにします。</div>
         </div>
       </div>
+      <div class="event" id="message-1678499836.783679">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1678499836.783679">2023-03-11 10:57:16 +0900</a></div>
+          </div>
+          <div class="description">とりあえず標準のタプルはスペースリークの原因になりやすいので中のサンクは極力潰せ、とは聞きますね。 <code>StrictData</code> を常に有効にしろ、という人がいるのもそういう理由でして</div>
+        </div>
+      </div>
+      <div class="event" id="message-1678520437.549269">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1678520437.549269">2023-03-11 16:40:37 +0900</a></div>
+          </div>
+          <div class="description">今`StrictData` を有効にして実行してみましたが、 <code>!</code> 無しだと遅いままでした。<br/><code>StrictData</code> を使っても、すべて (の) サンク関係のロスを予防できるわけではないのですね :memo:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1678521681.800639">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1678521681.800639">2023-03-11 17:01:21 +0900</a></div>
+          </div>
+          <div class="description"><code>StrictData</code> はあくまで有効にしたモジュールで定義した型の各フィールドに <code>!</code> を付けるだけなので、既存のタプルには意味がないです（詳しくは <a href='https://haskell.jp/blog/posts/2020/strict-gotchas.html'>https://haskell.jp/blog/posts/2020/strict-gotchas.html</a> ）。<br/>だから既存のタプルとは別にそういう Strict なタプルを用意する必要があります。そういうパッケージもあったはずです。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C014PGG641Z/3.html" class="item">Previous</a>
