@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #102 at 2023-03-12 11:20:12 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #102 at 2023-03-12 11:20:12 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to random #102</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1678587612.874699">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1678587612.874699">2023-03-12 11:20:12 +0900</a></div>
+          </div>
+          <div class="description">なんか変なGHCのバグ踏んで面白かったので報告します．多分 <a href='https://gitlab.haskell.org/ghc/ghc/-/issues/12091'>https://gitlab.haskell.org/ghc/ghc/-/issues/12091</a> 関係なんですけど，このissueってresolvedでcloseされてるんですよね:<br/><br/><pre>$ mkdir ghcbugtest
+$ cd ghcbugtest
+$ echo "main = return () :: IO ()" &gt; Test.hs
+$ ghci-9.2.7 -fobject-code Test.hs
+GHCi, version 9.2.7: <https://www.haskell.org/ghc/>  :? for help
+[1 of 1] Compiling Main             ( Test.hs, Test.o )
+Ok, one module loaded.
+ghci&gt; :{
+ghci| f :: a -&gt; a
+ghci| f = id
+ghci| :}
+ghci&gt; f
+
+&lt;interactive&gt;:5:1: error: Variable not in scope: f
+ghci&gt; f :: a -&gt; a; f = id
+ghci&gt; f
+
+&lt;interactive&gt;:2:1: error: Variable not in scope: f
+ghci&gt; f = id :: a -&gt; a
+ghci&gt; f
+
+&lt;interactive&gt;:2:1: error:
+    • No instance for (Show (a0 -&gt; a0)) arising from a use of 'print'
+        (maybe you haven't applied a function to enough arguments?)
+    • In a stmt of an interactive GHCi command: print it</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1678589459.823659">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1678589459.823659">2023-03-12 11:50:59 +0900</a></div>
+          </div>
+          <div class="description">とりあえず報告してきました: <a href='https://gitlab.haskell.org/ghc/ghc/-/issues/23107'>https://gitlab.haskell.org/ghc/ghc/-/issues/23107</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../102.html" class="item">Back to random #102</a>
+    </div>
+  </div>
+</body>
+</html>

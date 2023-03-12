@@ -1,0 +1,14 @@
+[
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1678587612.874699",
+        "text": "なんか変なGHCのバグ踏んで面白かったので報告します．多分 <https://gitlab.haskell.org/ghc/ghc/-/issues/12091> 関係なんですけど，このissueってresolvedでcloseされてるんですよね:\n\n```$ mkdir ghcbugtest\n$ cd ghcbugtest\n$ echo \"main = return () :: IO ()\" &gt; Test.hs\n$ ghci-9.2.7 -fobject-code Test.hs\nGHCi, version 9.2.7: <https://www.haskell.org/ghc/>  :? for help\n[1 of 1] Compiling Main             ( Test.hs, Test.o )\nOk, one module loaded.\nghci&gt; :{\nghci| f :: a -&gt; a\nghci| f = id\nghci| :}\nghci&gt; f\n\n&lt;interactive&gt;:5:1: error: Variable not in scope: f\nghci&gt; f :: a -&gt; a; f = id\nghci&gt; f\n\n&lt;interactive&gt;:2:1: error: Variable not in scope: f\nghci&gt; f = id :: a -&gt; a\nghci&gt; f\n\n&lt;interactive&gt;:2:1: error:\n    • No instance for (Show (a0 -&gt; a0)) arising from a use of 'print'\n        (maybe you haven't applied a function to enough arguments?)\n    • In a stmt of an interactive GHCi command: print it```"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1678589459.823659",
+        "text": "とりあえず報告してきました: <https://gitlab.haskell.org/ghc/ghc/-/issues/23107>"
+    }
+]

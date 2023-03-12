@@ -16,5 +16,101 @@
         "user": "U4LGTMTMK",
         "ts": "1678011999.546249",
         "text": "というわけで本日の進捗。やっぱスマホで書いたせいか思った以上に進捗してないなぁ\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/f80e1b970533c071b6887bbcc9316fd249696198>"
+    },
+    {
+        "type": "message",
+        "user": null,
+        "ts": "1678593679.903049",
+        "text": ""
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1678593734.613299",
+        "text": "山本悠滋です。makeMistakesToLearnHaskellの続きをちょっとだけ進めます。原稿が終わらない！"
+    },
+    {
+        "type": "message",
+        "user": "U03H9PH8FRP",
+        "ts": "1678593928.962749",
+        "text": "toyboot4e です。 AtCoder 過去問を解きます :lower_left_fountain_pen:"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1678594140.366069",
+        "text": "Docker と Makefile しか書いてないですが，<https://github.com/gksato/haskell-atcoder-server-gen> を書きます"
+    },
+    {
+        "type": "message",
+        "user": "U584T7GAH",
+        "ts": "1678594453.439029",
+        "text": "\"Conjugate Hylomorphisms Or: The Mother of All Structured Recursion Schemes,\" Ralf Hinze Nicolas Wu Jeremy Gibbons. <https://www.cs.ox.ac.uk/people/nicolas.wu/papers/Hylomorphisms.pdf>\nあとハシゴで AtCoder 鉄則本 B57 - Calculator <https://atcoder.jp/contests/tessoku-book/tasks/tessoku_book_ed>"
+    },
+    {
+        "type": "message",
+        "user": "U04BD6ZFKQ8",
+        "ts": "1678601319.234809",
+        "text": "S.K.です。遅くなってしまいましたが、今週もお世話になります。よろしくお願いします。\nImplementing Functional Languages:a tutorial の Ex. 3.38 の続きから進めたいと思います。"
+    },
+    {
+        "type": "message",
+        "user": "U04LCUXALJ2",
+        "ts": "1678602748.637059",
+        "text": "kkです．\nmixfix operators対応の自作言語を作成しています．\n前回参加時に言い残した文字列リテラルのエスケープ処理は終わりました．インデントもひとまずは簡単なルールだけで済ませてしまいました．do構文が無いとこんなものです．\n今日はパーサに関連する型にSemigroupなLocationのAnnotationを追加して，Lexerと繋げてみます．\n終わったら型検査や型推論に手を出します．"
+    },
+    {
+        "type": "message",
+        "user": "U57CGDBMG",
+        "ts": "1678604260.630379",
+        "text": "数年ぶり（？）に Haskell 書きます。\nChange-Making-Problem（釣り銭生成問題：お釣りを最小枚数で払う問題）で硬貨が3種類の場合の効率的なアルゴリズムを思いついた（かもしれない）ので QuickCheck で検証したいと思います。\nまずはこの問題の解法としてよく紹介される動的計画法のプログラムを書きました。 Haskell はこういうのはとても短く書けますね。\n```import Data.Array\n\ncoins = [43, 14, 1] -- 硬貨が 43円硬貨、14円硬貨、1円硬貨の 3種類として\nn = 99 -- 99円を払う\nmain = print $ as ! n -- =&gt; 結果 5枚（43円硬貨 1枚、14円硬貨 4枚）\nas = array (0, n) ((0, 0) : [(i, 1 + minimum [as ! (i - j) | j &lt;- coins, j &lt;= i]) | i &lt;- [1 .. n]])```"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1678607223.643829",
+        "text": "そろそろ抜けます．\n1. AtCoder の提案環境をインストールするshell scriptの提案用候補, \n2. その環境をmimicする Docker image, \n3. その環境からimportできるはずの全モジュールをインポートするだけのMain.hsを自動生成して,\n4. 自動で結合テストする，\nが目標ですが，3の途中まで終わりました．3用のツールの自動生成用のMakefileが書けたので，ツールを自動で走らせるtarget を書きたいですが，それはまた後で．"
+    },
+    {
+        "type": "message",
+        "user": "U57CGDBMG",
+        "ts": "1678609202.215599",
+        "text": "思いついたアルゴリズムの実装途中ですが用事があるので抜けます。"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1678611380.186639",
+        "text": "本日の進捗はこれだけ\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/d0ff35847dc4c037a2a3eb2313d7ad4224cdd03b>\nやはり原稿が終わらない！"
+    },
+    {
+        "type": "message",
+        "user": "U03H9PH8FRP",
+        "ts": "1678611538.709929",
+        "text": "テンプレートに `!` をつけまくってました！！！！！！"
+    },
+    {
+        "type": "message",
+        "user": null,
+        "ts": "1678611695.441289",
+        "text": ""
+    },
+    {
+        "type": "message",
+        "user": "U584T7GAH",
+        "ts": "1678611748.152739",
+        "text": "\"Conjugate Hylomorphisms Or: The Mother of All Structured Recursion Schemes\"　読了　全く消化不良　CTは難解\nAtCoder 鉄則本 B57 - Calculator Doubling　前問のA57と同じ Doubling を用いてAC　さらに高速化は <https://atcoder.jp/users/joetheshootingst|joetheshootingst> の解から学んだ"
+    },
+    {
+        "type": "message",
+        "user": "U04BD6ZFKQ8",
+        "ts": "1678611798.524059",
+        "text": "ifl-tut Ex. 3.38 について、EConstrの引数の充足/未充足をどうやって調べるかと、\n充足状態がわかったとしてどうやってコンパイル処理を分けるかを考えていました。\nあまり進められませんでした。:pensive:"
+    },
+    {
+        "type": "message",
+        "user": "U04LCUXALJ2",
+        "ts": "1678613613.249019",
+        "text": "自作言語，LexerとParserの接続が完了しました．次はいよいよ型検査ですかね．"
     }
 ]
