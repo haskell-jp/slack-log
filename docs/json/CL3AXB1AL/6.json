@@ -244,5 +244,23 @@
         "user": "UL1HFJATE",
         "ts": "1677730463.615279",
         "text": "現状のcabal-install 3.8.1.0において， `cabal install --lib`  が GHC-bundled library[1]の*真*部分集合として default global packages ( `cabal install --lib` する前に最初から可視になっているパッケージ)  のリスト[2] を持ってるので， `cabal-plan license-report`  [3] (このSlackの<https://haskell-jp.slack.com/archives/C5666B6BB/p1675591690570469?thread_ts=1675566381.795629&amp;cid=C5666B6BB|この返答> で紹介いただいたものです) を使うにも面倒だな，という感じになっています．将来のlanguage update のことも考えると，こういうツールが使えた方が後々同じ作業をするときにも楽そうなので，このツールを使えるようにどうにかした方がいい気がします．そのために考えられるやり方を以下に列挙してみましたが，ご意見をいただきたいです．\n\n1.  Cabal package を一個作っといて `cabal v2-build --only-dependencies pkg:exe` するまでをインストールとし，コンパイル時は `cabal v2-build --offline pkg:exe` して，実行時は `cabal v2-run` する\n2. Cabal package を一個作っといて `cabal v2-build --only-dependencies pkg:exe` するまでをインストールとし，コンパイル時は `cabal v2-install --offline pkg:exe` して，実行時は `$ Main` する\n3. `cabal-env` [4]を使う\n4. global packages をスプレッドシートの dependencies に加えておく\n5.  `cabal-plan license-report` の時だけ dependencies に加えて license-report を作成する．そうすると `cabal-plan license-report` は直接の依存性と間接依存性を区別するため，依存するパッケージが増えたように見えてしまうので，その理由をスプレッドシートの付記に加える．\nところで，default global packages は色々問題を引き起こしてきたようで， cabal-installのmasterでは `cabal install --lib` から “global packages”の概念は消えるようです[5]．加えて，GHC-bundled package の中で，GHCと完全に結合していて別バージョンをインストールできないパッケージは9つしかなく[6]，それ以外のGHC-bundled package は global packages の概念がない環境であればアップデートができるようです．\n\nこれらの事情から，取るべき手段として1--3，特に1か2を検討しています．ですがあんまりしっかり考えられていない気がするので，意見をいただけたら非常に助かります．\n\nちなみに，元々「GHC-bundled libraryは全露出するべきだ」という目的で default global packages ができたっぽいので， default global packages が GHC-bundled library の*真*部分集合になってしまったのは，多分メンテナンス忘れによる偶然だと私は無根拠に推測しています．\n\n参考文献:\n1. GHC-bundled library: <https://gitlab.haskell.org/ghc/ghc/-/wikis/commentary/libraries/version-history>\n2. default global packages の list: <https://hackage.haskell.org/package/cabal-install-3.8.1.0/docs/src/Distribution.Client.CmdInstall.html#globalPackages>\n3. `cabal-plan` の Hackage page: <https://hackage.haskell.org/package/cabal-plan>\n4. cabal-env: <https://github.com/phadej/cabal-env>, development moved to <https://github.com/phadej/cabal-extras>\n5. `cabal install --lib` から “global packages” の概念を消すPR: <https://github.com/haskell/cabal/pull/8607>\n6. アップデートできないパッケージ群 in cabal-install source: <https://github.com/haskell/cabal/blob/42a03ff0892101a0a967d6fbb08fe4f339b9f6da/cabal-install/src/Distribution/Client/Dependency.hs#L409>"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1678709988.135779",
+        "text": "上の発言に従ったインストール方法を作成してみました．License-report と exposed-modules の全importからなるソースをつけています:\n\n<https://gist.github.com/gksato/6f8cf9767a96dd7650cbba88f4cc102c>\n\nビルドは\n```$ source ~/.ghcup/env &amp;&amp; cd ~/submission &amp;&amp; cabal v2-install --offline --install-method=copy --installdir=~```\n実行は  `./main` です"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1678711273.196769",
+        "text": "ちなみにdependencyをnewline-separated list にするとlicense-reportとチェック用のソースファイルが半自動生成できるようにしたので，今からでもパッケージの追加とかは簡単にできます！ ご意見お待ちしてます〜\n<https://github.com/gksato/haskell-atcoder-server-gen>"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1678711342.143289",
+        "text": "あとこっちのやり方でインストールすることについてのご意見などもあれば。"
     }
 ]
