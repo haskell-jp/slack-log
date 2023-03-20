@@ -283,6 +283,25 @@ ghci&gt; f
           <div class="description">@kudos3939 has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1679193467.747119">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kk</div>
+            <div class="date"><a class="date" href="#message-1679193467.747119">2023-03-19 11:37:47 +0900</a></div>
+          </div>
+          <div class="description">相互再帰ってfixで書けるんですね．Lazy pattern matchingがミソでした．<br/><pre>even1, odd1 :: Int -&gt; Bool
+(even1, odd1) = fix $ \ ~(e, o) -&gt;
+  let f n = if n == 0 then True else o $ pred n
+      g n = if n == 0 then False else e $ pred n
+  in (f, g)
+
+even2, odd2 :: Int -&gt; Bool
+(even2, odd2) = fix $ \ ~(e, o) -&gt; (f o, g e)
+ where
+  f o n = if n == 0 then True else o $ pred n
+  g e n = if n == 0 then False else e $ pred n</pre></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C4M4TT8JJ/101.html" class="item">Previous</a>
