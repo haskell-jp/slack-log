@@ -160,5 +160,11 @@
         "user": "U04LCUXALJ2",
         "ts": "1679193467.747119",
         "text": "相互再帰ってfixで書けるんですね．Lazy pattern matchingがミソでした．\n```even1, odd1 :: Int -&gt; Bool\n(even1, odd1) = fix $ \\ ~(e, o) -&gt;\n  let f n = if n == 0 then True else o $ pred n\n      g n = if n == 0 then False else e $ pred n\n  in (f, g)\n\neven2, odd2 :: Int -&gt; Bool\n(even2, odd2) = fix $ \\ ~(e, o) -&gt; (f o, g e)\n where\n  f o n = if n == 0 then True else o $ pred n\n  g e n = if n == 0 then False else e $ pred n```"
+    },
+    {
+        "type": "message",
+        "user": "U04UUR7L093",
+        "ts": "1679400116.368049",
+        "text": "<@U04UUR7L093> has joined the channel"
     }
 ]
