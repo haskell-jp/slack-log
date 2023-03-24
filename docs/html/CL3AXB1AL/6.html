@@ -444,6 +444,15 @@ text: BSD-2-Clause</pre></div>
           <div class="description">この件で上のgist <a href='https://gist.github.com/gksato/6f8cf9767a96dd7650cbba88f4cc102c'>https://gist.github.com/gksato/6f8cf9767a96dd7650cbba88f4cc102c</a> を修正しました</div>
         </div>
       </div>
+      <div class="event" id="message-1679559317.767549">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1679559317.767549">2023-03-23 17:15:17 +0900</a></div>
+          </div>
+          <div class="description">第一弾 Language Test が公開されています！<br/><br/><a href='https://atcoder.jp/contests/language-test-202301'>https://atcoder.jp/contests/language-test-202301</a><br/><br/>多分コードテストはまだ通らないですね。一度投げると無限に待たされる。<br/>自前のインポートテストコードをちょっと手を加えた上で問題への提出として投げてみましたが、 <code>ghc-bignum</code> の不在はもちろんのこと、`mtl` と <code>transformers</code> でもエラーが起きています。AtCoder側の cabal dependency solverはbroken ListTが消された最新版に依存解決しているのに、手元の擬似環境のソルバは最新版に依存解決しなかったのでアレなことになってますね。<br/><br/><a href='https://atcoder.jp/contests/language-test-202301/submissions/39958271'>https://atcoder.jp/contests/language-test-202301/submissions/39958271</a><br/><br/>とりあえず、嫌なトラブルを避けるために、次を追加提案したいと思います:<br/><br/>• バージョンを ( <code>^&gt;=</code> で) 固定する。モナド変換子系は最新版に<br/>• <code>list-t</code> パッケージを追加<br/>(それはそれとして、Haskell ってプログラミングパターンがライブラリになってることが多くて、追加しようと思うと無限に追加できそうで迷っちゃいますね…)</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CL3AXB1AL/5.html" class="item">Previous</a>
