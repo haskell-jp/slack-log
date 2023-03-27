@@ -280,5 +280,11 @@
         "user": "UL1HFJATE",
         "ts": "1679559317.767549",
         "text": "第一弾 Language Test が公開されています！\n\n<https://atcoder.jp/contests/language-test-202301|https://atcoder.jp/contests/language-test-202301>\n\n多分コードテストはまだ通らないですね。一度投げると無限に待たされる。\n自前のインポートテストコードをちょっと手を加えた上で問題への提出として投げてみましたが、 `ghc-bignum` の不在はもちろんのこと、`mtl` と `transformers` でもエラーが起きています。AtCoder側の cabal dependency solverはbroken ListTが消された最新版に依存解決しているのに、手元の擬似環境のソルバは最新版に依存解決しなかったのでアレなことになってますね。\n\n<https://atcoder.jp/contests/language-test-202301/submissions/39958271|https://atcoder.jp/contests/language-test-202301/submissions/39958271>\n\nとりあえず、嫌なトラブルを避けるために、次を追加提案したいと思います:\n\n• バージョンを ( `^&gt;=` で) 固定する。モナド変換子系は最新版に\n• `list-t` パッケージを追加\n(それはそれとして、Haskell ってプログラミングパターンがライブラリになってることが多くて、追加しようと思うと無限に追加できそうで迷っちゃいますね…)"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1679808313.244319",
+        "text": "この <https://gist.github.com/gksato/b7d0b18e9ef8be5762fef8717737e27b|https://gist.github.com/gksato/b7d0b18e9ef8be5762fef8717737e27b> 内容で書き込んできますね～"
     }
 ]
