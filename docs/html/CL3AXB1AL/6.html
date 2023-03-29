@@ -462,6 +462,27 @@ text: BSD-2-Clause</pre></div>
           <div class="description">この <a href='https://gist.github.com/gksato/b7d0b18e9ef8be5762fef8717737e27b'>https://gist.github.com/gksato/b7d0b18e9ef8be5762fef8717737e27b</a> 内容で書き込んできますね～</div>
         </div>
       </div>
+      <div class="event" id="message-1680009873.067329">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1680009873.067329">2023-03-28 22:24:33 +0900</a></div>
+          </div>
+          <div class="description">2nd freezeが実行されました！　<br/>• 最終freezeは4/9で、ここまでには追加したいライブラリを全て揃えておく必要があります。<br/>• 今回の変更点は次のとおりです:<br/>    ◦ <code>cabal v2-install --lib</code> の代わりに Cabal project + package を使用<br/>    ◦ パッケージバージョンの固定 (`^&gt;=`)<br/>    ◦ <code>list-t</code>, <code>ghc-bignum</code> の追加<br/>    ◦ ライブラリを <code>-fllvm</code> でコンパイル<br/>    ◦ いくつかのライブラリへのフラグ指定<br/>• バージョン指定を意図的に <code>^&gt;=</code> , マイナーバージョン非固定でやっていますが、最終的には次のコードでコードテストを投げることによりfreezeファイルを取ってくれば、手元環境での再現可能性は担保できるかなという気分でいます。というより、このfreezeファイルがないとtransitive dependencyまで込みの再現可能性は保証できないので、これを投げた上で、結果をどっかのrepoとまとめ記事とかに公開する必要があるかな、と思っています。<br/><pre>import <http://System.IO|System.IO>
+
+main :: IO ()
+main = putStr =&lt;&lt; readFile "/judge/submission/cabal.project.freeze"</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1680047479.980489">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1680047479.980489">2023-03-29 08:51:19 +0900</a></div>
+          </div>
+          <div class="description">お知らせ: 最終freezeが 4/9(日)であり，*4/8(土)23:59:59以降のスプレッドシートへのライブラリ追加は反映されない可能性*があります．書き込む前に仮想環境でテストを通す必要があったり，「追加して良いか？」の議論可能性を最低限保証した方が良かったりするので，*追加したいパッケージは遅くとも4/7(金)までにはこちらでご提案*いただけると助かります．ちなみに，私が作ったDocker仮想環境は <a href='https://github.com/gksato/haskell-atcoder-server-gen'>https://github.com/gksato/haskell-atcoder-server-gen</a> で管理していますが，これを用いて私が最終テストを行うのを 4/8(土)15:00- からにしたいと思っています．<br/>皆様には，4/7(金)までの時点で新たにライブラリの追加提案があった場合に備えて，このチャンネルを時々ご一読いただき，必要があればご意見をいただけると大変助かります．<br/><br/>• スプレッドシートへのパッケージ追加: 4/8(土) 23:59:59まで．<br/>• このSlackでのパッケージ追加提案: 4/7(金) まで． 早ければ早いほど嬉しい!</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CL3AXB1AL/5.html" class="item">Previous</a>

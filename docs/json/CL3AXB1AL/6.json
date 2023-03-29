@@ -286,5 +286,17 @@
         "user": "UL1HFJATE",
         "ts": "1679808313.244319",
         "text": "この <https://gist.github.com/gksato/b7d0b18e9ef8be5762fef8717737e27b|https://gist.github.com/gksato/b7d0b18e9ef8be5762fef8717737e27b> 内容で書き込んできますね～"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680009873.067329",
+        "text": "2nd freezeが実行されました！　\n• 最終freezeは4/9で、ここまでには追加したいライブラリを全て揃えておく必要があります。\n• 今回の変更点は次のとおりです:\n    ◦ `cabal v2-install --lib` の代わりに Cabal project + package を使用\n    ◦ パッケージバージョンの固定 (`^&gt;=`)\n    ◦ `list-t`, `ghc-bignum` の追加\n    ◦ ライブラリを `-fllvm` でコンパイル\n    ◦ いくつかのライブラリへのフラグ指定\n• バージョン指定を意図的に `^&gt;=` , マイナーバージョン非固定でやっていますが、最終的には次のコードでコードテストを投げることによりfreezeファイルを取ってくれば、手元環境での再現可能性は担保できるかなという気分でいます。というより、このfreezeファイルがないとtransitive dependencyまで込みの再現可能性は保証できないので、これを投げた上で、結果をどっかのrepoとまとめ記事とかに公開する必要があるかな、と思っています。\n```import <http://System.IO|System.IO>\n\nmain :: IO ()\nmain = putStr =&lt;&lt; readFile \"/judge/submission/cabal.project.freeze\"```"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680047479.980489",
+        "text": "お知らせ: 最終freezeが 4/9(日)であり，*4/8(土)23:59:59以降のスプレッドシートへのライブラリ追加は反映されない可能性*があります．書き込む前に仮想環境でテストを通す必要があったり，「追加して良いか？」の議論可能性を最低限保証した方が良かったりするので，*追加したいパッケージは遅くとも4/7(金)までにはこちらでご提案*いただけると助かります．ちなみに，私が作ったDocker仮想環境は <https://github.com/gksato/haskell-atcoder-server-gen|https://github.com/gksato/haskell-atcoder-server-gen> で管理していますが，これを用いて私が最終テストを行うのを 4/8(土)15:00- からにしたいと思っています．\n皆様には，4/7(金)までの時点で新たにライブラリの追加提案があった場合に備えて，このチャンネルを時々ご一読いただき，必要があればご意見をいただけると大変助かります．\n\n• スプレッドシートへのパッケージ追加: 4/8(土) 23:59:59まで．\n• このSlackでのパッケージ追加提案: 4/7(金) まで． 早ければ早いほど嬉しい!"
     }
 ]
