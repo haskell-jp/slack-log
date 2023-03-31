@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / atcoder-lang-updates #7</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / atcoder-lang-updates #7</h1>
+    <div class="ui pagination menu">
+      <a href="../../html/CL3AXB1AL/6.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1680152962.225539">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1680152962.225539">2023-03-30 14:09:22 +0900</a></div>
+          </div>
+          <div class="description">追加提案，というか皆さまの意見を聞きたいです:<br/> <code>strict</code>  (<https://hackage.haskell.org/package/strict>): 基本的なデータ型 ( <code>Either</code> ,  <code>Maybe</code> , and pair from <code>base</code>,  <code>These</code> from <code>these</code> )のfield-strict version と baseに入ってる lazy IO の strict version を実装します． 元々transitive dependency に入ってて， <a href='https://haskell-jp.slack.com/archives/C014PGG641Z/p1678521681800639'>https://haskell-jp.slack.com/archives/C014PGG641Z/p1678521681800639</a> = <a href='https://haskell.jp/slack-log/html/C014PGG641Z/4.html#message-1678521681.800639'>https://haskell.jp/slack-log/html/C014PGG641Z/4.html#message-1678521681.800639</a> あたり見てもモチベーションはありそうな気がします．しかし，リンク先の会話の主題そのものはタプルなのですが，このパッケージの <code>Data.Strict.Tuple</code> はペア <code>Pair a b</code> しかサポートしてなくて，19項までのタプル( <code>T1</code> , <code>T2</code> , … , <code>T19</code> )をサポートしてる <code>strict-tuple</code>  (<https://hackage.haskell.org/package/strict-tuple>) はモジュール名が <code>Data.Tuple.Strict</code> でややこしい，というのがアレですね．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680155886.899719">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1680155886.899719">2023-03-30 14:58:06 +0900</a></div>
+          </div>
+          <div class="description">話を複雑にするようで申し訳ないんですが、 <a href='http://h2.jaguarpaw.co.uk/posts/nested-strict-data/'>http://h2.jaguarpaw.co.uk/posts/nested-strict-data/</a> とかどうですか？<br/>多分 <a href='https://hackage.haskell.org/package/strict-wrapper-0.0.0.0'>https://hackage.haskell.org/package/strict-wrapper-0.0.0.0</a> がその実装のようです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680155928.276409">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1680155928.276409">2023-03-30 14:58:48 +0900</a></div>
+          </div>
+          <div class="description">引用頂いたスレッドの発言の時も本当はこれを挙げたかったんですけど、うまく探せなかったもので...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680156325.696669">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1680156325.696669">2023-03-30 15:05:25 +0900</a></div>
+          </div>
+          <div class="description">あー，頭のいい実装だ．4項までのタプルしか実装がないのは残念ではありますが，結構便利そう．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680156381.606969">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1680156381.606969">2023-03-30 15:06:21 +0900</a></div>
+          </div>
+          <div class="description">あまり利用もメンテも熱心にされてなさそうなのが惜しいんですけどね。すごくいいアイディアなのに。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680156426.323509">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1680156426.323509">2023-03-30 15:07:06 +0900</a></div>
+          </div>
+          <div class="description">貫禄の Dependencies: <code>base &lt; 5</code></div>
+        </div>
+      </div>
+      <div class="event" id="message-1680156692.120609">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1680156692.120609">2023-03-30 15:11:32 +0900</a></div>
+          </div>
+          <div class="description">こういうパッケージって「古く」はならなそうに見えるので入れるのにそんなにリスクはなさそうですが，無意味に入れると収拾がつかなくなりそうという理由だけで躊躇するところはあるんですよね…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680156820.743719">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1680156820.743719">2023-03-30 15:13:40 +0900</a></div>
+          </div>
+          <div class="description">でも Haskell の競プロ提出コードなんて bang がついてない変数を思い浮かべるのが難しいくらいですし，あったら結構嬉しそうなんだよな…</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../../html/CL3AXB1AL/6.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #103 at 2023-03-30 23:01:14 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #103 at 2023-03-30 23:01:14 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1680184874.825459">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1680184874.825459">2023-03-30 23:01:14 +0900</a></div>
+          </div>
+          <div class="description"><a href='ttps://haskell-jp.slack.com/archives/CL3AXB1AL/p1680155886899719'>https://haskell-jp.slack.com/archives/CL3AXB1AL/p1680155886899719</a> の関係で <code>strict-wrapper</code> のコード (<https://github.com/tomjaguarpaw/strict-wrapper/blob/48a2695995a4c4c9d853b5f45175f6cf1241ebb2/lib/Data/Strict/Wrapper.hs#LL223-L262>) を読んでたんですが，ここの <code>strict</code> と <code>unstrict</code> 関数が怖いことをしていると思うので，皆様のご意見を伺いたいです．参照先のコードは大体<br/><br/><pre>data SPair a b = SPair !a !b
+
+strict :: (a, b) -&gt; SPair a b
+strict x = case x of
+  (!_, !_) -&gt; unsafeCoerce x
+
+unstrict :: SPair a b -&gt; (a, b)
+unstrict = unsafeCoerce</pre><br/>のようなことをしており，これって <code>SPair a b</code> と <code>(a, b)</code> の runtime representation が完全に一致しているということを主張している気がするんですが，そんな保証ってありましたっけ…？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680187369.961749">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1680187369.961749">2023-03-30 23:42:49 +0900</a></div>
+          </div>
+          <div class="description">データコンストラクターの <code>SPair</code> を export せずに <code>SPair a b</code> 型の値は必ず <code>strict</code> によって生成されるようにすることで、内部表現が <code>(a, b)</code> と同じだという保証を得ているんじゃないでしょうか :thinking_face:<br/><br/>スマートコンストラクターパターンですかね。<br/><a href='https://wiki.haskell.org/Smart_constructors'>https://wiki.haskell.org/Smart_constructors</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1680188007.370889">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1680188007.370889">2023-03-30 23:53:27 +0900</a></div>
+          </div>
+          <div class="description">そっちだけのexportなら私も不審には思わなかったんですけど、<br/><br/><pre>constructStrict (x, y) = SPair x y</pre><br/>もexportしているので…</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+  </div>
+</body>
+</html>

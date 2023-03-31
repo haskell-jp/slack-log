@@ -1,0 +1,50 @@
+[
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680152962.225539",
+        "text": "追加提案，というか皆さまの意見を聞きたいです:\n `strict`  (<https://hackage.haskell.org/package/strict>): 基本的なデータ型 ( `Either` ,  `Maybe` , and pair from `base`,  `These` from `these` )のfield-strict version と baseに入ってる lazy IO の strict version を実装します． 元々transitive dependency に入ってて， <https://haskell-jp.slack.com/archives/C014PGG641Z/p1678521681800639> = <https://haskell.jp/slack-log/html/C014PGG641Z/4.html#message-1678521681.800639> あたり見てもモチベーションはありそうな気がします．しかし，リンク先の会話の主題そのものはタプルなのですが，このパッケージの `Data.Strict.Tuple` はペア `Pair a b` しかサポートしてなくて，19項までのタプル( `T1` , `T2` , … , `T19` )をサポートしてる `strict-tuple`  (<https://hackage.haskell.org/package/strict-tuple>) はモジュール名が `Data.Tuple.Strict` でややこしい，というのがアレですね．"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1680155886.899719",
+        "text": "話を複雑にするようで申し訳ないんですが、 <http://h2.jaguarpaw.co.uk/posts/nested-strict-data/> とかどうですか？\n多分 <https://hackage.haskell.org/package/strict-wrapper-0.0.0.0> がその実装のようです。"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1680155928.276409",
+        "text": "引用頂いたスレッドの発言の時も本当はこれを挙げたかったんですけど、うまく探せなかったもので..."
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680156325.696669",
+        "text": "あー，頭のいい実装だ．4項までのタプルしか実装がないのは残念ではありますが，結構便利そう．"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1680156381.606969",
+        "text": "あまり利用もメンテも熱心にされてなさそうなのが惜しいんですけどね。すごくいいアイディアなのに。"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680156426.323509",
+        "text": "貫禄の Dependencies: `base &lt; 5`"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680156692.120609",
+        "text": "こういうパッケージって「古く」はならなそうに見えるので入れるのにそんなにリスクはなさそうですが，無意味に入れると収拾がつかなくなりそうという理由だけで躊躇するところはあるんですよね…"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680156820.743719",
+        "text": "でも Haskell の競プロ提出コードなんて bang がついてない変数を思い浮かべるのが難しいくらいですし，あったら結構嬉しそうなんだよな…"
+    }
+]
