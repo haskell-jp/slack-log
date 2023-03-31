@@ -46,5 +46,35 @@
         "user": "UL1HFJATE",
         "ts": "1680156820.743719",
         "text": "でも Haskell の競プロ提出コードなんて bang がついてない変数を思い浮かべるのが難しいくらいですし，あったら結構嬉しそうなんだよな…"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680231036.259809",
+        "text": "`strict-wrappers` については， unsafe な関数が注釈なしに含まれているので導入を見合わせようかなと思います．<https://haskell.jp/slack-log/html/C5666B6BB/103.html#message-1680184874.825459> = <https://haskell-jp.slack.com/archives/C5666B6BB/p1680184874825459> でのログをご確認くだされば幸いです．"
+    },
+    {
+        "type": "message",
+        "user": "UL5PAB0F9",
+        "ts": "1680233986.982779",
+        "text": "`strict` の `Data.Strict.Tuple` は `Pair a b` しかないですが `x :!: y :!: z` のようにできるのでそこまで不便ではないかもしれません。\nオンラインジャッジ的な対応としては `containers` にある `Utils.Containers.Internal.StrictPair` を使うという手もありますが `Show` にすらなっていなくて不便ですね"
+    },
+    {
+        "type": "message",
+        "user": "ULMGVGLP3",
+        "ts": "1680237192.269909",
+        "text": "<@ULMGVGLP3> has joined the channel"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680266406.952249",
+        "text": "あー、とすると `strict` はだいぶ良さそうですか。メモリ上のレイアウトまで気にするなら `strict-tuple` を更に追加で入れるのも一応選択肢にはならないことは…ないのか？"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680272951.343829",
+        "text": "あ，忘れてた．最適化をまともにperf取らずに神に祈るのが好きな私みたいな軟弱者には，`strict-containers`  (<https://hackage.haskell.org/package/strict-containers-0.2|https://hackage.haskell.org/package/strict-containers-0.2>) のデータ型のフィールドまでstrict flagがついた containers (+unordered-containers) 実装とか見せられるとちょっと気になってしまいます。\n\n```data X = X !Int !Double\ndata Y = Y Int Double```\nを考えたときに、 `case x_value of X !a !b -&gt; ...` は `a`, `b` が評価されているかを判定するコードが不要だが、\n`case y_value of Y !a !b -&gt; ...` において `y_value` のフィールドがあらゆる評価パスで評価済みだとしても、実行時に評価済みかどうかを判定するコードが消せない可能性がある、みたいなことを耳にするので…"
     }
 ]

@@ -46,6 +46,68 @@ unstrict = unsafeCoerce</pre><br/>のようなことをしており，これっ�
           <div class="description">そっちだけのexportなら私も不審には思わなかったんですけど、<br/><br/><pre>constructStrict (x, y) = SPair x y</pre><br/>もexportしているので…</div>
         </div>
       </div>
+      <div class="event" id="message-1680229832.337979">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1680229832.337979">2023-03-31 11:30:32 +0900</a></div>
+          </div>
+          <div class="description">検証するのに便利な関数をやっと見つけたので，解決(?)しました！ 結論をいうと，一致 <b>してない</b> ですね．<br/><br/><pre>{-# LANGUAGE UnboxedTuples, MagicHash, BangPatterns #-}
+import Data.Void (Void)
+import GHC.Exts (unpackClosure#)
+import GHC.Ptr (Ptr(..))
+
+tagPtr :: a -&gt; Ptr Void
+tagPtr x = case unpackClosure# x of
+  (# !addr#, !_, !_ #) -&gt; Ptr addr#</pre><br/>を準備して <code>ghci -fobject-code</code> で見てやると:<br/><br/><pre>ghci&gt; tagPtr $! ((0,1) :: (Int,Int))
+0x00000001026870e0
+ghci&gt; tagPtr $! ((1,1) :: (Int,Int))
+0x00000001026870e0
+ghci&gt; tagPtr $! ((2,1) :: (Int,Int))
+0x00000001026870e0
+ghci&gt; tagPtr $! ((2,2) :: (Int,Int))
+0x00000001026870e0
+ghci&gt; tagPtr $! ((2,0) :: (Int,Int))
+0x00000001026870e0
+
+ghci&gt; data T a b = T !a !b
+ghci&gt; tagPtr $! (T 0 1 :: T Int Int)
+0x0000000100745008
+ghci&gt; tagPtr $! (T 1 1 :: T Int Int)
+0x0000000100745008
+ghci&gt; tagPtr $! (T 2 1 :: T Int Int)
+0x0000000100745008
+ghci&gt; tagPtr $! (T 2 2 :: T Int Int)
+0x0000000100745008
+ghci&gt; tagPtr $! (T 2 0 :: T Int Int)
+0x0000000100745008
+
+ghci&gt; data U a b = U a b
+ghci&gt; tagPtr $! (U 0 1 :: U Int Int)
+0x0000000100746008
+ghci&gt; tagPtr $! (U 1 1 :: U Int Int)
+0x0000000100746008
+ghci&gt; tagPtr $! (U 2 1 :: U Int Int)
+0x0000000100746008
+ghci&gt; tagPtr $! (U 2 2 :: U Int Int)
+0x0000000100746008
+ghci&gt; tagPtr $! (U 2 0 :: U Int Int)
+0x0000000100746008</pre><br/>と全然違います．ただ，この状態で <code>unsafeCoerce#</code> すると，まるで全てがうまくいったかのように見えますが:<br/><br/><pre>ghci&gt; t0 = T 1 0 :: T Int Int
+ghci&gt; tup = unsafeCoerce t0 :: (Int, Int)
+ghci&gt; tup
+(1,0)</pre><br/>その実，tag は正しくない値を指しています：<br/><br/><pre>ghci&gt; tagPtr tup
+0x0000000100745008</pre><br/>これ，いわゆる， undefined behavior が問題を起こしていないだけ，のケースに見えますね．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680230289.904769">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1680230289.904769">2023-03-31 11:38:09 +0900</a></div>
+          </div>
+          <div class="description">面白いことに， これを <code>Either</code> 及びそれと同形状の定義を持つ型<br/><br/><pre>data E a b = L a | R b</pre><br/>でやった時にも「tagは違うのに，`L 2 :: L Int Int` を <code>unsafeCoerce</code> することで <code>Either Int Int</code> を作ったあと，それを <code>show</code> させると <code>Left 2</code> が出てくる」という現象が起きます．多分 case式での照合の時に特定のビットしか見てないんですね (GHC9.4.4)．</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../103.html" class="item">Back to questions #103</a>

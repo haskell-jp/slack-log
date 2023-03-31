@@ -85,6 +85,52 @@
           <div class="description">でも Haskell の競プロ提出コードなんて bang がついてない変数を思い浮かべるのが難しいくらいですし，あったら結構嬉しそうなんだよな…</div>
         </div>
       </div>
+      <div class="event" id="message-1680231036.259809">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1680231036.259809">2023-03-31 11:50:36 +0900</a></div>
+          </div>
+          <div class="description"><code>strict-wrappers</code> については， unsafe な関数が注釈なしに含まれているので導入を見合わせようかなと思います．<https://haskell.jp/slack-log/html/C5666B6BB/103.html#message-1680184874.825459> = <a href='https://haskell-jp.slack.com/archives/C5666B6BB/p1680184874825459'>https://haskell-jp.slack.com/archives/C5666B6BB/p1680184874825459</a> でのログをご確認くだされば幸いです．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680233986.982779">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cojna</div>
+            <div class="date"><a class="date" href="#message-1680233986.982779">2023-03-31 12:39:46 +0900</a></div>
+          </div>
+          <div class="description"><code>strict</code> の <code>Data.Strict.Tuple</code> は <code>Pair a b</code> しかないですが <code>x :!: y :!: z</code> のようにできるのでそこまで不便ではないかもしれません。<br/>オンラインジャッジ的な対応としては <code>containers</code> にある <code>Utils.Containers.Internal.StrictPair</code> を使うという手もありますが <code>Show</code> にすらなっていなくて不便ですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680237192.269909">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ほげやま</div>
+            <div class="date"><a class="date" href="#message-1680237192.269909">2023-03-31 13:33:12 +0900</a></div>
+          </div>
+          <div class="description">@ほげやま has joined the channel</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680266406.952249">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1680266406.952249">2023-03-31 21:40:06 +0900</a></div>
+          </div>
+          <div class="description">あー、とすると <code>strict</code> はだいぶ良さそうですか。メモリ上のレイアウトまで気にするなら <code>strict-tuple</code> を更に追加で入れるのも一応選択肢にはならないことは…ないのか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680272951.343829">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1680272951.343829">2023-03-31 23:29:11 +0900</a></div>
+          </div>
+          <div class="description">あ，忘れてた．最適化をまともにperf取らずに神に祈るのが好きな私みたいな軟弱者には，`strict-containers`  (<https://hackage.haskell.org/package/strict-containers-0.2|https://hackage.haskell.org/package/strict-containers-0.2>) のデータ型のフィールドまでstrict flagがついた containers (+unordered-containers) 実装とか見せられるとちょっと気になってしまいます。<br/><br/><pre>data X = X !Int !Double
+data Y = Y Int Double</pre><br/>を考えたときに、 <code>case x_value of X !a !b -&gt; ...</code> は <code>a</code>, <code>b</code> が評価されているかを判定するコードが不要だが、<br/><code>case y_value of Y !a !b -&gt; ...</code> において <code>y_value</code> のフィールドがあらゆる評価パスで評価済みだとしても、実行時に評価済みかどうかを判定するコードが消せない可能性がある、みたいなことを耳にするので…</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CL3AXB1AL/6.html" class="item">Previous</a>

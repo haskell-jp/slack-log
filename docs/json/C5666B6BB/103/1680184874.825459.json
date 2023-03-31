@@ -16,5 +16,17 @@
         "user": "UL1HFJATE",
         "ts": "1680188007.370889",
         "text": "そっちだけのexportなら私も不審には思わなかったんですけど、\n\n```constructStrict (x, y) = SPair x y```\nもexportしているので…"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680229832.337979",
+        "text": "検証するのに便利な関数をやっと見つけたので，解決(?)しました！ 結論をいうと，一致 *してない* ですね．\n\n```{-# LANGUAGE UnboxedTuples, MagicHash, BangPatterns #-}\nimport Data.Void (Void)\nimport GHC.Exts (unpackClosure#)\nimport GHC.Ptr (Ptr(..))\n\ntagPtr :: a -&gt; Ptr Void\ntagPtr x = case unpackClosure# x of\n  (# !addr#, !_, !_ #) -&gt; Ptr addr#```\nを準備して `ghci -fobject-code` で見てやると:\n\n```ghci&gt; tagPtr $! ((0,1) :: (Int,Int))\n0x00000001026870e0\nghci&gt; tagPtr $! ((1,1) :: (Int,Int))\n0x00000001026870e0\nghci&gt; tagPtr $! ((2,1) :: (Int,Int))\n0x00000001026870e0\nghci&gt; tagPtr $! ((2,2) :: (Int,Int))\n0x00000001026870e0\nghci&gt; tagPtr $! ((2,0) :: (Int,Int))\n0x00000001026870e0\n\nghci&gt; data T a b = T !a !b\nghci&gt; tagPtr $! (T 0 1 :: T Int Int)\n0x0000000100745008\nghci&gt; tagPtr $! (T 1 1 :: T Int Int)\n0x0000000100745008\nghci&gt; tagPtr $! (T 2 1 :: T Int Int)\n0x0000000100745008\nghci&gt; tagPtr $! (T 2 2 :: T Int Int)\n0x0000000100745008\nghci&gt; tagPtr $! (T 2 0 :: T Int Int)\n0x0000000100745008\n\nghci&gt; data U a b = U a b\nghci&gt; tagPtr $! (U 0 1 :: U Int Int)\n0x0000000100746008\nghci&gt; tagPtr $! (U 1 1 :: U Int Int)\n0x0000000100746008\nghci&gt; tagPtr $! (U 2 1 :: U Int Int)\n0x0000000100746008\nghci&gt; tagPtr $! (U 2 2 :: U Int Int)\n0x0000000100746008\nghci&gt; tagPtr $! (U 2 0 :: U Int Int)\n0x0000000100746008```\nと全然違います．ただ，この状態で `unsafeCoerce#` すると，まるで全てがうまくいったかのように見えますが:\n\n```ghci&gt; t0 = T 1 0 :: T Int Int\nghci&gt; tup = unsafeCoerce t0 :: (Int, Int)\nghci&gt; tup\n(1,0)```\nその実，tag は正しくない値を指しています：\n\n```ghci&gt; tagPtr tup\n0x0000000100745008```\nこれ，いわゆる， undefined behavior が問題を起こしていないだけ，のケースに見えますね．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680230289.904769",
+        "text": "面白いことに， これを `Either` 及びそれと同形状の定義を持つ型\n\n```data E a b = L a | R b```\nでやった時にも「tagは違うのに，`L 2 :: L Int Int` を `unsafeCoerce` することで `Either Int Int` を作ったあと，それを `show` させると `Left 2` が出てくる」という現象が起きます．多分 case式での照合の時に特定のビットしか見てないんですね (GHC9.4.4)．"
     }
 ]
