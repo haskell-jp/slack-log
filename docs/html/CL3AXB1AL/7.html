@@ -16,7 +16,7 @@
       <div class="event" id="message-1680152962.225539">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1680152962.225539">2023-03-30 14:09:22 +0900</a></div>
           </div>
           <div class="description">追加提案，というか皆さまの意見を聞きたいです:<br/> <code>strict</code>  (<https://hackage.haskell.org/package/strict>): 基本的なデータ型 ( <code>Either</code> ,  <code>Maybe</code> , and pair from <code>base</code>,  <code>These</code> from <code>these</code> )のfield-strict version と baseに入ってる lazy IO の strict version を実装します． 元々transitive dependency に入ってて， <a href='https://haskell-jp.slack.com/archives/C014PGG641Z/p1678521681800639'>https://haskell-jp.slack.com/archives/C014PGG641Z/p1678521681800639</a> = <a href='https://haskell.jp/slack-log/html/C014PGG641Z/4.html#message-1678521681.800639'>https://haskell.jp/slack-log/html/C014PGG641Z/4.html#message-1678521681.800639</a> あたり見てもモチベーションはありそうな気がします．しかし，リンク先の会話の主題そのものはタプルなのですが，このパッケージの <code>Data.Strict.Tuple</code> はペア <code>Pair a b</code> しかサポートしてなくて，19項までのタプル( <code>T1</code> , <code>T2</code> , … , <code>T19</code> )をサポートしてる <code>strict-tuple</code>  (<https://hackage.haskell.org/package/strict-tuple>) はモジュール名が <code>Data.Tuple.Strict</code> でややこしい，というのがアレですね．</div>
@@ -43,7 +43,7 @@
       <div class="event" id="message-1680156325.696669">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1680156325.696669">2023-03-30 15:05:25 +0900</a></div>
           </div>
           <div class="description">あー，頭のいい実装だ．4項までのタプルしか実装がないのは残念ではありますが，結構便利そう．</div>
@@ -61,7 +61,7 @@
       <div class="event" id="message-1680156426.323509">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1680156426.323509">2023-03-30 15:07:06 +0900</a></div>
           </div>
           <div class="description">貫禄の Dependencies: <code>base &lt; 5</code></div>
@@ -70,7 +70,7 @@
       <div class="event" id="message-1680156692.120609">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1680156692.120609">2023-03-30 15:11:32 +0900</a></div>
           </div>
           <div class="description">こういうパッケージって「古く」はならなそうに見えるので入れるのにそんなにリスクはなさそうですが，無意味に入れると収拾がつかなくなりそうという理由だけで躊躇するところはあるんですよね…</div>
@@ -79,7 +79,7 @@
       <div class="event" id="message-1680156820.743719">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1680156820.743719">2023-03-30 15:13:40 +0900</a></div>
           </div>
           <div class="description">でも Haskell の競プロ提出コードなんて bang がついてない変数を思い浮かべるのが難しいくらいですし，あったら結構嬉しそうなんだよな…</div>
@@ -88,7 +88,7 @@
       <div class="event" id="message-1680231036.259809">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1680231036.259809">2023-03-31 11:50:36 +0900</a></div>
           </div>
           <div class="description"><code>strict-wrappers</code> については， unsafe な関数が注釈なしに含まれているので導入を見合わせようかなと思います．<https://haskell.jp/slack-log/html/C5666B6BB/103.html#message-1680184874.825459> = <a href='https://haskell-jp.slack.com/archives/C5666B6BB/p1680184874825459'>https://haskell-jp.slack.com/archives/C5666B6BB/p1680184874825459</a> でのログをご確認くだされば幸いです．</div>
@@ -115,7 +115,7 @@
       <div class="event" id="message-1680266406.952249">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1680266406.952249">2023-03-31 21:40:06 +0900</a></div>
           </div>
           <div class="description">あー、とすると <code>strict</code> はだいぶ良さそうですか。メモリ上のレイアウトまで気にするなら <code>strict-tuple</code> を更に追加で入れるのも一応選択肢にはならないことは…ないのか？</div>
@@ -124,7 +124,7 @@
       <div class="event" id="message-1680272951.343829">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1680272951.343829">2023-03-31 23:29:11 +0900</a></div>
           </div>
           <div class="description">あ，忘れてた．最適化をまともにperf取らずに神に祈るのが好きな私みたいな軟弱者には，`strict-containers`  (<https://hackage.haskell.org/package/strict-containers-0.2|https://hackage.haskell.org/package/strict-containers-0.2>) のデータ型のフィールドまでstrict flagがついた containers (+unordered-containers) 実装とか見せられるとちょっと気になってしまいます。<br/><br/><pre>data X = X !Int !Double

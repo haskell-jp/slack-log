@@ -341,7 +341,7 @@
       <div class="event" id="message-1673157684.270449">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1673157684.270449">2023-01-08 15:01:24 +0900</a></div>
           </div>
           <div class="description">自作AtCoder library内の整数剰余型 <code>Rem m</code> の <code>(^) :: (Num (Rem m), Integral a) =&gt; Rem m -&gt; a -&gt; Rem m</code>  (ただし <code>instance Data.Reflection.Reifies m Word =&gt; Num (Rem m)</code>) を黒魔術で高速化すべく頑張ります</div>
@@ -359,7 +359,7 @@
       <div class="event" id="message-1673164466.000679">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1673164466.000679">2023-01-08 16:54:26 +0900</a></div>
           </div>
           <div class="description">うまく行きましたので先抜けします．何をしたかだけ軽く書いておきますね．<br/>自作整数剰余型 <code>Rem m</code>  の <code>(^)</code> が遅かったのです．profをとっていないのでよくわからないのですが， この原因は， <code>Data.Reflection.reflect :: Data.Reflection.Reifies m a =&gt; proxy m -&gt; a</code> で出てくる <code>reflect :: Reifies m Word =&gt; proxy m -&gt; Word</code> の素性が simplifier にから見てよくわからないので，インライン化もされない <code>(*) :: Rem m -&gt; Rem m -&gt; Rem m</code> の呼び出しが何度も <code>reflect</code> を呼んで最適化もされない，ということだったっぽいです．そこで， <code>reflect</code> を <code>(^)</code> の計算の最初だけ呼び，`(^)` の実装内部においては， <code>(*)</code> のかわりに，その実装に使われている modulus つき乗法関数(自作) <code>unsafeModMult :: Word -&gt; Word -&gt; Word -&gt; Word</code>  を呼ぶようにする，ということをしたいです．ところが，RULES で (^) を書き換えようとすると type checker が <code>Num (Rem m)</code> を知ってるくせに <code>Reifies m Word</code> を知らない，という事態が生じます． そこで <code>Num (Rem m)</code> だけの制約からmodulusを取ってくる必要に迫られるのですが，`fromInteger :: Integer -&gt; Rem m` が <code>remFromIntegerWithMod modulus</code> に書き換えられるように実装されていることを利用して  RULES で <code>computeModulusFromNumConstraint (remFromIntegerWithMod modulus) = modulus</code>  と書き換える，みたいな真似をしています． これで， AtCoder ABC282-E の実行速度が <a href='https://atcoder.jp/contests/abc282/submissions/37366230'>https://atcoder.jp/contests/abc282/submissions/37366230</a> (788ms) から <a href='https://atcoder.jp/contests/abc282/submissions/37872422'>https://atcoder.jp/contests/abc282/submissions/37872422</a> (173ms) へと高速化しました．手書きの剰余冪乗を用いた<https://atcoder.jp/contests/abc282/submissions/37872052> (168ms) と遜色ない速度です．</div>

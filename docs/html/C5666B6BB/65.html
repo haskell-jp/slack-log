@@ -244,7 +244,7 @@ Loaded GHCi configuration from /home/nobsun/.ghci
       <div class="event" id="message-1563640622.000600">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1563640622.000600">2019-07-21 01:37:02 +0900</a></div>
           </div>
           <div class="description">Data.List.cycleってなんでこんな風に定義されてるんでしょう．<br/>Data.List.cycleってGHC Library(GHC.List)だとこんな感じに定義されてて，Rewrite Ruleも持ってないんですけど，cycle2みたいに定義することもできるんですよね．<br/>cycle2みたいに定義するかまたはこの形に書き換えるようRewrite Ruleを設定すると，外側のbuildがcycle2を食ったconsumerとfoldr/build fusionできて美味しいはずで，逆にData.List.cycleの定義のままだと再帰が外側に露出しているせいでfoldr/build ruleがfireしないんですよね．なんでこんな定義になってるんでしょう．</div>
@@ -289,7 +289,7 @@ Loaded GHCi configuration from /home/nobsun/.ghci
       <div class="event" id="message-1563853567.007200">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1563853567.007200">2019-07-23 12:46:07 +0900</a></div>
           </div>
           <div class="description">例えば， <code>len :: Int</code> の時，<br/><pre>
@@ -309,7 +309,7 @@ last $ take len $ cycle [1..100::Int]
       <div class="event" id="message-1563860504.007800">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1563860504.007800">2019-07-23 14:41:44 +0900</a></div>
           </div>
           <div class="description">このコードを<br/><pre>
@@ -329,7 +329,7 @@ sys	0m0.087s
       <div class="event" id="message-1563860905.008400">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1563860905.008400">2019-07-23 14:48:25 +0900</a></div>
           </div>
           <div class="description">多分 <code>rep = 1, cycleLen = 107</code> では，いくら <code>takenLen</code> を大きくしても， <code>cycle</code> のresultがGCが必要なほど長くならず，固定されたcircular listをunconsしてるだけになるので，そこまで遅くはなりません．allocation量はそこまで大きくならないだろうと想像します．<br/>ここでは <code>rep</code> を大きくすることで，allocationが増大し，GCをtriggerして時間がかかるようになったんだと思います．(memory usage analysisをやってないので，正確なことはわかりませんが）</div>
@@ -338,7 +338,7 @@ sys	0m0.087s
       <div class="event" id="message-1563861313.008700">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1563861313.008700">2019-07-23 14:55:13 +0900</a></div>
           </div>
           <div class="description">まあ，早くなるかあんまり改善しないだけなんだったら，気づいてないんだろうから普通にpull-req投げちゃおうかな，と思っているんですが，パフォーマンスを悪化させるケースがあったら怖いんですよねえ…．</div>
@@ -347,7 +347,7 @@ sys	0m0.087s
       <div class="event" id="message-1563861926.009300">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1563861926.009300">2019-07-23 15:05:26 +0900</a></div>
           </div>
           <div class="description">上の返信の内容を訂正しました．cycleによって構成されるリストがfoldr/build fusionによる生成抑制を受けないというのは，ポインタレベルでcircularなリストがヒープに生成されて，使用されている間中保存され続けるということですので、適当なことを言っていました．</div>

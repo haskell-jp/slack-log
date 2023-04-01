@@ -315,7 +315,7 @@
       <div class="event" id="message-1589085885.105000">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1589085885.105000">2020-05-10 13:44:45 +0900</a></div>
           </div>
           <div class="description"><code>vector</code> のbugfixを書いているんですが、 <code>INLINE</code> 関数がloopbreakerになってしまっているかってどうやって検証するんでしたっけ？</div>
@@ -351,7 +351,7 @@
       <div class="event" id="message-1589119549.111200">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1589119549.111200">2020-05-10 23:05:49 +0900</a></div>
           </div>
           <div class="description">なるほど。つまり、 <code>-ddump-ds</code> とかですね？</div>
@@ -369,7 +369,7 @@
       <div class="event" id="message-1589204640.111900">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1589204640.111900">2020-05-11 22:44:00 +0900</a></div>
           </div>
           <div class="description">確かにー。ありがとうございます。</div>
@@ -378,7 +378,7 @@
       <div class="event" id="message-1589234370.114700">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1589234370.114700">2020-05-12 06:59:30 +0900</a></div>
           </div>
           <div class="description">Hackage / Stackage にも登録がある cabal package (non-stack project)を修正した上で、 Hackage 版ではなく修正版に依存するように、 <code>cabal exec ghc</code> (これがどれくらいまともに稼働するコマンドか理解していません)か <code>stack ghc</code> か、またはそれに類する何かを走らせるにはどうすればいいでしょうか？ <br/>ライブラリコードがインラインされた時の最適化がうまくいくように修正を掛けたつもりなので、それを適当な短いコードに対する  <code>ghc -ddump-simpl</code> で確認したいのですが、別にtestをいきなり追加したいわけではないし、自分のパッケージでもないので、いきなりそのパッケージの <code>cabal.project</code> を弄るのにも抵抗があるんですよね・・・。(いやもちろん git-managedなので弄るのに問題はないんですが)</div>
@@ -396,7 +396,7 @@
       <div class="event" id="message-1589245019.115700">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1589245019.115700">2020-05-12 09:56:59 +0900</a></div>
           </div>
           <div class="description">今考えているのって non-stack project ですから，その場合， <code>stack.yaml</code> と <code>package.yaml</code>  を <code>***.cabal</code> から適当に作ってから，ってことになるんでしょうか．</div>
@@ -450,7 +450,7 @@
       <div class="event" id="message-1589263290.124600">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1589263290.124600">2020-05-12 15:01:30 +0900</a></div>
           </div>
           <div class="description">(cabal-3.2.0.0に甘えてnewを忘れてしまった人間なので) <code>cabal exec ghc</code> を試したのですが、<br/><pre>import Data.Vector
@@ -462,7 +462,7 @@ main = return ()
       <div class="event" id="message-1589263484.128900">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1589263484.128900">2020-05-12 15:04:44 +0900</a></div>
           </div>
           <div class="description">あとで <code>stack ghc</code> と、あと <code>cabal.project.local</code> を用いた <code>cabal build</code> を試してみます。</div>

@@ -17,7 +17,7 @@
       <div class="event" id="message-1589264392.131800">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1589264392.131800">2020-05-12 15:19:52 +0900</a></div>
           </div>
           <div class="description">(GHCはcabalではないので、 <code>cabal.project</code> や <code>vector.cabal</code> を読まないのは当たり前っちゃあ当たり前で、問題はprecompiled packageがGHCからvisibleでないことだけなのですが)</div>
@@ -35,7 +35,7 @@
       <div class="event" id="message-1589296218.132800">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1589296218.132800">2020-05-13 00:10:18 +0900</a></div>
           </div>
           <div class="description"><code>stack build</code> -&gt; <code>stack ghc</code> でとりあえずうまくいきました！ ただ， <code>vector</code> は project root 直下に <code>&lt;projectroot&gt;/src/Data/Vector</code> とあるのではなく <code>&lt;projectroot&gt;/Data/Vector</code> とあるので，project rootでコンパイルしようとすると <code>cabal</code> でも <code>stack</code> でも失敗するのは盲点でした (これを改善しても <code>cabal</code> だと失敗するのですが・・・．)</div>
@@ -116,7 +116,7 @@
       <div class="event" id="message-1589353829.140500">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1589353829.140500">2020-05-13 16:10:29 +0900</a></div>
           </div>
           <div class="description"><code>gitrev</code> パッケージって誰か使ったことのある方いらっしゃいます? Template Haskell 使って実行バイナリの中に Git revision hashを書き込んでくれる可愛いパッケージで、Option parser library (`&lt;project root&gt;/src/TheApplicationProject/OptionParser.hs` みたいなファイル)で <code>--version</code> の実装に使っています。ですが、 <code>&lt;project root&gt;</code> で <code>git checkout</code> して <code>stack build</code> しても <code>stack exec executable -- --version</code> の Git revision hashが更新されないことが多数で、いちいち <code>stack clean</code> しないといけなくて困っています。`gitrev` の実装では <code>addDependentFile</code> を <code>.git/HEAD</code> やらに対してちゃんと実行しているように見えるので、行き詰まってしまっているのですが、どなたかお心当たりのある方いらっしゃいます?</div>
@@ -143,7 +143,7 @@
       <div class="event" id="message-1589360668.152400">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1589360668.152400">2020-05-13 18:04:28 +0900</a></div>
           </div>
           <div class="description">ありがとうございます。しかし、この問題は <code>gitrev</code> 及び <code>githash</code> 共通の問題であることが発覚しました。 <code>.git/HEAD</code> が コミットハッシュである際には <code>addDependentFile ".git/HEAD"</code> されますが、 <code>.git/HEAD</code> が <code>ref: branch</code> の際には <code>addDependentFile "branch"</code> のみが呼ばれ、 <code>addDependentFile ".git/HEAD"</code> は呼ばれないため、 <code>git checkout</code> では recompileはtriggerされない、という問題のようです。</div>
@@ -152,7 +152,7 @@
       <div class="event" id="message-1589360841.154300">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1589360841.154300">2020-05-13 18:07:21 +0900</a></div>
           </div>
           <div class="description">どっちも「現在のブランチを取得する」関数持ってるので明確にバグですね・・・。</div>
@@ -161,7 +161,7 @@
       <div class="event" id="message-1589360964.155200">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1589360964.155200">2020-05-13 18:09:24 +0900</a></div>
           </div>
           <div class="description">あとで適当にプルリク投げようと思います。お騒がせしました。</div>
@@ -170,7 +170,7 @@
       <div class="event" id="message-1589375299.159000">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1589375299.159000">2020-05-13 22:08:19 +0900</a></div>
           </div>
           <div class="description"> この件ですが、 そもそも <code>.git/HEAD</code> が <code>ref: branch\n</code> であるところを <code>drop 5</code> してブランチファイルを <code>branch\n</code> として検索した結果「ブランチファイルが存在してない扱いになる」ことが判明しました。面白かったのでお知らせします。</div>
@@ -215,7 +215,7 @@
       <div class="event" id="message-1589770742.178400">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1589770742.178400">2020-05-18 11:59:02 +0900</a></div>
           </div>
           <div class="description">Template haskellの再コンパイル時のdirtiness checkについて質問があって、 <code>addDependentFile</code> でディレクトリでない存在するファイルの変更・削除の追跡ができるのはわかるのですが、ディレクトリに対するファイルの削除・追加とか、ファイルの新規作成の追跡ってできないものでしょうか・・・。この前お聞きした <code>githash</code> だの <code>gitrev</code> だのにpull requestを書きたいのですが、Gitブランチの参照先の変化がファイルの新規作成によって起こる可能性があって、困り果てています。 <a href='https://haskell-jp.slack.com/archives/C5666B6BB/p1589353829140500'>https://haskell-jp.slack.com/archives/C5666B6BB/p1589353829140500</a></div>

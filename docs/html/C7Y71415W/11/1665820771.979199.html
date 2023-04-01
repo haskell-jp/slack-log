@@ -69,7 +69,7 @@
       <div class="event" id="message-1666245821.367099">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666245821.367099">2022-10-20 15:03:41 +0900</a></div>
           </div>
           <div class="description">今更ですが， Δ ⊣ ×，「直積関手は対角関手の右随伴」で，じつは逆に「対角関手の右随伴は直積関手」が言えます．そこで，Setにおいては{0,1,2} + {0,1,2} は6点集合かつ{0,1,2} × {0,1,2}は9点集合で同型を一つも持たないので， + が直積関手ではあり得ないと言うことが得られ，+は対角関手の右随伴ではあり得ない，みたいな論法が普通に使えそうな気がしますね．</div>
@@ -78,7 +78,7 @@
       <div class="event" id="message-1666354713.901139">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666354713.901139">2022-10-21 21:18:33 +0900</a></div>
           </div>
           <div class="description">一方で，「直和関手」と「対角関手の左随伴」は同等の構造ですが，「直和関手が対角関手の右随伴でない」は任意の圏で成り立つとは限りません。実際、「直積関手」と「対角関手の右随伴」が同等の構造ですが、ある関手が「直積関手」と「直和関手」の両方の構造を持つ例があります。例えば可換な群の圏や可換なモノイドの圏では，対象A,Bに対して<br/>Prod(A,B) := {(X, p_1: X → A, p_2: X → B) | p_1とp_2によってXはAとBの直積となる}<br/>Coprod(A,B) := {(X, i_1: A → X, i_2: B → X) | (X,i_1,i_2) はAとBの直和}<br/>Biprod(A,B) := {(X, p_1: X → A, i_1: A → X, p_2: X → B, i_2: B → X) | (X,p_1,p_2) は 直積，(X, i_1, i_2) は直和，p_1i_1 = id_A, p_2i_2 = id_B, p_1i_2 = 0, p_2i_1 = 0 }<br/>とおくと，自然な射影<br/>Biprod(A,B) → Prod(A,B)<br/>Biprod(A,B) → Coprod(A,B)<br/>が全て全単射になります．つまり直和に自然に直積の構造が入ります．すると、直和関手は直積関手でもあります。</div>
@@ -114,7 +114,7 @@
       <div class="event" id="message-1666435833.546409">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666435833.546409">2022-10-22 19:50:33 +0900</a></div>
           </div>
           <div class="description">後の質問から順番に答えさせていただきます．<br/><br/>Biprod(A,B) → Prod(A,B) の逆射を構成しましょう．それには，(X,p_1,p_2) ∈ Prod(A,B) をとって，i_1: A → X, i_2: B → X であって (X_1,p_1,p_2,i_1,i_2) ∈ Biprod(A,B) なるものが一意に存在することを示せば良いです（全単射性を示せば良いと言っているのと同じ）．<br/><br/>今，可換な群やモノイドの圏を考えていますが，それぞれの対象である群やモノイドの算法を，その素性によらず(+,0)で加法的に書くことにします．<br/>可換な群やモノイドの圏では，f,g: A → B において (f+g)(a) := f(a) + g(a) によって f+g: A → B が定義でき，同様に単位元が定義できて結合的なので，Hom(A,B)が可換なモノイドになります．0で単位元0(x) = 0を表すことにしましょう．<br/><br/>(X,p_1,p_2) ∈ Prod(A,B)を任意とします．(X,p_1,p_2) は直積なので，直積の普遍性により<br/>p_1i_1 = id_A: A → A (1)<br/>p_2i_1 = 0: A → B (2)<br/>なる射 i_1: A → X が一意に存在します．<br/>同様に，i_2: B → X であって，<br/>p_1i_2 = 0: B → A (3)<br/>p_2i_2 = id_B: B → B (4)<br/>なる射 i_2: B → X が一意に存在します．<br/><br/>これらのi_1,i_2 の一意性とBiprod(A,B)の定義に(1),(2),(3),(4)が既に含まれていることから，求めるものが存在してもたかだか一つしかないことは証明されました．あとは(X,i_1,i_2) が直和の普遍性を満たすことを示せば良いです．<br/><br/>まず i_1 p_1 + i_2 p_2 = id_X: X → X を示します．<br/>p_1 (i_1 p_1 + i_2 p_2)<br/> = (p_1 i_1) p_1 + (p_1 i_2) p_2<br/> = id_A p_1 + 0 p_2<br/> = p_1<br/> = p_1 id_X<br/>p_2 (i_1 p_1 + i_2 p_2)<br/> = (p_2 i_1) p_1 + (p_2 i_2) p_2<br/> = 0 p_1 + id_B p_2<br/> = p_2<br/> = p_2 id_X<br/>より，直積の普遍性から i_1 p_1 + i_2 p_2 = id_X．<br/>いま，f: A → Y, g: B → Y, とすると，h: X → Y が<br/>h i_1 = f, h i_2 = g を満たすためには<br/>h = h id_X<br/>= h(i_1 p_1 + i_2 p_2)<br/>= hi_1 p_1 + hi_2 p_2<br/>= f p_1 + g p_2<br/>しかなく，こうするとh i_1 = f, h i_2 = g は確かに満たされているので直和の普遍性を満たします．よって示されました．</div>
@@ -123,7 +123,7 @@
       <div class="event" id="message-1666436677.429109">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666436677.429109">2022-10-22 20:04:37 +0900</a></div>
           </div>
           <div class="description">前の質問については，単純に一意性を使わない議論をしただけですね．一意性を既に学習なさっているかがわからなかったので，「Setの3点集合A={0,1,2},B={0,1,2}の任意の直積(X, p_1: X → A, p_2: X→B)について，その台となる集合Xの要素の数は必ず9となる」，「Setの3点集合A,Bの任意の直和について，その台となる集合の要素の数は必ず6となる」という命題のみを用いて，「Setにおける2対象直和関手である任意の関手Set × Set → Setには直積をとる関手の構造を与えることができない」という命題を証明し，これと「Setにおける2成分対角関手Set → Set × Setの右随伴関手としての構造をもつ関手Set × Set → Setにはかならず標準的に直積をとる関手としての構造を与えることができる」から「Setおける2対象直和関手である任意の関手Set × Set → SetにはSetにおける2成分対角関手Set → Set × Setの右随伴関手としての構造を与えることができない」を示した感じです．</div>
@@ -150,7 +150,7 @@
       <div class="event" id="message-1666451365.111089">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666451365.111089">2022-10-23 00:09:25 +0900</a></div>
           </div>
           <div class="description">@t-shibata あー…ベーシック圏論の原書と物理的に離れているのでアレなのですが，「三つ組(X, p_1:X → A, p_2:X → B) が AとBの直積であるとは，任意の三つ組(Y, f: Y → A, g: Y → B) について，次の2条件を満たす射h: Y → Xがただ一つ存在すること: <strike>(1) h p_1 = f, (2) h p_2 = g</strike> (1) p_1 h = f, (2)p_2 h = g.」っていう定義はお分かりになるでしょうか？</div>
@@ -168,7 +168,7 @@
       <div class="event" id="message-1666458753.213839">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666458753.213839">2022-10-23 02:12:33 +0900</a></div>
           </div>
           <div class="description">@t-shibata おわかりもなにも完全に間違えていたので訂正しました． h: Y → X で p_1: X → A なので 合成 h p_1 なんて存在するわけなかったですね…．存在するのは p_1 h: Y → A の方です．暗黙に訂正した上でOKを下さったという理解でよろしいでしょうか．</div>
@@ -186,7 +186,7 @@
       <div class="event" id="message-1666484138.195209">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666484138.195209">2022-10-23 09:15:38 +0900</a></div>
           </div>
           <div class="description">だとしたら i_1, i_2 の構成には問題はなくて，i_1 p_1 + i_2 p_2 = id_X の証明がよくわからない，という感じでしょうか？</div>
@@ -204,7 +204,7 @@
       <div class="event" id="message-1666484471.712559">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666484471.712559">2022-10-23 09:21:11 +0900</a></div>
           </div>
           <div class="description">「(A, id_A: A → A, 0: A→B)に対して(X,p_1,p_2) の直積の普遍性を使って出てくる射をi_1: A → Xと呼ぶ」，でわかりますか？</div>
@@ -222,7 +222,7 @@
       <div class="event" id="message-1666485265.680139">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666485265.680139">2022-10-23 09:34:25 +0900</a></div>
           </div>
           <div class="description">あとは (X, p_1: X → A, p_2: X → B) 自身に対して(X, p_1,p_2) の普遍性を使うと p_1 h = p_1, p_2 h = p_2 なるh: X → X は一個しかないですから， h の候補が二つあればそれらの候補は等しいですね．</div>
@@ -240,7 +240,7 @@
       <div class="event" id="message-1666487203.338549">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666487203.338549">2022-10-23 10:06:43 +0900</a></div>
           </div>
           <div class="description">あー…違います．直和の普遍性は今証明しているところなので，直和の普遍性を事実として用いることはできません．</div>
@@ -249,7 +249,7 @@
       <div class="event" id="message-1666487354.022429">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666487354.022429">2022-10-23 10:09:14 +0900</a></div>
           </div>
           <div class="description">(X,p_1,p_2)の直積の普遍性と<br/>p_1i_1 = id_A: A → A (1)<br/>p_2i_1 = 0: A → B (2)<br/>p_1i_2 = 0: B → A (3)<br/>p_2i_2 = id_B: B → B (4)<br/>だけから<br/>i_1 p_1 + i_2 p_2 = id_X: X → X: (5)<br/>が出てきて，(1),(2),(3),(4),(5)から直和の普遍性が出ます．</div>
@@ -267,7 +267,7 @@
       <div class="event" id="message-1666487692.608649">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666487692.608649">2022-10-23 10:14:52 +0900</a></div>
           </div>
           <div class="description">蛇足に付き合わせてしまってすみませんでした…</div>
@@ -294,7 +294,7 @@
       <div class="event" id="message-1666606452.819129">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666606452.819129">2022-10-24 19:14:12 +0900</a></div>
           </div>
           <div class="description">ちなみに，1to100penさんへの返信についてですが，(X, p: X→A, q: X→B) が 圏Dにおける直積であり，(F: C → D) ⊣ (G: D → C) なる随伴である時，G(X)が単に直積の構造を持ちうるというだけでなく，この直積図式のGによる像(G(X), G(p): G(X)→G(A), G(q): G(X) → G(B)) そのものが必ず直積になります．この命題は「圏Cが直積を持つ」という仮定なしに成り立ちます．ということで，t-shibataさんの証明のようにYとG(X)の同型を証明するだけでは「G(X)が直積の構造を与えられうる」ということしか示せませんし，そもそも「圏Cが直積の構造を持つ」を使わないとYの存在は言えませんが、Yの存在は仮定しなくても命題を証明できます。</div>
@@ -312,7 +312,7 @@
       <div class="event" id="message-1666616941.247089">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666616941.247089">2022-10-24 22:09:01 +0900</a></div>
           </div>
           <div class="description">随伴を与えるhom-setの同型とその自然性と関手が関手の条件を満たすことから証明できると思います！</div>
@@ -330,7 +330,7 @@
       <div class="event" id="message-1666623545.404349">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666623545.404349">2022-10-24 23:59:05 +0900</a></div>
           </div>
           <div class="description">証明の意味がよく分かってなくて，「圏Dでの直積が圏Cでも保たれる」という言葉の意味は機械的に「(X,p1: X → B1, p2: X → B2)が圏Dでの直積ならば(G(X), G(p1): G(X) → G(B1), G(p2): G(X) → G(B2))がけんCでの直積である」ということです（だって直積とは対象ではなくて三つ組のことだから）．「圏Dでの直積が圏Cでも保たれる」と言った時点でそれが証明できているようには見えないんですよね…．G(h)がただ一つ存在する，という言い方と「随伴の自然性から~q1: F(A)→B1, ~q2: F(A)→B2がただ一つ存在します。」も割と謎です．ごめんなさい，仮にも数学側の人間なんだから理解力を持って聞くべきなんですが…．</div>
@@ -348,7 +348,7 @@
       <div class="event" id="message-1666656267.859169">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666656267.859169">2022-10-25 09:04:27 +0900</a></div>
           </div>
           <div class="description">まず，一番簡単に指摘できることから．随伴の自然性の主張は間違っているかと思います．<br/>D(F(A), B)≅C(A, G(B)) for A ∈ Ob(C), B ∈ Ob(D)<br/>は随伴のHom-同型とか呼ばれている命題ですが，そもそも<br/>C^{op} × D ∋ (A^op,B) ↦ D(F(A),B) ∈ Set<br/>C^{op} × D ∋ (A^op,B) ↦ C(A,G(B)) ∈ Set<br/>は共に関手です． Ob-写像は上の通りで，Hom-写像は次の通りに定義されます： (f: A’ → A)^op = (f^op: A^op → A’^op) が C^op の射(f: A’ → A自体はCの射)， g: B → B’ が Dの射であるときに Set の射<br/>D(F(f), g): D(F(A), B) → D(F(A’), B)<br/>C(f, G(g)): C(A, G(B)) → C(A’, G(B’))<br/>が<br/>D(F(f), g)(u: F(A) → B) := g u F(f): F(A’) → B,<br/>C(f, G(g))(v: A → G(B)) := G(g) u f: A’ → G(B’)<br/>として定まるわけです．<br/><br/>そして，随伴のHom-同型は，単に各A,Bそれぞれについて同型というだけでなく，<br/>C^{op} × D ∋ (A^op,B) ↦ D(F(A),B) ∈ Set<br/>C^{op} × D ∋ (A^op,B) ↦ C(A,G(B)) ∈ Set<br/>が関手として自然同型である，つまり各A,Bについての同型を束ねたときに自然変換とみなせる，ということが要求されます．これが随伴の自然性です．</div>
@@ -375,7 +375,7 @@
       <div class="event" id="message-1666707962.101899">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666707962.101899">2022-10-25 23:26:02 +0900</a></div>
           </div>
           <div class="description">うん、あってそうです。もちろん、自然性条件がもう一個あるのもお忘れではないですよね？</div>
@@ -393,7 +393,7 @@
       <div class="event" id="message-1666709910.896149">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666709910.896149">2022-10-25 23:58:30 +0900</a></div>
           </div>
           <div class="description">はい、そうです。</div>
@@ -402,7 +402,7 @@
       <div class="event" id="message-1666710270.900149">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666710270.900149">2022-10-26 00:04:30 +0900</a></div>
           </div>
           <div class="description">Hom-同型の自然性はそのままではSetの射の可換図式ですが、Setの射の可換図式は写像の等式で、写像の等式は各要素への適用結果の等式で、この「適用結果」を書き下してみると圏C,Dにおける可換図式に見えてより分かりやすくなる、という格好になってますね。</div>
@@ -420,7 +420,7 @@
       <div class="event" id="message-1666736000.646089">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666736000.646089">2022-10-26 07:13:20 +0900</a></div>
           </div>
           <div class="description">あっています．そしてもっとわかりやすいように追加すると，φ(x)がxに関する条件であるとき，「φ(x)を満たすxがただ一つ存在する」（唯一存在）という言葉の意味は，「『φ(x)を満たすxが存在する』(存在性)かつ『任意のx,yについて，φ(x)とφ(y)の両方が成り立つならx=y』(唯一性)」と分解して定義されているので，バラバラに証明してみることをお勧めします．もちろん，「『任意のyについて，φ(y)ならx=yである』を満たすyによって変化しないxが存在する」と「φ(x)を満たすxが存在する」の二つを証明しても同値です．</div>
@@ -438,7 +438,7 @@
       <div class="event" id="message-1666740514.505729">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666740514.505729">2022-10-26 08:28:34 +0900</a></div>
           </div>
           <div class="description">あってます！</div>
@@ -465,7 +465,7 @@
       <div class="event" id="message-1666839556.681819">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666839556.681819">2022-10-27 11:59:16 +0900</a></div>
           </div>
           <div class="description">あってますね。「かける」は一応語法としては間違ってて、「適用する」とか「作用させる」とかが正しいと思いますが、これを読んで理解できない数学者はいないと思います。完全に正しい証明です！</div>
@@ -483,7 +483,7 @@
       <div class="event" id="message-1666869334.444329">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1666869334.444329">2022-10-27 20:15:34 +0900</a></div>
           </div>
           <div class="description">はい、私もそうしています。面倒ですが、幸いiOS／macOSだとユーザー辞書が日本語入力でなくてキーボードに紐づいてくれているので、「¥ alpha」は「α」だとか 「¥ dashv」は「⊣」とかTeX表記を登録して使っています。</div>

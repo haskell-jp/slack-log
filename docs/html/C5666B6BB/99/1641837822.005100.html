@@ -35,7 +35,7 @@ f = const undefined
       <div class="event" id="message-1641863095.025000">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1641863095.025000">2022-01-11 10:04:55 +0900</a></div>
           </div>
           <div class="description">んー、 箇条書きにすると、<br/>•  <code>State# RealWorld -&gt; a</code> は <code>RealWorld</code> からの読み出しを表さない<br/>• ので、無意味なので <code>State# RealWorld -&gt; a</code> を表す <code>newtype</code> は普通のライブラリからはエクスポートされてない<br/>• けど、 <code>newtype Bad a = Bad (State# RealWorld -&gt; a)</code> ってやれば自分で定義することはできる<br/>• <code>newtype IO a = IO (State# RealWorld -&gt; (# State# RealWorld, a #))</code> なのだから、次の <code>ioToBad</code> 関数が書けるので、任意の <code>IO a</code> から <code>Bad a</code> が作れる。読み書きのどっちであるかは関係ない。 そしてこの <code>Bad a</code> の値は(きちんと意味のある I/O 操作をするために I/O操作たちの間で順序を強制するための)役には立たない。<br/><pre>ioToBad :: IO a -&gt; Bad a
@@ -45,7 +45,7 @@ ioToBad (IO f) = Bad $ \s0 -&gt; case (f s0) of (# s1, a #) -&gt; a</pre><br/>�
       <div class="event" id="message-1641864089.037800">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1641864089.037800">2022-01-11 10:21:29 +0900</a></div>
           </div>
           <div class="description">ちなみになんで「読み」を表せないかというと、 <code>State# RealWorld</code> の値は世界全体を保存している訳ではないので、例えば<br/><br/><pre>newIORef# :: a -&gt; State# RealWorld -&gt; (# State# RealWorld, IORef a #)
@@ -68,7 +68,7 @@ badReadIORef# ref = case ioToBad (readIORef ref) of Bad f -&gt; f</pre><br/>の�
       <div class="event" id="message-1641864119.038500">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1641864119.038500">2022-01-11 10:21:59 +0900</a></div>
           </div>
           <div class="description">なんかアレで良くないな、という。</div>
@@ -86,7 +86,7 @@ badReadIORef# ref = case ioToBad (readIORef ref) of Bad f -&gt; f</pre><br/>の�
       <div class="event" id="message-1641870700.046800">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1641870700.046800">2022-01-11 12:11:40 +0900</a></div>
           </div>
           <div class="description">確かに！　その <code>o</code> って、現状多くののユースケースで <code>(# State# s, a #)</code> の形をしていますが、 <code>runST</code> やら <code>unsafePerformIO</code> で使うなら別に実際の実装のように<br/><br/><pre>runST (ST f) = case runRW# f of (# !_, a #) -&gt; a</pre><br/>としなくても<br/><br/><pre>runST (ST f) = runRW# $ \s -&gt; case f s of (# !_, a #) -&gt; a</pre><br/>としても構わないですしね（ほんとか…？）。</div>
@@ -104,7 +104,7 @@ badReadIORef# ref = case ioToBad (readIORef ref) of Bad f -&gt; f</pre><br/>の�
       <div class="event" id="message-1641873010.049400">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1641873010.049400">2022-01-11 12:50:10 +0900</a></div>
           </div>
           <div class="description">モジュール境界を使えばそういう意味を持つ <code>newtype</code> を作ることはできますが、定義から原理的に読み出ししかできない型っていうのは無理じゃないかなと思います…。</div>

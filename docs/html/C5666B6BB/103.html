@@ -16,7 +16,7 @@
       <div class="event" id="message-1674372468.666109">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1674372468.666109">2023-01-22 16:27:48 +0900</a></div>
           </div>
           <div class="description"><code>ghc-bignum</code> ってデフォルトが <code>native</code> になってますけど， これを <code>gmp</code> にしようと思ったら <code>ghcup</code> でGHCをインストールする時点でなんとかしないといけないですか…？</div>
@@ -99,7 +99,7 @@
       <div class="event" id="message-1675566381.795629">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1675566381.795629">2023-02-05 12:06:21 +0900</a></div>
           </div>
           <div class="description"><a href='https://haskell-jp.slack.com/archives/CL3AXB1AL/p1675402815431589'>https://haskell-jp.slack.com/archives/CL3AXB1AL/p1675402815431589</a> （at <a href='#CL3AXB1AL'>atcoder-lang-update</a>)<br/><blockquote>がんばりました。直接installしていない物も含む、全transitive dependencyのライセンスのリスト:　<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=E5></blockquote>この件で，あるパッケージ群の全transitive dependenciesからlicenseを取ってくる作業をしたのですが，私の知識の範囲でできる限り車輪の再開発を避けて:<br/>1. cabal-installにdependencyを解いてもらい，<br/>2. それをもとにHackage API を叩いて <code>.cabal</code> ファイルをもらってくる，<br/>3.  <code>Cabal-syntax</code> パッケージを使ってその <code>.cabal</code> ファイルをパースしてライセンス情報を取る<br/>みたいな手段を取りました．この1.に関して質問させてください．<br/><br/>ここでやりたいことは，「ビルドやインストールはしなくていいけど，現環境から見た，既ビルドのものも含めた全transitive dependenciesのリストが欲しい」ということになります．このために今回は結構乱暴な手段を取りました．Docker環境があったので，まっさらなGHC+Cabalをghcupでインストールしたのち，対象のパッケージ群を全部 <code>cabal install --lib</code> して <code>ghc-pkg　list</code> でインストールされている全パッケージのリストを取ってきたのです．しかし，これでは余計なパッケージまで見ている気がしますし，もうちょっとなんとかならんのか，という気がします．<br/><br/>色々いじっていると，適当に一個だけcabal packageを持つcabal projectを作り，Cabal packageの <code>.cabal</code> ファイルは目的とするパッケージ群をdependenciesに持つ library だけを持つようにし，project の <code>cabal.project</code> にはそれらのライブラリについて設定すべきフラグを持たせるようにすると，  <code>cabal freeze</code> で <code>cabal.project.freeze</code> がなんかそれっぽいファイルになるのですが，これで合ってるのでしょうか…？ <code>cabal freeze</code> が良い方法なのか，あるいは別の方法があればお教えいただければありがたいです．</div>
@@ -186,7 +186,7 @@
       <div class="event" id="message-1678031344.687819">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1678031344.687819">2023-03-06 00:49:04 +0900</a></div>
           </div>
           <div class="description">ふと思ったのですが，GHCの compiler backend (LLVMとかNCGとか)って機械語吐くのに必要なんだから，ライブラリだけビルドする時って無関係，なんでしたっけ…？ こういう時どういう資料を漁ればいいかよくわからなくなってしまって．</div>
@@ -205,7 +205,7 @@
       <div class="event" id="message-1678493250.805059">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1678493250.805059">2023-03-11 09:07:30 +0900</a></div>
           </div>
           <div class="description">あるpackage の executable 中に入っている module の関数が欲しくて、copy-and-paste するつもりなのですが、こういう時って LICENSE ファイルを複数作るか、追記するか、どうするのが普通なんでしょう？</div>
@@ -251,7 +251,7 @@
       <div class="event" id="message-1680184874.825459">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1680184874.825459">2023-03-30 23:01:14 +0900</a></div>
           </div>
           <div class="description"><a href='ttps://haskell-jp.slack.com/archives/CL3AXB1AL/p1680155886899719'>https://haskell-jp.slack.com/archives/CL3AXB1AL/p1680155886899719</a> の関係で <code>strict-wrapper</code> のコード (<https://github.com/tomjaguarpaw/strict-wrapper/blob/48a2695995a4c4c9d853b5f45175f6cf1241ebb2/lib/Data/Strict/Wrapper.hs#LL223-L262>) を読んでたんですが，ここの <code>strict</code> と <code>unstrict</code> 関数が怖いことをしていると思うので，皆様のご意見を伺いたいです．参照先のコードは大体<br/><br/><pre>data SPair a b = SPair !a !b

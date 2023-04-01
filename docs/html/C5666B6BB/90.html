@@ -206,7 +206,7 @@
       <div class="event" id="message-1600944992.004400">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1600944992.004400">2020-09-24 19:56:32 +0900</a></div>
           </div>
           <div class="description">これに関連してずっと気になっていたのですが，<br/><a href='https://haskell-jp.slack.com/archives/C5666B6BB/p1600826197000500?thread_ts=1600821584.000400&amp;cid=C5666B6BB'>https://haskell-jp.slack.com/archives/C5666B6BB/p1600826197000500?thread_ts=1600821584.000400&amp;cid=C5666B6BB</a><br/><pre>data Finalizers
@@ -225,7 +225,7 @@ data ForeignPtr a = ForeignPtr Addr# ForeignPtrContents</pre><br/>この定義�
       <div class="event" id="message-1600945536.004600">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1600945536.004600">2020-09-24 20:05:36 +0900</a></div>
           </div>
           <div class="description">ただ捨てられる，ってのも変だな．“garbage collector (or compilers) should treat <code>ForeignPtrContents</code> specially” とか書いているのを見たことないので，ふっつーに扱われるんだろうな，と思っている，と言うのが正しい．</div>
@@ -270,7 +270,7 @@ data ForeignPtr a = ForeignPtr Addr# ForeignPtrContents</pre><br/>この定義�
       <div class="event" id="message-1601137541.012300">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1601137541.012300">2020-09-27 01:25:41 +0900</a></div>
           </div>
           <div class="description">そのようなものがFinalizerだと思っていたので，たかが <code>IORef</code> に入っている <code>IO ()</code> くらいのものをfinalizerと呼ぶのか，とずっと疑問だったのですが，あれユーザランドで勝手に弄る前提のものではなかったのですね！　まずそこにびっくりしていました．exportされてるから，てっきり <code>atomicModifyIORef</code> あたりでユーザが勝手に弄って良いものかと・・・．</div>
@@ -279,7 +279,7 @@ data ForeignPtr a = ForeignPtr Addr# ForeignPtrContents</pre><br/>この定義�
       <div class="event" id="message-1601302226.014500">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1601302226.014500">2020-09-28 23:10:26 +0900</a></div>
           </div>
           <div class="description"><code>mkWeak</code> あたりやっと読んできました。 <code>Weak</code> ってFinalizerをつけて作れるんですね。</div>
@@ -288,7 +288,7 @@ data ForeignPtr a = ForeignPtr Addr# ForeignPtrContents</pre><br/>この定義�
       <div class="event" id="message-1601302327.016300">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1601302327.016300">2020-09-28 23:12:07 +0900</a></div>
           </div>
           <div class="description">（というか型の機能が型自体になくて作成時にimplicitに付けるっていうのが面白い発想だなと思いました）</div>

@@ -15,7 +15,7 @@
       <div class="event" id="message-1680184874.825459">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1680184874.825459">2023-03-30 23:01:14 +0900</a></div>
           </div>
           <div class="description"><a href='ttps://haskell-jp.slack.com/archives/CL3AXB1AL/p1680155886899719'>https://haskell-jp.slack.com/archives/CL3AXB1AL/p1680155886899719</a> の関係で <code>strict-wrapper</code> のコード (<https://github.com/tomjaguarpaw/strict-wrapper/blob/48a2695995a4c4c9d853b5f45175f6cf1241ebb2/lib/Data/Strict/Wrapper.hs#LL223-L262>) を読んでたんですが，ここの <code>strict</code> と <code>unstrict</code> 関数が怖いことをしていると思うので，皆様のご意見を伺いたいです．参照先のコードは大体<br/><br/><pre>data SPair a b = SPair !a !b
@@ -40,7 +40,7 @@ unstrict = unsafeCoerce</pre><br/>のようなことをしており，これっ�
       <div class="event" id="message-1680188007.370889">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1680188007.370889">2023-03-30 23:53:27 +0900</a></div>
           </div>
           <div class="description">そっちだけのexportなら私も不審には思わなかったんですけど、<br/><br/><pre>constructStrict (x, y) = SPair x y</pre><br/>もexportしているので…</div>
@@ -49,7 +49,7 @@ unstrict = unsafeCoerce</pre><br/>のようなことをしており，これっ�
       <div class="event" id="message-1680229832.337979">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1680229832.337979">2023-03-31 11:30:32 +0900</a></div>
           </div>
           <div class="description">検証するのに便利な関数をやっと見つけたので，解決(?)しました！ 結論をいうと，一致 <b>してない</b> ですね．<br/><br/><pre>{-# LANGUAGE UnboxedTuples, MagicHash, BangPatterns #-}
@@ -102,7 +102,7 @@ ghci&gt; tup
       <div class="event" id="message-1680230289.904769">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1680230289.904769">2023-03-31 11:38:09 +0900</a></div>
           </div>
           <div class="description">面白いことに， これを <code>Either</code> 及びそれと同形状の定義を持つ型<br/><br/><pre>data E a b = L a | R b</pre><br/>でやった時にも「tagは違うのに，`L 2 :: L Int Int` を <code>unsafeCoerce</code> することで <code>Either Int Int</code> を作ったあと，それを <code>show</code> させると <code>Left 2</code> が出てくる」という現象が起きます．多分 case式での照合の時に特定のビットしか見てないんですね (GHC9.4.4)．</div>

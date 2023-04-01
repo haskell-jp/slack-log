@@ -15,7 +15,7 @@
       <div class="event" id="message-1623512883.032000">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1623512883.032000">2021-06-13 00:48:03 +0900</a></div>
           </div>
           <div class="description"><code>IntSet</code> みたいな~trie木~Patricia木を車輪の再開発しなければならなくなったのですが、型の御加護を受けつつ余計なreference indirectionを避けるために<br/><br/><pre>
@@ -30,7 +30,7 @@ newtype Patricia' = forall b. Patricia' (Patricia b)</pre><br/>みたいなこ�
       <div class="event" id="message-1623516829.040100">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1623516829.040100">2021-06-13 01:53:49 +0900</a></div>
           </div>
           <div class="description">何しろ、 これができないのなら<br/><br/><pre>data InhabitedPatricia = Branch { label :: {-# UNPACK #-} !Word,
@@ -44,7 +44,7 @@ data Patricia = Inhabited !InhabitedPatricia | Empty</pre><br/>でも構わな�
       <div class="event" id="message-1623528033.046000">
         <div class="content">
           <div class="summary">
-            <div class="user"></div>
+            <div class="user">gksato</div>
             <div class="date"><a class="date" href="#message-1623528033.046000">2021-06-13 05:00:33 +0900</a></div>
           </div>
           <div class="description">今思いついたのが、<br/><br/><pre>data Patricia (nullable :: Bool) :: Type where
