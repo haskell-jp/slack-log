@@ -131,6 +131,45 @@
 data Y = Y Int Double</pre><br/>を考えたときに、 <code>case x_value of X !a !b -&gt; ...</code> は <code>a</code>, <code>b</code> が評価されているかを判定するコードが不要だが、<br/><code>case y_value of Y !a !b -&gt; ...</code> において <code>y_value</code> のフィールドがあらゆる評価パスで評価済みだとしても、実行時に評価済みかどうかを判定するコードが消せない可能性がある、みたいなことを耳にするので…</div>
         </div>
       </div>
+      <div class="event" id="message-1680690476.770539">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680690476.770539">2023-04-05 19:27:56 +0900</a></div>
+          </div>
+          <div class="description">Language Test Contestが2nd freeze (3/28)版に更新されました！<br/><br/>期待通り，次のコードをコードテストに投げると <code>cabal.project.freeze</code> ファイルを取ってこれました:<br/><br/><pre>import <http://System.IO|System.IO>
+
+main :: IO ()
+main = putStr =&lt;&lt; readFile "/judge/submission/cabal.project.freeze"</pre><br/>結果は <a href='https://gist.github.com/gksato/b7d0b18e9ef8be5762fef8717737e27b#file-4-cabal-project-freeze'>https://gist.github.com/gksato/b7d0b18e9ef8be5762fef8717737e27b#file-4-cabal-project-freeze</a> です．<br/><br/>あと，全exposed modulesのインポート (<https://gist.github.com/gksato/b7d0b18e9ef8be5762fef8717737e27b#file-3-imports-hs>) を投げても実行が通ることも確認できました！<br/><br/>今の所，次のfreezeの時には，<br/>• <code>extra</code> : 1.7.12 -&gt; 1.7.13<br/>• <code>strict</code> を追加<br/>• インストールコマンドとコンパイルコマンドにおいて，workdirの仕様が不明だったために必要だった余計なコマンド群を除去(参照: <a href='https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=H67:I68'>https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=H67:I68</a>)<br/>を確定で実施するつもりでおり，<br/>• <code>strict-tuple</code> の追加<br/>• <code>strict-containers</code> の追加<br/>については保留中です．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680713459.208939">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cojna</div>
+            <div class="date"><a class="date" href="#message-1680713459.208939">2023-04-06 01:50:59 +0900</a></div>
+          </div>
+          <div class="description">GHCについてくるライブラリ群で現環境では使えるが新環境では使えない状態のものがあるので対応しておきたいです<br/><pre>import Data.Binary () -- binary
+import Data.Time () -- time
+import System.Directory () -- directory
+import System.FilePath () -- filepath
+import System.Posix () -- unix
+import System.Process () -- process
+import Text.PrettyPrint () -- pretty
+
+main=pure()</pre><br/></div>
+          <a class="link-to-replies" href="7/1680713459.208939.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1680736340.027829">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680736340.027829">2023-04-06 08:12:20 +0900</a></div>
+          </div>
+          <div class="description">あーそれ，（競プロに関係あるかわかんなくて）入れるか迷ってたんですよね．入れる側に一票入ったので入れることにしましょう！</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CL3AXB1AL/6.html" class="item">Previous</a>

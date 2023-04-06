@@ -76,5 +76,23 @@
         "user": "UL1HFJATE",
         "ts": "1680272951.343829",
         "text": "あ，忘れてた．最適化をまともにperf取らずに神に祈るのが好きな私みたいな軟弱者には，`strict-containers`  (<https://hackage.haskell.org/package/strict-containers-0.2|https://hackage.haskell.org/package/strict-containers-0.2>) のデータ型のフィールドまでstrict flagがついた containers (+unordered-containers) 実装とか見せられるとちょっと気になってしまいます。\n\n```data X = X !Int !Double\ndata Y = Y Int Double```\nを考えたときに、 `case x_value of X !a !b -&gt; ...` は `a`, `b` が評価されているかを判定するコードが不要だが、\n`case y_value of Y !a !b -&gt; ...` において `y_value` のフィールドがあらゆる評価パスで評価済みだとしても、実行時に評価済みかどうかを判定するコードが消せない可能性がある、みたいなことを耳にするので…"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680690476.770539",
+        "text": "Language Test Contestが2nd freeze (3/28)版に更新されました！\n\n期待通り，次のコードをコードテストに投げると `cabal.project.freeze` ファイルを取ってこれました:\n\n```import <http://System.IO|System.IO>\n\nmain :: IO ()\nmain = putStr =&lt;&lt; readFile \"/judge/submission/cabal.project.freeze\"```\n結果は <https://gist.github.com/gksato/b7d0b18e9ef8be5762fef8717737e27b#file-4-cabal-project-freeze> です．\n\nあと，全exposed modulesのインポート (<https://gist.github.com/gksato/b7d0b18e9ef8be5762fef8717737e27b#file-3-imports-hs>) を投げても実行が通ることも確認できました！\n\n今の所，次のfreezeの時には，\n• `extra` : 1.7.12 -&gt; 1.7.13\n• `strict` を追加\n• インストールコマンドとコンパイルコマンドにおいて，workdirの仕様が不明だったために必要だった余計なコマンド群を除去(参照: <https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=H67:I68>)\nを確定で実施するつもりでおり，\n• `strict-tuple` の追加\n• `strict-containers` の追加\nについては保留中です．"
+    },
+    {
+        "type": "message",
+        "user": "UL5PAB0F9",
+        "ts": "1680713459.208939",
+        "text": "GHCについてくるライブラリ群で現環境では使えるが新環境では使えない状態のものがあるので対応しておきたいです\n```import Data.Binary () -- binary\nimport Data.Time () -- time\nimport System.Directory () -- directory\nimport System.FilePath () -- filepath\nimport System.Posix () -- unix\nimport System.Process () -- process\nimport Text.PrettyPrint () -- pretty\n\nmain=pure()```\n"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680736340.027829",
+        "text": "あーそれ，（競プロに関係あるかわかんなくて）入れるか迷ってたんですよね．入れる側に一票入ったので入れることにしましょう！"
     }
 ]
