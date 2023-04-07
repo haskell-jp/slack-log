@@ -106,5 +106,35 @@
         "user": "UL1HFJATE",
         "ts": "1680783614.872259",
         "text": "なるほど． Windows 環境下でないとビルドできない `Win32` を除き，\n• `Cabal`\n• `Cabal-syntax`\n• `binary`\n• `directory`\n• `filepath`\n• `ghc` \n• `ghc-boot` \n• `ghc-boot-th`\n• `ghc-compact`\n• `ghc-heap`\n• `ghc-prim`\n• `ghci`\n• `haskelline`\n• `hpc`\n• `integer-gmp`\n• `libiserv`\n• `pretty`\n• `process`\n• `stm`\n• `terminfo`\n• `time`\n• `unix`\n• `xhtml`\nを全て追加する，ということですか． `ghc-compact` をただ追加するのもアレなので，\n• `compact`\nを追加してもいいかもしれませんね．\n\nさしあたって気にすべき点は，特に `ghc-prim` などの `ghc*` 系が GHC のバージョン間で安定したAPIを提供しそうに見えない，ということでしょうか．\n\n細かい反論としては:\n• `ghc` とか `terminfo`  とか本当に要るの？  → 「本当に」要る要らないの線引きは難しいので，「GHC-bundled」という明確な線引きがあるのは良いこと\n• `ghc*` 系はHackageにアップロードされていないことが多い（ 「GHC-bundled version しか使えないからHackageからのダウンロードの需要がない以上，面倒だからいいよね〜」という理由なのかは知らない）ので，`cabal-plan license-report`  が自動でライセンスを拾ってこれないため，License report の Human-written caveat を手書きで追加執筆しなければならないのが面倒 → 頑張れ\nという点もありますが，ここら辺は簡単に再反論できるところですね．とくに「GHC-bundled」という明確な線引きがある，というのは結構な美点っぽいです．\n\nみなさんのご意見もお聞きしたいので，よろしくお願いします．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680837944.442169",
+        "text": "transitive dependencies に入ってて，ちょっと便利そうなので，追加提案：\n• `indexed-traversable`\n• `indexed-traversable-instances` \nあと， `lens` 系が入っているので，\n• `strict-containers-lens` (`strict-containers` を入れるなら)\nを追加提案しておきます．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680838999.208309",
+        "text": "せっかく `attoparsec` と `parsec` が入っているなら `trifecta` と `megaparsec` を紛れ込ませたいという悪い欲望があります:sweat_smile:"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680839106.112889",
+        "text": "あとは，ユーザー側に 「serverに提出されたコードだ」ということを条件に conditional compilation を許すためになんかの Cabal flag を定義してもいいのでは，ということになんとなく思い至りました．環境変数 `ATCODER = 1` だけだと Conditional compilation には不便なので．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680847504.237249",
+        "text": "transitive dependency の direct dependency への 格上げの追加提案:\n• `contravariant`\n• `kan-extensions`\n• `adjunctions`\n• `bifunctors`\n• `comonad`\n• `distributive`\n• `profunctors`\n• `semigroupoids`"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680850863.201929",
+        "text": "忘れるところでした:\n• `strict-lens`"
     }
 ]

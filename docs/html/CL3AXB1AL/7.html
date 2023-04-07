@@ -188,6 +188,52 @@ main=pure()</pre><br/></div>
           <div class="description">なるほど． Windows 環境下でないとビルドできない <code>Win32</code> を除き，<br/>• <code>Cabal</code><br/>• <code>Cabal-syntax</code><br/>• <code>binary</code><br/>• <code>directory</code><br/>• <code>filepath</code><br/>• <code>ghc</code> <br/>• <code>ghc-boot</code> <br/>• <code>ghc-boot-th</code><br/>• <code>ghc-compact</code><br/>• <code>ghc-heap</code><br/>• <code>ghc-prim</code><br/>• <code>ghci</code><br/>• <code>haskelline</code><br/>• <code>hpc</code><br/>• <code>integer-gmp</code><br/>• <code>libiserv</code><br/>• <code>pretty</code><br/>• <code>process</code><br/>• <code>stm</code><br/>• <code>terminfo</code><br/>• <code>time</code><br/>• <code>unix</code><br/>• <code>xhtml</code><br/>を全て追加する，ということですか． <code>ghc-compact</code> をただ追加するのもアレなので，<br/>• <code>compact</code><br/>を追加してもいいかもしれませんね．<br/><br/>さしあたって気にすべき点は，特に <code>ghc-prim</code> などの <code>ghc*</code> 系が GHC のバージョン間で安定したAPIを提供しそうに見えない，ということでしょうか．<br/><br/>細かい反論としては:<br/>• <code>ghc</code> とか <code>terminfo</code>  とか本当に要るの？  → 「本当に」要る要らないの線引きは難しいので，「GHC-bundled」という明確な線引きがあるのは良いこと<br/>• <code>ghc*</code> 系はHackageにアップロードされていないことが多い（ 「GHC-bundled version しか使えないからHackageからのダウンロードの需要がない以上，面倒だからいいよね〜」という理由なのかは知らない）ので，`cabal-plan license-report`  が自動でライセンスを拾ってこれないため，License report の Human-written caveat を手書きで追加執筆しなければならないのが面倒 → 頑張れ<br/>という点もありますが，ここら辺は簡単に再反論できるところですね．とくに「GHC-bundled」という明確な線引きがある，というのは結構な美点っぽいです．<br/><br/>みなさんのご意見もお聞きしたいので，よろしくお願いします．</div>
         </div>
       </div>
+      <div class="event" id="message-1680837944.442169">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680837944.442169">2023-04-07 12:25:44 +0900</a></div>
+          </div>
+          <div class="description">transitive dependencies に入ってて，ちょっと便利そうなので，追加提案：<br/>• <code>indexed-traversable</code><br/>• <code>indexed-traversable-instances</code> <br/>あと， <code>lens</code> 系が入っているので，<br/>• <code>strict-containers-lens</code> (`strict-containers` を入れるなら)<br/>を追加提案しておきます．</div>
+          <a class="link-to-replies" href="7/1680837944.442169.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1680838999.208309">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680838999.208309">2023-04-07 12:43:19 +0900</a></div>
+          </div>
+          <div class="description">せっかく <code>attoparsec</code> と <code>parsec</code> が入っているなら <code>trifecta</code> と <code>megaparsec</code> を紛れ込ませたいという悪い欲望があります:sweat_smile:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680839106.112889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680839106.112889">2023-04-07 12:45:06 +0900</a></div>
+          </div>
+          <div class="description">あとは，ユーザー側に 「serverに提出されたコードだ」ということを条件に conditional compilation を許すためになんかの Cabal flag を定義してもいいのでは，ということになんとなく思い至りました．環境変数 <code>ATCODER = 1</code> だけだと Conditional compilation には不便なので．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680847504.237249">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680847504.237249">2023-04-07 15:05:04 +0900</a></div>
+          </div>
+          <div class="description">transitive dependency の direct dependency への 格上げの追加提案:<br/>• <code>contravariant</code><br/>• <code>kan-extensions</code><br/>• <code>adjunctions</code><br/>• <code>bifunctors</code><br/>• <code>comonad</code><br/>• <code>distributive</code><br/>• <code>profunctors</code><br/>• <code>semigroupoids</code></div>
+        </div>
+      </div>
+      <div class="event" id="message-1680850863.201929">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680850863.201929">2023-04-07 16:01:03 +0900</a></div>
+          </div>
+          <div class="description">忘れるところでした:<br/>• <code>strict-lens</code></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CL3AXB1AL/6.html" class="item">Previous</a>
