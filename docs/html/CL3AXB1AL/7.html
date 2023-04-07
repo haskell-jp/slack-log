@@ -170,6 +170,24 @@ main=pure()</pre><br/></div>
           <div class="description">あーそれ，（競プロに関係あるかわかんなくて）入れるか迷ってたんですよね．入れる側に一票入ったので入れることにしましょう！</div>
         </div>
       </div>
+      <div class="event" id="message-1680744242.989739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680744242.989739">2023-04-06 10:24:02 +0900</a></div>
+          </div>
+          <div class="description">あと， GHC-bundled library で現環境で使えるけど新環境では使えない，というと <code>ghc-boot</code>, <code>ghc-boot-th</code>,  <code>hpc</code>,  <code>integer-gmp</code>,  <code>terminfo</code>, <code>ghc-prim</code> あたりもそうなはずですね．ここら辺も入れた方がいいでしょうか？<br/><br/>現環境は <code>cabal install --lib</code> を用いているので， GHC-bundled library (<https://gitlab.haskell.org/ghc/ghc/-/wikis/commentary/libraries/version-history> で確認できます)のうち，`cabal-install &lt;= 3.8.1.0` が <a href='https://hackage.haskell.org/package/cabal-install-3.8.1.0/docs/src/Distribution.Client.CmdInstall.html#globalPackages'>Distribution.Client.CmdInstall.globalPackages</a> 変数によって明示的に global package とみなしていたものは利用可能だったはずです．<br/><br/>ほかには，現環境では使用できない GHC-bundled package (一度も <code>cabal install --lib</code> を投げたことのない裸の <code>ghc</code> では使えるが，一度でも <code>cabal install --lib</code> を投げてしまうと top-level <code>ghc</code> から不可視になってしまうタイプのGHC-bundled package．`globalPackages` 変数に名前が挙がってないとそうなる)もありますが，そこら辺についてはどうしましょうか．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680783614.872259">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680783614.872259">2023-04-06 21:20:14 +0900</a></div>
+          </div>
+          <div class="description">なるほど． Windows 環境下でないとビルドできない <code>Win32</code> を除き，<br/>• <code>Cabal</code><br/>• <code>Cabal-syntax</code><br/>• <code>binary</code><br/>• <code>directory</code><br/>• <code>filepath</code><br/>• <code>ghc</code> <br/>• <code>ghc-boot</code> <br/>• <code>ghc-boot-th</code><br/>• <code>ghc-compact</code><br/>• <code>ghc-heap</code><br/>• <code>ghc-prim</code><br/>• <code>ghci</code><br/>• <code>haskelline</code><br/>• <code>hpc</code><br/>• <code>integer-gmp</code><br/>• <code>libiserv</code><br/>• <code>pretty</code><br/>• <code>process</code><br/>• <code>stm</code><br/>• <code>terminfo</code><br/>• <code>time</code><br/>• <code>unix</code><br/>• <code>xhtml</code><br/>を全て追加する，ということですか． <code>ghc-compact</code> をただ追加するのもアレなので，<br/>• <code>compact</code><br/>を追加してもいいかもしれませんね．<br/><br/>さしあたって気にすべき点は，特に <code>ghc-prim</code> などの <code>ghc*</code> 系が GHC のバージョン間で安定したAPIを提供しそうに見えない，ということでしょうか．<br/><br/>細かい反論としては:<br/>• <code>ghc</code> とか <code>terminfo</code>  とか本当に要るの？  → 「本当に」要る要らないの線引きは難しいので，「GHC-bundled」という明確な線引きがあるのは良いこと<br/>• <code>ghc*</code> 系はHackageにアップロードされていないことが多い（ 「GHC-bundled version しか使えないからHackageからのダウンロードの需要がない以上，面倒だからいいよね〜」という理由なのかは知らない）ので，`cabal-plan license-report`  が自動でライセンスを拾ってこれないため，License report の Human-written caveat を手書きで追加執筆しなければならないのが面倒 → 頑張れ<br/>という点もありますが，ここら辺は簡単に再反論できるところですね．とくに「GHC-bundled」という明確な線引きがある，というのは結構な美点っぽいです．<br/><br/>みなさんのご意見もお聞きしたいので，よろしくお願いします．</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CL3AXB1AL/6.html" class="item">Previous</a>

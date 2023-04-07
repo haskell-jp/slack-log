@@ -94,5 +94,17 @@
         "user": "UL1HFJATE",
         "ts": "1680736340.027829",
         "text": "あーそれ，（競プロに関係あるかわかんなくて）入れるか迷ってたんですよね．入れる側に一票入ったので入れることにしましょう！"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680744242.989739",
+        "text": "あと， GHC-bundled library で現環境で使えるけど新環境では使えない，というと `ghc-boot`, `ghc-boot-th`,  `hpc`,  `integer-gmp`,  `terminfo`, `ghc-prim` あたりもそうなはずですね．ここら辺も入れた方がいいでしょうか？\n\n現環境は `cabal install --lib` を用いているので， GHC-bundled library (<https://gitlab.haskell.org/ghc/ghc/-/wikis/commentary/libraries/version-history> で確認できます)のうち，`cabal-install &lt;= 3.8.1.0` が <https://hackage.haskell.org/package/cabal-install-3.8.1.0/docs/src/Distribution.Client.CmdInstall.html#globalPackages|Distribution.Client.CmdInstall.globalPackages> 変数によって明示的に global package とみなしていたものは利用可能だったはずです．\n\nほかには，現環境では使用できない GHC-bundled package (一度も `cabal install --lib` を投げたことのない裸の `ghc` では使えるが，一度でも `cabal install --lib` を投げてしまうと top-level `ghc` から不可視になってしまうタイプのGHC-bundled package．`globalPackages` 変数に名前が挙がってないとそうなる)もありますが，そこら辺についてはどうしましょうか．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680783614.872259",
+        "text": "なるほど． Windows 環境下でないとビルドできない `Win32` を除き，\n• `Cabal`\n• `Cabal-syntax`\n• `binary`\n• `directory`\n• `filepath`\n• `ghc` \n• `ghc-boot` \n• `ghc-boot-th`\n• `ghc-compact`\n• `ghc-heap`\n• `ghc-prim`\n• `ghci`\n• `haskelline`\n• `hpc`\n• `integer-gmp`\n• `libiserv`\n• `pretty`\n• `process`\n• `stm`\n• `terminfo`\n• `time`\n• `unix`\n• `xhtml`\nを全て追加する，ということですか． `ghc-compact` をただ追加するのもアレなので，\n• `compact`\nを追加してもいいかもしれませんね．\n\nさしあたって気にすべき点は，特に `ghc-prim` などの `ghc*` 系が GHC のバージョン間で安定したAPIを提供しそうに見えない，ということでしょうか．\n\n細かい反論としては:\n• `ghc` とか `terminfo`  とか本当に要るの？  → 「本当に」要る要らないの線引きは難しいので，「GHC-bundled」という明確な線引きがあるのは良いこと\n• `ghc*` 系はHackageにアップロードされていないことが多い（ 「GHC-bundled version しか使えないからHackageからのダウンロードの需要がない以上，面倒だからいいよね〜」という理由なのかは知らない）ので，`cabal-plan license-report`  が自動でライセンスを拾ってこれないため，License report の Human-written caveat を手書きで追加執筆しなければならないのが面倒 → 頑張れ\nという点もありますが，ここら辺は簡単に再反論できるところですね．とくに「GHC-bundled」という明確な線引きがある，というのは結構な美点っぽいです．\n\nみなさんのご意見もお聞きしたいので，よろしくお願いします．"
     }
 ]

@@ -38,6 +38,87 @@ main=pure()</pre><br/></div>
           <div class="description">あーそれ，（競プロに関係あるかわかんなくて）入れるか迷ってたんですよね．入れる側に一票入ったので入れることにしましょう！</div>
         </div>
       </div>
+      <div class="event" id="message-1680744242.989739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680744242.989739">2023-04-06 10:24:02 +0900</a></div>
+          </div>
+          <div class="description">あと， GHC-bundled library で現環境で使えるけど新環境では使えない，というと <code>ghc-boot</code>, <code>ghc-boot-th</code>,  <code>hpc</code>,  <code>integer-gmp</code>,  <code>terminfo</code>, <code>ghc-prim</code> あたりもそうなはずですね．ここら辺も入れた方がいいでしょうか？<br/><br/>現環境は <code>cabal install --lib</code> を用いているので， GHC-bundled library (<https://gitlab.haskell.org/ghc/ghc/-/wikis/commentary/libraries/version-history> で確認できます)のうち，`cabal-install &lt;= 3.8.1.0` が <a href='https://hackage.haskell.org/package/cabal-install-3.8.1.0/docs/src/Distribution.Client.CmdInstall.html#globalPackages'>Distribution.Client.CmdInstall.globalPackages</a> 変数によって明示的に global package とみなしていたものは利用可能だったはずです．<br/><br/>ほかには，現環境では使用できない GHC-bundled package (一度も <code>cabal install --lib</code> を投げたことのない裸の <code>ghc</code> では使えるが，一度でも <code>cabal install --lib</code> を投げてしまうと top-level <code>ghc</code> から不可視になってしまうタイプのGHC-bundled package．`globalPackages` 変数に名前が挙がってないとそうなる)もありますが，そこら辺についてはどうしましょうか．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680755540.798959">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cojna</div>
+            <div class="date"><a class="date" href="#message-1680755540.798959">2023-04-06 13:32:20 +0900</a></div>
+          </div>
+          <div class="description">GHC-bundled packageは入れてしまってもいいんじゃないでしょうか<br/><br/>競プロでの使用例としては<br/>timeは制限時間ギリギリまで乱択するときとか，日付関連の問題でたまに使います。これはないと困ると思う。<br/>processはインタラクティブ系問題のローカルデバッグで使ってました。<br/>Cabal-syntaxはDistribution.Compat.Preludeでimportを減らしたり，ライブラリがあまり入ってない環境でlensとか使えるなみたいなことは考えていました</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680783614.872259">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680783614.872259">2023-04-06 21:20:14 +0900</a></div>
+          </div>
+          <div class="description">なるほど． Windows 環境下でないとビルドできない <code>Win32</code> を除き，<br/>• <code>Cabal</code><br/>• <code>Cabal-syntax</code><br/>• <code>binary</code><br/>• <code>directory</code><br/>• <code>filepath</code><br/>• <code>ghc</code> <br/>• <code>ghc-boot</code> <br/>• <code>ghc-boot-th</code><br/>• <code>ghc-compact</code><br/>• <code>ghc-heap</code><br/>• <code>ghc-prim</code><br/>• <code>ghci</code><br/>• <code>haskelline</code><br/>• <code>hpc</code><br/>• <code>integer-gmp</code><br/>• <code>libiserv</code><br/>• <code>pretty</code><br/>• <code>process</code><br/>• <code>stm</code><br/>• <code>terminfo</code><br/>• <code>time</code><br/>• <code>unix</code><br/>• <code>xhtml</code><br/>を全て追加する，ということですか． <code>ghc-compact</code> をただ追加するのもアレなので，<br/>• <code>compact</code><br/>を追加してもいいかもしれませんね．<br/><br/>さしあたって気にすべき点は，特に <code>ghc-prim</code> などの <code>ghc*</code> 系が GHC のバージョン間で安定したAPIを提供しそうに見えない，ということでしょうか．<br/><br/>細かい反論としては:<br/>• <code>ghc</code> とか <code>terminfo</code>  とか本当に要るの？  → 「本当に」要る要らないの線引きは難しいので，「GHC-bundled」という明確な線引きがあるのは良いこと<br/>• <code>ghc*</code> 系はHackageにアップロードされていないことが多い（ 「GHC-bundled version しか使えないからHackageからのダウンロードの需要がない以上，面倒だからいいよね〜」という理由なのかは知らない）ので，`cabal-plan license-report`  が自動でライセンスを拾ってこれないため，License report の Human-written caveat を手書きで追加執筆しなければならないのが面倒 → 頑張れ<br/>という点もありますが，ここら辺は簡単に再反論できるところですね．とくに「GHC-bundled」という明確な線引きがある，というのは結構な美点っぽいです．<br/><br/>みなさんのご意見もお聞きしたいので，よろしくお願いします．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680792625.725789">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680792625.725789">2023-04-06 23:50:25 +0900</a></div>
+          </div>
+          <div class="description">GHCのバージョンごとにAPIが大きく変動するのは <code>ghc-prim</code> の時点でそうで， <code>ghc-prim</code> を入れないのはどうなんだ，というのがあるので今更な気がしてきました…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680792697.127759">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cojna</div>
+            <div class="date"><a class="date" href="#message-1680792697.127759">2023-04-06 23:51:37 +0900</a></div>
+          </div>
+          <div class="description">haskell-platformではGHC-bundledなものであっても区別して扱ってますね。<br/>これにならってterminfoやghc*系は含めないという判断はありかもしれないです。<br/>ghc自体はいろんなデータ構造が入ってるので，あったらあったで面白いとは思っています。UnionFindとかもあるし<br/><a href='https://github.com/haskell/haskell-platform/blob/master/hptool/src/Releases2018.hs'>https://github.com/haskell/haskell-platform/blob/master/hptool/src/Releases2018.hs</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1680793270.810299">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cojna</div>
+            <div class="date"><a class="date" href="#message-1680793270.810299">2023-04-07 00:01:10 +0900</a></div>
+          </div>
+          <div class="description">ghc-primはbaseのGHC.Extsから使えるのがほとんどなので直接使えなくても大丈夫だとは思います</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680793581.519999">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680793581.519999">2023-04-07 00:06:21 +0900</a></div>
+          </div>
+          <div class="description">Haskell-platform も stability guarantee に入れてないってだけで，アクセスできるようになってる，とは言えるんですけどね…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680820013.553969">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680820013.553969">2023-04-07 07:26:53 +0900</a></div>
+          </div>
+          <div class="description"><code>libiserv</code> が GHC master から library として消滅していて焦りましたが，Hackage にないやつは一応全部 GHC 9.4.4 codebase の <code>libraries/</code> に存在したので，手書きで license report を弄るのも難しくなさそうです．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680825293.140969">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680825293.140969">2023-04-07 08:54:53 +0900</a></div>
+          </div>
+          <div class="description">なんかunstableだとかいう警告をどっかに書ければいいんですけど…。どうせ <code>cabal.project.freeze</code> の公開ページを作るんだからそこに書けば良いか？</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../7.html" class="item">Back to atcoder-lang-updates #7</a>
