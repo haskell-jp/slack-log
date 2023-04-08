@@ -234,6 +234,72 @@ main=pure()</pre><br/></div>
           <div class="description">忘れるところでした:<br/>• <code>strict-lens</code></div>
         </div>
       </div>
+      <div class="event" id="message-1680878603.060549">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680878603.060549">2023-04-07 23:43:23 +0900</a></div>
+          </div>
+          <div class="description">滑り込みですが、 <code>trifecta</code> , <code>megaparsec</code> 等々を突っ込むのに賛成が得られるなら<br/>• <code>parser-combinators</code><br/>もあったほうが良さそう</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680879234.100049">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cojna</div>
+            <div class="date"><a class="date" href="#message-1680879234.100049">2023-04-07 23:53:54 +0900</a></div>
+          </div>
+          <div class="description">前回のアップデートで外れていたこの2つは復活させたいです。漏れてるのにそもそも気づいてなかったが<br/>• scientific<br/>• split<br/>transitive dependencyに入っていてよく使われてる <code>tagged</code> も入れてもいいかもです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680879469.610739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680879469.610739">2023-04-07 23:57:49 +0900</a></div>
+          </div>
+          <div class="description">そう言えば， <code>strict</code> に <code>These</code> 入ってるんだから，<br/>• <code>these</code><br/>•  <code>these-lens</code> <br/>は入れないと整合性がないですね．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680881517.727479">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680881517.727479">2023-04-08 00:31:57 +0900</a></div>
+          </div>
+          <div class="description">まとめます．現在結論が出てないものと出ているっぽいものをごた混ぜにして，現在提案されているパッケージは次の通りです．transitive dependency からの昇格については :arrow_heading_up: で示します：<br/><code>strict</code> 系:<br/>• :arrow_heading_up: <code>strict</code>  <br/>• :new: <code>strict-lens</code><br/>• :new: <code>strict-containers</code> (?)<br/>• :new: <code>strict-containers-lens</code> (?)<br/>• :new: <code>strict-tuple</code>  (?)<br/>パーサ系:<br/>• :new: <code>megaparsec</code> <br/>• :new: <code>trifecta</code><br/>• :new: <code>parser-combinators</code><br/>圏論系 (transitive dependency の昇格):<br/>• :arrow_heading_up: <code>contravariant</code><br/>• :arrow_heading_up: <code>kan-extensions</code><br/>• :arrow_heading_up: <code>adjunctions</code> <br/>• :arrow_heading_up: <code>bifunctors</code> <br/>• :arrow_heading_up: <code>comonad</code> <br/>• :arrow_heading_up: <code>distributive</code> <br/>• :arrow_heading_up: <code>profunctors</code> <br/>• :arrow_heading_up: <code>semigroupoids</code><br/>GHC-bundled packages:<br/>• :new: <code>Cabal</code><br/>• :new: <code>Cabal-syntax</code><br/>• :arrow_heading_up: <code>binary</code><br/>• :arrow_heading_up: <code>directory</code><br/>• :arrow_heading_up: <code>filepath</code><br/>• :new: <code>ghc</code><br/>• :new: <code>ghc-boot</code><br/>• :arrow_heading_up: <code>ghc-boot-th</code><br/>• :new: <code>ghc-compact</code><br/>• :new: <code>ghc-heap</code><br/>• :arrow_heading_up: <code>ghc-prim</code><br/>• :new: <code>ghci</code><br/>• :new: <code>haskelline</code> <br/>• :new: <code>hpc</code><br/>• :new: <code>integer-gmp</code> <br/>• :new: <code>libiserv</code><br/>• :arrow_heading_up: <code>pretty</code><br/>• :arrow_heading_up: <code>process</code><br/>• :arrow_heading_up: <code>stm</code><br/>• :new: <code>terminfo</code><br/>• :arrow_heading_up: <code>time</code><br/>• :arrow_heading_up: <code>unix</code><br/>• :new: <code>xhtml</code><br/>その他:<br/>• :arrow_heading_up: <code>these</code>  (cf. <code>strict</code>)<br/>• :new: <code>these-lens</code> <br/>• :arrow_heading_up: <code>scientific</code> (前々回の環境からの復活)<br/>• :arrow_heading_up: <code>split</code>  (前々回の環境からの復活)<br/>• :arrow_heading_up: <code>tagged</code> <br/>• :arrow_heading_up: <code>indexed-traversable</code><br/>• :arrow_heading_up: <code>indexed-traversable-instances</code><br/>パッケージ追加以外の提案:<br/>• Cabal flag <code>atcoder</code> を追加して有効化する</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680882594.428769">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cojna</div>
+            <div class="date"><a class="date" href="#message-1680882594.428769">2023-04-08 00:49:54 +0900</a></div>
+          </div>
+          <div class="description">strict-tuple, strict-containersはhackageでみるとあんまり使われてないのでちょっと不安があります。<br/>実際に使っていくのであれば入れてもいいかなという感じです</div>
+          <a class="link-to-replies" href="7/1680882594.428769.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1680911991.248749">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680911991.248749">2023-04-08 08:59:51 +0900</a></div>
+          </div>
+          <div class="description">theseのdocを読んでたんですけど、semialignとsemialign-indexedまで入れないと片手落ちだったりしますかね、これ……？ (取り敢えず追加提案の期限は過ぎてるので、明示的な賛同が出ない限りは提案はしません)</div>
+          <a class="link-to-replies" href="7/1680911991.248749.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1680914067.289309">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cojna</div>
+            <div class="date"><a class="date" href="#message-1680914067.289309">2023-04-08 09:34:27 +0900</a></div>
+          </div>
+          <div class="description">圏論系ライブラリは <code>free</code> を入れ忘れてました。transitive dependencyとしては入ってはいるものです</div>
+          <a class="link-to-replies" href="7/1680914067.289309.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CL3AXB1AL/6.html" class="item">Previous</a>

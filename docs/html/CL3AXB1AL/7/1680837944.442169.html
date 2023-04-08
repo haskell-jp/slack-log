@@ -75,6 +75,24 @@
           <div class="description">transitive dependency の direct dependency への 格上げの追加提案:<br/>• <code>contravariant</code><br/>• <code>kan-extensions</code><br/>• <code>adjunctions</code><br/>• <code>bifunctors</code><br/>• <code>comonad</code><br/>• <code>distributive</code><br/>• <code>profunctors</code><br/>• <code>semigroupoids</code></div>
         </div>
       </div>
+      <div class="event" id="message-1680879658.341719">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680879658.341719">2023-04-08 00:00:58 +0900</a></div>
+          </div>
+          <div class="description">圏論系，入れたすぎてついつい前のめりに「入れるぞ！！！」と叫んでしまいましたが，正当化の理由を用意した方がいい気がしたので記しておきます．<br/><br/>「パッケージAがパッケージBの中身を全てre-exportしている」というのはパッケージBを排除する理由にはならないと思っています．<br/>基本的には，<br/>1. 競プロの意味でアルゴリズムを書く際に，それを「Haskell的に普通のプログラミング」の範囲で自然に書くために必要であること<br/>2. 競プロを極端に簡単にするようなアルゴリズムを導入しないこと<br/>がパッケージ導入のための条件であると思っています．ただ，すでにtransitive dependency に入っているものに関しては割と1.に関してゆるく判定してもいいと思っていて，それは追加によってジャッジにさらなる負荷をかけないことが明らかであるからです．<br/><br/>私がこの会話を始めた時点で <code>indexed-traversable</code> を提案したのは， list に <code>imap</code> があると普通に便利っぽそうで，それを通常の範囲でやるなら <code>lens</code> ではなくて <code>indexed-traversable</code> をdependencyに入れるよな，位での提案でした．圏論系は新たなアルゴリズムの導入は行わないし，専らプログラミングスタイルの簡潔化のために役立つものだと思っているので，「使いたい」という人がいる時点で，1. の条件を満たすとみなしても良いだろう，と判断した，ということにします！ (ごめんなさい，本当は使い方も思いついてないまま入れたかっただけです…)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680886269.021399">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cojna</div>
+            <div class="date"><a class="date" href="#message-1680886269.021399">2023-04-08 01:51:09 +0900</a></div>
+          </div>
+          <div class="description">圏論系ライブラリの使用例として表現可能関手を使ったメモ化の記事をおいておきます<br/><a href='https://iagoleal.com/posts/representable-memoize/'>https://iagoleal.com/posts/representable-memoize/</a></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../7.html" class="item">Back to atcoder-lang-updates #7</a>

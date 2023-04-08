@@ -40,5 +40,17 @@
         "user": "UL1HFJATE",
         "ts": "1680847504.237249",
         "text": "transitive dependency の direct dependency への 格上げの追加提案:\n• `contravariant`\n• `kan-extensions`\n• `adjunctions`\n• `bifunctors`\n• `comonad`\n• `distributive`\n• `profunctors`\n• `semigroupoids`"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680879658.341719",
+        "text": "圏論系，入れたすぎてついつい前のめりに「入れるぞ！！！」と叫んでしまいましたが，正当化の理由を用意した方がいい気がしたので記しておきます．\n\n「パッケージAがパッケージBの中身を全てre-exportしている」というのはパッケージBを排除する理由にはならないと思っています．\n基本的には，\n1. 競プロの意味でアルゴリズムを書く際に，それを「Haskell的に普通のプログラミング」の範囲で自然に書くために必要であること\n2. 競プロを極端に簡単にするようなアルゴリズムを導入しないこと\nがパッケージ導入のための条件であると思っています．ただ，すでにtransitive dependency に入っているものに関しては割と1.に関してゆるく判定してもいいと思っていて，それは追加によってジャッジにさらなる負荷をかけないことが明らかであるからです．\n\n私がこの会話を始めた時点で `indexed-traversable` を提案したのは， list に `imap` があると普通に便利っぽそうで，それを通常の範囲でやるなら `lens` ではなくて `indexed-traversable` をdependencyに入れるよな，位での提案でした．圏論系は新たなアルゴリズムの導入は行わないし，専らプログラミングスタイルの簡潔化のために役立つものだと思っているので，「使いたい」という人がいる時点で，1. の条件を満たすとみなしても良いだろう，と判断した，ということにします！ (ごめんなさい，本当は使い方も思いついてないまま入れたかっただけです…)"
+    },
+    {
+        "type": "message",
+        "user": "UL5PAB0F9",
+        "ts": "1680886269.021399",
+        "text": "圏論系ライブラリの使用例として表現可能関手を使ったメモ化の記事をおいておきます\n<https://iagoleal.com/posts/representable-memoize/>"
     }
 ]

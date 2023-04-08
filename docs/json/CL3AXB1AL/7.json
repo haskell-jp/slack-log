@@ -136,5 +136,47 @@
         "user": "UL1HFJATE",
         "ts": "1680850863.201929",
         "text": "忘れるところでした:\n• `strict-lens`"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680878603.060549",
+        "text": "滑り込みですが、 `trifecta` , `megaparsec` 等々を突っ込むのに賛成が得られるなら\n• `parser-combinators`\nもあったほうが良さそう"
+    },
+    {
+        "type": "message",
+        "user": "UL5PAB0F9",
+        "ts": "1680879234.100049",
+        "text": "前回のアップデートで外れていたこの2つは復活させたいです。漏れてるのにそもそも気づいてなかったが\n• scientific\n• split\ntransitive dependencyに入っていてよく使われてる `tagged` も入れてもいいかもです"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680879469.610739",
+        "text": "そう言えば， `strict` に `These` 入ってるんだから，\n• `these`\n•  `these-lens` \nは入れないと整合性がないですね．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680881517.727479",
+        "text": "まとめます．現在結論が出てないものと出ているっぽいものをごた混ぜにして，現在提案されているパッケージは次の通りです．transitive dependency からの昇格については :arrow_heading_up: で示します：\n`strict` 系:\n• :arrow_heading_up: `strict`  \n• :new: `strict-lens`\n• :new: `strict-containers` (?)\n• :new: `strict-containers-lens` (?)\n• :new: `strict-tuple`  (?)\nパーサ系:\n• :new: `megaparsec` \n• :new: `trifecta`\n• :new: `parser-combinators`\n圏論系 (transitive dependency の昇格):\n• :arrow_heading_up: `contravariant`\n• :arrow_heading_up: `kan-extensions`\n• :arrow_heading_up: `adjunctions` \n• :arrow_heading_up: `bifunctors` \n• :arrow_heading_up: `comonad` \n• :arrow_heading_up: `distributive` \n• :arrow_heading_up: `profunctors` \n• :arrow_heading_up: `semigroupoids`\nGHC-bundled packages:\n• :new: `Cabal`\n• :new: `Cabal-syntax`\n• :arrow_heading_up: `binary`\n• :arrow_heading_up: `directory`\n• :arrow_heading_up: `filepath`\n• :new: `ghc`\n• :new: `ghc-boot`\n• :arrow_heading_up: `ghc-boot-th`\n• :new: `ghc-compact`\n• :new: `ghc-heap`\n• :arrow_heading_up: `ghc-prim`\n• :new: `ghci`\n• :new: `haskelline` \n• :new: `hpc`\n• :new: `integer-gmp` \n• :new: `libiserv`\n• :arrow_heading_up: `pretty`\n• :arrow_heading_up: `process`\n• :arrow_heading_up: `stm`\n• :new: `terminfo`\n• :arrow_heading_up: `time`\n• :arrow_heading_up: `unix`\n• :new: `xhtml`\nその他:\n• :arrow_heading_up: `these`  (cf. `strict`)\n• :new: `these-lens` \n• :arrow_heading_up: `scientific` (前々回の環境からの復活)\n• :arrow_heading_up: `split`  (前々回の環境からの復活)\n• :arrow_heading_up: `tagged` \n• :arrow_heading_up: `indexed-traversable`\n• :arrow_heading_up: `indexed-traversable-instances`\nパッケージ追加以外の提案:\n• Cabal flag `atcoder` を追加して有効化する"
+    },
+    {
+        "type": "message",
+        "user": "UL5PAB0F9",
+        "ts": "1680882594.428769",
+        "text": "strict-tuple, strict-containersはhackageでみるとあんまり使われてないのでちょっと不安があります。\n実際に使っていくのであれば入れてもいいかなという感じです"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680911991.248749",
+        "text": "theseのdocを読んでたんですけど、semialignとsemialign-indexedまで入れないと片手落ちだったりしますかね、これ……？ (取り敢えず追加提案の期限は過ぎてるので、明示的な賛同が出ない限りは提案はしません)"
+    },
+    {
+        "type": "message",
+        "user": "UL5PAB0F9",
+        "ts": "1680914067.289309",
+        "text": "圏論系ライブラリは `free` を入れ忘れてました。transitive dependencyとしては入ってはいるものです"
     }
 ]
