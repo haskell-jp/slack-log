@@ -190,5 +190,11 @@
         "user": "U01K57PCEH2",
         "ts": "1680693382.818309",
         "text": "そういえば、Haskellにとどまらない、関数型言語や型理論、数学（基礎論）よりのCSとかこれ系全般の（日本の）コミュニティってありますかね？（今、Idrisでグラフィック触れるライブラリいい感じのを知ってる人どこかにいないかなとか考えてて）（Haskellのコミュニティなのにこういう話ばっかりしてすみません）"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680957499.084379",
+        "text": "ぶったまげたんですけど， GHCに Git submodule として入ってる `hpc` というpackage (<https://gitlab.haskell.org/hpc/hpc/-/tree/767f476a5aa19260c8297ce40134f56d6f890019>) が，GHC &gt;= 9.6.1 において本当に Git submodule (<https://gitlab.haskell.org/ghc/ghc/-/tree/ghc-9.6.1-release/libraries>) として指されているだけの detached commit になってました．もちろん「`hpc` 本家」の Git repository は存在 (<https://gitlab.haskell.org/hpc/hpc>) します．しかし，当該 Git submodule は `hpc` 本家のなんのブランチにも多分属してないし，hackage上でリリースもされていない上に，`.cabal` ファイル上の バージョン番号が Hackage上でリリース済みの `0.6.2.0` と一致してます． GHC をダウンロードしてついてきたhpc-0.6.2.0と同じ名前 “hpc”，同じバージョン “0.6.2.0\" のパッケージを Hackage から落としてくると中身が違う，ということです．その上，GHC-9.6.1 についてきたhpc-0.6.2.0は，  `filepath-1.4.100.1` + `directory-1.7.8.0`  (GHC-9.6.1についてくるバージョンです)とビルドできるけど，Hackageから落としてきたhpc-0.6.2.0は dependency constraint から外れてもいないのにこれらの `filepath` + `directory` とビルドできないので，本気でぶったまげました．"
     }
 ]

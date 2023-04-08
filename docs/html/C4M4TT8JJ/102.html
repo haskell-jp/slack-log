@@ -349,6 +349,15 @@ even2, odd2 :: Int -&gt; Bool
           <a class="link-to-replies" href="102/1680693382.818309.html">... Replies ...</a>
         </div>
       </div>
+      <div class="event" id="message-1680957499.084379">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680957499.084379">2023-04-08 21:38:19 +0900</a></div>
+          </div>
+          <div class="description">ぶったまげたんですけど， GHCに Git submodule として入ってる <code>hpc</code> というpackage (<https://gitlab.haskell.org/hpc/hpc/-/tree/767f476a5aa19260c8297ce40134f56d6f890019>) が，GHC <blockquote>= 9.6.1 において本当に Git submodule (<https://gitlab.haskell.org/ghc/ghc/-/tree/ghc-9.6.1-release/libraries>) として指されているだけの detached commit になってました．もちろん「`hpc` 本家」の Git repository は存在 (<https://gitlab.haskell.org/hpc/hpc>) します．しかし，当該 Git submodule は <code>hpc</code> 本家のなんのブランチにも多分属してないし，hackage上でリリースもされていない上に，`.cabal` ファイル上の バージョン番号が Hackage上でリリース済みの <code>0.6.2.0</code> と一致してます． GHC をダウンロードしてついてきたhpc-0.6.2.0と同じ名前 “hpc”，同じバージョン “0.6.2.0" のパッケージを Hackage から落としてくると中身が違う，ということです．その上，GHC-9.6.1 についてきたhpc-0.6.2.0は，  <code>filepath-1.4.100.1</code> + <code>directory-1.7.8.0</code>  (GHC-9.6.1についてくるバージョンです)とビルドできるけど，Hackageから落としてきたhpc-0.6.2.0は dependency constraint から外れてもいないのにこれらの <code>filepath</code> + <code>directory</code> とビルドできないので，本気でぶったまげました．</blockquote></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C4M4TT8JJ/101.html" class="item">Previous</a>

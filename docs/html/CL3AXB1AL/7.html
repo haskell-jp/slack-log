@@ -11,6 +11,7 @@
     <div class="ui pagination menu">
       <a href="../../html/CL3AXB1AL/6.html" class="item">Previous</a>
       <a href="../../" class="item">Top</a>
+      <a href="../../html/CL3AXB1AL/8.html" class="item">Next</a>
     </div>
     <div class="ui feed">
       <div class="event" id="message-1680152962.225539">
@@ -268,6 +269,7 @@ main=pure()</pre><br/></div>
             <div class="date"><a class="date" href="#message-1680881517.727479">2023-04-08 00:31:57 +0900</a></div>
           </div>
           <div class="description">まとめます．現在結論が出てないものと出ているっぽいものをごた混ぜにして，現在提案されているパッケージは次の通りです．transitive dependency からの昇格については :arrow_heading_up: で示します：<br/><code>strict</code> 系:<br/>• :arrow_heading_up: <code>strict</code>  <br/>• :new: <code>strict-lens</code><br/>• :new: <code>strict-containers</code> (?)<br/>• :new: <code>strict-containers-lens</code> (?)<br/>• :new: <code>strict-tuple</code>  (?)<br/>パーサ系:<br/>• :new: <code>megaparsec</code> <br/>• :new: <code>trifecta</code><br/>• :new: <code>parser-combinators</code><br/>圏論系 (transitive dependency の昇格):<br/>• :arrow_heading_up: <code>contravariant</code><br/>• :arrow_heading_up: <code>kan-extensions</code><br/>• :arrow_heading_up: <code>adjunctions</code> <br/>• :arrow_heading_up: <code>bifunctors</code> <br/>• :arrow_heading_up: <code>comonad</code> <br/>• :arrow_heading_up: <code>distributive</code> <br/>• :arrow_heading_up: <code>profunctors</code> <br/>• :arrow_heading_up: <code>semigroupoids</code><br/>GHC-bundled packages:<br/>• :new: <code>Cabal</code><br/>• :new: <code>Cabal-syntax</code><br/>• :arrow_heading_up: <code>binary</code><br/>• :arrow_heading_up: <code>directory</code><br/>• :arrow_heading_up: <code>filepath</code><br/>• :new: <code>ghc</code><br/>• :new: <code>ghc-boot</code><br/>• :arrow_heading_up: <code>ghc-boot-th</code><br/>• :new: <code>ghc-compact</code><br/>• :new: <code>ghc-heap</code><br/>• :arrow_heading_up: <code>ghc-prim</code><br/>• :new: <code>ghci</code><br/>• :new: <code>haskelline</code> <br/>• :new: <code>hpc</code><br/>• :new: <code>integer-gmp</code> <br/>• :new: <code>libiserv</code><br/>• :arrow_heading_up: <code>pretty</code><br/>• :arrow_heading_up: <code>process</code><br/>• :arrow_heading_up: <code>stm</code><br/>• :new: <code>terminfo</code><br/>• :arrow_heading_up: <code>time</code><br/>• :arrow_heading_up: <code>unix</code><br/>• :new: <code>xhtml</code><br/>その他:<br/>• :arrow_heading_up: <code>these</code>  (cf. <code>strict</code>)<br/>• :new: <code>these-lens</code> <br/>• :arrow_heading_up: <code>scientific</code> (前々回の環境からの復活)<br/>• :arrow_heading_up: <code>split</code>  (前々回の環境からの復活)<br/>• :arrow_heading_up: <code>tagged</code> <br/>• :arrow_heading_up: <code>indexed-traversable</code><br/>• :arrow_heading_up: <code>indexed-traversable-instances</code><br/>パッケージ追加以外の提案:<br/>• Cabal flag <code>atcoder</code> を追加して有効化する</div>
+          <a class="link-to-replies" href="7/1680881517.727479.html">... Replies ...</a>
         </div>
       </div>
       <div class="event" id="message-1680882594.428769">
@@ -300,10 +302,193 @@ main=pure()</pre><br/></div>
           <a class="link-to-replies" href="7/1680914067.289309.html">... Replies ...</a>
         </div>
       </div>
+      <div class="event" id="message-1680922590.107489">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680922590.107489">2023-04-08 11:56:30 +0900</a></div>
+          </div>
+          <div class="description"><code>witherable</code> を入れたいのを今思い出したけど，もうすぐテスト開始時間だし，transitive dependency にも入ってないし，やめといた方がいいかな…</div>
+          <a class="link-to-replies" href="7/1680922590.107489.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1680934717.456669">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680934717.456669">2023-04-08 15:18:37 +0900</a></div>
+          </div>
+          <div class="description">ここまでの議論で提示されたパッケージでテスト作業を開始します．いくつか変更があるのでご確認ください．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680939307.908529">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680939307.908529">2023-04-08 16:35:07 +0900</a></div>
+          </div>
+          <div class="description"><code>libiserv</code> が <code>bytestring</code> の更新を拒絶する (installed version 以外の使用を許さない)ので除外します．結構なbugfixと速度改善が入ってるっぽいので bytestring 更新 を外すのは惜しい．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680939575.001419">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680939575.001419">2023-04-08 16:39:35 +0900</a></div>
+          </div>
+          <div class="description"><code>ghci</code> も <code>bytestring</code> を拒絶したので除外しましたが，これ <code>ghc</code> 系が軒並み拒絶されそうですね…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680940179.601149">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680940179.601149">2023-04-08 16:49:39 +0900</a></div>
+          </div>
+          <div class="description"><code>compact</code> 系がややこしいですね．これ， <code>ghc-compact</code> が Hackage上で dependency を upgrade されておらず <code>&lt;4.17</code> になっているから，~GHC git repo の 9.4.4 tag 上でちゃんと <code>&lt;4.18</code> になっているにもかかわらず~依存性解決に失敗する．その上 <code>compact-0.2.0.0</code>  の deps が <code>base &lt;4.16</code> なのは本当にわけがわからない！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680940294.580299">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680940294.580299">2023-04-08 16:51:34 +0900</a></div>
+          </div>
+          <div class="description"><code>cabal build --only-dependencies</code> に <code>--upgrade-dependencies</code> をつけているので，これを除外するとどうにかなるかも知れませんが，今回は <code>compact</code> と <code>ghc-compact</code> はともに諦めます．後で Issue でも投げます．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680940821.676839">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680940821.676839">2023-04-08 17:00:21 +0900</a></div>
+          </div>
+          <div class="description">今回諦めたパッケージ:<br/>• <code>compact</code><br/>• <code>ghc</code><br/>• <code>ghc-boot</code><br/>• <code>ghc-compact</code><br/>• <code>ghci</code><br/>• <code>libiserv</code><br/>dependency solver は取り敢えず通ったので，あとはビルド待ちです．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680941450.522769">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680941450.522769">2023-04-08 17:10:50 +0900</a></div>
+          </div>
+          <div class="description">各パッケージに丁寧に lower bound をつけているので， <code>--upgrade-dependencies</code>  をやっぱり外すことにしました． <code>compact</code> はもちろん不可能ですが， <strike><code>ghc-compact</code> は回復できました．</strike></div>
+          <a class="link-to-replies" href="7/1680941450.522769.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1680951784.338169">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680951784.338169">2023-04-08 20:03:04 +0900</a></div>
+          </div>
+          <div class="description"><code>filepath-1.4.100.3</code> が <code>System.OSPath</code> を <code>Trustworthy</code> にしといてくれなかったので，こいつに <code>directory</code> を介して依存する <code>hpc</code> とincompatibleになってますね… <code>hpc</code> , なんか全module <code>Safe</code> なんですよ…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680952478.992929">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680952478.992929">2023-04-08 20:14:38 +0900</a></div>
+          </div>
+          <div class="description">意見募集: <code>directory</code> を最新版 (`1.3.8.1`  ), <code>filepath</code> を <code>1.4.100.3</code> にする代わりに <code>hpc</code> を諦めるのと， <code>directory</code> を <code>1.3.7.1</code>, <code>filepath</code>  を <code>1.4.2.2</code> にして <code>hpc</code> を入れるのと，どっちが良いと思いますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680952640.756449">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cojna</div>
+            <div class="date"><a class="date" href="#message-1680952640.756449">2023-04-08 20:17:20 +0900</a></div>
+          </div>
+          <div class="description">ghc 9.4.4にバンドルされてるのが`directory-1.3.7.1`, <code>filepath-1.4.2.2</code> なので，最新バージョンを諦めてhpcを入れる方がいいかなと思います</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680952890.028239">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680952890.028239">2023-04-08 20:21:30 +0900</a></div>
+          </div>
+          <div class="description">そうかー… というか，`directory` はなんで pre-existing visible module を safe から unsafe に格下げしておいて minor bump なんだろう…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680953103.667429">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680953103.667429">2023-04-08 20:25:03 +0900</a></div>
+          </div>
+          <div class="description">それはそれとして，すでに <code>bytestring</code> を (競プロ的により重要であろうという予断により) 優先して <code>ghc</code>, <code>ghc-boot</code>, <code>ghci</code> <code>libiserv</code> を諦めているので， 何か <code>filepath</code> か <code>directory</code> を優先する 理由があるようであれば <code>hpc</code> を諦めなきゃいけないんですけど，パッと思いつくところにはないですよね？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680953392.639869">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cojna</div>
+            <div class="date"><a class="date" href="#message-1680953392.639869">2023-04-08 20:29:52 +0900</a></div>
+          </div>
+          <div class="description">hpcを入れる理由は最大限対応できそうなものは対応する以上の意味はないですね。 filepathとdirectoryのバージョンに関してはどれでもいいかなと思ってます。競プロ的にはそこまで重要ではないはずです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680953753.398359">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680953753.398359">2023-04-08 20:35:53 +0900</a></div>
+          </div>
+          <div class="description">後から hpc を入れるようにも filepath + directory を最新版にするようにもどっちにも後方互換性を保って対応できるようにするために hpc を除外して directory-1.3.7.1 と filepath-1.4.2.2 を導入しておくみたいなやり方も考えてます…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680954281.326489">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cojna</div>
+            <div class="date"><a class="date" href="#message-1680954281.326489">2023-04-08 20:44:41 +0900</a></div>
+          </div>
+          <div class="description">ghciを諦めているのであればhpcを諦めるのは自然な感じはします。<br/>あと，ghciの依存関係のために入っているhaskeline, terminfo外せるかなと。<br/>directory, filepathのバージョンは依存関係の解決が1番簡単なものがよさそうで，<br/>無難に行くならdirectory-1.3.7.1とfilepath-1.4.2.2になるんですかね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680954553.784719">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680954553.784719">2023-04-08 20:49:13 +0900</a></div>
+          </div>
+          <div class="description"><code>hpc, haskeline, terminfo</code> を 除外して <code>directory &gt;=1.3.7.1 &amp;&amp; &lt;1.3.8.0</code> と <code>filepath &gt;=1.4.2.2 &amp;&amp; &lt;1.4.99</code> にします…．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680954719.837559">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680954719.837559">2023-04-08 20:51:59 +0900</a></div>
+          </div>
+          <div class="description">それに伴って <code>unix ^&gt;=2.7.3</code>  になりました</div>
+        </div>
+      </div>
+      <div class="event" id="message-1680962046.713129">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680962046.713129">2023-04-08 22:54:06 +0900</a></div>
+          </div>
+          <div class="description">dependency がビルド完了すること， Hello Worldが走ることと， flag が役目を果たすのを一応チェックしました．まだ Imports of Export list を走らせてません． チェックソース生成器に修正が必要なので…．license report もまだ作ってないですが，時間が時間なので取り敢えず書いてきます．<https://gist.github.com/gksato/0993d739f2ac6e81100f41815a27a978></div>
+        </div>
+      </div>
+      <div class="event" id="message-1680963330.176849">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1680963330.176849">2023-04-08 23:15:30 +0900</a></div>
+          </div>
+          <div class="description"><code>ghc-compact</code> の回復はできていませんでした．これも同様に <code>bytestring</code> との conflict です．諦めます．</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CL3AXB1AL/6.html" class="item">Previous</a>
       <a href="../../" class="item">Top</a>
+      <a href="../../html/CL3AXB1AL/8.html" class="item">Next</a>
     </div>
   </div>
 </body>

@@ -178,5 +178,125 @@
         "user": "UL5PAB0F9",
         "ts": "1680914067.289309",
         "text": "圏論系ライブラリは `free` を入れ忘れてました。transitive dependencyとしては入ってはいるものです"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680922590.107489",
+        "text": "`witherable` を入れたいのを今思い出したけど，もうすぐテスト開始時間だし，transitive dependency にも入ってないし，やめといた方がいいかな…"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680934717.456669",
+        "text": "ここまでの議論で提示されたパッケージでテスト作業を開始します．いくつか変更があるのでご確認ください．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680939307.908529",
+        "text": "`libiserv` が `bytestring` の更新を拒絶する (installed version 以外の使用を許さない)ので除外します．結構なbugfixと速度改善が入ってるっぽいので bytestring 更新 を外すのは惜しい．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680939575.001419",
+        "text": "`ghci` も `bytestring` を拒絶したので除外しましたが，これ `ghc` 系が軒並み拒絶されそうですね…"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680940179.601149",
+        "text": "`compact` 系がややこしいですね．これ， `ghc-compact` が Hackage上で dependency を upgrade されておらず `&lt;4.17` になっているから，~GHC git repo の 9.4.4 tag 上でちゃんと `&lt;4.18` になっているにもかかわらず~依存性解決に失敗する．その上 `compact-0.2.0.0`  の deps が `base &lt;4.16` なのは本当にわけがわからない！"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680940294.580299",
+        "text": "`cabal build --only-dependencies` に `--upgrade-dependencies` をつけているので，これを除外するとどうにかなるかも知れませんが，今回は `compact` と `ghc-compact` はともに諦めます．後で Issue でも投げます．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680940821.676839",
+        "text": "今回諦めたパッケージ:\n• `compact`\n• `ghc`\n• `ghc-boot`\n• `ghc-compact`\n• `ghci`\n• `libiserv`\ndependency solver は取り敢えず通ったので，あとはビルド待ちです．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680941450.522769",
+        "text": "各パッケージに丁寧に lower bound をつけているので， `--upgrade-dependencies`  をやっぱり外すことにしました． `compact` はもちろん不可能ですが， ~`ghc-compact` は回復できました．~"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680951784.338169",
+        "text": "`filepath-1.4.100.3` が `System.OSPath` を `Trustworthy` にしといてくれなかったので，こいつに `directory` を介して依存する `hpc` とincompatibleになってますね… `hpc` , なんか全module `Safe` なんですよ…"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680952478.992929",
+        "text": "意見募集: `directory` を最新版 (`1.3.8.1`  ), `filepath` を `1.4.100.3` にする代わりに `hpc` を諦めるのと， `directory` を `1.3.7.1`, `filepath`  を `1.4.2.2` にして `hpc` を入れるのと，どっちが良いと思いますか？"
+    },
+    {
+        "type": "message",
+        "user": "UL5PAB0F9",
+        "ts": "1680952640.756449",
+        "text": "ghc 9.4.4にバンドルされてるのが`directory-1.3.7.1`, `filepath-1.4.2.2` なので，最新バージョンを諦めてhpcを入れる方がいいかなと思います"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680952890.028239",
+        "text": "そうかー… というか，`directory` はなんで pre-existing visible module を safe から unsafe に格下げしておいて minor bump なんだろう…"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680953103.667429",
+        "text": "それはそれとして，すでに `bytestring` を (競プロ的により重要であろうという予断により) 優先して `ghc`, `ghc-boot`, `ghci` `libiserv` を諦めているので， 何か `filepath` か `directory` を優先する 理由があるようであれば `hpc` を諦めなきゃいけないんですけど，パッと思いつくところにはないですよね？"
+    },
+    {
+        "type": "message",
+        "user": "UL5PAB0F9",
+        "ts": "1680953392.639869",
+        "text": "hpcを入れる理由は最大限対応できそうなものは対応する以上の意味はないですね。 filepathとdirectoryのバージョンに関してはどれでもいいかなと思ってます。競プロ的にはそこまで重要ではないはずです"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680953753.398359",
+        "text": "後から hpc を入れるようにも filepath + directory を最新版にするようにもどっちにも後方互換性を保って対応できるようにするために hpc を除外して directory-1.3.7.1 と filepath-1.4.2.2 を導入しておくみたいなやり方も考えてます…"
+    },
+    {
+        "type": "message",
+        "user": "UL5PAB0F9",
+        "ts": "1680954281.326489",
+        "text": "ghciを諦めているのであればhpcを諦めるのは自然な感じはします。\nあと，ghciの依存関係のために入っているhaskeline, terminfo外せるかなと。\ndirectory, filepathのバージョンは依存関係の解決が1番簡単なものがよさそうで，\n無難に行くならdirectory-1.3.7.1とfilepath-1.4.2.2になるんですかね"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680954553.784719",
+        "text": "`hpc, haskeline, terminfo` を 除外して `directory &gt;=1.3.7.1 &amp;&amp; &lt;1.3.8.0` と `filepath &gt;=1.4.2.2 &amp;&amp; &lt;1.4.99` にします…．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680954719.837559",
+        "text": "それに伴って `unix ^&gt;=2.7.3`  になりました"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680962046.713129",
+        "text": "dependency がビルド完了すること， Hello Worldが走ることと， flag が役目を果たすのを一応チェックしました．まだ Imports of Export list を走らせてません． チェックソース生成器に修正が必要なので…．license report もまだ作ってないですが，時間が時間なので取り敢えず書いてきます．<https://gist.github.com/gksato/0993d739f2ac6e81100f41815a27a978>"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1680963330.176849",
+        "text": "`ghc-compact` の回復はできていませんでした．これも同様に `bytestring` との conflict です．諦めます．"
     }
 ]
