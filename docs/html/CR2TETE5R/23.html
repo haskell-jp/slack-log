@@ -139,6 +139,20 @@
           <div class="description">Reminder: beginnersチャンネルは、新しい人がスムーズにHaskellに慣れるための質問を歓迎するチャンネルです。 Haskell-Beginners ML や IRCの#haskell-beginners  や RedditのMonthly Hask Anythingのような位置づけを意図しています。  beginnersチャンネルでの回答側は、以下の左側のような応答を厳禁とする運用です。 • それはくだらない質問だ → くだらない質問など無い • その質問は以前にもあった → 質問者はそんなこと知らない • Google検索せよ → 検索できないから質問している  beginnersチャンネルでは、例えば以下のレベルの質問から歓迎します。 • <code>:</code> とは何のことですか。 • タプルとは何ですか。 </div>
         </div>
       </div>
+      <div class="event" id="message-1681055436.507129">
+        <div class="content">
+          <div class="summary">
+            <div class="user">canalun</div>
+            <div class="date"><a class="date" href="#message-1681055436.507129">2023-04-10 00:50:36 +0900</a></div>
+          </div>
+          <div class="description">こんばんは。学習のために色々な処理をfunctionalなアプローチで書いてみる中で浮かんだ疑問です。<br/><br/>手続き的な書き方は難しくないのに、functionalに書こうと思うと急に難度があがる処理があるように感じ始めています。<br/>当たり前のことなのですが、これは慣れるしかないのですよね……？<br/>自分には到底書けないよと思う処理も、関数型言語に慣れ親しむうちに処理が書けるようになっていくのでしょうか？:smiling_face_with_tear:<br/><br/>例えば`List.GroupBy`をあえて自分で実装するとなると、<br/>手続き型では「forループを回して、毎要素ペアを条件判定し、適宜新しい配列を作成したり既存の配列に追加したり」で済むところが、<br/>関数型では下記のように(*私にとっては*)難しい書き方になってしまいます。<br/><pre>myGroupBy :: (a -&gt; a -&gt; Bool) -&gt; [a] -&gt; [[a]]
+myGroupBy p xs = foldl step [] xs
+    where step ys x | null ys = (x:[]):ys
+                    | p (head (last ys)) x = (init ys) ++ (((last ys) ++ (x:[])):[])
+                    | otherwise = ys ++ ((x:[]):[])</pre><br/>自力では書けなかったので、<https://www.mkamimura.com/2013/02/haskell-datalistgroupby.html> を引用しています(正直、このコードにバグがあるかどうかも私には自信を持っては分かりません)。<br/>このような処理を書けるようになるためには、他言語の習得と同様に練習するしかないのですよね……！<br/><br/>すみません、とても当たり前のことしか言っていないのですが、難しさに圧倒されて思わず何かご意見を伺いたくなってしまい……:eyes:</div>
+          <a class="link-to-replies" href="23/1681055436.507129.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/22.html" class="item">Previous</a>

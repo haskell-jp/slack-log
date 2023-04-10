@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #23 at 2023-04-10 00:50:36 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #23 at 2023-04-10 00:50:36 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../23.html" class="item">Back to beginners #23</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1681055436.507129">
+        <div class="content">
+          <div class="summary">
+            <div class="user">canalun</div>
+            <div class="date"><a class="date" href="#message-1681055436.507129">2023-04-10 00:50:36 +0900</a></div>
+          </div>
+          <div class="description">こんばんは。学習のために色々な処理をfunctionalなアプローチで書いてみる中で浮かんだ疑問です。<br/><br/>手続き的な書き方は難しくないのに、functionalに書こうと思うと急に難度があがる処理があるように感じ始めています。<br/>当たり前のことなのですが、これは慣れるしかないのですよね……？<br/>自分には到底書けないよと思う処理も、関数型言語に慣れ親しむうちに処理が書けるようになっていくのでしょうか？:smiling_face_with_tear:<br/><br/>例えば`List.GroupBy`をあえて自分で実装するとなると、<br/>手続き型では「forループを回して、毎要素ペアを条件判定し、適宜新しい配列を作成したり既存の配列に追加したり」で済むところが、<br/>関数型では下記のように(*私にとっては*)難しい書き方になってしまいます。<br/><pre>myGroupBy :: (a -&gt; a -&gt; Bool) -&gt; [a] -&gt; [[a]]
+myGroupBy p xs = foldl step [] xs
+    where step ys x | null ys = (x:[]):ys
+                    | p (head (last ys)) x = (init ys) ++ (((last ys) ++ (x:[])):[])
+                    | otherwise = ys ++ ((x:[]):[])</pre><br/>自力では書けなかったので、<https://www.mkamimura.com/2013/02/haskell-datalistgroupby.html> を引用しています(正直、このコードにバグがあるかどうかも私には自信を持っては分かりません)。<br/>このような処理を書けるようになるためには、他言語の習得と同様に練習するしかないのですよね……！<br/><br/>すみません、とても当たり前のことしか言っていないのですが、難しさに圧倒されて思わず何かご意見を伺いたくなってしまい……:eyes:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1681061580.168419">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1681061580.168419">2023-04-10 02:33:00 +0900</a></div>
+          </div>
+          <div class="description">canalun さんの直面している大変さすごく分かります<br/>自分も最初はループを回して書き換えていく発想しかできなかったのですが、今は <code>foldr</code> や何やらを使って書くのがしっくりくるようになりました<br/>誰もがそうなるかどうかは分からないですが、今 Haskell を書いてる多くの人はそういう経緯をたどったのではないかなと想像します<br/>再現性のある学習かは分かりませんが、自分の場合でいうと、『Scheme 手習い』はリスト操作を再帰的に行うやり方を理解するのにとても助けになりました<br/>Scheme 言語を使った書物ですが学べることは言語に依存しません<br/>canalun さんが勉強していく中で見るコードで「これどういう発想して書いてるんだろう」みたいなことをこのチャンネルとかで聞いてみるのもいいかもしれません<br/>例に挙げた <code>groupBy</code> を書くとしたらまず何から考えるのかとかはコードから読みとるのが難しいですからね<br/><a href='https://www.ohmsha.co.jp/book/9784274068263/'>https://www.ohmsha.co.jp/book/9784274068263/</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1681081800.152409">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1681081800.152409">2023-04-10 08:10:00 +0900</a></div>
+          </div>
+          <div class="description">総論はさておき、実際 <code>Data.List</code> の <code>groupBy</code> はもうちょっとシンプルな実装になっているようです。<br/><br/><pre>groupBy                 :: (a -&gt; a -&gt; Bool) -&gt; [a] -&gt; [[a]]
+groupBy _  []           =  []
+groupBy eq (x:xs)       =  (x:ys) : groupBy eq zs
+                           where (ys,zs) = span (eq x) xs</pre><br/>問題を分割して、 <code>span</code> という、「リストにおける指定した条件にマッチする要素まで含んだリストとそれ以降のリスト」を分割する補助関数を使うのがポイントです。<br/><code>groupBy</code> はその <code>span</code> を繰り返しをグループを一つ作るごとに繰り返し適用することに他なりませんから。<br/><br/>参考:<br/>• <a href='https://hackage.haskell.org/package/base-4.17.0.0/docs/src/Data.OldList.html#groupBy'>https://hackage.haskell.org/package/base-4.17.0.0/docs/src/Data.OldList.html#groupBy</a><br/>• <a href='https://hackage.haskell.org/package/base-4.17.0.0/docs/Data-List.html#v:span'>https://hackage.haskell.org/package/base-4.17.0.0/docs/Data-List.html#v:span</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1681082086.764389">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1681082086.764389">2023-04-10 08:14:46 +0900</a></div>
+          </div>
+          <div class="description">ちなみに不運なことに、挙げていただいた <code>myGroupBy</code> はお手本としては好ましくないです。<br/>現代のHaskellの世界であまり使わない方がいいとされている <code>foldl</code> や <code>head</code>, <code>last</code> を使っている上に、実際の <code>Data.List</code> の <code>groupBy</code> と比べるに、必要上以上に複雑なようなので...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1681082618.917829">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1681082618.917829">2023-04-10 08:23:38 +0900</a></div>
+          </div>
+          <div class="description">総論について、できれば具体的に書き換える例を用意したいものですが、時間がないので手短にお話ししますと、よくある <code>for</code> ループから純粋な関数に書き換えるコツは、<br/>• とりあえず再帰で考える（`foldr` や <code>map</code> などについては慣れないうちは後でリファクタリングするときに使う。）<br/>• <code>for</code>文などでは、変数を書き換えることでループを進めていたところ、「純粋な関数」の再帰呼び出しでは、*引数の値を変えることでループを進める*、という点を意識する<br/>の2点です。ちょっと具体例がないと分かりづらいかもですが取り急ぎ</div>
+        </div>
+      </div>
+      <div class="event" id="message-1681084053.759639">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ksrk</div>
+            <div class="date"><a class="date" href="#message-1681084053.759639">2023-04-10 08:47:33 +0900</a></div>
+          </div>
+          <div class="description">意図的なのか分かりませんが、不必要な括弧や冗長な記述があります。（例えば`x:[]`は`[x]`と書ける）これがなくなるだけでも見た目はスッキリするのではないでしょうか。<br/>分かりやすくなるかは分かりませんが、以下のように書き換えてみました。foldrではなく、foldlを使っていますが、リストは前から処理するのが普通なので、計算効率を無視するならfoldlの方がわかりやすいと思います<br/><br/><pre>myGroupBy :: (a -&gt; a -&gt; Bool) -&gt; [a] -&gt; [[a]]
+myGroupBy p xs = reverse (foldl step [] xs)
+    where
+        step [] x = [[x]]
+        step ((y : ys) : acc) x
+                | p y x = (y : ys ++ [x]) : acc
+                | otherwise = [x] : (y : ys) : acc</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1681088144.789819">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1681088144.789819">2023-04-10 09:55:44 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>リストは前から処理するのが普通なので、計算効率を無視するならfoldlの方がわかりやすいと思います</blockquote>よく誤解されるんですが、 <code>foldr</code> も前からの処理ですよ</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../23.html" class="item">Back to beginners #23</a>
+    </div>
+  </div>
+</body>
+</html>
