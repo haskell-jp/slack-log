@@ -88,6 +88,24 @@ myGroupBy p xs = reverse (foldl step [] xs)
           <div class="description"><blockquote>リストは前から処理するのが普通なので、計算効率を無視するならfoldlの方がわかりやすいと思います</blockquote>よく誤解されるんですが、 <code>foldr</code> も前からの処理ですよ</div>
         </div>
       </div>
+      <div class="event" id="message-1681096751.640469">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ksrk</div>
+            <div class="date"><a class="date" href="#message-1681096751.640469">2023-04-10 12:19:11 +0900</a></div>
+          </div>
+          <div class="description">すみません。誤解を生む書き方でした。<br/><code>step</code>関数の引数は「現在見ているリストの要素」と「返り値のリスト」ですが、`foldl`の場合は前から計算した「返り値のリスト」を受け取る一方で、`foldr`は後ろから計算した「返り値のリスト」を受け取るため、上のような書き方をしました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1681100617.176789">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1681100617.176789">2023-04-10 13:23:37 +0900</a></div>
+          </div>
+          <div class="description">groupBy は foldr より unfoldr のほうがすっきりしますね。<br/><a href='https://scrapbox.io/Haskell-Misc/span%E3%81%AE%E5%B0%8F%E3%83%8D%E3%82%BF%EF%BC%88%E4%BD%BF%E3%81%84%E6%96%B9%E7%B7%A8%EF%BC%89'>https://scrapbox.io/Haskell-Misc/span%E3%81%AE%E5%B0%8F%E3%83%8D%E3%82%BF%EF%BC%88%E4%BD%BF%E3%81%84%E6%96%B9%E7%B7%A8%EF%BC%89</a></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../23.html" class="item">Back to beginners #23</a>

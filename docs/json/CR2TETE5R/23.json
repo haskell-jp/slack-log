@@ -88,5 +88,11 @@
         "user": "U03DUKNQL3H",
         "ts": "1681055436.507129",
         "text": "こんばんは。学習のために色々な処理をfunctionalなアプローチで書いてみる中で浮かんだ疑問です。\n\n手続き的な書き方は難しくないのに、functionalに書こうと思うと急に難度があがる処理があるように感じ始めています。\n当たり前のことなのですが、これは慣れるしかないのですよね……？\n自分には到底書けないよと思う処理も、関数型言語に慣れ親しむうちに処理が書けるようになっていくのでしょうか？:smiling_face_with_tear:\n\n例えば`List.GroupBy`をあえて自分で実装するとなると、\n手続き型では「forループを回して、毎要素ペアを条件判定し、適宜新しい配列を作成したり既存の配列に追加したり」で済むところが、\n関数型では下記のように(*私にとっては*)難しい書き方になってしまいます。\n```myGroupBy :: (a -&gt; a -&gt; Bool) -&gt; [a] -&gt; [[a]]\nmyGroupBy p xs = foldl step [] xs\n    where step ys x | null ys = (x:[]):ys\n                    | p (head (last ys)) x = (init ys) ++ (((last ys) ++ (x:[])):[])\n                    | otherwise = ys ++ ((x:[]):[])```\n自力では書けなかったので、<https://www.mkamimura.com/2013/02/haskell-datalistgroupby.html> を引用しています(正直、このコードにバグがあるかどうかも私には自信を持っては分かりません)。\nこのような処理を書けるようになるためには、他言語の習得と同様に練習するしかないのですよね……！\n\nすみません、とても当たり前のことしか言っていないのですが、難しさに圧倒されて思わず何かご意見を伺いたくなってしまい……:eyes:"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1681100617.176789",
+        "text": "groupBy は foldr より unfoldr のほうがすっきりしますね。\n<https://scrapbox.io/Haskell-Misc/span%E3%81%AE%E5%B0%8F%E3%83%8D%E3%82%BF%EF%BC%88%E4%BD%BF%E3%81%84%E6%96%B9%E7%B7%A8%EF%BC%89>"
     }
 ]
