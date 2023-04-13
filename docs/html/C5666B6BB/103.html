@@ -293,6 +293,42 @@ unstrict = unsafeCoerce</pre><br/>のようなことをしており，これっ�
           <div class="description">ghc-heapってbundled versionでないものを使うと不具合は起こるのでしょうか…？ なんの気なしにdependencyに入れたらcabal-install が GHC-9.4.4 上に ghc-heap-9.6.1 を引っ張ってきている…</div>
         </div>
       </div>
+      <div class="event" id="message-1681290375.582189">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1681290375.582189">2023-04-12 18:06:15 +0900</a></div>
+          </div>
+          <div class="description">Windows 11 の WSL Ubuntu に ghcup で、stack を含む開発環境をセットアップしたのですが、stack new hoge をすると<br/><pre>Downloading template new-template to create project hoge in directory hoge/...
+
+Error: [S-1688]
+       Stack failed to download the template new-template from
+       <https://api.github.com/repos/commercialhaskell/stack-templates/contents/new-template.hsfiles>.
+
+       While downloading, Stack encountered an HTTP error. Stack made the request:
+
+       Request {
+  host                 = "<http://api.github.com|api.github.com>"
+  port                 = 443
+  secure               = True
+  requestHeaders       = [("User-Agent","The Haskell Stack")]
+  path                 = "/repos/commercialhaskell/stack-templates/contents/new-template.hsfiles"
+  queryString          = ""
+  method               = "GET"
+  proxy                = Nothing
+  rawBody              = False
+  redirectCount        = 10
+  responseTimeout      = ResponseTimeoutDefault
+  requestVersion       = HTTP/1.1
+  proxySecureMode      = ProxySecureWithConnect
+}
+
+
+       and the content of the error was:
+
+       ConnectionTimeout</pre><br/>となります。wsl あるいは windows 11 の問題のような気もしますが、もし、なにか対処法にヒントがあれば教えていただけると幸いです。<br/>ネットワークは繋がっていますし、wget で <a href='https://api.github.com/'>https://api.github.com/</a>... にも繋がるように見えています。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C5666B6BB/102.html" class="item">Previous</a>
