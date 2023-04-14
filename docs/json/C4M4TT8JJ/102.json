@@ -202,5 +202,23 @@
         "user": "U4LGTMTMK",
         "ts": "1681167380.308479",
         "text": "この本、毎日ちょっとずつ読んで先日ようやく読み終えました。\n基本的にコンパイラー全般の話ではあるんですけど、後半の方でHaskellのようなlazyな言語をどう効率のよいC言語にコンパイルするか、みたいなことが書かれていて面白かったです。\n<https://link.springer.com/book/10.1007/978-1-4614-4699-6>"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1681354579.117209",
+        "text": "こちらの回答を書く際 <http://pointfree.io|pointfree.io> が教えてくれた `flip id` ってなんだろう、と思ったら、どうやら引数と関数を受け取って引数を関数に渡した結果を返す、言わば前置記法みたいな変換をしてくれるんですね。\n```&gt; :t flip id\nflip id :: b -&gt; (b -&gt; c) -&gt; c\n&gt; :t flip id \"a\"\nflip id \"a\" :: (String -&gt; c) -&gt; c\n&gt; :t flip id \"a\" (++ \"b\")\nflip id \"a\" (++ \"b\") :: [Char]\n&gt; flip id \"a\" (++ \"b\")\n\"ab\"\n-- flip f x といえば (`f` x) にも置き換えられるので、\n-- ↓ももちろんOK。冷静に考えたら当たりまえだけど面白い。\n&gt; (`id` \"a\") (++ \"b\")\n\"ab\"```\n<https://haskell-jp.slack.com/archives/CR2TETE5R/p1681353753081089?thread_ts=1681353081.736949&amp;cid=CR2TETE5R>"
+    },
+    {
+        "type": "message",
+        "user": "U578W9676",
+        "ts": "1681355182.628729",
+        "text": "`id` は `($)` の代わりができるというのをどこかで読みました。`($) :: (a -&gt; b) -&gt; (a -&gt; b)` は `id` を特殊化した型になってますし、 `id f x = (id f) x = f x` になるので。`flip id` は `flip ($)` と置き換え可能で、機能的には同じだと思うんですけど、<http://pointfree.io|pointfree.io> では文字数が少ないから `id` を使うんでしょうか :thinking_face:"
+    },
+    {
+        "type": "message",
+        "user": "U052LCRM2GP",
+        "ts": "1681367761.511879",
+        "text": "<@U052LCRM2GP> has joined the channel"
     }
 ]

@@ -367,6 +367,45 @@ even2, odd2 :: Int -&gt; Bool
           <div class="description">この本、毎日ちょっとずつ読んで先日ようやく読み終えました。<br/>基本的にコンパイラー全般の話ではあるんですけど、後半の方でHaskellのようなlazyな言語をどう効率のよいC言語にコンパイルするか、みたいなことが書かれていて面白かったです。<br/><a href='https://link.springer.com/book/10.1007/978-1-4614-4699-6'>https://link.springer.com/book/10.1007/978-1-4614-4699-6</a></div>
         </div>
       </div>
+      <div class="event" id="message-1681354579.117209">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1681354579.117209">2023-04-13 11:56:19 +0900</a></div>
+          </div>
+          <div class="description">こちらの回答を書く際 <a href='http://pointfree.io'>pointfree.io</a> が教えてくれた <code>flip id</code> ってなんだろう、と思ったら、どうやら引数と関数を受け取って引数を関数に渡した結果を返す、言わば前置記法みたいな変換をしてくれるんですね。<br/><pre>&gt; :t flip id
+flip id :: b -&gt; (b -&gt; c) -&gt; c
+&gt; :t flip id "a"
+flip id "a" :: (String -&gt; c) -&gt; c
+&gt; :t flip id "a" (++ "b")
+flip id "a" (++ "b") :: [Char]
+&gt; flip id "a" (++ "b")
+"ab"
+-- flip f x といえば (`f` x) にも置き換えられるので、
+-- ↓ももちろんOK。冷静に考えたら当たりまえだけど面白い。
+&gt; (`id` "a") (++ "b")
+"ab"</pre><br/><a href='https://haskell-jp.slack.com/archives/CR2TETE5R/p1681353753081089?thread_ts=1681353081.736949&amp;cid=CR2TETE5R'>https://haskell-jp.slack.com/archives/CR2TETE5R/p1681353753081089?thread_ts=1681353081.736949&amp;cid=CR2TETE5R</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1681355182.628729">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1681355182.628729">2023-04-13 12:06:22 +0900</a></div>
+          </div>
+          <div class="description"><code>id</code> は <code>($)</code> の代わりができるというのをどこかで読みました。`($) :: (a -&gt; b) -&gt; (a -&gt; b)` は <code>id</code> を特殊化した型になってますし、 <code>id f x = (id f) x = f x</code> になるので。`flip id` は <code>flip ($)</code> と置き換え可能で、機能的には同じだと思うんですけど、<http://pointfree.io|pointfree.io> では文字数が少ないから <code>id</code> を使うんでしょうか :thinking_face:</div>
+          <a class="link-to-replies" href="102/1681355182.628729.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1681367761.511879">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U052LCRM2GP</div>
+            <div class="date"><a class="date" href="#message-1681367761.511879">2023-04-13 15:36:01 +0900</a></div>
+          </div>
+          <div class="description">@U052LCRM2GP has joined the channel</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C4M4TT8JJ/101.html" class="item">Previous</a>

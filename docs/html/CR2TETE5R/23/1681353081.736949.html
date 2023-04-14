@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #23 at 2023-04-13 11:31:21 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #23 at 2023-04-13 11:31:21 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../23.html" class="item">Back to beginners #23</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1681353081.736949">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1681353081.736949">2023-04-13 11:31:21 +0900</a></div>
+          </div>
+          <div class="description">詳しい方教えてください。<br/><br/>引数の値を、複数の関数(Char -&gt; Bool) に適用して or をとることを考えています。<br/>最初にシンプルに考えて以下のようになりました。<br/><pre>import Data.Char
+f x = or $ map ($ x) [isDigit, isLetter]
+
+ghci&gt; f '1'
+True</pre><br/>これをポイントフリー化しようと以下のように変更し<br/><pre>f x = or . flip map [isDigit, isLetter] $ ($ x)
+
+ghci&gt; f '1'
+True</pre><br/>ここまでは良かったのですが、最後に引数を消すことを考え<br/><br/><pre>f = or . flip map [isDigit, isLetter] . ($)
+
+ghci&gt; :t f
+f :: ((Char -&gt; Bool) -&gt; Bool) -&gt; Bool</pre><br/>このようにしたところ、これは期待している型と違ってしまいます。<br/><br/>うまく説明できているかわかりませんが、上記のような場合<br/>ポイントフリーな書き方は可能でしょうか ?</div>
+        </div>
+      </div>
+      <div class="event" id="message-1681353753.081089">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1681353753.081089">2023-04-13 11:42:33 +0900</a></div>
+          </div>
+          <div class="description">こういうときに便利なサービスがありまして、<https://pointfree.io/> というやつです。<br/>結果はこちららしいです:<br/><pre>f = or . flip map [isDigit, isLetter] . flip id</pre><br/>あまり読みやすいとは思えませんが！<br/>（途中で間違って投稿してしまいました！すみません！ <code>Data.Monoid.Any</code> を使った解法は改めて見てそれほど良いと思えなかったので消しました）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1681354022.648839">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1681354022.648839">2023-04-13 11:47:02 +0900</a></div>
+          </div>
+          <div class="description"><@U4LGTMTMK><br/>回答ありがとうございました。<br/><http://pointfree.io|pointfree.io> 便利そうで、今後 多用します<br/>m(_ _)m</div>
+        </div>
+      </div>
+      <div class="event" id="message-1681355616.460309">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1681355616.460309">2023-04-13 12:13:36 +0900</a></div>
+          </div>
+          <div class="description">元の投稿で言うと <code>\x -&gt;〈式〉 $ ($ x)</code> と <code>〈式〉 . ($)</code> が等価じゃなくて、 <code>〈式〉 . flip ($)</code> にしてやる必要がありますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1681374497.431639">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1681374497.431639">2023-04-13 17:28:17 +0900</a></div>
+          </div>
+          <div class="description">ポイントフリー化の基本は<br/><pre>h x = g (f x)   ⇔   h = g . f</pre><br/>なので、構文的にやるなら、変数をひたすら右へ追いやる感じで変形します<br/><pre>f x = or (map (flip ($) x) [isDigit, isLetter])
+f x = or (flip map [isDigit, isLetter] (flip ($) x))
+f   = or . flip map [isDigit, isLetter] . flip ($)</pre><br/>意味的にやるなら、関数を合成して関数をつくることになるので、述語の選言を構成する二項演算子を定義しておいて、それで畳み込みをすればよさそうです．<br/><pre>(&lt;||&gt;) :: (a -&gt; Bool) -&gt; (a -&gt; Bool) -&gt; (a -&gt; Bool)
+(p &lt;||&gt; q) x = p x || q x
+f = foldr (&lt;||&gt;) (const False) [isDigit, isLetter]</pre><br/><code>&lt;||&gt;</code> のポイントフリーまでやりたければ、Sコンビネータを使います．<br/><pre>(&lt;||&gt;) p q x = (||) (p x) (q x)
+(&lt;||&gt;) p q   = (&lt;*&gt;) ((||) . p) q
+(&lt;||&gt;) p     = (&lt;*&gt;) ((.) (||) p)
+(&lt;||&gt;)       = (&lt;*&gt;) . ((||) .)</pre><br/>難読化になってしまいますね．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1681379270.396529">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1681379270.396529">2023-04-13 18:47:50 +0900</a></div>
+          </div>
+          <div class="description">@nobsun<br/>教えてもらうと <code>const False</code> が単位元? になって各引数を適用する foldr に<br/>なるのだな、と思えるのですが<br/>そういった発想になるように上達するような書籍なり、サイトなり<br/>良い情報源はありますか ?</div>
+        </div>
+      </div>
+      <div class="event" id="message-1681382954.057189">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1681382954.057189">2023-04-13 19:49:14 +0900</a></div>
+          </div>
+          <div class="description">関数型 (function type) の意味がなんとなく判ってくると自然にそういう発想になるかなと思います。<br/>「σ と τ が型ならばσ → τ も型である」つまり、関数はそれ自身で値をもつ一級の(計算)対象で、なにも特別なものではないということが腑におちるとよいかもしれません。ちょっと手前味噌ですが、2019年のHaskell dayのときの「お話」のスライドです。御笑覧ください。<br/><a href='https://github.com/nobsun/hday2019/blob/master/doc/ftype.pdf'>https://github.com/nobsun/hday2019/blob/master/doc/ftype.pdf</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1681384224.741759">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1681384224.741759">2023-04-13 20:10:24 +0900</a></div>
+          </div>
+          <div class="description">また、Haskell ではないんですが、SICP にPainter(手続き)を対象とする図形言語を構成する例があります。<br/><a href='https://sicp.iijlab.net/fulltext/x224.html'>「本節では, データ抽象と閉包の能力を示す, 絵を描くための単純な言語を紹介し, また高階手続きを本質的に利用する. 」</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1681385166.789609">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1681385166.789609">2023-04-13 20:26:06 +0900</a></div>
+          </div>
+          <div class="description">@nobsun<br/>丁寧にありがとうございました。<br/>腑に落ちる。というところまでは時間がかかると思いますが教えてもらった資料を参考に、勉強を続けます。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../23.html" class="item">Back to beginners #23</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+[
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1681353081.736949",
+        "text": "詳しい方教えてください。\n\n引数の値を、複数の関数(Char -&gt; Bool) に適用して or をとることを考えています。\n最初にシンプルに考えて以下のようになりました。\n```import Data.Char\nf x = or $ map ($ x) [isDigit, isLetter]\n\nghci&gt; f '1'\nTrue```\nこれをポイントフリー化しようと以下のように変更し\n```f x = or . flip map [isDigit, isLetter] $ ($ x)\n\nghci&gt; f '1'\nTrue```\nここまでは良かったのですが、最後に引数を消すことを考え\n\n```f = or . flip map [isDigit, isLetter] . ($)\n\nghci&gt; :t f\nf :: ((Char -&gt; Bool) -&gt; Bool) -&gt; Bool```\nこのようにしたところ、これは期待している型と違ってしまいます。\n\nうまく説明できているかわかりませんが、上記のような場合\nポイントフリーな書き方は可能でしょうか ?"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1681353753.081089",
+        "text": "こういうときに便利なサービスがありまして、<https://pointfree.io/> というやつです。\n結果はこちららしいです:\n```f = or . flip map [isDigit, isLetter] . flip id```\nあまり読みやすいとは思えませんが！\n（途中で間違って投稿してしまいました！すみません！ `Data.Monoid.Any` を使った解法は改めて見てそれほど良いと思えなかったので消しました）"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1681354022.648839",
+        "text": "<@U4LGTMTMK>\n回答ありがとうございました。\n<http://pointfree.io|pointfree.io> 便利そうで、今後 多用します\nm(_ _)m"
+    },
+    {
+        "type": "message",
+        "user": "UGM9F7XQS",
+        "ts": "1681355616.460309",
+        "text": "元の投稿で言うと `\\x -&gt;〈式〉 $ ($ x)` と `〈式〉 . ($)` が等価じゃなくて、 `〈式〉 . flip ($)` にしてやる必要がありますね"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1681374497.431639",
+        "text": "ポイントフリー化の基本は\n```h x = g (f x)   ⇔   h = g . f```\nなので、構文的にやるなら、変数をひたすら右へ追いやる感じで変形します\n```f x = or (map (flip ($) x) [isDigit, isLetter])\nf x = or (flip map [isDigit, isLetter] (flip ($) x))\nf   = or . flip map [isDigit, isLetter] . flip ($)```\n意味的にやるなら、関数を合成して関数をつくることになるので、述語の選言を構成する二項演算子を定義しておいて、それで畳み込みをすればよさそうです．\n```(&lt;||&gt;) :: (a -&gt; Bool) -&gt; (a -&gt; Bool) -&gt; (a -&gt; Bool)\n(p &lt;||&gt; q) x = p x || q x\nf = foldr (&lt;||&gt;) (const False) [isDigit, isLetter]```\n`&lt;||&gt;` のポイントフリーまでやりたければ、Sコンビネータを使います．\n```(&lt;||&gt;) p q x = (||) (p x) (q x)\n(&lt;||&gt;) p q   = (&lt;*&gt;) ((||) . p) q\n(&lt;||&gt;) p     = (&lt;*&gt;) ((.) (||) p)\n(&lt;||&gt;)       = (&lt;*&gt;) . ((||) .)```\n難読化になってしまいますね．"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1681379270.396529",
+        "text": "<@U4KU9ABL0>\n教えてもらうと `const False` が単位元? になって各引数を適用する foldr に\nなるのだな、と思えるのですが\nそういった発想になるように上達するような書籍なり、サイトなり\n良い情報源はありますか ?"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1681382954.057189",
+        "text": "関数型 (function type) の意味がなんとなく判ってくると自然にそういう発想になるかなと思います。\n「σ と τ が型ならばσ → τ も型である」つまり、関数はそれ自身で値をもつ一級の(計算)対象で、なにも特別なものではないということが腑におちるとよいかもしれません。ちょっと手前味噌ですが、2019年のHaskell dayのときの「お話」のスライドです。御笑覧ください。\n<https://github.com/nobsun/hday2019/blob/master/doc/ftype.pdf>"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1681384224.741759",
+        "text": "また、Haskell ではないんですが、SICP にPainter(手続き)を対象とする図形言語を構成する例があります。\n<https://sicp.iijlab.net/fulltext/x224.html|「本節では, データ抽象と閉包の能力を示す, 絵を描くための単純な言語を紹介し, また高階手続きを本質的に利用する. 」>"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1681385166.789609",
+        "text": "<@U4KU9ABL0>\n丁寧にありがとうございました。\n腑に落ちる。というところまでは時間がかかると思いますが教えてもらった資料を参考に、勉強を続けます。"
+    }
+]

@@ -94,5 +94,23 @@
         "user": "U4KU9ABL0",
         "ts": "1681100617.176789",
         "text": "groupBy は foldr より unfoldr のほうがすっきりしますね。\n<https://scrapbox.io/Haskell-Misc/span%E3%81%AE%E5%B0%8F%E3%83%8D%E3%82%BF%EF%BC%88%E4%BD%BF%E3%81%84%E6%96%B9%E7%B7%A8%EF%BC%89>"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1681353081.736949",
+        "text": "詳しい方教えてください。\n\n引数の値を、複数の関数(Char -&gt; Bool) に適用して or をとることを考えています。\n最初にシンプルに考えて以下のようになりました。\n```import Data.Char\nf x = or $ map ($ x) [isDigit, isLetter]\n\nghci&gt; f '1'\nTrue```\nこれをポイントフリー化しようと以下のように変更し\n```f x = or . flip map [isDigit, isLetter] $ ($ x)\n\nghci&gt; f '1'\nTrue```\nここまでは良かったのですが、最後に引数を消すことを考え\n\n```f = or . flip map [isDigit, isLetter] . ($)\n\nghci&gt; :t f\nf :: ((Char -&gt; Bool) -&gt; Bool) -&gt; Bool```\nこのようにしたところ、これは期待している型と違ってしまいます。\n\nうまく説明できているかわかりませんが、上記のような場合\nポイントフリーな書き方は可能でしょうか ?"
+    },
+    {
+        "type": "message",
+        "user": "U052LCRM2GP",
+        "ts": "1681367761.317629",
+        "text": "<@U052LCRM2GP> has joined the channel"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1681382954.057189",
+        "text": "関数型 (function type) の意味がなんとなく判ってくると自然にそういう発想になるかなと思います。\n「σ と τ が型ならばσ → τ も型である」つまり、関数はそれ自身で値をもつ一級の(計算)対象で、なにも特別なものではないということが腑におちるとよいかもしれません。ちょっと手前味噌ですが、2019年のHaskell dayのときの「お話」のスライドです。御笑覧ください。\n<https://github.com/nobsun/hday2019/blob/master/doc/ftype.pdf>"
     }
 ]

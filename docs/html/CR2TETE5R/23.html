@@ -162,6 +162,44 @@ myGroupBy p xs = foldl step [] xs
           <div class="description">groupBy は foldr より unfoldr のほうがすっきりしますね。<br/><a href='https://scrapbox.io/Haskell-Misc/span%E3%81%AE%E5%B0%8F%E3%83%8D%E3%82%BF%EF%BC%88%E4%BD%BF%E3%81%84%E6%96%B9%E7%B7%A8%EF%BC%89'>https://scrapbox.io/Haskell-Misc/span%E3%81%AE%E5%B0%8F%E3%83%8D%E3%82%BF%EF%BC%88%E4%BD%BF%E3%81%84%E6%96%B9%E7%B7%A8%EF%BC%89</a></div>
         </div>
       </div>
+      <div class="event" id="message-1681353081.736949">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1681353081.736949">2023-04-13 11:31:21 +0900</a></div>
+          </div>
+          <div class="description">詳しい方教えてください。<br/><br/>引数の値を、複数の関数(Char -&gt; Bool) に適用して or をとることを考えています。<br/>最初にシンプルに考えて以下のようになりました。<br/><pre>import Data.Char
+f x = or $ map ($ x) [isDigit, isLetter]
+
+ghci&gt; f '1'
+True</pre><br/>これをポイントフリー化しようと以下のように変更し<br/><pre>f x = or . flip map [isDigit, isLetter] $ ($ x)
+
+ghci&gt; f '1'
+True</pre><br/>ここまでは良かったのですが、最後に引数を消すことを考え<br/><br/><pre>f = or . flip map [isDigit, isLetter] . ($)
+
+ghci&gt; :t f
+f :: ((Char -&gt; Bool) -&gt; Bool) -&gt; Bool</pre><br/>このようにしたところ、これは期待している型と違ってしまいます。<br/><br/>うまく説明できているかわかりませんが、上記のような場合<br/>ポイントフリーな書き方は可能でしょうか ?</div>
+          <a class="link-to-replies" href="23/1681353081.736949.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1681367761.317629">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U052LCRM2GP</div>
+            <div class="date"><a class="date" href="#message-1681367761.317629">2023-04-13 15:36:01 +0900</a></div>
+          </div>
+          <div class="description">@U052LCRM2GP has joined the channel</div>
+        </div>
+      </div>
+      <div class="event" id="message-1681382954.057189">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1681382954.057189">2023-04-13 19:49:14 +0900</a></div>
+          </div>
+          <div class="description">関数型 (function type) の意味がなんとなく判ってくると自然にそういう発想になるかなと思います。<br/>「σ と τ が型ならばσ → τ も型である」つまり、関数はそれ自身で値をもつ一級の(計算)対象で、なにも特別なものではないということが腑におちるとよいかもしれません。ちょっと手前味噌ですが、2019年のHaskell dayのときの「お話」のスライドです。御笑覧ください。<br/><a href='https://github.com/nobsun/hday2019/blob/master/doc/ftype.pdf'>https://github.com/nobsun/hday2019/blob/master/doc/ftype.pdf</a></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/22.html" class="item">Previous</a>
