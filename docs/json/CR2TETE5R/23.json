@@ -124,5 +124,11 @@
         "user": "U053GLH63LN",
         "ts": "1681791728.777879",
         "text": "<@U053GLH63LN> has joined the channel"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1682068157.989739",
+        "text": "(&gt;&gt;=) と (&gt;=&gt;) の違いについて\n\nChatGPT で教えてもらったところ\n&gt; (&gt;&gt;=)はバインド演算子と呼ばれ、モナド値を取り、モナドの中の値を抽出し、それを次の関数に渡します。\n&gt; 一方、(&gt;=&gt;)は関数合成演算子であり、モナドを扱う関数を合成するための演算子です。\nとの事でした。\n\n簡単に試してみたところ、以下のようなコードになったのですが\n違いは最初の関数 (f) の引数の渡し方くらいでした。\n\nこの二つの違いは、そのくらいの認識で問題ないでしょうか ?\n```import Control.Monad\n\nf x = Just $ x + 1\ng x = if x &gt; 0 then Just (x * 2) else Nothing\nh x = Just $ \"The number is \" ++ show x\n\nfgh    = f   &gt;=&gt; g &gt;=&gt; h\nfgh' x = f x &gt;&gt;= g &gt;&gt;= h\n\nmain = do\n  putStrLn $ show $ fgh  1\n  putStrLn $ show $ fgh' 1```\n"
     }
 ]

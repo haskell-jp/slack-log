@@ -218,6 +218,27 @@ f :: ((Char -&gt; Bool) -&gt; Bool) -&gt; Bool</pre><br/>このようにした�
           <div class="description">@Keonhwa Ryu has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1682068157.989739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1682068157.989739">2023-04-21 18:09:17 +0900</a></div>
+          </div>
+          <div class="description">(&gt;&gt;=) と (&gt;=&gt;) の違いについて<br/><br/>ChatGPT で教えてもらったところ<br/><blockquote>(&gt;&gt;=)はバインド演算子と呼ばれ、モナド値を取り、モナドの中の値を抽出し、それを次の関数に渡します。<br/>一方、(&gt;=&gt;)は関数合成演算子であり、モナドを扱う関数を合成するための演算子です。</blockquote>との事でした。<br/><br/>簡単に試してみたところ、以下のようなコードになったのですが<br/>違いは最初の関数 (f) の引数の渡し方くらいでした。<br/><br/>この二つの違いは、そのくらいの認識で問題ないでしょうか ?<br/><pre>import Control.Monad
+
+f x = Just $ x + 1
+g x = if x &gt; 0 then Just (x * 2) else Nothing
+h x = Just $ "The number is " ++ show x
+
+fgh    = f   &gt;=&gt; g &gt;=&gt; h
+fgh' x = f x &gt;&gt;= g &gt;&gt;= h
+
+main = do
+  putStrLn $ show $ fgh  1
+  putStrLn $ show $ fgh' 1</pre><br/></div>
+          <a class="link-to-replies" href="23/1682068157.989739.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/22.html" class="item">Previous</a>

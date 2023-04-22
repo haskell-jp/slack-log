@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #23 at 2023-04-21 18:09:17 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #23 at 2023-04-21 18:09:17 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../23.html" class="item">Back to beginners #23</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1682068157.989739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1682068157.989739">2023-04-21 18:09:17 +0900</a></div>
+          </div>
+          <div class="description">(&gt;&gt;=) と (&gt;=&gt;) の違いについて<br/><br/>ChatGPT で教えてもらったところ<br/><blockquote>(&gt;&gt;=)はバインド演算子と呼ばれ、モナド値を取り、モナドの中の値を抽出し、それを次の関数に渡します。<br/>一方、(&gt;=&gt;)は関数合成演算子であり、モナドを扱う関数を合成するための演算子です。</blockquote>との事でした。<br/><br/>簡単に試してみたところ、以下のようなコードになったのですが<br/>違いは最初の関数 (f) の引数の渡し方くらいでした。<br/><br/>この二つの違いは、そのくらいの認識で問題ないでしょうか ?<br/><pre>import Control.Monad
+
+f x = Just $ x + 1
+g x = if x &gt; 0 then Just (x * 2) else Nothing
+h x = Just $ "The number is " ++ show x
+
+fgh    = f   &gt;=&gt; g &gt;=&gt; h
+fgh' x = f x &gt;&gt;= g &gt;&gt;= h
+
+main = do
+  putStrLn $ show $ fgh  1
+  putStrLn $ show $ fgh' 1</pre><br/></div>
+        </div>
+      </div>
+      <div class="event" id="message-1682068321.590309">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1682068321.590309">2023-04-21 18:12:01 +0900</a></div>
+          </div>
+          <div class="description">ご認識の通りです。<br/><code>&gt;=&gt;</code> は Monad を扱う関数、つまり <code>f :: Monad m =&gt; a -&gt; m b</code> な関数を合成するための <code>.</code> だと思って頂けると</div>
+        </div>
+      </div>
+      <div class="event" id="message-1682068445.758139">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1682068445.758139">2023-04-21 18:14:05 +0900</a></div>
+          </div>
+          <div class="description">早速ありがとうございました<br/>m(_ _)m<br/><br/>何かもっと特別な使い方が一般的なのかと質問させていただきましたが、この考え方で間違っていなくて安心しました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../23.html" class="item">Back to beginners #23</a>
+    </div>
+  </div>
+</body>
+</html>
