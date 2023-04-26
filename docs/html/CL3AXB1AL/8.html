@@ -40,6 +40,41 @@
           <div class="description">なんとかfreeze 前に手元環境で Exposed modules の imports を全部チェックできました！　生成したチェック用のソースは: <a href='https://gist.github.com/gksato/0993d739f2ac6e81100f41815a27a978#file-3-imports-hs'>https://gist.github.com/gksato/0993d739f2ac6e81100f41815a27a978#file-3-imports-hs</a></div>
         </div>
       </div>
+      <div class="event" id="message-1682392268.747599">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1682392268.747599">2023-04-25 12:11:08 +0900</a></div>
+          </div>
+          <div class="description">コードテストばっかり投げてて実際の提出をサボっていて，数日前にやっと<br/><a href='https://atcoder.jp/contests/language-test-202301/submissions/40808418'>https://atcoder.jp/contests/language-test-202301/submissions/40808418</a><br/>を投げたのですが，そしたら<br/><br/><b>コンパイルエラー</b><br/><pre>Warning: The package list for '<http://hackage.haskell.org|hackage.haskell.org>' is 16 days old.
+Run 'cabal update' to get the latest list of available packages.
+Warning: The package list for '<http://hackage.haskell.org|hackage.haskell.org>' is 16 days old.
+Run 'cabal update' to get the latest list of available packages.
+Warning: The directory
+/home/runner/.cabal/store/ghc-9.4.4/incoming/new-2/home/runner/.cabal/store/ghc-9.4.4/submission-0.1.0.0-e-main-65f18b2df59be1b1a37cc9cf6a1a6fef2ceea8c33303cd81c9373b649724db38/bin
+is not in the system search path.</pre><br/>という警告が出てしまいました．<br/><br/>その上，最後の， <code>Warning: The directory</code> 云々の警告は未だ原因調査できておらず，どうやったら除去できるかもよくわかりません（あとで <a href='#C5666B6BB'>questions</a> にも投げようかと思います）．<br/><br/>しかし，今回こちらで問題にしたいのは <code>Warning: The package list for</code> 云々の方です．これは見慣れた警告で，なんとかなりそうです．言語/ライブラリ追加は終了しているものの，コマンド変更は未だ受け付けられていますので，コンパイル・インストールコマンドを修正して解決してしまって良さそうです．この警告が出される条件を <code>cabal-install</code> のコードを追って確かめれば，ad-hoc には，コンパイルコマンド<br/><br/><pre>$ source ~/.ghcup/env &amp;&amp; cd /judge/submission &amp;&amp; cabal v2-install --installdir=.. --install-method=copy --offline</pre><br/>を実行する直前に，package repository cacheのtarのmodification dateを更新しておけばいいとわかります：<br/><br/><pre>$ touch ~/.cabal/packages/hackage.haskell.org/01-index.tar</pre><br/>しかし，この方法はあまりに ad-hoc で implementation-dependent なので，この方法を実行していいかわからず，相談がしたかったのでこちらに書き込ませていただきました．<br/><br/>なお，このような方法に頼らなくても，  <code>cabal --ignore-expiry v2-install</code> でコンパイルするか， <code>cabal.project</code> に <code>ignore-expiry: True</code> を足すかすれば良いかと思ったのですが， <code>ignore-expiry</code> は  <code>cabal v2-update</code> の時に Hackage の署名の期限を検証しないことを表すもので，この問題には無関係のようですね（勘違いして cabal の github に issue を投げてしまったので，恥ずかしい思いをしました）．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1682392531.153299">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1682392531.153299">2023-04-25 12:15:31 +0900</a></div>
+          </div>
+          <div class="description">よくわからないんですけど、 <code>Warning: The package list for '<http://hackage.haskell.org|hackage.haskell.org>' is 16 days old.</code> については cabal update をどこかで実行すればよいように見えるんですが、ダメなんですかね？<br/>あと、<br/><pre>Warning: The directory
+/home/runner/.cabal/store/ghc-9.4.4/incoming/new-2/home/runner/.cabal/store/ghc-9.4.4/submission-0.1.0.0-e-main-65f18b2df59be1b1a37cc9cf6a1a6fef2ceea8c33303cd81c9373b649724db38/bin
+is not in the system search path.</pre><br/>こちらは件のパスが <code>PATH</code> に入っていない、というものなので、可能なら無視したほうがいいと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1682393224.286059">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1682393224.286059">2023-04-25 12:27:04 +0900</a></div>
+          </div>
+          <div class="description"><code>cabal v2-update</code> はコンパイル時に実行しようとするとインターネット接続を仮定してしまうので，だめです．後半は無視した方が良いのはわかっているのですが，そのパス的にどうにもバグくさいのでどうしたら良いかがよくわからないという状況です．</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CL3AXB1AL/7.html" class="item">Previous</a>

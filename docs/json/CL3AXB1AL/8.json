@@ -16,5 +16,23 @@
         "user": "UL1HFJATE",
         "ts": "1681042850.137679",
         "text": "なんとかfreeze 前に手元環境で Exposed modules の imports を全部チェックできました！　生成したチェック用のソースは: <https://gist.github.com/gksato/0993d739f2ac6e81100f41815a27a978#file-3-imports-hs>"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1682392268.747599",
+        "text": "コードテストばっかり投げてて実際の提出をサボっていて，数日前にやっと\n<https://atcoder.jp/contests/language-test-202301/submissions/40808418>\nを投げたのですが，そしたら\n\n*コンパイルエラー*\n```Warning: The package list for '<http://hackage.haskell.org|hackage.haskell.org>' is 16 days old.\nRun 'cabal update' to get the latest list of available packages.\nWarning: The package list for '<http://hackage.haskell.org|hackage.haskell.org>' is 16 days old.\nRun 'cabal update' to get the latest list of available packages.\nWarning: The directory\n/home/runner/.cabal/store/ghc-9.4.4/incoming/new-2/home/runner/.cabal/store/ghc-9.4.4/submission-0.1.0.0-e-main-65f18b2df59be1b1a37cc9cf6a1a6fef2ceea8c33303cd81c9373b649724db38/bin\nis not in the system search path.```\nという警告が出てしまいました．\n\nその上，最後の， `Warning: The directory` 云々の警告は未だ原因調査できておらず，どうやったら除去できるかもよくわかりません（あとで <#C5666B6BB|questions> にも投げようかと思います）．\n\nしかし，今回こちらで問題にしたいのは `Warning: The package list for` 云々の方です．これは見慣れた警告で，なんとかなりそうです．言語/ライブラリ追加は終了しているものの，コマンド変更は未だ受け付けられていますので，コンパイル・インストールコマンドを修正して解決してしまって良さそうです．この警告が出される条件を `cabal-install` のコードを追って確かめれば，ad-hoc には，コンパイルコマンド\n\n```$ source ~/.ghcup/env &amp;&amp; cd /judge/submission &amp;&amp; cabal v2-install --installdir=.. --install-method=copy --offline```\nを実行する直前に，package repository cacheのtarのmodification dateを更新しておけばいいとわかります：\n\n```$ touch ~/.cabal/packages/hackage.haskell.org/01-index.tar```\nしかし，この方法はあまりに ad-hoc で implementation-dependent なので，この方法を実行していいかわからず，相談がしたかったのでこちらに書き込ませていただきました．\n\nなお，このような方法に頼らなくても，  `cabal --ignore-expiry v2-install` でコンパイルするか， `cabal.project` に `ignore-expiry: True` を足すかすれば良いかと思ったのですが， `ignore-expiry` は  `cabal v2-update` の時に Hackage の署名の期限を検証しないことを表すもので，この問題には無関係のようですね（勘違いして cabal の github に issue を投げてしまったので，恥ずかしい思いをしました）．"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1682392531.153299",
+        "text": "よくわからないんですけど、 `Warning: The package list for '<http://hackage.haskell.org|hackage.haskell.org>' is 16 days old.` については cabal update をどこかで実行すればよいように見えるんですが、ダメなんですかね？\nあと、\n```Warning: The directory\n/home/runner/.cabal/store/ghc-9.4.4/incoming/new-2/home/runner/.cabal/store/ghc-9.4.4/submission-0.1.0.0-e-main-65f18b2df59be1b1a37cc9cf6a1a6fef2ceea8c33303cd81c9373b649724db38/bin\nis not in the system search path.```\nこちらは件のパスが `PATH` に入っていない、というものなので、可能なら無視したほうがいいと思います。"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1682393224.286059",
+        "text": "`cabal v2-update` はコンパイル時に実行しようとするとインターネット接続を仮定してしまうので，だめです．後半は無視した方が良いのはわかっているのですが，そのパス的にどうにもバグくさいのでどうしたら良いかがよくわからないという状況です．"
     }
 ]
