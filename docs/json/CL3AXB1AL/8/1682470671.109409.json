@@ -1,0 +1,20 @@
+[
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1682470671.109409",
+        "text": "ありそうなのは， `cabal v2-build` が これらのWarning を出さないように見えるので，\n\n```cabal v2-build &amp;&amp; cabal v2-install --verbose=0 --installdir=.. --install-method=copy --offline```\nでやっちゃう，というのは手としてあるかもしれません．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1682470953.091509",
+        "text": "ただ，手元環境とサーバ環境で表示される警告が違うので，あんまり確信を持って修正できないのが正直なところなんですよね…．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1682473545.001119",
+        "text": "あるいは，さっきのコマンドだと２回コンパイルしてしまうみたいなので，\n\n```cabal v2-build &amp;&amp; cabal v2-exec -- bash -c 'cp $(which main) ../main'```\nでもいいかもしれないですね．"
+    }
+]
