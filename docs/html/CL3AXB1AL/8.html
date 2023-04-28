@@ -125,6 +125,37 @@ cabal v2-build --offline &amp;&amp; cabal v2-exec -- bash -c 'cp $(which main) .
           <a class="link-to-replies" href="8/1682513764.246829.html">... Replies ...</a>
         </div>
       </div>
+      <div class="event" id="message-1682595802.688999">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1682595802.688999">2023-04-27 20:43:22 +0900</a></div>
+          </div>
+          <div class="description">なるほど．ご指摘を受けて修正するなら，<br/><br/><pre>cd /judge/submission
+source ~/.ghcup/env
+cabal v2-build --offline &amp;&amp; cp $(cabal list-bin main) ../</pre><br/>でしょうか．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1682600348.733489">
+        <div class="content">
+          <div class="summary">
+            <div class="user">cojna</div>
+            <div class="date"><a class="date" href="#message-1682600348.733489">2023-04-27 21:59:08 +0900</a></div>
+          </div>
+          <div class="description">cabal v2-installの挙動はちょっと調べてもよくわからないところがあるので，v2-installは使わずv2-buildしてバイナリ抜き出す方針が良さそうですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1682600591.717579">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1682600591.717579">2023-04-27 22:03:11 +0900</a></div>
+          </div>
+          <div class="description">では，改善もされたことですし，明日まで待って特に反対がなければ<br/><br/><pre>cd /judge/submission
+source ~/.ghcup/env
+cabal v2-build --offline &amp;&amp; cp $(cabal list-bin main) ../</pre><br/>に提案シートを書き換えた上で feedback に追加freezeの要望を出します．</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CL3AXB1AL/7.html" class="item">Previous</a>

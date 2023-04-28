@@ -32,6 +32,17 @@ cabal v2-build --offline &amp;&amp; cabal v2-exec -- bash -c 'cp $(which main) .
           <div class="description"><code>v2-exec which</code> よりかは <code>cabal list-bin</code> を使うほうがよさそうです<br/><a href='https://github.com/haskell/cabal/pull/7107'>https://github.com/haskell/cabal/pull/7107</a></div>
         </div>
       </div>
+      <div class="event" id="message-1682595802.688999">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1682595802.688999">2023-04-27 20:43:22 +0900</a></div>
+          </div>
+          <div class="description">なるほど．ご指摘を受けて修正するなら，<br/><br/><pre>cd /judge/submission
+source ~/.ghcup/env
+cabal v2-build --offline &amp;&amp; cp $(cabal list-bin main) ../</pre><br/>でしょうか．</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../8.html" class="item">Back to atcoder-lang-updates #8</a>

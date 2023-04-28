@@ -220,5 +220,11 @@
         "user": "U015L5JEP8D",
         "ts": "1682577714.625679",
         "text": "GHC9.2.7を使っています。\ntype familyを用いて型レベル計算をしようとしており、他のtype familyの結果の型レベルタプルの複数要素の値を計算で使いたいです。\n通常の関数であれば、タプルをletで束縛してからfstなりsndなりで結果を得られますが、type familyで同じようなことをするにはどうしたらよいですか？"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1682642163.818069",
+        "text": "状況がよくわかってないですが、以前に型レベルでタプルを使ったとき、以下のようなものを用意したことがありました。\n```type Term a = a -&gt; Type\ntype family Eval (e :: Term a) :: a\ndata Fst :: (a, b) -&gt; Term a\ndata Snd :: (a, b) -&gt; Term b\ntype instance Eval (Fst '(a, b)) = a\ntype instance Eval (Snd '(a, b)) = b```\n"
     }
 ]

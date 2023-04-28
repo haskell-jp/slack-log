@@ -393,6 +393,20 @@ Error: [S-1688]
           <div class="description">GHC9.2.7を使っています。<br/>type familyを用いて型レベル計算をしようとしており、他のtype familyの結果の型レベルタプルの複数要素の値を計算で使いたいです。<br/>通常の関数であれば、タプルをletで束縛してからfstなりsndなりで結果を得られますが、type familyで同じようなことをするにはどうしたらよいですか？</div>
         </div>
       </div>
+      <div class="event" id="message-1682642163.818069">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1682642163.818069">2023-04-28 09:36:03 +0900</a></div>
+          </div>
+          <div class="description">状況がよくわかってないですが、以前に型レベルでタプルを使ったとき、以下のようなものを用意したことがありました。<br/><pre>type Term a = a -&gt; Type
+type family Eval (e :: Term a) :: a
+data Fst :: (a, b) -&gt; Term a
+data Snd :: (a, b) -&gt; Term b
+type instance Eval (Fst '(a, b)) = a
+type instance Eval (Snd '(a, b)) = b</pre><br/></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C5666B6BB/102.html" class="item">Previous</a>

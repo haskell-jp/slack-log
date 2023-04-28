@@ -10,5 +10,11 @@
         "user": "UL5PAB0F9",
         "ts": "1682521830.460049",
         "text": "`v2-exec which` よりかは `cabal list-bin` を使うほうがよさそうです\n<https://github.com/haskell/cabal/pull/7107>"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1682595802.688999",
+        "text": "なるほど．ご指摘を受けて修正するなら，\n\n```cd /judge/submission\nsource ~/.ghcup/env\ncabal v2-build --offline &amp;&amp; cp $(cabal list-bin main) ../```\nでしょうか．"
     }
 ]

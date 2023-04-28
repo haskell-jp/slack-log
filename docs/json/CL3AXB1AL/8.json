@@ -64,5 +64,23 @@
         "user": "UL5PAB0F9",
         "ts": "1682513764.246829",
         "text": "`cabal v2-install --verbose=0` ではだめでしたか？"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1682595802.688999",
+        "text": "なるほど．ご指摘を受けて修正するなら，\n\n```cd /judge/submission\nsource ~/.ghcup/env\ncabal v2-build --offline &amp;&amp; cp $(cabal list-bin main) ../```\nでしょうか．"
+    },
+    {
+        "type": "message",
+        "user": "UL5PAB0F9",
+        "ts": "1682600348.733489",
+        "text": "cabal v2-installの挙動はちょっと調べてもよくわからないところがあるので，v2-installは使わずv2-buildしてバイナリ抜き出す方針が良さそうですね"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1682600591.717579",
+        "text": "では，改善もされたことですし，明日まで待って特に反対がなければ\n\n```cd /judge/submission\nsource ~/.ghcup/env\ncabal v2-build --offline &amp;&amp; cp $(cabal list-bin main) ../```\nに提案シートを書き換えた上で feedback に追加freezeの要望を出します．"
     }
 ]
