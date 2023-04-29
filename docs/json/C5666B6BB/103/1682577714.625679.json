@@ -1,0 +1,14 @@
+[
+    {
+        "type": "message",
+        "user": "U015L5JEP8D",
+        "ts": "1682577714.625679",
+        "text": "GHC9.2.7を使っています。\ntype familyを用いて型レベル計算をしようとしており、他のtype familyの結果の型レベルタプルの複数要素の値を計算で使いたいです。\n通常の関数であれば、タプルをletで束縛してからfstなりsndなりで結果を得られますが、type familyで同じようなことをするにはどうしたらよいですか？"
+    },
+    {
+        "type": "message",
+        "user": "U015L5JEP8D",
+        "ts": "1682684718.662699",
+        "text": "具体的に、値レベルの場合let文を使えば下のコードのようにmydivmod一回の呼出しでタプルの両方の値を束縛して使えますが、同様のことををtype familyの定義中で行いたいです：\n```data MyNat = MyZero | MySucc MyNat deriving (Show, Eq)\n\nmydivmod x y =\n  case x of\n    MyZero    -&gt; (MyZero, MyZero)\n    MySucc x' -&gt; \n      let (d, m) = mydivmod x' y\n      in  if (MySucc m) == y\n          then (MySucc d, MyZero)\n          else (d, MySucc m)```"
+    }
+]

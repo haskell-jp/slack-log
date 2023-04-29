@@ -226,5 +226,11 @@
         "user": "U4KU9ABL0",
         "ts": "1682642163.818069",
         "text": "状況がよくわかってないですが、以前に型レベルでタプルを使ったとき、以下のようなものを用意したことがありました。\n```type Term a = a -&gt; Type\ntype family Eval (e :: Term a) :: a\ndata Fst :: (a, b) -&gt; Term a\ndata Snd :: (a, b) -&gt; Term b\ntype instance Eval (Fst '(a, b)) = a\ntype instance Eval (Snd '(a, b)) = b```\n"
+    },
+    {
+        "type": "message",
+        "user": "U015L5JEP8D",
+        "ts": "1682684718.662699",
+        "text": "具体的に、値レベルの場合let文を使えば下のコードのようにmydivmod一回の呼出しでタプルの両方の値を束縛して使えますが、同様のことををtype familyの定義中で行いたいです：\n```data MyNat = MyZero | MySucc MyNat deriving (Show, Eq)\n\nmydivmod x y =\n  case x of\n    MyZero    -&gt; (MyZero, MyZero)\n    MySucc x' -&gt; \n      let (d, m) = mydivmod x' y\n      in  if (MySucc m) == y\n          then (MySucc d, MyZero)\n          else (d, MySucc m)```"
     }
 ]
