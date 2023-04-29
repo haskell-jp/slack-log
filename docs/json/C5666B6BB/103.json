@@ -232,5 +232,17 @@
         "user": "U015L5JEP8D",
         "ts": "1682684718.662699",
         "text": "具体的に、値レベルの場合let文を使えば下のコードのようにmydivmod一回の呼出しでタプルの両方の値を束縛して使えますが、同様のことををtype familyの定義中で行いたいです：\n```data MyNat = MyZero | MySucc MyNat deriving (Show, Eq)\n\nmydivmod x y =\n  case x of\n    MyZero    -&gt; (MyZero, MyZero)\n    MySucc x' -&gt; \n      let (d, m) = mydivmod x' y\n      in  if (MySucc m) == y\n          then (MySucc d, MyZero)\n          else (d, MySucc m)```"
+    },
+    {
+        "type": "message",
+        "user": "U055FRPTWJH",
+        "ts": "1682743797.176939",
+        "text": "<@U055FRPTWJH> has joined the channel"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1682755186.680659",
+        "text": "型レベルのバインディングは書けないので、以下のようにパターンごとに分けて定義することになります。再帰の場合は反復形（末尾再帰？）で定義するほうが定義しやすいと思います。\n```data Nat\n    = Z\n    | S Nat\n\ntype family (m :: Nat) + (n :: Nat) :: Nat where\n    Z + n = n\n    S m + n = S (m + n)\n\ntype family (m :: Nat) - (n :: Nat) :: Nat where\n    Z - n = Z\n    m - Z = m\n    S m - S n = m - n\n\ntype family Cmp (m :: Nat) (n :: Nat) :: Ordering where\n    Cmp Z     Z     = EQ\n    Cmp Z     (S n) = LT\n    Cmp (S m) Z     = GT\n    Cmp (S m) (S n) = Cmp m n\n\ntype family DivMod (m :: Nat) (n :: Nat) :: (Nat, Nat) where\n    DivMod m n = DivModIter Z (Cmp m n) m n\n\ntype family DivModIter (d :: Nat) (o :: Ordering) (m :: Nat) (n :: Nat) :: (Nat, Nat) where\n    DivModIter d o   Z     (S b) = '(d  , Z)\n    DivModIter d 'EQ (S a) (S b) = '(S d, Z)\n    DivModIter d 'LT (S a) (S b) = '(d, S a)\n    DivModIter d 'GT (S a) (S b) = DivModIter (S d) (Cmp (a - b) (S b)) (a - b) (S b)\n\ntype N2 = S (S Z)\ntype N5 = N2 + S N2```\nこれで、たとえば\n```&gt;&gt;&gt; :kind! DivMod N5 N2\nDivMod N5 N2 :: (Nat, Nat)\n= '( 'S ('S 'Z), 'S 'Z)```\nですかね。"
     }
 ]

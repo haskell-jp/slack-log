@@ -426,6 +426,55 @@ mydivmod x y =
           else (d, MySucc m)</pre></div>
         </div>
       </div>
+      <div class="event" id="message-1682743797.176939">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U055FRPTWJH</div>
+            <div class="date"><a class="date" href="#message-1682743797.176939">2023-04-29 13:49:57 +0900</a></div>
+          </div>
+          <div class="description">@U055FRPTWJH has joined the channel</div>
+        </div>
+      </div>
+      <div class="event" id="message-1682755186.680659">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1682755186.680659">2023-04-29 16:59:46 +0900</a></div>
+          </div>
+          <div class="description">型レベルのバインディングは書けないので、以下のようにパターンごとに分けて定義することになります。再帰の場合は反復形（末尾再帰？）で定義するほうが定義しやすいと思います。<br/><pre>data Nat
+    = Z
+    | S Nat
+
+type family (m :: Nat) + (n :: Nat) :: Nat where
+    Z + n = n
+    S m + n = S (m + n)
+
+type family (m :: Nat) - (n :: Nat) :: Nat where
+    Z - n = Z
+    m - Z = m
+    S m - S n = m - n
+
+type family Cmp (m :: Nat) (n :: Nat) :: Ordering where
+    Cmp Z     Z     = EQ
+    Cmp Z     (S n) = LT
+    Cmp (S m) Z     = GT
+    Cmp (S m) (S n) = Cmp m n
+
+type family DivMod (m :: Nat) (n :: Nat) :: (Nat, Nat) where
+    DivMod m n = DivModIter Z (Cmp m n) m n
+
+type family DivModIter (d :: Nat) (o :: Ordering) (m :: Nat) (n :: Nat) :: (Nat, Nat) where
+    DivModIter d o   Z     (S b) = '(d  , Z)
+    DivModIter d 'EQ (S a) (S b) = '(S d, Z)
+    DivModIter d 'LT (S a) (S b) = '(d, S a)
+    DivModIter d 'GT (S a) (S b) = DivModIter (S d) (Cmp (a - b) (S b)) (a - b) (S b)
+
+type N2 = S (S Z)
+type N5 = N2 + S N2</pre><br/>これで、たとえば<br/><pre>&gt;&gt;&gt; :kind! DivMod N5 N2
+DivMod N5 N2 :: (Nat, Nat)
+= '( 'S ('S 'Z), 'S 'Z)</pre><br/>ですかね。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C5666B6BB/102.html" class="item">Previous</a>
