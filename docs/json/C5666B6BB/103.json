@@ -244,5 +244,11 @@
         "user": "U4KU9ABL0",
         "ts": "1682755186.680659",
         "text": "型レベルのバインディングは書けないので、以下のようにパターンごとに分けて定義することになります。再帰の場合は反復形（末尾再帰？）で定義するほうが定義しやすいと思います。\n```data Nat\n    = Z\n    | S Nat\n\ntype family (m :: Nat) + (n :: Nat) :: Nat where\n    Z + n = n\n    S m + n = S (m + n)\n\ntype family (m :: Nat) - (n :: Nat) :: Nat where\n    Z - n = Z\n    m - Z = m\n    S m - S n = m - n\n\ntype family Cmp (m :: Nat) (n :: Nat) :: Ordering where\n    Cmp Z     Z     = EQ\n    Cmp Z     (S n) = LT\n    Cmp (S m) Z     = GT\n    Cmp (S m) (S n) = Cmp m n\n\ntype family DivMod (m :: Nat) (n :: Nat) :: (Nat, Nat) where\n    DivMod m n = DivModIter Z (Cmp m n) m n\n\ntype family DivModIter (d :: Nat) (o :: Ordering) (m :: Nat) (n :: Nat) :: (Nat, Nat) where\n    DivModIter d o   Z     (S b) = '(d  , Z)\n    DivModIter d 'EQ (S a) (S b) = '(S d, Z)\n    DivModIter d 'LT (S a) (S b) = '(d, S a)\n    DivModIter d 'GT (S a) (S b) = DivModIter (S d) (Cmp (a - b) (S b)) (a - b) (S b)\n\ntype N2 = S (S Z)\ntype N5 = N2 + S N2```\nこれで、たとえば\n```&gt;&gt;&gt; :kind! DivMod N5 N2\nDivMod N5 N2 :: (Nat, Nat)\n= '( 'S ('S 'Z), 'S 'Z)```\nですかね。"
+    },
+    {
+        "type": "message",
+        "user": "U055P58NJF6",
+        "ts": "1682852642.832209",
+        "text": "<@U055P58NJF6> has joined the channel"
     }
 ]
