@@ -160,5 +160,11 @@
         "user": "U055C884CHM",
         "ts": "1683003502.792269",
         "text": "<@U055C884CHM> has joined the channel"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1683303647.855859",
+        "text": "型の異なる値の計算について教えて下さい\n\n以下の関数 f は a, b に対し fromIntegral を適用することで (+) の引数とできます。\n```import Data.Word\nimport Data.Function ( on )\nimport Control.Monad ( liftM2 )\n\nf = do\n    let a = pure 1 :: Maybe Word32\n    let b = pure 2 :: Maybe Word64\n\n    let a' = fromIntegral &lt;$&gt; a\n    let b' = fromIntegral &lt;$&gt; b\n\n    let c = (+) &lt;$&gt; a' &lt;*&gt; b'\n\n    print c\n---\nghci&gt; f\nJust 3\nit :: ()```\nこれを `on` 関数を使って一気に適用すると a, b の型が異なるため不可能です。\n```g = do\n    let a = pure 1 :: Maybe Word32\n    let b = pure 2 :: Maybe Word64\n\n    let c = on (liftM2 (+)) (fromIntegral &lt;$&gt;) a b\n\n    print c\n---\na.hs:23:50: error:\n    • Couldn't match type 'Word64' with 'Word32'\n      Expected: Maybe Word32\n        Actual: Maybe Word64\n    • In the fourth argument of 'on', namely 'b'\n      In the expression: on (liftM2 (+)) (fromIntegral &lt;$&gt;) a b\n      In an equation for 'c': c = on (liftM2 (+)) (fromIntegral &lt;$&gt;) a b\n   |\n23 |     let c = on (liftM2 (+)) (fromIntegral &lt;$&gt;) a b\n   |   ```\nこのような場合、なにか上手に解決する方法はあるのでしょうか ?"
     }
 ]

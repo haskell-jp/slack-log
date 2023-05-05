@@ -319,10 +319,54 @@ main = do
       <div class="event" id="message-1683003502.792269">
         <div class="content">
           <div class="summary">
-            <div class="user">U055C884CHM</div>
+            <div class="user">tedzuka</div>
             <div class="date"><a class="date" href="#message-1683003502.792269">2023-05-02 13:58:22 +0900</a></div>
           </div>
-          <div class="description">@U055C884CHM has joined the channel</div>
+          <div class="description">@tedzuka has joined the channel</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683303647.855859">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1683303647.855859">2023-05-06 01:20:47 +0900</a></div>
+          </div>
+          <div class="description">型の異なる値の計算について教えて下さい<br/><br/>以下の関数 f は a, b に対し fromIntegral を適用することで (+) の引数とできます。<br/><pre>import Data.Word
+import Data.Function ( on )
+import Control.Monad ( liftM2 )
+
+f = do
+    let a = pure 1 :: Maybe Word32
+    let b = pure 2 :: Maybe Word64
+
+    let a' = fromIntegral &lt;$&gt; a
+    let b' = fromIntegral &lt;$&gt; b
+
+    let c = (+) &lt;$&gt; a' &lt;*&gt; b'
+
+    print c
+---
+ghci&gt; f
+Just 3
+it :: ()</pre><br/>これを <code>on</code> 関数を使って一気に適用すると a, b の型が異なるため不可能です。<br/><pre>g = do
+    let a = pure 1 :: Maybe Word32
+    let b = pure 2 :: Maybe Word64
+
+    let c = on (liftM2 (+)) (fromIntegral &lt;$&gt;) a b
+
+    print c
+---
+a.hs:23:50: error:
+    • Couldn't match type 'Word64' with 'Word32'
+      Expected: Maybe Word32
+        Actual: Maybe Word64
+    • In the fourth argument of 'on', namely 'b'
+      In the expression: on (liftM2 (+)) (fromIntegral &lt;$&gt;) a b
+      In an equation for 'c': c = on (liftM2 (+)) (fromIntegral &lt;$&gt;) a b
+   |
+23 |     let c = on (liftM2 (+)) (fromIntegral &lt;$&gt;) a b
+   |   </pre><br/>このような場合、なにか上手に解決する方法はあるのでしょうか ?</div>
+          <a class="link-to-replies" href="23/1683303647.855859.html">... Replies ...</a>
         </div>
       </div>
     </div>

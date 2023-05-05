@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #23 at 2023-05-06 01:20:47 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #23 at 2023-05-06 01:20:47 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../23.html" class="item">Back to beginners #23</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1683303647.855859">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1683303647.855859">2023-05-06 01:20:47 +0900</a></div>
+          </div>
+          <div class="description">型の異なる値の計算について教えて下さい<br/><br/>以下の関数 f は a, b に対し fromIntegral を適用することで (+) の引数とできます。<br/><pre>import Data.Word
+import Data.Function ( on )
+import Control.Monad ( liftM2 )
+
+f = do
+    let a = pure 1 :: Maybe Word32
+    let b = pure 2 :: Maybe Word64
+
+    let a' = fromIntegral &lt;$&gt; a
+    let b' = fromIntegral &lt;$&gt; b
+
+    let c = (+) &lt;$&gt; a' &lt;*&gt; b'
+
+    print c
+---
+ghci&gt; f
+Just 3
+it :: ()</pre><br/>これを <code>on</code> 関数を使って一気に適用すると a, b の型が異なるため不可能です。<br/><pre>g = do
+    let a = pure 1 :: Maybe Word32
+    let b = pure 2 :: Maybe Word64
+
+    let c = on (liftM2 (+)) (fromIntegral &lt;$&gt;) a b
+
+    print c
+---
+a.hs:23:50: error:
+    • Couldn't match type 'Word64' with 'Word32'
+      Expected: Maybe Word32
+        Actual: Maybe Word64
+    • In the fourth argument of 'on', namely 'b'
+      In the expression: on (liftM2 (+)) (fromIntegral &lt;$&gt;) a b
+      In an equation for 'c': c = on (liftM2 (+)) (fromIntegral &lt;$&gt;) a b
+   |
+23 |     let c = on (liftM2 (+)) (fromIntegral &lt;$&gt;) a b
+   |   </pre><br/>このような場合、なにか上手に解決する方法はあるのでしょうか ?</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683311939.592819">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1683311939.592819">2023-05-06 03:38:59 +0900</a></div>
+          </div>
+          <div class="description"><code>Maybe</code> をなくしてもエラーは本質的に変わらなさそう (<https://play.haskell.org/saved/F7l0PLq7>) なので、以降 <code>Maybe</code> を省いて書きます。<br/><br/><code>on</code> によって 2つの引数は同じ型に推論される<br/><br/><pre>on (+) fromIntegral :: (Integral a, Num c) =&gt; a -&gt; a -&gt; c</pre><br/>ので、 <code>on</code> を使うとこのエラーは避けられないですね。そこで、やたらポリモーフィックにした<br/><br/><pre>genericOn :: (c a, c b) =&gt; (d -&gt; d -&gt; e) -&gt; (forall x. c x =&gt; x -&gt; d) -&gt; a -&gt; b -&gt; e
+genericOn (.*.) f x y = f x .*. f y</pre><br/>を作ることで <code>fromIntegral</code> の出現を一回だけにできました (<https://play.haskell.org/saved/R8dLLsbH>)。<br/><br/>ただし、実用的かは疑問です。型推論のために <code>Integral</code> を TypeApplication で与えないといけなかったですし…</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../23.html" class="item">Back to beginners #23</a>
+    </div>
+  </div>
+</body>
+</html>

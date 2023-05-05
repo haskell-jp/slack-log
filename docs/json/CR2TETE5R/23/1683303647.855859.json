@@ -1,0 +1,14 @@
+[
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1683303647.855859",
+        "text": "型の異なる値の計算について教えて下さい\n\n以下の関数 f は a, b に対し fromIntegral を適用することで (+) の引数とできます。\n```import Data.Word\nimport Data.Function ( on )\nimport Control.Monad ( liftM2 )\n\nf = do\n    let a = pure 1 :: Maybe Word32\n    let b = pure 2 :: Maybe Word64\n\n    let a' = fromIntegral &lt;$&gt; a\n    let b' = fromIntegral &lt;$&gt; b\n\n    let c = (+) &lt;$&gt; a' &lt;*&gt; b'\n\n    print c\n---\nghci&gt; f\nJust 3\nit :: ()```\nこれを `on` 関数を使って一気に適用すると a, b の型が異なるため不可能です。\n```g = do\n    let a = pure 1 :: Maybe Word32\n    let b = pure 2 :: Maybe Word64\n\n    let c = on (liftM2 (+)) (fromIntegral &lt;$&gt;) a b\n\n    print c\n---\na.hs:23:50: error:\n    • Couldn't match type 'Word64' with 'Word32'\n      Expected: Maybe Word32\n        Actual: Maybe Word64\n    • In the fourth argument of 'on', namely 'b'\n      In the expression: on (liftM2 (+)) (fromIntegral &lt;$&gt;) a b\n      In an equation for 'c': c = on (liftM2 (+)) (fromIntegral &lt;$&gt;) a b\n   |\n23 |     let c = on (liftM2 (+)) (fromIntegral &lt;$&gt;) a b\n   |   ```\nこのような場合、なにか上手に解決する方法はあるのでしょうか ?"
+    },
+    {
+        "type": "message",
+        "user": "U578W9676",
+        "ts": "1683311939.592819",
+        "text": "`Maybe` をなくしてもエラーは本質的に変わらなさそう (<https://play.haskell.org/saved/F7l0PLq7>) なので、以降 `Maybe` を省いて書きます。\n\n`on` によって 2つの引数は同じ型に推論される\n\n```on (+) fromIntegral :: (Integral a, Num c) =&gt; a -&gt; a -&gt; c```\nので、 `on` を使うとこのエラーは避けられないですね。そこで、やたらポリモーフィックにした\n\n```genericOn :: (c a, c b) =&gt; (d -&gt; d -&gt; e) -&gt; (forall x. c x =&gt; x -&gt; d) -&gt; a -&gt; b -&gt; e\ngenericOn (.*.) f x y = f x .*. f y```\nを作ることで `fromIntegral` の出現を一回だけにできました (<https://play.haskell.org/saved/R8dLLsbH>)。\n\nただし、実用的かは疑問です。型推論のために `Integral` を TypeApplication で与えないといけなかったですし…"
+    }
+]
