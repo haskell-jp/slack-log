@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #23 at 2023-05-01 23:25:28 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #23 at 2023-05-01 23:25:28 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../23.html" class="item">Back to beginners #23</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1682951128.365409">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1682951128.365409">2023-05-01 23:25:28 +0900</a></div>
+          </div>
+          <div class="description">分岐処理について教えて下さい<br/><br/>Maybe を使った場合<br/><pre>import Control.Monad
+
+f :: String -&gt; Maybe String
+f x = do
+    guard (x == "MZ")
+
+    return "SUCCESS"
+
+
+main :: IO ()
+main = do
+    print $ f "MZ"
+    print $ f "ELF"</pre><br/>このような形 (guard) で条件によって処理を中断ができます。<br/>しかし、それ以外の文脈の場合この方法は使えないと思います。<br/><br/>具体的には以下のようなプログラムを作っています。<br/><pre>import <http://System.IO|System.IO>
+import System.Directory ( getCurrentDirectory )
+import System.FilePath ( joinPath )
+
+import qualified Data.ByteString.Lazy as B
+import qualified Data.ByteString.Internal as BI ( w2c )
+import Data.Binary.Get
+
+getC :: Get Char
+getC = BI.w2c &lt;$&gt; getWord8
+
+readPE :: Get (Maybe String)
+readPE = do
+    isMZ &lt;- (== "MZ") &lt;$&gt; sequence [getC, getC]
+
+    if isMZ then
+        return $ Just "SUCCESS"
+    else
+        return Nothing
+
+main :: IO ()
+main = do
+    xpath &lt;- joinPath . flip (:) ["src", "a.exe"] &lt;$&gt; getCurrentDirectory
+
+    withBinaryFile xpath ReadMode $ \h -&gt; do
+        dat &lt;- B.hGetContents h
+        print $ runGet readPE dat
+
+    print "done."</pre><br/>上記の <code>readPE</code> 関数の中で if による分岐を行っていますが<br/>もし、この後も条件による分岐が必要だった場合 if 文をネスト<br/>させていくような形で作るのが正しいのでしょうか ?</div>
+        </div>
+      </div>
+      <div class="event" id="message-1682953760.720139">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1682953760.720139">2023-05-02 00:09:20 +0900</a></div>
+          </div>
+          <div class="description">もっといい書き方があるかもしれませんが、とりあえず <code>guard</code> を使った書き方をしたい場合、 <code>MaybeT</code><a href='https://hackage.haskell.org/package/transformers-0.6.1.0/docs/Control-Monad-Trans-Maybe.html'> モナド変換子</a> を使えば実現できそうです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1682954898.195639">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1682954898.195639">2023-05-02 00:28:18 +0900</a></div>
+          </div>
+          <div class="description">早々にありがとうございました m(_ _)m<br/><br/>モナド変換子はこのような使い方をするのですね。<br/>すぐには理解できるとは思いませんが、MaybeT から勉強してみます</div>
+        </div>
+      </div>
+      <div class="event" id="message-1682996936.531299">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1682996936.531299">2023-05-02 12:08:56 +0900</a></div>
+          </div>
+          <div class="description">単にifのネストを避けたいということなら、ガード付きケースまたはMultiWayIfでいけると思いますが。。。<br/><pre>readPE = do
+    cs &lt;- sequence (replicate 2 getC)
+    case cs of
+        _ | "MZ" == cs -&gt; return $ Just "SUCCEESS"
+          | otherwise  -&gt; return $ Nothing</pre><br/></div>
+        </div>
+      </div>
+      <div class="event" id="message-1682997377.142399">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1682997377.142399">2023-05-02 12:16:17 +0900</a></div>
+          </div>
+          <div class="description">ご回答ありがとうございます<br/>上記だけの分岐であればガードでも良いのかと思ったのですが<br/><br/>(haskell の書き方ではないですが)<br/><pre>function readPE(a, b, ...) {
+  if (a == 100) {
+    if (b == 200) {
+      if ...
+
+    } else {
+      return Nothing
+    }
+  } else {
+    return Nothing
+  }
+}</pre><br/>上記のように複数の条件による if が続いた場合<br/>階層が深くなっていってしまう様な書き方が一般的なのか<br/>それとも、他にスマートな方法があるのかと考えていました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1682997813.929119">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1682997813.929119">2023-05-02 12:23:33 +0900</a></div>
+          </div>
+          <div class="description">そこで、Maybe の guard のように、条件に合致したら関数自体は<br/>Nothing で戻るようにできれば<br/><pre>function readPE(a, b, ...) {
+  guard (a != 100)
+  guard (b != 200)
+
+  return "SUCCESS"
+}</pre><br/>のように書けるのかと思ったのですが、これが Get (Maybe String) だったので<br/>guard が Maybe ではなく Get のそれになってしまっているのか、<br/>意図した通りに動かないな。といった次第でした<br/><br/>すみません、うまく説明もできていないです orz</div>
+        </div>
+      </div>
+      <div class="event" id="message-1682999173.339289">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1682999173.339289">2023-05-02 12:46:13 +0900</a></div>
+          </div>
+          <div class="description">全ての条件がなりたつときと、それ以外を分けているだけのように見えますが、そうではないですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1682999544.678159">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1682999544.678159">2023-05-02 12:52:24 +0900</a></div>
+          </div>
+          <div class="description">あるいは、1つでも条件がなりたつ場合と、それ以外、1つもなりたたない場合を分けている？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683000390.448719">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1683000390.448719">2023-05-02 13:06:30 +0900</a></div>
+          </div>
+          <div class="description">申し訳ありません。実はまだそこまでは考えていない状況です m(_ _)m<br/><br/>プログラムを作成中に if による分岐が発生したので<br/>これは、今後も条件が発生するたびに if else のネストを書かなければ<br/>ならないのかな。他に書き方があるものかな。と思い質問させていただいた状況です。<br/><br/>もう少し整理してから、改めて質問させていただきたいと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683000484.758379">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1683000484.758379">2023-05-02 13:08:04 +0900</a></div>
+          </div>
+          <div class="description">ああ、条件がなりたったら、do ブロックから抜けたいというこですか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683000618.985739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1683000618.985739">2023-05-02 13:10:18 +0900</a></div>
+          </div>
+          <div class="description">はい。<br/><pre>foo() {
+  if (a == 100) {
+    return ERROR
+  }
+
+  if (b == 200) {
+    return ERROR
+  }
+
+  return SUCCESS
+}</pre><br/>C 言語っぽく書くと、こんな感じで途中で抜けられたら<br/>と思っていました。<br/><br/>つたない説明から意図までくんでもらってありがとうございます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683002353.140769">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1683002353.140769">2023-05-02 13:39:13 +0900</a></div>
+          </div>
+          <div class="description">if-then-elseのネストで、構文上フラットに書くだけでいいなら^^;  (ここまでするならMaybeTがいいかなぁ)<br/><pre>do { statement1
+   ; iF cond1 (return r1) $ do
+   { statement2
+   ; iF cond2 (return r2) $ do
+   { statement3
+   ; iF cond3 (return r3) $ do
+   { statement4
+   ; iF otherwise (return r4) undefined
+   }}}}
+iF c t f = if c then t else f</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1683002543.956009">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1683002543.956009">2023-05-02 13:42:23 +0900</a></div>
+          </div>
+          <div class="description">長々とお付き合いいただきありがとうございます。<br/><br/>やりたいのは確かにフラットに書きたいということですが<br/>おっしゃる通りだと思いますので、MaybeT を勉強してみます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683003085.619549">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1683003085.619549">2023-05-02 13:51:25 +0900</a></div>
+          </div>
+          <div class="description">もし、よろしければ、書こうたされているプログラムの仕様を具体的に教えていただけると嬉しいです。どうしても命令的に書きたくなる例というのを収集して、無理矢理、関数的に書いてみるという試みをやっています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683004194.896399">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1683004194.896399">2023-05-02 14:09:54 +0900</a></div>
+          </div>
+          <div class="description">プログラムが書ける。というほど haskell がわかっているわけでもなく<br/>とはいえ、アウトプットしないと書けるようにもならないのだろうな。<br/>と思って、手始めに Windows の PE フォーマットをダンプしてみよう<br/><br/>と考えて以下の資料を参考に<br/><a href='http://hp.vector.co.jp/authors/VA050396/tech_06.html'>http://hp.vector.co.jp/authors/VA050396/tech_06.html</a><br/>(上記にも載せさせていただいたように) ファイルの最初の 2 バイトを取得して<br/>"MZ" と比較したところで、今回の質問をさせていただきました。<br/><br/><pre>import <http://System.IO|System.IO>
+import System.Directory ( getCurrentDirectory )
+import System.FilePath ( joinPath )
+
+import qualified Data.ByteString.Lazy as B
+import qualified Data.ByteString.Internal as BI ( w2c )
+import Data.Binary.Get
+
+getC :: Get Char
+getC = BI.w2c &lt;$&gt; getWord8
+
+readPE :: Get (Maybe String)
+readPE = do
+    isMZ &lt;- (== "MZ") &lt;$&gt; sequence [getC, getC]
+
+    if isMZ then
+        return $ Just "SUCCESS"
+    else
+        return Nothing
+
+main :: IO ()
+main = do
+    xpath &lt;- joinPath . flip (:) ["src", "a.exe"] &lt;$&gt; getCurrentDirectory
+
+    withBinaryFile xpath ReadMode $ \h -&gt; do
+        dat &lt;- B.hGetContents h
+        print $ runGet readPE dat
+
+    print "done."</pre><br/>ですので、この後もファイルヘッダの項目をチェックして不正な値を検出したときは<br/><code>readPE</code> 関数が Nothing を戻すように考えていました。<br/><br/>具体的には (if をネストして考えた場合)<br/><pre>readPE :: Get (Maybe String)
+readPE = do
+    isMZ &lt;- (== "MZ") &lt;$&gt; sequence [getC, getC]
+
+    if isMZ then
+        -- 適当に追加しています --&gt;
+        e_cblp &lt;- getWord16le
+        if e_cblp &gt; 0 then
+            e_cp &lt;- getWord16le
+            if e_cp &gt; 0 then
+                ...
+                return $ Just "SUCCESS"
+            else
+                return Nothing
+        else
+            return Nothing
+        -- 適当に追加しています &lt;--
+    else
+        return Nothing</pre><br/>全て正常であれば、例えば<br/><pre>data ImageHeader = ImageHeader { magic :: String, ... }</pre><br/>のような型に入れて <code>Just ImageHeader</code> として返却する。<br/><br/>といったようなことを考えていました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683005139.211019">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1683005139.211019">2023-05-02 14:25:39 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。お聞かせていただいた範囲では、インタラクションは単純ですので、スピードを気にしなければ、入力文字列 -&gt; 出力文字列があればよいので、関数的に書けそうですね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683005369.211919">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1683005369.211919">2023-05-02 14:29:29 +0900</a></div>
+          </div>
+          <div class="description">ごめんなさい。<br/>そのように回答をいただきましたが、それもピンときていないくらいです orz<br/><br/>つたないもので恐縮ですが、何かの参考になるのであれば嬉しいです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683007079.640299">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1683007079.640299">2023-05-02 14:57:59 +0900</a></div>
+          </div>
+          <div class="description">あまり気になさらないでください。大富豪的というか仙人的に考えると（空間計算量を無視すると）全部よみこんでしまってから、パーズして、プリティプリントして、出力文字列を全部構成してしまってから、出力するのであれば、IOが絡む部分は最初の読み込みと、最後の書き出しの部分のみなので、それ以外は純粋な関数として書けるでしょう。パーズもプリティプリントもデータ変換するだけなので、制御フローを気にせず書けるとうことです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683007369.221319">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1683007369.221319">2023-05-02 15:02:49 +0900</a></div>
+          </div>
+          <div class="description">お気遣いいただきありがとうございます。<br/>確かに最初に全て読み込んでしまう方法なら対象がシンプルになりそうな気がします。<br/><br/>気持ち的には Persec 的な魔法の何かでバイナリ処理ができるかな。とかも<br/>考えましたが、そもそも Persec 的な魔法の使い方もよくわかっていないのです orz</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683008520.526489">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1683008520.526489">2023-05-02 15:22:00 +0900</a></div>
+          </div>
+          <div class="description">パーザコンビネータライブラリは精緻なのでそのまま読んで理解するのは難しいかもしれません。「 プログラミングHaskell第2版」<https://www.lambdanote.com/collections/frontpage/products/haskell>  などが読み易いと思います。かなり古い教科書ですが、<https://www.microsoft.com/en-us/research/wp-content/uploads/1992/01/student.pdf> の 1.6 A parser for the Core language に基本的なアイデア（モナドという言葉はでてきませんが）が書かれいてなるほどと思えるかもしれません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683009080.781939">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1683009080.781939">2023-05-02 15:31:20 +0900</a></div>
+          </div>
+          <div class="description">手前味噌ですが <a href='https://www.google.com/url?client=internal-element-cse&amp;cx=014802840176101790434:j5zjwkzg30y&amp;q=https://tatsu-zine.com/books/thinking-functionally-with-haskell&amp;sa=U&amp;ved=2ahUKEwia87SRgdb-AhUAm1YBHUeICAEQFnoECAAQAg&amp;usg=AOvVaw3X1Wz7OuK-b1cl1man56Gw'>https://www.google.com/url?client=internal-element-cse&amp;cx=014802840176101790434:j5zj[…]b-AhUAm1YBHUeICAEQFnoECAAQAg&amp;usg=AOvVaw3X1Wz7OuK-b1cl1man56Gw</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1683009404.296029">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1683009404.296029">2023-05-02 15:36:44 +0900</a></div>
+          </div>
+          <div class="description">親切にありがとうございます<br/><br/>山下さんの本は一通り入手済で、まずは「ふつうの」から読み始め<br/>それ以上は今の自分には難しすぎるな。と認識している最中です orz</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683009625.607799">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1683009625.607799">2023-05-02 15:40:25 +0900</a></div>
+          </div>
+          <div class="description">でも、「ふつうの」本を読んだおかげで、haskell をやってみようかな<br/>と思えました。<br/>それも重ねてありがとうございました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../23.html" class="item">Back to beginners #23</a>
+    </div>
+  </div>
+</body>
+</html>

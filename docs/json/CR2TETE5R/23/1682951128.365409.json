@@ -1,0 +1,140 @@
+[
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1682951128.365409",
+        "text": "分岐処理について教えて下さい\n\nMaybe を使った場合\n```import Control.Monad\n\nf :: String -&gt; Maybe String\nf x = do\n    guard (x == \"MZ\")\n\n    return \"SUCCESS\"\n\n\nmain :: IO ()\nmain = do\n    print $ f \"MZ\"\n    print $ f \"ELF\"```\nこのような形 (guard) で条件によって処理を中断ができます。\nしかし、それ以外の文脈の場合この方法は使えないと思います。\n\n具体的には以下のようなプログラムを作っています。\n```import <http://System.IO|System.IO>\nimport System.Directory ( getCurrentDirectory )\nimport System.FilePath ( joinPath )\n\nimport qualified Data.ByteString.Lazy as B\nimport qualified Data.ByteString.Internal as BI ( w2c )\nimport Data.Binary.Get\n\ngetC :: Get Char\ngetC = BI.w2c &lt;$&gt; getWord8\n\nreadPE :: Get (Maybe String)\nreadPE = do\n    isMZ &lt;- (== \"MZ\") &lt;$&gt; sequence [getC, getC]\n\n    if isMZ then\n        return $ Just \"SUCCESS\"\n    else\n        return Nothing\n\nmain :: IO ()\nmain = do\n    xpath &lt;- joinPath . flip (:) [\"src\", \"a.exe\"] &lt;$&gt; getCurrentDirectory\n\n    withBinaryFile xpath ReadMode $ \\h -&gt; do\n        dat &lt;- B.hGetContents h\n        print $ runGet readPE dat\n\n    print \"done.\"```\n上記の `readPE` 関数の中で if による分岐を行っていますが\nもし、この後も条件による分岐が必要だった場合 if 文をネスト\nさせていくような形で作るのが正しいのでしょうか ?"
+    },
+    {
+        "type": "message",
+        "user": "U578W9676",
+        "ts": "1682953760.720139",
+        "text": "もっといい書き方があるかもしれませんが、とりあえず `guard` を使った書き方をしたい場合、 `MaybeT`<https://hackage.haskell.org/package/transformers-0.6.1.0/docs/Control-Monad-Trans-Maybe.html| モナド変換子> を使えば実現できそうです。"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1682954898.195639",
+        "text": "早々にありがとうございました m(_ _)m\n\nモナド変換子はこのような使い方をするのですね。\nすぐには理解できるとは思いませんが、MaybeT から勉強してみます"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1682996936.531299",
+        "text": "単にifのネストを避けたいということなら、ガード付きケースまたはMultiWayIfでいけると思いますが。。。\n```readPE = do\n    cs &lt;- sequence (replicate 2 getC)\n    case cs of\n        _ | \"MZ\" == cs -&gt; return $ Just \"SUCCEESS\"\n          | otherwise  -&gt; return $ Nothing```\n"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1682997377.142399",
+        "text": "ご回答ありがとうございます\n上記だけの分岐であればガードでも良いのかと思ったのですが\n\n(haskell の書き方ではないですが)\n```function readPE(a, b, ...) {\n  if (a == 100) {\n    if (b == 200) {\n      if ...\n\n    } else {\n      return Nothing\n    }\n  } else {\n    return Nothing\n  }\n}```\n上記のように複数の条件による if が続いた場合\n階層が深くなっていってしまう様な書き方が一般的なのか\nそれとも、他にスマートな方法があるのかと考えていました。"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1682997813.929119",
+        "text": "そこで、Maybe の guard のように、条件に合致したら関数自体は\nNothing で戻るようにできれば\n```function readPE(a, b, ...) {\n  guard (a != 100)\n  guard (b != 200)\n\n  return \"SUCCESS\"\n}```\nのように書けるのかと思ったのですが、これが Get (Maybe String) だったので\nguard が Maybe ではなく Get のそれになってしまっているのか、\n意図した通りに動かないな。といった次第でした\n\nすみません、うまく説明もできていないです orz"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1682999173.339289",
+        "text": "全ての条件がなりたつときと、それ以外を分けているだけのように見えますが、そうではないですか？"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1682999544.678159",
+        "text": "あるいは、1つでも条件がなりたつ場合と、それ以外、1つもなりたたない場合を分けている？"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1683000390.448719",
+        "text": "申し訳ありません。実はまだそこまでは考えていない状況です m(_ _)m\n\nプログラムを作成中に if による分岐が発生したので\nこれは、今後も条件が発生するたびに if else のネストを書かなければ\nならないのかな。他に書き方があるものかな。と思い質問させていただいた状況です。\n\nもう少し整理してから、改めて質問させていただきたいと思います。"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1683000484.758379",
+        "text": "ああ、条件がなりたったら、do ブロックから抜けたいというこですか？"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1683000618.985739",
+        "text": "はい。\n```foo() {\n  if (a == 100) {\n    return ERROR\n  }\n\n  if (b == 200) {\n    return ERROR\n  }\n\n  return SUCCESS\n}```\nC 言語っぽく書くと、こんな感じで途中で抜けられたら\nと思っていました。\n\nつたない説明から意図までくんでもらってありがとうございます。"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1683002353.140769",
+        "text": "if-then-elseのネストで、構文上フラットに書くだけでいいなら^^;  (ここまでするならMaybeTがいいかなぁ)\n```do { statement1\n   ; iF cond1 (return r1) $ do\n   { statement2\n   ; iF cond2 (return r2) $ do\n   { statement3\n   ; iF cond3 (return r3) $ do\n   { statement4\n   ; iF otherwise (return r4) undefined\n   }}}}\niF c t f = if c then t else f```"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1683002543.956009",
+        "text": "長々とお付き合いいただきありがとうございます。\n\nやりたいのは確かにフラットに書きたいということですが\nおっしゃる通りだと思いますので、MaybeT を勉強してみます。"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1683003085.619549",
+        "text": "もし、よろしければ、書こうたされているプログラムの仕様を具体的に教えていただけると嬉しいです。どうしても命令的に書きたくなる例というのを収集して、無理矢理、関数的に書いてみるという試みをやっています。"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1683004194.896399",
+        "text": "プログラムが書ける。というほど haskell がわかっているわけでもなく\nとはいえ、アウトプットしないと書けるようにもならないのだろうな。\nと思って、手始めに Windows の PE フォーマットをダンプしてみよう\n\nと考えて以下の資料を参考に\n<http://hp.vector.co.jp/authors/VA050396/tech_06.html>\n(上記にも載せさせていただいたように) ファイルの最初の 2 バイトを取得して\n\"MZ\" と比較したところで、今回の質問をさせていただきました。\n\n```import <http://System.IO|System.IO>\nimport System.Directory ( getCurrentDirectory )\nimport System.FilePath ( joinPath )\n\nimport qualified Data.ByteString.Lazy as B\nimport qualified Data.ByteString.Internal as BI ( w2c )\nimport Data.Binary.Get\n\ngetC :: Get Char\ngetC = BI.w2c &lt;$&gt; getWord8\n\nreadPE :: Get (Maybe String)\nreadPE = do\n    isMZ &lt;- (== \"MZ\") &lt;$&gt; sequence [getC, getC]\n\n    if isMZ then\n        return $ Just \"SUCCESS\"\n    else\n        return Nothing\n\nmain :: IO ()\nmain = do\n    xpath &lt;- joinPath . flip (:) [\"src\", \"a.exe\"] &lt;$&gt; getCurrentDirectory\n\n    withBinaryFile xpath ReadMode $ \\h -&gt; do\n        dat &lt;- B.hGetContents h\n        print $ runGet readPE dat\n\n    print \"done.\"```\nですので、この後もファイルヘッダの項目をチェックして不正な値を検出したときは\n`readPE` 関数が Nothing を戻すように考えていました。\n\n具体的には (if をネストして考えた場合)\n```readPE :: Get (Maybe String)\nreadPE = do\n    isMZ &lt;- (== \"MZ\") &lt;$&gt; sequence [getC, getC]\n\n    if isMZ then\n        -- 適当に追加しています --&gt;\n        e_cblp &lt;- getWord16le\n        if e_cblp &gt; 0 then\n            e_cp &lt;- getWord16le\n            if e_cp &gt; 0 then\n                ...\n                return $ Just \"SUCCESS\"\n            else\n                return Nothing\n        else\n            return Nothing\n        -- 適当に追加しています &lt;--\n    else\n        return Nothing```\n全て正常であれば、例えば\n```data ImageHeader = ImageHeader { magic :: String, ... }```\nのような型に入れて `Just ImageHeader` として返却する。\n\nといったようなことを考えていました。"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1683005139.211019",
+        "text": "ありがとうございます。お聞かせていただいた範囲では、インタラクションは単純ですので、スピードを気にしなければ、入力文字列 -&gt; 出力文字列があればよいので、関数的に書けそうですね。"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1683005369.211919",
+        "text": "ごめんなさい。\nそのように回答をいただきましたが、それもピンときていないくらいです orz\n\nつたないもので恐縮ですが、何かの参考になるのであれば嬉しいです"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1683007079.640299",
+        "text": "あまり気になさらないでください。大富豪的というか仙人的に考えると（空間計算量を無視すると）全部よみこんでしまってから、パーズして、プリティプリントして、出力文字列を全部構成してしまってから、出力するのであれば、IOが絡む部分は最初の読み込みと、最後の書き出しの部分のみなので、それ以外は純粋な関数として書けるでしょう。パーズもプリティプリントもデータ変換するだけなので、制御フローを気にせず書けるとうことです。"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1683007369.221319",
+        "text": "お気遣いいただきありがとうございます。\n確かに最初に全て読み込んでしまう方法なら対象がシンプルになりそうな気がします。\n\n気持ち的には Persec 的な魔法の何かでバイナリ処理ができるかな。とかも\n考えましたが、そもそも Persec 的な魔法の使い方もよくわかっていないのです orz"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1683008520.526489",
+        "text": "パーザコンビネータライブラリは精緻なのでそのまま読んで理解するのは難しいかもしれません。「 プログラミングHaskell第2版」<https://www.lambdanote.com/collections/frontpage/products/haskell>  などが読み易いと思います。かなり古い教科書ですが、<https://www.microsoft.com/en-us/research/wp-content/uploads/1992/01/student.pdf> の 1.6 A parser for the Core language に基本的なアイデア（モナドという言葉はでてきませんが）が書かれいてなるほどと思えるかもしれません。"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1683009080.781939",
+        "text": "手前味噌ですが <https://www.google.com/url?client=internal-element-cse&amp;cx=014802840176101790434:j5zjwkzg30y&amp;q=https://tatsu-zine.com/books/thinking-functionally-with-haskell&amp;sa=U&amp;ved=2ahUKEwia87SRgdb-AhUAm1YBHUeICAEQFnoECAAQAg&amp;usg=AOvVaw3X1Wz7OuK-b1cl1man56Gw|https://www.google.com/url?client=internal-element-cse&amp;cx=014802840176101790434:j5zj[…]b-AhUAm1YBHUeICAEQFnoECAAQAg&amp;usg=AOvVaw3X1Wz7OuK-b1cl1man56Gw>"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1683009404.296029",
+        "text": "親切にありがとうございます\n\n山下さんの本は一通り入手済で、まずは「ふつうの」から読み始め\nそれ以上は今の自分には難しすぎるな。と認識している最中です orz"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1683009625.607799",
+        "text": "でも、「ふつうの」本を読んだおかげで、haskell をやってみようかな\nと思えました。\nそれも重ねてありがとうございました。"
+    }
+]

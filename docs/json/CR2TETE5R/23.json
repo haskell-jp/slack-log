@@ -148,5 +148,17 @@
         "user": "U055P58NJF6",
         "ts": "1682852642.717049",
         "text": "<@U055P58NJF6> has joined the channel"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1682951128.365409",
+        "text": "分岐処理について教えて下さい\n\nMaybe を使った場合\n```import Control.Monad\n\nf :: String -&gt; Maybe String\nf x = do\n    guard (x == \"MZ\")\n\n    return \"SUCCESS\"\n\n\nmain :: IO ()\nmain = do\n    print $ f \"MZ\"\n    print $ f \"ELF\"```\nこのような形 (guard) で条件によって処理を中断ができます。\nしかし、それ以外の文脈の場合この方法は使えないと思います。\n\n具体的には以下のようなプログラムを作っています。\n```import <http://System.IO|System.IO>\nimport System.Directory ( getCurrentDirectory )\nimport System.FilePath ( joinPath )\n\nimport qualified Data.ByteString.Lazy as B\nimport qualified Data.ByteString.Internal as BI ( w2c )\nimport Data.Binary.Get\n\ngetC :: Get Char\ngetC = BI.w2c &lt;$&gt; getWord8\n\nreadPE :: Get (Maybe String)\nreadPE = do\n    isMZ &lt;- (== \"MZ\") &lt;$&gt; sequence [getC, getC]\n\n    if isMZ then\n        return $ Just \"SUCCESS\"\n    else\n        return Nothing\n\nmain :: IO ()\nmain = do\n    xpath &lt;- joinPath . flip (:) [\"src\", \"a.exe\"] &lt;$&gt; getCurrentDirectory\n\n    withBinaryFile xpath ReadMode $ \\h -&gt; do\n        dat &lt;- B.hGetContents h\n        print $ runGet readPE dat\n\n    print \"done.\"```\n上記の `readPE` 関数の中で if による分岐を行っていますが\nもし、この後も条件による分岐が必要だった場合 if 文をネスト\nさせていくような形で作るのが正しいのでしょうか ?"
+    },
+    {
+        "type": "message",
+        "user": "U055C884CHM",
+        "ts": "1683003502.792269",
+        "text": "<@U055C884CHM> has joined the channel"
     }
 ]

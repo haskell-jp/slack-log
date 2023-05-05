@@ -260,10 +260,69 @@ main = do
       <div class="event" id="message-1682852642.717049">
         <div class="content">
           <div class="summary">
-            <div class="user">U055P58NJF6</div>
+            <div class="user">Archgen</div>
             <div class="date"><a class="date" href="#message-1682852642.717049">2023-04-30 20:04:02 +0900</a></div>
           </div>
-          <div class="description">@U055P58NJF6 has joined the channel</div>
+          <div class="description">@Archgen has joined the channel</div>
+        </div>
+      </div>
+      <div class="event" id="message-1682951128.365409">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1682951128.365409">2023-05-01 23:25:28 +0900</a></div>
+          </div>
+          <div class="description">分岐処理について教えて下さい<br/><br/>Maybe を使った場合<br/><pre>import Control.Monad
+
+f :: String -&gt; Maybe String
+f x = do
+    guard (x == "MZ")
+
+    return "SUCCESS"
+
+
+main :: IO ()
+main = do
+    print $ f "MZ"
+    print $ f "ELF"</pre><br/>このような形 (guard) で条件によって処理を中断ができます。<br/>しかし、それ以外の文脈の場合この方法は使えないと思います。<br/><br/>具体的には以下のようなプログラムを作っています。<br/><pre>import <http://System.IO|System.IO>
+import System.Directory ( getCurrentDirectory )
+import System.FilePath ( joinPath )
+
+import qualified Data.ByteString.Lazy as B
+import qualified Data.ByteString.Internal as BI ( w2c )
+import Data.Binary.Get
+
+getC :: Get Char
+getC = BI.w2c &lt;$&gt; getWord8
+
+readPE :: Get (Maybe String)
+readPE = do
+    isMZ &lt;- (== "MZ") &lt;$&gt; sequence [getC, getC]
+
+    if isMZ then
+        return $ Just "SUCCESS"
+    else
+        return Nothing
+
+main :: IO ()
+main = do
+    xpath &lt;- joinPath . flip (:) ["src", "a.exe"] &lt;$&gt; getCurrentDirectory
+
+    withBinaryFile xpath ReadMode $ \h -&gt; do
+        dat &lt;- B.hGetContents h
+        print $ runGet readPE dat
+
+    print "done."</pre><br/>上記の <code>readPE</code> 関数の中で if による分岐を行っていますが<br/>もし、この後も条件による分岐が必要だった場合 if 文をネスト<br/>させていくような形で作るのが正しいのでしょうか ?</div>
+          <a class="link-to-replies" href="23/1682951128.365409.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1683003502.792269">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U055C884CHM</div>
+            <div class="date"><a class="date" href="#message-1683003502.792269">2023-05-02 13:58:22 +0900</a></div>
+          </div>
+          <div class="description">@U055C884CHM has joined the channel</div>
         </div>
       </div>
     </div>
