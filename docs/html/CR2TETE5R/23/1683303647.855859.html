@@ -65,6 +65,69 @@ a.hs:23:50: error:
 genericOn (.*.) f x y = f x .*. f y</pre><br/>を作ることで <code>fromIntegral</code> の出現を一回だけにできました (<https://play.haskell.org/saved/R8dLLsbH>)。<br/><br/>ただし、実用的かは疑問です。型推論のために <code>Integral</code> を TypeApplication で与えないといけなかったですし…</div>
         </div>
       </div>
+      <div class="event" id="message-1683332600.246349">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1683332600.246349">2023-05-06 09:23:20 +0900</a></div>
+          </div>
+          <div class="description">G/W の深夜にも関わらず、ご回答ありがとうございました :pray:<br/><br/>fromIntegral が便利なのに、やはり <code>on</code> とは合わせられないのですね<br/><code>forall</code> については、ちらっと見たことがあったのですが、実際に<br/>どのように使うのか理解できませんでした。<br/><br/>まだ、すぐには使えるようにならないと思いますが<br/>教えていただいたコードをもとに勉強してみます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683333452.032069">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1683333452.032069">2023-05-06 09:37:32 +0900</a></div>
+          </div>
+          <div class="description"><code>@Integral</code> が TypeApplication というものなんですね<br/><br/>こちらは、初めてみましたが探してみると forall と一緒に使った例が<br/>見つかるので、こちらも勉強してみます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683338724.760409">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1683338724.760409">2023-05-06 11:05:24 +0900</a></div>
+          </div>
+          <div class="description">この例だけだとむしろ <code>g = (fromIntegral &lt;$&gt;)</code>  を定義して <code>c = (+) &lt;$&gt; g a &lt;*&gt; g b</code> のように書くのが一番楽なのでは？と感じました。ただ、この g の定義のときに <code>g :: (Functor f, Integral a, Num b) =&gt; f a -&gt; f b</code> のような注釈をつけないと Ambiguous と言われるのでそこらへんがややこしさの原因かなという気はします</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683343934.571849">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1683343934.571849">2023-05-06 12:32:14 +0900</a></div>
+          </div>
+          <div class="description">ご回答ありがとうございます。<br/>こちらの方法であれば理解はしやすいです :grinning:<br/><br/>同じことを実現するにしても様々な方法があるようなので<br/>場合によって使い分けてみます</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683361788.629709">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1683361788.629709">2023-05-06 17:29:48 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>この例だけだとむしろ[…] のように書くのが一番楽なのでは？</blockquote>そうですよね… :sweat_smile:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683376212.131289">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1683376212.131289">2023-05-06 21:30:12 +0900</a></div>
+          </div>
+          <div class="description">この話題、  <code>map fromIntegral [a, b]</code> ってできないっていうのと同じのように見えるんですよね。要は、  a と b の型をそろえない限りはこういうことはできない（型クラスはあくまで型クラスであって subtype ではない）ので、結局個別に型変換が必要になりますよ、という感じで。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683381720.758849">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1683381720.758849">2023-05-06 23:02:00 +0900</a></div>
+          </div>
+          <div class="description">map を例にしてもらうとわかりやすいです。<br/>ありがとうございます。<br/><br/>fromIntegral が Num にしてくれるので、ついそちらを<br/>基準に考えてしまいました</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../23.html" class="item">Back to beginners #23</a>

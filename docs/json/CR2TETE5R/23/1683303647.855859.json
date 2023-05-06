@@ -10,5 +10,47 @@
         "user": "U578W9676",
         "ts": "1683311939.592819",
         "text": "`Maybe` をなくしてもエラーは本質的に変わらなさそう (<https://play.haskell.org/saved/F7l0PLq7>) なので、以降 `Maybe` を省いて書きます。\n\n`on` によって 2つの引数は同じ型に推論される\n\n```on (+) fromIntegral :: (Integral a, Num c) =&gt; a -&gt; a -&gt; c```\nので、 `on` を使うとこのエラーは避けられないですね。そこで、やたらポリモーフィックにした\n\n```genericOn :: (c a, c b) =&gt; (d -&gt; d -&gt; e) -&gt; (forall x. c x =&gt; x -&gt; d) -&gt; a -&gt; b -&gt; e\ngenericOn (.*.) f x y = f x .*. f y```\nを作ることで `fromIntegral` の出現を一回だけにできました (<https://play.haskell.org/saved/R8dLLsbH>)。\n\nただし、実用的かは疑問です。型推論のために `Integral` を TypeApplication で与えないといけなかったですし…"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1683332600.246349",
+        "text": "G/W の深夜にも関わらず、ご回答ありがとうございました :pray:\n\nfromIntegral が便利なのに、やはり `on` とは合わせられないのですね\n`forall` については、ちらっと見たことがあったのですが、実際に\nどのように使うのか理解できませんでした。\n\nまだ、すぐには使えるようにならないと思いますが\n教えていただいたコードをもとに勉強してみます。"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1683333452.032069",
+        "text": "`@Integral` が TypeApplication というものなんですね\n\nこちらは、初めてみましたが探してみると forall と一緒に使った例が\n見つかるので、こちらも勉強してみます。"
+    },
+    {
+        "type": "message",
+        "user": "UF8SE896V",
+        "ts": "1683338724.760409",
+        "text": "この例だけだとむしろ `g = (fromIntegral &lt;$&gt;)`  を定義して `c = (+) &lt;$&gt; g a &lt;*&gt; g b` のように書くのが一番楽なのでは？と感じました。ただ、この g の定義のときに `g :: (Functor f, Integral a, Num b) =&gt; f a -&gt; f b` のような注釈をつけないと Ambiguous と言われるのでそこらへんがややこしさの原因かなという気はします"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1683343934.571849",
+        "text": "ご回答ありがとうございます。\nこちらの方法であれば理解はしやすいです :grinning:\n\n同じことを実現するにしても様々な方法があるようなので\n場合によって使い分けてみます"
+    },
+    {
+        "type": "message",
+        "user": "U578W9676",
+        "ts": "1683361788.629709",
+        "text": "&gt; この例だけだとむしろ[…] のように書くのが一番楽なのでは？\nそうですよね… :sweat_smile:"
+    },
+    {
+        "type": "message",
+        "user": "UF8SE896V",
+        "ts": "1683376212.131289",
+        "text": "この話題、  `map fromIntegral [a, b]` ってできないっていうのと同じのように見えるんですよね。要は、  a と b の型をそろえない限りはこういうことはできない（型クラスはあくまで型クラスであって subtype ではない）ので、結局個別に型変換が必要になりますよ、という感じで。"
+    },
+    {
+        "type": "message",
+        "user": "U04MBBNV5QB",
+        "ts": "1683381720.758849",
+        "text": "map を例にしてもらうとわかりやすいです。\nありがとうございます。\n\nfromIntegral が Num にしてくれるので、ついそちらを\n基準に考えてしまいました"
     }
 ]
