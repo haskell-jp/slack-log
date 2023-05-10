@@ -1,0 +1,14 @@
+[
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1681290375.582189",
+        "text": "Windows 11 の WSL Ubuntu に ghcup で、stack を含む開発環境をセットアップしたのですが、stack new hoge をすると\n```Downloading template new-template to create project hoge in directory hoge/...\n\nError: [S-1688]\n       Stack failed to download the template new-template from\n       <https://api.github.com/repos/commercialhaskell/stack-templates/contents/new-template.hsfiles>.\n\n       While downloading, Stack encountered an HTTP error. Stack made the request:\n\n       Request {\n  host                 = \"<http://api.github.com|api.github.com>\"\n  port                 = 443\n  secure               = True\n  requestHeaders       = [(\"User-Agent\",\"The Haskell Stack\")]\n  path                 = \"/repos/commercialhaskell/stack-templates/contents/new-template.hsfiles\"\n  queryString          = \"\"\n  method               = \"GET\"\n  proxy                = Nothing\n  rawBody              = False\n  redirectCount        = 10\n  responseTimeout      = ResponseTimeoutDefault\n  requestVersion       = HTTP/1.1\n  proxySecureMode      = ProxySecureWithConnect\n}\n\n\n       and the content of the error was:\n\n       ConnectionTimeout```\nとなります。wsl あるいは windows 11 の問題のような気もしますが、もし、なにか対処法にヒントがあれば教えていただけると幸いです。\nネットワークは繋がっていますし、wget で <https://api.github.com/>... にも繋がるように見えています。"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1683642297.432019",
+        "text": "どうらや、WSLの謎挙動を踏んだらしいです。\n<https://blog.cosnomi.com/posts/wsl-resolv-conf/>\n私のケースでの発生のメカニズムはよくわからないのですが、こちらのサイトで説明されている。resolv.conf を自動生成する機能を抑制した上で、resolve.conf で nameserver 8.8.8.8 に固定することで、とりあえず回避できているようです。"
+    }
+]

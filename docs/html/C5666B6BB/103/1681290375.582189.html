@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #103 at 2023-04-12 18:06:15 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #103 at 2023-04-12 18:06:15 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1681290375.582189">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1681290375.582189">2023-04-12 18:06:15 +0900</a></div>
+          </div>
+          <div class="description">Windows 11 の WSL Ubuntu に ghcup で、stack を含む開発環境をセットアップしたのですが、stack new hoge をすると<br/><pre>Downloading template new-template to create project hoge in directory hoge/...
+
+Error: [S-1688]
+       Stack failed to download the template new-template from
+       <https://api.github.com/repos/commercialhaskell/stack-templates/contents/new-template.hsfiles>.
+
+       While downloading, Stack encountered an HTTP error. Stack made the request:
+
+       Request {
+  host                 = "<http://api.github.com|api.github.com>"
+  port                 = 443
+  secure               = True
+  requestHeaders       = [("User-Agent","The Haskell Stack")]
+  path                 = "/repos/commercialhaskell/stack-templates/contents/new-template.hsfiles"
+  queryString          = ""
+  method               = "GET"
+  proxy                = Nothing
+  rawBody              = False
+  redirectCount        = 10
+  responseTimeout      = ResponseTimeoutDefault
+  requestVersion       = HTTP/1.1
+  proxySecureMode      = ProxySecureWithConnect
+}
+
+
+       and the content of the error was:
+
+       ConnectionTimeout</pre><br/>となります。wsl あるいは windows 11 の問題のような気もしますが、もし、なにか対処法にヒントがあれば教えていただけると幸いです。<br/>ネットワークは繋がっていますし、wget で <a href='https://api.github.com/'>https://api.github.com/</a>... にも繋がるように見えています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683642297.432019">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1683642297.432019">2023-05-09 23:24:57 +0900</a></div>
+          </div>
+          <div class="description">どうらや、WSLの謎挙動を踏んだらしいです。<br/><a href='https://blog.cosnomi.com/posts/wsl-resolv-conf/'>https://blog.cosnomi.com/posts/wsl-resolv-conf/</a><br/>私のケースでの発生のメカニズムはよくわからないのですが、こちらのサイトで説明されている。resolv.conf を自動生成する機能を抑制した上で、resolve.conf で nameserver 8.8.8.8 に固定することで、とりあえず回避できているようです。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+  </div>
+</body>
+</html>
