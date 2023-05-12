@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #103 at 2023-05-05 21:40:39 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #103 at 2023-05-05 21:40:39 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1683290439.834829">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1683290439.834829">2023-05-05 21:40:39 +0900</a></div>
+          </div>
+          <div class="description">すみません、自己解決しました……！　2 変数関数だったのが問題でした。<br/>2 変数関数が絡むポイントフリースタイルは、別途調べます！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683796830.050749">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1683796830.050749">2023-05-11 18:20:30 +0900</a></div>
+          </div>
+          <div class="description">すでに解決すみかもしれませんが、変数がいくつあっても、外側から1つずつ外していけばよいだけなので機械的にできると思います．infix operator がすこし扱いにくいと感じたら, セクションにするか、名前をつけて prefix で使えばよいかと思います．s = (&lt;*&gt;) :: (a -&gt; b -&gt; c) -&gt; (b -&gt; c) -&gt; a -&gt; c とか b = (.) :: (b-&gt;c)-&gt;(a-&gt;b)-&gt;a-&gt;c など．．．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683797067.868319">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1683797067.868319">2023-05-11 18:24:27 +0900</a></div>
+          </div>
+          <div class="description">f = ((fst &lt;$&gt;) .) . monadicTuple</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683798553.667309">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1683798553.667309">2023-05-11 18:49:13 +0900</a></div>
+          </div>
+          <div class="description">だいぶ難しいですね……！　機械的と聞いて <a href='http://pointfree.io'>Pointfree.io</a> を思い出し、正体が分かりました。<br/><br/>(.:) :: (b -&gt; c) -&gt; (a1 -&gt; a2 -&gt; b) -&gt; (a1 -&gt; a2 -&gt; c)<br/>(.:) = (.) . (.)<br/><br/>f = fmap fst .: monadicTuple<br/><br/>競プロ専のため <code>.:</code> 演算子を使っていこうと思います。ありがとうございます！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683799350.009429">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1683799350.009429">2023-05-11 19:02:30 +0900</a></div>
+          </div>
+          <div class="description"><pre>    f x y = g &lt;$&gt; h x y
+=&gt;  { infix の セクション化 }
+    f x y = (g &lt;$&gt;) ((h x) y)
+=&gt;  { y を外す }
+    f x = (g &lt;$&gt;) . (h x)
+=&gt;  { infix のセクション化 }
+    f x = ((g &lt;$&gt;) .) (h x)
+=&gt;  { x を外す }
+    f = ((g &lt;$&gt;) .) . h</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1683799813.848749">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1683799813.848749">2023-05-11 19:10:13 +0900</a></div>
+          </div>
+          <div class="description">ほ、ホントだーー！<br/>そしてもう 1 つの積月 (?) の悩みも同様に解けました:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683799837.312329">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1683799837.312329">2023-05-11 19:10:37 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1683800012.713689">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1683800012.713689">2023-05-11 19:13:32 +0900</a></div>
+          </div>
+          <div class="description">演算子をセクションとして解釈するとき、 <code>(左の要素 演算子)</code> とするか (のぶさん の例) <code>(演算子 右の要素)</code> にするか (僕の例) も機械的に分かりますか？<br/>僕の書いた分は跳躍があった気もしますが……</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683800326.046079">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1683800326.046079">2023-05-11 19:18:46 +0900</a></div>
+          </div>
+          <div class="description"><code>&gt;&gt;</code> は『左結合』だから……？　ともかく機械的にポイントフリースタイルに変換する方法を調べていきたいと思います。とてもスッキリして助かりました！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683801210.914949">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1683801210.914949">2023-05-11 19:33:30 +0900</a></div>
+          </div>
+          <div class="description">外したい変数が左にあるときは (演算子 右オペランド) ですね。<br/><pre>    f x = x `g` y
++&gt;  { セクション化 }
+    f x = (`g` y) x
+=&gt;  { x を外す }
+    f = (`g` y)</pre><br/>これは結局<br/><pre>    f x = g x y
++&gt;  { Cコンビネータ }
+    f x = flip g y x
+=&gt;  { x を外す }
+    f = flip g y</pre><br/>と同じなんです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1683802532.670989">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1683802532.670989">2023-05-11 19:55:32 +0900</a></div>
+          </div>
+          <div class="description">すごい。。分かりました！　たぶんその考えは一生使っていきます！<br/>メモ: <a href='https://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8D%E3%83%BC%E3%82%BF%E8%AB%96%E7%90%86#B,C%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8D%E3%83%BC%E3%82%BF'>C コンビネータ (Wiki)</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+  </div>
+</body>
+</html>
