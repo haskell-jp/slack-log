@@ -505,6 +505,18 @@ flip id "a" (++ "b") :: [Char]
           <div class="description">例外発生時にバックトレースを加えるproposalについて、改めてフィードバック募集<br/><a href='https://twitter.com/bgamari/status/1655679570467598338'>https://twitter.com/bgamari/status/1655679570467598338</a></div>
         </div>
       </div>
+      <div class="event" id="message-1683965382.060029">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kk</div>
+            <div class="date"><a class="date" href="#message-1683965382.060029">2023-05-13 17:09:42 +0900</a></div>
+          </div>
+          <div class="description"><pre>fix1 :: ((b -&gt; c) -&gt; b -&gt; c) -&gt; b -&gt; c
+fix1 = fix
+fix :: (a -&gt; a) -&gt; a
+fix f = flip fix1 f $ \g h -&gt; h $ g f</pre><br/><code>fix1</code>と`fix`は上記の通りどちらを先に定義しても良く，ほぼ等価．手続き型にコンパイルすることを考えると，関数から値を生成しなくてはならない`fix`より，関数から関数を生成すればよい`fix1`の方がプリミティブとして適している？`flip fix1`の形がループっぽくなるのは知られているが，手続き型のループの役割を`fix1`が担うとも考えられる．</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C4M4TT8JJ/101.html" class="item">Previous</a>

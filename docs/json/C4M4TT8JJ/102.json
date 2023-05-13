@@ -286,5 +286,11 @@
         "user": "U4LGTMTMK",
         "ts": "1683630897.464579",
         "text": "例外発生時にバックトレースを加えるproposalについて、改めてフィードバック募集\n<https://twitter.com/bgamari/status/1655679570467598338>"
+    },
+    {
+        "type": "message",
+        "user": "U04LCUXALJ2",
+        "ts": "1683965382.060029",
+        "text": "```fix1 :: ((b -&gt; c) -&gt; b -&gt; c) -&gt; b -&gt; c\nfix1 = fix\nfix :: (a -&gt; a) -&gt; a\nfix f = flip fix1 f $ \\g h -&gt; h $ g f```\n`fix1`と`fix`は上記の通りどちらを先に定義しても良く，ほぼ等価．手続き型にコンパイルすることを考えると，関数から値を生成しなくてはならない`fix`より，関数から関数を生成すればよい`fix1`の方がプリミティブとして適している？`flip fix1`の形がループっぽくなるのは知られているが，手続き型のループの役割を`fix1`が担うとも考えられる．"
     }
 ]
