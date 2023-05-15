@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #103 at 2023-05-14 09:40:00 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #103 at 2023-05-14 09:40:00 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1684024800.366699">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kk</div>
+            <div class="date"><a class="date" href="#message-1684024800.366699">2023-05-14 09:40:00 +0900</a></div>
+          </div>
+          <div class="description">```fix1 :: ((b -&gt; c) -&gt; b -&gt; c) -&gt; b -&gt; c<br/>fix1 = fix<br/>fix :: (a -&gt; a) -&gt; a<br/>fix f = flip fix1 f $ \g h -&gt; _```<br/>`fix`を`fix1`で定義したいのですが，上の`_`に当てはまる式として以下のどれが適切でしょうか？<br/>```1. f $ g f<br/>2. f $ g h<br/>3. h $ g f<br/>4. h $ g h```<br/>いずれも下記のテストを通過しました．上記1-4のいずれかが失敗するテストも併せて募集します．<br/>```print $ fix $ const () -- ()<br/>print $ flip fix 5 $ \rec n -&gt; if n == 0 then 1 else n * rec (pred n) -- 120```</div>
+        </div>
+      </div>
+      <div class="event" id="message-1684024871.824609">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kk</div>
+            <div class="date"><a class="date" href="#message-1684024871.824609">2023-05-14 09:41:11 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1683965382060029'>https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1683965382060029</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../103.html" class="item">Back to questions #103</a>
+    </div>
+  </div>
+</body>
+</html>

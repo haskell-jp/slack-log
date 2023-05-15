@@ -1,0 +1,14 @@
+[
+    {
+        "type": "message",
+        "user": "U04LCUXALJ2",
+        "ts": "1684024800.366699",
+        "text": "```fix1 :: ((b -&gt; c) -&gt; b -&gt; c) -&gt; b -&gt; c\nfix1 = fix\nfix :: (a -&gt; a) -&gt; a\nfix f = flip fix1 f $ \\g h -&gt; _```\n`fix`を`fix1`で定義したいのですが，上の`_`に当てはまる式として以下のどれが適切でしょうか？\n```1. f $ g f\n2. f $ g h\n3. h $ g f\n4. h $ g h```\nいずれも下記のテストを通過しました．上記1-4のいずれかが失敗するテストも併せて募集します．\n```print $ fix $ const () -- ()\nprint $ flip fix 5 $ \\rec n -&gt; if n == 0 then 1 else n * rec (pred n) -- 120```"
+    },
+    {
+        "type": "message",
+        "user": "U04LCUXALJ2",
+        "ts": "1684024871.824609",
+        "text": "<https://haskell-jp.slack.com/archives/C4M4TT8JJ/p1683965382060029>"
+    }
+]
