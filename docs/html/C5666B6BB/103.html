@@ -541,6 +541,17 @@ DivMod N5 N2 :: (Nat, Nat)
           <div class="description">@ has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1684652284.419089">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1684652284.419089">2023-05-21 15:58:04 +0900</a></div>
+          </div>
+          <div class="description">parsecで構文解析器を作っています。対象ソースコードのどこに構文エラーがあるのか表示したいです。<br/>構文解析器はトークナイザからの出力を受け取り、その構文を解析します。<br/><pre>tokenize :: Parsec String () [Token]
+syntaxAnalyze :: Parsec [Token] () SyntaxTree</pre><br/>という型になります。<br/>一回トークナイザを挟むとそのトークンがソースコードの何行何列目にあるかの情報がなくなり、tokenPrim関数でSourcePosの計算ができません。これってどうやって解決したらいいでしょうか？TokenにSourcePosを含めるとパース処理の他に位置計算が含まれるのでコードが読みにくくなるのであまりやりたくないなぁと思っています。<br/><br/>どなたかお教えいただけると非常に助かります！</div>
+          <a class="link-to-replies" href="103/1684652284.419089.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C5666B6BB/102.html" class="item">Previous</a>

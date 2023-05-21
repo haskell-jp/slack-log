@@ -286,5 +286,11 @@
         "user": "U058N9G5JCT",
         "ts": "1684521017.006489",
         "text": "<@U058N9G5JCT> has joined the channel"
+    },
+    {
+        "type": "message",
+        "user": "U043KGWLGVC",
+        "ts": "1684652284.419089",
+        "text": "parsecで構文解析器を作っています。対象ソースコードのどこに構文エラーがあるのか表示したいです。\n構文解析器はトークナイザからの出力を受け取り、その構文を解析します。\n```tokenize :: Parsec String () [Token]\nsyntaxAnalyze :: Parsec [Token] () SyntaxTree```\nという型になります。\n一回トークナイザを挟むとそのトークンがソースコードの何行何列目にあるかの情報がなくなり、tokenPrim関数でSourcePosの計算ができません。これってどうやって解決したらいいでしょうか？TokenにSourcePosを含めるとパース処理の他に位置計算が含まれるのでコードが読みにくくなるのであまりやりたくないなぁと思っています。\n\nどなたかお教えいただけると非常に助かります！"
     }
 ]
