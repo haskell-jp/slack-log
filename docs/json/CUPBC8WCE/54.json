@@ -184,5 +184,119 @@
         "user": "U4LGTMTMK",
         "ts": "1684663236.287189",
         "text": "延長戦で本日の進捗。珍しく消した行の方が多い:sweat_smile:\nまぁ、説明しなくていいところを削れたのでヨシ！\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/53dbbb69e57ee33dac79f1b01e3362bc6e14451c>"
+    },
+    {
+        "type": "message",
+        "user": null,
+        "ts": "1685246476.218259",
+        "text": ""
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1685246777.318869",
+        "text": "いつもどおり、makeMistakesToLearnHaskellの続きとcabal replの件です！お昼ご飯 :curry: 食べてから！"
+    },
+    {
+        "type": "message",
+        "user": "U04BD6ZFKQ8",
+        "ts": "1685246796.483579",
+        "text": "S.K.です。今週もお世話になります。よろしくお願いします。\nImplementing Functional Languages:a tutorial の Mark7 Gマシン Ex. 3.46 について、とりあえず、Mark2 TIM の真似をして進めてみようと思います。"
+    },
+    {
+        "type": "message",
+        "user": "U57CGDBMG",
+        "ts": "1685247033.251079",
+        "text": "Change-Making-Problem（お釣り生成問題：お釣りを最小枚数で払う問題）で硬貨が3種類の場合の効率的なアルゴリズムの検証の続きをやります。\n15時過ぎ頃に抜ける予定です。"
+    },
+    {
+        "type": "message",
+        "user": "U584T7GAH",
+        "ts": "1685247312.139439",
+        "text": "\"簡約!? λカ娘\" (#7) <https://ikmsm.pastillage-research.org/ikmsm/owner/c86/ikmsm_c86.pdf>\nあとハシゴで AtCoder 鉄則本 *B68 - ALGO Express* <https://atcoder.jp/contests/tessoku-book/tasks/tessoku_book_eo>"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1685249256.710169",
+        "text": "gksatoです．先週に続けて今週も参加させていただきます．AtCoder用の Max flow algorithm (Goldberg-Tarjan の preflow-push algorithm with scaling) を引き続き進めたいと思います．よろしくお願いします！"
+    },
+    {
+        "type": "message",
+        "user": "U57CGDBMG",
+        "ts": "1685253422.418089",
+        "text": "GHCup で Haskell環境を作ったのですが、quickcheck ライブラリ（パッケージ？）をインストールにはどういうコマンドを実行すればよいでしょか。"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1685253856.823879",
+        "text": "cabal-install が入っているなら `cabal install --lib QuickCheck` ですね"
+    },
+    {
+        "type": "message",
+        "user": "U4M4XHKB8",
+        "ts": "1685254056.956119",
+        "text": "チェシャ猫です。前回に引き続き、自作のオンラインインタプリタを作ります。コールスタックの wind/unwind 部分です。"
+    },
+    {
+        "type": "message",
+        "user": "U03H9PH8FRP",
+        "ts": "1685254543.575849",
+        "text": "toyboot4e です。アルゴリズム実技検定の過去問を解きます〜"
+    },
+    {
+        "type": "message",
+        "user": "U57CGDBMG",
+        "ts": "1685255356.571799",
+        "text": "<@U4LGTMTMK> :arigatougozaimasu: 最初\n```Warning: The package list for '<http://hackage.haskell.org|hackage.haskell.org>' is 71 days old.\nRun 'cabal update' to get the latest list of available packages.```\nと言われたので、指示どおり cabal update してから再度 cabal install --lib QuickCheck してうまくいきました。"
+    },
+    {
+        "type": "message",
+        "user": "U4KNX0J3A",
+        "ts": "1685255918.520779",
+        "text": "<@U4KNX0J3A> has joined the channel"
+    },
+    {
+        "type": "message",
+        "user": "U4KNX0J3A",
+        "ts": "1685256003.365159",
+        "text": "とても久しぶりに参加します。elm-compilerの吐くモジュールファイルが特定条件でばかでかくなるバグについてなりゆきで詳しくなってしまったので、修正を目指してなんやかんややります"
+    },
+    {
+        "type": "message",
+        "user": "U57CGDBMG",
+        "ts": "1685256805.268329",
+        "text": "作業完了していないですが用事があるので抜けます。アルゴリズムの Haskell での実装はできました。\n残るはアルゴリズムのプロパティテストです。テストにパスするといいのですが :pray:\n（Haskell環境構築作業メモ見直したら3月に `cabal install --lib QuickCheck` やってました、忘れてた... orz）\n\n久しぶりだったので asパターンも `xy@(x,y)` と書くべきところを `(x,y)@xy` と書いててエラーになってなかなか原因がわからず悩んでしまいました。"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1685261882.362849",
+        "text": "そろそろ抜けます．heuristics関連の調べ物とかしてたらすぐ時間が過ぎてしまって， 実装の `ReaderT (Context v s a) (ST s)` モナドの `Context v s a` が膨れ上がっただけで終わりました．\n\n```data MFSGCtx v s a = MFSGCtx {\n  mfsgNumVs :: {-# UNPACK #-} !Int,\n  mfsgEdgesOnVs :: {-# UNPACK #-} !(V.Vector (VU.Vector Int)),\n  mfsgEdgeDsts :: {-# UNPACK #-} !(VU.Vector Int),\n  mfsgCaps :: !(v s a),\n  mfsgVsrc :: {-# UNPACK #-} !Int,\n  mfsgVdst :: {-# UNPACK #-} !Int,\n  mfsgExcesses :: !(v s a),\n  -- | Levelwise single linked lists of active nodes.\n  mfsgActiveListHeads :: {-# UNPACK #-} !(VUM.MVector s Int),\n  mfsgActiveListNexts :: {-# UNPACK #-} !(VUM.MVector s Int),\n  mfsgLevels :: {-# UNPACK #-} !(VUM.MVector s Int),\n  -- | Levelwise double linked lists of nodes.\n  mfsgLevelListHeads :: {-# UNPACK #-} !(VUM.MVector s Int),\n  mfsgLevelListNexts :: {-# UNPACK #-} !(VUM.MVector s Int),\n  mfsgLevelListPrevs :: {-# UNPACK #-} !(VUM.MVector s Int),\n  mfsgNextEdge :: {-# UNPACK #-} !(VUM.MVector s Int),\n  mfsgGap :: {-# UNPACK #-} !(DMut.PRef s Int)\n  }```\nでかい型ですねえ…．"
+    },
+    {
+        "type": "message",
+        "user": null,
+        "ts": "1685264471.291899",
+        "text": ""
+    },
+    {
+        "type": "message",
+        "user": "U03H9PH8FRP",
+        "ts": "1685264625.930859",
+        "text": "数問解きました。コーナーケースの誤答に苦しんでいます。"
+    },
+    {
+        "type": "message",
+        "user": "U4M4XHKB8",
+        "ts": "1685264657.502719",
+        "text": "スタックフレーム操作を実装し、オンラインインタプリタでユーザが定義した関数を呼び出せるようになりました。あとはテストを追加していきます。まだデプロイしてないですが、実装は <https://github.com/y-taka-23/dncl-playground> に置いてあります。"
+    },
+    {
+        "type": "message",
+        "user": "U04BD6ZFKQ8",
+        "ts": "1685264702.949639",
+        "text": "TIMのReturn命令を生成する条件をまねて、GマシンのReturn命令を生成しようとしたのですが、残念ながらうまくできませんでした。\n今週も保留して Mark2 TIM の続きを進めました。こちらはとりあえず何とか Ex. 4.5 まで進めました。"
     }
 ]
