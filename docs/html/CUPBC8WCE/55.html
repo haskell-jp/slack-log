@@ -40,6 +40,51 @@
           <div class="description">"簡約!? λカ娘" (#7)　読了　モナドを徹底的に圏論で考える記事と　Dependent Type Programming が面白い（難解だった）<br/>AtCoder 鉄則本 B68 - ALGO Express 悪戦苦闘中</div>
         </div>
       </div>
+      <div class="event" id="message-1685534564.441479">
+        <div class="content">
+          <div class="summary">
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1685534564.441479">2023-05-31 21:02:44 +0900</a></div>
+          </div>
+          <div class="description">その後コードを整理して短くなりました。成果報告。<br/>a円 b円 1円 (a <blockquote>b <blockquote>1) の3種類のコインを使った最小枚数での払い方。計算量 O(log(b))。</blockquote><pre>import Data.List (unfoldr)
+
+-- a/b の連分数展開と近似分数
+cf a b = unfoldr f (a,b,0,1,1,0) where
+  f (_,0,_,_,_,_) = Nothing
+  f (a,b,p1,q1,p2,q2) = Just((b,c,p2,q2), (b,a',p2,q2,p,q)) where
+    (c, a') = a `divMod` b
+    (p, q) = (p1 + c * p2, q1 + c * q2)
+
+chunk [] = []
+chunk [(r1,_,p1,q1)] = [(r1,p1,q1, 0,undefined,undefined, undefined)]
+chunk ((r1,_,p1,q1):(r2,c2,p2,q2):ds)
+  | c' &lt; c2 = [pair]
+  | otherwise = pair: chunk ds
+  where
+    (c, l) = (r1 - p1 + q1) `divMod` (r2 + p2 - q2)
+    c' = if c == c2 &amp;&amp; l == 0 then c-1 else c
+    pair = (r1,p1,q1, r2,p2,q2, c')
+
+-- n円を a円 b円 1円 (a &gt; b &gt; 1) の3種類のコインで払う。計算量 O(log(b))
+cmp a b n = (y'+x'+z',(y',x',z')) where
+  (y, x) = n `divMod` a
+  (y',x',z') = cmp' (chunk $ cf a b) (y,x,0)
+  cmp' [] yxz = yxz
+  cmp' ((r1,p1,q1, r2,p2,q2, c): ds) (y,x,z)
+    | i1 &lt; i = yxz1
+    | r2 == 0 = yxz1
+    | x1 &lt; r2 = cmp' ds yxz1
+    | j2 &lt;= c &amp;&amp; y2 &gt;= 0 = cmp' ds yxz2 
+    | otherwise = yxz1
+    where
+      i = x `div` r1
+      i1 = if y &lt; i * q1 then y `div` q1 else i
+      yxz1@(y1,x1,z1) = (y - i1 * q1, x - i1 * r1, z + i1 * p1)
+      (j,x2) = (x1 - r1) `divMod` r2
+      j2 = -j
+      yxz2@(y2,_,_) = (y1 - j2 * q2 - q1, x2, z1 + j2 * p2 + p1)</pre></blockquote></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CUPBC8WCE/54.html" class="item">Previous</a>
