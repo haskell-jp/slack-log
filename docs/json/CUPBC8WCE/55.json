@@ -22,5 +22,65 @@
         "user": "U57CGDBMG",
         "ts": "1685534564.441479",
         "text": "その後コードを整理して短くなりました。成果報告。\na円 b円 1円 (a &gt; b &gt; 1) の3種類のコインを使った最小枚数での払い方。計算量 O(log(b))。\n```import Data.List (unfoldr)\n\n-- a/b の連分数展開と近似分数\ncf a b = unfoldr f (a,b,0,1,1,0) where\n  f (_,0,_,_,_,_) = Nothing\n  f (a,b,p1,q1,p2,q2) = Just((b,c,p2,q2), (b,a',p2,q2,p,q)) where\n    (c, a') = a `divMod` b\n    (p, q) = (p1 + c * p2, q1 + c * q2)\n\nchunk [] = []\nchunk [(r1,_,p1,q1)] = [(r1,p1,q1, 0,undefined,undefined, undefined)]\nchunk ((r1,_,p1,q1):(r2,c2,p2,q2):ds)\n  | c' &lt; c2 = [pair]\n  | otherwise = pair: chunk ds\n  where\n    (c, l) = (r1 - p1 + q1) `divMod` (r2 + p2 - q2)\n    c' = if c == c2 &amp;&amp; l == 0 then c-1 else c\n    pair = (r1,p1,q1, r2,p2,q2, c')\n\n-- n円を a円 b円 1円 (a &gt; b &gt; 1) の3種類のコインで払う。計算量 O(log(b))\ncmp a b n = (y'+x'+z',(y',x',z')) where\n  (y, x) = n `divMod` a\n  (y',x',z') = cmp' (chunk $ cf a b) (y,x,0)\n  cmp' [] yxz = yxz\n  cmp' ((r1,p1,q1, r2,p2,q2, c): ds) (y,x,z)\n    | i1 &lt; i = yxz1\n    | r2 == 0 = yxz1\n    | x1 &lt; r2 = cmp' ds yxz1\n    | j2 &lt;= c &amp;&amp; y2 &gt;= 0 = cmp' ds yxz2 \n    | otherwise = yxz1\n    where\n      i = x `div` r1\n      i1 = if y &lt; i * q1 then y `div` q1 else i\n      yxz1@(y1,x1,z1) = (y - i1 * q1, x - i1 * r1, z + i1 * p1)\n      (j,x2) = (x1 - r1) `divMod` r2\n      j2 = -j\n      yxz2@(y2,_,_) = (y1 - j2 * q2 - q1, x2, z1 + j2 * p2 + p1)```"
+    },
+    {
+        "type": "message",
+        "user": null,
+        "ts": "1685851279.229539",
+        "text": ""
+    },
+    {
+        "type": "message",
+        "user": "U05BK34ESF2",
+        "ts": "1685851394.460309",
+        "text": "<@U05BK34ESF2> has joined the channel"
+    },
+    {
+        "type": "message",
+        "user": "U05BK34ESF2",
+        "ts": "1685851501.124239",
+        "text": "こんにちは:exclamation:はじめまして、今日はawsの資格の勉強をしたいと思います:smile:\nあとすみませんが15時位に抜けさせて頂きます。"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1685851609.576669",
+        "text": "山本悠滋です。出先から戻ってからですが、いつも通りmakeMistakesToLearnHaskellの続きとcabal replの件を進めます。例の如く前者だけになりそうな予感もしますが…:sweat:"
+    },
+    {
+        "type": "message",
+        "user": "U584T7GAH",
+        "ts": "1685851758.290239",
+        "text": "\"簡約!? λカ娘\" (#8) <https://ikmsm.pastillage-research.org/ikmsm/owner/c88/ikmsm_c88.pdf>\nあとハシゴで AtCoder 鉄則本 *A69 - Bipartite Matching* <https://atcoder.jp/contests/tessoku-book/tasks/tessoku_book_bq>"
+    },
+    {
+        "type": "message",
+        "user": "U03H9PH8FRP",
+        "ts": "1685852690.354019",
+        "text": "こんにちは〜。 <https://past.atcoder.jp/|アルゴリズム実技検定> の過去問を解いていきます。"
+    },
+    {
+        "type": "message",
+        "user": "U57CGDBMG",
+        "ts": "1685852989.596859",
+        "text": "Change-Making-Problem（お釣り生成問題：お釣りを最小枚数で払う問題）で硬貨が3種類の場合の効率的なアルゴリズムの実装はできたのでプロパティテストでの検証と余裕があったらブログ書きをやります。\n15時過ぎ頃に抜ける予定です。"
+    },
+    {
+        "type": "message",
+        "user": "U04BD6ZFKQ8",
+        "ts": "1685853041.769229",
+        "text": "S.K.です。今週もお世話になります。よろしくお願いします。\nImplementing Functional Languages:a tutorial の Mark7 Gマシン Ex. 3.46 の続きから進めようと思います。"
+    },
+    {
+        "type": "message",
+        "user": "U4KNX0J3A",
+        "ts": "1685853707.666879",
+        "text": "先週の続きやっていきます :fire:"
+    },
+    {
+        "type": "message",
+        "user": "U57CGDBMG",
+        "ts": "1685863016.044579",
+        "text": "プロパティテスト通りました。1000万回テストを何回もかけましたが 今のところすべてパスしているので多分アルゴリズムはあっているでしょう。（未証明だけど）\n```import Test.QuickCheck\n\n-- 計算量 O(log(u2)) の実装（ただし未証明）\ncmp u1 u2 n = 前回書いたコード\n\n-- ナイーブな実装\ncmp_naive u1 u2 n = let (y, x) = n `divMod` u1\n  in minimum $ [(i+j+k, (i,k,j)) | i &lt;- [(max 0 (y-u2))..y], let (j,k) = (n - i*u1) `divMod` u2]\n\nabn :: Gen (Int,Int,Int)\nabn = do\n  d1 &lt;- chooseInt (1, 10000)\n  d2 &lt;- chooseInt (1, 100000)\n  n &lt;- chooseInt (0, 1000000)\n  let (u1, u2) = (u2 + d2, 1 + d1)\n  return (u1, u2, n)\n\n-- 1000万回テスト\nmain = do\n  quickCheckWith stdArgs { maxSuccess = 10000000 } $ forAll abn $ \\(u1,u2,n) -&gt; fst (cmp u1 u2 n) == fst (cmp_naive u1 u2 n)```"
     }
 ]
