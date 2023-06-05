@@ -82,5 +82,41 @@
         "user": "U57CGDBMG",
         "ts": "1685863016.044579",
         "text": "プロパティテスト通りました。1000万回テストを何回もかけましたが 今のところすべてパスしているので多分アルゴリズムはあっているでしょう。（未証明だけど）\n```import Test.QuickCheck\n\n-- 計算量 O(log(u2)) の実装（ただし未証明）\ncmp u1 u2 n = 前回書いたコード\n\n-- ナイーブな実装\ncmp_naive u1 u2 n = let (y, x) = n `divMod` u1\n  in minimum $ [(i+j+k, (i,k,j)) | i &lt;- [(max 0 (y-u2))..y], let (j,k) = (n - i*u1) `divMod` u2]\n\nabn :: Gen (Int,Int,Int)\nabn = do\n  d1 &lt;- chooseInt (1, 10000)\n  d2 &lt;- chooseInt (1, 100000)\n  n &lt;- chooseInt (0, 1000000)\n  let (u1, u2) = (u2 + d2, 1 + d1)\n  return (u1, u2, n)\n\n-- 1000万回テスト\nmain = do\n  quickCheckWith stdArgs { maxSuccess = 10000000 } $ forAll abn $ \\(u1,u2,n) -&gt; fst (cmp u1 u2 n) == fst (cmp_naive u1 u2 n)```"
+    },
+    {
+        "type": "message",
+        "user": null,
+        "ts": "1685869279.130809",
+        "text": ""
+    },
+    {
+        "type": "message",
+        "user": "U04BD6ZFKQ8",
+        "ts": "1685869905.064039",
+        "text": "Ex. 3.46 ですが、Return 命令の遷移規則を変更(スタックの底のアイテムの代わりに一番上のアイテムを残すように)して、\nMark2 TIM と同じ条件で Return 命令を生成するようにしたところ、一応正しく動作しました。\nスタックの一番上のアイテムが WHNF の場合に Return 命令を使うということなので、\n僭越ながら、これで Ex. 3.46 は完了したことにさせていただきました。\nその後は、Mark2 TIM の続きを進めて、一応 Ex. 4.6 が完了しました。"
+    },
+    {
+        "type": "message",
+        "user": "U584T7GAH",
+        "ts": "1685870042.909389",
+        "text": "\"簡約!? λカ娘\" (#8) 読了　「排中律を公理として導入し、それを用いて継続を実装する」 @nushio が面白い\nAtCoder 鉄則本 A69 - Bipartite Matching AC なれど 遅ッ！　Dinic 法に落とし込んだが枝が密なので遅い"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1685870190.247889",
+        "text": "・本日のmakeMistakesToLearnHaskellの進捗 <https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/494ca173bf9df59e1c95a4d607dd104c7c330d50>\n・cabal replの件は、cabalファイルをパースして書き換える処理が案の定動いていないので、パースする部分からテストを追加しています"
+    },
+    {
+        "type": "message",
+        "user": "U03H9PH8FRP",
+        "ts": "1685872519.462069",
+        "text": "第14回アルゴリズム実技検定の過去問を解きました。 Haskell 有利な回の気がします。"
+    },
+    {
+        "type": "message",
+        "user": "U4KNX0J3A",
+        "ts": "1685872872.711829",
+        "text": "細かい仕様がよくわからなくなって調査していて目に見える進捗はいまいちでした\nまあこういう日もある"
     }
 ]
