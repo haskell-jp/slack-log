@@ -118,5 +118,11 @@
         "user": "UL1HFJATE",
         "ts": "1686921436.399909",
         "text": "なお，同時に次回の Freeze が 6/19 で確定しました！"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1686957789.585189",
+        "text": "バージョンアップ作業中です．\n• `unix-2.7.3`  (installed with GHC) の `unix-2.8.1.1` へのアップデートを試みましたが，`unix-2.8.1.1` は `filepath &gt;= 1.4.100.0`  を要求し，これが既存のバージョン指定 `filepath &lt; 1.4.100` に矛盾したため，とりあえず `unix ==2.7.3` で固定しておきます．異論があればお願いします．なお，`filepath &lt;1.4.100` を外してもインストールは可能と思われます．`filepath &lt;1.4.100` のバージョン指定の由来は次のとおりです：4/11 freeze時に， `hpc`  (the version bundled with GHC-9.4.4 + all versions on Hackage) と `filepath &gt;=1.4.100` がdependency上かコード上(dependency rangeで許可されているがコンパイルエラーが出るという意味)で非互換であるため， `hpc` を外し `filepath` を installed with GHC のバージョンに固定しておくという経過措置をとったものです．"
     }
 ]

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / atcoder-lang-updates #8 at 2023-06-17 08:23:09 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / atcoder-lang-updates #8 at 2023-06-17 08:23:09 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../8.html" class="item">Back to atcoder-lang-updates #8</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1686957789.585189">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1686957789.585189">2023-06-17 08:23:09 +0900</a></div>
+          </div>
+          <div class="description">バージョンアップ作業中です．<br/>• <code>unix-2.7.3</code>  (installed with GHC) の <code>unix-2.8.1.1</code> へのアップデートを試みましたが，`unix-2.8.1.1` は <code>filepath &gt;= 1.4.100.0</code>  を要求し，これが既存のバージョン指定 <code>filepath &lt; 1.4.100</code> に矛盾したため，とりあえず <code>unix ==2.7.3</code> で固定しておきます．異論があればお願いします．なお，`filepath &lt;1.4.100` を外してもインストールは可能と思われます．`filepath &lt;1.4.100` のバージョン指定の由来は次のとおりです：4/11 freeze時に， <code>hpc</code>  (the version bundled with GHC-9.4.4 + all versions on Hackage) と <code>filepath &gt;=1.4.100</code> がdependency上かコード上(dependency rangeで許可されているがコンパイルエラーが出るという意味)で非互換であるため， <code>hpc</code> を外し <code>filepath</code> を installed with GHC のバージョンに固定しておくという経過措置をとったものです．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1686958010.714919">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1686958010.714919">2023-06-17 08:26:50 +0900</a></div>
+          </div>
+          <div class="description">なお， `hpc` は *GHC-bundled version がHackage上の同バージョン番号のバージョンと一致しない*パッケージなので注意してください．</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../8.html" class="item">Back to atcoder-lang-updates #8</a>
+    </div>
+  </div>
+</body>
+</html>
