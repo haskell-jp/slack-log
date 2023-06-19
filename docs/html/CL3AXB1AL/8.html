@@ -224,6 +224,51 @@ main = putStr =&lt;&lt; readFile "/judge/submission/cabal.project.freeze"</pre><
           <a class="link-to-replies" href="8/1686957789.585189.html">... Replies ...</a>
         </div>
       </div>
+      <div class="event" id="message-1687045146.684209">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1687045146.684209">2023-06-18 08:39:06 +0900</a></div>
+          </div>
+          <div class="description">ライセンスのリストにghcup, cabal-install, LLVM のライセンスをつけ忘れていたので，フィードバックシートで言い訳+確認をしてきました：<br/><br/><a href='https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=J115'>https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=J115</a><br/><blockquote>今更気になりました．<br/>「まずはじめに」の “License” のところに「言語やライブラリのライセンスへの URL をすべて記入してください。」とありますが，<br/>言語(コンパイラ/インタプリタ)でもライブラリでもない部分，例えば<br/>・ビルドシステム (Haskellで言えば cabal-install, Rustで言えばCargo)<br/>・ツールマネジャ(Haskellで言えば ghcup, Rustで言えばrustup …といってもRustは今回のLang updateでrustup不使用)<br/>・LLVM<br/>・apt<br/>・sudo, curl, rm, cp その他のUNIX系shellで利用されるツール<br/>などのライセンスはどう扱えば良いでしょうか…?<br/>Haskellではとりあえず「言語とライブラリ」のライセンスだけ付けてるのですが．</blockquote>「まずはじめに」で「言語とライブラリ」とだけ書いてあったのでだいぶ気が楽になりました．気にし過ぎだといいのですが:sweat_smile:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1687062080.161859">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1687062080.161859">2023-06-18 13:21:20 +0900</a></div>
+          </div>
+          <div class="description">擬似環境の生成に成功しました．GHCによってバージョンが固定されてしまうパッケージを <code>^&gt;=</code> から <code>==</code> にするのと，その他のパッケージを更新するのとで次のような dependency の更新が起こります：<br/>• <code>GHC: 9.4.4 -&gt; 9.4.5</code><br/>• <code>QuickCheck: ^&gt;=2.14.2 -&gt; ^&gt;=2.14.3</code><br/>• <code>array: ^&gt;=0.5.4.0 -&gt; ==0.5.4.0</code><br/>• <code>base: ^&gt;=4.17.0.0 -&gt; ==4.17.1.0</code><br/>• <code>deepseq: ^&gt;=1.4.8.0 -&gt; ==1.4.8.0</code><br/>• <code>ghc-boot-th: ==9.4.4 -&gt; ==9.4.5</code><br/>• <code>ghc-prim: ^&gt;=0.9.0 -&gt; ==0.9.0</code><br/>• <code>massiv: ^&gt;=1.0.3.0 -&gt; ^&gt;=1.0.4.0</code><br/>• <code>megaparsec: ^&gt;=9.3.0 -&gt; ^&gt;=9.4.1</code><br/>• <code>regex-tdfa: ^&gt;=1.3.2 -&gt; ^&gt;=1.3.2.1</code><br/>• <code>template-haskell: ^&gt;=2.19.0.0 -&gt; ==2.19.0.0</code><br/>• <code>unix: ^&gt;=2.7.3 -&gt; ==2.7.3</code><br/>• <code>utility-ht: ^&gt;=0.0.16 -&gt; ^&gt;=0.0.17</code> </div>
+        </div>
+      </div>
+      <div class="event" id="message-1687067962.588899">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1687067962.588899">2023-06-18 14:59:22 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://gist.github.com/gksato/67ce95de203c1799841a99777758e2f5'>https://gist.github.com/gksato/67ce95de203c1799841a99777758e2f5</a> の内容で書き込んできます． dependency 全体は <a href='https://gist.github.com/gksato/67ce95de203c1799841a99777758e2f5#file-4-dependencies'>https://gist.github.com/gksato/67ce95de203c1799841a99777758e2f5#file-4-dependencies</a> で確認できます．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1687068694.657889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1687068694.657889">2023-06-18 15:11:34 +0900</a></div>
+          </div>
+          <div class="description">とりあえず書き込んできました．ご確認ください．<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=38:38></div>
+        </div>
+      </div>
+      <div class="event" id="message-1687127036.349789">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1687127036.349789">2023-06-19 07:23:56 +0900</a></div>
+          </div>
+          <div class="description">忘れてました！ LLVM が 13 から 14 になってます！</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CL3AXB1AL/7.html" class="item">Previous</a>
