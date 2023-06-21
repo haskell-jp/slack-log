@@ -48,6 +48,60 @@
           <div class="description">ありがとうございます。しかし、それだと大幅な書き換えが必要になりますね。</div>
         </div>
       </div>
+      <div class="event" id="message-1687339361.478999">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1687339361.478999">2023-06-21 18:22:41 +0900</a></div>
+          </div>
+          <div class="description">「全ての関数のすべての引数に <code>!</code> をつけて回る」はそんなに害がないことが多いですが、「全ての関数のすべての引数 <code>x</code> を <code>!(force -&gt; x)</code> に置き換える」はパフォーマンスにおいて基本的に有害なのでやめた方が良いかと思います。 <code>deepseq</code> は、一度既に <code>deepseq</code> 済みのデータ構造であっても、データ構造全体をトラバースして評価済みであることを確認・保証するという動作をするので、一度されればもうコストがかからない <code>seq</code> と違って、いつも何度でもデータ構造自体のサイズに比例した時間がかかります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1687346481.382659">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1687346481.382659">2023-06-21 20:21:21 +0900</a></div>
+          </div>
+          <div class="description">問題の切り分けのためにそういうのが欲しい時があります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1687346675.404689">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1687346675.404689">2023-06-21 20:24:35 +0900</a></div>
+          </div>
+          <div class="description"><pre>let (p,q) = </pre><br/>なものを<br/><pre>let !(p,q) = </pre><br/>と変換したりしますが、pやqに!がつかないのが既存のstrictだと使いにくいです。<br/>リークがある場合の書き換えを減らしたいです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1687349587.912249">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1687349587.912249">2023-06-21 21:13:07 +0900</a></div>
+          </div>
+          <div class="description">それが大変なのはそれはそうで、でもそういうのを大域的な書き換えなしにやる方法って思いつかないですね…。「いちいち <code>!</code> 」を避けようとすると型でセーフガードをつける方に行っちゃうので…。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1687356409.268099">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1687356409.268099">2023-06-21 23:06:49 +0900</a></div>
+          </div>
+          <div class="description">ghc pluginでcore言語とかでseqとなっているところをdeepseqに置き換えをすればいいような気がしてきました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1687356664.070509">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1687356664.070509">2023-06-21 23:11:04 +0900</a></div>
+          </div>
+          <div class="description">どのレベルで置き換えをするかは要検討ですが。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../104.html" class="item">Back to questions #104</a>
