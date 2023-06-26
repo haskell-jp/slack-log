@@ -1,0 +1,26 @@
+[
+    {
+        "type": "message",
+        "user": "U05A7BL0PST",
+        "ts": "1687643826.871559",
+        "text": "haskellの事をAIに質問していたら、sha256な文字列に出会いました。\n<https://hamesspam.sakura.ne.jp/hes2023/230625.html|ask AI>  この鬼のように長いsha256な文字表現を短縮したいです。イメージは\nsed 's/hexDigit x 64/SHA256/g'\nこれをparsecで実現するには、どうしたら良いのでしょうか？"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1687671862.515339",
+        "text": "ParsecについているhexDigitってパーサーを使えばそのものズバリ1桁の16進数にマッチさせることができるので、それを `replicateM_` などで64回繰り返せばそうした文字列にマッチするパーサーができます。\nで、置換すると言うことなので「マッチしたら（ `hexDigit` の結果を無視して）当該の文字列に置き換える」ために `&lt;$` を使って\n```import Control.Applicative\nimport Text.Parsec.Char\nimport Control.Monad\n\np = \"SHA256\" &lt;$ (replicateM_ 64 hexDigit)```\nと書けば、「64桁の16進数文字列を `SHA256` という文字列に置き換える」パーサーができます。\n\nただし、難しいのがここからで、Parsecを始め一般にパーサーコンビネーターライブラリーは、「文字列の*先頭から*マッチする」ことに特化しているので、これだけでは例として挙げていた\n```libHSgnuplot-0.5.7-35e9d90b027708a768a475efa9832c80027beea2c362a5c163bd3e513145d115.a```\nみたいな文字列にはマッチしません。\n「問題の16進数の文字列の手前までは別途処理する」という場合はこのままでよいのですが、これで不十分だという場合は、部分文字列にマッチさせるよう書き換えるか、今回の場合、問題のファイル名の形式がはっきりしているようなのでそれに合わせて先頭からパースするパーサーに変える必要があります。\n\n前者の「部分文字列にマッチさせるよう書き換える」のを自動でやってくれるライブラリーとして、parsec向けではないんですが、\n<https://hackage.haskell.org/package/replace-attoparsec> と <https://hackage.haskell.org/package/replace-megaparsec> というのがお勧めです。"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1687672024.619989",
+        "text": "ちなみに、64桁の16進数だからと言ってSHA256とは限らないかと。 <https://qiita.com/KEINOS/items/c92268386d265042ea16> 曰く出力が32バイト（16進数で64桁）になるハッシュ関数は他にもたくさんありますし。\n実際にGHCやcabalがどうしているかは私も知らない所なので恐縮ですが..."
+    },
+    {
+        "type": "message",
+        "user": "U05A7BL0PST",
+        "ts": "1687728185.026139",
+        "text": "色々な解説、ありがとうございました。\n私も、投稿した後少し調べてみました。\nsed = try p &lt;|&gt; anyChar ; sed\nという方法が使えないかと。うんと悩んでみます。\n涙の数だけ、強くなれるよ、がモットーです。"
+    }
+]
