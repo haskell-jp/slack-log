@@ -166,5 +166,17 @@
         "user": "UL1HFJATE",
         "ts": "1687532665.858759",
         "text": "なお， Freeze 5 は 2023-07-03 であり， Freeze 6 はその1-2週間後で， Freeze 6 が最終freezeとなるようです．それまでにTest Contest の Practice A に AC 解を投げておく必要がありますが，この一個上の投稿に含まれる提出で要求を充足しているので，それそのものは気になさらなくても大丈夫です．ただし，ライブラリの正常動作に関してはインポートまでしか確認していないので，必要に応じてテストコンテストで動作確認を行っていただけると助かります．\n\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1056940558&amp;range=C14|Lang update 202301スプレッドシートの「要確認事項」シート，セルC14> より引用:\n&gt; 次々回のfreeze（次回のfreezeから1～2週間後を予定）をもってジャッジを確定させる予定です\n&gt; 入れたい言語/ライブラリが正常に動作することを必ず確認してください\n&gt; またジャッジの内部テスト用などに使用するため\n&gt; <https://atcoder.jp/contests/language-test-202301/tasks/practice_1|https://atcoder.jp/contests/language-test-202301/tasks/practice_1>\n&gt; この問題においてAC解を提出してください\n&gt; ACが確認できない言語においては最終のジャッジからは外される可能性があることがあります\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=0&amp;range=B5:D5|同スプレッドシート,「まずはじめに」シート，「今後の進め方」(セル範囲B5:D5)>  より一部引用:\n&gt; 次のfreeze : 2023-07-03\n&gt; 特段の不具合が見つからない場合に次々回（次回のfreezeから1～2週間後を予定）のfreezeをもって新ジャッジを確定させる予定です\n&gt; また必ずAC解を提出しておいてください\n&gt; 詳しくは要確認事項シートの該当項目を確認してください"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1687989126.465459",
+        "text": "LLVM, ghcup, cabal-install 等のライセンスの件ですが，\n\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=K115>\n\n&gt; 現状の「言語とライブラリ」だけで今のところ問題ありません\n&gt; ただしもし懸念事項があるならば注記で書いていただけると助かります\nと返信いただいたので問題はなさそうかな？"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1687991585.429139",
+        "text": "フィードバック #119 を見てて思ったのですが，インストールの最後に\n```rm -rf ~/.ghcup/bin/ghcup ~/.ghcup/cache ~/.ghcup/logs ~/.ghcup/tmp ~/.cabal/logs```\nあたり実行した方が良いのでしょうか？\n\n\nフィードバック #119 の引用:\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=123:123>\n&gt; Q:「インストール時に一時的に使用するファイルは/tmpに置くようにしてもらえると実行環境からは除かれるので“助かります“」とありますが、\n&gt; インストールからコンパイル、コンパイルから実行への転送量がジャッジの負荷やコストに結構影響するのでしょうか？\n&gt; 例えば、インストールで使った git を apt-get remove &amp;&amp; apt-get autoremove したり、\n&gt; コンパイル後にコンパイラとライブラリを消したほうがいいですか？\n&gt; \n&gt; A: インストールに際して一時的に使用されるもののみ/tmpに置く、ないしはインストールの最後に削除していただくとジャッジを複数台立てるときにそのコピーするデータ量が減るためありがたいということです\n&gt; 例えばコンパイラ本体を含む圧縮ファイルや、バイナリインストールのためにダウンロードしてきたソースコードなどは実行環境上には不要なものであるはずなので、それらは基本的に/tmpで作業をしてもらえるとインストールコマンドをすべて実行し終わったあとに削除され、コンパイル/実行環境からは消えた状態となります\n&gt; \n&gt; コンパイル時に行った各種操作による後片付けはしなくても大丈夫です\n&gt; 逆に下手にコンパイル時に後片付けを行うと\n&gt; - 実行時に必要なファイルまで間違えて消してしまう可能性がある\n&gt; - 後片付けもコンパイル時間に含まれ、コンパイル時間は一定時間で制限されているためこの制限時間を超えてしまう可能性がある\n&gt; といった点からおすすめはしません"
     }
 ]
