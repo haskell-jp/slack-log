@@ -30,6 +30,39 @@
           <div class="description">明日昼にテストをした上で，24:00を目処に <code>~/.ghcup/trash</code>  を加えて<br/><br/><pre>rm -rf ~/.ghcup/bin/ghcup ~/.ghcup/cache ~/.ghcup/logs ~/.ghcup/tmp ~/.ghcup/trash ~/.cabal/logs</pre><br/>を最後に実行するように変更しようかと思います．ご意見があればお願いします．</div>
         </div>
       </div>
+      <div class="event" id="message-1688263950.065419">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1688263950.065419">2023-07-02 11:12:30 +0900</a></div>
+          </div>
+          <div class="description">忘れてました．<br/><br/><pre>sudo apt-get remove -y libncurses-dev libncurses5
+sudo apt-get autoremove -y</pre><br/>も試したいと思います． <code>ghcup</code> が <code>ghcup tui</code> のために <code>vty</code> を通して <code>ncurses</code> に依存しますが，それを必要とするパッケージが我々のdependency に含まれないように見えるからです．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1688279644.333619">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1688279644.333619">2023-07-02 15:34:04 +0900</a></div>
+          </div>
+          <div class="description">追加で，コマンド最初の apt-get を<br/><br/><pre>$ sudo apt-get install -y build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 llvm-14</pre><br/>から<br/><br/><pre>$ sudo apt-get install -y curl
+$ sudo apt-get install -y --no-install-recommends build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 llvm-14</pre><br/>に変更しました．その上で，インストール最後に<br/><br/><pre>$ sudo apt-get remove -y curl libncurses5 libncurses-dev
+$ sudo apt-get autoremove -y
+$ rm -rf ~/.ghcup/bin/ghcup ~/.ghcup/cache ~/.ghcup/logs ~/.ghcup/tmp ~/.ghcup/trash ~/.cabal/logs</pre><br/>を実行した上で，モジュールインポートのコードのビルド・実行が正しく行われることを確認しました！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1688312701.003289">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1688312701.003289">2023-07-03 00:45:01 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=K38'>https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=K38</a><br/><br/>上の内容を提案シートに反映しました．ただし，<br/><br/><pre>$ sudo apt-get remove -y curl libncurses5 libncurses-dev
+$ sudo apt-get autoremove -y</pre><br/>については追加を見合わせました．この理由は，GHC/cabal-install の実行に <code>curl, libncurses5, libncurses-dev</code> が必要ないという確信を持てなくなったからです．そもそも，これらのパッケージは言語環境インストール開始時に次のコマンドでインストールしたものです．<br/><br/><pre>$ sudo apt-get install -y --no-install-recommends build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 llvm-14</pre><br/>これらインストールパッケージの由来は， GHCup がインストール時に要求する System Requirementsです．実際の文面は次のとおり：<br/><br/><pre>System requirements 
+  Please ensure the following distro packages are installed before continuing (you can exit ghcup and return at any time): build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5</pre><br/>そこで，GHCupインストールスクリプトのこのメッセージを発行する箇所(<https://github.com/haskell/ghcup-hs/blob/e14600ae751753aeb185f58bb4554fedbd27194a/scripts/bootstrap/bootstrap-haskell#L803|https://github.com/haskell/ghcup-hs/blob/e14600ae751753aeb185f58bb4554fedbd27194a/scripts/bootstrap/bootstrap-haskell#L803>) を読みにいって確認したところ，これは  <code>$ ghcup tool-requirements</code>  によって表示されていることがわかりました． <code>ghcup tool-requirements</code> の機能は， <code>--help</code> によれば<br/><br/><blockquote>Show the requirements for ghc/cabal</blockquote>とのことで，このたびの <code>apt-get remove</code> の追加見合わせはこの一文が理由です． どう考えても <code>curl</code> やら <code>ncurses</code> やら使ってそうなのは <code>ghcup</code> だろと断言したいのは山々なのですが，安全側に倒しておきたいと判断しました．</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../8.html" class="item">Back to atcoder-lang-updates #8</a>

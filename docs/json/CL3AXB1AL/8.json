@@ -190,5 +190,23 @@
         "user": "UL1HFJATE",
         "ts": "1688212069.527559",
         "text": "明日昼にテストをした上で，24:00を目処に `~/.ghcup/trash`  を加えて\n\n```rm -rf ~/.ghcup/bin/ghcup ~/.ghcup/cache ~/.ghcup/logs ~/.ghcup/tmp ~/.ghcup/trash ~/.cabal/logs```\nを最後に実行するように変更しようかと思います．ご意見があればお願いします．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1688263950.065419",
+        "text": "忘れてました．\n\n```sudo apt-get remove -y libncurses-dev libncurses5\nsudo apt-get autoremove -y```\nも試したいと思います． `ghcup` が `ghcup tui` のために `vty` を通して `ncurses` に依存しますが，それを必要とするパッケージが我々のdependency に含まれないように見えるからです．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1688279644.333619",
+        "text": "追加で，コマンド最初の apt-get を\n\n```$ sudo apt-get install -y build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 llvm-14```\nから\n\n```$ sudo apt-get install -y curl\n$ sudo apt-get install -y --no-install-recommends build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 llvm-14```\nに変更しました．その上で，インストール最後に\n\n```$ sudo apt-get remove -y curl libncurses5 libncurses-dev\n$ sudo apt-get autoremove -y\n$ rm -rf ~/.ghcup/bin/ghcup ~/.ghcup/cache ~/.ghcup/logs ~/.ghcup/tmp ~/.ghcup/trash ~/.cabal/logs```\nを実行した上で，モジュールインポートのコードのビルド・実行が正しく行われることを確認しました！"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1688312701.003289",
+        "text": "<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=K38|https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=K38>\n\n上の内容を提案シートに反映しました．ただし，\n\n```$ sudo apt-get remove -y curl libncurses5 libncurses-dev\n$ sudo apt-get autoremove -y```\nについては追加を見合わせました．この理由は，GHC/cabal-install の実行に `curl, libncurses5, libncurses-dev` が必要ないという確信を持てなくなったからです．そもそも，これらのパッケージは言語環境インストール開始時に次のコマンドでインストールしたものです．\n\n```$ sudo apt-get install -y --no-install-recommends build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 llvm-14```\nこれらインストールパッケージの由来は， GHCup がインストール時に要求する System Requirementsです．実際の文面は次のとおり：\n\n```System requirements \n  Please ensure the following distro packages are installed before continuing (you can exit ghcup and return at any time): build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5```\nそこで，GHCupインストールスクリプトのこのメッセージを発行する箇所(<https://github.com/haskell/ghcup-hs/blob/e14600ae751753aeb185f58bb4554fedbd27194a/scripts/bootstrap/bootstrap-haskell#L803|https://github.com/haskell/ghcup-hs/blob/e14600ae751753aeb185f58bb4554fedbd27194a/scripts/bootstrap/bootstrap-haskell#L803>) を読みにいって確認したところ，これは  `$ ghcup tool-requirements`  によって表示されていることがわかりました． `ghcup tool-requirements` の機能は， `--help` によれば\n\n&gt; Show the requirements for ghc/cabal\nとのことで，このたびの `apt-get remove` の追加見合わせはこの一文が理由です． どう考えても `curl` やら `ncurses` やら使ってそうなのは `ghcup` だろと断言したいのは山々なのですが，安全側に倒しておきたいと判断しました．"
     }
 ]
