@@ -358,6 +358,33 @@ $ sudo apt-get autoremove -y</pre><br/>については追加を見合わせま�
   Please ensure the following distro packages are installed before continuing (you can exit ghcup and return at any time): build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5</pre><br/>そこで，GHCupインストールスクリプトのこのメッセージを発行する箇所(<https://github.com/haskell/ghcup-hs/blob/e14600ae751753aeb185f58bb4554fedbd27194a/scripts/bootstrap/bootstrap-haskell#L803|https://github.com/haskell/ghcup-hs/blob/e14600ae751753aeb185f58bb4554fedbd27194a/scripts/bootstrap/bootstrap-haskell#L803>) を読みにいって確認したところ，これは  <code>$ ghcup tool-requirements</code>  によって表示されていることがわかりました． <code>ghcup tool-requirements</code> の機能は， <code>--help</code> によれば<br/><br/><blockquote>Show the requirements for ghc/cabal</blockquote>とのことで，このたびの <code>apt-get remove</code> の追加見合わせはこの一文が理由です． どう考えても <code>curl</code> やら <code>ncurses</code> やら使ってそうなのは <code>ghcup</code> だろと断言したいのは山々なのですが，安全側に倒しておきたいと判断しました．</div>
         </div>
       </div>
+      <div class="event" id="message-1688799742.361419">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1688799742.361419">2023-07-08 16:02:22 +0900</a></div>
+          </div>
+          <div class="description">最終フリーズの日程が確定しました．2023-07-17(月)です．<br/><br/>Language Update 202301 spreadsheet まずはじめに - 今後の進め方(<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=0&amp;range=B5:D5>) から一部引用:<br/><blockquote>次のfreeze : 2023-07-17<br/>上記freezeをもって新ジャッジを確定し、以降の修正は受け付けない予定です</blockquote></div>
+        </div>
+      </div>
+      <div class="event" id="message-1688799966.589739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1688799966.589739">2023-07-08 16:06:06 +0900</a></div>
+          </div>
+          <div class="description">Language Test も 最新版 (Freeze 5, 20230703) にアップデートされました．正常に動作しているようです．動作確認AC提出を貼っておきます:<br/><a href='https://atcoder.jp/contests/language-test-202301/submissions/43298808'>https://atcoder.jp/contests/language-test-202301/submissions/43298808</a><br/><a href='https://atcoder.jp/contests/language-test-202301/submissions/43298825'>https://atcoder.jp/contests/language-test-202301/submissions/43298825</a><br/><a href='https://atcoder.jp/contests/language-test-202301/submissions/43308487'>https://atcoder.jp/contests/language-test-202301/submissions/43308487</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1688800194.985869">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1688800194.985869">2023-07-08 16:09:54 +0900</a></div>
+          </div>
+          <div class="description">License 欄に書いたLicense reportへの Gist リンクがリビジョン指定なしのやつだったので，リビジョン指定付きのpermalinkを追加しておきました：<br/><a href='https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=P38'>https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=P38</a></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CL3AXB1AL/7.html" class="item">Previous</a>

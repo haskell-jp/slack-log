@@ -208,5 +208,23 @@
         "user": "UL1HFJATE",
         "ts": "1688312701.003289",
         "text": "<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=K38|https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=K38>\n\n上の内容を提案シートに反映しました．ただし，\n\n```$ sudo apt-get remove -y curl libncurses5 libncurses-dev\n$ sudo apt-get autoremove -y```\nについては追加を見合わせました．この理由は，GHC/cabal-install の実行に `curl, libncurses5, libncurses-dev` が必要ないという確信を持てなくなったからです．そもそも，これらのパッケージは言語環境インストール開始時に次のコマンドでインストールしたものです．\n\n```$ sudo apt-get install -y --no-install-recommends build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 llvm-14```\nこれらインストールパッケージの由来は， GHCup がインストール時に要求する System Requirementsです．実際の文面は次のとおり：\n\n```System requirements \n  Please ensure the following distro packages are installed before continuing (you can exit ghcup and return at any time): build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5```\nそこで，GHCupインストールスクリプトのこのメッセージを発行する箇所(<https://github.com/haskell/ghcup-hs/blob/e14600ae751753aeb185f58bb4554fedbd27194a/scripts/bootstrap/bootstrap-haskell#L803|https://github.com/haskell/ghcup-hs/blob/e14600ae751753aeb185f58bb4554fedbd27194a/scripts/bootstrap/bootstrap-haskell#L803>) を読みにいって確認したところ，これは  `$ ghcup tool-requirements`  によって表示されていることがわかりました． `ghcup tool-requirements` の機能は， `--help` によれば\n\n&gt; Show the requirements for ghc/cabal\nとのことで，このたびの `apt-get remove` の追加見合わせはこの一文が理由です． どう考えても `curl` やら `ncurses` やら使ってそうなのは `ghcup` だろと断言したいのは山々なのですが，安全側に倒しておきたいと判断しました．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1688799742.361419",
+        "text": "最終フリーズの日程が確定しました．2023-07-17(月)です．\n\nLanguage Update 202301 spreadsheet まずはじめに - 今後の進め方(<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=0&amp;range=B5:D5>) から一部引用:\n&gt; 次のfreeze : 2023-07-17\n&gt; 上記freezeをもって新ジャッジを確定し、以降の修正は受け付けない予定です"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1688799966.589739",
+        "text": "Language Test も 最新版 (Freeze 5, 20230703) にアップデートされました．正常に動作しているようです．動作確認AC提出を貼っておきます:\n<https://atcoder.jp/contests/language-test-202301/submissions/43298808>\n<https://atcoder.jp/contests/language-test-202301/submissions/43298825>\n<https://atcoder.jp/contests/language-test-202301/submissions/43308487>"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1688800194.985869",
+        "text": "License 欄に書いたLicense reportへの Gist リンクがリビジョン指定なしのやつだったので，リビジョン指定付きのpermalinkを追加しておきました：\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=P38>"
     }
 ]
