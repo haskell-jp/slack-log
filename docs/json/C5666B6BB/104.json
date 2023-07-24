@@ -106,5 +106,11 @@
         "user": "U05H6JX0PGB",
         "ts": "1689404805.114849",
         "text": "<@U05H6JX0PGB> has joined the channel"
+    },
+    {
+        "type": "message",
+        "user": "U015L5JEP8D",
+        "ts": "1690112065.483659",
+        "text": "`callCC`の型はなぜ`forall r m a. ((forall b. a -&gt; ContT r m b) -&gt; ContT r m a) -&gt; ContT r m a`ではなく`forall r m a b. ((a -&gt; ContT r m b) -&gt; ContT r m a) -&gt; ContT r m a`なのでしょうか\n実際`callCC' f = callCC (\\exit -&gt; f $ (\\ a -&gt; absurd &lt;$&gt; exit a))`とすれば前者の型にでき、前者の型のほうが脱出用の継続（`callCC (\\exit -&gt; ...)`のexit）の返り値の型が制限されず便利であるように思えます"
     }
 ]
