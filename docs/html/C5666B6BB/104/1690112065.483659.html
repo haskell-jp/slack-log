@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #104 at 2023-07-23 20:34:25 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #104 at 2023-07-23 20:34:25 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to questions #104</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1690112065.483659">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minus1216</div>
+            <div class="date"><a class="date" href="#message-1690112065.483659">2023-07-23 20:34:25 +0900</a></div>
+          </div>
+          <div class="description"><code>callCC</code>の型はなぜ`forall r m a. ((forall b. a -&gt; ContT r m b) -&gt; ContT r m a) -&gt; ContT r m a`ではなく`forall r m a b. ((a -&gt; ContT r m b) -&gt; ContT r m a) -&gt; ContT r m a`なのでしょうか<br/>実際`callCC' f = callCC (\exit -&gt; f $ (\ a -&gt; absurd &lt;$&gt; exit a))`とすれば前者の型にでき、前者の型のほうが脱出用の継続（`callCC (\exit -&gt; ...)`のexit）の返り値の型が制限されず便利であるように思えます</div>
+        </div>
+      </div>
+      <div class="event" id="message-1690163286.903009">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1690163286.903009">2023-07-24 10:48:06 +0900</a></div>
+          </div>
+          <div class="description">正解を知らないのですが高ランク多相を避けたかったんですかねえ</div>
+        </div>
+      </div>
+      <div class="event" id="message-1690191614.740869">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1690191614.740869">2023-07-24 18:40:14 +0900</a></div>
+          </div>
+          <div class="description">transformersパッケージはGHC拡張の使用に関して結構抑制的だった気がしますね<br/>追記：mtlパッケージのcallCC関数がそういうアレになっている理由にはならないか</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to questions #104</a>
+    </div>
+  </div>
+</body>
+</html>

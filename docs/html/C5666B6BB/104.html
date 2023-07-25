@@ -189,6 +189,7 @@
             <div class="date"><a class="date" href="#message-1690112065.483659">2023-07-23 20:34:25 +0900</a></div>
           </div>
           <div class="description"><code>callCC</code>の型はなぜ`forall r m a. ((forall b. a -&gt; ContT r m b) -&gt; ContT r m a) -&gt; ContT r m a`ではなく`forall r m a b. ((a -&gt; ContT r m b) -&gt; ContT r m a) -&gt; ContT r m a`なのでしょうか<br/>実際`callCC' f = callCC (\exit -&gt; f $ (\ a -&gt; absurd &lt;$&gt; exit a))`とすれば前者の型にでき、前者の型のほうが脱出用の継続（`callCC (\exit -&gt; ...)`のexit）の返り値の型が制限されず便利であるように思えます</div>
+          <a class="link-to-replies" href="104/1690112065.483659.html">... Replies ...</a>
         </div>
       </div>
     </div>

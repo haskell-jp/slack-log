@@ -1,0 +1,20 @@
+[
+    {
+        "type": "message",
+        "user": "U015L5JEP8D",
+        "ts": "1690112065.483659",
+        "text": "`callCC`の型はなぜ`forall r m a. ((forall b. a -&gt; ContT r m b) -&gt; ContT r m a) -&gt; ContT r m a`ではなく`forall r m a b. ((a -&gt; ContT r m b) -&gt; ContT r m a) -&gt; ContT r m a`なのでしょうか\n実際`callCC' f = callCC (\\exit -&gt; f $ (\\ a -&gt; absurd &lt;$&gt; exit a))`とすれば前者の型にでき、前者の型のほうが脱出用の継続（`callCC (\\exit -&gt; ...)`のexit）の返り値の型が制限されず便利であるように思えます"
+    },
+    {
+        "type": "message",
+        "user": "U4L0B71L1",
+        "ts": "1690163286.903009",
+        "text": "正解を知らないのですが高ランク多相を避けたかったんですかねえ"
+    },
+    {
+        "type": "message",
+        "user": "UGM9F7XQS",
+        "ts": "1690191614.740869",
+        "text": "transformersパッケージはGHC拡張の使用に関して結構抑制的だった気がしますね\n追記：mtlパッケージのcallCC関数がそういうアレになっている理由にはならないか"
+    }
+]
