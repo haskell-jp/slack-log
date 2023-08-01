@@ -72,7 +72,7 @@ fib n = fib' n 1 0
       <div class="event" id="message-1663577075.903479">
         <div class="content">
           <div class="summary">
-            <div class="user">角田智活</div>
+            <div class="user">かりんとう</div>
             <div class="date"><a class="date" href="#message-1663577075.903479">2022-09-19 17:44:35 +0900</a></div>
           </div>
           <div class="description">間違ってたらすみませんがコールスタックはHaskellにないような気が。<br/>「Haskellは末尾再帰をしてもうまみがない」はその通りだと思います、コールスタックがなく、サンク(予定されている計算を記憶)があります。<br/>また、Haskellでは再帰を末尾にすることによる最適化もされないと認識しています。<br/><br/>その例だとサンクが潰れていませんので、計算が実際に実行される前にはサンクによりメモリが使用されます。<br/>もしサンクを潰したければ、正格評価にする必要があります。(代わりに無限リストなどができなくなるデメリットはありますが、それが問題なければ)<br/>ただし、Haskellは全体を全て正格評価する方法はないはずで(自分は知らない)、部分部分を正格評価にすることはできますが、<br/>弱冠頭正規形の制約や評価のタイミングを把握しなければ「したつもりでなってない」ということになる可能性があります。<br/>しかし、上手く行けばいわゆるコールスタックもサンクも使用しない状態にできるとは思われます。<br/><br/>ただ一般的には、Haskellでメモリを気にするのはかなり難しい気がします、<br/>余程のこだわりがなければ、メモリを気にしないか、メモリを気にできる言語を使用するかを選んだ方が良いと思います。<br/><br/>自分も熟練者とは言えないので、間違ってるところがあるかもしれません。</div>
@@ -81,7 +81,7 @@ fib n = fib' n 1 0
       <div class="event" id="message-1663577366.695129">
         <div class="content">
           <div class="summary">
-            <div class="user">角田智活</div>
+            <div class="user">かりんとう</div>
             <div class="date"><a class="date" href="#message-1663577366.695129">2022-09-19 17:49:26 +0900</a></div>
           </div>
           <div class="description">質問に沿って答えると、<br/>①以下のb,cの例は末尾再起最適化されている例といえるでしょうか？<br/>→なっていません、Haskellでそもそもその最適化はされません<br/>②末尾再起最適化されている場合、実行時には実際にコールスタックの生成が抑制されているのでしょうか？<br/>→なっていませんが、コールスタックはありません、ただし実行前にサンクがあります<br/><br/>と自分は認識してます。</div>
@@ -102,13 +102,13 @@ fib n = fib' n 1 0
             <div class="user">HY</div>
             <div class="date"><a class="date" href="#message-1663580269.100909">2022-09-19 18:37:49 +0900</a></div>
           </div>
-          <div class="description">@角田智活<br/>ありがとうございます。<br/>周辺知識も交えてご回答いただけて、勉強になります。<br/><blockquote>もしサンクを潰したければ、正格評価にする必要があります。</blockquote>ちなみに、正格評価にするとサンクを使用しなくなると思いますが、この場合はコールスタックを使うことになりますか？</div>
+          <div class="description">@かりんとう<br/>ありがとうございます。<br/>周辺知識も交えてご回答いただけて、勉強になります。<br/><blockquote>もしサンクを潰したければ、正格評価にする必要があります。</blockquote>ちなみに、正格評価にするとサンクを使用しなくなると思いますが、この場合はコールスタックを使うことになりますか？</div>
         </div>
       </div>
       <div class="event" id="message-1663582244.321399">
         <div class="content">
           <div class="summary">
-            <div class="user">角田智活</div>
+            <div class="user">かりんとう</div>
             <div class="date"><a class="date" href="#message-1663582244.321399">2022-09-19 19:10:44 +0900</a></div>
           </div>
           <div class="description">訂正させて下さい。<br/><blockquote>また、Haskellでは再帰を末尾にすることによる最適化もされないと認識しています</blockquote>これは違ったようです。<br/>Haskellでの末尾再帰は、<br/>遅延評価では最適化自体はあるが結局サンクが作られる<br/>正格評価では最適化され、サンクもコールスタックもない<br/>ということっぽいです。<br/><br/>以下を参考にしました<br/><a href='https://opaupafz2.hatenablog.com/entry/2021/09/18/230521#fn-30fc4e27'>https://opaupafz2.hatenablog.com/entry/2021/09/18/230521#fn-30fc4e27</a><br/><br/>上記によると、Haskellにはそもそもコールスタックがないとのことですので、接している情報が正しければ使われません。<br/>気にするのはサンクだけです。</div>
@@ -120,13 +120,13 @@ fib n = fib' n 1 0
             <div class="user">HY</div>
             <div class="date"><a class="date" href="#message-1663584170.908059">2022-09-19 19:42:50 +0900</a></div>
           </div>
-          <div class="description">@角田智活<br/>ご追記、リンクの添付ありがとうございます:man-bowing:<br/>Haskellの評価の仕方についてはもっと理解を深めなくてはいけないですね、、参考にさせていただきます！</div>
+          <div class="description">@かりんとう<br/>ご追記、リンクの添付ありがとうございます:man-bowing:<br/>Haskellの評価の仕方についてはもっと理解を深めなくてはいけないですね、、参考にさせていただきます！</div>
         </div>
       </div>
       <div class="event" id="message-1663584183.835759">
         <div class="content">
           <div class="summary">
-            <div class="user">角田智活</div>
+            <div class="user">かりんとう</div>
             <div class="date"><a class="date" href="#message-1663584183.835759">2022-09-19 19:43:03 +0900</a></div>
           </div>
           <div class="description">訂正：<br/>①以下のb,cの例は末尾再起最適化されている例といえるでしょうか？<br/>→最適化自体は働くように見えます<br/>②末尾再起最適化されている場合、実行時には実際にコールスタックの生成が抑制されているのでしょうか？<br/>→コールスタックはありませんが、遅延評価である限りサンクがあります<br/><br/>自分もまだまだ勉強しないといけませんね</div>
