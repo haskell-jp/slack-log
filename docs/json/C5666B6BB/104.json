@@ -112,5 +112,11 @@
         "user": "U015L5JEP8D",
         "ts": "1690112065.483659",
         "text": "`callCC`の型はなぜ`forall r m a. ((forall b. a -&gt; ContT r m b) -&gt; ContT r m a) -&gt; ContT r m a`ではなく`forall r m a b. ((a -&gt; ContT r m b) -&gt; ContT r m a) -&gt; ContT r m a`なのでしょうか\n実際`callCC' f = callCC (\\exit -&gt; f $ (\\ a -&gt; absurd &lt;$&gt; exit a))`とすれば前者の型にでき、前者の型のほうが脱出用の継続（`callCC (\\exit -&gt; ...)`のexit）の返り値の型が制限されず便利であるように思えます"
+    },
+    {
+        "type": "message",
+        "user": "U03H9PH8FRP",
+        "ts": "1691583960.006909",
+        "text": "`vector-13.0.0` における `newtype` に対する `Unbox` 実装の質問です。\n(1) <https://hackage.haskell.org/package/vector-0.13.0.0/docs/Data-Vector-Unboxed.html#t:UnboxViaPrim|UnboxViaPrim> を使う方法と (2)『`GeneralizedNewtypeDeriving`』を使う方法 [^1]  は、どちらを好むべきですか。 `U.Vector` を使うだけなら、大きな差は無いと思って良いでしょうか。\n[^1]: (<https://hackage.haskell.org/package/vector-0.13.0.0/docs/Data-Vector-Unboxed.html|Unbox モジュール> 冒頭 2 番目のコードブロックの例)"
     }
 ]
