@@ -219,6 +219,25 @@
           <div class="description">@Masaaki Saitow has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1691991330.531279">
+        <div class="content">
+          <div class="summary">
+            <div class="user">khibino</div>
+            <div class="date"><a class="date" href="#message-1691991330.531279">2023-08-14 14:35:30 +0900</a></div>
+          </div>
+          <div class="description"><code>RecordWildCards</code> 有効にすると、<br/>インポート元で定義済みフィールド名とかさなる名前の<br/><br/>"shadows the existing binding"<br/><br/>の警告が出なくなるみたいなんですが、<br/>そういうものでしょうか?<br/><br/><code>RecordWildCards</code> を有効にすると暗黙に有効にされる<br/><code>DisambiguateRecordFields</code> の効果なのかと思ったけどそういうわけでもないみたいです.<br/><br/><pre>module M where
+
+data R = R { x :: String }</pre><br/><pre>{-# LANGUAGE RecordWildCards #-}
+
+import M
+
+inc :: Int -&gt; Int
+inc x = x + 1
+
+getX :: R -&gt; String
+getX m = x m</pre></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C5666B6BB/103.html" class="item">Previous</a>

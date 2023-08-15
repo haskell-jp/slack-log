@@ -130,5 +130,11 @@
         "user": "U05N5L3N27J",
         "ts": "1691773078.229469",
         "text": "<@U05N5L3N27J> has joined the channel"
+    },
+    {
+        "type": "message",
+        "user": "U4KNU6N48",
+        "ts": "1691991330.531279",
+        "text": "`RecordWildCards` 有効にすると、\nインポート元で定義済みフィールド名とかさなる名前の\n\n\"shadows the existing binding\"\n\nの警告が出なくなるみたいなんですが、\nそういうものでしょうか?\n\n`RecordWildCards` を有効にすると暗黙に有効にされる\n`DisambiguateRecordFields` の効果なのかと思ったけどそういうわけでもないみたいです.\n\n```module M where\n\ndata R = R { x :: String }```\n```{-# LANGUAGE RecordWildCards #-}\n\nimport M\n\ninc :: Int -&gt; Int\ninc x = x + 1\n\ngetX :: R -&gt; String\ngetX m = x m```"
     }
 ]
