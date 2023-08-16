@@ -1,0 +1,20 @@
+[
+    {
+        "type": "message",
+        "user": "U4L0B71L1",
+        "ts": "1692159038.525649",
+        "text": ":tada: Haskell Language Server 2.1.0.0\n<https://github.com/haskell/haskell-language-server/releases/tag/2.1.0.0>\n&gt; • GHC 9.4.6 向けバイナリー\n&gt; • .cabal ファイル向けの補完\n&gt; • パフォーマンス向上\n&gt; • import 文にホバーするとパッケージ名とバージョンが表示 (<https://github.com/haskell/haskell-language-server/pull/3691|#3691>)\n&gt; • Fix code edits in lsp spec compliant editors like helix. (<https://github.com/haskell/haskell-language-server/pull/3643|#3643>)\n（最後よく分からんかった"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1692159160.064149",
+        "text": "最近 LSP に新しい仕様が追加されて、それに伴って自動生成された lsp パッケージを使うように 2.0 系でなっていたんですが、暗黙の前提が崩れていて一部のエディタで正しく動かなくなっていました。その件の修正ですね"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1692159422.157299",
+        "text": "手前味噌の宣伝ですが、GHC 9.4 系で missing import に対する import qualified がサジェストできなくなっていた（T.pack に対して import qualified Data.Text as T を提案するようなの）ので、場当たり的な修正を contribute したのが 2.1 に入ってます。これはGHC側のバグで、スコープ外のシンボルに対するエラーでqualifier （T.pack とかの `T.` の部分）が含まれなくなってしまっていたためでした。"
+    }
+]
