@@ -1,0 +1,32 @@
+[
+    {
+        "type": "message",
+        "user": "U02CE9YGEAU",
+        "ts": "1692450923.172359",
+        "text": "パターンマッチで分けられた関数定義の一行一行`f p1 p2 ... pn = e`のことを何と呼びますか？\nHaskellのいくつかの文献では`equation`と呼ばれているようですが、`clause`というのも見かけます。\n日本語の文献では対応する用語が見当たらなかったのですが、日本語だと何というのでしょうか？\n\nまた、関数定義をデータ型として表現するときに、\n```data FunDecl = FunDecl String [([Pattern], Expr)]```\nと書くとして、`([Pattern], Expr)`　にはどんな名前をつけますか？\ncase式`case e of {p1 -&gt; e1; p2 -&gt; e2; ... pn -&gt; en}` に含まれる`p1 -&gt; e1`は、HaskellではAlternativeと呼ばれていますが、パターンが複数になると何と呼ばれるのでしょう？"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1692485876.414219",
+        "text": "日本語については存じませんが、Haskell 2010の仕様でも「clause」と呼んでいると思しき箇所がありますね。\n&gt; Note that all clauses defining a function must be contiguous, and the number of patterns in each clause must be the same.\n<https://www.haskell.org/onlinereport/haskell2010/haskellch4.html#dx10-84001>"
+    },
+    {
+        "type": "message",
+        "user": "U02CE9YGEAU",
+        "ts": "1692498159.648779",
+        "text": "Language Reportはclauseになっていましたか。S.P.Jonesの論文ではequationになっていました。\n日本語にするとしたら節？でしょうか。\nこんな質問をしたのは、Haskellの仕様を説明するときにclauseにあたる用語がないと不便だと感じたからです。例えば：\n&gt; Haskellでは、関数定義の各節の引数の個数は等しくなければならない。"
+    },
+    {
+        "type": "message",
+        "user": "U05P3B4E516",
+        "ts": "1692514913.180939",
+        "text": "Template Haskellでも関数定義の方はClauseになっていました\n<https://hackage.haskell.org/package/template-haskell-2.20.0.0/docs/Language-Haskell-TH.html#t:Clause>\n\n一方case  ofの方はMatchという名前になってました(Clauseという型名と衝突するから仕方なく呼び分けてるだけな気もします）\n<https://hackage.haskell.org/package/template-haskell-2.20.0.0/docs/Language-Haskell-TH.html#t:Match>\n「Match」は日本語にするの難しそうです"
+    },
+    {
+        "type": "message",
+        "user": "U02CE9YGEAU",
+        "ts": "1692530198.425259",
+        "text": "TemplateHaskellは確認していませんでした。\nどうもありがとうございます。"
+    }
+]
