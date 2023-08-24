@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #104 at 2023-08-23 18:50:36 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #104 at 2023-08-23 18:50:36 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to questions #104</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1692784236.307109">
+        <div class="content">
+          <div class="summary">
+            <div class="user">りょー</div>
+            <div class="date"><a class="date" href="#message-1692784236.307109">2023-08-23 18:50:36 +0900</a></div>
+          </div>
+          <div class="description">Haskellのライブラリをどのくらいの粒度でパッケージ分割したらいいのかの基準が自分の中でまだ整理が付いていないのですが、良い資料をご存知の方、もしくは考えをお持ちの方はいらっしゃいますか？<br/><br/>以前、いわゆる「Internalモジュール」パターンは間違っていて、Internalモジュールが作りたくなったらパッケージ分割の合図だろうといった旨の↓の記事を見まして。<br/>記事の内容には完全に同意なのですが、すると、究極的にはなるべく細かく分割するのがよいのではないかと思うようになってしまいました。<br/>分割を止める基準、つまりトレードオフの「分割すべきでない」側の壁がどの辺りにあるのかが分からなくなっています。<br/><br/><a href='http://nikita-volkov.github.io/internal-convention-is-a-mistake/'>http://nikita-volkov.github.io/internal-convention-is-a-mistake/</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1692794750.297889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1692794750.297889">2023-08-23 21:45:50 +0900</a></div>
+          </div>
+          <div class="description">個人的にはもっと重要な理由が生じない限り分けない方がいいと思いますね。<br/>さーっと読んだだけですが、その記事に書いてあることを採用してもPVPをちゃんと守れる以上のメリットが見当たらず、パッケージを分ける面倒くささに見合うと思えないので。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1692798070.557339">
+        <div class="content">
+          <div class="summary">
+            <div class="user">りょー</div>
+            <div class="date"><a class="date" href="#message-1692798070.557339">2023-08-23 22:41:10 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます<br/>なんとなく、パッケージの中で使われない部分はコンパイル時間を増大させるだけの無駄になってしまうということで、管理の面倒くささ（コスト）が許す範囲であればいくらでも細分化すべきくらいの勢いでも良いのかなと考えていたのですが、そうでもないっぽいですね…</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to questions #104</a>
+    </div>
+  </div>
+</body>
+</html>
