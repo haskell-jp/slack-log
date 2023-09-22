@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #104 at 2023-09-21 10:54:02 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #104 at 2023-09-21 10:54:02 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to questions #104</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1695261242.484609">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1695261242.484609">2023-09-21 10:54:02 +0900</a></div>
+          </div>
+          <div class="description">以下、timeout の抜粋です。<br/>最近の timeout は、TimeManagerを使い「時間切れのどきだけ」スレッドが作られます(forkIOWithUnmask)。<br/>(gitでlog を読むと高野さんのアイディアらしい。)<br/>handleTimeoutで作られるこのスレッドは、どこにもブロックする箇所がないので、すぐに消滅しそうです。<br/>しかし、cleanupTimeoutでわざわざkillThreadしています。<br/>このkillThreadは必要なのでしょうか？<br/><br/><pre>Haskell
+timeout :: Int -&gt; IO a -&gt; IO (Maybe a)
+timeout n f
+    | n &lt;  0    = fmap Just f
+    | n == 0    = return Nothing
+    | otherwise = do
+        -- In the threaded RTS, we use the Timer Manager to delay the
+        -- (fairly expensive) 'forkIO' call until the timeout has expired.
+        --
+        -- An additional thread is required for the actual delivery of
+        -- the Timeout exception because killThread (or another throwTo)
+        -- is the only way to reliably interrupt a throwTo in flight.
+        pid &lt;- myThreadId
+        ex  &lt;- fmap Timeout newUnique
+        tm  &lt;- getSystemTimerManager
+        -- 'lock' synchronizes the timeout handler and the main thread:
+        --  * the main thread can disable the handler by writing to 'lock';
+        --  * the handler communicates the spawned thread's id through 'lock'.
+        -- These two cases are mutually exclusive.
+        lock &lt;- newEmptyMVar
+        let handleTimeout = do
+                v &lt;- isEmptyMVar lock
+                when v $ void $ forkIOWithUnmask $ \unmask -&gt; unmask $ do
+                    v2 &lt;- tryPutMVar lock =&lt;&lt; myThreadId
+                    when v2 $ throwTo pid ex
+            cleanupTimeout key = uninterruptibleMask_ $ do
+                v &lt;- tryPutMVar lock undefined
+                if v then unregisterTimeout tm key
+                     else takeMVar lock &gt;&gt;= killThread
+        handleJust (\e -&gt; if e == ex then Just () else Nothing)
+                   (\_ -&gt; return Nothing)
+                   (bracket (registerTimeout tm n handleTimeout)
+                            cleanupTimeout
+                            (\_ -&gt; fmap Just f))</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1695262448.651579">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1695262448.651579">2023-09-21 11:14:08 +0900</a></div>
+          </div>
+          <div class="description">なんとなく分かりました。<br/><br/>以下のレースを考えてみます。<br/>(1) タイムアウトが発生し、ハンドラがtryPutMVarを実行した後、中断<br/>(2) mainのアクションが完了し、cleanupTimeoutが走る。<br/>  vはFalseなので、takeMVar lock <blockquote><blockquote>= killThread が走る。</blockquote>  そして、handleJustを抜ける。</blockquote>(3) ハンドラが、throwTo pid ex を実行。<br/>(4) ex が main に届き、catch されない。<br/><br/>こういうことが起こりそうです。<br/>しかし、「throwTo は同期」らしいです。<br/>並行並列本に書いてありました。。。<br/>なので、必ず相手にとどけてから戻ってきます。<br/><br/>killThread は throwTo なので、(2)の時点でハンドラは殺され、(3)は起きないそうです。<br/>深い。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695263255.136429">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1695263255.136429">2023-09-21 11:27:35 +0900</a></div>
+          </div>
+          <div class="description">もう forkIO しなくて、TimeManager がthrowTo してもいいじゃんと思ったけど、action が FFI を含んでいると throwTo が戻らない可能性があり、TimeManager がブロックされるんだね。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to questions #104</a>
+    </div>
+  </div>
+</body>
+</html>

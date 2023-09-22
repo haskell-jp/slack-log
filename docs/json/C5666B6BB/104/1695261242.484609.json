@@ -1,0 +1,20 @@
+[
+    {
+        "type": "message",
+        "user": "U56MBRKR9",
+        "ts": "1695261242.484609",
+        "text": "以下、timeout の抜粋です。\n最近の timeout は、TimeManagerを使い「時間切れのどきだけ」スレッドが作られます(forkIOWithUnmask)。\n(gitでlog を読むと高野さんのアイディアらしい。)\nhandleTimeoutで作られるこのスレッドは、どこにもブロックする箇所がないので、すぐに消滅しそうです。\nしかし、cleanupTimeoutでわざわざkillThreadしています。\nこのkillThreadは必要なのでしょうか？\n\n```Haskell\ntimeout :: Int -&gt; IO a -&gt; IO (Maybe a)\ntimeout n f\n    | n &lt;  0    = fmap Just f\n    | n == 0    = return Nothing\n    | otherwise = do\n        -- In the threaded RTS, we use the Timer Manager to delay the\n        -- (fairly expensive) 'forkIO' call until the timeout has expired.\n        --\n        -- An additional thread is required for the actual delivery of\n        -- the Timeout exception because killThread (or another throwTo)\n        -- is the only way to reliably interrupt a throwTo in flight.\n        pid &lt;- myThreadId\n        ex  &lt;- fmap Timeout newUnique\n        tm  &lt;- getSystemTimerManager\n        -- 'lock' synchronizes the timeout handler and the main thread:\n        --  * the main thread can disable the handler by writing to 'lock';\n        --  * the handler communicates the spawned thread's id through 'lock'.\n        -- These two cases are mutually exclusive.\n        lock &lt;- newEmptyMVar\n        let handleTimeout = do\n                v &lt;- isEmptyMVar lock\n                when v $ void $ forkIOWithUnmask $ \\unmask -&gt; unmask $ do\n                    v2 &lt;- tryPutMVar lock =&lt;&lt; myThreadId\n                    when v2 $ throwTo pid ex\n            cleanupTimeout key = uninterruptibleMask_ $ do\n                v &lt;- tryPutMVar lock undefined\n                if v then unregisterTimeout tm key\n                     else takeMVar lock &gt;&gt;= killThread\n        handleJust (\\e -&gt; if e == ex then Just () else Nothing)\n                   (\\_ -&gt; return Nothing)\n                   (bracket (registerTimeout tm n handleTimeout)\n                            cleanupTimeout\n                            (\\_ -&gt; fmap Just f))```"
+    },
+    {
+        "type": "message",
+        "user": "U56MBRKR9",
+        "ts": "1695262448.651579",
+        "text": "なんとなく分かりました。\n\n以下のレースを考えてみます。\n(1) タイムアウトが発生し、ハンドラがtryPutMVarを実行した後、中断\n(2) mainのアクションが完了し、cleanupTimeoutが走る。\n  vはFalseなので、takeMVar lock &gt;&gt;= killThread が走る。\n  そして、handleJustを抜ける。\n(3) ハンドラが、throwTo pid ex を実行。\n(4) ex が main に届き、catch されない。\n\nこういうことが起こりそうです。\nしかし、「throwTo は同期」らしいです。\n並行並列本に書いてありました。。。\nなので、必ず相手にとどけてから戻ってきます。\n\nkillThread は throwTo なので、(2)の時点でハンドラは殺され、(3)は起きないそうです。\n深い。"
+    },
+    {
+        "type": "message",
+        "user": "U56MBRKR9",
+        "ts": "1695263255.136429",
+        "text": "もう forkIO しなくて、TimeManager がthrowTo してもいいじゃんと思ったけど、action が FFI を含んでいると throwTo が戻らない可能性があり、TimeManager がブロックされるんだね。"
+    }
+]
