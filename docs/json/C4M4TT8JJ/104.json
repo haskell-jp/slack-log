@@ -82,5 +82,17 @@
         "user": "U4LGTMTMK",
         "ts": "1695683903.592829",
         "text": "初心者フレンドリーさと開発生産性に重点を置いたHaskell方言（ただし開発中）\n<https://neohaskell.org/>"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1695707884.821239",
+        "text": "これ、Show case 的なものも別に現行の GHC でできそうなことしか書いてないように見え、技術的詳細の掛かれたドキュメントも見当たらず、パッと見ても Git レポジトリ空っぽいんですけど、どこかに何か期待の持てそうなリソースがあったりするんでしょうか……？"
+    },
+    {
+        "type": "message",
+        "user": "U56MBRKR9",
+        "ts": "1695776800.610899",
+        "text": "サーバーとかで、いろいろなパラメータの統計をとる場合、たくさんの IORef ではなく、IOUArray を用意してそれぞれの要素を atomic に更新したくなります。\narray にそういう関数は提供されてないのですが、プリミティブに cas があるようで、\"massiv\" パッケージを参考に作ってみました。\n<https://github.com/kazu-yamamoto/dnsext/blob/main/dnsext-utils/DNS/Array.hs>\nHaskellの弱点が、一挙になくなった感じ。\narray はデフォルトでこれを提供してほしい。。。"
     }
 ]

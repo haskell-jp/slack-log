@@ -1,0 +1,14 @@
+[
+    {
+        "type": "message",
+        "user": "U56MBRKR9",
+        "ts": "1695776800.610899",
+        "text": "サーバーとかで、いろいろなパラメータの統計をとる場合、たくさんの IORef ではなく、IOUArray を用意してそれぞれの要素を atomic に更新したくなります。\narray にそういう関数は提供されてないのですが、プリミティブに cas があるようで、\"massiv\" パッケージを参考に作ってみました。\n<https://github.com/kazu-yamamoto/dnsext/blob/main/dnsext-utils/DNS/Array.hs>\nHaskellの弱点が、一挙になくなった感じ。\narray はデフォルトでこれを提供してほしい。。。"
+    },
+    {
+        "type": "message",
+        "user": "U56MBRKR9",
+        "ts": "1695777343.050459",
+        "text": "まぁ、衝突は避けた方がいいので、コアごとに配列を持ち、読み出すときに足し合わせるのがいいと思います。"
+    }
+]

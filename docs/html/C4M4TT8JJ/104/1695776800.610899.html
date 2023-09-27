@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #104 at 2023-09-27 10:06:40 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #104 at 2023-09-27 10:06:40 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to random #104</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1695776800.610899">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1695776800.610899">2023-09-27 10:06:40 +0900</a></div>
+          </div>
+          <div class="description">サーバーとかで、いろいろなパラメータの統計をとる場合、たくさんの IORef ではなく、IOUArray を用意してそれぞれの要素を atomic に更新したくなります。<br/>array にそういう関数は提供されてないのですが、プリミティブに cas があるようで、"massiv" パッケージを参考に作ってみました。<br/><a href='https://github.com/kazu-yamamoto/dnsext/blob/main/dnsext-utils/DNS/Array.hs'>https://github.com/kazu-yamamoto/dnsext/blob/main/dnsext-utils/DNS/Array.hs</a><br/>Haskellの弱点が、一挙になくなった感じ。<br/>array はデフォルトでこれを提供してほしい。。。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695777343.050459">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1695777343.050459">2023-09-27 10:15:43 +0900</a></div>
+          </div>
+          <div class="description">まぁ、衝突は避けた方がいいので、コアごとに配列を持ち、読み出すときに足し合わせるのがいいと思います。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to random #104</a>
+    </div>
+  </div>
+</body>
+</html>
