@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #104 at 2023-09-29 11:20:19 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #104 at 2023-09-29 11:20:19 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to questions #104</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1695954019.278299">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1695954019.278299">2023-09-29 11:20:19 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://github.com/haskell/haskell-language-server/issues/365'>https://github.com/haskell/haskell-language-server/issues/365</a><br/><a href='https://haskell-language-server.readthedocs.io/en/latest/troubleshooting.html#static-binaries'>https://haskell-language-server.readthedocs.io/en/latest/troubleshooting.html#static-binaries</a><br/>template haskellとhlsって相性が悪いのですね。<br/>hls使ってないので、ハマらずに済んでいますが、一般的にどうやって解決していますか？<br/>hlsを直すのは難しいのでパッケージのtemplate haskellのコードを直すのが一般的なのでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695954716.946699">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1695954716.946699">2023-09-29 11:31:56 +0900</a></div>
+          </div>
+          <div class="description">これはTHというよりも、THとFFIが絡むような場合の話ですね。普通のTHとの組み合わせは大体問題なく動きます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695954743.695059">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1695954743.695059">2023-09-29 11:32:23 +0900</a></div>
+          </div>
+          <div class="description">THとFFIが絡む場合は、 -fobject-codeをつければ大まかにうまく行く場合が多いです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695954836.423639">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1695954836.423639">2023-09-29 11:33:56 +0900</a></div>
+          </div>
+          <div class="description">ふたつ目の公式ドキュメントの話は静的バイナリだとうまく動かないという話で、いまのHLSは各プラットホームごとにDynamic binary で配布されているので問題はほとんどないです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695954885.933669">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1695954885.933669">2023-09-29 11:34:45 +0900</a></div>
+          </div>
+          <div class="description">ぜひ使ってみてください</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695954906.304469">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1695954906.304469">2023-09-29 11:35:06 +0900</a></div>
+          </div>
+          <div class="description">-fobject-codeというのはHLSのオプションでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695954941.544969">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1695954941.544969">2023-09-29 11:35:41 +0900</a></div>
+          </div>
+          <div class="description"><strike>パッケージの方につけるのですね。</strike></div>
+        </div>
+      </div>
+      <div class="event" id="message-1695955060.281049">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1695955060.281049">2023-09-29 11:37:40 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/ghci-obj.html'>https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/ghci-obj.html</a><br/>ghciのオプションですね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695955067.023949">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1695955067.023949">2023-09-29 11:37:47 +0900</a></div>
+          </div>
+          <div class="description">GHC_OPTIONSでモジュールにつけるかたちです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695955174.255089">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1695955174.255089">2023-09-29 11:39:34 +0900</a></div>
+          </div>
+          <div class="description">なるほど。だいたいオプションをつけると解決ということですね。<br/><a href='https://github.com/fpco/inline-c/pull/128'>https://github.com/fpco/inline-c/pull/128</a><br/>こういうのもその解決法でいけますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695955249.032439">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1695955249.032439">2023-09-29 11:40:49 +0900</a></div>
+          </div>
+          <div class="description">試してみないとわからないですよね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695955279.672299">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1695955279.672299">2023-09-29 11:41:19 +0900</a></div>
+          </div>
+          <div class="description">まさにこのバグに噛まれたことがあって、-fobject-codeだけではだめで、inline-cの場合は定義をモジュール間で移動すると通る場合があり、やや苦労しましたね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695955292.959899">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1695955292.959899">2023-09-29 11:41:32 +0900</a></div>
+          </div>
+          <div class="description">contextが絡んでくるとややこしくなります</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695955347.269529">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1695955347.269529">2023-09-29 11:42:27 +0900</a></div>
+          </div>
+          <div class="description">そうなんですね。なんか解決方法がおかしいような気もしつつ、難しいのですね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695955374.183339">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1695955374.183339">2023-09-29 11:42:54 +0900</a></div>
+          </div>
+          <div class="description">まあ完璧な解決策ではないですねえ……</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695955456.475439">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1695955456.475439">2023-09-29 11:44:16 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to questions #104</a>
+    </div>
+  </div>
+</body>
+</html>

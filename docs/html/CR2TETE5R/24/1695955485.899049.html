@@ -2,44 +2,16 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>haskell-jp / beginners #24</title>
-<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+<title>haskell-jp / beginners #24 at 2023-09-29 11:44:45 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
 </head>
 <body>
   <div class="ui container">
-    <h1>haskell-jp / beginners #24</h1>
+    <h1>haskell-jp / beginners #24 at 2023-09-29 11:44:45 +0900</h1>
     <div class="ui pagination menu">
-      <a href="../../html/CR2TETE5R/23.html" class="item">Previous</a>
-      <a href="../../" class="item">Top</a>
+      <a href="../24.html" class="item">Back to beginners #24</a>
     </div>
     <div class="ui feed">
-      <div class="event" id="message-1694739882.821779">
-        <div class="content">
-          <div class="summary">
-            <div class="user">高橋紀美</div>
-            <div class="date"><a class="date" href="#message-1694739882.821779">2023-09-15 10:04:42 +0900</a></div>
-          </div>
-          <div class="description">@高橋紀美 has joined the channel</div>
-        </div>
-      </div>
-      <div class="event" id="message-1695432046.542089">
-        <div class="content">
-          <div class="summary">
-            <div class="user">Masaya Igarashi</div>
-            <div class="date"><a class="date" href="#message-1695432046.542089">2023-09-23 10:20:46 +0900</a></div>
-          </div>
-          <div class="description">@Masaya Igarashi has joined the channel</div>
-        </div>
-      </div>
-      <div class="event" id="message-1695432342.396889">
-        <div class="content">
-          <div class="summary">
-            <div class="user">Masaya Igarashi</div>
-            <div class="date"><a class="date" href="#message-1695432342.396889">2023-09-23 10:25:42 +0900</a></div>
-          </div>
-          <div class="description">はじめまして　Haskell初心者の　五十嵐雅哉です。</div>
-        </div>
-      </div>
       <div class="event" id="message-1695955485.899049">
         <div class="content">
           <div class="summary">
@@ -64,22 +36,32 @@ readWordGroup filePath = bracket
   (openFile filePath ReadMode)  
   hClose  
   (\h -&gt; T.words &lt;$&gt; TIO.hGetContents h) </pre><br/>よろしくお願いします。</div>
-          <a class="link-to-replies" href="24/1695955485.899049.html">... Replies ...</a>
         </div>
       </div>
-      <div class="event" id="message-1695964546.399619">
+      <div class="event" id="message-1695962365.477099">
         <div class="content">
           <div class="summary">
-            <div class="user">U05UF9EEM0T</div>
-            <div class="date"><a class="date" href="#message-1695964546.399619">2023-09-29 14:15:46 +0900</a></div>
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1695962365.477099">2023-09-29 13:39:25 +0900</a></div>
           </div>
-          <div class="description">@U05UF9EEM0T has joined the channel</div>
+          <div class="description"><code>TIO</code> は <code><http://Data.Text.Lazy.IO|Data.Text.Lazy.IO></code> でしょうか？ぱっと見で怪しいのはそこですね。そうだとすると、 <code><http://Data.Text.IO|Data.Text.IO></code> を代わりに使えば解決すると思います。<br/>あるいは、もっと単純に<br/><pre>import qualified Data.Text as T
+import qualified <http://Data.Text.IO|Data.Text.IO> as TIO
+
+readWordGroup = fmap T.words . TIO.readFile</pre><br/>と書き換えるか</div>
+        </div>
+      </div>
+      <div class="event" id="message-1695963575.817229">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1695963575.817229">2023-09-29 13:59:35 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！試してみます</div>
         </div>
       </div>
     </div>
     <div class="ui pagination menu">
-      <a href="../../html/CR2TETE5R/23.html" class="item">Previous</a>
-      <a href="../../" class="item">Top</a>
+      <a href="../24.html" class="item">Back to beginners #24</a>
     </div>
   </div>
 </body>

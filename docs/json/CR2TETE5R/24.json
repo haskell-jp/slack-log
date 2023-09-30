@@ -16,5 +16,17 @@
         "user": "U05TM1PA3D1",
         "ts": "1695432342.396889",
         "text": "はじめまして　Haskell初心者の　五十嵐雅哉です。"
+    },
+    {
+        "type": "message",
+        "user": "U05P3AVUHM4",
+        "ts": "1695955485.899049",
+        "text": "質問失礼します。\nチュートリアルとして、.txtファイルの簡単な読み込みをしながら機械的な応答をするチャットサーバーを作りました。\n立てたあといつでも応答則の変更ができるように、メッセージが来たらFileIOで読みこんで、それに基づいて何かメッセージを返すようなことをしています。すると、定期的に以下のエラーが出て落ちます。\n\n```data: end of file\nMain: file descriptor 45546384 out of range for select (0--1024).\nRecompile with -threaded to work around this.```\nコンパイル方法で解決する問題でしょうか？ご教示いただければ幸いです。\n\n```{package.yaml}\nghc-options:\n- -Wall\n- -Wcompat\n- -Widentities\n- -Wincomplete-record-updates\n- -Wincomplete-uni-patterns\n- -Wmissing-export-lists\n- -Wmissing-home-modules\n- -Wpartial-fields\n- -Wredundant-constraints\n- -threaded```\nファイル読み込み部のコードは以下で、調べつつ手探りで行ったものなのでかなり怪しい気もします。\n```readWordGroup :: FilePath -&gt; IO [Text]\nreadWordGroup filePath = bracket\n  (openFile filePath ReadMode)  \n  hClose  \n  (\\h -&gt; T.words &lt;$&gt; TIO.hGetContents h) ```\nよろしくお願いします。"
+    },
+    {
+        "type": "message",
+        "user": "U05UF9EEM0T",
+        "ts": "1695964546.399619",
+        "text": "<@U05UF9EEM0T> has joined the channel"
     }
 ]

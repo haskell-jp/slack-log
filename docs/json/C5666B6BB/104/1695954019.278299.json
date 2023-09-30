@@ -1,0 +1,98 @@
+[
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1695954019.278299",
+        "text": "<https://github.com/haskell/haskell-language-server/issues/365>\n<https://haskell-language-server.readthedocs.io/en/latest/troubleshooting.html#static-binaries>\ntemplate haskellとhlsって相性が悪いのですね。\nhls使ってないので、ハマらずに済んでいますが、一般的にどうやって解決していますか？\nhlsを直すのは難しいのでパッケージのtemplate haskellのコードを直すのが一般的なのでしょうか？"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1695954716.946699",
+        "text": "これはTHというよりも、THとFFIが絡むような場合の話ですね。普通のTHとの組み合わせは大体問題なく動きます。"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1695954743.695059",
+        "text": "THとFFIが絡む場合は、 -fobject-codeをつければ大まかにうまく行く場合が多いです"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1695954836.423639",
+        "text": "ふたつ目の公式ドキュメントの話は静的バイナリだとうまく動かないという話で、いまのHLSは各プラットホームごとにDynamic binary で配布されているので問題はほとんどないです"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1695954885.933669",
+        "text": "ぜひ使ってみてください"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1695954906.304469",
+        "text": "-fobject-codeというのはHLSのオプションでしょうか？"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1695954941.544969",
+        "text": "~パッケージの方につけるのですね。~"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1695955060.281049",
+        "text": "<https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/ghci-obj.html>\nghciのオプションですね。"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1695955067.023949",
+        "text": "GHC_OPTIONSでモジュールにつけるかたちです"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1695955174.255089",
+        "text": "なるほど。だいたいオプションをつけると解決ということですね。\n<https://github.com/fpco/inline-c/pull/128>\nこういうのもその解決法でいけますか？"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1695955249.032439",
+        "text": "試してみないとわからないですよね。"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1695955279.672299",
+        "text": "まさにこのバグに噛まれたことがあって、-fobject-codeだけではだめで、inline-cの場合は定義をモジュール間で移動すると通る場合があり、やや苦労しましたね"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1695955292.959899",
+        "text": "contextが絡んでくるとややこしくなります"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1695955347.269529",
+        "text": "そうなんですね。なんか解決方法がおかしいような気もしつつ、難しいのですね。"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1695955374.183339",
+        "text": "まあ完璧な解決策ではないですねえ……"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1695955456.475439",
+        "text": "ありがとうございます。"
+    }
+]
