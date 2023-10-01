@@ -1,0 +1,50 @@
+[
+    {
+        "type": "message",
+        "user": "U04LCUXALJ2",
+        "ts": "1696137519.721689",
+        "text": "`forall`を用いたデータ型について質問です．\n以下の通りに`AnyBar`型を構成した場合に，値を取り出す関数を書きたいです．\n```{-# LANGUAGE ExistentialQuantification #-}\n\nmodule Bar where\n\ndata AnyBar b = forall a. AnyBar a (a -&gt; b)\n\nargBar :: AnyBar b -&gt; b\nargBar (AnyBar x f) = f x\n\nletBar :: AnyBar b -&gt; b\nletBar ab = let AnyBar x f = ab in f x```\n2通りのうち`letBar`だけエラーになりました．\n```src/Bar.hs:11:26: error:\n    • Couldn't match expected type 'p1' with actual type 'a -&gt; b'\n      'p1' is a rigid type variable bound by\n        the inferred types of\n          x :: p\n          f :: p1\n        at src/Bar.hs:11:17-31\n    • In the pattern: AnyBar x f\n      In a pattern binding: AnyBar x f = ab\n      In the expression: let AnyBar x f = ab in f x\n    • Relevant bindings include\n        ab :: AnyBar b (bound at src/Bar.hs:11:8)\n        letBar :: AnyBar b -&gt; b (bound at src/Bar.hs:11:1)\n   |\n11 | letBar ab = let AnyBar x f = ab in f x\n   |                          ^```\n原因が分からないです．見た感じだと両者ともパターンマッチしてるだけで差異が現れるとは思えません．"
+    },
+    {
+        "type": "message",
+        "user": "U04LCUXALJ2",
+        "ts": "1696137691.699509",
+        "text": "使用バージョンはghc-9.2.7です．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1696144880.595229",
+        "text": "GHC User’s guide にそのものまんまの正気とは思えない記述がありました：\n\nGHC User’s Guide (GHC 9.6.3), 6.4.6.3 Restrictions, in section 6.4.6 Existentially quantified data constructors\n<https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/existential_quantification.html#restrictions>\n\n> You can’t pattern-match on an existentially quantified constructor in a `let` or `where`group of bindings. So this is illegal:\n> ```f3 x = a==b where { Baz1 a b = x }```\n> Instead, use a `case` expression:\n> ```f3 x = case x of Baz1 a b -> a==b```\n> In general, you can only pattern-match on an existentially-quantified constructor in a `case` expression or in the patterns of a function definition."
+    },
+    {
+        "type": "message",
+        "user": "U04LCUXALJ2",
+        "ts": "1696145457.682599",
+        "text": "ありがとうございます．仕様と言われると引き下がるしかありませんね．"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1696146170.026959",
+        "text": "`GADTs` をオンにするともうちょっとどういう扱いでダメということになっているかがわかりやすいエラーが出ますね：\n\n```ghci&gt; :set -XExistentialQuantification \nghci&gt; data T b = forall a. T a (a -&gt; b)\nghci&gt; :set -XGADTs\nghci&gt; :{\nghci| f1 :: T b -&gt; b\nghci| f1 t = let T a f = t in f a\nghci| :}\n\n&lt;interactive&gt;:25:14: error:\n    • Couldn't match expected type 't0' with actual type 'a'\n    • because type variable 'a' would escape its scope\n    This (rigid, skolem) type variable is bound by\n      a pattern with constructor: T :: forall b a. a -&gt; (a -&gt; b) -&gt; T b,\n      in a pattern binding\n      at &lt;interactive&gt;:25:12-16\n    • In the pattern: T a f\n      In a pattern binding: T a f = t\n      In the expression: let T a f = t in f a```\n結局よくわからんですが．"
+    },
+    {
+        "type": "message",
+        "user": "U04LCUXALJ2",
+        "ts": "1696146610.419199",
+        "text": "`caseBar`と`whereBar`を追加で試してみました．ドキュメントの通り，`caseBar`についてはエラーにならず，`whereBar`は同様のエラーが出ます．\n```caseBar :: AnyBar b -> b\ncaseBar ab = case ab of AnyBar x f -> f x\n\nwhereBar :: AnyBar b -> b\nwhereBar ab = f x where AnyBar x f = ab```"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1696155695.714519",
+        "text": "caseとletはそもそも意味論が違うので、「正気とは思えない」というのは言い過ぎでは……？GADTsや存在型の型推論をモジュラーかつ完全に扱う上では、letやwhereの節は単相的に推論されるほうが都合が良く、またlet式は最適化の過程で式の内側にfloatしたりするのでcaseとは違う扱いが必要になります。正格性の上でも違うものとして扱われていたりして、この辺りの事情を考えるとそれほど「正気ではない」というほどではないんじゃないかと。"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1696156084.247729",
+        "text": "すみません、上の文章書いたあと色々見に行って言い過ぎっぽいとまでは思ったけど訂正できるほど理解してもいないのでごめんなさいしか言えないという、この…。"
+    }
+]

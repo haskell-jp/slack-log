@@ -411,6 +411,41 @@ timeout n f
           <div class="description">@R has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1696137519.721689">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kk</div>
+            <div class="date"><a class="date" href="#message-1696137519.721689">2023-10-01 14:18:39 +0900</a></div>
+          </div>
+          <div class="description"><code>forall</code>を用いたデータ型について質問です．<br/>以下の通りに`AnyBar`型を構成した場合に，値を取り出す関数を書きたいです．<br/><pre>{-# LANGUAGE ExistentialQuantification #-}
+
+module Bar where
+
+data AnyBar b = forall a. AnyBar a (a -&gt; b)
+
+argBar :: AnyBar b -&gt; b
+argBar (AnyBar x f) = f x
+
+letBar :: AnyBar b -&gt; b
+letBar ab = let AnyBar x f = ab in f x</pre><br/>2通りのうち`letBar`だけエラーになりました．<br/><pre>src/Bar.hs:11:26: error:
+    • Couldn't match expected type 'p1' with actual type 'a -&gt; b'
+      'p1' is a rigid type variable bound by
+        the inferred types of
+          x :: p
+          f :: p1
+        at src/Bar.hs:11:17-31
+    • In the pattern: AnyBar x f
+      In a pattern binding: AnyBar x f = ab
+      In the expression: let AnyBar x f = ab in f x
+    • Relevant bindings include
+        ab :: AnyBar b (bound at src/Bar.hs:11:8)
+        letBar :: AnyBar b -&gt; b (bound at src/Bar.hs:11:1)
+   |
+11 | letBar ab = let AnyBar x f = ab in f x
+   |                          ^</pre><br/>原因が分からないです．見た感じだと両者ともパターンマッチしてるだけで差異が現れるとは思えません．</div>
+          <a class="link-to-replies" href="104/1696137519.721689.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C5666B6BB/103.html" class="item">Previous</a>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #104 at 2023-10-01 14:18:39 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #104 at 2023-10-01 14:18:39 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to questions #104</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1696137519.721689">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kk</div>
+            <div class="date"><a class="date" href="#message-1696137519.721689">2023-10-01 14:18:39 +0900</a></div>
+          </div>
+          <div class="description"><code>forall</code>を用いたデータ型について質問です．<br/>以下の通りに`AnyBar`型を構成した場合に，値を取り出す関数を書きたいです．<br/><pre>{-# LANGUAGE ExistentialQuantification #-}
+
+module Bar where
+
+data AnyBar b = forall a. AnyBar a (a -&gt; b)
+
+argBar :: AnyBar b -&gt; b
+argBar (AnyBar x f) = f x
+
+letBar :: AnyBar b -&gt; b
+letBar ab = let AnyBar x f = ab in f x</pre><br/>2通りのうち`letBar`だけエラーになりました．<br/><pre>src/Bar.hs:11:26: error:
+    • Couldn't match expected type 'p1' with actual type 'a -&gt; b'
+      'p1' is a rigid type variable bound by
+        the inferred types of
+          x :: p
+          f :: p1
+        at src/Bar.hs:11:17-31
+    • In the pattern: AnyBar x f
+      In a pattern binding: AnyBar x f = ab
+      In the expression: let AnyBar x f = ab in f x
+    • Relevant bindings include
+        ab :: AnyBar b (bound at src/Bar.hs:11:8)
+        letBar :: AnyBar b -&gt; b (bound at src/Bar.hs:11:1)
+   |
+11 | letBar ab = let AnyBar x f = ab in f x
+   |                          ^</pre><br/>原因が分からないです．見た感じだと両者ともパターンマッチしてるだけで差異が現れるとは思えません．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1696137691.699509">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kk</div>
+            <div class="date"><a class="date" href="#message-1696137691.699509">2023-10-01 14:21:31 +0900</a></div>
+          </div>
+          <div class="description">使用バージョンはghc-9.2.7です．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1696144880.595229">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1696144880.595229">2023-10-01 16:21:20 +0900</a></div>
+          </div>
+          <div class="description">GHC User’s guide にそのものまんまの正気とは思えない記述がありました：<br/><br/>GHC User’s Guide (GHC 9.6.3), 6.4.6.3 Restrictions, in section 6.4.6 Existentially quantified data constructors<br/><a href='https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/existential_quantification.html#restrictions'>https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/existential_quantification.html#restrictions</a><br/><br/>> You can’t pattern-match on an existentially quantified constructor in a <code>let</code> or <code>where</code>group of bindings. So this is illegal:<br/>> <pre>f3 x = a==b where { Baz1 a b = x }</pre><br/>> Instead, use a <code>case</code> expression:<br/>> <pre>f3 x = case x of Baz1 a b -> a==b</pre><br/>> In general, you can only pattern-match on an existentially-quantified constructor in a <code>case</code> expression or in the patterns of a function definition.</div>
+        </div>
+      </div>
+      <div class="event" id="message-1696145457.682599">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kk</div>
+            <div class="date"><a class="date" href="#message-1696145457.682599">2023-10-01 16:30:57 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます．仕様と言われると引き下がるしかありませんね．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1696146170.026959">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1696146170.026959">2023-10-01 16:42:50 +0900</a></div>
+          </div>
+          <div class="description"><code>GADTs</code> をオンにするともうちょっとどういう扱いでダメということになっているかがわかりやすいエラーが出ますね：<br/><br/><pre>ghci&gt; :set -XExistentialQuantification 
+ghci&gt; data T b = forall a. T a (a -&gt; b)
+ghci&gt; :set -XGADTs
+ghci&gt; :{
+ghci| f1 :: T b -&gt; b
+ghci| f1 t = let T a f = t in f a
+ghci| :}
+
+&lt;interactive&gt;:25:14: error:
+    • Couldn't match expected type 't0' with actual type 'a'
+    • because type variable 'a' would escape its scope
+    This (rigid, skolem) type variable is bound by
+      a pattern with constructor: T :: forall b a. a -&gt; (a -&gt; b) -&gt; T b,
+      in a pattern binding
+      at &lt;interactive&gt;:25:12-16
+    • In the pattern: T a f
+      In a pattern binding: T a f = t
+      In the expression: let T a f = t in f a</pre><br/>結局よくわからんですが．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1696146610.419199">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kk</div>
+            <div class="date"><a class="date" href="#message-1696146610.419199">2023-10-01 16:50:10 +0900</a></div>
+          </div>
+          <div class="description"><code>caseBar</code>と`whereBar`を追加で試してみました．ドキュメントの通り，`caseBar`についてはエラーにならず，`whereBar`は同様のエラーが出ます．<br/><pre>caseBar :: AnyBar b -> b
+caseBar ab = case ab of AnyBar x f -> f x
+
+whereBar :: AnyBar b -> b
+whereBar ab = f x where AnyBar x f = ab</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1696155695.714519">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1696155695.714519">2023-10-01 19:21:35 +0900</a></div>
+          </div>
+          <div class="description">caseとletはそもそも意味論が違うので、「正気とは思えない」というのは言い過ぎでは……？GADTsや存在型の型推論をモジュラーかつ完全に扱う上では、letやwhereの節は単相的に推論されるほうが都合が良く、またlet式は最適化の過程で式の内側にfloatしたりするのでcaseとは違う扱いが必要になります。正格性の上でも違うものとして扱われていたりして、この辺りの事情を考えるとそれほど「正気ではない」というほどではないんじゃないかと。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1696156084.247729">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1696156084.247729">2023-10-01 19:28:04 +0900</a></div>
+          </div>
+          <div class="description">すみません、上の文章書いたあと色々見に行って言い過ぎっぽいとまでは思ったけど訂正できるほど理解してもいないのでごめんなさいしか言えないという、この…。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to questions #104</a>
+    </div>
+  </div>
+</body>
+</html>

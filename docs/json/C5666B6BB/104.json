@@ -226,5 +226,11 @@
         "user": "U05UF9EEM0T",
         "ts": "1695964546.520879",
         "text": "<@U05UF9EEM0T> has joined the channel"
+    },
+    {
+        "type": "message",
+        "user": "U04LCUXALJ2",
+        "ts": "1696137519.721689",
+        "text": "`forall`を用いたデータ型について質問です．\n以下の通りに`AnyBar`型を構成した場合に，値を取り出す関数を書きたいです．\n```{-# LANGUAGE ExistentialQuantification #-}\n\nmodule Bar where\n\ndata AnyBar b = forall a. AnyBar a (a -&gt; b)\n\nargBar :: AnyBar b -&gt; b\nargBar (AnyBar x f) = f x\n\nletBar :: AnyBar b -&gt; b\nletBar ab = let AnyBar x f = ab in f x```\n2通りのうち`letBar`だけエラーになりました．\n```src/Bar.hs:11:26: error:\n    • Couldn't match expected type 'p1' with actual type 'a -&gt; b'\n      'p1' is a rigid type variable bound by\n        the inferred types of\n          x :: p\n          f :: p1\n        at src/Bar.hs:11:17-31\n    • In the pattern: AnyBar x f\n      In a pattern binding: AnyBar x f = ab\n      In the expression: let AnyBar x f = ab in f x\n    • Relevant bindings include\n        ab :: AnyBar b (bound at src/Bar.hs:11:8)\n        letBar :: AnyBar b -&gt; b (bound at src/Bar.hs:11:1)\n   |\n11 | letBar ab = let AnyBar x f = ab in f x\n   |                          ^```\n原因が分からないです．見た感じだと両者ともパターンマッチしてるだけで差異が現れるとは思えません．"
     }
 ]
