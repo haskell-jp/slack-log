@@ -130,6 +130,33 @@ whereBar ab = f x where AnyBar x f = ab</pre></div>
           <div class="description">すみません、上の文章書いたあと色々見に行って言い過ぎっぽいとまでは思ったけど訂正できるほど理解してもいないのでごめんなさいしか言えないという、この…。</div>
         </div>
       </div>
+      <div class="event" id="message-1696162678.875389">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1696162678.875389">2023-10-01 21:17:58 +0900</a></div>
+          </div>
+          <div class="description">caseは文字通りcase-splittingのための機構で、GADTsによって導入される存在変数をスコープに入れてくれるんですが、letやwhereは第一義的には局所定義のための構文にすぎないんですよね。で、たまたまHaskellが（caseとはぼ同じ意味を持つ引数に対するパターンマッチとは別に）束縛変数そのもののパターンマッチを構文糖衣として許しているために通常の場合はcaseと同じように使えるけれども、存在変数が絡んでくるとそこの違いが現れてくるーーというふうに理解するのがわかりやすいですかね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1696176182.029139">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ksrk</div>
+            <div class="date"><a class="date" href="#message-1696176182.029139">2023-10-02 01:03:02 +0900</a></div>
+          </div>
+          <div class="description">letBarはcaseBarに簡単にエラボレーションできるし、一般にlet式内のpattern-bindingはcase式にエラボレーションできるので意味論的にはcaseBarが型検査器に通って、letBarが通らない理由はないと思います。<br/>理由はむしろ<br/><blockquote>Type-checking binding groups is already a nightmare without existentials complicating the picture</blockquote>や<br/><blockquote>Also an existential pattern binding at the top level of a module doesn’t make sense, because it’s not clear how to prevent the existentially-quantified type “escaping”</blockquote>にあって、HaskellのASTではトップレベルの関数束縛とlet式内の関数束縛を区別していないので、結果的にletBarが型検査に通らないのだと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1696202169.784429">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1696202169.784429">2023-10-02 08:16:09 +0900</a></div>
+          </div>
+          <div class="description">「簡単に」というにはわりと strictness analysis が絡んでくるのでどうなんだろうという気もします．<br/><br/><pre>letBar ab = let !(AnyBar x f) = ab in f x</pre><br/>なら容易に caseBar にエラボレートできるのはそうですけど．</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../104.html" class="item">Back to questions #104</a>

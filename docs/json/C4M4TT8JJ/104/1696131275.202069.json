@@ -1,0 +1,74 @@
+[
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1696131275.202069",
+        "text": "手前味噌ですが、さいきん Haskell で線型型,を使えるようにする GHC の `LinearTypes` 言語拡張をがっつり使ってみたので、Haskell の線型型を使おうとすると現在はこんな感じだよ、将来はこうなって Rust のリソース管理により近くなっていくよ、というような記事を書きました。Linear Haskell のライブラリを使う側の話が主ですが、ライブラリを作る時の話についても需要があればそのうち書くかもしれません（書かないかもしれません）。\n<https://zenn.dev/konn/articles/2023-10-01-linear-haskell-in-2023>"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1696181513.585369",
+        "text": "大変興味深いblogだと思っているのですが、\nrustとの違いや線型、非線型のところがわかりずらく、\nsetとgetのところがよくわからないです。\n結局rustのように書けるのか書けないのか。\nどうなってしまうのか対比が欲しいです。"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1696181657.128929",
+        "text": "Consumableでdropがあるのは興味深いのですが、\nNUMとか既存の型クラスのものに対してもうまく扱えるのかどうか知りたいです。"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1696181745.285459",
+        "text": "haskellはrustになれるのでしょうか？"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1696181911.223819",
+        "text": "ーー\ntweagの記事はあまり踏み込んだところを書いてなくて、\n今回の記事は色々な話題に具体的に触れていて素晴らしいです。"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1696199881.397419",
+        "text": "感想ありがとうございます！たしかにRustの例との対比があったほうがわかりやすかったかもしれないですね……。"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1696200040.866519",
+        "text": "&gt; Consumableでdropがあるのは興味深いのですが、\n&gt; NUMとか既存の型クラスのものに対してもうまく扱えるのかどうか知りたいです。\nConsumableは型に対する型クラスなので、個別の型ごとにインスタンスを与えることになります。だいたいめぼしいプリミティブな型については与えられていて、どれがインスタンスになっているのかは詳しくはlinear-baseのドキュメントを参照してください。"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1696200113.301699",
+        "text": "Numの演算の線型版はあるか？という質問であれば、これはPrelude.LinearでPreludeと同様の型クラス名である程度線型版が提供されています。Integralはありませんが、同じようにして類似物を定式化可能ですね"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1696200282.855909",
+        "text": "&gt; haskellはrustになれるのでしょうか？\nはっきり（ <https://zenn.dev/konn/articles/2023-10-01-linear-haskell-in-2023#tl%3Bdr|1>, <https://zenn.dev/konn/articles/2023-10-01-linear-haskell-in-2023%232023%E5%B9%B4%E3%81%AE-linear-haskell-%E3%81%AE%E8%AA%B2%E9%A1%8C%E3%81%A8%E3%81%9D%E3%81%AE%E6%9C%AA%E6%9D%A5|2>)と\n\n&gt; RustのようになるにはLinear Constraintsに期待。\n&gt; という訳で結論。2023年のHaskellはまだ Rust ではないが、近い将来 Rust になれる可能性が大きいということでひとつ。\nとかいたつもりだったのですか、これでは不足でしょうか……？"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1696201514.231399",
+        "text": "Rustとの対比がないので脳内で補完しない限り結論が具体的な説得力に欠ける、というのであれば確かにそうで、そこは完全にサボってましたね……"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1696202937.016629",
+        "text": "ありがとうございます。"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1696202993.642419",
+        "text": "いえ、こちらこそ感想ありがとうございます……！とても励みになります。"
+    }
+]

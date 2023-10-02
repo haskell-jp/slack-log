@@ -46,5 +46,23 @@
         "user": "UL1HFJATE",
         "ts": "1696156084.247729",
         "text": "すみません、上の文章書いたあと色々見に行って言い過ぎっぽいとまでは思ったけど訂正できるほど理解してもいないのでごめんなさいしか言えないという、この…。"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1696162678.875389",
+        "text": "caseは文字通りcase-splittingのための機構で、GADTsによって導入される存在変数をスコープに入れてくれるんですが、letやwhereは第一義的には局所定義のための構文にすぎないんですよね。で、たまたまHaskellが（caseとはぼ同じ意味を持つ引数に対するパターンマッチとは別に）束縛変数そのもののパターンマッチを構文糖衣として許しているために通常の場合はcaseと同じように使えるけれども、存在変数が絡んでくるとそこの違いが現れてくるーーというふうに理解するのがわかりやすいですかね"
+    },
+    {
+        "type": "message",
+        "user": "U02CE9YGEAU",
+        "ts": "1696176182.029139",
+        "text": "letBarはcaseBarに簡単にエラボレーションできるし、一般にlet式内のpattern-bindingはcase式にエラボレーションできるので意味論的にはcaseBarが型検査器に通って、letBarが通らない理由はないと思います。\n理由はむしろ\n&gt; Type-checking binding groups is already a nightmare without existentials complicating the picture\nや\n&gt; Also an existential pattern binding at the top level of a module doesn’t make sense, because it’s not clear how to prevent the existentially-quantified type “escaping”\nにあって、HaskellのASTではトップレベルの関数束縛とlet式内の関数束縛を区別していないので、結果的にletBarが型検査に通らないのだと思います。"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1696202169.784429",
+        "text": "「簡単に」というにはわりと strictness analysis が絡んでくるのでどうなんだろうという気もします．\n\n```letBar ab = let !(AnyBar x f) = ab in f x```\nなら容易に caseBar にエラボレートできるのはそうですけど．"
     }
 ]
