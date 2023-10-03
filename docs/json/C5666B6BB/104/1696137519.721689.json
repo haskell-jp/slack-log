@@ -64,5 +64,23 @@
         "user": "UL1HFJATE",
         "ts": "1696202169.784429",
         "text": "「簡単に」というにはわりと strictness analysis が絡んでくるのでどうなんだろうという気もします．\n\n```letBar ab = let !(AnyBar x f) = ab in f x```\nなら容易に caseBar にエラボレートできるのはそうですけど．"
+    },
+    {
+        "type": "message",
+        "user": "U02CE9YGEAU",
+        "ts": "1696212411.200509",
+        "text": "<@UL1HFJATE>\n評価戦略は型検査時には関係がないと思います。\n実際、\n```letBar ab = let !(AnyBar x f) = ab in f x```\nを\n```caseBar ab = case ab of !(AnyBar x f) -> f x```\nに書き換えても型検査には影響しないので、例えばこのcaseBarを型検査した後にletBarに戻せば、評価規則を含めた動的意味論には影響しません。\n書き換えるというのは、実際に実装で書き換える必要はありません。"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1696213730.440709",
+        "text": "今の返信中に２回現れる `!(AnyBar x f)`  に `!` がついている理由がよくわかっていません．私の意図としては，\n```foo1 :: (Int, Int) -> Int\nfoo1 p = let (!x,!y) = (*2) `bimap` (*2) $ p\n         in somefunc x y```\nは，定義上\n```foo1' :: (Int, Int) -> Int\nfoo1' p = let q = (*2) `bimap` (*2) $ p\n              x = case q of (!x,!_) -> x\n              y = case q of (!_,!y) -> y\n          in somefunc x y```\nと等価であるように定義されているのであって，\n```foo2 :: (Int, Int) -> Int\nfoo2 p = case (*2) `bimap` (*2) $ p of\n  (!x, !y) -> somefunc x y```\nと等価なのは\n```foo2' :: (Int, Int) -> Int\nfoo2' p = let !(!x,!y) = (*2) `bimap` (*2) $ p\n          in somefunc x y```\nなので，それと揃えるならば\n```letBar1, letBar2, caseBar :: AnyBar b -> b\nletBar1 ab = let AnyBar x f = ab in f x\nletBar2 ab = let !(AnyBar x f) = ab in f x\ncaseBar ab = case ab of AnyBar x f -> f x```\nのうちで，完全に等価であるように定義できそうなのは `letBar2` と `caseBar` だけだよね，ということです．\nであるので，「実行中の意味論は異なるが，型検査中だけ適宜 `case` とみなせばよい」という話だとすれば，最初から等価にできるかも，と言っている `letBar2` と `caseBar` を持ち出している理由がよくわかっていません．"
+    },
+    {
+        "type": "message",
+        "user": "U02CE9YGEAU",
+        "ts": "1696217152.853159",
+        "text": "<@UL1HFJATE> \nすみません。読み違えていました。\n上のメッセージの「実際」以降は無視してください。"
     }
 ]

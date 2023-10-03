@@ -157,6 +157,46 @@ whereBar ab = f x where AnyBar x f = ab</pre></div>
           <div class="description">「簡単に」というにはわりと strictness analysis が絡んでくるのでどうなんだろうという気もします．<br/><br/><pre>letBar ab = let !(AnyBar x f) = ab in f x</pre><br/>なら容易に caseBar にエラボレートできるのはそうですけど．</div>
         </div>
       </div>
+      <div class="event" id="message-1696212411.200509">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ksrk</div>
+            <div class="date"><a class="date" href="#message-1696212411.200509">2023-10-02 11:06:51 +0900</a></div>
+          </div>
+          <div class="description">@gksato<br/>評価戦略は型検査時には関係がないと思います。<br/>実際、<br/><pre>letBar ab = let !(AnyBar x f) = ab in f x</pre><br/>を<br/><pre>caseBar ab = case ab of !(AnyBar x f) -> f x</pre><br/>に書き換えても型検査には影響しないので、例えばこのcaseBarを型検査した後にletBarに戻せば、評価規則を含めた動的意味論には影響しません。<br/>書き換えるというのは、実際に実装で書き換える必要はありません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1696213730.440709">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1696213730.440709">2023-10-02 11:28:50 +0900</a></div>
+          </div>
+          <div class="description">今の返信中に２回現れる <code>!(AnyBar x f)</code>  に <code>!</code> がついている理由がよくわかっていません．私の意図としては，<br/><pre>foo1 :: (Int, Int) -> Int
+foo1 p = let (!x,!y) = (*2) `bimap` (*2) $ p
+         in somefunc x y</pre><br/>は，定義上<br/><pre>foo1' :: (Int, Int) -> Int
+foo1' p = let q = (*2) `bimap` (*2) $ p
+              x = case q of (!x,!_) -> x
+              y = case q of (!_,!y) -> y
+          in somefunc x y</pre><br/>と等価であるように定義されているのであって，<br/><pre>foo2 :: (Int, Int) -> Int
+foo2 p = case (*2) `bimap` (*2) $ p of
+  (!x, !y) -> somefunc x y</pre><br/>と等価なのは<br/><pre>foo2' :: (Int, Int) -> Int
+foo2' p = let !(!x,!y) = (*2) `bimap` (*2) $ p
+          in somefunc x y</pre><br/>なので，それと揃えるならば<br/><pre>letBar1, letBar2, caseBar :: AnyBar b -> b
+letBar1 ab = let AnyBar x f = ab in f x
+letBar2 ab = let !(AnyBar x f) = ab in f x
+caseBar ab = case ab of AnyBar x f -> f x</pre><br/>のうちで，完全に等価であるように定義できそうなのは <code>letBar2</code> と <code>caseBar</code> だけだよね，ということです．<br/>であるので，「実行中の意味論は異なるが，型検査中だけ適宜 <code>case</code> とみなせばよい」という話だとすれば，最初から等価にできるかも，と言っている <code>letBar2</code> と <code>caseBar</code> を持ち出している理由がよくわかっていません．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1696217152.853159">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ksrk</div>
+            <div class="date"><a class="date" href="#message-1696217152.853159">2023-10-02 12:25:52 +0900</a></div>
+          </div>
+          <div class="description">@gksato <br/>すみません。読み違えていました。<br/>上のメッセージの「実際」以降は無視してください。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../104.html" class="item">Back to questions #104</a>

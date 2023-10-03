@@ -70,5 +70,59 @@
         "user": "UK0MXUCAV",
         "ts": "1696202993.642419",
         "text": "いえ、こちらこそ感想ありがとうございます……！とても励みになります。"
+    },
+    {
+        "type": "message",
+        "user": "U56MBRKR9",
+        "ts": "1696210688.791279",
+        "text": "斜め読みしかできてないけど、素晴らしいです。\nSPJの講演も聞きました。"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1696210740.774559",
+        "text": "ありがとうございます……！SPJの講演はいつもきいていて楽しく、わかりやすいのですごいですよね。"
+    },
+    {
+        "type": "message",
+        "user": "U56MBRKR9",
+        "ts": "1696210860.997749",
+        "text": "素人質問で申し訳ないのですが、PSQみたいな木構造も線形型にして、GCの対象ではなくすことはできますか？\nネットワークサーバを作っていると、GCで止まる時間が問題で、大きなデータはGCの対象外としたいのです。"
+    },
+    {
+        "type": "message",
+        "user": "U56MBRKR9",
+        "ts": "1696210901.320479",
+        "text": "このPSQを変更するのは、1つのスレッドのみです。"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1696211427.143059",
+        "text": "理論上はできるはずです。ただ、記事の冒頭でも書いたように、\n\n> これは、「Linear Haskell を使うとGCで管理されていないデータ型をアロケートする仕組みを創れる」ということであって、*Linear Haskell を使うと値が GC の管理外に必ず置かれるという訳ではない*\nという事情があります。なので、単純に Linear Haskell を使うだけでなく、linear-base の Pool のインタフェースにあうようにデータ型や操作を定義してやる必要があるかと思います。これは精しくいえば、Storable をつかってポインタベースで PSQ を定式化する必要が現時点ではある、ということです。一つのスレッドしか使わないということで、スレッド安全性が問題にならないのであれば、<https://hackage.haskell.org/package/linear-base-0.3.1/docs/Foreign-Marshal-Pure.html#t:Pool|linear-base の Pool> を使ってアロケーションを行う方針で問題ないと思います(スレッドセーフではないですが、今回は問題なさそうなため）。\n\nPool を使ってデータ構造を実装例は、linear-base の examples 以下にありまして、単方向リストや単純なペアリングヒープの例があります：\n\n<https://github.com/tweag/linear-base/blob/master/examples/Foreign/List.hs>\n<https://github.com/tweag/linear-base/blob/master/examples/Foreign/Heap.hs>\n\nこの辺りが参考になるかなと思います。Pool を使う場合、 Representable 型クラス（本質的にはStorable な表現と相互変換できる型のクラス） を使ってアロケートする必要があるので、PSQに仕舞うデータ型も何らかの意味で Storable と相互変換出来る形式にする（だから、生の高階関数などは仕舞えない）という点に注意する必要があるかと思います。PSQの中身までは別に消さなくても良い、ということであれば StablePtr に包むなどの手も使えるとは思います。"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1696211715.061429",
+        "text": "あと、値を変更したりする場合は現状で Pool はアロケートとディアロケート一回ずつしか対応していない（初期化と最終化しかない： `alloc :: a %1-&gt; Pool %1-&gt; Box a` と `dealloc :: Box a %1-&gt; a` のみ）ので、値を適宜変更して保存しなおすプリミティヴを Internal モジュールを読み込んで実装する必要等はあると思います。シングルスレッドであれば、これは NOINLINE などを適切に書けばそんなに難しくないです"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1696212611.387759",
+        "text": "じゃっかん違う方向性ですが、メモリにシリアライズされたデータを直接（ADTのように）扱うインタフェースを Linear Type を使って定式化する話も Tweag のブログ記事にはあり、目指しているところはやや違いますが、これも多少参考にはなるのかなと思います\n<https://www.tweag.io/blog/2017-08-24-linear-types-packed-data/>"
+    },
+    {
+        "type": "message",
+        "user": "U56MBRKR9",
+        "ts": "1696214494.706639",
+        "text": "ありがとうござます。\nStorableにする必要があるのであれば、redisに投げるというが、僕にとっては現実的かもしれません。。。"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1696214682.334119",
+        "text": "そうなっちゃいますよねえ……。derive-storableパッケージやderive-storable-pluginを使えばある程度Storableの導出を自動化してくれるとはいえ、もう少し手軽にoff-heapアロケーションできるようになるといいのになあという気持ちがあります"
     }
 ]
