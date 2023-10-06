@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #104 at 2023-10-05 16:57:13 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #104 at 2023-10-05 16:57:13 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to questions #104</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1696492633.425049">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Masaya Igarashi</div>
+            <div class="date"><a class="date" href="#message-1696492633.425049">2023-10-05 16:57:13 +0900</a></div>
+          </div>
+          <div class="description">Haskellの勉強がてら　コラッツ予想に取り組んでいます。<br/>ご存知の方も多いと思いますが　自然数において<br/>奇数の場合は　3倍して　1を足す<br/>偶数の場合は　2で割る　を繰り返すと<br/>1に収束するという予想です。<br/><br/>上記の条件を　奇数の場合に　3倍して　1を引く　とした場合には<br/>1に収束しなくなり　下記のプログラムでは　止まらなくなります。<br/>発散する場合は仕方ありませんが　1以外で収束する場合に　止まるようにしたいと考えています。<br/><br/>数列が　例えば　[2, 3, 4, 5]　まで形成され　次の数字が　今までに出現した数字の場合<br/>（左記の場合は　2　3　4　5　のいずれか）になった場合に停止するように　プログラムしたいのですが<br/>どうにもうまくいきません。<br/><br/>御指導いただければ助かります。<br/>よろしくお願いします。<br/><br/><br/>import Data.Char<br/>import Data.List<br/><br/>type Nat = Integer<br/><br/>collatz :: Nat -&gt; Nat<br/>collatz n<br/>  | odd n = 3 * n + 1<br/>  | even n = div n 2<br/><br/>sequence :: Nat -&gt; [Nat]<br/>sequence n<br/>  | n == 1  = 1 : []<br/>  | otherwise = n : sequence (collatz n)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1696510557.022409">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1696510557.022409">2023-10-05 21:55:57 +0900</a></div>
+          </div>
+          <div class="description">こういう時は再帰を行う関数に追加の引数を持たせると書きやすいことがよくあります。つまり、`sequence` 関数とは別に <code>sequence'</code> 関数を用意して、それに「これまでに出現した数のリスト」を追加の引数で渡すのです。イメージとしては<br/><pre>sequence' :: [Nat] -&gt; Nat -&gt; [Nat]
+sequence' seen n  -- seenはこれまでに出現した数のリスト
+  | 〈nがseenに含まれる場合〉 = []
+  | otherwise = n : sequence' ({- 「すでに出現した数のリスト」に n を加える -} n : seen) (collatz n)</pre><br/>という感じで、追加の引数に初期値を与えて呼び出す関数を作ればそれが所望のものになります：<br/><pre>sequence :: Nat -&gt; [Nat]
+sequence = sequence' []</pre></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to questions #104</a>
+    </div>
+  </div>
+</body>
+</html>
