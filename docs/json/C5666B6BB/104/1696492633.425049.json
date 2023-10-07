@@ -10,5 +10,11 @@
         "user": "UGM9F7XQS",
         "ts": "1696510557.022409",
         "text": "こういう時は再帰を行う関数に追加の引数を持たせると書きやすいことがよくあります。つまり、`sequence` 関数とは別に `sequence'` 関数を用意して、それに「これまでに出現した数のリスト」を追加の引数で渡すのです。イメージとしては\n```sequence' :: [Nat] -&gt; Nat -&gt; [Nat]\nsequence' seen n  -- seenはこれまでに出現した数のリスト\n  | 〈nがseenに含まれる場合〉 = []\n  | otherwise = n : sequence' ({- 「すでに出現した数のリスト」に n を加える -} n : seen) (collatz n)```\nという感じで、追加の引数に初期値を与えて呼び出す関数を作ればそれが所望のものになります：\n```sequence :: Nat -&gt; [Nat]\nsequence = sequence' []```"
+    },
+    {
+        "type": "message",
+        "user": "U05TM1PA3D1",
+        "ts": "1696562973.797759",
+        "text": "mod_poppoさん　ありがとうございます。早速試してみたいと思います。"
     }
 ]
