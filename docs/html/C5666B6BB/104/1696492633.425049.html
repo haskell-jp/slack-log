@@ -15,7 +15,7 @@
       <div class="event" id="message-1696492633.425049">
         <div class="content">
           <div class="summary">
-            <div class="user">Masaya Igarashi</div>
+            <div class="user">working neco</div>
             <div class="date"><a class="date" href="#message-1696492633.425049">2023-10-05 16:57:13 +0900</a></div>
           </div>
           <div class="description">Haskellの勉強がてら　コラッツ予想に取り組んでいます。<br/>ご存知の方も多いと思いますが　自然数において<br/>奇数の場合は　3倍して　1を足す<br/>偶数の場合は　2で割る　を繰り返すと<br/>1に収束するという予想です。<br/><br/>上記の条件を　奇数の場合に　3倍して　1を引く　とした場合には<br/>1に収束しなくなり　下記のプログラムでは　止まらなくなります。<br/>発散する場合は仕方ありませんが　1以外で収束する場合に　止まるようにしたいと考えています。<br/><br/>数列が　例えば　[2, 3, 4, 5]　まで形成され　次の数字が　今までに出現した数字の場合<br/>（左記の場合は　2　3　4　5　のいずれか）になった場合に停止するように　プログラムしたいのですが<br/>どうにもうまくいきません。<br/><br/>御指導いただければ助かります。<br/>よろしくお願いします。<br/><br/><br/>import Data.Char<br/>import Data.List<br/><br/>type Nat = Integer<br/><br/>collatz :: Nat -&gt; Nat<br/>collatz n<br/>  | odd n = 3 * n + 1<br/>  | even n = div n 2<br/><br/>sequence :: Nat -&gt; [Nat]<br/>sequence n<br/>  | n == 1  = 1 : []<br/>  | otherwise = n : sequence (collatz n)</div>
@@ -37,7 +37,7 @@ sequence = sequence' []</pre></div>
       <div class="event" id="message-1696562973.797759">
         <div class="content">
           <div class="summary">
-            <div class="user">Masaya Igarashi</div>
+            <div class="user">working neco</div>
             <div class="date"><a class="date" href="#message-1696562973.797759">2023-10-06 12:29:33 +0900</a></div>
           </div>
           <div class="description">mod_poppoさん　ありがとうございます。早速試してみたいと思います。</div>

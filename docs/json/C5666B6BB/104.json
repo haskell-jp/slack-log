@@ -244,5 +244,11 @@
         "user": "U05TM1PA3D1",
         "ts": "1696492633.425049",
         "text": "Haskellの勉強がてら　コラッツ予想に取り組んでいます。\nご存知の方も多いと思いますが　自然数において\n奇数の場合は　3倍して　1を足す\n偶数の場合は　2で割る　を繰り返すと\n1に収束するという予想です。\n\n上記の条件を　奇数の場合に　3倍して　1を引く　とした場合には\n1に収束しなくなり　下記のプログラムでは　止まらなくなります。\n発散する場合は仕方ありませんが　1以外で収束する場合に　止まるようにしたいと考えています。\n\n数列が　例えば　[2, 3, 4, 5]　まで形成され　次の数字が　今までに出現した数字の場合\n（左記の場合は　2　3　4　5　のいずれか）になった場合に停止するように　プログラムしたいのですが\nどうにもうまくいきません。\n\n御指導いただければ助かります。\nよろしくお願いします。\n\n\nimport Data.Char\nimport Data.List\n\ntype Nat = Integer\n\ncollatz :: Nat -&gt; Nat\ncollatz n\n  | odd n = 3 * n + 1\n  | even n = div n 2\n\nsequence :: Nat -&gt; [Nat]\nsequence n\n  | n == 1  = 1 : []\n  | otherwise = n : sequence (collatz n)"
+    },
+    {
+        "type": "message",
+        "user": "U0607L7UPGS",
+        "ts": "1696751943.597629",
+        "text": "<@U0607L7UPGS> has joined the channel"
     }
 ]
