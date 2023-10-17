@@ -270,6 +270,16 @@
           <div class="description">@mitsuru793 has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1697370997.794769">
+        <div class="content">
+          <div class="summary">
+            <div class="user">かりんとう</div>
+            <div class="date"><a class="date" href="#message-1697370997.794769">2023-10-15 20:56:37 +0900</a></div>
+          </div>
+          <div class="description">直接haskellの部分でなくて恐縮ですが、.hsをコンパイルした.wasmファイルをhtmlに組み込む例を知りたいです。<br/>(ghc-wasm-metaからのwasi-jsとか見ましたがNode向けの内容しか見つけられていません)<br/>進み具合として、wasm32-wasi-ghc により.wasmにはできています。<br/>自分なりにwasmの組み込みかたを検索してhtmlはこうなっています。<br/><a href='!DOCTYPE html'>!DOCTYPE html</a><br/>&lt;html lang="ja"&gt;<br/>    &lt;head&gt;<br/>        &lt;meta charset="utf-8"/&gt;<br/>        &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;<br/>    &lt;/head&gt;<br/>    &lt;body&gt;<br/>        &lt;script&gt;<br/>            const importObject={wasi_snapshot_preview1:{proc_exit:arg=&gt;arg,fd_close:arg=&gt;arg,fd_write:arg=&gt;arg,fd_seek:arg=&gt;arg,environ_sizes_get:arg=&gt;arg,environ_get:arg=&gt;arg,fd_fdstat_get:arg=&gt;arg,path_open:arg=&gt;arg,path_filestat_get:arg=&gt;arg,path_create_directory:arg=&gt;arg,fd_prestat_get:arg=&gt;arg,fd_prestat_dir_name:arg=&gt;arg,clock_time_get:arg=&gt;arg,fd_fdstat_set_flags:arg=&gt;arg,fd_read:arg=&gt;arg,fd_filestat_set_size:arg=&gt;arg,fd_filestat_get:arg=&gt;arg,poll_oneoff:arg=&gt;arg}};<br/>            WebAssembly.instantiateStreaming(fetch('Hello.wasm'),importObject).then(obj=&gt;{<br/>                obj.instance.exports.hs_init(0,0);<br/>                console.log(obj.instance.exports.test(10));<br/>            });<br/>        &lt;/script&gt;<br/>    &lt;/body&gt;<br/>&lt;/html&gt;<br/>ちなみにここでtestは引数の数値を2倍して返す関数です。で、以下のエラーが出ています。<br/>Hello.wasm:0xb42e Uncaught (in promise) RuntimeError: unreachable<br/>    at Hello.wasm._Exit (Hello.wasm:0xb42e)<br/>    at Hello.wasm.exit (Hello.wasm:0x176db)<br/>    at Hello.wasm.stg_exit (Hello.wasm:0xabf3b)<br/>    at Hello.wasm.getProcessTimes (Hello.wasm:0xd513)<br/>    at Hello.wasm.stat_startInit (Hello.wasm:0xa904a)<br/>    at Hello.wasm.hs_init_ghc (Hello.wasm:0xabcb8)<br/>    at Hello.wasm.hs_init (Hello.wasm:0xabc44)<br/>違うアプローチも含めて、解決方法があれば知りたいです。</div>
+          <a class="link-to-replies" href="104/1697370997.794769.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C4M4TT8JJ/103.html" class="item">Previous</a>

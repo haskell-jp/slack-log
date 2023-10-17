@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #104 at 2023-10-15 20:56:37 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #104 at 2023-10-15 20:56:37 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to random #104</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1697370997.794769">
+        <div class="content">
+          <div class="summary">
+            <div class="user">かりんとう</div>
+            <div class="date"><a class="date" href="#message-1697370997.794769">2023-10-15 20:56:37 +0900</a></div>
+          </div>
+          <div class="description">直接haskellの部分でなくて恐縮ですが、.hsをコンパイルした.wasmファイルをhtmlに組み込む例を知りたいです。<br/>(ghc-wasm-metaからのwasi-jsとか見ましたがNode向けの内容しか見つけられていません)<br/>進み具合として、wasm32-wasi-ghc により.wasmにはできています。<br/>自分なりにwasmの組み込みかたを検索してhtmlはこうなっています。<br/><a href='!DOCTYPE html'>!DOCTYPE html</a><br/>&lt;html lang="ja"&gt;<br/>    &lt;head&gt;<br/>        &lt;meta charset="utf-8"/&gt;<br/>        &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;<br/>    &lt;/head&gt;<br/>    &lt;body&gt;<br/>        &lt;script&gt;<br/>            const importObject={wasi_snapshot_preview1:{proc_exit:arg=&gt;arg,fd_close:arg=&gt;arg,fd_write:arg=&gt;arg,fd_seek:arg=&gt;arg,environ_sizes_get:arg=&gt;arg,environ_get:arg=&gt;arg,fd_fdstat_get:arg=&gt;arg,path_open:arg=&gt;arg,path_filestat_get:arg=&gt;arg,path_create_directory:arg=&gt;arg,fd_prestat_get:arg=&gt;arg,fd_prestat_dir_name:arg=&gt;arg,clock_time_get:arg=&gt;arg,fd_fdstat_set_flags:arg=&gt;arg,fd_read:arg=&gt;arg,fd_filestat_set_size:arg=&gt;arg,fd_filestat_get:arg=&gt;arg,poll_oneoff:arg=&gt;arg}};<br/>            WebAssembly.instantiateStreaming(fetch('Hello.wasm'),importObject).then(obj=&gt;{<br/>                obj.instance.exports.hs_init(0,0);<br/>                console.log(obj.instance.exports.test(10));<br/>            });<br/>        &lt;/script&gt;<br/>    &lt;/body&gt;<br/>&lt;/html&gt;<br/>ちなみにここでtestは引数の数値を2倍して返す関数です。で、以下のエラーが出ています。<br/>Hello.wasm:0xb42e Uncaught (in promise) RuntimeError: unreachable<br/>    at Hello.wasm._Exit (Hello.wasm:0xb42e)<br/>    at Hello.wasm.exit (Hello.wasm:0x176db)<br/>    at Hello.wasm.stg_exit (Hello.wasm:0xabf3b)<br/>    at Hello.wasm.getProcessTimes (Hello.wasm:0xd513)<br/>    at Hello.wasm.stat_startInit (Hello.wasm:0xa904a)<br/>    at Hello.wasm.hs_init_ghc (Hello.wasm:0xabcb8)<br/>    at Hello.wasm.hs_init (Hello.wasm:0xabc44)<br/>違うアプローチも含めて、解決方法があれば知りたいです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1697375830.095419">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1697375830.095419">2023-10-15 22:17:10 +0900</a></div>
+          </div>
+          <div class="description">バックトレースから察するに、 <code>hs_init</code> から <code>getProcessTimes</code> という関数を呼ぶ際に何か問題があってエラーで終了する関数を呼ぼうとしたけど、importしている <code>proc_exit</code> 関数の実装が適切でないから <code>unreachable</code> に達したように見えますね。<br/>見たところ import している WASI の実装がどれも適切でない（全て <code>arg =&gt; arg</code> としか書いてない）のが原因でしょう。<br/>WASIの実装をブラウザーで動かす場合、パッと検索してヒットしたものだとこちらの pollyfill　はいかがでしょうか。 <a href='https://github.com/bjorn3/browser_wasi_shim'>https://github.com/bjorn3/browser_wasi_shim</a><br/>あと、 <a href='https://github.com/wasmerio/wasmer-js'>https://github.com/wasmerio/wasmer-js</a> も使えたはずです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1697376376.706299">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1697376376.706299">2023-10-15 22:26:16 +0900</a></div>
+          </div>
+          <div class="description">ちなみになんでそんなに簡単じゃないかというと、ブラウザーにはWASIが前提としている、ファイルシステムや標準入出力などに対応する機能の実装方法が何通りも考えられるからです。ユースケースに応じて実装を変えなければなりません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1697409044.127739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">かりんとう</div>
+            <div class="date"><a class="date" href="#message-1697409044.127739">2023-10-16 07:30:44 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。<br/>見つかるのがnpmのインストールが前提条件になっているものばかりですが、<br/>npmが必須な感じなのでしょうか？<br/>(レンタルサーバー上への配置を目標としているので、インストールは避けてファイルの配置で済ませたい、もしかしたらインストールもOKなのかもしれませんが未確認)<br/><blockquote>ユースケースに応じて実装を変えなければなりません。</blockquote>それはhtml内に書ける表現で可能でしょうか？<br/>可能なら一例を知りたいです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1697413889.282539">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1697413889.282539">2023-10-16 08:51:29 +0900</a></div>
+          </div>
+          <div class="description">今時のJavaScriptのライブラリーなんでnpmでのインストールは避けられないでしょうね。<br/>原則として、npmでプロジェクト向けにインストールしたものはプロジェクトディレクトリーの node_modules ディレクトリーに入るので、node_modulesにあるファイルを import してnode_modules ごとコピーすればレンタルサーバーでの配置は難しくないと思います。<br/>ライブラリーによっては（特に古いものは importで読み込めるES Module になってないので） Vite などのバンドラーも必要になるのでちょっと面倒かも知れませんが、その場合でも Vite でビルドしたものをコピーすればでこるはずです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1697452719.767199">
+        <div class="content">
+          <div class="summary">
+            <div class="user">かりんとう</div>
+            <div class="date"><a class="date" href="#message-1697452719.767199">2023-10-16 19:38:39 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>node_modulesにあるファイルを import してnode_modules ごとコピー</blockquote>盲点でした、それでできるかもしれませんね。<br/>今は別のことで立て込みそうなので後になるかもしれませんが試してみます。<br/>igrepさんありがとうございました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to random #104</a>
+    </div>
+  </div>
+</body>
+</html>

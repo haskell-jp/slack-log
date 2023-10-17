@@ -1,0 +1,38 @@
+[
+    {
+        "type": "message",
+        "user": "U02JVFSJT38",
+        "ts": "1697370997.794769",
+        "text": "直接haskellの部分でなくて恐縮ですが、.hsをコンパイルした.wasmファイルをhtmlに組み込む例を知りたいです。\n(ghc-wasm-metaからのwasi-jsとか見ましたがNode向けの内容しか見つけられていません)\n進み具合として、wasm32-wasi-ghc により.wasmにはできています。\n自分なりにwasmの組み込みかたを検索してhtmlはこうなっています。\n<!DOCTYPE html>\n&lt;html lang=\"ja\"&gt;\n    &lt;head&gt;\n        &lt;meta charset=\"utf-8\"/&gt;\n        &lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"&gt;\n    &lt;/head&gt;\n    &lt;body&gt;\n        &lt;script&gt;\n            const importObject={wasi_snapshot_preview1:{proc_exit:arg=&gt;arg,fd_close:arg=&gt;arg,fd_write:arg=&gt;arg,fd_seek:arg=&gt;arg,environ_sizes_get:arg=&gt;arg,environ_get:arg=&gt;arg,fd_fdstat_get:arg=&gt;arg,path_open:arg=&gt;arg,path_filestat_get:arg=&gt;arg,path_create_directory:arg=&gt;arg,fd_prestat_get:arg=&gt;arg,fd_prestat_dir_name:arg=&gt;arg,clock_time_get:arg=&gt;arg,fd_fdstat_set_flags:arg=&gt;arg,fd_read:arg=&gt;arg,fd_filestat_set_size:arg=&gt;arg,fd_filestat_get:arg=&gt;arg,poll_oneoff:arg=&gt;arg}};\n            WebAssembly.instantiateStreaming(fetch('Hello.wasm'),importObject).then(obj=&gt;{\n                obj.instance.exports.hs_init(0,0);\n                console.log(obj.instance.exports.test(10));\n            });\n        &lt;/script&gt;\n    &lt;/body&gt;\n&lt;/html&gt;\nちなみにここでtestは引数の数値を2倍して返す関数です。で、以下のエラーが出ています。\nHello.wasm:0xb42e Uncaught (in promise) RuntimeError: unreachable\n    at Hello.wasm._Exit (Hello.wasm:0xb42e)\n    at Hello.wasm.exit (Hello.wasm:0x176db)\n    at Hello.wasm.stg_exit (Hello.wasm:0xabf3b)\n    at Hello.wasm.getProcessTimes (Hello.wasm:0xd513)\n    at Hello.wasm.stat_startInit (Hello.wasm:0xa904a)\n    at Hello.wasm.hs_init_ghc (Hello.wasm:0xabcb8)\n    at Hello.wasm.hs_init (Hello.wasm:0xabc44)\n違うアプローチも含めて、解決方法があれば知りたいです。"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1697375830.095419",
+        "text": "バックトレースから察するに、 `hs_init` から `getProcessTimes` という関数を呼ぶ際に何か問題があってエラーで終了する関数を呼ぼうとしたけど、importしている `proc_exit` 関数の実装が適切でないから `unreachable` に達したように見えますね。\n見たところ import している WASI の実装がどれも適切でない（全て `arg =&gt; arg` としか書いてない）のが原因でしょう。\nWASIの実装をブラウザーで動かす場合、パッと検索してヒットしたものだとこちらの pollyfill　はいかがでしょうか。 <https://github.com/bjorn3/browser_wasi_shim>\nあと、 <https://github.com/wasmerio/wasmer-js> も使えたはずです。"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1697376376.706299",
+        "text": "ちなみになんでそんなに簡単じゃないかというと、ブラウザーにはWASIが前提としている、ファイルシステムや標準入出力などに対応する機能の実装方法が何通りも考えられるからです。ユースケースに応じて実装を変えなければなりません。"
+    },
+    {
+        "type": "message",
+        "user": "U02JVFSJT38",
+        "ts": "1697409044.127739",
+        "text": "ありがとうございます。\n見つかるのがnpmのインストールが前提条件になっているものばかりですが、\nnpmが必須な感じなのでしょうか？\n(レンタルサーバー上への配置を目標としているので、インストールは避けてファイルの配置で済ませたい、もしかしたらインストールもOKなのかもしれませんが未確認)\n&gt; ユースケースに応じて実装を変えなければなりません。\nそれはhtml内に書ける表現で可能でしょうか？\n可能なら一例を知りたいです。"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1697413889.282539",
+        "text": "今時のJavaScriptのライブラリーなんでnpmでのインストールは避けられないでしょうね。\n原則として、npmでプロジェクト向けにインストールしたものはプロジェクトディレクトリーの node_modules ディレクトリーに入るので、node_modulesにあるファイルを import してnode_modules ごとコピーすればレンタルサーバーでの配置は難しくないと思います。\nライブラリーによっては（特に古いものは importで読み込めるES Module になってないので） Vite などのバンドラーも必要になるのでちょっと面倒かも知れませんが、その場合でも Vite でビルドしたものをコピーすればでこるはずです。"
+    },
+    {
+        "type": "message",
+        "user": "U02JVFSJT38",
+        "ts": "1697452719.767199",
+        "text": "&gt; node_modulesにあるファイルを import してnode_modules ごとコピー\n盲点でした、それでできるかもしれませんね。\n今は別のことで立て込みそうなので後になるかもしれませんが試してみます。\nigrepさんありがとうございました。"
+    }
+]
