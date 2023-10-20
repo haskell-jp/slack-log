@@ -172,5 +172,11 @@
         "user": "U02JVFSJT38",
         "ts": "1697370997.794769",
         "text": "直接haskellの部分でなくて恐縮ですが、.hsをコンパイルした.wasmファイルをhtmlに組み込む例を知りたいです。\n(ghc-wasm-metaからのwasi-jsとか見ましたがNode向けの内容しか見つけられていません)\n進み具合として、wasm32-wasi-ghc により.wasmにはできています。\n自分なりにwasmの組み込みかたを検索してhtmlはこうなっています。\n<!DOCTYPE html>\n&lt;html lang=\"ja\"&gt;\n    &lt;head&gt;\n        &lt;meta charset=\"utf-8\"/&gt;\n        &lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"&gt;\n    &lt;/head&gt;\n    &lt;body&gt;\n        &lt;script&gt;\n            const importObject={wasi_snapshot_preview1:{proc_exit:arg=&gt;arg,fd_close:arg=&gt;arg,fd_write:arg=&gt;arg,fd_seek:arg=&gt;arg,environ_sizes_get:arg=&gt;arg,environ_get:arg=&gt;arg,fd_fdstat_get:arg=&gt;arg,path_open:arg=&gt;arg,path_filestat_get:arg=&gt;arg,path_create_directory:arg=&gt;arg,fd_prestat_get:arg=&gt;arg,fd_prestat_dir_name:arg=&gt;arg,clock_time_get:arg=&gt;arg,fd_fdstat_set_flags:arg=&gt;arg,fd_read:arg=&gt;arg,fd_filestat_set_size:arg=&gt;arg,fd_filestat_get:arg=&gt;arg,poll_oneoff:arg=&gt;arg}};\n            WebAssembly.instantiateStreaming(fetch('Hello.wasm'),importObject).then(obj=&gt;{\n                obj.instance.exports.hs_init(0,0);\n                console.log(obj.instance.exports.test(10));\n            });\n        &lt;/script&gt;\n    &lt;/body&gt;\n&lt;/html&gt;\nちなみにここでtestは引数の数値を2倍して返す関数です。で、以下のエラーが出ています。\nHello.wasm:0xb42e Uncaught (in promise) RuntimeError: unreachable\n    at Hello.wasm._Exit (Hello.wasm:0xb42e)\n    at Hello.wasm.exit (Hello.wasm:0x176db)\n    at Hello.wasm.stg_exit (Hello.wasm:0xabf3b)\n    at Hello.wasm.getProcessTimes (Hello.wasm:0xd513)\n    at Hello.wasm.stat_startInit (Hello.wasm:0xa904a)\n    at Hello.wasm.hs_init_ghc (Hello.wasm:0xabcb8)\n    at Hello.wasm.hs_init (Hello.wasm:0xabc44)\n違うアプローチも含めて、解決方法があれば知りたいです。"
+    },
+    {
+        "type": "message",
+        "user": "U04LCUXALJ2",
+        "ts": "1697717840.907589",
+        "text": "ulid-tightパッケージをリリースしました。\n<https://hackage.haskell.org/package/ulid-tight|https://hackage.haskell.org/package/ulid-tight>"
     }
 ]
