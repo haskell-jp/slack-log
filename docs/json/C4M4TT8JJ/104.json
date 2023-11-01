@@ -202,5 +202,11 @@
         "user": "U55V441FS",
         "ts": "1698667015.576329",
         "text": "HaskellではなくErlang/Elixirベースですが、QuickCheck等にも活かせると思うのでラムダノートの新刊紹介です :bow:\n<https://www.lambdanote.com/collections/proper-erlang-elixir>"
+    },
+    {
+        "type": "message",
+        "user": "U56MBRKR9",
+        "ts": "1698731802.425379",
+        "text": "軽量スレッドのスタックは、最初1kですが、次は32k足されて33kになります。\nこれはひどいデフォルト値です。\nたくさん軽量スレッドを起動すると、使われないスタックで溢れかえります。\nこの問題は、スタックの増える量を最小値の2kにすると解決するようです。\n+RTS -kc2k"
     }
 ]

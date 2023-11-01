@@ -326,6 +326,15 @@
           <div class="description">HaskellではなくErlang/Elixirベースですが、QuickCheck等にも活かせると思うのでラムダノートの新刊紹介です :bow:<br/><a href='https://www.lambdanote.com/collections/proper-erlang-elixir'>https://www.lambdanote.com/collections/proper-erlang-elixir</a></div>
         </div>
       </div>
+      <div class="event" id="message-1698731802.425379">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1698731802.425379">2023-10-31 14:56:42 +0900</a></div>
+          </div>
+          <div class="description">軽量スレッドのスタックは、最初1kですが、次は32k足されて33kになります。<br/>これはひどいデフォルト値です。<br/>たくさん軽量スレッドを起動すると、使われないスタックで溢れかえります。<br/>この問題は、スタックの増える量を最小値の2kにすると解決するようです。<br/>+RTS -kc2k</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C4M4TT8JJ/103.html" class="item">Previous</a>
