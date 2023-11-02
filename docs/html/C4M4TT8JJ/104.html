@@ -335,6 +335,34 @@
           <div class="description">軽量スレッドのスタックは、最初1kですが、次は32k足されて33kになります。<br/>これはひどいデフォルト値です。<br/>たくさん軽量スレッドを起動すると、使われないスタックで溢れかえります。<br/>この問題は、スタックの増える量を最小値の2kにすると解決するようです。<br/>+RTS -kc2k</div>
         </div>
       </div>
+      <div class="event" id="message-1698812500.367789">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1698812500.367789">2023-11-01 13:21:40 +0900</a></div>
+          </div>
+          <div class="description">AtCoder での最近の Haskell (GHC 9.4.5) update from (8.8.3) によって実行速度が低下している模様　例： 競プロ典型 90 問  9 日目 - Three Point Angle<br/><a href='https://atcoder.jp/contests/typical90/submissions/47126051'>https://atcoder.jp/contests/typical90/submissions/47126051</a></div>
+          <a class="link-to-replies" href="104/1698812500.367789.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1698841366.259449">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1698841366.259449">2023-11-01 21:22:46 +0900</a></div>
+          </div>
+          <div class="description">あー，これ公知するの忘れてました． <code>VAI.sort</code>  を <code>VAI.sortBy compare</code> で置き換えると改善します：<br/><br/><a href='https://atcoder.jp/contests/typical90/submissions/47136959'>https://atcoder.jp/contests/typical90/submissions/47136959</a><br/><br/><code>VAI.sort</code> は <code>{-# INLINABLE sort #-}</code> になっています． <code>vector-algorithms</code> における7年前のコミット <a href='https://github.com/erikd/vector-algorithms/commit/298333ee4a26bdd25a08a852d3123c9aab24c364'>https://github.com/erikd/vector-algorithms/commit/298333ee4a26bdd25a08a852d3123c9aab24c364</a> で，「`INLINABLE` ではなく <code>{-# INLINE sort #-}</code> としないとパフォーマンスが悪化するということだがそれが再現しない」，ということを理由に <code>INLINABLE</code> に差し戻された状態です．GHC 8.8.3 ではきちんとインライン化されていたところ，多分 GHC 9.4.5 のバグか仕様かで <code>sort</code> がインライン化されなくて時間がかかっているようなんですよね．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1698844255.752799">
+        <div class="content">
+          <div class="summary">
+            <div class="user">lotz</div>
+            <div class="date"><a class="date" href="#message-1698844255.752799">2023-11-01 22:10:55 +0900</a></div>
+          </div>
+          <div class="description">今年の Haskell Advent Calendar の枠を作りましたのでぜひ登録して書いていただけると嬉しいですー！ :pray:<br/><a href='https://qiita.com/advent-calendar/2023/haskell'>https://qiita.com/advent-calendar/2023/haskell</a></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C4M4TT8JJ/103.html" class="item">Previous</a>

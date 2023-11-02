@@ -208,5 +208,23 @@
         "user": "U56MBRKR9",
         "ts": "1698731802.425379",
         "text": "軽量スレッドのスタックは、最初1kですが、次は32k足されて33kになります。\nこれはひどいデフォルト値です。\nたくさん軽量スレッドを起動すると、使われないスタックで溢れかえります。\nこの問題は、スタックの増える量を最小値の2kにすると解決するようです。\n+RTS -kc2k"
+    },
+    {
+        "type": "message",
+        "user": "U584T7GAH",
+        "ts": "1698812500.367789",
+        "text": "AtCoder での最近の Haskell (GHC 9.4.5) update from (8.8.3) によって実行速度が低下している模様　例： 競プロ典型 90 問  9 日目 - Three Point Angle\n<https://atcoder.jp/contests/typical90/submissions/47126051>"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1698841366.259449",
+        "text": "あー，これ公知するの忘れてました． `VAI.sort`  を `VAI.sortBy compare` で置き換えると改善します：\n\n<https://atcoder.jp/contests/typical90/submissions/47136959>\n\n`VAI.sort` は `{-# INLINABLE sort #-}` になっています． `vector-algorithms` における7年前のコミット <https://github.com/erikd/vector-algorithms/commit/298333ee4a26bdd25a08a852d3123c9aab24c364> で，「`INLINABLE` ではなく `{-# INLINE sort #-}` としないとパフォーマンスが悪化するということだがそれが再現しない」，ということを理由に `INLINABLE` に差し戻された状態です．GHC 8.8.3 ではきちんとインライン化されていたところ，多分 GHC 9.4.5 のバグか仕様かで `sort` がインライン化されなくて時間がかかっているようなんですよね．"
+    },
+    {
+        "type": "message",
+        "user": "U4KPPQW7K",
+        "ts": "1698844255.752799",
+        "text": "今年の Haskell Advent Calendar の枠を作りましたのでぜひ登録して書いていただけると嬉しいですー！ :pray:\n<https://qiita.com/advent-calendar/2023/haskell>"
     }
 ]
