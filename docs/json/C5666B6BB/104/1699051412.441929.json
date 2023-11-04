@@ -1,0 +1,44 @@
+[
+    {
+        "type": "message",
+        "user": "U043KGWLGVC",
+        "ts": "1699051412.441929",
+        "text": "happyでsemverの構文解析に取り組んでいます。semverを変形した<https://github.com/npm/node-semver|node-semver>にも対応したいです。\nnode-semverでは`1.2.x`のように、\"x\"をバージョン指定に使うことができます。\n一方で`1.2.3-xxxxx`のように、メタタグにも\"x\"を使うことができます。この場合、xの意味が文脈によって変わってしまい文脈依存文法になる？ため、純粋なhappyだけでは構文解析はできないと思うのですがどう解決すれば良いでしょうか？\nトークン化を工夫することでこれを回避できるのでしょうか？"
+    },
+    {
+        "type": "message",
+        "user": "U4L0B71L1",
+        "ts": "1699073054.481859",
+        "text": "`1.2.x` の `x` を patch、`1.2.3-x` の `x` を tag と名付けるとして、トークン化の段階では patch-or-tag というトークンにして、そのトークン列を構文解析することでなんとかなり、ならないかなあ"
+    },
+    {
+        "type": "message",
+        "user": "U043KGWLGVC",
+        "ts": "1699073742.299879",
+        "text": "Haskellはもっと文法複雑なはずなので気になってGHCの定義を見に行ってみたんですが、どうも継続モナド的な仕組みを使って字句解析と構文解析を行ったり来たりすることで何とかしてるみたいです。難しすぎました。。。"
+    },
+    {
+        "type": "message",
+        "user": "U02CE9YGEAU",
+        "ts": "1699082693.082949",
+        "text": "Alexの <https://haskell-alex.readthedocs.io/en/latest/syntax.html#start-codes|start-codes> でいけませんか？\n```&lt;0&gt;   \\-         { begin tag }\n&lt;0, tag&gt; \\.      { begin 0 }\n\n&lt;0&gt;   x          { \\_ -&gt; TokX }\n&lt;tag&gt; @string    { \\s -&gt; TokTag s }```\nこんな感じ？\nstart codeはデフォルトで0なのですが、`-` に遭遇したらtagというstart codeに切り替えて、`.` に遭遇したら0に戻します。\n使用するwrapperによって上の書き方のままできるかはわかりませんが"
+    },
+    {
+        "type": "message",
+        "user": "U043KGWLGVC",
+        "ts": "1699091027.941099",
+        "text": "ありがとうございます。 調べたところ、どうにかして文脈付きのlexerで字句解析するしかないみたいです。試せてないですが、おそらくおっしゃっているstart-codesでもできると思います。alexだとそういうことが簡単？にできそうなので触ってみようと思います。\n\nしかし、文脈付きで字句解析するともはや構文解析に片足を突っ込んでいるような違和感を持つのですが、構文解析とわざわざ分けている理由があるんでしょうか？実はこのタイプは古典的で、最近はPEGなどの字句解析がいらない手法がメジャーになってきてるとかあるんですかね。。。"
+    },
+    {
+        "type": "message",
+        "user": "U4L0B71L1",
+        "ts": "1699098098.515979",
+        "text": "Haskell だと parsec を始めとするパーサーコンビネーターがメジャーな気がしますね\n<https://hackage.haskell.org/package/parsec|https://hackage.haskell.org/package/parsec>"
+    },
+    {
+        "type": "message",
+        "user": "U043KGWLGVC",
+        "ts": "1699102482.005829",
+        "text": "パーサーコンビネーター人気ですよね。そこらへんの話をたくさんききたい…"
+    }
+]

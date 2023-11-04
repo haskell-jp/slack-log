@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #104 at 2023-11-04 07:43:32 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #104 at 2023-11-04 07:43:32 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to questions #104</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1699051412.441929">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699051412.441929">2023-11-04 07:43:32 +0900</a></div>
+          </div>
+          <div class="description">happyでsemverの構文解析に取り組んでいます。semverを変形した<https://github.com/npm/node-semver|node-semver>にも対応したいです。<br/>node-semverでは`1.2.x`のように、"x"をバージョン指定に使うことができます。<br/>一方で`1.2.3-xxxxx`のように、メタタグにも"x"を使うことができます。この場合、xの意味が文脈によって変わってしまい文脈依存文法になる？ため、純粋なhappyだけでは構文解析はできないと思うのですがどう解決すれば良いでしょうか？<br/>トークン化を工夫することでこれを回避できるのでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699073054.481859">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1699073054.481859">2023-11-04 13:44:14 +0900</a></div>
+          </div>
+          <div class="description"><code>1.2.x</code> の <code>x</code> を patch、`1.2.3-x` の <code>x</code> を tag と名付けるとして、トークン化の段階では patch-or-tag というトークンにして、そのトークン列を構文解析することでなんとかなり、ならないかなあ</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699073742.299879">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699073742.299879">2023-11-04 13:55:42 +0900</a></div>
+          </div>
+          <div class="description">Haskellはもっと文法複雑なはずなので気になってGHCの定義を見に行ってみたんですが、どうも継続モナド的な仕組みを使って字句解析と構文解析を行ったり来たりすることで何とかしてるみたいです。難しすぎました。。。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699082693.082949">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ksrk</div>
+            <div class="date"><a class="date" href="#message-1699082693.082949">2023-11-04 16:24:53 +0900</a></div>
+          </div>
+          <div class="description">Alexの <a href='https://haskell-alex.readthedocs.io/en/latest/syntax.html#start-codes'>start-codes</a> でいけませんか？<br/><pre>&lt;0&gt;   \-         { begin tag }
+&lt;0, tag&gt; \.      { begin 0 }
+
+&lt;0&gt;   x          { \_ -&gt; TokX }
+&lt;tag&gt; @string    { \s -&gt; TokTag s }</pre><br/>こんな感じ？<br/>start codeはデフォルトで0なのですが、`-` に遭遇したらtagというstart codeに切り替えて、`.` に遭遇したら0に戻します。<br/>使用するwrapperによって上の書き方のままできるかはわかりませんが</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699091027.941099">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699091027.941099">2023-11-04 18:43:47 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。 調べたところ、どうにかして文脈付きのlexerで字句解析するしかないみたいです。試せてないですが、おそらくおっしゃっているstart-codesでもできると思います。alexだとそういうことが簡単？にできそうなので触ってみようと思います。<br/><br/>しかし、文脈付きで字句解析するともはや構文解析に片足を突っ込んでいるような違和感を持つのですが、構文解析とわざわざ分けている理由があるんでしょうか？実はこのタイプは古典的で、最近はPEGなどの字句解析がいらない手法がメジャーになってきてるとかあるんですかね。。。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699098098.515979">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1699098098.515979">2023-11-04 20:41:38 +0900</a></div>
+          </div>
+          <div class="description">Haskell だと parsec を始めとするパーサーコンビネーターがメジャーな気がしますね<br/><a href='https://hackage.haskell.org/package/parsec'>https://hackage.haskell.org/package/parsec</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1699102482.005829">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699102482.005829">2023-11-04 21:54:42 +0900</a></div>
+          </div>
+          <div class="description">パーサーコンビネーター人気ですよね。そこらへんの話をたくさんききたい…</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../104.html" class="item">Back to questions #104</a>
+    </div>
+  </div>
+</body>
+</html>
