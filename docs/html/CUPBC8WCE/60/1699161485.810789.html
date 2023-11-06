@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / mokumoku-online #60 at 2023-11-05 14:18:05 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / mokumoku-online #60 at 2023-11-05 14:18:05 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../60.html" class="item">Back to mokumoku-online #60</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1699161485.810789">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699161485.810789">2023-11-05 14:18:05 +0900</a></div>
+          </div>
+          <div class="description">途中からですが参加させてください<br/>Happyでsemverパーサーを書きます</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699161975.669449">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699161975.669449">2023-11-05 14:26:15 +0900</a></div>
+          </div>
+          <div class="description">自分のための整理を兼ねて進捗を共有します。<br/><br/>happyでsemverをパースするの自体は難しくない<br/><code>1.2.3-alpha+build123</code> これがsemver。<br/>難しいのは字句解析。ハイフンが識別子としても使えるので`1.2.3-alpha-7`がOKになる。これだとセパレータと識別子ののハイフンとの区別がつかない。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699162273.856759">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699162273.856759">2023-11-05 14:31:13 +0900</a></div>
+          </div>
+          <div class="description">さらに、利便性のためにsemverを拡張したnode-semverというものがある。package.jsonでよく見る`^1.2.3` は実は拡張構文<br/>node-semverでは`X, x, *` をバージョン番号として許容する。つまり、`1.2.x` がOKになる。このため、`-, X, x` だけをみてどのトークンかを判別できない。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699162365.628049">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699162365.628049">2023-11-05 14:32:45 +0900</a></div>
+          </div>
+          <div class="description">よって、１文字ずつ文字列を消費していく単純な字句解析では正しくトークン化できないためParserと文脈を共有しながら字句解析しなければいけない。<br/>今は識別子をパースしてるからハイフンは識別子だよーみたいな</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699162596.106069">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699162596.106069">2023-11-05 14:36:36 +0900</a></div>
+          </div>
+          <div class="description">happyにはパーサをユーザー定義のモナドにできるので、Stateモナドを使って文脈を保持することにする。Alexを使うとlexerも生成できるが、とりあえず今回は手書きする。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699163886.811069">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699163886.811069">2023-11-05 14:58:06 +0900</a></div>
+          </div>
+          <div class="description">まだあった。<br/><code>1.0.0 - 2.0.0</code> のように、ハイフンをバージョン範囲を指定するのにも使うことができる。このハイフンは前後に１個以上の空白がなければいけない</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699163918.700669">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699163918.700669">2023-11-05 14:58:38 +0900</a></div>
+          </div>
+          <div class="description">なので空白を単純に読み飛ばすわけにもいかない</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699164136.064019">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699164136.064019">2023-11-05 15:02:16 +0900</a></div>
+          </div>
+          <div class="description">地道にパーサーを描いているが、だんだんとParsecTと同じ型になってしまい、車輪の再発明感がすごい。。。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699164467.172909">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699164467.172909">2023-11-05 15:07:47 +0900</a></div>
+          </div>
+          <div class="description">これ最初からParsecでやればいいのでは・・・！？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699164995.649769">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699164995.649769">2023-11-05 15:16:35 +0900</a></div>
+          </div>
+          <div class="description">semverって多分先読み１でできるだろうからParsecでやるのがベストなのかもしれない・・・</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699165161.666789">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699165161.666789">2023-11-05 15:19:21 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://tratt.net/laurie/blog/2020/which_parsing_approach.html'>https://tratt.net/laurie/blog/2020/which_parsing_approach.html</a><br/><br/>構文解析の手法を比較したこの記事を読んでみる</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699166380.078929">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699166380.078929">2023-11-05 15:39:40 +0900</a></div>
+          </div>
+          <div class="description">1. 再帰降下<br/>    a. 最もわかりやすい<br/>    b. 実は形式言語のどのクラスに属するかは明らかではない<br/>    c. 曖昧な文法（複数通りの解析ができる文法）を事前に検知できない<br/>    d. 素直な実装では左結合の演算子をパースすると無限ループになる<br/>    e. 筆者は、再帰下降解析はアセンブリ言語のような、自分の足を自分で打ち抜ける手法だと考えている<br/>2. Generalised parser<br/>    a. 文脈自由文法に対応している<br/>    b. 曖昧な文法を「ランタイムで」検出できる<br/>    c. 筆者は、この手法は動的型付け言語のように強力だが静的解析の難しい手法だと考えている<br/>3. LL, LR parse<br/>    a. 文法に曖昧さがない<br/>    b. CFGの厳密なサブセットになるわけではない。LRだけど、CFGじゃないみたいな文法が存在できる<br/>4. LL parse<br/>    a. 左再帰がない<br/>    b. あんまりメジャーじゃない<br/>5. LR parse<br/>    a. LLより強い<br/>    b. 曖昧さがない<br/>    c. 筆者は、静的型付け言語のように制限的だが安全であると考えている<br/>6. PEG<br/>    a. 本質的には再帰降下<br/>    b. 何らかの問題があるらしい<br/>7. パフォーマンス<br/>    a. そもそも現代のマシンではどの手法でも十分に早い<br/>    b. それでもLRが早い<br/>8. エラーリカバリー<br/>    a. 再帰下降はめっちゃやりやすい<br/>    b. LRでリカバリは難しい。けど改善の余地はある<br/>筆者は LR解析が最も実用的と考えている</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699167345.524709">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699167345.524709">2023-11-05 15:55:45 +0900</a></div>
+          </div>
+          <div class="description">ということで Happyでパーサー開発を続けます。<br/>確認したらAlexのContextという機能を使えそうなのでAlexも使います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699168036.813229">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699168036.813229">2023-11-05 16:07:16 +0900</a></div>
+          </div>
+          <div class="description">すごい！AlexのContextを使ったら驚くほど簡単にパースできた！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699175629.003659">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699175629.003659">2023-11-05 18:13:49 +0900</a></div>
+          </div>
+          <div class="description">とりあえずsemverパーサー自体は完成しました！AlexとHappyをうまく使うと驚くほど簡単にできました。<br/>あとはパースできた構文木をバージョン制約に変換する処理を実装します。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../60.html" class="item">Back to mokumoku-online #60</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -79,6 +79,43 @@
           <div class="description">パーサーコンビネーター人気ですよね。そこらへんの話をたくさんききたい…</div>
         </div>
       </div>
+      <div class="event" id="message-1699168320.011809">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699168320.011809">2023-11-05 16:12:00 +0900</a></div>
+          </div>
+          <div class="description">解決したので共有します。<br/>結果的にAlexのcontext機能をつかってこの問題を解決できました。<br/><code>[\-\+]^[\-a-zA-Z0-9]+ { TokenIdentifier }</code><br/>上のような文法を定義すると、`-` または`+` 以降の文字列を識別子としてパースしてくれます。<br/><pre>ghci&gt; alexScanTokens "--"
+[TokenHyphen,TokenIdentifier "-"]</pre><br/>こんな感じで、２回目のハイフンは識別子扱いになります。<br/>Alexを教えてくださったksrkさん、助言を頂いたkakkun61さんありがとうございました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699171296.812389">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1699171296.812389">2023-11-05 17:01:36 +0900</a></div>
+          </div>
+          <div class="description">解決なさったようなので、いまさらの感想ですが。セマンティックバージョンのATSの定義があれば、baseパッケージのText.ParserCombinators.ReadP で字句解析抜き（文字を字句とするだけ）で書けそうに思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699176557.200989">
+        <div class="content">
+          <div class="summary">
+            <div class="user">arark</div>
+            <div class="date"><a class="date" href="#message-1699176557.200989">2023-11-05 18:29:17 +0900</a></div>
+          </div>
+          <div class="description">@nobsun 今回はパーサージェネレータの練習としてhappyを選択したので、パーサーコンビネータを使うつもりはないんです。すいません:pray:<br/>ですがそのモジュールは知らなかったので勉強になりました。ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699177137.049069">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1699177137.049069">2023-11-05 18:38:57 +0900</a></div>
+          </div>
+          <div class="description">いえいえ、グッドジョブ！です。字句解析をさぼれそうなので、lex_state のようなものをもちだすまでもないかもと、実装もしてないのに勝手な感想を述べてしまいました:pray:</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../104.html" class="item">Back to questions #104</a>
