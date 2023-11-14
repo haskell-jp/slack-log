@@ -1,0 +1,14 @@
+[
+    {
+        "type": "message",
+        "user": "U015L5JEP8D",
+        "ts": "1699850628.377719",
+        "text": "`data` とレコード構文で定義した、一つだけコンストラクタを持つ型について、コンストラクタの各引数へのアクセサとなるLensを勝手に導出してくれるような方法はありますか？"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1699851047.242539",
+        "text": "`lens` パッケージの <http://Control.Lens.TH|Control.Lens.TH> で定義されているmakeLenses などのマクロを使って定義を生成させるか、\n<https://hackage.haskell.org/package/lens-5.2.3/docs/Control-Lens-TH.html>\n\n`generic-lens` パッケージと `OverloadedLabels` 言語拡張を使って `#hogeField` みたいな構文で自動でレンズ／プリズムを生成してもらう方法がメジャーでしょうか\n<https://hackage.haskell.org/package/generic-lens>\n\n`OverloadedLabels` に抵抗がなければ generic-lens が便利（マクロではなく定義順が制約されることがないので）ですが、generic-lens のレンズを複数合成すると場合によっては多相性が邪魔をして上手く推論してくれない場合もあります。用途に応じて使い分ける形かなと"
+    }
+]

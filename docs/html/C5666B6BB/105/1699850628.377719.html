@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #105 at 2023-11-13 13:43:48 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #105 at 2023-11-13 13:43:48 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../105.html" class="item">Back to questions #105</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1699850628.377719">
+        <div class="content">
+          <div class="summary">
+            <div class="user">minus1216</div>
+            <div class="date"><a class="date" href="#message-1699850628.377719">2023-11-13 13:43:48 +0900</a></div>
+          </div>
+          <div class="description"><code>data</code> とレコード構文で定義した、一つだけコンストラクタを持つ型について、コンストラクタの各引数へのアクセサとなるLensを勝手に導出してくれるような方法はありますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1699851047.242539">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1699851047.242539">2023-11-13 13:50:47 +0900</a></div>
+          </div>
+          <div class="description"><code>lens</code> パッケージの <a href='http://Control.Lens.TH'>Control.Lens.TH</a> で定義されているmakeLenses などのマクロを使って定義を生成させるか、<br/><a href='https://hackage.haskell.org/package/lens-5.2.3/docs/Control-Lens-TH.html'>https://hackage.haskell.org/package/lens-5.2.3/docs/Control-Lens-TH.html</a><br/><br/><code>generic-lens</code> パッケージと <code>OverloadedLabels</code> 言語拡張を使って <code>#hogeField</code> みたいな構文で自動でレンズ／プリズムを生成してもらう方法がメジャーでしょうか<br/><a href='https://hackage.haskell.org/package/generic-lens'>https://hackage.haskell.org/package/generic-lens</a><br/><br/><code>OverloadedLabels</code> に抵抗がなければ generic-lens が便利（マクロではなく定義順が制約されることがないので）ですが、generic-lens のレンズを複数合成すると場合によっては多相性が邪魔をして上手く推論してくれない場合もあります。用途に応じて使い分ける形かなと</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../105.html" class="item">Back to questions #105</a>
+    </div>
+  </div>
+</body>
+</html>
