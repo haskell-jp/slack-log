@@ -1,0 +1,14 @@
+[
+    {
+        "type": "message",
+        "user": "U04GXTAPVSS",
+        "ts": "1700060589.508599",
+        "text": "初歩的ですが質問をさせてください\n\n「Haskell入門」を参考にパッケージsplit-0.2.4のモジュールData.List.SplitのSplitOnメソッドを使ってパーサーを作っています。\nコードは以下の通りです。\n```import Data.List.Split\n\ndata YMD =YMD Int Int Int deriving Show\n\nparseYMD :: String -&gt; Maybe YMD\nparseYMD = listToymd . splitOn \"/\"\n    where\n        listToymd :: [String] -&gt; Maybe YMD\n        listToymd (y:m:d:_) = Just $ YMD (read y) (read m) (read d)\n        listToymd _ = Nothing```\nこれをpar.hsとして保存しています。\n\n```runghc par.hs --package split-0.2.4```\nと打って実行を試みると次のようなエラーが出てしまいます。原因を教えてください。\n(なおパッケージのインストールはstack install より行っています)\n\n```par.hs:1:1: error:\n    Could not find module 'Data.List.Split'\n    Use -v to see a list of the files searched for.\n  |\n1 | import Data.List.Split\n  | ^^^^^^^^^^^^^^^^^^^^^^```"
+    },
+    {
+        "type": "message",
+        "user": "U57CUMWQ6",
+        "ts": "1700063768.612999",
+        "text": "1. runghcがstackの管理下のものではなくおそらくghcupでインストールしたものになっているのでstackでのインストールが反映されていない\n2. 既にそのバージョンがLTSから外れているのでバージョン指定しないほうが適切なやつが選択されそう\nのでまず実行コマンドは以下のようになります。\n\n```stack runghc par.hs --package split```\n3. またrunghcであってreplではないので適当にmain関数が必要なため、例えば以下のように追加しておく必要があります\n\n```main = print $ parseYMD \"2015/02/01\"```"
+    }
+]

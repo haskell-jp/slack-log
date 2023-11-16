@@ -157,6 +157,30 @@ readWordGroup filePath = bracket
           <div class="description">@ has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1700060589.508599">
+        <div class="content">
+          <div class="summary">
+            <div class="user">木村奏</div>
+            <div class="date"><a class="date" href="#message-1700060589.508599">2023-11-16 00:03:09 +0900</a></div>
+          </div>
+          <div class="description">初歩的ですが質問をさせてください<br/><br/>「Haskell入門」を参考にパッケージsplit-0.2.4のモジュールData.List.SplitのSplitOnメソッドを使ってパーサーを作っています。<br/>コードは以下の通りです。<br/><pre>import Data.List.Split
+
+data YMD =YMD Int Int Int deriving Show
+
+parseYMD :: String -&gt; Maybe YMD
+parseYMD = listToymd . splitOn "/"
+    where
+        listToymd :: [String] -&gt; Maybe YMD
+        listToymd (y:m:d:_) = Just $ YMD (read y) (read m) (read d)
+        listToymd _ = Nothing</pre><br/>これをpar.hsとして保存しています。<br/><br/><pre>runghc par.hs --package split-0.2.4</pre><br/>と打って実行を試みると次のようなエラーが出てしまいます。原因を教えてください。<br/>(なおパッケージのインストールはstack install より行っています)<br/><br/><pre>par.hs:1:1: error:
+    Could not find module 'Data.List.Split'
+    Use -v to see a list of the files searched for.
+  |
+1 | import Data.List.Split
+  | ^^^^^^^^^^^^^^^^^^^^^^</pre></div>
+          <a class="link-to-replies" href="24/1700060589.508599.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/23.html" class="item">Previous</a>
