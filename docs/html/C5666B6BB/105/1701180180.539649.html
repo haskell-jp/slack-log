@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #105 at 2023-11-28 23:03:00 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #105 at 2023-11-28 23:03:00 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../105.html" class="item">Back to questions #105</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1701180180.539649">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1701180180.539649">2023-11-28 23:03:00 +0900</a></div>
+          </div>
+          <div class="description">以下の <code>(f $ g)</code> はどのように理解できますか？<br/><pre>ghci&gt; let f = (1 +) :: (Num a) =&gt; a -&gt; a
+ghci&gt; let g = (2 +) :: (Num a) =&gt; a -&gt; a
+ghci&gt; :t (f $ g)
+(f $ g) :: (Num a, Num (a -&gt; a)) =&gt; a -&gt; a</pre><br/>背景としては、以下のようにコンパイルエラーになる例を考えるつもりでした:<br/><pre>ghci&gt; let a = (1 +) :: Int -&gt; Int
+ghci&gt; let b = (2 +) :: Int -&gt; Int
+ghci&gt; :t (a $ b)
+
+&lt;interactive&gt;:1:6: error:
+    • Couldn't match expected type 'Int' with actual type 'Int -&gt; Int'
+    • In the second argument of '($)', namely 'b'
+      In the expression: a $ b</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1701216914.419209">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1701216914.419209">2023-11-29 09:15:14 +0900</a></div>
+          </div>
+          <div class="description">f の型シグネチャにある2つの型変数 a は同じ型に具体化され、gの型シグネチャにある2つの型変数 a も同じ型に具体化されますが、スコープは別になります。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../105.html" class="item">Back to questions #105</a>
+    </div>
+  </div>
+</body>
+</html>

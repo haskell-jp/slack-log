@@ -1,0 +1,14 @@
+[
+    {
+        "type": "message",
+        "user": "U03H9PH8FRP",
+        "ts": "1701180180.539649",
+        "text": "以下の `(f $ g)` はどのように理解できますか？\n```ghci&gt; let f = (1 +) :: (Num a) =&gt; a -&gt; a\nghci&gt; let g = (2 +) :: (Num a) =&gt; a -&gt; a\nghci&gt; :t (f $ g)\n(f $ g) :: (Num a, Num (a -&gt; a)) =&gt; a -&gt; a```\n背景としては、以下のようにコンパイルエラーになる例を考えるつもりでした:\n```ghci&gt; let a = (1 +) :: Int -&gt; Int\nghci&gt; let b = (2 +) :: Int -&gt; Int\nghci&gt; :t (a $ b)\n\n&lt;interactive&gt;:1:6: error:\n    • Couldn't match expected type 'Int' with actual type 'Int -&gt; Int'\n    • In the second argument of '($)', namely 'b'\n      In the expression: a $ b```"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1701216914.419209",
+        "text": "f の型シグネチャにある2つの型変数 a は同じ型に具体化され、gの型シグネチャにある2つの型変数 a も同じ型に具体化されますが、スコープは別になります。"
+    }
+]

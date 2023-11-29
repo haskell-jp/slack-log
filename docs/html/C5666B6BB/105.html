@@ -68,6 +68,26 @@
           <div class="description">@Sato Naoto has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1701180180.539649">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1701180180.539649">2023-11-28 23:03:00 +0900</a></div>
+          </div>
+          <div class="description">以下の <code>(f $ g)</code> はどのように理解できますか？<br/><pre>ghci&gt; let f = (1 +) :: (Num a) =&gt; a -&gt; a
+ghci&gt; let g = (2 +) :: (Num a) =&gt; a -&gt; a
+ghci&gt; :t (f $ g)
+(f $ g) :: (Num a, Num (a -&gt; a)) =&gt; a -&gt; a</pre><br/>背景としては、以下のようにコンパイルエラーになる例を考えるつもりでした:<br/><pre>ghci&gt; let a = (1 +) :: Int -&gt; Int
+ghci&gt; let b = (2 +) :: Int -&gt; Int
+ghci&gt; :t (a $ b)
+
+&lt;interactive&gt;:1:6: error:
+    • Couldn't match expected type 'Int' with actual type 'Int -&gt; Int'
+    • In the second argument of '($)', namely 'b'
+      In the expression: a $ b</pre></div>
+          <a class="link-to-replies" href="105/1701180180.539649.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C5666B6BB/104.html" class="item">Previous</a>
