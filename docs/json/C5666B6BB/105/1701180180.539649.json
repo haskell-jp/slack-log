@@ -10,5 +10,23 @@
         "user": "U4KU9ABL0",
         "ts": "1701216914.419209",
         "text": "f の型シグネチャにある2つの型変数 a は同じ型に具体化され、gの型シグネチャにある2つの型変数 a も同じ型に具体化されますが、スコープは別になります。"
+    },
+    {
+        "type": "message",
+        "user": "U4KU9ABL0",
+        "ts": "1701220804.878159",
+        "text": "実際、\n```instance Num a => Num (a -> a) where\n    (+) :: Num a => (a -> a) -> (a -> a) -> a -> a\n    f + g = (+) . f <*> g\n    (*) :: Num a => (a -> a) -> (a -> a) -> a -> a\n    f * g = (*) . f <*> g\n    negate :: Num a => (a -> a) -> a -> a\n    negate f = negate . f\n    abs :: Num a => (a -> a) -> a -> a\n    abs f = abs . f\n    signum :: Num a => (a -> a) -> a -> a\n    signum f = signum . f\n    fromInteger :: Num a => Integer -> a -> a\n    fromInteger = const . fromInteger```\nのように定義すると\n```ghci> let f = (1 +) :: a -> a\nghci> let g = (2 +) :: a -> a\nghci> :t f g\nf g :: Num a => a -> a```\nのように型なり、\n```ghci> f g (0 :: Int)\n3```\nとなります。\nここで、f は (Int -> Int) -> (Int -> Int) に具体化され、g は Int -> Int に具体化されているます。\na -> a は Int 具体化できないので、f :: Int -> Int とするとエラーになります。"
+    },
+    {
+        "type": "message",
+        "user": "U03H9PH8FRP",
+        "ts": "1701258335.137029",
+        "text": "数値リテラルの `1` が `fromInteger` を経由して `Int -&gt; Int` になるというのは、盲点というかショックでした。 `Num` の定義の具体例もありがとうございます！　`const` を活かして関数合成のような関数適用になっているのが面白かったです。"
+    },
+    {
+        "type": "message",
+        "user": "U03H9PH8FRP",
+        "ts": "1701258475.499109",
+        "text": "GHC は、よく僕の認知を超えた答えを出すので混乱します 笑\nGHC に見合った人間を目指さなければ……　&gt;_&lt;"
     }
 ]

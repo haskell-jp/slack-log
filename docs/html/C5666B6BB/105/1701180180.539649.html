@@ -40,6 +40,49 @@ ghci&gt; :t (a $ b)
           <div class="description">f の型シグネチャにある2つの型変数 a は同じ型に具体化され、gの型シグネチャにある2つの型変数 a も同じ型に具体化されますが、スコープは別になります。</div>
         </div>
       </div>
+      <div class="event" id="message-1701220804.878159">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1701220804.878159">2023-11-29 10:20:04 +0900</a></div>
+          </div>
+          <div class="description">実際、<br/><pre>instance Num a => Num (a -> a) where
+    (+) :: Num a => (a -> a) -> (a -> a) -> a -> a
+    f + g = (+) . f <*> g
+    (*) :: Num a => (a -> a) -> (a -> a) -> a -> a
+    f * g = (*) . f <*> g
+    negate :: Num a => (a -> a) -> a -> a
+    negate f = negate . f
+    abs :: Num a => (a -> a) -> a -> a
+    abs f = abs . f
+    signum :: Num a => (a -> a) -> a -> a
+    signum f = signum . f
+    fromInteger :: Num a => Integer -> a -> a
+    fromInteger = const . fromInteger</pre><br/>のように定義すると<br/><pre>ghci> let f = (1 +) :: a -> a
+ghci> let g = (2 +) :: a -> a
+ghci> :t f g
+f g :: Num a => a -> a</pre><br/>のように型なり、<br/><pre>ghci> f g (0 :: Int)
+3</pre><br/>となります。<br/>ここで、f は (Int -> Int) -> (Int -> Int) に具体化され、g は Int -> Int に具体化されているます。<br/>a -> a は Int 具体化できないので、f :: Int -> Int とするとエラーになります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701258335.137029">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1701258335.137029">2023-11-29 20:45:35 +0900</a></div>
+          </div>
+          <div class="description">数値リテラルの <code>1</code> が <code>fromInteger</code> を経由して <code>Int -&gt; Int</code> になるというのは、盲点というかショックでした。 <code>Num</code> の定義の具体例もありがとうございます！　`const` を活かして関数合成のような関数適用になっているのが面白かったです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701258475.499109">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1701258475.499109">2023-11-29 20:47:55 +0900</a></div>
+          </div>
+          <div class="description">GHC は、よく僕の認知を超えた答えを出すので混乱します 笑<br/>GHC に見合った人間を目指さなければ……　&gt;_&lt;</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../105.html" class="item">Back to questions #105</a>
