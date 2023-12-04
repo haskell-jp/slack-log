@@ -112,6 +112,175 @@
           <div class="description">Mark3 TIMのGC対応の続きをするつもりでしたが、compose関数を使った別のテストプログラムについてMark1, Mark2, Mark3の動作の違いを調べていたら、思いのほか時間がかかってしまいました。<br/>他にも色々疑問点が出てきて、確認中です。(お恥ずかしい)<br/>自分にとってまだまだ先は長そうです。</div>
         </div>
       </div>
+      <div class="event" id="message-1701576089.794359">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1701576089.794359">2023-12-03 13:01:29 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1701576164.771649">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1701576164.771649">2023-12-03 13:02:44 +0900</a></div>
+          </div>
+          <div class="description">山本悠滋です。いつもどおりmakeMistakesToLearnHaskellの続きと、cabal replの件を進めます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701576592.613629">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1701576592.613629">2023-12-03 13:09:52 +0900</a></div>
+          </div>
+          <div class="description">"Effective Haskell - Solving Real-World Problems with Strongly Typed Functional Programming," Rebecca Skinner (The Pragmatic Bookshelf 2023)  Ch. 6 ~ を斜め読みします<br/>あとハシゴで <https://adventofcode.com/2023/day/2|Advent of Code 2023> ２日目に挑戦</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701576715.683279">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1701576715.683279">2023-12-03 13:11:55 +0900</a></div>
+          </div>
+          <div class="description">S.K.です。今週もお世話になります。よろしくお願いします。<br/>引き続き、Implementing Functional Languages:a tutorial の、4.4.4 Garbage Collection の続きを進めていこうと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701578716.166739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1701578716.166739">2023-12-03 13:45:16 +0900</a></div>
+          </div>
+          <div class="description">Advent Calendar のネタを求めて高精度数値計算 CReal を試します。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701580885.188939">
+        <div class="content">
+          <div class="summary">
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1701580885.188939">2023-12-03 14:21:25 +0900</a></div>
+          </div>
+          <div class="description">CReal が入っている numbers ライブラリを <code>cabal install numbers</code>  で入れて（haskell自身は GHCup でインストールしています）<br/><pre>import Data.Number.CReal
+...</pre><br/>というプログラムを runhaskell すると<br/><pre>    Could not load module 'Data.Number.CReal'
+    It is a member of the hidden package 'numbers-3000.2.0.2'.
+    You can run ':set -package numbers' to expose it.
+    (Note: this unloads all the modules in the current scope.)
+    Use -v (or `:set -v` in ghci) to see a list of the files searched for.</pre><br/>となりました。<br/>確かにメッセージに書いてあるとおり ghci で <code>:set -package numbers</code> してからだと <b>import Data.Number.CReal</b> はエラーなく通るようになりました。<br/>runhaskell でもエラーにならないようにするにはどうしたらよいでしょうか。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701580975.306939">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1701580975.306939">2023-12-03 14:22:55 +0900</a></div>
+          </div>
+          <div class="description">私も詳しい仕組みを把握しているわけではないのですが、 <code>cabal install numbers</code> ではなく <code>cabal install --lib numbers</code> でインストールすれば使えるようになるはずです。どうも <code>cabal install</code> はライブラリーのインストールではなく、パッケージに含まれている実行ファイルのインストールのために作られているようなので</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701581105.057979">
+        <div class="content">
+          <div class="summary">
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1701581105.057979">2023-12-03 14:25:05 +0900</a></div>
+          </div>
+          <div class="description"><code>cabal install --lib numbers</code> したら runhaskell でもエラーが出なくなりました。ありがとうございます！<br/><code>--lib</code> のこと勉強してみます。 :pekorin:</div>
+          <a class="link-to-replies" href="61/1701581105.057979.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1701581320.055639">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1701581320.055639">2023-12-03 14:28:40 +0900</a></div>
+          </div>
+          <div class="description">昨日あった、 <a href='https://atcoder.jp/contests/abc331/tasks/abc331_f'>AtCoder Beginner Contest 331 - F Palindrome Query</a> の解き直しをした後、advent calendar 記事を書き始めます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701584103.468679">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1701584103.468679">2023-12-03 15:15:03 +0900</a></div>
+          </div>
+          <div class="description">Advent calendar の投稿を作ります〜</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701587417.784199">
+        <div class="content">
+          <div class="summary">
+            <div class="user">1to100pen</div>
+            <div class="date"><a class="date" href="#message-1701587417.784199">2023-12-03 16:10:17 +0900</a></div>
+          </div>
+          <div class="description">用事があるのでお先に失礼します。cabal install のアドバイスありがとうございました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701590584.278849">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gksato</div>
+            <div class="date"><a class="date" href="#message-1701590584.278849">2023-12-03 17:03:04 +0900</a></div>
+          </div>
+          <div class="description">例によって解き直していたらやめなければいけない時間になってしまいました，提出はこれです： <a href='https://atcoder.jp/contests/abc331/submissions/48167629'>https://atcoder.jp/contests/abc331/submissions/48167629</a><br/><br/>Rolling hash というものが嫌いでずっと触っておらず，今回初めて書きました． <code>mwc-random</code> を使って64ビット長の素数をランダム生成したり， segment tree のコードの一箇所でoff-by-oneバグがあってそれを訂正したりしていたら二時間半かかったみたいですね．辛い…．</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701594082.808859">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1701594082.808859">2023-12-03 18:01:22 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1701594295.362549">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1701594295.362549">2023-12-03 18:04:55 +0900</a></div>
+          </div>
+          <div class="description">"Effective Haskell," by Skinner R. Ch. 6 Type Classes 斜読完了　とにかく長い　懇切丁寧　Language Extensions との絡みは勉強になった<br/>あとハシゴで <a href='https://adventofcode.com/2023/day/2'>Advent of Code 2023</a> ２日目　正解　カーテンが揚がって　クリスマスツリーの根元が見えて来た</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701594299.820419">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1701594299.820419">2023-12-03 18:04:59 +0900</a></div>
+          </div>
+          <div class="description">各章の頭を書いて全体を繋げました</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701594576.463609">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1701594576.463609">2023-12-03 18:09:36 +0900</a></div>
+          </div>
+          <div class="description">compose関数を使ったテストプログラムのMark1とMark2,Mark3の動作の違いの原因が、ようやく整理できてきたように思います。<br/>1つは引数スタックの初期値の違いによるもののようで、もう1つはGCのバグのようです。(お恥ずかしい)<br/>自分にとってまだまだ先は長そうです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701595545.756599">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1701595545.756599">2023-12-03 18:25:45 +0900</a></div>
+          </div>
+          <div class="description">cabal replの件はようやく既存のテストケースを全て通せました。<br/>makeMistakesToLearnHaskellについてはもう少しキリのいいところまで書いてからpushします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701596209.153069">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1701596209.153069">2023-12-03 18:36:49 +0900</a></div>
+          </div>
+          <div class="description">pushしました <a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/f4a5f3b404969fbbe1709a08613fc53c62bc6988'>https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/f4a5f3b404969fbbe1709a08613fc53c62bc6988</a></div>
+          <a class="link-to-replies" href="61/1701596209.153069.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CUPBC8WCE/60.html" class="item">Previous</a>

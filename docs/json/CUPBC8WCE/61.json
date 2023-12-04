@@ -64,5 +64,113 @@
         "user": "U04BD6ZFKQ8",
         "ts": "1700990337.890799",
         "text": "Mark3 TIMのGC対応の続きをするつもりでしたが、compose関数を使った別のテストプログラムについてMark1, Mark2, Mark3の動作の違いを調べていたら、思いのほか時間がかかってしまいました。\n他にも色々疑問点が出てきて、確認中です。(お恥ずかしい)\n自分にとってまだまだ先は長そうです。"
+    },
+    {
+        "type": "message",
+        "user": null,
+        "ts": "1701576089.794359",
+        "text": ""
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1701576164.771649",
+        "text": "山本悠滋です。いつもどおりmakeMistakesToLearnHaskellの続きと、cabal replの件を進めます。"
+    },
+    {
+        "type": "message",
+        "user": "U584T7GAH",
+        "ts": "1701576592.613629",
+        "text": "\"Effective Haskell - Solving Real-World Problems with Strongly Typed Functional Programming,\" Rebecca Skinner (The Pragmatic Bookshelf 2023)  Ch. 6 ~ を斜め読みします\nあとハシゴで <https://adventofcode.com/2023/day/2|Advent of Code 2023> ２日目に挑戦"
+    },
+    {
+        "type": "message",
+        "user": "U04BD6ZFKQ8",
+        "ts": "1701576715.683279",
+        "text": "S.K.です。今週もお世話になります。よろしくお願いします。\n引き続き、Implementing Functional Languages:a tutorial の、4.4.4 Garbage Collection の続きを進めていこうと思います。"
+    },
+    {
+        "type": "message",
+        "user": "U57CGDBMG",
+        "ts": "1701578716.166739",
+        "text": "Advent Calendar のネタを求めて高精度数値計算 CReal を試します。"
+    },
+    {
+        "type": "message",
+        "user": "U57CGDBMG",
+        "ts": "1701580885.188939",
+        "text": "CReal が入っている numbers ライブラリを `cabal install numbers`  で入れて（haskell自身は GHCup でインストールしています）\n```import Data.Number.CReal\n...```\nというプログラムを runhaskell すると\n```    Could not load module 'Data.Number.CReal'\n    It is a member of the hidden package 'numbers-3000.2.0.2'.\n    You can run ':set -package numbers' to expose it.\n    (Note: this unloads all the modules in the current scope.)\n    Use -v (or `:set -v` in ghci) to see a list of the files searched for.```\nとなりました。\n確かにメッセージに書いてあるとおり ghci で `:set -package numbers` してからだと *import Data.Number.CReal* はエラーなく通るようになりました。\nrunhaskell でもエラーにならないようにするにはどうしたらよいでしょうか。"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1701580975.306939",
+        "text": "私も詳しい仕組みを把握しているわけではないのですが、 `cabal install numbers` ではなく `cabal install --lib numbers` でインストールすれば使えるようになるはずです。どうも `cabal install` はライブラリーのインストールではなく、パッケージに含まれている実行ファイルのインストールのために作られているようなので"
+    },
+    {
+        "type": "message",
+        "user": "U57CGDBMG",
+        "ts": "1701581105.057979",
+        "text": "`cabal install --lib numbers` したら runhaskell でもエラーが出なくなりました。ありがとうございます！\n`--lib` のこと勉強してみます。 :pekorin:"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1701581320.055639",
+        "text": "昨日あった、 <https://atcoder.jp/contests/abc331/tasks/abc331_f|AtCoder Beginner Contest 331 - F Palindrome Query> の解き直しをした後、advent calendar 記事を書き始めます。"
+    },
+    {
+        "type": "message",
+        "user": "U03H9PH8FRP",
+        "ts": "1701584103.468679",
+        "text": "Advent calendar の投稿を作ります〜"
+    },
+    {
+        "type": "message",
+        "user": "U57CGDBMG",
+        "ts": "1701587417.784199",
+        "text": "用事があるのでお先に失礼します。cabal install のアドバイスありがとうございました。"
+    },
+    {
+        "type": "message",
+        "user": "UL1HFJATE",
+        "ts": "1701590584.278849",
+        "text": "例によって解き直していたらやめなければいけない時間になってしまいました，提出はこれです： <https://atcoder.jp/contests/abc331/submissions/48167629>\n\nRolling hash というものが嫌いでずっと触っておらず，今回初めて書きました． `mwc-random` を使って64ビット長の素数をランダム生成したり， segment tree のコードの一箇所でoff-by-oneバグがあってそれを訂正したりしていたら二時間半かかったみたいですね．辛い…．"
+    },
+    {
+        "type": "message",
+        "user": null,
+        "ts": "1701594082.808859",
+        "text": ""
+    },
+    {
+        "type": "message",
+        "user": "U584T7GAH",
+        "ts": "1701594295.362549",
+        "text": "\"Effective Haskell,\" by Skinner R. Ch. 6 Type Classes 斜読完了　とにかく長い　懇切丁寧　Language Extensions との絡みは勉強になった\nあとハシゴで <https://adventofcode.com/2023/day/2|Advent of Code 2023> ２日目　正解　カーテンが揚がって　クリスマスツリーの根元が見えて来た"
+    },
+    {
+        "type": "message",
+        "user": "U03H9PH8FRP",
+        "ts": "1701594299.820419",
+        "text": "各章の頭を書いて全体を繋げました"
+    },
+    {
+        "type": "message",
+        "user": "U04BD6ZFKQ8",
+        "ts": "1701594576.463609",
+        "text": "compose関数を使ったテストプログラムのMark1とMark2,Mark3の動作の違いの原因が、ようやく整理できてきたように思います。\n1つは引数スタックの初期値の違いによるもののようで、もう1つはGCのバグのようです。(お恥ずかしい)\n自分にとってまだまだ先は長そうです。"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1701595545.756599",
+        "text": "cabal replの件はようやく既存のテストケースを全て通せました。\nmakeMistakesToLearnHaskellについてはもう少しキリのいいところまで書いてからpushします。"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1701596209.153069",
+        "text": "pushしました <https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/f4a5f3b404969fbbe1709a08613fc53c62bc6988>"
     }
 ]
