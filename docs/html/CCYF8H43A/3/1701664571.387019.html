@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / nix #3 at 2023-12-04 13:36:11 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / nix #3 at 2023-12-04 13:36:11 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../3.html" class="item">Back to nix #3</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1701664571.387019">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1701664571.387019">2023-12-04 13:36:11 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://gitlab.haskell.org/ghc/ghc-wasm-meta'>https://gitlab.haskell.org/ghc/ghc-wasm-meta</a> にあるNix Flakeを使って、PandocをWasmにビルドしようとしています。<br/>READMEに従ってnix-shellを起動し、<br/><pre>wasm32-wasi-cabal update &amp;&amp; wasm32-wasi-cabal install --allow-newer pandoc</pre><br/>と実行してみたところ、zlibがない、などのエラーが出ました。<br/>これを解決するには、きっとnix-shellで起動した環境にzlibを入れたりすればよいと思うのですが、そうするには ghc-wasm-metaをフォークして、flake.nixなどを編集するのがよい方法なのでしょうか？<br/>Nixは不慣れなため、プロジェクトを構築するよいプラクティスなどあれば教えていただきたいです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701688939.283089">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1701688939.283089">2023-12-04 20:22:19 +0900</a></div>
+          </div>
+          <div class="description">nix shellコマンドは引数のderivationのプログラムをPATHに追加してshell環境を起動しています。<br/>自分用の開発環境を作るには、<br/>新たにflake.nixを作って、devShellsの中にmkShell使って、buildInputsに使いたいツールを並べます。<br/><a href='https://nixos.wiki/wiki/Flakes'>https://nixos.wiki/wiki/Flakes</a><br/><a href='https://fasterthanli.me/series/building-a-rust-service-with-nix/part-10'>https://fasterthanli.me/series/building-a-rust-service-with-nix/part-10</a><br/>今回はその中に元々nix shellで渡していたものとzlibを入れるといいはずです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701688979.849139">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1701688979.849139">2023-12-04 20:22:59 +0900</a></div>
+          </div>
+          <div class="description">そのあとnix developコマンドで開発環境に入る流れになると思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701689056.744499">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1701689056.744499">2023-12-04 20:24:16 +0900</a></div>
+          </div>
+          <div class="description">wasm用のzlibなのでちょっと違うかもです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701689059.849929">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1701689059.849929">2023-12-04 20:24:19 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。とりあえずnixを使わない方法で進めてしまってましたが、後で試してみます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701689197.904029">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1701689197.904029">2023-12-04 20:26:37 +0900</a></div>
+          </div>
+          <div class="description">確かにこちらをフォークしてdevShellsを追加でもいいかもしれません。<br/><a href='https://gitlab.haskell.org/ghc/ghc-wasm-meta'>https://gitlab.haskell.org/ghc/ghc-wasm-meta</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../3.html" class="item">Back to nix #3</a>
+    </div>
+  </div>
+</body>
+</html>

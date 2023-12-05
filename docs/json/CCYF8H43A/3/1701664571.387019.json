@@ -1,0 +1,38 @@
+[
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1701664571.387019",
+        "text": "<https://gitlab.haskell.org/ghc/ghc-wasm-meta> にあるNix Flakeを使って、PandocをWasmにビルドしようとしています。\nREADMEに従ってnix-shellを起動し、\n```wasm32-wasi-cabal update &amp;&amp; wasm32-wasi-cabal install --allow-newer pandoc```\nと実行してみたところ、zlibがない、などのエラーが出ました。\nこれを解決するには、きっとnix-shellで起動した環境にzlibを入れたりすればよいと思うのですが、そうするには ghc-wasm-metaをフォークして、flake.nixなどを編集するのがよい方法なのでしょうか？\nNixは不慣れなため、プロジェクトを構築するよいプラクティスなどあれば教えていただきたいです。"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1701688939.283089",
+        "text": "nix shellコマンドは引数のderivationのプログラムをPATHに追加してshell環境を起動しています。\n自分用の開発環境を作るには、\n新たにflake.nixを作って、devShellsの中にmkShell使って、buildInputsに使いたいツールを並べます。\n<https://nixos.wiki/wiki/Flakes>\n<https://fasterthanli.me/series/building-a-rust-service-with-nix/part-10>\n今回はその中に元々nix shellで渡していたものとzlibを入れるといいはずです。"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1701688979.849139",
+        "text": "そのあとnix developコマンドで開発環境に入る流れになると思います。"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1701689056.744499",
+        "text": "wasm用のzlibなのでちょっと違うかもです。"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1701689059.849929",
+        "text": "ありがとうございます。とりあえずnixを使わない方法で進めてしまってましたが、後で試してみます。"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1701689197.904029",
+        "text": "確かにこちらをフォークしてdevShellsを追加でもいいかもしれません。\n<https://gitlab.haskell.org/ghc/ghc-wasm-meta>"
+    }
+]
