@@ -34,5 +34,23 @@
         "user": "U74KTAG0N",
         "ts": "1701689197.904029",
         "text": "確かにこちらをフォークしてdevShellsを追加でもいいかもしれません。\n<https://gitlab.haskell.org/ghc/ghc-wasm-meta>"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1701766029.897599",
+        "text": "とりあえず、こちらのDockerfileを参考にしつつ、\n<https://github.com/python/cpython/issues/91246#issuecomment-1603957637>\nwasi-sdk.nixにzlibを追加するのが良さそうですね。\n<https://gitlab.haskell.org/ghc/ghc-wasm-meta/-/blob/master/pkgs/wasi-sdk.nix#L12-37>"
+    },
+    {
+        "type": "message",
+        "user": "U74KTAG0N",
+        "ts": "1701766535.622929",
+        "text": "通常のクロスコンパイルでないCのライブラリならNIX_*な環境変数をうまく使ってライブラリの設定をしてくれるようですが、wasiの場合はうまくいかないでしょうね。\n<https://nixos.wiki/wiki/C>"
+    },
+    {
+        "type": "message",
+        "user": "U4LGTMTMK",
+        "ts": "1701769759.845089",
+        "text": "わざわざすみません。zlibとは関係なく発生している別の問題に対応してました。参考になります！"
     }
 ]
