@@ -40,5 +40,11 @@
         "user": "U03H9PH8FRP",
         "ts": "1701180180.539649",
         "text": "以下の `(f $ g)` はどのように理解できますか？\n```ghci&gt; let f = (1 +) :: (Num a) =&gt; a -&gt; a\nghci&gt; let g = (2 +) :: (Num a) =&gt; a -&gt; a\nghci&gt; :t (f $ g)\n(f $ g) :: (Num a, Num (a -&gt; a)) =&gt; a -&gt; a```\n背景としては、以下のようにコンパイルエラーになる例を考えるつもりでした:\n```ghci&gt; let a = (1 +) :: Int -&gt; Int\nghci&gt; let b = (2 +) :: Int -&gt; Int\nghci&gt; :t (a $ b)\n\n&lt;interactive&gt;:1:6: error:\n    • Couldn't match expected type 'Int' with actual type 'Int -&gt; Int'\n    • In the second argument of '($)', namely 'b'\n      In the expression: a $ b```"
+    },
+    {
+        "type": "message",
+        "user": "U024U0DCJ3T",
+        "ts": "1701873046.740899",
+        "text": "Data.Sequenceを触っていた時に、ふとunconsやunsnocのような関数があれば便利かなと思ってcontainerで提案してみたのですが、viewlやviewr使えば実現できるのであまり本質的じゃない拡張っぽいみたいなレスポンスをもらいました(当然と言えば当然ですが)。\n\nData.Sequenceにunconsやunsnocがあったとしてどんなときに役立つか正直答えられる自信がないので、closeしようかなとも思っています。\nこのような既存の関数で表現できるような関数のライブラリへの必要性について皆さんはどう思いますでしょうか。お手柔らかにお願いします\n\n<https://github.com/haskell/containers/issues/977>"
     }
 ]
