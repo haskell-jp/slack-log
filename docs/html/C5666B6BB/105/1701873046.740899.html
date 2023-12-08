@@ -30,6 +30,24 @@
           <div class="description">同じことをする機能をライブラリーが何通りも提供するのは好みではないですね<br/>理由としては、同じライブラリーを使ってるのに利用する人によって書き方がバラつくのがいやなのでですね<br/>メンテナー視点では、機能は取り込んだ後メンテし続けないといけないので、できないことができるようになるとかじゃなければ、なるべくコンパクトにしておきたい<br/>ぐらいかなあ</div>
         </div>
       </div>
+      <div class="event" id="message-1701908213.996859">
+        <div class="content">
+          <div class="summary">
+            <div class="user">sanao</div>
+            <div class="date"><a class="date" href="#message-1701908213.996859">2023-12-07 09:16:53 +0900</a></div>
+          </div>
+          <div class="description">おっしゃる通りですね<br/><br/>たしかにライブラリをコンパクトにしておくとメンテナンスもしやすいですしユーザーも好みに合わせて色々拡張しやすいですよね。<br/>ありがとうございます</div>
+        </div>
+      </div>
+      <div class="event" id="message-1701955810.296029">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1701955810.296029">2023-12-07 22:30:10 +0900</a></div>
+          </div>
+          <div class="description">私の場合は、<br/><code>uncons :: Seq a -&gt; Maybe (a, Seq a)</code> や <code>unsnoc :: Seq a -&gt; Maybe (Seq a, a)</code> では、Seq でのパターンマッチかわりに、Maybe でパターンマッチになるだけなので、あまり有り難みがないです。それよりは、`seqL :: b -&gt; (a -&gt; Seq a -&gt; b) -&gt; Seq a -&gt; b` とか、`seqR :: b -&gt; (Seq a -&gt; a -&gt; b) -&gt; Seq a -&gt; b` があれば便利です。リストの場合も、`Data.List.uncons :: [a] -&gt; Maybe (a, [a])` より、`Data.List.Extra.list :: b -&gt; (a -&gt; [a] -&gt; b) -&gt; [a] -&gt; b` を使うことが多いですね。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../105.html" class="item">Back to questions #105</a>
