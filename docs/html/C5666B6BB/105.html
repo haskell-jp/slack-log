@@ -107,6 +107,25 @@ ghci&gt; :t (a $ b)
           <div class="description">@Carlos Fontes has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1703649203.739559">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1703649203.739559">2023-12-27 12:53:23 +0900</a></div>
+          </div>
+          <div class="description">stack ベースのhaskell 環境で単体テストに HSpec  を使用しています。<br/>テストディレクトリ/Spec.hs に以下を指定していますが、haskell language server 経由で出るGHCエラー(下記)を消す方法がわかりません。<br/>ご存知でしたら教えてください。<br/><br/><b>補足</b><br/>コマンド行からの stack test 実行では問題ありません。<br/>stack がインストールした hspec-discover の場所を haskell language server 設定のどこかで指定する必要があると推測しています。<br/><br/><b>エラー:</b><br/><blockquote>Spec.hs     1   1 error           could not execute: hspec-discover (lsp)</blockquote><b>Spec.hs:</b><br/><code>{-# OPTIONS_GHC -F -pgmF hspec-discover #-}</code></div>
+          <a class="link-to-replies" href="105/1703649203.739559.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1703651665.033999">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1703651665.033999">2023-12-27 13:34:25 +0900</a></div>
+          </div>
+          <div class="description">package.yaml の build-tool-depends に相当する項目は build-tools ですので、 @さんの対処法は（stack+build-toolsでは解決しないという点を除けば）完全に正当なものでは？<br/><br/> <a href='https://github.com/sol/hpack#common-fields'>https://github.com/sol/hpack#common-fields</a></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C5666B6BB/104.html" class="item">Previous</a>

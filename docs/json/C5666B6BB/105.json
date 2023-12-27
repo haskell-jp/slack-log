@@ -52,5 +52,17 @@
         "user": "U0101HN891Q",
         "ts": "1703069045.257369",
         "text": "<@U0101HN891Q> has joined the channel"
+    },
+    {
+        "type": "message",
+        "user": "U022NP2FUMB",
+        "ts": "1703649203.739559",
+        "text": "stack ベースのhaskell 環境で単体テストに HSpec  を使用しています。\nテストディレクトリ/Spec.hs に以下を指定していますが、haskell language server 経由で出るGHCエラー(下記)を消す方法がわかりません。\nご存知でしたら教えてください。\n\n*補足*\nコマンド行からの stack test 実行では問題ありません。\nstack がインストールした hspec-discover の場所を haskell language server 設定のどこかで指定する必要があると推測しています。\n\n*エラー:*\n&gt; Spec.hs     1   1 error           could not execute: hspec-discover (lsp)\n*Spec.hs:*\n`{-# OPTIONS_GHC -F -pgmF hspec-discover #-}`"
+    },
+    {
+        "type": "message",
+        "user": "UK0MXUCAV",
+        "ts": "1703651665.033999",
+        "text": "package.yaml の build-tool-depends に相当する項目は build-tools ですので、 <@U022NP2FUMB>さんの対処法は（stack+build-toolsでは解決しないという点を除けば）完全に正当なものでは？\n\n <https://github.com/sol/hpack#common-fields|https://github.com/sol/hpack#common-fields>"
     }
 ]

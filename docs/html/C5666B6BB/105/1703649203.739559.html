@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #105 at 2023-12-27 12:53:23 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #105 at 2023-12-27 12:53:23 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../105.html" class="item">Back to questions #105</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1703649203.739559">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1703649203.739559">2023-12-27 12:53:23 +0900</a></div>
+          </div>
+          <div class="description">stack ベースのhaskell 環境で単体テストに HSpec  を使用しています。<br/>テストディレクトリ/Spec.hs に以下を指定していますが、haskell language server 経由で出るGHCエラー(下記)を消す方法がわかりません。<br/>ご存知でしたら教えてください。<br/><br/><b>補足</b><br/>コマンド行からの stack test 実行では問題ありません。<br/>stack がインストールした hspec-discover の場所を haskell language server 設定のどこかで指定する必要があると推測しています。<br/><br/><b>エラー:</b><br/><blockquote>Spec.hs     1   1 error           could not execute: hspec-discover (lsp)</blockquote><b>Spec.hs:</b><br/><code>{-# OPTIONS_GHC -F -pgmF hspec-discover #-}</code></div>
+        </div>
+      </div>
+      <div class="event" id="message-1703649436.265409">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1703649436.265409">2023-12-27 12:57:16 +0900</a></div>
+          </div>
+          <div class="description">ご推察の通りで、パスの通ったところにhspec-discoverがいないのが原因ですね。build-toolsに入れるだけだとstackやcabalは.stack-workとかdist-newstyleにしか入れないので、PATH環境変数を適切に設定した上で別途 stack install hspec などしてグローバルにインストールする必要があります</div>
+        </div>
+      </div>
+      <div class="event" id="message-1703650847.552559">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1703650847.552559">2023-12-27 13:20:47 +0900</a></div>
+          </div>
+          <div class="description">cabalファイルの <code>build-tool-depends</code> に <code>hspec-discover</code> を入れたらできませんかね？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1703650855.268629">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1703650855.268629">2023-12-27 13:20:55 +0900</a></div>
+          </div>
+          <div class="description">返信有り難うございます。<br/>ご回答の通りPATHの通った場所 <code>~/.local/bin/</code>へ hspec-discover をインストールし、解決いたしました。<br/>ありがとうございました。<br/><code>stack install hspec-discover</code></div>
+        </div>
+      </div>
+      <div class="event" id="message-1703651233.978469">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1703651233.978469">2023-12-27 13:27:13 +0900</a></div>
+          </div>
+          <div class="description">cabal ファイルは package.yaml から自動生成される(？)ようなので、package.yaml へ以下を追加してみましたが、解決しませんでした。<br/><pre>  ：
+tests:
+  Spec:
+    main:                Spec.hs
+    source-dirs:         spec
+    build-tools: hspec-discover
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - jsonclient
+    - hspec</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1703651315.746779">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1703651315.746779">2023-12-27 13:28:35 +0900</a></div>
+          </div>
+          <div class="description">stackはbuild-toolsをグローバルにインストールしないんですよね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1703651333.064029">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1703651333.064029">2023-12-27 13:28:53 +0900</a></div>
+          </div>
+          <div class="description">ちなみにHLS+stack+build-toolsでdiscover系のプリプロセッサが見つかってくれないのは既知のバグであったりします <a href='https://github.com/haskell/haskell-language-server/issues/176'>https://github.com/haskell/haskell-language-server/issues/176</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1703651420.184899">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1703651420.184899">2023-12-27 13:30:20 +0900</a></div>
+          </div>
+          <div class="description">あとpackage.yamlの書式としては<br/><br/><pre>build-tools:
+- hspec-discover:hspec-discover</pre><br/>とリストで指定するのが正しいかも？（コロン以降はなくても平気ですが</div>
+        </div>
+      </div>
+      <div class="event" id="message-1703651497.052229">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1703651497.052229">2023-12-27 13:31:37 +0900</a></div>
+          </div>
+          <div class="description"><code>build-tools</code>じゃなくて <code>build-tool-depends</code> です。<br/>konnさんのやり方でも解決できるでしょうし、実際に解決できてよかったですし、今から試すのも面倒だと思うので参考までに。<br/>知る限りこちらがcabal的には正式なやり方のはずです。<br/><a href='https://cabal.readthedocs.io/en/3.4/cabal-package.html#pkg-field-build-tool-depends'>https://cabal.readthedocs.io/en/3.4/cabal-package.html#pkg-field-build-tool-depends</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1703651665.033999">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1703651665.033999">2023-12-27 13:34:25 +0900</a></div>
+          </div>
+          <div class="description">package.yaml の build-tool-depends に相当する項目は build-tools ですので、 @さんの対処法は（stack+build-toolsでは解決しないという点を除けば）完全に正当なものでは？<br/><br/> <a href='https://github.com/sol/hpack#common-fields'>https://github.com/sol/hpack#common-fields</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1703651810.825229">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1703651810.825229">2023-12-27 13:36:50 +0900</a></div>
+          </div>
+          <div class="description">おお、なるほどすみません。package.yamlが build-tool-depends も吐いてたんですね...  なんと紛らわしい....</div>
+        </div>
+      </div>
+      <div class="event" id="message-1703652466.542809">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1703652466.542809">2023-12-27 13:47:46 +0900</a></div>
+          </div>
+          <div class="description">@igrep package.yaml では <code>build-tools</code>を使用するみたいです。`build-tool-depends`だと以下のエラーが出ました。<br/><pre>jsonclient/package.yaml: $.tests.Spec.build-tool-depends is deprecated, use $.tests.Spec.build-tools instead</pre><br/>ご指摘の通り、cabal ファイルでは`build-tool-depends` として生成されました。まぎわらしいですね。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../105.html" class="item">Back to questions #105</a>
+    </div>
+  </div>
+</body>
+</html>
