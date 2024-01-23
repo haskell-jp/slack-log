@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #105 at 2024-01-23 11:33:14 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #105 at 2024-01-23 11:33:14 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../105.html" class="item">Back to random #105</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1705977194.178089">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ksrk</div>
+            <div class="date"><a class="date" href="#message-1705977194.178089">2024-01-23 11:33:14 +0900</a></div>
+          </div>
+          <div class="description">Tc.Pluginで制約解消アルゴリズムにヒューリスティクスを適用することって、理論上可能ですかね？GPTなど<br/>調べた限りでは類似したものは見当たらなかったのですが</div>
+        </div>
+      </div>
+      <div class="event" id="message-1705977525.449879">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1705977525.449879">2024-01-23 11:38:45 +0900</a></div>
+          </div>
+          <div class="description">ヒューリスティクスの定義によると思いますが、普通に副作用を出せるので出来ますね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1705977631.982109">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1705977631.982109">2024-01-23 11:40:31 +0900</a></div>
+          </div>
+          <div class="description">何をもってヒューリスティクスと呼んでいるのかわかりませんが、SMTソルバをヒューリスティクスに数えてよいのであれば、こんなのがあります<br/><br/><a href='https://github.com/bgamari/the-thoralf-plugin'>https://github.com/bgamari/the-thoralf-plugin</a><br/><a href='https://hackage.haskell.org/package/sbvPlugin'>https://hackage.haskell.org/package/sbvPlugin</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1705977903.059809">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1705977903.059809">2024-01-23 11:45:03 +0900</a></div>
+          </div>
+          <div class="description">これらや Liquid Haskell の Plugin 版は外部の Z3 を呼び出して処理しているので、同じようにして <code>tcPluginIO</code> 関数などを使って GPT の API と通信しようとすれば基本的に何でも組込めると思います。とはいえ、ちゃんとしたソルバではなくて GPT とかが生成した制約の「証明」がちゃんと証明になっているかどうかは出力をバリデートする必要があると思います</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../105.html" class="item">Back to random #105</a>
+    </div>
+  </div>
+</body>
+</html>
