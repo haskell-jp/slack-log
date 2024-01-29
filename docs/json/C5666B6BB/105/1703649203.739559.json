@@ -1,74 +1,74 @@
 [
     {
-        "type": "message",
-        "user": "U022NP2FUMB",
         "ts": "1703649203.739559",
-        "text": "stack ベースのhaskell 環境で単体テストに HSpec  を使用しています。\nテストディレクトリ/Spec.hs に以下を指定していますが、haskell language server 経由で出るGHCエラー(下記)を消す方法がわかりません。\nご存知でしたら教えてください。\n\n*補足*\nコマンド行からの stack test 実行では問題ありません。\nstack がインストールした hspec-discover の場所を haskell language server 設定のどこかで指定する必要があると推測しています。\n\n*エラー:*\n&gt; Spec.hs     1   1 error           could not execute: hspec-discover (lsp)\n*Spec.hs:*\n`{-# OPTIONS_GHC -F -pgmF hspec-discover #-}`"
+        "text": "stack ベースのhaskell 環境で単体テストに HSpec  を使用しています。\nテストディレクトリ/Spec.hs に以下を指定していますが、haskell language server 経由で出るGHCエラー(下記)を消す方法がわかりません。\nご存知でしたら教えてください。\n\n*補足*\nコマンド行からの stack test 実行では問題ありません。\nstack がインストールした hspec-discover の場所を haskell language server 設定のどこかで指定する必要があると推測しています。\n\n*エラー:*\n&gt; Spec.hs     1   1 error           could not execute: hspec-discover (lsp)\n*Spec.hs:*\n`{-# OPTIONS_GHC -F -pgmF hspec-discover #-}`",
+        "type": "message",
+        "user": "U022NP2FUMB"
     },
     {
-        "type": "message",
-        "user": "UK0MXUCAV",
         "ts": "1703649436.265409",
-        "text": "ご推察の通りで、パスの通ったところにhspec-discoverがいないのが原因ですね。build-toolsに入れるだけだとstackやcabalは.stack-workとかdist-newstyleにしか入れないので、PATH環境変数を適切に設定した上で別途 stack install hspec などしてグローバルにインストールする必要があります"
+        "text": "ご推察の通りで、パスの通ったところにhspec-discoverがいないのが原因ですね。build-toolsに入れるだけだとstackやcabalは.stack-workとかdist-newstyleにしか入れないので、PATH環境変数を適切に設定した上で別途 stack install hspec などしてグローバルにインストールする必要があります",
+        "type": "message",
+        "user": "UK0MXUCAV"
     },
     {
-        "type": "message",
-        "user": "U4LGTMTMK",
         "ts": "1703650847.552559",
-        "text": "cabalファイルの `build-tool-depends` に `hspec-discover` を入れたらできませんかね？"
+        "text": "cabalファイルの `build-tool-depends` に `hspec-discover` を入れたらできませんかね？",
+        "type": "message",
+        "user": "U4LGTMTMK"
     },
     {
-        "type": "message",
-        "user": "U022NP2FUMB",
         "ts": "1703650855.268629",
-        "text": "返信有り難うございます。\nご回答の通りPATHの通った場所 `~/.local/bin/`へ hspec-discover をインストールし、解決いたしました。\nありがとうございました。\n`stack install hspec-discover`"
+        "text": "返信有り難うございます。\nご回答の通りPATHの通った場所 `~/.local/bin/`へ hspec-discover をインストールし、解決いたしました。\nありがとうございました。\n`stack install hspec-discover`",
+        "type": "message",
+        "user": "U022NP2FUMB"
     },
     {
-        "type": "message",
-        "user": "U022NP2FUMB",
         "ts": "1703651233.978469",
-        "text": "cabal ファイルは package.yaml から自動生成される(？)ようなので、package.yaml へ以下を追加してみましたが、解決しませんでした。\n```  ：\ntests:\n  Spec:\n    main:                Spec.hs\n    source-dirs:         spec\n    build-tools: hspec-discover\n    ghc-options:\n    - -threaded\n    - -rtsopts\n    - -with-rtsopts=-N\n    dependencies:\n    - jsonclient\n    - hspec```"
+        "text": "cabal ファイルは package.yaml から自動生成される(？)ようなので、package.yaml へ以下を追加してみましたが、解決しませんでした。\n```  ：\ntests:\n  Spec:\n    main:                Spec.hs\n    source-dirs:         spec\n    build-tools: hspec-discover\n    ghc-options:\n    - -threaded\n    - -rtsopts\n    - -with-rtsopts=-N\n    dependencies:\n    - jsonclient\n    - hspec```",
+        "type": "message",
+        "user": "U022NP2FUMB"
     },
     {
-        "type": "message",
-        "user": "UK0MXUCAV",
         "ts": "1703651315.746779",
-        "text": "stackはbuild-toolsをグローバルにインストールしないんですよね"
+        "text": "stackはbuild-toolsをグローバルにインストールしないんですよね",
+        "type": "message",
+        "user": "UK0MXUCAV"
     },
     {
-        "type": "message",
-        "user": "UK0MXUCAV",
         "ts": "1703651333.064029",
-        "text": "ちなみにHLS+stack+build-toolsでdiscover系のプリプロセッサが見つかってくれないのは既知のバグであったりします <https://github.com/haskell/haskell-language-server/issues/176|https://github.com/haskell/haskell-language-server/issues/176>"
+        "text": "ちなみにHLS+stack+build-toolsでdiscover系のプリプロセッサが見つかってくれないのは既知のバグであったりします <https://github.com/haskell/haskell-language-server/issues/176|https://github.com/haskell/haskell-language-server/issues/176>",
+        "type": "message",
+        "user": "UK0MXUCAV"
     },
     {
-        "type": "message",
-        "user": "UK0MXUCAV",
         "ts": "1703651420.184899",
-        "text": "あとpackage.yamlの書式としては\n\n```build-tools:\n- hspec-discover:hspec-discover```\nとリストで指定するのが正しいかも？（コロン以降はなくても平気ですが"
+        "text": "あとpackage.yamlの書式としては\n\n```build-tools:\n- hspec-discover:hspec-discover```\nとリストで指定するのが正しいかも？（コロン以降はなくても平気ですが",
+        "type": "message",
+        "user": "UK0MXUCAV"
     },
     {
-        "type": "message",
-        "user": "U4LGTMTMK",
         "ts": "1703651497.052229",
-        "text": "`build-tools`じゃなくて `build-tool-depends` です。\nkonnさんのやり方でも解決できるでしょうし、実際に解決できてよかったですし、今から試すのも面倒だと思うので参考までに。\n知る限りこちらがcabal的には正式なやり方のはずです。\n<https://cabal.readthedocs.io/en/3.4/cabal-package.html#pkg-field-build-tool-depends>"
+        "text": "`build-tools`じゃなくて `build-tool-depends` です。\nkonnさんのやり方でも解決できるでしょうし、実際に解決できてよかったですし、今から試すのも面倒だと思うので参考までに。\n知る限りこちらがcabal的には正式なやり方のはずです。\n<https://cabal.readthedocs.io/en/3.4/cabal-package.html#pkg-field-build-tool-depends>",
+        "type": "message",
+        "user": "U4LGTMTMK"
     },
     {
-        "type": "message",
-        "user": "UK0MXUCAV",
         "ts": "1703651665.033999",
-        "text": "package.yaml の build-tool-depends に相当する項目は build-tools ですので、 <@U022NP2FUMB>さんの対処法は（stack+build-toolsでは解決しないという点を除けば）完全に正当なものでは？\n\n <https://github.com/sol/hpack#common-fields|https://github.com/sol/hpack#common-fields>"
+        "text": "package.yaml の build-tool-depends に相当する項目は build-tools ですので、 <@U022NP2FUMB>さんの対処法は（stack+build-toolsでは解決しないという点を除けば）完全に正当なものでは？\n\n <https://github.com/sol/hpack#common-fields|https://github.com/sol/hpack#common-fields>",
+        "type": "message",
+        "user": "UK0MXUCAV"
     },
     {
-        "type": "message",
-        "user": "U4LGTMTMK",
         "ts": "1703651810.825229",
-        "text": "おお、なるほどすみません。package.yamlが build-tool-depends も吐いてたんですね...  なんと紛らわしい...."
+        "text": "おお、なるほどすみません。package.yamlが build-tool-depends も吐いてたんですね...  なんと紛らわしい....",
+        "type": "message",
+        "user": "U4LGTMTMK"
     },
     {
-        "type": "message",
-        "user": "U022NP2FUMB",
         "ts": "1703652466.542809",
-        "text": "<@U4LGTMTMK> package.yaml では `build-tools`を使用するみたいです。`build-tool-depends`だと以下のエラーが出ました。\n```jsonclient/package.yaml: $.tests.Spec.build-tool-depends is deprecated, use $.tests.Spec.build-tools instead```\nご指摘の通り、cabal ファイルでは`build-tool-depends` として生成されました。まぎわらしいですね。"
+        "text": "<@U4LGTMTMK> package.yaml では `build-tools`を使用するみたいです。`build-tool-depends`だと以下のエラーが出ました。\n```jsonclient/package.yaml: $.tests.Spec.build-tool-depends is deprecated, use $.tests.Spec.build-tools instead```\nご指摘の通り、cabal ファイルでは`build-tool-depends` として生成されました。まぎわらしいですね。",
+        "type": "message",
+        "user": "U022NP2FUMB"
     }
 ]

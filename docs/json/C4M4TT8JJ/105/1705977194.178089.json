@@ -1,56 +1,56 @@
 [
     {
-        "type": "message",
-        "user": "U02CE9YGEAU",
         "ts": "1705977194.178089",
-        "text": "Tc.Pluginで制約解消アルゴリズムにヒューリスティクスを適用することって、理論上可能ですかね？GPTなど\n調べた限りでは類似したものは見当たらなかったのですが"
+        "text": "Tc.Pluginで制約解消アルゴリズムにヒューリスティクスを適用することって、理論上可能ですかね？GPTなど\n調べた限りでは類似したものは見当たらなかったのですが",
+        "type": "message",
+        "user": "U02CE9YGEAU"
     },
     {
-        "type": "message",
-        "user": "UK0MXUCAV",
         "ts": "1705977525.449879",
-        "text": "ヒューリスティクスの定義によると思いますが、普通に副作用を出せるので出来ますね"
+        "text": "ヒューリスティクスの定義によると思いますが、普通に副作用を出せるので出来ますね",
+        "type": "message",
+        "user": "UK0MXUCAV"
     },
     {
-        "type": "message",
-        "user": "UK0MXUCAV",
         "ts": "1705977631.982109",
-        "text": "何をもってヒューリスティクスと呼んでいるのかわかりませんが、SMTソルバをヒューリスティクスに数えてよいのであれば、こんなのがあります\n\n<https://github.com/bgamari/the-thoralf-plugin>\n<https://hackage.haskell.org/package/sbvPlugin>"
+        "text": "何をもってヒューリスティクスと呼んでいるのかわかりませんが、SMTソルバをヒューリスティクスに数えてよいのであれば、こんなのがあります\n\n<https://github.com/bgamari/the-thoralf-plugin>\n<https://hackage.haskell.org/package/sbvPlugin>",
+        "type": "message",
+        "user": "UK0MXUCAV"
     },
     {
-        "type": "message",
-        "user": "UK0MXUCAV",
         "ts": "1705977903.059809",
-        "text": "これらや Liquid Haskell の Plugin 版は外部の Z3 を呼び出して処理しているので、同じようにして `tcPluginIO` 関数などを使って GPT の API と通信しようとすれば基本的に何でも組込めると思います。とはいえ、ちゃんとしたソルバではなくて GPT とかが生成した制約の「証明」がちゃんと証明になっているかどうかは出力をバリデートする必要があると思います"
+        "text": "これらや Liquid Haskell の Plugin 版は外部の Z3 を呼び出して処理しているので、同じようにして `tcPluginIO` 関数などを使って GPT の API と通信しようとすれば基本的に何でも組込めると思います。とはいえ、ちゃんとしたソルバではなくて GPT とかが生成した制約の「証明」がちゃんと証明になっているかどうかは出力をバリデートする必要があると思います",
+        "type": "message",
+        "user": "UK0MXUCAV"
     },
     {
-        "type": "message",
-        "user": "U02CE9YGEAU",
         "ts": "1705980067.463589",
-        "text": "<@UK0MXUCAV>\nなるほど。ヒューリスティックというのは、統計的手法による型推論をイメージしていましたが、SMTソルバも参考になります。\n\nGHCの型推論はすでに十分強力なので、これを利用して逆に制約から項を自動生成できないかなどを考えています"
+        "text": "<@UK0MXUCAV>\nなるほど。ヒューリスティックというのは、統計的手法による型推論をイメージしていましたが、SMTソルバも参考になります。\n\nGHCの型推論はすでに十分強力なので、これを利用して逆に制約から項を自動生成できないかなどを考えています",
+        "type": "message",
+        "user": "U02CE9YGEAU"
     },
     {
-        "type": "message",
-        "user": "UK0MXUCAV",
         "ts": "1705980081.367979",
-        "text": "なるほどなるほど"
+        "text": "なるほどなるほど",
+        "type": "message",
+        "user": "UK0MXUCAV"
     },
     {
-        "type": "message",
-        "user": "UK0MXUCAV",
         "ts": "1705980146.275489",
-        "text": "型クラス制約までは考慮に入れてくれたかどうかは覚えていませんが、単純な型から項を自動生成プラグインとしては、（今メンテされているかはわかりませんが）ghc-justdoit というのがありますね\n\n<https://github.com/nomeata/ghc-justdoit>"
+        "text": "型クラス制約までは考慮に入れてくれたかどうかは覚えていませんが、単純な型から項を自動生成プラグインとしては、（今メンテされているかはわかりませんが）ghc-justdoit というのがありますね\n\n<https://github.com/nomeata/ghc-justdoit>",
+        "type": "message",
+        "user": "UK0MXUCAV"
     },
     {
-        "type": "message",
-        "user": "U02CE9YGEAU",
         "ts": "1705980426.245679",
-        "text": "ありがとうございます"
+        "text": "ありがとうございます",
+        "type": "message",
+        "user": "U02CE9YGEAU"
     },
     {
-        "type": "message",
-        "user": "UK0MXUCAV",
         "ts": "1705980558.500289",
-        "text": "何か面白い物ができたらぜひ教えてください :+1: "
+        "text": "何か面白い物ができたらぜひ教えてください :+1: ",
+        "type": "message",
+        "user": "UK0MXUCAV"
     }
 ]
