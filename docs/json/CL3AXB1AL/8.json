@@ -1,272 +1,278 @@
 [
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1680965304.727929",
-        "text": "すみません， `containers` を最新版に更新すると installed `ghc-heap-9.4.4` とconflict して Hackage上から落としてくるのですが，Hackage上には `ghc-heap-9.4.1` や `ghc-heap-9.6.1` など `x.y.1` しかないため `containers` をアップデートしながら `ghc-heap-9.4.4`  をインストールすることは不可能とわかりました．「使えない」状態でインストールされるかどうか，も上手に検証できないため， `ghc-heap` は排除します．"
+        "text": "すみません， `containers` を最新版に更新すると installed `ghc-heap-9.4.4` とconflict して Hackage上から落としてくるのですが，Hackage上には `ghc-heap-9.4.1` や `ghc-heap-9.6.1` など `x.y.1` しかないため `containers` をアップデートしながら `ghc-heap-9.4.4`  をインストールすることは不可能とわかりました．「使えない」状態でインストールされるかどうか，も上手に検証できないため， `ghc-heap` は排除します．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1680966973.022129",
-        "text": "license report は 取り敢えず `cabal v2-freeze` だけやった Mac 上の環境で `cabal-plan license-report` を走らせて書いてきました．"
+        "text": "license report は 取り敢えず `cabal v2-freeze` だけやった Mac 上の環境で `cabal-plan license-report` を走らせて書いてきました．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1681042850.137679",
-        "text": "なんとかfreeze 前に手元環境で Exposed modules の imports を全部チェックできました！　生成したチェック用のソースは: <https://gist.github.com/gksato/0993d739f2ac6e81100f41815a27a978#file-3-imports-hs>"
+        "text": "なんとかfreeze 前に手元環境で Exposed modules の imports を全部チェックできました！　生成したチェック用のソースは: <https://gist.github.com/gksato/0993d739f2ac6e81100f41815a27a978#file-3-imports-hs>",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1682392268.747599",
-        "text": "コードテストばっかり投げてて実際の提出をサボっていて，数日前にやっと\n<https://atcoder.jp/contests/language-test-202301/submissions/40808418>\nを投げたのですが，そしたら\n\n*コンパイルエラー*\n```Warning: The package list for '<http://hackage.haskell.org|hackage.haskell.org>' is 16 days old.\nRun 'cabal update' to get the latest list of available packages.\nWarning: The package list for '<http://hackage.haskell.org|hackage.haskell.org>' is 16 days old.\nRun 'cabal update' to get the latest list of available packages.\nWarning: The directory\n/home/runner/.cabal/store/ghc-9.4.4/incoming/new-2/home/runner/.cabal/store/ghc-9.4.4/submission-0.1.0.0-e-main-65f18b2df59be1b1a37cc9cf6a1a6fef2ceea8c33303cd81c9373b649724db38/bin\nis not in the system search path.```\nという警告が出てしまいました．\n\nその上，最後の， `Warning: The directory` 云々の警告は未だ原因調査できておらず，どうやったら除去できるかもよくわかりません（あとで <#C5666B6BB|questions> にも投げようかと思います）．\n\nしかし，今回こちらで問題にしたいのは `Warning: The package list for` 云々の方です．これは見慣れた警告で，なんとかなりそうです．言語/ライブラリ追加は終了しているものの，コマンド変更は未だ受け付けられていますので，コンパイル・インストールコマンドを修正して解決してしまって良さそうです．この警告が出される条件を `cabal-install` のコードを追って確かめれば，ad-hoc には，コンパイルコマンド\n\n```$ source ~/.ghcup/env &amp;&amp; cd /judge/submission &amp;&amp; cabal v2-install --installdir=.. --install-method=copy --offline```\nを実行する直前に，package repository cacheのtarのmodification dateを更新しておけばいいとわかります：\n\n```$ touch ~/.cabal/packages/hackage.haskell.org/01-index.tar```\nしかし，この方法はあまりに ad-hoc で implementation-dependent なので，この方法を実行していいかわからず，相談がしたかったのでこちらに書き込ませていただきました．\n\nなお，このような方法に頼らなくても，  `cabal --ignore-expiry v2-install` でコンパイルするか， `cabal.project` に `ignore-expiry: True` を足すかすれば良いかと思ったのですが， `ignore-expiry` は  `cabal v2-update` の時に Hackage の署名の期限を検証しないことを表すもので，この問題には無関係のようですね（勘違いして cabal の github に issue を投げてしまったので，恥ずかしい思いをしました）．"
+        "text": "コードテストばっかり投げてて実際の提出をサボっていて，数日前にやっと\n<https://atcoder.jp/contests/language-test-202301/submissions/40808418>\nを投げたのですが，そしたら\n\n*コンパイルエラー*\n```Warning: The package list for '<http://hackage.haskell.org|hackage.haskell.org>' is 16 days old.\nRun 'cabal update' to get the latest list of available packages.\nWarning: The package list for '<http://hackage.haskell.org|hackage.haskell.org>' is 16 days old.\nRun 'cabal update' to get the latest list of available packages.\nWarning: The directory\n/home/runner/.cabal/store/ghc-9.4.4/incoming/new-2/home/runner/.cabal/store/ghc-9.4.4/submission-0.1.0.0-e-main-65f18b2df59be1b1a37cc9cf6a1a6fef2ceea8c33303cd81c9373b649724db38/bin\nis not in the system search path.```\nという警告が出てしまいました．\n\nその上，最後の， `Warning: The directory` 云々の警告は未だ原因調査できておらず，どうやったら除去できるかもよくわかりません（あとで <#C5666B6BB|questions> にも投げようかと思います）．\n\nしかし，今回こちらで問題にしたいのは `Warning: The package list for` 云々の方です．これは見慣れた警告で，なんとかなりそうです．言語/ライブラリ追加は終了しているものの，コマンド変更は未だ受け付けられていますので，コンパイル・インストールコマンドを修正して解決してしまって良さそうです．この警告が出される条件を `cabal-install` のコードを追って確かめれば，ad-hoc には，コンパイルコマンド\n\n```$ source ~/.ghcup/env &amp;&amp; cd /judge/submission &amp;&amp; cabal v2-install --installdir=.. --install-method=copy --offline```\nを実行する直前に，package repository cacheのtarのmodification dateを更新しておけばいいとわかります：\n\n```$ touch ~/.cabal/packages/hackage.haskell.org/01-index.tar```\nしかし，この方法はあまりに ad-hoc で implementation-dependent なので，この方法を実行していいかわからず，相談がしたかったのでこちらに書き込ませていただきました．\n\nなお，このような方法に頼らなくても，  `cabal --ignore-expiry v2-install` でコンパイルするか， `cabal.project` に `ignore-expiry: True` を足すかすれば良いかと思ったのですが， `ignore-expiry` は  `cabal v2-update` の時に Hackage の署名の期限を検証しないことを表すもので，この問題には無関係のようですね（勘違いして cabal の github に issue を投げてしまったので，恥ずかしい思いをしました）．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "U4LGTMTMK",
         "ts": "1682392531.153299",
-        "text": "よくわからないんですけど、 `Warning: The package list for '<http://hackage.haskell.org|hackage.haskell.org>' is 16 days old.` については cabal update をどこかで実行すればよいように見えるんですが、ダメなんですかね？\nあと、\n```Warning: The directory\n/home/runner/.cabal/store/ghc-9.4.4/incoming/new-2/home/runner/.cabal/store/ghc-9.4.4/submission-0.1.0.0-e-main-65f18b2df59be1b1a37cc9cf6a1a6fef2ceea8c33303cd81c9373b649724db38/bin\nis not in the system search path.```\nこちらは件のパスが `PATH` に入っていない、というものなので、可能なら無視したほうがいいと思います。"
+        "text": "よくわからないんですけど、 `Warning: The package list for '<http://hackage.haskell.org|hackage.haskell.org>' is 16 days old.` については cabal update をどこかで実行すればよいように見えるんですが、ダメなんですかね？\nあと、\n```Warning: The directory\n/home/runner/.cabal/store/ghc-9.4.4/incoming/new-2/home/runner/.cabal/store/ghc-9.4.4/submission-0.1.0.0-e-main-65f18b2df59be1b1a37cc9cf6a1a6fef2ceea8c33303cd81c9373b649724db38/bin\nis not in the system search path.```\nこちらは件のパスが `PATH` に入っていない、というものなので、可能なら無視したほうがいいと思います。",
+        "type": "message",
+        "user": "U4LGTMTMK"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1682393224.286059",
-        "text": "`cabal v2-update` はコンパイル時に実行しようとするとインターネット接続を仮定してしまうので，だめです．後半は無視した方が良いのはわかっているのですが，そのパス的にどうにもバグくさいのでどうしたら良いかがよくわからないという状況です．"
+        "text": "`cabal v2-update` はコンパイル時に実行しようとするとインターネット接続を仮定してしまうので，だめです．後半は無視した方が良いのはわかっているのですが，そのパス的にどうにもバグくさいのでどうしたら良いかがよくわからないという状況です．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1682470671.109409",
-        "text": "ありそうなのは， `cabal v2-build` が これらのWarning を出さないように見えるので，\n\n```cabal v2-build &amp;&amp; cabal v2-install --verbose=0 --installdir=.. --install-method=copy --offline```\nでやっちゃう，というのは手としてあるかもしれません．"
+        "text": "ありそうなのは， `cabal v2-build` が これらのWarning を出さないように見えるので，\n\n```cabal v2-build &amp;&amp; cabal v2-install --verbose=0 --installdir=.. --install-method=copy --offline```\nでやっちゃう，というのは手としてあるかもしれません．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1682470953.091509",
-        "text": "ただ，手元環境とサーバ環境で表示される警告が違うので，あんまり確信を持って修正できないのが正直なところなんですよね…．"
+        "text": "ただ，手元環境とサーバ環境で表示される警告が違うので，あんまり確信を持って修正できないのが正直なところなんですよね…．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1682473545.001119",
-        "text": "あるいは，さっきのコマンドだと２回コンパイルしてしまうみたいなので，\n\n```cabal v2-build &amp;&amp; cabal v2-exec -- bash -c 'cp $(which main) ../main'```\nでもいいかもしれないですね．"
+        "text": "あるいは，さっきのコマンドだと２回コンパイルしてしまうみたいなので，\n\n```cabal v2-build &amp;&amp; cabal v2-exec -- bash -c 'cp $(which main) ../main'```\nでもいいかもしれないですね．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1682510145.007589",
-        "text": "意見募集: とくに反対がなければ，コンパイルコマンドを\n\n```cd /judge/submission\nsource ~/.ghcup/env\ncabal v2-build --offline &amp;&amp; cabal v2-exec -- bash -c 'cp $(which main) ../'```\nに変更しようと思いますが，どうでしょう？"
+        "text": "意見募集: とくに反対がなければ，コンパイルコマンドを\n\n```cd /judge/submission\nsource ~/.ghcup/env\ncabal v2-build --offline &amp;&amp; cabal v2-exec -- bash -c 'cp $(which main) ../'```\nに変更しようと思いますが，どうでしょう？",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL5PAB0F9",
         "ts": "1682513764.246829",
-        "text": "`cabal v2-install --verbose=0` ではだめでしたか？"
+        "text": "`cabal v2-install --verbose=0` ではだめでしたか？",
+        "type": "message",
+        "user": "UL5PAB0F9"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1682595802.688999",
-        "text": "なるほど．ご指摘を受けて修正するなら，\n\n```cd /judge/submission\nsource ~/.ghcup/env\ncabal v2-build --offline &amp;&amp; cp $(cabal list-bin main) ../```\nでしょうか．"
+        "text": "なるほど．ご指摘を受けて修正するなら，\n\n```cd /judge/submission\nsource ~/.ghcup/env\ncabal v2-build --offline &amp;&amp; cp $(cabal list-bin main) ../```\nでしょうか．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL5PAB0F9",
         "ts": "1682600348.733489",
-        "text": "cabal v2-installの挙動はちょっと調べてもよくわからないところがあるので，v2-installは使わずv2-buildしてバイナリ抜き出す方針が良さそうですね"
+        "text": "cabal v2-installの挙動はちょっと調べてもよくわからないところがあるので，v2-installは使わずv2-buildしてバイナリ抜き出す方針が良さそうですね",
+        "type": "message",
+        "user": "UL5PAB0F9"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1682600591.717579",
-        "text": "では，改善もされたことですし，明日まで待って特に反対がなければ\n\n```cd /judge/submission\nsource ~/.ghcup/env\ncabal v2-build --offline &amp;&amp; cp $(cabal list-bin main) ../```\nに提案シートを書き換えた上で feedback に追加freezeの要望を出します．"
+        "text": "では，改善もされたことですし，明日まで待って特に反対がなければ\n\n```cd /judge/submission\nsource ~/.ghcup/env\ncabal v2-build --offline &amp;&amp; cp $(cabal list-bin main) ../```\nに提案シートを書き換えた上で feedback に追加freezeの要望を出します．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1682806606.394059",
-        "text": "報告を忘れていましたが，昨日未明（おとといの深夜）に記入してきました．\n• <https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=L38|提案ページの編集>\n• <https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=I102|フィードバックページの編集>"
+        "text": "報告を忘れていましたが，昨日未明（おとといの深夜）に記入してきました．\n• <https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=L38|提案ページの編集>\n• <https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=I102|フィードバックページの編集>",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL5PAB0F9",
         "ts": "1685765893.274489",
-        "text": "Language Test Contestが4/11版に更新されたようです\n<https://atcoder.jp/contests/language-test-202301>"
+        "text": "Language Test Contestが4/11版に更新されたようです\n<https://atcoder.jp/contests/language-test-202301>",
+        "type": "message",
+        "user": "UL5PAB0F9"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1686447567.947069",
-        "text": "遅くなりましたが，<https://gist.github.com/gksato/0993d739f2ac6e81100f41815a27a978#file-3-imports-hs> のインポートテストコードがCompile を通ることを確認しました．"
+        "text": "遅くなりましたが，<https://gist.github.com/gksato/0993d739f2ac6e81100f41815a27a978#file-3-imports-hs> のインポートテストコードがCompile を通ることを確認しました．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1686448242.037629",
-        "text": "環境構築用の `cabal.project.freeze` ファイルをコードテスト：\n\n```main :: IO ()\nmain = putStr =&lt;&lt; readFile \"/judge/submission/cabal.project.freeze\"```\nで取得しました！\n\n<https://gist.github.com/gksato/0993d739f2ac6e81100f41815a27a978#file-4-cabal-project-freeze>"
+        "text": "環境構築用の `cabal.project.freeze` ファイルをコードテスト：\n\n```main :: IO ()\nmain = putStr =&lt;&lt; readFile \"/judge/submission/cabal.project.freeze\"```\nで取得しました！\n\n<https://gist.github.com/gksato/0993d739f2ac6e81100f41815a27a978#file-4-cabal-project-freeze>",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1686921303.827259",
-        "text": "事態の収拾がつかなくなりそうでAtCoder社員さまの労力が心配ですが，こんな確認事項がSpreadsheetに追加されました:\n\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1056940558&amp;range=C13>\n&gt; 時間が開いてしまったため言語およびライブラリのアップデートを許可することにします\n&gt; ただし以下のような変更は依然として却下です\n&gt; - これまでに申請済みのライセンスが変わる\n&gt; - 新規言語、新規ライブラリの追加\n&gt; 参考: <https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=K111>\nこれに乗じて GHC 9.4.5 をつっこめますね！ <https://gitlab.haskell.org/ghc/ghc/-/issues/22998|GHC Issue #22998> とか不安だったので地味にホッとしています…．異論がなければ，仮想環境ビルドを 9.4.5 に bump して試した上で 書き換えを行います．"
+        "text": "事態の収拾がつかなくなりそうでAtCoder社員さまの労力が心配ですが，こんな確認事項がSpreadsheetに追加されました:\n\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1056940558&amp;range=C13>\n&gt; 時間が開いてしまったため言語およびライブラリのアップデートを許可することにします\n&gt; ただし以下のような変更は依然として却下です\n&gt; - これまでに申請済みのライセンスが変わる\n&gt; - 新規言語、新規ライブラリの追加\n&gt; 参考: <https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=K111>\nこれに乗じて GHC 9.4.5 をつっこめますね！ <https://gitlab.haskell.org/ghc/ghc/-/issues/22998|GHC Issue #22998> とか不安だったので地味にホッとしています…．異論がなければ，仮想環境ビルドを 9.4.5 に bump して試した上で 書き換えを行います．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1686921436.399909",
-        "text": "なお，同時に次回の Freeze が 6/19 で確定しました！"
+        "text": "なお，同時に次回の Freeze が 6/19 で確定しました！",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1686957789.585189",
-        "text": "バージョンアップ作業中です．\n• `unix-2.7.3`  (installed with GHC) の `unix-2.8.1.1` へのアップデートを試みましたが，`unix-2.8.1.1` は `filepath &gt;= 1.4.100.0`  を要求し，これが既存のバージョン指定 `filepath &lt; 1.4.100` に矛盾したため，とりあえず `unix ==2.7.3` で固定しておきます．異論があればお願いします．なお，`filepath &lt;1.4.100` を外してもインストールは可能と思われます．`filepath &lt;1.4.100` のバージョン指定の由来は次のとおりです：4/11 freeze時に， `hpc`  (the version bundled with GHC-9.4.4 + all versions on Hackage) と `filepath &gt;=1.4.100` がdependency上かコード上(dependency rangeで許可されているがコンパイルエラーが出るという意味)で非互換であるため， `hpc` を外し `filepath` を installed with GHC のバージョンに固定しておくという経過措置をとったものです．"
+        "text": "バージョンアップ作業中です．\n• `unix-2.7.3`  (installed with GHC) の `unix-2.8.1.1` へのアップデートを試みましたが，`unix-2.8.1.1` は `filepath &gt;= 1.4.100.0`  を要求し，これが既存のバージョン指定 `filepath &lt; 1.4.100` に矛盾したため，とりあえず `unix ==2.7.3` で固定しておきます．異論があればお願いします．なお，`filepath &lt;1.4.100` を外してもインストールは可能と思われます．`filepath &lt;1.4.100` のバージョン指定の由来は次のとおりです：4/11 freeze時に， `hpc`  (the version bundled with GHC-9.4.4 + all versions on Hackage) と `filepath &gt;=1.4.100` がdependency上かコード上(dependency rangeで許可されているがコンパイルエラーが出るという意味)で非互換であるため， `hpc` を外し `filepath` を installed with GHC のバージョンに固定しておくという経過措置をとったものです．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1687045146.684209",
-        "text": "ライセンスのリストにghcup, cabal-install, LLVM のライセンスをつけ忘れていたので，フィードバックシートで言い訳+確認をしてきました：\n\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=J115>\n&gt; 今更気になりました．\n&gt; 「まずはじめに」の “License” のところに「言語やライブラリのライセンスへの URL をすべて記入してください。」とありますが，\n&gt; 言語(コンパイラ/インタプリタ)でもライブラリでもない部分，例えば\n&gt; ・ビルドシステム (Haskellで言えば cabal-install, Rustで言えばCargo)\n&gt; ・ツールマネジャ(Haskellで言えば ghcup, Rustで言えばrustup …といってもRustは今回のLang updateでrustup不使用)\n&gt; ・LLVM\n&gt; ・apt\n&gt; ・sudo, curl, rm, cp その他のUNIX系shellで利用されるツール\n&gt; などのライセンスはどう扱えば良いでしょうか…?\n&gt; Haskellではとりあえず「言語とライブラリ」のライセンスだけ付けてるのですが．\n「まずはじめに」で「言語とライブラリ」とだけ書いてあったのでだいぶ気が楽になりました．気にし過ぎだといいのですが:sweat_smile:"
+        "text": "ライセンスのリストにghcup, cabal-install, LLVM のライセンスをつけ忘れていたので，フィードバックシートで言い訳+確認をしてきました：\n\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=J115>\n&gt; 今更気になりました．\n&gt; 「まずはじめに」の “License” のところに「言語やライブラリのライセンスへの URL をすべて記入してください。」とありますが，\n&gt; 言語(コンパイラ/インタプリタ)でもライブラリでもない部分，例えば\n&gt; ・ビルドシステム (Haskellで言えば cabal-install, Rustで言えばCargo)\n&gt; ・ツールマネジャ(Haskellで言えば ghcup, Rustで言えばrustup …といってもRustは今回のLang updateでrustup不使用)\n&gt; ・LLVM\n&gt; ・apt\n&gt; ・sudo, curl, rm, cp その他のUNIX系shellで利用されるツール\n&gt; などのライセンスはどう扱えば良いでしょうか…?\n&gt; Haskellではとりあえず「言語とライブラリ」のライセンスだけ付けてるのですが．\n「まずはじめに」で「言語とライブラリ」とだけ書いてあったのでだいぶ気が楽になりました．気にし過ぎだといいのですが:sweat_smile:",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1687062080.161859",
-        "text": "擬似環境の生成に成功しました．GHCによってバージョンが固定されてしまうパッケージを `^&gt;=` から `==` にするのと，その他のパッケージを更新するのとで次のような dependency の更新が起こります：\n• `GHC: 9.4.4 -&gt; 9.4.5`\n• `QuickCheck: ^&gt;=2.14.2 -&gt; ^&gt;=2.14.3`\n• `array: ^&gt;=0.5.4.0 -&gt; ==0.5.4.0`\n• `base: ^&gt;=4.17.0.0 -&gt; ==4.17.1.0`\n• `deepseq: ^&gt;=1.4.8.0 -&gt; ==1.4.8.0`\n• `ghc-boot-th: ==9.4.4 -&gt; ==9.4.5`\n• `ghc-prim: ^&gt;=0.9.0 -&gt; ==0.9.0`\n• `massiv: ^&gt;=1.0.3.0 -&gt; ^&gt;=1.0.4.0`\n• `megaparsec: ^&gt;=9.3.0 -&gt; ^&gt;=9.4.1`\n• `regex-tdfa: ^&gt;=1.3.2 -&gt; ^&gt;=1.3.2.1`\n• `template-haskell: ^&gt;=2.19.0.0 -&gt; ==2.19.0.0`\n• `unix: ^&gt;=2.7.3 -&gt; ==2.7.3`\n• `utility-ht: ^&gt;=0.0.16 -&gt; ^&gt;=0.0.17` "
+        "text": "擬似環境の生成に成功しました．GHCによってバージョンが固定されてしまうパッケージを `^&gt;=` から `==` にするのと，その他のパッケージを更新するのとで次のような dependency の更新が起こります：\n• `GHC: 9.4.4 -&gt; 9.4.5`\n• `QuickCheck: ^&gt;=2.14.2 -&gt; ^&gt;=2.14.3`\n• `array: ^&gt;=0.5.4.0 -&gt; ==0.5.4.0`\n• `base: ^&gt;=4.17.0.0 -&gt; ==4.17.1.0`\n• `deepseq: ^&gt;=1.4.8.0 -&gt; ==1.4.8.0`\n• `ghc-boot-th: ==9.4.4 -&gt; ==9.4.5`\n• `ghc-prim: ^&gt;=0.9.0 -&gt; ==0.9.0`\n• `massiv: ^&gt;=1.0.3.0 -&gt; ^&gt;=1.0.4.0`\n• `megaparsec: ^&gt;=9.3.0 -&gt; ^&gt;=9.4.1`\n• `regex-tdfa: ^&gt;=1.3.2 -&gt; ^&gt;=1.3.2.1`\n• `template-haskell: ^&gt;=2.19.0.0 -&gt; ==2.19.0.0`\n• `unix: ^&gt;=2.7.3 -&gt; ==2.7.3`\n• `utility-ht: ^&gt;=0.0.16 -&gt; ^&gt;=0.0.17` ",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1687067962.588899",
-        "text": "<https://gist.github.com/gksato/67ce95de203c1799841a99777758e2f5> の内容で書き込んできます． dependency 全体は <https://gist.github.com/gksato/67ce95de203c1799841a99777758e2f5#file-4-dependencies> で確認できます．"
+        "text": "<https://gist.github.com/gksato/67ce95de203c1799841a99777758e2f5> の内容で書き込んできます． dependency 全体は <https://gist.github.com/gksato/67ce95de203c1799841a99777758e2f5#file-4-dependencies> で確認できます．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1687068694.657889",
-        "text": "とりあえず書き込んできました．ご確認ください．<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=38:38>"
+        "text": "とりあえず書き込んできました．ご確認ください．<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=38:38>",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1687127036.349789",
-        "text": "忘れてました！ LLVM が 13 から 14 になってます！"
+        "text": "忘れてました！ LLVM が 13 から 14 になってます！",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1687532115.866479",
-        "text": "Language Test が Freeze 4, 20230619 版にアップデートされました．\n\nfreeze file を取得済みです：\n<https://gist.github.com/gksato/67ce95de203c1799841a99777758e2f5#file-5-cabal-project-freeze>\n\n不要な `cabal`  由来の警告が消えています：\n<https://atcoder.jp/contests/language-test-202301/submissions/42867827>\n\n全モジュールインポートも通ります：\n<https://atcoder.jp/contests/language-test-202301/submissions/42867961>\n\nついでにコンパイル時警告はきちんと `-Wall`  で出ますし， `{-# OPTIONS_GHC -Wno-unused-imports #-}`  でちゃんと警告の除外もできてるみたいですね．"
+        "text": "Language Test が Freeze 4, 20230619 版にアップデートされました．\n\nfreeze file を取得済みです：\n<https://gist.github.com/gksato/67ce95de203c1799841a99777758e2f5#file-5-cabal-project-freeze>\n\n不要な `cabal`  由来の警告が消えています：\n<https://atcoder.jp/contests/language-test-202301/submissions/42867827>\n\n全モジュールインポートも通ります：\n<https://atcoder.jp/contests/language-test-202301/submissions/42867961>\n\nついでにコンパイル時警告はきちんと `-Wall`  で出ますし， `{-# OPTIONS_GHC -Wno-unused-imports #-}`  でちゃんと警告の除外もできてるみたいですね．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1687532665.858759",
-        "text": "なお， Freeze 5 は 2023-07-03 であり， Freeze 6 はその1-2週間後で， Freeze 6 が最終freezeとなるようです．それまでにTest Contest の Practice A に AC 解を投げておく必要がありますが，この一個上の投稿に含まれる提出で要求を充足しているので，それそのものは気になさらなくても大丈夫です．ただし，ライブラリの正常動作に関してはインポートまでしか確認していないので，必要に応じてテストコンテストで動作確認を行っていただけると助かります．\n\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1056940558&amp;range=C14|Lang update 202301スプレッドシートの「要確認事項」シート，セルC14> より引用:\n&gt; 次々回のfreeze（次回のfreezeから1～2週間後を予定）をもってジャッジを確定させる予定です\n&gt; 入れたい言語/ライブラリが正常に動作することを必ず確認してください\n&gt; またジャッジの内部テスト用などに使用するため\n&gt; <https://atcoder.jp/contests/language-test-202301/tasks/practice_1|https://atcoder.jp/contests/language-test-202301/tasks/practice_1>\n&gt; この問題においてAC解を提出してください\n&gt; ACが確認できない言語においては最終のジャッジからは外される可能性があることがあります\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=0&amp;range=B5:D5|同スプレッドシート,「まずはじめに」シート，「今後の進め方」(セル範囲B5:D5)>  より一部引用:\n&gt; 次のfreeze : 2023-07-03\n&gt; 特段の不具合が見つからない場合に次々回（次回のfreezeから1～2週間後を予定）のfreezeをもって新ジャッジを確定させる予定です\n&gt; また必ずAC解を提出しておいてください\n&gt; 詳しくは要確認事項シートの該当項目を確認してください"
+        "text": "なお， Freeze 5 は 2023-07-03 であり， Freeze 6 はその1-2週間後で， Freeze 6 が最終freezeとなるようです．それまでにTest Contest の Practice A に AC 解を投げておく必要がありますが，この一個上の投稿に含まれる提出で要求を充足しているので，それそのものは気になさらなくても大丈夫です．ただし，ライブラリの正常動作に関してはインポートまでしか確認していないので，必要に応じてテストコンテストで動作確認を行っていただけると助かります．\n\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1056940558&amp;range=C14|Lang update 202301スプレッドシートの「要確認事項」シート，セルC14> より引用:\n&gt; 次々回のfreeze（次回のfreezeから1～2週間後を予定）をもってジャッジを確定させる予定です\n&gt; 入れたい言語/ライブラリが正常に動作することを必ず確認してください\n&gt; またジャッジの内部テスト用などに使用するため\n&gt; <https://atcoder.jp/contests/language-test-202301/tasks/practice_1|https://atcoder.jp/contests/language-test-202301/tasks/practice_1>\n&gt; この問題においてAC解を提出してください\n&gt; ACが確認できない言語においては最終のジャッジからは外される可能性があることがあります\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=0&amp;range=B5:D5|同スプレッドシート,「まずはじめに」シート，「今後の進め方」(セル範囲B5:D5)>  より一部引用:\n&gt; 次のfreeze : 2023-07-03\n&gt; 特段の不具合が見つからない場合に次々回（次回のfreezeから1～2週間後を予定）のfreezeをもって新ジャッジを確定させる予定です\n&gt; また必ずAC解を提出しておいてください\n&gt; 詳しくは要確認事項シートの該当項目を確認してください",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1687989126.465459",
-        "text": "LLVM, ghcup, cabal-install 等のライセンスの件ですが，\n\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=K115>\n\n&gt; 現状の「言語とライブラリ」だけで今のところ問題ありません\n&gt; ただしもし懸念事項があるならば注記で書いていただけると助かります\nと返信いただいたので問題はなさそうかな？"
+        "text": "LLVM, ghcup, cabal-install 等のライセンスの件ですが，\n\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=K115>\n\n&gt; 現状の「言語とライブラリ」だけで今のところ問題ありません\n&gt; ただしもし懸念事項があるならば注記で書いていただけると助かります\nと返信いただいたので問題はなさそうかな？",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1687991585.429139",
-        "text": "フィードバック #119 を見てて思ったのですが，インストールの最後に\n```rm -rf ~/.ghcup/bin/ghcup ~/.ghcup/cache ~/.ghcup/logs ~/.ghcup/tmp ~/.cabal/logs```\nあたり実行した方が良いのでしょうか？\n\n\nフィードバック #119 の引用:\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=123:123>\n&gt; Q:「インストール時に一時的に使用するファイルは/tmpに置くようにしてもらえると実行環境からは除かれるので“助かります“」とありますが、\n&gt; インストールからコンパイル、コンパイルから実行への転送量がジャッジの負荷やコストに結構影響するのでしょうか？\n&gt; 例えば、インストールで使った git を apt-get remove &amp;&amp; apt-get autoremove したり、\n&gt; コンパイル後にコンパイラとライブラリを消したほうがいいですか？\n&gt; \n&gt; A: インストールに際して一時的に使用されるもののみ/tmpに置く、ないしはインストールの最後に削除していただくとジャッジを複数台立てるときにそのコピーするデータ量が減るためありがたいということです\n&gt; 例えばコンパイラ本体を含む圧縮ファイルや、バイナリインストールのためにダウンロードしてきたソースコードなどは実行環境上には不要なものであるはずなので、それらは基本的に/tmpで作業をしてもらえるとインストールコマンドをすべて実行し終わったあとに削除され、コンパイル/実行環境からは消えた状態となります\n&gt; \n&gt; コンパイル時に行った各種操作による後片付けはしなくても大丈夫です\n&gt; 逆に下手にコンパイル時に後片付けを行うと\n&gt; - 実行時に必要なファイルまで間違えて消してしまう可能性がある\n&gt; - 後片付けもコンパイル時間に含まれ、コンパイル時間は一定時間で制限されているためこの制限時間を超えてしまう可能性がある\n&gt; といった点からおすすめはしません"
+        "text": "フィードバック #119 を見てて思ったのですが，インストールの最後に\n```rm -rf ~/.ghcup/bin/ghcup ~/.ghcup/cache ~/.ghcup/logs ~/.ghcup/tmp ~/.cabal/logs```\nあたり実行した方が良いのでしょうか？\n\n\nフィードバック #119 の引用:\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=1835616968&amp;range=123:123>\n&gt; Q:「インストール時に一時的に使用するファイルは/tmpに置くようにしてもらえると実行環境からは除かれるので“助かります“」とありますが、\n&gt; インストールからコンパイル、コンパイルから実行への転送量がジャッジの負荷やコストに結構影響するのでしょうか？\n&gt; 例えば、インストールで使った git を apt-get remove &amp;&amp; apt-get autoremove したり、\n&gt; コンパイル後にコンパイラとライブラリを消したほうがいいですか？\n&gt; \n&gt; A: インストールに際して一時的に使用されるもののみ/tmpに置く、ないしはインストールの最後に削除していただくとジャッジを複数台立てるときにそのコピーするデータ量が減るためありがたいということです\n&gt; 例えばコンパイラ本体を含む圧縮ファイルや、バイナリインストールのためにダウンロードしてきたソースコードなどは実行環境上には不要なものであるはずなので、それらは基本的に/tmpで作業をしてもらえるとインストールコマンドをすべて実行し終わったあとに削除され、コンパイル/実行環境からは消えた状態となります\n&gt; \n&gt; コンパイル時に行った各種操作による後片付けはしなくても大丈夫です\n&gt; 逆に下手にコンパイル時に後片付けを行うと\n&gt; - 実行時に必要なファイルまで間違えて消してしまう可能性がある\n&gt; - 後片付けもコンパイル時間に含まれ、コンパイル時間は一定時間で制限されているためこの制限時間を超えてしまう可能性がある\n&gt; といった点からおすすめはしません",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL5PAB0F9",
         "ts": "1688045183.929349",
-        "text": "リストアップしてもらったものに関しては削除してしまってもいいんじゃないでしょうか"
+        "text": "リストアップしてもらったものに関しては削除してしまってもいいんじゃないでしょうか",
+        "type": "message",
+        "user": "UL5PAB0F9"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1688212069.527559",
-        "text": "明日昼にテストをした上で，24:00を目処に `~/.ghcup/trash`  を加えて\n\n```rm -rf ~/.ghcup/bin/ghcup ~/.ghcup/cache ~/.ghcup/logs ~/.ghcup/tmp ~/.ghcup/trash ~/.cabal/logs```\nを最後に実行するように変更しようかと思います．ご意見があればお願いします．"
+        "text": "明日昼にテストをした上で，24:00を目処に `~/.ghcup/trash`  を加えて\n\n```rm -rf ~/.ghcup/bin/ghcup ~/.ghcup/cache ~/.ghcup/logs ~/.ghcup/tmp ~/.ghcup/trash ~/.cabal/logs```\nを最後に実行するように変更しようかと思います．ご意見があればお願いします．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1688263950.065419",
-        "text": "忘れてました．\n\n```sudo apt-get remove -y libncurses-dev libncurses5\nsudo apt-get autoremove -y```\nも試したいと思います． `ghcup` が `ghcup tui` のために `vty` を通して `ncurses` に依存しますが，それを必要とするパッケージが我々のdependency に含まれないように見えるからです．"
+        "text": "忘れてました．\n\n```sudo apt-get remove -y libncurses-dev libncurses5\nsudo apt-get autoremove -y```\nも試したいと思います． `ghcup` が `ghcup tui` のために `vty` を通して `ncurses` に依存しますが，それを必要とするパッケージが我々のdependency に含まれないように見えるからです．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1688279644.333619",
-        "text": "追加で，コマンド最初の apt-get を\n\n```$ sudo apt-get install -y build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 llvm-14```\nから\n\n```$ sudo apt-get install -y curl\n$ sudo apt-get install -y --no-install-recommends build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 llvm-14```\nに変更しました．その上で，インストール最後に\n\n```$ sudo apt-get remove -y curl libncurses5 libncurses-dev\n$ sudo apt-get autoremove -y\n$ rm -rf ~/.ghcup/bin/ghcup ~/.ghcup/cache ~/.ghcup/logs ~/.ghcup/tmp ~/.ghcup/trash ~/.cabal/logs```\nを実行した上で，モジュールインポートのコードのビルド・実行が正しく行われることを確認しました！"
+        "text": "追加で，コマンド最初の apt-get を\n\n```$ sudo apt-get install -y build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 llvm-14```\nから\n\n```$ sudo apt-get install -y curl\n$ sudo apt-get install -y --no-install-recommends build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 llvm-14```\nに変更しました．その上で，インストール最後に\n\n```$ sudo apt-get remove -y curl libncurses5 libncurses-dev\n$ sudo apt-get autoremove -y\n$ rm -rf ~/.ghcup/bin/ghcup ~/.ghcup/cache ~/.ghcup/logs ~/.ghcup/tmp ~/.ghcup/trash ~/.cabal/logs```\nを実行した上で，モジュールインポートのコードのビルド・実行が正しく行われることを確認しました！",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1688312701.003289",
-        "text": "<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=K38|https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=K38>\n\n上の内容を提案シートに反映しました．ただし，\n\n```$ sudo apt-get remove -y curl libncurses5 libncurses-dev\n$ sudo apt-get autoremove -y```\nについては追加を見合わせました．この理由は，GHC/cabal-install の実行に `curl, libncurses5, libncurses-dev` が必要ないという確信を持てなくなったからです．そもそも，これらのパッケージは言語環境インストール開始時に次のコマンドでインストールしたものです．\n\n```$ sudo apt-get install -y --no-install-recommends build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 llvm-14```\nこれらインストールパッケージの由来は， GHCup がインストール時に要求する System Requirementsです．実際の文面は次のとおり：\n\n```System requirements \n  Please ensure the following distro packages are installed before continuing (you can exit ghcup and return at any time): build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5```\nそこで，GHCupインストールスクリプトのこのメッセージを発行する箇所(<https://github.com/haskell/ghcup-hs/blob/e14600ae751753aeb185f58bb4554fedbd27194a/scripts/bootstrap/bootstrap-haskell#L803|https://github.com/haskell/ghcup-hs/blob/e14600ae751753aeb185f58bb4554fedbd27194a/scripts/bootstrap/bootstrap-haskell#L803>) を読みにいって確認したところ，これは  `$ ghcup tool-requirements`  によって表示されていることがわかりました． `ghcup tool-requirements` の機能は， `--help` によれば\n\n&gt; Show the requirements for ghc/cabal\nとのことで，このたびの `apt-get remove` の追加見合わせはこの一文が理由です． どう考えても `curl` やら `ncurses` やら使ってそうなのは `ghcup` だろと断言したいのは山々なのですが，安全側に倒しておきたいと判断しました．"
+        "text": "<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=K38|https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=K38>\n\n上の内容を提案シートに反映しました．ただし，\n\n```$ sudo apt-get remove -y curl libncurses5 libncurses-dev\n$ sudo apt-get autoremove -y```\nについては追加を見合わせました．この理由は，GHC/cabal-install の実行に `curl, libncurses5, libncurses-dev` が必要ないという確信を持てなくなったからです．そもそも，これらのパッケージは言語環境インストール開始時に次のコマンドでインストールしたものです．\n\n```$ sudo apt-get install -y --no-install-recommends build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 llvm-14```\nこれらインストールパッケージの由来は， GHCup がインストール時に要求する System Requirementsです．実際の文面は次のとおり：\n\n```System requirements \n  Please ensure the following distro packages are installed before continuing (you can exit ghcup and return at any time): build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5```\nそこで，GHCupインストールスクリプトのこのメッセージを発行する箇所(<https://github.com/haskell/ghcup-hs/blob/e14600ae751753aeb185f58bb4554fedbd27194a/scripts/bootstrap/bootstrap-haskell#L803|https://github.com/haskell/ghcup-hs/blob/e14600ae751753aeb185f58bb4554fedbd27194a/scripts/bootstrap/bootstrap-haskell#L803>) を読みにいって確認したところ，これは  `$ ghcup tool-requirements`  によって表示されていることがわかりました． `ghcup tool-requirements` の機能は， `--help` によれば\n\n&gt; Show the requirements for ghc/cabal\nとのことで，このたびの `apt-get remove` の追加見合わせはこの一文が理由です． どう考えても `curl` やら `ncurses` やら使ってそうなのは `ghcup` だろと断言したいのは山々なのですが，安全側に倒しておきたいと判断しました．",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1688799742.361419",
-        "text": "最終フリーズの日程が確定しました．2023-07-17(月)です．\n\nLanguage Update 202301 spreadsheet まずはじめに - 今後の進め方(<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=0&amp;range=B5:D5>) から一部引用:\n&gt; 次のfreeze : 2023-07-17\n&gt; 上記freezeをもって新ジャッジを確定し、以降の修正は受け付けない予定です"
+        "text": "最終フリーズの日程が確定しました．2023-07-17(月)です．\n\nLanguage Update 202301 spreadsheet まずはじめに - 今後の進め方(<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=0&amp;range=B5:D5>) から一部引用:\n&gt; 次のfreeze : 2023-07-17\n&gt; 上記freezeをもって新ジャッジを確定し、以降の修正は受け付けない予定です",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1688799966.589739",
-        "text": "Language Test も 最新版 (Freeze 5, 20230703) にアップデートされました．正常に動作しているようです．動作確認AC提出を貼っておきます:\n<https://atcoder.jp/contests/language-test-202301/submissions/43298808>\n<https://atcoder.jp/contests/language-test-202301/submissions/43298825>\n<https://atcoder.jp/contests/language-test-202301/submissions/43308487>"
+        "text": "Language Test も 最新版 (Freeze 5, 20230703) にアップデートされました．正常に動作しているようです．動作確認AC提出を貼っておきます:\n<https://atcoder.jp/contests/language-test-202301/submissions/43298808>\n<https://atcoder.jp/contests/language-test-202301/submissions/43298825>\n<https://atcoder.jp/contests/language-test-202301/submissions/43308487>",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1688800194.985869",
-        "text": "License 欄に書いたLicense reportへの Gist リンクがリビジョン指定なしのやつだったので，リビジョン指定付きのpermalinkを追加しておきました：\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=P38>"
+        "text": "License 欄に書いたLicense reportへの Gist リンクがリビジョン指定なしのやつだったので，リビジョン指定付きのpermalinkを追加しておきました：\n<https://docs.google.com/spreadsheets/d/1HXyOXt5bKwhKWXruzUvfMFHQtBxfZQ0047W7VVObnXI/edit#gid=408033513&amp;range=P38>",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UEW2WMB7T",
         "ts": "1688956921.111459",
-        "text": "<@UEW2WMB7T> has left the channel"
+        "text": "<@UEW2WMB7T> has left the channel",
+        "type": "message",
+        "user": "UEW2WMB7T"
     },
     {
-        "type": "message",
-        "user": "U4L0B71L1",
         "ts": "1689069354.236609",
-        "text": "<@U4L0B71L1> has left the channel"
+        "text": "<@U4L0B71L1> has left the channel",
+        "type": "message",
+        "user": "U4L0B71L1"
     },
     {
-        "type": "message",
-        "user": "U045SA60C90",
         "ts": "1689575529.441679",
-        "text": "<@U045SA60C90> has joined the channel"
+        "text": "<@U045SA60C90> has joined the channel",
+        "type": "message",
+        "user": "U045SA60C90"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1690026820.754859",
-        "text": "最終版のFreezeは 7/18 に予定通り実施され，2023-07-21 22:00にLanguage Test が最終版に更新されています．一応全インポートも投げておきました：\n<https://atcoder.jp/contests/language-test-202301/submissions/43826108>"
+        "text": "最終版のFreezeは 7/18 に予定通り実施され，2023-07-21 22:00にLanguage Test が最終版に更新されています．一応全インポートも投げておきました：\n<https://atcoder.jp/contests/language-test-202301/submissions/43826108>",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "UL1HFJATE",
         "ts": "1691305242.998849",
-        "text": "今日新ジャッジテストコンテストがあります:\nalgorithm: <https://atcoder.jp/contests/newjudge-2308-algorithm|https://atcoder.jp/contests/newjudge-2308-algorithm>\nheuristic: <https://atcoder.jp/contests/newjudge-2308-heuristic|https://atcoder.jp/contests/newjudge-2308-heuristic>"
+        "text": "今日新ジャッジテストコンテストがあります:\nalgorithm: <https://atcoder.jp/contests/newjudge-2308-algorithm|https://atcoder.jp/contests/newjudge-2308-algorithm>\nheuristic: <https://atcoder.jp/contests/newjudge-2308-heuristic|https://atcoder.jp/contests/newjudge-2308-heuristic>",
+        "type": "message",
+        "user": "UL1HFJATE"
     },
     {
-        "type": "message",
-        "user": "U03H9PH8FRP",
         "ts": "1691323640.069119",
-        "text": "`main = return ()` の提出で 15 秒ぐらい待機時間があるのは\nもしかして長いですか……？"
+        "text": "`main = return ()` の提出で 15 秒ぐらい待機時間があるのは\nもしかして長いですか……？",
+        "type": "message",
+        "user": "U03H9PH8FRP"
     },
     {
-        "type": "message",
-        "user": "U05LSDBQHQF",
         "ts": "1691666204.377799",
-        "text": "<@U05LSDBQHQF> has joined the channel"
+        "text": "<@U05LSDBQHQF> has joined the channel",
+        "type": "message",
+        "user": "U05LSDBQHQF"
+    },
+    {
+        "ts": "1708179768.126009",
+        "text": "<@U06KBK22V6X> has joined the channel",
+        "type": "message",
+        "user": "U06KBK22V6X"
     }
 ]
