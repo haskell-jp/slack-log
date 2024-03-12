@@ -1,0 +1,32 @@
+[
+    {
+        "ts": "1710131564.861859",
+        "text": "気づいたら stack new が最新のlts-resolver urlを拾わなくなってるの。いつから、なにが変ったのでしょうか？\n現在(2024-03-11)は、lts-22.13 が最新なんですが、stack new hoge すると\n```Selected the snapshot <https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/11.yaml>.```\nがでてきます。",
+        "type": "message",
+        "user": "U4KU9ABL0"
+    },
+    {
+        "ts": "1710131753.907889",
+        "text": "なんかいつからか S3 上にホストされている snapshots がアップデートされなくなっているんですよね。<https://www.stackage.org/download/snapshots.json> に最新のデータがあるので、これをスナップショット一覧のデータになるように stack を再設定すればいいはずです",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1710131903.214959",
+        "text": "<https://docs.haskellstack.org/en/stable/yaml_configuration/#urls> ここの説明に従って、以下のように `~/stack/config.yaml` に追記すればいいはずです：\n\n\n```urls:\n  latest-snapshot: <https://www.stackage.org/download/snapshots.json>```",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1710138605.408469",
+        "text": "ありがとうございます。ちゃんと最新のresolverになりました。",
+        "type": "message",
+        "user": "U4KU9ABL0"
+    },
+    {
+        "ts": "1710140237.741549",
+        "text": "とりあえず stack の issue として報告しておきました（stack 側なのか Stackage側なのかわからいませんが、とりあえず stack に報告しておいたら誰かが pick-up してくれるかなという期待\n<https://github.com/commercialhaskell/stack/issues/6516>",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    }
+]

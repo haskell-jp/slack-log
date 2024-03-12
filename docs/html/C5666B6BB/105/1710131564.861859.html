@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #105 at 2024-03-11 13:32:44 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #105 at 2024-03-11 13:32:44 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../105.html" class="item">Back to questions #105</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1710131564.861859">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1710131564.861859">2024-03-11 13:32:44 +0900</a></div>
+          </div>
+          <div class="description">気づいたら stack new が最新のlts-resolver urlを拾わなくなってるの。いつから、なにが変ったのでしょうか？<br/>現在(2024-03-11)は、lts-22.13 が最新なんですが、stack new hoge すると<br/><pre>Selected the snapshot <https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/11.yaml>.</pre><br/>がでてきます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1710131753.907889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1710131753.907889">2024-03-11 13:35:53 +0900</a></div>
+          </div>
+          <div class="description">なんかいつからか S3 上にホストされている snapshots がアップデートされなくなっているんですよね。<https://www.stackage.org/download/snapshots.json> に最新のデータがあるので、これをスナップショット一覧のデータになるように stack を再設定すればいいはずです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1710131903.214959">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1710131903.214959">2024-03-11 13:38:23 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://docs.haskellstack.org/en/stable/yaml_configuration/#urls'>https://docs.haskellstack.org/en/stable/yaml_configuration/#urls</a> ここの説明に従って、以下のように <code>~/stack/config.yaml</code> に追記すればいいはずです：<br/><br/><br/><pre>urls:
+  latest-snapshot: <https://www.stackage.org/download/snapshots.json></pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1710138605.408469">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1710138605.408469">2024-03-11 15:30:05 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。ちゃんと最新のresolverになりました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1710140237.741549">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1710140237.741549">2024-03-11 15:57:17 +0900</a></div>
+          </div>
+          <div class="description">とりあえず stack の issue として報告しておきました（stack 側なのか Stackage側なのかわからいませんが、とりあえず stack に報告しておいたら誰かが pick-up してくれるかなという期待<br/><a href='https://github.com/commercialhaskell/stack/issues/6516'>https://github.com/commercialhaskell/stack/issues/6516</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../105.html" class="item">Back to questions #105</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -290,6 +290,35 @@ ghci&gt; :t (a $ b)
           <a class="link-to-replies" href="105/1709772141.128369.html">... Replies ...</a>
         </div>
       </div>
+      <div class="event" id="message-1710131564.861859">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1710131564.861859">2024-03-11 13:32:44 +0900</a></div>
+          </div>
+          <div class="description">気づいたら stack new が最新のlts-resolver urlを拾わなくなってるの。いつから、なにが変ったのでしょうか？<br/>現在(2024-03-11)は、lts-22.13 が最新なんですが、stack new hoge すると<br/><pre>Selected the snapshot <https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/11.yaml>.</pre><br/>がでてきます。</div>
+          <a class="link-to-replies" href="105/1710131564.861859.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1710131753.907889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1710131753.907889">2024-03-11 13:35:53 +0900</a></div>
+          </div>
+          <div class="description">なんかいつからか S3 上にホストされている snapshots がアップデートされなくなっているんですよね。<https://www.stackage.org/download/snapshots.json> に最新のデータがあるので、これをスナップショット一覧のデータになるように stack を再設定すればいいはずです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1710131903.214959">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1710131903.214959">2024-03-11 13:38:23 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://docs.haskellstack.org/en/stable/yaml_configuration/#urls'>https://docs.haskellstack.org/en/stable/yaml_configuration/#urls</a> ここの説明に従って、以下のように <code>~/stack/config.yaml</code> に追記すればいいはずです：<br/><br/><br/><pre>urls:
+  latest-snapshot: <https://www.stackage.org/download/snapshots.json></pre></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C5666B6BB/104.html" class="item">Previous</a>
