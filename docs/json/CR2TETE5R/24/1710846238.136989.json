@@ -1,0 +1,68 @@
+[
+    {
+        "ts": "1710846238.136989",
+        "text": "Haskellの環境構築について質問させていただきたく思います。\n<https://zenn.dev/mod_poppo/articles/haskell-setup-2023>\n主にこちらの記事を参考に、MacBook(CPUはIntel)にHaskellの環境構築をしています。GHCのダウンロード中にCコンパイラが見つからないという趣旨のエラーが出ました。記事ではCコンパイラをインストールせよとのことでしたが、Cコンパイラのインストールはできているはずなので原因がよくわかりません。再インストールなど色々試してみましたが現状インストールができていないといった状況です。\nコンピュータについて詳しくないので基本的なことをできていないかもしれません。Haskellと直接関係ない質問かもしれませんが、アドバイスをいただきたく思います。",
+        "type": "message",
+        "user": "U06QL09FPFT"
+    },
+    {
+        "ts": "1710853334.262769",
+        "text": "実際のエラーメッセージをここに貼っていただくことはできますか？",
+        "type": "message",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "ts": "1710854603.471519",
+        "text": "こちらになります。\n\n`[ Info ] downloading: <https://raw.githubusercontent.com/haskell/ghcup-metadata/master/ghcup-0.0.8.yaml> as file /Users/(name)/.ghcup/cache/ghcup-0.0.8.yaml`\n `% Total  % Received % Xferd Average Speed  Time  Time   Time Current`\n                 `Dload Upload  Total  Spent  Left Speed`\n`100 386k 100 386k  0   0 1146k   0 --:--:-- --:--:-- --:--:-- 1173k`\n`[ Info ] Upgrading GHCup...`\n`[ Info ] downloading: <https://downloads.haskell.org/~ghcup/0.1.22.0/x86_64-apple-darwin-ghcup-0.1.22.0> as file /Users/(name)/.ghcup/tmp/ghcup-e0f08df322f91a51/ghcup`\n `% Total  % Received % Xferd Average Speed  Time  Time   Time Current`\n                 `Dload Upload  Total  Spent  Left Speed`\n`100 27.6M 100 27.6M  0   0 7385k   0 0:00:03 0:00:03 --:--:-- 7398k`\n`[ Info ] verifying digest of: ghcup`\n`[ Warn ] ghcup is not in PATH! You have to add it in order to use ghcup.`\n`[ Info ] Successfully upgraded GHCup to version 0.1.22.0`\n\n`System requirements` \n `Note: On OS X, in the course of running ghcup you will be given a dialog box to install the command line tools. Accept and the requirements will be installed for you. You will then need to run the command again.`\n`On Darwin M1 you might also need a working llvm installed (e.g. via brew) and have the toolchain exposed in PATH.`\n`Press ENTER to proceed or ctrl-c to abort.`\n`Installation may take a while.`\n\n\n`[ Info ] verifying digest of: ghc-9.4.8-x86_64-apple-darwin.tar.xz`\n`[ Info ] Unpacking: ghc-9.4.8-x86_64-apple-darwin.tar.xz to /Users/(name)/.ghcup/tmp/ghcup-7b2cdc1259bcfd78`\n`[ Info ] Installing GHC (this may take a while)`\n`[ ghc-configure ] checking whether ld64 requires -no_fixup_chains... yes`\n`[ ghc-configure ] checking whether ld64 requires -no_fixup_chains... yes`\n`[ ghc-configure ] checking C++ standard library flavour... libstdc++`\n`[ ghc-configure ] checking for linkage against 'stdc++'... failed`\n`[ ghc-configure ] checking for linkage against 'stdc++ supc++'... failed`\n`[ ghc-configure ] configure: error: Failed to find C++ standard library`\n`[ Error ] [GHCup-00841] Process \"sh\" with arguments [\"./configure\",`\n`[ ...  ]               \"--prefix=/Users/(name)/.ghcup/ghc/9.4.8\",`\n`[ ...  ]               \"--disable-ld-override\"] failed with exit code 1.`\n`[ Error ] Also check the logs in /Users/(name)/.ghcup/logs`\n`\"ghcup --metadata-fetching-mode=Strict --cache install ghc recommended\" failed!`\n\nよろしくお願いします。",
+        "type": "message",
+        "user": "U06QL09FPFT"
+    },
+    {
+        "ts": "1710855533.888559",
+        "text": "C++標準ライブラリーがlibstdc++と判定されているのが奇妙ですね。macOSの標準はlibc++だと思いますが。`gcc --version` と `g++ --version` は何を出力しますか？",
+        "type": "message",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "ts": "1710856190.602779",
+        "text": "以下のようになりました。\n```~ $ gcc --version\nConfigured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/4.2.1\nApple clang version 13.0.0 (clang-1300.0.27.3)\nTarget: x86_64-apple-darwin21.2.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n~ $ g++ --version\ng++ (Homebrew GCC 13.2.0) 13.2.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions. There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.```",
+        "type": "message",
+        "user": "U06QL09FPFT"
+    },
+    {
+        "ts": "1710856374.486029",
+        "text": "`g++` コマンドの参照先はご自身で入れ替えましたか？それともHomebrewが勝手に？",
+        "type": "message",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "ts": "1710856454.927209",
+        "text": "競技プログラミングでC++を使っているのですが、その環境を構築する際に変更したかもしれません。",
+        "type": "message",
+        "user": "U06QL09FPFT"
+    },
+    {
+        "ts": "1710856712.514619",
+        "text": "競プロということは、 `&lt;bits/stdc++.h&gt;` を使えるようにするためですかね。まあともかく、`clang++` はmacOS標準のC++コンパイラーを指したままの可能性が高いので、ghcupの実行時に環境変数 `CXX=clang++` を設定するとうまく行くかもしれません。",
+        "type": "message",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "ts": "1710857763.962469",
+        "text": "`~ $ CXX=clang++ curl --proto '=https' --tlsv1.2 -sSf <https://get-ghcup.haskell.org> | sh`\nこのようなコマンドを実行すれば良いのでしょうか。このコマンドを実行するとおそらく先ほどのものと同様のエラーが出てしまいました。\n```[ Info  ] downloading: <https://raw.githubusercontent.com/haskell/ghcup-metadata/master/ghcup-0.0.8.yaml> as file /Users/(name)/.ghcup/cache/ghcup-0.0.8.yaml\n  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n[ Info  ] Upgrading GHCup...\n[ Warn  ] No GHCup update available\n\nSystem requirements \n  Note: On OS X, in the course of running ghcup you will be given a dialog box to install the command line tools. Accept and the requirements will be installed for you. You will then need to run the command again.\nOn Darwin M1 you might also need a working llvm installed (e.g. via brew) and have the toolchain exposed in PATH.\nPress ENTER to proceed or ctrl-c to abort.\nInstallation may take a while.\n\n\n[ Info  ] verifying digest of: ghc-9.4.8-x86_64-apple-darwin.tar.xz\n[ Info  ] Unpacking: ghc-9.4.8-x86_64-apple-darwin.tar.xz to /Users/(name)/.ghcup/tmp/ghcup-014bb208e42b7a5e\n[ Info  ] Installing GHC (this may take a while)\n[ ghc-configure ] checking whether ld64 requires -no_fixup_chains... yes\n[ ghc-configure ] checking whether ld64 requires -no_fixup_chains... yes\n[ ghc-configure ] checking C++ standard library flavour... libstdc++\n[ ghc-configure ] checking for linkage against 'stdc++'... failed\n[ ghc-configure ] checking for linkage against 'stdc++ supc++'... failed\n[ ghc-configure ] configure: error: Failed to find C++ standard library\n[ Error ] [GHCup-00841] Process \"sh\" with arguments [\"./configure\",\n[ ...   ]                              \"--prefix=/Users/(name)/.ghcup/ghc/9.4.8\",\n[ ...   ]                              \"--disable-ld-override\"] failed with exit code 1.\n[ Error ] Also check the logs in /Users/(name)/.ghcup/logs\n\"ghcup --metadata-fetching-mode=Strict --cache install ghc recommended\" failed!```",
+        "type": "message",
+        "user": "U06QL09FPFT"
+    },
+    {
+        "ts": "1710858914.682609",
+        "text": "shの直前にCXX=clang++ですね。",
+        "type": "message",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "ts": "1710862701.008329",
+        "text": "無事インストールできました。ここまで丁寧に教えていただきありがとうございました。",
+        "type": "message",
+        "user": "U06QL09FPFT"
+    }
+]

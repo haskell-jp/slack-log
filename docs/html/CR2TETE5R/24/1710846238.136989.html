@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #24 at 2024-03-19 20:03:58 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #24 at 2024-03-19 20:03:58 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../24.html" class="item">Back to beginners #24</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1710846238.136989">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U06QL09FPFT</div>
+            <div class="date"><a class="date" href="#message-1710846238.136989">2024-03-19 20:03:58 +0900</a></div>
+          </div>
+          <div class="description">Haskellの環境構築について質問させていただきたく思います。<br/><a href='https://zenn.dev/mod_poppo/articles/haskell-setup-2023'>https://zenn.dev/mod_poppo/articles/haskell-setup-2023</a><br/>主にこちらの記事を参考に、MacBook(CPUはIntel)にHaskellの環境構築をしています。GHCのダウンロード中にCコンパイラが見つからないという趣旨のエラーが出ました。記事ではCコンパイラをインストールせよとのことでしたが、Cコンパイラのインストールはできているはずなので原因がよくわかりません。再インストールなど色々試してみましたが現状インストールができていないといった状況です。<br/>コンピュータについて詳しくないので基本的なことをできていないかもしれません。Haskellと直接関係ない質問かもしれませんが、アドバイスをいただきたく思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1710853334.262769">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1710853334.262769">2024-03-19 22:02:14 +0900</a></div>
+          </div>
+          <div class="description">実際のエラーメッセージをここに貼っていただくことはできますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1710854603.471519">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U06QL09FPFT</div>
+            <div class="date"><a class="date" href="#message-1710854603.471519">2024-03-19 22:23:23 +0900</a></div>
+          </div>
+          <div class="description">こちらになります。<br/><br/><code>[ Info ] downloading: <https://raw.githubusercontent.com/haskell/ghcup-metadata/master/ghcup-0.0.8.yaml> as file /Users/(name)/.ghcup/cache/ghcup-0.0.8.yaml</code><br/> <code>% Total  % Received % Xferd Average Speed  Time  Time   Time Current</code><br/>                 <code>Dload Upload  Total  Spent  Left Speed</code><br/><code>100 386k 100 386k  0   0 1146k   0 --:--:-- --:--:-- --:--:-- 1173k</code><br/><code>[ Info ] Upgrading GHCup...</code><br/><code>[ Info ] downloading: <https://downloads.haskell.org/~ghcup/0.1.22.0/x86_64-apple-darwin-ghcup-0.1.22.0> as file /Users/(name)/.ghcup/tmp/ghcup-e0f08df322f91a51/ghcup</code><br/> <code>% Total  % Received % Xferd Average Speed  Time  Time   Time Current</code><br/>                 <code>Dload Upload  Total  Spent  Left Speed</code><br/><code>100 27.6M 100 27.6M  0   0 7385k   0 0:00:03 0:00:03 --:--:-- 7398k</code><br/><code>[ Info ] verifying digest of: ghcup</code><br/><code>[ Warn ] ghcup is not in PATH! You have to add it in order to use ghcup.</code><br/><code>[ Info ] Successfully upgraded GHCup to version 0.1.22.0</code><br/><br/><code>System requirements</code> <br/> <code>Note: On OS X, in the course of running ghcup you will be given a dialog box to install the command line tools. Accept and the requirements will be installed for you. You will then need to run the command again.</code><br/><code>On Darwin M1 you might also need a working llvm installed (e.g. via brew) and have the toolchain exposed in PATH.</code><br/><code>Press ENTER to proceed or ctrl-c to abort.</code><br/><code>Installation may take a while.</code><br/><br/><br/><code>[ Info ] verifying digest of: ghc-9.4.8-x86_64-apple-darwin.tar.xz</code><br/><code>[ Info ] Unpacking: ghc-9.4.8-x86_64-apple-darwin.tar.xz to /Users/(name)/.ghcup/tmp/ghcup-7b2cdc1259bcfd78</code><br/><code>[ Info ] Installing GHC (this may take a while)</code><br/><code>[ ghc-configure ] checking whether ld64 requires -no_fixup_chains... yes</code><br/><code>[ ghc-configure ] checking whether ld64 requires -no_fixup_chains... yes</code><br/><code>[ ghc-configure ] checking C++ standard library flavour... libstdc++</code><br/><code>[ ghc-configure ] checking for linkage against 'stdc++'... failed</code><br/><code>[ ghc-configure ] checking for linkage against 'stdc++ supc++'... failed</code><br/><code>[ ghc-configure ] configure: error: Failed to find C++ standard library</code><br/><code>[ Error ] [GHCup-00841] Process "sh" with arguments ["./configure",</code><br/><code>[ ...  ]               "--prefix=/Users/(name)/.ghcup/ghc/9.4.8",</code><br/><code>[ ...  ]               "--disable-ld-override"] failed with exit code 1.</code><br/><code>[ Error ] Also check the logs in /Users/(name)/.ghcup/logs</code><br/><code>"ghcup --metadata-fetching-mode=Strict --cache install ghc recommended" failed!</code><br/><br/>よろしくお願いします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1710855533.888559">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1710855533.888559">2024-03-19 22:38:53 +0900</a></div>
+          </div>
+          <div class="description">C++標準ライブラリーがlibstdc++と判定されているのが奇妙ですね。macOSの標準はlibc++だと思いますが。`gcc --version` と <code>g++ --version</code> は何を出力しますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1710856190.602779">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U06QL09FPFT</div>
+            <div class="date"><a class="date" href="#message-1710856190.602779">2024-03-19 22:49:50 +0900</a></div>
+          </div>
+          <div class="description">以下のようになりました。<br/><pre>~ $ gcc --version
+Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/Library/Developer/CommandLineTools/SDKs/MacOSX12.1.sdk/usr/include/c++/4.2.1
+Apple clang version 13.0.0 (clang-1300.0.27.3)
+Target: x86_64-apple-darwin21.2.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+~ $ g++ --version
+g++ (Homebrew GCC 13.2.0) 13.2.0
+Copyright (C) 2023 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions. There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1710856374.486029">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1710856374.486029">2024-03-19 22:52:54 +0900</a></div>
+          </div>
+          <div class="description"><code>g++</code> コマンドの参照先はご自身で入れ替えましたか？それともHomebrewが勝手に？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1710856454.927209">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U06QL09FPFT</div>
+            <div class="date"><a class="date" href="#message-1710856454.927209">2024-03-19 22:54:14 +0900</a></div>
+          </div>
+          <div class="description">競技プログラミングでC++を使っているのですが、その環境を構築する際に変更したかもしれません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1710856712.514619">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1710856712.514619">2024-03-19 22:58:32 +0900</a></div>
+          </div>
+          <div class="description">競プロということは、 <code>&lt;bits/stdc++.h&gt;</code> を使えるようにするためですかね。まあともかく、`clang++` はmacOS標準のC++コンパイラーを指したままの可能性が高いので、ghcupの実行時に環境変数 <code>CXX=clang++</code> を設定するとうまく行くかもしれません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1710857763.962469">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U06QL09FPFT</div>
+            <div class="date"><a class="date" href="#message-1710857763.962469">2024-03-19 23:16:03 +0900</a></div>
+          </div>
+          <div class="description"><code>~ $ CXX=clang++ curl --proto '=https' --tlsv1.2 -sSf <https://get-ghcup.haskell.org> | sh</code><br/>このようなコマンドを実行すれば良いのでしょうか。このコマンドを実行するとおそらく先ほどのものと同様のエラーが出てしまいました。<br/><pre>[ Info  ] downloading: <https://raw.githubusercontent.com/haskell/ghcup-metadata/master/ghcup-0.0.8.yaml> as file /Users/(name)/.ghcup/cache/ghcup-0.0.8.yaml
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+[ Info  ] Upgrading GHCup...
+[ Warn  ] No GHCup update available
+
+System requirements 
+  Note: On OS X, in the course of running ghcup you will be given a dialog box to install the command line tools. Accept and the requirements will be installed for you. You will then need to run the command again.
+On Darwin M1 you might also need a working llvm installed (e.g. via brew) and have the toolchain exposed in PATH.
+Press ENTER to proceed or ctrl-c to abort.
+Installation may take a while.
+
+
+[ Info  ] verifying digest of: ghc-9.4.8-x86_64-apple-darwin.tar.xz
+[ Info  ] Unpacking: ghc-9.4.8-x86_64-apple-darwin.tar.xz to /Users/(name)/.ghcup/tmp/ghcup-014bb208e42b7a5e
+[ Info  ] Installing GHC (this may take a while)
+[ ghc-configure ] checking whether ld64 requires -no_fixup_chains... yes
+[ ghc-configure ] checking whether ld64 requires -no_fixup_chains... yes
+[ ghc-configure ] checking C++ standard library flavour... libstdc++
+[ ghc-configure ] checking for linkage against 'stdc++'... failed
+[ ghc-configure ] checking for linkage against 'stdc++ supc++'... failed
+[ ghc-configure ] configure: error: Failed to find C++ standard library
+[ Error ] [GHCup-00841] Process "sh" with arguments ["./configure",
+[ ...   ]                              "--prefix=/Users/(name)/.ghcup/ghc/9.4.8",
+[ ...   ]                              "--disable-ld-override"] failed with exit code 1.
+[ Error ] Also check the logs in /Users/(name)/.ghcup/logs
+"ghcup --metadata-fetching-mode=Strict --cache install ghc recommended" failed!</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1710858914.682609">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1710858914.682609">2024-03-19 23:35:14 +0900</a></div>
+          </div>
+          <div class="description">shの直前にCXX=clang++ですね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1710862701.008329">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U06QL09FPFT</div>
+            <div class="date"><a class="date" href="#message-1710862701.008329">2024-03-20 00:38:21 +0900</a></div>
+          </div>
+          <div class="description">無事インストールできました。ここまで丁寧に教えていただきありがとうございました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../24.html" class="item">Back to beginners #24</a>
+    </div>
+  </div>
+</body>
+</html>
