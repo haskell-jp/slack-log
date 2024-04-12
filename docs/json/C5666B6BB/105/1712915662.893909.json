@@ -1,0 +1,32 @@
+[
+    {
+        "ts": "1712915662.893909",
+        "text": "型レベルリストを扱う上ではヘテロジニアスリストを一般化したような\n```type BenriList :: (k -&gt; Type) -&gt; [k] -&gt; Type\ndata BenriList f xs where\n  BNil :: BenriList f '[]\n  BCons :: f x -&gt; BenriList f xs -&gt; BenriList f (x ': xs)\n-- f = Identity だと HList と同型```\nというデータ型を用意すると便利なことがありますが、これは何と呼ぶのが良いでしょうか？ちなみにvinylだと <https://hackage.haskell.org/package/vinyl-0.14.3/docs/Data-Vinyl-Core.html#t:Rec> です。",
+        "type": "message",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "ts": "1712924910.834069",
+        "text": "業務で高階な Extensible Record のバックエンドとして似たような機構を内製して使ってますね（定数アクセスが欲しいので配列と unsafeCoerce で押し通っていますが）。素直に Higher-kinded HList （や Higher-kinded record）と呼んで `Data.HList.HigherKinded` みたいな名前のモジュールで提供しています",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1712929851.465269",
+        "text": "Haskellの型レベルリストの元祖をOlegさんのHListとするなら、HListでしょうかね。\n<https://hackage.haskell.org/package/HList>",
+        "type": "message",
+        "user": "U56MBRKR9"
+    },
+    {
+        "ts": "1712936003.240229",
+        "text": "ぼくも HList をはじめて見たのは Oleg さんのどれかの論文（多分 HList package から<https://okmij.org/ftp/Haskell/HList-ext.pdf|リンクされている論文>）だったと思いますが、単純な HList の存在は mod_poppo さんが最初に heterogeneous list という名前に言及しているように前提だと思います。\nmod_poppo さんの質問は、単純に順に `a, b, c` の型の値からなる `HList '[a, b, c]` のような型は通常 heterogeneous list (略して HList) と呼ばれるけれども、これを高階にして `f a, f b, f c` を要素にもつような `HList f '[a, b, c]` のような型を、単純な HList と区別する特別な名前はついているのか？というものだと理解しています。",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1712936062.902999",
+        "text": "なので、「高階だから higher-kinded HList でいいんじゃないの」と答えたんですが、私の方で何か見落としてますでしょうか。",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    }
+]

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #105 at 2024-04-12 18:54:22 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #105 at 2024-04-12 18:54:22 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../105.html" class="item">Back to questions #105</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1712915662.893909">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1712915662.893909">2024-04-12 18:54:22 +0900</a></div>
+          </div>
+          <div class="description">型レベルリストを扱う上ではヘテロジニアスリストを一般化したような<br/><pre>type BenriList :: (k -&gt; Type) -&gt; [k] -&gt; Type
+data BenriList f xs where
+  BNil :: BenriList f '[]
+  BCons :: f x -&gt; BenriList f xs -&gt; BenriList f (x ': xs)
+-- f = Identity だと HList と同型</pre><br/>というデータ型を用意すると便利なことがありますが、これは何と呼ぶのが良いでしょうか？ちなみにvinylだと <a href='https://hackage.haskell.org/package/vinyl-0.14.3/docs/Data-Vinyl-Core.html#t:Rec'>https://hackage.haskell.org/package/vinyl-0.14.3/docs/Data-Vinyl-Core.html#t:Rec</a> です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1712924910.834069">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1712924910.834069">2024-04-12 21:28:30 +0900</a></div>
+          </div>
+          <div class="description">業務で高階な Extensible Record のバックエンドとして似たような機構を内製して使ってますね（定数アクセスが欲しいので配列と unsafeCoerce で押し通っていますが）。素直に Higher-kinded HList （や Higher-kinded record）と呼んで <code>Data.HList.HigherKinded</code> みたいな名前のモジュールで提供しています</div>
+        </div>
+      </div>
+      <div class="event" id="message-1712929851.465269">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1712929851.465269">2024-04-12 22:50:51 +0900</a></div>
+          </div>
+          <div class="description">Haskellの型レベルリストの元祖をOlegさんのHListとするなら、HListでしょうかね。<br/><a href='https://hackage.haskell.org/package/HList'>https://hackage.haskell.org/package/HList</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1712936003.240229">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1712936003.240229">2024-04-13 00:33:23 +0900</a></div>
+          </div>
+          <div class="description">ぼくも HList をはじめて見たのは Oleg さんのどれかの論文（多分 HList package から<https://okmij.org/ftp/Haskell/HList-ext.pdf|リンクされている論文>）だったと思いますが、単純な HList の存在は mod_poppo さんが最初に heterogeneous list という名前に言及しているように前提だと思います。<br/>mod_poppo さんの質問は、単純に順に <code>a, b, c</code> の型の値からなる <code>HList '[a, b, c]</code> のような型は通常 heterogeneous list (略して HList) と呼ばれるけれども、これを高階にして <code>f a, f b, f c</code> を要素にもつような <code>HList f '[a, b, c]</code> のような型を、単純な HList と区別する特別な名前はついているのか？というものだと理解しています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1712936062.902999">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1712936062.902999">2024-04-13 00:34:22 +0900</a></div>
+          </div>
+          <div class="description">なので、「高階だから higher-kinded HList でいいんじゃないの」と答えたんですが、私の方で何か見落としてますでしょうか。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../105.html" class="item">Back to questions #105</a>
+    </div>
+  </div>
+</body>
+</html>

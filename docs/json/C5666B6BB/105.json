@@ -232,5 +232,11 @@
         "text": "ライブラリ作成者が、次に出すバージョンのAPIが、前のバージョンのAPIすべてを提供しているか検査する方法はありますか？\n意図的な欠落が発生する場合はメジャーバージョンアップしないといけないので、意図しない漏れがないか検査したいのです。",
         "type": "message",
         "user": "U56MBRKR9"
+    },
+    {
+        "ts": "1712915662.893909",
+        "text": "型レベルリストを扱う上ではヘテロジニアスリストを一般化したような\n```type BenriList :: (k -&gt; Type) -&gt; [k] -&gt; Type\ndata BenriList f xs where\n  BNil :: BenriList f '[]\n  BCons :: f x -&gt; BenriList f xs -&gt; BenriList f (x ': xs)\n-- f = Identity だと HList と同型```\nというデータ型を用意すると便利なことがありますが、これは何と呼ぶのが良いでしょうか？ちなみにvinylだと <https://hackage.haskell.org/package/vinyl-0.14.3/docs/Data-Vinyl-Core.html#t:Rec> です。",
+        "type": "message",
+        "user": "UGM9F7XQS"
     }
 ]

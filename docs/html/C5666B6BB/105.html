@@ -382,6 +382,20 @@ ghci&gt; :t (a $ b)
           <div class="description">ライブラリ作成者が、次に出すバージョンのAPIが、前のバージョンのAPIすべてを提供しているか検査する方法はありますか？<br/>意図的な欠落が発生する場合はメジャーバージョンアップしないといけないので、意図しない漏れがないか検査したいのです。</div>
         </div>
       </div>
+      <div class="event" id="message-1712915662.893909">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1712915662.893909">2024-04-12 18:54:22 +0900</a></div>
+          </div>
+          <div class="description">型レベルリストを扱う上ではヘテロジニアスリストを一般化したような<br/><pre>type BenriList :: (k -&gt; Type) -&gt; [k] -&gt; Type
+data BenriList f xs where
+  BNil :: BenriList f '[]
+  BCons :: f x -&gt; BenriList f xs -&gt; BenriList f (x ': xs)
+-- f = Identity だと HList と同型</pre><br/>というデータ型を用意すると便利なことがありますが、これは何と呼ぶのが良いでしょうか？ちなみにvinylだと <a href='https://hackage.haskell.org/package/vinyl-0.14.3/docs/Data-Vinyl-Core.html#t:Rec'>https://hackage.haskell.org/package/vinyl-0.14.3/docs/Data-Vinyl-Core.html#t:Rec</a> です。</div>
+          <a class="link-to-replies" href="105/1712915662.893909.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C5666B6BB/104.html" class="item">Previous</a>
