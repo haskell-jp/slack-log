@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #24 at 2024-05-02 11:25:48 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #24 at 2024-05-02 11:25:48 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../24.html" class="item">Back to beginners #24</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1714616748.587099">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U07162WJL95</div>
+            <div class="date"><a class="date" href="#message-1714616748.587099">2024-05-02 11:25:48 +0900</a></div>
+          </div>
+          <div class="description">Haskellを勉強中の学生です。Haskellの美しさに日々感動しながら勉強しているのですが、下の構文だけは美しくないなと思っています。<br/><pre>ghci&gt; :t (+2)
+(+2) :: Num a =&gt; a -&gt; a
+ghci&gt; :t (-2)
+(-2) :: Num a =&gt; a</pre><br/>みなさんはこの構文についてどのように考えていますか？<br/>この構文に納得できる説明はありますか？また、この構文が導入された背景を知りたいです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1714617156.661359">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U07162WJL95</div>
+            <div class="date"><a class="date" href="#message-1714617156.661359">2024-05-02 11:32:36 +0900</a></div>
+          </div>
+          <div class="description"><pre>ghci> :t (+ 2)
+(+ 2) :: Num a => a -> a
+ghci> :t (- 2)
+(- 2) :: Num a => a
+ghci> :t (/ 2)
+(/ 2) :: Fractional a => a -> a
+ghci> :t (* 2)
+(* 2) :: Num a => a -> a
+
+ghci> :t +2
+<interactive>:1:1: error: parse error on input '+'
+ghci> :t -2
+-2 :: Num a => a
+ghci> :t (+1)
+(+1) :: Num a => a -> a
+ghci> :t (-1)
+(-1) :: Num a => a</pre><br/>演算子の中でマイナスだけを特別扱いするのは仕方のないことだとは思いますが、プラスも同様に使えたり、演算子と値を（直接）つなげるとエラーを吐いたりしてほしいなという気持ちがあります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1714617222.719679">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1714617222.719679">2024-05-02 11:33:42 +0900</a></div>
+          </div>
+          <div class="description">それはどちらかというと <code>-</code> だけが例外で「負の数を表すための単項演算子としてのマイナス」の解釈を優先した結果ですね。<br/>一般的には <code>(二項演算子 右側のオペランド)</code> という記法で section と呼ばれますが、たとえば<br/><code>map (+ 2) [10, 20, 30]</code> が <code>[12, 22, 32]</code> となる例のように、一引数関数を取る高階関数に対して二項演算子の右側のオペランドを固定して一引数関数となるようにして渡す際に便利な記法です。<br/>逆に <code>map (100 -) [10, 20, 30]</code> のようにすれば <code>[90, 80, 70]</code> となり、左側のオペランドを固定することもできます。<br/>また、 (Haskell 自体の仕様ではありませんが) ghc 処理系の独自拡張では <code>(-2)</code> と <code>(- 2)</code>  の区別をする機能があります。<br/><a href='https://zenn.dev/mod_poppo/articles/ghc-8-10-and-9-0#lexicalnegation-%E6%8B%A1%E5%BC%B5%E3%81%A8-negativeliterals-%E3%81%AE%E5%A4%89%E6%9B%B4'>https://zenn.dev/mod_poppo/articles/ghc-8-10-and-9-0#lexicalnegation-%E6%8B%A1%E5%BC%B5%E3%81%A8-negativeliterals-%E3%81%AE%E5%A4%89%E6%9B%B4</a><br/>一方、残念ながら (+2) を「単項プラスつきのただの値」だとみなす記法はたぶんありません…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1714618371.229569">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U07162WJL95</div>
+            <div class="date"><a class="date" href="#message-1714618371.229569">2024-05-02 11:52:51 +0900</a></div>
+          </div>
+          <div class="description">返信ありがとうございます。<br/>使う人はあまりいないとは思いますが、(+2)が使えたら対称性があってきれいだなあと感じます。これがないのは残念です。<br/>リンク先のLexicalNegation拡張は知らなかったです。これを使えば僕が感じているほとんどの違和感は解消されると思います。やはり(-2)の構文は美しくないと感じる人が多いのでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1714618670.528419">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1714618670.528419">2024-05-02 11:57:50 +0900</a></div>
+          </div>
+          <div class="description">そもそも Haskell には <code>-</code> しか単項演算子がないので、たぶん「単項演算子なんてものは本当は言語機能に導入したくなかった（が、さすがにマイナスは <code>-x</code> とか書きたいのでしょうがなく導入した）」という感じがあります。なので単項プラスは「不要なのだから導入しなかった」ということだと思います</div>
+        </div>
+      </div>
+      <div class="event" id="message-1714619536.239919">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U07162WJL95</div>
+            <div class="date"><a class="date" href="#message-1714619536.239919">2024-05-02 12:12:16 +0900</a></div>
+          </div>
+          <div class="description">なるほど。必要最低限の仕様にしたいという背景には納得できます。<br/>必要最低限を美しさとするか、対称性を美しさとするかで派閥が分かれそうですね。<br/>もやもやしていた部分がはっきりしてよかったです。ありがとうございました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../24.html" class="item">Back to beginners #24</a>
+    </div>
+  </div>
+</body>
+</html>
