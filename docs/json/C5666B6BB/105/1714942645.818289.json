@@ -16,5 +16,11 @@
         "text": "御回答ありがとうございます　現在の設定（VSCode on WSL2 　　Ubuntu 20.04.6 LTS, GHC 9.8.2, Cabal 3.10.2.1, HLS: 2.5.0.0）ではHSL はtype表示などは動いていますが　このコード実行例の Inline REPL は動いていません　HLS のドキュメントをもっと詳しく読んでみます",
         "type": "message",
         "user": "U584T7GAH"
+    },
+    {
+        "ts": "1715471129.070569",
+        "text": "VS Code Inline REPL: 動きました　確かめたことは以下の通り：\nVS Code の中で Toolbar ＞Extensions ＞Haskell Extension Pack を選び install する\nVS Code Editor の中で -- または｛- -｝のコメントで &gt;&gt;&gt; の後ろに何か code を書く\nするとHLSが Eval... とプロンプトして来るので　それをクリックする\n次の行に Eval code の結果が表示される\n例えば次のよう:\n\n`-- &gt;&gt;&gt; \"Ab\"++\"cd\"`\n`-- \"Abcd\"`\n\n`{-`\n`&gt;&gt;&gt; \"Ab\"++\"cd\"`\n`\"Abcd\"`\n`-}`",
+        "type": "message",
+        "user": "U584T7GAH"
     }
 ]

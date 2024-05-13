@@ -292,5 +292,11 @@
         "text": "Core to Hsあるいは、Core to sourceする関数ってありますか？ GHC APIの中に見つからなかったのですが\n\n今私は、Coreの型からCoreExprを計算する <https://hackage.haskell.org/package/ghc-9.8.2/docs/GHC-Tc-Errors-Hole.html#t:HoleFitPlugin|HoleFitPlugin>を書いていて、出力には表層構文で書かれた文字列を渡す必要があるのですが、単純にCoreExprをpprしてしまうと、Haskellの構文ではなくなってしまいます。\nそれなので、CoreをHsに戻すまで行かなくても、パースに通るようなテキストに変換したいです。",
         "type": "message",
         "user": "U02CE9YGEAU"
+    },
+    {
+        "ts": "1715471129.070569",
+        "text": "VS Code Inline REPL: 動きました　確かめたことは以下の通り：\nVS Code の中で Toolbar ＞Extensions ＞Haskell Extension Pack を選び install する\nVS Code Editor の中で -- または｛- -｝のコメントで &gt;&gt;&gt; の後ろに何か code を書く\nするとHLSが Eval... とプロンプトして来るので　それをクリックする\n次の行に Eval code の結果が表示される\n例えば次のよう:\n\n`-- &gt;&gt;&gt; \"Ab\"++\"cd\"`\n`-- \"Abcd\"`\n\n`{-`\n`&gt;&gt;&gt; \"Ab\"++\"cd\"`\n`\"Abcd\"`\n`-}`",
+        "type": "message",
+        "user": "U584T7GAH"
     }
 ]
