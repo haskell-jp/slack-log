@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #25 at 2024-06-02 13:35:58 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #25 at 2024-06-02 13:35:58 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1717302958.545539">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1717302958.545539">2024-06-02 13:35:58 +0900</a></div>
+          </div>
+          <div class="description">早速相談したいことが出たので、質問させて下さい:bow:<br/><code>stack new stack240529</code>というコマンドで新規プロジェクトを作成したのですが、<br/>新規作成したコードをVSCodeで開いたところ、<br/><code>./app/Main.hs</code>の3行目でimportエラーがでてしまっています。<br/>こちらの件、何か解決方法とかあるのでしょうか？<br/><br/>参考までに`stack`と`hls`はghcupというツールを使ってインストールしました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1717303357.207069">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1717303357.207069">2024-06-02 13:42:37 +0900</a></div>
+          </div>
+          <div class="description"><code>app/Main.hs</code> はどんな内容で、具体的にどんなエラーメッセージが出ていますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1717303456.832859">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1717303456.832859">2024-06-02 13:44:16 +0900</a></div>
+          </div>
+          <div class="description">すみません、画像を添付し忘れていました:man-bowing:<br/><br/><pre>Could not find module 'Lib'
+It is not a module in the current program, or in any known package.not found</pre><br/>と出ています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1717303644.305459">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1717303644.305459">2024-06-02 13:47:24 +0900</a></div>
+          </div>
+          <div class="description">Lib.hs と、 <code>stack240529.cabal</code> 、あるいは <code>package.yaml</code> というファイルが stack240529 フォルダーにあると思うので、それらの内容も見せてください。<br/> <code>Main.sh</code> についてはもういいですが、なるべくこういう時はスクリーンショットではなく直接ソースコードをコピペして貼り付けて頂けたほうが見やすいです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1717303851.793919">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1717303851.793919">2024-06-02 13:50:51 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1717303888.993559">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1717303888.993559">2024-06-02 13:51:28 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1717304007.814699">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1717304007.814699">2024-06-02 13:53:27 +0900</a></div>
+          </div>
+          <div class="description"><code>stack240529.cabal</code>と`package.yaml`を共有致します。<br/>今後質問する際はキャプチャではなくコードを貼り付けるようにします。<br/><br/>宜しくお願いいたします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1717304117.066609">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1717304117.066609">2024-06-02 13:55:17 +0900</a></div>
+          </div>
+          <div class="description"><code>stack240529</code> ディレクトリーでターミナルを起動して、 <code>stack build</code> すると何が起こりますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1717304581.490519">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1717304581.490519">2024-06-02 14:03:01 +0900</a></div>
+          </div>
+          <div class="description"><code>stack build</code><br/>の出力結果をお乗せします(一部、ソースの絶対パスが表示されている点がお見苦しくはございますが…:sweat:)<br/><pre>stack240529-0.1.0.0: unregistering (local file changes: src/Lib.hs)
+stack240529> build (lib + exe)
+Preprocessing library for stack240529-0.1.0.0..
+Building library for stack240529-0.1.0.0..
+[1 of 2] Compiling Lib [Source file changed]
+Preprocessing executable 'stack240529-exe' for stack240529-0.1.0.0..
+Building executable 'stack240529-exe' for stack240529-0.1.0.0..
+[1 of 2] Compiling Main [Lib changed]
+[3 of 3] Linking .stack-work/dist/x86_64-osx/ghc-9.6.5/build/stack240529-exe/stack240529-exe [Objects changed]
+stack240529> copy/register
+Installing library in /Users/k27c8/programming/haskell/trashes/stack240529/.stack-work/install/x86_64-osx/bd60a721f36c15ba72f8d53b5721206fd16e3350ae93c50f5546ebbc154023bd/9.6.5/lib/x86_64-osx-ghc-9.6.5/stack240529-0.1.0.0-9G2GUYl0sGoBeBlWIHWMjM
+Installing executable stack240529-exe in /Users/k27c8/programming/haskell/trashes/stack240529/.stack-work/install/x86_64-osx/bd60a721f36c15ba72f8d53b5721206fd16e3350ae93c50f5546ebbc154023bd/9.6.5/bin
+Registering library for stack240529-0.1.0.0..</pre><br/>なお`stack run`コマンドを実行したら、正常に動作するので、ビルドは正しく動いているようです:thinking_face:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1717304989.437249">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1717304989.437249">2024-06-02 14:09:49 +0900</a></div>
+          </div>
+          <div class="description">まだ <code>Main.hs</code> で同様のエラーは出てますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1717305074.979489">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1717305074.979489">2024-06-02 14:11:14 +0900</a></div>
+          </div>
+          <div class="description">はい、未だVSCodeでエラーが起きます。<br/><br/>buildは通るのですがVSCode上では赤字が表示されるというのが今回の気になるところ…:thinking_face:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1717305670.779729">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1717305670.779729">2024-06-02 14:21:10 +0900</a></div>
+          </div>
+          <div class="description">うーん、単純にビルドができてないからだと思いましたが（私自身似たような経験があったので）、違う、と。分かりませんなぁ</div>
+        </div>
+      </div>
+      <div class="event" id="message-1717306238.362059">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1717306238.362059">2024-06-02 14:30:38 +0900</a></div>
+          </div>
+          <div class="description">もしかしたらバージョンの違いもありあすでしょうか:thinking_face:<br/>皆様はどのバージョンを使っていますか？<br/><br/>ちなみに自分は<br/>• ghc ・・・ 9.6.5<br/>• stack ・・・ 2.13.1<br/>• hls ・・・ 2.7.0.0<br/>です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1717307083.494519">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1717307083.494519">2024-06-02 14:44:43 +0900</a></div>
+          </div>
+          <div class="description"><code>stack path --compiler-bin</code> と <code>which ghc-9.6.5</code> （あるいはWindowsであれば <code>gcm ghc-9.6.5</code> ）したらどんな結果が返ってきますか？<br/>:warning: こんなタイミングですがこれから外出するので少し返答遅れます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1717307442.642169">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1717307442.642169">2024-06-02 14:50:42 +0900</a></div>
+          </div>
+          <div class="description">こちらが結果になります<br/><code>stack path --compiler-bin</code> :<br/><pre>${HOME}/.stack/programs/x86_64-osx/ghc-9.6.5/bin</pre><br/><code>which ghc-9.6.5</code> :<br/><pre>${HOME}/.ghcup/bin/ghc-9.6.5</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1717312619.119179">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1717312619.119179">2024-06-02 16:16:59 +0900</a></div>
+          </div>
+          <div class="description">恐らく、ghcupがインストールしたGHC（ <code>PATH</code> に入っている方のGHC）とstackがインストールしたGHC両方があるせいで混乱しちゃってますね（関連: <a href='https://docs.haskellstack.org/en/stable/Stack_and_VS_Code/'>https://docs.haskellstack.org/en/stable/Stack_and_VS_Code/</a> ）。<br/>VS CodeがGHCupのGHCを使おうとして、stackはstackのGHCを使おうとしているせいで結果が食い違っているのではないかと思います。<br/>取りあえずの解決策としては、 <code>stack path --global-config</code> を実行するとstackの設定ファイルへのパスが出てくるので、そのファイルを編集して、<br/><pre>install-ghc: false
+system-ghc: true</pre><br/>と付け加えてください。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1717315565.289949">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1717315565.289949">2024-06-02 17:06:05 +0900</a></div>
+          </div>
+          <div class="description">無事にエラーが解消されました:sob::sob::sob:<br/><br/>正確には`~/.stack/config.yaml`を編集するだけでは直らなかったのですが、<br/>以下の内容<br/><pre>cradle:
+  stack:</pre><br/>の`hie.yaml` を追加することにより、解決しました(参考サイト→<https://qiita.com/ueki5/items/531b3012171927f4371f|Qiita>)。<br/><br/>大変ありがとうございました:man-bowing:</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+  </div>
+</body>
+</html>

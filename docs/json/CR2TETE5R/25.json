@@ -58,5 +58,23 @@
         "text": "夜分遅くに失礼します。\n初めまして、最近Haskellに興味を持ったてぴかと申します。\nHaskellを独学で学んでいるのですが、個人の学習となると、\nどうしても詰まってしまう点が多いので、Haskellの仲間が欲しいと思い参加することにしました。\n\nHaskellに関することで、もし分からないことがありましたら、\n今後このSlackで質問することがあるかもしれません。\nその時はまた宜しくお願いします。",
         "type": "message",
         "user": "U075MF7TX8T"
+    },
+    {
+        "ts": "1717302958.545539",
+        "text": "早速相談したいことが出たので、質問させて下さい:bow:\n`stack new stack240529`というコマンドで新規プロジェクトを作成したのですが、\n新規作成したコードをVSCodeで開いたところ、\n`./app/Main.hs`の3行目でimportエラーがでてしまっています。\nこちらの件、何か解決方法とかあるのでしょうか？\n\n参考までに`stack`と`hls`はghcupというツールを使ってインストールしました。",
+        "type": "message",
+        "user": "U075MF7TX8T"
+    },
+    {
+        "ts": "1717305670.779729",
+        "text": "うーん、単純にビルドができてないからだと思いましたが（私自身似たような経験があったので）、違う、と。分かりませんなぁ",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1717312619.119179",
+        "text": "恐らく、ghcupがインストールしたGHC（ `PATH` に入っている方のGHC）とstackがインストールしたGHC両方があるせいで混乱しちゃってますね（関連: <https://docs.haskellstack.org/en/stable/Stack_and_VS_Code/> ）。\nVS CodeがGHCupのGHCを使おうとして、stackはstackのGHCを使おうとしているせいで結果が食い違っているのではないかと思います。\n取りあえずの解決策としては、 `stack path --global-config` を実行するとstackの設定ファイルへのパスが出てくるので、そのファイルを編集して、\n```install-ghc: false\nsystem-ghc: true```\nと付け加えてください。",
+        "type": "message",
+        "user": "U4LGTMTMK"
     }
 ]

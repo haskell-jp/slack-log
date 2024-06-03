@@ -1,0 +1,104 @@
+[
+    {
+        "ts": "1717302958.545539",
+        "text": "早速相談したいことが出たので、質問させて下さい:bow:\n`stack new stack240529`というコマンドで新規プロジェクトを作成したのですが、\n新規作成したコードをVSCodeで開いたところ、\n`./app/Main.hs`の3行目でimportエラーがでてしまっています。\nこちらの件、何か解決方法とかあるのでしょうか？\n\n参考までに`stack`と`hls`はghcupというツールを使ってインストールしました。",
+        "type": "message",
+        "user": "U075MF7TX8T"
+    },
+    {
+        "ts": "1717303357.207069",
+        "text": "`app/Main.hs` はどんな内容で、具体的にどんなエラーメッセージが出ていますか？",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1717303456.832859",
+        "text": "すみません、画像を添付し忘れていました:man-bowing:\n\n```Could not find module 'Lib'\nIt is not a module in the current program, or in any known package.not found```\nと出ています。",
+        "type": "message",
+        "user": "U075MF7TX8T"
+    },
+    {
+        "ts": "1717303644.305459",
+        "text": "Lib.hs と、 `stack240529.cabal` 、あるいは `package.yaml` というファイルが stack240529 フォルダーにあると思うので、それらの内容も見せてください。\n `Main.sh` についてはもういいですが、なるべくこういう時はスクリーンショットではなく直接ソースコードをコピペして貼り付けて頂けたほうが見やすいです。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1717303851.793919",
+        "text": "",
+        "type": "message",
+        "user": "U075MF7TX8T"
+    },
+    {
+        "ts": "1717303888.993559",
+        "text": "",
+        "type": "message",
+        "user": "U075MF7TX8T"
+    },
+    {
+        "ts": "1717304007.814699",
+        "text": "`stack240529.cabal`と`package.yaml`を共有致します。\n今後質問する際はキャプチャではなくコードを貼り付けるようにします。\n\n宜しくお願いいたします。",
+        "type": "message",
+        "user": "U075MF7TX8T"
+    },
+    {
+        "ts": "1717304117.066609",
+        "text": "`stack240529` ディレクトリーでターミナルを起動して、 `stack build` すると何が起こりますか？",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1717304581.490519",
+        "text": "`stack build`\nの出力結果をお乗せします(一部、ソースの絶対パスが表示されている点がお見苦しくはございますが…:sweat:)\n```stack240529-0.1.0.0: unregistering (local file changes: src/Lib.hs)\nstack240529> build (lib + exe)\nPreprocessing library for stack240529-0.1.0.0..\nBuilding library for stack240529-0.1.0.0..\n[1 of 2] Compiling Lib [Source file changed]\nPreprocessing executable 'stack240529-exe' for stack240529-0.1.0.0..\nBuilding executable 'stack240529-exe' for stack240529-0.1.0.0..\n[1 of 2] Compiling Main [Lib changed]\n[3 of 3] Linking .stack-work/dist/x86_64-osx/ghc-9.6.5/build/stack240529-exe/stack240529-exe [Objects changed]\nstack240529> copy/register\nInstalling library in /Users/k27c8/programming/haskell/trashes/stack240529/.stack-work/install/x86_64-osx/bd60a721f36c15ba72f8d53b5721206fd16e3350ae93c50f5546ebbc154023bd/9.6.5/lib/x86_64-osx-ghc-9.6.5/stack240529-0.1.0.0-9G2GUYl0sGoBeBlWIHWMjM\nInstalling executable stack240529-exe in /Users/k27c8/programming/haskell/trashes/stack240529/.stack-work/install/x86_64-osx/bd60a721f36c15ba72f8d53b5721206fd16e3350ae93c50f5546ebbc154023bd/9.6.5/bin\nRegistering library for stack240529-0.1.0.0..```\nなお`stack run`コマンドを実行したら、正常に動作するので、ビルドは正しく動いているようです:thinking_face:",
+        "type": "message",
+        "user": "U075MF7TX8T"
+    },
+    {
+        "ts": "1717304989.437249",
+        "text": "まだ `Main.hs` で同様のエラーは出てますか？",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1717305074.979489",
+        "text": "はい、未だVSCodeでエラーが起きます。\n\nbuildは通るのですがVSCode上では赤字が表示されるというのが今回の気になるところ…:thinking_face:",
+        "type": "message",
+        "user": "U075MF7TX8T"
+    },
+    {
+        "ts": "1717305670.779729",
+        "text": "うーん、単純にビルドができてないからだと思いましたが（私自身似たような経験があったので）、違う、と。分かりませんなぁ",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1717306238.362059",
+        "text": "もしかしたらバージョンの違いもありあすでしょうか:thinking_face:\n皆様はどのバージョンを使っていますか？\n\nちなみに自分は\n• ghc ・・・ 9.6.5\n• stack ・・・ 2.13.1\n• hls ・・・ 2.7.0.0\nです。",
+        "type": "message",
+        "user": "U075MF7TX8T"
+    },
+    {
+        "ts": "1717307083.494519",
+        "text": "`stack path --compiler-bin` と `which ghc-9.6.5` （あるいはWindowsであれば `gcm ghc-9.6.5` ）したらどんな結果が返ってきますか？\n:warning: こんなタイミングですがこれから外出するので少し返答遅れます。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1717307442.642169",
+        "text": "こちらが結果になります\n`stack path --compiler-bin` :\n```${HOME}/.stack/programs/x86_64-osx/ghc-9.6.5/bin```\n`which ghc-9.6.5` :\n```${HOME}/.ghcup/bin/ghc-9.6.5```",
+        "type": "message",
+        "user": "U075MF7TX8T"
+    },
+    {
+        "ts": "1717312619.119179",
+        "text": "恐らく、ghcupがインストールしたGHC（ `PATH` に入っている方のGHC）とstackがインストールしたGHC両方があるせいで混乱しちゃってますね（関連: <https://docs.haskellstack.org/en/stable/Stack_and_VS_Code/> ）。\nVS CodeがGHCupのGHCを使おうとして、stackはstackのGHCを使おうとしているせいで結果が食い違っているのではないかと思います。\n取りあえずの解決策としては、 `stack path --global-config` を実行するとstackの設定ファイルへのパスが出てくるので、そのファイルを編集して、\n```install-ghc: false\nsystem-ghc: true```\nと付け加えてください。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1717315565.289949",
+        "text": "無事にエラーが解消されました:sob::sob::sob:\n\n正確には`~/.stack/config.yaml`を編集するだけでは直らなかったのですが、\n以下の内容\n```cradle:\n  stack:```\nの`hie.yaml` を追加することにより、解決しました(参考サイト→<https://qiita.com/ueki5/items/531b3012171927f4371f|Qiita>)。\n\n大変ありがとうございました:man-bowing:",
+        "type": "message",
+        "user": "U075MF7TX8T"
+    }
+]

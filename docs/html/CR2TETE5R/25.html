@@ -103,6 +103,35 @@
           <div class="description">夜分遅くに失礼します。<br/>初めまして、最近Haskellに興味を持ったてぴかと申します。<br/>Haskellを独学で学んでいるのですが、個人の学習となると、<br/>どうしても詰まってしまう点が多いので、Haskellの仲間が欲しいと思い参加することにしました。<br/><br/>Haskellに関することで、もし分からないことがありましたら、<br/>今後このSlackで質問することがあるかもしれません。<br/>その時はまた宜しくお願いします。</div>
         </div>
       </div>
+      <div class="event" id="message-1717302958.545539">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1717302958.545539">2024-06-02 13:35:58 +0900</a></div>
+          </div>
+          <div class="description">早速相談したいことが出たので、質問させて下さい:bow:<br/><code>stack new stack240529</code>というコマンドで新規プロジェクトを作成したのですが、<br/>新規作成したコードをVSCodeで開いたところ、<br/><code>./app/Main.hs</code>の3行目でimportエラーがでてしまっています。<br/>こちらの件、何か解決方法とかあるのでしょうか？<br/><br/>参考までに`stack`と`hls`はghcupというツールを使ってインストールしました。</div>
+          <a class="link-to-replies" href="25/1717302958.545539.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1717305670.779729">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1717305670.779729">2024-06-02 14:21:10 +0900</a></div>
+          </div>
+          <div class="description">うーん、単純にビルドができてないからだと思いましたが（私自身似たような経験があったので）、違う、と。分かりませんなぁ</div>
+        </div>
+      </div>
+      <div class="event" id="message-1717312619.119179">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1717312619.119179">2024-06-02 16:16:59 +0900</a></div>
+          </div>
+          <div class="description">恐らく、ghcupがインストールしたGHC（ <code>PATH</code> に入っている方のGHC）とstackがインストールしたGHC両方があるせいで混乱しちゃってますね（関連: <a href='https://docs.haskellstack.org/en/stable/Stack_and_VS_Code/'>https://docs.haskellstack.org/en/stable/Stack_and_VS_Code/</a> ）。<br/>VS CodeがGHCupのGHCを使おうとして、stackはstackのGHCを使おうとしているせいで結果が食い違っているのではないかと思います。<br/>取りあえずの解決策としては、 <code>stack path --global-config</code> を実行するとstackの設定ファイルへのパスが出てくるので、そのファイルを編集して、<br/><pre>install-ghc: false
+system-ghc: true</pre><br/>と付け加えてください。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/24.html" class="item">Previous</a>
