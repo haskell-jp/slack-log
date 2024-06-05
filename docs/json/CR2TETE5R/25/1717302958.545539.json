@@ -100,5 +100,11 @@
         "text": "無事にエラーが解消されました:sob::sob::sob:\n\n正確には`~/.stack/config.yaml`を編集するだけでは直らなかったのですが、\n以下の内容\n```cradle:\n  stack:```\nの`hie.yaml` を追加することにより、解決しました(参考サイト→<https://qiita.com/ueki5/items/531b3012171927f4371f|Qiita>)。\n\n大変ありがとうございました:man-bowing:",
         "type": "message",
         "user": "U075MF7TX8T"
+    },
+    {
+        "ts": "1717480879.766589",
+        "text": "ghcup を使って環境をととのえるのがやりやすいと思います。ghcup tui で各種のツールのバージョンなどが見えますので、調整すると比較的楽にツールの調整ができます。\nただ、注意点があって、現時点では、stack new で stack.yaml に設定される resolver は、lts-22.24 で GHC 9.6.5 ですが、これがghcup で最初にインストールされる recommended つきの hls-2.7.0.0 ではサポートされません。\nghcup tui を使って hls-2.8.0.0に切り替えるとGHC 9.6.5 がサポートされるようになります。\nまた、タイミングによっては、hls の最新版あるいはrecommend版が、stackageの最新 lts がサポートするGHC のバージョンをサポートできていないことがありえます。その場合は、hlsを自分で調整してビルドするか、stack new  をつかって作成したプロジェクトのstack.yamlのresolverを調整する必要があります。\n(残念ながら、stackage にはまだ、9.10.1 のサポートがありません。9.10.1 をつかいたい場合は、stackではなくcabalを使う必要があります)\n\nhie.yaml は hls を使うときに必要です。implicit-hie パッケージをインストールすると、.cabal ファイルから hie.yaml をよしなに生成してくれる gen-hie というコマンドがインストールされるので、それを使うのがお勧めです。以下のような感じで使っています。また、package.yaml を変更したときは、.cabalファイルを変更するために、stack build をやったあとに gen-hie > hie.yaml をやっておきます。\n```$ stack new hoge\n$ cd hoge\n$ gen-hie > hie.yaml```",
+        "type": "message",
+        "user": "U4KU9ABL0"
     }
 ]

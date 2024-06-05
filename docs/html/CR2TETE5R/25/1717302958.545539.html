@@ -180,6 +180,17 @@ system-ghc: true</pre><br/>と付け加えてください。</div>
   stack:</pre><br/>の`hie.yaml` を追加することにより、解決しました(参考サイト→<https://qiita.com/ueki5/items/531b3012171927f4371f|Qiita>)。<br/><br/>大変ありがとうございました:man-bowing:</div>
         </div>
       </div>
+      <div class="event" id="message-1717480879.766589">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1717480879.766589">2024-06-04 15:01:19 +0900</a></div>
+          </div>
+          <div class="description">ghcup を使って環境をととのえるのがやりやすいと思います。ghcup tui で各種のツールのバージョンなどが見えますので、調整すると比較的楽にツールの調整ができます。<br/>ただ、注意点があって、現時点では、stack new で stack.yaml に設定される resolver は、lts-22.24 で GHC 9.6.5 ですが、これがghcup で最初にインストールされる recommended つきの hls-2.7.0.0 ではサポートされません。<br/>ghcup tui を使って hls-2.8.0.0に切り替えるとGHC 9.6.5 がサポートされるようになります。<br/>また、タイミングによっては、hls の最新版あるいはrecommend版が、stackageの最新 lts がサポートするGHC のバージョンをサポートできていないことがありえます。その場合は、hlsを自分で調整してビルドするか、stack new  をつかって作成したプロジェクトのstack.yamlのresolverを調整する必要があります。<br/>(残念ながら、stackage にはまだ、9.10.1 のサポートがありません。9.10.1 をつかいたい場合は、stackではなくcabalを使う必要があります)<br/><br/>hie.yaml は hls を使うときに必要です。implicit-hie パッケージをインストールすると、.cabal ファイルから hie.yaml をよしなに生成してくれる gen-hie というコマンドがインストールされるので、それを使うのがお勧めです。以下のような感じで使っています。また、package.yaml を変更したときは、.cabalファイルを変更するために、stack build をやったあとに gen-hie > hie.yaml をやっておきます。<br/><pre>$ stack new hoge
+$ cd hoge
+$ gen-hie > hie.yaml</pre></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../25.html" class="item">Back to beginners #25</a>
