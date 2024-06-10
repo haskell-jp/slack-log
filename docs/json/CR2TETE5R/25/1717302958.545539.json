@@ -106,5 +106,11 @@
         "text": "ghcup を使って環境をととのえるのがやりやすいと思います。ghcup tui で各種のツールのバージョンなどが見えますので、調整すると比較的楽にツールの調整ができます。\nただ、注意点があって、現時点では、stack new で stack.yaml に設定される resolver は、lts-22.24 で GHC 9.6.5 ですが、これがghcup で最初にインストールされる recommended つきの hls-2.7.0.0 ではサポートされません。\nghcup tui を使って hls-2.8.0.0に切り替えるとGHC 9.6.5 がサポートされるようになります。\nまた、タイミングによっては、hls の最新版あるいはrecommend版が、stackageの最新 lts がサポートするGHC のバージョンをサポートできていないことがありえます。その場合は、hlsを自分で調整してビルドするか、stack new  をつかって作成したプロジェクトのstack.yamlのresolverを調整する必要があります。\n(残念ながら、stackage にはまだ、9.10.1 のサポートがありません。9.10.1 をつかいたい場合は、stackではなくcabalを使う必要があります)\n\nhie.yaml は hls を使うときに必要です。implicit-hie パッケージをインストールすると、.cabal ファイルから hie.yaml をよしなに生成してくれる gen-hie というコマンドがインストールされるので、それを使うのがお勧めです。以下のような感じで使っています。また、package.yaml を変更したときは、.cabalファイルを変更するために、stack build をやったあとに gen-hie > hie.yaml をやっておきます。\n```$ stack new hoge\n$ cd hoge\n$ gen-hie > hie.yaml```",
         "type": "message",
         "user": "U4KU9ABL0"
+    },
+    {
+        "ts": "1718008883.017139",
+        "text": "<@U4KU9ABL0> さん、ご指摘大変ありがとうございます。\nただ、返信に気づくのが大変遅れてしまい、申し訳ありません:man-bowing:\n\nアドバイスの内容は以下の通りでしょうか？\n1. ghcupを使った方がよい\n2. hls-2.7.0.0からhls-2.8.0.0に切り替えた方がよい\n3. hie.yamlを作成する際はgen-hieというツールを使った方が良い\n1.に関しましては、ghcupを使ってstackやhlsを入れていることは、\n既にこのスレッドの最初で述べた通りです。\n2.に関しましてですが、試しにhlsのバージョンを2.8.0.0に切り替えたのですが、\nやはり同様のエラーが起きてしまいます。\nなお、<https://haskell-jp.slack.com/archives/CR2TETE5R/p1717315565289949?thread_ts=1717302958.545539&amp;cid=CR2TETE5R|こちら>と同じようににhie.yamlファイルを書き加えたらエラーが消えました。\n3.についてですが、gen-hieは`stack install`コマンドでinstall済みではありますが、実際には使っていなかったですね。。今後使うことにします。\n\n以上、宜しくお願いいたします。",
+        "type": "message",
+        "user": "U075MF7TX8T"
     }
 ]
