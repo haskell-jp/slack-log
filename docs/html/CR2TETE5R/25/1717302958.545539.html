@@ -200,6 +200,15 @@ $ gen-hie > hie.yaml</pre></div>
           <div class="description">@nobsun さん、ご指摘大変ありがとうございます。<br/>ただ、返信に気づくのが大変遅れてしまい、申し訳ありません:man-bowing:<br/><br/>アドバイスの内容は以下の通りでしょうか？<br/>1. ghcupを使った方がよい<br/>2. hls-2.7.0.0からhls-2.8.0.0に切り替えた方がよい<br/>3. hie.yamlを作成する際はgen-hieというツールを使った方が良い<br/>1.に関しましては、ghcupを使ってstackやhlsを入れていることは、<br/>既にこのスレッドの最初で述べた通りです。<br/>2.に関しましてですが、試しにhlsのバージョンを2.8.0.0に切り替えたのですが、<br/>やはり同様のエラーが起きてしまいます。<br/>なお、<https://haskell-jp.slack.com/archives/CR2TETE5R/p1717315565289949?thread_ts=1717302958.545539&amp;cid=CR2TETE5R|こちら>と同じようににhie.yamlファイルを書き加えたらエラーが消えました。<br/>3.についてですが、gen-hieは`stack install`コマンドでinstall済みではありますが、実際には使っていなかったですね。。今後使うことにします。<br/><br/>以上、宜しくお願いいたします。</div>
         </div>
       </div>
+      <div class="event" id="message-1718342186.649529">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1718342186.649529">2024-06-14 14:16:26 +0900</a></div>
+          </div>
+          <div class="description">stack build では問題ないが、VS Code で赤い波線が出るのはHLSがらみだと思われます。<br/>1. どの GHCのバージョンがどのHLSでサポートされているかを確認するには ghcup を使うのが楽。<br/>2. GHC-9.6.5 で使うのであれば、hls-2.8.0.0 でないとHLSのサポートが受けられない<br/>3. HLSのサポートを適切にうけるには hie.yaml を適切に設定する必要がある（適切なhlsのバージョンをインストールしただけでは上手くいかない）。適切な hie.yaml ためには、gen-hie を使うのが楽。<br/>というのが意図でした。判りにくい説明で申し訳ありませんでした。以下の簡単な記事を書きました。御笑覧ください。<br/><a href='https://zenn.dev/nobsun/articles/progenv-with-ghcup-stack-hls'>https://zenn.dev/nobsun/articles/progenv-with-ghcup-stack-hls</a></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../25.html" class="item">Back to beginners #25</a>
