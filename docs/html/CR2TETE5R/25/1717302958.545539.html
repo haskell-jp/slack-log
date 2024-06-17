@@ -209,6 +209,16 @@ $ gen-hie > hie.yaml</pre></div>
           <div class="description">stack build では問題ないが、VS Code で赤い波線が出るのはHLSがらみだと思われます。<br/>1. どの GHCのバージョンがどのHLSでサポートされているかを確認するには ghcup を使うのが楽。<br/>2. GHC-9.6.5 で使うのであれば、hls-2.8.0.0 でないとHLSのサポートが受けられない<br/>3. HLSのサポートを適切にうけるには hie.yaml を適切に設定する必要がある（適切なhlsのバージョンをインストールしただけでは上手くいかない）。適切な hie.yaml ためには、gen-hie を使うのが楽。<br/>というのが意図でした。判りにくい説明で申し訳ありませんでした。以下の簡単な記事を書きました。御笑覧ください。<br/><a href='https://zenn.dev/nobsun/articles/progenv-with-ghcup-stack-hls'>https://zenn.dev/nobsun/articles/progenv-with-ghcup-stack-hls</a></div>
         </div>
       </div>
+      <div class="event" id="message-1718541050.021519">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1718541050.021519">2024-06-16 21:30:50 +0900</a></div>
+          </div>
+          <div class="description">@てぴか さん、今更で申し訳ないのですが、本件最終的に <code>hie.yaml</code> を作成することで解決した、とありますが、 <code>~/.stack/config.yaml</code> に<br/><pre>install-ghc: false
+system-ghc: true</pre><br/>を追記した時点で、エラーメッセージに何か変化があったか覚えていますか？<br/><br/>というのも、私が予想した「ghcupがインストールしたGHCとstackがインストールしたGHCが両方あるせいで発生した」のが本当なのか確認して、記事にしようと考えています。今手元で再現ケースを作ろうと試みているのですが、予想が外れて徒労に終わる前に、念のためてぴかさんの環境でどうだったかを教えていただきたいです。もちろん覚えていればで構いません！</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../25.html" class="item">Back to beginners #25</a>
