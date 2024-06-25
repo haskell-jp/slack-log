@@ -219,6 +219,42 @@ $ gen-hie > hie.yaml</pre></div>
 system-ghc: true</pre><br/>を追記した時点で、エラーメッセージに何か変化があったか覚えていますか？<br/><br/>というのも、私が予想した「ghcupがインストールしたGHCとstackがインストールしたGHCが両方あるせいで発生した」のが本当なのか確認して、記事にしようと考えています。今手元で再現ケースを作ろうと試みているのですが、予想が外れて徒労に終わる前に、念のためてぴかさんの環境でどうだったかを教えていただきたいです。もちろん覚えていればで構いません！</div>
         </div>
       </div>
+      <div class="event" id="message-1719229419.472699">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1719229419.472699">2024-06-24 20:43:39 +0900</a></div>
+          </div>
+          <div class="description">@igrep さん、slackをあまり開かいものでして、<br/>返信が遅れてしまい大変申し訳ありません:bow:<br/><br/><code>~/.stack/config.yaml</code> を追加した時点では特に変化はありませんでした。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1719231242.013159">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1719231242.013159">2024-06-24 21:14:02 +0900</a></div>
+          </div>
+          <div class="description"><blockquote> 今手元で再現ケースを作ろうと試みているのですが、予想が外れて徒労に終わる前に、念のためてぴかさんの環境でどうだったかを教えていただきたいです。</blockquote>現在、自分はmacbook airを使っているのですが、<br/>この現象が自分の環境独自のものなのか気になったので、<br/>dockerのalpine上でX Window経由でVS Codeを開いてみました。<br/>そうしたら同様のエラーが起きました<br/>(dockerでの環境構築、苦労しました…:sob: )<br/><br/>もしよろしければ、そのDockerfileを共有いたしましょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1719233481.120089">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1719233481.120089">2024-06-24 21:51:21 +0900</a></div>
+          </div>
+          <div class="description">おお、すみません、マジか！昨日自分のMacbook Airで調べた範囲では再現しなかったので、もうこの話は終わりにしようと思っていたのですが、そうなると少し気になります。<br/><a href='https://haskell-jp.slack.com/archives/CUPBC8WCE/p1719141192964919'>https://haskell-jp.slack.com/archives/CUPBC8WCE/p1719141192964919</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1719240842.588829">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1719240842.588829">2024-06-24 23:54:02 +0900</a></div>
+          </div>
+          <div class="description">少し待っててください、探してみます。。。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../25.html" class="item">Back to beginners #25</a>
