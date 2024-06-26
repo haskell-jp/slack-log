@@ -255,6 +255,51 @@ system-ghc: true</pre><br/>を追記した時点で、エラーメッセージ�
           <div class="description">少し待っててください、探してみます。。。</div>
         </div>
       </div>
+      <div class="event" id="message-1719276298.259889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1719276298.259889">2024-06-25 09:44:58 +0900</a></div>
+          </div>
+          <div class="description">@てぴか あの、もし随分前に書いたDockerfileで、諸々のバージョンも古いとしたら、別にいいですよ。<br/>:point_up: で引用した私の記録の通り、最新版ではどうやら発生しないであろうことは確認できているので。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1719309413.064219">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1719309413.064219">2024-06-25 18:56:53 +0900</a></div>
+          </div>
+          <div class="description">@igrep<br/>試しにもう一度Dockerで環境構築を行ったところ、やはり再現しました。<br/>以下Dockerfileと手順を記載します。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1719309704.170009">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1719309704.170009">2024-06-25 19:01:44 +0900</a></div>
+          </div>
+          <div class="description">1. VSCodeの本家サイト(→<https://code.visualstudio.com/Download|Link>)からvscode本体をあらかじめダウンロードし、`Dockerfile`と同じ階層に置く<br/>    a. Linux版をダウンロードすること<br/>    b. 今回は**.deb版を使用します<br/>2. `docker build . -t IMAGE_NAME`等のコマンドでDockerfileをビルドする<br/>3. Macを使っている場合、XQuartzなどのツールでXサーバーを立ち上げておき、`xhost + localhost`のコマンドを叩く<br/>4. 2.で作成したimageを`docker run -it --name MY_CONTAINER_NAME IMAGE_NAME bash`等のコマンドでコンテナを立ち上げる<br/>5. ghcupをインストール<br/>    a. インストール方法は本家サイトを参照(→<https://www.haskell.org/ghcup/|Link>)<br/>    b. (余談)Dockerfileにghcupのインストールコマンドも入れたかったが、『HLSを入れますか？』などの質問がinteractiveに来てしまいdockerのbuildが止まってしまうので、こればかりは手動でコマンドしました…<br/>6. ghcupコマンドでstackやhls等のツールを入れる<br/>    a. 一例ですが、自分は以下よう(recommended)にしました<br/>        ▪︎ ghc: 9.4.8<br/>        ▪︎ cabal: 3.10.3.0<br/>        ▪︎ hls: 2.7.0.0<br/>        ▪︎ stack: 2.15.5<br/>        ▪︎ ghcup: 0.1.22.0<br/>7. `~/.bashrc`をエディタ等で編集して`/root/.ghcup/bin`にパスを通す<br/>8. `stack new XXXX`で新しいプロジェクトを作る<br/>9. `code --no-sandbox --user-data-dir=/root/.vscode`でVSCodeを起動<br/>10. 9.で立ち上げたvscode上で <https://marketplace.visualstudio.com/items?itemName=mogeko.haskell-extension-pack> をインストール<br/>11. 「File」→「Preferences」→「Settings」でエディタの設定を開き、「Extensions」→「Haskell」で「Manage HLS」の項目をGHCupに変更<br/>12. vscodeで8. で作ったプロジェクトをvscode上で開く<br/>    a. その際に「○○をインストールしますか？」と出るので、素直に従う<br/>13. `XXXX/app/Main.hs`のimportの部分で赤字が表示される</div>
+        </div>
+      </div>
+      <div class="event" id="message-1719309887.783709">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1719309887.783709">2024-06-25 19:04:47 +0900</a></div>
+          </div>
+          <div class="description"><blockquote> dockerのalpine上でX Window経由でVS Codeを開いてみました。</blockquote>すみません、今見たらdebianでした:pleading_face:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1719310479.195159">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1719310479.195159">2024-06-25 19:14:39 +0900</a></div>
+          </div>
+          <div class="description">了解です。調べるのは次回のHaskell-jpもくもく会の時になるかと思いますが、やってみます。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../25.html" class="item">Back to beginners #25</a>

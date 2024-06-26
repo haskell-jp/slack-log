@@ -148,5 +148,35 @@
         "text": "少し待っててください、探してみます。。。",
         "type": "message",
         "user": "U075MF7TX8T"
+    },
+    {
+        "ts": "1719276298.259889",
+        "text": "<@U075MF7TX8T> あの、もし随分前に書いたDockerfileで、諸々のバージョンも古いとしたら、別にいいですよ。\n:point_up: で引用した私の記録の通り、最新版ではどうやら発生しないであろうことは確認できているので。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1719309413.064219",
+        "text": "<@U4LGTMTMK>\n試しにもう一度Dockerで環境構築を行ったところ、やはり再現しました。\n以下Dockerfileと手順を記載します。",
+        "type": "message",
+        "user": "U075MF7TX8T"
+    },
+    {
+        "ts": "1719309704.170009",
+        "text": "1. VSCodeの本家サイト(→<https://code.visualstudio.com/Download|Link>)からvscode本体をあらかじめダウンロードし、`Dockerfile`と同じ階層に置く\n    a. Linux版をダウンロードすること\n    b. 今回は**.deb版を使用します\n2. `docker build . -t IMAGE_NAME`等のコマンドでDockerfileをビルドする\n3. Macを使っている場合、XQuartzなどのツールでXサーバーを立ち上げておき、`xhost + localhost`のコマンドを叩く\n4. 2.で作成したimageを`docker run -it --name MY_CONTAINER_NAME IMAGE_NAME bash`等のコマンドでコンテナを立ち上げる\n5. ghcupをインストール\n    a. インストール方法は本家サイトを参照(→<https://www.haskell.org/ghcup/|Link>)\n    b. (余談)Dockerfileにghcupのインストールコマンドも入れたかったが、『HLSを入れますか？』などの質問がinteractiveに来てしまいdockerのbuildが止まってしまうので、こればかりは手動でコマンドしました…\n6. ghcupコマンドでstackやhls等のツールを入れる\n    a. 一例ですが、自分は以下よう(recommended)にしました\n        ▪︎ ghc: 9.4.8\n        ▪︎ cabal: 3.10.3.0\n        ▪︎ hls: 2.7.0.0\n        ▪︎ stack: 2.15.5\n        ▪︎ ghcup: 0.1.22.0\n7. `~/.bashrc`をエディタ等で編集して`/root/.ghcup/bin`にパスを通す\n8. `stack new XXXX`で新しいプロジェクトを作る\n9. `code --no-sandbox --user-data-dir=/root/.vscode`でVSCodeを起動\n10. 9.で立ち上げたvscode上で <https://marketplace.visualstudio.com/items?itemName=mogeko.haskell-extension-pack> をインストール\n11. 「File」→「Preferences」→「Settings」でエディタの設定を開き、「Extensions」→「Haskell」で「Manage HLS」の項目をGHCupに変更\n12. vscodeで8. で作ったプロジェクトをvscode上で開く\n    a. その際に「○○をインストールしますか？」と出るので、素直に従う\n13. `XXXX/app/Main.hs`のimportの部分で赤字が表示される",
+        "type": "message",
+        "user": "U075MF7TX8T"
+    },
+    {
+        "ts": "1719309887.783709",
+        "text": "&gt;  dockerのalpine上でX Window経由でVS Codeを開いてみました。\nすみません、今見たらdebianでした:pleading_face:",
+        "type": "message",
+        "user": "U075MF7TX8T"
+    },
+    {
+        "ts": "1719310479.195159",
+        "text": "了解です。調べるのは次回のHaskell-jpもくもく会の時になるかと思いますが、やってみます。",
+        "type": "message",
+        "user": "U4LGTMTMK"
     }
 ]
