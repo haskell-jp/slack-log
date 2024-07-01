@@ -300,6 +300,103 @@ system-ghc: true</pre><br/>を追記した時点で、エラーメッセージ�
           <div class="description">了解です。調べるのは次回のHaskell-jpもくもく会の時になるかと思いますが、やってみます。</div>
         </div>
       </div>
+      <div class="event" id="message-1719737386.133859">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1719737386.133859">2024-06-30 17:49:46 +0900</a></div>
+          </div>
+          <div class="description"><@U075MF7TX8T> すみません、手元のWSL 2上のDocker上の環境で試しましたが、「全く同じ」と呼べるような状況は再現しませんでした。セットアップしていて気になったんですけど、該当のプロジェクトで *`stack build` が成功した上でVS Codeを再起動*した後も問題はなくなりませんでしたか？<br/><br/>というのも、該当のプロジェクトで `stack build` していない状態だと（発生した問題の違いこそあれ）、先週 macOS で実験した場合と今回試した場合いずれにおいても問題が発生したからです。<br/><br/>• macOSで実験した場合: てぴかさんと似た状況で「`XXXX/app/Main.hs`のimportの部分で赤字が表示される（ただしエラーメッセージはてぴかさんが最初にこのスレで報告した「Could not find module 'Lib' It is not a module in the current program, or in any known package.not found」ではなく「Cannot satisfy ...」で始まるものでした（正確なメッセージは忘れてしまいました。悪しからず）<br/>• WSL 2 + Dockerで実験した場合: VS Codeの左下の箇所で「Processing: 1/3」といった内容が表示され続ける。クリックして詳細を確認すると「Source: Haskell」なる処理で固まっているらしきことがわかる</div>
+        </div>
+      </div>
+      <div class="event" id="message-1719737701.654479">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1719737701.654479">2024-06-30 17:55:01 +0900</a></div>
+          </div>
+          <div class="description">（すみません、前の発言を途中で送ってしまいました！）<br/><br/>いずれにしても、今回てぴかさんが最初に報告した問題とは別物ですし、私が懸念した「ghcupがインストールしたGHCとstackがインストールしたGHCが両方あるせいで発生する問題」とは無関係な、 <code>stack build</code> で解決できるもののではないかと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1719738182.968169">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1719738182.968169">2024-06-30 18:03:02 +0900</a></div>
+          </div>
+          <div class="description">@igrep<br/>すみません、環境構築及び再現の試みなど、大変ありがとうございました。<br/><br/>なるほど…承知いたしました。<br/><br/>少なくとも、自分は「Cannot satisfy ...」というエラーは一度も確認したことがないですね。。<br/>Dockerの上でも同様に`stack build`が成功した後も発生したと思います(少し確証がないので、後日確かめてた後にまた改めて報告致します)。<br/><br/>(仮想環境含め、自分のマシン上だけエラーが発生してしまうのも不思議ですね…:thinking_face:)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1719738490.187669">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1719738490.187669">2024-06-30 18:08:10 +0900</a></div>
+          </div>
+          <div class="description">:bow: あー、すみません、あと大事なことを忘れてました。Dockerfileをいじっているのでそれも共有しておきます。修正したのは、基本的にGHCupを自動でインストールするためだったりimageのサイズを減らすためだったりなので、基本的にやってることは変わらないはずです。何か気になる点があったら教えてください<br/><pre># To run GUI app on WSLg, you need to `docker run` with the following options:
+# docker run -it --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /mnt/wslg:/mnt/wslg -e DISPLAY -e WAYLAND_DISPLAY -e XDG_RUNTIME_DIR -e PULSE_SERVER haskell-with-vs-code bash
+# Ref. <https://stackoverflow.com/questions/73092750/how-to-show-gui-apps-from-docker-desktop-container-on-windows-11>
+
+# And to run VS Code:
+# code --no-sandbox --user-data-dir=/root/.vscode
+
+FROM debian:bookworm-slim
+
+RUN &lt;&lt;EOF
+  set -eux
+  apt-get update
+  # GUI
+  apt-get install -y ca-certificates libasound2 libatk-bridge2.0-0 libcairo2 curl libgtk-3-dev libgtk-4-dev libnss3 xdg-utils xserver-xorg x11-apps
+  apt-get clean
+EOF
+
+RUN &lt;&lt;EOF
+  set -eux
+  mkdir /work
+  cd /work
+
+  # VS Code
+  curl -L -o code_amd64.deb "<https://code.visualstudio.com/sha/download?build=stable&amp;os=linux-deb-x64>"
+  dpkg -i code_amd64.deb
+
+  # GHCup and etc.
+  apt-get install -y libgmp-dev libncurses-dev libncurses5
+  apt-get clean
+  curl --proto '=https' --tlsv1.2 -sSf <https://get-ghcup.haskell.org> &gt; get-ghcup.sh
+  chmod +x get-ghcup.sh
+  ## To install GHCup etc. automateically:
+  export BOOTSTRAP_HASKELL_NONINTERACTIVE=1
+  ### Align with the versions てぴか told me
+  export BOOTSTRAP_HASKELL_GHC_VERSION=9.4.8
+  export BOOTSTRAP_HASKELL_CABAL_VERSION=3.10.3.0
+  export BOOTSTRAP_HASKELL_INSTALL_HLS=1
+  export BOOTSTRAP_HASKELL_ADJUST_BASHRC=1
+  export SHELL=/bin/bash # To update PATH by ghcup
+  ./get-ghcup.sh
+  rm -r /work
+EOF
+ENV DONT_PROMPT_WSL_INSTALL=1
+WORKDIR /root</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1719738611.124539">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1719738611.124539">2024-06-30 18:10:11 +0900</a></div>
+          </div>
+          <div class="description">読みやすさのためにGistにも置きました <a href='https://gist.github.com/igrep/1ad92875509f5ef84fa73c9c3c1ad3b8'>https://gist.github.com/igrep/1ad92875509f5ef84fa73c9c3c1ad3b8</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1719738638.432819">
+        <div class="content">
+          <div class="summary">
+            <div class="user">てぴか</div>
+            <div class="date"><a class="date" href="#message-1719738638.432819">2024-06-30 18:10:38 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！！！<br/>ghcupは手動でインストールする、という不便さに困っていたのですが、<br/>参考にさせて頂きます:astonished:</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../25.html" class="item">Back to beginners #25</a>
