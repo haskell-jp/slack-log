@@ -148,5 +148,83 @@
         "text": "ex.4.29 の効果についてテストプログラムを使って確認していました。\n今日は確認だけで終わってしまいました。結構時間がかかってしまっています。お恥ずかしい。\nex.4.29 の対応により、トータルのステップ数は減っているようですが、途中では ex.4.29 対応前の方が短い箇所もあり、正しく対応できたのかまだ確認できていません。",
         "type": "message",
         "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1720324919.857209",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1720325006.898809",
+        "text": "山本悠滋です。お昼ご飯を食べ終えてからですが、いつもどおりmakeMistakesToLearnHaskellの続きと、久々にcabal replの件を進めます。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1720325214.581619",
+        "text": "<https://bartoszmilewski.com/2015/07/21/free-monoids/|Category Theory for Programmers> (2014) Bartosz Milewski (Part Two: 13. Free Monoids ~)\nあとハシゴで <https://atcoder.jp/contests/typical90|競プロ典型 90 問> 57 日目 - Flip Flap（★6）",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1720325551.654069",
+        "text": "S.K.です。今週もお世話になります。よろしくお願いします。\n先週に引き続き、Implementing Functional Languages: a tutorial 4.7 Mark 6: Constant applicative forms and the code store の、続きを進めていこうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1720328446.214409",
+        "text": "<https://github.com/BrechtSerckx/OpenSCAD> を魔改造して制約で図形を書くくんを追加していきます\n例えばこんなことを書いたときに点cの座標が定まってほしくて、中学数学の平面図形計算で出した制約条件をHM型推論と似た感じの同値類に割るソルバに突っ込んでやればいい感じになるのではないかということを考えています\n```pitagoras1 :: (Either Error Model2d)\npitagoras1 = sketch do\n  a <- point & x 0 & y 0\n  b <- point & x 4 & y 0\n  v1 <- line & from a & degree 30\n  v2 <- line & from b & degree 90\n  c <- intersection v1 v2\n  polygon [a, b, c]```",
+        "type": "message",
+        "user": "U4KNX0J3A"
+    },
+    {
+        "ts": "1720339445.904779",
+        "text": "Category Theory for Programmers (Part Two: 13. Free Monoids ~ 14. Representable Functors) まで読了　tabulate とか index など圏論と programming の接点のような用語にホッとする\n競プロ典型 90 問 57 日目 - Flip Flap（★6）n, m が 300 の時バグってる　哀しい　後日要デバグ\n本日はこれにて離脱",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1720342835.867529",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1720343234.392999",
+        "text": "休憩が捗ってしまってあんま進んでません！延長戦頑張ります！",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1720343258.768539",
+        "text": "角度付きの線のない正方形くらいは動くようにしたかったけれどそこまで行っていないのでおなかが減るまで同じく延長戦",
+        "type": "message",
+        "user": "U4KNX0J3A"
+    },
+    {
+        "ts": "1720343940.508469",
+        "text": "今週も ex.4.29 対応の効果についてテストプログラムを使って確認していました。\nPushMarker 命令のおかげで、対応後に比べて対応前の方が1ステップ早く評価結果を値スタックにプッシュできるけど、その後の Return 命令で対応後の方では引数スタックから次の命令を1ステップで取り出せるのに対して、\n対応前の方ではダンプから引数スタックの内容を復帰して、追加の Return 命令でようやく次の命令を取り出せるので、その部分は実質差分なしの様でした。\nそれ以とは別に、引数を評価する際に対応前は PushMarker 命令を実行する分だけ1ステップ余計にかかってしまうので、トータルすると対応前に比べて対応後の方が短いステップで実行できている模様です。\n確認にとても時間がかかってしまいました。まだ関連するテストプログラムの一部しか確認できていませんが、ようやく効果が少し確認できてきたかもしれません。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1720344623.227829",
+        "text": "本日のmakeMistakesToLearnHaskellの進捗。課題18が埋まった！次回一通り見直してひとまず終了。\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/a0e086049dc36099f79a29b94976f922d44bf147>",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1720347451.062139",
+        "text": "内部実装用のputEqをexportしてx座標やy座標の制約として渡したら動くところまでは来たのでヨシということにします\n```obj :: OpenSCADM Model3d\nobj = do\n  let ~(Right r) = traceShowId $ sketch\n        do\n          a &lt;- point &amp; x 0 &amp; y 0\n          b &lt;- point &amp; x 4\n          c &lt;- point\n          d &lt;- point &amp; y 4\n          putEq a.y b.y\n          putEq a.x d.x\n          putEq c.x b.x\n          putEq c.y d.y\n          Sketch.polygon [a, b, c, d]\n  pure $ linearExtrudeDefault 1 r```",
+        "type": "message",
+        "user": "U4KNX0J3A"
+    },
+    {
+        "ts": "1720348456.112439",
+        "text": "cabal replの件は、設計を変えてからたくさん落ちるようになったテストのデバッグ中です。相変わらずattoparsecはしんどいですね。sydtestの機能にちょっと詳しくなりました",
+        "type": "message",
+        "user": "U4LGTMTMK"
     }
 ]
