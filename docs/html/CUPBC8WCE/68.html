@@ -31,6 +31,24 @@
           <div class="description">本日の更新です。課題18はひとまずここまでとします！<br/><a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/6c61fba3541945b8f1111f0c6b48c482bc0815e9'>https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/6c61fba3541945b8f1111f0c6b48c482bc0815e9</a></div>
         </div>
       </div>
+      <div class="event" id="message-1721014609.434079">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tsukimizake</div>
+            <div class="date"><a class="date" href="#message-1721014609.434079">2024-07-15 12:36:49 +0900</a></div>
+          </div>
+          <div class="description">延長戦、面取りが生えたので勝利<br/><pre>obj :: OpenSCADM Model3d
+obj = do
+  let (Right r) = sketch do
+        a <- point & x 0 & y 0
+        b <- point & x 4 & y 0
+        v1 <- line & from a & degree 30
+        v2 <- line & from b & degree 90
+        c <- intersectionPoint v1 v2
+        poly =<< traverse (chamfer 0.5 . pure) [a, b, c]
+  pure $ linearExtrudeDefault 1 r</pre></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CUPBC8WCE/67.html" class="item">Previous</a>

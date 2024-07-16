@@ -10,5 +10,11 @@
         "text": "本日の更新です。課題18はひとまずここまでとします！\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/6c61fba3541945b8f1111f0c6b48c482bc0815e9>",
         "type": "message",
         "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1721014609.434079",
+        "text": "延長戦、面取りが生えたので勝利\n```obj :: OpenSCADM Model3d\nobj = do\n  let (Right r) = sketch do\n        a <- point & x 0 & y 0\n        b <- point & x 4 & y 0\n        v1 <- line & from a & degree 30\n        v2 <- line & from b & degree 90\n        c <- intersectionPoint v1 v2\n        poly =<< traverse (chamfer 0.5 . pure) [a, b, c]\n  pure $ linearExtrudeDefault 1 r```",
+        "type": "message",
+        "user": "U4KNX0J3A"
     }
 ]
