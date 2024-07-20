@@ -136,5 +136,11 @@
         "text": "<@U07CHBQMWNM> has joined the channel",
         "type": "message",
         "user": "U07CHBQMWNM"
+    },
+    {
+        "ts": "1721482821.240169",
+        "text": "関数モナドについて調べてみたのですが、理解できなかったので質問させてください。\n\n```instance Monad ((->) r) where\n    return = const\n    h >>= f = \\w -> f (h w) w```\nこれを使用したときに以下のようになると思います。\n```ghci> f = (+1) >>= \\a -> (+2) >>= \\b -> return (a+b)\nf :: Num b => b -> b\nghci> f 1\n5\nit :: Num b => b```\n上記の場合 `h w` は `(+1) 1` に置き換えられると考えています。\n同様に、`f (h w) w` を単純に置き換えると `(+2) ((+1) 1) 1` になってしまいますが\nおかしいのは理解できています。\n\nこれはどのように考えたらよいのでしょうか ?",
+        "type": "message",
+        "user": "U04MBBNV5QB"
     }
 ]

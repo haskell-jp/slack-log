@@ -223,6 +223,21 @@ system-ghc: true</pre><br/>と付け加えてください。</div>
           <div class="description">@satler has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1721482821.240169">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1721482821.240169">2024-07-20 22:40:21 +0900</a></div>
+          </div>
+          <div class="description">関数モナドについて調べてみたのですが、理解できなかったので質問させてください。<br/><br/><pre>instance Monad ((->) r) where
+    return = const
+    h >>= f = \w -> f (h w) w</pre><br/>これを使用したときに以下のようになると思います。<br/><pre>ghci> f = (+1) >>= \a -> (+2) >>= \b -> return (a+b)
+f :: Num b => b -> b
+ghci> f 1
+5
+it :: Num b => b</pre><br/>上記の場合 <code>h w</code> は <code>(+1) 1</code> に置き換えられると考えています。<br/>同様に、`f (h w) w` を単純に置き換えると <code>(+2) ((+1) 1) 1</code> になってしまいますが<br/>おかしいのは理解できています。<br/><br/>これはどのように考えたらよいのでしょうか ?</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/24.html" class="item">Previous</a>
