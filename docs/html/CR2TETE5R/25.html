@@ -239,6 +239,36 @@ it :: Num b => b</pre><br/>上記の場合 <code>h w</code> は <code>(+1) 1</co
           <a class="link-to-replies" href="25/1721482821.240169.html">... Replies ...</a>
         </div>
       </div>
+      <div class="event" id="message-1721621462.260059">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1721621462.260059">2024-07-22 13:11:02 +0900</a></div>
+          </div>
+          <div class="description">モナドでの <code>&lt;-</code>  の挙動について質問させてください。<br/><br/>State s モナドを例にとります。<br/><pre>newtype State s a = State { runState :: s -&gt; (a,s) }
+
+instance Monad (State s) where
+    return a = State $ \s -&gt; (a, s)
+
+    (State h) &gt;&gt;= f = State $ \s -&gt;
+        let
+            (a, newState) = h s
+            (State g) = f a
+        in
+            g newState
+
+pop = State $ (\(a:s) -&gt; (a,s))</pre><br/>上記の定義に対して以下のようなプログラムを実行します。<br/><pre>steps :: State [Int] Int
+steps = do
+    a &lt;- pop
+    return a
+
+f = runState steps [1..5]</pre><br/>結果は以下の通りです。(hugs)<br/><pre>Main&gt; :set +t
+Main&gt; :l b.hs
+Main&gt; f
+(1,[2,3,4,5]) :: (Int,[Int])</pre><br/>動作自体は理解できたのですが、`a &lt;- pop` により値 (Int) が束縛される理由がわかりません。<br/><br/>Maybe モナドで考えて <code>a &lt;- Just a</code> の場合は <code>Just</code> が外れて <code>a</code> が取り出されている。と理解しやすいです。<br/>また、`(a, s) &lt;- pop` であった場合は <code>Monad (State s)</code> の定義と矛盾するような気がするので、違うのかと考えています。<br/><br/>モナド値 State s <code>a</code> の場合、`a` の位置にあるものが <code>&lt;-</code> により取り出される。<br/>のだと思いますが、そういうものと考えてしまって良いものでしょうか ?</div>
+          <a class="link-to-replies" href="25/1721621462.260059.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/24.html" class="item">Previous</a>

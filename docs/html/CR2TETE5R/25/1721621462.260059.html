@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #25 at 2024-07-22 13:11:02 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #25 at 2024-07-22 13:11:02 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1721621462.260059">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1721621462.260059">2024-07-22 13:11:02 +0900</a></div>
+          </div>
+          <div class="description">モナドでの <code>&lt;-</code>  の挙動について質問させてください。<br/><br/>State s モナドを例にとります。<br/><pre>newtype State s a = State { runState :: s -&gt; (a,s) }
+
+instance Monad (State s) where
+    return a = State $ \s -&gt; (a, s)
+
+    (State h) &gt;&gt;= f = State $ \s -&gt;
+        let
+            (a, newState) = h s
+            (State g) = f a
+        in
+            g newState
+
+pop = State $ (\(a:s) -&gt; (a,s))</pre><br/>上記の定義に対して以下のようなプログラムを実行します。<br/><pre>steps :: State [Int] Int
+steps = do
+    a &lt;- pop
+    return a
+
+f = runState steps [1..5]</pre><br/>結果は以下の通りです。(hugs)<br/><pre>Main&gt; :set +t
+Main&gt; :l b.hs
+Main&gt; f
+(1,[2,3,4,5]) :: (Int,[Int])</pre><br/>動作自体は理解できたのですが、`a &lt;- pop` により値 (Int) が束縛される理由がわかりません。<br/><br/>Maybe モナドで考えて <code>a &lt;- Just a</code> の場合は <code>Just</code> が外れて <code>a</code> が取り出されている。と理解しやすいです。<br/>また、`(a, s) &lt;- pop` であった場合は <code>Monad (State s)</code> の定義と矛盾するような気がするので、違うのかと考えています。<br/><br/>モナド値 State s <code>a</code> の場合、`a` の位置にあるものが <code>&lt;-</code> により取り出される。<br/>のだと思いますが、そういうものと考えてしまって良いものでしょうか ?</div>
+        </div>
+      </div>
+      <div class="event" id="message-1721634349.478479">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1721634349.478479">2024-07-22 16:45:49 +0900</a></div>
+          </div>
+          <div class="description">結論から言うと「モナド値 State s <code>a</code> の場合、`a` の位置にあるものが <code>&lt;-</code> により取り出される。」という認識で問題ないです。<br/><br/>件の <code>do</code> 記法による定義を脱糖すると<br/><code>steps = pop &gt;&gt;= \a -&gt; return a</code><br/>となります。<br/>で、 <code>State</code> の <code>&gt;&gt;=</code> の定義を見ると、右辺に渡した関数 <code>f</code> 、この場合 <code>\a -&gt; return a</code> の引数として渡しているのは、左辺にある <code>State h</code> というパターンマッチで取り出された <code>h</code> の結果 <code>(a, newState)</code> の <code>a</code> なのでタプルの一つ目の要素 <code>a</code> です。<br/>これを <code>pop</code> に当てはめると<br/><code>pop = State $ (\(a:s) -&gt; (a,s))</code><br/>という定義なので、結果である <code>(a,s)</code> の <code>a</code> が <code>&lt;-</code> によって束縛される、という説明でよいでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1721637299.916519">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1721637299.916519">2024-07-22 17:34:59 +0900</a></div>
+          </div>
+          <div class="description">@igrep<br/>理屈から言えば、そーなんだろうな。と漠然とは考えられたのですが、Maybe モナドのように値が単独で存在せず、タプルの中の値になってしまっていたので、なんでこんな風に動作するんだろう<br/>と、考えてしまいました。<br/><br/>タプルの中の値であっても、`a &lt;-` により、束縛されている値が取得できる。という認識が間違っていなくて安心しました。<br/><br/>丁寧に解説までしていただき、ありがとうございました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+  </div>
+</body>
+</html>

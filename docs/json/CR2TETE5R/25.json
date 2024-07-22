@@ -142,5 +142,11 @@
         "text": "関数モナドについて調べてみたのですが、理解できなかったので質問させてください。\n\n```instance Monad ((->) r) where\n    return = const\n    h >>= f = \\w -> f (h w) w```\nこれを使用したときに以下のようになると思います。\n```ghci> f = (+1) >>= \\a -> (+2) >>= \\b -> return (a+b)\nf :: Num b => b -> b\nghci> f 1\n5\nit :: Num b => b```\n上記の場合 `h w` は `(+1) 1` に置き換えられると考えています。\n同様に、`f (h w) w` を単純に置き換えると `(+2) ((+1) 1) 1` になってしまいますが\nおかしいのは理解できています。\n\nこれはどのように考えたらよいのでしょうか ?",
         "type": "message",
         "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1721621462.260059",
+        "text": "モナドでの `&lt;-`  の挙動について質問させてください。\n\nState s モナドを例にとります。\n```newtype State s a = State { runState :: s -&gt; (a,s) }\n\ninstance Monad (State s) where\n    return a = State $ \\s -&gt; (a, s)\n\n    (State h) &gt;&gt;= f = State $ \\s -&gt;\n        let\n            (a, newState) = h s\n            (State g) = f a\n        in\n            g newState\n\npop = State $ (\\(a:s) -&gt; (a,s))```\n上記の定義に対して以下のようなプログラムを実行します。\n```steps :: State [Int] Int\nsteps = do\n    a &lt;- pop\n    return a\n\nf = runState steps [1..5]```\n結果は以下の通りです。(hugs)\n```Main&gt; :set +t\nMain&gt; :l b.hs\nMain&gt; f\n(1,[2,3,4,5]) :: (Int,[Int])```\n動作自体は理解できたのですが、`a &lt;- pop` により値 (Int) が束縛される理由がわかりません。\n\nMaybe モナドで考えて `a &lt;- Just a` の場合は `Just` が外れて `a` が取り出されている。と理解しやすいです。\nまた、`(a, s) &lt;- pop` であった場合は `Monad (State s)` の定義と矛盾するような気がするので、違うのかと考えています。\n\nモナド値 State s `a` の場合、`a` の位置にあるものが `&lt;-` により取り出される。\nのだと思いますが、そういうものと考えてしまって良いものでしょうか ?",
+        "type": "message",
+        "user": "U04MBBNV5QB"
     }
 ]
