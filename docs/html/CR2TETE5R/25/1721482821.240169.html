@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #25 at 2024-07-20 22:40:21 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #25 at 2024-07-20 22:40:21 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1721482821.240169">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1721482821.240169">2024-07-20 22:40:21 +0900</a></div>
+          </div>
+          <div class="description">関数モナドについて調べてみたのですが、理解できなかったので質問させてください。<br/><br/><pre>instance Monad ((->) r) where
+    return = const
+    h >>= f = \w -> f (h w) w</pre><br/>これを使用したときに以下のようになると思います。<br/><pre>ghci> f = (+1) >>= \a -> (+2) >>= \b -> return (a+b)
+f :: Num b => b -> b
+ghci> f 1
+5
+it :: Num b => b</pre><br/>上記の場合 <code>h w</code> は <code>(+1) 1</code> に置き換えられると考えています。<br/>同様に、`f (h w) w` を単純に置き換えると <code>(+2) ((+1) 1) 1</code> になってしまいますが<br/>おかしいのは理解できています。<br/><br/>これはどのように考えたらよいのでしょうか ?</div>
+        </div>
+      </div>
+      <div class="event" id="message-1721522280.706079">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1721522280.706079">2024-07-21 09:38:00 +0900</a></div>
+          </div>
+          <div class="description">どう展開したら正しくなるかまだ私自身分かってないですが、 <code>f</code> の定義のうち後半の <code>&gt;&gt;= \b -&gt; return (a+b)</code> の部分を展開していないので <code>f</code> はそのように置き換えられないと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1721522561.544749">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1721522561.544749">2024-07-21 09:42:41 +0900</a></div>
+          </div>
+          <div class="description">ああー、そうか。 <code>f</code> って識別子が二つあるから私が質問の意図を誤解してるかも。答えになってなかったらごめんなさい。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1721524803.823159">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1721524803.823159">2024-07-21 10:20:03 +0900</a></div>
+          </div>
+          <div class="description">@igrep<br/>ありがとうございます。<br/><br/>はい。Reader モナドであれば (h w) を引数に <code>f</code> から <code>(+2)</code> を取り出してそれが引数に適用されると素直に考えられるのですが、この場合はうまく適用して考えられませんでした。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1721526875.325199">
+        <div class="content">
+          <div class="summary">
+            <div class="user">gemmaro</div>
+            <div class="date"><a class="date" href="#message-1721526875.325199">2024-07-21 10:54:35 +0900</a></div>
+          </div>
+          <div class="description">（GHCiでの定義の）`f`には2つのバインド (`&gt;&gt;=`) があります。<br/>まず左のバインドで定義を使って置き換えると、`h`は <code>(+ 1)</code> に、（バインドの定義の）`f`は仮引数`a`を取るラムダ式です。<br/>いま`1`に（GHCiでの定義の）`f`を適用しているため、たしかに`h w`は`(+ 1) 1`に置き換わります。<br/><br/>「同様に」のところを考えます。<br/>ここまでで`f 1`は<br/><pre>   (\a -&gt; (+ 2) &gt;&gt;= \b -&gt; return (a + b)) ((+ 1) 1) 1
+--  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre><br/>で、波線部分が（バインドの定義の）`f`だったところです。<br/>これはセクション <code>(+ 2)</code> にはならないため、2つ目の置き換えがまずそうです。<br/><br/>計算過程： <a href='https://pastebin.com/vrDiUVkM'>https://pastebin.com/vrDiUVkM</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1721533517.742799">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1721533517.742799">2024-07-21 12:45:17 +0900</a></div>
+          </div>
+          <div class="description">@gemmaro<br/>計算過程も作成していただき、理解しやすいです。<br/><br/>2 つ目につながるところまで考慮しなければならないのですね。<br/>頂いた pastebin の図をもとに、理解できるように再度トライしてみます。<br/><br/>丁寧な解説をありがとうございました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+  </div>
+</body>
+</html>
