@@ -59,6 +59,24 @@ Main&gt; f
           <div class="description">@igrep<br/>理屈から言えば、そーなんだろうな。と漠然とは考えられたのですが、Maybe モナドのように値が単独で存在せず、タプルの中の値になってしまっていたので、なんでこんな風に動作するんだろう<br/>と、考えてしまいました。<br/><br/>タプルの中の値であっても、`a &lt;-` により、束縛されている値が取得できる。という認識が間違っていなくて安心しました。<br/><br/>丁寧に解説までしていただき、ありがとうございました。</div>
         </div>
       </div>
+      <div class="event" id="message-1721808030.021179">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1721808030.021179">2024-07-24 17:00:30 +0900</a></div>
+          </div>
+          <div class="description">すでに分かっていたら余計なお世話かもしれませんが、<br/>まず一回Stateを使わずにタプルの2つ目で現在の状態を返すように書いてみて、それをStateを使ったものに書き換えると私はしっくり理解できました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1721814198.882379">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1721814198.882379">2024-07-24 18:43:18 +0900</a></div>
+          </div>
+          <div class="description"><code>a &lt;-</code> と書くから「取り出している」と感じてしまうけれど、実際には <code>\a -&gt;</code> なので一個の値を受け付ける関数が生成されているわけで、「後半部分が値を一個ぶんだけ受け取れるように取り計らってくれる（のがモナド）」という感じな気がしています。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../25.html" class="item">Back to beginners #25</a>
