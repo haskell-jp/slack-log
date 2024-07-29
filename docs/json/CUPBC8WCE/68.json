@@ -88,5 +88,77 @@
         "text": "Link/cut tree について調べていました。なかなか時間がかかりそうです……！",
         "type": "message",
         "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1722139276.411079",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1722139511.446129",
+        "text": "山本悠滋です。いつもどおりmakeMistakesToLearnHaskellやcabal replの件の続きをします。\n前回同様出掛けるので早めに終える予定です。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1722139573.663269",
+        "text": "平面スケッチ関数のインターフェースを\n```instance (Models a) => Models (a, a) where\n  type Res (a, a) = (Res a, Res a)\n  toList (a, b) = toList a <> toList b <&> fmap (const Proxy)\n  fromList [(a, pa), (b, pb)] = (fromList [(a, unsafeCoerce pa :: Proxy a)], fromList [(b, unsafeCoerce pb :: Proxy a)])\n  fromList _ = error \"fromList: (a, b)\"```\nのような、タプルの型をProxyに保存しつつListにするunsafeCoereceを並べてタプルで取れるようにしていたのをTemplateHaskellを使ってレコードを取れるようにしようかなと考えています",
+        "type": "message",
+        "user": "U4KNX0J3A"
+    },
+    {
+        "ts": "1722139600.215309",
+        "text": "<https://bartoszmilewski.com/2016/06/15/freeforgetful-adjunctions/|Category Theory for Programmers> (2014) Bartosz Milewski (Part Three: 19. Free/Forgetful Adjunctions ~)\nあとハシゴで <https://atcoder.jp/contests/typical90|競プロ典型 90 問> 63 日目 - Monochromatic Subgrid（★4）",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1722139734.437029",
+        "text": "haskell製CADで作られたパーツを出力するフライング進捗要員のPrusa mk4くんです",
+        "type": "message",
+        "user": "U4KNX0J3A"
+    },
+    {
+        "ts": "1722140700.675569",
+        "text": "S.K.です。少し遅くなってしまいましたが、今週もお世話になります。よろしくお願いします。\n先週に引き続き、Implementing Functional Languages: a tutorial の 4.7 Mark 6: Constant applicative forms and the code store の続きを進めていこうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1722153723.037649",
+        "text": "本日のmakeMistakesToLearnHaskellの更新:\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/c380337af4404a8ba7e789d16797821bf3840522>\ncabal replの件は、前々回くらい（？）から苦労していた、パーサーの仕様を変えてからテストが落ちるようになったのを少し直せましたが、依然としてデバッグしにくくてよくわからん感じです:weary:\n出掛けるので今日はここまで！",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1722157227.663769",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1722157792.180119",
+        "text": "Category Theory for Programmers (Part Three: 19. Free/Forgetful Adjunctions ~ 20. Monads: Programmer's Definition) まで読了　Free ⊣ Forgetful の随伴は *Mon* ⊣ *Set* に限らず他の随伴に随所に現れるらしい　次いで例のモナモナの monad が Kleisli Category の endofunctor として導入される　ご親切に Haskell programmers のために Writer monad を例にとり詳説されている　monad は初学者には驚愕の（見たことがナイための）難解さだが　そのうちに分かる人には分かる　としか言えない\n競プロ典型 90 問 63 日目 - Monochromatic Subgrid（★4）　バカサーチしか思いつかない（当然の結果 TLE）　空しいので五輪競技観賞に逃避してる",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1722157803.336039",
+        "text": "```data Hoge = Hoge\n  { honi :: Polygon,\n    fuwa :: Point,\n    poyo :: Polygon\n  }```\nのようなSketchから返す型が入ったレコード型から\n```data HogeRes = HogeRes\n  { honi :: Model2d,\n    fuwa :: Vector2d,\n    poyo :: Model2d\n  }```\nのようなOpenSCADに渡すレコード型を生成するくんが生えました\n残りの詰め替え処理が重いのでまず何かしらリファクタをするべきかと悩んでいます",
+        "type": "message",
+        "user": "U4KNX0J3A"
+    },
+    {
+        "ts": "1722158404.297249",
+        "text": "先週に続き、ex.4.30 にトライしていました。\n先週見つかった不具合のうち、リスト出力が必要なプログラムが出力前に終了してしまう原因は、compiledPrimitives に登録した topCont, headCont のコードを間違えていたことが原因でした。\nそれぞれの中でお互いを呼び出すときにインデックス番号を指定するのですが、それが逆でした。お恥ずかしい。\nそのバグを修正したら、とりあえず既存のテストプログラムは一通り以前と同じ結果が得られました。今回はステップ数も変化なしです。これでいいのだろうかという不安で満たされています。\n最初のコンパイル結果表示の際に名前を表示できない不具合はまだ対応できていません。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1722177583.484919",
+        "text": "延長戦　とりあえずほしいやつが生えてコンパイル通ったので勝利",
+        "type": "message",
+        "user": "U4KNX0J3A"
     }
 ]

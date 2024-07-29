@@ -157,6 +157,126 @@ obj = do
           <div class="description">Link/cut tree について調べていました。なかなか時間がかかりそうです……！</div>
         </div>
       </div>
+      <div class="event" id="message-1722139276.411079">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1722139276.411079">2024-07-28 13:01:16 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1722139511.446129">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1722139511.446129">2024-07-28 13:05:11 +0900</a></div>
+          </div>
+          <div class="description">山本悠滋です。いつもどおりmakeMistakesToLearnHaskellやcabal replの件の続きをします。<br/>前回同様出掛けるので早めに終える予定です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1722139573.663269">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tsukimizake</div>
+            <div class="date"><a class="date" href="#message-1722139573.663269">2024-07-28 13:06:13 +0900</a></div>
+          </div>
+          <div class="description">平面スケッチ関数のインターフェースを<br/><pre>instance (Models a) => Models (a, a) where
+  type Res (a, a) = (Res a, Res a)
+  toList (a, b) = toList a <> toList b <&> fmap (const Proxy)
+  fromList [(a, pa), (b, pb)] = (fromList [(a, unsafeCoerce pa :: Proxy a)], fromList [(b, unsafeCoerce pb :: Proxy a)])
+  fromList _ = error "fromList: (a, b)"</pre><br/>のような、タプルの型をProxyに保存しつつListにするunsafeCoereceを並べてタプルで取れるようにしていたのをTemplateHaskellを使ってレコードを取れるようにしようかなと考えています</div>
+        </div>
+      </div>
+      <div class="event" id="message-1722139600.215309">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1722139600.215309">2024-07-28 13:06:40 +0900</a></div>
+          </div>
+          <div class="description"><https://bartoszmilewski.com/2016/06/15/freeforgetful-adjunctions/|Category Theory for Programmers> (2014) Bartosz Milewski (Part Three: 19. Free/Forgetful Adjunctions ~)<br/>あとハシゴで <https://atcoder.jp/contests/typical90|競プロ典型 90 問> 63 日目 - Monochromatic Subgrid（★4）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1722139734.437029">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tsukimizake</div>
+            <div class="date"><a class="date" href="#message-1722139734.437029">2024-07-28 13:08:54 +0900</a></div>
+          </div>
+          <div class="description">haskell製CADで作られたパーツを出力するフライング進捗要員のPrusa mk4くんです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1722140700.675569">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1722140700.675569">2024-07-28 13:25:00 +0900</a></div>
+          </div>
+          <div class="description">S.K.です。少し遅くなってしまいましたが、今週もお世話になります。よろしくお願いします。<br/>先週に引き続き、Implementing Functional Languages: a tutorial の 4.7 Mark 6: Constant applicative forms and the code store の続きを進めていこうと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1722153723.037649">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1722153723.037649">2024-07-28 17:02:03 +0900</a></div>
+          </div>
+          <div class="description">本日のmakeMistakesToLearnHaskellの更新:<br/><a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/c380337af4404a8ba7e789d16797821bf3840522'>https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/c380337af4404a8ba7e789d16797821bf3840522</a><br/>cabal replの件は、前々回くらい（？）から苦労していた、パーサーの仕様を変えてからテストが落ちるようになったのを少し直せましたが、依然としてデバッグしにくくてよくわからん感じです:weary:<br/>出掛けるので今日はここまで！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1722157227.663769">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1722157227.663769">2024-07-28 18:00:27 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1722157792.180119">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1722157792.180119">2024-07-28 18:09:52 +0900</a></div>
+          </div>
+          <div class="description">Category Theory for Programmers (Part Three: 19. Free/Forgetful Adjunctions ~ 20. Monads: Programmer's Definition) まで読了　Free ⊣ Forgetful の随伴は *Mon* ⊣ *Set* に限らず他の随伴に随所に現れるらしい　次いで例のモナモナの monad が Kleisli Category の endofunctor として導入される　ご親切に Haskell programmers のために Writer monad を例にとり詳説されている　monad は初学者には驚愕の（見たことがナイための）難解さだが　そのうちに分かる人には分かる　としか言えない<br/>競プロ典型 90 問 63 日目 - Monochromatic Subgrid（★4）　バカサーチしか思いつかない（当然の結果 TLE）　空しいので五輪競技観賞に逃避してる</div>
+        </div>
+      </div>
+      <div class="event" id="message-1722157803.336039">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tsukimizake</div>
+            <div class="date"><a class="date" href="#message-1722157803.336039">2024-07-28 18:10:03 +0900</a></div>
+          </div>
+          <div class="description"><pre>data Hoge = Hoge
+  { honi :: Polygon,
+    fuwa :: Point,
+    poyo :: Polygon
+  }</pre><br/>のようなSketchから返す型が入ったレコード型から<br/><pre>data HogeRes = HogeRes
+  { honi :: Model2d,
+    fuwa :: Vector2d,
+    poyo :: Model2d
+  }</pre><br/>のようなOpenSCADに渡すレコード型を生成するくんが生えました<br/>残りの詰め替え処理が重いのでまず何かしらリファクタをするべきかと悩んでいます</div>
+        </div>
+      </div>
+      <div class="event" id="message-1722158404.297249">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1722158404.297249">2024-07-28 18:20:04 +0900</a></div>
+          </div>
+          <div class="description">先週に続き、ex.4.30 にトライしていました。<br/>先週見つかった不具合のうち、リスト出力が必要なプログラムが出力前に終了してしまう原因は、compiledPrimitives に登録した topCont, headCont のコードを間違えていたことが原因でした。<br/>それぞれの中でお互いを呼び出すときにインデックス番号を指定するのですが、それが逆でした。お恥ずかしい。<br/>そのバグを修正したら、とりあえず既存のテストプログラムは一通り以前と同じ結果が得られました。今回はステップ数も変化なしです。これでいいのだろうかという不安で満たされています。<br/>最初のコンパイル結果表示の際に名前を表示できない不具合はまだ対応できていません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1722177583.484919">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tsukimizake</div>
+            <div class="date"><a class="date" href="#message-1722177583.484919">2024-07-28 23:39:43 +0900</a></div>
+          </div>
+          <div class="description">延長戦　とりあえずほしいやつが生えてコンパイル通ったので勝利</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CUPBC8WCE/67.html" class="item">Previous</a>
