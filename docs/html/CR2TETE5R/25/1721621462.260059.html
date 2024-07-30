@@ -86,6 +86,73 @@ Main&gt; f
           <div class="description">@<br/>ありがとうございます。<br/><br/><blockquote>Stateを使わずにタプルの2つ目で現在の状態を返すように書いてみて</blockquote>について、やってみようとしましたが出来ませんでした :smiling_face_with_tear:<br/><br/>もし、面倒でなければ可能であれば簡単に具体例を書いていただけると助かります</div>
         </div>
       </div>
+      <div class="event" id="message-1722247880.132789">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1722247880.132789">2024-07-29 19:11:20 +0900</a></div>
+          </div>
+          <div class="description">@ai-ou<br/><br/>例えばタプルの2つ目の変数で現在のスタックの状態を表そうとすると以下のような方法が考えられます。<br/><br/><pre>popT :: [Int] -&gt; (Int, [Int])
+popT (a : s) = (a, s)
+
+pushT :: Int -&gt; [Int] -&gt; ((), [Int])
+pushT a s = ((), a : s)
+
+stepsT :: [Int] -&gt; ((), [Int])
+stepsT world0 =
+  let (a, world1) = popT world0
+      ((), world2) = pushT (a * 2) world1
+  in ((), world2)</pre><br/>これは一つの関数を実行するたびにworld引数を書き換えないといけないので面倒くさいですし、ミスしやすいという考えもあります。<br/><br/>そこでそちらが書いていたようにStateを定義してやるとスッキリと収まり各関数もStateに渡すだけです。<br/><br/><pre>newtype State s a
+  = State
+  { runState :: s -&gt; (a, s)
+  }
+
+instance Functor (State s) where
+  fmap f (State h) = State $ \s -&gt;
+    let (a, newState) = h s
+    in (f a, newState)
+
+instance Applicative (State s) where
+  pure a = State (a, )
+
+  (State f) &lt;*&gt; (State g) = State $ \s -&gt;
+    let (h, newState) = f s
+        (a, newerState) = g newState
+    in (h a, newerState)
+
+instance Monad (State s) where
+  (State h) &gt;&gt;= f = State $ \s -&gt;
+    let (a, newState) = h s
+        (State g) = f a
+    in g newState
+
+pop :: State [Int] Int
+pop = State popT
+
+push :: Int -&gt; State [Int] ()
+push = State . pushT
+
+steps :: State [Int] ()
+steps = do
+  a &lt;- pop
+  push (a * 2)
+
+f :: ((), [Int])
+f = runState steps [1 .. 5]
+
+main :: IO ()
+main = print f</pre><br/><code>steps</code> がだいぶスッキリした見た目になりました。<br/>worldの更新は内部で <code>&gt;&gt;=</code> で行っていれば同じになりますし、 <code>runState</code> すると型が元の形式と同じになります。<br/>私はこのステップを踏むとすんなり理解できたので、参考になると幸いです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1722260316.584999">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1722260316.584999">2024-07-29 22:38:36 +0900</a></div>
+          </div>
+          <div class="description">@<br/>最初のコードに合わせてサンプルを作成していただき、理解しやすいです。<br/>すぐには飲み込めませんが、いただいたコードを熟読して理解に努めます。<br/><br/>丁寧にご回答いただきありがとうございました。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../25.html" class="item">Back to beginners #25</a>

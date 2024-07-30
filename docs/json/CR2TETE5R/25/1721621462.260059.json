@@ -34,5 +34,17 @@
         "text": "<@U57CUMWQ6>\nありがとうございます。\n\n&gt; Stateを使わずにタプルの2つ目で現在の状態を返すように書いてみて\nについて、やってみようとしましたが出来ませんでした :smiling_face_with_tear:\n\nもし、面倒でなければ可能であれば簡単に具体例を書いていただけると助かります",
         "type": "message",
         "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1722247880.132789",
+        "text": "<@U04MBBNV5QB>\n\n例えばタプルの2つ目の変数で現在のスタックの状態を表そうとすると以下のような方法が考えられます。\n\n```popT :: [Int] -&gt; (Int, [Int])\npopT (a : s) = (a, s)\n\npushT :: Int -&gt; [Int] -&gt; ((), [Int])\npushT a s = ((), a : s)\n\nstepsT :: [Int] -&gt; ((), [Int])\nstepsT world0 =\n  let (a, world1) = popT world0\n      ((), world2) = pushT (a * 2) world1\n  in ((), world2)```\nこれは一つの関数を実行するたびにworld引数を書き換えないといけないので面倒くさいですし、ミスしやすいという考えもあります。\n\nそこでそちらが書いていたようにStateを定義してやるとスッキリと収まり各関数もStateに渡すだけです。\n\n```newtype State s a\n  = State\n  { runState :: s -&gt; (a, s)\n  }\n\ninstance Functor (State s) where\n  fmap f (State h) = State $ \\s -&gt;\n    let (a, newState) = h s\n    in (f a, newState)\n\ninstance Applicative (State s) where\n  pure a = State (a, )\n\n  (State f) &lt;*&gt; (State g) = State $ \\s -&gt;\n    let (h, newState) = f s\n        (a, newerState) = g newState\n    in (h a, newerState)\n\ninstance Monad (State s) where\n  (State h) &gt;&gt;= f = State $ \\s -&gt;\n    let (a, newState) = h s\n        (State g) = f a\n    in g newState\n\npop :: State [Int] Int\npop = State popT\n\npush :: Int -&gt; State [Int] ()\npush = State . pushT\n\nsteps :: State [Int] ()\nsteps = do\n  a &lt;- pop\n  push (a * 2)\n\nf :: ((), [Int])\nf = runState steps [1 .. 5]\n\nmain :: IO ()\nmain = print f```\n`steps` がだいぶスッキリした見た目になりました。\nworldの更新は内部で `&gt;&gt;=` で行っていれば同じになりますし、 `runState` すると型が元の形式と同じになります。\n私はこのステップを踏むとすんなり理解できたので、参考になると幸いです。",
+        "type": "message",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "ts": "1722260316.584999",
+        "text": "<@U57CUMWQ6>\n最初のコードに合わせてサンプルを作成していただき、理解しやすいです。\nすぐには飲み込めませんが、いただいたコードを熟読して理解に努めます。\n\n丁寧にご回答いただきありがとうございました。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
     }
 ]
