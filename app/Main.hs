@@ -25,7 +25,6 @@ import           Control.Applicative      ((<|>))
 import           Control.Arrow            as Arrow
 import           Control.Exception        (bracket)
 import           Control.Monad            (unless, when)
-import           Control.Monad.Catch      (throwM)
 import           Control.Monad.IO.Class   (liftIO)
 import           Control.Monad.Reader     (ReaderT, ask, runReaderT)
 import qualified Data.Aeson.Encode.Pretty as Json
@@ -52,8 +51,8 @@ import           System.IO                (BufferMode (NoBuffering), hGetEcho,
                                            hSetEcho, stderr, stdin, stdout)
 import qualified Web.Slack                as Slack
 import qualified Web.Slack.Common         as Slack
-import           Web.Slack.Conversation   (ConversationId (ConversationId, unConversationId))
 import qualified Web.Slack.Conversation   as Conversation
+import           Web.Slack.Conversation   (ConversationId (ConversationId, unConversationId))
 import qualified Web.Slack.Pager          as Slack
 import qualified Web.Slack.User           as User
 
@@ -163,8 +162,17 @@ saveReplies Config { saveRepliesBefore = Duration before } now convId = do
               , Conversation.repliesReqOldest = Just tLatestTs
               }
         loadPage <- Slack.repliesFetchAll repliesReq
-        Slack.loadingPage loadPage $
-          either throwM (return . dropThreadMessage threadId)
+        Slack.loadingPage loadPage $ \epage ->
+          case epage of
+            Right msgs ->
+              return $ dropThreadMessage threadId msgs
+            Left err -> liftIO $ do
+              hPutStrLn stderr
+                $ "WARNING: Error when fetching replies in :"
+                ++ show (Slack.slackTimestampTs threadId)
+                ++ ":"
+              hPrint stderr err
+              return []
       appendToThreadFile convId tPath tFirstMessage tMessages toAppend
 
 
