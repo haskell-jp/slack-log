@@ -1,26 +1,32 @@
 [
     {
-        "ts": "1722411011.228429",
         "text": "困っている。ということではないのですが、質問させてください。\n\n関数に引数が適用され、展開されていく様子を見られるようなツールのようなものは存在しますか ?\n具体的には、以下のようなものがあったらと思っています。\n\n[入力]\n```foldr (+) 0 [1..3]```\n[出力]\n```foldr ( (+) 1 0 ) 0 (2:3:[])\nfoldr ( (+) ((+) 1 0) 2 ) 0 (3:[])\nfoldr ( (+) ((+) ((+) 1 0) 2) 3 ) 0 ([])\nfoldr ( (+) ((+) 1 2) 3 ) 0 ([])\nfoldr ( (+) 3 3 ) 0 ([])\n\n--&gt; 6```\n",
         "type": "message",
+        "ts": "1722411011.228429",
         "user": "U04MBBNV5QB"
     },
     {
-        "ts": "1722411559.521859",
         "text": "私自身使ったことがないのでちゃんと動くか分かりませんがこれとかどうですか。\n<https://dennis.felsing.org/ghc-vis/>\nちょっとオーバーキルかな？",
         "type": "message",
+        "ts": "1722411559.521859",
         "user": "U4LGTMTMK"
     },
     {
-        "ts": "1722412015.164309",
         "text": "いつもご回答いただきありがとうございます :man-bowing:\n\n少し見てみましたが、オーバーキル。と言われた意味がわかりました :sweat_drops:\n\n使いこなせるものか、もう少し調べてみます。",
         "type": "message",
+        "ts": "1722412015.164309",
         "user": "U04MBBNV5QB"
     },
     {
-        "ts": "1722468607.789429",
         "text": "これがあるのを思い出しました！\n<https://well-typed.com/blog/2017/09/visualize-cbn/>\nまた私自身試してないもので恐縮ですが、実際のところHaskellのサブセットのようですが、十分目的は達成できるはずです。",
         "type": "message",
+        "ts": "1722468607.789429",
         "user": "U4LGTMTMK"
+    },
+    {
+        "text": "`stack install visualize-cbn` でインストールできてしまったので\n試してみたところ、サブセットという意味がわかりました :sweat_drops:\n\n```fac = (\\n -&gt;\n    if le n 1\n      then 1\n      else mul (@fac (sub n 1)) n\n  )\n\nmain = @fac 1```\nこれが\n\n```ubuntu@vm1:~/visualize-cbn$ ~/.local/bin/visualize-cbn -i examples/fac.hs --show-trace\n** 0\nfac = \\n -&gt; if n &lt;= 1\n              then 1\n              else fac (n - 1) * n\nfac 1\n\n(apply fac)\n...\n\n** 3\nfac = \\n -&gt; if n &lt;= 1\n              then 1\n              else fac (n - 1) * n\n1\n\n(whnf)```\nこんな風に展開されていく様子が観察できました。\n情報ありがとうございました :man-bowing:",
+        "type": "message",
+        "ts": "1722500949.307069",
+        "user": "U04MBBNV5QB"
     }
 ]
