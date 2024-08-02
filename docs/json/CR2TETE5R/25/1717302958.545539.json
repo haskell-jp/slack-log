@@ -1,224 +1,224 @@
 [
     {
-        "ts": "1717302958.545539",
         "text": "早速相談したいことが出たので、質問させて下さい:bow:\n`stack new stack240529`というコマンドで新規プロジェクトを作成したのですが、\n新規作成したコードをVSCodeで開いたところ、\n`./app/Main.hs`の3行目でimportエラーがでてしまっています。\nこちらの件、何か解決方法とかあるのでしょうか？\n\n参考までに`stack`と`hls`はghcupというツールを使ってインストールしました。",
         "type": "message",
+        "ts": "1717302958.545539",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1717303357.207069",
         "text": "`app/Main.hs` はどんな内容で、具体的にどんなエラーメッセージが出ていますか？",
         "type": "message",
+        "ts": "1717303357.207069",
         "user": "U4LGTMTMK"
     },
     {
-        "ts": "1717303456.832859",
         "text": "すみません、画像を添付し忘れていました:man-bowing:\n\n```Could not find module 'Lib'\nIt is not a module in the current program, or in any known package.not found```\nと出ています。",
         "type": "message",
+        "ts": "1717303456.832859",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1717303644.305459",
         "text": "Lib.hs と、 `stack240529.cabal` 、あるいは `package.yaml` というファイルが stack240529 フォルダーにあると思うので、それらの内容も見せてください。\n `Main.sh` についてはもういいですが、なるべくこういう時はスクリーンショットではなく直接ソースコードをコピペして貼り付けて頂けたほうが見やすいです。",
         "type": "message",
+        "ts": "1717303644.305459",
         "user": "U4LGTMTMK"
     },
     {
+        "text": "",
+        "type": "message",
         "ts": "1717303851.793919",
-        "text": "",
-        "type": "message",
         "user": "U075MF7TX8T"
     },
     {
+        "text": "",
+        "type": "message",
         "ts": "1717303888.993559",
-        "text": "",
-        "type": "message",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1717304007.814699",
         "text": "`stack240529.cabal`と`package.yaml`を共有致します。\n今後質問する際はキャプチャではなくコードを貼り付けるようにします。\n\n宜しくお願いいたします。",
         "type": "message",
+        "ts": "1717304007.814699",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1717304117.066609",
         "text": "`stack240529` ディレクトリーでターミナルを起動して、 `stack build` すると何が起こりますか？",
         "type": "message",
+        "ts": "1717304117.066609",
         "user": "U4LGTMTMK"
     },
     {
-        "ts": "1717304581.490519",
         "text": "`stack build`\nの出力結果をお乗せします(一部、ソースの絶対パスが表示されている点がお見苦しくはございますが…:sweat:)\n```stack240529-0.1.0.0: unregistering (local file changes: src/Lib.hs)\nstack240529> build (lib + exe)\nPreprocessing library for stack240529-0.1.0.0..\nBuilding library for stack240529-0.1.0.0..\n[1 of 2] Compiling Lib [Source file changed]\nPreprocessing executable 'stack240529-exe' for stack240529-0.1.0.0..\nBuilding executable 'stack240529-exe' for stack240529-0.1.0.0..\n[1 of 2] Compiling Main [Lib changed]\n[3 of 3] Linking .stack-work/dist/x86_64-osx/ghc-9.6.5/build/stack240529-exe/stack240529-exe [Objects changed]\nstack240529> copy/register\nInstalling library in /Users/k27c8/programming/haskell/trashes/stack240529/.stack-work/install/x86_64-osx/bd60a721f36c15ba72f8d53b5721206fd16e3350ae93c50f5546ebbc154023bd/9.6.5/lib/x86_64-osx-ghc-9.6.5/stack240529-0.1.0.0-9G2GUYl0sGoBeBlWIHWMjM\nInstalling executable stack240529-exe in /Users/k27c8/programming/haskell/trashes/stack240529/.stack-work/install/x86_64-osx/bd60a721f36c15ba72f8d53b5721206fd16e3350ae93c50f5546ebbc154023bd/9.6.5/bin\nRegistering library for stack240529-0.1.0.0..```\nなお`stack run`コマンドを実行したら、正常に動作するので、ビルドは正しく動いているようです:thinking_face:",
         "type": "message",
+        "ts": "1717304581.490519",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1717304989.437249",
         "text": "まだ `Main.hs` で同様のエラーは出てますか？",
         "type": "message",
+        "ts": "1717304989.437249",
         "user": "U4LGTMTMK"
     },
     {
-        "ts": "1717305074.979489",
         "text": "はい、未だVSCodeでエラーが起きます。\n\nbuildは通るのですがVSCode上では赤字が表示されるというのが今回の気になるところ…:thinking_face:",
         "type": "message",
+        "ts": "1717305074.979489",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1717305670.779729",
         "text": "うーん、単純にビルドができてないからだと思いましたが（私自身似たような経験があったので）、違う、と。分かりませんなぁ",
         "type": "message",
+        "ts": "1717305670.779729",
         "user": "U4LGTMTMK"
     },
     {
-        "ts": "1717306238.362059",
         "text": "もしかしたらバージョンの違いもありあすでしょうか:thinking_face:\n皆様はどのバージョンを使っていますか？\n\nちなみに自分は\n• ghc ・・・ 9.6.5\n• stack ・・・ 2.13.1\n• hls ・・・ 2.7.0.0\nです。",
         "type": "message",
+        "ts": "1717306238.362059",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1717307083.494519",
         "text": "`stack path --compiler-bin` と `which ghc-9.6.5` （あるいはWindowsであれば `gcm ghc-9.6.5` ）したらどんな結果が返ってきますか？\n:warning: こんなタイミングですがこれから外出するので少し返答遅れます。",
         "type": "message",
+        "ts": "1717307083.494519",
         "user": "U4LGTMTMK"
     },
     {
-        "ts": "1717307442.642169",
         "text": "こちらが結果になります\n`stack path --compiler-bin` :\n```${HOME}/.stack/programs/x86_64-osx/ghc-9.6.5/bin```\n`which ghc-9.6.5` :\n```${HOME}/.ghcup/bin/ghc-9.6.5```",
         "type": "message",
+        "ts": "1717307442.642169",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1717312619.119179",
         "text": "恐らく、ghcupがインストールしたGHC（ `PATH` に入っている方のGHC）とstackがインストールしたGHC両方があるせいで混乱しちゃってますね（関連: <https://docs.haskellstack.org/en/stable/Stack_and_VS_Code/> ）。\nVS CodeがGHCupのGHCを使おうとして、stackはstackのGHCを使おうとしているせいで結果が食い違っているのではないかと思います。\n取りあえずの解決策としては、 `stack path --global-config` を実行するとstackの設定ファイルへのパスが出てくるので、そのファイルを編集して、\n```install-ghc: false\nsystem-ghc: true```\nと付け加えてください。",
         "type": "message",
+        "ts": "1717312619.119179",
         "user": "U4LGTMTMK"
     },
     {
-        "ts": "1717315565.289949",
         "text": "無事にエラーが解消されました:sob::sob::sob:\n\n正確には`~/.stack/config.yaml`を編集するだけでは直らなかったのですが、\n以下の内容\n```cradle:\n  stack:```\nの`hie.yaml` を追加することにより、解決しました(参考サイト→<https://qiita.com/ueki5/items/531b3012171927f4371f|Qiita>)。\n\n大変ありがとうございました:man-bowing:",
         "type": "message",
+        "ts": "1717315565.289949",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1717480879.766589",
         "text": "ghcup を使って環境をととのえるのがやりやすいと思います。ghcup tui で各種のツールのバージョンなどが見えますので、調整すると比較的楽にツールの調整ができます。\nただ、注意点があって、現時点では、stack new で stack.yaml に設定される resolver は、lts-22.24 で GHC 9.6.5 ですが、これがghcup で最初にインストールされる recommended つきの hls-2.7.0.0 ではサポートされません。\nghcup tui を使って hls-2.8.0.0に切り替えるとGHC 9.6.5 がサポートされるようになります。\nまた、タイミングによっては、hls の最新版あるいはrecommend版が、stackageの最新 lts がサポートするGHC のバージョンをサポートできていないことがありえます。その場合は、hlsを自分で調整してビルドするか、stack new  をつかって作成したプロジェクトのstack.yamlのresolverを調整する必要があります。\n(残念ながら、stackage にはまだ、9.10.1 のサポートがありません。9.10.1 をつかいたい場合は、stackではなくcabalを使う必要があります)\n\nhie.yaml は hls を使うときに必要です。implicit-hie パッケージをインストールすると、.cabal ファイルから hie.yaml をよしなに生成してくれる gen-hie というコマンドがインストールされるので、それを使うのがお勧めです。以下のような感じで使っています。また、package.yaml を変更したときは、.cabalファイルを変更するために、stack build をやったあとに gen-hie > hie.yaml をやっておきます。\n```$ stack new hoge\n$ cd hoge\n$ gen-hie > hie.yaml```",
         "type": "message",
+        "ts": "1717480879.766589",
         "user": "U4KU9ABL0"
     },
     {
-        "ts": "1718008883.017139",
         "text": "<@U4KU9ABL0> さん、ご指摘大変ありがとうございます。\nただ、返信に気づくのが大変遅れてしまい、申し訳ありません:man-bowing:\n\nアドバイスの内容は以下の通りでしょうか？\n1. ghcupを使った方がよい\n2. hls-2.7.0.0からhls-2.8.0.0に切り替えた方がよい\n3. hie.yamlを作成する際はgen-hieというツールを使った方が良い\n1.に関しましては、ghcupを使ってstackやhlsを入れていることは、\n既にこのスレッドの最初で述べた通りです。\n2.に関しましてですが、試しにhlsのバージョンを2.8.0.0に切り替えたのですが、\nやはり同様のエラーが起きてしまいます。\nなお、<https://haskell-jp.slack.com/archives/CR2TETE5R/p1717315565289949?thread_ts=1717302958.545539&amp;cid=CR2TETE5R|こちら>と同じようににhie.yamlファイルを書き加えたらエラーが消えました。\n3.についてですが、gen-hieは`stack install`コマンドでinstall済みではありますが、実際には使っていなかったですね。。今後使うことにします。\n\n以上、宜しくお願いいたします。",
         "type": "message",
+        "ts": "1718008883.017139",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1718342186.649529",
         "text": "stack build では問題ないが、VS Code で赤い波線が出るのはHLSがらみだと思われます。\n1. どの GHCのバージョンがどのHLSでサポートされているかを確認するには ghcup を使うのが楽。\n2. GHC-9.6.5 で使うのであれば、hls-2.8.0.0 でないとHLSのサポートが受けられない\n3. HLSのサポートを適切にうけるには hie.yaml を適切に設定する必要がある（適切なhlsのバージョンをインストールしただけでは上手くいかない）。適切な hie.yaml ためには、gen-hie を使うのが楽。\nというのが意図でした。判りにくい説明で申し訳ありませんでした。以下の簡単な記事を書きました。御笑覧ください。\n<https://zenn.dev/nobsun/articles/progenv-with-ghcup-stack-hls>",
         "type": "message",
+        "ts": "1718342186.649529",
         "user": "U4KU9ABL0"
     },
     {
-        "ts": "1718541050.021519",
         "text": "<@U075MF7TX8T> さん、今更で申し訳ないのですが、本件最終的に `hie.yaml` を作成することで解決した、とありますが、 `~/.stack/config.yaml` に\n```install-ghc: false\nsystem-ghc: true```\nを追記した時点で、エラーメッセージに何か変化があったか覚えていますか？\n\nというのも、私が予想した「ghcupがインストールしたGHCとstackがインストールしたGHCが両方あるせいで発生した」のが本当なのか確認して、記事にしようと考えています。今手元で再現ケースを作ろうと試みているのですが、予想が外れて徒労に終わる前に、念のためてぴかさんの環境でどうだったかを教えていただきたいです。もちろん覚えていればで構いません！",
         "type": "message",
+        "ts": "1718541050.021519",
         "user": "U4LGTMTMK"
     },
     {
-        "ts": "1719229419.472699",
         "text": "<@U4LGTMTMK> さん、slackをあまり開かいものでして、\n返信が遅れてしまい大変申し訳ありません:bow:\n\n`~/.stack/config.yaml` を追加した時点では特に変化はありませんでした。",
         "type": "message",
+        "ts": "1719229419.472699",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1719231242.013159",
         "text": "&gt;  今手元で再現ケースを作ろうと試みているのですが、予想が外れて徒労に終わる前に、念のためてぴかさんの環境でどうだったかを教えていただきたいです。\n現在、自分はmacbook airを使っているのですが、\nこの現象が自分の環境独自のものなのか気になったので、\ndockerのalpine上でX Window経由でVS Codeを開いてみました。\nそうしたら同様のエラーが起きました\n(dockerでの環境構築、苦労しました…:sob: )\n\nもしよろしければ、そのDockerfileを共有いたしましょうか？",
         "type": "message",
+        "ts": "1719231242.013159",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1719233481.120089",
         "text": "おお、すみません、マジか！昨日自分のMacbook Airで調べた範囲では再現しなかったので、もうこの話は終わりにしようと思っていたのですが、そうなると少し気になります。\n<https://haskell-jp.slack.com/archives/CUPBC8WCE/p1719141192964919>",
         "type": "message",
+        "ts": "1719233481.120089",
         "user": "U4LGTMTMK"
     },
     {
-        "ts": "1719240842.588829",
         "text": "少し待っててください、探してみます。。。",
         "type": "message",
+        "ts": "1719240842.588829",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1719276298.259889",
         "text": "<@U075MF7TX8T> あの、もし随分前に書いたDockerfileで、諸々のバージョンも古いとしたら、別にいいですよ。\n:point_up: で引用した私の記録の通り、最新版ではどうやら発生しないであろうことは確認できているので。",
         "type": "message",
+        "ts": "1719276298.259889",
         "user": "U4LGTMTMK"
     },
     {
-        "ts": "1719309413.064219",
         "text": "<@U4LGTMTMK>\n試しにもう一度Dockerで環境構築を行ったところ、やはり再現しました。\n以下Dockerfileと手順を記載します。",
         "type": "message",
+        "ts": "1719309413.064219",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1719309704.170009",
         "text": "1. VSCodeの本家サイト(→<https://code.visualstudio.com/Download|Link>)からvscode本体をあらかじめダウンロードし、`Dockerfile`と同じ階層に置く\n    a. Linux版をダウンロードすること\n    b. 今回は**.deb版を使用します\n2. `docker build . -t IMAGE_NAME`等のコマンドでDockerfileをビルドする\n3. Macを使っている場合、XQuartzなどのツールでXサーバーを立ち上げておき、`xhost + localhost`のコマンドを叩く\n4. 2.で作成したimageを`docker run -it --name MY_CONTAINER_NAME IMAGE_NAME bash`等のコマンドでコンテナを立ち上げる\n5. ghcupをインストール\n    a. インストール方法は本家サイトを参照(→<https://www.haskell.org/ghcup/|Link>)\n    b. (余談)Dockerfileにghcupのインストールコマンドも入れたかったが、『HLSを入れますか？』などの質問がinteractiveに来てしまいdockerのbuildが止まってしまうので、こればかりは手動でコマンドしました…\n6. ghcupコマンドでstackやhls等のツールを入れる\n    a. 一例ですが、自分は以下よう(recommended)にしました\n        ▪︎ ghc: 9.4.8\n        ▪︎ cabal: 3.10.3.0\n        ▪︎ hls: 2.7.0.0\n        ▪︎ stack: 2.15.5\n        ▪︎ ghcup: 0.1.22.0\n7. `~/.bashrc`をエディタ等で編集して`/root/.ghcup/bin`にパスを通す\n8. `stack new XXXX`で新しいプロジェクトを作る\n9. `code --no-sandbox --user-data-dir=/root/.vscode`でVSCodeを起動\n10. 9.で立ち上げたvscode上で <https://marketplace.visualstudio.com/items?itemName=mogeko.haskell-extension-pack> をインストール\n11. 「File」→「Preferences」→「Settings」でエディタの設定を開き、「Extensions」→「Haskell」で「Manage HLS」の項目をGHCupに変更\n12. vscodeで8. で作ったプロジェクトをvscode上で開く\n    a. その際に「○○をインストールしますか？」と出るので、素直に従う\n13. `XXXX/app/Main.hs`のimportの部分で赤字が表示される",
         "type": "message",
+        "ts": "1719309704.170009",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1719309887.783709",
         "text": "&gt;  dockerのalpine上でX Window経由でVS Codeを開いてみました。\nすみません、今見たらdebianでした:pleading_face:",
         "type": "message",
+        "ts": "1719309887.783709",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1719310479.195159",
         "text": "了解です。調べるのは次回のHaskell-jpもくもく会の時になるかと思いますが、やってみます。",
         "type": "message",
+        "ts": "1719310479.195159",
         "user": "U4LGTMTMK"
     },
     {
-        "ts": "1719737386.133859",
         "text": "<@U075MF7TX8T> すみません、手元のWSL 2上のDocker上の環境で試しましたが、「全く同じ」と呼べるような状況は再現しませんでした。セットアップしていて気になったんですけど、該当のプロジェクトで *`stack build` が成功した上でVS Codeを再起動*した後も問題はなくなりませんでしたか？\n\nというのも、該当のプロジェクトで `stack build` していない状態だと（発生した問題の違いこそあれ）、先週 macOS で実験した場合と今回試した場合いずれにおいても問題が発生したからです。\n\n• macOSで実験した場合: てぴかさんと似た状況で「`XXXX/app/Main.hs`のimportの部分で赤字が表示される（ただしエラーメッセージはてぴかさんが最初にこのスレで報告した「Could not find module 'Lib' It is not a module in the current program, or in any known package.not found」ではなく「Cannot satisfy ...」で始まるものでした（正確なメッセージは忘れてしまいました。悪しからず）\n• WSL 2 + Dockerで実験した場合: VS Codeの左下の箇所で「Processing: 1/3」といった内容が表示され続ける。クリックして詳細を確認すると「Source: Haskell」なる処理で固まっているらしきことがわかる",
         "type": "message",
+        "ts": "1719737386.133859",
         "user": "U4LGTMTMK"
     },
     {
-        "ts": "1719737701.654479",
         "text": "（すみません、前の発言を途中で送ってしまいました！）\n\nいずれにしても、今回てぴかさんが最初に報告した問題とは別物ですし、私が懸念した「ghcupがインストールしたGHCとstackがインストールしたGHCが両方あるせいで発生する問題」とは無関係な、 `stack build` で解決できるもののではないかと思います。",
         "type": "message",
+        "ts": "1719737701.654479",
         "user": "U4LGTMTMK"
     },
     {
-        "ts": "1719738182.968169",
         "text": "<@U4LGTMTMK>\nすみません、環境構築及び再現の試みなど、大変ありがとうございました。\n\nなるほど…承知いたしました。\n\n少なくとも、自分は「Cannot satisfy ...」というエラーは一度も確認したことがないですね。。\nDockerの上でも同様に`stack build`が成功した後も発生したと思います(少し確証がないので、後日確かめてた後にまた改めて報告致します)。\n\n(仮想環境含め、自分のマシン上だけエラーが発生してしまうのも不思議ですね…:thinking_face:)",
         "type": "message",
+        "ts": "1719738182.968169",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1719738490.187669",
         "text": ":bow: あー、すみません、あと大事なことを忘れてました。Dockerfileをいじっているのでそれも共有しておきます。修正したのは、基本的にGHCupを自動でインストールするためだったりimageのサイズを減らすためだったりなので、基本的にやってることは変わらないはずです。何か気になる点があったら教えてください\n```# To run GUI app on WSLg, you need to `docker run` with the following options:\n# docker run -it --rm -v /tmp/.X11-unix:/tmp/.X11-unix -v /mnt/wslg:/mnt/wslg -e DISPLAY -e WAYLAND_DISPLAY -e XDG_RUNTIME_DIR -e PULSE_SERVER haskell-with-vs-code bash\n# Ref. <https://stackoverflow.com/questions/73092750/how-to-show-gui-apps-from-docker-desktop-container-on-windows-11>\n\n# And to run VS Code:\n# code --no-sandbox --user-data-dir=/root/.vscode\n\nFROM debian:bookworm-slim\n\nRUN &lt;&lt;EOF\n  set -eux\n  apt-get update\n  # GUI\n  apt-get install -y ca-certificates libasound2 libatk-bridge2.0-0 libcairo2 curl libgtk-3-dev libgtk-4-dev libnss3 xdg-utils xserver-xorg x11-apps\n  apt-get clean\nEOF\n\nRUN &lt;&lt;EOF\n  set -eux\n  mkdir /work\n  cd /work\n\n  # VS Code\n  curl -L -o code_amd64.deb \"<https://code.visualstudio.com/sha/download?build=stable&amp;os=linux-deb-x64>\"\n  dpkg -i code_amd64.deb\n\n  # GHCup and etc.\n  apt-get install -y libgmp-dev libncurses-dev libncurses5\n  apt-get clean\n  curl --proto '=https' --tlsv1.2 -sSf <https://get-ghcup.haskell.org> &gt; get-ghcup.sh\n  chmod +x get-ghcup.sh\n  ## To install GHCup etc. automateically:\n  export BOOTSTRAP_HASKELL_NONINTERACTIVE=1\n  ### Align with the versions てぴか told me\n  export BOOTSTRAP_HASKELL_GHC_VERSION=9.4.8\n  export BOOTSTRAP_HASKELL_CABAL_VERSION=3.10.3.0\n  export BOOTSTRAP_HASKELL_INSTALL_HLS=1\n  export BOOTSTRAP_HASKELL_ADJUST_BASHRC=1\n  export SHELL=/bin/bash # To update PATH by ghcup\n  ./get-ghcup.sh\n  rm -r /work\nEOF\nENV DONT_PROMPT_WSL_INSTALL=1\nWORKDIR /root```",
         "type": "message",
+        "ts": "1719738490.187669",
         "user": "U4LGTMTMK"
     },
     {
-        "ts": "1719738611.124539",
         "text": "読みやすさのためにGistにも置きました <https://gist.github.com/igrep/1ad92875509f5ef84fa73c9c3c1ad3b8>",
         "type": "message",
+        "ts": "1719738611.124539",
         "user": "U4LGTMTMK"
     },
     {
-        "ts": "1719738638.432819",
         "text": "ありがとうございます！！！\nghcupは手動でインストールする、という不便さに困っていたのですが、\n参考にさせて頂きます:astonished:",
         "type": "message",
+        "ts": "1719738638.432819",
         "user": "U075MF7TX8T"
     },
     {
-        "ts": "1720014097.830589",
         "text": "<@U4LGTMTMK>\nすみません、あることに気づきました。\nそういえば、vscodeではstackプロジェクトの一つ上の階層のフォルダを開いていました。\nstack newで作成されたプロジェクトを直接VSCodeでひらけば、エラーが起きませんでした。\n\n例: `parent`フォルダ以下で`stack new myproject`コマンドを実行したとすると、作成したプロジェクトを直接開いた場合はエラが起きない(一枚目の画像)けれども、親フォルダ(今回は`parent`フォルダ)からVSCoceを開くとエラー表示される(二枚目の画像)",
         "type": "message",
+        "ts": "1720014097.830589",
         "user": "U075MF7TX8T"
     }
 ]

@@ -54,6 +54,37 @@ foldr ( (+) 3 3 ) 0 ([])
           <div class="description">これがあるのを思い出しました！<br/><a href='https://well-typed.com/blog/2017/09/visualize-cbn/'>https://well-typed.com/blog/2017/09/visualize-cbn/</a><br/>また私自身試してないもので恐縮ですが、実際のところHaskellのサブセットのようですが、十分目的は達成できるはずです。</div>
         </div>
       </div>
+      <div class="event" id="message-1722500949.307069">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1722500949.307069">2024-08-01 17:29:09 +0900</a></div>
+          </div>
+          <div class="description"><code>stack install visualize-cbn</code> でインストールできてしまったので<br/>試してみたところ、サブセットという意味がわかりました :sweat_drops:<br/><br/><pre>fac = (\n -&gt;
+    if le n 1
+      then 1
+      else mul (@fac (sub n 1)) n
+  )
+
+main = @fac 1</pre><br/>これが<br/><br/><pre>ubuntu@vm1:~/visualize-cbn$ ~/.local/bin/visualize-cbn -i examples/fac.hs --show-trace
+** 0
+fac = \n -&gt; if n &lt;= 1
+              then 1
+              else fac (n - 1) * n
+fac 1
+
+(apply fac)
+...
+
+** 3
+fac = \n -&gt; if n &lt;= 1
+              then 1
+              else fac (n - 1) * n
+1
+
+(whnf)</pre><br/>こんな風に展開されていく様子が観察できました。<br/>情報ありがとうございました :man-bowing:</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../25.html" class="item">Back to beginners #25</a>
