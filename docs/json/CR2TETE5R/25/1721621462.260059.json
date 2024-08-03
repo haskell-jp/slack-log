@@ -1,50 +1,50 @@
 [
     {
+        "ts": "1721621462.260059",
         "text": "モナドでの `&lt;-`  の挙動について質問させてください。\n\nState s モナドを例にとります。\n```newtype State s a = State { runState :: s -&gt; (a,s) }\n\ninstance Monad (State s) where\n    return a = State $ \\s -&gt; (a, s)\n\n    (State h) &gt;&gt;= f = State $ \\s -&gt;\n        let\n            (a, newState) = h s\n            (State g) = f a\n        in\n            g newState\n\npop = State $ (\\(a:s) -&gt; (a,s))```\n上記の定義に対して以下のようなプログラムを実行します。\n```steps :: State [Int] Int\nsteps = do\n    a &lt;- pop\n    return a\n\nf = runState steps [1..5]```\n結果は以下の通りです。(hugs)\n```Main&gt; :set +t\nMain&gt; :l b.hs\nMain&gt; f\n(1,[2,3,4,5]) :: (Int,[Int])```\n動作自体は理解できたのですが、`a &lt;- pop` により値 (Int) が束縛される理由がわかりません。\n\nMaybe モナドで考えて `a &lt;- Just a` の場合は `Just` が外れて `a` が取り出されている。と理解しやすいです。\nまた、`(a, s) &lt;- pop` であった場合は `Monad (State s)` の定義と矛盾するような気がするので、違うのかと考えています。\n\nモナド値 State s `a` の場合、`a` の位置にあるものが `&lt;-` により取り出される。\nのだと思いますが、そういうものと考えてしまって良いものでしょうか ?",
         "type": "message",
-        "ts": "1721621462.260059",
         "user": "U04MBBNV5QB"
     },
     {
+        "ts": "1721634349.478479",
         "text": "結論から言うと「モナド値 State s `a` の場合、`a` の位置にあるものが `&lt;-` により取り出される。」という認識で問題ないです。\n\n件の `do` 記法による定義を脱糖すると\n`steps = pop &gt;&gt;= \\a -&gt; return a`\nとなります。\nで、 `State` の `&gt;&gt;=` の定義を見ると、右辺に渡した関数 `f` 、この場合 `\\a -&gt; return a` の引数として渡しているのは、左辺にある `State h` というパターンマッチで取り出された `h` の結果 `(a, newState)` の `a` なのでタプルの一つ目の要素 `a` です。\nこれを `pop` に当てはめると\n`pop = State $ (\\(a:s) -&gt; (a,s))`\nという定義なので、結果である `(a,s)` の `a` が `&lt;-` によって束縛される、という説明でよいでしょうか？",
         "type": "message",
-        "ts": "1721634349.478479",
         "user": "U4LGTMTMK"
     },
     {
+        "ts": "1721637299.916519",
         "text": "<@U4LGTMTMK>\n理屈から言えば、そーなんだろうな。と漠然とは考えられたのですが、Maybe モナドのように値が単独で存在せず、タプルの中の値になってしまっていたので、なんでこんな風に動作するんだろう\nと、考えてしまいました。\n\nタプルの中の値であっても、`a &lt;-` により、束縛されている値が取得できる。という認識が間違っていなくて安心しました。\n\n丁寧に解説までしていただき、ありがとうございました。",
         "type": "message",
-        "ts": "1721637299.916519",
         "user": "U04MBBNV5QB"
     },
     {
+        "ts": "1721808030.021179",
         "text": "すでに分かっていたら余計なお世話かもしれませんが、\nまず一回Stateを使わずにタプルの2つ目で現在の状態を返すように書いてみて、それをStateを使ったものに書き換えると私はしっくり理解できました。",
         "type": "message",
-        "ts": "1721808030.021179",
         "user": "U57CUMWQ6"
     },
     {
+        "ts": "1721814198.882379",
         "text": "`a &lt;-` と書くから「取り出している」と感じてしまうけれど、実際には `\\a -&gt;` なので一個の値を受け付ける関数が生成されているわけで、「後半部分が値を一個ぶんだけ受け取れるように取り計らってくれる（のがモナド）」という感じな気がしています。",
         "type": "message",
-        "ts": "1721814198.882379",
         "user": "UF8SE896V"
     },
     {
+        "ts": "1722176426.152459",
         "text": "<@U57CUMWQ6>\nありがとうございます。\n\n&gt; Stateを使わずにタプルの2つ目で現在の状態を返すように書いてみて\nについて、やってみようとしましたが出来ませんでした :smiling_face_with_tear:\n\nもし、面倒でなければ可能であれば簡単に具体例を書いていただけると助かります",
         "type": "message",
-        "ts": "1722176426.152459",
         "user": "U04MBBNV5QB"
     },
     {
+        "ts": "1722247880.132789",
         "text": "<@U04MBBNV5QB>\n\n例えばタプルの2つ目の変数で現在のスタックの状態を表そうとすると以下のような方法が考えられます。\n\n```popT :: [Int] -&gt; (Int, [Int])\npopT (a : s) = (a, s)\n\npushT :: Int -&gt; [Int] -&gt; ((), [Int])\npushT a s = ((), a : s)\n\nstepsT :: [Int] -&gt; ((), [Int])\nstepsT world0 =\n  let (a, world1) = popT world0\n      ((), world2) = pushT (a * 2) world1\n  in ((), world2)```\nこれは一つの関数を実行するたびにworld引数を書き換えないといけないので面倒くさいですし、ミスしやすいという考えもあります。\n\nそこでそちらが書いていたようにStateを定義してやるとスッキリと収まり各関数もStateに渡すだけです。\n\n```newtype State s a\n  = State\n  { runState :: s -&gt; (a, s)\n  }\n\ninstance Functor (State s) where\n  fmap f (State h) = State $ \\s -&gt;\n    let (a, newState) = h s\n    in (f a, newState)\n\ninstance Applicative (State s) where\n  pure a = State (a, )\n\n  (State f) &lt;*&gt; (State g) = State $ \\s -&gt;\n    let (h, newState) = f s\n        (a, newerState) = g newState\n    in (h a, newerState)\n\ninstance Monad (State s) where\n  (State h) &gt;&gt;= f = State $ \\s -&gt;\n    let (a, newState) = h s\n        (State g) = f a\n    in g newState\n\npop :: State [Int] Int\npop = State popT\n\npush :: Int -&gt; State [Int] ()\npush = State . pushT\n\nsteps :: State [Int] ()\nsteps = do\n  a &lt;- pop\n  push (a * 2)\n\nf :: ((), [Int])\nf = runState steps [1 .. 5]\n\nmain :: IO ()\nmain = print f```\n`steps` がだいぶスッキリした見た目になりました。\nworldの更新は内部で `&gt;&gt;=` で行っていれば同じになりますし、 `runState` すると型が元の形式と同じになります。\n私はこのステップを踏むとすんなり理解できたので、参考になると幸いです。",
         "type": "message",
-        "ts": "1722247880.132789",
         "user": "U57CUMWQ6"
     },
     {
+        "ts": "1722260316.584999",
         "text": "<@U57CUMWQ6>\n最初のコードに合わせてサンプルを作成していただき、理解しやすいです。\nすぐには飲み込めませんが、いただいたコードを熟読して理解に努めます。\n\n丁寧にご回答いただきありがとうございました。",
         "type": "message",
-        "ts": "1722260316.584999",
         "user": "U04MBBNV5QB"
     }
 ]
