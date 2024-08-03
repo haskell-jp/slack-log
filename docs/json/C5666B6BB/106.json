@@ -94,5 +94,11 @@
         "text": "<#C4M4TT8JJ|random>かな",
         "type": "message",
         "user": "U4L0B71L1"
+    },
+    {
+        "ts": "1722671507.590769",
+        "text": "<https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/pragmas.html#unpack-pragma|UNPACK pragma> の質問です。通常は次のように使うと思います:\n```data TestA = TestA\n  { aA :: {-# UNPACK #-} !Int,\n    bA :: {-# UNPACK #-} !Int\n  }```\nフィールドが一般の型 `a` の場合、以下の `UNPACK` は効果がありますか？ (たとえば`TestB Int` 型は unpack されますか):\n```data TestB a = TestB\n  { aB :: {-# UNPACK #-} !a,\n    bB :: {-# UNPACK #-} !a\n  }```\n`TestB` のコンパイル時警告では Ignoring.. とあるので、 `UNPACK` されない気がしています (確認用 playground: <https://play.haskell.org/saved/8gaATevZ>)",
+        "type": "message",
+        "user": "U03H9PH8FRP"
     }
 ]

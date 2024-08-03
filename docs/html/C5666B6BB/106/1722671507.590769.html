@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #106 at 2024-08-03 16:51:47 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #106 at 2024-08-03 16:51:47 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../106.html" class="item">Back to questions #106</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1722671507.590769">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1722671507.590769">2024-08-03 16:51:47 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/pragmas.html#unpack-pragma'>UNPACK pragma</a> の質問です。通常は次のように使うと思います:<br/><pre>data TestA = TestA
+  { aA :: {-# UNPACK #-} !Int,
+    bA :: {-# UNPACK #-} !Int
+  }</pre><br/>フィールドが一般の型 <code>a</code> の場合、以下の <code>UNPACK</code> は効果がありますか？ (たとえば`TestB Int` 型は unpack されますか):<br/><pre>data TestB a = TestB
+  { aB :: {-# UNPACK #-} !a,
+    bB :: {-# UNPACK #-} !a
+  }</pre><br/><code>TestB</code> のコンパイル時警告では Ignoring.. とあるので、 <code>UNPACK</code> されない気がしています (確認用 playground: <a href='https://play.haskell.org/saved/8gaATevZ'>https://play.haskell.org/saved/8gaATevZ</a>)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1722671734.557059">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1722671734.557059">2024-08-03 16:55:34 +0900</a></div>
+          </div>
+          <div class="description">コンパイラーが言っているように、フィールドが抽象的な型の場合はunpackされませんね。例えば、標準ライブラリーの <code>Complex a</code> は <code>!a :+ !a</code> みたいに定義されていますが、これもunpackできないため、自前で <code>data ComplexDouble = MkComplexDouble !Double !Double</code> というような特殊化された型を作るとunpackできて効率が良い、みたいな話があった気がします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1722672014.227259">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1722672014.227259">2024-08-03 17:00:14 +0900</a></div>
+          </div>
+          <div class="description"><code>TestB a -&gt; a</code> みたいにフィールドを取り出す関数は <code>a</code> がどういう型であっても同じ機械語で取り扱えないといけないので、`a` によってフィールドの配置が変わってしまうと困るんですね。C++やRustのように多相を全部特殊化する方式ならunpackできるんですけど、Haskellはそういうコンパイル方式にはなっていないのです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1722673137.778599">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1722673137.778599">2024-08-03 17:18:57 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。とても納得しました！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1722673139.930099">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1722673139.930099">2024-08-03 17:18:59 +0900</a></div>
+          </div>
+          <div class="description">mod_poppo さんの過去記事も拝見しました。<br/>• <a href='https://blog.miz-ar.info/2016/06/writing-efficient-program-with-haskell/'>Haskell で高速なプログラムを書くときに注意すること</a><br/>• <a href='https://blog.miz-ar.info/2017/05/redesigning-numeric-classes-for-haskell/'>Haskell でオレオレ Num クラスを作るための考察</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1722673272.833939">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1722673272.833939">2024-08-03 17:21:12 +0900</a></div>
+          </div>
+          <div class="description">一旦保留で、速度が問題になったら特殊化を考えてみます！</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../106.html" class="item">Back to questions #106</a>
+    </div>
+  </div>
+</body>
+</html>

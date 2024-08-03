@@ -1,0 +1,38 @@
+[
+    {
+        "ts": "1722671507.590769",
+        "text": "<https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/pragmas.html#unpack-pragma|UNPACK pragma> の質問です。通常は次のように使うと思います:\n```data TestA = TestA\n  { aA :: {-# UNPACK #-} !Int,\n    bA :: {-# UNPACK #-} !Int\n  }```\nフィールドが一般の型 `a` の場合、以下の `UNPACK` は効果がありますか？ (たとえば`TestB Int` 型は unpack されますか):\n```data TestB a = TestB\n  { aB :: {-# UNPACK #-} !a,\n    bB :: {-# UNPACK #-} !a\n  }```\n`TestB` のコンパイル時警告では Ignoring.. とあるので、 `UNPACK` されない気がしています (確認用 playground: <https://play.haskell.org/saved/8gaATevZ>)",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1722671734.557059",
+        "text": "コンパイラーが言っているように、フィールドが抽象的な型の場合はunpackされませんね。例えば、標準ライブラリーの `Complex a` は `!a :+ !a` みたいに定義されていますが、これもunpackできないため、自前で `data ComplexDouble = MkComplexDouble !Double !Double` というような特殊化された型を作るとunpackできて効率が良い、みたいな話があった気がします。",
+        "type": "message",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "ts": "1722672014.227259",
+        "text": "`TestB a -&gt; a` みたいにフィールドを取り出す関数は `a` がどういう型であっても同じ機械語で取り扱えないといけないので、`a` によってフィールドの配置が変わってしまうと困るんですね。C++やRustのように多相を全部特殊化する方式ならunpackできるんですけど、Haskellはそういうコンパイル方式にはなっていないのです。",
+        "type": "message",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "ts": "1722673137.778599",
+        "text": "ありがとうございます。とても納得しました！",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1722673139.930099",
+        "text": "mod_poppo さんの過去記事も拝見しました。\n• <https://blog.miz-ar.info/2016/06/writing-efficient-program-with-haskell/|Haskell で高速なプログラムを書くときに注意すること>\n• <https://blog.miz-ar.info/2017/05/redesigning-numeric-classes-for-haskell/|Haskell でオレオレ Num クラスを作るための考察>",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1722673272.833939",
+        "text": "一旦保留で、速度が問題になったら特殊化を考えてみます！",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    }
+]

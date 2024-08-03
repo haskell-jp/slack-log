@@ -158,6 +158,22 @@
           <div class="description"><a href='#C4M4TT8JJ'>random</a>かな</div>
         </div>
       </div>
+      <div class="event" id="message-1722671507.590769">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1722671507.590769">2024-08-03 16:51:47 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/pragmas.html#unpack-pragma'>UNPACK pragma</a> の質問です。通常は次のように使うと思います:<br/><pre>data TestA = TestA
+  { aA :: {-# UNPACK #-} !Int,
+    bA :: {-# UNPACK #-} !Int
+  }</pre><br/>フィールドが一般の型 <code>a</code> の場合、以下の <code>UNPACK</code> は効果がありますか？ (たとえば`TestB Int` 型は unpack されますか):<br/><pre>data TestB a = TestB
+  { aB :: {-# UNPACK #-} !a,
+    bB :: {-# UNPACK #-} !a
+  }</pre><br/><code>TestB</code> のコンパイル時警告では Ignoring.. とあるので、 <code>UNPACK</code> されない気がしています (確認用 playground: <a href='https://play.haskell.org/saved/8gaATevZ'>https://play.haskell.org/saved/8gaATevZ</a>)</div>
+          <a class="link-to-replies" href="106/1722671507.590769.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/C5666B6BB/105.html" class="item">Previous</a>
