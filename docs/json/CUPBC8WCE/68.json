@@ -160,5 +160,65 @@
         "text": "延長戦　とりあえずほしいやつが生えてコンパイル通ったので勝利",
         "type": "message",
         "user": "U4KNX0J3A"
+    },
+    {
+        "ts": "1722735869.134629",
+        "text": "<@U4MA78F6X> has joined the channel",
+        "type": "message",
+        "user": "U4MA78F6X"
+    },
+    {
+        "ts": "1722744036.056719",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1722744244.756489",
+        "text": "山本悠滋です。いつもどおりmakeMistakesToLearnHaskellやcabal replの件の続きをします。別にやりたいタスクがあるので早めに切り上げるかも",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1722744763.205899",
+        "text": "<https://bartoszmilewski.com/2016/11/30/monads-and-effects/|Category Theory for Programmers> (2014) Bartosz Milewski (Part Three: 21. Monads and Effects ~ )\nあとハシゴで <https://atcoder.jp/contests/typical90|競プロ典型 90 問> 64 日目 - Uplift（★3）",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1722745580.963569",
+        "text": "S.K.です。少し遅くなってしまいましたが、今週もお世話になります。よろしくお願いします。\n先週に引き続き、Implementing Functional Languages: a tutorial の 4.7 Mark 6: Constant applicative forms and the code store の続きを進めていこうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1722757154.940069",
+        "text": "今日はここまでにします。\n・makeMistakesToLearnHaskellの更新:\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/8134ba4329c854c82353e23158b8406a5c545d1a>\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/26af85503e9299a12befcbf3942a28aee2b111b5>\n・cabal replの件は、前回出くわしたテストの失敗が.cabalファイルのインデントの扱いに起因することに気づいて直してます。インデントの長さを数えると同時にパーサーでインデントの分を消費していたのが混乱の元なので、attoparsecのlookAheadを使うことでインデントの長さを数える際に消費しないようにする作戦で修正しています。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1722762010.618889",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1722762423.912209",
+        "text": "Category Theory for Programmers (Part Three: 21. Monads and Effects ~ 22. Monads Categorically) まで読了　モナドの功徳を挙げて Read / Write / State / Exceptions / Continuations / IO の例を示している　次に圏論的アプローチをしていて Monoidal Categories の Monoid を通して随伴からモナドを見ている　いわば舞台裏を覗かせてくれる　数学的にはむしろこちらが本筋なのだろうけど　納得するとは　数々の例を通して説得される事なのか　あるいは隠れた本質を理解する事なのか　凡人には前者かも\n競プロ典型 90 問 64 日目 - Uplift（★3）　思案投げ首　差分数列を BIT で管理して両端での価変更でかなり対処できるが　最終的に絶対値の和にするところで破綻？",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1722763952.437069",
+        "text": "最初にコンパイル結果を表示する際に、スーパーコンビネータ名を表示できない不具合の対応をしていました。いい方法が思いつかなかったので、苦し紛れにかなり安易で姑息な方法を取ってしまいました。\nCodeStore型をグローバルフレームのみに変更したのですが、コンパイル結果を表示処理のためだけに、スーパーコンビネータ名と対応するインデックス番号のタプルのリストを、\nグローバルフレームとは別にマシンのステートに持たせてしまいました。\n最初にコンパイル結果を表示する際は、グローバルフレームのクロージャを順番に処理する際に、インデックス番号からスーパーコンビネータ名を求めて表示しています。\nPush Label 命令や Enter Label 命令を実行する際はインデックス番号だけを使って処理するようにはしたのですが．．．多分テキストの趣旨はこんな対応ではないと思います。お恥ずかしい。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1722766084.174739",
+        "text": "毎回思うけど全然恥ずかしくないですよ！胸張ってやりましょうよ！！",
+        "type": "message",
+        "user": "U4LGTMTMK"
     }
 ]
