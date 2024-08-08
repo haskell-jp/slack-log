@@ -1,0 +1,20 @@
+[
+    {
+        "ts": "1723043199.659059",
+        "text": "IOモナドの `&gt;&gt;=` について質問させてください\n\n<https://wiki.haskell.org/99_questions/21_to_28> の \"Problem 23\" を参考に\n以下のようなコードを作成しました。\n(\"abcdefgh\" の中からランダムに 3 文字表示するプログラム)\n\n[コード1]\n```import System.Random\n\nrnd_select :: [a] -&gt; Int -&gt; IO [a]\n\nrnd_select xs n = do\n    let l = length xs - 1\n    ys &lt;- sequence . replicate n $ (randomRIO (0, l) :: IO Int)\n    return $ map (xs !!) ys```\nこれは想定通り動作しました。\n```ghci&gt; rnd_select \"abcdefgh\" 3 &gt;&gt;= putStrLn\nefc\nit :: ()```\nこの関数を少し変えて、`&gt;&gt;=` を使用するように変更しました。\n[コード2]\n```rnd_select xs n = f &gt;&gt;= return . map (xs !!)\n    where\n        l = length xs - 1\n        f = sequence . replicate n $ (randomRIO (0, l) :: IO Int)```\nこの場合も問題ありません。\n\nさらに、上記の `f` の部分を (where 句ではなく) 直接書いて以下のように変更しました。\n[コード3]\n```rnd_select xs n = sequence . replicate n $ (randomRIO (0, l) :: IO Int) &gt;&gt;= return . map (xs !!)\n    where\n        l = length xs - 1```\nすると、以下のようにエラーとなります。\n```ghci&gt; :l d\n[1 of 2] Compiling Main             ( d.hs, interpreted )\n\nd.hs:5:86: error: [GHC-83865]\n    • Couldn't match type '[Int]' with 'Int'\n      Expected: Int -&gt; a\n        Actual: [Int] -&gt; [a]\n    • In the second argument of '(.)', namely 'map (xs !!)'\n      In the second argument of '(&gt;&gt;=)', namely 'return . map (xs !!)'\n      In the second argument of '($)', namely\n        '(randomRIO (0, l) :: IO Int) &gt;&gt;= return . map (xs !!)'\n  |\n5 | rnd_select xs n = sequence . replicate n $ (randomRIO (0, l) :: IO Int) &gt;&gt;= return . map (xs !!)\n  |                                                                                      ^^^^^^^^^^^\nFailed, no modules loaded.```\nメッセージから考えて `[Int]` ではなく `Int` が要求されているようだったので、以下のように変更したところ\n問題なく動作しました。\n[コード4]\n```rnd_select xs n = sequence . replicate n $ (randomRIO (0, l) :: IO Int) &gt;&gt;= return . (xs !!)\n    where\n        l = length xs - 1```\n説明が長くなってしまい恐縮ですが、`[コード3]` と `[コード4]` のような違いが出る理由が理解できませんでした。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1723075061.495369",
+        "text": "`sequence . replicate n $ (randomRIO (0, l) :: IO Int) &gt;&gt;= return . map (xs !!)`\nは\n`sequence . replicate n $ 残り全部`  という結合の強さになってしまうので、\n`(randomRIO (0, l) :: IO Int) &gt;&gt;= return . map (xs !!)` という部分だけで考えないといけないことになってしまいます。\n`(sequence . replicate n $ (randomRIO (0, l) :: IO Int)) &gt;&gt;= return . map (xs !!)`\nのように f 相当の部分を明示的にカッコでくくる必要があると思います。\nこれは `&gt;&gt;=`  の話というよりは、 `$` が最も弱い結合だということに起因するものですね",
+        "type": "message",
+        "user": "UF8SE896V"
+    },
+    {
+        "ts": "1723075519.897439",
+        "text": "`$` の優先順位の高さの問題だったのですね、理解できました。\n今後、似たようなことがあったら `()` を付けて確認してみます。\n\n長い説明にも関わらず、丁寧な回答をありがとうございました。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    }
+]

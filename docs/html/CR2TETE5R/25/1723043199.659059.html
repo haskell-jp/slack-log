@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #25 at 2024-08-08 00:06:39 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #25 at 2024-08-08 00:06:39 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1723043199.659059">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1723043199.659059">2024-08-08 00:06:39 +0900</a></div>
+          </div>
+          <div class="description">IOモナドの <code>&gt;&gt;=</code> について質問させてください<br/><br/><a href='https://wiki.haskell.org/99_questions/21_to_28'>https://wiki.haskell.org/99_questions/21_to_28</a> の "Problem 23" を参考に<br/>以下のようなコードを作成しました。<br/>("abcdefgh" の中からランダムに 3 文字表示するプログラム)<br/><br/>[コード1]<br/><pre>import System.Random
+
+rnd_select :: [a] -&gt; Int -&gt; IO [a]
+
+rnd_select xs n = do
+    let l = length xs - 1
+    ys &lt;- sequence . replicate n $ (randomRIO (0, l) :: IO Int)
+    return $ map (xs !!) ys</pre><br/>これは想定通り動作しました。<br/><pre>ghci&gt; rnd_select "abcdefgh" 3 &gt;&gt;= putStrLn
+efc
+it :: ()</pre><br/>この関数を少し変えて、`&gt;&gt;=` を使用するように変更しました。<br/>[コード2]<br/><pre>rnd_select xs n = f &gt;&gt;= return . map (xs !!)
+    where
+        l = length xs - 1
+        f = sequence . replicate n $ (randomRIO (0, l) :: IO Int)</pre><br/>この場合も問題ありません。<br/><br/>さらに、上記の <code>f</code> の部分を (where 句ではなく) 直接書いて以下のように変更しました。<br/>[コード3]<br/><pre>rnd_select xs n = sequence . replicate n $ (randomRIO (0, l) :: IO Int) &gt;&gt;= return . map (xs !!)
+    where
+        l = length xs - 1</pre><br/>すると、以下のようにエラーとなります。<br/><pre>ghci&gt; :l d
+[1 of 2] Compiling Main             ( d.hs, interpreted )
+
+d.hs:5:86: error: [GHC-83865]
+    • Couldn't match type '[Int]' with 'Int'
+      Expected: Int -&gt; a
+        Actual: [Int] -&gt; [a]
+    • In the second argument of '(.)', namely 'map (xs !!)'
+      In the second argument of '(&gt;&gt;=)', namely 'return . map (xs !!)'
+      In the second argument of '($)', namely
+        '(randomRIO (0, l) :: IO Int) &gt;&gt;= return . map (xs !!)'
+  |
+5 | rnd_select xs n = sequence . replicate n $ (randomRIO (0, l) :: IO Int) &gt;&gt;= return . map (xs !!)
+  |                                                                                      ^^^^^^^^^^^
+Failed, no modules loaded.</pre><br/>メッセージから考えて <code>[Int]</code> ではなく <code>Int</code> が要求されているようだったので、以下のように変更したところ<br/>問題なく動作しました。<br/>[コード4]<br/><pre>rnd_select xs n = sequence . replicate n $ (randomRIO (0, l) :: IO Int) &gt;&gt;= return . (xs !!)
+    where
+        l = length xs - 1</pre><br/>説明が長くなってしまい恐縮ですが、`[コード3]` と <code>[コード4]</code> のような違いが出る理由が理解できませんでした。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1723075061.495369">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1723075061.495369">2024-08-08 08:57:41 +0900</a></div>
+          </div>
+          <div class="description"><code>sequence . replicate n $ (randomRIO (0, l) :: IO Int) &gt;&gt;= return . map (xs !!)</code><br/>は<br/><code>sequence . replicate n $ 残り全部</code>  という結合の強さになってしまうので、<br/><code>(randomRIO (0, l) :: IO Int) &gt;&gt;= return . map (xs !!)</code> という部分だけで考えないといけないことになってしまいます。<br/><code>(sequence . replicate n $ (randomRIO (0, l) :: IO Int)) &gt;&gt;= return . map (xs !!)</code><br/>のように f 相当の部分を明示的にカッコでくくる必要があると思います。<br/>これは <code>&gt;&gt;=</code>  の話というよりは、 <code>$</code> が最も弱い結合だということに起因するものですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1723075519.897439">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1723075519.897439">2024-08-08 09:05:19 +0900</a></div>
+          </div>
+          <div class="description"><code>$</code> の優先順位の高さの問題だったのですね、理解できました。<br/>今後、似たようなことがあったら <code>()</code> を付けて確認してみます。<br/><br/>長い説明にも関わらず、丁寧な回答をありがとうございました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+  </div>
+</body>
+</html>
