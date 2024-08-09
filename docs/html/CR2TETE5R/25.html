@@ -352,6 +352,47 @@ Failed, no modules loaded.</pre><br/>メッセージから考えて <code>[Int]<
           <a class="link-to-replies" href="25/1723043199.659059.html">... Replies ...</a>
         </div>
       </div>
+      <div class="event" id="message-1723191142.554709">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1723191142.554709">2024-08-09 17:12:22 +0900</a></div>
+          </div>
+          <div class="description">Haskell プログラムらしい書き方について質問させてください<br/><br/><pre>import Control.Exception
+import Control.Monad
+import System.Directory
+import System.Posix.Files
+import System.Posix.Types
+
+lessThan :: FileOffset -> FilePath -> IO Bool
+lessThan threshold path = do
+    s <- getFileStatus path
+    return $ and [isRegularFile s, fileSize s < threshold]
+
+smallFiles :: FileOffset -> FilePath -> IO (Either String [FilePath])
+smallFiles threshold dir = do
+    ei <- try (listDirectory dir)
+
+    case ei of
+        Left (e::SomeException) -> return $ Left (displayException e)
+
+        Right contents -> do
+            paths <- filterM (lessThan threshold) contents
+            return $ Right paths</pre><br/>引数で指定したディレクトリから、閾値以下のサイズのファイル・パスを取得する関数を書きました。<br/><br/><pre>ghci> smallFiles 100 "."
+Right ["retry.hs",".gitignore","oop.hs"]
+it :: Either String [FilePath]</pre><br/>想定通りに動作することを確認しました。<br/><br/>上記のコードでは、`try (listDirectory dir)` が Either a b を戻すため、それを case で判定して<br/>また Left や Right でくるむような形になっています。<br/><br/>これをスマートに記述する方法はあるのでしょうか ?<br/><br/>(怒られないので、調子に乗って質問ばかりさせていただいていますが、これがマナー違反であればご指摘ください)</div>
+          <a class="link-to-replies" href="25/1723191142.554709.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1723195449.277199">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1723195449.277199">2024-08-09 18:24:09 +0900</a></div>
+          </div>
+          <div class="description">読んでいて勉強になりました。どんどん質問して盛り上げて欲しいです :raised_hands: </div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/24.html" class="item">Previous</a>

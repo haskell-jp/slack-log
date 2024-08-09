@@ -1,0 +1,38 @@
+[
+    {
+        "ts": "1723191142.554709",
+        "text": "Haskell プログラムらしい書き方について質問させてください\n\n```import Control.Exception\nimport Control.Monad\nimport System.Directory\nimport System.Posix.Files\nimport System.Posix.Types\n\nlessThan :: FileOffset -> FilePath -> IO Bool\nlessThan threshold path = do\n    s <- getFileStatus path\n    return $ and [isRegularFile s, fileSize s < threshold]\n\nsmallFiles :: FileOffset -> FilePath -> IO (Either String [FilePath])\nsmallFiles threshold dir = do\n    ei <- try (listDirectory dir)\n\n    case ei of\n        Left (e::SomeException) -> return $ Left (displayException e)\n\n        Right contents -> do\n            paths <- filterM (lessThan threshold) contents\n            return $ Right paths```\n引数で指定したディレクトリから、閾値以下のサイズのファイル・パスを取得する関数を書きました。\n\n```ghci> smallFiles 100 \".\"\nRight [\"retry.hs\",\".gitignore\",\"oop.hs\"]\nit :: Either String [FilePath]```\n想定通りに動作することを確認しました。\n\n上記のコードでは、`try (listDirectory dir)` が Either a b を戻すため、それを case で判定して\nまた Left や Right でくるむような形になっています。\n\nこれをスマートに記述する方法はあるのでしょうか ?\n\n(怒られないので、調子に乗って質問ばかりさせていただいていますが、これがマナー違反であればご指摘ください)",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1723193385.870239",
+        "text": "アプリケーション本体の具体的な書き換えは面倒なんでやりませんが、 `ExceptT IO Exception a` に都度変換するといいかも知れません。\n```except :: Exception e => IO a -> ExceptT IO e a\nexcept = ExceptT . try```\nみたいなユーティリティー関数があるとやりやすいと思います（:bow:申し訳なくもこの関数実装が合っているか自信ないですが）。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1723193846.137469",
+        "text": "`ExceptT` モナド変換子はこういう使い方をするものなんですね。\n難しそうで後回しにしていましたが、調べて使えるようにしてみます。\n\nご回答ありがとうございました。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1723194064.599129",
+        "text": "`ExceptT IO` は、「 `IO` 自身にも例外を投げる機能があるんだから意味ないし、誤解を招くだろ！」と批判されがちですが、今回のように局所的に使う分には便利なのでお試しください。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1723205740.758819",
+        "text": "もし自分がやるとするならば、\n\n> `IO` 自身にも例外を投げる機能があるんだから意味ないし、誤解を招くだろ！\nという話の通り `try` を使わずに実行してしまって、例外をキャッチするのはなるべく上部にして、ログ処理とかはひとまとめにしてしまいますね。\n\n極端な例ですが、 `getFileStatus` すら例外を投げる可能性があります。\n\n```ghci> getFileStatus \"/abc\"\n*** Exception: /abc: getFileStatus: does not exist (No such file or directory)```\nこれを考えると `lessThan` も `Either` などに包む必要があるでしょう、でもそれはめんどくさいので、 `IO` は失敗可能性あるんだから仕方ないと呼び出しトップレベルで `try` することが多いです。\n特に私がよく書くwebアプリケーションとかだと実行最後に確認して例外なら場合によってはログ出して別HTTPステータスで返して…とかしますね。",
+        "type": "message",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "ts": "1723205971.411249",
+        "text": "&gt; `getFileStatus` すら例外を投げる可能性があります。\nたしかに、言われてみれば、、\n\n&gt; 呼び出しトップレベルで `try` することが多いです。\nそういうやり方もあるんですね。\nそれなら、一括で処理できて楽そうです\n\n細かく確認してご回答いただき、ありがとうございました。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    }
+]

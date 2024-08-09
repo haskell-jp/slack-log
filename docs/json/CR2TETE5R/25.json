@@ -178,5 +178,17 @@
         "text": "IOモナドの `&gt;&gt;=` について質問させてください\n\n<https://wiki.haskell.org/99_questions/21_to_28> の \"Problem 23\" を参考に\n以下のようなコードを作成しました。\n(\"abcdefgh\" の中からランダムに 3 文字表示するプログラム)\n\n[コード1]\n```import System.Random\n\nrnd_select :: [a] -&gt; Int -&gt; IO [a]\n\nrnd_select xs n = do\n    let l = length xs - 1\n    ys &lt;- sequence . replicate n $ (randomRIO (0, l) :: IO Int)\n    return $ map (xs !!) ys```\nこれは想定通り動作しました。\n```ghci&gt; rnd_select \"abcdefgh\" 3 &gt;&gt;= putStrLn\nefc\nit :: ()```\nこの関数を少し変えて、`&gt;&gt;=` を使用するように変更しました。\n[コード2]\n```rnd_select xs n = f &gt;&gt;= return . map (xs !!)\n    where\n        l = length xs - 1\n        f = sequence . replicate n $ (randomRIO (0, l) :: IO Int)```\nこの場合も問題ありません。\n\nさらに、上記の `f` の部分を (where 句ではなく) 直接書いて以下のように変更しました。\n[コード3]\n```rnd_select xs n = sequence . replicate n $ (randomRIO (0, l) :: IO Int) &gt;&gt;= return . map (xs !!)\n    where\n        l = length xs - 1```\nすると、以下のようにエラーとなります。\n```ghci&gt; :l d\n[1 of 2] Compiling Main             ( d.hs, interpreted )\n\nd.hs:5:86: error: [GHC-83865]\n    • Couldn't match type '[Int]' with 'Int'\n      Expected: Int -&gt; a\n        Actual: [Int] -&gt; [a]\n    • In the second argument of '(.)', namely 'map (xs !!)'\n      In the second argument of '(&gt;&gt;=)', namely 'return . map (xs !!)'\n      In the second argument of '($)', namely\n        '(randomRIO (0, l) :: IO Int) &gt;&gt;= return . map (xs !!)'\n  |\n5 | rnd_select xs n = sequence . replicate n $ (randomRIO (0, l) :: IO Int) &gt;&gt;= return . map (xs !!)\n  |                                                                                      ^^^^^^^^^^^\nFailed, no modules loaded.```\nメッセージから考えて `[Int]` ではなく `Int` が要求されているようだったので、以下のように変更したところ\n問題なく動作しました。\n[コード4]\n```rnd_select xs n = sequence . replicate n $ (randomRIO (0, l) :: IO Int) &gt;&gt;= return . (xs !!)\n    where\n        l = length xs - 1```\n説明が長くなってしまい恐縮ですが、`[コード3]` と `[コード4]` のような違いが出る理由が理解できませんでした。",
         "type": "message",
         "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1723191142.554709",
+        "text": "Haskell プログラムらしい書き方について質問させてください\n\n```import Control.Exception\nimport Control.Monad\nimport System.Directory\nimport System.Posix.Files\nimport System.Posix.Types\n\nlessThan :: FileOffset -> FilePath -> IO Bool\nlessThan threshold path = do\n    s <- getFileStatus path\n    return $ and [isRegularFile s, fileSize s < threshold]\n\nsmallFiles :: FileOffset -> FilePath -> IO (Either String [FilePath])\nsmallFiles threshold dir = do\n    ei <- try (listDirectory dir)\n\n    case ei of\n        Left (e::SomeException) -> return $ Left (displayException e)\n\n        Right contents -> do\n            paths <- filterM (lessThan threshold) contents\n            return $ Right paths```\n引数で指定したディレクトリから、閾値以下のサイズのファイル・パスを取得する関数を書きました。\n\n```ghci> smallFiles 100 \".\"\nRight [\"retry.hs\",\".gitignore\",\"oop.hs\"]\nit :: Either String [FilePath]```\n想定通りに動作することを確認しました。\n\n上記のコードでは、`try (listDirectory dir)` が Either a b を戻すため、それを case で判定して\nまた Left や Right でくるむような形になっています。\n\nこれをスマートに記述する方法はあるのでしょうか ?\n\n(怒られないので、調子に乗って質問ばかりさせていただいていますが、これがマナー違反であればご指摘ください)",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1723195449.277199",
+        "text": "読んでいて勉強になりました。どんどん質問して盛り上げて欲しいです :raised_hands: ",
+        "type": "message",
+        "user": "U03H9PH8FRP"
     }
 ]
