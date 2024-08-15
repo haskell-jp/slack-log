@@ -1,0 +1,50 @@
+[
+    {
+        "ts": "1723604741.629259",
+        "text": "ポイントフリーにより書かれたコードを、わかりやすいように展開するようなツールなどはありますか ?\n\n以前 こちらで質問させていただき、ポイントフリー化するツールを教えていただきました\n```<https://pointfree.io/>```\nこれの逆を行う様なツールは存在しますか ?\n```ghci&gt; f = ((+1) .) . (+)\nf :: Num c =&gt; c -&gt; c -&gt; c\nghci&gt; f 1 2\n4\nit :: Num c =&gt; c```\nこのとき、f が `f a b = (+1) $ (+) a b` のように展開されるようなイメージになります。\n```ghci&gt; f a b = (+1) $ (+) a b\nf :: Num a =&gt; a -&gt; a -&gt; a\nghci&gt; f 1 2\n4\nit :: Num a =&gt; a```\n",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1723609301.064429",
+        "text": "pointful を見つけました。 Web ツールとしては blunt というのがあったそうですが、今は消えています\n<https://github.com/23Skidoo/pointful|https://github.com/23Skidoo/pointful>\n<https://hackage.haskell.org/package/blunt|https://hackage.haskell.org/package/blunt>",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1723609795.996959",
+        "text": "ご回答ありがとうございます。\n\n私もそれは試してみたのですが (最初に報告すべきでした、すみません)\n`stack install` をしてみると、以下のようなエラーとなってしまい利用できませんでした。\n\n```(oracle-cli) ubuntu@vm1:~/src/haskell-primer$ stack install pointful\n\nError: [S-4804]\n       Stack failed to construct a build plan.\n\n       While constructing the build plan, Stack encountered the following errors. The 'Stack\n       configuration' refers to the set of package versions specified by the snapshot (after any\n       dropped packages, or pruned GHC boot packages; if a boot package is replaced, Stack prunes\n       all other such packages that depend on it) and any extra-deps:\n\n       In the dependencies for pointful-1.1.0.0:\n         * base must match &gt;=4.7 &amp;&amp; &lt;4.13 || ^&gt;=4.13, but base-4.18.2.1 is in the Stack\n           configuration (latest matching version is 4.13.0.0).\n         * haskell-src-exts-simple must match &gt;=1.18 &amp;&amp; &lt;1.21 || ^&gt;=1.21, but\n           haskell-src-exts-simple-1.23.0.0 is in the Stack configuration (latest matching version\n           is 1.21.1.0).\n         * mtl must match &gt;=2 &amp;&amp; &lt;2.2 || ^&gt;=2.2, but mtl-2.3.1 is in the Stack configuration (latest\n           matching version is 2.2.2).\n         * transformers must match &gt;=0.2 &amp;&amp; &lt;0.5 || ^&gt;=0.5, but transformers-0.6.1.0 is in the Stack\n           configuration (latest matching version is 0.5.6.2).\n       The above is/are needed since pointful is a build target.\n\n       Some different approaches to resolving some or all of this:\n\n         * To ignore all version constraints and build anyway, pass --allow-newer, or, in\n           /home/ubuntu/.stack/config.yaml (global configuration), set allow-newer: true.\n\n         * To ignore certain version constraints and build anyway, also add these package names\n           under allow-newer-deps: pointful.\n\n         * Build requires unattainable version of the base package. Since base is a part of GHC, you\n           most likely need to use a different GHC version with the matching base.```\nメッセージからすると、私の利用しているバージョンでは利用できないということだと思います。\n```(oracle-cli) ubuntu@vm1:~/src/haskell-primer$ ghc stack ghc -- --version\nThe Glorious Glasgow Haskell Compilation System, version 9.6.6\n(oracle-cli) ubuntu@vm1:~/src/haskell-primer$ stack --version\nVersion 3.1.1, Git revision 8127279fb48012945f47f73167a5ecbce5692965 x86_64 hpack-0.37.0```",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1723611576.400579",
+        "text": "こちらこそ未確認で申し訳ありません。古い GHC (8.8.4) を入れたらコンパイルできましたが、もうメンテナンスされていないのは辛いですね。\n```$ pointful '((+1) .) . (+)'\n(\\ x x0 -> (x + x0) + 1)```",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1723612033.428569",
+        "text": "そこまで考えがいきませんでした orz\n\n異なる環境に GHC をセットアップすることができますので、`pointful` を利用するために試してみたいと思います。\n\nわざわざ試していただき、ありがとうございました。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1723612257.810599",
+        "text": "もしも他の PC の利用をお考えでしたら、 `ghcup set` で GHC のバージョンを一時的に切り替えできます:\n<https://zenn.dev/mod_poppo/articles/haskell-setup-2023#ghc%E3%81%AE%E7%AE%A1%E7%90%86>\n(※ 新規に `ghcup` で GHC 等をインストールする場合は、 `apt` や `brew` など他のツールで入れた Haskell のツール類をアンインストールした方が良さそうです)",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1723612343.932599",
+        "text": "その場しのぎですみません！",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1723612485.704549",
+        "text": "先ほど ↑ を教えてもらう前に、`ghcup tui` で表示された画面から切り替えられるかな\nと試して、よくわからないな。と諦めていたところです\n\n教えてもらった通り、`ghcup install ghc 8.4.4` のように実行したら進むようになりました。\n\n重ねてありがとうございました。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    }
+]

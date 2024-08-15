@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #25 at 2024-08-14 12:05:41 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #25 at 2024-08-14 12:05:41 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1723604741.629259">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1723604741.629259">2024-08-14 12:05:41 +0900</a></div>
+          </div>
+          <div class="description">ポイントフリーにより書かれたコードを、わかりやすいように展開するようなツールなどはありますか ?<br/><br/>以前 こちらで質問させていただき、ポイントフリー化するツールを教えていただきました<br/><pre><https://pointfree.io/></pre><br/>これの逆を行う様なツールは存在しますか ?<br/><pre>ghci&gt; f = ((+1) .) . (+)
+f :: Num c =&gt; c -&gt; c -&gt; c
+ghci&gt; f 1 2
+4
+it :: Num c =&gt; c</pre><br/>このとき、f が <code>f a b = (+1) $ (+) a b</code> のように展開されるようなイメージになります。<br/><pre>ghci&gt; f a b = (+1) $ (+) a b
+f :: Num a =&gt; a -&gt; a -&gt; a
+ghci&gt; f 1 2
+4
+it :: Num a =&gt; a</pre><br/></div>
+        </div>
+      </div>
+      <div class="event" id="message-1723609301.064429">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1723609301.064429">2024-08-14 13:21:41 +0900</a></div>
+          </div>
+          <div class="description">pointful を見つけました。 Web ツールとしては blunt というのがあったそうですが、今は消えています<br/><a href='https://github.com/23Skidoo/pointful'>https://github.com/23Skidoo/pointful</a><br/><a href='https://hackage.haskell.org/package/blunt'>https://hackage.haskell.org/package/blunt</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1723609795.996959">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1723609795.996959">2024-08-14 13:29:55 +0900</a></div>
+          </div>
+          <div class="description">ご回答ありがとうございます。<br/><br/>私もそれは試してみたのですが (最初に報告すべきでした、すみません)<br/><code>stack install</code> をしてみると、以下のようなエラーとなってしまい利用できませんでした。<br/><br/><pre>(oracle-cli) ubuntu@vm1:~/src/haskell-primer$ stack install pointful
+
+Error: [S-4804]
+       Stack failed to construct a build plan.
+
+       While constructing the build plan, Stack encountered the following errors. The 'Stack
+       configuration' refers to the set of package versions specified by the snapshot (after any
+       dropped packages, or pruned GHC boot packages; if a boot package is replaced, Stack prunes
+       all other such packages that depend on it) and any extra-deps:
+
+       In the dependencies for pointful-1.1.0.0:
+         * base must match &gt;=4.7 &amp;&amp; &lt;4.13 || ^&gt;=4.13, but base-4.18.2.1 is in the Stack
+           configuration (latest matching version is 4.13.0.0).
+         * haskell-src-exts-simple must match &gt;=1.18 &amp;&amp; &lt;1.21 || ^&gt;=1.21, but
+           haskell-src-exts-simple-1.23.0.0 is in the Stack configuration (latest matching version
+           is 1.21.1.0).
+         * mtl must match &gt;=2 &amp;&amp; &lt;2.2 || ^&gt;=2.2, but mtl-2.3.1 is in the Stack configuration (latest
+           matching version is 2.2.2).
+         * transformers must match &gt;=0.2 &amp;&amp; &lt;0.5 || ^&gt;=0.5, but transformers-0.6.1.0 is in the Stack
+           configuration (latest matching version is 0.5.6.2).
+       The above is/are needed since pointful is a build target.
+
+       Some different approaches to resolving some or all of this:
+
+         * To ignore all version constraints and build anyway, pass --allow-newer, or, in
+           /home/ubuntu/.stack/config.yaml (global configuration), set allow-newer: true.
+
+         * To ignore certain version constraints and build anyway, also add these package names
+           under allow-newer-deps: pointful.
+
+         * Build requires unattainable version of the base package. Since base is a part of GHC, you
+           most likely need to use a different GHC version with the matching base.</pre><br/>メッセージからすると、私の利用しているバージョンでは利用できないということだと思います。<br/><pre>(oracle-cli) ubuntu@vm1:~/src/haskell-primer$ ghc stack ghc -- --version
+The Glorious Glasgow Haskell Compilation System, version 9.6.6
+(oracle-cli) ubuntu@vm1:~/src/haskell-primer$ stack --version
+Version 3.1.1, Git revision 8127279fb48012945f47f73167a5ecbce5692965 x86_64 hpack-0.37.0</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1723611576.400579">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1723611576.400579">2024-08-14 13:59:36 +0900</a></div>
+          </div>
+          <div class="description">こちらこそ未確認で申し訳ありません。古い GHC (8.8.4) を入れたらコンパイルできましたが、もうメンテナンスされていないのは辛いですね。<br/><pre>$ pointful '((+1) .) . (+)'
+(\ x x0 -> (x + x0) + 1)</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1723612033.428569">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1723612033.428569">2024-08-14 14:07:13 +0900</a></div>
+          </div>
+          <div class="description">そこまで考えがいきませんでした orz<br/><br/>異なる環境に GHC をセットアップすることができますので、`pointful` を利用するために試してみたいと思います。<br/><br/>わざわざ試していただき、ありがとうございました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1723612257.810599">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1723612257.810599">2024-08-14 14:10:57 +0900</a></div>
+          </div>
+          <div class="description">もしも他の PC の利用をお考えでしたら、 <code>ghcup set</code> で GHC のバージョンを一時的に切り替えできます:<br/><a href='https://zenn.dev/mod_poppo/articles/haskell-setup-2023#ghc%E3%81%AE%E7%AE%A1%E7%90%86'>https://zenn.dev/mod_poppo/articles/haskell-setup-2023#ghc%E3%81%AE%E7%AE%A1%E7%90%86</a><br/>(※ 新規に <code>ghcup</code> で GHC 等をインストールする場合は、 <code>apt</code> や <code>brew</code> など他のツールで入れた Haskell のツール類をアンインストールした方が良さそうです)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1723612343.932599">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1723612343.932599">2024-08-14 14:12:23 +0900</a></div>
+          </div>
+          <div class="description">その場しのぎですみません！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1723612485.704549">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1723612485.704549">2024-08-14 14:14:45 +0900</a></div>
+          </div>
+          <div class="description">先ほど ↑ を教えてもらう前に、`ghcup tui` で表示された画面から切り替えられるかな<br/>と試して、よくわからないな。と諦めていたところです<br/><br/>教えてもらった通り、`ghcup install ghc 8.4.4` のように実行したら進むようになりました。<br/><br/>重ねてありがとうございました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+  </div>
+</body>
+</html>
