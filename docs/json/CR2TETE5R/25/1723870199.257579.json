@@ -1,0 +1,20 @@
+[
+    {
+        "ts": "1723870199.257579",
+        "text": "関数従属性について質問させてください\n\nMonadState の定義を見て `| m -&gt; s` が気になりました。\n```class (Monad m) =&gt; MonadState s m | m -&gt; s where\n\tget :: m s\n\tput :: s -&gt; m ()```\n調べてみたところ、以下のように説明がありました。\n&gt; \"-&gt;\" の左側にある型によって右側の型が一意に決定される\nそれ以外にも説明のあるところもあったのですが、納得したといえるほど理解できませんでした。\n\n例)\n```read \"123\" :: Int```\n`:: Int` がないと \"123\" がなんの型かわからないよね。\n\nと、いう程度に簡単に理解できるような例はありますか ?\n(例えがわかりにくかったら無視してください)",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1723891309.603179",
+        "text": "これについてはGHC User Guideの <https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/functional_dependencies.html#background-on-functional-dependencies> が分かりやすいので例をそのまま引用します。 次:point_down: のような型クラスは `FunctionalDependencies` を使わないと定義できません:\n\n```class Collects e ce where\n    empty  :: ce\n    insert :: e -> ce -> ce\n    member :: e -> ce -> Bool```\nなぜなら第一に `empty` メソッドが次 :point_down: のような型になり、\n```empty :: Collects e ce => ce```\n`empty` だけからは `e` の型が特定できなくなるからです。そのため例えば\n```instance Collects Word8 ByteString```\nと、\n```instance Collects Char ByteString```\nみたいなインスタンスが複数あると、 `empty :: ByteString` と書いても要素の型 `e` が `Word8` なのか `Char` なのか特定できなくなります。\n\nさらに、 `insert` についても問題があります。`Collects` 型クラスのインスタンスの値に対する次 :point_down: のような関数 `f` `g` があったとしましょう:\n```f x y = insert x . insert y\ng     = f True 'a'```\nこれらは次 :point_down: の型に推論されます:\n```f :: (Collects a c, Collects b c) => a -> b -> c -> c\ng :: (Collects Bool c, Collects Char c) => c -> c```\nここで `Collects` が一つの型の値のみを含むコレクション型を対象とした型クラスであった場合、 `f` は `a` `b` という別々の型の値を `c` に挿入できるようになってしまいます。実際に `g` では一つの `c` に対して `Bool` と `Char` という別々の型を `f` に渡していますね。\n\n以上の問題は、`FunctionalDependencies` を有効にして、「 `e` の型は `ce` の型が定まれば一意に定まる」という関係を宣言すれば解決できます。\n```class Collects e ce | ce -> e\n  -- ... 以下略 ...```",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1723905509.426369",
+        "text": "とても丁寧な解説をありがとうございます。\n\nすぐには理解できませんが、教えていただいた内容をもとにじっくりと理解できるように取り組んでみます。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    }
+]

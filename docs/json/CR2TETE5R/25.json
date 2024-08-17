@@ -202,5 +202,11 @@
         "text": "Reminder: beginnersチャンネルは、新しい人がスムーズにHaskellに慣れるための質問を歓迎するチャンネルです。 Haskell-Beginners ML や IRCの#haskell-beginners  や RedditのMonthly Hask Anythingのような位置づけを意図しています。  beginnersチャンネルでの回答側は、以下の左側のような応答を厳禁とする運用です。 • それはくだらない質問だ → くだらない質問など無い • その質問は以前にもあった → 質問者はそんなこと知らない • Google検索せよ → 検索できないから質問している  beginnersチャンネルでは、例えば以下のレベルの質問から歓迎します。 • `:` とは何のことですか。 • タプルとは何ですか。 ",
         "type": "message",
         "user": "USLACKBOT"
+    },
+    {
+        "ts": "1723870199.257579",
+        "text": "関数従属性について質問させてください\n\nMonadState の定義を見て `| m -&gt; s` が気になりました。\n```class (Monad m) =&gt; MonadState s m | m -&gt; s where\n\tget :: m s\n\tput :: s -&gt; m ()```\n調べてみたところ、以下のように説明がありました。\n&gt; \"-&gt;\" の左側にある型によって右側の型が一意に決定される\nそれ以外にも説明のあるところもあったのですが、納得したといえるほど理解できませんでした。\n\n例)\n```read \"123\" :: Int```\n`:: Int` がないと \"123\" がなんの型かわからないよね。\n\nと、いう程度に簡単に理解できるような例はありますか ?\n(例えがわかりにくかったら無視してください)",
+        "type": "message",
+        "user": "U04MBBNV5QB"
     }
 ]

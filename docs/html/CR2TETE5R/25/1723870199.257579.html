@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #25 at 2024-08-17 13:49:59 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #25 at 2024-08-17 13:49:59 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1723870199.257579">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1723870199.257579">2024-08-17 13:49:59 +0900</a></div>
+          </div>
+          <div class="description">関数従属性について質問させてください<br/><br/>MonadState の定義を見て <code>| m -&gt; s</code> が気になりました。<br/><pre>class (Monad m) =&gt; MonadState s m | m -&gt; s where
+	get :: m s
+	put :: s -&gt; m ()</pre><br/>調べてみたところ、以下のように説明がありました。<br/><blockquote>"-&gt;" の左側にある型によって右側の型が一意に決定される</blockquote>それ以外にも説明のあるところもあったのですが、納得したといえるほど理解できませんでした。<br/><br/>例)<br/><pre>read "123" :: Int</pre><br/><code>:: Int</code> がないと "123" がなんの型かわからないよね。<br/><br/>と、いう程度に簡単に理解できるような例はありますか ?<br/>(例えがわかりにくかったら無視してください)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1723891309.603179">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1723891309.603179">2024-08-17 19:41:49 +0900</a></div>
+          </div>
+          <div class="description">これについてはGHC User Guideの <a href='https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/functional_dependencies.html#background-on-functional-dependencies'>https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/functional_dependencies.html#background-on-functional-dependencies</a> が分かりやすいので例をそのまま引用します。 次:point_down: のような型クラスは <code>FunctionalDependencies</code> を使わないと定義できません:<br/><br/><pre>class Collects e ce where
+    empty  :: ce
+    insert :: e -> ce -> ce
+    member :: e -> ce -> Bool</pre><br/>なぜなら第一に <code>empty</code> メソッドが次 :point_down: のような型になり、<br/><pre>empty :: Collects e ce => ce</pre><br/><code>empty</code> だけからは <code>e</code> の型が特定できなくなるからです。そのため例えば<br/><pre>instance Collects Word8 ByteString</pre><br/>と、<br/><pre>instance Collects Char ByteString</pre><br/>みたいなインスタンスが複数あると、 <code>empty :: ByteString</code> と書いても要素の型 <code>e</code> が <code>Word8</code> なのか <code>Char</code> なのか特定できなくなります。<br/><br/>さらに、 <code>insert</code> についても問題があります。`Collects` 型クラスのインスタンスの値に対する次 :point_down: のような関数 <code>f</code> <code>g</code> があったとしましょう:<br/><pre>f x y = insert x . insert y
+g     = f True 'a'</pre><br/>これらは次 :point_down: の型に推論されます:<br/><pre>f :: (Collects a c, Collects b c) => a -> b -> c -> c
+g :: (Collects Bool c, Collects Char c) => c -> c</pre><br/>ここで <code>Collects</code> が一つの型の値のみを含むコレクション型を対象とした型クラスであった場合、 <code>f</code> は <code>a</code> <code>b</code> という別々の型の値を <code>c</code> に挿入できるようになってしまいます。実際に <code>g</code> では一つの <code>c</code> に対して <code>Bool</code> と <code>Char</code> という別々の型を <code>f</code> に渡していますね。<br/><br/>以上の問題は、`FunctionalDependencies` を有効にして、「 <code>e</code> の型は <code>ce</code> の型が定まれば一意に定まる」という関係を宣言すれば解決できます。<br/><pre>class Collects e ce | ce -> e
+  -- ... 以下略 ...</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1723905509.426369">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1723905509.426369">2024-08-17 23:38:29 +0900</a></div>
+          </div>
+          <div class="description">とても丁寧な解説をありがとうございます。<br/><br/>すぐには理解できませんが、教えていただいた内容をもとにじっくりと理解できるように取り組んでみます。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+  </div>
+</body>
+</html>
