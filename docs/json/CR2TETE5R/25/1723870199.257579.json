@@ -16,5 +16,35 @@
         "text": "とても丁寧な解説をありがとうございます。\n\nすぐには理解できませんが、教えていただいた内容をもとにじっくりと理解できるように取り組んでみます。",
         "type": "message",
         "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1724032499.003099",
+        "text": "これって実際には\n```class Collects e ce where\n    empty  :: ce```\nというクラス宣言は The type variable e0 is ambiguous と言われてこのような宣言はできないし、逆に\n``` class Collects e ce | ce -&gt; e\n  -- ... 以下略 ...```\nとクラス宣言した場合は\n```instance Collects Word8 ByteString\ninstance Collects Char ByteString```\n&gt; みたいなインスタンスが複数\n宣言に対しては Functional dependencies conflict between instance declarations と言われるので、右側が ByteString のインスタンス宣言は一個しかできませんよね？",
+        "type": "message",
+        "user": "UF8SE896V"
+    },
+    {
+        "ts": "1724032664.725199",
+        "text": "はい、両方その通りです。なので、 `FunctionalDependencies` を「使えばできるようになる」例ではなく「使えばミスが防げる」例です。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1724034476.342869",
+        "text": "これって FunctionDependencies の方が古い時期から使えるんですけど、 TypeFamilies を使えるようになった（のもだいぶ昔ですが、それ以降）からは\n```class Collects ce where\n    type CollectElement ce :: *\n    empty  :: ce\n    insert :: CollectElement ce -> ce -> ce\n    member :: CollectElement ce -> ce -> Bool\n\ninstance Collects ByteString where\n    type CollectElement ByteString = Char\n    略```\nみたいに書いた方が素直なのかなあ、と思うんですがどうでしょうか",
+        "type": "message",
+        "user": "UF8SE896V"
+    },
+    {
+        "ts": "1724034924.001479",
+        "text": "はい、この例に関していえば `TypeFamilies` を使った方が直感的かとは思います（し、事実そっくりな目的のmono-traversableパッケージでは `TypeFamilies` を使っています）。\n一方、ご存じでしたら恐縮ですが `FunctionalDependencies` は依存関係を双方向に宣言できたりするので、 `TypeFamilies` より表現力が高いです。それが理由か、PureScriptでは `TypeFamilies` はなく代わりに `FunctionalDependencies` を使っています。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1724035285.532689",
+        "text": "なるほど、双方向性のことについてはすっかり脳内から抜け落ちていました^^;\n一対一対応の場合は確かに双方向に使えるのが便利そうですね。",
+        "type": "message",
+        "user": "UF8SE896V"
     }
 ]

@@ -47,6 +47,62 @@ g :: (Collects Bool c, Collects Char c) => c -> c</pre><br/>ここで <code>Coll
           <div class="description">とても丁寧な解説をありがとうございます。<br/><br/>すぐには理解できませんが、教えていただいた内容をもとにじっくりと理解できるように取り組んでみます。</div>
         </div>
       </div>
+      <div class="event" id="message-1724032499.003099">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1724032499.003099">2024-08-19 10:54:59 +0900</a></div>
+          </div>
+          <div class="description">これって実際には<br/><pre>class Collects e ce where
+    empty  :: ce</pre><br/>というクラス宣言は The type variable e0 is ambiguous と言われてこのような宣言はできないし、逆に<br/><pre> class Collects e ce | ce -&gt; e
+  -- ... 以下略 ...</pre><br/>とクラス宣言した場合は<br/><pre>instance Collects Word8 ByteString
+instance Collects Char ByteString</pre><br/><blockquote>みたいなインスタンスが複数</blockquote>宣言に対しては Functional dependencies conflict between instance declarations と言われるので、右側が ByteString のインスタンス宣言は一個しかできませんよね？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1724032664.725199">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1724032664.725199">2024-08-19 10:57:44 +0900</a></div>
+          </div>
+          <div class="description">はい、両方その通りです。なので、 <code>FunctionalDependencies</code> を「使えばできるようになる」例ではなく「使えばミスが防げる」例です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1724034476.342869">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1724034476.342869">2024-08-19 11:27:56 +0900</a></div>
+          </div>
+          <div class="description">これって FunctionDependencies の方が古い時期から使えるんですけど、 TypeFamilies を使えるようになった（のもだいぶ昔ですが、それ以降）からは<br/><pre>class Collects ce where
+    type CollectElement ce :: *
+    empty  :: ce
+    insert :: CollectElement ce -> ce -> ce
+    member :: CollectElement ce -> ce -> Bool
+
+instance Collects ByteString where
+    type CollectElement ByteString = Char
+    略</pre><br/>みたいに書いた方が素直なのかなあ、と思うんですがどうでしょうか</div>
+        </div>
+      </div>
+      <div class="event" id="message-1724034924.001479">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1724034924.001479">2024-08-19 11:35:24 +0900</a></div>
+          </div>
+          <div class="description">はい、この例に関していえば <code>TypeFamilies</code> を使った方が直感的かとは思います（し、事実そっくりな目的のmono-traversableパッケージでは <code>TypeFamilies</code> を使っています）。<br/>一方、ご存じでしたら恐縮ですが <code>FunctionalDependencies</code> は依存関係を双方向に宣言できたりするので、 <code>TypeFamilies</code> より表現力が高いです。それが理由か、PureScriptでは <code>TypeFamilies</code> はなく代わりに <code>FunctionalDependencies</code> を使っています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1724035285.532689">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1724035285.532689">2024-08-19 11:41:25 +0900</a></div>
+          </div>
+          <div class="description">なるほど、双方向性のことについてはすっかり脳内から抜け落ちていました^^;<br/>一対一対応の場合は確かに双方向に使えるのが便利そうですね。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../25.html" class="item">Back to beginners #25</a>
