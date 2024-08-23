@@ -441,6 +441,19 @@ it :: Num a =&gt; a</pre><br/></div>
           <div class="description">@ has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1724382191.158669">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1724382191.158669">2024-08-23 12:03:11 +0900</a></div>
+          </div>
+          <div class="description">曖昧な質問となってしまい申し訳ありませんが<br/><br/><a href='https://zenn.dev/osio/articles/2022-advent-calendar'>https://zenn.dev/osio/articles/2022-advent-calendar</a><br/>に、以下のようなものがありました。<br/><pre>import Control.Monad (join)
+f = join
+f (*) 5 --&gt; 25 = 5 * 5</pre><br/>Hoogle で join を調べ以下のような定義ということがわかりました。<br/><pre>join              :: (Monad m) =&gt; m (m a) -&gt; m a
+join x            =  x &gt;&gt;= id</pre><br/>これらをまとめると、以下になると思います。<br/><pre>join (*) = (*) &gt;&gt;= id</pre><br/>しばらく考えて、なんとなく関数モナドかなと思い、定義に当てはめて<br/><pre>h &gt;&gt;= f = \w -&gt; id ((*) w) w</pre><br/>ここに引数を与えて、最終的に<br/><pre>id ((*) 5) 5 ==&gt; (*) 5 5</pre><br/>と、ここまできてようやく納得できました。<br/><br/>前置きが長くなりましたが、`(*)` が関数であるため関数モナドに決まってるでしょ。<br/><br/>と、言われてしまえばそれまでなのですが、`(*) <blockquote><blockquote>= id` のようなものを見て、それが関数モナド ((-&gt;) r) であると導き出すのは経験しかないのでしょうか ?</blockquote></blockquote></div>
+          <a class="link-to-replies" href="25/1724382191.158669.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/24.html" class="item">Previous</a>
