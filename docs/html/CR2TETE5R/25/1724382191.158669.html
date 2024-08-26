@@ -51,6 +51,44 @@ join x            =  x &gt;&gt;= id</pre><br/>これらをまとめると、以�
           <div class="description">型推論についてはお馴染みTAPLをはじめ、本もいくつか出ていたはずなので詳しい解説が見たいときはそちらも読んでみてください。</div>
         </div>
       </div>
+      <div class="event" id="message-1724551806.124339">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1724551806.124339">2024-08-25 11:10:06 +0900</a></div>
+          </div>
+          <div class="description">• <code>join :: m (m a) -&gt; m a</code><br/>• <code>* :: b -&gt; b -&gt; b</code><br/>• <code>join (*)</code><br/>この3つから <code>m (m a)</code> ≡ <code>b -&gt; b -&gt; b</code> ということが分かって<br/><code>b -&gt; b -&gt; b</code> は <code>(-&gt;) b ((-&gt;) b b)</code> の中置記法だなということを合わせると<br/><pre>(-&gt;) b ((-&gt;) b b)
+^^^^^^  ^^^^^^ ^
+  m    (  m    a)</pre><br/>となって <code>m</code> ≡ <code>(-&gt;) b</code>、`a` ≡ <code>b</code> だなということが分かります<br/><code>join</code> も <code>*</code> も型が明記されてるし型推論は関係ないんじゃないかな（ただの型検査）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1724551874.488279">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1724551874.488279">2024-08-25 11:11:14 +0900</a></div>
+          </div>
+          <div class="description">（あーでも型引数を具体型にするのは推論か？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1724563587.670929">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1724563587.670929">2024-08-25 14:26:27 +0900</a></div>
+          </div>
+          <div class="description">確かにこのケースに関して言えば半ば自明な処理ではありますが、定義上立派な型推論ではないかと…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1724631523.062259">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1724631523.062259">2024-08-26 09:18:43 +0900</a></div>
+          </div>
+          <div class="description">ご回答ありがとうございます。<br/>手順も明記していただきわかりやすかったです :grinning:<br/><br/>教えていただいた手順を参考に、改めて整理して考えてみます。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../25.html" class="item">Back to beginners #25</a>
