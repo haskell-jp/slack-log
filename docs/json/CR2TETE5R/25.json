@@ -220,5 +220,11 @@
         "text": "曖昧な質問となってしまい申し訳ありませんが\n\n<https://zenn.dev/osio/articles/2022-advent-calendar>\nに、以下のようなものがありました。\n```import Control.Monad (join)\nf = join\nf (*) 5 --&gt; 25 = 5 * 5```\nHoogle で join を調べ以下のような定義ということがわかりました。\n```join              :: (Monad m) =&gt; m (m a) -&gt; m a\njoin x            =  x &gt;&gt;= id```\nこれらをまとめると、以下になると思います。\n```join (*) = (*) &gt;&gt;= id```\nしばらく考えて、なんとなく関数モナドかなと思い、定義に当てはめて\n```h &gt;&gt;= f = \\w -&gt; id ((*) w) w```\nここに引数を与えて、最終的に\n```id ((*) 5) 5 ==&gt; (*) 5 5```\nと、ここまできてようやく納得できました。\n\n前置きが長くなりましたが、`(*)` が関数であるため関数モナドに決まってるでしょ。\n\nと、言われてしまえばそれまでなのですが、`(*) &gt;&gt;= id` のようなものを見て、それが関数モナド ((-&gt;) r) であると導き出すのは経験しかないのでしょうか ?",
         "type": "message",
         "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1724847889.936369",
+        "text": "<@U07JFNJTR71> has joined the channel",
+        "type": "message",
+        "user": "U07JFNJTR71"
     }
 ]
