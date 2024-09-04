@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #25 at 2024-09-03 12:02:28 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #25 at 2024-09-03 12:02:28 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1725332548.796509">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1725332548.796509">2024-09-03 12:02:28 +0900</a></div>
+          </div>
+          <div class="description">目的の関数などの定義を検索する方法について質問させてください。<br/><br/>いつも Hoogle を利用していますが、StateT の empty の定義を探すときには<br/><a href='https://hoogle.haskell.org/?hoogle=StateT'>https://hoogle.haskell.org/?hoogle=StateT</a><br/><br/>上記の一覧からたどり、以下のソースを表示し<br/><a href='https://hackage.haskell.org/package/transformers-0.6.1.1/docs/src/Control.Monad.Trans.State.Lazy.html#StateT'>https://hackage.haskell.org/package/transformers-0.6.1.1/docs/src/Control.Monad.Trans.State.Lazy.html#StateT</a><br/><br/>ここから、ブラウザの検索機能で <code>empty</code> をテキスト検索で探しています。<br/><br/>目的自体は達成できていますが、もう少し探しやすい方法があればと思って質問させていただきました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1725333817.572529">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1725333817.572529">2024-09-03 12:23:37 +0900</a></div>
+          </div>
+          <div class="description"><code>empty</code> は <code>Alternative</code> クラスのメソッドなので、`StateT` 型のInstances欄の <code>Alternative</code> のところのSourceを開く、とかですかねえ。これよりも大幅に楽な方法はないんじゃないかと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1725336267.266699">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1725336267.266699">2024-09-03 13:04:27 +0900</a></div>
+          </div>
+          <div class="description">Instances のほうからリンクをたどれば、少なくとも StateT の Alternative までは行けるのですね。<br/>私がやっていた方法より直接的です。<br/><br/>加工した画像まで添付していただきありがとうございました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1725339995.439319">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1725339995.439319">2024-09-03 14:06:35 +0900</a></div>
+          </div>
+          <div class="description">Hackage のページは <code>s</code> キーでインタラクティブな検索ができるという小ネタはあります<br/><a href='https://hackage.haskell.org/package/transformers'>https://hackage.haskell.org/package/transformers</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1725346036.891059">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1725346036.891059">2024-09-03 15:47:16 +0900</a></div>
+          </div>
+          <div class="description"><code>Search</code> の入力欄ではなく、画面にフォーカスを当てた状態で <code>s</code> なんですね :thinking_face:<br/><br/>裏技的なやつ、ありがとうございました</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+  </div>
+</body>
+</html>

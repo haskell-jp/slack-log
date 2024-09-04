@@ -1,0 +1,32 @@
+[
+    {
+        "ts": "1725332548.796509",
+        "text": "目的の関数などの定義を検索する方法について質問させてください。\n\nいつも Hoogle を利用していますが、StateT の empty の定義を探すときには\n<https://hoogle.haskell.org/?hoogle=StateT>\n\n上記の一覧からたどり、以下のソースを表示し\n<https://hackage.haskell.org/package/transformers-0.6.1.1/docs/src/Control.Monad.Trans.State.Lazy.html#StateT>\n\nここから、ブラウザの検索機能で `empty` をテキスト検索で探しています。\n\n目的自体は達成できていますが、もう少し探しやすい方法があればと思って質問させていただきました。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1725333817.572529",
+        "text": "`empty` は `Alternative` クラスのメソッドなので、`StateT` 型のInstances欄の `Alternative` のところのSourceを開く、とかですかねえ。これよりも大幅に楽な方法はないんじゃないかと思います。",
+        "type": "message",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "ts": "1725336267.266699",
+        "text": "Instances のほうからリンクをたどれば、少なくとも StateT の Alternative までは行けるのですね。\n私がやっていた方法より直接的です。\n\n加工した画像まで添付していただきありがとうございました。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1725339995.439319",
+        "text": "Hackage のページは `s` キーでインタラクティブな検索ができるという小ネタはあります\n<https://hackage.haskell.org/package/transformers>",
+        "type": "message",
+        "user": "U4L0B71L1"
+    },
+    {
+        "ts": "1725346036.891059",
+        "text": "`Search` の入力欄ではなく、画面にフォーカスを当てた状態で `s` なんですね :thinking_face:\n\n裏技的なやつ、ありがとうございました",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    }
+]
