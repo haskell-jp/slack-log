@@ -491,6 +491,34 @@ join x            =  x &gt;&gt;= id</pre><br/>これらをまとめると、以�
           <div class="description">@絹宮紀仁 has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1726908202.015919">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1726908202.015919">2024-09-21 17:43:22 +0900</a></div>
+          </div>
+          <div class="description">アプリカティブ・スタイルについて質問させてください<br/><br/><pre>data Ehdr = Ehdr {
+    e_entry :: !Word64
+    ,e_phoff :: !Word64
+    ,e_shoff :: !Word64
+    ,e_ehsize :: !Word16
+    ,e_phentsize :: !Word16
+    ,e_phnum :: !Word16
+    ,e_shentsize :: !Word16
+    ,e_shnum :: !Word16
+    ,e_shstrndx :: !Word16
+    } deriving Show
+
+getEhdr :: Get Ehdr
+getEhdr = do
+    ... 省略 ...
+
+    Ehdr e_entry e_phoff e_shoff &lt;$&gt;
+        getWord16host &lt;*&gt; getWord16host &lt;*&gt; getWord16host &lt;*&gt;
+        getWord16host &lt;*&gt; getWord16host &lt;*&gt; getWord16host</pre><br/>上記のようなコードがあり、これは想定通りに動作しています。<br/><br/>この中で、getWord16host &lt;*&gt; getWord16host ... という部分が複数出てきてしまっています。<br/>これを replicate 6 getWord16host のような形にできないかといろいろと試しましたがうまくいきませんでした。<br/><br/>なにか良い書き方はありますか ?</div>
+          <a class="link-to-replies" href="25/1726908202.015919.html">... Replies ...</a>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CR2TETE5R/24.html" class="item">Previous</a>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #25 at 2024-09-21 17:43:22 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #25 at 2024-09-21 17:43:22 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1726908202.015919">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1726908202.015919">2024-09-21 17:43:22 +0900</a></div>
+          </div>
+          <div class="description">アプリカティブ・スタイルについて質問させてください<br/><br/><pre>data Ehdr = Ehdr {
+    e_entry :: !Word64
+    ,e_phoff :: !Word64
+    ,e_shoff :: !Word64
+    ,e_ehsize :: !Word16
+    ,e_phentsize :: !Word16
+    ,e_phnum :: !Word16
+    ,e_shentsize :: !Word16
+    ,e_shnum :: !Word16
+    ,e_shstrndx :: !Word16
+    } deriving Show
+
+getEhdr :: Get Ehdr
+getEhdr = do
+    ... 省略 ...
+
+    Ehdr e_entry e_phoff e_shoff &lt;$&gt;
+        getWord16host &lt;*&gt; getWord16host &lt;*&gt; getWord16host &lt;*&gt;
+        getWord16host &lt;*&gt; getWord16host &lt;*&gt; getWord16host</pre><br/>上記のようなコードがあり、これは想定通りに動作しています。<br/><br/>この中で、getWord16host &lt;*&gt; getWord16host ... という部分が複数出てきてしまっています。<br/>これを replicate 6 getWord16host のような形にできないかといろいろと試しましたがうまくいきませんでした。<br/><br/>なにか良い書き方はありますか ?</div>
+        </div>
+      </div>
+      <div class="event" id="message-1726915038.334019">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1726915038.334019">2024-09-21 19:37:18 +0900</a></div>
+          </div>
+          <div class="description">ズバりの答えではないですが、このページの最下部のように <code>join</code> で引数を増やせるかもしれません <a href='https://ziphil.com/other/other/12.html'>https://ziphil.com/other/other/12.html</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1726915125.854899">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1726915125.854899">2024-09-21 19:38:45 +0900</a></div>
+          </div>
+          <div class="description">(↑ 解答ではなく雑談です :pray:)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1726917801.434279">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1726917801.434279">2024-09-21 20:23:21 +0900</a></div>
+          </div>
+          <div class="description">知る限りTemplate Haskellでも使わない限り解決できないかと思いますね...</div>
+        </div>
+      </div>
+      <div class="event" id="message-1726918263.446429">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1726918263.446429">2024-09-21 20:31:03 +0900</a></div>
+          </div>
+          <div class="description">github で検索しても、みんな <code><$> ** <*></code> の書き方をしていました。<br/>Template Haskell は少し調べてみましたが、今の自分では理解は難しそうでした、、<br/><br/><code>join</code> のほうもすぐには理解できませんが、面白そうですので調べてみます。<br/><br/>ご回答ありがとうございました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+  </div>
+</body>
+</html>

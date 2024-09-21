@@ -244,5 +244,11 @@
         "text": "<@U07N2DK4GR4> has joined the channel",
         "type": "message",
         "user": "U07N2DK4GR4"
+    },
+    {
+        "ts": "1726908202.015919",
+        "text": "アプリカティブ・スタイルについて質問させてください\n\n```data Ehdr = Ehdr {\n    e_entry :: !Word64\n    ,e_phoff :: !Word64\n    ,e_shoff :: !Word64\n    ,e_ehsize :: !Word16\n    ,e_phentsize :: !Word16\n    ,e_phnum :: !Word16\n    ,e_shentsize :: !Word16\n    ,e_shnum :: !Word16\n    ,e_shstrndx :: !Word16\n    } deriving Show\n\ngetEhdr :: Get Ehdr\ngetEhdr = do\n    ... 省略 ...\n\n    Ehdr e_entry e_phoff e_shoff &lt;$&gt;\n        getWord16host &lt;*&gt; getWord16host &lt;*&gt; getWord16host &lt;*&gt;\n        getWord16host &lt;*&gt; getWord16host &lt;*&gt; getWord16host```\n上記のようなコードがあり、これは想定通りに動作しています。\n\nこの中で、getWord16host &lt;*&gt; getWord16host ... という部分が複数出てきてしまっています。\nこれを replicate 6 getWord16host のような形にできないかといろいろと試しましたがうまくいきませんでした。\n\nなにか良い書き方はありますか ?",
+        "type": "message",
+        "user": "U04MBBNV5QB"
     }
 ]

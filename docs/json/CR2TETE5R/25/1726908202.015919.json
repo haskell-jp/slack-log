@@ -1,0 +1,32 @@
+[
+    {
+        "ts": "1726908202.015919",
+        "text": "アプリカティブ・スタイルについて質問させてください\n\n```data Ehdr = Ehdr {\n    e_entry :: !Word64\n    ,e_phoff :: !Word64\n    ,e_shoff :: !Word64\n    ,e_ehsize :: !Word16\n    ,e_phentsize :: !Word16\n    ,e_phnum :: !Word16\n    ,e_shentsize :: !Word16\n    ,e_shnum :: !Word16\n    ,e_shstrndx :: !Word16\n    } deriving Show\n\ngetEhdr :: Get Ehdr\ngetEhdr = do\n    ... 省略 ...\n\n    Ehdr e_entry e_phoff e_shoff &lt;$&gt;\n        getWord16host &lt;*&gt; getWord16host &lt;*&gt; getWord16host &lt;*&gt;\n        getWord16host &lt;*&gt; getWord16host &lt;*&gt; getWord16host```\n上記のようなコードがあり、これは想定通りに動作しています。\n\nこの中で、getWord16host &lt;*&gt; getWord16host ... という部分が複数出てきてしまっています。\nこれを replicate 6 getWord16host のような形にできないかといろいろと試しましたがうまくいきませんでした。\n\nなにか良い書き方はありますか ?",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1726915038.334019",
+        "text": "ズバりの答えではないですが、このページの最下部のように `join` で引数を増やせるかもしれません <https://ziphil.com/other/other/12.html>",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1726915125.854899",
+        "text": "(↑ 解答ではなく雑談です :pray:)",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1726917801.434279",
+        "text": "知る限りTemplate Haskellでも使わない限り解決できないかと思いますね...",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1726918263.446429",
+        "text": "github で検索しても、みんな `<$> ** <*>` の書き方をしていました。\nTemplate Haskell は少し調べてみましたが、今の自分では理解は難しそうでした、、\n\n`join` のほうもすぐには理解できませんが、面白そうですので調べてみます。\n\nご回答ありがとうございました。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    }
+]
