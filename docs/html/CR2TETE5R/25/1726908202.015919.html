@@ -75,6 +75,40 @@ getEhdr = do
           <div class="description">github で検索しても、みんな <code><$> ** <*></code> の書き方をしていました。<br/>Template Haskell は少し調べてみましたが、今の自分では理解は難しそうでした、、<br/><br/><code>join</code> のほうもすぐには理解できませんが、面白そうですので調べてみます。<br/><br/>ご回答ありがとうございました。</div>
         </div>
       </div>
+      <div class="event" id="message-1726973445.783029">
+        <div class="content">
+          <div class="summary">
+            <div class="user">takenobu.hs</div>
+            <div class="date"><a class="date" href="#message-1726973445.783029">2024-09-22 11:50:45 +0900</a></div>
+          </div>
+          <div class="description">ちなみにもちろん、こういうふうに↓ベタに書きたいという訳ではないのですよね、おそらく。<br/>（アプリ化ティブ風に中間変数も記述から消したい、というのがニーズですよね。）<br/><br/><pre>getEhdr :: Get Ehdr
+getEhdr = do
+    [a, b, c, d, e, f] &lt;- replicateM 6 getWord16host
+    return $ Ehdr 100 200 300 a b c d e f</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1726974940.578909">
+        <div class="content">
+          <div class="summary">
+            <div class="user">takenobu.hs</div>
+            <div class="date"><a class="date" href="#message-1726974940.578909">2024-09-22 12:15:40 +0900</a></div>
+          </div>
+          <div class="description">ちょっとズル(?)して、別途app6を作っておいて、以下とか。<br/>（ただ、引数の数も6個の固定でなく可変個にしたいのですよね、おそらく、、、）<br/><br/><pre>app6 f [x0, x1, x2, x3, x4, x5] = f x0 x1 x2 x3 x4 x5
+
+getEhdr :: Get Ehdr
+getEhdr = do
+    app6 (Ehdr 100 200 300) &lt;$&gt; replicateM 6 getWord16host</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1727015267.519209">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1727015267.519209">2024-09-22 23:27:47 +0900</a></div>
+          </div>
+          <div class="description">@takenobu.hs<br/><blockquote>可変個にしたいのですよね</blockquote>はい。getWord16host が続いていたので<br/><br/>雰囲気ですが、、<br/><pre>Ehdr 100 200 300 &lt;$&gt; foldl1 (&lt;*&gt;) $ replicate 6 getWord16host</pre><br/>こんな風に書けたら便利だな、って考えて質問してみましたが<br/>固定数のところに可変のものを当てはめるようになって、難しそうですよね :sweat_drops:<br/><br/>いろいろ考えていただきありがとうございました。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../25.html" class="item">Back to beginners #25</a>

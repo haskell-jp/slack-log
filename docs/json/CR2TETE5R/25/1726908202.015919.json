@@ -28,5 +28,23 @@
         "text": "github で検索しても、みんな `<$> ** <*>` の書き方をしていました。\nTemplate Haskell は少し調べてみましたが、今の自分では理解は難しそうでした、、\n\n`join` のほうもすぐには理解できませんが、面白そうですので調べてみます。\n\nご回答ありがとうございました。",
         "type": "message",
         "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1726973445.783029",
+        "text": "ちなみにもちろん、こういうふうに↓ベタに書きたいという訳ではないのですよね、おそらく。\n（アプリ化ティブ風に中間変数も記述から消したい、というのがニーズですよね。）\n\n```getEhdr :: Get Ehdr\ngetEhdr = do\n    [a, b, c, d, e, f] &lt;- replicateM 6 getWord16host\n    return $ Ehdr 100 200 300 a b c d e f```",
+        "type": "message",
+        "user": "U55V441FS"
+    },
+    {
+        "ts": "1726974940.578909",
+        "text": "ちょっとズル(?)して、別途app6を作っておいて、以下とか。\n（ただ、引数の数も6個の固定でなく可変個にしたいのですよね、おそらく、、、）\n\n```app6 f [x0, x1, x2, x3, x4, x5] = f x0 x1 x2 x3 x4 x5\n\ngetEhdr :: Get Ehdr\ngetEhdr = do\n    app6 (Ehdr 100 200 300) &lt;$&gt; replicateM 6 getWord16host```",
+        "type": "message",
+        "user": "U55V441FS"
+    },
+    {
+        "ts": "1727015267.519209",
+        "text": "<@U55V441FS>\n&gt; 可変個にしたいのですよね\nはい。getWord16host が続いていたので\n\n雰囲気ですが、、\n```Ehdr 100 200 300 &lt;$&gt; foldl1 (&lt;*&gt;) $ replicate 6 getWord16host```\nこんな風に書けたら便利だな、って考えて質問してみましたが\n固定数のところに可変のものを当てはめるようになって、難しそうですよね :sweat_drops:\n\nいろいろ考えていただきありがとうございました。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
     }
 ]
