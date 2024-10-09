@@ -1,0 +1,62 @@
+[
+    {
+        "ts": "1728442764.500619",
+        "text": "ghci のコマンドについて質問させてください。\n\nいつも (Windows) teraterm を使って ssh 接続した linux 上で ghci コマンドを実行しています。\n```(oracle-cli) ubuntu@vm1:~$ ghci\nGHCi, version 9.6.6: <https://www.haskell.org/ghc/>  :? for help\nLoaded GHCi configuration from /home/ubuntu/.ghci\nghci&gt;```\nこの状態でマウスのホイール操作を行うと、キーボードの [↑] [↓] を押したときと同じ動作となり、コマンド履歴が選択できるようになります。\n```ghci&gt; :main```\nそのせいで、ターミナル自体をスクロールさせることができず、不便だなと思っています。\nこの ghci の動作を変更することは可能でしょうか ?",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1728443227.164039",
+        "text": "念のため確認ですが、bashとかvimとか他のアプリでは同様の問題は発生してないんですよね？",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1728444766.249669",
+        "text": "<@U4LGTMTMK>\nvim ではターミナルのスクロールはせず、[Ctrl]+f や [Ctrl]+b のようなページのアップダウンの操作と同じような動作になります。\n\nbash では普通に (というのも変ですが)、teraterm の右側にあるスクロールバーを操作したときのような動作となっています。\n\n古い macOS も使っているのですが、こちらの場合は ターミナルから ssh して ghci を実行した状態でも、マウスのホイール操作はコマンド履歴ではなく、ターミナルのスクロール操作になっています。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1728445016.916709",
+        "text": "前に調べて\n```(oracle-cli) ubuntu@vm1:~$ cat ~/.inputrc\n# ignore mouse wheel\n\"\\e[&lt;64&gt;\": \"\"\n\"\\e[&lt;65&gt;\": \"\"```\nというような設定をしてみましたが、効果はありませんでした orz",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1728445115.869729",
+        "text": "> 古い macOS も使っているのですが、こちらの場合は ターミナルから ssh して ghci を実行した状態\n同じLinuxにログインしている時の話ですよね？\nということはTeraTermとGHCiの組み合わせによる問題のようですが、いずれにせよ対症療法として、<https://stackoverflow.com/questions/1825547/how-to-customize-readline-keybindings-of-ghci> や <https://github.com/haskell/haskeline/wiki/CustomKeyBindings> を参考に `~/.haskeline` を編集して見てください。\nマウスのホイールがどのキーに相当するかは\n```ghc -e \"getChar\"```\nなどを実行した状態でマウスホイールを上下させれば分かるのではないかと思います。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1728445239.778389",
+        "text": "&gt; 同じLinuxにログインしている時の話ですよね？\nはい。同じホストに同じアカウントで接続しています。\n\n&gt; `~/.haskeline` を編集して見てください。\nありがとうございます。\nとても参考になりました。\n\n資料を参考に、いろいろと試してみます。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1728450574.361309",
+        "text": "そもそも TeraTerm がマウスホイールをキーボードに変換してるのが悪いと思うのですよ\n<https://blog.dameninngenn.com/entry/20100714/1279035712>",
+        "type": "message",
+        "user": "UF8SE896V"
+    },
+    {
+        "ts": "1728450617.423889",
+        "text": "&gt; ```; Translate mouse wheel to cursor key when application cursor mode\n&gt; ; TranslateWheelToCursor=on\n&gt; TranslateWheelToCursor=off```\n&gt; デフォルトonのTranslateWheelToCursorをoffにするだけでした。\n",
+        "type": "message",
+        "user": "UF8SE896V"
+    },
+    {
+        "ts": "1728450658.887409",
+        "text": "ちなみに、これ以外に\n```; Disable wheel to cursor translation when Control-Key is pressed.\nDisableWheelToCursorByCtrl=on```\nという設定もあるようで、こちらはデフォルトが on なので、つまり「Ctrlキーを押しながらマウスホイールを操作すればいい」という動作がデフォルトのようですね",
+        "type": "message",
+        "user": "UF8SE896V"
+    },
+    {
+        "ts": "1728451376.144759",
+        "text": "<@UF8SE896V>\nbash も ghci もコマンド履歴の機能があるのに、bash と ghci では動作が異なるので不思議でした。\n\n教えていただいた方法も試してみます。\nありがとうございました。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    }
+]

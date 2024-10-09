@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #25 at 2024-10-09 11:59:24 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #25 at 2024-10-09 11:59:24 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1728442764.500619">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1728442764.500619">2024-10-09 11:59:24 +0900</a></div>
+          </div>
+          <div class="description">ghci のコマンドについて質問させてください。<br/><br/>いつも (Windows) teraterm を使って ssh 接続した linux 上で ghci コマンドを実行しています。<br/><pre>(oracle-cli) ubuntu@vm1:~$ ghci
+GHCi, version 9.6.6: <https://www.haskell.org/ghc/>  :? for help
+Loaded GHCi configuration from /home/ubuntu/.ghci
+ghci&gt;</pre><br/>この状態でマウスのホイール操作を行うと、キーボードの [↑] [↓] を押したときと同じ動作となり、コマンド履歴が選択できるようになります。<br/><pre>ghci&gt; :main</pre><br/>そのせいで、ターミナル自体をスクロールさせることができず、不便だなと思っています。<br/>この ghci の動作を変更することは可能でしょうか ?</div>
+        </div>
+      </div>
+      <div class="event" id="message-1728443227.164039">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1728443227.164039">2024-10-09 12:07:07 +0900</a></div>
+          </div>
+          <div class="description">念のため確認ですが、bashとかvimとか他のアプリでは同様の問題は発生してないんですよね？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1728444766.249669">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1728444766.249669">2024-10-09 12:32:46 +0900</a></div>
+          </div>
+          <div class="description">@igrep<br/>vim ではターミナルのスクロールはせず、[Ctrl]+f や [Ctrl]+b のようなページのアップダウンの操作と同じような動作になります。<br/><br/>bash では普通に (というのも変ですが)、teraterm の右側にあるスクロールバーを操作したときのような動作となっています。<br/><br/>古い macOS も使っているのですが、こちらの場合は ターミナルから ssh して ghci を実行した状態でも、マウスのホイール操作はコマンド履歴ではなく、ターミナルのスクロール操作になっています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1728445016.916709">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1728445016.916709">2024-10-09 12:36:56 +0900</a></div>
+          </div>
+          <div class="description">前に調べて<br/><pre>(oracle-cli) ubuntu@vm1:~$ cat ~/.inputrc
+# ignore mouse wheel
+"\e[&lt;64&gt;": ""
+"\e[&lt;65&gt;": ""</pre><br/>というような設定をしてみましたが、効果はありませんでした orz</div>
+        </div>
+      </div>
+      <div class="event" id="message-1728445115.869729">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1728445115.869729">2024-10-09 12:38:35 +0900</a></div>
+          </div>
+          <div class="description">> 古い macOS も使っているのですが、こちらの場合は ターミナルから ssh して ghci を実行した状態<br/>同じLinuxにログインしている時の話ですよね？<br/>ということはTeraTermとGHCiの組み合わせによる問題のようですが、いずれにせよ対症療法として、<https://stackoverflow.com/questions/1825547/how-to-customize-readline-keybindings-of-ghci> や <a href='https://github.com/haskell/haskeline/wiki/CustomKeyBindings'>https://github.com/haskell/haskeline/wiki/CustomKeyBindings</a> を参考に <code>~/.haskeline</code> を編集して見てください。<br/>マウスのホイールがどのキーに相当するかは<br/><pre>ghc -e "getChar"</pre><br/>などを実行した状態でマウスホイールを上下させれば分かるのではないかと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1728445239.778389">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1728445239.778389">2024-10-09 12:40:39 +0900</a></div>
+          </div>
+          <div class="description"><blockquote>同じLinuxにログインしている時の話ですよね？</blockquote>はい。同じホストに同じアカウントで接続しています。<br/><br/><blockquote><code>~/.haskeline</code> を編集して見てください。</blockquote>ありがとうございます。<br/>とても参考になりました。<br/><br/>資料を参考に、いろいろと試してみます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1728450574.361309">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1728450574.361309">2024-10-09 14:09:34 +0900</a></div>
+          </div>
+          <div class="description">そもそも TeraTerm がマウスホイールをキーボードに変換してるのが悪いと思うのですよ<br/><a href='https://blog.dameninngenn.com/entry/20100714/1279035712'>https://blog.dameninngenn.com/entry/20100714/1279035712</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1728450617.423889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1728450617.423889">2024-10-09 14:10:17 +0900</a></div>
+          </div>
+          <div class="description"><blockquote><pre>; Translate mouse wheel to cursor key when application cursor mode
+&gt; ; TranslateWheelToCursor=on
+&gt; TranslateWheelToCursor=off</pre><br/>デフォルトonのTranslateWheelToCursorをoffにするだけでした。</blockquote></div>
+        </div>
+      </div>
+      <div class="event" id="message-1728450658.887409">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1728450658.887409">2024-10-09 14:10:58 +0900</a></div>
+          </div>
+          <div class="description">ちなみに、これ以外に<br/><pre>; Disable wheel to cursor translation when Control-Key is pressed.
+DisableWheelToCursorByCtrl=on</pre><br/>という設定もあるようで、こちらはデフォルトが on なので、つまり「Ctrlキーを押しながらマウスホイールを操作すればいい」という動作がデフォルトのようですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1728451376.144759">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1728451376.144759">2024-10-09 14:22:56 +0900</a></div>
+          </div>
+          <div class="description">@koyama41<br/>bash も ghci もコマンド履歴の機能があるのに、bash と ghci では動作が異なるので不思議でした。<br/><br/>教えていただいた方法も試してみます。<br/>ありがとうございました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../25.html" class="item">Back to beginners #25</a>
+    </div>
+  </div>
+</body>
+</html>
