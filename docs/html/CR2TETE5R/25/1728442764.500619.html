@@ -111,6 +111,51 @@ DisableWheelToCursorByCtrl=on</pre><br/>という設定もあるようで、こ�
           <div class="description">@koyama41<br/>bash も ghci もコマンド履歴の機能があるのに、bash と ghci では動作が異なるので不思議でした。<br/><br/>教えていただいた方法も試してみます。<br/>ありがとうございました。</div>
         </div>
       </div>
+      <div class="event" id="message-1728460528.942999">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1728460528.942999">2024-10-09 16:55:28 +0900</a></div>
+          </div>
+          <div class="description">@igrep @koyama41<br/>教えていただいた方法を試してみました。<br/><br/><pre>ghc -e "getChar"</pre><br/>の状態で [↑] (pageup) [↓] (pagedown) のキーボードを押すと "^[[A" "^[[B" などの文字が表示されますが、マウスのホイールについては反応がありませんでした。<br/><br/>このため ".haskeline" でのコントロールは無理だと思ったので、Teraterm のほうを試してみました。<br/><br/>なぜか INI ファイルの編集では反映されませんでしたが、同様の効果があるメニューからの GUI 操作(メニューバー → 設定(S) → キーボード(K)... により表示されるダイアログ) にてアプリケーションカーソルを無効化したところ、想定される動作となりました。<br/><br/>いろいろと考えていただき、ありがとうございました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1728460676.373439">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1728460676.373439">2024-10-09 16:57:56 +0900</a></div>
+          </div>
+          <div class="description">どうやら、 GNU readline ライブラリ（シェルや repl などの一行分の編集機能をサポートするライブラリ）が、プロンプトを表示するたびに「アプリケーションカーソルモード」を指示する escape sequence code <code>ESC [ ? 1 h</code> を出力しているようで、それを検出した tera term が（上記の「アプリケーションカーソル」の設定が有効であれば）マウスホイールを矢印操作に翻訳するモードに遷移するようです。この readline の挙動を無効化する方法も探してみたのですがちょっと見つかりませんでした。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1728460730.872229">
+        <div class="content">
+          <div class="summary">
+            <div class="user">koyama41</div>
+            <div class="date"><a class="date" href="#message-1728460730.872229">2024-10-09 16:58:50 +0900</a></div>
+          </div>
+          <div class="description">まあ、なので、 Tera Term 側で「アプリケーションカーソル」を無効化するというのは、わりと正解っぽいですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1728460772.331649">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1728460772.331649">2024-10-09 16:59:32 +0900</a></div>
+          </div>
+          <div class="description">よかった :relieved:<br/>そうそう、前から言いそびれていたんですが、リプライの都度メンションするのは、よほど急いでいる場合を除いて止めてください。こちらにはそれなりにおおきな通知が来てうるさいので :pray:<br/>それでなくても私は間違いなく気づくので。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1728461249.499029">
+        <div class="content">
+          <div class="summary">
+            <div class="user">ai-ou</div>
+            <div class="date"><a class="date" href="#message-1728461249.499029">2024-10-09 17:07:29 +0900</a></div>
+          </div>
+          <div class="description">ご指摘ありがとうございます。<br/><br/>メンションは通知されてしまうのですね。<br/>仕事で使っているときの癖で、指定するものと思い込んでいました。<br/>ご迷惑をおかけしてしまい、申し訳ありませんでした。<br/><br/>今後は返信するときにメンションは設定しないようにいたします。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../25.html" class="item">Back to beginners #25</a>
