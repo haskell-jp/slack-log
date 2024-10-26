@@ -1,0 +1,20 @@
+[
+    {
+        "ts": "1729755512.540579",
+        "text": "VSCode の利用について質問させてください。\n\nWindows11 で GHCup (v0.1.30.0) をインストールし、stack が利用できる状態で、`lens` をインストールしました。\n```C:\\devwork\\workspaces\\haskell-primer\\root&gt;stack exec ghc-pkg -- list | findstr /I lens\n    lens-5.2.3```\nこの環境で、stack でのプロジェクトは作成せず (グローバル・プロジェクト)\nhaskell のコードをデバッグ実行し、これは正常に動作しました。\n\n実行したプログラムのコード\n```{-# LANGUAGE TemplateHaskell #-}\n\nimport Control.Lens\n\nmain = do\n    putStrLn \"###\"\n    putStrLn \"### done.\"\n    putStrLn \"###\"```\nしかし、添付の画像のように VSCode のエディタ上では `Control.Lnes` が\n見つからないというエラーが表示されたままとなっています。\n\nstack コマンドによりインストールされたモジュールを VSCode のプラグインが\n参照できていない。ということだと思いますが、ネットで調べても解決方法が\n見つかりませんでした。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    },
+    {
+        "ts": "1729757917.615709",
+        "text": "直接の回答にはなってないんですが、HLSはgit管理されたディレクトリをローカル管理だと見做したり、グローバルでもstackじゃなくてcabal直接管理を見に行ったりするので、素直にstack newして依存関係に追加したほうがお勧めです",
+        "type": "message",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "ts": "1729758739.993049",
+        "text": "依存関係とか、よくわからなかったのでとりあえずグローバル・プロジェクトで試していました\n\nそれが影響するかも。ということであれば調べてやってみます。\n\nありがとうございました。",
+        "type": "message",
+        "user": "U04MBBNV5QB"
+    }
+]
