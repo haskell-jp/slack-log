@@ -10,5 +10,11 @@
         "text": "アプリケーションサーバーが要らないという意味でお手軽なのは、やっぱりGHCのWasmバックエンドを使ってWASI executableにする方法ではないかと思います。",
         "type": "message",
         "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1732211510.926809",
+        "text": "以下の流れで動きました！ありがとうございます。\n• <https://www.haskell.org/ghcup/guide/#ghc-wasm-cross-bindists-experimental> に従って、GHCのWASM backendをインストール\n• <https://ghc.gitlab.haskell.org/ghc/doc/users_guide/wasm.html#using-the-ghc-wasm-backend-to-compile-link-code> の指示に従ってcabalに`--with-compiler=`, `--with-hc-pkg=`, `--with-hsc2hs=` オプションを渡してコンパイル\n• `$(wasm32-wasi-ghc --print-libdir)/post-link.mjs -i bin/out.wasm -o bin/ghc_wasm_jsffi_raw.js` でグルーコードを生成\n• <https://github.com/bytecodealliance/wizer|wizer> で初期化済みWASMを生成、`wasm-opt` と `wasm-strip` (要wabt)で最適化（最適化を掛けないとかなり遅い）\n• `ghc_wasm_jsffi_raw.js` の `await import(\"node:timers\")` がブラウザだと落ちるのでコメントアウト\n• <https://github.com/tweag/ghc-wasm-miso-examples/blob/main/frontend/index.js> を参考に、モジュールを読み込み",
+        "type": "message",
+        "user": "U015L5JEP8D"
     }
 ]
