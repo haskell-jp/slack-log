@@ -214,5 +214,59 @@
         "text": "math モジュールを移植して寝てました〜",
         "type": "message",
         "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1733025605.174849",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1733025823.122799",
+        "text": "山本悠滋です。いつもどおりmakeMistakesToLearnHaskellの続きを書きます。\n余力があったらHaskell-jp Blogに <https://www.youtube.com/playlist?list=PLRVf2pXOpAzJMFN810EWwGrH_qii7DKyn> の配信の振り返り記事を書く件をやります。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1733026074.498589",
+        "text": "<https://www.cs.ox.ac.uk/jeremy.gibbons/publications/iterator.pdf|The Essence of the Iterator Pattern>, Jeremy Gibbons and Bruno C. d. S. Oliveira (2006)\nあとハシゴで <https://atcoder.jp/contests/typical90|競プロ典型 90 問> 84 日目 - There are two types of characters（★3）",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1733029698.291229",
+        "text": "S.K.です。遅くなってしまいましたが、今週もお世話になります。よろしくお願いします。\n先週に続き Implementing Functional Languages: a tutorial の 5.2 Mark 1: A minimal parallel G-machine の続き\n(テストプログラム main = par (S K K) (S K K 3) の動作確認)を進めていこうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1733031630.729639",
+        "text": "遅くなりました。前の続きです。こんなところです。\n<https://qiita.com/Trubetzkoy/items/f6bc8450495fbfb5b46b>",
+        "type": "message",
+        "user": "U08143MUQJ1"
+    },
+    {
+        "ts": "1733043609.484939",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1733043896.763059",
+        "text": "先週から引き続き課題21の課題自体を改修しています。模範解答と解答を判定する処理の改修が終わりました。後は課題の問題文を修正すれば :kan: なんで来週はなんとかコミットできるかな。\nHaskell-jp Blogについては手つかず。延長戦でちょっとでも進めようかな。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1733045055.222549",
+        "text": "main = par (S K K) (S K K 3) の動作確認も一通り終えました。\nここまでMark1 並列Gマシンの動作を見てきて、途中スキップしたり保留にした Ex. について、現時点の自分なりの解答(らしきもの)は以下の様になりました。\n・Ex.5.3 と Ex.5.5 については、安易に考えた対応で良さそうかなと思いました。\n・Ex.5.4 も簡単に考えて、2番目の引数のグラフ簡約を別タスクに並列実行させるためではないかなと思いました。\n・Ex.5.6 の結果は、並列マシン：48ステップ、シーケンシャルマシン：69ステップとなりました。\n・Ex.5.7 については、別タスクが (I 3) のグラフ簡約を実行中に、メインタスクが (I &lt;(I 3)簡約結果の間接参照&gt;) のグラフ簡約を繰り返してしまう様です。別タスクが先に終わるような場合に par 関数を使用するのが理想的かと思いましたが、main = I (I 3) の場合も、並列マシンの方が短いステップ数で終わっていたので、もしかすると気にしなくてもいいのかもしれません。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1733045432.075999",
+        "text": "\"The Essence of the Iterator Pattern,\" The Essence of the Iterator Pattern (2006)　読了　Applicative functors の優位性を説いた歴史的ペーパー\n競プロ典型 90 問 84 日目 - There are two types of characters（★3） ヤルだけ",
+        "type": "message",
+        "user": "U584T7GAH"
     }
 ]

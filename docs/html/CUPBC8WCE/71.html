@@ -339,6 +339,87 @@
           <div class="description">math モジュールを移植して寝てました〜</div>
         </div>
       </div>
+      <div class="event" id="message-1733025605.174849">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1733025605.174849">2024-12-01 13:00:05 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1733025823.122799">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1733025823.122799">2024-12-01 13:03:43 +0900</a></div>
+          </div>
+          <div class="description">山本悠滋です。いつもどおりmakeMistakesToLearnHaskellの続きを書きます。<br/>余力があったらHaskell-jp Blogに <a href='https://www.youtube.com/playlist?list=PLRVf2pXOpAzJMFN810EWwGrH_qii7DKyn'>https://www.youtube.com/playlist?list=PLRVf2pXOpAzJMFN810EWwGrH_qii7DKyn</a> の配信の振り返り記事を書く件をやります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733026074.498589">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1733026074.498589">2024-12-01 13:07:54 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://www.cs.ox.ac.uk/jeremy.gibbons/publications/iterator.pdf'>The Essence of the Iterator Pattern</a>, Jeremy Gibbons and Bruno C. d. S. Oliveira (2006)<br/>あとハシゴで <a href='https://atcoder.jp/contests/typical90'>競プロ典型 90 問</a> 84 日目 - There are two types of characters（★3）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733029698.291229">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1733029698.291229">2024-12-01 14:08:18 +0900</a></div>
+          </div>
+          <div class="description">S.K.です。遅くなってしまいましたが、今週もお世話になります。よろしくお願いします。<br/>先週に続き Implementing Functional Languages: a tutorial の 5.2 Mark 1: A minimal parallel G-machine の続き<br/>(テストプログラム main = par (S K K) (S K K 3) の動作確認)を進めていこうと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733031630.729639">
+        <div class="content">
+          <div class="summary">
+            <div class="user">川頭信之</div>
+            <div class="date"><a class="date" href="#message-1733031630.729639">2024-12-01 14:40:30 +0900</a></div>
+          </div>
+          <div class="description">遅くなりました。前の続きです。こんなところです。<br/><a href='https://qiita.com/Trubetzkoy/items/f6bc8450495fbfb5b46b'>https://qiita.com/Trubetzkoy/items/f6bc8450495fbfb5b46b</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1733043609.484939">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1733043609.484939">2024-12-01 18:00:09 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1733043896.763059">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1733043896.763059">2024-12-01 18:04:56 +0900</a></div>
+          </div>
+          <div class="description">先週から引き続き課題21の課題自体を改修しています。模範解答と解答を判定する処理の改修が終わりました。後は課題の問題文を修正すれば :kan: なんで来週はなんとかコミットできるかな。<br/>Haskell-jp Blogについては手つかず。延長戦でちょっとでも進めようかな。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733045055.222549">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1733045055.222549">2024-12-01 18:24:15 +0900</a></div>
+          </div>
+          <div class="description">main = par (S K K) (S K K 3) の動作確認も一通り終えました。<br/>ここまでMark1 並列Gマシンの動作を見てきて、途中スキップしたり保留にした Ex. について、現時点の自分なりの解答(らしきもの)は以下の様になりました。<br/>・Ex.5.3 と Ex.5.5 については、安易に考えた対応で良さそうかなと思いました。<br/>・Ex.5.4 も簡単に考えて、2番目の引数のグラフ簡約を別タスクに並列実行させるためではないかなと思いました。<br/>・Ex.5.6 の結果は、並列マシン：48ステップ、シーケンシャルマシン：69ステップとなりました。<br/>・Ex.5.7 については、別タスクが (I 3) のグラフ簡約を実行中に、メインタスクが (I &lt;(I 3)簡約結果の間接参照&gt;) のグラフ簡約を繰り返してしまう様です。別タスクが先に終わるような場合に par 関数を使用するのが理想的かと思いましたが、main = I (I 3) の場合も、並列マシンの方が短いステップ数で終わっていたので、もしかすると気にしなくてもいいのかもしれません。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733045432.075999">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1733045432.075999">2024-12-01 18:30:32 +0900</a></div>
+          </div>
+          <div class="description">"The Essence of the Iterator Pattern," The Essence of the Iterator Pattern (2006)　読了　Applicative functors の優位性を説いた歴史的ペーパー<br/>競プロ典型 90 問 84 日目 - There are two types of characters（★3） ヤルだけ</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CUPBC8WCE/70.html" class="item">Previous</a>
