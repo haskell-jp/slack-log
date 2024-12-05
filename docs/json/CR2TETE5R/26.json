@@ -40,5 +40,11 @@
         "text": "<@U0846V9U3A4> has joined the channel",
         "type": "message",
         "user": "U0846V9U3A4"
+    },
+    {
+        "ts": "1733269639.986039",
+        "text": "Array についての質問です。\n10×10の行列が与えられ、(1,1)成分から右か下に向かって成分を足しながら進んでいくとき、(i,j)成分へ至る道のうち最も和が小さいものを求めるという問題があります。\nこの問題に対して以下のようなコードを書きました。\n```import Data.Array\n\nmain :: IO ()\nmain = do\n    let m = listArray ((1,1),(10,10)) [i+j |i&lt;-[1..10], j&lt;-[1..10]]\n    print $ minPath m ! (8,8)\n\nminPath :: Array (Int,Int) Int -&gt; Array (Int,Int) Int\nminPath mat = listArray ((1,1),(10,10)) $ [ f i j | i&lt;-[1..10], j&lt;-[1..10]]\n    where   f 1 1 = mat ! (1,1)\n            f 1 j = mat ! (1,j) + minPath mat ! (1,j-1)\n            f i 1 = mat ! (i,1) + minPath mat ! (i-1,1)\n            f i j = if minPath mat ! (i-1,j) &gt; minPath mat ! (i,j-1) \n                        then minPath mat ! (i,j-1) + mat ! (i,j) \n                        else minPath mat ! (i-1,j) + mat ! (i,j)```\nこれをrunghcで実行すると私の環境 (CPU: Ryzen 5 3600, RAM: 16GB) では40秒程度かかります。\nArrayは要素へのアクセスがO(1)なので、リストのリストよりも要素へのアクセスが速いはずです。\nこの理解が正しければボトルネックとなっているのは要素へのアクセスではないと思うのですが、それではどこにこんなに時間がかかるのかわかりません。\n1. なぜこんなに時間がかかるのでしょうか？ \n2. どのように改善すればよいのでしょうか？",
+        "type": "message",
+        "user": "U0846V9U3A4"
     }
 ]

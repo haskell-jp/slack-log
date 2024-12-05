@@ -1,0 +1,152 @@
+[
+    {
+        "ts": "1733269639.986039",
+        "text": "Array についての質問です。\n10×10の行列が与えられ、(1,1)成分から右か下に向かって成分を足しながら進んでいくとき、(i,j)成分へ至る道のうち最も和が小さいものを求めるという問題があります。\nこの問題に対して以下のようなコードを書きました。\n```import Data.Array\n\nmain :: IO ()\nmain = do\n    let m = listArray ((1,1),(10,10)) [i+j |i&lt;-[1..10], j&lt;-[1..10]]\n    print $ minPath m ! (8,8)\n\nminPath :: Array (Int,Int) Int -&gt; Array (Int,Int) Int\nminPath mat = listArray ((1,1),(10,10)) $ [ f i j | i&lt;-[1..10], j&lt;-[1..10]]\n    where   f 1 1 = mat ! (1,1)\n            f 1 j = mat ! (1,j) + minPath mat ! (1,j-1)\n            f i 1 = mat ! (i,1) + minPath mat ! (i-1,1)\n            f i j = if minPath mat ! (i-1,j) &gt; minPath mat ! (i,j-1) \n                        then minPath mat ! (i,j-1) + mat ! (i,j) \n                        else minPath mat ! (i-1,j) + mat ! (i,j)```\nこれをrunghcで実行すると私の環境 (CPU: Ryzen 5 3600, RAM: 16GB) では40秒程度かかります。\nArrayは要素へのアクセスがO(1)なので、リストのリストよりも要素へのアクセスが速いはずです。\nこの理解が正しければボトルネックとなっているのは要素へのアクセスではないと思うのですが、それではどこにこんなに時間がかかるのかわかりません。\n1. なぜこんなに時間がかかるのでしょうか？ \n2. どのように改善すればよいのでしょうか？",
+        "type": "message",
+        "user": "U0846V9U3A4"
+    },
+    {
+        "ts": "1733272943.716889",
+        "text": "1.なぜこんなに時間がかかるのでしょうか？\nminPath関数の挙動が、「全てのマスに対して最小の和を求める」となっているようです、「必要なマスに対して最小の和を求める」でOKなら改善できます\n2.どのように改善すればよいのでしょうか？\n自分が「必要なマスに対して最小の和を求める」で修正するなら以下のようになります\n```import Data.Array\n\nmain :: IO ()\nmain = do\n    let m = listArray ((1,1),(10,10)) [i+j |i<-[1..10], j<-[1..10]]\n    print $ minPath m (8,8)\n\nminPath :: Array (Int,Int) Int -> (Int,Int) -> Int\nminPath mat (1,1) = mat ! (1,1)\nminPath mat (1,j) = mat ! (1,j) + minPath mat (1,j-1)\nminPath mat (i,1) = mat ! (i,1) + minPath mat (i-1,1)\nminPath mat (i,j) = min (minPath mat (i,j-1)) (minPath mat (i-1,j)) + mat ! (i,j)```\n(最近はHaskellを書いていないのでなまっている自覚はありますがとりあえず拙速として)",
+        "type": "message",
+        "user": "U02JVFSJT38"
+    },
+    {
+        "ts": "1733283346.736179",
+        "text": "ご回答ありがとうございます。\n私のminPath関数の挙動が「全てのマスに対して最小の和を求める」となっているのは、minPath m の型が Array (Int,Int) Int となっており、(1,1)から(10,10)まで計算しているからですか？ かりんとうさんのminPath m (i,j)が速いのは返り値の型がIntでArray (Int,Int) Intではないので、すべての要素を計算しなくてもよいからでしょうか？",
+        "type": "message",
+        "user": "U0846V9U3A4"
+    },
+    {
+        "ts": "1733302962.312589",
+        "text": "とりあえず推測するより計測するべきかなあと思って、stack newして、それをコピペしてstack runしたら、40秒もかからないですね…\n0.4秒で終わります。\n\n```135\nstack run  0.30s user 0.06s system 78% cpu 0.462 total```\nこちらの環境はRyzen 9 7950Xでメモリ96GBなので、そちらよりハードウェアが強力とは言え、0.4秒と40秒では違いすぎますね。\nそちらの環境に何か変なことが起きているような気がします。\n\nちなみに角田さんの実装でも今回はそんなに変わらないらしい?\n遅延評価マジックですかね。\n競技プログラミング的なことはあんまり分からない。\n\n```135\nstack run  0.27s user 0.08s system 74% cpu 0.478 total```",
+        "type": "message",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "ts": "1733304288.747039",
+        "text": "ちょっと逸れますが、私なら「どうせ全体構築するなら添字アクセスなくせるし標準のリストで良くねえ?」ってArrayではなくリストを使ってしまいますね。\n\n```module Lib\n    ( someFunc\n    ) where\n\nsomeFunc :: IO ()\nsomeFunc = do\n    let m = [[i + j | j &lt;- [1..10]] | i &lt;- [1..10]]\n    print $ minPath m !! 7 !! 7\n\nminPath :: [[Int]] -&gt; [[Int]]\nminPath mat = dp\n  where\n    rows = length mat\n    cols = length (head mat)\n    dp = [[f i j | j &lt;- [0..cols-1]] | i &lt;- [0..rows-1]]\n\n    f 0 0 = mat !! 0 !! 0\n    f 0 j = mat !! 0 !! j + dp !! 0 !! (j-1)\n    f i 0 = mat !! i !! 0 + dp !! (i-1) !! 0\n    f i j = min (dp !! (i-1) !! j) (dp !! i !! (j-1)) + mat !! i !! j```\n引数添字アクセスしてるけど、GHCのマジックかそんなに遅くないですね。\n\n```135\nstack run  0.32s user 0.05s system 82% cpu 0.441 total```\nスケールするかを一応考えてHashMapに変えても全く速度変わらないですね。\n\n```module Lib\n    ( someFunc\n    ) where\n\nimport qualified Data.HashMap.Strict as HM\n\nsomeFunc :: IO ()\nsomeFunc = do\n    let m = HM.fromList [((i, j), (j + 1 + i + 1)) | j &lt;- [0..9], i &lt;- [0..9]]\n    print $ (minPath m HM.! (7, 7))\n\nminPath :: HM.HashMap (Int, Int) Int -&gt; HM.HashMap (Int, Int) Int\nminPath mat = dp\n  where\n    rows = 9\n    dp = foldl updateCell HM.empty [(i, j) | i &lt;- [0..rows-1], j &lt;- [0..rows-1]]\n\n    updateCell :: HM.HashMap (Int, Int) Int -&gt; (Int, Int) -&gt; HM.HashMap (Int, Int) Int\n    updateCell acc (i, j) = HM.insert (i, j) (f i j) acc\n      where\n        f 0 0 = mat HM.! (0, 0)\n        f 0 j = mat HM.! (0, j) + acc HM.! (0, j-1)\n        f i 0 = mat HM.! (i, 0) + acc HM.! (i-1, 0)\n        f i j = min (acc HM.! (i-1, j)) (acc HM.! (i, j-1)) + mat HM.! (i, j)```",
+        "type": "message",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "ts": "1733304376.269959",
+        "text": "Array を UArray にすればちょっと速くなると思います。アルゴリズムとしては、 `minPath` をメモ化するなどして、部分問題を 2 回解かないようにすると良さそうです (例: `minPath (7, 7)` が 2 回計算されないようにすると良さそうです)",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1733304940.849769",
+        "text": "ncaq さんの実行時間 0.4 秒は、スクリプト実行 (`runghc`) とコンパイル実行 (`stack run`) の違いでしょうか？　僕は 12 秒でした",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1733305183.593699",
+        "text": "`time stack runghc app/Main.hs` で\n動かしても0.2秒なんですよね(stack runでプロジェクト全体をconfするより早いのかな)",
+        "type": "message",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "ts": "1733305228.122999",
+        "text": "あ、stack runghcは一回ビルドされてるのを使うのか、普段そういうことせずにrunするばかりだからわかっていなかッた",
+        "type": "message",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "ts": "1733305415.181009",
+        "text": "確かに `stack runghc` ではなく、runghcコマンドを直接使って、 `time runghc app/Main.hs` したら16秒かかりました\nちょっとでも最適化するとある程度メモ化されるのかな\n確かかなり前からwhereで定義した関数を順番に回しまくると勝手にメモ化されたような気がします",
+        "type": "message",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "ts": "1733305512.497819",
+        "text": "さすが GHC!",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1733305569.505809",
+        "text": "手続き的にやると `runghc` が 0.166 秒でした",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1733305626.058879",
+        "text": "vector だったら `constructN` を使うと (見た目上) immutable に解けます。 array でいい感じにやる解法は、今は思いつかないですねー",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1733305728.345009",
+        "text": "別の計算をしていたので、コードは修正します_ ( _ _ ) _\n編集 (2): 直しました。",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1733305831.668659",
+        "text": "実運用を考えるならmassivあたりを使って並列化してCPUパワーで押しきれないか考えたくなりますね\nこれぐらいのサイズなら不要ですけど",
+        "type": "message",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "ts": "1733305909.831839",
+        "text": "massiv 憧れますねー。 API もデカくて触れてません &gt;_&lt;",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1733306097.779719",
+        "text": "私は競技プログラミング的な話は苦手なんですが、元同僚がmassivを使ってアルゴリズムを並列に実行するように書き換えてましたね",
+        "type": "message",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "ts": "1733306609.946919",
+        "text": "ncaq さんは競プロとか関係なく強いw\nHaskell をやる職場は最高ですね",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1733307113.221799",
+        "text": "元の質問の答えとしては、\n1. `minPath` を呼ぶ度に `i * j` サイズの `Array` を作るため遅いです。\n2. 手続き的にやる (上記 a.hs) か、メモ化する (ncaq さんの解法など) か、畳み込みで 1 行ずつ計算する などになります",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1733312811.874569",
+        "text": "たくさんの反応をいただけてうれしいです。とても勉強になります。\n自分でもいろいろと計ってみました。計測は、`runghc --ghc-arg=-Rghc-timing Main.hs`で実行時間を表示しました。\nまず、私の解法を別環境 (CPU: Ryzen 7 5700G, RAM: 32GB) で試したところ21.844 MUTとなりました。Ryzen 5 3600, 16GB では40.141 MUTだったことを考えると性能による差が思っていたよりも大きいので驚きました。\n次に、私のminPathを以下のように変更しました。\n```minPath :: Array (Int,Int) Int -&gt; Array (Int,Int) Int\nminPath mat = listArray ((1,1),(10,10)) $ [ f i j | i&lt;-[1..10], j&lt;-[1..10]]\n    where   f 1 1 = mat ! (1,1)\n            f 1 j = mat ! (1,j) + minPath mat ! (1,j-1)\n            f i 1 = mat ! (i,1) + minPath mat ! (i-1,1)\n            f i j = min (minPath mat ! (i,j-1)) (minPath mat ! (i-1,j)) + mat ! (i, j)\n            -- f i j = if minPath mat ! (i-1,j) &gt; minPath mat ! (i,j-1) \n            --             then minPath mat ! (i,j-1) + mat ! (i,j) \n            --             else minPath mat ! (i-1,j) + mat ! (i,j)```\nすると、2.531 MUTで計算が終わりました。なぜif式のときとこんなに違いが出たのでしょうか？",
+        "type": "message",
+        "user": "U0846V9U3A4"
+    },
+    {
+        "ts": "1733314123.428689",
+        "text": "`minPath mat` の定義の中で `minPath mat` を呼んでいると素朴には再帰呼び出しのたびに新しい `Array` が作られるので、遅いのが普通ですね。GHCの最適化が効けば効率的なコードになるかもしれませんが。\n```minPath :: Array (Int,Int) Int -&gt; Array (Int,Int) Int\nminPath mat = result\n    where\n        result = listArray ((1,1),(10,10)) $ [ f i j | i&lt;-[1..10], j&lt;-[1..10]]\n        f 1 1 = mat ! (1,1)\n        f 1 j = mat ! (1,j) + result ! (1,j-1)\n        f i 1 = mat ! (i,1) + result ! (i-1,1)\n        f i j = if result ! (i-1,j) &gt; result ! (i,j-1) \n                    then result ! (i,j-1) + mat ! (i,j) \n                    else result ! (i-1,j) + mat ! (i,j)```\nに変えればインタープリターでも一瞬で終わると思います。",
+        "type": "message",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "ts": "1733314208.635149",
+        "text": "話の流れをちゃんと追っていないので的を外した発言になっていたらごめんなさい。",
+        "type": "message",
+        "user": "UGM9F7XQS"
+    },
+    {
+        "ts": "1733314265.629089",
+        "text": "差分での時間の違いは、minPathのf i jのパターンを一回適用するごとにminPathを3回適用しているのを2回に抑制したためだと思います\n再帰で雪だるま式に増えているので大きな差になります\nrunghcでの実行だと自動的なメモ化が働いていないようなので(多分)、ダイレクトに差が出ます\nちなみに今回の内容はメモ化による効率化の影響が大きいので、同じ内容でもコンパイルしてからだと勝手にメモ化をしてくれて速度が上がるはず\n(どういうときにどう自動的にメモ化してくれるのかはよく分かってない)\n※修正しました",
+        "type": "message",
+        "user": "U02JVFSJT38"
+    },
+    {
+        "ts": "1733318808.630419",
+        "text": "たぬきうどん  [12:35]\nご回答ありがとうございます。\n私のminPath関数の挙動が「全てのマスに対して最小の和を求める」となっているのは、minPath m の型が Array (Int,Int) Int となっており、(1,1)から(10,10)まで計算しているからですか？ かりんとうさんのminPath m (i,j)が速いのは返り値の型がIntでArray (Int,Int) Intではないので、すべての要素を計算しなくてもよいからでしょうか？\n\n型もそうですが、内容としてもですが、そうです\n(1,1)から(10,10)まで計算、を再帰的にしておりメモ化が働かないと計算量が多いので、再帰的にする内容を省いています",
+        "type": "message",
+        "user": "U02JVFSJT38"
+    },
+    {
+        "ts": "1733320259.087859",
+        "text": "「メモ化が働いていない状況で」「再帰的に」「全ての要素について」計算しているのが時間がかかる根本の原因と思われます、どれかを改善すると大幅に改善するはずです\nそれとは別に、(7,7)を2回など再帰の中で同じ適用も多い、ifで3回再帰をminで2回再帰に、といった改善点もあります\n「メモ化が働いていない状況で」を改善するには、\nコンパイルしてから実行するか、自前でメモのための変数を用意する\n「再帰的に」を変えるには、\n手続き的な処理で１回で済ます\n「全ての要素について」を改善するには、\n必要な要素だけ計算するようにする\nが解決策になると思います",
+        "type": "message",
+        "user": "U02JVFSJT38"
+    }
+]

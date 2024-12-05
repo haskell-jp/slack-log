@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #26 at 2024-12-04 08:47:19 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #26 at 2024-12-04 08:47:19 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../26.html" class="item">Back to beginners #26</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1733269639.986039">
+        <div class="content">
+          <div class="summary">
+            <div class="user">たぬきうどん</div>
+            <div class="date"><a class="date" href="#message-1733269639.986039">2024-12-04 08:47:19 +0900</a></div>
+          </div>
+          <div class="description">Array についての質問です。<br/>10×10の行列が与えられ、(1,1)成分から右か下に向かって成分を足しながら進んでいくとき、(i,j)成分へ至る道のうち最も和が小さいものを求めるという問題があります。<br/>この問題に対して以下のようなコードを書きました。<br/><pre>import Data.Array
+
+main :: IO ()
+main = do
+    let m = listArray ((1,1),(10,10)) [i+j |i&lt;-[1..10], j&lt;-[1..10]]
+    print $ minPath m ! (8,8)
+
+minPath :: Array (Int,Int) Int -&gt; Array (Int,Int) Int
+minPath mat = listArray ((1,1),(10,10)) $ [ f i j | i&lt;-[1..10], j&lt;-[1..10]]
+    where   f 1 1 = mat ! (1,1)
+            f 1 j = mat ! (1,j) + minPath mat ! (1,j-1)
+            f i 1 = mat ! (i,1) + minPath mat ! (i-1,1)
+            f i j = if minPath mat ! (i-1,j) &gt; minPath mat ! (i,j-1) 
+                        then minPath mat ! (i,j-1) + mat ! (i,j) 
+                        else minPath mat ! (i-1,j) + mat ! (i,j)</pre><br/>これをrunghcで実行すると私の環境 (CPU: Ryzen 5 3600, RAM: 16GB) では40秒程度かかります。<br/>Arrayは要素へのアクセスがO(1)なので、リストのリストよりも要素へのアクセスが速いはずです。<br/>この理解が正しければボトルネックとなっているのは要素へのアクセスではないと思うのですが、それではどこにこんなに時間がかかるのかわかりません。<br/>1. なぜこんなに時間がかかるのでしょうか？ <br/>2. どのように改善すればよいのでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733272943.716889">
+        <div class="content">
+          <div class="summary">
+            <div class="user">かりんとう</div>
+            <div class="date"><a class="date" href="#message-1733272943.716889">2024-12-04 09:42:23 +0900</a></div>
+          </div>
+          <div class="description">1.なぜこんなに時間がかかるのでしょうか？<br/>minPath関数の挙動が、「全てのマスに対して最小の和を求める」となっているようです、「必要なマスに対して最小の和を求める」でOKなら改善できます<br/>2.どのように改善すればよいのでしょうか？<br/>自分が「必要なマスに対して最小の和を求める」で修正するなら以下のようになります<br/><pre>import Data.Array
+
+main :: IO ()
+main = do
+    let m = listArray ((1,1),(10,10)) [i+j |i<-[1..10], j<-[1..10]]
+    print $ minPath m (8,8)
+
+minPath :: Array (Int,Int) Int -> (Int,Int) -> Int
+minPath mat (1,1) = mat ! (1,1)
+minPath mat (1,j) = mat ! (1,j) + minPath mat (1,j-1)
+minPath mat (i,1) = mat ! (i,1) + minPath mat (i-1,1)
+minPath mat (i,j) = min (minPath mat (i,j-1)) (minPath mat (i-1,j)) + mat ! (i,j)</pre><br/>(最近はHaskellを書いていないのでなまっている自覚はありますがとりあえず拙速として)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733283346.736179">
+        <div class="content">
+          <div class="summary">
+            <div class="user">たぬきうどん</div>
+            <div class="date"><a class="date" href="#message-1733283346.736179">2024-12-04 12:35:46 +0900</a></div>
+          </div>
+          <div class="description">ご回答ありがとうございます。<br/>私のminPath関数の挙動が「全てのマスに対して最小の和を求める」となっているのは、minPath m の型が Array (Int,Int) Int となっており、(1,1)から(10,10)まで計算しているからですか？ かりんとうさんのminPath m (i,j)が速いのは返り値の型がIntでArray (Int,Int) Intではないので、すべての要素を計算しなくてもよいからでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733302962.312589">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1733302962.312589">2024-12-04 18:02:42 +0900</a></div>
+          </div>
+          <div class="description">とりあえず推測するより計測するべきかなあと思って、stack newして、それをコピペしてstack runしたら、40秒もかからないですね…<br/>0.4秒で終わります。<br/><br/><pre>135
+stack run  0.30s user 0.06s system 78% cpu 0.462 total</pre><br/>こちらの環境はRyzen 9 7950Xでメモリ96GBなので、そちらよりハードウェアが強力とは言え、0.4秒と40秒では違いすぎますね。<br/>そちらの環境に何か変なことが起きているような気がします。<br/><br/>ちなみに角田さんの実装でも今回はそんなに変わらないらしい?<br/>遅延評価マジックですかね。<br/>競技プログラミング的なことはあんまり分からない。<br/><br/><pre>135
+stack run  0.27s user 0.08s system 74% cpu 0.478 total</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1733304288.747039">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1733304288.747039">2024-12-04 18:24:48 +0900</a></div>
+          </div>
+          <div class="description">ちょっと逸れますが、私なら「どうせ全体構築するなら添字アクセスなくせるし標準のリストで良くねえ?」ってArrayではなくリストを使ってしまいますね。<br/><br/><pre>module Lib
+    ( someFunc
+    ) where
+
+someFunc :: IO ()
+someFunc = do
+    let m = [[i + j | j &lt;- [1..10]] | i &lt;- [1..10]]
+    print $ minPath m !! 7 !! 7
+
+minPath :: [[Int]] -&gt; [[Int]]
+minPath mat = dp
+  where
+    rows = length mat
+    cols = length (head mat)
+    dp = [[f i j | j &lt;- [0..cols-1]] | i &lt;- [0..rows-1]]
+
+    f 0 0 = mat !! 0 !! 0
+    f 0 j = mat !! 0 !! j + dp !! 0 !! (j-1)
+    f i 0 = mat !! i !! 0 + dp !! (i-1) !! 0
+    f i j = min (dp !! (i-1) !! j) (dp !! i !! (j-1)) + mat !! i !! j</pre><br/>引数添字アクセスしてるけど、GHCのマジックかそんなに遅くないですね。<br/><br/><pre>135
+stack run  0.32s user 0.05s system 82% cpu 0.441 total</pre><br/>スケールするかを一応考えてHashMapに変えても全く速度変わらないですね。<br/><br/><pre>module Lib
+    ( someFunc
+    ) where
+
+import qualified Data.HashMap.Strict as HM
+
+someFunc :: IO ()
+someFunc = do
+    let m = HM.fromList [((i, j), (j + 1 + i + 1)) | j &lt;- [0..9], i &lt;- [0..9]]
+    print $ (minPath m HM.! (7, 7))
+
+minPath :: HM.HashMap (Int, Int) Int -&gt; HM.HashMap (Int, Int) Int
+minPath mat = dp
+  where
+    rows = 9
+    dp = foldl updateCell HM.empty [(i, j) | i &lt;- [0..rows-1], j &lt;- [0..rows-1]]
+
+    updateCell :: HM.HashMap (Int, Int) Int -&gt; (Int, Int) -&gt; HM.HashMap (Int, Int) Int
+    updateCell acc (i, j) = HM.insert (i, j) (f i j) acc
+      where
+        f 0 0 = mat HM.! (0, 0)
+        f 0 j = mat HM.! (0, j) + acc HM.! (0, j-1)
+        f i 0 = mat HM.! (i, 0) + acc HM.! (i-1, 0)
+        f i j = min (acc HM.! (i-1, j)) (acc HM.! (i, j-1)) + mat HM.! (i, j)</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1733304376.269959">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1733304376.269959">2024-12-04 18:26:16 +0900</a></div>
+          </div>
+          <div class="description">Array を UArray にすればちょっと速くなると思います。アルゴリズムとしては、 <code>minPath</code> をメモ化するなどして、部分問題を 2 回解かないようにすると良さそうです (例: <code>minPath (7, 7)</code> が 2 回計算されないようにすると良さそうです)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733304940.849769">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1733304940.849769">2024-12-04 18:35:40 +0900</a></div>
+          </div>
+          <div class="description">ncaq さんの実行時間 0.4 秒は、スクリプト実行 (`runghc`) とコンパイル実行 (`stack run`) の違いでしょうか？　僕は 12 秒でした</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733305183.593699">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1733305183.593699">2024-12-04 18:39:43 +0900</a></div>
+          </div>
+          <div class="description"><code>time stack runghc app/Main.hs</code> で<br/>動かしても0.2秒なんですよね(stack runでプロジェクト全体をconfするより早いのかな)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733305228.122999">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1733305228.122999">2024-12-04 18:40:28 +0900</a></div>
+          </div>
+          <div class="description">あ、stack runghcは一回ビルドされてるのを使うのか、普段そういうことせずにrunするばかりだからわかっていなかッた</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733305415.181009">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1733305415.181009">2024-12-04 18:43:35 +0900</a></div>
+          </div>
+          <div class="description">確かに <code>stack runghc</code> ではなく、runghcコマンドを直接使って、 <code>time runghc app/Main.hs</code> したら16秒かかりました<br/>ちょっとでも最適化するとある程度メモ化されるのかな<br/>確かかなり前からwhereで定義した関数を順番に回しまくると勝手にメモ化されたような気がします</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733305512.497819">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1733305512.497819">2024-12-04 18:45:12 +0900</a></div>
+          </div>
+          <div class="description">さすが GHC!</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733305569.505809">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1733305569.505809">2024-12-04 18:46:09 +0900</a></div>
+          </div>
+          <div class="description">手続き的にやると <code>runghc</code> が 0.166 秒でした</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733305626.058879">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1733305626.058879">2024-12-04 18:47:06 +0900</a></div>
+          </div>
+          <div class="description">vector だったら <code>constructN</code> を使うと (見た目上) immutable に解けます。 array でいい感じにやる解法は、今は思いつかないですねー</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733305728.345009">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1733305728.345009">2024-12-04 18:48:48 +0900</a></div>
+          </div>
+          <div class="description">別の計算をしていたので、コードは修正します<i> ( </i> <i> ) </i><br/>編集 (2): 直しました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733305831.668659">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1733305831.668659">2024-12-04 18:50:31 +0900</a></div>
+          </div>
+          <div class="description">実運用を考えるならmassivあたりを使って並列化してCPUパワーで押しきれないか考えたくなりますね<br/>これぐらいのサイズなら不要ですけど</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733305909.831839">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1733305909.831839">2024-12-04 18:51:49 +0900</a></div>
+          </div>
+          <div class="description">massiv 憧れますねー。 API もデカくて触れてません &gt;_&lt;</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733306097.779719">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1733306097.779719">2024-12-04 18:54:57 +0900</a></div>
+          </div>
+          <div class="description">私は競技プログラミング的な話は苦手なんですが、元同僚がmassivを使ってアルゴリズムを並列に実行するように書き換えてましたね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733306609.946919">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1733306609.946919">2024-12-04 19:03:29 +0900</a></div>
+          </div>
+          <div class="description">ncaq さんは競プロとか関係なく強いw<br/>Haskell をやる職場は最高ですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733307113.221799">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1733307113.221799">2024-12-04 19:11:53 +0900</a></div>
+          </div>
+          <div class="description">元の質問の答えとしては、<br/>1. <code>minPath</code> を呼ぶ度に <code>i * j</code> サイズの <code>Array</code> を作るため遅いです。<br/>2. 手続き的にやる (上記 a.hs) か、メモ化する (ncaq さんの解法など) か、畳み込みで 1 行ずつ計算する などになります</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733312811.874569">
+        <div class="content">
+          <div class="summary">
+            <div class="user">たぬきうどん</div>
+            <div class="date"><a class="date" href="#message-1733312811.874569">2024-12-04 20:46:51 +0900</a></div>
+          </div>
+          <div class="description">たくさんの反応をいただけてうれしいです。とても勉強になります。<br/>自分でもいろいろと計ってみました。計測は、`runghc --ghc-arg=-Rghc-timing Main.hs`で実行時間を表示しました。<br/>まず、私の解法を別環境 (CPU: Ryzen 7 5700G, RAM: 32GB) で試したところ21.844 MUTとなりました。Ryzen 5 3600, 16GB では40.141 MUTだったことを考えると性能による差が思っていたよりも大きいので驚きました。<br/>次に、私のminPathを以下のように変更しました。<br/><pre>minPath :: Array (Int,Int) Int -&gt; Array (Int,Int) Int
+minPath mat = listArray ((1,1),(10,10)) $ [ f i j | i&lt;-[1..10], j&lt;-[1..10]]
+    where   f 1 1 = mat ! (1,1)
+            f 1 j = mat ! (1,j) + minPath mat ! (1,j-1)
+            f i 1 = mat ! (i,1) + minPath mat ! (i-1,1)
+            f i j = min (minPath mat ! (i,j-1)) (minPath mat ! (i-1,j)) + mat ! (i, j)
+            -- f i j = if minPath mat ! (i-1,j) &gt; minPath mat ! (i,j-1) 
+            --             then minPath mat ! (i,j-1) + mat ! (i,j) 
+            --             else minPath mat ! (i-1,j) + mat ! (i,j)</pre><br/>すると、2.531 MUTで計算が終わりました。なぜif式のときとこんなに違いが出たのでしょうか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733314123.428689">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1733314123.428689">2024-12-04 21:08:43 +0900</a></div>
+          </div>
+          <div class="description"><code>minPath mat</code> の定義の中で <code>minPath mat</code> を呼んでいると素朴には再帰呼び出しのたびに新しい <code>Array</code> が作られるので、遅いのが普通ですね。GHCの最適化が効けば効率的なコードになるかもしれませんが。<br/><pre>minPath :: Array (Int,Int) Int -&gt; Array (Int,Int) Int
+minPath mat = result
+    where
+        result = listArray ((1,1),(10,10)) $ [ f i j | i&lt;-[1..10], j&lt;-[1..10]]
+        f 1 1 = mat ! (1,1)
+        f 1 j = mat ! (1,j) + result ! (1,j-1)
+        f i 1 = mat ! (i,1) + result ! (i-1,1)
+        f i j = if result ! (i-1,j) &gt; result ! (i,j-1) 
+                    then result ! (i,j-1) + mat ! (i,j) 
+                    else result ! (i-1,j) + mat ! (i,j)</pre><br/>に変えればインタープリターでも一瞬で終わると思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733314208.635149">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1733314208.635149">2024-12-04 21:10:08 +0900</a></div>
+          </div>
+          <div class="description">話の流れをちゃんと追っていないので的を外した発言になっていたらごめんなさい。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733314265.629089">
+        <div class="content">
+          <div class="summary">
+            <div class="user">かりんとう</div>
+            <div class="date"><a class="date" href="#message-1733314265.629089">2024-12-04 21:11:05 +0900</a></div>
+          </div>
+          <div class="description">差分での時間の違いは、minPathのf i jのパターンを一回適用するごとにminPathを3回適用しているのを2回に抑制したためだと思います<br/>再帰で雪だるま式に増えているので大きな差になります<br/>runghcでの実行だと自動的なメモ化が働いていないようなので(多分)、ダイレクトに差が出ます<br/>ちなみに今回の内容はメモ化による効率化の影響が大きいので、同じ内容でもコンパイルしてからだと勝手にメモ化をしてくれて速度が上がるはず<br/>(どういうときにどう自動的にメモ化してくれるのかはよく分かってない)<br/>※修正しました</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733318808.630419">
+        <div class="content">
+          <div class="summary">
+            <div class="user">かりんとう</div>
+            <div class="date"><a class="date" href="#message-1733318808.630419">2024-12-04 22:26:48 +0900</a></div>
+          </div>
+          <div class="description">たぬきうどん  [12:35]<br/>ご回答ありがとうございます。<br/>私のminPath関数の挙動が「全てのマスに対して最小の和を求める」となっているのは、minPath m の型が Array (Int,Int) Int となっており、(1,1)から(10,10)まで計算しているからですか？ かりんとうさんのminPath m (i,j)が速いのは返り値の型がIntでArray (Int,Int) Intではないので、すべての要素を計算しなくてもよいからでしょうか？<br/><br/>型もそうですが、内容としてもですが、そうです<br/>(1,1)から(10,10)まで計算、を再帰的にしておりメモ化が働かないと計算量が多いので、再帰的にする内容を省いています</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733320259.087859">
+        <div class="content">
+          <div class="summary">
+            <div class="user">かりんとう</div>
+            <div class="date"><a class="date" href="#message-1733320259.087859">2024-12-04 22:50:59 +0900</a></div>
+          </div>
+          <div class="description">「メモ化が働いていない状況で」「再帰的に」「全ての要素について」計算しているのが時間がかかる根本の原因と思われます、どれかを改善すると大幅に改善するはずです<br/>それとは別に、(7,7)を2回など再帰の中で同じ適用も多い、ifで3回再帰をminで2回再帰に、といった改善点もあります<br/>「メモ化が働いていない状況で」を改善するには、<br/>コンパイルしてから実行するか、自前でメモのための変数を用意する<br/>「再帰的に」を変えるには、<br/>手続き的な処理で１回で済ます<br/>「全ての要素について」を改善するには、<br/>必要な要素だけ計算するようにする<br/>が解決策になると思います</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../26.html" class="item">Back to beginners #26</a>
+    </div>
+  </div>
+</body>
+</html>

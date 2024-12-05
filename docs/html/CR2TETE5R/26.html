@@ -70,10 +70,34 @@
       <div class="event" id="message-1733266926.434859">
         <div class="content">
           <div class="summary">
-            <div class="user">U0846V9U3A4</div>
+            <div class="user">たぬきうどん</div>
             <div class="date"><a class="date" href="#message-1733266926.434859">2024-12-04 08:02:06 +0900</a></div>
           </div>
-          <div class="description">@U0846V9U3A4 has joined the channel</div>
+          <div class="description">@たぬきうどん has joined the channel</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733269639.986039">
+        <div class="content">
+          <div class="summary">
+            <div class="user">たぬきうどん</div>
+            <div class="date"><a class="date" href="#message-1733269639.986039">2024-12-04 08:47:19 +0900</a></div>
+          </div>
+          <div class="description">Array についての質問です。<br/>10×10の行列が与えられ、(1,1)成分から右か下に向かって成分を足しながら進んでいくとき、(i,j)成分へ至る道のうち最も和が小さいものを求めるという問題があります。<br/>この問題に対して以下のようなコードを書きました。<br/><pre>import Data.Array
+
+main :: IO ()
+main = do
+    let m = listArray ((1,1),(10,10)) [i+j |i&lt;-[1..10], j&lt;-[1..10]]
+    print $ minPath m ! (8,8)
+
+minPath :: Array (Int,Int) Int -&gt; Array (Int,Int) Int
+minPath mat = listArray ((1,1),(10,10)) $ [ f i j | i&lt;-[1..10], j&lt;-[1..10]]
+    where   f 1 1 = mat ! (1,1)
+            f 1 j = mat ! (1,j) + minPath mat ! (1,j-1)
+            f i 1 = mat ! (i,1) + minPath mat ! (i-1,1)
+            f i j = if minPath mat ! (i-1,j) &gt; minPath mat ! (i,j-1) 
+                        then minPath mat ! (i,j-1) + mat ! (i,j) 
+                        else minPath mat ! (i-1,j) + mat ! (i,j)</pre><br/>これをrunghcで実行すると私の環境 (CPU: Ryzen 5 3600, RAM: 16GB) では40秒程度かかります。<br/>Arrayは要素へのアクセスがO(1)なので、リストのリストよりも要素へのアクセスが速いはずです。<br/>この理解が正しければボトルネックとなっているのは要素へのアクセスではないと思うのですが、それではどこにこんなに時間がかかるのかわかりません。<br/>1. なぜこんなに時間がかかるのでしょうか？ <br/>2. どのように改善すればよいのでしょうか？</div>
+          <a class="link-to-replies" href="26/1733269639.986039.html">... Replies ...</a>
         </div>
       </div>
     </div>
