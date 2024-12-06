@@ -148,5 +148,17 @@
         "text": "「メモ化が働いていない状況で」「再帰的に」「全ての要素について」計算しているのが時間がかかる根本の原因と思われます、どれかを改善すると大幅に改善するはずです\nそれとは別に、(7,7)を2回など再帰の中で同じ適用も多い、ifで3回再帰をminで2回再帰に、といった改善点もあります\n「メモ化が働いていない状況で」を改善するには、\nコンパイルしてから実行するか、自前でメモのための変数を用意する\n「再帰的に」を変えるには、\n手続き的な処理で１回で済ます\n「全ての要素について」を改善するには、\n必要な要素だけ計算するようにする\nが解決策になると思います",
         "type": "message",
         "user": "U02JVFSJT38"
+    },
+    {
+        "ts": "1733410588.103419",
+        "text": "問題から素朴に実装すればできるような\n```main :: IO ()\nmain = print $ minPath $ sample 10\n\nsample :: Int -> Array (Int,Int) Int\nsample d = listArray ((1,1),(d,d)) [ i + j | i <- [1 .. d], j <- [1 .. d]]\n\nminPath :: Array (Int,Int) Int -> Array (Int,Int) Int\nminPath sa = ta\n    where\n        ta = listArray (bounds sa) (phi <$> assocs sa)\n        phi = \\ case\n            ((1,1),s) -> s\n            ((i,1),s) -> ta ! (pred i,1) + s\n            ((1,j),s) -> ta ! (1,pred j) + s\n            ((i,j),s) -> min (ta ! (pred i, j)) (ta ! (i, pred j)) + s```",
+        "type": "message",
+        "user": "U4KU9ABL0"
+    },
+    {
+        "ts": "1733412245.237789",
+        "text": "あらら、<@UGM9F7XQS> さんのコード見落していた。おなじことしてます。:sweat_smile:",
+        "type": "message",
+        "user": "U4KU9ABL0"
     }
 ]

@@ -324,6 +324,38 @@ minPath mat = result
           <div class="description">「メモ化が働いていない状況で」「再帰的に」「全ての要素について」計算しているのが時間がかかる根本の原因と思われます、どれかを改善すると大幅に改善するはずです<br/>それとは別に、(7,7)を2回など再帰の中で同じ適用も多い、ifで3回再帰をminで2回再帰に、といった改善点もあります<br/>「メモ化が働いていない状況で」を改善するには、<br/>コンパイルしてから実行するか、自前でメモのための変数を用意する<br/>「再帰的に」を変えるには、<br/>手続き的な処理で１回で済ます<br/>「全ての要素について」を改善するには、<br/>必要な要素だけ計算するようにする<br/>が解決策になると思います</div>
         </div>
       </div>
+      <div class="event" id="message-1733410588.103419">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1733410588.103419">2024-12-05 23:56:28 +0900</a></div>
+          </div>
+          <div class="description">問題から素朴に実装すればできるような<br/><pre>main :: IO ()
+main = print $ minPath $ sample 10
+
+sample :: Int -> Array (Int,Int) Int
+sample d = listArray ((1,1),(d,d)) [ i + j | i <- [1 .. d], j <- [1 .. d]]
+
+minPath :: Array (Int,Int) Int -> Array (Int,Int) Int
+minPath sa = ta
+    where
+        ta = listArray (bounds sa) (phi <$> assocs sa)
+        phi = \ case
+            ((1,1),s) -> s
+            ((i,1),s) -> ta ! (pred i,1) + s
+            ((1,j),s) -> ta ! (1,pred j) + s
+            ((i,j),s) -> min (ta ! (pred i, j)) (ta ! (i, pred j)) + s</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1733412245.237789">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1733412245.237789">2024-12-06 00:24:05 +0900</a></div>
+          </div>
+          <div class="description">あらら、<@UGM9F7XQS> さんのコード見落していた。おなじことしてます。:sweat_smile:</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../26.html" class="item">Back to beginners #26</a>
