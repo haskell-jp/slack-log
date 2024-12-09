@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #106 at 2024-12-08 02:03:22 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #106 at 2024-12-08 02:03:22 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../106.html" class="item">Back to questions #106</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1733591002.918799">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1733591002.918799">2024-12-08 02:03:22 +0900</a></div>
+          </div>
+          <div class="description">最近の Emacs 29.4 を使ってHaskellプログラミングするための、おすすめ、あるいは、必須の .emacs.d/init.el の設定とか、Emacs でのプログラミングワークフローってどんなふうになっているのでしょうか？ VS Codeへの浮気が長くて、Emacs なんも判らんマンになってしまいまして。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733624588.161929">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1733624588.161929">2024-12-08 11:23:08 +0900</a></div>
+          </div>
+          <div class="description">脱線してしまうかもしれませんが、ユースケースによってどんな設定をするか変わってくると思っています。<br/>1. ローカルでアプリの開発をする<br/>2. インフラ的なソフトでリモートのサーバーで開発やデバッグをする<br/>私の場合は2の方で、Emacsは基本的には動けばいいと思っていて、LSPとかは要らなくて、常に確実に動く状態であるほうが望ましくて、nixで最低限のセットアップしてます。(例えばhaskell-modeをいれてインデントだけ調整するとか。)<br/><br/>VS Codeを使わないのは、接続が切れることがあるのが問題です。長時間動かすことが前提のアプリをVS Codeで実行するのは難しくて、<br/>tmuxやscreenの上でemacsを使っています。<br/><br/>逆にこういったリモートの環境でもVS Codeを使って開発されていますか？<br/>セッションの問題はどうやって解決されていますか？<br/>VSCodeのRemote SSHでうまく解決できますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733638930.033519">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1733638930.033519">2024-12-08 15:22:10 +0900</a></div>
+          </div>
+          <div class="description">私の場合は、専らローカルです。<br/><br/>Windows PCを使う人にプログラミングをHaskellプログラミングを紹介する都合で、<br/>VS Codeを使っています。拡張機能をつかってWSL上でプログラミングしていますが、<br/>ローカル接続ですし、それほど長時間アプリを動かすこともしていません。<br/><br/>かつて intero が使えたころは、自分のためのプログラミングはUbuntu上でEmacsでやっていました。<br/>プログラミングが目的のプログラミングということもあり、hls のサポートは必須です。<br/><br/>Emacsの設定作法などをちゃんと理解せずに使っていたこともあり、最近のEmacs 29.4などの作法など<br/>よくわからず、どこから手を付けたものか途方にくれています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733639541.148389">
+        <div class="content">
+          <div class="summary">
+            <div class="user">nobsun</div>
+            <div class="date"><a class="date" href="#message-1733639541.148389">2024-12-08 15:32:21 +0900</a></div>
+          </div>
+          <div class="description">VS Code上でのプログラミングと同様に、Emacs上でshell操作なども含めて全部できるようにしたいと考えています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1733661846.633619">
+        <div class="content">
+          <div class="summary">
+            <div class="user">tsukimizake</div>
+            <div class="date"><a class="date" href="#message-1733661846.633619">2024-12-08 21:44:06 +0900</a></div>
+          </div>
+          <div class="description">私もここ数年neovimに移行してしまっていますが、<br/>• lspはlsp-modeとeglotがあり、emacs使いの同僚が言うにはlsp-modeの方が軽くておすすめらしいです。<br/>• shellは私はeshellを使っていましたがelispの関数もコマンドの形式で呼べるなど一般的なシェルとやや違うので好き嫌いあるかもしれません。ターミナルエミュレータだと今探したら<https://github.com/akermu/emacs-libvterm> というのが出てきてちょっと面白そうだなと思いました<br/>(これくらいの話だと釈迦に説法かもしれませんが……)</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../106.html" class="item">Back to questions #106</a>
+    </div>
+  </div>
+</body>
+</html>
