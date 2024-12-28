@@ -1,0 +1,32 @@
+[
+    {
+        "ts": "1735318729.005749",
+        "text": "Hackage で<https://hackage.haskell.org/package/ac-library-hs-1.0.0.0/candidate|パッケージの candidate> を作成しました。この段階ではドキュメントは生成されないものなのでしょうか？\n(`cabal upload --documentation` があるくらいなので、そんな気がしています)",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1735347807.917309",
+        "text": "Hackage は上げてから CI が回ってドキュメントが生成されるまでにタイムラグがあったと思います。Release Candidate でもたしか生成はされたはずだと思います（生成されているパッケージもあるように見える）が、もしかしたらリリース済のバージョンが存在しないパッケージについては実行されない場合があるかもしれません",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1735347915.961689",
+        "text": "<https://github.com/haskell/hackage-server/issues/949> このPRを観る限り、どうもそういうことのようですね。手元でcabal haddock が通ってちゃんとドキュメントが生成され、機能も問題ないようであれば、 publish してしまえばそのうち CI が走ってドキュメントが公開されるようになると思います。",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1735350014.153169",
+        "text": "konn さん、ズバりのご回答ありがとうございます！\nそれでは publish して CI を待機してみます",
+        "type": "message",
+        "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1735352396.861539",
+        "text": "無事生成されたみたいですね。よかったです :+1: ",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    }
+]
