@@ -220,5 +220,77 @@
         "text": "5.3.2 The instruxction set の Ex.5.9 の続きを進めていました。Update 命令の遷移規則を表す update 関数の変更にようやく着手しました。\n遷移規則だけ見て中途半端に自己流で考えてしまい、テキストで示された補助関数を上手く使えておらず、まだ変更完了には至っていません。\n引き続き変更完了目指して頑張ります。",
         "type": "message",
         "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1736644715.614429",
+        "text": "<@U088C26MQFN> has joined the channel",
+        "type": "message",
+        "user": "U088C26MQFN"
+    },
+    {
+        "ts": "1736654429.306429",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1736654631.502769",
+        "text": "いつもどおりmakeMistakesToLearnHaskellの続きと、できれば久々にHaskell製Webアプリケーションフレームワークを作る件の振り返り記事の続きをやります。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1736655323.793129",
+        "text": "<https://ocw.mit.edu/courses/18-s097-applied-category-theory-january-iap-2019/|Applied Category Theory> (MIT OCW 18.S097 2019) Chapter 1: Generative Effects: Orders and Adjunctions: その Part 2　担当 Fong 先生\nあとハシゴで <https://atcoder.jp/contests/typical90|競プロ典型 90 問> 86 日目 - Snuke's Favorite Arrays（★5）",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1736656738.953569",
+        "text": "S.K.です。ちょっと遅くなってしまいましたが、今週もお世話になります。よろしくお願いいたします。\n先週に引き続き、Implementing Functional Languages: a tutorial の 5.3.2 The instruction set の Ex.5.9 の続きを進めて行こうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1736657369.526679",
+        "text": "初参加です。\n大遅刻してすいません。\nすごいHaskell本を中途半端にしか読んでなかったので、終了までもくもくと進めます。",
+        "type": "message",
+        "user": "U088C26MQFN"
+    },
+    {
+        "ts": "1736664462.026559",
+        "text": "（特に私が）都合に合わせて大遅刻したりめっちゃ早く抜けたりしているので、お気になさらず！途中入退場自由です！\nちなみに今日も17時には抜けます :man-walking:",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1736667895.703149",
+        "text": "makeMistakesToLearnHaskellもHaskell製Webアプリケーションフレームワークを作る件の振り返り記事もちょっとずつだけ進めました。\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/10314a27477d40b9c438e5fbc61559fc2457c1e4>",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1736671356.426339",
+        "text": "少し早いですが上がります。\nすごいHaskellの後半あたりでやる気が急速に萎んでしまったので、\n途中からhaskell用いたアプリケーション開発という感じでchatGPTくんにコード書いてもらいリファクタして「さー動かすぞ」というところまで行きました。\n結論、モジュールインポートやcabal周りで躓き、公式を読むHPがなかったので、また気が向いたらやるか〜という感じになりました。",
+        "type": "message",
+        "user": "U088C26MQFN"
+    },
+    {
+        "ts": "1736672412.664539",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1736672955.316179",
+        "text": "Applied Category Theory, Chapter 1: Generative Effects: Orders and Adjunctions: Fong先生の Part 2 を視聴　（早口で超早板書しかも録音ノイズが大きい）　text では前言撤回 examples/exercises が多いのが好く　我ながら鈍くさい理解が助けられた　Poset 圏 (preorders + monotone maps) の Galois connections と右・左随伴の具体例が分かりやすい　応用として \".. preorders describe the possible states of a computer, and monotone maps describe the action of programs ..\" の視点が興味深い　随伴の closure operators が計算過程の fixed point に関連している　順序関係だけでずいぶん遠くまで来たもんだと感心する Generative Effects の香りをチョットだけ匂いだ気がする\n競プロ典型 90 問 86 日目 - Snuke's Favorite Arrays（★5）　まったく歯がたたナイ　出力例 2　さえフォロー出来ない　味噌汁で顔を洗ってオトトイ出直します　トホホ",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1736674240.789399",
+        "text": "5.3.2 The instruction set の Ex.5.9 の続きを進めていました。\nUpdate 命令の遷移規則を表す update 関数の変更について、ついに Copilot 先生に助けを求めてしまいました。\nその後、Ex.5.10 のテストプログラムを動かそうとした結果、Ex.5.9 に書かれていた getArg 関数は、既存の rearrange 関数を呼び出す際に必要な変更らしいことが判明。\n関数適用の第2引数側を再帰的にロック解除するには、unlock 関数と getArg 関数だけでは足りないらしいことが、ようやく自分にもわかってきました。\n他に Unwind 命令の遷移規則を表す unwind 関数の変更が不十分でして、対症療法的に修正してみたところ、とりあえず Ex.5.10 のテストプログラムが最後まで動作しました。\nただ、動作として正しいのかどうかなどは未確認で、引き続き確認を進めて行こうと思います。\n\n来週と再来週ですが用事がありまして、2月からまた参加させていただけたらと思います。よろしくお願いいたします。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
     }
 ]
