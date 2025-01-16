@@ -28,5 +28,17 @@
         "text": "ありがとうございます。 make, just, shake 辺りを試してみます。 Nix は `doctest`等のインストールに使っており、そろそろビルドもやりたくなって来ました。参考にさせて頂きます！\n<https://qiita.com/junjihashimoto@github/items/8ce130e2db394918c1ea|https://qiita.com/junjihashimoto@github/items/8ce130e2db394918c1ea>",
         "type": "message",
         "user": "U03H9PH8FRP"
+    },
+    {
+        "ts": "1736958749.065699",
+        "text": "これを書いた時にはあまり考えてなかったのですが、\n<https://nixos.wiki/wiki/Haskell>\nこちらのフローチャートの最初のところで、キャッシュありかなしかで分岐しますが、分岐しなくても次のように\n必要なライブラリで時間がかかるものだけ、ghcに組み込んで、そのghcをインストールし、\nあとは通常のcabalないしstackで開発するのが効率がいいなと感じています。\n```haskellPackages.ghcWithPackages (pkgs: [ pkgs.xxx (GHCに組み込みたいライブラリ) ])```",
+        "type": "message",
+        "user": "U74KTAG0N"
+    },
+    {
+        "ts": "1736958835.938379",
+        "text": "その場合、stackにはつぎのようなオプションでシステムのghcをつかうことになるとおもいます。\n```system-ghc: true\nnix:\n  enable: false```",
+        "type": "message",
+        "user": "U74KTAG0N"
     }
 ]

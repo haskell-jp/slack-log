@@ -57,6 +57,26 @@
           <div class="description">ありがとうございます。 make, just, shake 辺りを試してみます。 Nix は <code>doctest</code>等のインストールに使っており、そろそろビルドもやりたくなって来ました。参考にさせて頂きます！<br/><a href='https://qiita.com/junjihashimoto@github/items/8ce130e2db394918c1ea'>https://qiita.com/junjihashimoto@github/items/8ce130e2db394918c1ea</a></div>
         </div>
       </div>
+      <div class="event" id="message-1736958749.065699">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1736958749.065699">2025-01-16 01:32:29 +0900</a></div>
+          </div>
+          <div class="description">これを書いた時にはあまり考えてなかったのですが、<br/><a href='https://nixos.wiki/wiki/Haskell'>https://nixos.wiki/wiki/Haskell</a><br/>こちらのフローチャートの最初のところで、キャッシュありかなしかで分岐しますが、分岐しなくても次のように<br/>必要なライブラリで時間がかかるものだけ、ghcに組み込んで、そのghcをインストールし、<br/>あとは通常のcabalないしstackで開発するのが効率がいいなと感じています。<br/><pre>haskellPackages.ghcWithPackages (pkgs: [ pkgs.xxx (GHCに組み込みたいライブラリ) ])</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1736958835.938379">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1736958835.938379">2025-01-16 01:33:55 +0900</a></div>
+          </div>
+          <div class="description">その場合、stackにはつぎのようなオプションでシステムのghcをつかうことになるとおもいます。<br/><pre>system-ghc: true
+nix:
+  enable: false</pre></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../106.html" class="item">Back to questions #106</a>
