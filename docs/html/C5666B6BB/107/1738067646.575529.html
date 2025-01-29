@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #107 at 2025-01-28 21:34:06 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #107 at 2025-01-28 21:34:06 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../107.html" class="item">Back to questions #107</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1738067646.575529">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1738067646.575529">2025-01-28 21:34:06 +0900</a></div>
+          </div>
+          <div class="description">ダメ元の質問です。 C++ ライブラリの写経モジュールが、元 (C++ 実装) の 10 倍遅くて悩んでいます。 <a href='https://github.com/toyboot4e/lct-bench/blob/main/hs/src/Lct.hs'>Lct.hs</a> のどこが遅いか、良ければエスパーお願いします :pray: 。質問用のリポジトリ全体はこちらです:<br/><a href='https://github.com/toyboot4e/lct-bench'>https://github.com/toyboot4e/lct-bench</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1738068513.989769">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1738068513.989769">2025-01-28 21:48:33 +0900</a></div>
+          </div>
+          <div class="description">ぱっと見の印象なのでアレですけど、PrimMonadをフル活用するとインライン化あるいは特殊化が働かなかった時に破滅しそうですね。その辺がボトルネックになっているかの確認はしましたか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1738068668.909459">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1738068668.909459">2025-01-28 21:51:08 +0900</a></div>
+          </div>
+          <div class="description">ああ、適宜 <code>stToPrim</code> を使っているんですね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1738070359.827979">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1738070359.827979">2025-01-28 22:19:19 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます！　ちょうど全体の感想をお伺いしたかったところです。<br/><code>Lct.hs</code> の全ての関数を <code>INLINE</code> 化したところ <code>1.64</code> 秒になりました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1738070565.430499">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1738070565.430499">2025-01-28 22:22:45 +0900</a></div>
+          </div>
+          <div class="description">(INLINE 以外の関数に <code>stToPrim</code> を付けのは当てずっぽうです)<br/>特殊化がボトルネックになっているか、他に調べる方法はありますか？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1738070875.545909">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1738070875.545909">2025-01-28 22:27:55 +0900</a></div>
+          </div>
+          <div class="description"><code>-ddump-prep</code> で最適化後のCoreを見てみる、とかですかね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1738071017.884059">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1738071017.884059">2025-01-28 22:30:17 +0900</a></div>
+          </div>
+          <div class="description">ありがとうございます。 Core は僕の手に余るので、具体的な型に置き換えて型パラメータを削除してみます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1738071027.137219">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1738071027.137219">2025-01-28 22:30:27 +0900</a></div>
+          </div>
+          <div class="description">手元で触った感触としては、要素の型（`Sum Int`）についての特殊化を発動させるのが重要そうです。`splay` と <code>rotate</code> にINLINABLEをつけてやると高速になりました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1738071307.863739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1738071307.863739">2025-01-28 22:35:07 +0900</a></div>
+          </div>
+          <div class="description">ｳｵｵｵｵ <code>INLINABLE</code> で <code>0.678</code> 秒になりました。爆速です！！！<br/>これまでの経験では`INLINABLE` にはほぼ効果が無かったのですが、特に private な関数に <code>INLINABLE</code> を付けると良いのかもしれませんね。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1738071357.220799">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1738071357.220799">2025-01-28 22:35:57 +0900</a></div>
+          </div>
+          <div class="description">今回も本当にありがとうございました。他のライブラリも同様に高速化して行きます！ :haskell: :haskell:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1738071740.313559">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1738071740.313559">2025-01-28 22:42:20 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1738071742.364239">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1738071742.364239">2025-01-28 22:42:22 +0900</a></div>
+          </div>
+          <div class="description">rotate, splay に INLINE を付けた場合、よく見るとエラー表示があったので、インライン化に失敗していたかもしれません (添付)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1738071893.856139">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1738071893.856139">2025-01-28 22:44:53 +0900</a></div>
+          </div>
+          <div class="description">後学のためにCoreの見方について軽く説明しておくと、GHCに <code>-ddump-to-file -ddump-prep</code> を渡すと最適化後のCoreがファイルとしてどこかに書き出されます（cabalのプロジェクトに適用した場合は、`dist-newstyle/` のどこかに <code>*.dump-prep</code> というファイルができるので探してください）。特殊化されているかを見たい関数名で検索して、いかにも辞書渡しな感じがしたら特殊化されてないでしょう（例えば、 <code>Lct.splay @GHC.Types.IO @(Data.Semigroup.Internal.Sum <http://GHC.Types.Int|GHC.Types.Int>) Control.Monad.Primitive.$fPrimMonadIO $dMonoid_r9JA $dUnbox_r9JB ipv63_s9Rp sat_sagy</code> が見つかったら <code>$fPrimMonadIO</code>, <code>$dMonoid_r9JA</code>, <code>$dUnbox_r9JB</code> が辞書）。一方で、特殊化が起こった場合は今回は<br/><pre>Main.$w$ssplay [InlPrag=INLINABLE[2]]
+  :: <http://GHC.Prim.Int#|GHC.Prim.Int#>
+     -&gt; GHC.Prim.MutableByteArray# GHC.Prim.RealWorld
+     -&gt; Data.Vector.Unboxed.Base.MVector
+          (Control.Monad.Primitive.PrimState <http://GHC.Types.IO|GHC.Types.IO>) Lct.IndexLct
+     -&gt; Data.Vector.Unboxed.Base.MVector
+          (Control.Monad.Primitive.PrimState <http://GHC.Types.IO|GHC.Types.IO>) Lct.IndexLct
+     -&gt; Data.Vector.Unboxed.Base.MVector
+          (Control.Monad.Primitive.PrimState <http://GHC.Types.IO|GHC.Types.IO>) <http://GHC.Types.Int|GHC.Types.Int>
+     -&gt; Data.Vector.Unboxed.Base.MVector
+          (Control.Monad.Primitive.PrimState <http://GHC.Types.IO|GHC.Types.IO>)
+          Data.Bit.Internal.Bit
+     -&gt; Data.Vector.Unboxed.Base.MVector
+          (Control.Monad.Primitive.PrimState <http://GHC.Types.IO|GHC.Types.IO>)
+          (Data.Semigroup.Internal.Sum <http://GHC.Types.Int|GHC.Types.Int>)
+     -&gt; Data.Vector.Unboxed.Base.MVector
+          (Control.Monad.Primitive.PrimState <http://GHC.Types.IO|GHC.Types.IO>)
+          (Data.Semigroup.Internal.Sum <http://GHC.Types.Int|GHC.Types.Int>)
+     -&gt; Data.Vector.Unboxed.Base.MVector
+          (Control.Monad.Primitive.PrimState <http://GHC.Types.IO|GHC.Types.IO>)
+          (Data.Semigroup.Internal.Sum <http://GHC.Types.Int|GHC.Types.Int>)
+     -&gt; <http://GHC.Prim.Int#|GHC.Prim.Int#>
+     -&gt; GHC.Prim.State# GHC.Prim.RealWorld
+     -&gt; GHC.Prim.State# GHC.Prim.RealWorld</pre><br/>という関数が生成されました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1738072430.355639">
+        <div class="content">
+          <div class="summary">
+            <div class="user">mod_poppo</div>
+            <div class="date"><a class="date" href="#message-1738072430.355639">2025-01-28 22:53:50 +0900</a></div>
+          </div>
+          <div class="description">でかい関数はインライン化しづらいと考えて、適宜SPECIALIZEやINLINABLEを使っていくのが重要そうです。今回は私が試した感じでは <code>Lct.hs</code> に <code>SPECIALIZE ... (Sum Int) ...</code> を書いてもあまり高速にはなりませんでしたが……。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1738073218.770159">
+        <div class="content">
+          <div class="summary">
+            <div class="user">toyboot4e</div>
+            <div class="date"><a class="date" href="#message-1738073218.770159">2025-01-28 23:06:58 +0900</a></div>
+          </div>
+          <div class="description">僕でも認識できる違いで驚きました。 dump を見たところ、 <code>INLINABLE</code> を付けた場合のみ <code>lct-test.dump-prep</code> (実行ファイル側の dump) に <code>Main.$w$ssplay</code> のような関数が生成されており、もしやこれが特殊化なのかと思いました。この辺りの知識を付けると、エスパーと言わず自分で調査できそうですね。非常に助かります！</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../107.html" class="item">Back to questions #107</a>
+    </div>
+  </div>
+</body>
+</html>
