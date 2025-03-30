@@ -178,5 +178,53 @@
         "text": "先週に続き、Ex.5.9 修正後の Ex.5.10 テストプログラムの動作結果確認をしていました。\nMark1 についても、間接参照ノードに対する getArg 関数定義を追加したら Ex.5.10 のテストプログラムが動いたので、Mark2 の結果と比較したところ、各タスクの実行ステップ数が同じでした。\nロックされた関数適用ノードに対するアンワインド処理を間違えていたようです。\nMark2 でノードをロック/アンロックする処理を追加した際に、ロックされたノードをアンワインドしようとしたらブロックされる処理を追加できていなかったようで、結果的に Mark1 と同じ動作になってしまっていたようです。\nブロックされる処理を追加して再確認中です。",
         "type": "message",
         "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1743307208.071499",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1743307317.163999",
+        "text": "山本悠滋です。今日は15:00過ぎから用事なんでそれまではやります！\nいつもどおりmakeMistakesToLearnHaskellとHaskell-jp Blogの続きをします。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1743307920.531579",
+        "text": "<https://ocw.mit.edu/courses/18-s097-applied-category-theory-january-iap-2019/|Applied Category Theory> (MIT OCW 18.S097 2019) Chapter 7: Logic of Behavior: Sheaves, Toposes, Languages.  Part 1 担当 Spivak 先生\nあとハシゴで <https://byorgey.github.io/blog/posts/2020/03/03/competitive-programming-in-haskell-modular-arithmetic-part-2.html|Competitive Programming in Haskell: Modular arithmetic, Part 2> : Brent Yorgey 先生の blog をもとに Kattis の問題を解きます",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1743309365.626839",
+        "text": "S.K.です。今週もお世話になります。よろしくお願いいたします。\n今週も先週に続き Implementing Functional Languages: a tutorial, 5.3.2 The instruction set, Ex.5.9 の修正確認の続き(Ex.5.10 のテストプログラムを使用)を進めて行こうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1743314706.705389",
+        "text": "もう出掛けないといけないのでこの辺で。\nHaskell-jp Blogの更新: <https://github.com/haskell-jp/blog/commit/7475b7dcf37a9f6b5b87e8e35ec33dc7d72033f7>\nmakeMistakesToLearnHaskellの更新: <https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/0d93a2f6cd029278ef84c9df6e143fd758e8a48a>",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1743325203.212429",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1743325509.186049",
+        "text": "Applied Category Theory, Chapter 7: Logic of Behavior: Sheaves, Toposes, Languages. Part 1 の動画視聴 + text 読了　\"7.2 The category *Set* as an exemplar topos\" Bool 圏の topos の例が分かりやすい subobject classifier がそのお気持ちがはじめて分かった気がする　''7.3 Sheaves\" も好い例題が多くて消化の助けになる　来週はいよいよ最終回 \"Toposes\" 等に挑む\nCompetitive Programming in Haskell: Modular arithmetic, Part ２: から Library module: Modular （および Int 型に特化したモノ）に中国剰余定理を写経して Kattis の該当問題２つに臨む　Yorgey 先生のおかげで至極簡単だった",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1743326959.601989",
+        "text": "今週も、Ex.5.9 修正後の Ex.5.10 テストプログラム(ただし S K K を inc に変更したもの)の動作結果確認をしていました。\nロックされた関数適用ノードをアンワインドしようとした際にブロックされる処理は一応意図した様に動作している模様です。\n以下の様にサブタスクが生成されるようで、\n・親タスクから子タスク1と子タスク4と子タスク7\n・子タスク1から子タスク2と子タスク5\n・子タスク2から子タスク3\n・子タスク4から子タスク6\n上記のうち、子タスク3の結果が子タスク2に返される部分と、子タスク2の結果が子タスク5を通じて子タスク1に返されるらしい部分まで確認しました。\n相変わらず時間がかかってしまってますが、残りの部分も引き続き確認していこうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
     }
 ]
