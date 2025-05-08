@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #107 at 2025-05-08 17:13:28 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #107 at 2025-05-08 17:13:28 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../107.html" class="item">Back to random #107</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1746692008.946769">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1746692008.946769">2025-05-08 17:13:28 +0900</a></div>
+          </div>
+          <div class="description">新たな構文を思い付きました。<br/><br/><pre>data Foo = Foo {
+  bar :: IORef Int
+, baz :: TVar Int
+}</pre><br/>みたいなデータ型があるとき、applicative style を使うと<br/><br/><pre>Foo &lt;$&gt; newIORef 0 &lt;*&gt; newTVarIO 0</pre><br/>のように初期化できます。<br/><br/>しかし、フィールド名が使えないので、フィールド名による検索とか、フィールドが増減したときの編集とかがイマイチです。以下のような構文があると便利だと思うのですが、どう思いますか？<br/><br/><pre>Foo {
+  bar &lt;- newIORef 0
+, baz &lt;- newTVarIO 0
+}</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1746692308.667939">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1746692308.667939">2025-05-08 17:18:28 +0900</a></div>
+          </div>
+          <div class="description">アプリカティブなので、一部のモナドだと並列実行しますが、 <code>do</code> に酷似しているので順番がありそうに見えてしまうのが気になります<br/>まあ、慣れかもしれませんが…</div>
+        </div>
+      </div>
+      <div class="event" id="message-1746694450.488999">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1746694450.488999">2025-05-08 17:54:10 +0900</a></div>
+          </div>
+          <div class="description">あー、そうですね。<br/>ダメかなぁ？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1746694755.940129">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1746694755.940129">2025-05-08 17:59:15 +0900</a></div>
+          </div>
+          <div class="description">あと、こんなことを書いて、なんで実行できないのか困惑する人が出て来るかも?<br/><br/><pre>Foo {
+  bar &lt;- newIORef 0
+, baz &lt;- if isBarHoge bar then error "hoge" else newTVarIO 0
+}</pre><br/>私もアプリカティブスタイルで書きたいけどレコードのフィールド多いとよく分からなくなってしまう問題は気になるんですよね。<br/>特にcreatedAtとupdatetAtを同一のgetCurrentTimeで初期化したい時とか。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1746695927.534379">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1746695927.534379">2025-05-08 18:18:47 +0900</a></div>
+          </div>
+          <div class="description"><code>ApplicativeDo</code> と <code>RecordWildCards</code> を組み合わせれば既に似たようなコードを書けると思います。そして、Applicative の場合も実行順は本質的に重要になってくるので、そこは構文上回避できないですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1746696260.682419">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1746696260.682419">2025-05-08 18:24:20 +0900</a></div>
+          </div>
+          <div class="description">前職や趣味コードだとこんな感じに書いていますね。IO モナドなのでこれだと恩恵があまり見えないかもしれませんが、束縛変数の間に依存関係がないので、これは ApplicativeDo 言語拡張が有効化されていれば<br/><br/><pre>foo = Foo &lt;$&gt; newIORef 0 &lt;*&gt; newTVarIO 0</pre><br/>に脱糖されます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1746696317.350009">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1746696317.350009">2025-05-08 18:25:17 +0900</a></div>
+          </div>
+          <div class="description">おー。<br/>そんなことができるんですか！<br/>ありがとうございます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1746696387.167699">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1746696387.167699">2025-05-08 18:26:27 +0900</a></div>
+          </div>
+          <div class="description">Applicative はだいたい「変数の間に依存関係がない限定的な do 記法が使えるファンクタ」だと思ってよい、という気持ちを明確化しているのが ApplicativeDo 言語拡張ですね（このあたり関数型まつりで話すつもりです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1746696497.009859">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1746696497.009859">2025-05-08 18:28:17 +0900</a></div>
+          </div>
+          <div class="description">現状最後の stmt が pure や return の呼出（や $ による亜種）でないといけないという制限があったりします（理論的というよりは実装上面倒くさいので妥協してそうなっているはず）。詳細は以下にあります<br/><a href='https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/applicative_do.html'>https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/applicative_do.html</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../107.html" class="item">Back to random #107</a>
+    </div>
+  </div>
+</body>
+</html>

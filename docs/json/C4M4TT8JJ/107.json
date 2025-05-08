@@ -268,5 +268,11 @@
         "text": "CPUの拡張機能（x86のAVXとか、ArmのFEAT_FP16とか、RISC-VのV拡張とか）の有無を判別するライブラリーを公開しました。cpuidのラッパーはすでにいくつかあるようですが、x86以外のアーキテクチャ（AArch64とRISC-V）にも対応しているのと、nullary constraintsを使って型レベルで機能の利用を管理できるのが目新しいと思っています。 <https://hackage.haskell.org/package/cpu-features> <https://discourse.haskell.org/t/ann-cpu-features-0-1-0-0/11925>",
         "type": "message",
         "user": "UGM9F7XQS"
+    },
+    {
+        "ts": "1746692008.946769",
+        "text": "新たな構文を思い付きました。\n\n```data Foo = Foo {\n  bar :: IORef Int\n, baz :: TVar Int\n}```\nみたいなデータ型があるとき、applicative style を使うと\n\n```Foo &lt;$&gt; newIORef 0 &lt;*&gt; newTVarIO 0```\nのように初期化できます。\n\nしかし、フィールド名が使えないので、フィールド名による検索とか、フィールドが増減したときの編集とかがイマイチです。以下のような構文があると便利だと思うのですが、どう思いますか？\n\n```Foo {\n  bar &lt;- newIORef 0\n, baz &lt;- newTVarIO 0\n}```",
+        "type": "message",
+        "user": "U56MBRKR9"
     }
 ]

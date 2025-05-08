@@ -1,0 +1,56 @@
+[
+    {
+        "ts": "1746692008.946769",
+        "text": "新たな構文を思い付きました。\n\n```data Foo = Foo {\n  bar :: IORef Int\n, baz :: TVar Int\n}```\nみたいなデータ型があるとき、applicative style を使うと\n\n```Foo &lt;$&gt; newIORef 0 &lt;*&gt; newTVarIO 0```\nのように初期化できます。\n\nしかし、フィールド名が使えないので、フィールド名による検索とか、フィールドが増減したときの編集とかがイマイチです。以下のような構文があると便利だと思うのですが、どう思いますか？\n\n```Foo {\n  bar &lt;- newIORef 0\n, baz &lt;- newTVarIO 0\n}```",
+        "type": "message",
+        "user": "U56MBRKR9"
+    },
+    {
+        "ts": "1746692308.667939",
+        "text": "アプリカティブなので、一部のモナドだと並列実行しますが、 `do` に酷似しているので順番がありそうに見えてしまうのが気になります\nまあ、慣れかもしれませんが…",
+        "type": "message",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "ts": "1746694450.488999",
+        "text": "あー、そうですね。\nダメかなぁ？",
+        "type": "message",
+        "user": "U56MBRKR9"
+    },
+    {
+        "ts": "1746694755.940129",
+        "text": "あと、こんなことを書いて、なんで実行できないのか困惑する人が出て来るかも?\n\n```Foo {\n  bar &lt;- newIORef 0\n, baz &lt;- if isBarHoge bar then error \"hoge\" else newTVarIO 0\n}```\n私もアプリカティブスタイルで書きたいけどレコードのフィールド多いとよく分からなくなってしまう問題は気になるんですよね。\n特にcreatedAtとupdatetAtを同一のgetCurrentTimeで初期化したい時とか。",
+        "type": "message",
+        "user": "U57CUMWQ6"
+    },
+    {
+        "ts": "1746695927.534379",
+        "text": "`ApplicativeDo` と `RecordWildCards` を組み合わせれば既に似たようなコードを書けると思います。そして、Applicative の場合も実行順は本質的に重要になってくるので、そこは構文上回避できないですね",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1746696260.682419",
+        "text": "前職や趣味コードだとこんな感じに書いていますね。IO モナドなのでこれだと恩恵があまり見えないかもしれませんが、束縛変数の間に依存関係がないので、これは ApplicativeDo 言語拡張が有効化されていれば\n\n```foo = Foo &lt;$&gt; newIORef 0 &lt;*&gt; newTVarIO 0```\nに脱糖されます。",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1746696317.350009",
+        "text": "おー。\nそんなことができるんですか！\nありがとうございます。",
+        "type": "message",
+        "user": "U56MBRKR9"
+    },
+    {
+        "ts": "1746696387.167699",
+        "text": "Applicative はだいたい「変数の間に依存関係がない限定的な do 記法が使えるファンクタ」だと思ってよい、という気持ちを明確化しているのが ApplicativeDo 言語拡張ですね（このあたり関数型まつりで話すつもりです",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1746696497.009859",
+        "text": "現状最後の stmt が pure や return の呼出（や $ による亜種）でないといけないという制限があったりします（理論的というよりは実装上面倒くさいので妥協してそうなっているはず）。詳細は以下にあります\n<https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/applicative_do.html>",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    }
+]
