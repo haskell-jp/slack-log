@@ -274,5 +274,11 @@
         "text": "新たな構文を思い付きました。\n\n```data Foo = Foo {\n  bar :: IORef Int\n, baz :: TVar Int\n}```\nみたいなデータ型があるとき、applicative style を使うと\n\n```Foo &lt;$&gt; newIORef 0 &lt;*&gt; newTVarIO 0```\nのように初期化できます。\n\nしかし、フィールド名が使えないので、フィールド名による検索とか、フィールドが増減したときの編集とかがイマイチです。以下のような構文があると便利だと思うのですが、どう思いますか？\n\n```Foo {\n  bar &lt;- newIORef 0\n, baz &lt;- newTVarIO 0\n}```",
         "type": "message",
         "user": "U56MBRKR9"
+    },
+    {
+        "ts": "1747142098.532199",
+        "text": "<@U08S7BJCGCS> has joined the channel",
+        "type": "message",
+        "user": "U08S7BJCGCS"
     }
 ]
