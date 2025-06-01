@@ -58,5 +58,71 @@
         "text": "5.4.2 Conservative and speculative parallelism の Ex.5.15 の続きを進めようとしてました。\nスパインに十分な関数適用ノードがない場合ということで、テストプログラム main = par (S K K) (S K K 3) の動作結果を確認してみたのですが、途中の K 3 (K 3) については (K 3) を評価しようとすることはなく、単純に引数が充足してないケースはエラーとなってしまうので、ちょっと行き詰ってしまいました。\nネットで検索すると、Haskell ではラムダ抽象やコンストラクタも WHNF とのことで、ラムダ抽象はパラレル G マシンでは使えない様なので、コンストラクタの場合について調べてみることにして、とりあえずリストを処理するテストプログラムを並列化して動作確認中です。",
         "type": "message",
         "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1748750409.997929",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1748750492.176589",
+        "text": "山本悠滋です。関数型まつりの資料を概ね仕上げて、時間を計るのと練習のために録画してみます",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1748750514.897839",
+        "text": "が、その前にお昼ご飯などの買い出しよ！",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1748751207.942809",
+        "text": "<https://byorgey.github.io/blog/posts/2020/07/18/competitive-programming-in-haskell-folding-challenge.html|Competitive programming in Haskell: folding challenge>: Brent Yorgey 先生の blog をもとに Kattis の問題を解きます",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1748751955.918079",
+        "text": "S.K.です。今週もお世話になります。よろしくお願いいたします。\n今週も引き続き Implementing Functional Languages: a tutorial, 5.4 Mark 3: A realistic parallel G-machine の続きを進めて行こうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1748752752.557799",
+        "text": "カマイルカ :dolphin: です。\n今日は私も「関数型まつり」の発表準備に取り組んでいます(当日まであと2週間弱 :muscle:)。",
+        "type": "message",
+        "user": "U56JX2GM8"
+    },
+    {
+        "ts": "1748768415.549619",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1748768842.888549",
+        "text": "Yorgey 先生のこの blog シリーズにどうやら Archive に漏れがあって　この blog には前回の\"Chair Hopping\" 問題の答え合わせがナイ！　独力では歯が立たず Gemini 2.5 Pro (preview) にお手伝いをお願いして　ナントカ回答に至るも WA　途中経過の正答は Test Cases: 13/34,  Runtime: 0.31 s であった　前半の cycle decomposition は自己流でやった 10^9+7 Modulus は考慮していない　これが原因とはちょっと考えニクイ (N &lt;= 10^5)　後半は \"On the number of even roots of permutations,\" Glebsky, Licon, Rivera (<https://arxiv.org/pdf/1907.00548>) に依った　これ移植が原因？　Difficulty: Hard 5.8 あなどるべからず　誰か正解を知っていたら教えて下さい\n今回の出題は \"Origami\" 問題　これも Difficulty: Hard 5.8 とあるが　アイデアの段階ではそれほど難しくはナイ（はず）　ただ（無限）直線と凸多角形の切断とか　凸多角形の内点判定とか　コーナーケースが多くて煩雑になりがち　時間が掛かり苦手な奴　ひたすら実装をめざして労役中",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1748768850.404399",
+        "text": "資料仕上がらず！録音は手つかず！",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1748769885.525259",
+        "text": "5.4.2 Conservative and speculative parallelism の Ex.5.15 の続きを進めようとしてました。\nリストを処理するテストプログラムを並列化した(つもりの)以下のプログラムの動作確認中です。\n\ncons = Pack{2,2} ;\nnil = Pack{1,0} ;\ndownfrom n = if (n == 0)\n             nil\n             (par (cons n) (downfrom (n-1))) ;\nmain = downfrom 2\n\nスケジューリングせずに待たせておいた方が良さそうな部分は、まだ見つけられていません。\n引き続き確認していこうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1748773038.725519",
+        "text": "<https://fortee.jp/2025fp-matsuri/proposal/f7646b8b-29b0-4ac4-8ec3-46cabaa8ef1a|関数型まつりの発表>準備、前提を説明する序論パートが仕上がって本論(例証)のパートを作り始めるところまで進みました(全体の進捗はまだ30%くらいなので引き続き頑張りたい :muscle:)。",
+        "type": "message",
+        "user": "U56JX2GM8"
     }
 ]
