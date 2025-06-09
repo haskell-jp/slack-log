@@ -124,5 +124,77 @@
         "text": "<https://fortee.jp/2025fp-matsuri/proposal/f7646b8b-29b0-4ac4-8ec3-46cabaa8ef1a|関数型まつりの発表>準備、前提を説明する序論パートが仕上がって本論(例証)のパートを作り始めるところまで進みました(全体の進捗はまだ30%くらいなので引き続き頑張りたい :muscle:)。",
         "type": "message",
         "user": "U56JX2GM8"
+    },
+    {
+        "ts": "1749356544.701709",
+        "text": "第294回Haskell-jpもくもく会 @ オンライン ?  Going today or cancelled?",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1749356613.935989",
+        "text": "I'll do any way...\n<https://byorgey.github.io/blog/posts/2021/06/19/competitive-programming-in-haskell-folding-folds.html|Competitive programming in Haskell: folding folds>: Brent Yorgey 先生の blog をもとに Kattis の問題を解きます\nちなみに前回模範解答が無かった \"Chair Hopping\" 問題が解けました　部分的にしか解けなかった原因は Glebsky, Licon, Rivera の implementation bug でした　これを Gemini 2.5 Pro (Preview) 先生と共同作業で fix 出来ました　難問解決にあたり AI aided programming は人間側の理解力と評価／実証力に大きく依存するのを実感しました\nなお解の前段で cycle decomposition をする部分は IntSet/IntMap を使いました golf 的な簡明のうちに　性能は CPU Time 0.32 s の出来でした　これを Yorgey 先生の UArray を用いた場合には 0.25 s に向上しました",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1749356773.864139",
+        "text": "S.K.です。今週もお世話になります。よろしくお願いいたします。\n今週も引き続き Implementing Functional Languages: a tutorial 5.4 Mark 3: A realistic parallel G-machine の続きを進めて行こうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1749357387.783799",
+        "text": "カマイルカ :dolphin: です。\n先週に続けて<https://fortee.jp/2025fp-matsuri/proposal/f7646b8b-29b0-4ac4-8ec3-46cabaa8ef1a|「関数型まつり2025」の発表>準備に取り組みます(今日で完成させる :muscle:)。",
+        "type": "message",
+        "user": "U56JX2GM8"
+    },
+    {
+        "ts": "1749363469.560229",
+        "text": "ちょっと想像以上に昼寝が長引いてしまいましたが、関数型まつりの発表の練習をします。\nHaskellとの関係が遠くなりますが、Scottさんの発表の動画が来てたら字幕を付ける件も時間内になるべくやりたい（が、動画がまだない！）\nいずれにしても、ちょっとまだ別件を果たさないといけないので本格的にやるのは16時くらいからになりそうです :cold_sweat:",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1749363559.546379",
+        "text": "なるほど。ZapierかIFTTTが実行失敗してるのか...",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1749364190.075349",
+        "text": "自動投稿がないのは単純にIFTTTでの投稿に失敗しているだけなので、構わず始めてください。本当にキャンセルするときはアナウンスします。\n\nIFTTTのログを見たところ、単に実行が始まっていないようにしか見えず、ちょっと原因が分からない状況なので、今後も発生するかもしれません。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1749373987.184799",
+        "text": "うーん、終了のアナウンスも来ないな :disappointed:\n関数型まつりの練習を兼ねて、万が一に備えた録音・録画をOBSでやってました。\n途中でスライドに分かりづらいところを見つけて直すのに時間がかかってしまいましたが、2/3くらい終えました。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1749374523.784379",
+        "text": "5.4.2 Conservative and speculative parallelism の Ex.5.15 の続きを進めようとしてました。\nリストを処理するテストプログラムを並列化した(つもりの)以下のプログラムの動作をようやく一通りなめました。\n\ncons = Pack{2,2} ;\nnil = Pack{1,0} ;\ndownfrom n = if (n == 0) nil (par (cons n) (downfrom (n-1))) ;\nmain = downfrom 2\n\nサブタスクの処理について、スパインの左端が Pack 命令を使った形にまで展開されて、スパインのルートノードが展開された式への間接参照ノードに更新されたら、そのサブタスクの処理は実質的に終了してるような感じに見えました。\nスケジューリングを待たせるというよりは、NNum ノードへの間接参照ノードに更新されたときと同様に、サブタスクを早めに終わらせて他のタスクにプロセッサを明け渡すのが良いかもしれないと思いました。(それだと教科書の意図とは違ってしまいますが．．．)\nただ、コンストラクタを使った他のプログラムについても成り立つことなのか、まだよくわかっていません。他のテストプログラムについても当てはまるか確認してみようと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1749374536.803289",
+        "text": "宿題の\"Origami\" 問題は「多角形を折り返す」方針を変更し「点の mirroring に」して AC だった　これは Yorgey 先生の解答とも一致\n今回の問題 \"Please, Go First\" 考慮中 各々文字グループごとに連続になるよう並べ直す手数を計算し　それらの和をとる方針　マッぼちぼちやりましょう",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1749374735.983649",
+        "text": "来週は（運営さんが開催と仮定して） :nichi: を希望",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1749376556.237859",
+        "text": "関数型まつりの発表準備で、関数合成についてHaskell, Scala, Clojure, Elixirの4言語での関連するサンプルコードを用意していました。\n<https://projecteuler.net/problem=2|Project Eulerの問題>を例に各言語で複数パターンのコードを書いていたら時間が溶けました :innocent: (他の話題のサンプルコードは軽めにしたい……)",
+        "type": "message",
+        "user": "U56JX2GM8"
     }
 ]
