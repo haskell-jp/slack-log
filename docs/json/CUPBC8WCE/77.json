@@ -226,5 +226,59 @@
         "text": "makeMistakesToLearnHaskellの進捗: <https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/597dff320e5ed6bd83cf7ece43359d1c9af3143b>\nHaskell-jp Blogの進捗: <https://github.com/haskell-jp/blog/commit/6a33c94824829e76cdc5bed1746d0f0519d09455>",
         "type": "message",
         "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1754193607.332559",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1754194631.088399",
+        "text": "<https://byorgey.github.io/blog/posts/2023/01/16/competitive-programming-in-haskell-infinite-2d-array-levels-2-and-3.html|Competitive programming in Haskell: Infinite 2D array, Levels 2 and 3>: Brent Yorgey 先生の blog をもとに Kattis の問題を解きます",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1754196256.794979",
+        "text": "S.K.です。お世話になります。よろしくお願いいたします。\n5.5 Mark 4: A better way to handle blocking の続きを進めて行こうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1754200005.548449",
+        "text": "外出が長引いて遅くなってしまいましたが、いつもどおりmakeMIstakesToLearnHaskellとHaskell-jp Blogの続きをします。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1754211620.714039",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1754212051.388839",
+        "text": "Competitive programming in Haskell: Infinite 2D array, Levels 2 and 3: じつは先週の宿題 \"Infinite 2D Array\" がたいへんな難問で　と云うか TLE にならないように速くするのが大変だった　先生の最終解はこの次の blog <https://byorgey.github.io/blog/posts/2023/02/24/competitive-programming-in-haskell-infinite-2d-array-level-4.html|....Infinite 2D array, Level 4> にあり　結局そこまで読むのを余儀なくされたが　そこに議論された Optimization を吟味し　自分の解答（STUArray を用いた precomputation - 先生はこれを overkill と評している）と比べた　結果 UArray 方式： 0.62 s 対 STUArray 方式：0.25 s で勝利　確かに可読性に欠けるが 　Competitive programming は速さが命　趣味の Programming なら elegance 第一　ですよね\nもうひとつ気づいたこと： 10^6 サイズの Array は ghci や runghc では見かけ stall 状態になりテストもできない　これを忘れてしばらくあせった　こんな時は要コンパイル",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1754212898.628669",
+        "text": "makeMistakesToLearnHaskellの更新: <https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/3d8e90c65304c804305cda4191c9360b060c88f3>\nHaskell-jp Blogはもう少し進めてからにします。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1754213019.630529",
+        "text": "5.5 Mark 4: A better way to handle blocking の続きを進めました。\n前回駆け足で実装した内容には、いくつか間違いがありました。今回修正を行った結果、以下のテストプログラム\n・twice_ f x = par f (f x) ; inc x = x + 1 ; main = twice_ (twice_ (twice_ inc)) 0\n・downfrom n = if (n == 0) nil (par (cons n) (downfrom (n-1))) ; main = downfrom 2\nについては、最後まで実行して正しい結果が得られました。\n引き続き他のテストプログラムについても動作確認を進めて行こうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1754213834.925039",
+        "text": "Haskell-jp Blogの更新: <https://github.com/haskell-jp/blog/commit/c5eeb34c396283fbc19746d534d1fc3febc93255>",
+        "type": "message",
+        "user": "U4LGTMTMK"
     }
 ]
