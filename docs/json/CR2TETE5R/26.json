@@ -262,5 +262,23 @@
         "text": "(これはもしかして第3版に乞うご期待…？)",
         "type": "message",
         "user": "U099X6LQPQV"
+    },
+    {
+        "ts": "1755395074.075219",
+        "text": "<@U09BGLQGABA> has joined the channel",
+        "type": "message",
+        "user": "U09BGLQGABA"
+    },
+    {
+        "ts": "1755395762.776069",
+        "text": "質問失礼します。\nNixOSでHaskellの開発環境の構築をしようとして、つまずいています。\nvscodeのHaskellの拡張機能を正常に動かすことができません。\nghcupを追加すれば良さそうなのですが、追加しようとすると` Package ‘ghcup-0.1.50.2’ in (中略しています) is marked as broken` となってしまい、ghcupを追加できません。\ndevShellを利用した環境でvscodeのhaskellの拡張機能が正常に動作する開発環境を構築したいです。\n単にflake.nixに適当な依存を追加する方法、haskell.nixを利用する方法などいろいろあると思いますが、どのような方法でも教えていただけますと助かります。\n(Nixのコミュニティに質問するべきなのかもしれないのですが、Haskellの知識が足りないのも原因の一つになっていそうなので、こちらで質問させていただきました。)\n\n現状のflake.nixは以下のようになっています。\n以下のflakeを配置したディレクトリで、`stack new sample`で`sample`プロジェクトを作成し、環境を構築する方法を試しました。\n```{\n  description = \"haskell-mytutorial\";\n  inputs = {\n    nixpkgs.url = \"github:NixOS/nixpkgs/nixpkgs-unstable\";\n    flake-utils.url = \"github:numtide/flake-utils\";\n  };\n\n  outputs =\n    inputs:\n    inputs.flake-utils.lib.eachDefaultSystem (\n      system:\n      let\n        pkgs = inputs.nixpkgs.legacyPackages.${system};\n      in\n      {\n        devShells.default = pkgs.mkShell {\n          packages = with pkgs; [\n            stack\n            haskell-language-server\n          ];\n        };\n      }\n    );\n}```\nHaskellの拡張機能が出力しているログ？は以下になります。\n```2025-08-16 15:55:50.8370000 [client] INFO Finding haskell-language-server\n2025-08-16 15:55:50.8380000 [client] INFO Checking for ghcup installation\n2025-08-16 15:55:50.8470000 [client] INFO probing for GHCup binary\n2025-08-16 15:55:50.8560000 [client] WARN ghcup at /home/hello/.ghcup/bin/ghcup does not exist```",
+        "type": "message",
+        "user": "U09BGLQGABA"
+    },
+    {
+        "ts": "1755405889.472839",
+        "text": "<@U09AU240KAQ> has joined the channel",
+        "type": "message",
+        "user": "U09AU240KAQ"
     }
 ]
