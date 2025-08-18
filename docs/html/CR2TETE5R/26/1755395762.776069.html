@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / beginners #26 at 2025-08-17 10:56:02 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / beginners #26 at 2025-08-17 10:56:02 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../26.html" class="item">Back to beginners #26</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1755395762.776069">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Myxogastria0808</div>
+            <div class="date"><a class="date" href="#message-1755395762.776069">2025-08-17 10:56:02 +0900</a></div>
+          </div>
+          <div class="description">質問失礼します。<br/>NixOSでHaskellの開発環境の構築をしようとして、つまずいています。<br/>vscodeのHaskellの拡張機能を正常に動かすことができません。<br/>ghcupを追加すれば良さそうなのですが、追加しようとすると` Package ‘ghcup-0.1.50.2’ in (中略しています) is marked as broken` となってしまい、ghcupを追加できません。<br/>devShellを利用した環境でvscodeのhaskellの拡張機能が正常に動作する開発環境を構築したいです。<br/>単にflake.nixに適当な依存を追加する方法、haskell.nixを利用する方法などいろいろあると思いますが、どのような方法でも教えていただけますと助かります。<br/>(Nixのコミュニティに質問するべきなのかもしれないのですが、Haskellの知識が足りないのも原因の一つになっていそうなので、こちらで質問させていただきました。)<br/><br/>現状のflake.nixは以下のようになっています。<br/>以下のflakeを配置したディレクトリで、`stack new sample`で`sample`プロジェクトを作成し、環境を構築する方法を試しました。<br/><pre>{
+  description = "haskell-mytutorial";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs =
+    inputs:
+    inputs.flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = inputs.nixpkgs.legacyPackages.${system};
+      in
+      {
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
+            stack
+            haskell-language-server
+          ];
+        };
+      }
+    );
+}</pre><br/>Haskellの拡張機能が出力しているログ？は以下になります。<br/><pre>2025-08-16 15:55:50.8370000 [client] INFO Finding haskell-language-server
+2025-08-16 15:55:50.8380000 [client] INFO Checking for ghcup installation
+2025-08-16 15:55:50.8470000 [client] INFO probing for GHCup binary
+2025-08-16 15:55:50.8560000 [client] WARN ghcup at /home/hello/.ghcup/bin/ghcup does not exist</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1755491899.192549">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1755491899.192549">2025-08-18 13:38:19 +0900</a></div>
+          </div>
+          <div class="description">仕事でhaskellをNix Flakesで管理していますが、少なくともghcupは使っていません。<br/>nix側でコンパイラのバージョンなどは管理できるので、ghcupは不要だと判断していて、実際不要でした。<br/>以前私が試行錯誤したメモは私のブログに書いています。<br/><a href='https://www.ncaq.net/2025/01/28/22/17/39/'>Haskell開発環境にNix Flakesを使う - ncaq</a><br/>私はVSCodeは使わなくてEmacsを使っているのですが、チームメンバーはある程度正常にVSCodeを使えているようです</div>
+        </div>
+      </div>
+      <div class="event" id="message-1755519490.256579">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Myxogastria0808</div>
+            <div class="date"><a class="date" href="#message-1755519490.256579">2025-08-18 21:18:10 +0900</a></div>
+          </div>
+          <div class="description">教えていただきありがとうございます！<br/>ncaqさんの記事を参考にしつつ、haskell.nixを利用する方向で試してみます。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../26.html" class="item">Back to beginners #26</a>
+    </div>
+  </div>
+</body>
+</html>
