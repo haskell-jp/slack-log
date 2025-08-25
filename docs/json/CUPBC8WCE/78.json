@@ -94,5 +94,53 @@
         "text": "makeMistakesToLearnHaskellの進捗: <https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/b8a57ce05dc90c232d2614093c9a8c22f2f69721>\nHaskell-jp Blogの進捗: <https://github.com/haskell-jp/blog/commit/a1e149178d6befbd1363caa0369629329539e305>",
         "type": "message",
         "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1756008015.110319",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1756009077.781169",
+        "text": "<https://byorgey.github.io/blog/posts/2023/03/11/competitive-programming-in-haskell-challenge-letter-optimization.html|Competitive programming in Haskell: Letter Optimization>: Brent Yorgey 先生の blog をもとに Kattis の問題を解きます",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1756011422.379229",
+        "text": "S.K.です。ちょっと遅くなってしまいましたが、今週もお世話になります。よろしくお願いいたします。\nImplementing Functional Languages: a tutorial の Chapter 6 Lambda Lifting の続きを進めて行こうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1756017690.604899",
+        "text": "昼寝が長引いて遅くなってしまいましたが、いつもどおりmakeMistakesToLearnHaskellとHaskell-jp Blogの続きをやります。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1756025935.475709",
+        "text": "ちょっと早いですが切りがいいのでここまでにしておきます。\nHaskell-jp Blogの更新: <https://github.com/haskell-jp/blog/commit/ae96bb2442cf38a548300223ddab87c457147038>\nmakeMistakesToLearnHaskellの更新: <https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/98fdda15969f52e987d9af5fb8524fa79970f35e>",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1756026015.717829",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1756026615.856289",
+        "text": "Competitive programming in Haskell challenge: Letter Optimization: この blog には何の解説記事も無くて　ただ Kattis 問題 \"Letter Optimization\" が出題されているだけ　回答は次回だそうで　何とか自力で挑戦してみるも　まず問題文が分かりずらく頭に入れるのに四苦八苦した　想定手順以下のとおりで実装中：　まず人の手渡し順で人々の topological sort をする　手渡しの依存関係で先祖 i の入出力和を Mi にする　その手渡し先 j とその割合 w から i j 間の流量を決定する　それを j での入力和 Ij に加える　これらを topological sort 順に各人について繰り返す　そうすると子孫の入力和 Si はすでに定まっているハズ　それで各人の出力和 Uj = min ( Ij, Mj ) が定まる　最後に Si &gt;= Mi となる i を集めて sort したものが解答　かな？",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1756028856.633639",
+        "text": "Ex.6.1 を解こうとしましたがよくわからず、Ex.6.2 も同様だったので、6.3 Mark 1: A simple lambda lifter を読み進めました。\nラムダリフタも Mark1 は写経するだけの様で、Ex.6.1 で実装する予定だったプリティプリンタ(pprint)を、既存のもので代替して動かしてみました。\nラムダリフティングを行った結果、局所変数リストが空の let 式が生成されてしまい、そのままではエラーとなりましたが、6.4 Mark 2: Improving the simple lambda lifter の Ex.6.3 で、そのような let 式を削除することになっており、指示に従って mkELet 関数を修正したところ、エラーなく実行されるコア言語プログラムが生成された模様です。\n\n<ラムダリフティング前>\nf x = let g = \\y. x*x + y in (g 3 + g 4) ;\nmain = f 6\n\n<ラムダリフティング後>\nf x_0 = let\n g_1 = sc_2 x_0\nin (g_1 3) + (g_1 4) ;\nsc_2 x_3 y_4 = (x_3 * x_3) + y_4 ;\nmain  = f 6\n\n理解不十分なまま通り抜けてしまったので、戻って見直そうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
     }
 ]
