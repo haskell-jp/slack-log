@@ -142,5 +142,107 @@
         "text": "Ex.6.1 を解こうとしましたがよくわからず、Ex.6.2 も同様だったので、6.3 Mark 1: A simple lambda lifter を読み進めました。\nラムダリフタも Mark1 は写経するだけの様で、Ex.6.1 で実装する予定だったプリティプリンタ(pprint)を、既存のもので代替して動かしてみました。\nラムダリフティングを行った結果、局所変数リストが空の let 式が生成されてしまい、そのままではエラーとなりましたが、6.4 Mark 2: Improving the simple lambda lifter の Ex.6.3 で、そのような let 式を削除することになっており、指示に従って mkELet 関数を修正したところ、エラーなく実行されるコア言語プログラムが生成された模様です。\n\n<ラムダリフティング前>\nf x = let g = \\y. x*x + y in (g 3 + g 4) ;\nmain = f 6\n\n<ラムダリフティング後>\nf x_0 = let\n g_1 = sc_2 x_0\nin (g_1 3) + (g_1 4) ;\nsc_2 x_3 y_4 = (x_3 * x_3) + y_4 ;\nmain  = f 6\n\n理解不十分なまま通り抜けてしまったので、戻って見直そうと思います。",
         "type": "message",
         "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1756611973.991969",
+        "text": "<@U5672KG1X> has joined the channel",
+        "type": "message",
+        "user": "U5672KG1X"
+    },
+    {
+        "ts": "1756612810.618919",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1756612835.394129",
+        "text": "HaskellにはWeb APIとツール開発でお世話になりました。今まではScalaで開発をしていましたが、9年ぶりにまたHaskellでお仕事をができればと思っています。最初のステップとして、今日は2025年の最新とされている開発環境の整備を目標にします。よろしくお願いします。",
+        "type": "message",
+        "user": "U5672KG1X"
+    },
+    {
+        "ts": "1756613306.947559",
+        "text": "<https://byorgey.github.io/blog/posts/2023/04/11/competitive-programming-in-haskell-topsort-via-laziness.html|Competitive programming in Haskell: topsort via laziness>: Brent Yorgey 先生の blog をもとに Kattis の問題を解きます",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1756613389.796029",
+        "text": "すごいHaskell本を読みます。別の勉強会で「モナド則」が話題になり、よく解説されているということでオススメされました。\nよろしくお願いします。",
+        "type": "message",
+        "user": "U01J9M7LZB3"
+    },
+    {
+        "ts": "1756618039.560739",
+        "text": "S.K.です。遅くなってしまいましたが、今週もお世話になります。よろしくお願いいたします。\nImplementing Functional Languages: a tutorial の Chapter 6 Lambda Lifting の続きを進めて行こうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1756619162.137039",
+        "text": "Competitive programming in Haskell: topsort via laziness 何と先週の宿題 Kattis: \"Letter Optimization\" の解答がそのまま載っている！　先生の解法は a lazy, recursive Array を用いて（ナルホド）　総所要時間は 0.68 s であった　それに対し自分の解は Data.Graph.topSort と STUArray を用いて 0.61 s であった　勝った　別に勝負じゃないけど　用いる手法とライブラリの違いが差を生むことが教訓\n今日の宿題は Kattis: \"Alien Math\" だが Difficulty: Easy 2.3 とあるように簡単 ヤルダケ だった\nという事で今日は早いですがこれにて離脱",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1756620704.361529",
+        "text": "<@U09CPSTR9BM> has joined the channel",
+        "type": "message",
+        "user": "U09CPSTR9BM"
+    },
+    {
+        "ts": "1756624944.274479",
+        "text": "山本悠滋です。またお昼寝で遅くなりましたが、いつもどおりmakeMistakesToLearnHaskellとHaskell-jp Blogの続きをやります。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1756630502.691269",
+        "text": "本日は、すごいhs本の「7.6 型シノニム」まで読みました。",
+        "type": "message",
+        "user": "U01J9M7LZB3"
+    },
+    {
+        "ts": "1756630588.241919",
+        "text": "こちらのもくもく会ですが、Haskell 以外に PureScript や Lean などの純粋関数型言語の作業を進めても大丈夫でしょうか？",
+        "type": "message",
+        "user": "U01J9M7LZB3"
+    },
+    {
+        "ts": "1756630812.220229",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1756631561.442669",
+        "text": "まだ途中です！",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1756632471.953729",
+        "text": "皆さんのネット上の記事のおかげで環境構築作業を無事に終えることができました。ありがとうございました。",
+        "type": "message",
+        "user": "U5672KG1X"
+    },
+    {
+        "ts": "1756633006.515659",
+        "text": "本日のmakeMistakesToLearnHaskellの進捗\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/3cd947e483d1a70d6454424187793b67a6ff1764>\nHaskell-jp Blogの方は... これからやりますが文章がすぐに思い浮かばない場合は進捗ゼロかも。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1756634218.010439",
+        "text": "先週確認したテストプログラム\n\nf x = let g = \\y. x*x + y in (g 3 + g 4) ;\nmain = f 6\n\nを使って、ラムダリフタ―の動作を確認していました。\nラムダリフタ―は freeVars, abstract, rename, collectSCs の関数が合成されたものとなっており、各関数の出力結果を確認してました。\n(テキストもちゃんと読んで理解しなくては。)",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1756635061.548989",
+        "text": "Haskell-jp Blogの進捗。ようやく終わりが見えてきたかな...？\n<https://github.com/haskell-jp/blog/commit/25da5c61babcf7a9e53e89d50bf3e8e464061d7a>",
+        "type": "message",
+        "user": "U4LGTMTMK"
     }
 ]

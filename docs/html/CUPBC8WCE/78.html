@@ -229,6 +229,161 @@
           <div class="description">Ex.6.1 を解こうとしましたがよくわからず、Ex.6.2 も同様だったので、6.3 Mark 1: A simple lambda lifter を読み進めました。<br/>ラムダリフタも Mark1 は写経するだけの様で、Ex.6.1 で実装する予定だったプリティプリンタ(pprint)を、既存のもので代替して動かしてみました。<br/>ラムダリフティングを行った結果、局所変数リストが空の let 式が生成されてしまい、そのままではエラーとなりましたが、6.4 Mark 2: Improving the simple lambda lifter の Ex.6.3 で、そのような let 式を削除することになっており、指示に従って mkELet 関数を修正したところ、エラーなく実行されるコア言語プログラムが生成された模様です。<br/><br/><ラムダリフティング前><br/>f x = let g = \y. x*x + y in (g 3 + g 4) ;<br/>main = f 6<br/><br/><ラムダリフティング後><br/>f x_0 = let<br/> g_1 = sc_2 x_0<br/>in (g_1 3) + (g_1 4) ;<br/>sc_2 x_3 y_4 = (x_3 * x_3) + y_4 ;<br/>main  = f 6<br/><br/>理解不十分なまま通り抜けてしまったので、戻って見直そうと思います。</div>
         </div>
       </div>
+      <div class="event" id="message-1756611973.991969">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1756611973.991969">2025-08-31 12:46:13 +0900</a></div>
+          </div>
+          <div class="description">@ has joined the channel</div>
+        </div>
+      </div>
+      <div class="event" id="message-1756612810.618919">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1756612810.618919">2025-08-31 13:00:10 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1756612835.394129">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1756612835.394129">2025-08-31 13:00:35 +0900</a></div>
+          </div>
+          <div class="description">HaskellにはWeb APIとツール開発でお世話になりました。今まではScalaで開発をしていましたが、9年ぶりにまたHaskellでお仕事をができればと思っています。最初のステップとして、今日は2025年の最新とされている開発環境の整備を目標にします。よろしくお願いします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1756613306.947559">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1756613306.947559">2025-08-31 13:08:26 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://byorgey.github.io/blog/posts/2023/04/11/competitive-programming-in-haskell-topsort-via-laziness.html'>Competitive programming in Haskell: topsort via laziness</a>: Brent Yorgey 先生の blog をもとに Kattis の問題を解きます</div>
+        </div>
+      </div>
+      <div class="event" id="message-1756613389.796029">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1756613389.796029">2025-08-31 13:09:49 +0900</a></div>
+          </div>
+          <div class="description">すごいHaskell本を読みます。別の勉強会で「モナド則」が話題になり、よく解説されているということでオススメされました。<br/>よろしくお願いします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1756618039.560739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1756618039.560739">2025-08-31 14:27:19 +0900</a></div>
+          </div>
+          <div class="description">S.K.です。遅くなってしまいましたが、今週もお世話になります。よろしくお願いいたします。<br/>Implementing Functional Languages: a tutorial の Chapter 6 Lambda Lifting の続きを進めて行こうと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1756619162.137039">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1756619162.137039">2025-08-31 14:46:02 +0900</a></div>
+          </div>
+          <div class="description">Competitive programming in Haskell: topsort via laziness 何と先週の宿題 Kattis: "Letter Optimization" の解答がそのまま載っている！　先生の解法は a lazy, recursive Array を用いて（ナルホド）　総所要時間は 0.68 s であった　それに対し自分の解は Data.Graph.topSort と STUArray を用いて 0.61 s であった　勝った　別に勝負じゃないけど　用いる手法とライブラリの違いが差を生むことが教訓<br/>今日の宿題は Kattis: "Alien Math" だが Difficulty: Easy 2.3 とあるように簡単 ヤルダケ だった<br/>という事で今日は早いですがこれにて離脱</div>
+        </div>
+      </div>
+      <div class="event" id="message-1756620704.361529">
+        <div class="content">
+          <div class="summary">
+            <div class="user">U09CPSTR9BM</div>
+            <div class="date"><a class="date" href="#message-1756620704.361529">2025-08-31 15:11:44 +0900</a></div>
+          </div>
+          <div class="description">@U09CPSTR9BM has joined the channel</div>
+        </div>
+      </div>
+      <div class="event" id="message-1756624944.274479">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1756624944.274479">2025-08-31 16:22:24 +0900</a></div>
+          </div>
+          <div class="description">山本悠滋です。またお昼寝で遅くなりましたが、いつもどおりmakeMistakesToLearnHaskellとHaskell-jp Blogの続きをやります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1756630502.691269">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1756630502.691269">2025-08-31 17:55:02 +0900</a></div>
+          </div>
+          <div class="description">本日は、すごいhs本の「7.6 型シノニム」まで読みました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1756630588.241919">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1756630588.241919">2025-08-31 17:56:28 +0900</a></div>
+          </div>
+          <div class="description">こちらのもくもく会ですが、Haskell 以外に PureScript や Lean などの純粋関数型言語の作業を進めても大丈夫でしょうか？</div>
+          <a class="link-to-replies" href="78/1756630588.241919.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1756630812.220229">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1756630812.220229">2025-08-31 18:00:12 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1756631561.442669">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1756631561.442669">2025-08-31 18:12:41 +0900</a></div>
+          </div>
+          <div class="description">まだ途中です！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1756632471.953729">
+        <div class="content">
+          <div class="summary">
+            <div class="user"></div>
+            <div class="date"><a class="date" href="#message-1756632471.953729">2025-08-31 18:27:51 +0900</a></div>
+          </div>
+          <div class="description">皆さんのネット上の記事のおかげで環境構築作業を無事に終えることができました。ありがとうございました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1756633006.515659">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1756633006.515659">2025-08-31 18:36:46 +0900</a></div>
+          </div>
+          <div class="description">本日のmakeMistakesToLearnHaskellの進捗<br/><a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/3cd947e483d1a70d6454424187793b67a6ff1764'>https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/3cd947e483d1a70d6454424187793b67a6ff1764</a><br/>Haskell-jp Blogの方は... これからやりますが文章がすぐに思い浮かばない場合は進捗ゼロかも。</div>
+          <a class="link-to-replies" href="78/1756633006.515659.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1756634218.010439">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1756634218.010439">2025-08-31 18:56:58 +0900</a></div>
+          </div>
+          <div class="description">先週確認したテストプログラム<br/><br/>f x = let g = \y. x*x + y in (g 3 + g 4) ;<br/>main = f 6<br/><br/>を使って、ラムダリフタ―の動作を確認していました。<br/>ラムダリフタ―は freeVars, abstract, rename, collectSCs の関数が合成されたものとなっており、各関数の出力結果を確認してました。<br/>(テキストもちゃんと読んで理解しなくては。)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1756635061.548989">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1756635061.548989">2025-08-31 19:11:01 +0900</a></div>
+          </div>
+          <div class="description">Haskell-jp Blogの進捗。ようやく終わりが見えてきたかな...？<br/><a href='https://github.com/haskell-jp/blog/commit/25da5c61babcf7a9e53e89d50bf3e8e464061d7a'>https://github.com/haskell-jp/blog/commit/25da5c61babcf7a9e53e89d50bf3e8e464061d7a</a></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CUPBC8WCE/77.html" class="item">Previous</a>
