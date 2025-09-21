@@ -58,5 +58,59 @@
         "text": "動作結果を元にテキストの 6.3.2 Free variables あたりからの説明を読んでいました。\nfreeVars 関数の動作は、少しずつ分かってきたつもりですが、まだ let(rec) の場合の処理がよく理解できていません。\nとりあえずそのまま、6.3.3 Generating supercombinators に進み、abstract 関数の動作は理解できたつもりです。\nそして、6.3.4 Making all the variables unique を読みながら、rename 関数の動作を理解中です。\n自分にとっては中々難しいですが、時間をかけて理解していこうと思います。",
         "type": "message",
         "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1758427207.145869",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1758427275.972809",
+        "text": "山本悠滋です。今日はタイプセーフプリキュアの更新をして、その後余力があればいつもどおりmakeMistakesToLearnHakellやHaskell-jp Blogの続きをします。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1758427374.400179",
+        "text": "<https://byorgey.github.io/blog/posts/2023/05/31/competitive-programming-in-haskell-introduction-to-dynamic-programming.html|Competitive programming in Haskell: Introduction to dynamic programming>  Brent Yorgey 先生の blog をもとに Kattis の問題を解きます",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1758428378.381899",
+        "text": "S.K.です。ちょっと遅くなってしまいましたが、今週もお世話になります。よろしくお願いいたします。\n今週も Implementing Functional Languages: a tutorial の Chapter 6 Lambda Lifting の続きを進めて行こうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1758445214.719719",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1758445456.943559",
+        "text": "Competitive programming in Haskell: introduction to dynamic programming 読了　しかしこれは３連作の始まりに過ぎず　課題 \"Zapis\" を解くには TLE になってしまう　それではという事で先生の blog の第２部 <https://byorgey.github.io/blog/posts/2023/06/02/dynamic-programming-in-haskell-lazy-immutable-arrays.html|Dynamic programming in Haskell: lazy immutable arrays>  も読む事になり　これを写本に ByteString を用いていた我が旧解を minor changes して Accepted 　さらにメモ化を用いる改良版第３部 <https://byorgey.github.io/blog/posts/2023/06/06/dynamic-programming-in-haskell-automatic-memoization.html|Dynamic programming in Haskell: automatic memoization> があるそうなので　これは来週のお楽しみ",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1758445821.875999",
+        "text": "クソ長昼寝をしてしまったので、まだ更新作業中です！",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1758446820.611629",
+        "text": "動作結果を元にテキストの 6.3.4 Making all the variables unique の続きから、6.3.5 Collecting supercombinators まで読み、rename 関数と collectSCs 関数の動作を一応理解しました。\n6.3.2 Free variables と freeVars 関数についても、letrec 式を使った以下のテストプログラム\npair x y f = f x y ;\nf x y = letrec\n          fst = \\p. p K ;\n          snd = \\p. p K1 ;\n          a = pair x b ;\n          b = pair y a\n        in\n          fst (snd (snd (snd a))) ;\nmain = f 3 4\nと、let 式を使った以下のテストプログラム\nf x = let\n        g = \\y. x*x + y\n      in\n        (g 3 + g 4) ;\nmain = f 6\nを (freeVarse . parse) した結果を比較して、一応理解しました(つもりです)。\nあと、遅ればせながら Ex.6.1 にも対応しました。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1758456149.334029",
+        "text": "更新できました！Hackageにもアップロード済みです。\n<https://github.com/igrep/typesafe-precure/pull/68>",
+        "type": "message",
+        "user": "U4LGTMTMK"
     }
 ]

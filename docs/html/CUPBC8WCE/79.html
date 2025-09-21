@@ -103,6 +103,88 @@
           <div class="description">動作結果を元にテキストの 6.3.2 Free variables あたりからの説明を読んでいました。<br/>freeVars 関数の動作は、少しずつ分かってきたつもりですが、まだ let(rec) の場合の処理がよく理解できていません。<br/>とりあえずそのまま、6.3.3 Generating supercombinators に進み、abstract 関数の動作は理解できたつもりです。<br/>そして、6.3.4 Making all the variables unique を読みながら、rename 関数の動作を理解中です。<br/>自分にとっては中々難しいですが、時間をかけて理解していこうと思います。</div>
         </div>
       </div>
+      <div class="event" id="message-1758427207.145869">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1758427207.145869">2025-09-21 13:00:07 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1758427275.972809">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1758427275.972809">2025-09-21 13:01:15 +0900</a></div>
+          </div>
+          <div class="description">山本悠滋です。今日はタイプセーフプリキュアの更新をして、その後余力があればいつもどおりmakeMistakesToLearnHakellやHaskell-jp Blogの続きをします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1758427374.400179">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1758427374.400179">2025-09-21 13:02:54 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://byorgey.github.io/blog/posts/2023/05/31/competitive-programming-in-haskell-introduction-to-dynamic-programming.html'>Competitive programming in Haskell: Introduction to dynamic programming</a>  Brent Yorgey 先生の blog をもとに Kattis の問題を解きます</div>
+        </div>
+      </div>
+      <div class="event" id="message-1758428378.381899">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1758428378.381899">2025-09-21 13:19:38 +0900</a></div>
+          </div>
+          <div class="description">S.K.です。ちょっと遅くなってしまいましたが、今週もお世話になります。よろしくお願いいたします。<br/>今週も Implementing Functional Languages: a tutorial の Chapter 6 Lambda Lifting の続きを進めて行こうと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1758445214.719719">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1758445214.719719">2025-09-21 18:00:14 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1758445456.943559">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1758445456.943559">2025-09-21 18:04:16 +0900</a></div>
+          </div>
+          <div class="description">Competitive programming in Haskell: introduction to dynamic programming 読了　しかしこれは３連作の始まりに過ぎず　課題 "Zapis" を解くには TLE になってしまう　それではという事で先生の blog の第２部 <a href='https://byorgey.github.io/blog/posts/2023/06/02/dynamic-programming-in-haskell-lazy-immutable-arrays.html'>Dynamic programming in Haskell: lazy immutable arrays</a>  も読む事になり　これを写本に ByteString を用いていた我が旧解を minor changes して Accepted 　さらにメモ化を用いる改良版第３部 <a href='https://byorgey.github.io/blog/posts/2023/06/06/dynamic-programming-in-haskell-automatic-memoization.html'>Dynamic programming in Haskell: automatic memoization</a> があるそうなので　これは来週のお楽しみ</div>
+        </div>
+      </div>
+      <div class="event" id="message-1758445821.875999">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1758445821.875999">2025-09-21 18:10:21 +0900</a></div>
+          </div>
+          <div class="description">クソ長昼寝をしてしまったので、まだ更新作業中です！</div>
+          <a class="link-to-replies" href="79/1758445821.875999.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1758446820.611629">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1758446820.611629">2025-09-21 18:27:00 +0900</a></div>
+          </div>
+          <div class="description">動作結果を元にテキストの 6.3.4 Making all the variables unique の続きから、6.3.5 Collecting supercombinators まで読み、rename 関数と collectSCs 関数の動作を一応理解しました。<br/>6.3.2 Free variables と freeVars 関数についても、letrec 式を使った以下のテストプログラム<br/>pair x y f = f x y ;<br/>f x y = letrec<br/>          fst = \p. p K ;<br/>          snd = \p. p K1 ;<br/>          a = pair x b ;<br/>          b = pair y a<br/>        in<br/>          fst (snd (snd (snd a))) ;<br/>main = f 3 4<br/>と、let 式を使った以下のテストプログラム<br/>f x = let<br/>        g = \y. x*x + y<br/>      in<br/>        (g 3 + g 4) ;<br/>main = f 6<br/>を (freeVarse . parse) した結果を比較して、一応理解しました(つもりです)。<br/>あと、遅ればせながら Ex.6.1 にも対応しました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1758456149.334029">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1758456149.334029">2025-09-21 21:02:29 +0900</a></div>
+          </div>
+          <div class="description">更新できました！Hackageにもアップロード済みです。<br/><a href='https://github.com/igrep/typesafe-precure/pull/68'>https://github.com/igrep/typesafe-precure/pull/68</a></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CUPBC8WCE/78.html" class="item">Previous</a>
