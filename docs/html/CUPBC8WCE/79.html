@@ -185,6 +185,88 @@
           <div class="description">更新できました！Hackageにもアップロード済みです。<br/><a href='https://github.com/igrep/typesafe-precure/pull/68'>https://github.com/igrep/typesafe-precure/pull/68</a></div>
         </div>
       </div>
+      <div class="event" id="message-1759032007.042849">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1759032007.042849">2025-09-28 13:00:07 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1759032348.740359">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1759032348.740359">2025-09-28 13:05:48 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://byorgey.github.io/blog/posts/2023/06/20/competitive-programming-in-haskell-two-more-dp-challenges.html'>Competitive programming in Haskell: Two more DP challenges</a>:  Brent Yorgey 先生の blog をもとに Kattis の問題を解きます</div>
+        </div>
+      </div>
+      <div class="event" id="message-1759033252.083169">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1759033252.083169">2025-09-28 13:20:52 +0900</a></div>
+          </div>
+          <div class="description">S.K.です。今週もお世話になります。よろしくお願いいたします。<br/>今週も Implementing Functional Languages: a tutorial の Chapter 6 Lambda Lifting の続きを進めて行こうと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1759044061.195599">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1759044061.195599">2025-09-28 16:21:01 +0900</a></div>
+          </div>
+          <div class="description">山本悠滋です。昼寝で遅くなってしまいましたが、いつもどおりmakeMistakesToLearnHakellやHaskell-jp Blogの続きをします。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1759050017.264439">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1759050017.264439">2025-09-28 18:00:17 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1759050460.866169">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1759050460.866169">2025-09-28 18:07:40 +0900</a></div>
+          </div>
+          <div class="description">Competitive Programming in Haskell: two more DP challenges 読了　課題 "Honi" に挑戦　昼寝ボケか題意を読み取るのに四苦八苦　ChatGPT に "Sample Input/Out" の解釈をお願いした　なるほどねと納得　コーディングをはじめたら　スパゲッティが出来た　場合分けが多すぎる　Yorgey 先生も "I don’t yet know how to write <b>elegant</b> solutions!" と言っていたのはこのことか？　呻吟再考中</div>
+        </div>
+      </div>
+      <div class="event" id="message-1759050767.660799">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1759050767.660799">2025-09-28 18:12:47 +0900</a></div>
+          </div>
+          <div class="description">makeMistakesToLearnHaskellの進捗: <a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/327d875c9b40219bb650e51ee7c6dbb90c8b9949'>https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/327d875c9b40219bb650e51ee7c6dbb90c8b9949</a><br/>Haskell-jp Blogの進捗はもう少し進めてから共有します</div>
+          <a class="link-to-replies" href="79/1759050767.660799.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1759051806.190849">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1759051806.190849">2025-09-28 18:30:06 +0900</a></div>
+          </div>
+          <div class="description">Ex.6.2 を進めました。<br/>pprintAnn 関数(下請け関数群を含む)と、とりあえず注釈処理用に iSet :: Set Name -&gt; Iseq という関数を定義して、<br/>以下のテストプログラム<br/><br/>f x = let<br/>        g = \y. x*x + y<br/>      in<br/>        (g 3 + g 4) ;<br/>main = f 6<br/><br/>を parse して freeVarse した結果<br/><br/>[("f",["x"],(["x"],ALet False [("g",(["x"],ALam ["y"] (["x","y"],AAp (["x"],AAp ([],AVar "+") (["x"],AAp (["x"],AAp ([],AVar "*") (["x"],AVar "x")) (["x"],AVar "x"))) (["y"],AVar "y"))))] (["g"],AAp (["g"],AAp ([],AVar "+") (["g"],AAp (["g"],AVar "g") ([],ANum 3))) (["g"],AAp (["g"],AVar "g") ([],ANum 4))))),("main",[],([],AAp ([],AVar "f") ([],ANum 6)))]<br/><br/>を処理してみたところ、以下の様に表示されました。<br/><br/>f x = [x](let<br/> g = [x](\y. [x,y]([x]([](+) ([x]([x]([](*) [x](x)) [x](x)))) [y](y)))<br/>in [g]([g]([](+) ([g]([g](g) [](3)))) ([g]([g](g) [](4))))) ;<br/>main  = []([](f) [](6))<br/><br/>"+" や "*" は中置表記をやめて前置表記にしてみました。それでも、結構見づらいです。<br/>はたして、これでいいのかどうかは、自分にとってはまだ不明です。あと case 式は未対応です。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1759052070.977429">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1759052070.977429">2025-09-28 18:34:30 +0900</a></div>
+          </div>
+          <div class="description">Haskell-jp Blogの進捗<br/><a href='https://github.com/haskell-jp/blog/commit/034febb1427e2cb44d9788ea3e582812b35421da'>https://github.com/haskell-jp/blog/commit/034febb1427e2cb44d9788ea3e582812b35421da</a></div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CUPBC8WCE/78.html" class="item">Previous</a>
