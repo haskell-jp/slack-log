@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / mokumoku-online #80 at 2025-10-19 19:59:52 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / mokumoku-online #80 at 2025-10-19 19:59:52 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../80.html" class="item">Back to mokumoku-online #80</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1760871592.356479">
+        <div class="content">
+          <div class="summary">
+            <div class="user">sigma</div>
+            <div class="date"><a class="date" href="#message-1760871592.356479">2025-10-19 19:59:52 +0900</a></div>
+          </div>
+          <div class="description">書籍: 関数型プログラミング実践入門を読みつつ、手を動かせました。<br/>特にフィボナッチ数列で遊んでHaskellすげぇぇ!となりました。<br/>一応Qiitaにもまとめておいたので、よりエレガントな実装とかあれば教えてください!<br/><br/><a href='https://qiita.com/sigma_devsecops/items/24e05b6248b717aa4067'>https://qiita.com/sigma_devsecops/items/24e05b6248b717aa4067</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1760888881.374949">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1760888881.374949">2025-10-20 00:48:01 +0900</a></div>
+          </div>
+          <div class="description">いろいろあります<br/><pre>-- | Fibonacci numbers
+fib :: Num a =&gt; [a]
+fib = 0 : 1 : zipWith (+) fib (tail fib)
+
+-- or
+fib@(_:tl) = 0 : 1 : zipWith (+) fib tl
+
+-- | fix - alert slow
+import Data.Function (fix)
+fib = fix (\f -&gt; \n -&gt; if n &lt; 2 then n else f (n-1) + f (n-2))
+
+fib :: (Applicative f, Num a, Eq a) =&gt; a -&gt; f a
+fib 0 = pure 0
+fib 1 = pure 1
+fib n = (+) &lt;$&gt; fib (n-1) &lt;*&gt; fib (n-2)
+
+-- | Fast Fib
+fib :: Integer -&gt; Integer
+fib = fst . rec (0,1)
+  where
+  rec pq@(p,q) n
+    | n==0      = (0,1)
+    | odd n     = tpq pq $ rec pq (n-1)
+    | otherwise = rec (p^2+q^2,2*p*q+q^2) (n `div` 2)
+  tpq (p,q) (a,b) = (p*a+q*b,q*a+(p+q)* b)
+
+-- or
+fib 0 = (0,1)
+fib n = if even n then (c,d) else (d,c+d)
+  where
+  (a,b) = fib (div n 2)
+  c = a*(b*2-a)
+  d = a*a+b*b
+
+-- | Matrix Fib by SemiGroup 
+import qualified Data.Semigroup as Semigroup
+
+data Matrix2x2 = 
+  Matrix {x00 :: Integer, x01 :: Integer, x10 :: Integer, x11 :: Integer}
+
+instance Monoid Matrix2x2 where
+  mempty = Matrix {x00 = 1, x01 = 0, x10 = 0, x11 = 1}
+
+instance Semigroup Matrix2x2 where
+  Matrix l00 l01 l10 l11 &lt;&gt; Matrix r00 r01 r10 r11 = Matrix {
+    x00 = l00*r00 + l01*r10, x01 = l00*r01 + l01*r11,
+    x10 = l10*r00 + l11*r10, x11 = l10*r01 + l11*r11}
+
+fib :: Integer -&gt; Integer
+fib n = x01 (Semigroup.mtimesDefault n matrix)
+  where
+  matrix = Matrix {x00 = 0, x01 = 1, x10 = 1, x11 = 1}
+
+-- | memoize by list
+import Data.Function (fix)
+fib1 :: Int -&gt; Integer
+fib1 = fix (memoize . fib)
+
+memoize :: (Num t, Enum t) =&gt; (t -&gt; a) -&gt; Int -&gt; a
+memoize f = (map f [0..] !!)
+
+fib :: (Num t, Eq t, Num a) =&gt; (t -&gt; a) -&gt; t -&gt; a
+fib f 0 = 1
+fib f 1 = 1
+fib f n = f (n-1) + f (n-2)
+
+-- | memoize by array
+fib2 n = memo (0,n) fib n
+  where
+  fib 0 = 1
+  fib 1 = 1
+  fib n = fib (n-1) + fib (n-2)
+
+memo bnds gen = (dp!)
+  where
+  dp = listArray bnds . fmap gen $ range bnds
+
+-- | memoize by listArray
+import Data.Array
+memo = listArray bnds $ f &lt;$&gt; range bnds
+f 0 = 1
+f 1 = 1
+f i = memo!(i-1) + memo!(i-2)
+
+-- | memo by array in the definition
+{-# LANGUAGE LambdaCase #-}
+import Data.Array
+
+tabulate :: Ix i =&gt; (i,i) -&gt; (i -&gt; a) -&gt; Array i a
+tabulate bnds f = listArray bnds (map f $ range bnds)
+
+memo :: Ix i =&gt; (i,i) -&gt; (i -&gt; a) -&gt; (i -&gt; a)
+memo bnds = (!) . tabulate bnds
+
+fib = memo (0,1000) $ \case
+  0 -&gt; 0
+  1 -&gt; 1
+  n -&gt; fib (n-1) + fib (n-2)
+
+-- | locally defined fix (warning: slow)
+import Data.Function
+fibs = fix (scanl (+) 0 . (1:))
+
+-- | representable functor as memoization and a natural isomorphism
+-- Stream a ≃ Natural -&gt; a  -- non-std lib
+import Data.Natural
+import Data.Functor.Rep
+class Functor f =&gt; Representable f where
+  type Key f :: Type
+  tabulate   :: (Key f -&gt; a) -&gt; f a
+  index      :: f a          -&gt; (Key f -&gt; a)
+
+memoize :: forall f a. Representable f =&gt; ((Key f -&gt; a) -&gt; (Key f -&gt; a)) -&gt; (Key f -&gt; a)
+memoize g = fix (index @f . tabulate . g)
+
+fibs :: Num a =&gt; Natural -&gt; a
+fibs = memoize @((-&gt;) Natural) fib
+
+-- | representable functor as memoization and and a natural isomorphism
+-- Tree a ≃ Natural -&gt; a
+data Tree a = Node a (Tree a) (Tree a)
+  deriving Functor
+
+fibs :: Num a =&gt; Natural -&gt; a
+fibs = memoize @Tree fib
+
+instance Representable Tree where
+  type Key Tree = Natural
+  tabulate f = fmap f nats where
+    nats = Node 0 (fmap ((+1) . (2*)) nats) (fmap ((+2) . (2*)) nats)
+  index (Node a _ _) 0 = a
+  index (Node _ l r) n = if odd n
+    then index l (div n 2)
+    else index r (div n 2 - 1)
+
+-- | fibs by mfix
+import Control.Monad.State.Strict
+fibs = fst . flip runState [] . mfix 
+  $ \a -&gt; scanl (+) 0 . (1:) &lt;$&gt; (put a &gt;&gt; return a)
+
+-- | MonadMemo  -- non-std lib
+import Control.Monad.Memo
+
+fib :: MonadMemo Int Integer m =&gt; Int -&gt; m Integer
+fib 0 = return 1
+fib 1 = return 1
+fib n = (+) &lt;$&gt; memo fib (n-1) &lt;*&gt; memo fib (n-2)
+
+evalFib :: Integer -&gt; Integer
+evalFib = startEvalMemo . fib
+
+fib :: (Monad m) =&gt; (Int -&gt; m Integer) -&gt; (Int -&gt; m Integer)
+fib _ 0 = return 0
+fib _ 1 = return 1
+fib f n = (+) &lt;$&gt; f (n-1) &lt;*&gt; f (n-2)
+
+memoize :: (MonadState (IntMap v) m) =&gt; (Int -&gt; m v) -&gt; Int -&gt; m v
+memoize f x = do
+  v &lt;- gets (lookup x)
+  case v of
+    Just y -&gt; return y
+    _      -&gt; do
+      y &lt;- f x
+      modify $ insert x y
+      return y
+
+memoFib :: Int -&gt; Integer
+memoFib n = evalState (fix (memoize . fib) n) empty
+
+-- MemoCombinators
+import qualified Data.MemoCombinators as Memo
+
+fib = Memo.integral fib'
+  where
+  fib' 0 = 0
+  fib' 1 = 1
+  fib' x = fib (x-1) + fib (x-2)</pre></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../80.html" class="item">Back to mokumoku-online #80</a>
+    </div>
+  </div>
+</body>
+</html>
