@@ -208,5 +208,47 @@
         "text": "MakeMistakesToLearnHaskellの更新: <https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/3db8e1e424599ee35a7deba6d87bcef66a5dc850>",
         "type": "message",
         "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1763265605.142989",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1763269406.755129",
+        "text": "S.K.です。遅くなってしまいましたが、今週もお世話になります。よろしくお願いいたします。\n今週も Implementing Functional Languages: a tutorial の Chapter 6 Lambda Lifting の続きを進めて行こうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1763269560.788839",
+        "text": "JSConf JPに参加しているので合間を縫ってmakeMistakesToLearnHaskellの続きをちょっとだけやります。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1763280882.525629",
+        "text": "開始と終了まとめてですみません。\n本日の進捗は以下です。\n• 昨日のAtCoderの復習 <https://github.com/RyosukeDTomita/atcoder/tree/main/src/2025-11-15>\n• アドベントカレンダーを書きました <https://qiita.com/sigma_devsecops/items/3f388b7553339f1de38c> 残り22記事がんばります。",
+        "type": "message",
+        "user": "U09ME60J23W"
+    },
+    {
+        "ts": "1763283610.717579",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1763283940.114269",
+        "text": "makeMistakesToLearnHaskellの更新 <https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/9e495a51936234a46a1c799267910de0482d98d6>",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1763285849.939519",
+        "text": "「6.5 Mark 3: Johnsson-style lambda lifting」の内容を一通り読んで、Ex.6.7 までのコードを写経し、以下のテストプログラムで処理結果を比較してみました。\n\nf x = letrec g = \\y. cons (x*y) (g y) in g 3\nmain = f 6\n\nMark2 の結果:\n\nf x_0 = letrec\n          g_1 = sc_2 g_1 x_0\n        in g_1 3 ;\nsc_2 g_3 x_4 y_5 = cons (x_4 * y_5) (g_3 y_5) ;\nmain  = f 6\n\nMark3 の結果:\n\nf x_0 = g_1 x_0 3 ;\ng_1 x_0 y_2 = cons (x_0 * y_2) (g_1 x_0 y_2) ;\nmain  = f 6\n\nMark3 の方が、テキスト通りに letrec 式がなくなって、g_1 が直接再帰的になっているようです。\nこの動作結果を参考に、もう一度説明を読み返そうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
     }
 ]

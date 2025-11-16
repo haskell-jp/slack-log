@@ -332,6 +332,69 @@
           <div class="description">MakeMistakesToLearnHaskellの更新: <a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/3db8e1e424599ee35a7deba6d87bcef66a5dc850'>https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/3db8e1e424599ee35a7deba6d87bcef66a5dc850</a></div>
         </div>
       </div>
+      <div class="event" id="message-1763265605.142989">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1763265605.142989">2025-11-16 13:00:05 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1763269406.755129">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1763269406.755129">2025-11-16 14:03:26 +0900</a></div>
+          </div>
+          <div class="description">S.K.です。遅くなってしまいましたが、今週もお世話になります。よろしくお願いいたします。<br/>今週も Implementing Functional Languages: a tutorial の Chapter 6 Lambda Lifting の続きを進めて行こうと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1763269560.788839">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1763269560.788839">2025-11-16 14:06:00 +0900</a></div>
+          </div>
+          <div class="description">JSConf JPに参加しているので合間を縫ってmakeMistakesToLearnHaskellの続きをちょっとだけやります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1763280882.525629">
+        <div class="content">
+          <div class="summary">
+            <div class="user">sigma</div>
+            <div class="date"><a class="date" href="#message-1763280882.525629">2025-11-16 17:14:42 +0900</a></div>
+          </div>
+          <div class="description">開始と終了まとめてですみません。<br/>本日の進捗は以下です。<br/>• 昨日のAtCoderの復習 <a href='https://github.com/RyosukeDTomita/atcoder/tree/main/src/2025-11-15'>https://github.com/RyosukeDTomita/atcoder/tree/main/src/2025-11-15</a><br/>• アドベントカレンダーを書きました <a href='https://qiita.com/sigma_devsecops/items/3f388b7553339f1de38c'>https://qiita.com/sigma_devsecops/items/3f388b7553339f1de38c</a> 残り22記事がんばります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1763283610.717579">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1763283610.717579">2025-11-16 18:00:10 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1763283940.114269">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1763283940.114269">2025-11-16 18:05:40 +0900</a></div>
+          </div>
+          <div class="description">makeMistakesToLearnHaskellの更新 <a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/9e495a51936234a46a1c799267910de0482d98d6'>https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/9e495a51936234a46a1c799267910de0482d98d6</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1763285849.939519">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1763285849.939519">2025-11-16 18:37:29 +0900</a></div>
+          </div>
+          <div class="description">「6.5 Mark 3: Johnsson-style lambda lifting」の内容を一通り読んで、Ex.6.7 までのコードを写経し、以下のテストプログラムで処理結果を比較してみました。<br/><br/>f x = letrec g = \y. cons (x*y) (g y) in g 3<br/>main = f 6<br/><br/>Mark2 の結果:<br/><br/>f x_0 = letrec<br/>          g_1 = sc_2 g_1 x_0<br/>        in g_1 3 ;<br/>sc_2 g_3 x_4 y_5 = cons (x_4 * y_5) (g_3 y_5) ;<br/>main  = f 6<br/><br/>Mark3 の結果:<br/><br/>f x_0 = g_1 x_0 3 ;<br/>g_1 x_0 y_2 = cons (x_0 * y_2) (g_1 x_0 y_2) ;<br/>main  = f 6<br/><br/>Mark3 の方が、テキスト通りに letrec 式がなくなって、g_1 が直接再帰的になっているようです。<br/>この動作結果を参考に、もう一度説明を読み返そうと思います。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CUPBC8WCE/79.html" class="item">Previous</a>
