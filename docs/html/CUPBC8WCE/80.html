@@ -11,6 +11,7 @@
     <div class="ui pagination menu">
       <a href="../../html/CUPBC8WCE/79.html" class="item">Previous</a>
       <a href="../../" class="item">Top</a>
+      <a href="../../html/CUPBC8WCE/81.html" class="item">Next</a>
     </div>
     <div class="ui feed">
       <div class="event" id="message-1760848332.180029">
@@ -395,10 +396,84 @@
           <div class="description">「6.5 Mark 3: Johnsson-style lambda lifting」の内容を一通り読んで、Ex.6.7 までのコードを写経し、以下のテストプログラムで処理結果を比較してみました。<br/><br/>f x = letrec g = \y. cons (x*y) (g y) in g 3<br/>main = f 6<br/><br/>Mark2 の結果:<br/><br/>f x_0 = letrec<br/>          g_1 = sc_2 g_1 x_0<br/>        in g_1 3 ;<br/>sc_2 g_3 x_4 y_5 = cons (x_4 * y_5) (g_3 y_5) ;<br/>main  = f 6<br/><br/>Mark3 の結果:<br/><br/>f x_0 = g_1 x_0 3 ;<br/>g_1 x_0 y_2 = cons (x_0 * y_2) (g_1 x_0 y_2) ;<br/>main  = f 6<br/><br/>Mark3 の方が、テキスト通りに letrec 式がなくなって、g_1 が直接再帰的になっているようです。<br/>この動作結果を参考に、もう一度説明を読み返そうと思います。</div>
         </div>
       </div>
+      <div class="event" id="message-1763870410.245019">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1763870410.245019">2025-11-23 13:00:10 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1763871095.360659">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1763871095.360659">2025-11-23 13:11:35 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://byorgey.github.io/blog/posts/2024/11/18/UnionFind-sols.html'>Competitive Programming in Haskell: Union-Find, part II</a>:  日本旅行で２回休みましたが再開です　Brent Yorgey 先生の blog をもとに Kattis の問題を解きます</div>
+        </div>
+      </div>
+      <div class="event" id="message-1763872656.213489">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1763872656.213489">2025-11-23 13:37:36 +0900</a></div>
+          </div>
+          <div class="description">S.K.です。ちょっと遅くなってしまいましたが、今週もお世話になります。よろしくお願いいたします。<br/>今週も Implementing Functional Languages: a tutorial の Chapter 6 Lambda Lifting の続きを進めて行こうと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1763882388.016619">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1763882388.016619">2025-11-23 16:19:48 +0900</a></div>
+          </div>
+          <div class="description">昼寝などで遅くなってしまいましたが、makeMistakesToLearnHaskellの続き（とHaskell-jp Blogもちょっと？）をやります。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1763888415.981139">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1763888415.981139">2025-11-23 18:00:15 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1763888664.599779">
+        <div class="content">
+          <div class="summary">
+            <div class="user">sigma</div>
+            <div class="date"><a class="date" href="#message-1763888664.599779">2025-11-23 18:04:24 +0900</a></div>
+          </div>
+          <div class="description">今日はバタバタしていてあまり手が動きませんでした。<br/>• 昨日のAtCoderの復習<br/>• 教わったYorgey先生の`interact`と`&gt;&gt;&gt;`を使った入力処理になれてきたのでVS Codeのスニペットにしました。<br/>• <a href='https://judge.u-aizu.ac.jp/onlinejudge/finder.jsp?course=ITP1'>https://judge.u-aizu.ac.jp/onlinejudge/finder.jsp?course=ITP1</a>の1_8_Dと1_9_A<br/>• なぜ関数プログラミングは重要か? の冒頭を読んだ<https://www.sampou.org/haskell/article/whyfp.html|https://www.sampou.org/haskell/article/whyfp.html></div>
+        </div>
+      </div>
+      <div class="event" id="message-1763888767.350309">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1763888767.350309">2025-11-23 18:06:07 +0900</a></div>
+          </div>
+          <div class="description">makeMistakesToLearnHaskellの進捗。やっと課題16の修正が終わった。<br/><a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/303366a73ddb5a5102ba6bc6ceb63b433495e025'>https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/303366a73ddb5a5102ba6bc6ceb63b433495e025</a><br/>Haskell-jp Blogのレビューもしています。思ったより重たい修正が来そう :weary:</div>
+          <a class="link-to-replies" href="80/1763888767.350309.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1763888778.966129">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1763888778.966129">2025-11-23 18:06:18 +0900</a></div>
+          </div>
+          <div class="description">Competitive Programming in Haskell: Union-Find, part II: 読了　前回出された宿題 "Duck Journey" と "Inventing Test Data" の模範解答　大変勉強になり収穫だった　<br/>前者の問題については Union-Find の annotation として Data.Bits.Ior を使ったが　先生は Filter (x .|. y) をインスタンスされていて　コーユーのは初めて見た　言われてみれば「確かに」となるが　自分では思いつかない　<br/>後者の問題については全然歯が立たなくて LCA を使うのかなぁ？とか愚案を弄んでいたが　Kruskal's Algorithm を拡張した先生の模範解答を見てびっくり仰天　驚天動地　ひっくり返った　２度読み　３度読みした　いったい何処からそんな発想が生まれるのか！　ただし先生のコードはバグがあって (2 places) コンパイルしないのは秘密</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CUPBC8WCE/79.html" class="item">Previous</a>
       <a href="../../" class="item">Top</a>
+      <a href="../../html/CUPBC8WCE/81.html" class="item">Next</a>
     </div>
   </div>
 </body>
