@@ -190,5 +190,41 @@
         "text": "<https://adventofcode.com/2025|Advent of Code 2025 >を Haskell で解きます",
         "type": "message",
         "user": "U584T7GAH"
+    },
+    {
+        "ts": "1766295028.394219",
+        "text": "山本悠滋です。昼寝で遅くなってしまいましたが、makeMistakesToLearnHaskellの続きと、できればmakeMistakesToLearnHaskellを一般公開するときに向けたウェブアプリケーション作りに取りかかります。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1766295591.888499",
+        "text": "S.K.です。遅くなってしまいましたが、今週もお世話になります。よろしくお願いいたします。\n今週も Implementing Functional Languages: a tutorial の Chapter 6 Lambda Lifting の続き(Ex.6.7 のデバッグ)を進めて行こうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1766307614.738189",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1766308395.793699",
+        "text": "<https://adventofcode.com/2025|Advent of Code 2025>  Day 10 Part 1/2 を通過　Part 2/2 では　例題は通るが実データは Hang する（トホホ）　全数検査を List でするのはさすがに無理なのか？　はて Vector 化するか？",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1766309096.464069",
+        "text": "makeMistakesToLearnHaskellの更新: <https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/1fb69805161767a6b84243e28a551a01782a5924>\nウェブアプリケーション作りは、Nix FlakesやらQwikやら、（Haskellと直接関係がないものばかりで恐縮ですが）練習がてらチャレンジしたい技術を使って取り組もうと考えているため、ひとまずNixの勉強を始めて終わりです。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1766310016.291269",
+        "text": "「6.5.2 Abstracting free variables in functions」のEx.6.7 (abstractJ_e 関数を case 式にも対応させる)の続き(デバッグ)を進めていました。\n残念ながら、今週もデバッグ完了には至りませんでした。\nただ、少しですが進展もありました。\ncollectSCs を工夫すると、abstractJ のなかで新たに付けられた局所変数名 sc が衝突していても、その名前を使わずに済むらしいですが、残念ながら自分の実装はそうなっていないので、何らかの対策が必要となりそう。\n(実験的に、変数名のユニーク化を abstractJ の後にも追加してみたら、エラーとなったテストプログラムも一応意図した結果となったけど、ほとんどの変数はサフィックスが二重に付いてしまう。)\nまた、case 式の処理部分で環境 env の更新を行えていないので、その対応も必要。\n自分にとってはまだまだ先は長そうですが、自分にできるペースで進めて行こうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
     }
 ]

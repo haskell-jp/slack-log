@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / random #109 at 2025-12-21 15:53:47 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / random #109 at 2025-12-21 15:53:47 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../109.html" class="item">Back to random #109</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1766300027.172449">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1766300027.172449">2025-12-21 15:53:47 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://discourse.haskell.org/t/ghc-9-14-1-is-now-available/13430'>https://discourse.haskell.org/t/ghc-9-14-1-is-now-available/13430</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1766301450.066819">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kakkun61</div>
+            <div class="date"><a class="date" href="#message-1766301450.066819">2025-12-21 16:17:30 +0900</a></div>
+          </div>
+          <div class="description"><pre>GHC 開発者チームは、GHC 9.14.1 のリリースを謹んでお知らせいたします。
+バイナリ配布版、ソース配布版、およびドキュメントは、以下の URL から入手可能です：[<http://downloads.haskell.org|downloads.haskell.org>](<https://downloads.haskell.org/ghc/9.14.1>)。
+
+GHC 9.14 では、以下のような数多くの新機能と改良が加えられています：
+
+  - 特殊化機能の大幅な改善：
+      - `SPECIALISE` プラグマで型適用構文を使用可能になりました
+      - `SPECIALISE` プラグマは、型引数だけでなく式引数に対しても
+      - 特殊化を適用できるようになりました
+      - `newtypes` が存在する環境においても、特殊化の信頼性が大幅に向上しました
+
+  - GHC インタラクティブシェル（GHCi）の大幅な改良：
+      - バイトコードインタプリタの正確性とパフォーマンスが向上しました
+      - GHCi デバッガに新たな機能が追加されました
+      - GHCi 環境で複数のホームユニットをサポートしました
+
+  - [Explicit Level Imports](<https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0682-explicit-level-imports.rst>) 提案の実装
+
+  - `RequiredTypeArguments` プラグマをより多様な文脈で使用可能になりました
+
+  - x86 ネイティブコード生成バックエンドにおける [SSE/AVX2 サポート](<https://gitlab.haskell.org/ghc/ghc/-/issues/25030)が大幅に強化されました>
+
+  - LoongArch アーキテクチャ向けネイティブコード生成バックエンドの初期サポートを追加しました
+
+  - WebAssembly バックエンドでは、[インタプリタ経由の評価](<https://www.tweag.io/blog/2025-04-17-wasm-ghci-browser/)が可能になり>、これにより GHCi や TemplateHaskell の評価、さらにはブラウザ内での `foreign import javascript` の使用が実現しました
+
+  - スタックトレースを解読する際に任意のデータを呼び出しスタックにプッシュするための新しいプリミティブ [`annotateStack#`](<https://gitlab.haskell.org/ghc/ghc/-/issues/26218>) が追加されました
+
+  - [`-Wincomplete-record-selectors`](<https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0516-incomplete-record-selectors.rst>) オプションが `-Wall` 警告グループの一部となりました `-Werror` オプションでコンパイルしたライブラリを使用する場合、必要に応じて調整が必要になる可能性があります
+
+  - Windows ツールチェーンの主要なアップデートを実施しました
+
+  - [macOS Tahoe](<https://gitlab.haskell.org/ghc/ghc/-/issues/26166>) 環境との互換性が向上しました
+
+  - ... その他多数の改良点があります
+
+変更点の完全な一覧は[リリースノート](<https://downloads.haskell.org/ghc/9.14.1/docs/users_guide/9.14.1-notes.html)に記載されています>。このリリースへのプログラム移行方法については、移行ガイドを参照してください。なお、このリリースでは特殊化最適化において多くの改善が行われていますが、[#26329](<https://gitlab.haskell.org/ghc/ghc/-/issues/26329>) で報告されたような回帰の懸念から、多相的特殊化はデフォルトで無効のままとなっていますのでご注意ください。より積極的な特殊化を必要とするユーザーは、`-fpolymorphic-specialisation` フラグを明示的に指定することでこの機能を有効にできます。9.14.1 の運用状況を踏まえ、今後のマイナーリリースでデフォルトで有効化する可能性もあります。
+
+GHC 開発は以下のスポンサーによって支援されています：
+
+  - Juspay
+  - QBayLogic
+  - Channable
+  - Haskell Foundation
+  - Serokell
+  - Well-Typed
+  - Tweag
+  - Dotcom-Monitor
+  - LoadView
+  - Web Hosting Buddy
+  - Find My Electric
+  - Standard Chartered
+  - UpCloud
+
+これらのスポンサーの皆様、および継続的な資金的・現物的支援を提供してくださっている匿名の貢献者の皆様に心より感謝申し上げます。最後に、このリリースの実現には、数百名に及ぶオープンソース貢献者の方々の多大なる貢献が不可欠でした。
+
+いつものように、このリリースを実際にお試しいただき、何か問題がございましたら[チケット](<https://gitlab.haskell.org/ghc/homepage/-/issues/new)をご提出ください>。</pre></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../109.html" class="item">Back to random #109</a>
+    </div>
+  </div>
+</body>
+</html>
