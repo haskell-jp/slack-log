@@ -178,5 +178,17 @@
         "text": "「6.5.2 Abstracting free variables in functions」のEx.6.7 (abstractJ_e 関数を case 式にも対応させる)の続き(デバッグ)を進めていました。\n残念ながら、デバッグ完了には至りませんでした。\n先週追加した abstractJ_case 関数のデバッグ中に、Mark2 までと Mark3 までとで全体の処理の流れが違うことに(今さらながら)気がつきました。\n\nMark2まで：lambdaLift = collectSCs . rename . abstract . freeVars\nMark3：lambdaLiftJ = collectSCs . abstractJ . freeVars . rename  -- 変数名のユニーク化を最初に行っている模様。\n\nMark3 では、abstract 関数が abstractJ 関数に置き換わっただけと思い込んでいたので、この辺りも関係ありそうです。\n自分にとってはまだまだ先は長そうですが、引き続き進めて行こうと思います。",
         "type": "message",
         "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1766289612.148919",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1766290149.648679",
+        "text": "<https://adventofcode.com/2025|Advent of Code 2025 >を Haskell で解きます",
+        "type": "message",
+        "user": "U584T7GAH"
     }
 ]
