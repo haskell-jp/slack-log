@@ -1,0 +1,32 @@
+[
+    {
+        "ts": "1766912641.391429",
+        "text": "makeMistakesToLearnHaskellの進捗: <https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/efea0e30df6997fdfde54676e0da9de06a1d07b9>\nWebアプリケーション作りについては、Nixの勉強をしつつGHCのバックエンドをどうしようか検討しています。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1766913460.169309",
+        "text": ":writing_hand:\n• <https://discourse.haskell.org/t/ghc-now-runs-in-your-browser/13169>\n    ◦ 詳細は明かされていない様子。あまり使わない方がいい？\n    ◦ GHCiが使えないので大分工夫が要る\n    ◦ 外部パッケージを使うのも大変そう\n    ◦ サイズはかなりマシ（50MBくらい）\n    ◦ 関連:\n        ▪︎ <https://github.com/haskell-wasm/ghc-in-browser/tree/gh-pages>\n        ▪︎ <https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta>\n            • とりあえずNixでインストールしてみた。\n• container2wasmを使った実装: <https://vaibhavsagar.com/blog/2024/07/03/ghci-in-the-browser/> 確実そう。いろんなバージョンのGHCやHaskellのパッケージが使える。ただしサイズがでかい（220MBくらい）。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1766913853.479019",
+        "text": "<https://ghc.gitlab.haskell.org/ghc/doc/users_guide/wasm.html> にこんな記述が！\n&gt; The GHC wasm backend supports the GHCi feature via a nodejs `dyld` script that provides RTS linker functionality and bootstraps the external interpreter",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1766913881.406819",
+        "text": "&gt; Additionally, the wasm backend’s GHCi supports the browser mode to allow live-coding the frontend using GHCi. This requires the <https://www.npmjs.com/package/ws|ws> library to be installed and passed to the `dyld` script via the <https://nodejs.org/api/modules.html|NODE_PATH> environment variable",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1766913955.197619",
+        "text": "あー、でもこれはGHCi自身をWasmにした話とは違うな",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    }
+]
