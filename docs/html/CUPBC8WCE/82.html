@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / mokumoku-online #82</title>
+<link rel="stylesheet" href="../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / mokumoku-online #82</h1>
+    <div class="ui pagination menu">
+      <a href="../../html/CUPBC8WCE/81.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1767505940.193069">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1767505940.193069">2026-01-04 14:52:20 +0900</a></div>
+          </div>
+          <div class="description">S.K.です。かなり遅くなってしまいましたが、今週(今年)もお世話になります。よろしくお願いいたします。<br/>今週も Implementing Functional Languages: a tutorial の Chapter 6 Lambda Lifting の Ex.6.7 の続きを進めて行こうと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1767506469.286099">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1767506469.286099">2026-01-04 15:01:09 +0900</a></div>
+          </div>
+          <div class="description">山本悠滋です。いつもどおりmakeMistakesToLearnHaskellの続きと、できればmakeMistakesToLearnHaskellを一般公開するときに向けたウェブアプリケーション作り（というよりNixの勉強？）に取り組みます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1767517217.677239">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1767517217.677239">2026-01-04 18:00:17 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1767517641.902789">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1767517641.902789">2026-01-04 18:07:21 +0900</a></div>
+          </div>
+          <div class="description">Competitive programming in Haskell: Range queries, Classified 読了　Static/Dynamic range queries やら sliding windows, segmented tree, Fenwick tree 等々の分類と概説　後者の２つについては <a href='http://ozark.hendrix.edu/~yorgey/pub/Fenwick-ext.pdf'>F U N C T I O N A L P E A R L - You Could Have Invented Fenwick Trees</a> が挙げられていて勉強になった　演習は prefix sums を用いる <a href='https://open.kattis.com/problems/nucleotides'>Determining Nucleotide Assortments</a> をやった　素直にできた</div>
+        </div>
+      </div>
+      <div class="event" id="message-1767517676.430969">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1767517676.430969">2026-01-04 18:07:56 +0900</a></div>
+          </div>
+          <div class="description">makeMistakesToLearnHaskellの進捗: <a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/c59b093e96054a3471f31ddcae47f7d18f8833e0'>https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/c59b093e96054a3471f31ddcae47f7d18f8833e0</a><br/>Nixの勉強は、 <a href='https://zero-to-nix.com/start/nix-build/'>https://zero-to-nix.com/start/nix-build/</a> まで読んだのでようやくコピペしたのをベースにflake.nixを作り始めています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1767518314.247029">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1767518314.247029">2026-01-04 18:18:34 +0900</a></div>
+          </div>
+          <div class="description">あ、あと、 <a href='https://qiita.com/advent-calendar/2025/haskell'>https://qiita.com/advent-calendar/2025/haskell</a> の未読分を一部読んでました。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1767518794.067679">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1767518794.067679">2026-01-04 18:26:34 +0900</a></div>
+          </div>
+          <div class="description">「6.5.2 Abstracting free variables in functions」のEx.6.7 (abstractJ_e 関数を case 式にも対応させる)の続きを進めていました。<br/>State モナドを使った簡単なサンプルプログラムを写経して動作を確認してから、NameSupply の値を状態として保持するための変更に取り掛かりました。<br/>自分にとっては難しく、結局 Copilot 先生に教えを乞うてしまいました(すみません)。<br/>おかげでエラーとなっていたテストプログラムが正しく処理されるようになり、既存のテストプログラムも Mark3 らしく処理されました。正しく動作している模様です。<br/>変更箇所は、ラムダリフタ最上位関数、変数名ユニーク化関数、ラムダ式を抽出してlet式でラップする関数とその補助関数に渡りました。<br/>(abstractJ_e 関数の case 式対応部分では環境 env の更新は不要だったようです。)<br/>引き続き変更内容の理解を進めていこうと思います。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../../html/CUPBC8WCE/81.html" class="item">Previous</a>
+      <a href="../../" class="item">Top</a>
+    </div>
+  </div>
+</body>
+</html>
