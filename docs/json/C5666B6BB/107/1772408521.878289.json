@@ -1,0 +1,110 @@
+[
+    {
+        "ts": "1772408521.878289",
+        "text": "cabalファイルなどで、依存ライブラリに対してフラグを指定する方法はあるでしょうか？\n\n具体的には、耐量子暗号ライブラリのmlkemが、デフォルトでcryptoniteを使おうとします。use_crypton フラグを渡すと crypton を使うようになります。\n\nやりたいのは、tlsライブラリを use_crypton フラグを指定したmlkemライブラリに依存させることです。\n\nこの CI をパスさせたい。。。\n\n<https://github.com/haskell-tls/hs-tls/actions/runs/22532143188/job/65273083761?pr=517>",
+        "type": "message",
+        "user": "U56MBRKR9"
+    },
+    {
+        "ts": "1772409544.268379",
+        "text": "cabal.project ファイルに個別の（依存先含めた）パッケージごとの設定を書くことができて、そこで個別にフラグも指定できます\n<https://cabal.readthedocs.io/en/stable/cabal-project-description-file.html|https://cabal.readthedocs.io/en/stable/cabal-project-description-file.html>",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1772409665.238299",
+        "text": "昨日、tls のトップディレクトリに以下のファイルを置いて試したのですが、うまくいかないのです。何か間違ってますか？\n\n```package mlkem\n  flags: +use_crypton```",
+        "type": "message",
+        "user": "U56MBRKR9"
+    },
+    {
+        "ts": "1772410181.693639",
+        "text": "ああ、すでにお試しでしたか。文面から読み取れず失礼しました:bow: 構文はあってそうですね。となるとフラグが足りないとか、バージョンが想定と違うとか、違う要因で落ちてるとかですかね。細かい事情はわからないですが……",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1772410296.211019",
+        "text": "cabal.project は、1個のパッケージ内に置いてもうまく行きますか？\n複数のパッケージを束ねるものだと理解しているので。。。",
+        "type": "message",
+        "user": "U56MBRKR9"
+    },
+    {
+        "ts": "1772410352.132249",
+        "text": "うまくいきますし、普通に一つのパッケージしかなくてもビルド設定や外部レポジトリの依存関係を引き入れたりするのに使う必要があるので、むしろ想定の用途ですね",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1772410380.440059",
+        "text": "そうですか。\nでは、信じていろいろ試してみます。",
+        "type": "message",
+        "user": "U56MBRKR9"
+    },
+    {
+        "ts": "1772410398.560659",
+        "text": "freezeファイルで依存バージョンを固定したりにも使えるので",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1772410594.734009",
+        "text": "たとえば、手前味噌ですがこれなんかはまさに単一パッケージのレポジトリでcabal.projectでフラグなどを制御している例です、ご参考までに（言ってる本人の例じゃ信じきれないかもですが……\n<https://github.com/konn/tamagoh/blob/main/cabal.project|https://github.com/konn/tamagoh/blob/main/cabal.project>",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1772410834.612919",
+        "text": "もしかして、cabal.project は v2 のコマンドでしか有効になりませんか？\n僕は、v1 コマンドを使っています。",
+        "type": "message",
+        "user": "U56MBRKR9"
+    },
+    {
+        "ts": "1772410853.800739",
+        "text": "あーーーそれはそうですね",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1772410880.174249",
+        "text": "最新の cabal だと何も prefix をつけなければ v2-build になりますが、わざわざ v1-build を呼んでいる？",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1772410885.827949",
+        "text": "なるほど、CI 側は v2 なので、push してみます。",
+        "type": "message",
+        "user": "U56MBRKR9"
+    },
+    {
+        "ts": "1772410931.932579",
+        "text": "v2 はよく理解できず、気持ち悪いので、v1 を使い続けています。\n(cab というラッパーを使っています。)",
+        "type": "message",
+        "user": "U56MBRKR9"
+    },
+    {
+        "ts": "1772410973.312899",
+        "text": "しょうじき v1 はもうメンテされないですし、reproducible build もできず、大して使い勝手もかわらないので v1 を使いつづける理由は今日は全くないと思いますね……",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1772411061.109039",
+        "text": "昔 v2 を使ったときに、ライブラリがどのディレクトリにインストールされるのかも分からなかったので、諦めました。\nちょっと、勉強し直します。",
+        "type": "message",
+        "user": "U56MBRKR9"
+    },
+    {
+        "ts": "1772411132.589739",
+        "text": "• 基本的に設定が同じものは使い回される\n• Hackageからの依存関係は ~/.cabal/store （ないし XDG の設定によってはキャッシュディレクトリ）に置かれる\n• ローカルのパッケージや source-repository-package の依存関係のビルド結果は dist-newstyle におかれる\nこんな感じだけ押さえておけば大丈夫かと！",
+        "type": "message",
+        "user": "UK0MXUCAV"
+    },
+    {
+        "ts": "1772411175.053389",
+        "text": "いろいろ教えていただいて、ありがとうござました。",
+        "type": "message",
+        "user": "U56MBRKR9"
+    }
+]

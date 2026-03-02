@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / questions #107 at 2026-03-02 08:42:01 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / questions #107 at 2026-03-02 08:42:01 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../107.html" class="item">Back to questions #107</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1772408521.878289">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1772408521.878289">2026-03-02 08:42:01 +0900</a></div>
+          </div>
+          <div class="description">cabalファイルなどで、依存ライブラリに対してフラグを指定する方法はあるでしょうか？<br/><br/>具体的には、耐量子暗号ライブラリのmlkemが、デフォルトでcryptoniteを使おうとします。use_crypton フラグを渡すと crypton を使うようになります。<br/><br/>やりたいのは、tlsライブラリを use_crypton フラグを指定したmlkemライブラリに依存させることです。<br/><br/>この CI をパスさせたい。。。<br/><br/><a href='https://github.com/haskell-tls/hs-tls/actions/runs/22532143188/job/65273083761?pr=517'>https://github.com/haskell-tls/hs-tls/actions/runs/22532143188/job/65273083761?pr=517</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1772409544.268379">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1772409544.268379">2026-03-02 08:59:04 +0900</a></div>
+          </div>
+          <div class="description">cabal.project ファイルに個別の（依存先含めた）パッケージごとの設定を書くことができて、そこで個別にフラグも指定できます<br/><a href='https://cabal.readthedocs.io/en/stable/cabal-project-description-file.html'>https://cabal.readthedocs.io/en/stable/cabal-project-description-file.html</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1772409665.238299">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1772409665.238299">2026-03-02 09:01:05 +0900</a></div>
+          </div>
+          <div class="description">昨日、tls のトップディレクトリに以下のファイルを置いて試したのですが、うまくいかないのです。何か間違ってますか？<br/><br/><pre>package mlkem
+  flags: +use_crypton</pre></div>
+        </div>
+      </div>
+      <div class="event" id="message-1772410181.693639">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1772410181.693639">2026-03-02 09:09:41 +0900</a></div>
+          </div>
+          <div class="description">ああ、すでにお試しでしたか。文面から読み取れず失礼しました:bow: 構文はあってそうですね。となるとフラグが足りないとか、バージョンが想定と違うとか、違う要因で落ちてるとかですかね。細かい事情はわからないですが……</div>
+        </div>
+      </div>
+      <div class="event" id="message-1772410296.211019">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1772410296.211019">2026-03-02 09:11:36 +0900</a></div>
+          </div>
+          <div class="description">cabal.project は、1個のパッケージ内に置いてもうまく行きますか？<br/>複数のパッケージを束ねるものだと理解しているので。。。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1772410352.132249">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1772410352.132249">2026-03-02 09:12:32 +0900</a></div>
+          </div>
+          <div class="description">うまくいきますし、普通に一つのパッケージしかなくてもビルド設定や外部レポジトリの依存関係を引き入れたりするのに使う必要があるので、むしろ想定の用途ですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1772410380.440059">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1772410380.440059">2026-03-02 09:13:00 +0900</a></div>
+          </div>
+          <div class="description">そうですか。<br/>では、信じていろいろ試してみます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1772410398.560659">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1772410398.560659">2026-03-02 09:13:18 +0900</a></div>
+          </div>
+          <div class="description">freezeファイルで依存バージョンを固定したりにも使えるので</div>
+        </div>
+      </div>
+      <div class="event" id="message-1772410594.734009">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1772410594.734009">2026-03-02 09:16:34 +0900</a></div>
+          </div>
+          <div class="description">たとえば、手前味噌ですがこれなんかはまさに単一パッケージのレポジトリでcabal.projectでフラグなどを制御している例です、ご参考までに（言ってる本人の例じゃ信じきれないかもですが……<br/><a href='https://github.com/konn/tamagoh/blob/main/cabal.project'>https://github.com/konn/tamagoh/blob/main/cabal.project</a></div>
+        </div>
+      </div>
+      <div class="event" id="message-1772410834.612919">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1772410834.612919">2026-03-02 09:20:34 +0900</a></div>
+          </div>
+          <div class="description">もしかして、cabal.project は v2 のコマンドでしか有効になりませんか？<br/>僕は、v1 コマンドを使っています。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1772410853.800739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1772410853.800739">2026-03-02 09:20:53 +0900</a></div>
+          </div>
+          <div class="description">あーーーそれはそうですね</div>
+        </div>
+      </div>
+      <div class="event" id="message-1772410880.174249">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1772410880.174249">2026-03-02 09:21:20 +0900</a></div>
+          </div>
+          <div class="description">最新の cabal だと何も prefix をつけなければ v2-build になりますが、わざわざ v1-build を呼んでいる？</div>
+        </div>
+      </div>
+      <div class="event" id="message-1772410885.827949">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1772410885.827949">2026-03-02 09:21:25 +0900</a></div>
+          </div>
+          <div class="description">なるほど、CI 側は v2 なので、push してみます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1772410931.932579">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1772410931.932579">2026-03-02 09:22:11 +0900</a></div>
+          </div>
+          <div class="description">v2 はよく理解できず、気持ち悪いので、v1 を使い続けています。<br/>(cab というラッパーを使っています。)</div>
+        </div>
+      </div>
+      <div class="event" id="message-1772410973.312899">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1772410973.312899">2026-03-02 09:22:53 +0900</a></div>
+          </div>
+          <div class="description">しょうじき v1 はもうメンテされないですし、reproducible build もできず、大して使い勝手もかわらないので v1 を使いつづける理由は今日は全くないと思いますね……</div>
+        </div>
+      </div>
+      <div class="event" id="message-1772411061.109039">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1772411061.109039">2026-03-02 09:24:21 +0900</a></div>
+          </div>
+          <div class="description">昔 v2 を使ったときに、ライブラリがどのディレクトリにインストールされるのかも分からなかったので、諦めました。<br/>ちょっと、勉強し直します。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1772411132.589739">
+        <div class="content">
+          <div class="summary">
+            <div class="user">Hiromi ISHII / mr_konn</div>
+            <div class="date"><a class="date" href="#message-1772411132.589739">2026-03-02 09:25:32 +0900</a></div>
+          </div>
+          <div class="description">• 基本的に設定が同じものは使い回される<br/>• Hackageからの依存関係は ~/.cabal/store （ないし XDG の設定によってはキャッシュディレクトリ）に置かれる<br/>• ローカルのパッケージや source-repository-package の依存関係のビルド結果は dist-newstyle におかれる<br/>こんな感じだけ押さえておけば大丈夫かと！</div>
+        </div>
+      </div>
+      <div class="event" id="message-1772411175.053389">
+        <div class="content">
+          <div class="summary">
+            <div class="user">kazu</div>
+            <div class="date"><a class="date" href="#message-1772411175.053389">2026-03-02 09:26:15 +0900</a></div>
+          </div>
+          <div class="description">いろいろ教えていただいて、ありがとうござました。</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../107.html" class="item">Back to questions #107</a>
+    </div>
+  </div>
+</body>
+</html>
