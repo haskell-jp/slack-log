@@ -16,5 +16,53 @@
         "text": "今週は「6.6 Mark 4: A separate full laziness pass」で扱っていたサンプルプログラムの処理途中の結果(identifyMFEs 関数の出力)で、\nlet の局所変数定義の右辺に関数の部分適用が残る原因と対策を確認していました。\n原因はまだはっきりと理解できていないですが、局所変数定義の右辺式を等価的に書き換え(`+`の左右を入れ替え)たら、関数の部分適用がなくなった模様です。\nとりあえず今のところは、この方法で対応することにして進めていこうと思います。",
         "type": "message",
         "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1773547219.220099",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1773548103.004569",
+        "text": "引き続き <https://github.com/haskell-jp/makeMistakesToLearnHaskell/issues/121> に取り組みます。\n何かしら、Qwikでmmlhの課題一覧を出すアプリを作りたい。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1773548309.109599",
+        "text": "<https://wiki.haskell.org/index.php?title=Typeclassopedia|Typeclassopedia> by Brent Yorgey (2009) を読んで苦手の type classes について学びます 今日は Monad  から",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1773550490.347419",
+        "text": "S.K.です。遅くなってしまいましたが、今週もお世話になります。よろしくお願いいたします。\n今週も Implementing Functional Languages: a tutorial の Chapter 6 Lambda Lifting の続きを進めて行こうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1773565215.477169",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1773565602.516679",
+        "text": "例の如く眠気のせいかあまり進まず。ブラウザーアプリ用のブランチを別にしていましたが、以前 <https://github.com/haskell-jp/makeMistakesToLearnHaskell/milestone/2> の依存関係を整理しているうちに、結局ブラウザー版に集中した方がいいことに気付いたので統合し、ディレクトリー構成を考えています。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1773565668.663689",
+        "text": "<https://wiki.haskell.org/index.php?title=Typeclassopedia|Typeclassopedia> by Brent Yorgey (2009)  \"Monad\" 　読了\nMonad の肝はコレでしょう： \"ability to use the output from previous computations to decide what computations to run next\"　ナルホドね　ここまでは好い\nしかし次となると分からない： \"parsers built using an `Applicative` interface can only parse context-free languages; in order to parse context-sensitive languages a `Monad` interface is needed\"\n独学者の悲しみがあるだけ　誰か教えて　parser は厄介だし習熟に手間取るし　また context-free/sensitive languages と言われても　その方面の基礎がナイので　勉強する前に圧倒される\n閑話休題　圏論的には Monad は `return`, `fmap`, `join` (often called η, T, and μ in the mathematical literature) で定義する流儀もある　コーユー話が好き　図式で解く圏論的プログラムとかあったりして…　さてもとにかく \"`join` for the list monad is just `concat`\" にもハッとさせられて嬉しい　その意味で ”Utility functions” の章と参照文献の Henk-Jan van Tuyl <https://web.archive.org/web/20201109033750/members.chello.nl/hjgtuyl/tourdemonad.html|A tour of Haskell monad functions> は Aha! の宝庫だった　例えば \"the analogue of `mapM` for `Applicative` is called `traverse`\" に痺れた　\"Laws\" の章では \"`(&gt;=&gt;)`\" で定式化の一択　\"do\" の諸章は嫌いなので飛ばし読み　”Further reading” の章は　その手が世に氾濫している分充実しているが　大半は既読（消化とは言ってナイ）　圏論的定式化についての Derek Elkins  <http://www.haskell.org/wikiupload/8/85/TMR-Issue13.pdf|issue 13 of the Monad.Reader> は後日再訪してみよう",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1773566649.724419",
+        "text": "今週は先ず「6.6 Mark 4: A separate full laziness pass」の Ex.6.9, Ex.6.10 を進めました。\n(Ex.6.10 については、勉強会で答えを聞いてしまったので、そうなることの確認をしただけとなりました。)\nその後、MFE が (x*x) とならず (+ (x*x)) となる問題について、コア言語プログラムの書き替えでの対応ではなく、ラムダリフタ本体への対策を自分も行ってみることにしました。\nMFE のルートノードが  + の適用から * の適用に変わりましたが、まだ不完全ですので引き続き進めてまいります。Mark4 の完了まで、まだ時間がかかりそうです。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
     }
 ]
