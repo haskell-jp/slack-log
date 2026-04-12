@@ -226,5 +226,65 @@
         "text": "<@U0AQY5YHKQE> has joined the channel",
         "type": "message",
         "user": "U0AQY5YHKQE"
+    },
+    {
+        "ts": "1775966403.515449",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1775966404.037539",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1775966823.046189",
+        "text": "<https://wiki.haskell.org/index.php?title=Typeclassopedia|Typeclassopedia> by Brent Yorgey (2009) を読んで苦手の type classes について学びます 今日は Semigroup から",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1775973343.917519",
+        "text": "S.K.です。かなり遅くなってしまいましたが、今週もお世話になります。よろしくお願いいたします。\n今週も Implementing Functional Languages: a tutorial の Chapter 6 Lambda Lifting の続きを進めて行こうと思います。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
+    },
+    {
+        "ts": "1775979095.126029",
+        "text": "山本悠滋です。遅くなってしまいましたが引き続き <https://github.com/haskell-jp/makeMistakesToLearnHaskell/issues/121> に取り組みます。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1775984413.834229",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1775984414.409269",
+        "text": "",
+        "type": "message",
+        "user": null
+    },
+    {
+        "ts": "1775984901.786239",
+        "text": "wasm32-wasi-cabalでmmlhやGHC APIを利用したコードをビルドできるよう、cabalファイルを書いたりmmlhの要らない箇所を取り除いてました。現状 wasm32-wasi-cabal build すると何故か\n```wasm-ld: error: unable to find library -lHSrts-1.0.3_thr```\nというエラーにハマる状況です。あと、（<https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15000/diffscabalでdynamic|https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15000/diffs> でGHC APIを使った例がそうしているように）cabalでdynamic libraryをビルドする場合、 `foreign-library` というstanzaを使え、とのことなんですが、\n```Warning: makeMistakesToLearnHaskell.cabal:123:1: Ignoring section:\n\"foreign-libary\"```\nという警告が出るとおりそれもうまく行っていないみたいです。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1775984991.760419",
+        "text": "<https://wiki.haskell.org/index.php?title=Typeclassopedia|Typeclassopedia> by Brent Yorgey (2009)  \"Semigroup\"　読了　実例が薄かったので Gemini AI に聞いてみた　まず\n```[1, 2] &lt;&gt; [3, 4] -- Result: [1, 2, 3, 4]\nMin 5 &lt;&gt; Min 3  -- Result: Min {getMin = 3}\nstimes 4 (Sum 2)  -- Result: Sum {getSum = 8}\nsconcat (\"AB\" :| [\"12\", \"xy\"]) -- Result: \"AB12xy\"```\n等々は常道だが　次の用例の如きは　どしどし使いたい\n```data Point = Point Int Int deriving (Show, Eq)\n\ninstance Semigroup Point where\n    (Point x1 y1) &lt;&gt; (Point x2 y2) = Point (x1 + x2) (y1 + y2)\n\np1 = Point 1 2\np2 = Point 10 20\n\np1 &lt;&gt; p2　 -- Result: Point 11 22\nstimes 3 (Point 1 1) -&gt; Point 3 3```\n時間が余ったので #978 Project Euler - Random Walk Skewness で遊ん（苦しん）だ",
+        "type": "message",
+        "user": "U584T7GAH"
+    },
+    {
+        "ts": "1775985684.543899",
+        "text": "「6.7 Mark 5: Improvements to full laziness」「6.7.1 Adding case expressions」の Ex.6.11 (Mark4 ラムダリフタの case 式対応)を進めていました。\nrenameGen_case 関数と freeToLevel_case 関数の実装を何とか済ませて、float_case 関数の実装中です。\nidentifyMFEs 関数の case 式対応も残っているので、まだ時間がかかりそうです。",
+        "type": "message",
+        "user": "U04BD6ZFKQ8"
     }
 ]

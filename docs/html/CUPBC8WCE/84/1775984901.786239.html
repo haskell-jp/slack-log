@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / mokumoku-online #84 at 2026-04-12 18:08:21 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / mokumoku-online #84 at 2026-04-12 18:08:21 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../84.html" class="item">Back to mokumoku-online #84</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1775984901.786239">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1775984901.786239">2026-04-12 18:08:21 +0900</a></div>
+          </div>
+          <div class="description">wasm32-wasi-cabalでmmlhやGHC APIを利用したコードをビルドできるよう、cabalファイルを書いたりmmlhの要らない箇所を取り除いてました。現状 wasm32-wasi-cabal build すると何故か<br/><pre>wasm-ld: error: unable to find library -lHSrts-1.0.3_thr</pre><br/>というエラーにハマる状況です。あと、（<https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15000/diffscabalでdynamic|https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15000/diffs> でGHC APIを使った例がそうしているように）cabalでdynamic libraryをビルドする場合、 <code>foreign-library</code> というstanzaを使え、とのことなんですが、<br/><pre>Warning: makeMistakesToLearnHaskell.cabal:123:1: Ignoring section:
+"foreign-libary"</pre><br/>という警告が出るとおりそれもうまく行っていないみたいです。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1775985135.688839">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1775985135.688839">2026-04-12 18:12:15 +0900</a></div>
+          </div>
+          <div class="description">普通に foreign-library の綴りを間違えているだけだった:sweat_smile:<br/>いずれにしてもwasm32-wasi-cabalだと使えない機能らしいけど...</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../84.html" class="item">Back to mokumoku-online #84</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+[
+    {
+        "ts": "1775984901.786239",
+        "text": "wasm32-wasi-cabalでmmlhやGHC APIを利用したコードをビルドできるよう、cabalファイルを書いたりmmlhの要らない箇所を取り除いてました。現状 wasm32-wasi-cabal build すると何故か\n```wasm-ld: error: unable to find library -lHSrts-1.0.3_thr```\nというエラーにハマる状況です。あと、（<https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15000/diffscabalでdynamic|https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15000/diffs> でGHC APIを使った例がそうしているように）cabalでdynamic libraryをビルドする場合、 `foreign-library` というstanzaを使え、とのことなんですが、\n```Warning: makeMistakesToLearnHaskell.cabal:123:1: Ignoring section:\n\"foreign-libary\"```\nという警告が出るとおりそれもうまく行っていないみたいです。",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "ts": "1775985135.688839",
+        "text": "普通に foreign-library の綴りを間違えているだけだった:sweat_smile:\nいずれにしてもwasm32-wasi-cabalだと使えない機能らしいけど...",
+        "type": "message",
+        "user": "U4LGTMTMK"
+    }
+]

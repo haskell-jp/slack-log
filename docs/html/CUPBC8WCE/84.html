@@ -356,6 +356,110 @@
           <div class="description">@Saar has joined the channel</div>
         </div>
       </div>
+      <div class="event" id="message-1775966403.515449">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1775966403.515449">2026-04-12 13:00:03 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1775966404.037539">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1775966404.037539">2026-04-12 13:00:04 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1775966823.046189">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1775966823.046189">2026-04-12 13:07:03 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://wiki.haskell.org/index.php?title=Typeclassopedia'>Typeclassopedia</a> by Brent Yorgey (2009) を読んで苦手の type classes について学びます 今日は Semigroup から</div>
+        </div>
+      </div>
+      <div class="event" id="message-1775973343.917519">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1775973343.917519">2026-04-12 14:55:43 +0900</a></div>
+          </div>
+          <div class="description">S.K.です。かなり遅くなってしまいましたが、今週もお世話になります。よろしくお願いいたします。<br/>今週も Implementing Functional Languages: a tutorial の Chapter 6 Lambda Lifting の続きを進めて行こうと思います。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1775979095.126029">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1775979095.126029">2026-04-12 16:31:35 +0900</a></div>
+          </div>
+          <div class="description">山本悠滋です。遅くなってしまいましたが引き続き <a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/issues/121'>https://github.com/haskell-jp/makeMistakesToLearnHaskell/issues/121</a> に取り組みます。</div>
+        </div>
+      </div>
+      <div class="event" id="message-1775984413.834229">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1775984413.834229">2026-04-12 18:00:13 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1775984414.409269">
+        <div class="content">
+          <div class="summary">
+            <div class="user">&lt;non-user&gt;</div>
+            <div class="date"><a class="date" href="#message-1775984414.409269">2026-04-12 18:00:14 +0900</a></div>
+          </div>
+          <div class="description"></div>
+        </div>
+      </div>
+      <div class="event" id="message-1775984901.786239">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1775984901.786239">2026-04-12 18:08:21 +0900</a></div>
+          </div>
+          <div class="description">wasm32-wasi-cabalでmmlhやGHC APIを利用したコードをビルドできるよう、cabalファイルを書いたりmmlhの要らない箇所を取り除いてました。現状 wasm32-wasi-cabal build すると何故か<br/><pre>wasm-ld: error: unable to find library -lHSrts-1.0.3_thr</pre><br/>というエラーにハマる状況です。あと、（<https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15000/diffscabalでdynamic|https://gitlab.haskell.org/ghc/ghc/-/merge_requests/15000/diffs> でGHC APIを使った例がそうしているように）cabalでdynamic libraryをビルドする場合、 <code>foreign-library</code> というstanzaを使え、とのことなんですが、<br/><pre>Warning: makeMistakesToLearnHaskell.cabal:123:1: Ignoring section:
+"foreign-libary"</pre><br/>という警告が出るとおりそれもうまく行っていないみたいです。</div>
+          <a class="link-to-replies" href="84/1775984901.786239.html">... Replies ...</a>
+        </div>
+      </div>
+      <div class="event" id="message-1775984991.760419">
+        <div class="content">
+          <div class="summary">
+            <div class="user">karoyakani</div>
+            <div class="date"><a class="date" href="#message-1775984991.760419">2026-04-12 18:09:51 +0900</a></div>
+          </div>
+          <div class="description"><a href='https://wiki.haskell.org/index.php?title=Typeclassopedia'>Typeclassopedia</a> by Brent Yorgey (2009)  "Semigroup"　読了　実例が薄かったので Gemini AI に聞いてみた　まず<br/><pre>[1, 2] &lt;&gt; [3, 4] -- Result: [1, 2, 3, 4]
+Min 5 &lt;&gt; Min 3  -- Result: Min {getMin = 3}
+stimes 4 (Sum 2)  -- Result: Sum {getSum = 8}
+sconcat ("AB" :| ["12", "xy"]) -- Result: "AB12xy"</pre><br/>等々は常道だが　次の用例の如きは　どしどし使いたい<br/><pre>data Point = Point Int Int deriving (Show, Eq)
+
+instance Semigroup Point where
+    (Point x1 y1) &lt;&gt; (Point x2 y2) = Point (x1 + x2) (y1 + y2)
+
+p1 = Point 1 2
+p2 = Point 10 20
+
+p1 &lt;&gt; p2　 -- Result: Point 11 22
+stimes 3 (Point 1 1) -&gt; Point 3 3</pre><br/>時間が余ったので #978 Project Euler - Random Walk Skewness で遊ん（苦しん）だ</div>
+        </div>
+      </div>
+      <div class="event" id="message-1775985684.543899">
+        <div class="content">
+          <div class="summary">
+            <div class="user">S.K.</div>
+            <div class="date"><a class="date" href="#message-1775985684.543899">2026-04-12 18:21:24 +0900</a></div>
+          </div>
+          <div class="description">「6.7 Mark 5: Improvements to full laziness」「6.7.1 Adding case expressions」の Ex.6.11 (Mark4 ラムダリフタの case 式対応)を進めていました。<br/>renameGen_case 関数と freeToLevel_case 関数の実装を何とか済ませて、float_case 関数の実装中です。<br/>identifyMFEs 関数の case 式対応も残っているので、まだ時間がかかりそうです。</div>
+        </div>
+      </div>
     </div>
     <div class="ui pagination menu">
       <a href="../../html/CUPBC8WCE/83.html" class="item">Previous</a>
