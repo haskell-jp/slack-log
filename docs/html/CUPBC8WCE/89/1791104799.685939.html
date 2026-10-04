@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>haskell-jp / mokumoku-online #89 at 2026-10-04 18:06:39 +0900</title>
+<link rel="stylesheet" href="../../../main.css" type="text/css" media="screen">
+</head>
+<body>
+  <div class="ui container">
+    <h1>haskell-jp / mokumoku-online #89 at 2026-10-04 18:06:39 +0900</h1>
+    <div class="ui pagination menu">
+      <a href="../89.html" class="item">Back to mokumoku-online #89</a>
+    </div>
+    <div class="ui feed">
+      <div class="event" id="message-1791104799.685939">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1791104799.685939">2026-10-04 18:06:39 +0900</a></div>
+          </div>
+          <div class="description">ようやくmainスレッドとworkerスレッド間でメッセージを1往復したのを確認できました。ここまで長かった... :weary:<br/><a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/1a7bf42c3ee32c69d0a4858fbdcf609dbd6ebe4b'>github.com/haskell-jp/makeMistakesToLearnHaskell/commit/1a7bf42c3ee3…</a><br/><a href='https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/179f62f5455d74bb4e0f683ba637204fbf9c9431'>github.com/haskell-jp/makeMistakesToLearnHaskell/commit/179f62f5455d…</a><br/>もう1往復である、Wasm版GHCの初期化が終わったことを通知するメッセージがなぜかmainスレッドに届いてませんが、まあ多分単純なミスをどこかでしているんでしょう :upside_down_face:</div>
+        </div>
+      </div>
+      <div class="event" id="message-1791106747.124669">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1791106747.124669">2026-10-04 18:39:07 +0900</a></div>
+          </div>
+          <div class="description">次回の方針 (両方、またはいずれか):<br/>1. AIにデバッグしてもらう（<https://qiita.com/hal_mkiin/items/d60dc50dadb2c26ad775|qiita.com/hal_mkiin/items/…> を参考にChrome DevTools MCPをセットアップする）<br/>2. Wasm版GHCのロード（tarballの展開など） -> Wasm版GHCの初期化 という2往復のメッセージにするのを諦める（進捗が少しでも細かく伝わった方が親切かと思ったが、必須要件ではない）</div>
+        </div>
+      </div>
+      <div class="event" id="message-1791108472.003009">
+        <div class="content">
+          <div class="summary">
+            <div class="user">igrep</div>
+            <div class="date"><a class="date" href="#message-1791108472.003009">2026-10-04 19:07:52 +0900</a></div>
+          </div>
+          <div class="description">ああー、原因分かった。これもタイミング問題だ。格好つけて <code>addEventListener(..., { once: true })</code>なんてするからダメなんだ</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui pagination menu">
+      <a href="../89.html" class="item">Back to mokumoku-online #89</a>
+    </div>
+  </div>
+</body>
+</html>

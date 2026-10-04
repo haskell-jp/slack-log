@@ -1,0 +1,20 @@
+[
+    {
+        "text": "ようやくmainスレッドとworkerスレッド間でメッセージを1往復したのを確認できました。ここまで長かった... :weary:\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/1a7bf42c3ee32c69d0a4858fbdcf609dbd6ebe4b|github.com/haskell-jp/makeMistakesToLearnHaskell/commit/1a7bf42c3ee3…>\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/179f62f5455d74bb4e0f683ba637204fbf9c9431|github.com/haskell-jp/makeMistakesToLearnHaskell/commit/179f62f5455d…>\nもう1往復である、Wasm版GHCの初期化が終わったことを通知するメッセージがなぜかmainスレッドに届いてませんが、まあ多分単純なミスをどこかでしているんでしょう :upside_down_face:",
+        "type": "message",
+        "ts": "1791104799.685939",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "次回の方針 (両方、またはいずれか):\n1. AIにデバッグしてもらう（<https://qiita.com/hal_mkiin/items/d60dc50dadb2c26ad775|qiita.com/hal_mkiin/items/…> を参考にChrome DevTools MCPをセットアップする）\n2. Wasm版GHCのロード（tarballの展開など） -> Wasm版GHCの初期化 という2往復のメッセージにするのを諦める（進捗が少しでも細かく伝わった方が親切かと思ったが、必須要件ではない）",
+        "type": "message",
+        "ts": "1791106747.124669",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "ああー、原因分かった。これもタイミング問題だ。格好つけて `addEventListener(..., { once: true })`なんてするからダメなんだ",
+        "type": "message",
+        "ts": "1791108472.003009",
+        "user": "U4LGTMTMK"
+    }
+]
