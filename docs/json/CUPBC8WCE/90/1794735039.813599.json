@@ -1,0 +1,14 @@
+[
+    {
+        "text": "予告どおり「GHCが利用可能になったことをGHCの実行終了時にも伝える」よう実装しつつ、WorkerからMainに `postMessage` する際の処理をリファクタリングしました。\n<https://github.com/haskell-jp/makeMistakesToLearnHaskell/commit/2a6d66ec3a998bdcf33f030f68f57b31577be19d|github.com/haskell-jp/makeMistakesToLearnHaskell/commit/2a6d66ec3a99…>\n次回以降はこんな感じでしょうか。\n1. `loadGhc`というイベント名はもう実態に合っていないので `ghcReady` にする\n2. 元ネタ <https://haskell-wasm.github.io/ghc-in-browser/|haskell-wasm.github.io/ghc-in-browser> のようにGHCへの入力をユーザーが与えられるようにする\n3. 複数のタブで同時に動かしても問題ないことを確認する（多分バグっているので直す）\n4. ここまでの機能でも有用だと思うので、独立したページとして公開するか？",
+        "type": "message",
+        "ts": "1794735039.813599",
+        "user": "U4LGTMTMK"
+    },
+    {
+        "text": "多分 <https://share.google/aimode/4uN7wRK0wXypK8Aju|share.google/aimode/…> に書いてあるようなことをした方がいいんだろう。全てのタブを閉じたら消えてくれるわけだから、リークしたとして大した問題はない気ももするけど。",
+        "type": "message",
+        "ts": "1794735182.018129",
+        "user": "U4LGTMTMK"
+    }
+]
